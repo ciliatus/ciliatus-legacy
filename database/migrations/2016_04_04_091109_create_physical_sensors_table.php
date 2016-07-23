@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreatePhysicalSensorsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,13 +12,14 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('physical_sensors', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
+            $table->uuid('controlunit_id');
+            $table->foreign('controlunit_id')->references('id')->on('controlunits');
+            $table->string('belongsTo_type');
+            $table->uuid('belongsTo_id');
             $table->string('name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->rememberToken();
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::drop('users');
+        Schema::drop('physical_sensors');
     }
 }
