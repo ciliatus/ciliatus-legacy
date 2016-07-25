@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Pagination\LengthAwarePaginator;
+use Request;
 
 /**
  * Class ApiController
@@ -15,6 +16,11 @@ class ApiController extends Controller
      * @var
      */
     protected $statusCode;
+
+    /**
+     * @var
+     */
+    protected $errorCode;
 
     /**
      * ApiController constructor.
@@ -44,6 +50,24 @@ class ApiController extends Controller
     }
 
     /**
+     * @return mixed
+     */
+    public function getErrorCode()
+    {
+        return $this->errorCode;
+    }
+
+    /**
+     * @param mixed $errorCode
+     */
+    public function setErrorCode($errorCode)
+    {
+        $this->errorCode = $errorCode;
+
+        return $this;
+    }
+
+    /**
      * @param string $message
      * @return \Illuminate\Http\JsonResponse
      */
@@ -66,12 +90,12 @@ class ApiController extends Controller
      * @param null $errorCode
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondWithError($message, $entityId = null, $errorCode = null)
+    public function respondWithError($message, $entityId = null)
     {
         return $this->respond([
             'http_code' => $this->getStatusCode(),
             'error'     => [
-                'error_code'    => $errorCode,
+                'error_code'    => $this->getErrorCode(),
                 'message'       => $message,
                 'entity_id'     => $entityId
             ]
@@ -118,6 +142,32 @@ class ApiController extends Controller
     public function respond($data, $headers = [])
     {
         return response()->json($data)->setStatusCode($this->getStatusCode());
+    }
+
+    /**
+     * @param $required_fields
+     * @return bool
+     */
+    public function checkInput($required_fields)
+    {
+        $data = Request::all();
+
+        foreach ($required_fields as $f) {
+            if (!isset($data[$f])) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * @param $uuid
+     * @return int
+     */
+    public function checkUuid($uuid)
+    {
+        return preg_match('/^\{?[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}\}?$/', $uuid);
     }
 
 }

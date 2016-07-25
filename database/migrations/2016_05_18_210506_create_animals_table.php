@@ -16,11 +16,12 @@ class CreateAnimalsTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('terrarium_id')->nullable();
-            $table->string('lat_name');
-            $table->string('common_name');
-            $table->string('display_name');
+            #$table->foreign('terrarium_id')->references('id')->on('terraria');
+            $table->string('lat_name')->nullable();
+            $table->string('common_name')->nullable();
+            $table->string('display_name')->nullable();
             $table->string('gender')->nullable();
-            $table->date('birth_date');
+            $table->date('birth_date')->nullable();
             $table->date('death_date')->nullable();
             $table->timestamps();
         });

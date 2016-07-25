@@ -8,13 +8,13 @@
 
 namespace App\Http\Transformers;
 
+
 /**
- * Class AnimalTransformer
+ * Class SensorreadingTransformer
  * @package App\Http\Transformers
  */
-class AnimalTransformer extends Transformer
+class SensorreadingTransformer extends Transformer
 {
-
 
     /**
      * @param $item
@@ -24,18 +24,14 @@ class AnimalTransformer extends Transformer
     {
         $return = [
             'id'    => $item['id'],
-            'latin_name' => $item['lat_name'],
-            'common_name' => $item['common_name'],
-            'display_name' => $item['display_name'],
+            'logical_sensor_id'  => $item['logical_sensor_id'],
+            'group_id' => $item['sensorreadinggroup_id'],
+            'rawvalue' => $item['rawvalue'],
             'timestamps' => [
                 'created' => $item['created_at'],
                 'updated' => $item['updated_at'],
             ]
         ];
-
-        if (isset($item['terrarium_id'])) {
-            $return['terrarium_id'] = $item['terrarium_id'];
-        }
 
         return $return;
     }

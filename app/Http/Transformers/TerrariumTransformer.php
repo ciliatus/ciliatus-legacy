@@ -28,7 +28,11 @@ class TerrariumTransformer extends Transformer
         $return = [
             'id'    => $item['id'],
             'name'  => $item['name'],
-            'friendly_name' => $item['friendly_name']
+            'friendly_name' => $item['friendly_name'],
+            'timestamps' => [
+                'created' => $item['created_at'],
+                'updated' => $item['updated_at'],
+            ]
         ];
 
         if (isset($item['physical_sensors'])) {
@@ -37,6 +41,22 @@ class TerrariumTransformer extends Transformer
 
         if (isset($item['animals'])) {
             $return['animals'] = $animalTransformer->transformCollection($item['animals']);
+        }
+
+        if (isset($item['cooked_temperature_celsius'])) {
+            $return['cooked_temperature_celsius'] = $item['cooked_temperature_celsius'];
+        }
+
+        if (isset($item['cooked_humidity_percent'])) {
+            $return['cooked_humidity_percent'] = $item['cooked_humidity_percent'];
+        }
+
+        if (isset($item['temperature_history'])) {
+            $return['temperature_history'] = $item['temperature_history'];
+        }
+
+        if (isset($item['humidity_history'])) {
+            $return['humidity_history'] = $item['humidity_history'];
         }
 
 

@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreatePhysicalSensorsTable extends Migration
+class CreateLogsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,14 +12,16 @@ class CreatePhysicalSensorsTable extends Migration
      */
     public function up()
     {
-        Schema::create('physical_sensors', function (Blueprint $table) {
+        Schema::create('logs', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
-            $table->uuid('controlunit_id');
-            #$table->foreign('controlunit_id')->references('id')->on('controlunits');
-            $table->string('belongsTo_type');
-            $table->uuid('belongsTo_id');
-            $table->string('name');
+            $table->string('source_type');
+            $table->uuid('source_id');
+            $table->string('target_type');
+            $table->uuid('target_id');
+            $table->string('associatedWith_type');
+            $table->uuid('associatedWith_id');
+            $table->string('action');
             $table->timestamps();
         });
     }
@@ -31,6 +33,6 @@ class CreatePhysicalSensorsTable extends Migration
      */
     public function down()
     {
-        Schema::drop('physical_sensors');
+        Schema::drop('logs');
     }
 }

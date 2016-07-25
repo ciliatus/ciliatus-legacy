@@ -15,8 +15,6 @@ class CreateTerrariaTable extends Migration
         Schema::create('terraria', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
-            $table->uuid('controlunit_id');
-            $table->uuid('valve_id');
             $table->string('name');
             $table->string('friendly_name');
             $table->timestamps();

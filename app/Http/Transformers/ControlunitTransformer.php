@@ -9,10 +9,10 @@
 namespace App\Http\Transformers;
 
 /**
- * Class AnimalTransformer
+ * Class ControlunitTransformer
  * @package App\Http\Transformers
  */
-class AnimalTransformer extends Transformer
+class ControlunitTransformer extends Transformer
 {
 
 
@@ -24,18 +24,12 @@ class AnimalTransformer extends Transformer
     {
         $return = [
             'id'    => $item['id'],
-            'latin_name' => $item['lat_name'],
-            'common_name' => $item['common_name'],
-            'display_name' => $item['display_name'],
+            'name' => $item['lat_name'],
             'timestamps' => [
                 'created' => $item['created_at'],
                 'updated' => $item['updated_at'],
             ]
         ];
-
-        if (isset($item['terrarium_id'])) {
-            $return['terrarium_id'] = $item['terrarium_id'];
-        }
 
         return $return;
     }

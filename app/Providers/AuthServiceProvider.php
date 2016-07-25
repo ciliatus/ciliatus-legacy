@@ -37,5 +37,37 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('api-list', function ($user) {
             return $user->hasAbility('grant_api-list');
         });
+
+        $gate->define('api-write:sensorreading', function ($user) {
+            return $user->hasAbility('grant_api-write:sensorreading');
+        });
+
+        $gate->define('api-write:terrarium', function ($user) {
+            return $user->hasAbility('grant_api-write:terrarium');
+        });
+
+        $gate->define('api-write:animal', function ($user) {
+            return $user->hasAbility('grant_api-write:animal');
+        });
+
+        $gate->define('api-write:valve', function ($user) {
+            return $user->hasAbility('grant_api-write:valve');
+        });
+
+        $gate->define('api-write:pump', function ($user) {
+            return $user->hasAbility('grant_api-write:pump');
+        });
+
+        $gate->define('api-write:physical_sensor', function ($user) {
+            return $user->hasAbility('grant_api-write:physical_sensor');
+        });
+
+        $gate->define('api-write:logical_sensor', function ($user) {
+            return $user->hasAbility('grant_api-write:logical_sensor');
+        });
+
+        $gate->define('api-write:controlunit', function ($user) {
+            return $user->hasAbility('grant_api-write:controlunit');
+        });
     }
 }

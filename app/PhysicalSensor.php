@@ -38,4 +38,12 @@ class PhysicalSensor extends Model
     {
         return $this->hasMany('App\LogicalSensor');
     }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function controlunit()
+    {
+        return $this->belongsTo('App\Controlunit');
+    }
 }
