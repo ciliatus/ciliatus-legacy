@@ -1,0 +1,64 @@
+@extends('master')
+
+@section('content')
+<div class="col-md-6 col-xs-12">
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>{{ $animal->display_name }} <small>Edit</small></h2>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+            <br />
+            <form class="form-horizontal form-label-left" name="f_edit_animal" action="{{ url('api/v1/animals/' . $animal->id) }}" data-method="PUT">
+
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">ID</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" readonly="readonly" placeholder="ID" name="f_edit_animal_id" value="{{ $animal->id }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Display Name</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" placeholder="Name" name="f_edit_animal_displayname" value="{{ $animal->display_name }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Common Name</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" placeholder="Friendly Name" name="f_edit_animal_commonname" value="{{ $animal->common_name }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Latin Name</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" placeholder="Latin Name" name="f_edit_animal_latinname" value="{{ $animal->lat_name }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Terrarium</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <select class="form-control" name="f_edit_animal_terrarium">
+                            <option></option>
+                            @foreach ($terraria as $t)
+                                <option value="{{ $t->id }}" @if($animal->terrarium_id == $t->id)selected="selected"@endif>{{ $t->friendly_name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+
+
+                <div class="ln_solid"></div>
+                <div class="form-group">
+                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                        <button type="submit" class="btn btn-success" name="f_edit_animal_submit">Save</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>
+@stop
