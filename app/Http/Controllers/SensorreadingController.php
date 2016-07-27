@@ -24,7 +24,7 @@ class SensorreadingController extends ApiController
 
     /**
      * SensorreadingController constructor.
-     * @param SensorreadingTransformer $_sensorreading
+     * @param SensorreadingTransformer $_sensorreadingTransformer
      */
     public function __construct(SensorreadingTransformer $_sensorreadingTransformer)
     {

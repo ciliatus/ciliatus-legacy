@@ -1,0 +1,52 @@
+<?php
+
+namespace App\Repositories;
+
+use Carbon\Carbon;
+use DB;
+use App\Sensorreading;
+
+/**
+ * Class SensorreadingRepository
+ * @package App\Repositories
+ */
+class SensorreadingRepository extends Repository {
+
+    /**
+     * SensorreadingRepository constructor.
+     * @param null $scope
+     */
+    public function __construct($scope = null)
+    {
+
+        $this->scope = $scope ? : new Sensorreading();
+
+    }
+
+    /**
+     * Select sensorreadings of the an array of logical sensors
+     * and calculate average raw value per sensorreadingroup
+     *
+     * @param array $logical_sensor_ids
+     * @param $minutes
+     * @return  \Illuminate\Database\Query\Builder
+     */
+    public function getAvgByLogicalSensor(array $logical_sensor_ids, $minutes)
+    {
+
+        $sensor_readings = DB::table('sensorreadings')
+            ->select(
+                DB::raw('sensorreadinggroup_id, avg(rawvalue) as avg_rawvalue, created_at')
+            )
+            ->whereIn('logical_sensor_id', $logical_sensor_ids);
+
+        if (!is_null($minutes)) {
+            $sensor_readings = $sensor_readings->where('created_at', '>', Carbon::now()->addMinute(-$minutes));
+        }
+
+        $sensor_readings = $sensor_readings->orderBy('created_at')->groupBy('sensorreadinggroup_id');
+
+        return $sensor_readings;
+    }
+
+}

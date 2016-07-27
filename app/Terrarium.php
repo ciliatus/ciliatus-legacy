@@ -2,8 +2,7 @@
 
 namespace App;
 
-use Carbon\Carbon;
-use DB;
+use App\Repositories\SensorreadingRepository;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -80,12 +79,13 @@ class Terrarium extends Model
         return 'OK';
     }
 
+
     /**
      * @param $type
-     * @param int $minutes
-     * @return array|static[]
+     * @param null $minutes
+     * @return mixed
      */
-    private function fetchSensorreadings($type, $minutes = 0)
+    private function fetchSensorreadings($type, $minutes = null)
     {
 
         $logical_sensor_ids = [];
@@ -100,21 +100,9 @@ class Terrarium extends Model
             }
         }
 
-        /*
-         * Select sensorreadings of the formerly
-         * fetch logical sensor ids and calculate
-         * average raw value per sensorreadingroup
-         */
-        $sensor_readings = DB::table('sensorreadings')
-                                ->select(
-                                    DB::raw('sensorreadinggroup_id, avg(rawvalue) as avg_rawvalue, created_at')
-                                )
-                                ->whereIn('logical_sensor_id', $logical_sensor_ids)
-                                ->where('created_at', '>', Carbon::now()->addMinute(-$minutes))
-                                ->orderBy('created_at')
-                                ->groupBy('sensorreadinggroup_id')->get();
+        $sensor_readings = (new SensorreadingRepository())->getAvgByLogicalSensor($logical_sensor_ids, $minutes);
 
-        return $sensor_readings;
+        return $sensor_readings->get();
 
     }
 
