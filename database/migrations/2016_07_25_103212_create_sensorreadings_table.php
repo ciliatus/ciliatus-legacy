@@ -15,6 +15,7 @@ class CreateSensorreadingsTable extends Migration
         Schema::create('sensorreadings', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
+            $table->uuid('sensorreadinggroup_id');
             $table->uuid('logical_sensor_id');
             #$table->foreign('logical_sensor_id')->references('id')->on('logical_sensors');
             $table->double('rawvalue');
