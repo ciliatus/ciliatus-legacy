@@ -20,6 +20,8 @@ class CreatePhysicalSensorsTable extends Migration
             $table->string('belongsTo_type');
             $table->uuid('belongsTo_id');
             $table->string('name');
+            $table->string('model');
+            $table->timestamp('heartbeat_at');
             $table->timestamps();
         });
     }
