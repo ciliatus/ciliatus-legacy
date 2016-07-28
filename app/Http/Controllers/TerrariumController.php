@@ -189,7 +189,7 @@ class TerrariumController extends ApiController
         foreach ($data_arr as $group) {
             $data_csv .= PHP_EOL . $group['created_at'];
             foreach ($data as $type=>$values) {
-                $data_csv .= ',' . $group[$type];
+                $data_csv .= ',' . (isset($group[$type]) ? $group[$type] : '');
             }
         }
 
