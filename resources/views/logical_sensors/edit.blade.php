@@ -36,6 +36,18 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Rawvalue lower limit</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" placeholder="Name" name="f_edit_logical_sensor_lowerlimit" value="{{ $logical_sensor->rawvalue_lowerlimit }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Rawvalue upper limit</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" placeholder="Name" name="f_edit_logical_sensor_upperlimit" value="{{ $logical_sensor->rawvalue_upperlimit }}">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Control Unit</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <select class="form-control" name="f_edit_logical_sensor_physical_sensor">

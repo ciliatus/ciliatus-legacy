@@ -163,6 +163,9 @@ class PhysicalSensorController extends ApiController
         }
 
         $physical_sensor->name = $data['f_edit_physical_sensor_name'];
+        $physical_sensor->model = $data['f_edit_physical_sensor_model'];
+        $physical_sensor->belongsTo_type = 'terrarium';
+        $physical_sensor->belongsTo_id = $data['f_edit_physical_sensor_terrarium'];
         $physical_sensor->controlunit_id = $controlunit_id;
 
         $physical_sensor->save();

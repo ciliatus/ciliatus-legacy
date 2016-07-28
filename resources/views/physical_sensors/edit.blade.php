@@ -26,6 +26,23 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Model</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control" placeholder="Name" name="f_edit_physical_sensor_model" value="{{ $physical_sensor->model }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Terrarium</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <select class="form-control" name="f_edit_physical_sensor_terrarium">
+                            <option></option>
+                            @foreach ($terraria as $t)
+                                <option value="{{ $t->id }}" @if($physical_sensor->belongsTo_id == $t->id && $physical_sensor->belongsTo_type == 'terrarium')selected="selected"@endif>{{ $t->name }}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">Control Unit</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <select class="form-control" name="f_edit_physical_sensor_controlunit">

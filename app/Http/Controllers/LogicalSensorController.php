@@ -174,6 +174,8 @@ class LogicalSensorController extends ApiController
 
         $logical_sensor->name = $data['f_edit_logical_sensor_name'];
         $logical_sensor->type = $data['f_edit_logical_sensor_type'];
+        $logical_sensor->rawvalue_lowerlimit = $data['f_edit_logical_sensor_lowerlimit'];
+        $logical_sensor->rawvalue_upperlimit = $data['f_edit_logical_sensor_upperlimit'];
         $logical_sensor->physical_sensor_id = $physical_sensor_id;
 
         $logical_sensor->save();
