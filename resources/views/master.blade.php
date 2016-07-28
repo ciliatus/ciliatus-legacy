@@ -2,31 +2,34 @@
 <html lang="en">
 
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-  <!-- Meta, title, CSS, favicons, etc. -->
-  <meta charset="utf-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <!-- Meta, title, CSS, favicons, etc. -->
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <title>Ciliatus</title>
+    <title>Ciliatus</title>
 
-  <!-- Bootstrap -->
-  {!! Html::style('vendors/bootstrap/dist/css/bootstrap.min.css') !!}
-  {!! Html::style('css/bootstrap_xl.css') !!}
-  <!-- Font Awesome -->
-  {!! Html::style('vendors/font-awesome/css/font-awesome.min.css') !!}
-  <!-- bootstrap-progressbar -->
-  {!! Html::style('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') !!}
-  <!-- Switchery -->
-  {!! Html::style('vendors/switchery/dist/switchery.min.css') !!}
-  <!-- Custom Theme Style -->
-  {!! Html::style('build/css/custom.css') !!}
-  <!-- PNotify -->
-  {!! Html::style('vendors/pnotify/dist/pnotify.css') !!}
-  {!! Html::style('vendors/pnotify/dist/pnotify.buttons.css') !!}
-  {!! Html::style('vendors/pnotify/dist/pnotify.nonblock.css') !!}
-  <!-- jQuery -->
-  {!! Html::script('vendors/jquery/dist/jquery.min.js') !!}
+    <!-- Bootstrap -->
+    {!! Html::style('vendors/bootstrap/dist/css/bootstrap.min.css') !!}
+    {!! Html::style('css/bootstrap_xl.css') !!}
+    <!-- Font Awesome -->
+    {!! Html::style('vendors/font-awesome/css/font-awesome.min.css') !!}
+    <!-- bootstrap-progressbar -->
+    {!! Html::style('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') !!}
+    <!-- Switchery -->
+    {!! Html::style('vendors/switchery/dist/switchery.min.css') !!}
+    <!-- Custom Theme Style -->
+    {!! Html::style('build/css/custom.css') !!}
+    <!-- PNotify -->
+    {!! Html::style('vendors/pnotify/dist/pnotify.css') !!}
+    {!! Html::style('vendors/pnotify/dist/pnotify.buttons.css') !!}
+    {!! Html::style('vendors/pnotify/dist/pnotify.nonblock.css') !!}
+    <!-- weather icons -->
+    {!! Html::style('vendors/weather-icons/css/weather-icons.min.css') !!}
+    <!-- jQuery -->
+    {!! Html::script('vendors/jquery/dist/jquery.min.js') !!}
+
 </head>
 
 <body class="nav-md">
