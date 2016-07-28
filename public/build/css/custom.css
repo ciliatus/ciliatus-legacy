@@ -1006,12 +1006,20 @@ h2 {
   transition: all .2s ease;
 }
 
-.x_panel-success {
+.x_panel {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fffcfc+0,f7f2f2+42,f7f2f2+42,f7f2f2+100 */
   background: #ffffff; /* Old browsers */
-  background: -moz-linear-gradient(top, #DDFFDD 0%, #FEFFFE 20%, #fbfbfb 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, #DDFFDD 0%, #FEFFFE 20%, #fbfbfb 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, #DDFFDD 0%, #FEFFFE 20%, #fbfbfb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: -moz-linear-gradient(top, #FFFFFF 0%, #FEFEFE 20%, #fbfbfb 100%); /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, #FFFFFF 0%, #FEFEFE 20%, #fbfbfb 100%); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, #FFFFFF 0%, #FEFEFE 20%, #fbfbfb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+}
+
+.x_panel-success {
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#fffcfc+0,f7f2f2+42,f7f2f2+42,f7f2f2+100 */
+    background: #ffffff; /* Old browsers */
+    background: -moz-linear-gradient(top, #DDFFDD 0%, #FEFFFE 20%, #fbfbfb 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, #DDFFDD 0%, #FEFFFE 20%, #fbfbfb 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, #DDFFDD 0%, #FEFFFE 20%, #fbfbfb 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
 }
 
 .x_panel-danger {

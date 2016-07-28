@@ -8,10 +8,10 @@
 
     <div class="row">
         <!-- start of weather widget -->
-        <div class="col-md-6 col-lg-4 col-sm-12 col-xs-12">
+        <div class="col-xl-4 col-lg-6 col-md-6 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
-                    <h2>Today's Weather <small>Sessions</small></h2>
+                    <h2>Today's Weather <small>Demodata</small></h2>
                     <ul class="nav navbar-right panel_toolbox">
                         <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                         </li>
@@ -50,7 +50,7 @@
                         </div>
                         <div class="col-sm-8">
                             <div class="weather-text">
-                                <h2>Texas
+                                <h2>Your location
                                     <br><i>Partly Cloudy Day</i>
                                 </h2>
                             </div>
