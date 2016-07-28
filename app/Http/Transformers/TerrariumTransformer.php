@@ -63,6 +63,14 @@ class TerrariumTransformer extends Transformer
             $return['humidity_history'] = $item['humidity_history'];
         }
 
+        if (isset($item['temperature_trend'])) {
+            $return['temperature_trend'] = $item['temperature_trend'];
+        }
+
+        if (isset($item['humidity_trend'])) {
+            $return['humidity_trend'] = $item['humidity_trend'];
+        }
+
         if (isset($item['history_combined'])) {
             $return['history_combined'] = $item['history_combined'];
         }

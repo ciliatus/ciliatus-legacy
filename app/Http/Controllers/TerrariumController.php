@@ -71,10 +71,16 @@ class TerrariumController extends ApiController
             return $this->respondNotFound('Terrarium not found');
         }
 
+        /*
+         * Add cooked values to terrarium object
+         */
         $terrarium->cooked_humidity_percent = $terrarium->getCurrentHumidity();
         $terrarium->cooked_temperature_celsius = $terrarium->getCurrentTemperature();
         $terrarium->heartbeat_ok = $terrarium->heartbeatOk();
 
+        /*
+         * Define timeframe for historical sensor data
+         */
         $history_to = null;
         if (isset($history_to['history_from'])) {
             $history_to = Carbon::parse($request['history_to']);
@@ -85,23 +91,38 @@ class TerrariumController extends ApiController
             $history_minutes = $request['history_minutes'];
         }
 
+        /*
+         * load temperature values and convert them to an array seperated by commata
+         */
+        $temperature_values = array_column($terrarium->getSensorReadingsTemperature($history_minutes, $history_to), 'avg_rawvalue');
         $terrarium->temperature_history = implode(',',
             array_map(
                 function($val) {
                     return round($val, 1);
                 },
-                array_column($terrarium->getSensorReadingsTemperature($history_minutes, $history_to), 'avg_rawvalue')
+                $temperature_values
             )
         );
 
+        /*
+         * load humidity values and convert them to an array seperated by commata
+         */
+        $humidity_values = array_column($terrarium->getSensorReadingsHumidity($history_minutes, $history_to), 'avg_rawvalue');
         $terrarium->humidity_history = implode(',',
             array_map(
                 function($val) {
                     return round($val, 1);
                 },
-                array_column($terrarium->getSensorReadingsHumidity($history_minutes, $history_to), 'avg_rawvalue')
+                $humidity_values
             )
         );
+
+        /*
+         * calculate trends
+         */
+
+        $terrarium->temperature_trend = $temperature_values[count($temperature_values)-1] - $temperature_values[0];
+        $terrarium->humidity_trend = $humidity_values[count($humidity_values)-1] - $humidity_values[0];
 
         Cache::add('api-show-terrarium-' . $id, $terrarium, env('CACHE_API_TERRARIUM_SHOW_DURATION') / 60);
 

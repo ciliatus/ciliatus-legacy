@@ -55,8 +55,10 @@ LiveData.prototype.callback = function(success, data)
             $(this.target).find('.x_panel').addClass('x_panel-danger');
             $(this.target).find('.terrarium-widget-heartbeat-temp').html('<i class="fa fa-times text-danger"></i>')
         }
-        $(this.target).find('.terrarium-widget-temp').text(data.data.cooked_temperature_celsius + '°C');
-        $(this.target).find('.terrarium-widget-humidity').text(data.data.cooked_humidity_percent + '%');
+        var temptrendicontemp = data.data.temperature_trend > 0.2 ? 'wi-direction-up-right' : data.data.temperature_trend < -0.2 ? 'wi-direction-down-right' : 'wi-direction-right';
+        var temptrendiconhumidity = data.data.humidity_trend > 0.2 ? 'wi-direction-up-right' : data.data.humidity_trend < -0.2 ? 'wi-direction-down-right' : 'wi-direction-right';;
+        $(this.target).find('.terrarium-widget-temp').html(data.data.cooked_temperature_celsius + '°C <span class="wi ' + temptrendicontemp + '"></span>');
+        $(this.target).find('.terrarium-widget-humidity').html(data.data.cooked_humidity_percent + '% <span class="wi ' + temptrendiconhumidity + '"></span>');
         $(this.target).find('.dashboard-widget-sparkline-temp').html('<div id="sparkline-temperature-' + data.data.id + '" style="background-color: #FFDDDD;">' + data.data.temperature_history + '</div>');
         $(this.target).find('.dashboard-widget-sparkline-humidity').html('<div id="sparkline-humidity-' + data.data.id + '" style="background-color: #DDDDFF;">' + data.data.humidity_history + '</div>');
 
