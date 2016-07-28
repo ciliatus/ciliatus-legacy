@@ -47,6 +47,14 @@ LiveData.prototype.fetchData = function(ld)
 LiveData.prototype.callback = function(success, data)
 {
     if (this.type === 'parse_terrarium_dashboard') {
+        if (data.data.heartbeat_ok === true) {
+            $(this.target).find('.x_panel').removeClass('x_panel-danger');
+            $(this.target).find('.terrarium-widget-heartbeat-temp').html('<i class="fa fa-check text-success"></i>')
+        }
+        else {
+            $(this.target).find('.x_panel').addClass('x_panel-danger');
+            $(this.target).find('.terrarium-widget-heartbeat-temp').html('<i class="fa fa-times text-danger"></i>')
+        }
         $(this.target).find('.terrarium-widget-temp').text(data.data.cooked_temperature_celsius + '°C');
         $(this.target).find('.terrarium-widget-humidity').text(data.data.cooked_humidity_percent + '%');
         $(this.target).find('.dashboard-widget-sparkline-temp').html('<div id="sparkline-temperature-' + data.data.id + '" style="background-color: #FFDDDD;">' + data.data.temperature_history + '</div>');

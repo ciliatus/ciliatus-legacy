@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Terrarium;
 use Carbon\Carbon;
 use DB;
 use App\Sensorreading;
@@ -29,10 +30,13 @@ class SensorreadingRepository extends Repository {
      *
      * @param array $logical_sensor_ids
      * @param $minutes
+     * @param $to
      * @return  \Illuminate\Database\Query\Builder
      */
-    public function getAvgByLogicalSensor(array $logical_sensor_ids, $minutes)
+    public function getAvgByLogicalSensor(array $logical_sensor_ids, $minutes = null, Carbon $to = null)
     {
+        if (is_null($to))
+            $to = Carbon::now();
 
         $sensor_readings = DB::table('sensorreadings')
             ->select(
@@ -41,10 +45,12 @@ class SensorreadingRepository extends Repository {
             ->whereIn('logical_sensor_id', $logical_sensor_ids);
 
         if (!is_null($minutes)) {
-            $sensor_readings = $sensor_readings->where('created_at', '>', Carbon::now()->addMinute(-$minutes));
+            $from = (clone $to)->subMinute($minutes);
+            $sensor_readings = $sensor_readings->where('created_at', '<', $to)
+                ->where('created_at', '>', $from);
         }
 
-        $sensor_readings = $sensor_readings->orderBy('created_at')->groupBy('sensorreadinggroup_id');
+        $sensor_readings = $sensor_readings->groupBy('sensorreadinggroup_id')->orderBy('created_at');
 
         return $sensor_readings;
     }

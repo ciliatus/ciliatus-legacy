@@ -50,13 +50,13 @@ class ViewController extends Controller
 
     public function terrariaShow($id)
     {
-        $terraria = Terrarium::find($id);
-        if (is_null($terraria)) {
+        $terrarium = Terrarium::find($id);
+        if (is_null($terrarium)) {
             return view('errors.404');
         }
 
-        return view('terraria.index', [
-            'terraria' => [$terraria]
+        return view('terraria.show', [
+            'terrarium' => $terrarium
         ]);
     }
 
@@ -463,10 +463,12 @@ class ViewController extends Controller
         }
 
         $controlunit = Controlunit::all();
+        $terraria = Terrarium::all();
 
         return view('physical_sensors.edit', [
             'physical_sensor'   => $physical_sensor,
-            'controlunits'      => $controlunit
+            'controlunits'      => $controlunit,
+            'terraria'          => $terraria
         ]);
     }
 

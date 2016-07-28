@@ -12,6 +12,7 @@
 
   <!-- Bootstrap -->
   {!! Html::style('vendors/bootstrap/dist/css/bootstrap.min.css') !!}
+  {!! Html::style('css/bootstrap_xl.css') !!}
   <!-- Font Awesome -->
   {!! Html::style('vendors/font-awesome/css/font-awesome.min.css') !!}
   <!-- bootstrap-progressbar -->
@@ -145,6 +146,8 @@
 {!! Html::script('vendors/skycons/skycons.js') !!}
 <!-- Switchery -->
 {!! Html::script('vendors/switchery/dist/switchery.min.js') !!}
+<!-- Dygraph -->
+{!! Html::script('vendors/dygraph/dygraph-combined.min.js') !!}
 <!-- PNotify -->
 {!! Html::script('vendors/pnotify/dist/pnotify.js') !!}
 {!! Html::script('vendors/pnotify/dist/pnotify.buttons.js') !!}

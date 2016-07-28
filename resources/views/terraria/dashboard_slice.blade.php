@@ -1,9 +1,9 @@
 @foreach ($terraria as $t)
-    <div class="col-md-4 col-sm-6 col-lg-3 col-xs-12 dashboard-box" id="terrarium-{{ $t->id }}" data-livedata="true" data-livedatainterval="60" data-livedatasource="{{ url('api/v1/terraria/' . $t->id) }}" data-livedatatype="parse_terrarium_dashboard">
+    <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-xs-12 dashboard-box" id="terrarium-{{ $t->id }}" data-livedata="true" data-livedatainterval="60" data-livedatasource="{{ url('api/v1/terraria/' . $t->id) }}" data-livedatatype="parse_terrarium_dashboard">
         <div class="x_panel">
 
             <div class="x_title">
-                <h2>{{ $t->friendly_name }} <small>Terrarium</small></h2>
+                <h2><a href="{{ url('terraria/' . $t->id) }}">{{ $t->friendly_name }}</a></h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -51,10 +51,7 @@
                         @endif
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                        <strong>Valve: </strong> <span class="text-info">closed</span>
-                    </div>
-                    <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                        <strong>Pump: </strong> <span class="text-info">stopped</span>
+                        <strong>Health: </strong> <span class="terrarium-widget-heartbeat-temp"></span>
                     </div>
                 </div>
 

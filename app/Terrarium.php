@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Repositories\SensorreadingRepository;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -26,7 +27,7 @@ class Terrarium extends Model
      */
     public function physical_sensors()
     {
-        return $this->hasMany('App\PhysicalSensor', 'belongsTo_id')->where('belongsTo_type', 'terrarium')->with('logical_sensors');
+        return $this->hasMany('App\PhysicalSensor', 'belongsTo_id')->with('logical_sensors')->where('belongsTo_type', 'terrarium');
     }
 
     /**
@@ -53,22 +54,26 @@ class Terrarium extends Model
         return (int)$this->fetchCurrentSensorreading('humidity_percent');
     }
 
-    /**
-     * @param int $minutes
-     * @return array|static[]
-     */
-    public function getSensorReadingsTemperature($minutes = 120)
-    {
-        return $this->fetchSensorreadings('temperature_celsius', $minutes);
-    }
 
     /**
      * @param int $minutes
-     * @return array|static[]
+     * @param null $from
+     * @return mixed
      */
-    public function getSensorReadingsHumidity($minutes = 120)
+    public function getSensorReadingsTemperature($minutes = 120, $to = null)
     {
-        return $this->fetchSensorreadings('humidity_percent', $minutes);
+        return $this->fetchSensorreadings('temperature_celsius', $minutes, $to);
+    }
+
+
+    /**
+     * @param int $minutes
+     * @param null $from
+     * @return mixed
+     */
+    public function getSensorReadingsHumidity($minutes = 120, $to = null)
+    {
+        return $this->fetchSensorreadings('humidity_percent', $minutes, $to);
     }
 
     /**
@@ -79,15 +84,33 @@ class Terrarium extends Model
         return 'OK';
     }
 
+    /**
+     * @return bool
+     */
+    public function heartbeatOk()
+    {
+        foreach ($this->physical_sensors as $ps) {
+            if ($ps->heartbeatOk() !== true)
+                return false;
+
+            if (!is_null($ps->controlunit)) {
+                if ($ps->controlunit->heartbeatOk() !== true)
+                    return false;
+            }
+        }
+
+        return true;
+    }
+
 
     /**
      * @param $type
      * @param null $minutes
-     * @return mixed
+     * @param Carbon $to
+     * @return array|static[]
      */
-    private function fetchSensorreadings($type, $minutes = null)
+    private function fetchSensorreadings($type, $minutes = null, Carbon $to = null)
     {
-
         $logical_sensor_ids = [];
 
         /*
@@ -100,7 +123,7 @@ class Terrarium extends Model
             }
         }
 
-        $sensor_readings = (new SensorreadingRepository())->getAvgByLogicalSensor($logical_sensor_ids, $minutes);
+        $sensor_readings = (new SensorreadingRepository())->getAvgByLogicalSensor($logical_sensor_ids, $minutes, $to);
 
         return $sensor_readings->get();
 

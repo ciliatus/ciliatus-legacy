@@ -1,5 +1,5 @@
 @foreach ($logical_sensors as $ls)
-    <div class="col-md-3 col-sm-6 col-lg-2 col-xs-12 dashboard-box" id="logical_sensor-{{ $ls->id }}">
+    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 dashboard-box" id="logical_sensor-{{ $ls->id }}">
         <div class="x_panel">
 
             <div class="x_title">
@@ -27,7 +27,9 @@
             <div class="x_content">
                 <div class="row">
                     <div class="col-xs-12">
+                        @if (!is_null($ls->physical_sensor))
                         <strong>Physical Sensor:</strong> <a href="{{ url('physical_sensors/' . $ls->physical_sensor->id) }}">{{ $ls->physical_sensor->name }}</a>
+                        @endif
                     </div>
                 </div>
                 <div class="row weather-days">

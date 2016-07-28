@@ -1,5 +1,5 @@
 @foreach ($physical_sensors as $ps)
-    <div class="col-md-4 col-sm-6 col-lg-3 col-xs-12 dashboard-box" id="physical_sensor-{{ $ps->id }}">
+    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 dashboard-box" id="physical_sensor-{{ $ps->id }}">
         <div class="x_panel">
 
             <div class="x_title">
@@ -41,6 +41,11 @@
                     @endforeach
                     <div class="clearfix"></div>
                 </div>
+                @if(isset($show_details))
+                    <div class="row">
+                        <pre>{{ $ps->generateConfig() }}</pre>
+                    </div>
+                @endif
             </div>
             <div class="clearfix"></div>
         </div>

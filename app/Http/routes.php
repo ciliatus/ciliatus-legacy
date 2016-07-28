@@ -52,6 +52,7 @@ Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
 
 Route::group(['prefix' => 'api/v1'], function() {
+    Route::get('terraria/{id}/sensorreadings', 'TerrariumController@sensorreadings');
     Route::resource('animals', 'AnimalController');
     Route::resource('terraria', 'TerrariumController');
     Route::resource('controlunits', 'ControlunitController');

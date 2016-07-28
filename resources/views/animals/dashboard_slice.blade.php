@@ -1,5 +1,5 @@
 @foreach ($animals as $a)
-    <div class="col-md-3 col-sm-4 col-lg-2 col-xs-12 dashboard-box" id="animal-{{ $a->id }}">
+    <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 dashboard-box" id="animal-{{ $a->id }}">
         <div class="x_panel">
 
             <div class="x_title">

@@ -1,5 +1,5 @@
 @foreach ($pumps as $p)
-    <div class="col-md-4 col-sm-6 col-lg-3 col-xs-12 dashboard-box" id="pump-{{ $p->id }}">
+    <div class="col-lg-3 col-md-4 col-sm-12 col-xs-12 dashboard-box" id="pump-{{ $p->id }}">
         <div class="x_panel">
 
             <div class="x_title">

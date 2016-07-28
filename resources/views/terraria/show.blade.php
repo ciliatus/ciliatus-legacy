@@ -3,7 +3,8 @@
 @section('content')
 
     <div class="row">
-        @include('physical_sensors.dashboard_slice', ['physical_sensors' => $physical_sensors, 'show_details' => true])
+        @include('terraria.dashboard_slice', ['terraria' => [$terrarium]])
+        @include('terraria.details_slice', ['terraria' => [$terrarium]])
     </div>
 
     <script>
