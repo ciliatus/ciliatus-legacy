@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -19,6 +20,8 @@ class PhysicalSensor extends Model
      */
 
     public $incrementing = false;
+
+    protected $dates = ['created_at', 'updated_at', 'heartbeat_at'];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo|null
@@ -45,5 +48,35 @@ class PhysicalSensor extends Model
     public function controlunit()
     {
         return $this->belongsTo('App\Controlunit');
+    }
+
+    public function generateConfig()
+    {
+        $lsstr = [];
+        foreach ($this->logical_sensors as $ls) {
+            $lsstr[] = "{$ls->type}:{$ls->id}";
+        }
+        $lsstr = implode('|', $lsstr);
+
+        $config = "[sensor_{$this->name}]\nid = {$this->id}\npin =\nname = {$this->name}\nmodel = {$this->model}\nlogical = {$lsstr}\nenabled = True";
+
+        return $config;
+    }
+
+    /**
+     * @return string
+     */
+    public function heartbeatOk()
+    {
+        return Carbon::now()->diffInMinutes($this->heartbeat_at) < 10 && !is_null($this->heartbeat_at);
+    }
+
+    /**
+     *
+     */
+    public function heartbeat()
+    {
+        $this->heartbeat_at = Carbon::now();
+        $this->save();
     }
 }

@@ -116,7 +116,7 @@ class SensorreadingController extends ApiController
                         ->respondWithError('LogicalSensor not found');
         }
 
-        if (!$logical_sensor->checkRawValue($data['rawvalue'])) {
+        if (!$logical_sensor->checkRawValue((float)$data['rawvalue'])) {
             return $this->setStatusCode(422)
                         ->setErrorCode(105)
                         ->respondWithError('rawvalue out of range');
@@ -129,10 +129,15 @@ class SensorreadingController extends ApiController
                         ->respondWithError('The reading group already has a reading for this logical sensor');
         }
 
+        $logical_sensor->physical_sensor->controlunit->heartbeat();
+        $logical_sensor->physical_sensor->heartbeat();
+        $logical_sensor->rawvalue = (float)$data['rawvalue'];
+        $logical_sensor->save();
+
         $sensorreading = Sensorreading::create();
         $sensorreading->sensorreadinggroup_id = $data['group_id'];
         $sensorreading->logical_sensor_id = $data['logical_sensor_id'];
-        $sensorreading->rawvalue = $data['rawvalue'];
+        $sensorreading->rawvalue = (float)$data['rawvalue'];
         $sensorreading->save();
 
         return $this->setStatusCode(200)->respondWithData($this->sensorreadingTransformer->transform($sensorreading->toArray()));

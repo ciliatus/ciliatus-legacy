@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Animal;
 use App\Http\Transformers\TerrariumTransformer;
+use App\Repositories\SensorreadingRepository;
 use App\Terrarium;
 use App\Valve;
 use Cache;
+use Carbon\Carbon;
 use Gate;
 use Request;
 
@@ -57,6 +59,8 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        $request = Request::all();
+
         if (Cache::has('api-show-terrarium-' . $id)) {
             return $this->setStatusCode(200)->respondWithData($this->terrariumTransformer->transform(Cache::get('api-show-terrarium-' . $id)->toArray()));
         }
@@ -69,13 +73,24 @@ class TerrariumController extends ApiController
 
         $terrarium->cooked_humidity_percent = $terrarium->getCurrentHumidity();
         $terrarium->cooked_temperature_celsius = $terrarium->getCurrentTemperature();
+        $terrarium->heartbeat_ok = $terrarium->heartbeatOk();
+
+        $history_to = null;
+        if (isset($history_to['history_from'])) {
+            $history_to = Carbon::parse($request['history_to']);
+        }
+
+        $history_minutes = 180;
+        if (isset($request['history_from'])) {
+            $history_minutes = $request['history_minutes'];
+        }
 
         $terrarium->temperature_history = implode(',',
             array_map(
                 function($val) {
                     return round($val, 1);
                 },
-                array_column($terrarium->getSensorReadingsTemperature(180), 'avg_rawvalue')
+                array_column($terrarium->getSensorReadingsTemperature($history_minutes, $history_to), 'avg_rawvalue')
             )
         );
 
@@ -84,7 +99,7 @@ class TerrariumController extends ApiController
                 function($val) {
                     return round($val, 1);
                 },
-                array_column($terrarium->getSensorReadingsHumidity(180), 'avg_rawvalue')
+                array_column($terrarium->getSensorReadingsHumidity($history_minutes, $history_to), 'avg_rawvalue')
             )
         );
 
@@ -93,7 +108,100 @@ class TerrariumController extends ApiController
         return $this->setStatusCode(200)->respondWithData($this->terrariumTransformer->transform($terrarium->toArray()));
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sensorreadings($id)
+    {
 
+        if (Gate::denies('api-read')) {
+            return $this->respondUnauthorized();
+        }
+
+        $request = Request::all();
+
+        $terrarium = Terrarium::with('physical_sensors', 'animals')->find($id);
+
+        if (!$terrarium) {
+            return $this->respondNotFound('Terrarium not found');
+        }
+
+        $terrarium->heartbeat_ok = $terrarium->heartbeatOk();
+
+        $history_to = null;
+        if (isset($request['history_to'])) {
+            $history_to = Carbon::parse($request['history_to']);
+            $history_to->second = 0;
+            $history_to->minute = 0;
+            $history_to->hour = 0;
+        }
+
+        $history_minutes = 180;
+        if (isset($request['history_minutes'])) {
+            $history_minutes = $request['history_minutes'];
+        }
+
+        /*
+         * Check cache
+         */
+        $cache_key = 'api-show-terrarium-sensorreadings-' . $history_minutes . '-' . $history_to . '-' . $id;
+        if (Cache::has($cache_key)) {
+            return $this->setStatusCode(200)->respondWithData(['csv' => Cache::get($cache_key)]);
+        }
+
+        /*
+         * Get sensorreadings
+         */
+        $sensor_types = ['humidity_percent', 'temperature_celsius'];
+        $data = [];
+
+        foreach ($sensor_types as $st) {
+            $logical_sensor_ids = [];
+            foreach ($terrarium->physical_sensors as $ps) {
+                foreach ($ps->logical_sensors()->where('type', $st)->get() as $ls) {
+                    $logical_sensor_ids[] = $ls->id;
+                }
+            }
+
+            /*
+             * Get temperature sensorreadings
+             */
+            $data[$st] = (new SensorreadingRepository())->getAvgByLogicalSensor($logical_sensor_ids, $history_minutes, $history_to)->get();
+        }
+
+        /*
+         * Format CSV
+         */
+        $data_arr = [];
+        foreach ($data as $type=>$values) {
+            foreach ($values as $reading) {
+                $data_arr[$reading->sensorreadinggroup_id]['created_at'] = $reading->created_at;
+                $data_arr[$reading->sensorreadinggroup_id][$type] = $reading->avg_rawvalue;
+            }
+        }
+
+        $data_csv = 'created_at';
+        foreach ($data as $type=>$values) {
+            $data_csv .= ',' . $type;
+        }
+
+        foreach ($data_arr as $group) {
+            $data_csv .= PHP_EOL . $group['created_at'];
+            foreach ($data as $type=>$values) {
+                $data_csv .= ',' . $group[$type];
+            }
+        }
+
+        Cache::add($cache_key, $data_csv, env('CACHE_API_TERRARIUM_GRAPH_DURATION') / 60);
+
+        return $this->setStatusCode(200)->respondWithData(['csv' => $data_csv]);
+    }
+
+
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy()
     {
 

@@ -35,6 +35,10 @@ class TerrariumTransformer extends Transformer
             ]
         ];
 
+        if (isset($item['heartbeat_ok'])) {
+            $return['heartbeat_ok'] = $item['heartbeat_ok'];
+        }
+
         if (isset($item['physical_sensors'])) {
             $return['physical_sensors'] = $physicalSensorTransformer->transformCollection($item['physical_sensors']);
         }
@@ -57,6 +61,10 @@ class TerrariumTransformer extends Transformer
 
         if (isset($item['humidity_history'])) {
             $return['humidity_history'] = $item['humidity_history'];
+        }
+
+        if (isset($item['history_combined'])) {
+            $return['history_combined'] = $item['history_combined'];
         }
 
 

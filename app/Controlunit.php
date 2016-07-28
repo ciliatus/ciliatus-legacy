@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -21,6 +22,11 @@ class Controlunit extends Model
     public $incrementing = false;
 
     /**
+     * @var array
+     */
+    protected $dates = ['created_at', 'updated_at', 'heartbeat_at'];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function physical_sensors()
@@ -33,7 +39,16 @@ class Controlunit extends Model
      */
     public function heartbeatOk()
     {
-        return 'OK';
+        return Carbon::now()->diffInMinutes($this->heartbeat_at) < 10 && !is_null($this->heartbeat_at);
+    }
+
+    /**
+     *
+     */
+    public function heartbeat()
+    {
+        $this->heartbeat_at = Carbon::now();
+        $this->save();
     }
 
 }
