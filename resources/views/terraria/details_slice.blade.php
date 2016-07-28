@@ -44,7 +44,7 @@
 <script>
     $('#sensorgraph-terrarium-btn_load-{{ $t->id }}').click(function() {
         $.ajax({
-            url: '{{ url('api/v1/terraria/' . $t->id . '/sensorreadings?history_minuts=10080') }}',
+            url: '{{ url('api/v1/terraria/' . $t->id . '/sensorreadings?history_minutes=10080') }}',
             type: 'GET',
             error: function() {
                 notification('danger', 'Could not retrieve graph data.');
