@@ -61,8 +61,9 @@ class TerrariumController extends ApiController
 
         $request = Request::all();
 
+        $cache_key = 'api-show-terrarium-' . $id;
         if (Cache::has('api-show-terrarium-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData($this->terrariumTransformer->transform(Cache::get('api-show-terrarium-' . $id)->toArray()));
+            return $this->setStatusCode(200)->respondWithData($this->terrariumTransformer->transform(Cache::get($cache_key)->toArray()));
         }
 
         $terrarium = Terrarium::with('physical_sensors', 'animals')->find($id);
@@ -118,13 +119,18 @@ class TerrariumController extends ApiController
         );
 
         /*
+         * @TODO: Create better algorithm to calculate trends
+         *
          * calculate trends
+         * compares the first value of the last third and the last value
+         * for lack of a better algorithm atm
          */
+        if (count($temperature_values) > 0)
+            $terrarium->temperature_trend = $temperature_values[count($temperature_values)-1] - $temperature_values[0];
+        if (count($humidity_values) > 0)
+            $terrarium->humidity_trend = $humidity_values[count($humidity_values)-1] - $humidity_values[0];
 
-        $terrarium->temperature_trend = $temperature_values[count($temperature_values)-1] - $temperature_values[0];
-        $terrarium->humidity_trend = $humidity_values[count($humidity_values)-1] - $humidity_values[0];
-
-        Cache::add('api-show-terrarium-' . $id, $terrarium, env('CACHE_API_TERRARIUM_SHOW_DURATION') / 60);
+        Cache::add($cache_key, $terrarium, env('CACHE_API_TERRARIUM_SHOW_DURATION') / 60);
 
         return $this->setStatusCode(200)->respondWithData($this->terrariumTransformer->transform($terrarium->toArray()));
     }
