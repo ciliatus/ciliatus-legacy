@@ -57,14 +57,18 @@
 
 .nav-sm .nav.side-menu li a {
   text-align: center !important;
-  font-weight: 400;
   font-size: 10px;
-  padding: 10px 5px;
+  padding: 5px 5px;
 }
 
 .nav-sm .nav.child_menu li.active,
 .nav-sm .nav.side-menu li.active-sm {
   border-right: 5px solid #1ABB9C;
+}
+
+.side-menu li:hover {
+  border-right: 5px solid #1A9CBB;
+  background-color: rgba(255, 255, 255, 0.0470588);
 }
 
 .nav-sm ul.nav.child_menu ul,
@@ -83,10 +87,10 @@
 }
 
 .nav-sm .nav.side-menu li a i {
-  font-size: 25px !important;
+  font-size: 20px !important;
   text-align: center;
   width: 100% !important;
-  margin-bottom: 5px;
+  margin-bottom: 1px;
 }
 
 .nav-sm ul.nav.child_menu {
@@ -652,7 +656,6 @@ a:hover, a:focus {
 
 .nav.side-menu > li > a, .nav.child_menu > li > a {
   color: #E7E7E7;
-  font-weight: 500;
 }
 
 .nav.child_menu li li:hover,
@@ -668,7 +671,7 @@ a:hover, a:focus {
 .nav > li > a {
   position: relative;
   display: block;
-  padding: 13px 15px 12px;
+  padding: 5px 4px 3px 15px;
 }
 
 .nav.side-menu > li.current-page, .nav.side-menu > li.active {
@@ -694,7 +697,6 @@ a:hover, a:focus {
 }
 
 .navbar-brand, .navbar-nav > li > a {
-  font-weight: 500;
   color: #ECF0F1 !important;
   margin-left: 0 !important;
   line-height: 32px;

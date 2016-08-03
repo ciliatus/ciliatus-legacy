@@ -69,20 +69,20 @@
           <div class="menu_section">
             <h3>@lang('menu.general')</h3>
             <ul class="nav side-menu">
-                  <li><a href="{{ url('terraria') }}"><i class="fa fa-home"></i> @choice('components.terraria', 2)</a></li>
-                  <li><a href="{{ url('animals') }}"><i class="fa fa-home"></i> @choice('components.animals', 2)</a></li>
-                  <li><a href="{{ url('controlunits') }}"><i class="fa fa-home"></i> @choice('components.controlunits', 2)</a></li>
-                  <li><a href="{{ url('pumps') }}"><i class="fa fa-home"></i> @choice('components.pumps', 2)</a></li>
-                  <li><a href="{{ url('valves') }}"><i class="fa fa-home"></i> @choice('components.valves', 2)</a></li>
-                  <li><a href="{{ url('physical_sensors') }}"><i class="fa fa-home"></i> @choice('components.physicalsensors', 2)</a></li>
-                  <li><a href="{{ url('logical_sensors') }}"><i class="fa fa-home"></i> @choice('components.logicalsensors', 2)</a></li>
+                  <li><a href="{{ url('terraria') }}"><i class="fa fa-columns"></i> @choice('components.terraria', 2)</a></li>
+                  <li><a href="{{ url('animals') }}"><i class="fa fa-paw"></i> @choice('components.animals', 2)</a></li>
+                  <li><a href="{{ url('controlunits') }}"><i class="fa fa-cogs"></i> @choice('components.controlunits', 2)</a></li>
+                  <li><a href="{{ url('pumps') }}"><i class="fa fa-circle-o"></i> @choice('components.pumps', 2)</a></li>
+                  <li><a href="{{ url('valves') }}"><i class="fa fa-circle-o"></i> @choice('components.valves', 2)</a></li>
+                  <li><a href="{{ url('physical_sensors') }}"><i class="fa fa-circle-o"></i> @choice('components.physicalsensors', 2)</a></li>
+                  <li><a href="{{ url('logical_sensors') }}"><i class="fa fa-circle-o"></i> @choice('components.logicalsensors', 2)</a></li>
             </ul>
           </div>
 
           <div class="menu_section">
             <h3>@lang('menu.administration')</h3>
             <ul class="nav side-menu">
-              <li><a><i class="fa fa-home"></i> @lang('menu.create') <span class="fa fa-chevron-down"></span></a>
+              <li><a><i class="fa fa-asterisk"></i> @lang('menu.create') <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
                     <li><a href="{{ url('terraria/create') }}">@choice('components.terraria', 1)</a></li>
                     <li><a href="{{ url('animals/create') }}">@choice('components.animals', 1)</a></li>
