@@ -10,13 +10,15 @@
 
 var liveDataObjects = [];
 
-function LiveData(source_uri, interval, type, target)
+function LiveData(source_uri, interval, callback, target)
 {
     liveDataObjects += this;
     this.source_uri = source_uri;
     this.interval = interval * 1000;
-    this.type = type;
+    this.callback = callback;
     this.target = target;
+    this.refs = new Array();
+    console.log(this.callback);
 
     return this;
 }
@@ -36,35 +38,19 @@ LiveData.prototype.fetchData = function(ld)
         url: ld.source_uri,
         type: 'GET',
         error: function() {
-            ld.callback(false, 'error');
+            ld.callback(false, 'error', ld);
         },
         success: function(data) {
-            ld.callback(true, data);
+            ld.callback(true, data, ld);
         }
     });
 };
 
-LiveData.prototype.callback = function(success, data)
+LiveData.prototype.cleanupRefs = function ()
 {
-    if (this.type === 'parse_terrarium_dashboard') {
-        if (data.data.heartbeat_ok === true) {
-            $(this.target).find('.x_panel').removeClass('x_panel-danger');
-            $(this.target).find('.terrarium-widget-heartbeat-temp').html('<i class="fa fa-check text-success"></i>')
-        }
-        else {
-            $(this.target).find('.x_panel').addClass('x_panel-danger');
-            $(this.target).find('.terrarium-widget-heartbeat-temp').html('<i class="fa fa-times text-danger"></i>')
-        }
-        var temptrendicontemp = data.data.temperature_trend > 0.2 ? 'wi-direction-up-right' : data.data.temperature_trend < -0.2 ? 'wi-direction-down-right' : 'wi-direction-right';
-        var temptrendiconhumidity = data.data.humidity_trend > 0.2 ? 'wi-direction-up-right' : data.data.humidity_trend < -0.2 ? 'wi-direction-down-right' : 'wi-direction-right';;
-        $(this.target).find('.terrarium-widget-temp').html(data.data.cooked_temperature_celsius + '°C <span class="wi ' + temptrendicontemp + '"></span>');
-        $(this.target).find('.terrarium-widget-humidity').html(data.data.cooked_humidity_percent + '% <span class="wi ' + temptrendiconhumidity + '"></span>');
-        $(this.target).find('.dashboard-widget-sparkline-temp').html('<div id="sparkline-temperature-' + data.data.id + '" style="background-color: #FFDDDD;">' + data.data.temperature_history + '</div>');
-        $(this.target).find('.dashboard-widget-sparkline-humidity').html('<div id="sparkline-humidity-' + data.data.id + '" style="background-color: #DDDDFF;">' + data.data.humidity_history + '</div>');
+    $.each(this.refs, function() { this.remove() });
 
-        renderHumiditySparklineById('#sparkline-humidity-' + data.data.id, 50, '100%');
-        renderTemperatureSparklineById('#sparkline-temperature-' + data.data.id, 50, '100%')
-    }
+    this.refs = new Array();
 };
 
 $('form').submit(function (e)
@@ -94,7 +80,7 @@ $('form').submit(function (e)
 
 function renderTemperatureSparklineById(id, height, width)
 {
-    liveDataObjects += $(id).sparkline('html', {
+    return $(id).sparkline('html', {
         type: 'line',
         width: width,
         height: height,
@@ -114,7 +100,7 @@ function renderTemperatureSparklineById(id, height, width)
 
 function renderHumiditySparklineById(id, height, width)
 {
-    liveDataObjects += $(id).sparkline('html', {
+    return $(id).sparkline('html', {
         type: 'line',
         width: width,
         height: height,
@@ -145,9 +131,40 @@ function notification(level, title, text)
     });
 }
 
+/*
+ * Callbacks
+ */
+var domCallbacks = new Array();
+
+/*
+ * Render terrarium dashboard with sparklines
+ */
+domCallbacks['terrariaDashboardCallback'] = function (success, data, ld) {
+    ld.cleanupRefs();
+    if (data.data.heartbeat_ok === true) {
+        $(this.target).find('.x_panel').removeClass('x_panel-danger');
+        $(this.target).find('.terrarium-widget-heartbeat-temp').html('<i class="fa fa-check text-success"></i>')
+    }
+    else {
+        $(this.target).find('.x_panel').addClass('x_panel-danger');
+        $(this.target).find('.terrarium-widget-heartbeat-temp').html('<i class="fa fa-times text-danger"></i>')
+    }
+    var temptrendicontemp = data.data.temperature_trend > 0.2 ? 'wi-direction-up-right' : data.data.temperature_trend < -0.2 ? 'wi-direction-down-right' : 'wi-direction-right';
+    var temptrendiconhumidity = data.data.humidity_trend > 0.2 ? 'wi-direction-up-right' : data.data.humidity_trend < -0.2 ? 'wi-direction-down-right' : 'wi-direction-right';
+
+    $(this.target).find('.terrarium-widget-temp').html(data.data.cooked_temperature_celsius + '°C <span class="wi ' + temptrendicontemp + '"></span>');
+    $(this.target).find('.terrarium-widget-humidity').html(data.data.cooked_humidity_percent + '% <span class="wi ' + temptrendiconhumidity + '"></span>');
+    $(this.target).find('.dashboard-widget-sparkline-temp').html('<div id="sparkline-temperature-' + data.data.id + '" style="background-color: #FFDDDD;">' + data.data.temperature_history + '</div>');
+    $(this.target).find('.dashboard-widget-sparkline-humidity').html('<div id="sparkline-humidity-' + data.data.id + '" style="background-color: #DDDDFF;">' + data.data.humidity_history + '</div>');
+
+    ld.refs.push(renderHumiditySparklineById('#sparkline-humidity-' + data.data.id, 40, '100%'));
+    ld.refs.push(renderTemperatureSparklineById('#sparkline-temperature-' + data.data.id, 40, '100%'));
+};
+
 function runPage()
 {
     $('[data-livedata="true"]').each(function() {
-        new LiveData($(this).data('livedatasource'), $(this).data('livedatainterval'), $(this).data('livedatatype'), this).run();
+        console.log(window);
+        new LiveData($(this).data('livedatasource'), $(this).data('livedatainterval'), domCallbacks[$(this).data('livedatacallback')], this).run();
     })
 }
