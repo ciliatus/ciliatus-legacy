@@ -3,7 +3,14 @@
         <div class="x_panel">
 
             <div class="x_title">
-                <h2>{{ $a->display_name }}</h2>
+                <h2>{{ $a->display_name }}
+                    @if ($a->gender == 'male')
+                        <i class="fa fa-mars"></i>
+                    @elseif ($a->gender == 'female')
+                        <i class="fa fa-venus"></i>
+                    @else
+                        <i class="fa fa-genderless"></i>
+                    @endif</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -26,27 +33,16 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div>
-                            <strong>@lang('labels.gender'): </strong>
-                            @if ($a->gender == 'male')
-                                <i class="fa fa-mars"></i>
-                            @elseif ($a->gender == 'female')
-                                <i class="fa fa-venus"></i>
-                            @else
-                                <i class="fa fa-genderless"></i>
-                            @endif
-                            <br />
-
                             @if (!is_null($a->birth_date))
-                            <strong>@lang('labels.birth'):</strong>
-                            {{ $a->birth_date }} @if(is_null($a->death_date))({{ $a->getAge()['value'] }} {{ trans_choice('units.' . $a->getAge()['unit'], $a->getAge()['value']) }})@endif
-                            <br />
+                            <strong>*</strong>
+                            {{ $a->birth_date->toDateString() }} @if(is_null($a->death_date))({{ $a->getAge()['value'] }} {{ trans_choice('units.' . $a->getAge()['unit'], $a->getAge()['value']) }})@endif
                             @endif
 
                             @if (!is_null($a->death_date))
-                            <strong>@lang('labels.death'):</strong>
-                            {{ $a->death_date }} ({{ $a->getAge()['value'] }} {{ trans('units.' . $a->getAge()['unit']) }})
-                            <br />
+                            <strong>†</strong>
+                            {{ $a->death_date->toDateString() }} ({{ $a->getAge()['value'] }} {{ trans_choice('units.' . $a->getAge()['unit'], $a->getAge()['value']) }})
                             @endif
+                            <br />
 
                             <strong>@lang('labels.common_name'): </strong><span>{{ $a->common_name }}</span><br />
                             <strong>@lang('labels.latin_name'): </strong><span>{{ $a->lat_name }}</span><br />
