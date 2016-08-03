@@ -1,5 +1,5 @@
 @foreach ($terraria as $t)
-    <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-xs-12 dashboard-box" id="terrarium-{{ $t->id }}" data-livedata="true" data-livedatainterval="60" data-livedatasource="{{ url('api/v1/terraria/' . $t->id) }}" data-livedatatype="parse_terrarium_dashboard">
+    <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-xs-12 dashboard-box" id="terrarium-{{ $t->id }}" data-livedata="true" data-livedatainterval="60" data-livedatasource="{{ url('api/v1/terraria/' . $t->id) }}" data-livedatacallback="terrariaDashboardCallback">
         <div class="x_panel">
 
             <div class="x_title">
@@ -17,8 +17,6 @@
                                 <a href="{{ url('terraria/' . $t->id . '/delete') }}">@lang('menu.delete')</a>
                             </li>
                         </ul>
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
                     </li>
                 </ul>
                 <div class="clearfix"></div>
