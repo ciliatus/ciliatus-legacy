@@ -29,6 +29,9 @@
     {!! Html::style('vendors/weather-icons/css/weather-icons.min.css') !!}
     <!-- jQuery -->
     {!! Html::script('vendors/jquery/dist/jquery.min.js') !!}
+    <!-- jQuery UI -->
+    {!! Html::style('vendors/jquery-ui/jquery-ui.min.css') !!}
+    {!! Html::script('vendors/jquery-ui/jquery-ui.min.js') !!}
 
 </head>
 

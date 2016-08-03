@@ -38,6 +38,28 @@
                     </div>
                 </div>
                 <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.gender')</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <select class="form-control" name="f_edit_animal_gender">
+                            <option></option>
+                            <option value="male" @if($animal->gender == 'male')selected="selected"@endif>@lang('labels.gender_male')</option>
+                            <option value="female" @if($animal->gender == 'female')selected="selected"@endif>@lang('labels.gender_female')</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.date_birth')</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control datepicker" placeholder="@lang('labels.date_birth')" name="f_edit_animal_birthdate" value="{{ $animal->birth_date }}">
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.date_death')</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        <input type="text" class="form-control datepicker" placeholder="@lang('labels.date_death')" name="f_edit_animal_deathdate" value="{{ $animal->death_date }}">
+                    </div>
+                </div>
+                <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('components.terraria', 1)</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <select class="form-control" name="f_edit_animal_terrarium">
@@ -61,4 +83,14 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(function() {
+        $('.datepicker').datepicker({
+            dateFormat: 'yy-mm-dd',
+            changeMonth: true,
+            changeYear: true
+        });
+    });
+</script>
 @stop

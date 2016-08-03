@@ -40,8 +40,8 @@
                                 @else
                                     <i class="fa fa-genderless"></i>
                                 @endif
-                                @if ($animal->birth_date)
-                                    ({{ $animal->getAge()['value'] }} {{ $animal->getAge()['unit'] }})
+                                @if (!is_null($animal->birth_date))
+                                    ({{ $animal->getAge()['value'] }} {{ trans_choice('units.' . $animal->getAge()['unit'], $animal->getAge()['value']) }})
                                 @endif
                                 <span>{{ $animal->common_name }}</span> <span><i>{{ $animal->lat_name }}</i></span>
                             </div>

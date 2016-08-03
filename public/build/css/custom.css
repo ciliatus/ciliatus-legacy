@@ -5243,3 +5243,25 @@ ul.notifications {
   font-weight: 400;
   text-align: center;
 }
+
+/*
+ * jQuery UI Theme
+*/
+.ui-datepicker-header {
+  background-color: #FEFEFE !important;
+  border-bottom: 1px #CCCCCC solid !important;
+}
+
+.ui-state-active {
+  background-color: #43576C !important;
+  color: #FFFFFF !important;
+}
+
+.ui-state-highlight {
+  background-color: #1ABB9C !important;
+  color: #FFFFFF !important;
+}
+
+.ui-datepicker-calendar {
+
+}

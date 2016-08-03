@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Transformers\AnimalTransformer;
 use App\Animal;
 use App\Terrarium;
+use Carbon\Carbon;
 use Gate;
 use Request;
 
@@ -138,15 +139,45 @@ class AnimalController extends ApiController
             return $this->setStatusCode(422)->respondWithError('Animal not found');
         }
 
-        $terrarium = Terrarium::find($data['f_edit_animal_terrarium']);
-        if (is_null($terrarium)) {
-            return $this->setStatusCode(422)->respondWithError('Terrarium not found');
+        if (isset($data['f_edit_animal_terrarium']) && strlen($data['f_edit_animal_terrarium']) > 0) {
+            $terrarium = Terrarium::find($data['f_edit_animal_terrarium']);
+            if (is_null($terrarium)) {
+                return $this->setStatusCode(422)->respondWithError('Terrarium not found');
+            }
+        }
+        else {
+            $terrarium = null;
         }
 
         $animal->display_name = $data['f_edit_animal_displayname'];
         $animal->common_name = $data['f_edit_animal_commonname'];
         $animal->lat_name = $data['f_edit_animal_latinname'];
-        $animal->terrarium_id = $terrarium->id;
+        $animal->gender = $data['f_edit_animal_gender'];
+        $animal->terrarium_id = is_null($terrarium) ? null : $terrarium->id;
+
+        if (isset($data['f_edit_animal_birthdate']) && strlen($data['f_edit_animal_birthdate']) > 0) {
+            try {
+                $animal->birth_date = Carbon::parse($data['f_edit_animal_birthdate']);
+            }
+            catch (\Exception $ex) {
+                return $this->setStatusCode(422)->respondWithError('Cannot parse date of birth');
+            }
+        }
+        else {
+            $animal->birth_date = null;
+        }
+
+        if (isset($data['f_edit_animal_deathdate']) && strlen($data['f_edit_animal_deathdate']) > 0) {
+            try {
+                $animal->death_date = Carbon::parse($data['f_edit_animal_deathdate']);
+            }
+            catch (\Exception $ex) {
+                return $this->setStatusCode(422)->respondWithError('Cannot parse date of death');
+            }
+        }
+        else {
+            $animal->death_date = null;
+        }
 
         $animal->save();
 

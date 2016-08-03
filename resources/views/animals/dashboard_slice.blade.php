@@ -36,19 +36,28 @@
                             @endif
                             <br />
 
+                            @if (!is_null($a->birth_date))
                             <strong>@lang('labels.birth'):</strong>
-                            @if ($a->birth_date)
-                                ({{ $a->getAge()['value'] }} {{ $a->getAge()['unit'] }})
-                            @endif
+                            {{ $a->birth_date }} @if(is_null($a->death_date))({{ $a->getAge()['value'] }} {{ trans_choice('units.' . $a->getAge()['unit'], $a->getAge()['value']) }})@endif
                             <br />
+                            @endif
+
+                            @if (!is_null($a->death_date))
+                            <strong>@lang('labels.death'):</strong>
+                            {{ $a->death_date }} ({{ $a->getAge()['value'] }} {{ trans('units.' . $a->getAge()['unit']) }})
+                            <br />
+                            @endif
 
                             <strong>@lang('labels.common_name'): </strong><span>{{ $a->common_name }}</span><br />
                             <strong>@lang('labels.latin_name'): </strong><span>{{ $a->lat_name }}</span><br />
-                            <strong>@choice('components.terraria', 1): </strong><span><a href="{{ url('terraria/' . $a->terrarium->id) }}">{{ $a->terrarium->name }}</a></span>
+                            @if(!is_null($a->terrarium))
+                            <strong>@choice('components.terraria', 1): </strong><span><a href="{{ url('terraria/' . $a->terrarium->id) }}">{{ $a->terrarium->friendly_name }}</a></span>
+                            @endif
                         </div>
 
                     </div>
                 </div>
+                @if(!is_null($a->terrarium))
                 <div class="row weather-days">
                     <div class="col-sm-12">
                         <div class="daily-weather">
@@ -58,6 +67,7 @@
                     </div>
                     <div class="clearfix"></div>
                 </div>
+                @endif
             </div>
         </div>
     </div>

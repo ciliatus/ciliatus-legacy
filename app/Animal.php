@@ -16,7 +16,7 @@ class Animal extends Model
     /**
      * @var array
      */
-    public $timestamps = ['created_at', 'updated_at', 'birth_date', 'death_date'];
+    protected  $dates = ['created_at', 'updated_at', 'birth_date', 'death_date'];
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -36,11 +36,17 @@ class Animal extends Model
 
     public function getAge()
     {
-        if (Carbon::now()->diffInYears(Carbon::parse($this->birth_date)) > 3)
-            return ['unit' => 'years', 'value' => Carbon::now()->diffInYears(Carbon::parse($this->birth_date))];
-        if (Carbon::now()->diffInMonths(Carbon::parse($this->birth_date)) > 1)
-            return ['unit' => 'months', 'value' => Carbon::now()->diffInMonths(Carbon::parse($this->birth_date))];
+        if (is_null($this->death_date)) {
+            $compare_at = Carbon::now();
+        }
+        else {
+            $compare_at = $this->death_date;
+        }
+        if ($compare_at->diffInYears($this->birth_date) > 3)
+            return ['unit' => 'years', 'value' => $compare_at->diffInYears($this->birth_date)];
+        if ($compare_at->diffInMonths($this->birth_date) > 1)
+            return ['unit' => 'months', 'value' =>$compare_at->diffInMonths($this->birth_date)];
 
-        return ['unit' => 'days', 'value' => Carbon::now()->diffInDays(Carbon::parse($this->birth_date))];
+        return ['unit' => 'days', 'value' => $compare_at->diffInDays($this->birth_date)];
     }
 }
