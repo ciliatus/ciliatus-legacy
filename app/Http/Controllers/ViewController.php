@@ -230,7 +230,7 @@ class ViewController extends Controller
         }
 
         return view('pumps.delete', [
-            'pump'     => [$pump]
+            'pump'     => $pump
         ]);
     }
 
