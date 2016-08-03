@@ -104,8 +104,11 @@ class ViewController extends Controller
 
         $animals = Animal::where(function ($query) use ($terrarium) {
             $query->where('terrarium_id', $terrarium->id)
-                ->orWhereNull('terrarium_id');
-        })->get();
+                ->orWhere(function ($inner_query) use ($terrarium) {
+                    $inner_query->whereNull('terrarium_id')
+                        ->whereNull('death_date');
+                });
+            })->get();
 
         return view('terraria.edit', [
             'terrarium'     => $terrarium,
@@ -123,7 +126,7 @@ class ViewController extends Controller
     public function animals()
     {
         return view('animals.index', [
-            'animals' => Animal::get()
+            'animals' => Animal::orderBy('death_date')->get()
         ]);
     }
 
