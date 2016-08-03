@@ -2,6 +2,7 @@
 
 namespace App\Http\Middleware;
 
+use App;
 use Closure;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,6 +25,13 @@ class Authenticate
                 return redirect()->guest('auth/login');
             }
         }
+
+        /*
+         * set user specific locale
+         */
+        if (!is_null(Auth::user()->locale))
+            App::setLocale(Auth::user()->locale);
+
 
         return $next($request);
     }

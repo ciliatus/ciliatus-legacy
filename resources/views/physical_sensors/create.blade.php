@@ -4,7 +4,7 @@
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>New PhysicalSensor <small>Create</small></h2>
+                <h2>@lang('labels.create') @choice('components.physicalsensors', 1)</h2>
 
                 <div class="clearfix"></div>
             </div>
@@ -14,9 +14,9 @@
                 <form class="form-horizontal form-label-left" name="f_create_physical_sensor" action="{{ url('api/v1/physical_sensors') }}" data-method="POST">
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.name')</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="Name" name="f_create_physical_sensor_name" value="">
+                            <input type="text" class="form-control" placeholder="@lang('labels.name')" name="f_create_physical_sensor_name" value="">
                         </div>
                     </div>
 
@@ -24,7 +24,7 @@
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success" name="f_edit_physical_sensor_submit">Next</button>
+                            <button type="submit" class="btn btn-success" name="f_edit_physical_sensor_submit">@lang('buttons.next')</button>
                         </div>
                     </div>
 

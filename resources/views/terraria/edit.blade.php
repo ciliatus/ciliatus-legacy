@@ -4,7 +4,7 @@
 <div class="col-md-6 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>{{ $terrarium->friendly_name }} <small>Edit</small></h2>
+            <h2>{{ $terrarium->friendly_name }}</h2>
 
             <div class="clearfix"></div>
         </div>
@@ -20,20 +20,20 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.name')</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <input type="text" class="form-control" placeholder="Name" name="f_edit_terra_name" value="{{ $terrarium->name }}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Friendly/Display Name</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.display_name')</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <input type="text" class="form-control" placeholder="Friendly Name" name="f_edit_terra_friendlyname" value="{{ $terrarium->friendly_name }}">
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Valves <br /><small>Ctrl-click to deselect</small></label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('components.valves', 2) <br /><small>@lang('tooltips.ctrltoselect')</small></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <select class="select2_multiple form-control" multiple="multiple" name="f_edit_terra_valves[]">
                             @foreach ($valves as $a)
@@ -44,7 +44,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Animals <br /><small>Ctrl-click to deselect</small></label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('components.animals', 2) <br /><small>@lang('tooltips.ctrltoselect')</small></label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <select class="select2_multiple form-control" multiple="multiple" name="f_edit_terra_animals[]">
                             @foreach ($animals as $a)
@@ -55,36 +55,36 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Settings</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('labels.settings', 2)</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <div class="">
                             <label>
-                                <input type="checkbox" class="js-switch" name="f_edit_terra_active" checked /> Active
+                                <input type="checkbox" class="js-switch" name="f_edit_terra_active" checked /> @lang('tooltips.active')
                             </label>
                         </div>
                         <div class="">
                             <label>
-                                <input type="checkbox" class="js-switch" name="f_edit_terra_showdefaultdashboard" checked /> Show on default dashboard
+                                <input type="checkbox" class="js-switch" name="f_edit_terra_showdefaultdashboard" checked /> @lang('tooltips.showondefaultdashboard')
                             </label>
                         </div>
                         <div class="">
                             <label>
-                                <input type="checkbox" class="js-switch" name="f_edit_terra_autoirrigation" checked /> Enable automatic irrigation (if available)
+                                <input type="checkbox" class="js-switch" name="f_edit_terra_autoirrigation" checked /> @lang('tooltips.autoirrigation')
                             </label>
                         </div>
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Notifications</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('labels.notifications', 2)</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <div class="">
                             <label>
-                                <input type="checkbox" class="js-switch" name="f_edit_terra_notifyhumidity" /> Send notifications for humidity
+                                <input type="checkbox" class="js-switch" name="f_edit_terra_notifyhumidity" /> @lang('tooltips.sendnotificationsfor'): @lang('labels.humidity')
                             </label>
                         </div>
                         <div class="">
                             <label>
-                                <input type="checkbox" class="js-switch" name="f_edit_terra_notifytemperature" /> Send notifications for temperature
+                                <input type="checkbox" class="js-switch" name="f_edit_terra_notifytemperature" /> @lang('tooltips.sendnotificationsfor'): @lang('labels.temperature')
                             </label>
                         </div>
                     </div>
@@ -94,7 +94,7 @@
                 <div class="ln_solid"></div>
                 <div class="form-group">
                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success" name="f_edit_terra_submit">Save</button>
+                        <button type="submit" class="btn btn-success" name="f_edit_terra_submit">@lang('buttons.save')</button>
                     </div>
                 </div>
 

@@ -4,7 +4,7 @@
 <div class="col-md-6 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>{{ $animal->display_name }} <small>Edit</small></h2>
+            <h2>{{ $animal->display_name }}</h2>
 
             <div class="clearfix"></div>
         </div>
@@ -20,25 +20,25 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Display Name</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.display_name')</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" placeholder="Name" name="f_edit_animal_displayname" value="{{ $animal->display_name }}">
+                        <input type="text" class="form-control" placeholder="@lang('labels.display_name')" name="f_edit_animal_displayname" value="{{ $animal->display_name }}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Common Name</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.common_name')</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" placeholder="Friendly Name" name="f_edit_animal_commonname" value="{{ $animal->common_name }}">
+                        <input type="text" class="form-control" placeholder="@lang('labels.common_name')" name="f_edit_animal_commonname" value="{{ $animal->common_name }}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Latin Name</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.latin_name')</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" placeholder="Latin Name" name="f_edit_animal_latinname" value="{{ $animal->lat_name }}">
+                        <input type="text" class="form-control" placeholder="@lang('labels.latin_name')" name="f_edit_animal_latinname" value="{{ $animal->lat_name }}">
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Terrarium</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('components.terraria', 1)</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <select class="form-control" name="f_edit_animal_terrarium">
                             <option></option>
@@ -53,7 +53,7 @@
                 <div class="ln_solid"></div>
                 <div class="form-group">
                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success" name="f_edit_animal_submit">Save</button>
+                        <button type="submit" class="btn btn-success" name="f_edit_animal_submit">@lang('buttons.save')</button>
                     </div>
                 </div>
 

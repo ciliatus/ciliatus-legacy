@@ -3,7 +3,7 @@
         <div class="x_panel">
 
             <div class="x_title">
-                <h2>{{ $a->display_name }} <small>Animal</small></h2>
+                <h2>{{ $a->display_name }}</h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -11,10 +11,10 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="{{ url('animals/' . $a->id . '/edit') }}">Edit</a>
+                                <a href="{{ url('animals/' . $a->id . '/edit') }}">@lang('menu.edit')</a>
                             </li>
                             <li>
-                                <a href="{{ url('animals/' . $a->id . '/delete') }}">Delete</a>
+                                <a href="{{ url('animals/' . $a->id . '/delete') }}">@lang('menu.delete')</a>
                             </li>
                         </ul>
                     </li>
@@ -28,7 +28,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         <div>
-                            <strong>Gender: </strong>
+                            <strong>@lang('labels.gender'): </strong>
                             @if ($a->gender == 'male')
                                 <i class="fa fa-mars"></i>
                             @elseif ($a->gender == 'female')
@@ -38,15 +38,15 @@
                             @endif
                             <br />
 
-                            <strong>Birth:</strong>
+                            <strong>@lang('labels.birth'):</strong>
                             @if ($a->birth_date)
                                 ({{ $a->getAge()['value'] }} {{ $a->getAge()['unit'] }})
                             @endif
                             <br />
 
-                            <strong>Common name: </strong><span>{{ $a->common_name }}</span><br />
-                            <strong>Latin name: </strong><span>{{ $a->lat_name }}</span><br />
-                            <strong>Terrarium: </strong><span><a href="{{ url('terraria/' . $a->terrarium->id) }}">{{ $a->terrarium->name }}</a></span>
+                            <strong>@lang('labels.common_name'): </strong><span>{{ $a->common_name }}</span><br />
+                            <strong>@lang('labels.latin_name'): </strong><span>{{ $a->lat_name }}</span><br />
+                            <strong>@choice('components.terraria', 1): </strong><span><a href="{{ url('terraria/' . $a->terrarium->id) }}">{{ $a->terrarium->name }}</a></span>
                         </div>
 
                     </div>
@@ -54,7 +54,7 @@
                 <div class="row weather-days">
                     <div class="col-sm-12">
                         <div class="daily-weather">
-                            <h2 class="day">Terrarium</h2>
+                            <h2 class="day">@choice('components.terraria', 1)</h2>
                             <h3 class="terrarium-widget-temp">{{ $a->terrarium->getState() }}</h3>
                         </div>
                     </div>

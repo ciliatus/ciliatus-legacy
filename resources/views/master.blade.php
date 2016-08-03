@@ -38,7 +38,7 @@
     <div class="col-md-3 left_col">
       <div class="left_col scroll-view">
         <div class="navbar nav_title" style="border: 0;">
-          <a href="index.html" class="site_title"><i class="fa fa-circle-thin"></i> <span>Ciliatus</span></a>
+          <a href="/" class="site_title"><i class="fa fa-circle-thin"></i> <span>Ciliatus</span></a>
         </div>
 
         <div class="clearfix"></div>
@@ -49,7 +49,7 @@
             <img src="{{ url('images/user.png') }}" class="img-circle profile_img">
           </div>
           <div class="profile_info">
-            <span>Welcome,</span>
+            <span>@lang('menu.welcome'),</span>
             <h2>{{ \Auth::user()->name }}</h2>
           </div>
         </div>
@@ -61,40 +61,36 @@
             <h3>Dashboard</h3>
             <ul class="nav side-menu">
               <li>
-                <a href="/"><i class="fa fa-home"></i> Dashboard </a>
+                <a href="/"><i class="fa fa-home"></i> @choice('menu.dashboard', 1) </a>
               </li>
             </ul>
           </div>
 
           <div class="menu_section">
-            <h3>General</h3>
+            <h3>@lang('menu.general')</h3>
             <ul class="nav side-menu">
-              <li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>
-                <ul class="nav child_menu">
-                  <li><a href="{{ url('terraria') }}">Terraria</a></li>
-                  <li><a href="{{ url('animals') }}">Animals</a></li>
-                  <li><a href="{{ url('controlunits') }}">Control Units</a></li>
-                  <li><a href="{{ url('pumps') }}">Pumps</a></li>
-                  <li><a href="{{ url('valves') }}">Valves</a></li>
-                  <li><a href="{{ url('physical_sensors') }}">PhysicalSensors</a></li>
-                  <li><a href="{{ url('logical_sensors') }}">LogicalSensors</a></li>
-                </ul>
-              </li>
+                  <li><a href="{{ url('terraria') }}"><i class="fa fa-home"></i> @choice('components.terraria', 2)</a></li>
+                  <li><a href="{{ url('animals') }}"><i class="fa fa-home"></i> @choice('components.animals', 2)</a></li>
+                  <li><a href="{{ url('controlunits') }}"><i class="fa fa-home"></i> @choice('components.controlunits', 2)</a></li>
+                  <li><a href="{{ url('pumps') }}"><i class="fa fa-home"></i> @choice('components.pumps', 2)</a></li>
+                  <li><a href="{{ url('valves') }}"><i class="fa fa-home"></i> @choice('components.valves', 2)</a></li>
+                  <li><a href="{{ url('physical_sensors') }}"><i class="fa fa-home"></i> @choice('components.physicalsensors', 2)</a></li>
+                  <li><a href="{{ url('logical_sensors') }}"><i class="fa fa-home"></i> @choice('components.logicalsensors', 2)</a></li>
             </ul>
           </div>
 
           <div class="menu_section">
-            <h3>Administration</h3>
+            <h3>@lang('menu.administration')</h3>
             <ul class="nav side-menu">
-              <li><a><i class="fa fa-home"></i> Create <span class="fa fa-chevron-down"></span></a>
+              <li><a><i class="fa fa-home"></i> @lang('menu.create') <span class="fa fa-chevron-down"></span></a>
                 <ul class="nav child_menu">
-                  <li><a href="{{ url('terraria/create') }}">Terrarium</a></li>
-                  <li><a href="{{ url('animals/create') }}">Animal</a></li>
-                  <li><a href="{{ url('controlunits/create') }}">Control Unit</a></li>
-                  <li><a href="{{ url('pumps/create') }}">Pump</a></li>
-                  <li><a href="{{ url('valves/create') }}">Valve</a></li>
-                  <li><a href="{{ url('physical_sensors/create') }}">PhysicalSensor</a></li>
-                  <li><a href="{{ url('logical_sensors/create') }}">LogicalSensor</a></li>
+                    <li><a href="{{ url('terraria/create') }}">@choice('components.terraria', 1)</a></li>
+                    <li><a href="{{ url('animals/create') }}">@choice('components.animals', 1)</a></li>
+                    <li><a href="{{ url('controlunits/create') }}">@choice('components.controlunits', 1)</a></li>
+                    <li><a href="{{ url('pumps/create') }}">@choice('components.pumps', 1)</a></li>
+                    <li><a href="{{ url('valves/create') }}">@choice('components.valves', 1)</a></li>
+                    <li><a href="{{ url('physical_sensors/create') }}">@choice('components.physicalsensors', 1)</a></li>
+                    <li><a href="{{ url('logical_sensors/create') }}">@choice('components.logicalsensors', 1)</a></li>
                 </ul>
               </li>
             </ul>

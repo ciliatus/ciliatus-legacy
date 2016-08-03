@@ -11,10 +11,10 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
-                                <a href="{{ url('terraria/' . $t->id . '/edit') }}">Edit</a>
+                                <a href="{{ url('terraria/' . $t->id . '/edit') }}">@lang('menu.edit')</a>
                             </li>
                             <li>
-                                <a href="{{ url('terraria/' . $t->id . '/delete') }}">Delete</a>
+                                <a href="{{ url('terraria/' . $t->id . '/delete') }}">@lang('menu.delete')</a>
                             </li>
                         </ul>
                     </li>
@@ -29,7 +29,7 @@
                     <div class="col-xs-12">
                         @if($t->animals->count() < 1)
                             <div>
-                                <strong>No animals</strong>
+                                <strong>@lang('labels.noanimals')</strong>
                             </div>
                         @else
                             @foreach ($t->animals as $animal)
@@ -51,14 +51,14 @@
                         @endif
                     </div>
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6">
-                        <strong>Health: </strong> <span class="terrarium-widget-heartbeat-temp"></span>
+                        <strong>@lang('labels.status'): </strong> <span class="terrarium-widget-heartbeat-temp"></span>
                     </div>
                 </div>
 
                 <div class="row weather-days">
                     <div class="col-sm-6">
                         <div class="daily-weather">
-                            <h2 class="day">Temperature</h2>
+                            <h2 class="day">@lang('labels.temperature')</h2>
                             <h3 class="terrarium-widget-temp"></h3>
                             <div class="widget-sparkline dashboard-widget-sparkline-temp">
                             </div>
@@ -66,7 +66,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="daily-weather">
-                            <h2 class="day">Humidity</h2>
+                            <h2 class="day">@lang('labels.humidity')</h2>
                             <h3 class="terrarium-widget-humidity"></h3>
                             <div class="widget-sparkline dashboard-widget-sparkline-humidity">
                             </div>

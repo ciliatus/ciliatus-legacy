@@ -4,7 +4,7 @@
 <div class="col-md-6 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>{{ $controlunit->name }} <small>Edit</small></h2>
+            <h2>{{ $controlunit->name }}</h2>
 
             <div class="clearfix"></div>
         </div>
@@ -20,9 +20,9 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Name</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.name')</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" placeholder="Name" name="f_edit_controlunit_name" value="{{ $controlunit->name }}">
+                        <input type="text" class="form-control" placeholder="@lang('labels.name')" name="f_edit_controlunit_name" value="{{ $controlunit->name }}">
                     </div>
                 </div>
 
@@ -30,7 +30,7 @@
                 <div class="ln_solid"></div>
                 <div class="form-group">
                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success" name="f_edit_controlunit_submit">Save</button>
+                        <button type="submit" class="btn btn-success" name="f_edit_controlunit_submit">@lang('buttons.save')</button>
                     </div>
                 </div>
 
