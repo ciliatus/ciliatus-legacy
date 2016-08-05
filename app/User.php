@@ -56,20 +56,7 @@ class User extends Authenticatable
 
     public function grantFullAbilities()
     {
-        $abilities = [
-            'grant_api-list',
-            'grant_api-read',
-            'grant_api-write:animal',
-            'grant_api-write:terrarium',
-            'grant_api-write:sensorreading',
-            'grant_api-write:pump',
-            'grant_api-write:valve',
-            'grant_api-write:physical_sensor',
-            'grant_api-write:logical_sensor',
-            'grant_api-write:controlunit'
-        ];
-
-        foreach ($abilities as $a) {
+        foreach (UserAbility::abilities() as $a) {
             $ua = $this->abilities()->where('name', $a)->first();
             if (is_null($ua)) {
                 $ua = UserAbility::create(['user_id' => $this->id]);
