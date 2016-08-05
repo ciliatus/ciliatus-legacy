@@ -127,12 +127,17 @@ class AnimalController extends ApiController
         $animal->display_name = $data['f_create_animal_displayname'];
         $animal->save();
 
-        return $this->setStatusCode(200)->respondWithData([], [
-            'redirect' => [
-                'uri'   => url('animals/' . $animal->id . '/edit'),
-                'delay' => 100
+        return $this->setStatusCode(200)->respondWithData(
+            [
+                'id'    =>  $animal->id
+            ],
+            [
+                'redirect' => [
+                    'uri'   => url('animals/' . $animal->id . '/edit'),
+                    'delay' => 100
+                ]
             ]
-        ]);
+        );
 
     }
 

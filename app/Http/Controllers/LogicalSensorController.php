@@ -148,12 +148,17 @@ class LogicalSensorController extends ApiController
         $logical_sensor->name = $data['f_create_logical_sensor_name'];
         $logical_sensor->save();
 
-        return $this->setStatusCode(200)->respondWithData([], [
-            'redirect' => [
-                'uri'   => url('logical_sensors/' . $logical_sensor->id . '/edit'),
-                'delay' => 100
+        return $this->setStatusCode(200)->respondWithData(
+            [
+                'id'    =>  $logical_sensor->id
+            ],
+            [
+                'redirect' => [
+                    'uri'   => url('logical_sensors/' . $logical_sensor->id . '/edit'),
+                    'delay' => 100
+                ]
             ]
-        ]);
+        );
 
     }
 

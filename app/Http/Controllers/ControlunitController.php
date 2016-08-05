@@ -128,12 +128,17 @@ class ControlunitController extends ApiController
         $controlunit->name = $data['f_create_controlunit_name'];
         $controlunit->save();
 
-        return $this->setStatusCode(200)->respondWithData([], [
-            'redirect' => [
-                'uri'   => url('controlunits/' . $controlunit->id . '/edit'),
-                'delay' => 100
+        return $this->setStatusCode(200)->respondWithData(
+            [
+                'id'    =>  $controlunit->id
+            ],
+            [
+                'redirect' => [
+                    'uri'   => url('controlunits/' . $controlunit->id . '/edit'),
+                    'delay' => 100
+                ]
             ]
-        ]);
+        );
 
     }
 

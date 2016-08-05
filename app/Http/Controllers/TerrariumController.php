@@ -307,12 +307,17 @@ class TerrariumController extends ApiController
         $terrarium->friendly_name = $data['f_create_terra_displayname'];
         $terrarium->save();
 
-        return $this->setStatusCode(200)->respondWithData([], [
-            'redirect' => [
-                'uri'   => url('terraria/' . $terrarium->id . '/edit'),
-                'delay' => 100
+        return $this->setStatusCode(200)->respondWithData(
+            [
+                'id'    =>  $terrarium->id
+            ],
+            [
+                'redirect' => [
+                    'uri'   => url('terraria/' . $terrarium->id . '/edit'),
+                    'delay' => 100
+                ]
             ]
-        ]);
+        );
 
     }
 

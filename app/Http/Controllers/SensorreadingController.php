@@ -148,9 +148,9 @@ class SensorreadingController extends ApiController
         $sensorreading->save();
 
         return $this->setStatusCode(200)->respondWithData(
-            $this->sensorreadingTransformer->transform(
-                $sensorreading->toArray()
-            )
+            [
+                'id'    =>  $sensorreading->id
+            ]
         );
 
     }

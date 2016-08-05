@@ -126,12 +126,17 @@ class PumpController extends ApiController
         $pump->name = $data['f_create_pump_name'];
         $pump->save();
 
-        return $this->setStatusCode(200)->respondWithData([], [
-            'redirect' => [
-                'uri'   => url('pumps/' . $pump->id . '/edit'),
-                'delay' => 100
+        return $this->setStatusCode(200)->respondWithData(
+            [
+                'id'    =>  $pump->id
+            ],
+            [
+                'redirect' => [
+                    'uri'   => url('pumps/' . $pump->id . '/edit'),
+                    'delay' => 100
+                ]
             ]
-        ]);
+        );
 
     }
 

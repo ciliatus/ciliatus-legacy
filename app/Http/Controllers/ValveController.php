@@ -131,12 +131,17 @@ class ValveController extends ApiController
         $valve->name = $data['f_create_valve_name'];
         $valve->save();
 
-        return $this->setStatusCode(200)->respondWithData([], [
-            'redirect' => [
-                'uri'   => url('valves/' . $valve->id . '/edit'),
-                'delay' => 100
+        return $this->setStatusCode(200)->respondWithData(
+            [
+                'id'    => $valve->id
+            ],
+            [
+                'redirect' => [
+                    'uri'   => url('valves/' . $valve->id . '/edit'),
+                    'delay' => 100
+                ]
             ]
-        ]);
+        );
 
     }
 

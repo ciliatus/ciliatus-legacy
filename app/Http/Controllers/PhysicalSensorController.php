@@ -138,12 +138,17 @@ class PhysicalSensorController extends ApiController
         $physical_sensor->name = $data['f_create_physical_sensor_name'];
         $physical_sensor->save();
 
-        return $this->setStatusCode(200)->respondWithData([], [
-            'redirect' => [
-                'uri'   => url('physical_sensors/' . $physical_sensor->id . '/edit'),
-                'delay' => 100
+        return $this->setStatusCode(200)->respondWithData(
+            [
+                'id'    =>  $physical_sensor->id
+            ],
+            [
+                'redirect' => [
+                    'uri'   => url('physical_sensors/' . $physical_sensor->id . '/edit'),
+                    'delay' => 100
+                ]
             ]
-        ]);
+        );
 
     }
 
