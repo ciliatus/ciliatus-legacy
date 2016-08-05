@@ -88,7 +88,7 @@ class LogicalSensorController extends ApiController
 
         $logical_sensor = LogicalSensor::find($data['f_delete_logical_sensors_id']);
         if (is_null($logical_sensor)) {
-            return $this->setStatusCode(422)->respondWithError('LogicalSensor not found');
+            return $this->respondNotFound('LogicalSensor not found');
         }
 
         $logical_sensors = LogicalSensor::where('logical_sensor_id', $logical_sensor->id)->get();
@@ -158,7 +158,7 @@ class LogicalSensorController extends ApiController
 
         $logical_sensor = LogicalSensor::find($data['f_edit_logical_sensor_id']);
         if (is_null($logical_sensor)) {
-            return $this->setStatusCode(422)->respondWithError('LogicalSensor not found');
+            return $this->respondNotFound('LogicalSensor not found');
         }
 
         if (isset($data['f_edit_logical_sensor_physical_sensor']) && strlen($data['f_edit_logical_sensor_physical_sensor']) > 0) {

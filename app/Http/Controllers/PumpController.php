@@ -87,7 +87,7 @@ class PumpController extends ApiController
 
         $pump = Pump::find($data['f_delete_pumps_id']);
         if (is_null($pump)) {
-            return $this->setStatusCode(422)->respondWithError('Pump not found');
+            return $this->respondNotFound('Pump not found');
         }
 
         $pump->delete();
@@ -140,7 +140,7 @@ class PumpController extends ApiController
 
         $pump = Pump::find($data['f_edit_pump_id']);
         if (is_null($pump)) {
-            return $this->setStatusCode(422)->respondWithError('Pump not found');
+            return $this->respondNotFound('Pump not found');
         }
 
         if (isset($data['f_edit_pump_controlunit']) && strlen($data['f_edit_pump_controlunit']) > 0) {

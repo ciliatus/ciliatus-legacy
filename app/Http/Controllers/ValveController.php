@@ -88,7 +88,7 @@ class ValveController extends ApiController
 
         $valve = Valve::find($data['f_delete_valves_id']);
         if (is_null($valve)) {
-            return $this->setStatusCode(422)->respondWithError('Valve not found');
+            return $this->respondNotFound('Valve not found');
         }
 
         $valve->delete();
@@ -141,7 +141,7 @@ class ValveController extends ApiController
 
         $valve = Valve::find($data['f_edit_valve_id']);
         if (is_null($valve)) {
-            return $this->setStatusCode(422)->respondWithError('Valve not found');
+            return $this->respondNotFound('Valve not found');
         }
 
         if (isset($data['f_edit_valve_pump']) && strlen($data['f_edit_valve_pump']) > 0) {

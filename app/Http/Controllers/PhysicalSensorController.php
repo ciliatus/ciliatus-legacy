@@ -89,7 +89,7 @@ class PhysicalSensorController extends ApiController
 
         $physical_sensor = PhysicalSensor::find($data['f_delete_physical_sensors_id']);
         if (is_null($physical_sensor)) {
-            return $this->setStatusCode(422)->respondWithError('PhysicalSensor not found');
+            return $this->respondNotFound('PhysicalSensor not found');
         }
 
         $logical_sensors = LogicalSensor::where('physical_sensor_id', $physical_sensor->id)->get();
@@ -148,7 +148,7 @@ class PhysicalSensorController extends ApiController
 
         $physical_sensor = PhysicalSensor::find($data['f_edit_physical_sensor_id']);
         if (is_null($physical_sensor)) {
-            return $this->setStatusCode(422)->respondWithError('PhysicalSensor not found');
+            return $this->respondNotFound('PhysicalSensor not found');
         }
 
         if (isset($data['f_edit_physical_sensor_controlunit']) && strlen($data['f_edit_physical_sensor_controlunit']) > 0) {

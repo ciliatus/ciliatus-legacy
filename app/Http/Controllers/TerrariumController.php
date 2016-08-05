@@ -240,7 +240,7 @@ class TerrariumController extends ApiController
 
         $terrarium = Terrarium::find($data['f_delete_terra_id']);
         if (is_null($terrarium)) {
-            return $this->setStatusCode(422)->respondWithError('Terrarium not found');
+            return $this->respondNotFound('Terrarium not found');
         }
 
 
@@ -321,7 +321,7 @@ class TerrariumController extends ApiController
 
         $terrarium = Terrarium::find($data['f_edit_terra_id']);
         if (is_null($terrarium)) {
-            return $this->setStatusCode(422)->respondWithError('Terrarium not found');
+            return $this->respondNotFound('Terrarium not found');
         }
 
 

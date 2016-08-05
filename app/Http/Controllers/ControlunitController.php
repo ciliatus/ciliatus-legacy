@@ -65,7 +65,7 @@ class ControlunitController extends ApiController
             return $this->respondNotFound('Controlunit not found');
         }
 
-        Cache::add('api-show-controlunit-' . $id, $controlunit, env('CACHE_API_TERRARIUM_SHOW_DURATION') / 60);
+        Cache::add('api-show-controlunit-' . $id, $controlunit, env('CACHE_API_CONTROLUNIT_SHOW_DURATION') / 60);
 
         return $this->setStatusCode(200)->respondWithData($this->controlunitTransformer->transform($controlunit->toArray()));
     }
