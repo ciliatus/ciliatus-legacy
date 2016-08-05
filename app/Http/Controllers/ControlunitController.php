@@ -41,7 +41,12 @@ class ControlunitController extends ApiController
 
         $controlunits = Controlunit::paginate(10);
 
-        return $this->setStatusCode(200)->respondWithPagination($this->controlunitTransformer->transformCollection($controlunits->toArray()['data']), $controlunits);
+        return $this->setStatusCode(200)->respondWithPagination(
+            $this->controlunitTransformer->transformCollection(
+                $controlunits->toArray()['data']
+            ),
+            $controlunits
+        );
     }
 
     /**
@@ -56,7 +61,11 @@ class ControlunitController extends ApiController
         }
 
         if (Cache::has('api-show-controlunit-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData($this->controlunitTransformer->transform(Cache::get('api-show-controlunit-' . $id)->toArray()));
+            return $this->setStatusCode(200)->respondWithData(
+                $this->controlunitTransformer->transform(
+                    Cache::get('api-show-controlunit-' . $id)->toArray()
+                )
+            );
         }
 
         $controlunit = Controlunit::with('physical_sensors', 'controlunits')->find($id);
@@ -67,7 +76,11 @@ class ControlunitController extends ApiController
 
         Cache::add('api-show-controlunit-' . $id, $controlunit, env('CACHE_API_CONTROLUNIT_SHOW_DURATION') / 60);
 
-        return $this->setStatusCode(200)->respondWithData($this->controlunitTransformer->transform($controlunit->toArray()));
+        return $this->setStatusCode(200)->respondWithData(
+            $this->controlunitTransformer->transform(
+                $controlunit->toArray()
+            )
+        );
     }
 
 

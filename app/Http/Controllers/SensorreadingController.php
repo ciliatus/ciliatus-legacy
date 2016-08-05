@@ -43,8 +43,12 @@ class SensorreadingController extends ApiController
 
         $sensorreading = Sensorreading::paginate(100);
 
-        return $this->setStatusCode(200)
-                    ->respondWithPagination($this->sensorreadingTransformer->transformCollection($sensorreading->toArray()['data']), $sensorreading);
+        return $this->setStatusCode(200)->respondWithPagination(
+            $this->sensorreadingTransformer->transformCollection(
+                $sensorreading->toArray()['data']
+            ),
+            $sensorreading
+        );
     }
 
     /**
@@ -64,8 +68,11 @@ class SensorreadingController extends ApiController
             return $this->respondNotFound('Sensorreading not found');
         }
 
-        return $this->setStatusCode(200)
-                    ->respondWithData($this->sensorreadingTransformer->transform($sensorreading->toArray()));
+        return $this->setStatusCode(200)->respondWithData(
+            $this->sensorreadingTransformer->transform(
+                $sensorreading->toArray()
+            )
+        );
     }
 
     /**
@@ -140,7 +147,11 @@ class SensorreadingController extends ApiController
         $sensorreading->rawvalue = (float)$data['rawvalue'];
         $sensorreading->save();
 
-        return $this->setStatusCode(200)->respondWithData($this->sensorreadingTransformer->transform($sensorreading->toArray()));
+        return $this->setStatusCode(200)->respondWithData(
+            $this->sensorreadingTransformer->transform(
+                $sensorreading->toArray()
+            )
+        );
 
     }
 

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Transformers\AnimalTransformer;
 use App\Animal;
 use App\Terrarium;
+use Cache;
 use Carbon\Carbon;
 use Gate;
 use Request;
@@ -42,7 +43,12 @@ class AnimalController extends ApiController
 
         $animals = Animal::paginate(10);
 
-        return $this->setStatusCode(200)->respondWithPagination($this->animalTransformer->transformCollection($animals->toArray()['data']), $animals);
+        return $this->setStatusCode(200)->respondWithPagination(
+            $this->animalTransformer->transformCollection(
+                $animals->toArray()['data']
+            ),
+            $animals
+        );
     }
 
     /**
@@ -57,7 +63,11 @@ class AnimalController extends ApiController
         }
 
         if (Cache::has('api-show-animal-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData($this->animalTransformer->transform(Cache::get('api-show-animal-' . $id)->toArray()));
+            return $this->setStatusCode(200)->respondWithData(
+                $this->animalTransformer->transform(
+                    Cache::get('api-show-animal-' . $id)->toArray()
+                )
+            );
         }
 
         $animal = Animal::with('physical_sensors', 'animals')->find($id);
@@ -68,7 +78,11 @@ class AnimalController extends ApiController
 
         Cache::add('api-show-animal-' . $id, $animal, env('CACHE_API_ANIMAL_SHOW_DURATION') / 60);
 
-        return $this->setStatusCode(200)->respondWithData($this->animalTransformer->transform($animal->toArray()));
+        return $this->setStatusCode(200)->respondWithData(
+            $this->animalTransformer->transform(
+                $animal->toArray()
+            )
+        );
     }
 
 

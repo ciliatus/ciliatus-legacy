@@ -44,7 +44,12 @@ class ValveController extends ApiController
 
         $valves = Valve::paginate(10);
 
-        return $this->setStatusCode(200)->respondWithPagination($this->valveTransformer->transformCollection($valves->toArray()['data']), $valves);
+        return $this->setStatusCode(200)->respondWithPagination(
+            $this->valveTransformer->transformCollection(
+                $valves->toArray()['data']
+            ),
+            $valves
+        );
     }
 
     /**
@@ -59,7 +64,11 @@ class ValveController extends ApiController
         }
 
         if (Cache::has('api-show-valve-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData($this->valveTransformer->transform(Cache::get('api-show-valve-' . $id)->toArray()));
+            return $this->setStatusCode(200)->respondWithData(
+                $this->valveTransformer->transform(
+                    Cache::get('api-show-valve-' . $id)->toArray()
+                )
+            );
         }
 
         $valve = Valve::with('physical_sensors', 'valves')->find($id);
@@ -70,7 +79,11 @@ class ValveController extends ApiController
 
         Cache::add('api-show-valve-' . $id, $valve, env('CACHE_API_VALVE_SHOW_DURATION') / 60);
 
-        return $this->setStatusCode(200)->respondWithData($this->valveTransformer->transform($valve->toArray()));
+        return $this->setStatusCode(200)->respondWithData(
+            $this->valveTransformer->transform(
+                $valve->toArray()
+            )
+        );
     }
 
 

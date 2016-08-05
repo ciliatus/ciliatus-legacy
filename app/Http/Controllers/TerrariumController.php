@@ -45,7 +45,12 @@ class TerrariumController extends ApiController
 
         $terraria = Terrarium::paginate(10);
 
-        return $this->setStatusCode(200)->respondWithPagination($this->terrariumTransformer->transformCollection($terraria->toArray()['data']), $terraria);
+        return $this->setStatusCode(200)->respondWithPagination(
+            $this->terrariumTransformer->transformCollection(
+                $terraria->toArray()['data']
+            ),
+            $terraria
+        );
     }
 
     /**
@@ -63,7 +68,11 @@ class TerrariumController extends ApiController
 
         $cache_key = 'api-show-terrarium-' . $id;
         if (Cache::has('api-show-terrarium-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData($this->terrariumTransformer->transform(Cache::get($cache_key)->toArray()));
+            return $this->setStatusCode(200)->respondWithData(
+                $this->terrariumTransformer->transform(
+                    Cache::get($cache_key)->toArray()
+                )
+            );
         }
 
         $terrarium = Terrarium::with('physical_sensors', 'animals')->find($id);

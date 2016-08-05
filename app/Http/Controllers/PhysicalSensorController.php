@@ -44,7 +44,12 @@ class PhysicalSensorController extends ApiController
 
         $physical_sensors = PhysicalSensor::paginate(10);
 
-        return $this->setStatusCode(200)->respondWithPagination($this->physicalSensorTransformer->transformCollection($physical_sensors->toArray()['data']), $physical_sensors);
+        return $this->setStatusCode(200)->respondWithPagination(
+            $this->physicalSensorTransformer->transformCollection(
+                $physical_sensors->toArray()['data']
+            ),
+            $physical_sensors
+        );
     }
 
     /**
@@ -59,7 +64,11 @@ class PhysicalSensorController extends ApiController
         }
 
         if (Cache::has('api-show-physical_sensor-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData($this->physicalSensorTransformer->transform(Cache::get('api-show-physical_sensor-' . $id)->toArray()));
+            return $this->setStatusCode(200)->respondWithData(
+                $this->physicalSensorTransformer->transform(
+                    Cache::get('api-show-physical_sensor-' . $id)->toArray()
+                )
+            );
         }
 
         $physical_sensor = PhysicalSensor::with('logical_sensors')->find($id);
@@ -70,7 +79,11 @@ class PhysicalSensorController extends ApiController
 
         Cache::add('api-show-physical_sensor-' . $id, $physical_sensor, env('CACHE_API_PHYSICALSENSOR_SHOW_DURATION') / 60);
 
-        return $this->setStatusCode(200)->respondWithData($this->physicalSensorTransformer->transform($physical_sensor->toArray()));
+        return $this->setStatusCode(200)->respondWithData(
+            $this->physicalSensorTransformer->transform(
+                $physical_sensor->toArray()
+            )
+        );
     }
 
 

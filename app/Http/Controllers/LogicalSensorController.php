@@ -43,7 +43,12 @@ class LogicalSensorController extends ApiController
 
         $logical_sensors = LogicalSensor::paginate(10);
 
-        return $this->setStatusCode(200)->respondWithPagination($this->physicalSensorTransformer->transformCollection($logical_sensors->toArray()['data']), $logical_sensors);
+        return $this->setStatusCode(200)->respondWithPagination(
+            $this->logicalSensorTransformer->transformCollection(
+                $logical_sensors->toArray()['data']
+            ),
+            $logical_sensors
+        );
     }
 
     /**
@@ -58,7 +63,11 @@ class LogicalSensorController extends ApiController
         }
 
         if (Cache::has('api-show-logical_sensor-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData($this->physicalSensorTransformer->transform(Cache::get('api-show-logical_sensor-' . $id)->toArray()));
+            return $this->setStatusCode(200)->respondWithData(
+                $this->logicalSensorTransformer->transform(
+                    Cache::get('api-show-logical_sensor-' . $id)->toArray()
+                )
+            );
         }
 
         $logical_sensor = LogicalSensor::with('logical_sensor')->find($id);
@@ -69,7 +78,11 @@ class LogicalSensorController extends ApiController
 
         Cache::add('api-show-logical_sensor-' . $id, $logical_sensor, env('CACHE_API_LOGICALSENSOR_SHOW_DURATION') / 60);
 
-        return $this->setStatusCode(200)->respondWithData($this->physicalSensorTransformer->transform($logical_sensor->toArray()));
+        return $this->setStatusCode(200)->respondWithData(
+            $this->logicalSensorTransformer->transform(
+                $logical_sensor->toArray()
+            )
+        );
     }
 
 
