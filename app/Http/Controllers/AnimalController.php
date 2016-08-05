@@ -66,7 +66,7 @@ class AnimalController extends ApiController
             return $this->respondNotFound('Animal not found');
         }
 
-        Cache::add('api-show-animal-' . $id, $animal, env('CACHE_API_TERRARIUM_SHOW_DURATION') / 60);
+        Cache::add('api-show-animal-' . $id, $animal, env('CACHE_API_ANIMAL_SHOW_DURATION') / 60);
 
         return $this->setStatusCode(200)->respondWithData($this->animalTransformer->transform($animal->toArray()));
     }

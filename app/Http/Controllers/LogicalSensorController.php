@@ -67,7 +67,7 @@ class LogicalSensorController extends ApiController
             return $this->respondNotFound('LogicalSensor not found');
         }
 
-        Cache::add('api-show-logical_sensor-' . $id, $logical_sensor, env('CACHE_API_TERRARIUM_SHOW_DURATION') / 60);
+        Cache::add('api-show-logical_sensor-' . $id, $logical_sensor, env('CACHE_API_LOGICALSENSOR_SHOW_DURATION') / 60);
 
         return $this->setStatusCode(200)->respondWithData($this->physicalSensorTransformer->transform($logical_sensor->toArray()));
     }

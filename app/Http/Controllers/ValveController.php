@@ -68,7 +68,7 @@ class ValveController extends ApiController
             return $this->respondNotFound('Valve not found');
         }
 
-        Cache::add('api-show-valve-' . $id, $valve, env('CACHE_API_TERRARIUM_SHOW_DURATION') / 60);
+        Cache::add('api-show-valve-' . $id, $valve, env('CACHE_API_VALVE_SHOW_DURATION') / 60);
 
         return $this->setStatusCode(200)->respondWithData($this->valveTransformer->transform($valve->toArray()));
     }
