@@ -54,6 +54,9 @@ class User extends Authenticatable
         return $this->abilities()->where('name', $ability)->get()->count() > 0;
     }
 
+    /**
+     *
+     */
     public function grantFullAbilities()
     {
         foreach (UserAbility::abilities() as $a) {

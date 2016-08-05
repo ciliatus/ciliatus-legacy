@@ -20,16 +20,25 @@ class Valve extends Model
 
     public $incrementing = false;
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function terrarium()
     {
         return $this->belongsTo('App\Terrarium');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function controlunit()
     {
         return $this->belongsTo('App\Controlunit');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function pump()
     {
         return $this->belongsTo('App\Pump');

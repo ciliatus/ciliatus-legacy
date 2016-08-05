@@ -21,6 +21,9 @@ class PhysicalSensor extends Model
 
     public $incrementing = false;
 
+    /**
+     * @var array
+     */
     protected $dates = ['created_at', 'updated_at', 'heartbeat_at'];
 
     /**
@@ -50,6 +53,9 @@ class PhysicalSensor extends Model
         return $this->belongsTo('App\Controlunit');
     }
 
+    /**
+     * @return string
+     */
     public function generateConfig()
     {
         $lsstr = [];

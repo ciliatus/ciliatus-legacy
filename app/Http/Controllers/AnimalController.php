@@ -86,6 +86,9 @@ class AnimalController extends ApiController
     }
 
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function destroy()
     {
 

@@ -28,11 +28,17 @@ class LogicalSensor extends Model
         return $this->belongsTo('App\PhysicalSensor');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function sensorreadings()
     {
         return $this->hasMany('App\Sensorreading');
     }
 
+    /**
+     * @return float|int|mixed
+     */
     public function getCurrentCookedValue()
     {
         switch ($this->type) {
@@ -45,11 +51,18 @@ class LogicalSensor extends Model
         }
     }
 
+    /**
+     * @param $value
+     * @return bool
+     */
     public function checkRawValue($value)
     {
         return ($value >= $this->rawvalue_lowerlimit && $value <= $this->rawvalue_upperlimit);
     }
 
+    /**
+     * @return mixed|string
+     */
     public function typeReadable()
     {
         switch ($this->type) {
@@ -62,6 +75,9 @@ class LogicalSensor extends Model
         }
     }
 
+    /**
+     * @return mixed|string
+     */
     public function valueReadable()
     {
         switch ($this->type) {

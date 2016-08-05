@@ -20,11 +20,17 @@ class Pump extends Model
 
     public $incrementing = false;
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function controlunit()
     {
         return $this->belongsTo('App\Controlunit');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function valves()
     {
         return $this->belongsTo('App\Valves');

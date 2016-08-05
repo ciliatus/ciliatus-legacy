@@ -4,6 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Log
+ * @package App
+ */
 class Log extends Model
 {
     use Traits\Uuids;

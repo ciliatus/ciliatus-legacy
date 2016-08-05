@@ -48,6 +48,10 @@ class ViewController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function terrariaShow($id)
     {
         $terrarium = Terrarium::find($id);
@@ -130,6 +134,10 @@ class ViewController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function animalsShow($id)
     {
         $animal = Animal::find($id);
@@ -200,6 +208,10 @@ class ViewController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function pumpsShow($id)
     {
         $pump = Pump::find($id);
@@ -273,6 +285,10 @@ class ViewController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function valvesShow($id)
     {
         $valve = Valve::find($id);
@@ -348,6 +364,10 @@ class ViewController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function controlunitsShow($id)
     {
         $cu = Controlunit::find($id);
@@ -416,6 +436,10 @@ class ViewController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function physical_sensorsShow($id)
     {
         $ps = PhysicalSensor::find($id);
@@ -489,6 +513,10 @@ class ViewController extends Controller
         ]);
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function logical_sensorsShow($id)
     {
         $ls = LogicalSensor::find($id);

@@ -34,6 +34,9 @@ class Animal extends Model
         return $this->belongsTo('App\Terrarium');
     }
 
+    /**
+     * @return array
+     */
     public function getAge()
     {
         if (is_null($this->death_date)) {
