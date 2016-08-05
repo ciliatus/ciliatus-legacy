@@ -60,21 +60,11 @@ class ControlunitController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if (Cache::has('api-show-controlunit-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData(
-                $this->controlunitTransformer->transform(
-                    Cache::get('api-show-controlunit-' . $id)->toArray()
-                )
-            );
-        }
-
         $controlunit = Controlunit::with('physical_sensors', 'controlunits')->find($id);
 
         if (!$controlunit) {
             return $this->respondNotFound('Controlunit not found');
         }
-
-        Cache::add('api-show-controlunit-' . $id, $controlunit, env('CACHE_API_CONTROLUNIT_SHOW_DURATION') / 60);
 
         return $this->setStatusCode(200)->respondWithData(
             $this->controlunitTransformer->transform(

@@ -58,21 +58,11 @@ class PumpController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if (Cache::has('api-show-pump-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData(
-                $this->pumpTransformer->transform(
-                    Cache::get('api-show-pump-' . $id)->toArray()
-                )
-            );
-        }
-
         $pump = Pump::with('physical_sensors', 'pumps')->find($id);
 
         if (!$pump) {
             return $this->respondNotFound('Pump not found');
         }
-
-        Cache::add('api-show-pump-' . $id, $pump, env('CACHE_API_PUMP_SHOW_DURATION') / 60);
 
         return $this->setStatusCode(200)->respondWithData(
             $this->pumpTransformer->transform(

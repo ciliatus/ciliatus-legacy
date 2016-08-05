@@ -63,21 +63,11 @@ class PhysicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if (Cache::has('api-show-physical_sensor-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData(
-                $this->physicalSensorTransformer->transform(
-                    Cache::get('api-show-physical_sensor-' . $id)->toArray()
-                )
-            );
-        }
-
         $physical_sensor = PhysicalSensor::with('logical_sensors')->find($id);
 
         if (!$physical_sensor) {
             return $this->respondNotFound('PhysicalSensor not found');
         }
-
-        Cache::add('api-show-physical_sensor-' . $id, $physical_sensor, env('CACHE_API_PHYSICALSENSOR_SHOW_DURATION') / 60);
 
         return $this->setStatusCode(200)->respondWithData(
             $this->physicalSensorTransformer->transform(

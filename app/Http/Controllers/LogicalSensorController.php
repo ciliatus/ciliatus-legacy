@@ -62,21 +62,11 @@ class LogicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if (Cache::has('api-show-logical_sensor-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData(
-                $this->logicalSensorTransformer->transform(
-                    Cache::get('api-show-logical_sensor-' . $id)->toArray()
-                )
-            );
-        }
-
         $logical_sensor = LogicalSensor::with('logical_sensor')->find($id);
 
         if (!$logical_sensor) {
             return $this->respondNotFound('LogicalSensor not found');
         }
-
-        Cache::add('api-show-logical_sensor-' . $id, $logical_sensor, env('CACHE_API_LOGICALSENSOR_SHOW_DURATION') / 60);
 
         return $this->setStatusCode(200)->respondWithData(
             $this->logicalSensorTransformer->transform(

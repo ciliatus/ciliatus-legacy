@@ -63,22 +63,11 @@ class ValveController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if (Cache::has('api-show-valve-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData(
-                $this->valveTransformer->transform(
-                    Cache::get('api-show-valve-' . $id)->toArray()
-                )
-            );
-        }
-
         $valve = Valve::with('physical_sensors', 'valves')->find($id);
 
         if (!$valve) {
             return $this->respondNotFound('Valve not found');
         }
-
-        Cache::add('api-show-valve-' . $id, $valve, env('CACHE_API_VALVE_SHOW_DURATION') / 60);
-
         return $this->setStatusCode(200)->respondWithData(
             $this->valveTransformer->transform(
                 $valve->toArray()

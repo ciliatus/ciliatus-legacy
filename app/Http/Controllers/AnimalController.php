@@ -62,21 +62,11 @@ class AnimalController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if (Cache::has('api-show-animal-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData(
-                $this->animalTransformer->transform(
-                    Cache::get('api-show-animal-' . $id)->toArray()
-                )
-            );
-        }
-
         $animal = Animal::with('physical_sensors', 'animals')->find($id);
 
         if (!$animal) {
             return $this->respondNotFound('Animal not found');
         }
-
-        Cache::add('api-show-animal-' . $id, $animal, env('CACHE_API_ANIMAL_SHOW_DURATION') / 60);
 
         return $this->setStatusCode(200)->respondWithData(
             $this->animalTransformer->transform(
