@@ -4,10 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Controlunit;
 use App\Http\Transformers\ControlunitTransformer;
-use Cache;
 use Gate;
-use Request;
-
+use Illuminate\Http\Request;
 
 /**
  * Class ControlunitController
@@ -77,16 +75,14 @@ class ControlunitController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy()
+    public function destroy(Request $request)
     {
 
         if (Gate::denies('api-write:controlunit')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
-        $controlunit = Controlunit::find($data['f_delete_controlunits_id']);
+        $controlunit = Controlunit::find($request->input('id'));
         if (is_null($controlunit)) {
             return $this->setStatusCode(422)->respondWithError('Controlunit not found');
         }
@@ -105,17 +101,15 @@ class ControlunitController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store()
+    public function store(Request $request)
     {
 
         if (Gate::denies('api-write:controlunit')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
         $controlunit = Controlunit::create();
-        $controlunit->name = $data['f_create_controlunit_name'];
+        $controlunit->name = $request->input('name');
         $controlunit->save();
 
         return $this->setStatusCode(200)->respondWithData(
@@ -135,22 +129,20 @@ class ControlunitController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update()
+    public function update(Request $request)
     {
 
         if (Gate::denies('api-write:controlunit')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
-        $controlunit = Controlunit::find($data['f_edit_controlunit_id']);
+        $controlunit = Controlunit::find($request->input('id'));
         if (is_null($controlunit)) {
             return $this->setStatusCode(422)->respondWithError('Controlunit not found');
         }
 
 
-        $controlunit->name = $data['f_edit_controlunit_name'];
+        $controlunit->name = $request->input('name');
 
         $controlunit->save();
 

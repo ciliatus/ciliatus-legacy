@@ -9,7 +9,7 @@ use App\Valve;
 use App\Terrarium;
 use Cache;
 use Gate;
-use Request;
+use Illuminate\Http\Request;
 
 
 /**
@@ -79,16 +79,14 @@ class ValveController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy()
+    public function destroy(Request $request)
     {
 
         if (Gate::denies('api-write:valve')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
-        $valve = Valve::find($data['f_delete_valves_id']);
+        $valve = Valve::find($request->input('id'));
         if (is_null($valve)) {
             return $this->respondNotFound('Valve not found');
         }
@@ -107,17 +105,15 @@ class ValveController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store()
+    public function store(Request $request)
     {
 
         if (Gate::denies('api-write:valve')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
         $valve = Valve::create();
-        $valve->name = $data['f_create_valve_name'];
+        $valve->name = $request->input('name');
         $valve->save();
 
         return $this->setStatusCode(200)->respondWithData(
@@ -137,22 +133,20 @@ class ValveController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update()
+    public function update(Request $request)
     {
 
         if (Gate::denies('api-write:valve')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
-        $valve = Valve::find($data['f_edit_valve_id']);
+        $valve = Valve::find($request->input('id'));
         if (is_null($valve)) {
             return $this->respondNotFound('Valve not found');
         }
 
-        if (isset($data['f_edit_valve_pump']) && strlen($data['f_edit_valve_pump']) > 0) {
-            $pump = Pump::find($data['f_edit_valve_pump']);
+        if ($request->has('pump') && strlen($request->input('pump')) > 0) {
+            $pump = Pump::find($request->input('pump'));
             if (is_null($pump)) {
                 return $this->setStatusCode(422)->respondWithError('Pump not found');
             }
@@ -162,8 +156,8 @@ class ValveController extends ApiController
             $pump_id = null;
         }
 
-        if (isset($data['f_edit_valve_terrarium']) && strlen($data['f_edit_valve_terrarium']) > 0) {
-            $terrarium = Terrarium::find($data['f_edit_valve_terrarium']);
+        if ($request->has('terrarium') && strlen($request->input('terrarium')) > 0) {
+            $terrarium = Terrarium::find($request->input('terrarium'));
             if (is_null($terrarium)) {
                 return $this->setStatusCode(422)->respondWithError('Terrarium not found');
             }
@@ -173,8 +167,8 @@ class ValveController extends ApiController
             $terrarium_id = null;
         }
 
-        if (isset($data['f_edit_valve_controlunit']) && strlen($data['f_edit_valve_controlunit']) > 0) {
-            $controlunit = Controlunit::find($data['f_edit_valve_controlunit']);
+        if ($request->has('controlunit') && strlen($request->input('controlunit')) > 0) {
+            $controlunit = Controlunit::find($request->input('controlunit'));
             if (is_null($controlunit)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');
             }
@@ -184,7 +178,7 @@ class ValveController extends ApiController
             $controlunit_id = null;
         }
 
-        $valve->name = $data['f_edit_valve_name'];
+        $valve->name = $request->input('name');
         $valve->pump_id = $pump_id;
         $valve->terrarium_id = $terrarium_id;
         $valve->controlunit_id = $controlunit_id;

@@ -11,30 +11,30 @@
 
         <div class="x_content">
             <br />
-            <form class="form-horizontal form-label-left" name="f_edit_physical_sensor" action="{{ url('api/v1/physical_sensors/' . $physical_sensor->id) }}" data-method="PUT">
+            <form class="form-horizontal form-label-left" name="sensor" action="{{ url('api/v1/physical_sensors/' . $physical_sensor->id) }}" data-method="PUT">
 
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">ID</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly="readonly" placeholder="ID" name="f_edit_physical_sensor_id" value="{{ $physical_sensor->id }}">
+                        <input type="text" class="form-control" readonly="readonly" placeholder="ID" name="sensor_id" value="{{ $physical_sensor->id }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.name')</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" placeholder="@lang('labels.name')" name="f_edit_physical_sensor_name" value="{{ $physical_sensor->name }}">
+                        <input type="text" class="form-control" placeholder="@lang('labels.name')" name="sensor_name" value="{{ $physical_sensor->name }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.model')</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" placeholder="@lang('labels.model')" name="f_edit_physical_sensor_model" value="{{ $physical_sensor->model }}">
+                        <input type="text" class="form-control" placeholder="@lang('labels.model')" name="sensor_model" value="{{ $physical_sensor->model }}">
                     </div>
                 </div>
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('components.terraria', 1)</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <select class="form-control" name="f_edit_physical_sensor_terrarium">
+                        <select class="form-control" name="sensor_terrarium">
                             <option></option>
                             @foreach ($terraria as $t)
                                 <option value="{{ $t->id }}" @if($physical_sensor->belongsTo_id == $t->id && $physical_sensor->belongsTo_type == 'terrarium')selected="selected"@endif>{{ $t->name }}</option>
@@ -45,7 +45,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('components.controlunits', 1)</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <select class="form-control" name="f_edit_physical_sensor_controlunit">
+                        <select class="form-control" name="sensor_controlunit">
                             <option></option>
                             @foreach ($controlunits as $c)
                                 <option value="{{ $c->id }}" @if($physical_sensor->controlunit_id == $c->id)selected="selected"@endif>{{ $c->name }}</option>
@@ -57,7 +57,7 @@
                 <div class="ln_solid"></div>
                 <div class="form-group">
                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success" name="f_edit_physical_sensor_submit">@lang('buttons.save')</button>
+                        <button type="submit" class="btn btn-success" name="sensor_submit">@lang('buttons.save')</button>
                     </div>
                 </div>
 

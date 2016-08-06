@@ -11,12 +11,12 @@
 
             <div class="x_content">
                 <br />
-                <form class="form-horizontal form-label-left" name="f_create_logical_sensor" action="{{ url('api/v1/logical_sensors') }}" data-method="POST">
+                <form class="form-horizontal form-label-left" name="sensor" action="{{ url('api/v1/logical_sensors') }}" data-method="POST">
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.name')</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="@lang('labels.name')" name="f_create_logical_sensor_name" value="">
+                            <input type="text" class="form-control" placeholder="@lang('labels.name')" name="sensor_name" value="">
                         </div>
                     </div>
 
@@ -24,7 +24,7 @@
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success" name="f_edit_logical_sensor_submit">@lang('buttons.next')</button>
+                            <button type="submit" class="btn btn-success" name="sensor_submit">@lang('buttons.next')</button>
                         </div>
                     </div>
 

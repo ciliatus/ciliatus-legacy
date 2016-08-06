@@ -16,28 +16,28 @@
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">ID</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="ID" name="f_delete_animals_id" value="{{ $animal->id }}" readonly="readonly">
+                            <input type="text" class="form-control" placeholder="ID" name="id" value="{{ $animal->id }}" readonly="readonly">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.name')</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="@lang('labels.name')" name="f_delete_animals_name" value="{{ $animal->name }}" readonly="readonly">
+                            <input type="text" class="form-control" placeholder="@lang('labels.name')" name="name" value="{{ $animal->name }}" readonly="readonly">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.display_name')</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="@lang('labels.display_name')" name="f_delete_animals_friendlyname" value="{{ $animal->friendly_name }}" readonly="readonly">
+                            <input type="text" class="form-control" placeholder="@lang('labels.display_name')" name="friendlyname" value="{{ $animal->friendly_name }}" readonly="readonly">
                         </div>
                     </div>
 
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-danger" name="f_delete_animals_submit">@lang('buttons.delete')</button>
+                            <button type="submit" class="btn btn-danger" name="submit">@lang('buttons.delete')</button>
                         </div>
                     </div>
 

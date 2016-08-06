@@ -8,7 +8,7 @@ use App\LogicalSensor;
 use App\PhysicalSensor;
 use Cache;
 use Gate;
-use Request;
+use Illuminate\Http\Request;
 
 
 /**
@@ -80,17 +80,14 @@ class PhysicalSensorController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy()
+    public function destroy(Request $request)
     {
 
         if (Gate::denies('api-write:physical_sensor')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
-
-        $physical_sensor = PhysicalSensor::find($data['f_delete_physical_sensors_id']);
+        $physical_sensor = PhysicalSensor::find($request->input('sensors_id'));
         if (is_null($physical_sensor)) {
             return $this->respondNotFound('PhysicalSensor not found');
         }
@@ -115,17 +112,15 @@ class PhysicalSensorController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store()
+    public function store(Request $request)
     {
 
         if (Gate::denies('api-write:physical_sensor')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
         $physical_sensor = PhysicalSensor::create();
-        $physical_sensor->name = $data['f_create_physical_sensor_name'];
+        $physical_sensor->name = $request->input('sensor_name');
         $physical_sensor->save();
 
         return $this->setStatusCode(200)->respondWithData(
@@ -145,22 +140,20 @@ class PhysicalSensorController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update()
+    public function update(Request $request)
     {
 
         if (Gate::denies('api-write:physical_sensor')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
-        $physical_sensor = PhysicalSensor::find($data['f_edit_physical_sensor_id']);
+        $physical_sensor = PhysicalSensor::find($request->input('sensor_id'));
         if (is_null($physical_sensor)) {
             return $this->respondNotFound('PhysicalSensor not found');
         }
 
-        if (isset($data['f_edit_physical_sensor_controlunit']) && strlen($data['f_edit_physical_sensor_controlunit']) > 0) {
-            $controlunit = Controlunit::find($data['f_edit_physical_sensor_controlunit']);
+        if ($request->has('sensor_controlunit') && strlen($request->input('sensor_controlunit')) > 0) {
+            $controlunit = Controlunit::find($request->input('sensor_controlunit'));
             if (is_null($controlunit)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');
             }
@@ -170,10 +163,10 @@ class PhysicalSensorController extends ApiController
             $controlunit_id = null;
         }
 
-        $physical_sensor->name = $data['f_edit_physical_sensor_name'];
-        $physical_sensor->model = $data['f_edit_physical_sensor_model'];
+        $physical_sensor->name = $request->input('sensor_name');
+        $physical_sensor->model = $request->input('sensor_model');
         $physical_sensor->belongsTo_type = 'terrarium';
-        $physical_sensor->belongsTo_id = $data['f_edit_physical_sensor_terrarium'];
+        $physical_sensor->belongsTo_id = $request->input('sensor_terrarium');
         $physical_sensor->controlunit_id = $controlunit_id;
 
         $physical_sensor->save();

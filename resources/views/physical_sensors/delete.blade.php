@@ -11,19 +11,19 @@
 
             <div class="x_content">
                 <br />
-                <form class="form-horizontal form-label-left" name="f_delete_physical_sensors" action="{{ url('api/v1/physical_sensors/' . $physical_sensor->id) }}" data-method="DELETE">
+                <form class="form-horizontal form-label-left" name="sensors" action="{{ url('api/v1/physical_sensors/' . $physical_sensor->id) }}" data-method="DELETE">
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">ID</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="Name" name="f_delete_physical_sensors_id" value="{{ $physical_sensor->id }}" readonly="readonly">
+                            <input type="text" class="form-control" placeholder="Name" name="sensors_id" value="{{ $physical_sensor->id }}" readonly="readonly">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.name')</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="@lang('labels.name')" name="f_delete_physical_sensors_name" value="{{ $physical_sensor->name }}" readonly="readonly">
+                            <input type="text" class="form-control" placeholder="@lang('labels.name')" name="sensors_name" value="{{ $physical_sensor->name }}" readonly="readonly">
                         </div>
                     </div>
 
@@ -31,7 +31,7 @@
                     <div class="ln_solid"></div>
                     <div class="form-group">
                         <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-danger" name="f_delete_physical_sensors_submit">@lang('buttons.delete')</button>
+                            <button type="submit" class="btn btn-danger" name="sensors_submit">@lang('buttons.delete')</button>
                         </div>
                     </div>
 

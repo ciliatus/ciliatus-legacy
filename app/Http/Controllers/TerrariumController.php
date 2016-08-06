@@ -10,7 +10,7 @@ use App\Valve;
 use Cache;
 use Carbon\Carbon;
 use Gate;
-use Request;
+use Illuminate\Http\Request;
 
 
 /**
@@ -57,14 +57,12 @@ class TerrariumController extends ApiController
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
-
-        $request = Request::all();
 
         $cache_key = 'api-show-terrarium-' . $id;
         if (Cache::has('api-show-terrarium-' . $id)) {
@@ -93,12 +91,12 @@ class TerrariumController extends ApiController
          */
         $history_to = null;
         if (isset($history_to['history_from'])) {
-            $history_to = Carbon::parse($request['history_to']);
+            $history_to = Carbon::parse($request->get('history_to'));
         }
 
         $history_minutes = 180;
-        if (isset($request['history_from'])) {
-            $history_minutes = $request['history_minutes'];
+        if ($request->has('history_from')) {
+            $history_minutes = $request->get('history_minutes');
         }
 
         /*
@@ -238,16 +236,14 @@ class TerrariumController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy()
+    public function destroy(Request $request)
     {
 
         if (Gate::denies('api-write:terrarium')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
-        $terrarium = Terrarium::find($data['f_delete_terra_id']);
+        $terrarium = Terrarium::find($request->input('id'));
         if (is_null($terrarium)) {
             return $this->respondNotFound('Terrarium not found');
         }
@@ -294,17 +290,15 @@ class TerrariumController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store()
+    public function store(Request $request)
     {
 
         if (Gate::denies('api-write:terrarium')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
         $terrarium = Terrarium::create();
-        $terrarium->friendly_name = $data['f_create_terra_displayname'];
+        $terrarium->friendly_name = $request->input('displayname');
         $terrarium->save();
 
         return $this->setStatusCode(200)->respondWithData(
@@ -324,16 +318,14 @@ class TerrariumController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update()
+    public function update(Request $request)
     {
 
         if (Gate::denies('api-write:terrarium')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
-        $terrarium = Terrarium::find($data['f_edit_terra_id']);
+        $terrarium = Terrarium::find($request->input('id'));
         if (is_null($terrarium)) {
             return $this->respondNotFound('Terrarium not found');
         }
@@ -342,13 +334,13 @@ class TerrariumController extends ApiController
         /*
          * Update valves
          */
-        if (isset($data['f_edit_terra_valves'])) {
+        if ($request->has('valves')) {
             /*
              * check all valves first
              * so we don't fail after a few
              * and get inconsistent data
              */
-            foreach ($data['f_edit_terra_valves'] as $a) {
+            foreach ($request->input('valves') as $a) {
                 $valve = Valve::find($a);
                 if (is_null($valve)) {
                     return $this->setStatusCode(422)->respondWithError('Valve not found');
@@ -370,7 +362,7 @@ class TerrariumController extends ApiController
                  * If valve was selected in form: update terrarium_id
                  * otherwise set it to null
                  */
-                if (in_array($a->id, $data['f_edit_terra_valves'])) {
+                if (in_array($a->id, $request->input('valves'))) {
                     $a->terrarium_id = $terrarium->id;
                 }
                 else {
@@ -391,13 +383,13 @@ class TerrariumController extends ApiController
         /*
          * Update animals
          */
-        if (isset($data['f_edit_terra_animals'])) {
+        if ($request->has('animals')) {
             /*
              * check all animals first
              * so we don't fail after a few
              * and get inconsistent data
              */
-            foreach ($data['f_edit_terra_animals'] as $a) {
+            foreach ($request->input('animals') as $a) {
                 $animal = Animal::find($a);
                 if (is_null($animal)) {
                     return $this->setStatusCode(422)->respondWithError('Animal not found');
@@ -419,7 +411,7 @@ class TerrariumController extends ApiController
                  * If animal was selected in form: update terrarium_id
                  * otherwise set it to null
                  */
-                if (in_array($a->id, $data['f_edit_terra_animals'])) {
+                if (in_array($a->id, $request->input('animals'))) {
                     $a->terrarium_id = $terrarium->id;
                 }
                 else {
@@ -436,8 +428,8 @@ class TerrariumController extends ApiController
             }
         }
 
-        $terrarium->name = $data['f_edit_terra_name'];
-        $terrarium->friendly_name = $data['f_edit_terra_friendlyname'];
+        $terrarium->name = $request->input('name');
+        $terrarium->friendly_name = $request->input('friendlyname');
         $terrarium->save();
 
         return $this->setStatusCode(200)->respondWithData([], [

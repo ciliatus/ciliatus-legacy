@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Pagination\LengthAwarePaginator;
-use Request;
+use Illuminate\Http\Request;
 
 /**
  * Class ApiController
@@ -148,12 +148,10 @@ class ApiController extends Controller
      * @param $required_fields
      * @return bool
      */
-    public function checkInput($required_fields)
+    public function checkInput($required_fields, Request $request)
     {
-        $data = Request::all();
-
         foreach ($required_fields as $f) {
-            if (!isset($data[$f])) {
+            if (!$request->has($f) && !$request->hasFile($f)) {
                 return false;
             }
         }

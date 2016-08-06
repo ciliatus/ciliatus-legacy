@@ -6,7 +6,7 @@ use App\LogicalSensor;
 use App\Sensorreading;
 use App\Http\Transformers\SensorreadingTransformer;
 use Gate;
-use Request;
+use Illuminate\Http\Request;
 
 
 /**
@@ -87,7 +87,7 @@ class SensorreadingController extends ApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store()
+    public function store(Request $request)
     {
 
         if(Gate::denies('api-write:sensorreading')) {
@@ -96,40 +96,38 @@ class SensorreadingController extends ApiController
 
         $required_inputs = ['group_id', 'logical_sensor_id', 'rawvalue'];
 
-        if (!$this->checkInput($required_inputs)) {
+        if (!$this->checkInput($required_inputs, $request)) {
             return $this->setStatusCode(422)
                         ->setErrorCode(101)
                         ->respondWithError('Required inputs: ' . implode(',', $required_inputs));
         }
 
-        $data = Request::all();
-
-        if (!$this->checkUuid($data['group_id'])) {
+        if (!$this->checkUuid($request->input('group_id'))) {
             return $this->setStatusCode(422)
                         ->setErrorCode(102)
                         ->respondWithError('group_id must be a valid uuid');
         }
 
-        if (!$this->checkUuid($data['logical_sensor_id'])) {
+        if (!$this->checkUuid($request->input('logical_sensor_id'))) {
             return $this->setStatusCode(422)
                         ->setErrorCode(103)
                         ->respondWithError('logical_sensor_id must be a valid uuid');
         }
 
-        $logical_sensor = LogicalSensor::find($data['logical_sensor_id']);
+        $logical_sensor = LogicalSensor::find($request->input('logical_sensor_id'));
         if (is_null($logical_sensor)) {
             return $this->setStatusCode(422)
                         ->setErrorCode(104)
                         ->respondWithError('LogicalSensor not found');
         }
 
-        if (!$logical_sensor->checkRawValue((float)$data['rawvalue'])) {
+        if (!$logical_sensor->checkRawValue((float)$request->input('rawvalue'))) {
             return $this->setStatusCode(422)
                         ->setErrorCode(105)
                         ->respondWithError('rawvalue out of range');
         }
 
-        $existing_sensorreading = Sensorreading::where('sensorreadinggroup_id', $data['group_id'])->where('logical_sensor_id', $data['logical_sensor_id'])->first();
+        $existing_sensorreading = Sensorreading::where('sensorreadinggroup_id', $request->input('group_id'))->where('logical_sensor_id', $request->input('logical_sensor_id'))->first();
         if (!is_null($existing_sensorreading)) {
             return $this->setStatusCode(422)
                         ->setErrorCode(106)
@@ -138,13 +136,13 @@ class SensorreadingController extends ApiController
 
         $logical_sensor->physical_sensor->controlunit->heartbeat();
         $logical_sensor->physical_sensor->heartbeat();
-        $logical_sensor->rawvalue = (float)$data['rawvalue'];
+        $logical_sensor->rawvalue = (float)$request->input('rawvalue');
         $logical_sensor->save();
 
         $sensorreading = Sensorreading::create();
-        $sensorreading->sensorreadinggroup_id = $data['group_id'];
-        $sensorreading->logical_sensor_id = $data['logical_sensor_id'];
-        $sensorreading->rawvalue = (float)$data['rawvalue'];
+        $sensorreading->sensorreadinggroup_id = $request->input('group_id');
+        $sensorreading->logical_sensor_id = $request->input('logical_sensor_id');
+        $sensorreading->rawvalue = (float)$request->input('rawvalue');
         $sensorreading->save();
 
         return $this->setStatusCode(200)->respondWithData(

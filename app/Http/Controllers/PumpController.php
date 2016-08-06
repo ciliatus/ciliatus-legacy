@@ -9,7 +9,7 @@ use App\Terrarium;
 use App\Valve;
 use Gate;
 use Illuminate\Support\Facades\Cache;
-use Request;
+use Illuminate\Http\Request;
 
 
 /**
@@ -75,16 +75,14 @@ class PumpController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy()
+    public function destroy(Request $request)
     {
 
         if (Gate::denies('api-write:pump')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
-        $pump = Pump::find($data['f_delete_pumps_id']);
+        $pump = Pump::find($request->input('id'));
         if (is_null($pump)) {
             return $this->respondNotFound('Pump not found');
         }
@@ -103,17 +101,15 @@ class PumpController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store()
+    public function store(Request $request)
     {
 
         if (Gate::denies('api-write:pump')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
         $pump = Pump::create();
-        $pump->name = $data['f_create_pump_name'];
+        $pump->name = $request->input('name');
         $pump->save();
 
         return $this->setStatusCode(200)->respondWithData(
@@ -133,22 +129,20 @@ class PumpController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update()
+    public function update(Request $request)
     {
 
         if (Gate::denies('api-write:pump')) {
             return $this->respondUnauthorized();
         }
 
-        $data = Request::all();
-
-        $pump = Pump::find($data['f_edit_pump_id']);
+        $pump = Pump::find($request->input('id'));
         if (is_null($pump)) {
             return $this->respondNotFound('Pump not found');
         }
 
-        if (isset($data['f_edit_pump_controlunit']) && strlen($data['f_edit_pump_controlunit']) > 0) {
-            $controlunit = Controlunit::find($data['f_edit_pump_controlunit']);
+        if ($request->has('controlunit') && strlen($request->input('controlunit')) > 0) {
+            $controlunit = Controlunit::find($request->input('controlunit'));
             if (is_null($controlunit)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');
             }
@@ -158,7 +152,7 @@ class PumpController extends ApiController
             $controlunit_id = null;
         }
 
-        $pump->name = $data['f_edit_pump_name'];
+        $pump->name = $request->input('name');
         $pump->controlunit_id = $controlunit_id;
 
         $pump->save();
