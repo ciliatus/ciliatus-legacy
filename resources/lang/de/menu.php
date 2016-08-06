@@ -7,5 +7,6 @@ return [
     'administration'=>  'Administration',
     'create'        =>  'Erstellen',
     'edit'          =>  'Editieren',
-    'delete'        =>  'Löschen'
+    'delete'        =>  'Löschen',
+    'infrastructure'=>  'Infrastruktur'
 ];
