@@ -61,4 +61,6 @@ Route::group(['prefix' => 'api/v1'], function() {
     Route::resource('physical_sensors', 'PhysicalSensorController');
     Route::resource('logical_sensors', 'LogicalSensorController');
     Route::resource('sensorreadings', 'SensorreadingController');
+    Route::resource('files', 'FileController');
+    Route::resource('file_properties', 'FilePropertyController');
 });

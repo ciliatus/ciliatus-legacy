@@ -40,7 +40,8 @@ class UserAbility extends Model
         'grant_api-write:physical_sensor',
         'grant_api-write:logical_sensor',
         'grant_api-write:controlunit',
-        'grant_api-write:file'
+        'grant_api-write:file',
+        'grant_api-write:file_property'
     ];
 
     /**

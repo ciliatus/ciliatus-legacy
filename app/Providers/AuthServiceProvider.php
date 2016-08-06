@@ -69,5 +69,13 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('api-write:controlunit', function ($user) {
             return $user->hasAbility('grant_api-write:controlunit');
         });
+
+        $gate->define('api-write:file', function ($user) {
+            return $user->hasAbility('grant_api-write:file');
+        });
+
+        $gate->define('api-write:file_propertiy', function ($user) {
+            return $user->hasAbility('grant_api-write:file_propertiy');
+        });
     }
 }
