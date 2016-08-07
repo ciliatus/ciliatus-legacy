@@ -20,6 +20,7 @@ class LogicalSensorThreshold extends CiliatusModel
 
     public $incrementing = false;
 
+
     /**
      * @param array $attributes
      * @return CiliatusModel|LogicalSensorThreshold

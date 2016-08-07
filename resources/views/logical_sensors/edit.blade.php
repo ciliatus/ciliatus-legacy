@@ -61,7 +61,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.thresholds')</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        @foreach($logical_sensor->thresholds as $t)
+                        @foreach($logical_sensor->thresholds()->orderBy('starts_at')->get() as $t)
                             <div class="col-xs-12">
                                 @if($t->active == true)
                                     @if (!is_null($logical_sensor->current_threshold()))
