@@ -29,6 +29,7 @@ return [
     'rawlimithi'    =>  'Rohwert - oberes Limit',
     'file'          =>  'Datei',
     'size'          =>  'Größe',
+    'current_value' =>  'Aktueller Wert',
     'created_at'    =>  'Erstellungsdatum',
     'updated_at'    =>  'Letztes Update',
     'download'      =>  'Herunterladen',
@@ -37,5 +38,7 @@ return [
     'source'        =>  'Quelle',
     'target'        =>  'Ziel',
     'associated_with'=> 'Assoziiert mit',
-    'log'           =>  'Log'
+    'log'           =>  'Log',
+    'starts_at'     =>  'Beginnt um',
+    'thresholds'     =>  'Grenzwerte',
 ];

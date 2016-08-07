@@ -5,10 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class UserAbility
+ * Class LogicalSensorThreshold
  * @package App
  */
-class UserAbility extends Model
+class LogicalSensorThreshold extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -17,37 +17,12 @@ class UserAbility extends Model
      *
      * @var bool
      */
+
     public $incrementing = false;
 
     /**
-     * @var array
-     */
-    protected $fillable = [
-        'user_id'
-    ];
-
-    /**
-     * @var array
-     */
-    protected static $abilities = [
-        'grant_api-list',
-        'grant_api-read',
-        'grant_api-write:animal',
-        'grant_api-write:terrarium',
-        'grant_api-write:sensorreading',
-        'grant_api-write:pump',
-        'grant_api-write:valve',
-        'grant_api-write:physical_sensor',
-        'grant_api-write:logical_sensor',
-        'grant_api-write:logical_sensor_threshold',
-        'grant_api-write:controlunit',
-        'grant_api-write:file',
-        'grant_api-write:file_property'
-    ];
-
-    /**
      * @param array $attributes
-     * @return Model|UserAbility
+     * @return CiliatusModel|LogicalSensorThreshold
      */
     public static function create(array $attributes = [])
     {
@@ -85,7 +60,6 @@ class UserAbility extends Model
      */
     public function save(array $options = [])
     {
-
         if (!in_array('silent', $options)) {
             Log::create([
                 'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
@@ -102,17 +76,9 @@ class UserAbility extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function user()
+    public function logical_sensor()
     {
-        return $this->belongsTo('App\User');
-    }
-
-    /**
-     * @return array
-     */
-    public static function abilities()
-    {
-        return self::$abilities;
+        return $this->belongsTo('App\LogicalSensor');
     }
 
     /**
@@ -120,7 +86,7 @@ class UserAbility extends Model
      */
     public function icon()
     {
-        return 'user-plus';
+        return 'circle-o';
     }
 
     /**
@@ -128,7 +94,6 @@ class UserAbility extends Model
      */
     public function url()
     {
-        return url('user_ability/' . $this->id);
+        return url('logical_sensor_thresholds/' . $this->id);
     }
-
 }

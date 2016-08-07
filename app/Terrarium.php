@@ -86,6 +86,14 @@ class Terrarium extends CiliatusModel
     }
 
     /**
+     * @return mixed
+     */
+    public function logical_sensors()
+    {
+        return $this->hasManyThrough('App\LogicalSensor', 'App\PhysicalSensor', 'belongsTo_id')->where('belongsTo_type', 'terrarium');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function animals()
@@ -117,6 +125,39 @@ class Terrarium extends CiliatusModel
         return (int)$this->fetchCurrentSensorreading('humidity_percent');
     }
 
+    /**
+     * @return bool
+     */
+    public function temperatureOk()
+    {
+        foreach ($this->logical_sensors()->where('type', 'temperature_celsius')->get() as $ls) {
+            if (!$ls->stateOk())
+                return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function humidityOk()
+    {
+        foreach ($this->logical_sensors()->where('type', 'humidity_percent')->get() as $ls) {
+            if (!$ls->stateOk())
+                return false;
+        }
+
+        return true;
+    }
+
+    /**
+     * @return bool
+     */
+    public function stateOk()
+    {
+        return ($this->humidityOk() && $this->temperatureOk() && $this->heartbeatOk());
+    }
 
     /**
      * @param int $minutes
@@ -137,14 +178,6 @@ class Terrarium extends CiliatusModel
     public function getSensorReadingsHumidity($minutes = 120, $to = null)
     {
         return $this->fetchSensorreadings('humidity_percent', $minutes, $to);
-    }
-
-    /**
-     * @return string
-     */
-    public function getState()
-    {
-        return 'OK';
     }
 
     /**

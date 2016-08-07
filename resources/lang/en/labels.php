@@ -29,6 +29,7 @@ return [
     'rawlimithi'    =>  'Raw value - upper limit',
     'file'          =>  'File',
     'size'          =>  'Size',
+    'current_value' =>  'Current value',
     'created_at'    =>  'Creation',
     'updated_at'    =>  'Last update',
     'download'      =>  'Download',
@@ -37,5 +38,7 @@ return [
     'source'        =>  'Source',
     'target'        =>  'Target',
     'associated_with'=> 'Associated with',
-    'log'           =>  'Log'
+    'log'           =>  'Log',
+    'starts_at'     =>  'Starts at',
+    'thresholds'     =>  'Thresholds',
 ];

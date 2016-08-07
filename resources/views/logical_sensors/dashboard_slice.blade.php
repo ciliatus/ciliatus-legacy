@@ -26,7 +26,7 @@
                 <div class="row">
                     <div class="col-xs-12">
                         @if (!is_null($ls->physical_sensor))
-                        <strong>@choice('components.physicalsensors', 1):</strong> <a href="{{ url('physical_sensors/' . $ls->physical_sensor->id) }}">{{ $ls->physical_sensor->name }}</a>
+                        <strong>@choice('components.physical_sensors', 1):</strong> <a href="{{ url('physical_sensors/' . $ls->physical_sensor->id) }}">{{ $ls->physical_sensor->name }}</a>
                         @endif
                     </div>
                 </div>

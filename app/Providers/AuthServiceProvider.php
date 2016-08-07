@@ -77,5 +77,9 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('api-write:file_propertiy', function ($user) {
             return $user->hasAbility('grant_api-write:file_propertiy');
         });
+
+        $gate->define('api-write:logical_sensor_threshold', function ($user) {
+            return $user->hasAbility('grant_api-write:logical_sensor_threshold');
+        });
     }
 }

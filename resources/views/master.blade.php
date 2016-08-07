@@ -85,8 +85,8 @@
                         <li><a href="{{ url('controlunits') }}">@choice('components.controlunits', 2)</a></li>
                         <li><a href="{{ url('pumps') }}">@choice('components.pumps', 2)</a></li>
                         <li><a href="{{ url('valves') }}">@choice('components.valves', 2)</a></li>
-                        <li><a href="{{ url('physical_sensors') }}">@choice('components.physicalsensors', 2)</a></li>
-                        <li><a href="{{ url('logical_sensors') }}">@choice('components.logicalsensors', 2)</a></li>
+                        <li><a href="{{ url('physical_sensors') }}">@choice('components.physical_sensors', 2)</a></li>
+                        <li><a href="{{ url('logical_sensors') }}">@choice('components.logical_sensors', 2)</a></li>
                      </ul>
                 </li>
             </ul>
@@ -102,8 +102,9 @@
                     <li><a href="{{ url('controlunits/create') }}">@choice('components.controlunits', 1)</a></li>
                     <li><a href="{{ url('pumps/create') }}">@choice('components.pumps', 1)</a></li>
                     <li><a href="{{ url('valves/create') }}">@choice('components.valves', 1)</a></li>
-                    <li><a href="{{ url('physical_sensors/create') }}">@choice('components.physicalsensors', 1)</a></li>
-                    <li><a href="{{ url('logical_sensors/create') }}">@choice('components.logicalsensors', 1)</a></li>
+                    <li><a href="{{ url('physical_sensors/create') }}">@choice('components.physical_sensors', 1)</a></li>
+                    <li><a href="{{ url('logical_sensors/create') }}">@choice('components.logical_sensors', 1)</a></li>
+                    <li><a href="{{ url('logical_sensor_thresholds/create') }}">@choice('components.logical_sensor_thresholds', 1)</a></li>
                 </ul>
               </li>
               <li><a href="{{ url('logs') }}"><i class="fa fa-list-ul"></i> @choice('components.log', 2)</a></li>

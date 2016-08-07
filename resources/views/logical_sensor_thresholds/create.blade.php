@@ -4,19 +4,24 @@
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>@lang('labels.create') @choice('components.logical_sensors', 1)</h2>
+                <h2>@lang('labels.create') @choice('components.logical_sensor_thresholds', 1)</h2>
 
                 <div class="clearfix"></div>
             </div>
 
             <div class="x_content">
                 <br />
-                <form class="form-horizontal form-label-left" name="sensor" action="{{ url('api/v1/logical_sensors') }}" data-method="POST">
+                <form class="form-horizontal form-label-left" name="sensor" action="{{ url('api/v1/logical_sensor_thresholds') }}" data-method="POST">
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.name')</label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('components.logical_sensors', 1)</label>
                         <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="@lang('labels.name')" name="sensor_name" value="">
+                            <select class="form-control" name="logical_sensor">
+                                <option></option>
+                                @foreach ($logical_sensors as $ls)
+                                    <option value="{{ $ls->id }}">{{ $ls->name }}</option>
+                                @endforeach
+                            </select>
                         </div>
                     </div>
 

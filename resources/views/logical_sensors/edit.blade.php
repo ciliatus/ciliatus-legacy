@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-<div class="col-md-8 col-xs-12">
+<div class="col-md-6 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
             <h2>{{ $logical_sensor->name }}</h2>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('components.physicalsensors', 1)</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('components.physical_sensors', 1)</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <select class="form-control" name="sensor_physical_sensor">
                             <option></option>
@@ -56,6 +56,46 @@
                                 <option value="{{ $ps->id }}" @if($logical_sensor->physical_sensor_id == $ps->id)selected="selected"@endif>{{ $ps->name }}</option>
                             @endforeach
                         </select>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.thresholds')</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                        @foreach($logical_sensor->thresholds as $t)
+                            <div class="col-xs-12">
+                                @if($t->active == true)
+                                    @if (!is_null($logical_sensor->current_threshold()))
+                                        @if($t->id == $logical_sensor->current_threshold()->id)
+                                            <i class="fa fa-circle text-success"></i>
+                                        @else
+                                            <i class="fa fa-circle text-warning"></i>
+                                        @endif
+                                    @else
+                                        <i class="fa fa-circle text-warning"></i>
+                                    @endif
+                                @else
+                                    <i class="fa fa-circle text-danger"></i>
+                                @endif
+
+                                @lang('labels.starts_at') {{ $t->starts_at }}:
+
+                                <strong>
+                                @if(is_null($t->rawvalue_lowerlimit) && !is_null($t->rawvalue_upperlimit))
+                                    max {{ $t->rawvalue_upperlimit }}
+                                @elseif(!is_null($t->rawvalue_lowerlimit) && is_null($t->rawvalue_upperlimit))
+                                    min {{ $t->rawvalue_lowerlimit }}
+                                @elseif(is_null($t->rawvalue_lowerlimit) && is_null($t->rawvalue_upperlimit))
+                                @else
+                                    {{ $t->rawvalue_lowerlimit }} - {{ $t->rawvalue_upperlimit }}
+                                @endif
+                                </strong>
+
+                                <span class="pull-right">
+                                    <a href="{{ url('logical_sensor_thresholds/' . $t->id . '/edit') }}"><i class="fa fa-edit"></i></a>
+                                    <a href="{{ url('logical_sensor_thresholds/' . $t->id . '/delete') }}"><i class="fa fa-times"></i></a>
+                                </span>
+                            </div>
+                        @endforeach
                     </div>
                 </div>
 
@@ -70,4 +110,13 @@
         </div>
     </div>
 </div>
+
+@include('logical_sensor_thresholds.create_slice', [
+    'logical_sensor'    =>  $logical_sensor
+])
+
+@include('logical_sensor_thresholds.copy_slice', [
+    'logical_sensor'    =>  $logical_sensor,
+    'logical_sensors'   =>  $logical_sensors
+])
 @stop

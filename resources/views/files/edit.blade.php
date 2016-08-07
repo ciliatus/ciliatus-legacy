@@ -39,8 +39,8 @@
                             <option value="Terrarium" @if($file->belongsTo_type == 'Terrarium')selected="selected"@endif>@choice('components.terraria', 1)</option>
                             <option value="Animal" @if($file->belongsTo_type == 'Animal')selected="selected"@endif>@choice('components.animals', 1)</option>
                             <option value="Controlunit" @if($file->belongsTo_type == 'Controlunit')selected="selected"@endif>@choice('components.controlunits', 1)</option>
-                            <option value="PhysicalSensor" @if($file->belongsTo_type == 'PhysicalSensor')selected="selected"@endif>@choice('components.physical_sensors', 1)</option>
-                            <option value="LogicalSensor" @if($file->belongsTo_type == 'LogicalSensor')selected="selected"@endif>@choice('components.logical_sensors', 1)</option>
+                            <option value="physical_sensor" @if($file->belongsTo_type == 'physical_sensor')selected="selected"@endif>@choice('components.physical_sensors', 1)</option>
+                            <option value="logical_sensor" @if($file->belongsTo_type == 'logical_sensor')selected="selected"@endif>@choice('components.logical_sensors', 1)</option>
                             <option value="Pump" @if($file->belongsTo_type == 'Pump')selected="selected"@endif>@choice('components.pumps', 1)</option>
                             <option value="Valve" @if($file->belongsTo_type == 'Valve')selected="selected"@endif>@choice('components.valves', 1)</option>
                         </select>

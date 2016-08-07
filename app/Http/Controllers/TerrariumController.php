@@ -137,6 +137,10 @@ class TerrariumController extends ApiController
         if (count($humidity_values) > 0)
             $terrarium->humidity_trend = $humidity_values[count($humidity_values)-1] - $humidity_values[0];
 
+        $terrarium->humidity_ok = $terrarium->humidityOk();
+        $terrarium->temperature_ok = $terrarium->temperatureOk();
+        $terrarium->state_ok = $terrarium->stateOk();
+
         Cache::add($cache_key, $terrarium, env('CACHE_API_TERRARIUM_SHOW_DURATION') / 60);
 
         return $this->setStatusCode(200)->respondWithData($this->terrariumTransformer->transform($terrarium->toArray()));

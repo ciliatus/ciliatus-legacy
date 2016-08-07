@@ -6,6 +6,7 @@ use App\Animal;
 use App\Controlunit;
 use App\Log;
 use App\LogicalSensor;
+use App\LogicalSensorThreshold;
 use App\PhysicalSensor;
 use App\Pump;
 use App\Terrarium;
@@ -569,10 +570,12 @@ class ViewController extends Controller
         }
 
         $physical_sensors = PhysicalSensor::all();
+        $logical_sensors = LogicalSensor::all();
 
         return view('logical_sensors.edit', [
             'logical_sensor'    => $logical_sensor,
             'physical_sensors'  => $physical_sensors,
+            'logical_sensors'   =>  $logical_sensors,
         ]);
     }
 
@@ -662,6 +665,83 @@ class ViewController extends Controller
         ]);
     }
 
+    /*
+     * LogicalSensorThreshold
+     */
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function logical_sensor_thresholds()
+    {
+        return view('logical_sensor_thresholds.index', [
+            'logical_sensor_thresholds' => LogicalSensorThreshold::orderBy('created_at', 'desc')->get()
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function logical_sensor_thresholdsShow($id)
+    {
+        $logical_sensor_threshold = LogicalSensorThreshold::find($id);
+        if (is_null($logical_sensor_threshold)) {
+            return view('errors.404');
+        }
+
+        return view('logical_sensor_thresholds.show', [
+            'logical_sensor_threshold' => $logical_sensor_threshold
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function logical_sensor_thresholdsCreate()
+    {
+        $logical_sensors = LogicalSensor::all();
+
+        return view('logical_sensor_thresholds.create', [
+            'logical_sensors'        => $logical_sensors
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function logical_sensor_thresholdsDelete($id)
+    {
+        $logical_sensor_threshold = LogicalSensorThreshold::find($id);
+
+        if (is_null($logical_sensor_threshold)) {
+            return view('errors.404');
+        }
+
+        return view('logical_sensor_thresholds.delete', [
+            'logical_sensor_threshold'     => $logical_sensor_threshold
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function logical_sensor_thresholdsEdit($id)
+    {
+        $logical_sensor_threshold = LogicalSensorThreshold::find($id);
+
+        if (is_null($logical_sensor_threshold)) {
+            return view('errors.404');
+        }
+
+        $logical_sensors = LogicalSensor::all();
+
+        return view('logical_sensor_thresholds.edit', [
+            'logical_sensor_threshold'     => $logical_sensor_threshold,
+            'logical_sensors'        => $logical_sensors
+        ]);
+    }
 
 
     /*

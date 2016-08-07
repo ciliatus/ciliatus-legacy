@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -87,6 +88,68 @@ class LogicalSensor extends CiliatusModel
     public function sensorreadings()
     {
         return $this->hasMany('App\Sensorreading');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function thresholds()
+    {
+        return $this->hasMany('App\LogicalSensorThreshold')->orderBy('starts_at');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function current_threshold()
+    {
+        /*
+         * Check if there is an active threshold
+         * from today before now
+         *
+         * Otherwise check for thresholds
+         * in the future (which would be last day's
+         * still active threshold)
+         */
+        $today = $this->thresholds()
+                    ->where('starts_at', '<', Carbon::now())
+                    ->where('active', true)
+                    ->orderBy('starts_at', 'desc')
+                    ->first();
+
+        if (!is_null($today))
+            return $today;
+
+        $yesterday = $this->thresholds()
+            ->where('active', true)
+            ->orderBy('starts_at', 'desc')
+            ->first();
+
+        return $yesterday;
+    }
+
+    /**
+     * @return bool
+     */
+    public function stateOk()
+    {
+        $t = $this->current_threshold();
+        if (is_null($t))
+            return true;
+
+        if (!is_null($t->rawvalue_lowerlimit)) {
+            if ($this->rawvalue < $t->rawvalue_lowerlimit) {
+                return false;
+            }
+        }
+
+        if (!is_null($t->rawvalue_upperlimit)) {
+            if ($this->rawvalue > $t->rawvalue_upperlimit) {
+                return false;
+            }
+        }
+
+        return true;
     }
 
     /**

@@ -1,6 +1,6 @@
 @foreach ($animals as $a)
     <div class="col-lg-3 col-md-6 col-sm-12 col-xs-12 dashboard-box" id="animal-{{ $a->id }}">
-        <div class="x_panel">
+        <div class="x_panel @if(!is_null($a->terrarium)) @if(!$a->terrarium->stateOk()) x_panel-danger @endif @endif">
 
             <div class="x_title">
                 <h2><a href="{{ url('animals/' . $a->id) }}">{{ $a->display_name }}</a>
@@ -53,17 +53,6 @@
 
                     </div>
                 </div>
-                @if(!is_null($a->terrarium))
-                <div class="row weather-days">
-                    <div class="col-sm-12">
-                        <div class="daily-weather">
-                            <h2 class="day">@choice('components.terraria', 1)</h2>
-                            <h3 class="terrarium-widget-temp">{{ $a->terrarium->getState() }}</h3>
-                        </div>
-                    </div>
-                    <div class="clearfix"></div>
-                </div>
-                @endif
             </div>
         </div>
     </div>

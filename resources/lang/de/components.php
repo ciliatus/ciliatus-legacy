@@ -6,8 +6,9 @@ return [
     'controlunits'  =>  'Steuereinheit|Steuereinheiten',
     'pumps'         =>  'Pumpe|Pumpen',
     'valves'        =>  'Ventil|Ventile',
-    'physicalsensors'=> 'Physikalischer Sensor|Physikalische Sensoren',
-    'logicalsensors'=>  'Logischer Sensor|Logische Sensoren',
+    'physical_sensors'=>'Physikalischer Sensor|Physikalische Sensoren',
+    'logical_sensors'=> 'Logischer Sensor|Logische Sensoren',
+    'logical_sensor_thresholds'=> 'Logischer Sensor Grenzwert|Logische Sensor Grenzwerte',
     'files'         =>  'Datei|Dateien',
     'log'           =>  'Log|Logs'
 ];

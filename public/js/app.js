@@ -216,7 +216,7 @@ var domCallbacks = new Array();
  */
 domCallbacks['terrariaDashboardCallback'] = function (success, data, ld) {
     ld.cleanupRefs();
-    if (data.data.heartbeat_ok === true) {
+    if (data.data.state_ok === true) {
         $(this.target).find('.x_panel').removeClass('x_panel-danger');
         $(this.target).find('.terrarium-widget-heartbeat-temp').html('<i class="fa fa-check text-success"></i>')
     }
@@ -227,8 +227,17 @@ domCallbacks['terrariaDashboardCallback'] = function (success, data, ld) {
     var temptrendicontemp = data.data.temperature_trend > 0.2 ? 'wi-direction-up-right' : data.data.temperature_trend < -0.2 ? 'wi-direction-down-right' : 'wi-direction-right';
     var temptrendiconhumidity = data.data.humidity_trend > 0.2 ? 'wi-direction-up-right' : data.data.humidity_trend < -0.2 ? 'wi-direction-down-right' : 'wi-direction-right';
 
-    $(this.target).find('.terrarium-widget-temp').html(data.data.cooked_temperature_celsius + '°C <span class="wi ' + temptrendicontemp + '"></span>');
-    $(this.target).find('.terrarium-widget-humidity').html(data.data.cooked_humidity_percent + '% <span class="wi ' + temptrendiconhumidity + '"></span>');
+    var temperature_state_icon = '';
+    if (data.data.temperature_ok !== true) {
+        temperature_state_icon = '<i class="fa fa-exclamation text-danger"></i> ';
+    }
+    var humidity_state_icon = '';
+    if (data.data.humidity_ok !== true) {
+        humidity_state_icon = '<i class="fa fa-exclamation text-danger"></i> ';
+    }
+
+    $(this.target).find('.terrarium-widget-temp').html(temperature_state_icon + data.data.cooked_temperature_celsius + '°C <span class="wi ' + temptrendicontemp + '"></span>');
+    $(this.target).find('.terrarium-widget-humidity').html(humidity_state_icon + data.data.cooked_humidity_percent + '% <span class="wi ' + temptrendiconhumidity + '"></span>');
     $(this.target).find('.dashboard-widget-sparkline-temp').html('<div id="sparkline-temperature-' + data.data.id + '" style="background-color: #FFDDDD;">' + data.data.temperature_history + '</div>');
     $(this.target).find('.dashboard-widget-sparkline-humidity').html('<div id="sparkline-humidity-' + data.data.id + '" style="background-color: #DDDDFF;">' + data.data.humidity_history + '</div>');
 

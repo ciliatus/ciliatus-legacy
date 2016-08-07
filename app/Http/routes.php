@@ -57,6 +57,12 @@ Route::get('/logs/{id}/edit', 'ViewController@logsEdit');
 Route::get('/logs/{id}/delete', 'ViewController@logsDelete');
 Route::get('/logs/{id}', 'ViewController@logsShow');
 
+Route::get('/logical_sensor_thresholds', 'ViewController@logical_sensor_thresholds');
+Route::get('/logical_sensor_thresholds/create', 'ViewController@logical_sensor_thresholdsCreate');
+Route::get('/logical_sensor_thresholds/{id}/edit', 'ViewController@logical_sensor_thresholdsEdit');
+Route::get('/logical_sensor_thresholds/{id}/delete', 'ViewController@logical_sensor_thresholdsDelete');
+Route::get('/logical_sensor_thresholds/{id}', 'ViewController@logical_sensor_thresholdsShow');
+
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
@@ -73,6 +79,8 @@ Route::group(['prefix' => 'api/v1'], function() {
     Route::resource('valves', 'ValveController');
     Route::resource('physical_sensors', 'PhysicalSensorController');
     Route::resource('logical_sensors', 'LogicalSensorController');
+    Route::resource('logical_sensor_thresholds', 'LogicalSensorThresholdController');
+    Route::post('logical_sensor_thresholds/copy', 'LogicalSensorThresholdController@copy');
     Route::resource('sensorreadings', 'SensorreadingController');
     Route::resource('files', 'FileController');
     Route::resource('file_properties', 'FilePropertyController');

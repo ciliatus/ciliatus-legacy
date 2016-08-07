@@ -1,4 +1,3 @@
-<div class="col-md-12 col-sm-12 col-lg-12 col-xl-8 col-xs-12 dashboard-box" id="file-index">
     <div class="x_panel">
 
         <div class="x_title">
@@ -42,4 +41,3 @@
             </script>
         </div>
     </div>
-</div>

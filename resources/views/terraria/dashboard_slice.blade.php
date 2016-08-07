@@ -32,7 +32,7 @@
                         @else
                             @foreach ($t->animals as $animal)
                             <div>
-                                <strong>{{ $animal->display_name }}</strong>
+                                <strong><a href="{{ url('animals/' . $animal->id) }}">{{ $animal->display_name }}</a></strong>
                                 @if ($animal->gender == 'male')
                                     <i class="fa fa-mars"></i>
                                 @elseif ($animal->gender == 'female')
