@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('components.logical_sensors', 1)</label>
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.target') @choice('components.logical_sensors', 1)</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <select class="form-control" name="logical_sensor_target">
                             <option></option>
@@ -32,6 +32,15 @@
                 </div>
 
                 <div class="ln_solid"></div>
+
+                <div class="form-group">
+                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 col-sm-offset-3 col-xs-offset-0">
+                        <div class="alert alert-warning" role="alert">
+                            @lang('messages.logical_sensor_thresholds.copy_warning')
+                        </div>
+                    </div>
+                </div>
+
                 <div class="form-group">
                     <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                         <button type="submit" class="btn btn-success" name="sensor_submit">@lang('buttons.next')</button>
