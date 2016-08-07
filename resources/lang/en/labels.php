@@ -27,4 +27,11 @@ return [
     'details'       =>  'Details',
     'rawlimitlo'    =>  'Raw value - lower limit',
     'rawlimithi'    =>  'Raw value - upper limit',
+    'file'          =>  'File',
+    'size'          =>  'Size',
+    'created_at'    =>  'Creation',
+    'updated_at'    =>  'Last update',
+    'download'      =>  'Download',
+    'properties'    =>  'Properties',
+    'preview'       =>  'Preview'
 ];

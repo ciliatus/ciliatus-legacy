@@ -16,7 +16,7 @@ class CreateTerrariaTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->string('name');
-            $table->string('friendly_name');
+            $table->string('display_name');
             $table->timestamps();
         });
     }

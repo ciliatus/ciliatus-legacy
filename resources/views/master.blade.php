@@ -27,6 +27,12 @@
     {!! Html::style('vendors/pnotify/dist/pnotify.nonblock.css') !!}
     <!-- weather icons -->
     {!! Html::style('vendors/weather-icons/css/weather-icons.min.css') !!}
+<!-- Datatables -->
+    {!! Html::style('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') !!}
+    {!! Html::style('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') !!}
+    {!! Html::style('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') !!}
+    {!! Html::style('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') !!}
+    {!! Html::style('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') !!}
     <!-- jQuery -->
     {!! Html::script('vendors/jquery/dist/jquery.min.js') !!}
     <!-- jQuery UI -->
@@ -130,15 +136,6 @@
       @yield('content')
     </div>
     <!-- /page content -->
-
-    <!-- footer content -->
-    <footer>
-      <div class="pull-right">
-        Gentelella - Bootstrap Admin Template by <a href="https://colorlib.com">Colorlib</a>
-      </div>
-      <div class="clearfix"></div>
-    </footer>
-    <!-- /footer content -->
   </div>
 </div>
 
@@ -158,6 +155,8 @@
 {!! Html::script('vendors/pnotify/dist/pnotify.js') !!}
 {!! Html::script('vendors/pnotify/dist/pnotify.buttons.js') !!}
 {!! Html::script('vendors/pnotify/dist/pnotify.nonblock.js') !!}
+<!-- Datatables -->
+{!! Html::script('vendors/datatables.net/js/jquery.dataTables.min.js') !!}
 <!-- Custom Theme Scripts -->
 {!! Html::script('build/js/custom.min.js') !!}
 

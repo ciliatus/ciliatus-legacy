@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class LogicalSensor
  * @package App
  */
-class LogicalSensor extends Model
+class LogicalSensor extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -88,5 +88,18 @@ class LogicalSensor extends Model
             default:
                 return $this->type;
         }
+    }
+
+    /**
+     * @return string
+     */
+    public function icon()
+    {
+        return 'circle-o';
+    }
+
+    public function url()
+    {
+        return url('logical_sensors/' . $this->id);
     }
 }

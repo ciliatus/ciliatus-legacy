@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class PhysicalSensor
  * @package App
  */
-class PhysicalSensor extends Model
+class PhysicalSensor extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -84,5 +84,18 @@ class PhysicalSensor extends Model
     {
         $this->heartbeat_at = Carbon::now();
         $this->save();
+    }
+
+    /**
+     * @return string
+     */
+    public function icon()
+    {
+        return 'circle-o';
+    }
+
+    public function url()
+    {
+        return url('physical_sensors/' . $this->id);
     }
 }

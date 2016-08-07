@@ -4,7 +4,7 @@
 <div class="col-md-6 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>{{ $terrarium->friendly_name }}</h2>
+            <h2>{{ $terrarium->display_name }}</h2>
 
             <div class="clearfix"></div>
         </div>
@@ -28,7 +28,7 @@
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.display_name')</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" placeholder="Friendly Name" name="friendlyname" value="{{ $terrarium->friendly_name }}">
+                        <input type="text" class="form-control" placeholder="Friendly Name" name="friendlyname" value="{{ $terrarium->display_name }}">
                     </div>
                 </div>
 
@@ -102,4 +102,9 @@
         </div>
     </div>
 </div>
+
+@include('files.create_slice', [
+    'belongsTo_type'    =>  'Terrarium',
+    'belongsTo_id'      =>  $terrarium->id
+])
 @stop

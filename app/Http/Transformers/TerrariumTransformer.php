@@ -28,7 +28,7 @@ class TerrariumTransformer extends Transformer
         $return = [
             'id'    => $item['id'],
             'name'  => $item['name'],
-            'friendly_name' => $item['friendly_name'],
+            'display_name' => $item['display_name'],
             'timestamps' => [
                 'created' => $item['created_at'],
                 'updated' => $item['updated_at'],

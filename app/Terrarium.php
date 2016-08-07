@@ -10,7 +10,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Terrarium
  * @package App
  */
-class Terrarium extends Model
+class Terrarium extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -36,6 +36,14 @@ class Terrarium extends Model
     public function animals()
     {
         return $this->hasMany('App\Animal');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function files()
+    {
+        return $this->hasMany('App\File', 'belongsTo_id')->where('belongsTo_type', 'Terrarium');
     }
 
     /**
@@ -151,4 +159,13 @@ class Terrarium extends Model
         return null;
     }
 
+    public function icon()
+    {
+        return 'columns';
+    }
+
+    public function url()
+    {
+        return url('terrarium/' . $this->id);
+    }
 }

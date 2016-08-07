@@ -9,6 +9,7 @@ use App\PhysicalSensor;
 use App\Pump;
 use App\Terrarium;
 use App\Valve;
+use App\File;
 
 /**
  * Class ApiController
@@ -145,8 +146,8 @@ class ViewController extends Controller
             return view('errors.404');
         }
 
-        return view('animals.index', [
-            'animals' => [$animal]
+        return view('animals.show', [
+            'animal' => $animal
         ]);
     }
 
@@ -570,6 +571,92 @@ class ViewController extends Controller
 
         return view('logical_sensors.edit', [
             'logical_sensor'    => $logical_sensor,
+            'physical_sensors'  => $physical_sensors,
+        ]);
+    }
+
+
+    /*
+     * File
+     */
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function files()
+    {
+        return view('files.index', [
+            'files' => File::get()
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function filesShow($id)
+    {
+        $file = File::find($id);
+        if (is_null($file)) {
+            return view('errors.404');
+        }
+
+        return view('files.show', [
+            'file' => $file
+        ]);
+    }
+
+
+    public function filesDownload($id)
+    {
+        $file = File::find($id);
+        if (is_null($file)) {
+            return view('errors.404');
+        }
+
+        return response()->file($file->path());
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function filesCreate()
+    {
+        return view('files.create');
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function filesDelete($id)
+    {
+        $file = File::find($id);
+
+        if (is_null($file)) {
+            return view('errors.404');
+        }
+
+        return view('files.delete', [
+            'file'     => $file
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function filesEdit($id)
+    {
+        $file = File::find($id);
+
+        if (is_null($file)) {
+            return view('errors.404');
+        }
+
+        $physical_sensors = PhysicalSensor::all();
+
+        return view('files.edit', [
+            'file'    => $file,
             'physical_sensors'  => $physical_sensors,
         ]);
     }

@@ -44,6 +44,13 @@ Route::get('/physical_sensors/{id}/edit', 'ViewController@physical_sensorsEdit')
 Route::get('/physical_sensors/{id}/delete', 'ViewController@physical_sensorsDelete');
 Route::get('/physical_sensors/{id}', 'ViewController@physical_sensorsShow');
 
+Route::get('/files', 'ViewController@files');
+Route::get('/files/create', 'ViewController@filesCreate');
+Route::get('/files/{id}/edit', 'ViewController@filesEdit');
+Route::get('/files/{id}/delete', 'ViewController@filesDelete');
+Route::get('/files/{id}/download', 'ViewController@filesDownload');
+Route::get('/files/{id}', 'ViewController@filesShow');
+
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');

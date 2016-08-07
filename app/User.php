@@ -68,5 +68,14 @@ class User extends Authenticatable
             }
         }
     }
+    public function icon()
+    {
+        return 'circle-o';
+    }
+
+    public function url()
+    {
+        return url('users/' . $this->id);
+    }
 
 }

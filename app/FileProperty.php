@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class FileProperty
  * @package App
  */
-class FileProperty extends Model
+class FileProperty extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -26,5 +26,18 @@ class FileProperty extends Model
     public function file()
     {
         return $this->belongsTo('App\File');
+    }
+
+    /**
+     * @return string
+     */
+    public function icon()
+    {
+        // TODO: Implement icon() method.
+    }
+
+    public function url()
+    {
+        // TODO: Implement url() method.
     }
 }

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Controlunit
  * @package App
  */
-class Controlunit extends Model
+class Controlunit extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -51,4 +51,16 @@ class Controlunit extends Model
         $this->save();
     }
 
+    /**
+     * @return string
+     */
+    public function icon()
+    {
+        return 'circle-o';
+    }
+
+    public function url()
+    {
+        return url('controlunits/' . $this->id);
+    }
 }

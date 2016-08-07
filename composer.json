@@ -10,7 +10,8 @@
 	"barryvdh/laravel-ide-helper": "^2.1",
         "laravelcollective/html": "^5.2",
         "webpatser/laravel-uuid": "^2.0",
-        "irazasyed/telegram-bot-sdk": "^2.0"
+        "irazasyed/telegram-bot-sdk": "^2.0",
+        "intervention/image": "^2.3"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

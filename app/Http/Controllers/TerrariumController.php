@@ -146,14 +146,12 @@ class TerrariumController extends ApiController
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function sensorreadings($id)
+    public function sensorreadings(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
-
-        $request = Request::all();
 
         $terrarium = Terrarium::with('physical_sensors', 'animals')->find($id);
 
@@ -164,16 +162,16 @@ class TerrariumController extends ApiController
         $terrarium->heartbeat_ok = $terrarium->heartbeatOk();
 
         $history_to = null;
-        if (isset($request['history_to'])) {
-            $history_to = Carbon::parse($request['history_to']);
+        if ($request->has('history_to')) {
+            $history_to = Carbon::parse($request->input('history_to'));
             $history_to->second = 0;
             $history_to->minute = 0;
             $history_to->hour = 0;
         }
 
         $history_minutes = 180;
-        if (isset($request['history_minutes'])) {
-            $history_minutes = $request['history_minutes'];
+        if ($request->has('history_minutes')) {
+            $history_minutes = $request->input('history_minutes');
         }
 
         /*
@@ -298,7 +296,7 @@ class TerrariumController extends ApiController
         }
 
         $terrarium = Terrarium::create();
-        $terrarium->friendly_name = $request->input('displayname');
+        $terrarium->display_name = $request->input('displayname');
         $terrarium->save();
 
         return $this->setStatusCode(200)->respondWithData(
@@ -316,6 +314,7 @@ class TerrariumController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request)
@@ -429,7 +428,7 @@ class TerrariumController extends ApiController
         }
 
         $terrarium->name = $request->input('name');
-        $terrarium->friendly_name = $request->input('friendlyname');
+        $terrarium->display_name = $request->input('friendlyname');
         $terrarium->save();
 
         return $this->setStatusCode(200)->respondWithData([], [

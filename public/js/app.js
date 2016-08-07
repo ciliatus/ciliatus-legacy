@@ -56,11 +56,43 @@ LiveData.prototype.cleanupRefs = function ()
 $('form').submit(function (e)
 {
     e.preventDefault();
+    var btns = $('button[type=submit]:enabled');
+    btns.attr('disabled', 'disabled');
+
+    /*
+     * Fix for empty data when using
+     * PUT with FormData
+     */
+    var data = null;
+    if ($(e.target).data('method') === 'PUT') {
+        data = $(e.target).serialize();
+    }
+    else {
+        data = new FormData(this);
+    }
+
+    var content_type = 'application/x-www-form-urlencoded';
+    if ($(e.target).data('ignore-enctype')) {
+        content_type = false;
+    }
+
+
     $.ajax({
         url: $(e.target).prop('action'),
         type: $(e.target).data('method'),
-        data: $(e.target).serialize(),
+        data: data,
+        cache: false,
+        contentType: content_type,
+        processData: false,
+        xhr: function() {  // Custom XMLHttpRequest
+            var myXhr = $.ajaxSettings.xhr();
+            if(myXhr.upload){ // Check if upload property exists
+                myXhr.upload.addEventListener('progress',progressHandlingFunction, false); // For handling the progress of the upload
+            }
+            return myXhr;
+        },
         success: function(data) {
+            btns.removeAttr('disabled');
             notification('success', 'Saved');
             if (data.meta.redirect != undefined) {
                 window.setTimeout(function() {
@@ -69,6 +101,7 @@ $('form').submit(function (e)
             }
         },
         error: function(data) {
+            btns.removeAttr('disabled');
             var msg = 'Unknown';
             if (data.responseJSON !== undefined)
                 msg = data.responseJSON.error.message;
@@ -77,6 +110,48 @@ $('form').submit(function (e)
     });
 });
 
+var progressHandlingFunction = function(e){
+    if(e.lengthComputable){
+        $('.form-progress-bar').data('valuenow', e.loaded/e.total*100);
+        $('.form-progress-bar').css('width', e.loaded/e.total*100 + '%');
+    }
+};
+
+function getIconHtmlByFiletype(mime)
+{
+    var fa = '';
+    var type = mime.split('/')[0];
+    var name = mime.split('/')[1];
+    switch (type) {
+        case 'image':
+            fa = 'photo';
+            break;
+        default:
+            fa = 'file';
+    }
+
+    return '<span class="fa fa-' + fa + '"></span>';
+}
+
+/*
+ fa fa-file	Try it
+ fa fa-file-archive-o	Try it
+ fa fa-file-audio-o	Try it
+ fa fa-file-code-o	Try it
+ fa fa-file-excel-o	Try it
+ fa fa-file-image-o	Try it
+ fa fa-file-movie-o	Try it
+ fa fa-file-o	Try it
+ fa fa-file-pdf-o	Try it
+ fa fa-file-photo-o	Try it
+ fa fa-file-picture-o	Try it
+ fa fa-file-powerpoint-o	Try it
+ fa fa-file-text	Try it
+ fa fa-file-text-o	Try it
+ fa fa-file-video-o	Try it
+ fa fa-file-word-o	Try it
+ fa fa-file-zip-o
+ */
 
 function renderTemperatureSparklineById(id, height, width)
 {

@@ -3,7 +3,7 @@
         <div class="x_panel">
 
             <div class="x_title">
-                <h2>{{ $a->display_name }}
+                <h2><a href="{{ url('animals/' . $a->id) }}">{{ $a->display_name }}</a>
                     @if ($a->gender == 'male')
                         <i class="fa fa-mars"></i>
                     @elseif ($a->gender == 'female')
@@ -47,7 +47,7 @@
                             <strong>@lang('labels.common_name'): </strong><span>{{ $a->common_name }}</span><br />
                             <strong>@lang('labels.latin_name'): </strong><span>{{ $a->lat_name }}</span><br />
                             @if(!is_null($a->terrarium))
-                            <strong>@choice('components.terraria', 1): </strong><span><a href="{{ url('terraria/' . $a->terrarium->id) }}">{{ $a->terrarium->friendly_name }}</a></span>
+                            <strong>@choice('components.terraria', 1): </strong><span><a href="{{ url('terraria/' . $a->terrarium->id) }}">{{ $a->terrarium->display_name }}</a></span>
                             @endif
                         </div>
 

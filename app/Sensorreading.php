@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Sensorreading
  * @package App
  */
-class Sensorreading extends Model
+class Sensorreading extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -25,5 +25,14 @@ class Sensorreading extends Model
     public function logical_sensor()
     {
         return $this->belongsTo('App\LogicalSensor');
+    }
+    public function icon()
+    {
+        return 'circle-o';
+    }
+
+    public function url()
+    {
+        return url('sensorreadings/' . $this->id);
     }
 }

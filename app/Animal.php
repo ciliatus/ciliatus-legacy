@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Animal
  * @package App
  */
-class Animal extends Model
+class Animal extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -32,6 +32,27 @@ class Animal extends Model
     public function terrarium()
     {
         return $this->belongsTo('App\Terrarium');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function files()
+    {
+        return $this->hasMany('App\File', 'belongsTo_id')->where('belongsTo_type', 'Animal');
+    }
+
+    /**
+     * @return string
+     */
+    public function icon()
+    {
+        return 'paw';
+    }
+
+    public function url()
+    {
+        return url('animals/' . $this->id);
     }
 
     /**

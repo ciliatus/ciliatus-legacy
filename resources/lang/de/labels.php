@@ -27,4 +27,11 @@ return [
     'details'       =>  'Details',
     'rawlimitlo'    =>  'Rohwert - unteres Limit',
     'rawlimithi'    =>  'Rohwert - oberes Limit',
+    'file'          =>  'Datei',
+    'size'          =>  'Größe',
+    'created_at'    =>  'Erstellungsdatum',
+    'updated_at'    =>  'Letztes Update',
+    'download'      =>  'Herunterladen',
+    'properties'    =>  'Eigenschaften',
+    'preview'       =>  'Vorschau'
 ];

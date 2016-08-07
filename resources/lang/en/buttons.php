@@ -4,5 +4,6 @@ return [
     'next'      =>  'Next',
     'save'      =>  'Save',
     'delete'    =>  'Delete',
-    'loadgraph' =>  'Load graph'
+    'loadgraph' =>  'Load graph',
+    'upload'    =>  'Upload'
 ];

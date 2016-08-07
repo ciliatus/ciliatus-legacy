@@ -4,7 +4,7 @@
     <div class="col-md-6 col-xs-12">
         <div class="x_panel">
             <div class="x_title">
-                <h2>{{ $physical_sensor->friendly_name }}</h2>
+                <h2>{{ $physical_sensor->display_name }}</h2>
 
                 <div class="clearfix"></div>
             </div>

@@ -8,4 +8,5 @@ return [
     'valves'        =>  'Valve|Valves',
     'physicalsensors'=> 'Physical Sensor|Physical Sensors',
     'logicalsensors'=>  'Logical Sensor|Logical Sensors',
+    'files'         =>  'File|Files',
 ];

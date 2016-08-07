@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Pump
  * @package App
  */
-class Pump extends Model
+class Pump extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -36,4 +36,16 @@ class Pump extends Model
         return $this->belongsTo('App\Valves');
     }
 
+    /**
+     * @return string
+     */
+    public function icon()
+    {
+        return 'circle-o';
+    }
+
+    public function url()
+    {
+        return url('pumps/' . $this->id);
+    }
 }

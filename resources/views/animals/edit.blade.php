@@ -65,7 +65,7 @@
                         <select class="form-control" name="terrarium">
                             <option></option>
                             @foreach ($terraria as $t)
-                                <option value="{{ $t->id }}" @if($animal->terrarium_id == $t->id)selected="selected"@endif>{{ $t->friendly_name }}</option>
+                                <option value="{{ $t->id }}" @if($animal->terrarium_id == $t->id)selected="selected"@endif>{{ $t->display_name }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -83,6 +83,11 @@
         </div>
     </div>
 </div>
+
+@include('files.create_slice', [
+    'belongsTo_type'    =>  'Animal',
+    'belongsTo_id'      =>  $animal->id
+])
 
 <script>
     $(function() {

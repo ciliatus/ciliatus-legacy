@@ -3,12 +3,13 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Intervention\Image\Facades\Image;
 
 /**
  * Class File
  * @package App
  */
-class File extends Model
+class File extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -26,6 +27,25 @@ class File extends Model
     public function properties()
     {
         return $this->hasMany('App\FileProperty');
+    }
+
+    public function belongs_to()
+    {
+        if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
+            $class_name = 'App\\' . $this->belongsTo_type;
+            if (class_exists($class_name)) {
+                $belongs = $class_name::find($this->belongsTo_id);
+                if (is_null($belongs)) {
+                    return null;
+                }
+                return $belongs;
+            }
+            else {
+                return null;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -58,6 +78,38 @@ class File extends Model
     }
 
     /**
+     * @return string
+     */
+    public function icon()
+    {
+        switch (explode('/', $this->mimetype)[0]) {
+            case 'image':
+                return 'photo';
+            default:
+                return 'file-o';
+        }
+    }
+
+    public function sizeReadable()
+    {
+        if ($this->size > pow(1024, 3)) {
+            return round($this->size/pow(1024, 3), 2) . ' GB';
+        }
+
+        if ($this->size > pow(1024, 2)) {
+            return round($this->size/pow(1024, 2), 2) . ' MB';
+        }
+
+        if ($this->size > 1024) {
+            return round($this->size/1024, 2) . ' KB';
+        }
+
+        return $this->size . ' B';
+
+
+    }
+
+    /**
      * Join an array of partial paths to
      * a valid path by removing or adding
      * slashes
@@ -77,5 +129,10 @@ class File extends Model
         );
 
         return substr($paths[0], 0, 1) == '/' ? '/' . implode('/', $paths_trimmed) : implode('/', $paths_trimmed);
+    }
+
+    public function url()
+    {
+        return url('files/' . $this->id);
     }
 }

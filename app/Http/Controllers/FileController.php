@@ -3,13 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\File;
+use App\FileProperty;
 use App\Http\Transformers\FileTransformer;
 use Auth;
 use Carbon\Carbon;
 use ErrorException;
 use Gate;
 use \Illuminate\Http\Request;
-use Webpatser\Uuid\Uuid;
 
 
 /**
@@ -111,11 +111,11 @@ class FileController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $required_inputs = ['name', 'file'];
+        $required_inputs = ['file'];
         if (!$this->checkInput($required_inputs, $request)) {
             return $this->setStatusCode(422)
-                ->setErrorCode(101)
-                ->respondWithError('Required inputs: ' . implode(',', $required_inputs));
+                        ->setErrorCode(101)
+                        ->respondWithError('Required inputs: ' . implode(',', $required_inputs));
         }
 
         $year_str = Carbon::now()->year;
@@ -151,27 +151,25 @@ class FileController extends ApiController
          * Create file model
          */
         $file = File::create();
-        $file->display_name = $request->input('name');
-        $file->parent_path = $parent_path;
-        $file->name = $file->id . '.' .
+        $file->parent_path  = $parent_path;
+        $file->user_id      = Auth::user()->id;
+        $file->state        = 'Creating';
+        $file->name         = $file->id . '.' .
             strtolower($request->file('file')->getClientOriginalExtension());
-
-        $file->user_id = Auth::user()->id;
-        $file->state = 'Creating';
 
         /*
          * Look for optional inputs
          */
-        if ($request->has('belongsto_type') && $request->has('belongsto_id')) {
-            $class_name = 'App\\' . $request->get('belongsto_type');
+        if ($request->has('belongsTo_type') && $request->has('belongsTo_id')) {
+            $class_name = 'App\\' . $request->input('belongsTo_type');
             if (class_exists($class_name)) {
-                $belongs = $class_name::find($request->input('belongsto_id'));
+                $belongs = $class_name::find($request->input('belongsTo_id'));
                 if (is_null($belongs)) {
                     return $this->setStatusCode(422)
                                 ->respondWithError('Model not found');
                 }
 
-                $file->belongsTo_type = $request->get('belongsto_type');
+                $file->belongsTo_type = $request->input('belongsTo_type');
                 $file->belongsTo_id = $belongs->id;
             }
             else {
@@ -193,19 +191,33 @@ class FileController extends ApiController
         umask(0);
         chmod($file->path(), 0664);
 
-        $file->mimetype = mime_content_type($file->path());
+        switch ($request->file('file')->getClientMimeType()) {
+            case 'image/jpeg':
+                $exif = exif_read_data($file->path(), 0, true);
+                if ($exif) {
+                    foreach($exif as $key=>$section) {
+                        foreach($section as $name=>$value) {
+                            if (!is_array($value)) {
+                                $fp = FileProperty::create();
+                                $fp->file_id = $file->id;
+                                $fp->name = $key.$name;
+                                $fp->value = $value;
+                                $fp->save();
+                            }
+                        }
+                    }
+                }
+        }
+
+        $file->display_name = $request->file('file')->getClientOriginalName();
+        $file->mimetype = $request->file('file')->getClientMimeType();
+        $file->size = $request->file('file')->getClientSize();
         $file->state = 'Uploaded';
         $file->save();
 
         return $this->setStatusCode(200)->respondWithData(
             [
                 'id'    =>  $file->id
-            ],
-            [
-                'redirect' => [
-                    'uri'   => url('files/' . $file->id . '/edit'),
-                    'delay' => 100
-                ]
             ]
         );
 
@@ -231,20 +243,20 @@ class FileController extends ApiController
         /*
          * Look for optional inputs
          */
-        if ($request->has('belongsto_type') && $request->has('belongsto_id')) {
-            $class_name = 'App\\' . $request->get('belongsto_type');
+        if ($request->has('belongsTo_type') && $request->has('belongsTo_id')) {
+            $class_name = 'App\\' . $request->input('belongsTo_type');
             if (class_exists($class_name)) {
-                $belongs = $class_name::find($request->input('belongsto_id'));
+                $belongs = $class_name::find($request->input('belongsTo_id'));
                 if (is_null($belongs)) {
                     return $this->setStatusCode(422)
-                        ->respondWithError('Model not found');
+                                ->respondWithError('Model not found');
                 }
 
-                $file->belongsTo_type = $request->get('belongsto_type');
+                $file->belongsTo_type = $request->input('belongsTo_type');
                 $file->belongsTo_id = $belongs->id;
             } else {
                 return $this->setStatusCode(422)
-                    ->respondWithError('Class not found');
+                            ->respondWithError('Class not found');
             }
         }
 
