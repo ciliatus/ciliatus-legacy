@@ -8,7 +8,7 @@
 
         <div class="x_content">
             <br />
-            <form class="form-horizontal form-label-left" name="f_create_file" action="{{ url('api/v1/files') }}" data-method="POST" data-ignore-enctype="true">
+            <form class="form-horizontal form-label-left" name="f_create_file" action="{{ url('api/v1/files') }}" data-method="POST" data-ignore-enctype="true" data-user-formdata="true">
 
                 <div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.belongsTo_type')</label>

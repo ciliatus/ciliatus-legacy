@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Animal;
 use App\Controlunit;
+use App\Log;
 use App\LogicalSensor;
 use App\PhysicalSensor;
 use App\Pump;
@@ -658,6 +659,82 @@ class ViewController extends Controller
         return view('files.edit', [
             'file'    => $file,
             'physical_sensors'  => $physical_sensors,
+        ]);
+    }
+
+
+
+    /*
+     * Log
+     */
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function logs()
+    {
+        return view('logs.index', [
+            'logs' => Log::orderBy('created_at', 'desc')->get()
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function logsShow($id)
+    {
+        $log = Log::find($id);
+        if (is_null($log)) {
+            return view('errors.404');
+        }
+
+        return view('logs.show', [
+            'log' => $log
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function logsCreate()
+    {
+        return view('logs.create');
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function logsDelete($id)
+    {
+        $log = Log::find($id);
+
+        if (is_null($log)) {
+            return view('errors.404');
+        }
+
+        return view('logs.delete', [
+            'log'     => $log
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function logsEdit($id)
+    {
+        $log = Log::find($id);
+
+        if (is_null($log)) {
+            return view('errors.404');
+        }
+
+        $terraria = Terrarium::all();
+
+        return view('logs.edit', [
+            'log'     => $log,
+            'terraria'        => $terraria
         ]);
     }
 

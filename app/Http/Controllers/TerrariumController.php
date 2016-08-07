@@ -296,7 +296,7 @@ class TerrariumController extends ApiController
         }
 
         $terrarium = Terrarium::create();
-        $terrarium->display_name = $request->input('displayname');
+        $terrarium->display_name = $request->input('display_name');
         $terrarium->save();
 
         return $this->setStatusCode(200)->respondWithData(
@@ -428,7 +428,7 @@ class TerrariumController extends ApiController
         }
 
         $terrarium->name = $request->input('name');
-        $terrarium->display_name = $request->input('friendlyname');
+        $terrarium->display_name = $request->input('display_name');
         $terrarium->save();
 
         return $this->setStatusCode(200)->respondWithData([], [

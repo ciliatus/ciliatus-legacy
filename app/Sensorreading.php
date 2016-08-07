@@ -26,11 +26,18 @@ class Sensorreading extends CiliatusModel
     {
         return $this->belongsTo('App\LogicalSensor');
     }
+
+    /**
+     * @return string
+     */
     public function icon()
     {
         return 'circle-o';
     }
 
+    /**
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
     public function url()
     {
         return url('sensorreadings/' . $this->id);

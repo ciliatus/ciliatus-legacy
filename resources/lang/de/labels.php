@@ -33,5 +33,9 @@ return [
     'updated_at'    =>  'Letztes Update',
     'download'      =>  'Herunterladen',
     'properties'    =>  'Eigenschaften',
-    'preview'       =>  'Vorschau'
+    'preview'       =>  'Vorschau',
+    'source'        =>  'Quelle',
+    'target'        =>  'Ziel',
+    'associated_with'=> 'Assoziiert mit',
+    'log'           =>  'Log'
 ];

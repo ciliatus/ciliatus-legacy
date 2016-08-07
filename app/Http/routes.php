@@ -51,6 +51,12 @@ Route::get('/files/{id}/delete', 'ViewController@filesDelete');
 Route::get('/files/{id}/download', 'ViewController@filesDownload');
 Route::get('/files/{id}', 'ViewController@filesShow');
 
+Route::get('/logs', 'ViewController@logs');
+Route::get('/logs/create', 'ViewController@logsCreate');
+Route::get('/logs/{id}/edit', 'ViewController@logsEdit');
+Route::get('/logs/{id}/delete', 'ViewController@logsDelete');
+Route::get('/logs/{id}', 'ViewController@logsShow');
+
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');

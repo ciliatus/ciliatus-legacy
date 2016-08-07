@@ -9,4 +9,5 @@ return [
     'physicalsensors'=> 'Physikalischer Sensor|Physikalische Sensoren',
     'logicalsensors'=>  'Logischer Sensor|Logische Sensoren',
     'files'         =>  'Datei|Dateien',
+    'log'           =>  'Log|Logs'
 ];

@@ -64,11 +64,11 @@ $('form').submit(function (e)
      * PUT with FormData
      */
     var data = null;
-    if ($(e.target).data('method') === 'PUT') {
-        data = $(e.target).serialize();
+    if ($(e.target).data('user-formdata')) {
+        data = new FormData(this);
     }
     else {
-        data = new FormData(this);
+        data = $(e.target).serialize();
     }
 
     var content_type = 'application/x-www-form-urlencoded';

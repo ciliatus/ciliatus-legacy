@@ -33,5 +33,9 @@ return [
     'updated_at'    =>  'Last update',
     'download'      =>  'Download',
     'properties'    =>  'Properties',
-    'preview'       =>  'Preview'
+    'preview'       =>  'Preview',
+    'source'        =>  'Source',
+    'target'        =>  'Target',
+    'associated_with'=> 'Associated with',
+    'log'           =>  'Log'
 ];

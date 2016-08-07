@@ -1,5 +1,5 @@
 <div class="row">
-    @include('files.dashboard_slice', ['files' => $files])
+    @include('logs.dashboard_slice', ['logs' => $logs])
 </div>
 
 <script>

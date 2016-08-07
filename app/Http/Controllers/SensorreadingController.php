@@ -137,13 +137,13 @@ class SensorreadingController extends ApiController
         $logical_sensor->physical_sensor->controlunit->heartbeat();
         $logical_sensor->physical_sensor->heartbeat();
         $logical_sensor->rawvalue = (float)$request->input('rawvalue');
-        $logical_sensor->save();
+        $logical_sensor->save(['silent']);
 
         $sensorreading = Sensorreading::create();
         $sensorreading->sensorreadinggroup_id = $request->input('group_id');
         $sensorreading->logical_sensor_id = $request->input('logical_sensor_id');
         $sensorreading->rawvalue = (float)$request->input('rawvalue');
-        $sensorreading->save();
+        $sensorreading->save(['silent']);
 
         return $this->setStatusCode(200)->respondWithData(
             [

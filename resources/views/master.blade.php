@@ -106,6 +106,7 @@
                     <li><a href="{{ url('logical_sensors/create') }}">@choice('components.logicalsensors', 1)</a></li>
                 </ul>
               </li>
+              <li><a href="{{ url('logs') }}"><i class="fa fa-list-ul"></i> @choice('components.log', 2)</a></li>
             </ul>
           </div>
 

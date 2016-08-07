@@ -22,6 +22,48 @@ class File extends CiliatusModel
     public $incrementing = false;
 
     /**
+     * @param array $attributes
+     * @return CiliatusModel|File
+     */
+    public static function create(array $attributes = [])
+    {
+        $new = parent::create($attributes);
+        Log::create([
+            'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
+            'target_id'     =>  $new->id,
+            'associatedWith_type' => explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
+            'associatedWith_id' => $new->id,
+            'action'        => 'create'
+        ]);
+
+        return $new;
+    }
+
+    /**
+     *
+     */
+    public function delete()
+    {
+
+        foreach ($this->properties() as $prop) {
+            $prop->delete();
+        }
+
+        if (file_exists($this->path()))
+            unlink($this->path());
+
+        Log::create([
+            'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
+            'target_id'     =>  $this->id,
+            'associatedWith_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
+            'associatedWith_id' => $this->id,
+            'action'        => 'delete'
+        ]);
+
+        parent::delete();
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function properties()
@@ -29,6 +71,9 @@ class File extends CiliatusModel
         return $this->hasMany('App\FileProperty');
     }
 
+    /**
+     * @return null
+     */
     public function belongs_to()
     {
         if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
@@ -49,18 +94,23 @@ class File extends CiliatusModel
     }
 
     /**
-     *
+     * @param array $options
+     * @return bool
      */
-    public function delete()
+    public function save(array $options = [])
     {
-        foreach ($this->properties() as $prop) {
-            $prop->delete();
+
+        if (!in_array('silent', $options)) {
+            Log::create([
+                'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
+                'target_id' => $this->id,
+                'associatedWith_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
+                'associatedWith_id' => $this->id,
+                'action' => 'update'
+            ]);
         }
 
-        if (file_exists($this->path()))
-            unlink($this->path());
-
-        parent::delete();
+        return parent::save($options);
     }
 
     /**
@@ -90,6 +140,9 @@ class File extends CiliatusModel
         }
     }
 
+    /**
+     * @return string
+     */
     public function sizeReadable()
     {
         if ($this->size > pow(1024, 3)) {
@@ -131,6 +184,9 @@ class File extends CiliatusModel
         return substr($paths[0], 0, 1) == '/' ? '/' . implode('/', $paths_trimmed) : implode('/', $paths_trimmed);
     }
 
+    /**
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
     public function url()
     {
         return url('files/' . $this->id);
