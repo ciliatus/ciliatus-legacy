@@ -15,7 +15,7 @@ class ApiController extends Controller
     /**
      * @var
      */
-    protected $statusCode;
+    protected $statusCode = 200;
 
     /**
      * @var
