@@ -6,8 +6,8 @@
         @include('terraria.dashboard_slice', ['terraria' => $terraria])
     </div>
 
+    <!--
     <div class="row">
-        <!-- start of weather widget -->
         <div class="col-xl-4 col-lg-6 col-md-6 col-xs-12">
             <div class="x_panel">
                 <div class="x_title">
@@ -135,8 +135,7 @@
             </div>
         </div>
     </div>
-    <!-- end of weather widget -->
-
+    -->
     <script>
         $(function() {
             runPage();

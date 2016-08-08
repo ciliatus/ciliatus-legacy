@@ -43,7 +43,7 @@
                                 @if (!is_null($animal->birth_date))
                                     ({{ $animal->getAge()['value'] }} {{ trans_choice('units.' . $animal->getAge()['unit'], $animal->getAge()['value']) }})
                                 @endif
-                                <span>{{ $animal->common_name }}</span> <span><i>{{ $animal->lat_name }}</i></span>
+                                <span>{{ $animal->common_name }}</span> <span class="hidden-sm hidden-xs hidden-md hidden-lg"><i>{{ $animal->lat_name }}</i></span>
                             </div>
                             @endforeach
                         @endif

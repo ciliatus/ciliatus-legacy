@@ -71,6 +71,7 @@
                         <th>@lang('labels.current_value')</th>
                         <th>@choice('components.logical_sensor_thresholds', 1)</th>
                         <th>@lang('labels.state')</th>
+                        <th>@lang('labels.actions')</th>
                     </tr>
                     </thead>
 
@@ -79,7 +80,7 @@
                     @foreach ($terrarium->logical_sensors as $ls)
                         <tr>
                             <td><i class="fa fa-{{ $ls->icon() }}"></i></td>
-                            <td>{{ $ls->name }}</td>
+                            <td><a href="{{ $ls->url() }}">{{ $ls->name }}</a></td>
                             <td><a href="{{ $ls->physical_sensor->url() }}"><i class="fa fa-{{ $ls->physical_sensor->icon() }}"></i> {{ $ls->physical_sensor->name }}</a></td>
                             <td>{{ $ls->getCurrentCookedValue() }}</td>
                             <td>
@@ -94,7 +95,13 @@
                                     @endif
                                 @endif
                             </td>
-                            <td>@if ($ls->stateOk())<i class="fa fa-check"></i>@else<i class="fa fa-times"></i>@endif</td>
+                            <td>
+                                @if ($ls->stateOk())<i class="fa fa-check"></i>@else<i class="fa fa-times"></i>@endif
+                            </td>
+                            <td>
+                                <a href="{{ url('logical_sensors/' . $ls->id . '/edit') }}"><i class="fa fa-edit"></i></a>
+                                <a href="{{ url('logical_sensors/' . $ls->id . '/delete') }}"><i class="fa fa-times"></i></a>
+                            </td>
                         </tr>
                     @endforeach
                     </tbody>

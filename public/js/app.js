@@ -153,46 +153,6 @@ function getIconHtmlByFiletype(mime)
  fa fa-file-zip-o
  */
 
-function renderTemperatureSparklineById(id, height, width)
-{
-    return $(id).sparkline('html', {
-        type: 'line',
-        width: width,
-        height: height,
-        lineColor: '#BF0000',
-        fillColor: '#FFAAAA',
-        lineWidth: 1,
-        spotColor: undefined,
-        minSpotColor: undefined,
-        maxSpotColor: undefined,
-        highlightSpotColor: undefined,
-        highlightLineColor: undefined,
-        spotRadius: 0,
-        chartRangeMin: 0,
-        chartRangeMax: 40
-    });
-}
-
-function renderHumiditySparklineById(id, height, width)
-{
-    return $(id).sparkline('html', {
-        type: 'line',
-        width: width,
-        height: height,
-        lineColor: '#0000BF',
-        fillColor: '#AAAAFF',
-        lineWidth: 1,
-        spotColor: undefined,
-        minSpotColor: undefined,
-        maxSpotColor: undefined,
-        highlightSpotColor: undefined,
-        highlightLineColor: undefined,
-        spotRadius: 0,
-        chartRangeMin: 0,
-        chartRangeMax: 100
-    });
-}
-
 function notification(level, title, text)
 {
     text = text || '';
@@ -238,8 +198,8 @@ domCallbacks['terrariaDashboardCallback'] = function (success, data, ld) {
 
     $(this.target).find('.terrarium-widget-temp').html(temperature_state_icon + data.data.cooked_temperature_celsius + '°C <span class="wi ' + temptrendicontemp + '"></span>');
     $(this.target).find('.terrarium-widget-humidity').html(humidity_state_icon + data.data.cooked_humidity_percent + '% <span class="wi ' + temptrendiconhumidity + '"></span>');
-    $(this.target).find('.dashboard-widget-sparkline-temp').html('<div id="sparkline-temperature-' + data.data.id + '" style="background-color: #FFDDDD;">' + data.data.temperature_history + '</div>');
-    $(this.target).find('.dashboard-widget-sparkline-humidity').html('<div id="sparkline-humidity-' + data.data.id + '" style="background-color: #DDDDFF;">' + data.data.humidity_history + '</div>');
+    $(this.target).find('.dashboard-widget-sparkline-temp').html('<div class="sparkline-temperature" id="sparkline-temperature-' + data.data.id + '">' + data.data.temperature_history + '</div>');
+    $(this.target).find('.dashboard-widget-sparkline-humidity').html('<div class="sparkline-humidity" id="sparkline-humidity-' + data.data.id + '">' + data.data.humidity_history + '</div>');
 
     ld.refs.push(renderHumiditySparklineById('#sparkline-humidity-' + data.data.id, 40, '100%'));
     ld.refs.push(renderTemperatureSparklineById('#sparkline-temperature-' + data.data.id, 40, '100%'));

@@ -20,7 +20,7 @@
     <!-- Switchery -->
     {!! Html::style('vendors/switchery/dist/switchery.min.css') !!}
     <!-- Custom Theme Style -->
-    {!! Html::style('build/css/custom.css') !!}
+    {!! Html::style('build/css/custom_dark.css') !!}
     <!-- PNotify -->
     {!! Html::style('vendors/pnotify/dist/pnotify.css') !!}
     {!! Html::style('vendors/pnotify/dist/pnotify.buttons.css') !!}
@@ -114,22 +114,6 @@
         </div>
         <!-- /sidebar menu -->
 
-        <!-- /menu footer buttons -->
-        <div class="sidebar-footer hidden-small">
-          <a data-toggle="tooltip" data-placement="top" title="Settings">
-            <span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-          </a>
-          <a data-toggle="tooltip" data-placement="top" title="FullScreen">
-            <span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-          </a>
-          <a data-toggle="tooltip" data-placement="top" title="Lock">
-            <span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-          </a>
-          <a data-toggle="tooltip" data-placement="top" title="Logout">
-            <span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-          </a>
-        </div>
-        <!-- /menu footer buttons -->
       </div>
     </div>
 
@@ -162,6 +146,7 @@
 <!-- Custom Theme Scripts -->
 {!! Html::script('build/js/custom.min.js') !!}
 
+{!! Html::script('js/sparklines_dark.js') !!}
 {!! Html::script('js/app.js') !!}
 
 <!-- Skycons -->
