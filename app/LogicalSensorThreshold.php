@@ -71,6 +71,16 @@ class LogicalSensorThreshold extends CiliatusModel
             ]);
         }
 
+        if (!in_array('no_new_name', $options)) {
+            $this->name = 'LSTH_';
+            if (!is_null($this->logical_sensor)) {
+                $this->name .= $this->logical_sensor->name;
+            } else {
+                $this->name .= $this->id;
+            }
+            $this->save(['silent', 'no_new_name']);
+        }
+
         return parent::save($options);
     }
 
