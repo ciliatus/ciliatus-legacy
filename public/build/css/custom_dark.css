@@ -67,7 +67,7 @@
 }
 
 .side-menu li:hover {
-  border-right: 5px solid #1A9CBB;
+  border-right: 5px solid #BBBBBB;
   background-color: rgba(255, 255, 255, 0.0470588);
 }
 
@@ -402,7 +402,7 @@ body .container.body .right_col {
 }
 
 .top_nav .nav > li > a:focus, .top_nav .nav > li > a:hover, .top_nav .nav .open > a, .top_nav .nav .open > a:focus, .top_nav .nav .open > a:hover {
-  background: #D9DEE4;
+  background: #333;
 }
 
 body {
@@ -799,10 +799,12 @@ a:hover, a:focus {
   padding: 5px;
   color: #C5C7CB;
   font-size: 14px;
+    border: 1px solid rgba(0,0,0,0);
 }
 
 .panel_toolbox > li > a:hover {
-  background: #F5F7FA;
+  background: #555;
+  border: 1px solid #888;
 }
 
 .line_30 {
@@ -1057,7 +1059,7 @@ h2 {
 }
 
 .x_title {
-  border-bottom: 2px solid #E6E9ED;
+  border-bottom: 2px solid rgba(115, 135, 156, 0.6);
   padding: 1px 5px 6px;
   margin-bottom: 10px;
 }
@@ -1578,7 +1580,7 @@ td.details {
 }
 
 .paging_full_numbers a.paginate_button:hover {
-  background-color: #ccc;
+  background-color: #444444;
   text-decoration: none !important;
 }
 
@@ -1855,7 +1857,7 @@ span.right {
 }
 
 .sidebar-footer a:hover {
-  background: #425567;
+  background: #424242;
 }
 
 /** top tiles  */
@@ -2659,8 +2661,8 @@ a.btn-success, a.btn-primary, a.btn-warning, a.btn-danger {
 }
 
 .btn.btn-app:hover {
-  background: #f4f4f4;
-  color: #444;
+  background: #444444;
+  color: #f4f4f4;
   border-color: #aaa;
 }
 
@@ -2752,7 +2754,7 @@ textarea:focus {
 
 .bs-glyphicons li:hover {
   color: #fff;
-  background-color: #1ABB9C;
+  background-color: #444444;
 }
 
 @media (min-width: 768px) {
@@ -3184,8 +3186,8 @@ ul.widget_profile_box li a {
 }
 
 ul.widget_profile_box li a:hover {
-  color: #1ABB9C !important;
-  border: 1px solid #26b99a;
+  color: #444444 !important;
+  border: 1px solid #aaaaaa;
 }
 
 ul.widget_profile_box li .profile_img {
@@ -3682,12 +3684,12 @@ ul.project_files li a i {
 }
 
 .tabs-left > li.active > a, .tabs-left > li.active > a:hover, .tabs-left > li.active > a:focus {
-  border-bottom-color: #F7F7F7;
+  border-bottom-color: #777777;
   border-right-color: transparent;
 }
 
 .tabs-right > li.active > a, .tabs-right > li.active > a:hover, .tabs-right > li.active > a:focus {
-  border-bottom: 1px solid #F7F7F7;
+  border-bottom: 1px solid #777777;
   border-left-color: transparent;
 }
 
@@ -3729,8 +3731,8 @@ ul.project_files li a i {
 
 .sideways > li.active > a, .sideways > li.active > a:hover, .sideways > li.active > a:focus {
   border-bottom-color: transparent;
-  border-right-color: #ddd;
-  border-left-color: #ddd;
+  border-right-color: #999;
+  border-left-color: #999;
 }
 
 .sideways.tabs-left {
@@ -4204,7 +4206,7 @@ a.hiddenanchor {
 
 .button a:hover {
   background-position: 0 -135px;
-  color: #00aeef;
+  color: #AEAEAE;
 }
 
 header {
@@ -4510,7 +4512,7 @@ fieldset {
 }
 
 .cropper .docs-options .dropdown-menu > li:hover {
-  background-color: #f7f7f7;
+  background-color: #444;
 }
 
 .cropper .docs-options .dropdown-menu > li > label {
@@ -5038,8 +5040,8 @@ ul.notifications {
 }
 
 .daterangepicker td.available:hover, .daterangepicker th.available:hover {
-  background: #eee;
-  color: #34495E;
+  background: #333333;
+  color: #AEAEAE;
 }
 
 .daterangepicker td.in-range {
@@ -5060,8 +5062,8 @@ ul.notifications {
 }
 
 .daterangepicker td.active, .daterangepicker td.active:hover {
-  background-color: #536A7F;
-  color: #fff;
+  background-color: #333333;
+  color: #AEAEAE;
 }
 
 .daterangepicker td.week, .daterangepicker th.week {
@@ -5162,9 +5164,9 @@ ul.notifications {
 }
 
 .daterangepicker .ranges li.active, .daterangepicker .ranges li:hover {
-  background: #536A7F;
-  border: 1px solid #536A7F;
-  color: #fff;
+  background: #6B6B6B;
+  border: 1px solid #9C9C9C;
+  color: #DDD;
 }
 
 .daterangepicker .calendar {
@@ -5282,4 +5284,17 @@ a {
 
 .odd {
     background-color: rgb(60, 60, 60) !important;
+}
+
+.table-bordered {
+    border-color: #555555;
+}
+.table-bordered tr {
+    border-color: #555555 !important;
+}
+.table-bordered td {
+    border-color: #555555 !important;;
+}
+.table-bordered th {
+    border-color: #555555 !important;;
 }
