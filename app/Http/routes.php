@@ -84,4 +84,6 @@ Route::group(['prefix' => 'api/v1'], function() {
     Route::resource('sensorreadings', 'SensorreadingController');
     Route::resource('files', 'FileController');
     Route::resource('file_properties', 'FilePropertyController');
+    Route::resource('critical_states', 'CriticalStateController');
+    Route::post('critical_states/evaluate', 'CriticalStateController@evaluate');
 });

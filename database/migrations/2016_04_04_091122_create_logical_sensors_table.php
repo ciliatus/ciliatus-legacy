@@ -22,6 +22,7 @@ class CreateLogicalSensorsTable extends Migration
             $table->double('rawvalue');
             $table->double('rawvalue_lowerlimit');
             $table->double('rawvalue_upperlimit');
+            $table->integer('soft_state_duration_minutes')->default(env('DEFAULT_SOFT_STATE_DURATION_MINUTES', 10));
             $table->timestamps();
         });
     }
