@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -78,6 +79,7 @@ class LogicalSensorThreshold extends CiliatusModel
             } else {
                 $this->name .= $this->id;
             }
+            $this->name .= '_' . Carbon::parse($this->starts_at)->format('h:i:s');
             $this->save(['silent', 'no_new_name']);
         }
 
