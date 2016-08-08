@@ -210,5 +210,10 @@ function runPage()
     $('[data-livedata="true"]').each(function() {
         console.log(window);
         new LiveData($(this).data('livedatasource'), $(this).data('livedatainterval'), domCallbacks[$(this).data('livedatacallback')], this).run();
-    })
+    });
+
+    if ($(window).width() < 992) { //bootstrap md
+        $('.x_content').css('display', 'none');
+    }
+
 }
