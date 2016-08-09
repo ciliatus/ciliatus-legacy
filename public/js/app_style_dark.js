@@ -14,7 +14,8 @@ function renderTemperatureSparklineById(id, height, width)
         highlightLineColor: undefined,
         spotRadius: 0,
         chartRangeMin: 0,
-        chartRangeMax: 40
+        chartRangeMax: 40,
+        disableHiddenCheck: true,
     });
 }
 
@@ -34,7 +35,8 @@ function renderHumiditySparklineById(id, height, width)
         highlightLineColor: undefined,
         spotRadius: 0,
         chartRangeMin: 0,
-        chartRangeMax: 100
+        chartRangeMax: 100,
+        disableHiddenCheck: true,
     });
 }
 
