@@ -128,7 +128,7 @@ class UserAbility extends Model
      */
     public function url()
     {
-        return url('user_ability/' . $this->id);
+        return url('user_abilities/' . $this->id);
     }
 
 }
