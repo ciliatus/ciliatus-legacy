@@ -3,7 +3,9 @@
         @include('animals.show_slice', ['animal' => $a])
 
         @if(isset($show_extended))
-            @include('terraria.show_slice', ['terrarium' => $animal->terrarium])
+            @if (!is_null($animal->terrarium))
+                @include('terraria.show_slice', ['terrarium' => $animal->terrarium])
+            @endif
         @endif
     </div>
 @endforeach
