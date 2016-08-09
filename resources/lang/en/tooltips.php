@@ -7,4 +7,5 @@ return [
     'autoirrigation'        => 'Automatic irrigation (if available)',
     'sendnotificationsfor'  => 'Send notifications for',
     'loadandrendergraph'    => 'Collection data and rendering graph',
+    'disables_option'       => 'Disables ":option"'
 ];

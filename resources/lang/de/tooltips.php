@@ -7,4 +7,5 @@ return [
     'autoirrigation'        => 'Automatische Bewässerung',
     'sendnotificationsfor'  => 'Benachrichtigungen versenden für',
     'loadandrendergraph'    => 'Daten werden ermittelt und Graph wird gerendert',
+    'disables_option'       => 'Deaktiviert ":option"'
 ];

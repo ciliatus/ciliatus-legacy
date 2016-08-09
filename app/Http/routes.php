@@ -51,11 +51,11 @@ Route::get('/files/{id}/delete', 'ViewController@filesDelete');
 Route::get('/files/{id}/download', 'ViewController@filesDownload');
 Route::get('/files/{id}', 'ViewController@filesShow');
 
-Route::get('/logs', 'ViewController@logs');
-Route::get('/logs/create', 'ViewController@logsCreate');
-Route::get('/logs/{id}/edit', 'ViewController@logsEdit');
-Route::get('/logs/{id}/delete', 'ViewController@logsDelete');
-Route::get('/logs/{id}', 'ViewController@logsShow');
+Route::get('/users', 'ViewController@users');
+Route::get('/users/create', 'ViewController@usersCreate');
+Route::get('/users/{id}/edit', 'ViewController@usersEdit');
+Route::get('/users/{id}/delete', 'ViewController@usersDelete');
+Route::get('/users/{id}', 'ViewController@usersShow');
 
 Route::get('/logical_sensor_thresholds', 'ViewController@logical_sensor_thresholds');
 Route::get('/logical_sensor_thresholds/create', 'ViewController@logical_sensor_thresholdsCreate');
@@ -86,4 +86,5 @@ Route::group(['prefix' => 'api/v1'], function() {
     Route::resource('file_properties', 'FilePropertyController');
     Route::resource('critical_states', 'CriticalStateController');
     Route::post('critical_states/evaluate', 'CriticalStateController@evaluate');
+    Route::resource('users', 'UserController');
 });

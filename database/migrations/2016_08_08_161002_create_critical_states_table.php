@@ -15,6 +15,7 @@ class CreateCriticalStatesTable extends Migration
         Schema::create('critical_states', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
+            $table->string('name');
             $table->string('belongsTo_type');
             $table->uuid('belongsTo_id');
             $table->boolean('is_soft_state')->default(true);

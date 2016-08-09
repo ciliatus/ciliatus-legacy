@@ -10,6 +10,7 @@ use App\LogicalSensorThreshold;
 use App\PhysicalSensor;
 use App\Pump;
 use App\Terrarium;
+use App\User;
 use App\Valve;
 use App\File;
 
@@ -828,7 +829,7 @@ class ViewController extends Controller
     public function users()
     {
         return view('users.index', [
-            'users' => Log::orderBy('name')->get()
+            'users' => User::orderBy('name')->get()
         ]);
     }
 
@@ -838,7 +839,7 @@ class ViewController extends Controller
      */
     public function usersShow($id)
     {
-        $user = Log::find($id);
+        $user = User::find($id);
         if (is_null($user)) {
             return view('errors.404');
         }
@@ -862,7 +863,7 @@ class ViewController extends Controller
      */
     public function usersDelete($id)
     {
-        $user = Log::find($id);
+        $user = User::find($id);
 
         if (is_null($user)) {
             return view('errors.404');
@@ -879,13 +880,12 @@ class ViewController extends Controller
      */
     public function usersEdit($id)
     {
-        $user = Log::find($id);
+        $user = User::find($id);
 
         if (is_null($user)) {
             return view('errors.404');
         }
 
-        $terraria = Terrarium::all();
 
         return view('users.edit', [
             'user'     => $user

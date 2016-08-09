@@ -34,8 +34,16 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAbility('grant_api-read');
         });
 
+        $gate->define('api-read_admin', function ($user) {
+            return $user->hasAbility('grant_api-read_admin');
+        });
+
         $gate->define('api-list', function ($user) {
             return $user->hasAbility('grant_api-list');
+        });
+
+        $gate->define('api-list_admin', function ($user) {
+            return $user->hasAbility('grant_api-list_admin');
         });
 
         $gate->define('api-write:sensorreading', function ($user) {
@@ -80,6 +88,18 @@ class AuthServiceProvider extends ServiceProvider
 
         $gate->define('api-write:logical_sensor_threshold', function ($user) {
             return $user->hasAbility('grant_api-write:logical_sensor_threshold');
+        });
+
+        $gate->define('api-write:user_self', function ($user) {
+            return $user->hasAbility('grant_api-write:user_self');
+        });
+
+        $gate->define('api-write:user_all', function ($user) {
+            return $user->hasAbility('grant_api-write:user_all');
+        });
+
+        $gate->define('api-write:user_ability', function ($user) {
+            return $user->hasAbility('grant_api-write:user_ability');
         });
     }
 }

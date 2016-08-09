@@ -4,11 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class UserAbility
- * @package App
- */
-class UserAbility extends Model
+class UserSetting extends Model
 {
     use Traits\Uuids;
 
@@ -24,31 +20,8 @@ class UserAbility extends Model
      */
     protected $fillable = [
         'user_id',
-        'ability'
-    ];
-
-    /**
-     * @var array
-     */
-    protected static $abilities = [
-        'grant_api-list',
-        'grant_api-list_admin',
-        'grant_api-read',
-        'grant_api-read_admin',
-        'grant_api-write:animal',
-        'grant_api-write:terrarium',
-        'grant_api-write:sensorreading',
-        'grant_api-write:pump',
-        'grant_api-write:valve',
-        'grant_api-write:physical_sensor',
-        'grant_api-write:logical_sensor',
-        'grant_api-write:logical_sensor_threshold',
-        'grant_api-write:controlunit',
-        'grant_api-write:file',
-        'grant_api-write:file_property',
-        'grant_api-write:user_self',       // edit own profile
-        'grant_api-write:user_all',         // edit all users including permissions and protected properties
-        'grant_api-write:user_ability',
+        'name',
+        'value'
     ];
 
     /**
@@ -102,10 +75,6 @@ class UserAbility extends Model
             ]);
         }
 
-        if (!in_array($this->name, self::$abilities)) {
-            return false;
-        }
-
         return parent::save($options);
     }
 
@@ -115,14 +84,6 @@ class UserAbility extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
-    }
-
-    /**
-     * @return array
-     */
-    public static function abilities()
-    {
-        return self::$abilities;
     }
 
     /**
@@ -138,7 +99,6 @@ class UserAbility extends Model
      */
     public function url()
     {
-        return url('user_abilities/' . $this->id);
+        return url('user_settings/' . $this->id);
     }
-
 }

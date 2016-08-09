@@ -20,7 +20,18 @@
     <!-- Switchery -->
     {!! Html::style('vendors/switchery/dist/switchery.min.css') !!}
     <!-- Custom Theme Style -->
-    {!! Html::style('build/css/custom_dark.css') !!}
+    @if(Auth::user())
+        @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on')
+            {!! Html::style('build/css/custom_dark.css') !!}
+        @elseif(Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night())
+            {!! Html::style('build/css/custom_dark.css') !!}
+        @else
+            {!! Html::style('build/css/custom.css') !!}
+        @endif
+    @else
+        {!! Html::style('build/css/custom.css') !!}
+    @endif
+
     <!-- PNotify -->
     {!! Html::style('vendors/pnotify/dist/pnotify.css') !!}
     {!! Html::style('vendors/pnotify/dist/pnotify.buttons.css') !!}
@@ -111,6 +122,14 @@
             </ul>
           </div>
 
+          <div class="menu_section">
+              <h3>@lang('menu.help')</h3>
+              <ul class="nav side-menu">
+                  <li><a href="https://github.com/dasprot/ciliatus/issues"><i class="fa fa-bug"></i> @lang('labels.bugtracker')</a></li>
+                  <li><a href="https://github.com/dasprot/ciliatus/wiki"><i class="fa fa-wikipedia-w"></i> @lang('labels.wiki')</a></li>
+              </ul>
+          </div>
+
         </div>
         <!-- /sidebar menu -->
 
@@ -144,10 +163,20 @@
 <!-- Datatables -->
 {!! Html::script('vendors/datatables.net/js/jquery.dataTables.min.js') !!}
 <!-- Custom Theme Scripts -->
-{!! Html::script('build/js/custom.min.js') !!}
+{!! Html::script('build/js/custom.js') !!}
 
-{!! Html::script('js/sparklines_dark.js') !!}
 {!! Html::script('js/app.js') !!}
+@if(Auth::user())
+    @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on')
+        {!! Html::script('js/app_style_dark.js') !!}
+    @elseif(Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night())
+        {!! Html::script('js/app_style_dark.js') !!}
+    @else
+        {!! Html::script('js/app_style.js') !!}
+    @endif
+@else
+    {!! Html::script('js/app_style.js') !!}
+@endif
 
 <!-- Skycons -->
 <script>
