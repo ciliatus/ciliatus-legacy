@@ -632,21 +632,21 @@ a:hover, a:focus {
 }
 
 .nav-md ul.nav.child_menu li:before {
-  background: #425668;
+  background: #777777;
   bottom: auto;
   content: "";
-  height: 8px;
+  height: 9px;
   left: 23px;
   margin-top: 15px;
   position: absolute;
   right: auto;
-  width: 8px;
+  width: 9px;
   z-index: 1;
   border-radius: 50%;
 }
 
 .nav-md ul.nav.child_menu li:after {
-  border-left: 1px solid #425668;
+  border-left: 1px solid #888888;
   bottom: 0;
   content: "";
   left: 27px;
@@ -692,7 +692,7 @@ a:hover, a:focus {
 
 .nav.side-menu > li.active > a {
   text-shadow: rgba(0, 0, 0, 0.25) 0 -1px 0;
-  background: linear-gradient(#334556, #2C4257), rgb(63, 63, 63);
+  background: linear-gradient(#3A3A3A, #353535), rgb(63, 63, 63);
   /*box-shadow: rgba(0, 0, 0, 0.25) 0 1px 0, inset rgba(255, 255, 255, 0.16) 0 1px 0;*/
 }
 
@@ -1002,7 +1002,7 @@ h2 {
   padding: 10px 17px;
   display: inline-block;
   
-  border: 1px solid #404040;
+  border: 1px solid rgb(80, 80, 80);
   -webkit-column-break-inside: avoid;
   -moz-column-break-inside: avoid;
   column-break-inside: avoid;
@@ -1567,7 +1567,7 @@ td.details {
 }
 
 .paging_full_numbers a.paginate_button, .paging_full_numbers a.paginate_active {
-  border: 1px solid #aaa;
+  border: 1px rgb(169,169,169) solid !important;
   -webkit-border-radius: 5px;
   -moz-border-radius: 5px;
   padding: 2px 5px;
@@ -1853,7 +1853,7 @@ span.right {
   font-size: 17px;
   display: block;
   float: left;
-  background: #172D44;
+  background: #444444;
 }
 
 .sidebar-footer a:hover {
@@ -5271,7 +5271,19 @@ ul.notifications {
 
 /* dark theme */
 a {
-  color: #E0E0E0;
+  color: #DDDDDD;
+}
+
+a:focus, a:hover {
+  color: #FCFCFC;
+}
+
+.dygraph-axis-label {
+  color: #DDDDDD;
+}
+
+.dygraph-legend {
+  background: rgb(63, 63, 63) !important;
 }
 
 .sparkline-temperature {
@@ -5297,4 +5309,17 @@ a {
 }
 .table-bordered th {
     border-color: #555555 !important;;
+}
+
+input, textarea, select {
+  background-color: #444444 !important;
+  color: #DDDDDD !important;
+}
+
+.dataTables_filter input {
+  border: 1px rgb(169, 169, 169) solid;
+}
+
+.dataTables_paginate {
+  border: 1px rgb(169,169,169) solid !important;
 }
