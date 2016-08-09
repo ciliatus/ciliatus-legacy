@@ -1034,17 +1034,17 @@ h2 {
 
 .widget-sparkline {
   position: relative;
-  border-top: 2px solid #ffffff;
+  border-top: 2px solid rgba(115, 135, 156, 0.360784);
 }
 
 .widget-sparkline:before, .widget-sparkline:after {
   content: "";
   position: absolute;
-  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FFF), to(transparent));
-  background-image: -webkit-linear-gradient(#FFF, transparent);
-  background-image: -moz-linear-gradient(#FFF, transparent);
-  background-image: -o-linear-gradient(#FFF, transparent);
-  background-image: linear-gradient(#FFF, transparent);
+  background-image: -webkit-gradient(linear, 0 0, 0 100%, from(rgba(115, 135, 156, 0.360784)), to(transparent));
+  background-image: -webkit-linear-gradient(rgba(115, 135, 156, 0.360784), transparent);
+  background-image: -moz-linear-gradient(rgba(115, 135, 156, 0.360784), transparent);
+  background-image: -o-linear-gradient(rgba(115, 135, 156, 0.360784), transparent);
+  background-image: linear-gradient(rgba(115, 135, 156, 0.360784), transparent);
   top: -2px;
   bottom: -2px;
   width: 2px;
@@ -1053,7 +1053,7 @@ h2 {
   left: -2px;
 }
 .widget-sparkline:after {
-  right: -2px;
+  right: -1px;
 }
 
 .x_title {
