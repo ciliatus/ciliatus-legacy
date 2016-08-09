@@ -222,8 +222,8 @@ class ViewController extends Controller
             return view('errors.404');
         }
 
-        return view('pumps.index', [
-            'pumps' => [$pump]
+        return view('pumps.show', [
+            'pump' => $pump
         ]);
     }
 
@@ -299,8 +299,8 @@ class ViewController extends Controller
             return view('errors.404');
         }
 
-        return view('valves.index', [
-            'valves' => [$valve]
+        return view('valves.show', [
+            'valve' => $valve
         ]);
     }
 
@@ -378,8 +378,8 @@ class ViewController extends Controller
             return view('errors.404');
         }
 
-        return view('controlunits.index', [
-            'controlunits' => [$cu]
+        return view('controlunits.show', [
+            'controlunit' => $cu
         ]);
     }
 
@@ -450,8 +450,8 @@ class ViewController extends Controller
             return view('errors.404');
         }
 
-        return view('physical_sensors.index', [
-            'physical_sensors' => [$ps]
+        return view('physical_sensors.show', [
+            'physical_sensor' => $ps
         ]);
     }
 
@@ -527,8 +527,8 @@ class ViewController extends Controller
             return view('errors.404');
         }
 
-        return view('logical_sensors.index', [
-            'logical_sensors' => [$ls]
+        return view('logical_sensors.show', [
+            'logical_sensor' => $ls
         ]);
     }
 
@@ -815,6 +815,80 @@ class ViewController extends Controller
         return view('logs.edit', [
             'log'     => $log,
             'terraria'        => $terraria
+        ]);
+    }
+
+
+    /*
+     * Log
+     */
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function users()
+    {
+        return view('users.index', [
+            'users' => Log::orderBy('name')->get()
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function usersShow($id)
+    {
+        $user = Log::find($id);
+        if (is_null($user)) {
+            return view('errors.404');
+        }
+
+        return view('users.show', [
+            'user' => $user
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function usersCreate()
+    {
+        return view('users.create');
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function usersDelete($id)
+    {
+        $user = Log::find($id);
+
+        if (is_null($user)) {
+            return view('errors.404');
+        }
+
+        return view('users.delete', [
+            'user'     => $user
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function usersEdit($id)
+    {
+        $user = Log::find($id);
+
+        if (is_null($user)) {
+            return view('errors.404');
+        }
+
+        $terraria = Terrarium::all();
+
+        return view('users.edit', [
+            'user'     => $user
         ]);
     }
 

@@ -3,7 +3,7 @@
         <div class="x_panel">
 
             <div class="x_title">
-                <h2>{{ $ps->name }}</h2>
+                <h2><a href="{{ url('physical_sensors/' . $ps->id) }}">{{ $ps->name }}</a></h2>
                 <ul class="nav navbar-right panel_toolbox">
                     <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
                     </li>
@@ -39,7 +39,7 @@
                     @endforeach
                     <div class="clearfix"></div>
                 </div>
-                @if(isset($show_details))
+                @if(isset($show_extended))
                     <div class="row">
                         <pre>{{ $ps->generateConfig() }}</pre>
                     </div>

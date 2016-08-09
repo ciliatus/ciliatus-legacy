@@ -75,5 +75,9 @@
 
             </div>
         </div>
+        @if (isset($show_details))
+            <!-- Extended info start -->
+            <!-- Extended info end -->
+        @endif
     </div>
 @endforeach

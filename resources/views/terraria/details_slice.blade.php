@@ -133,7 +133,9 @@
                         document.getElementById("sensorgraph-terrarium-{{ $terrarium->id }}"),
                         data.data.csv,
                         {
-                            'connectSeparatedPoints': true
+                            'connectSeparatedPoints': true,
+                            colors: ['#5555EE', '#CC5555'],
+                            axisLineColor: '#D4D4D4'
                         }
                 );
                 g.ready(function() {
