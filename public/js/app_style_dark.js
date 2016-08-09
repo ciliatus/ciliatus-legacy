@@ -37,3 +37,18 @@ function renderHumiditySparklineById(id, height, width)
         chartRangeMax: 100
     });
 }
+
+
+
+$(document).ready(function() {
+    // Switchery
+    if ($(".js-switch")[0]) {
+        var elems = Array.prototype.slice.call(document.querySelectorAll('.js-switch'));
+        elems.forEach(function (html) {
+            var switchery = new Switchery(html, {
+                color: '#26B99A',
+                secondaryColor: '#555555'
+            });
+        });
+    }
+});

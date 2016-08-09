@@ -5273,3 +5273,11 @@ ul.notifications {
 .sparkline-humidity {
   background-color: rgba(0, 0, 0, 0);
 }
+
+.profile_info a {
+   color: #DEDEDE;
+}
+
+.profile_info a:focus, .profile_info a:hover {
+  color: #EFEFEF;
+}

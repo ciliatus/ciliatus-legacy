@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
 /**
@@ -94,9 +95,56 @@ class User extends Authenticatable
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function settings()
+    {
+        return $this->hasMany('App\UserSetting');
+    }
+
+    /**
+     * @param $name
+     * @return null
+     */
+    public function setting($name)
+    {
+        $setting = $this->settings()->where('name', $name)->first();
+        if (is_null($setting))
+            return null;
+
+        return $setting->value;
+    }
+
+    /**
+     * @param $name
+     * @param $value
+     */
+    public function setSetting($name, $value)
+    {
+        $setting = $this->settings()->where('name', $name)->first();
+        if (is_null($setting))
+            $setting = UserSetting::create(['user_id' => $this->id, 'name' => $name]);
+
+        $setting->value = $value;
+        $setting->save();
+
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function abilities()
     {
         return $this->hasMany('App\UserAbility');
+    }
+
+    /**
+     * Alias for hasAbility()
+     *
+     * @param $name
+     * @return bool
+     */
+    public function ability($name)
+    {
+        return $this->hasAbility($name);
     }
 
     /**
@@ -121,6 +169,35 @@ class User extends Authenticatable
                 $ua->save();
             }
         }
+    }
+
+    /**
+     * Return current time converted
+     * to user's timezone
+     *
+     * @return Carbon
+     */
+    public function time()
+    {
+        if (is_null($this->timezone))
+            return Carbon::now();
+
+        return Carbon::now()->setTimezone($this->timezone);
+    }
+
+    public function night()
+    {
+        $night_start = $this->time();
+        $night_start->hour = 20;
+        $night_start->minute = 0;
+        $night_start->second = 0;
+
+        $night_end = $this->time();
+        $night_end->hour = 8;
+        $night_end->minute = 0;
+        $night_end->second = 0;
+
+        return !$this->time()->between($night_start, $night_end);
     }
 
     /**
