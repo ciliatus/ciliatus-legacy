@@ -85,6 +85,15 @@ class CriticalState extends CiliatusModel
             ]);
         }
 
+        if (!in_array('no_new_name', $options)) {
+            $this->name = 'CS_';
+            if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
+                $this->name .= $this->belongsTo_object()->name;
+            }
+            $this->name .= '_' . Carbon::parse($this->created_at)->format('y-m-d_h:i:s');
+            $this->save(['silent', 'no_new_name']);
+        }
+
         return parent::save($options);
     }
 
@@ -124,6 +133,15 @@ class CriticalState extends CiliatusModel
             'action' => 'recover'
         ]);
 
+    }
+
+    public function belongsTo_object()
+    {
+        if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
+            return ('App\\' . $this->belongsTo_type)::find($this->belongsTo_id);
+        }
+
+        return null;
     }
 
     /**
