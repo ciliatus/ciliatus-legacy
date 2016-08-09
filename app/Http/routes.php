@@ -57,6 +57,12 @@ Route::get('/users/{id}/edit', 'ViewController@usersEdit');
 Route::get('/users/{id}/delete', 'ViewController@usersDelete');
 Route::get('/users/{id}', 'ViewController@usersShow');
 
+Route::get('/logs', 'ViewController@logs');
+Route::get('/logs/create', 'ViewController@logsCreate');
+Route::get('/logs/{id}/edit', 'ViewController@logsEdit');
+Route::get('/logs/{id}/delete', 'ViewController@logsDelete');
+Route::get('/logs/{id}', 'ViewController@logsShow');
+
 Route::get('/logical_sensor_thresholds', 'ViewController@logical_sensor_thresholds');
 Route::get('/logical_sensor_thresholds/create', 'ViewController@logical_sensor_thresholdsCreate');
 Route::get('/logical_sensor_thresholds/{id}/edit', 'ViewController@logical_sensor_thresholdsEdit');
