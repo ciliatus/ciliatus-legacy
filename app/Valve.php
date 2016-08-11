@@ -103,7 +103,7 @@ class Valve extends CiliatusModel
      */
     public function icon()
     {
-        return 'circle-o';
+        return 'transform';
     }
 
     /**

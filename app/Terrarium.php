@@ -252,7 +252,7 @@ class Terrarium extends CiliatusModel
      */
     public function icon()
     {
-        return 'columns';
+        return 'video_label';
     }
 
     /**

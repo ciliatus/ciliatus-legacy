@@ -26,18 +26,18 @@
                         <td><i class="fa fa-{{ $l->icon() }}"></i></td>
                         <td>
                             @if(!is_null($l->source()))
-                                <a href="{{ $l->source()->url() }}"><i class="fa fa-{{ $l->source()->icon() }}"></i> {{ $l->source()->name}} {{ $l->source()->display_name}}</a>
+                                <a href="{{ $l->source()->url() }}"><i class="material-icons">{{ $l->source()->icon() }}</i> {{ $l->source()->name}} {{ $l->source()->display_name}}</a>
                             @endif
                         </td>
                         <td>{{ $l->action }}</td>
                         <td>
                             @if(!is_null($l->target()))
-                            <a href="{{ $l->target()->url() }}"><i class="fa fa-{{ $l->target()->icon() }}"></i> {{ $l->target()->name}} {{ $l->target()->display_name}}</a>
+                            <a href="{{ $l->target()->url() }}"><i class="material-icons">{{ $l->target()->icon() }}</i> {{ $l->target()->name}} {{ $l->target()->display_name}}</a>
                             @endif
                         </td>
                         <td>
                             @if(!is_null($l->associatedWith()))
-                                <a href="{{ $l->associatedWith()->url() }}"><i class="fa fa-{{ $l->associatedWith()->icon() }}"></i> {{ $l->associatedWith()->name}} {{ $l->associatedWith()->display_name}}</a>
+                                <a href="{{ $l->associatedWith()->url() }}"><i class="material-icons">{{ $l->associatedWith()->icon() }}</i> {{ $l->associatedWith()->name}} {{ $l->associatedWith()->display_name}}</a>
                             @endif
                         </td>
                         <td>{{ $l->created_at }}</td>

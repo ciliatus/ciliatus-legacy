@@ -1,7 +1,7 @@
     <div class="x_panel">
 
         <div class="x_title">
-            <h2>Files</h2>
+            <h2><i class="material-icons">description</i> Files</h2>
             <div class="clearfix"></div>
         </div>
 
@@ -21,12 +21,12 @@
                 <tbody>
                     @foreach ($files as $f)
                     <tr>
-                        <td><i class="fa fa-{{ $f->icon() }}"></i></td>
+                        <td><i class="material-icons">{{ $f->icon() }}</i></td>
                         <td><a href="{{ url('files/' . $f->id) }}">{{ $f->display_name }}</a></td>
                         <td>{{ $f->sizeReadable() }}</td>
                         <td>
                             @if(!is_null($f->belongs_to()))
-                            <a href="{{ $f->belongs_to()->url() }}"><i class="fa fa-{{ $f->belongs_to()->icon() }}"></i> {{ $f->belongs_to()->display_name}}</a>
+                            <a href="{{ $f->belongs_to()->url() }}"><i class="material-icons">{{ $f->belongs_to()->icon() }}"></i> {{ $f->belongs_to()->display_name}}</a>
                             @endif
                         </td>
                         <td>{{ $f->created_at }}</td>

@@ -2,7 +2,7 @@
     <div class="x_panel @if(!is_null($animal->terrarium)) @if(!$animal->terrarium->stateOk()) x_panel-danger @endif @endif">
 
         <div class="x_title">
-            <h2><a href="{{ url('animals/' . $animal->id) }}">{{ $animal->display_name }}</a>
+            <h2><i class="material-icons">pets</i> <a href="{{ url('animals/' . $animal->id) }}">{{ $animal->display_name }}</a>
                 @if ($animal->gender == 'male')
                     <i class="fa fa-mars"></i>
                 @elseif ($animal->gender == 'female')
@@ -11,16 +11,16 @@
                     <i class="fa fa-genderless"></i>
                 @endif</h2>
             <ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                <li><a class="collapse-link"><i class="material-icons">expand_less</i></a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="material-icons">build</i></a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
-                            <a href="{{ url('animals/' . $animal->id . '/edit') }}">@lang('menu.edit')</a>
+                            <a href="{{ url('animals/' . $animal->id . '/edit') }}"><i class="material-icons">mode_edit</i> @lang('menu.edit')</a>
                         </li>
                         <li>
-                            <a href="{{ url('animals/' . $animal->id . '/delete') }}">@lang('menu.delete')</a>
+                            <a href="{{ url('animals/' . $animal->id . '/delete') }}"><i class="material-icons">delete</i> @lang('menu.delete')</a>
                         </li>
                     </ul>
                 </li>

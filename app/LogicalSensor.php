@@ -211,7 +211,7 @@ class LogicalSensor extends CiliatusModel
      */
     public function icon()
     {
-        return 'circle-o';
+        return 'memory';
     }
 
     /**

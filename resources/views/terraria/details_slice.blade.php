@@ -2,12 +2,12 @@
     <div class="x_panel">
 
         <div class="x_title">
-            <h2><a href="{{ url('terraria/' . $terrarium->id) }}">{{ $terrarium->display_name }} @lang('labels.details')</a></h2>
+            <h2><i class="material-icons">video_label</i> <a href="{{ url('terraria/' . $terrarium->id) }}">{{ $terrarium->display_name }} @lang('labels.details')</a></h2>
             <ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                <li><a class="collapse-link"><i class="material-icons">expand_less</i></a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="material-icons">build</i></a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
                             <a href="{{ url('terraria/' . $terrarium->id . '/edit') }}">@lang('buttons.edit')</a>
@@ -41,12 +41,12 @@
     <div class="x_panel">
 
         <div class="x_title">
-            <h2><a href="{{ url('terraria/' . $terrarium->id) }}">{{ $terrarium->display_name }} @choice('components.logical_sensors', 2)</a></h2>
+            <h2><i class="material-icons">memory</i> <a href="{{ url('terraria/' . $terrarium->id) }}">{{ $terrarium->display_name }} @choice('components.logical_sensors', 2)</a></h2>
             <ul class="nav navbar-right panel_toolbox">
-                <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                <li><a class="collapse-link"><i class="material-icons">expand_less</i></a>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="material-icons">build</i></a>
                     <ul class="dropdown-menu" role="menu">
                         <li>
                             <a href="{{ url('terraria/' . $terrarium->id . '/edit') }}">@lang('buttons.edit')</a>

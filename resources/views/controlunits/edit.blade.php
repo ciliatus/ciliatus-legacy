@@ -4,7 +4,7 @@
 <div class="col-md-6 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2>{{ $controlunit->name }}</h2>
+            <h2><i class="material-icons">developer_board</i> {{ $controlunit->name }}</h2>
 
             <div class="clearfix"></div>
         </div>

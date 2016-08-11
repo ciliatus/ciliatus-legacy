@@ -145,7 +145,7 @@ class PhysicalSensor extends CiliatusModel
      */
     public function icon()
     {
-        return 'circle-o';
+        return 'memory';
     }
 
     /**

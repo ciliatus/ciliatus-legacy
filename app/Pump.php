@@ -95,7 +95,7 @@ class Pump extends CiliatusModel
      */
     public function icon()
     {
-        return 'circle-o';
+        return 'rotate_right';
     }
 
     /**

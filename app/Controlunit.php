@@ -110,7 +110,7 @@ class Controlunit extends CiliatusModel
      */
     public function icon()
     {
-        return 'circle-o';
+        return 'developer_board';
     }
 
     /**

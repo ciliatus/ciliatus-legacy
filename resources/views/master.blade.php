@@ -15,6 +15,8 @@
     {!! Html::style('css/bootstrap_xl.css') !!}
     <!-- Font Awesome -->
     {!! Html::style('vendors/font-awesome/css/font-awesome.min.css') !!}
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- bootstrap-progressbar -->
     {!! Html::style('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') !!}
     <!-- Switchery -->
@@ -84,7 +86,7 @@
             <h3>Dashboard</h3>
             <ul class="nav side-menu">
               <li>
-                <a href="/"><i class="fa fa-home"></i> @choice('menu.dashboard', 1) </a>
+                <a href="/"><i class="material-icons">dashboard</i> <span>@choice('menu.dashboard', 1)</span></a>
               </li>
             </ul>
           </div>
@@ -92,15 +94,15 @@
           <div class="menu_section">
             <h3>@lang('menu.general')</h3>
             <ul class="nav side-menu">
-                <li><a href="{{ url('terraria') }}"><i class="fa fa-columns"></i> @choice('components.terraria', 2)</a></li>
-                <li><a href="{{ url('animals') }}"><i class="fa fa-paw"></i> @choice('components.animals', 2)</a></li>
-                <li><a><i class="fa fa-cubes"></i> @lang('menu.infrastructure') <span class="fa fa-chevron-down"></span></a>
+                <li><a href="{{ url('terraria') }}"><i class="material-icons">video_label</i> <span>@choice('components.terraria', 2)</span></a></li>
+                <li><a href="{{ url('animals') }}"><i class="material-icons">pets</i> <span>@choice('components.animals', 2)</span></a></li>
+                <li><a><i class="material-icons">device_hub</i> <span>@lang('menu.infrastructure')</span> <span class="material-icons pull-right">keyboard_arrow_down</span></a>
                     <ul class="nav child_menu">
-                        <li><a href="{{ url('controlunits') }}">@choice('components.controlunits', 2)</a></li>
-                        <li><a href="{{ url('pumps') }}">@choice('components.pumps', 2)</a></li>
-                        <li><a href="{{ url('valves') }}">@choice('components.valves', 2)</a></li>
-                        <li><a href="{{ url('physical_sensors') }}">@choice('components.physical_sensors', 2)</a></li>
-                        <li><a href="{{ url('logical_sensors') }}">@choice('components.logical_sensors', 2)</a></li>
+                        <li><a href="{{ url('controlunits') }}"><i class="material-icons">developer_board</i> <span>@choice('components.controlunits', 2)</span></a></li>
+                        <li><a href="{{ url('pumps') }}"><i class="material-icons">rotate_right</i> <span>@choice('components.pumps', 2)</span></a></li>
+                        <li><a href="{{ url('valves') }}"><i class="material-icons">transform</i> <span>@choice('components.valves', 2)</span></a></li>
+                        <li><a href="{{ url('physical_sensors') }}"><i class="material-icons">memory</i> <span>@choice('components.physical_sensors', 2)</span></a></li>
+                        <li><a href="{{ url('logical_sensors') }}"><i class="material-icons">memory</i> <span>@choice('components.logical_sensors', 2)</span></a></li>
                      </ul>
                 </li>
             </ul>
@@ -109,27 +111,26 @@
           <div class="menu_section">
             <h3>@lang('menu.administration')</h3>
             <ul class="nav side-menu">
-              <li><a><i class="fa fa-asterisk"></i> @lang('menu.create') <span class="fa fa-chevron-down"></span></a>
+              <li><a><i class="material-icons">add</i> <span>@lang('menu.create')</span> <span class="material-icons pull-right">keyboard_arrow_down</span></a>
                 <ul class="nav child_menu">
-                    <li><a href="{{ url('terraria/create') }}">@choice('components.terraria', 1)</a></li>
-                    <li><a href="{{ url('animals/create') }}">@choice('components.animals', 1)</a></li>
-                    <li><a href="{{ url('controlunits/create') }}">@choice('components.controlunits', 1)</a></li>
-                    <li><a href="{{ url('pumps/create') }}">@choice('components.pumps', 1)</a></li>
-                    <li><a href="{{ url('valves/create') }}">@choice('components.valves', 1)</a></li>
-                    <li><a href="{{ url('physical_sensors/create') }}">@choice('components.physical_sensors', 1)</a></li>
-                    <li><a href="{{ url('logical_sensors/create') }}">@choice('components.logical_sensors', 1)</a></li>
-                    <li><a href="{{ url('logical_sensor_thresholds/create') }}">@choice('components.logical_sensor_thresholds', 1)</a></li>
+                    <li><a href="{{ url('terraria/create') }}"><i class="material-icons">video_label</i> <span>@choice('components.terraria', 1)</span></a></li>
+                    <li><a href="{{ url('animals/create') }}"><i class="material-icons">pets</i> <span>@choice('components.animals', 1)</span></a></li>
+                    <li><a href="{{ url('controlunits/create') }}"><i class="material-icons">developer_board</i> <span>@choice('components.controlunits', 1)</span></a></li>
+                    <li><a href="{{ url('pumps/create') }}"><i class="material-icons">rotate_right</i> <span>@choice('components.pumps', 1)</span></a></li>
+                    <li><a href="{{ url('valves/create') }}"><i class="material-icons">transform</i> <span>@choice('components.valves', 1)</span></a></li>
+                    <li><a href="{{ url('physical_sensors/create') }}"><i class="material-icons">memory</i> <span>@choice('components.physical_sensors', 1)</span></a></li>
+                    <li><a href="{{ url('logical_sensors/create') }}"><i class="material-icons">memory</i> <span>@choice('components.logical_sensors', 1)</span></a></li>
                 </ul>
               </li>
-              <li><a href="{{ url('logs') }}"><i class="fa fa-list-ul"></i> @choice('components.log', 2)</a></li>
+              <li><a href="{{ url('logs') }}"><i class="material-icons">list</i> <span>@choice('components.log', 2)</span></a></li>
             </ul>
           </div>
 
           <div class="menu_section">
               <h3>@lang('menu.help')</h3>
               <ul class="nav side-menu">
-                  <li><a href="https://github.com/dasprot/ciliatus/issues"><i class="fa fa-bug"></i> @lang('labels.bugtracker')</a></li>
-                  <li><a href="https://github.com/dasprot/ciliatus/wiki"><i class="fa fa-wikipedia-w"></i> @lang('labels.wiki')</a></li>
+                  <li><a href="https://github.com/dasprot/ciliatus/issues"><i class="material-icons">bug_report</i> <span>@lang('labels.bugtracker')</span></a></li>
+                  <li><a href="https://github.com/dasprot/ciliatus/wiki"><i class="material-icons">help</i> <span>@lang('labels.doku')</span></a></li>
               </ul>
           </div>
 
