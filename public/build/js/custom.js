@@ -101,7 +101,7 @@ $(document).ready(function() {
 $(document).ready(function() {
     $('.collapse-link').on('click', function() {
         var $BOX_PANEL = $(this).closest('.x_panel'),
-            $ICON = $(this).find('i'),
+            $ICON = $(this).find('.material-icons'),
             $BOX_CONTENT = $BOX_PANEL.find('.x_content');
         
         // fix for some div with hardcoded fix class
@@ -114,7 +114,10 @@ $(document).ready(function() {
             $BOX_PANEL.css('height', 'auto');  
         }
 
-        $ICON.toggleClass('fa-chevron-up fa-chevron-down');
+        if ($ICON.text() === 'expand_less')
+            $ICON.text('expand_more');
+        else
+            $ICON.text('expand_less');
     });
 
     $('.close-link').click(function () {
