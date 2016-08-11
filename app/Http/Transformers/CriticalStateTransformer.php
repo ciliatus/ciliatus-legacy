@@ -25,6 +25,7 @@ class CriticalStateTransformer extends Transformer
     {
         $return = [
             'id'    => $item['id'],
+            'soft_state' => $item['is_soft_state'],
             'belongs' => [
                 'type' => $item['belongsTo_type'],
                 'id'   => $item['belongsTo_id']
@@ -36,6 +37,12 @@ class CriticalStateTransformer extends Transformer
                 'recovered_at' =>isset($item['recovered_at']) ? $item['recovered_at'] : null,
             ]
         ];
+
+        if (isset($item['belongsTo_object'])) {
+            $belongsTo_transformerName = 'App\\Http\\Transformers\\' . $item['belongsTo_type'] . 'Transformer';
+            $belongsTo_transformer = new $belongsTo_transformerName();
+            $return['belongs']['object'] = $belongsTo_transformer->transform($item['belongsTo_object']->toArray());
+        }
 
         return $return;
     }

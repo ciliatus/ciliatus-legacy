@@ -44,6 +44,11 @@ class LogicalSensorController extends ApiController
 
         $logical_sensors = LogicalSensor::paginate(10);
 
+        foreach ($logical_sensors as &$ls) {
+            $ls->icon = $ls->icon();
+            $ls->url = $ls->url();
+        }
+
         return $this->setStatusCode(200)->respondWithPagination(
             $this->logicalSensorTransformer->transformCollection(
                 $logical_sensors->toArray()['data']

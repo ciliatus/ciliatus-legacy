@@ -193,11 +193,9 @@ domCallbacks['terrariaDashboardCallback'] = function (success, data, ld) {
     ld.cleanupRefs();
     if (data.data.state_ok === true) {
         $(this.target).find('.x_panel').removeClass('x_panel-danger');
-        $(this.target).find('.terrarium-widget-heartbeat-temp').html('<i class="fa fa-check text-success"></i>')
     }
     else {
         $(this.target).find('.x_panel').addClass('x_panel-danger');
-        $(this.target).find('.terrarium-widget-heartbeat-temp').html('<i class="fa fa-times text-danger"></i>')
     }
     var temptrendicontemp = data.data.temperature_trend > 0.2 ? 'wi-direction-up-right' : data.data.temperature_trend < -0.2 ? 'wi-direction-down-right' : 'wi-direction-right';
     var temptrendiconhumidity = data.data.humidity_trend > 0.2 ? 'wi-direction-up-right' : data.data.humidity_trend < -0.2 ? 'wi-direction-down-right' : 'wi-direction-right';
@@ -220,9 +218,43 @@ domCallbacks['terrariaDashboardCallback'] = function (success, data, ld) {
     ld.refs.push(renderTemperatureSparklineById('#sparkline-temperature-' + data.data.id, 40, '100%'));
 };
 
+domCallbacks['criticalStatesHudCallback'] = function(success, data, ld) {
+    ld.cleanupRefs();
+    var newHtml = '';
+    if (success === true) {
+        $.each(data.data, function() {
+            critical_state = this;
+            var state = critical_state.soft_state === 1 ? 'warning' : 'danger';
+            var icon = '';
+            var name = '';
+            var url = '#';
+            var notify_icon = critical_state.timestamps.notifications_sent_at !== null ?
+                '<span class="material-icons">send</span>' : '';
+            console.log(critical_state);
+            if (critical_state.belongs !== undefined) {
+                if (critical_state.belongs.object !== undefined) {
+                    icon = critical_state.belongs.object.icon;
+                    name = critical_state.belongs.object.name;
+                    url = critical_state.belongs.object.url;
+                }
+            }
+            newHtml +=
+                '<div class="panel panel-' + state + '">' +
+                    '<div class="panel-heading">' +
+                        '<span class="material-icons">' + icon + '</span>' +
+                        '<a href="' + url + '"><strong>' + name + '</strong></a>' +
+                        ' <i>' + critical_state.timestamps.created + '</i>' +
+                        notify_icon +
+                    '</div>' +
+                '</div>'
+        })
+    }
+
+    $(this.target).html(newHtml);
+};
+
 domCallbacks['wizard_wait_for_telegram_contact'] = function(success, data, ld) {
     ld.cleanupRefs();
-    console.log('trying');
     if (success === true) {
         ld.stop();
         doneStep(2);

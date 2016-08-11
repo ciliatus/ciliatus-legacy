@@ -6,6 +6,7 @@ use App\CriticalState;
 use App\Http\Transformers\CriticalStateTransformer;
 use App\LogicalSensor;
 use Carbon\Carbon;
+use Gate;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -31,6 +32,43 @@ class CriticalStateController extends ApiController
     {
         parent::__construct();
         $this->critical_stateTransformer = $_critical_stateTransformer;
+    }
+
+    public function index(Request $request)
+    {
+        if (Gate::denies('api-list')) {
+            return $this->respondUnauthorized();
+        }
+
+        if (!is_null($request->input('all'))) {
+            $critical_states = CriticalState::paginate(10);
+            foreach ($critical_states as &$cs) {
+                $cs->belongsTo_object = $cs->belongsTo_object();
+                $cs->belongsTo_object->icon = $cs->belongsTo_object->icon();
+                $cs->belongsTo_object->url = $cs->belongsTo_object->url();
+            }
+            return $this->setStatusCode(200)->respondWithPagination(
+                $this->critical_stateTransformer->transformCollection(
+                    $critical_states->toArray()['data']
+                ),
+                $critical_states
+            );
+        }
+        else {
+            $critical_states = CriticalState::whereNull('recovered_at')->orderBy('created_at', 'desc')->get();
+            foreach ($critical_states as &$cs) {
+                $cs->belongsTo_object = $cs->belongsTo_object();
+                $cs->belongsTo_object->icon = $cs->belongsTo_object->icon();
+                $cs->belongsTo_object->url = $cs->belongsTo_object->url();
+            }
+            return $this->setStatusCode(200)->respondWithData(
+                $this->critical_stateTransformer->transformCollection(
+                    $critical_states->toArray()
+                )
+            );
+        }
+
+
     }
     
     /**

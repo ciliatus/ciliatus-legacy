@@ -23,7 +23,7 @@ class LogicalSensorTransformer extends Transformer
      */
     public function transform($item)
     {
-        return [
+        $return = [
             'id'    => $item['id'],
             'physical_sensor_id' => $item['physical_sensor_id'],
             'type'  => $item['type'],
@@ -36,5 +36,15 @@ class LogicalSensorTransformer extends Transformer
                 'updated' => $item['updated_at'],
             ]
         ];
+
+        if (isset($item['icon'])) {
+            $return['icon'] = $item['icon'];
+        }
+
+        if (isset($item['url'])) {
+            $return['url'] = $item['url'];
+        }
+
+        return $return;
     }
 }
