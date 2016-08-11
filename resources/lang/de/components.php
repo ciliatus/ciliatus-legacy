@@ -10,5 +10,5 @@ return [
     'logical_sensors'=> 'Logischer Sensor|Logische Sensoren',
     'logical_sensor_thresholds'=> 'Logischer Sensor Grenzwert|Logische Sensor Grenzwerte',
     'files'         =>  'Datei|Dateien',
-    'log'           =>  'Log|Logs'
+    'log'           =>  'Systemlog|Systemlogs'
 ];

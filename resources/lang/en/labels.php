@@ -51,4 +51,5 @@ return [
     'language'      =>  'Language',
     'belongsTo_type'=>  'Belongs to (type)',
     'belongsTo_id'=>  'Belongs to (ID)',
+    'doku'          =>  'Documentation'
 ];
