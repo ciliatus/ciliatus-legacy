@@ -2,10 +2,13 @@
 
 return [
     'ctrltoselect'          =>  'Ctrl-click to deselect',
-    'active'                => 'Active',
-    'showondefaultdashboard'=> 'Show on default dashboard',
-    'autoirrigation'        => 'Automatic irrigation (if available)',
-    'sendnotificationsfor'  => 'Send notifications for',
-    'loadandrendergraph'    => 'Collection data and rendering graph',
-    'disables_option'       => 'Disables ":option"'
+    'active'                =>  'Active',
+    'showondefaultdashboard'=>  'Show on default dashboard',
+    'autoirrigation'        =>  'Automatic irrigation (if available)',
+    'sendnotificationsfor'  =>  'Send notifications for',
+    'loadandrendergraph'    =>  'Collection data and rendering graph',
+    'disables_option'       =>  'Disables ":option"',
+    'phone_number'          =>  'Mobile number',
+    'contact_bot'           =>  'Contacting the bot',
+    'wait_confirmation'     =>  'Waiting for confirmation',
 ];

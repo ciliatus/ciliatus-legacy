@@ -12,7 +12,7 @@
 
 
             <!-- Smart Wizard -->
-            <p>@lang('messages.users.setup_telegram_description')</p>
+            <p>@lang('messages.users.setup_telegram_description')</p><br />
             <div id="wizard" class="form_wizard wizard_horizontal">
                 <ul class="wizard_steps">
                     <li>
@@ -29,7 +29,7 @@
                             <span class="step_no">2</span>
                             <span class="step_descr">
                                 @lang('labels.step') 2<br />
-                                <small>@lang('tooltips.contact_bot')</small>
+                                <small>@lang('tooltips.wait_confirmation')</small>
                             </span>
                         </a>
                     </li>
@@ -38,7 +38,7 @@
                             <span class="step_no">3</span>
                             <span class="step_descr">
                                 @lang('labels.step') 3<br />
-                                <small>@lang('tooltips.wait_confirmation')</small>
+                                <small>@lang('tooltips.done')</small>
                             </span>
                         </a>
                     </li>
@@ -65,6 +65,7 @@
                     <div class="text-center" style="padding: 30px;" data-livedata="true" data-livedatainterval="5" data-livedatasource="{{ url('api/v1/users/' . Auth::user()->id . '/setting/notifications_telegram_chat_id') }}" data-livedatacallback="wizard_wait_for_telegram_contact">
                         <h2><i class="fa fa-spin fa-refresh"></i><br /></h2>
                         <h4>@lang('messages.user.setup_telegram_waiting_for_contact')</h4>
+                        <h4>{{ $token }}</h4>
                     </div>
                 </div>
                 <div id="step-3" style="padding-top: 40px; height: 200px;">
@@ -90,7 +91,6 @@
 
     function doneStep(stepnumber)
     {
-        console.log('doneStep ' + stepnumber);
         $('#wizard').smartWizard('goForward');
         waitingForResponse = false;
     }
@@ -101,13 +101,15 @@
 
     function validateStep(stepnumber)
     {
-        console.log('validateStep' + stepnumber);
-
         if (stepnumber == 1) {
             waitingForResponse = true;
             console.log($('#f_edit_user_telegram-step1').submit());
         }
         if (stepnumber == 2) {
+            $('.buttonNext').remove();
+            return true;
+        }
+        if (stepnumber == 3) {
             return true;
         }
     }
@@ -124,7 +126,9 @@
     {
         $('#wizard').smartWizard({
             onLeaveStep: leaveAStepCallback,
-            onFinish: function() { window.location.replace('{{ url('users/' . Auth::user()->id . '/edit') }}')}
+            onFinish: function() { window.location.replace('{{ url('users/' . Auth::user()->id . '/edit') }}')},
+            keyNavigation: false,
+            hideButtonsOnDisabled: true
         });
 
         $('.buttonNext').addClass('btn btn-success');

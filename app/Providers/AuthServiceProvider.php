@@ -101,5 +101,9 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('api-write:user_ability', function ($user) {
             return $user->hasAbility('grant_api-write:user_ability');
         });
+
+        $gate->define('api-write:user_telegram', function ($user) {
+            return $user->hasAbility('grant_api-write:user_telegram');
+        });
     }
 }

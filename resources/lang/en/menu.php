@@ -8,5 +8,6 @@ return [
     'create'        =>  'Create',
     'edit'          =>  'Edit',
     'delete'        =>  'Delete',
-    'infrastructure'=>  'Infrastructure'
+    'infrastructure'=>  'Infrastructure',
+    'help'          =>  'Help'
 ];

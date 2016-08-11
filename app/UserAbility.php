@@ -49,6 +49,7 @@ class UserAbility extends Model
         'grant_api-write:user_self',       // edit own profile
         'grant_api-write:user_all',         // edit all users including permissions and protected properties
         'grant_api-write:user_ability',
+        'grant_api-write:user_telegram',
     ];
 
     /**

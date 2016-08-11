@@ -4544,7 +4544,7 @@ fieldset {
   -moz-opacity: 1;
   filter: alpha(opacity=100);
   opacity: 1;
-  color: #666;
+  color: #D0D0D0;
 }
 
 .wizard_horizontal ul.wizard_steps li a:before {
@@ -4576,7 +4576,7 @@ fieldset {
 }
 
 .wizard_horizontal ul.wizard_steps li a.selected:before, .step_no {
-  background: #34495E;
+  background: rgb(26, 187, 156);
   color: #fff;
 }
 
@@ -4687,12 +4687,12 @@ fieldset {
 }
 
 .wizard_verticle ul.wizard_steps li a.selected:before, .step_no {
-  background: #34495E;
-  color: #fff;
+  background: rgb(26, 187, 156);
+  color: #333333;
 }
 
 .wizard_verticle ul.wizard_steps li a.done:before, .wizard_verticle ul.wizard_steps li a.done .step_no {
-  background: #1ABB9C;
+  background: rgb(26, 187, 156);
   color: #fff;
 }
 
@@ -4725,7 +4725,7 @@ fieldset {
 }
 
 .progress-bar-success {
-  background-color: #26B99A;
+  background-color: rgb(26, 187, 156);
 }
 
 .progress_summary .progress {

@@ -51,5 +51,7 @@ return [
     'language'      =>  'Sprache',
     'belongsTo_type'=>  'Gehört zu (Typ)',
     'belongsTo_id'  =>  'Gehört zu (ID)',
-    'doku'          =>  'Dokumentation'
+    'doku'          =>  'Dokumentation',
+    'step'          =>  'Schritt',
+    'phone_number'  =>  'Telefonnummer',
 ];

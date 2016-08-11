@@ -50,6 +50,8 @@ return [
     'permanent_nightmode'=>  'Permanent night mode',
     'language'      =>  'Language',
     'belongsTo_type'=>  'Belongs to (type)',
-    'belongsTo_id'=>  'Belongs to (ID)',
-    'doku'          =>  'Documentation'
+    'belongsTo_id'  =>  'Belongs to (ID)',
+    'doku'          =>  'Documentation',
+    'step'          =>  'Step',
+    'phone_number'  =>  'Phone number',
 ];
