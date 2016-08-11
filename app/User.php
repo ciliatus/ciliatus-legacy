@@ -113,6 +113,24 @@ class User extends Authenticatable
         return $setting->value;
     }
 
+    public function settingById($id)
+    {
+        $setting = $this->settings()->where('id', $id)->first();
+        if (is_null($setting))
+            return null;
+
+        return $setting->value;
+    }
+
+    public function settingId($name)
+    {
+        $setting = $this->settings()->where('name', $name)->first();
+        if (is_null($setting))
+            return null;
+
+        return $setting->id;
+    }
+
     /**
      * @param $name
      * @param $value
@@ -126,6 +144,21 @@ class User extends Authenticatable
         $setting->value = $value;
         $setting->save();
 
+    }
+
+    /**
+     * @param $name
+     */
+    public function deleteSetting($name)
+    {
+        $setting = $this->settings()->where('name', $name)->first();
+        if (!is_null($setting))
+            $setting->delete();
+    }
+
+    public function deleteSettingById($id)
+    {
+        $this->settings()->where('id', $id)->delete();
     }
 
     /**
@@ -185,6 +218,12 @@ class User extends Authenticatable
         return Carbon::now()->setTimezone($this->timezone);
     }
 
+    /**
+     * Return true if it's night time in
+     * the user's current timezone
+     *
+     * @return bool
+     */
     public function night()
     {
         $night_start = $this->time();
@@ -198,6 +237,23 @@ class User extends Authenticatable
         $night_end->second = 0;
 
         return !$this->time()->between($night_start, $night_end);
+    }
+
+    /**
+     * @param $content
+     * @return bool
+     */
+    public function message($content)
+    {
+        if (is_null($this->setting('notification_type')))
+            return false;
+
+        if ($this->setting('notifications_enabled') != 'on')
+            return false;
+
+        $message = Message::create($this->setting('notification_type'));
+        $message->content = $content;
+        $message->send();
     }
 
     /**

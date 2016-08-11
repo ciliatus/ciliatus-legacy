@@ -5,5 +5,6 @@ return [
     'save'      =>  'Save',
     'delete'    =>  'Delete',
     'loadgraph' =>  'Load graph',
-    'upload'    =>  'Upload'
+    'upload'    =>  'Upload',
+    'start_setup'=> 'Start Setup',
 ];

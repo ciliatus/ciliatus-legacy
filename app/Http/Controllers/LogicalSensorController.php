@@ -80,14 +80,14 @@ class LogicalSensorController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
 
         if (Gate::denies('api-write:logical_sensor')) {
             return $this->respondUnauthorized();
         }
 
-        $logical_sensor = LogicalSensor::find($request->input('sensors_id'));
+        $logical_sensor = LogicalSensor::find($id);
         if (is_null($logical_sensor)) {
             return $this->respondNotFound('LogicalSensor not found');
         }

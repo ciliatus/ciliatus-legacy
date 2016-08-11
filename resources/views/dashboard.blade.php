@@ -139,6 +139,10 @@
     <script>
         $(function() {
             runPage();
+
+            if ($(window).width() < 992) { //bootstrap md
+                $('.x_content').css('display', 'none');
+            }
         });
     </script>
 @stop

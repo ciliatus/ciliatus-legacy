@@ -79,14 +79,14 @@ class ValveController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
 
         if (Gate::denies('api-write:valve')) {
             return $this->respondUnauthorized();
         }
 
-        $valve = Valve::find($request->input('id'));
+        $valve = Valve::find($id);
         if (is_null($valve)) {
             return $this->respondNotFound('Valve not found');
         }

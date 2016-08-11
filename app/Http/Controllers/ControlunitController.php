@@ -75,14 +75,14 @@ class ControlunitController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
 
         if (Gate::denies('api-write:controlunit')) {
             return $this->respondUnauthorized();
         }
 
-        $controlunit = Controlunit::find($request->input('id'));
+        $controlunit = Controlunit::find($id);
         if (is_null($controlunit)) {
             return $this->setStatusCode(422)->respondWithError('Controlunit not found');
         }

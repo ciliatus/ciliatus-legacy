@@ -55,6 +55,7 @@ Route::get('/users', 'ViewController@users');
 Route::get('/users/create', 'ViewController@usersCreate');
 Route::get('/users/{id}/edit', 'ViewController@usersEdit');
 Route::get('/users/{id}/delete', 'ViewController@usersDelete');
+Route::get('/users/setup/telegram', 'ViewController@usersSetupTelegram');
 Route::get('/users/{id}', 'ViewController@usersShow');
 
 Route::get('/logs', 'ViewController@logs');
@@ -93,4 +94,6 @@ Route::group(['prefix' => 'api/v1'], function() {
     Route::resource('critical_states', 'CriticalStateController');
     Route::post('critical_states/evaluate', 'CriticalStateController@evaluate');
     Route::resource('users', 'UserController');
+    Route::get('users/{id}/setting/{setting_name}', 'UserController@setting');
+    Route::resource('user_settings', 'UserSettingController');
 });

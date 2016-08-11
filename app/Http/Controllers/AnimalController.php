@@ -78,14 +78,14 @@ class AnimalController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
 
         if (Gate::denies('api-write:animal')) {
             return $this->respondUnauthorized();
         }
 
-        $animal = Animal::find($request->input('id'));
+        $animal = Animal::find($id);
         if (is_null($animal)) {
             return $this->setStatusCode(422)->respondWithError('Animal not found');
         }

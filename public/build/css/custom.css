@@ -5281,3 +5281,22 @@ ul.notifications {
 .profile_info a:focus, .profile_info a:hover {
   color: #EFEFEF;
 }
+
+.floating-menu-button {
+  z-index: 10000;
+  width: 42px;
+  height: 39px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  text-align: center;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px #DDDDDD solid;
+  font-size: 20pt;
+}
+
+.floating-menu-button a, .floating-menu-button i {
+  color: #666666;
+}

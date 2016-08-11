@@ -13,6 +13,7 @@ use App\Terrarium;
 use App\User;
 use App\Valve;
 use App\File;
+use Auth;
 
 /**
  * Class ApiController
@@ -611,6 +612,10 @@ class ViewController extends Controller
     }
 
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function filesDownload($id)
     {
         $file = File::find($id);
@@ -889,6 +894,20 @@ class ViewController extends Controller
 
         return view('users.edit', [
             'user'     => $user
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function usersSetupTelegram()
+    {
+        $user = Auth::user();
+
+        $user->deleteSetting('notifications_telegram_chat_id');
+
+        return view('users.setup_telegram', [
+            'user'  =>  $user
         ]);
     }
 

@@ -17,6 +17,7 @@ function LiveData(source_uri, interval, callback, target)
     this.interval = interval * 1000;
     this.callback = callback;
     this.target = target;
+    this.runner = null;
     this.refs = new Array();
     console.log(this.callback);
 
@@ -27,8 +28,8 @@ LiveData.prototype.run = function()
 {
     var ld = this;
     ld.fetchData(ld);
-    setInterval(function() {
-        ld.fetchData(ld)
+    this.runner = setInterval(function() {
+        ld.fetchData(ld);
     }, this.interval);
 };
 
@@ -53,12 +54,18 @@ LiveData.prototype.cleanupRefs = function ()
     this.refs = new Array();
 };
 
+LiveData.prototype.stop = function()
+{
+    clearInterval(this.runner);
+};
+
 $('form').submit(function (e)
 {
     e.preventDefault();
     var btns = $('button[type=submit]:enabled');
     btns.attr('disabled', 'disabled');
-
+    var callback = $(e.target).data('callback');
+    var callback_param = $(e.target).data('callback-param');
     /*
      * Fix for empty data when using
      * PUT with FormData
@@ -77,7 +84,7 @@ $('form').submit(function (e)
     }
 
 
-    $.ajax({
+    return $.ajax({
         url: $(e.target).prop('action'),
         type: $(e.target).data('method'),
         data: data,
@@ -99,6 +106,10 @@ $('form').submit(function (e)
                     window.location.replace(data.meta.redirect.uri)
                 }, data.meta.redirect.delay || 2000);
             }
+
+            if (callback !== undefined) {
+                domCallbacks[callback](true, callback_param);
+            }
         },
         error: function(data) {
             btns.removeAttr('disabled');
@@ -106,6 +117,10 @@ $('form').submit(function (e)
             if (data.responseJSON !== undefined)
                 msg = data.responseJSON.error.message;
             notification('danger', 'Error ' + data.status, data.statusText + ':<br />' + msg);
+
+            if (callback !== undefined) {
+                domCallbacks[callback](false, callback_param);
+            }
         }
     });
 });
@@ -205,15 +220,34 @@ domCallbacks['terrariaDashboardCallback'] = function (success, data, ld) {
     ld.refs.push(renderTemperatureSparklineById('#sparkline-temperature-' + data.data.id, 40, '100%'));
 };
 
+domCallbacks['wizard_wait_for_telegram_contact'] = function(success, data, ld) {
+    ld.cleanupRefs();
+    console.log('trying');
+    if (success === true) {
+        ld.stop();
+        doneStep(2);
+    }
+};
+
+domCallbacks['wizard_validate_step'] = function (success, step) {
+    if (success === true) {
+        doneStep(step);
+    }
+    else {
+        errorStep(step);
+    }
+};
+
+var redirect = function (url) {
+    window.location.href = url;
+};
+
+
+
 function runPage()
 {
     $('[data-livedata="true"]').each(function() {
-        console.log(window);
         new LiveData($(this).data('livedatasource'), $(this).data('livedatainterval'), domCallbacks[$(this).data('livedatacallback')], this).run();
     });
-
-    if ($(window).width() < 992) { //bootstrap md
-        $('.x_content').css('display', 'none');
-    }
 
 }

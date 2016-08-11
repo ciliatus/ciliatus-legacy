@@ -3,11 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Controlunit;
+use App\Http\Transformers\UserSettingTransformer;
 use App\Pump;
 use App\Http\Transformers\UserTransformer;
 use App\User;
 use App\Terrarium;
 use App\UserAbility;
+use App\UserSetting;
 use Auth;
 use Gate;
 use Illuminate\Http\Request;
@@ -64,7 +66,7 @@ class UserController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $user = User::with('physical_sensors', 'users')->find($id);
+        $user = User::find($id);
 
         if (!$user) {
             return $this->respondNotFound('User not found');
@@ -80,14 +82,14 @@ class UserController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
 
         if (Gate::denies('api-write:user_self') && Gate::denies('api-write:user_all')) {
             return $this->respondUnauthorized();
         }
 
-        $user = User::find($request->input('id'));
+        $user = User::find($id);
         if (is_null($user)) {
             return $this->respondNotFound('User not found');
         }
@@ -192,6 +194,17 @@ class UserController extends ApiController
                 'delay' => 1000
             ]
         ]);
+
+    }
+
+    public function setting($user_id, $setting_name)
+    {
+        $us = UserSetting::where('user_id', $user_id)->where('name', $setting_name)->first();
+        if (is_null($us))
+            return $this->respondNotFound('UserSetting not found');
+
+        $user_setting_controller = new UserSettingController(new UserSettingTransformer());
+        return $user_setting_controller->show($us->id);
 
     }
 

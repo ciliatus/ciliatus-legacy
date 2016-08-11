@@ -263,5 +263,47 @@
             </form>
         </div>
     </div>
+
+    <div class="x_panel">
+        <div class="x_title">
+            <h2>Setup Telegram</h2>
+
+            <div class="clearfix"></div>
+        </div>
+
+        <div class="x_content">
+            @if (!is_null($user->setting('notifications_telegram_chat_id')))
+            <div class="form-group">
+                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 col-sm-offset-3 col-xs-offset-0">
+                    <div class="alert alert-success" role="alert">
+                        @lang('messages.users.setup_telegram_ok')
+                    </div>
+                </div>
+            </div>
+            @else
+            <div class="form-group">
+                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3 col-sm-offset-3 col-xs-offset-0">
+                    <div class="alert alert-warning" role="alert">
+                        @lang('messages.users.setup_telegram_err')
+                    </div>
+                </div>
+            </div>
+            @endif
+
+            <div class="form-group">
+                <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                    @if (is_null($user->setting('notifications_telegram_chat_id')))
+                        <a href="{{ url('users/setup/telegram') }}" class="btn btn-success" name="sensor_submit">@lang('buttons.start_setup')</a>
+                    @else
+                        <form class="form-horizontal form-label-left" name="f_edit_user_telegram_delete" action="{{ url('api/v1/user_settings/' . $user->settingId('notifications_telegram_chat_id')) }}" data-method="DELETE">
+                            <input class="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                            <button class="btn btn-danger" type="submit">@lang('buttons.delete')</button>
+                        </form>
+                    @endif
+
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 @stop

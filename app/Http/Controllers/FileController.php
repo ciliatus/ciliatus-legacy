@@ -78,14 +78,14 @@ class FileController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
 
         if (Gate::denies('api-write:file')) {
             return $this->respondUnauthorized();
         }
 
-        $file = File::find($request->input('id'));
+        $file = File::find($id);
         if (is_null($file)) {
             return $this->respondNotFound('File not found');
         }

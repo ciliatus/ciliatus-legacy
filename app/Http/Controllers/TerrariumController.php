@@ -238,14 +238,14 @@ class TerrariumController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
 
         if (Gate::denies('api-write:terrarium')) {
             return $this->respondUnauthorized();
         }
 
-        $terrarium = Terrarium::find($request->input('id'));
+        $terrarium = Terrarium::find($id);
         if (is_null($terrarium)) {
             return $this->respondNotFound('Terrarium not found');
         }

@@ -78,26 +78,6 @@ class FilePropertyController extends ApiController
     public function destroy()
     {
 
-        if (Gate::denies('api-write:file_property')) {
-            return $this->respondUnauthorized();
-        }
-
-        $data = ;
-
-        $file_property = FileProperty::find($data['propertys_id']);
-        if (is_null($file_property)) {
-            return $this->respondNotFound('FileProperty not found');
-        }
-
-        $file_property->delete();
-
-        return $this->setStatusCode(200)->respondWithData([], [
-            'redirect' => [
-                'uri'   => url('file_propertys'),
-                'delay' => 2000
-            ]
-        ]);
-
     }
 
     /**
@@ -105,28 +85,6 @@ class FilePropertyController extends ApiController
      */
     public function store()
     {
-
-        if (Gate::denies('api-write:file_property')) {
-            return $this->respondUnauthorized();
-        }
-
-        $data = ;
-
-        $file_property = FileProperty::create();
-        $file_property->name = $data['property_name'];
-        $file_property->save();
-
-        return $this->setStatusCode(200)->respondWithData(
-            [
-                'id'    =>  $file_property->id
-            ],
-            [
-                'redirect' => [
-                    'uri'   => url('file_propertys/' . $file_property->id . '/edit'),
-                    'delay' => 100
-                ]
-            ]
-        );
 
     }
 

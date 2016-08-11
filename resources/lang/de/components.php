@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'terraria'      =>  'Terrarium|Terraria',
+    'terraria'      =>  'Terrarium|Terrarien',
     'animals'       =>  'Tier|Tiere',
     'controlunits'  =>  'Steuereinheit|Steuereinheiten',
     'pumps'         =>  'Pumpe|Pumpen',

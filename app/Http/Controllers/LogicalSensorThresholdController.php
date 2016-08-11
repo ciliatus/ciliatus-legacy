@@ -88,14 +88,14 @@ class LogicalSensorThresholdController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
 
         if (Gate::denies('api-write:logical_sensor_threshold')) {
             return $this->respondUnauthorized();
         }
 
-        $logical_sensor_threshold = LogicalSensorThreshold::find($request->input('sensors_id'));
+        $logical_sensor_threshold = LogicalSensorThreshold::find($id);
         if (is_null($logical_sensor_threshold)) {
             return $this->respondNotFound('LogicalSensorThreshold not found');
         }

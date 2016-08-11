@@ -5,5 +5,6 @@ return [
     'save'      =>  'Speichern',
     'delete'    =>  'Löschen',
     'loadgraph' =>  'Graph laden',
-    'upload'    =>  'Hochladen'
+    'upload'    =>  'Hochladen',
+    'start_setup'=> 'Setup starten',
 ];

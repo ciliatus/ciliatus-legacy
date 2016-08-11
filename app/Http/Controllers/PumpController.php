@@ -75,14 +75,14 @@ class PumpController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
 
         if (Gate::denies('api-write:pump')) {
             return $this->respondUnauthorized();
         }
 
-        $pump = Pump::find($request->input('id'));
+        $pump = Pump::find($id);
         if (is_null($pump)) {
             return $this->respondNotFound('Pump not found');
         }

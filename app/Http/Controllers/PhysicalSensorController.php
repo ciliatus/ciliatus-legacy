@@ -80,14 +80,14 @@ class PhysicalSensorController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy(Request $request)
+    public function destroy(Request $request, $id)
     {
 
         if (Gate::denies('api-write:physical_sensor')) {
             return $this->respondUnauthorized();
         }
 
-        $physical_sensor = PhysicalSensor::find($request->input('sensors_id'));
+        $physical_sensor = PhysicalSensor::find($id);
         if (is_null($physical_sensor)) {
             return $this->respondNotFound('PhysicalSensor not found');
         }
