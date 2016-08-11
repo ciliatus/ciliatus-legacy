@@ -146,7 +146,9 @@
             runPage();
 
             if ($(window).width() < 992) { //bootstrap md
-                $('.x_content').css('display', 'none');
+                setTimeout(function() {
+                    $('.x_content').fadeOut(1000);
+                }, 100);
             }
         });
     </script>

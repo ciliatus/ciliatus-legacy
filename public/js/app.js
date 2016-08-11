@@ -222,32 +222,34 @@ domCallbacks['criticalStatesHudCallback'] = function(success, data, ld) {
     ld.cleanupRefs();
     var newHtml = '';
     if (success === true) {
-        $.each(data.data, function() {
-            critical_state = this;
-            var state = critical_state.soft_state === 1 ? 'warning' : 'danger';
-            var icon = '';
-            var name = '';
-            var url = '#';
-            var notify_icon = critical_state.timestamps.notifications_sent_at !== null ?
-                '<span class="material-icons">send</span>' : '';
-            console.log(critical_state);
-            if (critical_state.belongs !== undefined) {
-                if (critical_state.belongs.object !== undefined) {
-                    icon = critical_state.belongs.object.icon;
-                    name = critical_state.belongs.object.name;
-                    url = critical_state.belongs.object.url;
+        if (data.data !== null) {
+            newHtml = '<div class="panel panel-danger"><div class="panel-body">';
+            $.each(data.data, function() {
+                critical_state = this;
+                var state = critical_state.soft_state === 1 ? 'warning' : 'danger';
+                var icon = '';
+                var name = '';
+                var url = '#';
+                var notify_icon = critical_state.timestamps.notifications_sent_at !== null ?
+                    '<span class="material-icons">send</span>' : '';
+                console.log(critical_state);
+                if (critical_state.belongs !== undefined) {
+                    if (critical_state.belongs.object !== undefined) {
+                        icon = critical_state.belongs.object.icon;
+                        name = critical_state.belongs.object.name;
+                        url = critical_state.belongs.object.url;
+                    }
                 }
-            }
-            newHtml +=
-                '<div class="panel panel-' + state + '">' +
-                    '<div class="panel-heading">' +
-                        '<span class="material-icons">' + icon + '</span>' +
-                        '<a href="' + url + '"><strong>' + name + '</strong></a>' +
-                        ' <i>' + critical_state.timestamps.created + '</i>' +
-                        notify_icon +
-                    '</div>' +
-                '</div>'
-        })
+                newHtml +=  '<div class="row">' +
+                                '' +
+                                '<span class="material-icons">' + icon + '</span>' +
+                                '<a href="' + url + '"><strong>' + name + ' </strong></a>' +
+                                '<i>' + critical_state.timestamps.created + '</i>' +
+                                notify_icon +
+                            '</div>';
+            });
+            newHtml += '</div></div>';
+        }
     }
 
     $(this.target).html(newHtml);

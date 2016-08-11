@@ -50,7 +50,7 @@
             </div>
 
             <div class="row weather-days">
-                <div class="col-sm-6">
+                <div class="col-sm-6 col-xs-12 col-md-6 col-lg-6 col-xl-6">
                     <div class="daily-weather">
                         <h2 class="day">@lang('labels.temperature')</h2>
                         <h3 class="terrarium-widget-temp"></h3>
@@ -58,7 +58,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-6">
+                <div class="col-sm-6 col-xs-12 col-md-6 col-lg-6 col-xl-6">
                     <div class="daily-weather">
                         <h2 class="day">@lang('labels.humidity')</h2>
                         <h3 class="terrarium-widget-humidity"></h3>

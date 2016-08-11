@@ -78,6 +78,7 @@
             <h2><a href="{{ url('users/' . \Auth::user()->id . '/edit') }}">{{ \Auth::user()->name }}</a></h2>
           </div>
         </div>
+
         <!-- /menu profile quick info -->
 
         <!-- sidebar menu -->
@@ -85,9 +86,8 @@
           <div class="menu_section">
             <h3>Dashboard</h3>
             <ul class="nav side-menu">
-              <li>
-                <a href="/"><i class="material-icons">dashboard</i> <span>@choice('menu.dashboard', 1)</span></a>
-              </li>
+              <li><a href="/"><i class="material-icons">dashboard</i> <span>@choice('menu.dashboard', 1)</span></a></li>
+              <li><a href="{{ url('users/' . \Auth::user()->id . '/edit') }}"><i class="material-icons">settings</i> <span>@choice('labels.settings', 2)</span></a></li>
             </ul>
           </div>
 
@@ -96,7 +96,7 @@
             <ul class="nav side-menu">
                 <li><a href="{{ url('terraria') }}"><i class="material-icons">video_label</i> <span>@choice('components.terraria', 2)</span></a></li>
                 <li><a href="{{ url('animals') }}"><i class="material-icons">pets</i> <span>@choice('components.animals', 2)</span></a></li>
-                <li><a><i class="material-icons">device_hub</i> <span>@lang('menu.infrastructure')</span> <span class="material-icons pull-right">keyboard_arrow_down</span></a>
+                <li><a><i class="material-icons">device_hub</i> <span>@lang('menu.infrastructure')</span> <span class="hidden-xs material-icons pull-right">keyboard_arrow_down</span></a>
                     <ul class="nav child_menu">
                         <li><a href="{{ url('controlunits') }}"><i class="material-icons">developer_board</i> <span>@choice('components.controlunits', 2)</span></a></li>
                         <li><a href="{{ url('pumps') }}"><i class="material-icons">rotate_right</i> <span>@choice('components.pumps', 2)</span></a></li>
@@ -111,7 +111,7 @@
           <div class="menu_section">
             <h3>@lang('menu.administration')</h3>
             <ul class="nav side-menu">
-              <li><a><i class="material-icons">add</i> <span>@lang('menu.create')</span> <span class="material-icons pull-right">keyboard_arrow_down</span></a>
+              <li><a><i class="material-icons">add</i> <span>@lang('menu.create')</span> <span class="hidden-xs material-icons pull-right">keyboard_arrow_down</span></a>
                 <ul class="nav child_menu">
                     <li><a href="{{ url('terraria/create') }}"><i class="material-icons">video_label</i> <span>@choice('components.terraria', 1)</span></a></li>
                     <li><a href="{{ url('animals/create') }}"><i class="material-icons">pets</i> <span>@choice('components.animals', 1)</span></a></li>

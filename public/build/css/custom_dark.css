@@ -631,28 +631,6 @@ a:hover, a:focus {
   padding-left: 36px;
 }
 
-.nav-md ul.nav.child_menu li:before {
-  background: #777777;
-  bottom: auto;
-  content: "";
-  height: 9px;
-  left: 23px;
-  margin-top: 15px;
-  position: absolute;
-  right: auto;
-  width: 9px;
-  z-index: 1;
-  border-radius: 50%;
-}
-
-.nav-md ul.nav.child_menu li:after {
-  border-left: 1px solid #888888;
-  bottom: 0;
-  content: "";
-  left: 27px;
-  position: absolute;
-  top: 0;
-}
 
 .nav.side-menu > li > a, .nav.child_menu > li > a {
   color: #E7E7E7;
@@ -5322,4 +5300,47 @@ input, textarea, select {
 
 .dataTables_paginate {
   border: 1px rgb(169,169,169) solid !important;
+}
+
+.floating-menu-button {
+  z-index: 10000;
+  width: 42px;
+  height: 39px;
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  text-align: center;
+  border-radius: 6px;
+  -moz-border-radius: 6px;
+  background-color: rgba(255, 255, 255, 0.7);
+  border: 1px #DDDDDD solid;
+  font-size: 20pt;
+}
+
+.floating-menu-button a, .floating-menu-button i {
+  color: #666666;
+}
+
+.material-icons {
+  font-size: 14pt;
+  margin-left: 4px;
+  margin-right: 4px;
+  display: inline;
+  vertical-align: text-bottom;
+}
+
+.side-menu li a span {
+}
+
+ul.child_menu li {
+  padding-left: 10px !important;
+}
+
+.panel_toolbox .material-icons {
+  font-size: 12pt !important;
+}
+
+.panel-danger {
+  background-color: #7a2315;
+  border-color: #a22f1c;
 }
