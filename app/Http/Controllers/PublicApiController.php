@@ -6,10 +6,10 @@ use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 
 /**
- * Class ApiController
+ * Class PublicApiController
  * @package App\Http\Controllers
  */
-class ApiController extends Controller
+class PublicApiController extends Controller
 {
 
     /**
@@ -27,7 +27,6 @@ class ApiController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth.basic');
     }
 
     /**

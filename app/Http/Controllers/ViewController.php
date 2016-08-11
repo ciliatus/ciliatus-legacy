@@ -10,6 +10,7 @@ use App\LogicalSensorThreshold;
 use App\PhysicalSensor;
 use App\Pump;
 use App\Terrarium;
+use App\Token;
 use App\User;
 use App\Valve;
 use App\File;
@@ -905,9 +906,11 @@ class ViewController extends Controller
         $user = Auth::user();
 
         $user->deleteSetting('notifications_telegram_chat_id');
+        $user->setSetting('notifications_telegram_verification_code', Token::generate(6));
 
         return view('users.setup_telegram', [
-            'user'  =>  $user
+            'user'  =>  $user,
+            'token' =>  $user->setting('notifications_telegram_verification_code')
         ]);
     }
 

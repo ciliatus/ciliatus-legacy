@@ -96,4 +96,5 @@ Route::group(['prefix' => 'api/v1'], function() {
     Route::resource('users', 'UserController');
     Route::get('users/{id}/setting/{setting_name}', 'UserController@setting');
     Route::resource('user_settings', 'UserSettingController');
+    Route::post('telegram/' . env('TELEGRAM_WEBHOOK_TOKEN'), 'TelegramController@handle');
 });
