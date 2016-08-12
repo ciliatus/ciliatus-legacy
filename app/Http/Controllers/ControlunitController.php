@@ -58,7 +58,7 @@ class ControlunitController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $controlunit = Controlunit::with('physical_sensors', 'controlunits')->find($id);
+        $controlunit = Controlunit::with('physical_sensors')->find($id);
 
         if (!$controlunit) {
             return $this->respondNotFound('Controlunit not found');
@@ -129,14 +129,14 @@ class ControlunitController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         if (Gate::denies('api-write:controlunit')) {
             return $this->respondUnauthorized();
         }
 
-        $controlunit = Controlunit::find($request->input('id'));
+        $controlunit = Controlunit::find($id);
         if (is_null($controlunit)) {
             return $this->setStatusCode(422)->respondWithError('Controlunit not found');
         }

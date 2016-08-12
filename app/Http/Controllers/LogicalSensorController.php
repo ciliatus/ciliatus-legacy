@@ -68,7 +68,7 @@ class LogicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $logical_sensor = LogicalSensor::with('logical_sensor')->find($id);
+        $logical_sensor = LogicalSensor::with('physical_sensor')->find($id);
 
         if (!$logical_sensor) {
             return $this->respondNotFound('LogicalSensor not found');

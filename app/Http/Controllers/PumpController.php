@@ -58,7 +58,7 @@ class PumpController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $pump = Pump::with('physical_sensors', 'pumps')->find($id);
+        $pump = Pump::find($id);
 
         if (!$pump) {
             return $this->respondNotFound('Pump not found');

@@ -96,8 +96,7 @@ class ApiController extends Controller
             'http_code' => $this->getStatusCode(),
             'error'     => [
                 'error_code'    => $this->getErrorCode(),
-                'message'       => $message,
-                'entity_id'     => $entityId
+                'message'       => $message
             ]
         ]);
     }

@@ -24,7 +24,7 @@ class ControlunitTransformer extends Transformer
     {
         $return = [
             'id'    => $item['id'],
-            'name' => $item['lat_name'],
+            'name' => $item['name'],
             'timestamps' => [
                 'created' => $item['created_at'],
                 'updated' => $item['updated_at'],

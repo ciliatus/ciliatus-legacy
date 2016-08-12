@@ -61,7 +61,7 @@ class AnimalController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $animal = Animal::with('physical_sensors', 'animals')->find($id);
+        $animal = Animal::find($id);
 
         if (!$animal) {
             return $this->respondNotFound('Animal not found');

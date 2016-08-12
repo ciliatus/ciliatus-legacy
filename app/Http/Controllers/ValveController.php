@@ -63,7 +63,7 @@ class ValveController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $valve = Valve::with('physical_sensors', 'valves')->find($id);
+        $valve = Valve::find($id);
 
         if (!$valve) {
             return $this->respondNotFound('Valve not found');
