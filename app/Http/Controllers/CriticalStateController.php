@@ -108,8 +108,8 @@ class CriticalStateController extends ApiController
                             && is_null($cs->notifications_sent_at)) {
 
                             $cs->is_soft_state = false;
-                            $cs->notify();
                             $cs->save(['silent']);
+                            $cs->notify();
 
                             $response['notified'][] = $this->critical_stateTransformer->transform($cs->toArray());
                         }

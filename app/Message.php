@@ -43,12 +43,18 @@ abstract class Message extends CiliatusModel
      */
     public static function create(array $attributes = [])
     {
-        $new = parent::create($attributes);
-
-        if (!is_null($new->type))
-            return self::findSpecific($new->id);
-
-        return $new;
+        if (isset($attributes['type'])) {
+            switch ($attributes['type']) {
+                case 'Telegram':
+                    unset($attributes['type']);
+                    return TelegramMessage::create($attributes);
+                default:
+                    return null;
+            }
+        }
+        else {
+            return parent::create($attributes);
+        }
     }
 
     /**

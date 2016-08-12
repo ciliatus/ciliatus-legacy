@@ -16,10 +16,10 @@ class CreateMessagesTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->string('type');
             $table->string('state')->default('draft');
             $table->string('content');
+            $table->string('response_to');
             $table->timestamp('send_after');
             $table->timestamp('sent_at');
             $table->timestamps();

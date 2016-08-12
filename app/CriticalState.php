@@ -102,6 +102,11 @@ class CriticalState extends CiliatusModel
      */
     public function notify()
     {
+        foreach (User::get() as $u) {
+            if ($u->setting('notifications_enabled') == 'on') {
+                $u->message(trans('user.messages.critical_state_notification'));
+            }
+        }
 
         $this->notifications_sent_at = Carbon::now();
         $this->save(['silent']);
@@ -119,8 +124,33 @@ class CriticalState extends CiliatusModel
     /**
      *
      */
+    public function notifyRecovered()
+    {
+        foreach (User::get() as $u) {
+            if ($u->setting('notifications_enabled') == 'on') {
+                $u->message(trans('user.messages.critical_state_notification_recovered'));
+            }
+        }
+
+        $this->notifications_sent_at = Carbon::now();
+        $this->save(['silent']);
+
+        Log::create([
+            'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
+            'target_id' => $this->id,
+            'associatedWith_type' => $this->belongsTo_type,
+            'associatedWith_id' => $this->belongsTo_id,
+            'action' => 'notify_recovered'
+        ]);
+
+    }
+
+    /**
+     *
+     */
     public function recover()
     {
+        $this->notifyRecovered();
 
         $this->recovered_at = Carbon::now();
         $this->save(['silent']);
@@ -135,6 +165,9 @@ class CriticalState extends CiliatusModel
 
     }
 
+    /**
+     * @return null
+     */
     public function belongsTo_object()
     {
         if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {

@@ -245,15 +245,27 @@ class User extends Authenticatable
      */
     public function message($content)
     {
-        if (is_null($this->setting('notification_type')))
+        if (is_null($this->setting('notification_type'))) {
             return false;
+        }
 
-        if ($this->setting('notifications_enabled') != 'on')
+        if ($this->setting('notifications_enabled') != 'on') {
             return false;
+        }
 
-        $message = Message::create($this->setting('notification_type'));
+        $message = Message::create([
+            'type' => $this->setting('notification_type'),
+            'user_id' => $this->id
+        ]);
+
+        if (is_null($message)) {
+            \Log::error('Message type missing');
+            return false;
+        }
+
         $message->content = $content;
-        $message->send();
+
+        return $message->send();
     }
 
     /**

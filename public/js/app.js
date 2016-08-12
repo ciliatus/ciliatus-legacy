@@ -222,7 +222,7 @@ domCallbacks['criticalStatesHudCallback'] = function(success, data, ld) {
     ld.cleanupRefs();
     var newHtml = '';
     if (success === true) {
-        if (data.data !== null) {
+        if (data.data.length > 0) {
             newHtml = '<div class="panel panel-danger"><div class="panel-body">';
             $.each(data.data, function() {
                 critical_state = this;
