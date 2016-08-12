@@ -150,7 +150,8 @@ class CriticalState extends CiliatusModel
      */
     public function recover()
     {
-        $this->notifyRecovered();
+        if (!$this->is_soft_state)
+            $this->notifyRecovered();
 
         $this->recovered_at = Carbon::now();
         $this->save(['silent']);
