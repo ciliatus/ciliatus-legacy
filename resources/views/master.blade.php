@@ -122,6 +122,7 @@
                     <li><a href="{{ url('logical_sensors/create') }}"><i class="material-icons">memory</i> <span>@choice('components.logical_sensors', 1)</span></a></li>
                 </ul>
               </li>
+              <li><a href="{{ url('admin') }}"><i class="material-icons">settings_applications</i> <span>@choice('components.admin_panel', 2)</span></a></li>
               <li><a href="{{ url('logs') }}"><i class="material-icons">list</i> <span>@choice('components.log', 2)</span></a></li>
             </ul>
           </div>

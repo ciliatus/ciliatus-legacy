@@ -8,7 +8,7 @@
                     <li><a class="collapse-link"><i class="material-icons">expand_less</i></a>
                     </li>
                     <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="material-icons">build</i></a>
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="material-icons">settings</i></a>
                         <ul class="dropdown-menu" role="menu">
                             <li>
                                 <a href="{{ url('controlunits/' . $cu->id . '/edit') }}"><i class="material-icons">mode_edit</i> @lang('menu.edit')</a>

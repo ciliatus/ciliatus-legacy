@@ -70,7 +70,7 @@
                         </select>
                     </div>
                 </div>
-                <div class="form-group">
+                <!--<div class="form-group">
                     <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('labels.notifications', 2)</label>
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <div class="">
@@ -79,7 +79,7 @@
                             </label>
                         </div>
                     </div>
-                </div>
+                </div>-->
 
 
                 <div class="ln_solid"></div>

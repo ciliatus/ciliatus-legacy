@@ -18,7 +18,7 @@
     <link href="" rel="stylesheet">
 
     <!-- Custom Theme Style -->
-    {!! Html::style('build/css/custom.min.css') !!}
+    {!! Html::style('settings/css/custom.min.css') !!}
     <link href="../" rel="stylesheet">
 </head>
 
