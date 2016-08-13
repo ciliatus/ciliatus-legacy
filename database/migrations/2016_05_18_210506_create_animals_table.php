@@ -23,6 +23,7 @@ class CreateAnimalsTable extends Migration
             $table->string('gender')->nullable();
             $table->date('birth_date')->nullable();
             $table->date('death_date')->nullable();
+            $table->boolean('notifications_enabled')->default(false);
             $table->timestamps();
         });
     }

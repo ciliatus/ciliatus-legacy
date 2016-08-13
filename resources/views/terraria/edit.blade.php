@@ -79,12 +79,7 @@
                     <div class="col-md-9 col-sm-9 col-xs-12">
                         <div class="">
                             <label>
-                                <input type="checkbox" class="js-switch" name="notifyhumidity" /> @lang('tooltips.sendnotificationsfor'): @lang('labels.humidity')
-                            </label>
-                        </div>
-                        <div class="">
-                            <label>
-                                <input type="checkbox" class="js-switch" name="notifytemperature" /> @lang('tooltips.sendnotificationsfor'): @lang('labels.temperature')
+                                <input type="checkbox" class="js-switch" name="notifications_enabled" @if($terrarium->notifications_enabled) checked @endif /> @lang('tooltips.sendnotifications')
                             </label>
                         </div>
                     </div>

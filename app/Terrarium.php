@@ -24,6 +24,13 @@ class Terrarium extends CiliatusModel
     public $incrementing = false;
 
     /**
+     * @var array
+     */
+    protected  $casts = [
+        'notifications_enabled' =>  'boolean'
+    ];
+
+    /**
      * @param array $attributes
      * @return CiliatusModel|Terrarium
      */

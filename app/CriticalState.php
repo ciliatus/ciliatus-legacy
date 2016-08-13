@@ -102,6 +102,12 @@ class CriticalState extends CiliatusModel
      */
     public function notify()
     {
+        if (!is_null($this->belongsTo_object())) {
+            if ($this->belongsTo_object()->notifications_enabled !== true) {
+                return;
+            }
+        }
+
         foreach (User::get() as $u) {
             if ($u->setting('notifications_enabled') == 'on') {
                 $u->message(trans('user.messages.critical_state_notification'));
@@ -126,6 +132,12 @@ class CriticalState extends CiliatusModel
      */
     public function notifyRecovered()
     {
+        if (!is_null($this->belongsTo_object())) {
+            if ($this->belongsTo_object()->notifications_enabled !== true) {
+                return;
+            }
+        }
+
         foreach (User::get() as $u) {
             if ($u->setting('notifications_enabled') == 'on') {
                 $u->message(trans('user.messages.critical_state_notification_recovered'));

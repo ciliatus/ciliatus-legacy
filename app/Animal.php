@@ -20,12 +20,19 @@ class Animal extends CiliatusModel
     protected  $dates = ['created_at', 'updated_at', 'birth_date', 'death_date'];
 
     /**
+     * @var array
+     */
+    protected  $casts = [
+        'notifications_enabled' =>  'boolean'
+    ];
+
+    /**
      * Indicates if the IDs are auto-incrementing.
      *
      * @var bool
      */
-
     public $incrementing = false;
+
 
     /**
      * @param array $attributes

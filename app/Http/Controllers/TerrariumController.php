@@ -433,6 +433,7 @@ class TerrariumController extends ApiController
 
         $terrarium->name = $request->input('name');
         $terrarium->display_name = $request->input('display_name');
+        $terrarium->notifications_enabled = $request->has('notifications_enabled');
         $terrarium->save();
 
         return $this->setStatusCode(200)->respondWithData([], [
