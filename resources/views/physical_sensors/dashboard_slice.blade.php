@@ -39,11 +39,6 @@
                     @endforeach
                     <div class="clearfix"></div>
                 </div>
-                @if(isset($show_extended))
-                    <div class="row">
-                        <pre>{{ $ps->generateConfig() }}</pre>
-                    </div>
-                @endif
             </div>
             <div class="clearfix"></div>
         </div>

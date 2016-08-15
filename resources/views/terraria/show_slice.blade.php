@@ -31,6 +31,7 @@
                     @else
                         @foreach ($terrarium->animals as $animal)
                             <div>
+                                <i class="material-icons">pets</i>
                                 <strong><a href="{{ url('animals/' . $animal->id) }}">{{ $animal->display_name }}</a></strong>
                                 @if ($animal->gender == 'male')
                                     <i class="fa fa-mars"></i>

@@ -108,6 +108,22 @@ class Controlunit extends CiliatusModel
     /**
      * @return string
      */
+    public function generateConfig()
+    {
+        $config = "[main]\nid = {$this->id}\nname = {$this->name}\n\n[api]\nuri = " . env('APP_URL') . "/api/v1\ncheck_interval = 180\nauth_type = basic\n\n[api_auth_basic]\nuser = \npassword = ";
+
+        foreach ($this->physical_sensors as $ps) {
+            $config .= "\n\n" . $ps->generateConfig();
+        }
+
+
+
+        return $config;
+    }
+
+    /**
+     * @return string
+     */
     public function icon()
     {
         return 'developer_board';
