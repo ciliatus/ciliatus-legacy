@@ -207,6 +207,18 @@ class LogicalSensor extends CiliatusModel
     }
 
     /**
+     *
+     * @return bool
+     */
+    public function check_notifications_enabled()
+    {
+        if (is_null($this->physical_sensor))
+            return false;
+
+        return $this->physical_sensor->check_notifications_enabled();
+    }
+
+    /**
      * @return string
      */
     public function icon()

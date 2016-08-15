@@ -29,6 +29,10 @@ class CriticalState extends CiliatusModel
         'belongsTo_id',
     ];
 
+    protected $casts = [
+        'is_soft_state' =>  'boolean'
+    ];
+
     /**
      * @var array
      */
@@ -103,7 +107,7 @@ class CriticalState extends CiliatusModel
     public function notify()
     {
         if (!is_null($this->belongsTo_object())) {
-            if ($this->belongsTo_object()->notifications_enabled !== true) {
+            if ($this->belongsTo_object()->check_notifications_enabled() !== true) {
                 return;
             }
         }
@@ -133,7 +137,7 @@ class CriticalState extends CiliatusModel
     public function notifyRecovered()
     {
         if (!is_null($this->belongsTo_object())) {
-            if ($this->belongsTo_object()->notifications_enabled !== true) {
+            if ($this->belongsTo_object()->check_notifications_enabled() !== true) {
                 return;
             }
         }
@@ -184,7 +188,7 @@ class CriticalState extends CiliatusModel
     public function belongsTo_object()
     {
         if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
-            return ('App\\' . $this->belongsTo_type)::find($this->belongsTo_id);
+            return ('App\\' . ucfirst($this->belongsTo_type))::find($this->belongsTo_id);
         }
 
         return null;

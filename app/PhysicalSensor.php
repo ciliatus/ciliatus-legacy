@@ -92,6 +92,18 @@ class PhysicalSensor extends CiliatusModel
     }
 
     /**
+     * @return null
+     */
+    public function belongsTo_object()
+    {
+        if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
+            return ('App\\' . ucfirst($this->belongsTo_type))::find($this->belongsTo_id);
+        }
+
+        return null;
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function logical_sensors()
@@ -138,6 +150,17 @@ class PhysicalSensor extends CiliatusModel
     {
         $this->heartbeat_at = Carbon::now();
         $this->save(['silent']);
+    }
+
+    /**
+     * @return bool
+     */
+    public function check_notifications_enabled()
+    {
+        if (is_null($this->belongsTo_object()))
+            return false;
+
+        return $this->belongsTo_object()->check_notifications_enabled();
     }
 
     /**

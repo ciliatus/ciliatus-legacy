@@ -255,6 +255,14 @@ class Terrarium extends CiliatusModel
     }
 
     /**
+     * @return bool
+     */
+    public function check_notifications_enabled()
+    {
+        return $this->notifications_enabled;
+    }
+
+    /**
      * @return string
      */
     public function icon()
