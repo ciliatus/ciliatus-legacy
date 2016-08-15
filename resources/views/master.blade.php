@@ -130,8 +130,8 @@
           <div class="menu_section">
               <h3>@lang('menu.help')</h3>
               <ul class="nav side-menu">
-                  <li><a href="https://github.com/dasprot/ciliatus/issues"><i class="material-icons">bug_report</i> <span>@lang('labels.bugtracker')</span></a></li>
-                  <li><a href="https://github.com/dasprot/ciliatus/wiki"><i class="material-icons">help</i> <span>@lang('labels.doku')</span></a></li>
+                  <li><a href="https://github.com/matthenning/ciliatus/issues"><i class="material-icons">bug_report</i> <span>@lang('labels.bugtracker')</span></a></li>
+                  <li><a href="https://github.com/matthenning/ciliatus/wiki"><i class="material-icons">help</i> <span>@lang('labels.doku')</span></a></li>
               </ul>
           </div>
 
