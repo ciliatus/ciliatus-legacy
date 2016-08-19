@@ -176,6 +176,10 @@ class ActionSequenceSchedule extends CiliatusModel
                     }
                     $ass->last_finished_at = Carbon::now();
                     $ass->save();
+
+                    if ($ass->runonce == true) {
+                        $ass->delete();
+                    }
                 }
             }
         }

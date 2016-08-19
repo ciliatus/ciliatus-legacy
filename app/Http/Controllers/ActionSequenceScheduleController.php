@@ -122,6 +122,10 @@ class ActionSequenceScheduleController extends ApiController
         $ass->starts_at = Carbon::parse($request->input('starts_at'));
         $ass->action_sequence_id = $request->input('action_sequence_id');
 
+        if ($request->input('runonce') == 'on') {
+            $ass->runonce = true;
+        }
+
         $starts_today = Carbon::now();
         $starts_today->hour = $ass->starts_at->hour;
         $starts_today->minute = $ass->starts_at->minute;

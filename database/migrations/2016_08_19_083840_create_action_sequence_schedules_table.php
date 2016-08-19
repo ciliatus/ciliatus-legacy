@@ -21,6 +21,7 @@ class CreateActionSequenceSchedulesTable extends Migration
             $table->timestamp('last_start_at')->nullable()->default(null);
             $table->timestamp('last_finished_at')->nullable()->default(null);
             $table->uuid('terrarium_id');
+            $table->boolean('runonce')->default(false);
             $table->timestamps();
         });
     }
