@@ -94,7 +94,7 @@ class CriticalState extends CiliatusModel
             if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
                 $this->name .= $this->belongsTo_object()->name;
             }
-            $this->name .= '_' . Carbon::parse($this->created_at)->format('y-m-d_h:i:s');
+            $this->name .= '_' . Carbon::parse($this->created_at)->format('y-m-d_H:i:s');
             $this->save(['silent', 'no_new_name']);
         }
 
