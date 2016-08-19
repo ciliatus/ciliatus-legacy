@@ -124,7 +124,7 @@ class ActionSequenceController extends ApiController
             $name = $request->input('name');
         }
         else {
-            $name = 'A_' . $request->input('template') . '_' . $t->name;
+            $name = 'AS_' . $request->input('template') . '_' . $t->name;
         }
 
         $as->name = $name;
