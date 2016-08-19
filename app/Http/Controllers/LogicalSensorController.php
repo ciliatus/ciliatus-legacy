@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Controlunit;
 use App\Http\Transformers\LogicalSensorTransformer;
 use App\LogicalSensor;
+use App\LogicalSensorThreshold;
 use App\PhysicalSensor;
 use Cache;
 use Gate;
@@ -97,10 +98,9 @@ class LogicalSensorController extends ApiController
             return $this->respondNotFound('LogicalSensor not found');
         }
 
-        $logical_sensors = LogicalSensor::where('logical_sensor_id', $logical_sensor->id)->get();
-        foreach ($logical_sensors as $ls) {
-            $ls->logical_sensor_id = null;
-            $ls->save();
+        $ths = LogicalSensorThreshold::where('logical_sensor_id', $logical_sensor->id)->get();
+        foreach ($ths as $th) {
+            $th->delete();
         }
 
         $logical_sensor->delete();
