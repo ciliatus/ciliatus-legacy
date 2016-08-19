@@ -114,14 +114,16 @@ class Log extends Model
     {
         switch ($this->action) {
             case 'create':
-                return 'file-o';
-                break;
+                return 'library_add';
             case 'delete':
-                return 'times';
-                break;
+                return 'delete';
+            case 'notify':
+            case 'notify_recovered':
+                return 'send';
             case 'update':
-                return 'save';
-                break;
+                return 'update';
+            case 'recover':
+                return 'file_upload';
             default:
                 return 'circle-o';
         }

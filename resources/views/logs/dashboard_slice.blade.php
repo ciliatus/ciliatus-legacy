@@ -10,9 +10,8 @@
             <table id="log-datatable" class="table table-striped table-bordered">
                 <thead>
                     <tr>
-                        <th width="20"></th>
-                        <th>@lang('labels.source')</th>
                         <th>@lang('labels.action')</th>
+                        <th>@lang('labels.source')</th>
                         <th>@lang('labels.target')</th>
                         <th>@lang('labels.associated_with')</th>
                         <th>@lang('labels.created_at')</th>
@@ -23,21 +22,26 @@
                 <tbody>
                     @foreach ($logs as $l)
                     <tr>
-                        <td><i class="fa fa-{{ $l->icon() }}"></i></td>
+                        <td><i class="material-icons">{{ $l->icon() }}</i> {{ $l->action }}</td>
                         <td>
                             @if(!is_null($l->source()))
                                 <a href="{{ $l->source()->url() }}"><i class="material-icons">{{ $l->source()->icon() }}</i> {{ $l->source()->name}} {{ $l->source()->display_name}}</a>
+                            @else
+                                <i>{{ $l->source_type }} {{ $l->source_id }}</i>
                             @endif
                         </td>
-                        <td>{{ $l->action }}</td>
                         <td>
                             @if(!is_null($l->target()))
                             <a href="{{ $l->target()->url() }}"><i class="material-icons">{{ $l->target()->icon() }}</i> {{ $l->target()->name}} {{ $l->target()->display_name}}</a>
+                            @else
+                                <i>{{ $l->target_type }} {{ $l->target_id }}</i>
                             @endif
                         </td>
                         <td>
                             @if(!is_null($l->associatedWith()))
                                 <a href="{{ $l->associatedWith()->url() }}"><i class="material-icons">{{ $l->associatedWith()->icon() }}</i> {{ $l->associatedWith()->name}} {{ $l->associatedWith()->display_name}}</a>
+                            @else
+                                <i>{{ $l->associatedWith_type }} {{ $l->associatedWith_id }}</i>
                             @endif
                         </td>
                         <td>{{ $l->created_at }}</td>

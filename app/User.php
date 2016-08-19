@@ -273,7 +273,7 @@ class User extends Authenticatable
      */
     public function icon()
     {
-        return 'user';
+        return 'person';
     }
 
     /**

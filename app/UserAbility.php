@@ -50,9 +50,9 @@ class UserAbility extends Model
         'grant_api-write:user_all',         // edit all users including permissions and protected properties
         'grant_api-write:user_ability',
         'grant_api-write:user_telegram',
-        'grant_api-write:actions',
-        'grant_api-write:action_sequences',
-        'grant_api-write:action_sequence_schedules',
+        'grant_api-write:action',
+        'grant_api-write:action_sequence',
+        'grant_api-write:action_sequence_schedule',
         'grant_api-fetch:desired_states'
     ];
 
