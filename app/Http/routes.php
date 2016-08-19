@@ -1,6 +1,6 @@
 <?php
 
-Route::get('/', 'ViewController@index');
+Route::get('/', 'DashboardController@show');
 
 Route::get('/terraria', 'ViewController@terraria');
 Route::get('/terraria/create', 'ViewController@terrariaCreate');
