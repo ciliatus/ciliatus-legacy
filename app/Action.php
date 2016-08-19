@@ -61,26 +61,6 @@ class Action extends CiliatusModel
     }
 
     /**
-     * @param array $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-
-        if (!in_array('silent', $options)) {
-            Log::create([
-                'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-                'target_id' => $this->id,
-                'associatedWith_type' => 'ActionSequence',
-                'associatedWith_id' => $this->action_sequence_id,
-                'action' => 'update'
-            ]);
-        }
-
-        return parent::save($options);
-    }
-
-    /**
      * @return null
      */
     public function target_object()

@@ -32,8 +32,8 @@ class LogicalSensorThreshold extends CiliatusModel
         Log::create([
             'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
             'target_id'     =>  $new->id,
-            'associatedWith_type' => explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
-            'associatedWith_id' => $new->id,
+            'associatedWith_type' => 'LogicalSensor',
+            'associatedWith_id' => $new->logical_sensor_id,
             'action'        => 'create'
         ]);
 
@@ -48,8 +48,8 @@ class LogicalSensorThreshold extends CiliatusModel
         Log::create([
             'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
             'target_id'     =>  $this->id,
-            'associatedWith_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
-            'associatedWith_id' => $this->id,
+            'associatedWith_type' => 'LogicalSensor',
+            'associatedWith_id' => $this->logical_sensor_id,
             'action'        => 'delete'
         ]);
 
@@ -62,16 +62,6 @@ class LogicalSensorThreshold extends CiliatusModel
      */
     public function save(array $options = [])
     {
-        if (!in_array('silent', $options)) {
-            Log::create([
-                'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-                'target_id' => $this->id,
-                'associatedWith_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-                'associatedWith_id' => $this->id,
-                'action' => 'update'
-            ]);
-        }
-
         if (!in_array('no_new_name', $options)) {
             $this->name = 'LSTH_';
             if (!is_null($this->logical_sensor)) {
@@ -80,7 +70,7 @@ class LogicalSensorThreshold extends CiliatusModel
                 $this->name .= $this->id;
             }
             $this->name .= '_' . Carbon::parse($this->starts_at)->format('h:i:s');
-            $this->save(['silent', 'no_new_name']);
+            $this->save(['no_new_name']);
         }
 
         return parent::save($options);

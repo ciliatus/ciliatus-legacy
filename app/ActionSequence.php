@@ -59,24 +59,6 @@ class ActionSequence extends CiliatusModel
     }
 
     /**
-     * @param array $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-
-        if (!in_array('silent', $options)) {
-            Log::create([
-                'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-                'target_id' => $this->id,
-                'action' => 'update'
-            ]);
-        }
-
-        return parent::save($options);
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function actions()
