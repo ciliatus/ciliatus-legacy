@@ -10,5 +10,8 @@ return [
     'logical_sensors'=> 'Logical Sensor|Logical Sensors',
     'logical_sensor_thresholds'=> 'Logical Sensor Threshold|Logical Sensor Thresholds',
     'files'         =>  'File|Files',
-    'log'           =>  'System log|System logs'
+    'log'           =>  'System log|System logs',
+    'actions'       =>  'Action|Actions',
+    'action_sequences' => 'Action sequence|Action sequences',
+    'action_sequence_schedules' => 'Schedule|Schedules'
 ];

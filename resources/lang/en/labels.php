@@ -54,4 +54,6 @@ return [
     'doku'          =>  'Documentation',
     'step'          =>  'Step',
     'phone_number'  =>  'Phone number',
+    'template'      =>  'Template',
+    'timezone'      =>  'Timezone'
 ];

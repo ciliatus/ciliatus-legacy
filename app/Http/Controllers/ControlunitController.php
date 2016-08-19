@@ -155,4 +155,22 @@ class ControlunitController extends ApiController
 
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function fetchDesiredStates($id)
+    {
+        if (Gate::denies('api-fetch:desired_states')) {
+            return $this->respondUnauthorized();
+        }
+
+        $controlunit = Controlunit::find($id);
+        if (is_null($controlunit)) {
+            return $this->setStatusCode(422)->respondWithError('Controlunit not found');
+        }
+
+        return $this->respondWithData($controlunit->fetchAndAckDesiredStates());
+    }
+
 }

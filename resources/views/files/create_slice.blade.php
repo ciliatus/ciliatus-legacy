@@ -1,4 +1,3 @@
-<div class="col-md-6 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
             <h2><i class="material-icons">description</i> @lang('labels.create') @choice('components.files', 1)</h2>
@@ -50,4 +49,3 @@
             </form>
         </div>
     </div>
-</div>

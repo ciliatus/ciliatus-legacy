@@ -70,6 +70,24 @@ Route::get('/logical_sensor_thresholds/{id}/edit', 'ViewController@logical_senso
 Route::get('/logical_sensor_thresholds/{id}/delete', 'ViewController@logical_sensor_thresholdsDelete');
 Route::get('/logical_sensor_thresholds/{id}', 'ViewController@logical_sensor_thresholdsShow');
 
+Route::get('/actions', 'ViewController@actions');
+Route::get('/actions/create', 'ViewController@actionsCreate');
+Route::get('/actions/{id}/edit', 'ViewController@actionsEdit');
+Route::get('/actions/{id}/delete', 'ViewController@actionsDelete');
+Route::get('/actions/{id}', 'ViewController@actionsShow');
+
+Route::get('/action_sequences', 'ViewController@action_sequences');
+Route::get('/action_sequences/create', 'ViewController@action_sequencesCreate');
+Route::get('/action_sequences/{id}/edit', 'ViewController@action_sequencesEdit');
+Route::get('/action_sequences/{id}/delete', 'ViewController@action_sequencesDelete');
+Route::get('/action_sequences/{id}', 'ViewController@action_sequencesShow');
+
+Route::get('/action_sequence_schedules', 'ViewController@action_sequence_schedules');
+Route::get('/action_sequence_schedules/create', 'ViewController@action_sequence_schedulesCreate');
+Route::get('/action_sequence_schedules/{id}/edit', 'ViewController@action_sequence_schedulesEdit');
+Route::get('/action_sequence_schedules/{id}/delete', 'ViewController@action_sequence_schedulesDelete');
+Route::get('/action_sequence_schedules/{id}', 'ViewController@action_sequence_schedulesShow');
+
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
@@ -82,6 +100,7 @@ Route::group(['prefix' => 'api/v1'], function() {
     Route::resource('animals', 'AnimalController');
     Route::resource('terraria', 'TerrariumController');
     Route::resource('controlunits', 'ControlunitController');
+    Route::get('controlunits/{id}/fetch_desired_states', 'ControlunitController@fetchDesiredStates');
     Route::resource('pumps', 'PumpController');
     Route::resource('valves', 'ValveController');
     Route::resource('physical_sensors', 'PhysicalSensorController');
@@ -97,4 +116,7 @@ Route::group(['prefix' => 'api/v1'], function() {
     Route::get('users/{id}/setting/{setting_name}', 'UserController@setting');
     Route::resource('user_settings', 'UserSettingController');
     Route::post('telegram/' . env('TELEGRAM_WEBHOOK_TOKEN'), 'TelegramController@handle');
+    Route::resource('actions', 'ActionController');
+    Route::resource('action_sequences', 'ActionSequenceController');
+    Route::resource('action_sequence_schedules', 'ActionSequenceScheduleController');
 });

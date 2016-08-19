@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Action;
+use App\ActionSequence;
+use App\ActionSequenceSchedule;
 use App\Animal;
 use App\Controlunit;
 use App\Log;
@@ -913,5 +916,238 @@ class ViewController extends Controller
             'token' =>  $user->setting('notifications_telegram_verification_code')
         ]);
     }
+
+
+    /*
+     * Actions
+     */
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function actions()
+    {
+        return view('actions.index', [
+            'actions' => Action::get()
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function actionsShow($id)
+    {
+        $action = Action::find($id);
+        if (is_null($action)) {
+            return view('errors.404');
+        }
+
+        return view('actions.show', [
+            'action' => $action
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function actionsCreate()
+    {
+        $sequences = ActionSequence::all();
+
+        return view('actions.create', [
+            'sequences'        => $sequences
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function actionsDelete($id)
+    {
+        $action = Action::find($id);
+
+        if (is_null($action)) {
+            return view('errors.404');
+        }
+
+        return view('actions.delete', [
+            'action'     => $action
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function actionsEdit($id)
+    {
+        $action = Action::find($id);
+
+        if (is_null($action)) {
+            return view('errors.404');
+        }
+
+        $sequences = ActionSequence::all();
+
+        return view('actions.edit', [
+            'action'     => $action,
+            'sequences'        => $sequences
+        ]);
+    }
+
+
+    /*
+     * ActionSequences
+     */
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function action_sequences()
+    {
+        return view('action_sequences.index', [
+            'action_sequences' => ActionSequence::get()
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function action_sequencesShow($id)
+    {
+        $action_sequence = ActionSequence::find($id);
+        if (is_null($action_sequence)) {
+            return view('errors.404');
+        }
+
+        return view('action_sequences.show', [
+            'action_sequence' => $action_sequence
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function action_sequencesCreate()
+    {
+        $schedules = ActionSequenceSchedule::all();
+
+        return view('action_sequences.create', [
+            'schedules'        => $schedules
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function action_sequencesDelete($id)
+    {
+        $action_sequence = ActionSequence::find($id);
+
+        if (is_null($action_sequence)) {
+            return view('errors.404');
+        }
+
+        return view('action_sequences.delete', [
+            'action_sequence'     => $action_sequence
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function action_sequencesEdit($id)
+    {
+        $action_sequence = ActionSequence::find($id);
+        $terraria = Terrarium::get();
+
+        if (is_null($action_sequence)) {
+            return view('errors.404');
+        }
+
+        return view('action_sequences.edit', [
+            'action_sequence'  => $action_sequence,
+            'terraria'         => $terraria
+        ]);
+    }
+
+    /*
+     * ActionSequenceSchedules
+     */
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function action_sequence_schedules()
+    {
+        return view('action_sequence_schedules.index', [
+            'action_sequence_schedules' => ActionSequenceSchedule::get()
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function action_sequence_schedulesShow($id)
+    {
+        $action_sequence_schedule = ActionSequenceSchedule::find($id);
+        if (is_null($action_sequence_schedule)) {
+            return view('errors.404');
+        }
+
+        return view('action_sequence_schedules.show', [
+            'action_sequence_schedule' => $action_sequence_schedule
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function action_sequence_schedulesCreate()
+    {
+        $sequences = ActionSequence::all();
+
+        return view('action_sequence_schedules.create', [
+            'sequences'        => $sequences
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function action_sequence_schedulesDelete($id)
+    {
+        $action_sequence_schedule = ActionSequenceSchedule::find($id);
+
+        if (is_null($action_sequence_schedule)) {
+            return view('errors.404');
+        }
+
+        return view('action_sequence_schedules.delete', [
+            'action_sequence_schedule'     => $action_sequence_schedule
+        ]);
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function action_sequence_schedulesEdit($id)
+    {
+        $action_sequence_schedule = ActionSequenceSchedule::find($id);
+
+        if (is_null($action_sequence_schedule)) {
+            return view('errors.404');
+        }
+
+        return view('action_sequence_schedules.edit', [
+            'action_sequence_schedule'     => $action_sequence_schedule
+        ]);
+    }
+
 
 }

@@ -105,5 +105,21 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('api-write:user_telegram', function ($user) {
             return $user->hasAbility('grant_api-write:user_telegram');
         });
+
+        $gate->define('api-write:action', function ($user) {
+            return $user->hasAbility('grant_api-write:action');
+        });
+
+        $gate->define('api-write:action_sequence', function ($user) {
+            return $user->hasAbility('grant_api-write:action_sequence');
+        });
+
+        $gate->define('api-write:action_sequence_schedule', function ($user) {
+            return $user->hasAbility('grant_api-write:action_sequence_schedule');
+        });
+
+        $gate->define('api-fetch:desired_states', function ($user) {
+            return $user->hasAbility('grant_api-fetch:desired_states');
+        });
     }
 }

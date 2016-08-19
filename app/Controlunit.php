@@ -122,6 +122,27 @@ class Controlunit extends CiliatusModel
     }
 
     /**
+     * @return array
+     */
+    public function fetchAndAckDesiredStates()
+    {
+        $desired_states = [
+            'Valve' => [],
+            'Pump' => []
+        ];
+
+        ActionSequenceSchedule::createAndUpdateRunningActions();
+
+        foreach (RunningAction::whereNull('finished_at')->get() as $ra) {
+            if ($ra->action->target_object()->controlunit_id == $this->id) {
+                $desired_states[$ra->action->target_type][$ra->action->target_id] = 'running';
+            }
+        }
+
+        return $desired_states;
+    }
+
+    /**
      * @return string
      */
     public function icon()

@@ -11,4 +11,8 @@ return [
     'phone_number'          =>  'Mobilnummer',
     'contact_bot'           =>  'Den Bot kontaktieren',
     'wait_confirmation'     =>  'Auf Bestätigung warten',
+    'set_state_to'          =>  'Zustand von <b>:target</b> auf <b>:state</b> ändern für <b>:minutes Minuten</b>',
+    'start_after_started'   =>  'Startet wenn Schritt <b>:id</b> gestartet wurde',
+    'start_after_finished'  =>  'Startet wenn Schritt <b>:id</b> beendet wurde',
+    'sendnotifications'     =>  'Benachrichtigungen versenden'
 ];

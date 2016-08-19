@@ -100,6 +100,11 @@ class Terrarium extends CiliatusModel
         return $this->hasManyThrough('App\LogicalSensor', 'App\PhysicalSensor', 'belongsTo_id')->where('belongsTo_type', 'terrarium');
     }
 
+    public function valves()
+    {
+        return $this->hasMany('App\Valve');
+    }
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
@@ -114,6 +119,11 @@ class Terrarium extends CiliatusModel
     public function files()
     {
         return $this->hasMany('App\File', 'belongsTo_id')->where('belongsTo_type', 'Terrarium');
+    }
+
+    public function action_sequences()
+    {
+        return $this->hasMany('App\ActionSequence');
     }
 
     /**

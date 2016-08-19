@@ -10,5 +10,8 @@ return [
     'logical_sensors'=> 'Logischer Sensor|Logische Sensoren',
     'logical_sensor_thresholds'=> 'Logischer Sensor Grenzwert|Logische Sensor Grenzwerte',
     'files'         =>  'Datei|Dateien',
-    'log'           =>  'Systemlog|Systemlogs'
+    'log'           =>  'Systemlog|Systemlogs',
+    'actions'       =>  'Aktion|Aktionen',
+    'action_sequences' => 'Aktionssequenz|Aktionssequenzen',
+    'action_sequence_schedules' => 'Zeitplan|Zeitpläne'
 ];

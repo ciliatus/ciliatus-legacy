@@ -54,4 +54,6 @@ return [
     'doku'          =>  'Dokumentation',
     'step'          =>  'Schritt',
     'phone_number'  =>  'Telefonnummer',
+    'template'      =>  'Vorlage',
+    'timezone'      =>  'Zeitzone'
 ];

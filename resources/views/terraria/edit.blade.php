@@ -64,21 +64,6 @@
                         </div>
                         <div class="">
                             <label>
-                                <input type="checkbox" class="js-switch" name="showdefaultdashboard" checked /> @lang('tooltips.showondefaultdashboard')
-                            </label>
-                        </div>
-                        <div class="">
-                            <label>
-                                <input type="checkbox" class="js-switch" name="autoirrigation" checked /> @lang('tooltips.autoirrigation')
-                            </label>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('labels.notifications', 2)</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <div class="">
-                            <label>
                                 <input type="checkbox" class="js-switch" name="notifications_enabled" @if($terrarium->notifications_enabled) checked @endif /> @lang('tooltips.sendnotifications')
                             </label>
                         </div>
@@ -96,10 +81,21 @@
             </form>
         </div>
     </div>
+    @if(!is_null($terrarium->action_sequences))
+    @foreach ($terrarium->action_sequences as $ass)
+        @include('action_sequences.show_mini_slice', ['action_sequence' => $ass])
+    @endforeach
+    @endif
 </div>
 
+<div class="col-md-6 col-xs-12">
 @include('files.create_slice', [
     'belongsTo_type'    =>  'Terrarium',
     'belongsTo_id'      =>  $terrarium->id
 ])
+
+@include('action_sequences.create_slice', [
+    'terrarium_id'      =>  $terrarium->id
+])
+</div>
 @stop
