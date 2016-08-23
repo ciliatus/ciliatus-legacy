@@ -121,5 +121,9 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('api-fetch:desired_states', function ($user) {
             return $user->hasAbility('grant_api-fetch:desired_states');
         });
+
+        $gate->define('api-evaluate:critical_state', function ($user) {
+            return $user->hasAbility('grant_api-evaluate:critical_state');
+        });
     }
 }

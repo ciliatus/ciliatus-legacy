@@ -53,7 +53,8 @@ class UserAbility extends Model
         'grant_api-write:action',
         'grant_api-write:action_sequence',
         'grant_api-write:action_sequence_schedule',
-        'grant_api-fetch:desired_states'
+        'grant_api-fetch:desired_states',
+        'grant_api-evaluate:critical_state'
     ];
 
     /**

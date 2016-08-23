@@ -76,6 +76,11 @@ class CriticalStateController extends ApiController
      */
     public function evaluate()
     {
+
+        if (Gate::denies('api-evaluate:critical_state')) {
+            return $this->respondUnauthorized();
+        }
+
         $response = [
             'created'   => [],
             'notified'  => [],
