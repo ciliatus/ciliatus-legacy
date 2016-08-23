@@ -27,6 +27,15 @@
         @else
             @foreach ($action_sequence->schedules as $ass)
                 <div class="col-xs-12">
+                    @if($ass->running())
+                        <span class="material-icons">cached</span>
+                    @elseif($ass->will_run_today())
+                        <span class="material-icons">hourglass_empty</span>
+                    @elseif($ass->ran_today())
+                        <span class="material-icons">check</span>
+                    @else
+                        <span class="material-icons">help_outline</span>
+                    @endif
                     @lang('labels.starts_at') {{ $ass->starts_at }}
                     <span class="pull-right">
                         <form class="form-horizontal form-label-left" name="f_delete_ass_{{ $ass->id }}" id="f_delete_ass_{{ $ass->id }}" action="{{ url('api/v1/action_sequence_schedules/' . $ass->id) }}" data-method="DELETE">

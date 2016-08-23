@@ -70,6 +70,19 @@ class ActionSequenceSchedule extends CiliatusModel
     }
 
     /**
+     * @return \Carbon\Carbon
+     */
+    public function starts_today()
+    {
+        $starts_today = Carbon::now();
+        $starts_today->hour = explode(':', $this->starts_at)[0];
+        $starts_today->minute = explode(':', $this->starts_at)[1];
+        $starts_today->second = 0;
+
+        return $starts_today;
+    }
+
+    /**
      * @return array
      */
     public static function createAndUpdateRunningActions()
@@ -191,7 +204,26 @@ class ActionSequenceSchedule extends CiliatusModel
      */
     public function running()
     {
-        return $this->last_started_at > $this->last_finished_at;
+        return ($this->last_start_at > $this->last_finished_at
+            || !is_null($this->last_start_at) && is_null($this->last_finished_at));
+    }
+
+    /**
+     * @return bool
+     */
+    public function will_run_today()
+    {
+        return $this->starts_today()->lt(Carbon::now()) &&
+                (is_null($this->last_finished_at) ||
+                !$this->last_finished_at->isToday());
+    }
+
+    /**
+     * @return bool
+     */
+    public function ran_today()
+    {
+        return !is_null($this->last_finished_at) && $this->last_finished_at->isToday();
     }
 
     /**
