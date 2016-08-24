@@ -55,5 +55,9 @@ return [
     'step'          =>  'Schritt',
     'phone_number'  =>  'Telefonnummer',
     'template'      =>  'Vorlage',
-    'timezone'      =>  'Zeitzone'
+    'timezone'      =>  'Zeitzone',
+    'critical'      =>  'Kritisch',
+    'running'       =>  'Laufend',
+    'runs_since'    =>  'Läuft seit',
+    'queued'        =>  'Wartend'
 ];

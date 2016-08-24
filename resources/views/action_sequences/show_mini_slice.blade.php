@@ -1,7 +1,7 @@
 
 <div class="x_panel">
     <div class="x_title">
-        <h2><i class="material-icons">done_all</i> @choice('components.action_sequences', 1) {{ $action_sequence->name }}</h2>
+        <h2><i class="material-icons">done_all</i> {{ $action_sequence->name }}</h2>
 
         <ul class="nav navbar-right panel_toolbox">
             <li><a class="collapse-link"><i class="material-icons">expand_less</i></a>
@@ -37,6 +37,7 @@
                         <span class="material-icons">help_outline</span>
                     @endif
                     @lang('labels.starts_at') {{ $ass->starts_at }}
+                    @if(!isset($readonly))
                     <span class="pull-right">
                         <form class="form-horizontal form-label-left" name="f_delete_ass_{{ $ass->id }}" id="f_delete_ass_{{ $ass->id }}" action="{{ url('api/v1/action_sequence_schedules/' . $ass->id) }}" data-method="DELETE">
                             <a href="#" onclick="$('#f_delete_ass_{{ $ass->id }}').submit()">
@@ -44,10 +45,12 @@
                             </a>
                         </form>
                     </span>
+                    @endif
                 </div>
             @endforeach
         @endif
         <hr />
+        @if(!isset($readonly))
         <form class="form-horizontal form-label-left" name="f_add_action_sequence_schedule" action="{{ url('api/v1/action_sequence_schedules') }}" data-method="POST">
             <div class="form-group">
                 <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.starts_at')</label>
@@ -67,5 +70,6 @@
                 </div>
             </div>
         </form>
+        @endif
     </div>
 </div>

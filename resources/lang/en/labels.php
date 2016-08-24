@@ -55,5 +55,9 @@ return [
     'step'          =>  'Step',
     'phone_number'  =>  'Phone number',
     'template'      =>  'Template',
-    'timezone'      =>  'Timezone'
+    'timezone'      =>  'Timezone',
+    'critical'      =>  'Critical',
+    'running'       =>  'Running',
+    'runs_since'    =>  'Running since',
+    'queued'        =>  'Queued'
 ];

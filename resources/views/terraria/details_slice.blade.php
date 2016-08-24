@@ -1,4 +1,3 @@
-<div class="col-xl-9 col-lg-6 col-md-12 col-sm-12 col-xs-12 dashboard-box">
     <div class="x_panel">
 
         <div class="x_title">
@@ -67,11 +66,11 @@
                     <tr>
                         <th width="20"></th>
                         <th>@lang('labels.name')</th>
-                        <th>@choice('components.physical_sensors', 1)</th>
+                        <th class="hidden-xs">@choice('components.physical_sensors', 1)</th>
                         <th>@lang('labels.current_value')</th>
-                        <th>@choice('components.logical_sensor_thresholds', 1)</th>
-                        <th>@lang('labels.state')</th>
-                        <th>@lang('labels.actions')</th>
+                        <th class="hidden-xs">@choice('components.logical_sensor_thresholds', 1)</th>
+                        <th class="hidden-xs">@lang('labels.state')</th>
+                        <th class="hidden-xs hidden-sm">@lang('labels.actions')</th>
                     </tr>
                     </thead>
 
@@ -81,9 +80,9 @@
                         <tr>
                             <td><i class="fa fa-{{ $ls->icon() }}"></i></td>
                             <td><a href="{{ $ls->url() }}">{{ $ls->name }}</a></td>
-                            <td><a href="{{ $ls->physical_sensor->url() }}"><i class="fa fa-{{ $ls->physical_sensor->icon() }}"></i> {{ $ls->physical_sensor->name }}</a></td>
+                            <td class="hidden-xs"><a href="{{ $ls->physical_sensor->url() }}"><i class="fa fa-{{ $ls->physical_sensor->icon() }}"></i> {{ $ls->physical_sensor->name }}</a></td>
                             <td>{{ $ls->getCurrentCookedValue() }}</td>
-                            <td>
+                            <td class="hidden-xs">
                                 @if(!is_null($ls->current_threshold()))
                                     @if(is_null($ls->current_threshold()->rawvalue_lowerlimit) && !is_null($ls->current_threshold()->rawvalue_upperlimit))
                                         max {{ $ls->current_threshold()->rawvalue_upperlimit }}
@@ -95,10 +94,10 @@
                                     @endif
                                 @endif
                             </td>
-                            <td>
+                            <td class="hidden-xs">
                                 @if ($ls->stateOk())<i class="fa fa-check"></i>@else<i class="fa fa-times"></i>@endif
                             </td>
-                            <td>
+                            <td class="hidden-xs hidden-sm">
                                 <a href="{{ url('logical_sensors/' . $ls->id . '/edit') }}"><i class="fa fa-edit"></i></a>
                                 <a href="{{ url('logical_sensors/' . $ls->id . '/delete') }}"><i class="fa fa-times"></i></a>
                             </td>
@@ -117,7 +116,6 @@
     </div>
 
     @include('files.dashboard_slice', ['files' => $terrarium->files])
-</div>
 <script>
     $('#sensorgraph-terrarium-btn_load-{{ $terrarium->id }}').click(function() {
         $.ajax({

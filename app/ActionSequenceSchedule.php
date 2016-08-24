@@ -209,14 +209,16 @@ class ActionSequenceSchedule extends CiliatusModel
     }
 
     /**
+     * @TODO: Clean this up. It's horrible
      * @return bool
      */
     public function will_run_today()
     {
-        return ($this->starts_today()->lt(Carbon::now()) &&
+        return (($this->starts_today()->lt(Carbon::now()) &&
                 (is_null($this->last_finished_at) ||
                 !$this->last_finished_at->isToday()))
-                || $this->starts_today()->gt(Carbon::now());
+                || $this->starts_today()->gt(Carbon::now()))
+                && !$this->running();
     }
 
     /**

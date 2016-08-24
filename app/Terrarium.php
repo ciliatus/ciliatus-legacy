@@ -261,6 +261,6 @@ class Terrarium extends CiliatusModel
      */
     public function url()
     {
-        return url('terrarium/' . $this->id);
+        return url('terraria/' . $this->id);
     }
 }

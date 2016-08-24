@@ -1,4 +1,4 @@
-<div id="animal-{{ $a->id }}">
+<div id="animal-{{ $animal->id }}">
     <div class="x_panel @if(!is_null($animal->terrarium)) @if(!$animal->terrarium->stateOk()) x_panel-danger @endif @endif">
 
         <div class="x_title">

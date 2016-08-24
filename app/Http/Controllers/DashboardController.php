@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Action;
 use App\ActionSchedule;
+use App\ActionSequenceSchedule;
 use App\Terrarium;
 use Illuminate\Http\Request;
 
@@ -29,8 +31,21 @@ class DashboardController extends Controller
             }
         }
 
+        $ass_will_run_today = [];
+        $ass_running = [];
+        foreach (ActionSequenceSchedule::all() as $ass) {
+            if ($ass->will_run_today()) {
+                $ass_will_run_today[] = $ass;
+            }
+            elseif ($ass->running()) {
+                $ass_running[] = $ass;
+            }
+        }
+
         return view('dashboard', [
-            'terraria' => $terraria_critical
+            'terraria' => $terraria_critical,
+            'ass_will_run_today' => $ass_will_run_today,
+            'ass_running' => $ass_running
         ]);
 
     }
