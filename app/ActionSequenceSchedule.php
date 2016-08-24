@@ -83,6 +83,24 @@ class ActionSequenceSchedule extends CiliatusModel
     }
 
     /**
+     *
+     */
+    public function start()
+    {
+        $this->last_start_at = Carbon::now();
+        $this->save();
+    }
+
+    /**
+     *
+     */
+    public function finish()
+    {
+        $this->last_finished_at = Carbon::now();
+        $this->save();
+    }
+
+    /**
      * @return array
      */
     public static function createAndUpdateRunningActions()
@@ -93,12 +111,10 @@ class ActionSequenceSchedule extends CiliatusModel
             $starts_today->minute = explode(':', $ass->starts_at)[1];
             $starts_today->second = 0;
 
-            if ($starts_today->lt(Carbon::now())
-                && (is_null($ass->last_finished_at) || !$ass->last_finished_at->isToday())) {
+            if ($starts_today->lt(Carbon::now()) && (is_null($ass->last_finished_at) || !$ass->last_finished_at->isToday())) {
 
                 if (is_null($ass->last_start_at) || $ass->last_start_at->lt($starts_today)) {
-                    $ass->last_start_at = Carbon::now();
-                    $ass->save();
+                    $ass->start();
                 }
                 /*
                  * Loop actions of the task sequence
@@ -187,8 +203,7 @@ class ActionSequenceSchedule extends CiliatusModel
                             $ra->delete();
                         }
                     }
-                    $ass->last_finished_at = Carbon::now();
-                    $ass->save();
+                    $ass->finish();
 
                     if ($ass->runonce == true) {
                         $ass->delete();
