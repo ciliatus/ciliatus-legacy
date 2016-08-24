@@ -11,46 +11,47 @@
     <title>Ciliatus</title>
 
     <!-- Bootstrap -->
-    {!! Html::style('vendors/bootstrap/dist/css/bootstrap.min.css') !!}
-    {!! Html::style('css/bootstrap_xl.css') !!}
+    <link rel="stylesheet" href="{{ url('vendors/bootstrap/dist/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/bootstrap/dist/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url('css/bootstrap_xl.css') }} " />
     <!-- Font Awesome -->
-    {!! Html::style('vendors/font-awesome/css/font-awesome.min.css') !!}
+    <link rel="stylesheet" href="{{ url('vendors/font-awesome/css/font-awesome.min.css') }}" />
     <!-- Google Material Icons -->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!-- bootstrap-progressbar -->
-    {!! Html::style('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') !!}
+    <link rel="stylesheet" href="{{ url('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}" />
     <!-- Switchery -->
-    {!! Html::style('vendors/switchery/dist/switchery.min.css') !!}
+    <link rel="stylesheet" href="{{ url('vendors/switchery/dist/switchery.min.css') }}" />
     <!-- Custom Theme Style -->
     @if(Auth::user())
         @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on')
-            {!! Html::style('build/css/custom_dark.css') !!}
+            <link rel="stylesheet" href="{{ url('build/css/custom_dark.css') }}" />
         @elseif(Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night())
-            {!! Html::style('build/css/custom_dark.css') !!}
+            <link rel="stylesheet" href="{{ url('build/css/custom_dark.css') }}" />
         @else
-            {!! Html::style('build/css/custom.css') !!}
+            <link rel="stylesheet" href="{{ url('build/css/custom.css') }}" />
         @endif
     @else
-        {!! Html::style('build/css/custom.css') !!}
+        <link rel="stylesheet" href="{{ url('build/css/custom.css') }}" />
     @endif
 
     <!-- PNotify -->
-    {!! Html::style('vendors/pnotify/dist/pnotify.css') !!}
-    {!! Html::style('vendors/pnotify/dist/pnotify.buttons.css') !!}
-    {!! Html::style('vendors/pnotify/dist/pnotify.nonblock.css') !!}
+    <link rel="stylesheet" href="{{ url('vendors/pnotify/dist/pnotify.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/pnotify/dist/pnotify.buttons.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/pnotify/dist/pnotify.nonblock.css') }}" />
     <!-- weather icons -->
-    {!! Html::style('vendors/weather-icons/css/weather-icons.min.css') !!}
+    <link rel="stylesheet" href="{{ url('vendors/weather-icons/css/weather-icons.min.css') }}" />
 <!-- Datatables -->
-    {!! Html::style('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') !!}
-    {!! Html::style('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') !!}
-    {!! Html::style('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') !!}
-    {!! Html::style('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') !!}
-    {!! Html::style('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') !!}
+    <link rel="stylesheet" href="{{ url('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" />
     <!-- jQuery -->
-    {!! Html::script('vendors/jquery/dist/jquery.min.js') !!}
+    <script src="{{ url('vendors/jquery/dist/jquery.min.js') }}"></script>
     <!-- jQuery UI -->
-    {!! Html::style('vendors/jquery-ui/jquery-ui.min.css') !!}
-    {!! Html::script('vendors/jquery-ui/jquery-ui.min.js') !!}
+    <link rel="stylesheet" href="{{ url('vendors/jquery-ui/jquery-ui.min.css') }}" />
+    <script src="{{ url('vendors/jquery-ui/jquery-ui.min.js') }}"></script>
 
 </head>
 
@@ -151,37 +152,37 @@
 </div>
 
 <!-- Bootstrap -->
-{!! Html::script('vendors/bootstrap/dist/js/bootstrap.min.js') !!}
+<script src="{{ url('vendors/bootstrap/dist/js/bootstrap.min.js') }}"></script>
 <!-- jQuery Sparklines -->
-{!! Html::script('vendors/jquery-sparkline/dist/jquery.sparkline.min.js') !!}
+<script src="{{ url('vendors/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
 <!-- bootstrap-progressbar -->
-{!! Html::script('vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') !!}
+<script src="{{ url('vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}"></script>
 <!-- Skycons -->
-{!! Html::script('vendors/skycons/skycons.js') !!}
+<script src="{{ url('vendors/skycons/skycons.js') }}"></script>
 <!-- Switchery -->
-{!! Html::script('vendors/switchery/dist/switchery.min.js') !!}
+<script src="{{ url('vendors/switchery/dist/switchery.min.js') }}"></script>
 <!-- Dygraph -->
-{!! Html::script('vendors/dygraph/dygraph-combined.min.js') !!}
+<script src="{{ url('vendors/dygraph/dygraph-combined.min.js') }}"></script>
 <!-- PNotify -->
-{!! Html::script('vendors/pnotify/dist/pnotify.js') !!}
-{!! Html::script('vendors/pnotify/dist/pnotify.buttons.js') !!}
-{!! Html::script('vendors/pnotify/dist/pnotify.nonblock.js') !!}
+<script src="{{ url('vendors/pnotify/dist/pnotify.js') }}"></script>
+<script src="{{ url('vendors/pnotify/dist/pnotify.buttons.js') }}"></script>
+<script src="{{ url('vendors/pnotify/dist/pnotify.nonblock.js') }}"></script>
 <!-- Datatables -->
-{!! Html::script('vendors/datatables.net/js/jquery.dataTables.min.js') !!}
+<script src="{{ url('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <!-- Custom Theme Scripts -->
-{!! Html::script('build/js/custom.js') !!}
+<script src="{{ url('build/js/custom.js') }}"></script>
 
-{!! Html::script('js/app.js') !!}
+<script src="{{ url('js/app.js') }}"></script>
 @if(Auth::user())
     @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on')
-        {!! Html::script('js/app_style_dark.js') !!}
+        <script src="{{ url('js/app_style_dark.js') }}"></script>
     @elseif(Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night())
-        {!! Html::script('js/app_style_dark.js') !!}
+        <script src="{{ url('js/app_style_dark.js') }}"></script>
     @else
-        {!! Html::script('js/app_style.js') !!}
+        <script src="{{ url('js/app_style.js') }}"></script>
     @endif
 @else
-    {!! Html::script('js/app_style.js') !!}
+    <script src="{{ url('js/app_style.js') }}"></script>
 @endif
 
 <!-- Skycons -->

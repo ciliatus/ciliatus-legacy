@@ -88,12 +88,21 @@ Route::get('/action_sequence_schedules/{id}/edit', 'ViewController@action_sequen
 Route::get('/action_sequence_schedules/{id}/delete', 'ViewController@action_sequence_schedulesDelete');
 Route::get('/action_sequence_schedules/{id}', 'ViewController@action_sequence_schedulesShow');
 
+/*
+ * Depracted since 5.3
 Route::get('auth/login', 'Auth\AuthController@getLogin');
 Route::post('auth/login', 'Auth\AuthController@postLogin');
 Route::get('auth/logout', 'Auth\AuthController@getLogout');
 
 Route::get('auth/register', 'Auth\AuthController@getRegister');
 Route::post('auth/register', 'Auth\AuthController@postRegister');
+*/
+
+/*
+New since 5.3
+*/
+Auth::routes();
+
 
 Route::group(['prefix' => 'api/v1'], function() {
     Route::get('terraria/{id}/sensorreadings', 'TerrariumController@sensorreadings');

@@ -214,7 +214,7 @@ class Terrarium extends CiliatusModel
 
         $sensor_readings = (new SensorreadingRepository())->getAvgByLogicalSensor($logical_sensor_ids, $minutes, $to);
 
-        return $sensor_readings->get();
+        return $sensor_readings->get()->toArray();
 
     }
 
