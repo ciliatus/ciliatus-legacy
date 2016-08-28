@@ -102,9 +102,11 @@ Route::post('auth/register', 'Auth\AuthController@postRegister');
 /*
 New since 5.3
 */
-Auth::routes();
-
 Route::post('broadcasting/auth', 'BroadcastController@authenticate');
+
+Route::group(['prefix' => 'auth'], function() {
+    Auth::routes();
+});
 
 Route::group(['prefix' => 'api/v1'], function() {
     Route::resource('animals', 'AnimalController');

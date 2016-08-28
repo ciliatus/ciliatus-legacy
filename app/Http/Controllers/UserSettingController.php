@@ -8,6 +8,7 @@ use App\Http\Transformers\UserSettingTransformer;
 use Auth;
 use Gate;
 use Illuminate\Http\Request;
+use Log;
 
 /**
  * Class UserSettingController
@@ -107,8 +108,7 @@ class UserSettingController extends ApiController
      */
     public function update(Request $request)
     {
-
-        if (Gate::denies('api-write:users_all') && $request->input('user_id') != Auth::user()->id) {
+        if (Gate::denies('api-write:users_all') && $request->input('id') != Auth::user()->id && Gate::denies('api-write:user_self')) {
             return $this->respondUnauthorized();
         }
 

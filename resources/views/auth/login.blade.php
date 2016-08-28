@@ -6,20 +6,40 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <title>Gentallela Alela! | </title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <title>Ciliatus</title>
 
     <!-- Bootstrap -->
-    {!! Html::style('vendors/bootstrap/dist/css/bootstrap.min.css') !!}
+    <link rel="stylesheet" href="{{ url('vendors/bootstrap/dist/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/bootstrap/dist/css/bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url('css/bootstrap_xl.css') }} " />
     <!-- Font Awesome -->
-    {!! Html::style('vendors/font-awesome/css/font-awesome.min.css') !!}
-    <!-- Animate.css -->
-    {!! Html::style('vendors/animate.css/animate.min.css') !!}
-    <link href="" rel="stylesheet">
-
+    <link rel="stylesheet" href="{{ url('vendors/font-awesome/css/font-awesome.min.css') }}" />
+    <!-- Google Material Icons -->
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <!-- bootstrap-progressbar -->
+    <link rel="stylesheet" href="{{ url('vendors/bootstrap-progressbar/css/bootstrap-progressbar-3.3.4.min.css') }}" />
+    <!-- Switchery -->
+    <link rel="stylesheet" href="{{ url('vendors/switchery/dist/switchery.min.css') }}" />
     <!-- Custom Theme Style -->
-    {!! Html::style('settings/css/custom.min.css') !!}
-    <link href="../" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url('build/css/custom.css') }}" />
+
+    <!-- PNotify -->
+    <link rel="stylesheet" href="{{ url('vendors/pnotify/dist/pnotify.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/pnotify/dist/pnotify.buttons.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/pnotify/dist/pnotify.nonblock.css') }}" />
+    <!-- Datatables -->
+    <link rel="stylesheet" href="{{ url('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/datatables.net-fixedheader-bs/css/fixedHeader.bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/datatables.net-responsive-bs/css/responsive.bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ url('vendors/datatables.net-scroller-bs/css/scroller.bootstrap.min.css') }}" />
+    <!-- jQuery -->
+    <script src="{{ url('vendors/jquery/dist/jquery.min.js') }}"></script>
+    <!-- jQuery UI -->
+    <link rel="stylesheet" href="{{ url('vendors/jquery-ui/jquery-ui.min.css') }}" />
+    <script src="{{ url('vendors/jquery-ui/jquery-ui.min.js') }}"></script>
+
 </head>
 
 <body class="login">
