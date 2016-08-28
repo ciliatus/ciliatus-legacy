@@ -3,6 +3,7 @@
 @section('content')
 
     <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-xs-12 dashboard-box">
+        @include('terraria.show_vue')
         @include('terraria.show_slice', ['terrarium' => $terrarium])
 
         @if(!is_null($terrarium->animals))

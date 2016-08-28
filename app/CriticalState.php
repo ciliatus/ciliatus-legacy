@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\CriticalStateCreated;
+use App\Events\CriticalStateDeleted;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -53,6 +55,11 @@ class CriticalState extends CiliatusModel
             'action'        => 'create'
         ]);
 
+        $new->is_soft_state = true;
+        $new->save();
+
+        broadcast(new CriticalStateCreated($new));
+
         return $new;
     }
 
@@ -68,6 +75,8 @@ class CriticalState extends CiliatusModel
             'associatedWith_id' => $this->belongsTo_id,
             'action'        => 'delete'
         ]);
+
+        broadcast(new CriticalStateDeleted($this));
 
         parent::delete();
     }

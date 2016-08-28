@@ -1,4 +1,5 @@
 <?php
+use Illuminate\Support\Facades\Broadcast;
 
 Route::get('/', 'DashboardController@show');
 
@@ -103,11 +104,13 @@ New since 5.3
 */
 Auth::routes();
 
+Route::post('broadcasting/auth', 'BroadcastController@authenticate');
 
 Route::group(['prefix' => 'api/v1'], function() {
-    Route::get('terraria/{id}/sensorreadings', 'TerrariumController@sensorreadings');
     Route::resource('animals', 'AnimalController');
     Route::resource('terraria', 'TerrariumController');
+    Route::get('terraria/{id}/sensorreadings', 'TerrariumController@sensorreadings');
+    Route::get('terraria/{id}/sensorreadingsByType/{type}', 'TerrariumController@sensorreadingsByType');
     Route::resource('controlunits', 'ControlunitController');
     Route::get('controlunits/{id}/fetch_desired_states', 'ControlunitController@fetchDesiredStates');
     Route::resource('pumps', 'PumpController');

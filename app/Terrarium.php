@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\TerrariumUpdated;
 use App\Http\Transformers\TerrariumTransformer;
 use App\Repositories\SensorreadingRepository;
 use Carbon\Carbon;
@@ -47,6 +48,19 @@ class Terrarium extends CiliatusModel
     }
 
     /**
+     * @param array $options
+     * @return bool
+     */
+    public function save(array $options = [])
+    {
+        $result = parent::save($options);
+
+        broadcast(new TerrariumUpdated($this));
+
+        return $result;
+    }
+
+    /**
      *
      */
     public function delete()
@@ -76,6 +90,9 @@ class Terrarium extends CiliatusModel
         return $this->hasManyThrough('App\LogicalSensor', 'App\PhysicalSensor', 'belongsTo_id')->where('belongsTo_type', 'terrarium');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function valves()
     {
         return $this->hasMany('App\Valve');
@@ -97,6 +114,9 @@ class Terrarium extends CiliatusModel
         return $this->hasMany('App\File', 'belongsTo_id')->where('belongsTo_type', 'Terrarium');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function action_sequences()
     {
         return $this->hasMany('App\ActionSequence');
@@ -159,6 +179,9 @@ class Terrarium extends CiliatusModel
      */
     public function getSensorReadingsTemperature($minutes = 120, $to = null)
     {
+        if (is_null($to))
+            $to = Carbon::now();
+
         return $this->fetchSensorreadings('temperature_celsius', $minutes, $to);
     }
 

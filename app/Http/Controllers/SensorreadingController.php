@@ -134,8 +134,17 @@ class SensorreadingController extends ApiController
                         ->respondWithError('The reading group already has a reading for this logical sensor');
         }
 
-        $logical_sensor->physical_sensor->controlunit->heartbeat();
-        $logical_sensor->physical_sensor->heartbeat();
+        if (!is_null($logical_sensor->physical_sensor)) {
+
+            if (!is_null($logical_sensor->physical_sensor->terrarium))
+                $logical_sensor->physical_sensor->terrarium->save();
+
+            if (!is_null($logical_sensor->physical_sensor->controlunit))
+                $logical_sensor->physical_sensor->controlunit->heartbeat();
+
+            $logical_sensor->physical_sensor->heartbeat();
+        }
+
         $logical_sensor->rawvalue = (float)$request->input('rawvalue');
         $logical_sensor->save(['silent']);
 

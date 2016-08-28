@@ -7,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Ciliatus</title>
 
     <!-- Bootstrap -->
@@ -39,8 +39,6 @@
     <link rel="stylesheet" href="{{ url('vendors/pnotify/dist/pnotify.css') }}" />
     <link rel="stylesheet" href="{{ url('vendors/pnotify/dist/pnotify.buttons.css') }}" />
     <link rel="stylesheet" href="{{ url('vendors/pnotify/dist/pnotify.nonblock.css') }}" />
-    <!-- weather icons -->
-    <link rel="stylesheet" href="{{ url('vendors/weather-icons/css/weather-icons.min.css') }}" />
 <!-- Datatables -->
     <link rel="stylesheet" href="{{ url('vendors/datatables.net-bs/css/dataTables.bootstrap.min.css') }}" />
     <link rel="stylesheet" href="{{ url('vendors/datatables.net-buttons-bs/css/buttons.bootstrap.min.css') }}" />
@@ -56,6 +54,7 @@
 </head>
 
 <body class="nav-md">
+@include('graphs_vue')
 <div class="container body">
   <div class="main_container">
       <div class="hidden-xl hidden-lg hidden-md floating-menu-button pull-right">
@@ -157,8 +156,6 @@
 <script src="{{ url('vendors/jquery-sparkline/dist/jquery.sparkline.min.js') }}"></script>
 <!-- bootstrap-progressbar -->
 <script src="{{ url('vendors/bootstrap-progressbar/bootstrap-progressbar.min.js') }}"></script>
-<!-- Skycons -->
-<script src="{{ url('vendors/skycons/skycons.js') }}"></script>
 <!-- Switchery -->
 <script src="{{ url('vendors/switchery/dist/switchery.min.js') }}"></script>
 <!-- Dygraph -->
@@ -171,7 +168,10 @@
 <script src="{{ url('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <!-- Custom Theme Scripts -->
 <script src="{{ url('build/js/custom.js') }}"></script>
-
+<!-- Vue -->
+<script src="{{ url('js/vue.js') }}"></script>
+<!-- Laravel-Echo -->
+<script src="{{ url('js/echo.js') }}"></script>
 <script src="{{ url('js/app.js') }}"></script>
 @if(Auth::user())
     @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on')
@@ -185,23 +185,5 @@
     <script src="{{ url('js/app_style.js') }}"></script>
 @endif
 
-<!-- Skycons -->
-<script>
-  var icons = new Skycons({
-            "color": "#73879C"
-          }),
-          list = [
-            "clear-day", "clear-night", "partly-cloudy-day",
-            "partly-cloudy-night", "cloudy", "rain", "sleet", "snow", "wind",
-            "fog"
-          ],
-          i;
-
-  for (i = list.length; i--;)
-    icons.set(list[i], list[i]);
-
-  icons.play();
-</script>
-<!-- /Skycons -->
 </body>
 </html>

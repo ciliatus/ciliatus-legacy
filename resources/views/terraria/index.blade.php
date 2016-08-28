@@ -1,9 +1,10 @@
 @extends('master')
 
 @section('content')
+    @include('terraria.dashboard_vue')
 
-    <div class="row">
-        @include('terraria.dashboard_slice', ['terraria' => $terraria])
+    <div>
+        <terraria-widget></terraria-widget>
     </div>
 
     <script>

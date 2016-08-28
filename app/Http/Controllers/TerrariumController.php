@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Animal;
 use App\Http\Transformers\TerrariumTransformer;
 use App\Repositories\SensorreadingRepository;
+use App\Repositories\TerrariumRepository;
 use App\Terrarium;
 use App\Valve;
 use Cache;
@@ -43,7 +44,13 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $terraria = Terrarium::paginate(10);
+        $terraria = Terrarium::paginate(100);
+
+        foreach ($terraria as $t) {
+            $t->cooked_humidity_percent = $t->getCurrentHumidity();
+            $t->cooked_temperature_celsius = $t->getCurrentTemperature();
+            $t->heartbeat_ok = $t->heartbeatOk();
+        }
 
         return $this->setStatusCode(200)->respondWithPagination(
             $this->terrariumTransformer->transformCollection(
@@ -64,89 +71,75 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $cache_key = 'api-show-terrarium-' . $id;
-        if (Cache::has('api-show-terrarium-' . $id)) {
-            return $this->setStatusCode(200)->respondWithData(
-                $this->terrariumTransformer->transform(
-                    Cache::get($cache_key)->toArray()
-                )
-            );
-        }
-
         $terrarium = Terrarium::with('physical_sensors', 'animals')->find($id);
 
         if (!$terrarium) {
             return $this->respondNotFound('Terrarium not found');
         }
 
-        /*
-         * Add cooked values to terrarium object
-         */
-        $terrarium->cooked_humidity_percent = $terrarium->getCurrentHumidity();
-        $terrarium->cooked_temperature_celsius = $terrarium->getCurrentTemperature();
-        $terrarium->heartbeat_ok = $terrarium->heartbeatOk();
+        $history_to = $request->has('history_to') ? $request->input('history_to') : null;
+        $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : null;
 
-        /*
-         * Define timeframe for historical sensor data
-         */
-        $history_to = null;
-        if (isset($history_to['history_from'])) {
-            $history_to = Carbon::parse($request->get('history_to'));
-        }
-
-        $history_minutes = 180;
-        if ($request->has('history_from')) {
-            $history_minutes = $request->get('history_minutes');
-        }
-
-        /*
-         * load temperature values and convert them to an array seperated by commata
-         */
-        $temperature_values = array_column($terrarium->getSensorReadingsTemperature($history_minutes, $history_to), 'avg_rawvalue');
-        $terrarium->temperature_history = implode(',',
-            array_map(
-                function($val) {
-                    return round($val, 1);
-                },
-                $temperature_values
-            )
-        );
-
-        /*
-         * load humidity values and convert them to an array seperated by commata
-         */
-        $humidity_values = array_column($terrarium->getSensorReadingsHumidity($history_minutes, $history_to), 'avg_rawvalue');
-        $terrarium->humidity_history = implode(',',
-            array_map(
-                function($val) {
-                    return round($val, 1);
-                },
-                $humidity_values
-            )
-        );
-
-        /*
-         * @TODO: Create better algorithm to calculate trends
-         *
-         * calculate trends
-         * compares the first value of the last third and the last value
-         * for lack of a better algorithm atm
-         */
-        if (count($temperature_values) > 0)
-            $terrarium->temperature_trend = $temperature_values[count($temperature_values)-1] - $temperature_values[0];
-        if (count($humidity_values) > 0)
-            $terrarium->humidity_trend = $humidity_values[count($humidity_values)-1] - $humidity_values[0];
-
-        $terrarium->humidity_ok = $terrarium->humidityOk();
-        $terrarium->temperature_ok = $terrarium->temperatureOk();
-        $terrarium->state_ok = $terrarium->stateOk();
-
-        Cache::add($cache_key, $terrarium, env('CACHE_API_TERRARIUM_SHOW_DURATION') / 60);
-
-        return $this->setStatusCode(200)->respondWithData($this->terrariumTransformer->transform($terrarium->toArray()));
+        return $this->setStatusCode(200)
+                    ->respondWithData([
+                        $this->terrariumTransformer
+                             ->transform(
+                                 (new TerrariumRepository($terrarium))->show($history_to, $history_minutes)
+                                                                      ->toArray())
+                    ]);
     }
 
     /**
+     * Returns an array of sensor readings
+     * filtered by type and grouped by
+     * sensor reading group
+     *
+     * @param Request $request
+     * @param $id
+     * @param $type
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sensorreadingsByType(Request $request, $id, $type)
+    {
+
+        if (Gate::denies('api-read')) {
+            return $this->respondUnauthorized();
+        }
+
+        $terrarium = Terrarium::with('physical_sensors')->find($id);
+
+        if (!$terrarium) {
+            return $this->respondNotFound('Terrarium not found');
+        }
+
+        switch ($type) {
+            case 'humidity_percent':
+                $values = array_column($terrarium->getSensorReadingsHumidity(env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 15), Carbon::now()), 'avg_rawvalue');
+                break;
+            case 'temperature_celsius':
+                $values = array_column($terrarium->getSensorReadingsTemperature(env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 15), Carbon::now()), 'avg_rawvalue');
+                break;
+            default:
+                return $this->setStatusCode(422)->respondWithError('Invalid type');
+        }
+        $history = implode(',',
+            array_map(
+                function($val) {
+                    return round($val, 1);
+                },
+                $values
+            )
+        );
+
+        return $this->respondWithData($history);
+
+    }
+
+    /**
+     * Returns sensor readings
+     * grouped by sensor reading group
+     * formatted as CSV
+     *
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */

@@ -19,8 +19,6 @@ function LiveData(source_uri, interval, callback, target)
     this.target = target;
     this.runner = null;
     this.refs = new Array();
-    console.log(this.callback);
-
     return this;
 }
 
@@ -172,7 +170,6 @@ function notification(level, title, text)
 {
     text = text || '';
 
-    console.log(level + ' - ' + title + ' - ' + text);
     new PNotify({
         title: title,
         text: text,
@@ -232,7 +229,7 @@ domCallbacks['criticalStatesHudCallback'] = function(success, data, ld) {
                 var url = '#';
                 var notify_icon = critical_state.timestamps.notifications_sent_at !== null ?
                     '<span class="material-icons">send</span>' : '';
-                console.log(critical_state);
+
                 if (critical_state.belongs !== undefined) {
                     if (critical_state.belongs.object !== undefined) {
                         icon = critical_state.belongs.object.icon;
