@@ -89,6 +89,8 @@ class TerrariumRepository extends Repository {
         $terrarium->temperature_ok = $terrarium->temperatureOk();
         $terrarium->state_ok = $terrarium->stateOk();
 
+        $terrarium->animals = $terrarium->animals()->get()->toArray();
+
         Cache::add($cache_key, $terrarium, env('CACHE_API_TERRARIUM_SHOW_DURATION') / 60);
 
         return $terrarium;

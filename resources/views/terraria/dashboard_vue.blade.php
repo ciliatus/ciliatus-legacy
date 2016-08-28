@@ -25,7 +25,9 @@
             <div class="x_content">
                 <div class="row">
                     <div class="col-xs-12">
-
+                        <div v-for="animal in terrarium.animals">
+                            <span class="material-icons">pets</span><a href="/animals/@{{ animal.id }}">@{{ animal.display_name }}</a> <i>@{{ animal.common_name }}</i>
+                        </div>
                     </div>
                 </div>
 
