@@ -184,7 +184,6 @@ class AnimalController extends ApiController
             $animal->death_date = null;
         }
 
-        $animal->notifications_enabled = $request->has('notifications_enabled');
         $animal->save();
 
         return $this->setStatusCode(200)->respondWithData([], [
