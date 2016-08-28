@@ -20,4 +20,8 @@ The frontend allows for easy configuration and exporting configs for control uni
 ![Configuration](/ciliatus_demo02.png?raw=true)
 
 # Demo
-coming soon ...
+
+[Demo](https://dev-43256.ciliatus.io)
+
+* User: demo02@ciliatus.io
+* Pass: demo02
