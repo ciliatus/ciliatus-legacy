@@ -38,13 +38,21 @@ class TerrariumController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
         $terraria = Terrarium::paginate(100);
+
+        $history_to = $request->has('history_to') ? $request->input('history_to') : null;
+        $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : null;
+
+        $terraria_repository = [];
+        foreach ($terraria as $t) {
+            $terraria_repository[] = (new TerrariumRepository($t))->show($history_to, $history_minutes)->toArray();
+        }
 
         foreach ($terraria as $t) {
             $t->cooked_humidity_percent = $t->getCurrentHumidity();
@@ -54,7 +62,7 @@ class TerrariumController extends ApiController
 
         return $this->setStatusCode(200)->respondWithPagination(
             $this->terrariumTransformer->transformCollection(
-                $terraria->toArray()['data']
+                $terraria_repository
             ),
             $terraria
         );
