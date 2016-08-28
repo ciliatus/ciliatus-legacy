@@ -58,6 +58,10 @@ class ActionSequenceSchedule extends CiliatusModel
             'action'        => 'delete'
         ]);
 
+        foreach (RunningAction::where('action_sequence_schedule_id', $this->id)->get() as $ra) {
+            $ra->delete();
+        }
+
         parent::delete();
     }
 
