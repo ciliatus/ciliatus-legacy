@@ -1,6 +1,17 @@
 # ciliatus
 Intelligent terrarium automatisation
 
+# Features
+
+* Monitor vitals of your terraria
+* Define when a vital should be considered critical
+* Get notifications when a vital is critical
+* Realtime visualization
+* Automatic irrigation schedules
+* File management for your terraria and animals (photos, etc)
+* RESTful API
+* (automatic) Night theme
+
 # Screenshots
 Dashboard
 ![Dashboard](/ciliatus_demo01.png?raw=true)
