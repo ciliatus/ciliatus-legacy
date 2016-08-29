@@ -25,14 +25,14 @@
     <!-- Custom Theme Style -->
     @if(Auth::user())
         @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on')
-            <link rel="stylesheet" href="{{ url('build/css/custom_dark.css') }}" />
+            <link rel="stylesheet" href="{{ url('css/custom_dark.css') }}" />
         @elseif(Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night())
-            <link rel="stylesheet" href="{{ url('build/css/custom_dark.css') }}" />
+            <link rel="stylesheet" href="{{ url('css/custom_dark.css') }}" />
         @else
-            <link rel="stylesheet" href="{{ url('build/css/custom.css') }}" />
+            <link rel="stylesheet" href="{{ url('css/custom.css') }}" />
         @endif
     @else
-        <link rel="stylesheet" href="{{ url('build/css/custom.css') }}" />
+        <link rel="stylesheet" href="{{ url('css/custom.css') }}" />
     @endif
 
     <!-- PNotify -->
@@ -167,7 +167,7 @@
 <!-- Datatables -->
 <script src="{{ url('vendors/datatables.net/js/jquery.dataTables.min.js') }}"></script>
 <!-- Custom Theme Scripts -->
-<script src="{{ url('build/js/custom.js') }}"></script>
+<script src="{{ url('js/custom.js') }}"></script>
 <!-- Vue -->
 <script src="{{ url('js/vue.js') }}"></script>
 <!-- Laravel-Echo -->
