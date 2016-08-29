@@ -26,7 +26,7 @@
                         <td>{{ $f->sizeReadable() }}</td>
                         <td>
                             @if(!is_null($f->belongs_to()))
-                            <a href="{{ $f->belongs_to()->url() }}"><i class="material-icons">{{ $f->belongs_to()->icon() }}"></i> {{ $f->belongs_to()->display_name}}</a>
+                            <a href="{{ $f->belongs_to()->url() }}"><i class="material-icons">{{ $f->belongs_to()->icon() }}</i> {{ $f->belongs_to()->display_name}}</a>
                             @endif
                         </td>
                         <td>{{ $f->created_at }}</td>
