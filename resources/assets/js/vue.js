@@ -80,6 +80,7 @@ Vue.component('terraria-widget', {
             });
             this.$broadcast('TerrariumUpdated', t);
             this.terraria[item].display_name = t.terrarium.display_name;
+            this.terraria[item].animals = t.terrarium.animals;
             this.terraria[item].cooked_temperature_celsius = t.terrarium.cooked_temperature_celsius;
             this.terraria[item].cooked_humidity_percent = t.terrarium.cooked_humidity_percent;
         }

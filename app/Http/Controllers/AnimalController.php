@@ -154,11 +154,19 @@ class AnimalController extends ApiController
             $terrarium = null;
         }
 
+        $old_terrarium = $animal->terrarium;
+        if (!is_null($terrarium)) {
+            $animal->terrarium_id = $terrarium->id;
+        }
+        else {
+            $animal->terrarium_id = null;
+        }
+
         $animal->display_name = $request->input('displayname');
         $animal->common_name = $request->input('commonname');
         $animal->lat_name = $request->input('latinname');
         $animal->gender = $request->input('gender');
-        $animal->terrarium_id = is_null($terrarium) ? null : $terrarium->id;
+
 
         if ($request->has('birthdate') && strlen($request->input('birthdate')) > 0) {
             try {
@@ -185,6 +193,14 @@ class AnimalController extends ApiController
         }
 
         $animal->save();
+
+        // trigger TerrariumUpdated events
+        if (!is_null($old_terrarium)) {
+            $old_terrarium->save();
+        }
+        if (!is_null($terrarium)) {
+            $terrarium->save();
+        }
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
