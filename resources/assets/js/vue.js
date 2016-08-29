@@ -95,6 +95,52 @@ Vue.component('terraria-widget', {
 
 });
 
+Vue.component('animals-widget', {
+
+    template: '#animals-widget-template',
+
+    data: function() {
+        return {
+            animals: []
+        }
+    },
+
+    props: {
+        animalid: {
+            type: String,
+            default: '',
+            required: false
+        }
+    },
+
+    events: {
+        AnimalUpdated: function(a) {
+            var item = null;
+            this.animals.forEach(function(data, index) {
+                if (data.id === a.animal.id) {
+                    item = index;
+                }
+            });
+
+            this.animals[item].common_name = a.animal.common_name;
+            this.animals[item].latin_name = a.animal.latin_name;
+            this.animals[item].display_name = a.animal.display_name;
+            this.animals[item].gender = a.animal.gender;
+            this.animals[item].terrarium = a.animal.terrarium;
+            this.animals[item].birth_date = a.animal.birth_date;
+            this.animals[item].death_date = a.animal.death_date;
+        }
+
+    },
+
+    created: function() {
+        $.getJSON('/api/v1/animals/' + this.animalid, function(animals) {
+            this.animals = animals.data;
+        }.bind(this));
+    }
+
+});
+
 Vue.component('criticalstates-widget', {
 
     template: '#criticalstates-widget-template',
@@ -156,6 +202,9 @@ window.dashboardVue = new Vue({
         },
         updateTerrarium: function(t) {
             this.$broadcast('TerrariumUpdated', t)
+        },
+        updateAnimal: function(a) {
+            this.$broadcast('AnimalUpdated', a)
         }
     }
 });

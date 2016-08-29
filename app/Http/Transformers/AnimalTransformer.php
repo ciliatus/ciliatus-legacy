@@ -7,6 +7,7 @@
  */
 
 namespace App\Http\Transformers;
+use Carbon\Carbon;
 
 /**
  * Class AnimalTransformer
@@ -27,14 +28,26 @@ class AnimalTransformer extends Transformer
             'latin_name' => $item['lat_name'],
             'common_name' => $item['common_name'],
             'display_name' => $item['display_name'],
+            'birth_date' => !is_null($item['birth_date']) ? Carbon::parse($item['birth_date'])->format('d.m.Y') : null,
+            'death_date' => !is_null($item['death_date']) ? Carbon::parse($item['death_date'])->format('d.m.Y') : null,
+            'gender' => $item['gender'],
+            'terrarium_id' => $item['terrarium_id'],
             'timestamps' => [
                 'created' => $item['created_at'],
                 'updated' => $item['updated_at'],
             ]
         ];
 
-        if (isset($item['terrarium_id'])) {
-            $return['terrarium_id'] = $item['terrarium_id'];
+        if (isset($item['terrarium_object'])) {
+            $return['terrarium'] = $item['terrarium_object'];
+        }
+
+        if (isset($item['age'])) {
+            $return['age'] = $item['age'];
+        }
+
+        if (isset($item['gender_icon'])) {
+            $return['gender_icon'] = $item['gender_icon'];
         }
 
         return $return;

@@ -49,15 +49,15 @@ class TerrariumController extends ApiController
         $history_to = $request->has('history_to') ? $request->input('history_to') : null;
         $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : null;
 
-        $terraria_repository = [];
-        foreach ($terraria as $t) {
-            $terraria_repository[] = (new TerrariumRepository($t))->show($history_to, $history_minutes)->toArray();
-        }
-
         foreach ($terraria as $t) {
             $t->cooked_humidity_percent = $t->getCurrentHumidity();
             $t->cooked_temperature_celsius = $t->getCurrentTemperature();
             $t->heartbeat_ok = $t->heartbeatOk();
+        }
+
+        $terraria_repository = [];
+        foreach ($terraria as $t) {
+            $terraria_repository[] = (new TerrariumRepository($t))->show($history_to, $history_minutes)->toArray();
         }
 
         return $this->setStatusCode(200)->respondWithPagination(

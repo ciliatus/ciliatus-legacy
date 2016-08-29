@@ -42,6 +42,15 @@ class AnimalController extends ApiController
 
         $animals = Animal::paginate(10);
 
+        foreach ($animals as &$a) {
+            if (!is_null($a->terrarium_id))
+                $a->terrarium_object = $a->terrarium;
+
+            $a->age = $a->getAge();
+            $a->gender_icon = $a->gender_icon();
+        }
+
+
         return $this->setStatusCode(200)->respondWithPagination(
             $this->animalTransformer->transformCollection(
                 $animals->toArray()['data']
@@ -67,11 +76,17 @@ class AnimalController extends ApiController
             return $this->respondNotFound('Animal not found');
         }
 
-        return $this->setStatusCode(200)->respondWithData(
+        if (!is_null($animal->terrarium_id))
+            $animal->terrarium_object = $animal->terrarium;
+
+        $animal->age = $animal->getAge();
+        $animal->gender_icon = $animal->gender_icon();
+
+        return $this->setStatusCode(200)->respondWithData([
             $this->animalTransformer->transform(
                 $animal->toArray()
             )
-        );
+        ]);
     }
 
 

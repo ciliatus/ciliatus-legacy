@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\AnimalUpdated;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -64,6 +65,20 @@ class Animal extends CiliatusModel
         parent::delete();
     }
 
+
+    /**
+     * @param array $options
+     * @return bool
+     */
+    public function save(array $options = [])
+    {
+        $result = parent::save($options);
+
+        broadcast(new AnimalUpdated($this));
+
+        return $result;
+    }
+
     /**
      * @return mixed
      */
@@ -97,6 +112,23 @@ class Animal extends CiliatusModel
     }
 
     /**
+     * @return string
+     */
+    public function gender_icon()
+    {
+        switch ($this->gender) {
+            case 'male':
+                return 'mars';
+                break;
+            case 'female':
+                return 'venus';
+                break;
+            default:
+                return 'genderless';
+        }
+    }
+
+    /**
      * @return array
      */
     public function getAge()
@@ -107,11 +139,17 @@ class Animal extends CiliatusModel
         else {
             $compare_at = $this->death_date;
         }
-        if ($compare_at->diffInYears($this->birth_date) > 3)
-            return ['unit' => 'years', 'value' => $compare_at->diffInYears($this->birth_date)];
-        if ($compare_at->diffInMonths($this->birth_date) > 1)
-            return ['unit' => 'months', 'value' =>$compare_at->diffInMonths($this->birth_date)];
+        if ($compare_at->diffInYears($this->birth_date) > 3) {
+            $amount = $compare_at->diffInYears($this->birth_date);
+            return $amount . ' ' . trans_choice('units.years', $amount);
 
-        return ['unit' => 'days', 'value' => $compare_at->diffInDays($this->birth_date)];
+        }
+        if ($compare_at->diffInMonths($this->birth_date) > 1) {
+            $amount = $compare_at->diffInMonths($this->birth_date);
+            return $amount . ' ' . trans_choice('units.months', $amount);
+        }
+
+        $amount = $compare_at->diffInDays($this->birth_date);
+        return $amount . ' ' . trans_choice('units.days', $amount);
     }
 }

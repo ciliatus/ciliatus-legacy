@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('content')
-<div class="col-md-6 col-xs-12">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-9 col-xl-8">
     <div class="x_panel">
         <div class="x_title">
             <h2>{{ $user->name }}</h2>

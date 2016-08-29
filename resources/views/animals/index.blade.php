@@ -1,14 +1,9 @@
 @extends('master')
 
 @section('content')
+    @include('animals.dashboard_vue')
 
-    <div class="row">
-        @include('animals.dashboard_slice', ['animals' => $animals])
+    <div>
+        <animals-widget></animals-widget>
     </div>
-
-    <script>
-        $(function() {
-            runPage();
-        });
-    </script>
 @stop

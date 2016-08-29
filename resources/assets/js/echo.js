@@ -16,4 +16,7 @@ echo.private('dashboard-updates')
     })
     .listen('TerrariumUpdated', (e) => {
         window.dashboardVue.updateTerrarium(e);
+    })
+    .listen('AnimalUpdated', (e) => {
+        window.dashboardVue.updateAnimal(e);
     });
