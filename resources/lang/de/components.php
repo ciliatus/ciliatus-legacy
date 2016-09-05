@@ -13,5 +13,6 @@ return [
     'log'           =>  'Systemlog|Systemlogs',
     'actions'       =>  'Aktion|Aktionen',
     'action_sequences' => 'Aktionssequenz|Aktionssequenzen',
-    'action_sequence_schedules' => 'Aktionssequenz Zeitplan|Aktionssequenz Zeitpläne'
+    'action_sequence_schedules' => 'Aktionssequenz Zeitplan|Aktionssequenz Zeitpläne',
+    'admin_panel'   =>  'Admin Panel'
 ];

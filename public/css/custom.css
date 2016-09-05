@@ -5298,3 +5298,40 @@ ul.child_menu li {
 .panel_toolbox .material-icons {
   font-size: 12pt !important;
 }
+
+/*
+  Pulldown
+*/
+
+.pulldown-slider {
+  overflow-y: hidden;
+  max-height: 500px; /* approximate max height */
+
+  transition-property: all;
+  transition-duration: .5s;
+  transition-timing-function: cubic-bezier(.42,0,.58,1);
+  margin-bottom: 2px;
+}
+
+.pulldown-slider.closed {
+  max-height: 0;
+}
+
+#criticalstates-pulldown-slider-wrapper {
+  z-index: 1500;
+  position: fixed;
+  width: 100%;
+  top: -3px;
+  left: 5px;
+}
+
+#criticalstates-pulldown-button {
+  position: relative;
+  width: 100%;
+  top: -3px;
+}
+
+#criticalstates-pulldown-button .btn {
+  width: 100%;
+  padding: 1px;
+}

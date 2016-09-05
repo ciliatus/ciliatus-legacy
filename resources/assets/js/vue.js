@@ -83,6 +83,10 @@ Vue.component('terraria-widget', {
             this.terraria[item].animals = t.terrarium.animals;
             this.terraria[item].cooked_temperature_celsius = t.terrarium.cooked_temperature_celsius;
             this.terraria[item].cooked_humidity_percent = t.terrarium.cooked_humidity_percent;
+            this.terraria[item].heartbeat_ok = t.terrarium.heartbeat_ok;
+            this.terraria[item].temperature_ok = t.terrarium.temperature_ok;
+            this.terraria[item].humidity_ok = t.terrarium.humidity_ok;
+            this.terraria[item].state_ok = t.terrarium.state_ok;
         }
 
     },

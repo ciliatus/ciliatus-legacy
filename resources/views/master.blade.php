@@ -143,8 +143,10 @@
     </div>
 
     <!-- page content -->
-    <div class="right_col" role="main">
-      @yield('content')
+    @include('critical_states.dashboard_vue')
+    <div class="right_col" role="main" style="padding-top: 30px;">
+        <criticalstates-widget></criticalstates-widget>
+        @yield('content')
     </div>
     <!-- /page content -->
   </div>

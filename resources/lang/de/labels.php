@@ -59,5 +59,7 @@ return [
     'critical'      =>  'Kritisch',
     'running'       =>  'Laufend',
     'runs_since'    =>  'Läuft seit',
-    'queued'        =>  'Wartend'
+    'queued'        =>  'Wartend',
+    'criticalstates'=>  'Kritische Zustände',
+    'since'         =>  'seit'
 ];
