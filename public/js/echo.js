@@ -4633,6 +4633,8 @@ echo.private('dashboard-updates').listen('CriticalStateCreated', function (e) {
     window.dashboardVue.removeCriticalState(e);
 }).listen('TerrariumUpdated', function (e) {
     window.dashboardVue.updateTerrarium(e);
+}).listen('AnimalUpdated', function (e) {
+    window.dashboardVue.updateAnimal(e);
 });
 
 },{"laravel-echo":1}]},{},[3]);

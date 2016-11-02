@@ -10329,8 +10329,13 @@ Vue.component('terraria-widget', {
             });
             this.$broadcast('TerrariumUpdated', t);
             this.terraria[item].display_name = t.terrarium.display_name;
+            this.terraria[item].animals = t.terrarium.animals;
             this.terraria[item].cooked_temperature_celsius = t.terrarium.cooked_temperature_celsius;
             this.terraria[item].cooked_humidity_percent = t.terrarium.cooked_humidity_percent;
+            this.terraria[item].heartbeat_ok = t.terrarium.heartbeat_ok;
+            this.terraria[item].temperature_ok = t.terrarium.temperature_ok;
+            this.terraria[item].humidity_ok = t.terrarium.humidity_ok;
+            this.terraria[item].state_ok = t.terrarium.state_ok;
         }
 
     },
@@ -10338,6 +10343,52 @@ Vue.component('terraria-widget', {
     created: function created() {
         $.getJSON('/api/v1/terraria/' + this.terraid, function (terraria) {
             this.terraria = terraria.data;
+        }.bind(this));
+    }
+
+});
+
+Vue.component('animals-widget', {
+
+    template: '#animals-widget-template',
+
+    data: function data() {
+        return {
+            animals: []
+        };
+    },
+
+    props: {
+        animalid: {
+            type: String,
+            default: '',
+            required: false
+        }
+    },
+
+    events: {
+        AnimalUpdated: function AnimalUpdated(a) {
+            var item = null;
+            this.animals.forEach(function (data, index) {
+                if (data.id === a.animal.id) {
+                    item = index;
+                }
+            });
+
+            this.animals[item].common_name = a.animal.common_name;
+            this.animals[item].latin_name = a.animal.latin_name;
+            this.animals[item].display_name = a.animal.display_name;
+            this.animals[item].gender = a.animal.gender;
+            this.animals[item].terrarium = a.animal.terrarium;
+            this.animals[item].birth_date = a.animal.birth_date;
+            this.animals[item].death_date = a.animal.death_date;
+        }
+
+    },
+
+    created: function created() {
+        $.getJSON('/api/v1/animals/' + this.animalid, function (animals) {
+            this.animals = animals.data;
         }.bind(this));
     }
 
@@ -10404,6 +10455,9 @@ window.dashboardVue = new Vue({
         },
         updateTerrarium: function updateTerrarium(t) {
             this.$broadcast('TerrariumUpdated', t);
+        },
+        updateAnimal: function updateAnimal(a) {
+            this.$broadcast('AnimalUpdated', a);
         }
     }
 });
