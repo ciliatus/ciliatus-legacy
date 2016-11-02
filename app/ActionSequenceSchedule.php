@@ -93,6 +93,14 @@ class ActionSequenceSchedule extends CiliatusModel
     {
         $this->last_start_at = Carbon::now();
         $this->save();
+
+        Log::create([
+            'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
+            'target_id'     =>  $this->id,
+            'associatedWith_type' => 'ActionSequence',
+            'associatedWith_id' => $this->action_sequence_id,
+            'action'        => 'start'
+        ]);
     }
 
     /**
@@ -102,6 +110,14 @@ class ActionSequenceSchedule extends CiliatusModel
     {
         $this->last_finished_at = Carbon::now();
         $this->save();
+
+        Log::create([
+            'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
+            'target_id'     =>  $this->id,
+            'associatedWith_type' => 'ActionSequence',
+            'associatedWith_id' => $this->action_sequence_id,
+            'action'        => 'finish'
+        ]);
     }
 
     /**
