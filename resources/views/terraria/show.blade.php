@@ -7,6 +7,7 @@
         @include('terraria.show_slice', ['terrarium' => $terrarium])
 
         @if(!is_null($terrarium->animals))
+            @include('animals.show_vue')
             @foreach($terrarium->animals as $animal)
                 @include('animals.show_slice', ['animal' => $animal])
             @endforeach
