@@ -40,7 +40,7 @@
                             <br />
 
                             <strong>@lang('labels.common_name'): </strong><span>@{{ animal.common_name }}</span><br />
-                            <strong>@lang('labels.latin_name'): </strong><span>@{{ animal.lat_name }}</span><br />
+                            <strong>@lang('labels.latin_name'): </strong><span>@{{ animal.latin_name }}</span><br />
                             <div v-if="animal.terrarium">
                                 <strong>@choice('components.terraria', 1): </strong><span><a href="/terraria/@{{ animal.terrarium.id }}">@{{ animal.terrarium.display_name }}</a></span>
                             </div>
