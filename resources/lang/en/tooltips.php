@@ -14,5 +14,7 @@ return [
     'set_state_to'          =>  'Set state of <b>:target</b> to <b>:state</b> for <b>:minutes minutes</b>',
     'start_after_started'   =>  'Starts as soon as step <b>:id</b> was started',
     'start_after_finished'   =>  'Starts as soon as step <b>:id</b> finished',
-    'sendnotifications'     =>  'Send notifications'
+    'sendnotifications'     =>  'Send notifications',
+    'no_schedules'          =>  'No schedules',
+    'runonce'               =>  'Run once'
 ];

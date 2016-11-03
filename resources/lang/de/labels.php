@@ -51,6 +51,7 @@ return [
     'language'      =>  'Sprache',
     'belongsTo_type'=>  'Gehört zu (Typ)',
     'belongsTo_id'  =>  'Gehört zu (ID)',
+    'belongsTo'     =>  'Gehört zu',
     'doku'          =>  'Dokumentation',
     'step'          =>  'Schritt',
     'phone_number'  =>  'Telefonnummer',
@@ -61,5 +62,9 @@ return [
     'runs_since'    =>  'Läuft seit',
     'queued'        =>  'Wartend',
     'criticalstates'=>  'Kritische Zustände',
-    'since'         =>  'seit'
+    'since'         =>  'Seit',
+    'state'         =>  'Status',
+    'actions'       =>  'Aktionen',
+    'irrigate'      =>  'Bewässern',
+    'duration'      =>  'Dauer'
 ];

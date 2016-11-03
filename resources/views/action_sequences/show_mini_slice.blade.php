@@ -1,7 +1,7 @@
 
 <div class="x_panel">
     <div class="x_title">
-        <h2><i class="material-icons">done_all</i> {{ $action_sequence->name }}</h2>
+        <h2><i class="material-icons">done_all</i> @choice('components.action_sequences', 1) {{ $action_sequence->name }}</h2>
 
         <ul class="nav navbar-right panel_toolbox">
             <li><a class="collapse-link"><i class="material-icons">expand_less</i></a>
@@ -57,9 +57,9 @@
                 <div class="col-md-9 col-sm-9 col-xs-12">
                     <div class="input-group">
                         <input type="hidden" name="action_sequence_id" value="{{ $action_sequence->id }}">
-                        <input type="text" name="starts_at" value="{{ \Carbon\Carbon::now()->format('H:i') }}" class="form-control">
+                        <input type="text" name="starts_at" value="{{ \Carbon\Carbon::now()->addMinutes(30)->format('H:i') }}" class="form-control">
                         <span class="input-group-btn">
-                            <button type="submit" class="btn btn-success">@lang('buttons.save')</button>
+                            <button type="submit" class="btn btn-success">@lang('buttons.add')</button>
                         </span>
                     </div>
                     <div class="input-group">

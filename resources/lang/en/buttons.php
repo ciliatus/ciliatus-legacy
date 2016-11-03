@@ -7,4 +7,5 @@ return [
     'loadgraph' =>  'Load graph',
     'upload'    =>  'Upload',
     'start_setup'=> 'Start Setup',
+    'add'       =>  'Add'
 ];

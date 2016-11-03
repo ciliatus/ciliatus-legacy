@@ -51,6 +51,7 @@ return [
     'language'      =>  'Language',
     'belongsTo_type'=>  'Belongs to (type)',
     'belongsTo_id'  =>  'Belongs to (ID)',
+    'belongsTo'     =>  'Belongs to',
     'doku'          =>  'Documentation',
     'step'          =>  'Step',
     'phone_number'  =>  'Phone number',
@@ -61,5 +62,9 @@ return [
     'runs_since'    =>  'Running since',
     'queued'        =>  'Queued',
     'criticalstates'=>  'Critical States',
-    'since'         =>  'since'
+    'since'         =>  'Since',
+    'state'         =>  'Status',
+    'actions'       =>  'Actions',
+    'irrigate'      =>  'Irrigate',
+    'duration'      =>  'Duration'
 ];

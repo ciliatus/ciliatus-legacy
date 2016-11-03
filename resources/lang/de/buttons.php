@@ -7,4 +7,5 @@ return [
     'loadgraph' =>  'Graph laden',
     'upload'    =>  'Hochladen',
     'start_setup'=> 'Setup starten',
+    'add'       =>  'Hinzufügen'
 ];

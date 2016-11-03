@@ -4,7 +4,7 @@
 <div class="col-md-4 col-xs-12">
     <div class="x_panel">
         <div class="x_title">
-            <h2><i class="material-icons">done_all</i></h2>
+            <h2><i class="material-icons">done_all</i> {{ $action_sequence->name }}</h2>
 
             <div class="clearfix"></div>
         </div>
@@ -36,7 +36,11 @@
             </form>
         </div>
     </div>
+
+    @include('action_sequences.show_mini_slice', ['action_sequence' => $action_sequence])
 </div>
+
+
 
 <div class="col-md-8 col-xs-12">
     @include('actions.dashboard_mini_slice', ['action_sequence' => $action_sequence])

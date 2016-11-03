@@ -21,7 +21,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('units.minutes', 2)</label>
+                <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.duration') (@choice('units.minutes', 2))</label>
                 <div class="col-md-9 col-sm-9 col-xs-12">
                     <input type="text" class="form-control" placeholder="@choice('units.minutes', 2)" name="duration_minutes" value="10">
                 </div>
