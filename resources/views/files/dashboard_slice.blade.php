@@ -12,7 +12,7 @@
                         <th width="20"></th>
                         <th>@lang('labels.display_name')</th>
                         <th>@lang('labels.size')</th>
-                        <th>@lang('labels.belongsto')</th>
+                        <th>@lang('labels.belongsTo')</th>
                         <th>@lang('labels.created_at')</th>
                     </tr>
                 </thead>
