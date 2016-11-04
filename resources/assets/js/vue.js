@@ -48,6 +48,71 @@ Vue.component('inline-graph', {
     }
 });
 
+Vue.component('action_sequence_schedule-widget', {
+
+    template: '#action_sequence_schedule-widget-template',
+
+    data: function() {
+        return {
+            action_sequence_schedules: []
+        }
+    },
+
+    props: {
+        assid: {
+            type: String,
+            default: '',
+            required: false
+        }
+    },
+
+    events: {
+        ActionSequenceScheduleUpdated: function(ass) {
+            var item = null;
+            this.action_sequence_schedules.forEach(function(data, index) {
+                if (data.id === ass.action_sequence_schedule.id) {
+                    item = index;
+                }
+            });
+            if (item === null) {
+                this.action_sequence_schedules.push(ass.action_sequence_schedule);
+            }
+            else {
+                this.action_sequence_schedules.$set(item, ass.action_sequence_schedule);
+            }
+            this.$broadcast('ActionSequenceScheduleUpdated', ass);
+        },
+
+        ActionSequenceScheduleDeleted: function(ass) {
+            var item = null;
+            this.action_sequence_schedules.forEach(function(data, index) {
+                if (data.id === ass.action_sequence_schedule.id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                this.action_sequence_schedules.splice(item, 1);
+            }
+            this.$broadcast('ActionSequenceScheduleDeleted', ass);
+        }
+    },
+
+    created: function() {
+        if (this.assid === '') {
+            $.getJSON('/api/v1/action_sequence_schedules/?filter[last_finished_at]=nottoday', function(action_sequence_schedules) {
+                this.action_sequence_schedules = action_sequence_schedules.data;
+            }.bind(this));
+        }
+        else {
+            $.getJSON('/api/v1/action_sequence_schedules/' + this.assid, function(action_sequence_schedules) {
+                this.action_sequence_schedules = action_sequence_schedules.data;
+            }.bind(this));
+        }
+    }
+
+});
+
 Vue.component('terraria-widget', {
 
     template: '#terraria-widget-template',
@@ -78,15 +143,34 @@ Vue.component('terraria-widget', {
                     item = index;
                 }
             });
+            if (item === null) {
+                this.terraria.push(t.terrarium);
+            }
+            else {
+                this.terraria[item].display_name = t.terrarium.display_name;
+                this.terraria[item].animals = t.terrarium.animals;
+                this.terraria[item].cooked_temperature_celsius = t.terrarium.cooked_temperature_celsius;
+                this.terraria[item].cooked_humidity_percent = t.terrarium.cooked_humidity_percent;
+                this.terraria[item].heartbeat_ok = t.terrarium.heartbeat_ok;
+                this.terraria[item].temperature_ok = t.terrarium.temperature_ok;
+                this.terraria[item].humidity_ok = t.terrarium.humidity_ok;
+                this.terraria[item].state_ok = t.terrarium.state_ok;
+            }
             this.$broadcast('TerrariumUpdated', t);
-            this.terraria[item].display_name = t.terrarium.display_name;
-            this.terraria[item].animals = t.terrarium.animals;
-            this.terraria[item].cooked_temperature_celsius = t.terrarium.cooked_temperature_celsius;
-            this.terraria[item].cooked_humidity_percent = t.terrarium.cooked_humidity_percent;
-            this.terraria[item].heartbeat_ok = t.terrarium.heartbeat_ok;
-            this.terraria[item].temperature_ok = t.terrarium.temperature_ok;
-            this.terraria[item].humidity_ok = t.terrarium.humidity_ok;
-            this.terraria[item].state_ok = t.terrarium.state_ok;
+        },
+
+        TerrariumDeleted: function(t) {
+            var item = null;
+            this.terraria.forEach(function(data, index) {
+                if (data.id === t.terrarium.id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                this.terraria.splice(item, 1);
+            }
+            this.$broadcast('TerrariumDeleted', t);
         }
 
     },
@@ -125,14 +209,27 @@ Vue.component('animals-widget', {
                     item = index;
                 }
             });
+            if (item === null) {
+                this.animals.push(a.animal)
+            }
+            else {
+                this.animals.$set(item, a.animal);
+            }
+            this.$broadcast('AnimalUpdated', a);
+        },
 
-            this.animals[item].common_name = a.animal.common_name;
-            this.animals[item].latin_name = a.animal.latin_name;
-            this.animals[item].display_name = a.animal.display_name;
-            this.animals[item].gender = a.animal.gender;
-            this.animals[item].terrarium = a.animal.terrarium;
-            this.animals[item].birth_date = a.animal.birth_date;
-            this.animals[item].death_date = a.animal.death_date;
+        AnimalDeleted: function(a) {
+            var item = null;
+            this.animals.forEach(function(data, index) {
+                if (data.id === a.animal.id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                this.animals.splice(item, 1);
+            }
+            this.$broadcast('AnimalDeleted', a);
         }
 
     },
@@ -177,7 +274,9 @@ Vue.component('criticalstates-widget', {
                     item = data;
                 }
             });
-            this.criticalstates.$remove(item);
+            if (item !== null) {
+                this.criticalstates.splice(item, 1);
+            }
         }
     },
 
@@ -207,8 +306,21 @@ window.dashboardVue = new Vue({
         updateTerrarium: function(t) {
             this.$broadcast('TerrariumUpdated', t)
         },
+        deleteTerrarium: function(t) {
+            this.$broadcast('TerrariumDeleted', t)
+        },
         updateAnimal: function(a) {
             this.$broadcast('AnimalUpdated', a)
+        },
+        deleteAnimal: function(a) {
+            this.$broadcast('AnimalDeleted', a)
+        },
+        updateActionSequenceSchedule: function(a) {
+            this.$broadcast('ActionSequenceScheduleUpdated', a)
+        },
+        deleteActionSequenceSchedule: function(a) {
+            this.$broadcast('ActionSequenceScheduleDeleted', a)
         }
+
     }
 });

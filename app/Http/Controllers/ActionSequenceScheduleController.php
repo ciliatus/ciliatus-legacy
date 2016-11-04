@@ -2,49 +2,62 @@
 
 namespace App\Http\Controllers;
 
+use App\Action;
 use App\ActionSequence;
 use App\ActionSequenceSchedule;
 use App\Http\Transformers\ActionSequenceScheduleTransformer;
 use App\Terrarium;
 use Carbon\Carbon;
+use DB;
 use Gate;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+/**
+ * Class ActionSequenceScheduleController
+ * @package App\Http\Controllers
+ */
 class ActionSequenceScheduleController extends ApiController
 {
     /**
      * @var ActionSequenceScheduleTransformer
      */
-    protected $actionTransformer;
+    protected $actionSequenceScheduleTransformer;
 
     /**
      * ActionSequenceScheduleController constructor.
-     * @param ActionSequenceScheduleTransformer $_actionTransformer
+     * @param ActionSequenceScheduleTransformer $_actionSequenceScheduleTransformer
      */
-    public function __construct(ActionSequenceScheduleTransformer $_actionTransformer)
+    public function __construct(ActionSequenceScheduleTransformer $_actionSequenceScheduleTransformer)
     {
         parent::__construct();
-        $this->actionTransformer = $_actionTransformer;
+        $this->actionSequenceScheduleTransformer = $_actionSequenceScheduleTransformer;
     }
 
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        $actions = ActionSequenceSchedule::paginate(10);
+        $action_sequence_schedules = $this->filter($request, ActionSequenceSchedule::with('sequence'))->get();
 
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->actionTransformer->transformCollection(
-                $actions->toArray()['data']
+        foreach ($action_sequence_schedules as $ass) {
+            $ass->running = $ass->running();
+            $ass->will_run_today = $ass->will_run_today();
+            $ass->ran_today = $ass->ran_today();
+            $ass->is_overdue = $ass->is_overdue(10);
+        }
+
+        return $this->setStatusCode(200)->respondWithData(
+            $this->actionSequenceScheduleTransformer->transformCollection(
+                $action_sequence_schedules->toArray()
             ),
-            $actions
+            $action_sequence_schedules
         );
     }
 
@@ -66,7 +79,7 @@ class ActionSequenceScheduleController extends ApiController
         }
 
         return $this->setStatusCode(200)->respondWithData(
-            $this->actionTransformer->transform(
+            $this->actionSequenceScheduleTransformer->transform(
                 $action->toArray()
             )
         );
@@ -118,24 +131,11 @@ class ActionSequenceScheduleController extends ApiController
             }
         }
 
-        $ass = ActionSequenceSchedule::create();
-        $ass->starts_at = Carbon::parse($request->input('starts_at'));
-        $ass->action_sequence_id = $request->input('action_sequence_id');
-
-        if ($request->input('runonce') == 'on') {
-            $ass->runonce = true;
-        }
-
-        $starts_today = Carbon::now();
-        $starts_today->hour = $ass->starts_at->hour;
-        $starts_today->minute = $ass->starts_at->minute;
-        $starts_today->second = 0;
-        if ($starts_today->lt(Carbon::now())) {
-            $ass->last_start_at = Carbon::now();
-            $ass->last_finished_at = Carbon::now();
-        }
-
-        $ass->save();
+        $ass = ActionSequenceSchedule::create([
+            'runonce' => $request->input('runonce') == 'on' ? true : false,
+            'starts_at' => Carbon::parse($request->input('starts_at'))->format('H:i:s'),
+            'action_sequence_id' => $request->input('action_sequence_id')
+        ]);
 
         return $this->setStatusCode(200)->respondWithData(
             [

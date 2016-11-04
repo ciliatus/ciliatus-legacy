@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\ActionSequenceScheduleDeleted;
+use App\Events\ActionSequenceScheduleUpdated;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -20,6 +22,10 @@ class ActionSequenceSchedule extends CiliatusModel
      * @var bool
      */
     public $incrementing = false;
+
+    protected $fillable = [
+        'runonce', 'starts_at', 'action_sequence_id'
+    ];
 
 
     /**
@@ -42,6 +48,13 @@ class ActionSequenceSchedule extends CiliatusModel
             'action'        => 'create'
         ]);
 
+        if ($new->starts_today()->lt(Carbon::now()->subMinutes(10))) {
+            $new->last_start_at = Carbon::now();
+            $new->last_finished_at = Carbon::now();
+        }
+
+        broadcast(new ActionSequenceScheduleUpdated(clone $new));
+
         return $new;
     }
 
@@ -62,7 +75,18 @@ class ActionSequenceSchedule extends CiliatusModel
             $ra->delete();
         }
 
+        broadcast(new ActionSequenceScheduleDeleted($this));
+
         parent::delete();
+    }
+
+    public function save(array $options = [])
+    {
+        $return = parent::save($options);
+
+        broadcast(new ActionSequenceScheduleUpdated($this));
+
+        return $return;
     }
 
     /**
@@ -254,6 +278,20 @@ class ActionSequenceSchedule extends CiliatusModel
                 !$this->last_finished_at->isToday()))
                 || $this->starts_today()->gt(Carbon::now()))
                 && !$this->running();
+    }
+
+    /**
+     * @param $minutes
+     * @return bool
+     */
+    public function is_overdue($minutes)
+    {
+        $starts_today = Carbon::now();
+        $starts_today->hour = explode(':', $this->starts_at)[0];
+        $starts_today->minute = explode(':', $this->starts_at)[1];
+        $starts_today->second = 0;
+
+        return !$this->running() && $starts_today->addMinutes($minutes)->lt(Carbon::now());
     }
 
     /**

@@ -17,6 +17,18 @@ echo.private('dashboard-updates')
     .listen('TerrariumUpdated', (e) => {
         window.dashboardVue.updateTerrarium(e);
     })
+    .listen('TerrariumDeleted', (e) => {
+        window.dashboardVue.deleteTerrarium(e);
+    })
     .listen('AnimalUpdated', (e) => {
         window.dashboardVue.updateAnimal(e);
+    })
+    .listen('AnimalDeleted', (e) => {
+        window.dashboardVue.deleteAnimal(e);
+    })
+    .listen('ActionSequenceScheduleUpdated', (e) => {
+        window.dashboardVue.updateActionSequenceSchedule(e);
+    })
+    .listen('ActionSequenceScheduleDeleted', (e) => {
+        window.dashboardVue.deleteActionSequenceSchedule(e);
     });

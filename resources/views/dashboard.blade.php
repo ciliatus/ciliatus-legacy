@@ -1,11 +1,14 @@
 @extends('master')
 
 @section('content')
-    @include('terraria.dashboard_vue')
 
     <div id="dashboard">
+        @include('terraria.dashboard_vue')
         <terraria-widget></terraria-widget>
+        @include('action_sequence_schedules.dashboard_vue')
+        <action_sequence_schedule-widget></action_sequence_schedule-widget>
     </div>
+
 
     <script>
         $(function() {
