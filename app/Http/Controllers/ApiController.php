@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 
@@ -156,6 +157,60 @@ class ApiController extends Controller
         }
 
         return true;
+    }
+
+    /*
+     * .../?filter[field]=operator:comparison
+     * .../?filter[field]=operator
+     *
+     * Example query:
+     * .../?filter[name]=like:*s00hvm*&filter[status]=null:
+     * will match all entities where name contains s00hvm and status is null
+     *
+     * special operators:
+     * like, notlike, today, nottoday
+     */
+    protected function filter(Request $request, $query)
+    {
+        if (!$request->has('filter')) {
+            return $query;
+        }
+
+        $filter = $request->input('filter');
+        foreach ($filter as $field=>$value) {
+            $field_filter = explode(":", $value);
+            if (count($field_filter) > 1) {
+                $field_filter[1] = str_replace('*', '%', $field_filter[1]);
+                $operator = str_replace('notlike', 'not like', $field_filter[0]);
+                $query = $query->where($field, $operator, $field_filter[1]);
+            }
+            else {
+                $field_filter = $value;
+
+                switch ($field_filter) {
+                    case 'today':
+                        $query = $query->where($field, 'like', Carbon::now()->format('Y-m-d').'%');
+                        break;
+                    case 'nottoday':
+                        $query = $query->where(function($q) use ($field) {
+                            $q->where($field, 'not like', Carbon::now()->format('Y-m-d').'%')
+                              ->orWhereNull($field);
+                        });
+                        break;
+                    case 'null':
+                        $query = $query->whereNull($field);
+                        break;
+                    case 'notnull':
+                        $query = $query->whereNotNull($field);
+                        break;
+                    default:
+                        $query = $query->where($field, $value);
+                        break;
+                }
+            }
+        }
+
+        return $query;
     }
 
     /**
