@@ -300,9 +300,9 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $terrarium = Terrarium::create();
-        $terrarium->display_name = $request->input('display_name');
-        $terrarium->save();
+        $terrarium = Terrarium::create([
+            'display_name' => $request->input('display_name')
+        ]);
 
         return $this->setStatusCode(200)->respondWithData(
             [

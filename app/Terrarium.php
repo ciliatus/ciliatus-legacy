@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Events\TerrariumUpdated;
+use App\Events\TerrariumDeleted;
 use App\Http\Transformers\TerrariumTransformer;
 use App\Repositories\SensorreadingRepository;
 use Carbon\Carbon;
@@ -31,6 +32,10 @@ class Terrarium extends CiliatusModel
         'notifications_enabled' =>  'boolean'
     ];
 
+    protected $fillable = [
+        'name', 'display_name'
+    ];
+
     /**
      * @param array $attributes
      * @return CiliatusModel|Terrarium
@@ -43,6 +48,8 @@ class Terrarium extends CiliatusModel
             'target_id'     =>  $new->id,
             'action'        => 'create'
         ]);
+
+        broadcast(new TerrariumUpdated($new));
 
         return $new;
     }
@@ -70,6 +77,8 @@ class Terrarium extends CiliatusModel
             'target_id'     =>  $this->id,
             'action'        => 'delete'
         ]);
+
+        broadcast(new TerrariumDeleted($this));
 
         parent::delete();
     }

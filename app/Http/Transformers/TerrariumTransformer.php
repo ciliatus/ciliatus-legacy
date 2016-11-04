@@ -27,7 +27,7 @@ class TerrariumTransformer extends Transformer
         $animalTransformer = new AnimalTransformer();
         $return = [
             'id'    => $item['id'],
-            'name'  => $item['name'],
+            'name'  => isset($item['name']) ? $item['name'] : '',
             'display_name' => $item['display_name'],
             'timestamps' => [
                 'created' => $item['created_at'],
