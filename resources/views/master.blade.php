@@ -146,8 +146,6 @@
                                     <span>@choice('components.admin_panel', 2)</span></a></li>
                             <li><a href="{{ url('logs') }}"><i class="material-icons">list</i>
                                     <span>@choice('components.log', 2)</span></a></li>
-                            <li><a href="{{ url('laravel-logs') }}"><i class="material-icons">list</i> <span>Laravel Logs</span></a>
-                            </li>
                         </ul>
                     </div>
 
