@@ -27,6 +27,11 @@
                     <div class="col-xs-12">
                         <strong>@choice('components.controlunits', 1):</strong> <a href="{{ url('controlunits/' . $ps->controlunit->id) }}">{{ $ps->controlunit->name }}</a>
                     </div>
+                    @if(!is_null($ps->belongsTo_object()))
+                    <div class="col-xs-12">
+                        <strong>@choice('components.' . $ps->belongsTo_type, 1):</strong> <a href="{{ url($ps->belongsTo_object()->url()) }}">{{ $ps->belongsTo_object()->display_name }}</a>
+                    </div>
+                    @endif
                 </div>
                 <div class="row weather-days">
                     @foreach ($ps->logical_sensors as $ls)
