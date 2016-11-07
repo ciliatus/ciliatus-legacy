@@ -31,7 +31,7 @@ class TerrariumRepository extends Repository {
             $history_to = Carbon::now();
 
         if (is_null($history_minutes))
-            $history_minutes = env('CACHE_API_TERRARIUM_SHOW_DURATION', 30);
+            $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 15);
 
         $terrarium = $this->scope;
         $id = $terrarium->id;
