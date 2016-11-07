@@ -56,7 +56,7 @@
 <div class="container body">
     <div class="main_container">
         <div class="hidden-xl hidden-lg hidden-md floating-menu-button pull-right">
-            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+            <a id="menu_toggle"><i class="material-icons" style="font-size: 24pt">menu</i></a>
         </div>
         <div class="col-md-3 left_col">
             <div class="left_col scroll-view">

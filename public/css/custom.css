@@ -5265,7 +5265,7 @@ ul.notifications {
   z-index: 10000;
   width: 42px;
   height: 39px;
-  position: absolute;
+  position: fixed;
   top: 5px;
   right: 5px;
   text-align: center;
