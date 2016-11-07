@@ -132,6 +132,16 @@ Vue.component('terraria-widget', {
             type: String,
             default: '',
             required: false
+        },
+        subscribeAdd: {
+            type: Boolean,
+            default: true,
+            required: false
+        },
+        subscribeDelete: {
+            type: Boolean,
+            default: true,
+            required: false
         }
     },
 
@@ -143,7 +153,7 @@ Vue.component('terraria-widget', {
                     item = index;
                 }
             });
-            if (item === null) {
+            if (item === null && this.subscribeAdd === true) {
                 this.terraria.push(t.terrarium);
             }
             else {
@@ -160,6 +170,9 @@ Vue.component('terraria-widget', {
         },
 
         TerrariumDeleted: function(t) {
+            if (this.subscribeAdd !== true) {
+                return;
+            }
             var item = null;
             this.terraria.forEach(function(data, index) {
                 if (data.id === t.terrarium.id) {
