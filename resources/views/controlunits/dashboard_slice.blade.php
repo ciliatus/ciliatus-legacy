@@ -1,5 +1,5 @@
 @foreach ($controlunits as $cu)
-    <div class="col-lg-6 col-md-12 col-sm-12 col-xs-12 dashboard-box" id="controlunit-{{ $cu->id }}">
+    <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12 col-xs-12 dashboard-box" id="controlunit-{{ $cu->id }}">
         <div class="x_panel">
 
             <div class="x_title">
@@ -24,7 +24,7 @@
 
             <div class="x_content">
                 <div class="row weather-days">
-                    <div class="col-sm-12">
+                    <div class="col-xs-12">
                         <div class="daily-weather">
                             <h2 class="day">@lang('labels.heartbeat')</h2>
                             <h3 class="terrarium-widget-temp">{{ $cu->heartbeatOk() }}</h3>
@@ -34,7 +34,7 @@
                 </div>
                 @if(isset($show_extended))
                     <div class="row weather-days">
-                        <div class="col-sm-12">
+                        <div class="col-xs-12">
                             <div class="daily-weather">
                                 <h2 class="day">@lang('labels.config')</h2>
                                 <h3 class="terrarium-widget-temp" style="text-align: left;">

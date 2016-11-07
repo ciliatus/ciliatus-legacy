@@ -36,7 +36,7 @@
                 </div>
 
                 <div class="row weather-days">
-                    <div class="col-sm-6 col-xs-12 col-md-6 col-lg-6 col-xl-6">
+                    <div class="col-xs-6">
                         <div class="daily-weather">
                             <h2 class="day">
                                 @lang('labels.temperature')
@@ -49,7 +49,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-6 col-xs-12 col-md-6 col-lg-6 col-xl-6">
+                    <div class="col-xs-6">
                         <div class="daily-weather">
                             <h2 class="day">
                                 @lang('labels.humidity')
