@@ -45,6 +45,10 @@ class LogicalSensorTransformer extends Transformer
             $return['url'] = $item['url'];
         }
 
+        if (isset($item['current_threshold'])) {
+            $return['current_threshold'] = $item['current_threshold'];
+        }
+
         return $return;
     }
 }

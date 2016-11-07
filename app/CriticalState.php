@@ -197,7 +197,11 @@ class CriticalState extends CiliatusModel
     public function belongsTo_object()
     {
         if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
-            return ('App\\' . ucfirst($this->belongsTo_type))::find($this->belongsTo_id);
+            $obj = ('App\\' . ucfirst($this->belongsTo_type))::find($this->belongsTo_id);
+            if (!is_null($obj)) {
+                $obj->current_threshold = $obj->current_threshold();
+            }
+            return $obj;
         }
 
         return null;

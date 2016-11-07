@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'terrarium'      =>  'Terrarium|Terraria',
     'terraria'      =>  'Terrarium|Terraria',
     'animals'       =>  'Animal|Animals',
     'controlunits'  =>  'Control Unit|Control Units',
