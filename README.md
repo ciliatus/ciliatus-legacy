@@ -12,7 +12,7 @@ Intelligent terrarium automatisation
 * RESTful API
 * (automatic) Night theme
 
-# Screenshots
+# Screenshots (v0.1-alpha)
 Dashboard
 ![Dashboard](/ciliatus_demo01.png?raw=true)
 
