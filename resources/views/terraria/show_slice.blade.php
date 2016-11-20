@@ -1,1 +1,0 @@
-<terraria-widget terraid="{{ $terrarium->id }}" :subscribe-delete="false" :subscribe-add="false"></terraria-widget>

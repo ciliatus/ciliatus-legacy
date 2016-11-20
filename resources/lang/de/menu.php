@@ -9,5 +9,8 @@ return [
     'edit'          =>  'Editieren',
     'delete'        =>  'Löschen',
     'infrastructure'=>  'Infrastruktur',
-    'help'          =>  'Hilfe'
+    'help'          =>  'Hilfe',
+    'logout'        =>  'Abmelden',
+    'animals'       =>  'Tiere',
+    'terraria'      =>  'Terrarien'
 ];

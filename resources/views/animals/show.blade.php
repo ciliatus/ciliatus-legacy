@@ -1,13 +1,95 @@
 @extends('master')
 
 @section('content')
-    @include('animals.show_vue')
+    <!-- left col -->
+    <div class="col s12 m5 l4 no-padding">
+        <div class="col s12 m12 l12">
+            <animals-widget animal-id="{{ $animal->id }}"></animals-widget>
+        </div>
 
-    <div class="col-xl-3 col-lg-4 col-md-12 col-sm-12 col-xs-12">
-        @include('animals.show_vue')
-        @include('animals.show_slice', ['animal' => $animal])
+        @if (!is_null($animal->terrarium))
+            <div class="col s12 m12 l12">
+                <terraria-widget terrarium-id="{{ $animal->terrarium->id }}" :subscribe-add="false" :subscribe-delete="false"></terraria-widget>
+            </div>
+        @endif
     </div>
-    <div class="col-xl-9 col-lg-8 col-md-12 col-sm-12 col-xs-12">
-        @include('animals.details_slice', ['animal' => $animal])
+
+    <!-- right col -->
+    <div class="col s12 m12 l6 no-padding">
+        <files-widget source-filter="?filter[belongsTo_type]=Animal&filter[belongsTo_id]={{ $animal->id }}"
+                      belongs-to_type="Animal" belongs-to_id="{{ $animal->id }}"></files-widget>
+    </div>
+
+    <div class="col s12 m12 l6 no-padding">
+        <div class="card">
+            <div class="card-content light-blue darken-1 white-text">
+                count @lang('labels.measurement_count')
+            </div>
+
+            <div class="card-content">
+                <span class="card-title activator truncate">
+                    @lang('labels.weight_history')
+                    <i class="material-icons right">more_vert</i>
+                </span>
+                <p>
+                    <div id="material-graph-animal-weight-{{ $animal->id }}"></div>
+                </p>
+            </div>
+
+            <div class="card-action">
+            </div>
+
+            <div class="card-reveal">
+                <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                <p>
+
+                </p>
+            </div>
+        </div>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function(event) {
+                google.charts.load('current', {packages: ['corechart', 'line']});
+                google.charts.setOnLoadCallback(drawTrendlines);
+
+                function drawTrendlines() {
+                    var data = new google.visualization.DataTable();
+                    data.addColumn('date', 'Time');
+                    data.addColumn('number', 'Weight/g');
+
+                    data.addRows([
+                        [new Date('2016-11-01'), 5], [new Date('2016-11-02'), 7], [new Date('2016-11-03'), 5],
+                        [new Date('2016-11-07'), 9], [new Date('2016-11-08'), 20], [new Date('2016-11-10'), 18]
+                    ]);
+
+                    var options = {
+                        chartArea: {
+                            'width': '90%',
+                            'height': '80%'
+                        },
+                        legend: 'none',
+                        hAxis: {
+                            textPosition: 'none'
+                        },
+                        colors: ['#AB0D06'],
+                        trendlines: {
+                            0: {
+                                type: 'exponential',
+                                color: '#333',
+                                opacity: 1
+                            },
+                            1: {
+                                type: 'linear',
+                                color: '#111',
+                                opacity: .3
+                            }
+                        }
+                    };
+
+                    var chart = new google.visualization.LineChart(document.getElementById('material-graph-animal-weight-{{ $animal->id }}'));
+                    chart.draw(data, options);
+                }
+            });
+        </script>
     </div>
 @stop

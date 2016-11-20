@@ -1,2 +1,19 @@
-// @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+.terrarium-card-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  min-height: 140px;
+}
 
+.nested {
+  position: relative;
+}
+
+.pie + svg {
+  position: absolute;
+}
+
+.pie2 + svg {
+  left: 16px;
+  top: 16px;
+}

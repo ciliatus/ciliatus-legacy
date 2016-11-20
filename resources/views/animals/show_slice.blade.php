@@ -1,1 +1,0 @@
-<animals-widget animalid="{{ $animal->id }}"></animals-widget>
