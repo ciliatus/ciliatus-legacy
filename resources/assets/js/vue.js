@@ -100,8 +100,8 @@ Vue.component('action_sequence_schedule-widget', {
             if (item === null) {
                 this.action_sequence_schedules.push(ass.action_sequence_schedule);
             }
-            else {
-                this.action_sequence_schedules.$set(item, ass.action_sequence_schedule);
+            else if (item !== null) {
+                this.action_sequence_schedules.splice(item, 1, ass.action_sequence_schedule);
             }
         },
 
@@ -197,8 +197,8 @@ Vue.component('terraria-widget', {
             if (item === null && this.subscribeAdd === true) {
                 this.terraria.push(t.terrarium);
             }
-            else {
-                this.terraria[item] = t.terrarium;
+            else if (item !== null) {
+                this.terraria.splice(item, 1, t.terrarium);
                 /*
                 this.terraria[item].display_name = t.terrarium.display_name;
                 this.terraria[item].animals = t.terrarium.animals;
@@ -295,8 +295,8 @@ Vue.component('animals-widget', {
             if (item === null) {
                 this.animals.push(a.animal)
             }
-            else {
-                this.animals.$set(item, a.animal);
+            else if (item !== null) {
+                this.animals.splice(item, 1, a.animal);
             }
         },
 
@@ -379,8 +379,8 @@ Vue.component('physical_sensors-widget', {
             if (item === null) {
                 this.physical_sensors.push(a.physical_sensor)
             }
-            else {
-                this.physical_sensors.$set(item, a.physical_sensor);
+            else if (item !== null) {
+                this.physical_sensors.splice(item, 1, a.physical_sensor);
             }
         },
 
@@ -463,8 +463,8 @@ Vue.component('logical_sensors-widget', {
             if (item === null) {
                 this.logical_sensors.push(a.logical_sensor)
             }
-            else {
-                this.logical_sensors.$set(item, a.logical_sensor);
+            else if (item !== null) {
+                this.logical_sensors.splice(item, 1, a.logical_sensor);
             }
         },
 
@@ -547,8 +547,8 @@ Vue.component('valves-widget', {
             if (item === null) {
                 this.valves.push(a.valve)
             }
-            else {
-                this.valves.$set(item, a.valve);
+            else if (item !== null) {
+                this.valves.splice(item, 1, a.valve);
             }
         },
 
@@ -631,8 +631,8 @@ Vue.component('controlunits-widget', {
             if (item === null) {
                 this.controlunits.push(a.controlunit)
             }
-            else {
-                this.controlunits.$set(item, a.controlunit);
+            else if (item !== null) {
+                this.controlunits.splice(item, 1, a.controlunit);
             }
         },
 
@@ -720,8 +720,8 @@ Vue.component('files-widget', {
             if (item === null) {
                 this.files.push(a.animal)
             }
-            else {
-                this.files.$set(item, a.animal);
+            else if (item !== null) {
+                this.files.splice(item, 1, a.animal);
             }
         },
 
