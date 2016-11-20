@@ -11,6 +11,7 @@ use App\Valve;
 use Cache;
 use Carbon\Carbon;
 use Gate;
+use Log;
 use Illuminate\Http\Request;
 
 
@@ -44,23 +45,22 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $terraria = Terrarium::paginate(100);
+        $terraria = $this->filter(
+            $request,
+            Terrarium::with('animals')
+                     ->with('files')
+                     ->with('action_sequences')
+        )->get();
 
         $history_to = $request->has('history_to') ? $request->input('history_to') : null;
         $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : null;
-
-        foreach ($terraria as $t) {
-            $t->cooked_humidity_percent = $t->getCurrentHumidity();
-            $t->cooked_temperature_celsius = $t->getCurrentTemperature();
-            $t->heartbeat_ok = $t->heartbeatOk();
-        }
 
         $terraria_repository = [];
         foreach ($terraria as $t) {
             $terraria_repository[] = (new TerrariumRepository($t))->show($history_to, $history_minutes)->toArray();
         }
 
-        return $this->setStatusCode(200)->respondWithPagination(
+        return $this->setStatusCode(200)->respondWithData(
             $this->terrariumTransformer->transformCollection(
                 $terraria_repository
             ),
@@ -138,6 +138,7 @@ class TerrariumController extends ApiController
                 $values
             )
         );
+
 
         return $this->respondWithData($history);
 

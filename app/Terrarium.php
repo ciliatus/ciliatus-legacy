@@ -32,6 +32,9 @@ class Terrarium extends CiliatusModel
         'notifications_enabled' =>  'boolean'
     ];
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'name', 'display_name'
     ];
@@ -128,7 +131,7 @@ class Terrarium extends CiliatusModel
      */
     public function action_sequences()
     {
-        return $this->hasMany('App\ActionSequence');
+        return $this->hasMany('App\ActionSequence')->with('schedules');
     }
 
     /**

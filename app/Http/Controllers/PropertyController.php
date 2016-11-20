@@ -2,29 +2,29 @@
 
 namespace App\Http\Controllers;
 
-use App\FileProperty;
-use App\Http\Transformers\FilePropertyTransformer;
+use App\Property;
+use App\Http\Transformers\PropertyTransformer;
 use Cache;
 use Gate;
 use Illuminate\Http\Request;
 
 
 /**
- * Class FilePropertyController
+ * Class PropertyController
  * @package App\Http\Controllers
  */
-class FilePropertyController extends ApiController
+class PropertyController extends ApiController
 {
     /**
-     * @var FilePropertyTransformer
+     * @var PropertyTransformer
      */
     protected $file_propertyTransformer;
 
     /**
-     * FilePropertyController constructor.
-     * @param FilePropertyTransformer $_file_propertyTransformer
+     * PropertyController constructor.
+     * @param PropertyTransformer $_file_propertyTransformer
      */
-    public function __construct(FilePropertyTransformer $_file_propertyTransformer)
+    public function __construct(PropertyTransformer $_file_propertyTransformer)
     {
         parent::__construct();
         $this->file_propertyTransformer = $_file_propertyTransformer;
@@ -39,7 +39,7 @@ class FilePropertyController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $file_propertys = FileProperty::paginate(10);
+        $file_propertys = Property::paginate(10);
 
         return $this->setStatusCode(200)->respondWithPagination(
             $this->file_propertyTransformer->transformCollection(
@@ -60,10 +60,10 @@ class FilePropertyController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $file_property = FileProperty::with('properties')->find($id);
+        $file_property = Property::with('properties')->find($id);
 
         if (!$file_property) {
-            return $this->respondNotFound('FileProperty not found');
+            return $this->respondNotFound('Property not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
@@ -98,9 +98,9 @@ class FilePropertyController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $file_property = FileProperty::find($request->input('property_id'));
+        $file_property = Property::find($request->input('property_id'));
         if (is_null($file_property)) {
-            return $this->respondNotFound('FileProperty not found');
+            return $this->respondNotFound('Property not found');
         }
 
         $file_property->name = $request->input('property_name');

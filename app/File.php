@@ -49,8 +49,8 @@ class File extends CiliatusModel
             $prop->delete();
         }
 
-        if (file_exists($this->path()))
-            unlink($this->path());
+        if (file_exists($this->path_internal()))
+            unlink($this->path_internal());
 
         Log::create([
             'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
@@ -68,7 +68,22 @@ class File extends CiliatusModel
      */
     public function properties()
     {
-        return $this->hasMany('App\FileProperty');
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'File');
+    }
+
+    /**
+     * @param $name
+     * @return null
+     */
+    public function property($name)
+    {
+        foreach ($this->properties as $p) {
+            if ($p->name == $name) {
+                return $p->value;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -116,7 +131,7 @@ class File extends CiliatusModel
     /**
      * @return string
      */
-    public function path()
+    public function path_internal()
     {
         return self::joinPath(
             [
@@ -125,6 +140,11 @@ class File extends CiliatusModel
                 $this->name
             ]
         );
+    }
+
+    public function path_external()
+    {
+        return url('files/' . $this->id . '/download');
     }
 
     /**

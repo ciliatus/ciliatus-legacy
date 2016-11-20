@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\Http\Transformers\ActionSequenceScheduleTransformer;
 use App\Terrarium;
 use Cache;
 use Carbon\Carbon;
@@ -12,7 +13,9 @@ use App\Sensorreading;
  * Class TerrariumRepository
  * @package App\Repositories
  */
-class TerrariumRepository extends Repository {
+class TerrariumRepository extends Repository
+{
+
 
     /**
      * TerrariumRepository constructor.
@@ -31,20 +34,20 @@ class TerrariumRepository extends Repository {
             $history_to = Carbon::now();
 
         if (is_null($history_minutes))
-            $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 15);
+            $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180);
 
         $terrarium = $this->scope;
         $id = $terrarium->id;
-        $cache_key = 'api-show-terrarium-' . $id;
-        if (Cache::has('api-show-terrarium-' . $id)) {
-            //return Cache::get($cache_key);
-        }
 
         /*
          * Add cooked values to terrarium object
          */
         $terrarium->cooked_humidity_percent = $terrarium->getCurrentHumidity();
         $terrarium->cooked_temperature_celsius = $terrarium->getCurrentTemperature();
+
+        $terrarium->humidity_ok = $terrarium->humidityOk();
+        $terrarium->temperature_ok = $terrarium->temperatureOk();
+        $terrarium->state_ok = $terrarium->stateOk();
         $terrarium->heartbeat_ok = $terrarium->heartbeatOk();
 
         /*
@@ -85,13 +88,31 @@ class TerrariumRepository extends Repository {
         if (count($humidity_values) > 0)
             $terrarium->humidity_trend = $humidity_values[count($humidity_values)-1] - $humidity_values[0];
 
-        $terrarium->humidity_ok = $terrarium->humidityOk();
-        $terrarium->temperature_ok = $terrarium->temperatureOk();
-        $terrarium->state_ok = $terrarium->stateOk();
+        /*
+         * Find background files
+         */
+        $files = $terrarium->files()->with('properties')->get();
+        $terrarium->default_background_filepath = null;
+        foreach ($files as $f) {
+            if ($f->property('is_default_background') == true) {
+                $terrarium->default_background_filepath = $f->path_external();
+                break;
+            }
+        }
 
-        $terrarium->animals = $terrarium->animals()->get()->toArray();
-
-        Cache::add($cache_key, $terrarium, env('CACHE_API_TERRARIUM_SHOW_DURATION') / 60);
+        if (is_null($terrarium->default_background_filepath)) {
+            foreach ($terrarium->animals as $a) {
+                foreach ($a->files as $f) {
+                    if ($f->property('is_default_background') == true) {
+                        $terrarium->default_background_filepath = $f->path_external();
+                        break;
+                    }
+                }
+                if (!is_null($terrarium->default_background_filepath)) {
+                    break;
+                }
+            }
+        }
 
         return $terrarium;
     }

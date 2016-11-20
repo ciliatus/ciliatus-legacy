@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateFilePropertiesTable extends Migration
+class CreatePropertiesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,11 @@ class CreateFilePropertiesTable extends Migration
      */
     public function up()
     {
-        Schema::create('file_properties', function (Blueprint $table) {
+        Schema::create('properties', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
-            $table->uuid('file_id');
+            $table->string('belongsTo_type');
+            $table->uuid('belongsTo_id');
             $table->string('name');
             $table->string('value');
             $table->timestamps();
@@ -29,6 +30,6 @@ class CreateFilePropertiesTable extends Migration
      */
     public function down()
     {
-        Schema::drop('file_properties');
+        Schema::drop('properties');
     }
 }

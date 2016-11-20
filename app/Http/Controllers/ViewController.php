@@ -627,7 +627,7 @@ class ViewController extends Controller
             return view('errors.404');
         }
 
-        return response()->file($file->path());
+        return response()->file($file->path_internal());
     }
 
     /**

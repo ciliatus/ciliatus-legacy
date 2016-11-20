@@ -48,6 +48,15 @@ class AnimalController extends ApiController
 
             $a->age = $a->getAge();
             $a->gender_icon = $a->gender_icon();
+
+            $files = $a->files()->with('properties')->get();
+            $a->default_background_filepath = null;
+            foreach ($files as $f) {
+                if ($f->property('is_default_background') == true) {
+                    $a->default_background_filepath = $f->path_external();
+                    break;
+                }
+            }
         }
 
 
@@ -81,6 +90,15 @@ class AnimalController extends ApiController
 
         $animal->age = $animal->getAge();
         $animal->gender_icon = $animal->gender_icon();
+
+        $files = $animal->files()->with('properties')->get();
+        $animal->default_background_filepath = null;
+        foreach ($files as $f) {
+            if ($f->property('is_default_background') == true) {
+                $animal->default_background_filepath = $f->path_external();
+                break;
+            }
+        }
 
         return $this->setStatusCode(200)->respondWithData([
             $this->animalTransformer->transform(

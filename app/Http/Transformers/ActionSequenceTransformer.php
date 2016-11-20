@@ -22,13 +22,21 @@ class ActionSequenceTransformer extends Transformer
      */
     public function transform($item)
     {
+        $actionSequenceScheduleTransformer = new ActionSequenceScheduleTransformer();
+
         $return = [
             'id'            =>  $item['id'],
+            'name'          =>  $item['name'],
+            'duration_minutes' =>  $item['duration_minutes'],
             'timestamps'    => [
                 'created'       => $item['created_at'],
                 'updated'       => $item['updated_at'],
             ]
         ];
+
+        if (isset($item['schedules'])) {
+            $return['schedules'] = $actionSequenceScheduleTransformer->transformCollection($item['schedules']);
+        }
 
         return $return;
     }

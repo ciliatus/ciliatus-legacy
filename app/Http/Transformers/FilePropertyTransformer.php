@@ -9,10 +9,10 @@
 namespace App\Http\Transformers;
 
 /**
- * Class FilePropertyTransformer
+ * Class PropertyTransformer
  * @package App\Http\Transformers
  */
-class FilePropertyTransformer extends Transformer
+class PropertyTransformer extends Transformer
 {
 
 

@@ -50,6 +50,10 @@ class AnimalTransformer extends Transformer
             $return['gender_icon'] = $item['gender_icon'];
         }
 
+        if (isset($item['default_background_filepath'])) {
+            $return['default_background_filepath'] = $item['default_background_filepath'];
+        }
+
         return $return;
     }
 }

@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\File;
-use App\FileProperty;
+use App\Property;
 use App\Http\Transformers\FileTransformer;
 use Auth;
 use Carbon\Carbon;
@@ -36,17 +36,22 @@ class FileController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        $files = File::paginate(10);
+        $files = $this->filter($request, File::all());
 
-        return $this->setStatusCode(200)->respondWithPagination(
+        foreach ($files as &$f) {
+            $f->path_internal = $f->path_internal();
+            $f->path_external = $f->path_external();
+        }
+
+        return $this->setStatusCode(200)->respondWithData(
             $this->fileTransformer->transformCollection(
-                $files->toArray()['data']
+                $files->toArray()
             ),
             $files
         );
@@ -189,16 +194,16 @@ class FileController extends ApiController
             $file->name
         );
         umask(0);
-        chmod($file->path(), 0664);
+        chmod($file->path_internal(), 0664);
 
         switch ($request->file('file')->getClientMimeType()) {
             case 'image/jpeg':
-                $exif = exif_read_data($file->path(), 0, true);
+                $exif = exif_read_data($file->path_internal(), 0, true);
                 if ($exif) {
                     foreach($exif as $key=>$section) {
                         foreach($section as $name=>$value) {
                             if (!is_array($value)) {
-                                $fp = FileProperty::create();
+                                $fp = Property::create();
                                 $fp->file_id = $file->id;
                                 $fp->name = $key.$name;
                                 $fp->value = $value;

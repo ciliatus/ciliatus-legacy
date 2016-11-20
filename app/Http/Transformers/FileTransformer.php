@@ -25,6 +25,10 @@ class FileTransformer extends Transformer
         $return = [
             'id'    => $item['id'],
             'name' => $item['name'],
+            'display_name' => $item['display_name'],
+            'size' => $item['size'],
+            'state' => $item['state'],
+            'mimetype' => $item['mimetype'],
             'timestamps' => [
                 'created' => $item['created_at'],
                 'updated' => $item['updated_at'],
@@ -35,6 +39,14 @@ class FileTransformer extends Transformer
             foreach ($item['properties'] as $property) {
                 $return['properties'][$property->name] = $property->value;
             }
+        }
+
+        if (isset($item['path_internal'])) {
+            $return['path_internal'] = $item['path_internal'];
+        }
+
+        if (isset($item['path_external'])) {
+            $return['path_external'] = $item['path_external'];
         }
 
         return $return;

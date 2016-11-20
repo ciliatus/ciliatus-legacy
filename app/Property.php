@@ -5,10 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class FileProperty
+ * Class Property
  * @package App
  */
-class FileProperty extends CiliatusModel
+class Property extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -29,6 +29,19 @@ class FileProperty extends CiliatusModel
     }
 
     /**
+     * @param $value
+     * @return bool
+     */
+    public function getValueAttribute($value)
+    {
+        switch ($value) {
+            case 'true': return true;
+            case 'false': return false;
+            default: return $value;
+        }
+    }
+
+    /**
      * @return string
      */
     public function icon()
@@ -36,6 +49,9 @@ class FileProperty extends CiliatusModel
         // TODO: Implement icon() method.
     }
 
+    /**
+     *
+     */
     public function url()
     {
         // TODO: Implement url() method.
