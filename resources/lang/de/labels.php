@@ -66,5 +66,7 @@ return [
     'state'         =>  'Status',
     'actions'       =>  'Aktionen',
     'irrigate'      =>  'Bewässern',
-    'duration'      =>  'Dauer'
+    'duration'      =>  'Dauer',
+    'on'            =>  'An',
+    'off'           =>  'Aus'
 ];

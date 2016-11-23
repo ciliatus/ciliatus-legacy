@@ -70,14 +70,14 @@
                         $('#sensorgraph-terrarium-loading-{{ $terrarium->id }}').hide();
                     },
                     success: function(data) {
-                        g = new Dygraph(
-                                document.getElementById("sensorgraph-terrarium-{{ $terrarium->id }}"),
-                                data.data.csv,
-                                {
-                                    'connectSeparatedPoints': true,
-                                    colors: ['#5555EE', '#CC5555'],
-                                    axisLineColor: '#D4D4D4'
-                                }
+                        var g = new Dygraph(
+                            document.getElementById("sensorgraph-terrarium-{{ $terrarium->id }}"),
+                            data.data.csv,
+                            {
+                                'connectSeparatedPoints': true,
+                                colors: ['#5555EE', '#CC5555'],
+                                axisLineColor: '#D4D4D4'
+                            }
                         );
                         g.ready(function() {
                             $('#sensorgraph-terrarium-loading-{{ $terrarium->id }}').hide();

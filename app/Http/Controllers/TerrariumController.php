@@ -221,7 +221,7 @@ class TerrariumController extends ApiController
 
         $data_csv = 'created_at';
         foreach ($data as $type=>$values) {
-            $data_csv .= ',' . $type;
+            $data_csv .= ',' . trans('labels.' . $type);
         }
 
         foreach ($data_arr as $group) {

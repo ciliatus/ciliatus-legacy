@@ -2,7 +2,9 @@
     <div>
         <div :class="wrapperClasses" v-for="terrarium in terraria">
             <div class="card">
-                <div class="card-image waves-effect waves-block waves-light terrarium-card-image" v-bind:style="'background-image: url(\'' + terrarium.default_background_filepath + '\');'">
+                <div class="card-image waves-effect waves-block waves-light terrarium-card-image"
+                     v-bind:class="terrarium.default_background_filepath ? '' : 'teal darken-1'"
+                     v-bind:style="terrarium.default_background_filepath ? 'background-image: url(\'' + terrarium.default_background_filepath + '\');' : ''">
                     <div>
                         <inline-graph :parentid="terrarium.id" graphtype="humidity_percent" type="line" :options="{'fill': null, 'strokeWidth': '3', 'stroke': '#2196f3', width: '100%', height:'140px', min: 1, max: 99}" :source="'/api/v1/terraria/'+terrarium.id+'/sensorreadingsByType/humidity_percent'"></inline-graph>
                     </div>
@@ -27,6 +29,7 @@
 
                 <div class="card-action">
                     <a v-bind:href="'/terraria/' + terrarium.id">@lang('buttons.details')</a>
+                    <a v-bind:href="'/terraria/' + terrarium.id + '/edit'">@lang('buttons.edit')</a>
                 </div>
 
                 <div class="card-reveal">

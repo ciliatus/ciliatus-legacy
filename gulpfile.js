@@ -15,7 +15,8 @@ require('laravel-elixir-vueify-2.0');
  */
 
 elixir(function(mix) {
-    mix.browserify('echo.js');    
+    mix.browserify('app.js');
+    mix.browserify('echo.js');
     mix.browserify('vue.js');
     mix.sass([
         'materialize.scss'
