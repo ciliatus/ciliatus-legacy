@@ -1,5 +1,10 @@
 @extends('master')
 
+@section('breadcrumbs')
+    <a href="/animals" class="breadcrumb">@choice('components.animals', 2)</a>
+    <a href="/animals/{{ $animal->id }}" class="breadcrumb">{{ $animal->display_name }}</a>
+@stop
+
 @section('content')
     <!-- left col -->
     <div class="col s12 m5 l4 no-padding">
@@ -91,5 +96,16 @@
                 }
             });
         </script>
+    </div>
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large teal">
+            <i class="large material-icons">mode_edit</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating orange" href="/terraria/{{ $animal->id }}/edit"><i class="material-icons">edit</i></a></li>
+            <li><a class="btn-floating red" href="/terraria/{{ $animal->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green" href="/terraria/create"><i class="material-icons">add</i></a></li>
+        </ul>
     </div>
 @stop

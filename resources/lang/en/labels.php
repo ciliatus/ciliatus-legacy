@@ -68,5 +68,8 @@ return [
     'irrigate'      =>  'Irrigate',
     'duration'      =>  'Duration',
     'on'            =>  'On',
-    'off'           =>  'Off'
+    'off'           =>  'Off',
+    'just_fed'      =>  'Just fed',
+    'just_irrigated'=>  'Just irrigated',
+    'add_weight'    =>  'Add weight'
 ];

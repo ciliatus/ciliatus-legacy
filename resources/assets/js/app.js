@@ -1,4 +1,4 @@
-$('form').submit(function (e)
+window.submit_form = function (e)
 {
     e.preventDefault();
     var btns = $('button[type=submit]:enabled');
@@ -63,7 +63,7 @@ $('form').submit(function (e)
             }
         }
     });
-});
+};
 
 var progressHandlingFunction = function(e){
     if (e.lengthComputable){

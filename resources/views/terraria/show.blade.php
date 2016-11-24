@@ -1,5 +1,10 @@
 @extends('master')
 
+@section('breadcrumbs')
+    <a href="/terraria" class="breadcrumb">@choice('components.terraria', 2)</a>
+    <a href="/terraria/{{ $terrarium->id }}" class="breadcrumb">{{ $terrarium->display_name }}</a>
+@stop
+
 @section('content')
     <!-- left col -->
     <div class="col s12 m12 l4 no-padding">
@@ -54,6 +59,17 @@
     <div class="col s12 m12 l6 no-padding">
         <files-widget source-filter="?filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
                       belongs-to_type="Terrarium" belongs-to_id="{{ $terrarium->id }}"></files-widget>
+    </div>
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large teal">
+            <i class="large material-icons">mode_edit</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating orange" href="/terraria/{{ $terrarium->id }}/edit"><i class="material-icons">edit</i></a></li>
+            <li><a class="btn-floating red" href="/terraria/{{ $terrarium->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green" href="/terraria/create"><i class="material-icons">add</i></a></li>
+        </ul>
     </div>
 
     <script>

@@ -68,5 +68,8 @@ return [
     'irrigate'      =>  'Bewässern',
     'duration'      =>  'Dauer',
     'on'            =>  'An',
-    'off'           =>  'Aus'
+    'off'           =>  'Aus',
+    'just_fed'      =>  'Gerade gefüttert',
+    'just_irrigated'=>  'Gerade bewässert',
+    'add_weight'    =>  'Gewicht hinzufügen'
 ];
