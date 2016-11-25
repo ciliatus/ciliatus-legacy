@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Api;
 
 use App\Http\Transformers\AnimalTransformer;
 use App\Animal;
@@ -144,9 +144,9 @@ class AnimalController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $animal = Animal::create();
-        $animal->display_name = $request->input('displayname');
-        $animal->save();
+        $animal = Animal::create([
+            'display_name' => $request->input('display_name')
+        ]);
 
         return $this->setStatusCode(200)->respondWithData(
             [
