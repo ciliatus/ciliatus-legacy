@@ -24,6 +24,7 @@ Route::group(['namespace' => 'Web'], function() {
     Route::get('sensorreadings/{id}/delete', 'SensorreadingController@delete');
     Route::resource('files', 'FileController');
     Route::get('files/{id}/delete', 'FileController@delete');
+    Route::get('files/{id}/download', 'FileController@download');
     Route::resource('file_properties', 'PropertyController');
     Route::get('file_properties/{id}/delete', 'PropertyController@delete');
     Route::resource('critical_states', 'CriticalStateController');

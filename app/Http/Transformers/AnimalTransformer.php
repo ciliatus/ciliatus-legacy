@@ -46,6 +46,14 @@ class AnimalTransformer extends Transformer
             $return['age'] = $item['age'];
         }
 
+        if (isset($item['age_value'])) {
+            $return['age_value'] = $item['age_value'];
+        }
+
+        if (isset($item['age_unit'])) {
+            $return['age_unit'] = $item['age_unit'];
+        }
+
         if (isset($item['gender_icon'])) {
             $return['gender_icon'] = $item['gender_icon'];
         }

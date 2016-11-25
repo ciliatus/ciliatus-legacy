@@ -46,7 +46,9 @@ class AnimalController extends ApiController
             if (!is_null($a->terrarium_id))
                 $a->terrarium_object = $a->terrarium;
 
-            $a->age = $a->getAge();
+            $age = $a->getAge();
+            $a->age_value = $age[0];
+            $a->age_unit = $age[1];
             $a->gender_icon = $a->gender_icon();
 
             $files = $a->files()->with('properties')->get();
@@ -88,7 +90,9 @@ class AnimalController extends ApiController
         if (!is_null($animal->terrarium_id))
             $animal->terrarium_object = $animal->terrarium;
 
-        $animal->age = $animal->getAge();
+        $age = $animal->getAge();
+        $animal->age_value = $age[0];
+        $animal->age_unit = $age[1];
         $animal->gender_icon = $animal->gender_icon();
 
         $files = $animal->files()->with('properties')->get();

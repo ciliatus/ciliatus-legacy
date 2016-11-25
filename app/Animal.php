@@ -144,17 +144,17 @@ class Animal extends CiliatusModel
         else {
             $compare_at = $this->death_date;
         }
-        if ($compare_at->diffInYears($this->birth_date) > 3) {
+        if ($compare_at->diffInYears($this->birth_date) >= 2) {
             $amount = $compare_at->diffInYears($this->birth_date);
-            return $amount . ' ' . trans_choice('units.years', $amount);
+            return [$amount, 'years'];
 
         }
         if ($compare_at->diffInMonths($this->birth_date) > 1) {
             $amount = $compare_at->diffInMonths($this->birth_date);
-            return $amount . ' ' . trans_choice('units.months', $amount);
+            return [$amount, 'months'];
         }
 
         $amount = $compare_at->diffInDays($this->birth_date);
-        return $amount . ' ' . trans_choice('units.days', $amount);
+        return [$amount, 'days'];
     }
 }
