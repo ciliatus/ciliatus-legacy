@@ -9,7 +9,8 @@
 @section('content')
     <div class="col s12 m12 l6">
         <div class="card">
-            <form name="f_edit_terra" action="{{ url('api/v1/terrarium/' . $terrarium->id) }}" data-method="PUT">
+            <form name="f_edit_terra" action="{{ url('api/v1/terraria/' . $terrarium->id) }}" data-method="PUT"
+                data-redirect-success="{{ url('terraria/' . $terrarium->id) }}">
                 <div class="card-content">
 
                     <span class="card-title activator grey-text text-darken-4 truncate">
@@ -26,14 +27,14 @@
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" placeholder="Name" name="name" value="{{ $terrarium->name }}">
+                            <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $terrarium->name }}">
                             <label for="name">@lang('labels.name')</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" placeholder="Friendly Name" name="display_name" value="{{ $terrarium->display_name }}">
+                            <input type="text" placeholder="@lang('labels.display_name')" name="display_name" value="{{ $terrarium->display_name }}">
                             <label for="display_name">@lang('labels.display_name')</label>
                         </div>
                     </div>

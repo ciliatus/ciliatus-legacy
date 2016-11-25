@@ -9,7 +9,8 @@
 @section('content')
     <div class="col s12 m12 l6">
         <div class="card">
-            <form name="f_edit_terra" action="{{ url('api/v1/animals/' . $animal->id) }}" data-method="PUT">
+            <form name="f_edit_terra" action="{{ url('api/v1/animals/' . $animal->id) }}" data-method="PUT"
+                  data-redirect-success="{{ url('terraria/' . $animal->id) }}">
                 <div class="card-content">
 
                     <span class="card-title activator grey-text text-darken-4 truncate">
@@ -73,6 +74,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <select name="terrarium">
+                                <option></option>
                                 @foreach ($terraria as $t)
                                     <option value="{{ $t->id }}" @if($animal->terrarium_id == $t->id)selected="selected"@endif>{{ $t->display_name }}</option>
                                 @endforeach
@@ -114,9 +116,9 @@
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
-            <li><a class="btn-floating teal" href="/terraria/{{ $animal->id }}"><i class="material-icons">info</i></a></li>
-            <li><a class="btn-floating red" href="/terraria/{{ $animal->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green" href="/terraria/create"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating teal" href="/animals/{{ $animal->id }}"><i class="material-icons">info</i></a></li>
+            <li><a class="btn-floating red" href="/animals/{{ $animal->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green" href="/animals/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
 @stop

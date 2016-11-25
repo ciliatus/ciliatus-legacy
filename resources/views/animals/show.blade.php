@@ -103,9 +103,9 @@
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
-            <li><a class="btn-floating orange" href="/terraria/{{ $animal->id }}/edit"><i class="material-icons">edit</i></a></li>
-            <li><a class="btn-floating red" href="/terraria/{{ $animal->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green" href="/terraria/create"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating orange" href="/animals/{{ $animal->id }}/edit"><i class="material-icons">edit</i></a></li>
+            <li><a class="btn-floating red" href="/animals/{{ $animal->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green" href="/animals/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
 @stop
