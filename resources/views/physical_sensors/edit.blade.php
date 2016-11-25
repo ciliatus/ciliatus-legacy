@@ -10,7 +10,7 @@
     <div class="col s12 m12 l6">
         <div class="card">
             <form name="f_edit_terra" action="{{ url('api/v1/physical_sensors/' . $physical_sensor->id) }}" data-method="PUT"
-                  data-redirect-success="{{ url('terraria/' . $physical_sensor->id) }}">
+                  data-redirect-success="{{ url('physical_sensors/' . $physical_sensor->id) }}">
                 <div class="card-content">
 
                     <span class="card-title activator grey-text text-darken-4 truncate">
@@ -29,6 +29,30 @@
                             <div class="input-field col s12">
                                 <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $physical_sensor->name }}">
                                 <label for="name">@lang('labels.name')</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select name="controlunit">
+                                    <option></option>
+                                    @foreach ($controlunits as $c)
+                                        <option value="{{ $c->id }}" @if($physical_sensor->controlunit_id == $c->id)selected="selected"@endif>{{ $c->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="valves">@choice('components.controlunits', 1)</label>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select name="terrarium">
+                                    <option></option>
+                                    @foreach ($terraria as $t)
+                                        <option value="{{ $t->id }}" @if($physical_sensor->belongsTo_id == $t->id && $physical_sensor->belongsTo_type == 'terrarium')selected="selected"@endif>{{ $t->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="valves">@choice('components.terraria', 1)</label>
                             </div>
                         </div>
                     </p>
