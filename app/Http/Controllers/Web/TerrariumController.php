@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\Animal;
 use App\Terrarium;
+use App\Valve;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
