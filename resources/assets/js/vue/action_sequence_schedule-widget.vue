@@ -11,7 +11,7 @@ export default {
     },
 
     props: {
-        assid: {
+        assId: {
             type: String,
             default: '',
             required: false
@@ -75,7 +75,13 @@ export default {
             url: uri,
             method: 'GET',
             success: function (data) {
-                that.action_sequence_schedules = data.data;
+                if (that.assId !== '') {
+                    that.action_sequence_schedules = [data.data];
+                }
+                else {
+                    that.action_sequence_schedules = data.data;
+                }
+
                 window.eventHubVue.processEnded();
             },
             error: function (error) {
