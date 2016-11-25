@@ -104,11 +104,11 @@ class AnimalController extends ApiController
             }
         }
 
-        return $this->setStatusCode(200)->respondWithData([
+        return $this->setStatusCode(200)->respondWithData(
             $this->animalTransformer->transform(
                 $animal->toArray()
             )
-        ]);
+        );
     }
 
 

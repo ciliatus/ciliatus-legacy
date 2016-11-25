@@ -89,12 +89,12 @@ class TerrariumController extends ApiController
         $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : null;
 
         return $this->setStatusCode(200)
-                    ->respondWithData([
+                    ->respondWithData(
                         $this->terrariumTransformer
                              ->transform(
                                  (new TerrariumRepository($terrarium))->show($history_to, $history_minutes)
                                                                       ->toArray())
-                    ]);
+                    );
     }
 
     /**
