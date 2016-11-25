@@ -1,6 +1,6 @@
 <template>
     <div class="card">
-        <div class="card-content light-blue darken-1 white-text">
+        <div class="card-content teal lighten-2 white-text">
             {{ files.length }} {{ $tc("components.files", 2) }}
         </div>
 

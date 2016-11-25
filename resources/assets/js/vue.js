@@ -46,8 +46,13 @@ Object.keys(locales).forEach(function (lang) {
 import InlineGraph from './vue/inline-graph.vue';
 import AnimalsWidget from './vue/animals-widget.vue';
 import TerrariaWidget from './vue/terraria-widget.vue';
+import ControlunitsWidget from './vue/controlunit-widget.vue';
 import FilesWidget from './vue/files-widget.vue';
 import ActionSequenceScheduleWidget from './vue/action_sequence_schedule-widget.vue';
+import PumpsWidget from './vue/pumps-widget.vue';
+import ValvesWidget from './vue/valves-widget.vue';
+import PhysicalSensorsWidget from './vue/physical_sensors-widget.vue';
+import LogicalSensorsWidget from './vue/logical_sensors-widget.vue';
 
 window.bodyVue = new Vue({
 
@@ -82,8 +87,13 @@ window.bodyVue = new Vue({
         'inline-graph': InlineGraph,
         'animals-widget': AnimalsWidget,
         'terraria-widget': TerrariaWidget,
+        'controlunits-widget': ControlunitsWidget,
         'files-widget': FilesWidget,
-        'action_sequence_schedule-widget': ActionSequenceScheduleWidget
+        'action_sequence_schedule-widget': ActionSequenceScheduleWidget,
+        'pumps-widget': PumpsWidget,
+        'valves-widget': ValvesWidget,
+        'physical_sensors-widget': PhysicalSensorsWidget,
+        'logical_sensors-widget': LogicalSensorsWidget
     },
 
     methods: {

@@ -46,10 +46,6 @@ export default {
     },
 
     created: function() {
-        /*$.getJSON(this.source, function(history) {
-            this.data = history.data;
-        }.bind(this));*/
-
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({

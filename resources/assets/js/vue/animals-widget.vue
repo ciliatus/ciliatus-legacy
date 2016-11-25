@@ -143,7 +143,13 @@ export default {
             url: '/api/v1/animals/' + that.animalId,
             method: 'GET',
             success: function (data) {
-                that.animals = data.data;
+                if (that.animalId !== '') {
+                    that.animals = [data.data];
+                }
+                else {
+                    that.animals = data.data;
+                }
+
                 window.eventHubVue.processEnded();
             },
             error: function (error) {

@@ -104,22 +104,12 @@ export default {
             }
             else if (item !== null) {
                 this.terraria.splice(item, 1, t.terrarium);
-                /*
-                this.terraria[item].display_name = t.terrarium.display_name;
-                this.terraria[item].animals = t.terrarium.animals;
-                this.terraria[item].cooked_temperature_celsius = t.terrarium.cooked_temperature_celsius;
-                this.terraria[item].cooked_humidity_percent = t.terrarium.cooked_humidity_percent;
-                this.terraria[item].heartbeat_ok = t.terrarium.heartbeat_ok;
-                this.terraria[item].temperature_ok = t.terrarium.temperature_ok;
-                this.terraria[item].humidity_ok = t.terrarium.humidity_ok;
-                this.terraria[item].state_ok = t.terrarium.state_ok;
-                */
             }
             window.eventHubVue.$emit('TerrariumGraphUpdated', t);
         },
 
         delete: function(t) {
-            if (this.subscribeAdd !== true) {
+            if (this.subscribeDelete !== true) {
                 return;
             }
             var item = null;
@@ -150,7 +140,13 @@ export default {
             url: '/api/v1/terraria/' + that.terrariumId,
             method: 'GET',
             success: function (data) {
-                that.terraria = data.data;
+                if (that.terrariumId !== '') {
+                    that.terraria = [data.data];
+                }
+                else {
+                    that.terraria = data.data;
+                }
+
                 window.eventHubVue.processEnded();
             },
             error: function (error) {
