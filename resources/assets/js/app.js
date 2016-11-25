@@ -5,6 +5,7 @@ window.submit_form = function (e)
     btns.attr('disabled', 'disabled');
     var callback = $(e.target).data('callback');
     var callback_param = $(e.target).data('callback-param');
+    var redirect_success = $(e.target).data('redirect-success')
     /*
      * Fix for empty data when using
      * PUT with FormData
@@ -41,14 +42,20 @@ window.submit_form = function (e)
         success: function(data) {
             btns.removeAttr('disabled');
             notification('Saved', 'teal darken-1 text-white');
-            if ($(e.target).data('redirect-target') != undefined) {
-                window.setTimeout(function() {
-                    window.location.replace($(e.target).data('redirect-target'))
-                }, $(e.target).data('redirect-delay') || 2000);
-            }
 
-            if (callback !== undefined) {
-                domCallbacks[callback](true, callback_param);
+            if (redirect_success !== undefined) {
+                if (redirect_success == 'auto') {
+                    if (data.meta.redirect.uri !== undefined) {
+                        window.setTimeout(function() {
+                            window.location.replace(data.meta.redirect.uri);
+                        }, 1000);
+                    }
+                }
+                else {
+                    window.setTimeout(function() {
+                        window.location.replace(redirect_success);
+                    }, 1000);
+                }
             }
         },
         error: function(data) {
@@ -57,10 +64,6 @@ window.submit_form = function (e)
             if (data.responseJSON !== undefined)
                 msg = data.responseJSON.error.message;
             notification('Error ' + data.status + '<br />' + data.statusText + ':<br />' + msg, 'orange darken-2 text-white');
-
-            if (callback !== undefined) {
-                domCallbacks[callback](false, callback_param);
-            }
         }
     });
 };
