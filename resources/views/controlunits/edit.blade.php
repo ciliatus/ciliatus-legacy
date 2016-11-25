@@ -10,7 +10,7 @@
     <div class="col s12 m12 l6">
         <div class="card">
             <form name="f_edit_terra" action="{{ url('api/v1/controlunits/' . $controlunit->id) }}" data-method="PUT"
-                  data-redirect-success="{{ url('terraria/' . $controlunit->id) }}">
+                  data-redirect-success="{{ url('controlunits/' . $controlunit->id) }}">
                 <div class="card-content">
 
                     <span class="card-title activator grey-text text-darken-4 truncate">

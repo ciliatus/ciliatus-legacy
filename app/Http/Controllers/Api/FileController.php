@@ -75,7 +75,9 @@ class FileController extends ApiController
         }
 
         return $this->setStatusCode(200)->respondWithData(
-            $this->fileTransformer->transform($file->toArray())
+            $this->fileTransformer->transform(
+                $file->toArray()
+            )
         );
     }
 

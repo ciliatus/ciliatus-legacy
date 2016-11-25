@@ -67,7 +67,9 @@ class PropertyController extends ApiController
         }
 
         return $this->setStatusCode(200)->respondWithData(
-            $this->file_propertyTransformer->transform($file_property->toArray())
+            $this->file_propertyTransformer->transform(
+                $file_property->toArray()
+            )
         );
     }
 
