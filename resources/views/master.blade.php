@@ -118,12 +118,6 @@
 
         <main>
             <div class="container">
-
-                @include('graphs_vue')
-                @include('animals.vue.show')
-                @include('terraria.vue.show')
-                @include('files.vue.show')
-
                 <div class="row" id="content">
                     @yield('content')
                 </div>
