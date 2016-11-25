@@ -25,8 +25,8 @@ class PumpTransformer extends Transformer
         $return = [
             'id'    => $item['id'],
             'name' => $item['name'],
-            'controlunit_id' => $item['controlunit_id'],
-            'valve_id' => $item['valve_id'],
+            'controlunit_id' => isset($item['controlunit_id']) ? $item['controlunit_id'] : '',
+            'valve_id' => isset($item['valve_id']) ? $item['valve_id'] : '',
             'timestamps' => [
                 'created' => $item['created_at'],
                 'updated' => $item['updated_at'],
