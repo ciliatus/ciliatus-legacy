@@ -23,6 +23,11 @@ class Animal extends CiliatusModel
     /**
      * @var array
      */
+    protected $fillable = ['display_name'];
+
+    /**
+     * @var array
+     */
     protected  $casts = [
         'notifications_enabled' =>  'boolean'
     ];
