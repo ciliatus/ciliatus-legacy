@@ -7,4 +7,6 @@ return [
     'hours'     =>  'Stunde|Stunden',
     'minutes'   =>  'Minute|Minuten',
     'seconds'   =>  'Sekunde|Sekunden',
+    'temperature_celsius' => '°C',
+    'humidity_percent' => '%',
 ];

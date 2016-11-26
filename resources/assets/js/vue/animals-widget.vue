@@ -52,11 +52,13 @@
 
                     <div class="card-reveal">
                         <span class="card-title grey-text text-darken-4">{{ $tc("components.terraria", 1) }}<i class="material-icons right">close</i></span>
+
                         <p>
                             <a v-if="animal.terrarium" v-bind:href="'/terraria/' + animal.terrarium.id">{{ animal.terrarium.display_name }}</a>
                         </p>
 
                         <span class="card-title grey-text text-darken-4">{{ $t("labels.just_fed") }}</span>
+
                         <p>
                             <a class="waves-effect waves-teal btn" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
                         </p>

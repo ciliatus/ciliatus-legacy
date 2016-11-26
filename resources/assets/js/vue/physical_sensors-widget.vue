@@ -21,9 +21,11 @@
                 </div>
 
                 <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
-                    <p>
+                    <span class="card-title grey-text text-darken-4">{{ $tc("components.logical_sensors", 2) }}</span>
 
+                    <p v-for="logical_sensor in physical_sensor.logical_sensors">
+                        <a v-bind:href="'/logical_sensors/' + logical_sensor.id">{{ logical_sensor.name }}</a>
+                        <i>{{ $t("labels." + logical_sensor.type) }}</i>
                     </p>
                 </div>
             </div>
