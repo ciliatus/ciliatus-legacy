@@ -34,18 +34,17 @@
 
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4">{{ $tc("components.animals", 2) }}<i class="material-icons right">close</i></span>
-                    <p>
-                        <div v-for="animal in terrarium.animals">
-                            <a v-bind:href="'/animals/' + animal.id">{{ animal.display_name }}</a> <i>{{ animal.common_name }}</i>
-                        </div>
 
-                        <span class="card-title grey-text text-darken-4">{{ $tc("components.action_sequence_schedules", 2) }}</span>
-                        <p>
-                        <div v-for="as in terrarium.action_sequences">
-                            <span v-for="ass in as.schedules">
-                                <a v-bind:href="'/action_sequences/' + as.id">{{ as.name }}</a> <i>{{ $t("labels.starts_at") }} {{ ass.timestamps.starts }}</i>
-                            </span>
-                        </div>
+                    <p v-for="animal in terrarium.animals">
+                        <a v-bind:href="'/animals/' + animal.id">{{ animal.display_name }}</a> <i>{{ animal.common_name }}</i>
+                    </p>
+
+                    <span class="card-title grey-text text-darken-4">{{ $tc("components.action_sequence_schedules", 2) }}</span>
+
+                    <p v-for="as in terrarium.action_sequences">
+                        <span v-for="ass in as.schedules">
+                            <a v-bind:href="'/action_sequences/' + as.id">{{ as.name }}</a> <i>{{ $t("labels.starts_at") }} {{ ass.timestamps.starts }}</i>
+                        </span>
                     </p>
                 </div>
             </div>
