@@ -69,6 +69,10 @@ $button-raised-background: $secondary-color !default;
 $button-raised-background-hover: lighten($button-raised-background, 5%) !default;
 $button-raised-color: #fff !default;
 
+// Small buttons
+$button-small-icon-font-size: 1.0rem !default;
+$button-small-height: $button-height * 0.6 !default;
+
 // Large buttons
 $button-large-icon-font-size: 1.6rem !default;
 $button-large-height: $button-height * 1.5 !default;
@@ -82,6 +86,7 @@ $button-floating-background: $secondary-color !default;
 $button-floating-background-hover: $button-floating-background !default;
 $button-floating-color: #fff !default;
 $button-floating-size: 40px !default;
+$button-floating-small-size: 24px !default;
 $button-floating-large-size: 56px !default;
 $button-floating-radius: 50% !default;
 

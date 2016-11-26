@@ -76,7 +76,7 @@ class LogicalSensor extends CiliatusModel
      */
     public function thresholds()
     {
-        return $this->hasMany('App\LogicalSensorThreshold');
+        return $this->hasMany('App\LogicalSensorThreshold')->orderBy('starts_at');
     }
 
     /**

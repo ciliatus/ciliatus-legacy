@@ -36,19 +36,20 @@ class PhysicalSensorController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        $physical_sensors = PhysicalSensor::paginate(10);
+        $physical_sensors = PhysicalSensor::with('logical_sensors');
 
-        return $this->setStatusCode(200)->respondWithPagination(
+        $physical_sensors = $this->filter($request, $physical_sensors)->get();
+
+        return $this->setStatusCode(200)->respondWithData(
             $this->physicalSensorTransformer->transformCollection(
-                $physical_sensors->toArray()['data']
-            ),
-            $physical_sensors
+                $physical_sensors->toArray()
+            )
         );
     }
 
