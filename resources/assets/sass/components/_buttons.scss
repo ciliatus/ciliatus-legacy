@@ -24,6 +24,7 @@
 .btn-flat:disabled,
 .btn[disabled],
 .btn-floating[disabled],
+.btn-small[disabled],
 .btn-large[disabled],
 .btn-flat[disabled] {
   pointer-events: none;
@@ -41,6 +42,7 @@
 // Shared icon styles
 .btn,
 .btn-floating,
+.btn-small,
 .btn-large,
 .btn-flat {
 
@@ -111,6 +113,14 @@
 
   &:before {
     border-radius: 0;
+  }
+
+  &.btn-small {
+    width: $button-floating-small-size;
+    height: $button-floating-small-size;
+    i {
+      line-height: $button-floating-small-size;
+    }
   }
 
   &.btn-large {
@@ -272,6 +282,17 @@ button.btn-floating {
 
   i {
     font-size: $button-large-icon-font-size;
+  }
+}
+
+// Small button
+.btn-small {
+  @extend .btn;
+  height: $button-small-height;
+  line-height: $button-small-height;
+
+  i {
+    font-size: $button-small-icon-font-size;
   }
 }
 
