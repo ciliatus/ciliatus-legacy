@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\PhysicalSensorDeleted;
+use App\Events\PhysicalSensorUpdated;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -57,6 +59,8 @@ class PhysicalSensor extends CiliatusModel
             'action'        => 'delete'
         ]);
 
+        broadcast(new PhysicalSensorDeleted($this));
+
         parent::delete();
     }
 
@@ -76,6 +80,8 @@ class PhysicalSensor extends CiliatusModel
                 'action' => 'update'
             ]);
         }
+
+        broadcast(new PhysicalSensorUpdated($this));
 
         return parent::save($options);
     }

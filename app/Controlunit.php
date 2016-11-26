@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\ControlunitDeleted;
+use App\Events\ControlunitUpdated;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -53,7 +55,23 @@ class Controlunit extends CiliatusModel
             'action'        => 'delete'
         ]);
 
+        broadcast(new ControlunitDeleted($this));
+
         parent::delete();
+    }
+
+
+    /**
+     * @param array $options
+     * @return bool
+     */
+    public function save(array $options = [])
+    {
+        $result = parent::save($options);
+
+        broadcast(new ControlunitUpdated($this));
+
+        return $result;
     }
 
     /**

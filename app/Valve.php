@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\ValveDeleted;
+use App\Events\ValveUpdated;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -47,7 +49,23 @@ class Valve extends CiliatusModel
             'action'        => 'delete'
         ]);
 
+        broadcast(new ValveDeleted($this));
+
         parent::delete();
+    }
+
+
+    /**
+     * @param array $options
+     * @return bool
+     */
+    public function save(array $options = [])
+    {
+        $result = parent::save($options);
+
+        broadcast(new ValveUpdated($this));
+
+        return $result;
     }
 
     /**

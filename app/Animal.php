@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\AnimalDeleted;
 use App\Events\AnimalUpdated;
 use Auth;
 use Carbon\Carbon;
@@ -66,6 +67,8 @@ class Animal extends CiliatusModel
             'target_id'     =>  $this->id,
             'action'        => 'delete'
         ]);
+
+        broadcast(new AnimalDeleted($this));
 
         parent::delete();
     }

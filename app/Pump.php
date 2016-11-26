@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\PumpDeleted;
+use App\Events\PumpUpdated;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -47,7 +49,23 @@ class Pump extends CiliatusModel
             'action'        => 'delete'
         ]);
 
+        broadcast(new PumpDeleted($this));
+
         parent::delete();
+    }
+
+
+    /**
+     * @param array $options
+     * @return bool
+     */
+    public function save(array $options = [])
+    {
+        $result = parent::save($options);
+
+        broadcast(new PumpUpdated($this));
+
+        return $result;
     }
 
     /**

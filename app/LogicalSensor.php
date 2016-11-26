@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\LogicalSensorDeleted;
+use App\Events\LogicalSensorUpdated;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -52,7 +54,23 @@ class LogicalSensor extends CiliatusModel
             'action'        => 'delete'
         ]);
 
+        broadcast(new LogicalSensorDeleted($this));
+
         parent::delete();
+    }
+
+
+    /**
+     * @param array $options
+     * @return bool
+     */
+    public function save(array $options = [])
+    {
+        $result = parent::save($options);
+
+        broadcast(new LogicalSensorUpdated($this));
+
+        return $result;
     }
 
     /**
