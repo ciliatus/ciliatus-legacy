@@ -42,8 +42,8 @@ class ValveTransformer extends Transformer
             $return['terrarium'] = $item['terrarium'];
         }
 
-        if (isset($item['valve'])) {
-            $return['valve'] = $item['valve'];
+        if (isset($item['pump'])) {
+            $return['pump'] = $item['pump'];
         }
 
         return $return;

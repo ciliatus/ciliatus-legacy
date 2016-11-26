@@ -36,19 +36,22 @@ class ValveController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        $valves = Valve::paginate(10);
+        $valves = Valve::with('pump')
+                       ->with('terrarium')
+                       ->with('controlunit');
 
-        return $this->setStatusCode(200)->respondWithPagination(
+        $valves = $this->filter($request, $valves)->get();
+
+        return $this->setStatusCode(200)->respondWithData(
             $this->valveTransformer->transformCollection(
-                $valves->toArray()['data']
-            ),
-            $valves
+                $valves->toArray()
+            )
         );
     }
 
@@ -63,7 +66,10 @@ class ValveController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $valve = Valve::find($id);
+        $valve = Valve::with('pump')
+                        ->with('terrarium')
+                        ->with('controlunit')
+                        ->find($id);
 
         if (!$valve) {
             return $this->respondNotFound('Valve not found');

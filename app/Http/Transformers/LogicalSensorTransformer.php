@@ -33,20 +33,25 @@ class LogicalSensorTransformer extends Transformer
             'rawvalue_upperlimit' => $item['rawvalue_upperlimit'],
             'timestamps' => [
                 'created' => $item['created_at'],
-                'updated' => $item['updated_at'],
+                'updated' => $item['updated_at']
             ]
         ];
 
-        if (isset($item['icon'])) {
-            $return['icon'] = $item['icon'];
+        if (isset($item['thresholds'])) {
+            $return['thresholds'] = (
+                new LogicalSensorThresholdTransformer()
+            )->transformCollection($item['thresholds']);
         }
 
-        if (isset($item['url'])) {
-            $return['url'] = $item['url'];
+        if (isset($item['physical_sensor'])) {
+            $return['physical_sensor'] = (
+                new PhysicalSensorTransformer()
+            )->transform($item['physical_sensor']);
         }
 
-        if (isset($item['current_threshold'])) {
-            $return['current_threshold'] = $item['current_threshold'];
+
+        if (isset($item['current_threshold_id'])) {
+            $return['current_threshold_id'] = $item['current_threshold_id'];
         }
 
         return $return;
