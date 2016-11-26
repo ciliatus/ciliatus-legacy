@@ -121,7 +121,7 @@ class PhysicalSensorController extends ApiController
         }
 
         $physical_sensor = PhysicalSensor::create();
-        $physical_sensor->name = $request->input('sensor_name');
+        $physical_sensor->name = $request->input('name');
         $physical_sensor->save();
 
         return $this->setStatusCode(200)->respondWithData(
@@ -148,13 +148,13 @@ class PhysicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $physical_sensor = PhysicalSensor::find($request->input('sensor_id'));
+        $physical_sensor = PhysicalSensor::find($request->input('id'));
         if (is_null($physical_sensor)) {
             return $this->respondNotFound('PhysicalSensor not found');
         }
 
-        if ($request->has('sensor_controlunit') && strlen($request->input('sensor_controlunit')) > 0) {
-            $controlunit = Controlunit::find($request->input('sensor_controlunit'));
+        if ($request->has('controlunit') && strlen($request->input('controlunit')) > 0) {
+            $controlunit = Controlunit::find($request->input('controlunit'));
             if (is_null($controlunit)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');
             }
@@ -164,10 +164,10 @@ class PhysicalSensorController extends ApiController
             $controlunit_id = null;
         }
 
-        $physical_sensor->name = $request->input('sensor_name');
-        $physical_sensor->model = $request->input('sensor_model');
+        $physical_sensor->name = $request->input('name');
+        $physical_sensor->model = $request->input('model');
         $physical_sensor->belongsTo_type = 'terrarium';
-        $physical_sensor->belongsTo_id = $request->input('sensor_terrarium');
+        $physical_sensor->belongsTo_id = $request->input('terrarium');
         $physical_sensor->controlunit_id = $controlunit_id;
 
         $physical_sensor->save();

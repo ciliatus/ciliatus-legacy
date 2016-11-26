@@ -125,19 +125,8 @@ class LogicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if ($request->has('sensor_controlunit') && strlen($request->input('sensor_controlunit')) > 0) {
-            $controlunit = Controlunit::find($request->input('sensor_controlunit'));
-            if (is_null($controlunit)) {
-                return $this->setStatusCode(422)->respondWithError('Controlunit not found');
-            }
-            $controlunit_id = $controlunit->id;
-        }
-        else {
-            $controlunit_id = null;
-        }
-
         $logical_sensor = LogicalSensor::create();
-        $logical_sensor->name = $request->input('sensor_name');
+        $logical_sensor->name = $request->input('name');
         $logical_sensor->save();
 
         return $this->setStatusCode(200)->respondWithData(
@@ -164,13 +153,13 @@ class LogicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $logical_sensor = LogicalSensor::find($request->input('sensor_id'));
+        $logical_sensor = LogicalSensor::find($request->input('id'));
         if (is_null($logical_sensor)) {
             return $this->respondNotFound('LogicalSensor not found');
         }
 
-        if ($request->has('sensor_physical_sensor') && strlen($request->input('sensor_physical_sensor')) > 0) {
-            $physical_sensor = PhysicalSensor::find($request->input('sensor_physical_sensor'));
+        if ($request->has('physical_sensor') && strlen($request->input('physical_sensor')) > 0) {
+            $physical_sensor = PhysicalSensor::find($request->input('physical_sensor'));
             if (is_null($physical_sensor)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');
             }
@@ -180,10 +169,10 @@ class LogicalSensorController extends ApiController
             $physical_sensor_id = null;
         }
 
-        $logical_sensor->name = $request->input('sensor_name');
-        $logical_sensor->type = $request->input('sensor_type');
-        $logical_sensor->rawvalue_lowerlimit = $request->input('sensor_lowerlimit');
-        $logical_sensor->rawvalue_upperlimit = $request->input('sensor_upperlimit');
+        $logical_sensor->name = $request->input('name');
+        $logical_sensor->type = $request->input('type');
+        $logical_sensor->rawvalue_lowerlimit = $request->input('lowerlimit');
+        $logical_sensor->rawvalue_upperlimit = $request->input('upperlimit');
         $logical_sensor->physical_sensor_id = $physical_sensor_id;
 
         $logical_sensor->save();
