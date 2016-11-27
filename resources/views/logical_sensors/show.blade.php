@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
     <a href="/logical_sensors" class="breadcrumb">@choice('components.logical_sensors', 2)</a>
-    <a href="/logical_sensors/{{ $logical_sensor->id }}" class="breadcrumb">{{ $logical_sensor->display_name }}</a>
+    <a href="/logical_sensors/{{ $logical_sensor->id }}" class="breadcrumb">{{ $logical_sensor->name }}</a>
 @stop
 
 @section('content')

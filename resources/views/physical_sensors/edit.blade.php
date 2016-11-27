@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
 <a href="/physical_sensors" class="breadcrumb">@choice('components.physical_sensors', 2)</a>
-<a href="/physical_sensors/{{ $physical_sensor->id }}" class="breadcrumb">{{ $physical_sensor->display_name }}</a>
+<a href="/physical_sensors/{{ $physical_sensor->id }}" class="breadcrumb">{{ $physical_sensor->name }}</a>
 <a href="/physical_sensors/{{ $physical_sensor->id }}/edit" class="breadcrumb">@lang('buttons.edit')</a>
 @stop
 
@@ -14,7 +14,7 @@
                 <div class="card-content">
 
                     <span class="card-title activator grey-text text-darken-4 truncate">
-                        <span>{{ $physical_sensor->display_name }}</span>
+                        <span>{{ $physical_sensor->name }}</span>
                     </span>
 
                     <p>

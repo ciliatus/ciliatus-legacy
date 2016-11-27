@@ -14,7 +14,7 @@
                 <div class="card-content">
 
                     <span class="card-title activator grey-text text-darken-4 truncate">
-                        <span>{{ $logical_sensor->display_name }}</span>
+                        <span>{{ $logical_sensor->name }}</span>
                     </span>
 
                     <p>

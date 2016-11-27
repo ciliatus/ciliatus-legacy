@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
     <a href="/valves" class="breadcrumb">@choice('components.valves', 2)</a>
-    <a href="/valves/{{ $valve->id }}" class="breadcrumb">{{ $valve->display_name }}</a>
+    <a href="/valves/{{ $valve->id }}" class="breadcrumb">{{ $valve->name }}</a>
 @stop
 
 @section('content')

@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
     <a href="/physical_sensors" class="breadcrumb">@choice('components.physical_sensors', 2)</a>
-    <a href="/physical_sensors/{{ $physical_sensor->id }}" class="breadcrumb">{{ $physical_sensor->display_name }}</a>
+    <a href="/physical_sensors/{{ $physical_sensor->id }}" class="breadcrumb">{{ $physical_sensor->name }}</a>
 @stop
 
 @section('content')
