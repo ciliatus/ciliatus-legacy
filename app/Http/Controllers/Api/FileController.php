@@ -167,16 +167,18 @@ class FileController extends ApiController
         /*
          * Look for optional inputs
          */
-        if ($request->has('belongsTo_type') && $request->has('belongsTo_id')) {
-            $class_name = 'App\\' . $request->input('belongsTo_type');
+        if ($request->has('belongsTo') && $request->input('belongsTo') != '') {
+            $belongsTo_type = explode("|", $request->input('belongsTo'))[0];
+            $belongsTo_id = explode("|", $request->input('belongsTo'))[1];
+            $class_name = 'App\\' . $belongsTo_type;
             if (class_exists($class_name)) {
-                $belongs = $class_name::find($request->input('belongsTo_id'));
+                $belongs = $class_name::find($belongsTo_id);
                 if (is_null($belongs)) {
                     return $this->setStatusCode(422)
                                 ->respondWithError('Model not found');
                 }
 
-                $file->belongsTo_type = $request->input('belongsTo_type');
+                $file->belongsTo_type = $belongsTo_type;
                 $file->belongsTo_id = $belongs->id;
             }
             else {
@@ -206,7 +208,9 @@ class FileController extends ApiController
                         foreach($section as $name=>$value) {
                             if (!is_array($value)) {
                                 $fp = Property::create();
-                                $fp->file_id = $file->id;
+                                $fp->belongsTo_type = 'File';
+                                $fp->belongsTo_id = $file->id;
+                                $fp->type = 'exif';
                                 $fp->name = $key.$name;
                                 $fp->value = $value;
                                 $fp->save();
@@ -225,6 +229,12 @@ class FileController extends ApiController
         return $this->setStatusCode(200)->respondWithData(
             [
                 'id'    =>  $file->id
+            ],
+            [
+                'redirect' => [
+                    'uri'   => url('files/' . $file->id),
+                    'delay' => 100
+                ]
             ]
         );
 

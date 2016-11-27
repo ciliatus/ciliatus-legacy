@@ -77,18 +77,6 @@ class TerrariumRepository extends Repository
         );
 
         /*
-         * @TODO: Create better algorithm to calculate trends
-         *
-         * calculate trends
-         * compares the first value of the last third and the last value
-         * for lack of a better algorithm atm
-         */
-        if (count($temperature_values) > 0)
-            $terrarium->temperature_trend = $temperature_values[count($temperature_values)-1] - $temperature_values[0];
-        if (count($humidity_values) > 0)
-            $terrarium->humidity_trend = $humidity_values[count($humidity_values)-1] - $humidity_values[0];
-
-        /*
          * Find background files
          */
         $files = $terrarium->files()->with('properties')->get();

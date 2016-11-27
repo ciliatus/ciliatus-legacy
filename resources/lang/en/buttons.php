@@ -9,5 +9,6 @@ return [
     'start_setup'=> 'Start Setup',
     'add'       =>  'Add',
     'edit'      =>  'Edit',
-    'details'   =>  'Details'
+    'details'   =>  'Details',
+    'download'  =>  'Download'
 ];

@@ -17,6 +17,7 @@ class CreatePropertiesTable extends Migration
             $table->primary('id');
             $table->string('belongsTo_type');
             $table->uuid('belongsTo_id');
+            $table->string('type')->default('generic');
             $table->string('name');
             $table->string('value');
             $table->timestamps();

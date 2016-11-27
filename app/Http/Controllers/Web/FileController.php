@@ -40,9 +40,17 @@ class FileController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('files.create');
+        $belongTo_Options = [];
+        foreach (File::belongTo_Types() as $t) {
+            $belongTo_Options[$t] = ('App\\' . $t)::get();
+        }
+
+        return view('files.create', [
+            'belongTo_Options' => $belongTo_Options,
+            'preset' => $request->input('preset')
+        ]);
     }
 
     /**
@@ -88,11 +96,8 @@ class FileController extends Controller
             return view('errors.404');
         }
 
-        $physical_sensors = PhysicalSensor::all();
-
         return view('files.edit', [
-            'file'    => $file,
-            'physical_sensors'  => $physical_sensors,
+            'file'    => $file
         ]);
     }
 
