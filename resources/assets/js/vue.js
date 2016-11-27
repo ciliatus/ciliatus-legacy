@@ -94,39 +94,6 @@ window.bodyVue = new Vue({
         'valves-widget': ValvesWidget,
         'physical_sensors-widget': PhysicalSensorsWidget,
         'logical_sensors-widget': LogicalSensorsWidget
-    },
-
-    methods: {
-        addCriticalState: function(cs) {
-            this.$emit('CriticalStateCreated', cs)
-        },
-        removeCriticalState: function(cs) {
-            this.$emit('CriticalStateDeleted', cs)
-        },
-        updateTerrarium: function(t) {
-            this.$emit('TerrariumUpdated', t)
-        },
-        deleteTerrarium: function(t) {
-            this.$emit('TerrariumDeleted', t)
-        },
-        updateAnimal: function(a) {
-            this.$emit('AnimalUpdated', a)
-        },
-        deleteAnimal: function(a) {
-            this.$emit('AnimalDeleted', a)
-        },
-        updateFile: function(a) {
-            this.$emit('FileUpdated', a)
-        },
-        deleteFile: function(a) {
-            this.$emit('FileDeleted', a)
-        },
-        updateActionSequenceSchedule: function(a) {
-            this.$emit('ActionSequenceScheduleUpdated', a)
-        },
-        deleteActionSequenceSchedule: function(a) {
-            this.$emit('ActionSequenceScheduleDeleted', a)
-        }
-
     }
+
 });
