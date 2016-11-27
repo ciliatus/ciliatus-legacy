@@ -36,7 +36,6 @@ var VueI18n = require('vue-i18n');
 var locales = require("./lang.js");
 
 Vue.use(VueI18n);
-Vue.config.lang = 'de';
 
 Object.keys(locales).forEach(function (lang) {
     Vue.locale(lang, locales[lang])

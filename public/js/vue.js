@@ -15137,7 +15137,179 @@ module.exports = {
             'humidity_percent': '%'
         }
     },
-    en: {}
+    en: {
+        buttons: {
+            'next': 'Next',
+            'save': 'Save',
+            'delete': 'Delete',
+            'loadgraph': 'Load graph',
+            'upload': 'Upload',
+            'start_setup': 'Start Setup',
+            'add': 'Add',
+            'edit': 'Edit',
+            'details': 'Details',
+            'download': 'Download'
+        },
+        components: {
+            'terrarium': 'Terrarium|Terraria',
+            'terraria': 'Terrarium|Terraria',
+            'animal': 'Animal|Animals',
+            'animals': 'Animal|Animals',
+            'controlunit': 'Control Unit|Control Units',
+            'controlunits': 'Control Unit|Control Units',
+            'pump': 'Pump|Pumps',
+            'pumps': 'Pump|Pumps',
+            'valve': 'Valve|Valves',
+            'valves': 'Valve|Valves',
+            'physical_sensor': 'Physical Sensor|Physical Sensors',
+            'physical_sensors': 'Physical Sensor|Physical Sensors',
+            'logical_sensor': 'Logical Sensor|Logical Sensors',
+            'logical_sensors': 'Logical Sensor|Logical Sensors',
+            'logical_sensor_threshold': 'Logical Sensor Threshold|Logical Sensor Thresholds',
+            'logical_sensor_thresholds': 'Logical Sensor Threshold|Logical Sensor Thresholds',
+            'file': 'File|Files',
+            'files': 'File|Files',
+            'log': 'System log|System logs',
+            'logs': 'System log|System logs',
+            'action': 'Action|Actions',
+            'actions': 'Action|Actions',
+            'action_sequence': 'Action sequence|Action sequences',
+            'action_sequences': 'Action sequence|Action sequences',
+            'action_sequence_schedule': 'Action sequence schedule|Action sequence schedules',
+            'action_sequence_schedules': 'Action sequence schedule|Action sequence schedules',
+            'admin_panel': 'Admin panel',
+            'admin_panels': 'Admin panel'
+        },
+        errors: {
+            'retrievegraphdata': 'Graphdaten konnten nicht ermittelt werden.'
+        },
+        labels: {
+            'status': 'Status',
+            'health': 'Health',
+            'birth': 'Birth',
+            'gender': 'Gender',
+            'gender_male': 'Male',
+            'gender_female': 'Female',
+            'date_birth': 'Day of birth',
+            'date_death': 'Day of death',
+            'model': 'Model',
+            'type': 'Type',
+            'email': 'E-Mail',
+            'name': 'Name',
+            'display_name': 'Display Name',
+            'common_name': 'Common Name',
+            'latin_name': 'Latin Name',
+            'temperature': 'Temperature',
+            'temperature_celsius': 'Temperature',
+            'humidity': 'Humidity',
+            'humidity_percent': 'Humidity',
+            'heartbeat': 'Heartbeat',
+            'noanimals': 'No Animals',
+            'create': 'Create',
+            'settings': 'Setting|Settings',
+            'notifications': 'Notification|Notifications',
+            'notification_type': 'Notification channel',
+            'details': 'Details',
+            'rawlimitlo': 'Raw value - lower limit',
+            'rawlimithi': 'Raw value - upper limit',
+            'file': 'File',
+            'size': 'Size',
+            'current_value': 'Current value',
+            'created_at': 'Creation',
+            'updated_at': 'Last update',
+            'download': 'Download',
+            'properties': 'Properties',
+            'preview': 'Preview',
+            'source': 'Source',
+            'target': 'Target',
+            'associated_with': 'Associated with',
+            'log': 'Log',
+            'starts_at': 'Starts at',
+            'thresholds': 'Thresholds',
+            'abilities': 'Ability|Abilities',
+            'bugtracker': 'Bugtracker',
+            'wiki': 'Wiki',
+            'auto_nightmode': 'Auto night mode',
+            'permanent_nightmode': 'Permanent night mode',
+            'language': 'Language',
+            'belongsTo_type': 'Belongs to (type)',
+            'belongsTo_id': 'Belongs to (ID)',
+            'belongsTo': 'Belongs to',
+            'doku': 'Documentation',
+            'step': 'Step',
+            'phone_number': 'Phone number',
+            'template': 'Template',
+            'timezone': 'Timezone',
+            'critical': 'Critical',
+            'running': 'Running',
+            'runs_since': 'Running since',
+            'queued': 'Queued',
+            'criticalstates': 'Critical States',
+            'since': 'Since',
+            'state': 'Status',
+            'actions': 'Actions',
+            'irrigate': 'Irrigate',
+            'duration': 'Duration',
+            'on': 'On',
+            'off': 'Off',
+            'just_fed': 'Just fed',
+            'just_irrigated': 'Just irrigated',
+            'add_weight': 'Add weight'
+        },
+        menu: {
+            'welcome': 'Welcome',
+            'dashboard': 'Dashboard',
+            'general': 'General',
+            'administration': 'Administration',
+            'create': 'Create',
+            'edit': 'Edit',
+            'delete': 'Delete',
+            'infrastructure': 'Infrastructure',
+            'help': 'Help',
+            'logout': 'Log out',
+            'animals': 'Animals',
+            'terraria': 'Terraria'
+        },
+        messages: {
+            logical_sensor_thresholds: {
+                'copy_warning': 'All existing thresholds associated with the target sensor will be deleted.'
+            },
+            users: {
+                'setup_telegram_ok': 'Telegram is set up.',
+                'setup_telegram_err': 'Telegram has not yet been set up.',
+                'setup_telegram_description': 'This wizard will guide you through the setup notifications through Telegram'
+            }
+        },
+        tooltips: {
+            'ctrltoselect': 'Ctrl-click to deselect',
+            'active': 'Active',
+            'showondefaultdashboard': 'Show on default dashboard',
+            'autoirrigation': 'Automatic irrigation (if available)',
+            'sendnotificationsfor': 'Send notifications for',
+            'loadandrendergraph': 'Collection data and rendering graph',
+            'disables_option': 'Disables ":option"',
+            'phone_number': 'Mobile number',
+            'contact_bot': 'Contacting the bot',
+            'wait_confirmation': 'Waiting for confirmation',
+            'set_state_to': 'Set state of <b>:target</b> to <b>:state</b> for <b>:minutes minutes</b>',
+            'start_after_started': 'Starts as soon as step <b>:id</b> was started',
+            'start_after_finished': 'Starts as soon as step <b>:id</b> finished',
+            'sendnotifications': 'Send notifications',
+            'no_schedules': 'No schedules',
+            'runonce': 'Run once',
+            'heartbeat_critical': 'Heartbeat is critical!'
+        },
+        units: {
+            'years': 'year|years',
+            'months': 'month|months',
+            'days': 'day|days',
+            'hours': 'hour|hours',
+            'minutes': 'minute|minutes',
+            'seconds': 'second|seconds',
+            'temperature_celsius': '°C',
+            'humidity_percent': '%'
+        }
+    }
 };
 
 },{}],11:[function(require,module,exports){
@@ -15230,7 +15402,6 @@ var VueI18n = require('vue-i18n');
 var locales = require("./lang.js");
 
 Vue.use(VueI18n);
-Vue.config.lang = 'de';
 
 Object.keys(locales).forEach(function (lang) {
     Vue.locale(lang, locales[lang]);

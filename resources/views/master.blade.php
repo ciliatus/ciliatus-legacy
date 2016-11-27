@@ -139,6 +139,8 @@
 
         <script>
             $(document).ready(function() {
+
+                Vue.config.lang = Auth::user()->locale;
                 $('select').material_select();
 
                 $(".button-collapse").sideNav();
