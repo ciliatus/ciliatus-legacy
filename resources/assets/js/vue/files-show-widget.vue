@@ -19,7 +19,6 @@
 
                 <div class="card-action">
                     <a v-bind:href="'/files/' + file.id + '/edit'">{{ $t("buttons.edit") }}</a>
-                    <a v-bind:href="'/files/' + file.id + '/delete'">{{ $t("buttons.delete") }}</a>
                     <a v-bind:href="'/files/' + file.id + '/download'">{{ $t("buttons.download") }}</a>
                 </div>
 
