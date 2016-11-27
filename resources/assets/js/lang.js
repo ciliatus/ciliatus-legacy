@@ -9,7 +9,8 @@ module.exports = {
             'start_setup': 'Setup starten',
             'add': 'Hinzufügen',
             'edit': 'Bearbeiten',
-            'details': 'Details'
+            'details': 'Details',
+            'download':  'Herunterladen'
         },
         components: {
             'terrarium': 'Terrarium | Terraria',
