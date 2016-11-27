@@ -167,25 +167,7 @@ class FileController extends ApiController
         /*
          * Look for optional inputs
          */
-        if ($request->has('belongsTo') && $request->input('belongsTo') != '') {
-            $belongsTo_type = explode("|", $request->input('belongsTo'))[0];
-            $belongsTo_id = explode("|", $request->input('belongsTo'))[1];
-            $class_name = 'App\\' . $belongsTo_type;
-            if (class_exists($class_name)) {
-                $belongs = $class_name::find($belongsTo_id);
-                if (is_null($belongs)) {
-                    return $this->setStatusCode(422)
-                                ->respondWithError('Model not found');
-                }
-
-                $file->belongsTo_type = $belongsTo_type;
-                $file->belongsTo_id = $belongs->id;
-            }
-            else {
-                return $this->setStatusCode(422)
-                            ->respondWithError('Class not found');
-            }
-        }
+        $file = $this->addBelongsTo($request, $file);
 
         /*
          * Move file to storage
@@ -218,6 +200,22 @@ class FileController extends ApiController
                         }
                     }
                 }
+        }
+
+        if ($request->has('use_as_background') && $request->input('use_as_background') == 'On') {
+            if (is_null($file->property('is_default_background'))) {
+                $p = Property::create();
+                $p->belongsTo_type = 'File';
+                $p->belongsTo_id = $file->id;
+                $p->name = 'is_default_background';
+                $p->value = true;
+                $p->save();
+            }
+        }
+        else {
+            foreach ($file->properties()->where('name', 'is_default_background')->get() as $p) {
+                $p->delete();
+            }
         }
 
         $file->display_name = $request->file('file')->getClientOriginalName();
@@ -274,6 +272,22 @@ class FileController extends ApiController
             } else {
                 return $this->setStatusCode(422)
                             ->respondWithError('Class not found');
+            }
+        }
+
+        if ($request->has('use_as_background')) {
+            if (is_null($file->property('is_default_background'))) {
+                $p = Property::create();
+                $p->belongsTo_type = 'File';
+                $p->belongsTo_id = $file->id;
+                $p->name = 'is_default_background';
+                $p->value = true;
+                $p->save();
+            }
+        }
+        else {
+            foreach ($file->properties()->where('name', 'is_default_background')->get() as $p) {
+                $p->delete();
             }
         }
 

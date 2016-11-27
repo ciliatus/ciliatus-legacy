@@ -112,11 +112,11 @@
                                     @endif
                                 </strong>
 
-                                <a class="dropdown-button btn btn-small" href="#" data-activates="dropdown-edit-logical_sensor_thresholds" style="margin-left: 20px">
+                                <a class="dropdown-button btn btn-small" href="#" data-activates="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}" style="margin-left: 20px">
                                     @lang('labels.actions') <i class="material-icons">keyboard_arrow_down</i>
                                 </a>
 
-                                <ul id="dropdown-edit-logical_sensor_thresholds" class="dropdown-content">
+                                <ul id="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}" class="dropdown-content">
                                     <li>
                                         <a href="{{ url('logical_sensor_thresholds/' . $t->id . '/edit') }}">
                                             @lang('buttons.edit')
@@ -131,7 +131,7 @@
                             </div>
                         @endforeach
 
-                        <a class="btn-floating btn-large waves-effect waves-light green right">
+                        <a class="btn-floating btn-large waves-effect waves-light green right" href="/logical_sensor_thresholds/create?preset[belongsTo_type]=LogicalSensor&preset[belongsTo_id]={{ $logical_sensor->id }}">
                             <i class="material-icons">add</i>
                         </a>
 

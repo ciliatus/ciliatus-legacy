@@ -37,12 +37,13 @@ class LogicalSensorThresholdController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $logical_sensors = LogicalSensor::all();
+        $belongTo_Options['LogicalSensor'] = LogicalSensor::get();
 
         return view('logical_sensor_thresholds.create', [
-            'logical_sensors'        => $logical_sensors
+            'belongTo_Options' => $belongTo_Options,
+            'preset' => $request->input('preset')
         ]);
     }
 
@@ -89,11 +90,11 @@ class LogicalSensorThresholdController extends Controller
             return view('errors.404');
         }
 
-        $logical_sensors = LogicalSensor::all();
+        $belongTo_Options['LogicalSensor'] = LogicalSensor::get();
 
         return view('logical_sensor_thresholds.edit', [
-            'logical_sensor_threshold'     => $logical_sensor_threshold,
-            'logical_sensors'        => $logical_sensors
+            'logical_sensor_threshold' => $logical_sensor_threshold,
+            'belongTo_Options' => $belongTo_Options
         ]);
     }
 

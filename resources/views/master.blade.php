@@ -5,6 +5,7 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="/css/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/materialize.clockpicker.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="/css/app.css"  media="screen,projection"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
@@ -104,7 +105,7 @@
                 <li @if(Request::is('users/' . Auth::user()->id . '/edit')) class="active" @endif><a href="{{ url('users/' . Auth::user()->id . '/edit') }}" class="waves-effect waves-teal"><i class="material-icons">settings</i>@choice('labels.settings', 2)</a></li>
                 <li><a href="https://github.com/matthenning/ciliatus/issues" class="waves-effect waves-teal"><i class="material-icons">bug_report</i>@lang('labels.bugtracker')</a></li>
                 <li><a href="https://github.com/matthenning/ciliatus/wiki" class="waves-effect waves-teal"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
-                <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v0.2.1-alpha" class="waves-effect waves-teal"><i class="material-icons">linear_scale</i>Version v0.2.1-alpha</a></li>
+                <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v0.3-alpha" class="waves-effect waves-teal"><i class="material-icons">linear_scale</i>Version v0.3-alpha</a></li>
 
             </ul>
 
@@ -130,6 +131,8 @@
         <script src="{{ url('js/vue.js') }}"></script>
         <!-- Materialize.css -->
         <script src="{{ url('js/materialize.min.js') }}"></script>
+        <!-- Materialize.clockpicker.css -->
+        <script src="{{ url('js/materialize.clockpicker.js') }}"></script>
         <!-- ciliatus -->
         <script src="{{ url('js/app.js') }}"></script>
 

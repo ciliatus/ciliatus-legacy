@@ -160,6 +160,43 @@ class ApiController extends Controller
         return true;
     }
 
+    /**
+     * @param $request
+     * @param $object
+     * @param bool $dynamic
+     * @return \Illuminate\Http\JsonResponse
+     */
+    protected function addBelongsTo($request, $object, $dynamic = true)
+    {
+        if ($request->has('belongsTo') && $request->input('belongsTo') != '') {
+            $belongsTo_type = explode("|", $request->input('belongsTo'))[0];
+            $belongsTo_id = explode("|", $request->input('belongsTo'))[1];
+            $class_name = 'App\\' . $belongsTo_type;
+            if (class_exists($class_name)) {
+                $belongs = $class_name::find($belongsTo_id);
+                if (is_null($belongs)) {
+                    return $this->setStatusCode(422)
+                        ->respondWithError('Model not found');
+                }
+
+                if ($dynamic) {
+                    $object->belongsTo_type = $belongsTo_type;
+                    $object->belongsTo_id = $belongs->id;
+                }
+                else {
+                    $field_name = $this->fromCamelCase($belongsTo_type) . '_id';
+                    $object->$field_name = $belongs->id;
+                }
+            }
+            else {
+                return $this->setStatusCode(422)
+                    ->respondWithError('Class not found');
+            }
+        }
+
+        return $object;
+    }
+
     /*
      * .../?filter[field]=operator:comparison
      * .../?filter[field]=operator
@@ -170,6 +207,11 @@ class ApiController extends Controller
      *
      * special operators:
      * like, notlike, today, nottoday
+     */
+    /**
+     * @param Request $request
+     * @param $query
+     * @return mixed
      */
     protected function filter(Request $request, $query)
     {
@@ -223,6 +265,15 @@ class ApiController extends Controller
     public function checkUuid($uuid)
     {
         return preg_match('/^\{?[A-Za-z0-9]{8}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{4}-[A-Za-z0-9]{12}\}?$/', $uuid);
+    }
+
+    /**
+     * @param $string
+     * @return string
+     */
+    public function fromCamelCase($string)
+    {
+        return strtolower(preg_replace('/(?<!^)[A-Z]/', '_$0', $string));
     }
 
 }
