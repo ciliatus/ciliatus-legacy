@@ -66,22 +66,9 @@
                             <div class="switch">
                                 <label>
                                     @lang('labels.off')
-                                    <input name="active" type="checkbox">
-                                    <span class="lever"></span>
-                                    @lang('labels.on') @lang('labels.active')
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <div class="switch">
-                                <label>
-                                    @lang('labels.off')
                                     <input name="notifications_enabled" type="checkbox" @if($terrarium->notifications_enabled) checked @endif>
                                     <span class="lever"></span>
-                                    @lang('labels.on') @lang('labels.notifications_enabled')
+                                    @lang('labels.on') @lang('tooltips.sendnotifications')
                                 </label>
                             </div>
                         </div>
