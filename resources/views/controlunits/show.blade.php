@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
     <a href="/controlunits" class="breadcrumb">@choice('components.controlunits', 2)</a>
-    <a href="/controlunits/{{ $controlunit->id }}" class="breadcrumb">{{ $controlunit->display_name }}</a>
+    <a href="/controlunits/{{ $controlunit->id }}" class="breadcrumb">{{ $controlunit->name }}</a>
 @stop
 
 @section('content')

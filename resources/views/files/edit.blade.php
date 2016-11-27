@@ -31,6 +31,21 @@
                                 <label for="name">@lang('labels.display_name')</label>
                             </div>
                         </div>
+
+                        @if(explode("/", $file->mimetype)[0] == 'image')
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <div class="switch">
+                                    <label>
+                                        @lang('labels.off')
+                                        <input name="use_as_background" type="checkbox" @if($file->property('is_default_background') == true) checked @endif>
+                                        <span class="lever"></span>
+                                        @lang('labels.on') @lang('labels.use_as_background')
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
                     </p>
 
                 </div>

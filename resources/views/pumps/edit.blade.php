@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
 <a href="/pumps" class="breadcrumb">@choice('components.pumps', 2)</a>
-<a href="/pumps/{{ $pump->id }}" class="breadcrumb">{{ $pump->display_name }}</a>
+<a href="/pumps/{{ $pump->id }}" class="breadcrumb">{{ $pump->name }}</a>
 <a href="/pumps/{{ $pump->id }}/edit" class="breadcrumb">@lang('buttons.edit')</a>
 @stop
 
@@ -14,7 +14,7 @@
                 <div class="card-content">
 
                     <span class="card-title activator grey-text text-darken-4 truncate">
-                        <span>{{ $pump->display_name }}</span>
+                        <span>{{ $pump->name }}</span>
                     </span>
 
                     <p>
