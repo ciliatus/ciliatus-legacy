@@ -37,7 +37,7 @@ class FileTransformer extends Transformer
 
         if (isset($item['properties']) && is_array($item['properties'])) {
             foreach ($item['properties'] as $property) {
-                $return['properties'][$property->name] = $property->value;
+                $return['properties'][$property['name']] = $property['value'];
             }
         }
 

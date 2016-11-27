@@ -22,6 +22,15 @@ class File extends CiliatusModel
     public $incrementing = false;
 
     /**
+     * Models the File can belong to
+     *
+     * @var array
+     */
+    protected static $belongTo_Types = [
+        'Terrarium', 'Animal'
+    ];
+
+    /**
      * @param array $attributes
      * @return CiliatusModel|File
      */
@@ -142,6 +151,9 @@ class File extends CiliatusModel
         );
     }
 
+    /**
+     * @return mixed
+     */
     public function path_external()
     {
         return url('files/' . $this->id . '/download');
@@ -210,5 +222,15 @@ class File extends CiliatusModel
     public function url()
     {
         return url('files/' . $this->id);
+    }
+
+
+
+    /**
+     * @return array
+     */
+    public static function belongTo_Types()
+    {
+        return self::$belongTo_Types;
     }
 }

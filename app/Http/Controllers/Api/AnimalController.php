@@ -34,13 +34,15 @@ class AnimalController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        $animals = Animal::paginate(10);
+        $animals = Animal::with('files');
+
+        $animals = $this->filter($request, $animals)->get();
 
         foreach ($animals as &$a) {
             if (!is_null($a->terrarium_id))
@@ -62,11 +64,10 @@ class AnimalController extends ApiController
         }
 
 
-        return $this->setStatusCode(200)->respondWithPagination(
+        return $this->setStatusCode(200)->respondWithData(
             $this->animalTransformer->transformCollection(
-                $animals->toArray()['data']
-            ),
-            $animals
+                $animals->toArray()
+            )
         );
     }
 

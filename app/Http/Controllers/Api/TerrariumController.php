@@ -63,8 +63,7 @@ class TerrariumController extends ApiController
         return $this->setStatusCode(200)->respondWithData(
             $this->terrariumTransformer->transformCollection(
                 $terraria_repository
-            ),
-            $terraria
+            )
         );
     }
 
