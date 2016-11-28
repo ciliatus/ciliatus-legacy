@@ -44,24 +44,24 @@
                             </div>
                         </div>
 
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <select name="belongsTo">
-                                <option></option>
-                                @foreach ($belongTo_Options as $t=>$objects)
-                                    <optgroup label="@choice('components.' . strtolower($t), 2)">
-                                        @foreach ($objects as $o)
-                                            <option value="{{ $t }}|{{ $o->id }}"
-                                                    @if($physical_sensor->belongsTo_id == $o->id && $physical_sensor->belongsTo_type = $t)
-                                                    selected
-                                                    @endif>@if(is_null($o->display_name)) {{ $o->name }} @else {{ $o->display_name }} @endif</option>
-                                        @endforeach
-                                    </optgroup>
-                                @endforeach
-                            </select>
-                            <label for="valves">@lang('labels.belongsTo')</label>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select name="belongsTo">
+                                    <option></option>
+                                    @foreach ($belongTo_Options as $t=>$objects)
+                                        <optgroup label="@choice('components.' . strtolower($t), 2)">
+                                            @foreach ($objects as $o)
+                                                <option value="{{ $t }}|{{ $o->id }}"
+                                                        @if($physical_sensor->belongsTo_id == $o->id && $physical_sensor->belongsTo_type = $t)
+                                                        selected
+                                                        @endif>@if(is_null($o->display_name)) {{ $o->name }} @else {{ $o->display_name }} @endif</option>
+                                            @endforeach
+                                        </optgroup>
+                                    @endforeach
+                                </select>
+                                <label for="valves">@lang('labels.belongsTo')</label>
+                            </div>
                         </div>
-                    </div>
                     </p>
 
                 </div>
