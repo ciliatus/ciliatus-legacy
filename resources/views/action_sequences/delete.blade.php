@@ -1,41 +1,34 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/terraria" class="breadcrumb">@choice('components.terraria', 2)</a>
-    <a href="/terraria/{{ $terrarium->id }}" class="breadcrumb">{{ $terrarium->display_name }}</a>
-    <a href="/terraria/{{ $terrarium->id }}/delete" class="breadcrumb">@lang('buttons.delete')</a>
+    <a href="/action_sequences" class="breadcrumb">@choice('components.action_sequences', 2)</a>
+    <a href="/action_sequences/{{ $action_sequence->id }}" class="breadcrumb">{{ $action_sequence->name }}</a>
+    <a href="/action_sequences/{{ $action_sequence->id }}/delete" class="breadcrumb">@lang('buttons.delete')</a>
 @stop
 
 @section('content')
     <div class="col s12 m12 l6">
         <div class="card">
-            <form action="{{ url('api/v1/terraria/' . $terrarium->id) }}"
-                  data-method="DELETE" data-redirect-success="{{ url('terraria') }}">
+            <form action="{{ url('api/v1/action_sequences/' . $action_sequence->id) }}"
+                  data-method="DELETE" data-redirect-success="auto">
                 <div class="card-content">
 
                     <span class="card-title activator grey-text text-darken-4 truncate">
-                        <span>{{ $terrarium->display_name }}</span>
+                        <span>{{ $action_sequence->name }}</span>
                     </span>
 
                     <p>
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" readonly placeholder="ID" name="id" value="{{ $terrarium->id }}">
+                            <input type="text" readonly placeholder="ID" name="id" value="{{ $action_sequence->id }}">
                             <label for="id">ID</label>
                         </div>
                     </div>
 
                     <div class="row">
                         <div class="input-field col s12">
-                            <input type="text" placeholder="@lang('labels.name')" readonly name="name" value="{{ $terrarium->name }}">
+                            <input type="text" placeholder="@lang('labels.name')" readonly name="display_name" value="{{ $action_sequence->name }}">
                             <label for="name">@lang('labels.name')</label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" placeholder="@lang('labels.display_name')" readonly name="display_name" value="{{ $terrarium->display_name }}">
-                            <label for="display_name">@lang('labels.display_name')</label>
                         </div>
                     </div>
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\ActionSequence;
 use App\Http\Controllers\Controller;
 use App\ActionSequenceSchedule;
 use Illuminate\Http\Request;
@@ -40,12 +41,13 @@ class ActionSequenceScheduleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $sequences = ActionSequence::all();
 
         return view('action_sequence_schedules.create', [
-            'sequences'        => $sequences
+            'action_sequences'        => $sequences,
+            'preset' => $request->input('preset')
         ]);
     }
 
@@ -87,13 +89,15 @@ class ActionSequenceScheduleController extends Controller
     public function edit($id)
     {
         $action_sequence_schedule = ActionSequenceSchedule::find($id);
+        $sequences = ActionSequence::all();
 
         if (is_null($action_sequence_schedule)) {
             return view('errors.404');
         }
 
         return view('action_sequence_schedules.edit', [
-            'action_sequence_schedule'     => $action_sequence_schedule
+            'action_sequence_schedule'     => $action_sequence_schedule,
+            'action_sequences'        => $sequences
         ]);
     }
 

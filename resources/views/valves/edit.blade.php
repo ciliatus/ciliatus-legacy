@@ -9,7 +9,7 @@
 @section('content')
     <div class="col s12 m12 l6">
         <div class="card">
-            <form name="f_edit_terra" action="{{ url('api/v1/valves/' . $valve->id) }}" data-method="PUT"
+            <form action="{{ url('api/v1/valves/' . $valve->id) }}" data-method="PUT"
                   data-redirect-success="{{ url('valves/' . $valve->id) }}">
                 <div class="card-content">
 

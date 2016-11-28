@@ -8,7 +8,7 @@
 @section('content')
     <div class="col s12 m12 l6">
         <div class="card">
-            <form name="f_edit_terra" action="{{ url('api/v1/terraria') }}" data-method="POST" data-redirect-success="auto">
+            <form action="{{ url('api/v1/terraria') }}" data-method="POST" data-redirect-success="auto">
                 <div class="card-content">
 
                     <div class="row">

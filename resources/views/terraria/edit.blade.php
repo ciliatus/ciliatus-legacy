@@ -9,7 +9,7 @@
 @section('content')
     <div class="col s12 m12 l6">
         <div class="card">
-            <form name="f_edit_terra" action="{{ url('api/v1/terraria/' . $terrarium->id) }}" data-method="PUT"
+            <form action="{{ url('api/v1/terraria/' . $terrarium->id) }}" data-method="PUT"
                 data-redirect-success="{{ url('terraria/' . $terrarium->id) }}">
                 <div class="card-content">
 
@@ -89,6 +89,57 @@
 
                 </div>
             </form>
+        </div>
+    </div>
+
+    <div class="col s12 m12 l6">
+        <div class="card">
+            <div class="card-content">
+
+                <span class="card-title activator grey-text text-darken-4 truncate">
+                    <span>@choice('components.action_sequences', 2)</span>
+                </span>
+
+                <p>
+
+                <div class="row">
+                    @foreach($terrarium->action_sequences as $as)
+                        <div class="input-field col s12">
+
+                            <strong>{{ $as->name }}</strong> <i>{{ $as->duration_minutes }} @choice('units.minutes', $as->duration_minutes)</i>
+
+                            <a class="dropdown-button btn btn-small" href="#" data-activates="dropdown-edit-action_sequences_{{ $as->id }}" style="margin-left: 20px">
+                                @lang('labels.actions') <i class="material-icons">keyboard_arrow_down</i>
+                            </a>
+
+                            <ul id="dropdown-edit-action_sequences_{{ $as->id }}" class="dropdown-content">
+                                <li>
+                                    <a href="{{ url('action_sequences/' . $as->id . '/edit') }}">
+                                        @lang('buttons.edit')
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="{{ url('action_sequences/' . $as->id . '/delete') }}">
+                                        @lang('buttons.delete')
+                                    </a>
+                                </li>
+                            </ul>
+
+                            @foreach ($as->schedules as $ass)
+                                <li>{{ $ass->starts_at }} @if (!$ass->runonce)<i>@lang('labels.daily')</i>@endif</li>
+                            @endforeach
+                        </div>
+                    @endforeach
+
+                    <a class="btn-floating btn-large waves-effect waves-light green right" href="/action_sequences/create?preset[terrarium]={{ $terrarium->id }}">
+                        <i class="material-icons">add</i>
+                    </a>
+
+                </div>
+
+                </p>
+
+            </div>
         </div>
     </div>
 

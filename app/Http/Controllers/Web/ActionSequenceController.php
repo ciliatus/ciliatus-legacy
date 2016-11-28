@@ -42,12 +42,13 @@ class ActionSequenceController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        $schedules = ActionSequenceSchedule::all();
+        $terraria = Terrarium::all();
 
         return view('action_sequences.create', [
-            'schedules'        => $schedules
+            'terraria'        => $terraria,
+            'preset' => $request->input('preset')
         ]);
     }
 

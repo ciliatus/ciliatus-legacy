@@ -101,13 +101,13 @@ class ActionSequenceScheduleController extends ApiController
             return $this->setStatusCode(422)->respondWithError('ActionSequenceSchedule not found');
         }
 
-        $t = $ass->sequence->terrarium;
+        $asid = $ass->sequence->id;
 
         $ass->delete();
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('terraria/' . $t->id . '/edit'),
+                'uri'   => url('action_sequences/' . $asid . '/edit'),
                 'delay' => 1000
             ]
         ]);
@@ -124,17 +124,18 @@ class ActionSequenceScheduleController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if ($request->has('action_sequence_id')) {
-            $a = ActionSequence::find($request->input('action_sequence_id'));
+        if ($request->has('action_sequence')) {
+            $a = ActionSequence::find($request->input('action_sequence'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
             }
         }
 
         $ass = ActionSequenceSchedule::create([
+            'name' => 'ASS_' . $a->name . '_' . Carbon::parse($request->input('starts_at'))->format('H:i:s'),
             'runonce' => $request->input('runonce') == 'on' ? true : false,
             'starts_at' => Carbon::parse($request->input('starts_at'))->format('H:i:s'),
-            'action_sequence_id' => $request->input('action_sequence_id')
+            'action_sequence_id' => $request->input('action_sequence')
         ]);
 
         return $this->setStatusCode(200)->respondWithData(
@@ -143,7 +144,7 @@ class ActionSequenceScheduleController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('terraria/' . $ass->sequence->terrarium_id . '/edit'),
+                    'uri'   => url('action_sequences/' . $ass->sequence->id . '/edit'),
                     'delay' => 100
                 ]
             ]

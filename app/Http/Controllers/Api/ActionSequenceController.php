@@ -82,19 +82,21 @@ class ActionSequenceController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action = ActionSequence::find($id);
-        if (is_null($action)) {
+        $as = ActionSequence::find($id);
+        if (is_null($as)) {
             return $this->setStatusCode(404)->respondWithError('ActionSequence not found');
         }
 
-        $action->delete();
+        $as->delete();
 
-        return $this->setStatusCode(200)->respondWithData([], [
-            'redirect' => [
-                'uri'   => url('/'),
-                'delay' => 2000
+        return $this->setStatusCode(200)->respondWithData([],
+            [
+                'redirect' => [
+                    'uri'   => url('terraria/' . $as->terrarium_id . '/edit'),
+                    'delay' => 1000
+                ]
             ]
-        ]);
+        );
 
     }
 
@@ -110,8 +112,8 @@ class ActionSequenceController extends ApiController
 
         $as = ActionSequence::create();
 
-        if ($request->has('terrarium_id')) {
-            $t = Terrarium::find($request->input('terrarium_id'));
+        if ($request->has('terrarium')) {
+            $t = Terrarium::find($request->input('terrarium'));
             if (is_null($t)) {
                 return $this->setStatusCode(422)->respondWithError('Terrarium not found');
             }
@@ -129,7 +131,7 @@ class ActionSequenceController extends ApiController
 
         $as->name = $name;
         $as->duration_minutes = $request->input('duration_minutes');
-        $as->terrarium_id = $request->input('terrarium_id');
+        $as->terrarium_id = $request->input('terrarium');
         $as->save();
 
         switch ($request->input('template')) {
@@ -199,14 +201,17 @@ class ActionSequenceController extends ApiController
         }
 
         $action_sequence->name = $request->input('name');
+        $action_sequence->duration_minutes = $request->input('duration_minutes');
         $action_sequence->save();
 
-        return $this->setStatusCode(200)->respondWithData([], [
-            'redirect' => [
-                'uri'   => url('terraria/' . $action_sequence->terrarium_id . '/edit'),
-                'delay' => 1000
+        return $this->setStatusCode(200)->respondWithData([],
+            [
+                'redirect' => [
+                    'uri'   => url('terraria/' . $action_sequence->terrarium_id . '/edit'),
+                    'delay' => 1000
+                ]
             ]
-        ]);
+        );
 
     }
 }
