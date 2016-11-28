@@ -116,7 +116,8 @@ module.exports = {
             'off'           :  'Aus',
             'just_fed'      :  'Gerade gefüttert',
             'just_irrigated':  'Gerade bewässert',
-            'add_weight'    :  'Gewicht hinzufügen'
+            'add_weight'    :  'Gewicht hinzufügen',
+            'active'        :  'Aktiv'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -289,7 +290,8 @@ module.exports = {
             'off'           :  'Off',
             'just_fed'      :  'Just fed',
             'just_irrigated':  'Just irrigated',
-            'add_weight'    :  'Add weight'
+            'add_weight'    :  'Add weight',
+            'active'        :  'Active'
         },
         menu: {
             'welcome'       :  'Welcome',

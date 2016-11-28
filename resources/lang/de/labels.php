@@ -71,5 +71,6 @@ return [
     'off'           =>  'Aus',
     'just_fed'      =>  'Gerade gefüttert',
     'just_irrigated'=>  'Gerade bewässert',
-    'add_weight'    =>  'Gewicht hinzufügen'
+    'add_weight'    =>  'Gewicht hinzufügen',
+    'active'        =>  'Aktiv'
 ];
