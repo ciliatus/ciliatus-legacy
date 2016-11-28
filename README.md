@@ -21,6 +21,8 @@ The frontend allows for easy configuration and exporting configs for control uni
 
 # Demo
 
+**We aware:** The demo version pulls it's data from the live version every hour. There will be no realtime dashboard updates
+
 [Demo](https://demo01.ciliatus.io)
 
 * User: demo02@ciliatus.io
