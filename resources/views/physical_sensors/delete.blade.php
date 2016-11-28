@@ -9,7 +9,7 @@
 @section('content')
     <div class="col s12 m12 l6">
         <div class="card">
-            <form name="f_edit_terra" action="{{ url('api/v1/physical_sensors/' . $physical_sensor->id) }}"
+            <form action="{{ url('api/v1/physical_sensors/' . $physical_sensor->id) }}"
                   data-method="DELETE" data-redirect-success="{{ url('physical_sensors') }}">
                 <div class="card-content">
 
