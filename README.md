@@ -25,5 +25,5 @@ The frontend allows for easy configuration and exporting configs for control uni
 
 [Demo](https://demo01.ciliatus.io)
 
-* User: demo02@ciliatus.io
-* Pass: demo02
+* User: demo@ciliatus.io
+* Pass: demo
