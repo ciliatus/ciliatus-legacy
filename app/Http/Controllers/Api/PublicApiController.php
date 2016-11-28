@@ -9,7 +9,7 @@ use Illuminate\Http\Request;
  * Class PublicApiController
  * @package App\Http\Controllers
  */
-class PublicApiController extends Controller
+class PublicApiController extends \App\Http\Controllers\Controller
 {
 
     /**

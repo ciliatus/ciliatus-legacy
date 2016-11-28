@@ -19,6 +19,10 @@
 
     <body data-lang="{{ Auth::user()->locale }}">
 
+        <script>
+            var domCallbacks = [];
+        </script>
+
         <header>
 
             <nav>
@@ -139,15 +143,7 @@
 
         <script>
             $(document).ready(function() {
-                $('select').material_select();
-
-                $(".button-collapse").sideNav();
-
-                var active_headers = $('.collapsible-body ul li.active').parent().parent().parent();
-                active_headers.addClass('active');
-                active_headers.children('.collapsible-body').css('display', 'block');
-
-                $('form').submit(window.submit_form);
+                runPage();
             });
         </script>
 

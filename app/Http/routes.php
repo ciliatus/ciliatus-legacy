@@ -31,6 +31,7 @@ Route::group(['namespace' => 'Web'], function() {
     Route::get('critical_states/{id}/delete', 'CriticalStateController@delete');
     Route::resource('users', 'UserController');
     Route::get('users/{id}/delete', 'UserController@delete');
+    Route::get('users/setup/telegram', 'UserController@setup_Telegram');
     Route::resource('user_settings', 'UserSettingController');
     Route::get('user_settings/{id}/delete', 'UserSettingController@delete');
     Route::resource('actions', 'ActionController');
