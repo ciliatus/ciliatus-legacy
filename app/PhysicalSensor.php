@@ -91,10 +91,7 @@ class PhysicalSensor extends CiliatusModel
      */
     public function terrarium()
     {
-        if ($this->belongsTo_type == 'terrarium')
-            return $this->belongsTo('Terrarium', 'belongsTo_id', 'id');
-
-        return null;
+         return $this->belongsTo('App\Terrarium', 'belongsTo_id', 'id');
     }
 
     /**
