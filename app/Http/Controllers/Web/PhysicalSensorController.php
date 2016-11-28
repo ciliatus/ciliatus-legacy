@@ -38,9 +38,11 @@ class PhysicalSensorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('physical_sensors.create');
+        return view('physical_sensors.create', [
+            'preset' => $request->input('preset')
+        ]);
     }
 
     /**

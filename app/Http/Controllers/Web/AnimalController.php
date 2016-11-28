@@ -43,9 +43,11 @@ class AnimalController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('animals.create');
+        return view('animals.create', [
+            'preset' => $request->input('preset')
+        ]);
     }
 
     /**

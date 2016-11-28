@@ -40,9 +40,11 @@ class ControlunitController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('controlunits.create');
+        return view('controlunits.create', [
+            'preset' => $request->input('preset')
+        ]);
     }
 
     /**

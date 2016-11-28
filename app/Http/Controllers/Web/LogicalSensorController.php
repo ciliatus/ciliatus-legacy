@@ -37,9 +37,11 @@ class LogicalSensorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('logical_sensors.create');
+        return view('logical_sensors.create', [
+            'preset' => $request->input('preset')
+        ]);
     }
 
     /**

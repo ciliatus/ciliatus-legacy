@@ -39,9 +39,11 @@ class ValveController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('valves.create');
+        return view('valves.create', [
+            'preset' => $request->input('preset')
+        ]);
     }
 
     /**

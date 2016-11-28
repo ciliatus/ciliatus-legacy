@@ -42,9 +42,11 @@ class TerrariumController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
-        return view('terraria.create');
+        return view('terraria.create', [
+            'preset' => $request->input('preset')
+        ]);
     }
 
     /**

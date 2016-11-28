@@ -41,12 +41,13 @@ class ActionController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(Request $request)
     {
         $sequences = ActionSequence::all();
 
         return view('actions.create', [
-            'sequences'        => $sequences
+            'sequences'        => $sequences,
+            'preset' => $request->input('preset')
         ]);
     }
 
