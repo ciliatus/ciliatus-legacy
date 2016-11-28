@@ -180,7 +180,7 @@ class ApiController extends Controller
                 }
 
                 if ($dynamic) {
-                    $object->belongsTo_type = $belongsTo_type;
+                    $object->belongsTo_type = ucfirst($belongsTo_type);
                     $object->belongsTo_id = $belongs->id;
                 }
                 else {
