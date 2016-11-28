@@ -37,10 +37,12 @@ var locales = require("./lang.js");
 
 Vue.use(VueI18n);
 
+
+Vue.config.lang = $('body').data('lang');
+
 Object.keys(locales).forEach(function (lang) {
     Vue.locale(lang, locales[lang])
 });
-
 
 import InlineGraph from './vue/inline-graph.vue';
 import AnimalsWidget from './vue/animals-widget.vue';

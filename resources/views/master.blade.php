@@ -17,7 +17,7 @@
         <meta name="csrf-token" content="{{ csrf_token() }}">
     </head>
 
-    <body>
+    <body data-lang="{{ Auth::user()->locale }}">
 
         <header>
 
@@ -139,7 +139,6 @@
 
         <script>
             $(document).ready(function() {
-                Vue.config.lang = '{{ Auth::user()->locale }}';
                 $('select').material_select();
 
                 $(".button-collapse").sideNav();
