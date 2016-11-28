@@ -169,6 +169,7 @@ class PhysicalSensorController extends ApiController
         $physical_sensor->belongsTo_type = 'terrarium';
         $physical_sensor->belongsTo_id = $request->input('terrarium');
         $physical_sensor->controlunit_id = $controlunit_id;
+        $physical_sensor = $this->addBelongsTo($request, $physical_sensor);
 
         $physical_sensor->save();
 

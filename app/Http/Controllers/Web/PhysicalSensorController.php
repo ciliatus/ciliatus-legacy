@@ -89,12 +89,12 @@ class PhysicalSensorController extends Controller
         }
 
         $controlunit = Controlunit::all();
-        $terraria = Terrarium::all();
+        $belongTo_Options['Terrarium'] = Terrarium::get();
 
         return view('physical_sensors.edit', [
             'physical_sensor'   => $physical_sensor,
             'controlunits'      => $controlunit,
-            'terraria'          => $terraria
+            'belongTo_Options'          => $belongTo_Options
         ]);
     }
 
