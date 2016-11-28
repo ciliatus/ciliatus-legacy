@@ -24,7 +24,7 @@ class ActionSequenceSchedule extends CiliatusModel
     public $incrementing = false;
 
     protected $fillable = [
-        'runonce', 'starts_at', 'action_sequence_id'
+        'name', 'runonce', 'starts_at', 'action_sequence_id'
     ];
 
 

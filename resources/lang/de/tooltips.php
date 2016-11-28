@@ -16,5 +16,6 @@ return [
     'start_after_finished'  =>  'Startet wenn Schritt <b>:id</b> beendet wurde',
     'sendnotifications'     =>  'Benachrichtigungen versenden',
     'no_schedules'          =>  'Keine Zeitpläne',
-    'runonce'               =>  'Einmalig'
+    'runonce'               =>  'Einmalig',
+    'heartbeat_critical'    =>  'Heartbeat ist kritisch!'
 ];

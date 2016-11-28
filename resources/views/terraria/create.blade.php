@@ -1,35 +1,37 @@
 @extends('master')
 
+@section('breadcrumbs')
+    <a href="/terraria" class="breadcrumb">@choice('components.terraria', 2)</a>
+    <a href="/terraria/create" class="breadcrumb">@lang('buttons.create')</a>
+@stop
+
 @section('content')
-    <div class="col-md-6 col-xs-12">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2><i class="material-icons">video_label</i> @lang('labels.create') @choice('components.terraria', 1)</h2>
+    <div class="col s12 m12 l6">
+        <div class="card">
+            <form action="{{ url('api/v1/terraria') }}" data-method="POST" data-redirect-success="auto">
+                <div class="card-content">
 
-                <div class="clearfix"></div>
-            </div>
-
-            <div class="x_content">
-                <br />
-                <form class="form-horizontal form-label-left" name="f_create_terra" action="{{ url('api/v1/terraria') }}" data-method="POST">
-
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.display_name')</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="@lang('labels.display_name')" name="display_name" value="">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" placeholder="@lang('labels.display_name')" name="display_name" value="">
+                            <label for="display_name">@lang('labels.display_name')</label>
                         </div>
                     </div>
 
+                </div>
 
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success" name="submit">@lang('buttons.next')</button>
+                <div class="card-action">
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button class="btn waves-effect waves-light" type="submit">@lang('buttons.next')
+                                <i class="material-icons right">send</i>
+                            </button>
                         </div>
                     </div>
 
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 @stop

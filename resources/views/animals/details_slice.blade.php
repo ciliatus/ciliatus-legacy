@@ -1,1 +1,0 @@
-@include('files.dashboard_slice', ['files' => $animal->files])

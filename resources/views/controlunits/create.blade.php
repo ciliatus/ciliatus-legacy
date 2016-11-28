@@ -1,35 +1,37 @@
 @extends('master')
 
+@section('breadcrumbs')
+    <a href="/controlunits" class="breadcrumb">@choice('components.controlunits', 2)</a>
+    <a href="/controlunits/create" class="breadcrumb">@lang('buttons.create')</a>
+@stop
+
 @section('content')
-    <div class="col-md-6 col-xs-12">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2><i class="material-icons">developer_board</i> @lang('labels.create') @choice('components.controlunits', 1)</h2>
+    <div class="col s12 m12 l6">
+        <div class="card">
+            <form action="{{ url('api/v1/controlunits') }}" data-method="POST" data-redirect-success="auto">
+                <div class="card-content">
 
-                <div class="clearfix"></div>
-            </div>
-
-            <div class="x_content">
-                <br />
-                <form class="form-horizontal form-label-left" name="f_create_controlunit" action="{{ url('api/v1/controlunits') }}" data-method="POST">
-
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.name')</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="@lang('labels.name')" name="name" value="">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" placeholder="@lang('labels.name')" name="name" value="">
+                            <label for="name">@lang('labels.name')</label>
                         </div>
                     </div>
 
+                </div>
 
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-success" name="submit">@lang('buttons.save')</button>
+                <div class="card-action">
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button class="btn waves-effect waves-light" type="submit">@lang('buttons.next')
+                                <i class="material-icons right">send</i>
+                            </button>
                         </div>
                     </div>
 
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 @stop

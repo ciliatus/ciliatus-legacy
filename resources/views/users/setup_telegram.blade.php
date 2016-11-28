@@ -1,141 +1,65 @@
 @extends('master')
 
+@section('breadcrumbs')
+    <a href="/users" class="breadcrumb">@choice('components.users', 2)</a>
+    <a href="/users/{{ $user->id }}" class="breadcrumb">{{ $user->name }}</a>
+    <a href="/users/{{ $user->id }}/edit" class="breadcrumb">@lang('buttons.edit')</a>
+    <a href="#" class="breadcrumb">@lang('buttons.setup_telegram')</a>
+@stop
+
 @section('content')
-<div class="col-md-12 col-sm-12 col-xs-12">
-    <div class="x_panel">
-        <div class="x_title">
-            <h2>Telegram Setup</h2>
+    <script>
+        domCallbacks['wizard_wait_for_telegram_contact'] = function(success, data, ld) {
+            ld.cleanupRefs();
+            if (success === true) {
+                ld.stop();
+                $('#loading-indicator').html('<h4><i class="material-icons">check</i></h4>');
+                $('#next-button').removeAttr('disabled');
+            }
+        };
+    </script>
+    <div class="col s12 m12 l6">
+        <div class="card">
+            <form action="{{ url('api/v1/users/' . $user->id) }}" data-method="PUT"
+                  data-redirect-success="{{ url('/') }}">
+                <div class="card-content">
 
-            <div class="clearfix"></div>
-        </div>
-        <div class="x_content">
+                    <span class="card-title activator grey-text text-darken-4 truncate">
+                        <span>@lang('tooltips.contact_bot')</span>
+                    </span>
 
-
-            <!-- Smart Wizard -->
-            <p>@lang('messages.users.setup_telegram_description')</p><br />
-            <div id="wizard" class="form_wizard wizard_horizontal">
-                <ul class="wizard_steps">
-                    <li>
-                        <a href="#step-1">
-                            <span class="step_no">1</span>
-                            <span class="step_descr">
-                                @lang('labels.step') 1<br />
-                                <small>@lang('tooltips.phone_number')</small>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#step-2">
-                            <span class="step_no">2</span>
-                            <span class="step_descr">
-                                @lang('labels.step') 2<br />
-                                <small>@lang('tooltips.wait_confirmation')</small>
-                            </span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#step-3">
-                            <span class="step_no">3</span>
-                            <span class="step_descr">
-                                @lang('labels.step') 3<br />
-                                <small>@lang('tooltips.done')</small>
-                            </span>
-                        </a>
-                    </li>
-                </ul>
-                <div id="step-1" style="padding-top: 40px; height: 200px;">
-                    <form class="form-horizontal form-label-left" name="f_edit_user_telegram-step1" id="f_edit_user_telegram-step1"
-                          data-callback="wizard_validate_step" data-callback-param="1"
-                          action="{{ url('api/v1/user_settings/' . Auth::user()->id) }}" data-method="PUT">
-
-                        <input type="hidden" name="name" value="notifications_telegram_phone_no">
-                        <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">@lang('labels.phone_number')
-                            </label>
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <input type="text" name="value" value="{{ Auth::user()->setting('notifications_telegram_phone_no') }}" required="required" class="form-control col-md-7 col-xs-12">
+                    <div class="row">
+                        <div class="col s12 center"
+                             data-livedata="true" data-livedatainterval="5"
+                             data-livedatasource="{{ url('api/v1/users/' . Auth::user()->id . '/setting/notifications_telegram_chat_id') }}"
+                             data-livedatacallback="wizard_wait_for_telegram_contact">
+                            <span>@lang('messages.users.setup_telegram_description')</span>
+                            <h4 class="text-white">{{ $token }}</h4>
+                            <div id="loading-indicator">
+                                <div class="preloader-wrapper small active">
+                                    <div class="spinner-layer spinner-green-only">
+                                        <div class="circle-clipper left">
+                                            <div class="circle"></div>
+                                        </div><div class="gap-patch">
+                                            <div class="circle"></div>
+                                        </div><div class="circle-clipper right">
+                                            <div class="circle"></div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
-                    </form>
-
-                </div>
-                <div id="step-2" style="padding-top: 40px; height: 200px;">
-                    <div class="text-center" style="padding: 30px;" data-livedata="true" data-livedatainterval="5" data-livedatasource="{{ url('api/v1/users/' . Auth::user()->id . '/setting/notifications_telegram_chat_id') }}" data-livedatacallback="wizard_wait_for_telegram_contact">
-                        <h2><i class="fa fa-spin fa-refresh"></i><br /></h2>
-                        <h4>@lang('messages.user.setup_telegram_waiting_for_contact')</h4>
-                        <h4>{{ $token }}</h4>
-                    </div>
-                </div>
-                <div id="step-3" style="padding-top: 40px; height: 200px;">
-                    <div class="text-center" style="padding: 30px;">
-                        <h2><i class="fa fa-check"></i><br /></h2>
-                        <h4>@lang('messages.user.setup_telegram_waiting_for_contact')</h4>
                     </div>
                 </div>
 
-            </div>
-            <!-- End SmartWizard Content -->
+                <div class="card-action">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <a href="{{ url('users/' . $user->id . '/edit') }}" class="btn waves-effect waves-light teal" disabled id="next-button">@lang('buttons.next')</a>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
-</div>
-<!-- FastClick -->
-{!! Html::script('vendors/fastclick/lib/fastclick.js') !!}
-<!-- NProgress -->
-{!! Html::script('vendors/nprogress/nprogress.js') !!}
-<!-- jQuery Smart Wizard -->
-{!! Html::script('vendors/jQuery-Smart-Wizard/js/jquery.smartWizard.js') !!}
-<script>
-    var waitingForResponse = false;
-
-    function doneStep(stepnumber)
-    {
-        $('#wizard').smartWizard('goForward');
-        waitingForResponse = false;
-    }
-    function errorStep(stepnumber)
-    {
-        waitingForResponse = false;
-    }
-
-    function validateStep(stepnumber)
-    {
-        if (stepnumber == 1) {
-            waitingForResponse = true;
-            console.log($('#f_edit_user_telegram-step1').submit());
-        }
-        if (stepnumber == 2) {
-            $('.buttonNext').remove();
-            return true;
-        }
-        if (stepnumber == 3) {
-            return true;
-        }
-    }
-
-    function leaveAStepCallback(obj, context)
-    {
-        if (waitingForResponse === false)
-            return validateStep(context.fromStep);
-
-        return true;
-    }
-
-    $(function()
-    {
-        $('#wizard').smartWizard({
-            onLeaveStep: leaveAStepCallback,
-            onFinish: function() { window.location.replace('{{ url('users/' . Auth::user()->id . '/edit') }}')},
-            keyNavigation: false,
-            hideButtonsOnDisabled: true
-        });
-
-        $('.buttonNext').addClass('btn btn-success');
-        $('.buttonPrevious').remove(); //addClass('btn btn-primary');
-        $('.buttonFinish').addClass('btn btn-default');
-
-        runPage();
-    })
-</script>
 @stop

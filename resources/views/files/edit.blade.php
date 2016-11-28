@@ -1,62 +1,78 @@
 @extends('master')
 
+@section('breadcrumbs')
+<a href="/files" class="breadcrumb">@choice('components.files', 2)</a>
+<a href="/files/{{ $file->id }}" class="breadcrumb">{{ $file->display_name }}</a>
+<a href="/files/{{ $file->id }}/edit" class="breadcrumb">@lang('buttons.edit')</a>
+@stop
+
 @section('content')
-<div class="col-md-6 col-xs-12">
-    <div class="x_panel">
-        <div class="x_title">
-            <h2><i class="material-icons">description</i> {{ $file->display_name }}</h2>
+    <div class="col s12 m12 l6">
+        <div class="card">
+            <form action="{{ url('api/v1/files/' . $file->id) }}" data-method="PUT"
+                  data-redirect-success="{{ url('files/' . $file->id) }}">
+                <div class="card-content">
 
-            <div class="clearfix"></div>
-        </div>
+                    <span class="card-title activator grey-text text-darken-4 truncate">
+                        <span>{{ $file->display_name }}</span>
+                    </span>
 
-        <div class="x_content">
-            <br />
-            <form class="form-horizontal form-label-left" name="f_edit_file" action="{{ url('api/v1/files/' . $file->id) }}" data-method="PUT">
+                    <p>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $file->id }}">
+                                <label for="id">ID</label>
+                            </div>
+                        </div>
 
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">ID</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly="readonly" placeholder="ID" name="id" value="{{ $file->id }}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.name')</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" placeholder="@lang('labels.name')" name="name" value="{{ $file->name }}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.display_name')</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" placeholder="@lang('labels.display_name')" name="display_name" value="{{ $file->display_name }}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('components.belongsto_type', 1)</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <select class="form-control" name="controlunit">
-                            <option></option>
-                            <option value="Terrarium" @if($file->belongsTo_type == 'Terrarium')selected="selected"@endif>@choice('components.terraria', 1)</option>
-                            <option value="Animal" @if($file->belongsTo_type == 'Animal')selected="selected"@endif>@choice('components.animals', 1)</option>
-                            <option value="Controlunit" @if($file->belongsTo_type == 'Controlunit')selected="selected"@endif>@choice('components.controlunits', 1)</option>
-                            <option value="physical_sensor" @if($file->belongsTo_type == 'physical_sensor')selected="selected"@endif>@choice('components.physical_sensors', 1)</option>
-                            <option value="logical_sensor" @if($file->belongsTo_type == 'logical_sensor')selected="selected"@endif>@choice('components.logical_sensors', 1)</option>
-                            <option value="Pump" @if($file->belongsTo_type == 'Pump')selected="selected"@endif>@choice('components.pumps', 1)</option>
-                            <option value="Valve" @if($file->belongsTo_type == 'Valve')selected="selected"@endif>@choice('components.valves', 1)</option>
-                        </select>
-                    </div>
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <input type="text" placeholder="@lang('labels.display_name')" name="display_name" value="{{ $file->display_name }}">
+                                <label for="name">@lang('labels.display_name')</label>
+                            </div>
+                        </div>
+
+                        @if(explode("/", $file->mimetype)[0] == 'image')
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <div class="switch">
+                                    <label>
+                                        @lang('labels.off')
+                                        <input name="use_as_background" type="checkbox" @if($file->property('is_default_background') == true) checked @endif>
+                                        <span class="lever"></span>
+                                        @lang('labels.on') @lang('labels.use_as_background')
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                        @endif
+                    </p>
+
                 </div>
 
+                <div class="card-action">
 
-                <div class="ln_solid"></div>
-                <div class="form-group">
-                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success" name="submit">@lang('buttons.save')</button>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
                     </div>
-                </div>
 
+                </div>
             </form>
         </div>
     </div>
-</div>
+    
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large teal">
+            <i class="large material-icons">mode_edit</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating teal" href="/files/{{ $file->id }}"><i class="material-icons">info</i></a></li>
+            <li><a class="btn-floating red" href="/files/{{ $file->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green" href="/files/create"><i class="material-icons">add</i></a></li>
+        </ul>
+    </div>
 @stop

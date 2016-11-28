@@ -1,48 +1,51 @@
 @extends('master')
 
+@section('breadcrumbs')
+    <a href="/animals" class="breadcrumb">@choice('components.animals', 2)</a>
+    <a href="/animals/{{ $animal->id }}" class="breadcrumb">{{ $animal->display_name }}</a>
+    <a href="/animals/{{ $animal->id }}/delete" class="breadcrumb">@lang('buttons.delete')</a>
+@stop
+
 @section('content')
-    <div class="col-md-6 col-xs-12">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2><i class="material-icons">pets</i> {{ $animal->display_name }}</h2>
+    <div class="col s12 m12 l6">
+        <div class="card">
+            <form action="{{ url('api/v1/animals/' . $animal->id) }}"
+                  data-method="DELETE" data-redirect-success="{{ url('animals') }}">
+                <div class="card-content">
 
-                <div class="clearfix"></div>
-            </div>
+                    <span class="card-title activator grey-text text-darken-4 truncate">
+                        <span>{{ $animal->display_name }}</span>
+                    </span>
 
-            <div class="x_content">
-                <br />
-                <form class="form-horizontal form-label-left" name="f_delete_animals" action="{{ url('api/v1/animals/' . $animal->id) }}" data-method="DELETE">
-
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">ID</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="ID" name="id" value="{{ $animal->id }}" readonly="readonly">
+                    <p>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" readonly placeholder="ID" name="id" value="{{ $animal->id }}">
+                            <label for="id">ID</label>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.name')</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="@lang('labels.name')" name="name" value="{{ $animal->name }}" readonly="readonly">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" placeholder="@lang('labels.display_name')" readonly name="display_name" value="{{ $animal->display_name }}">
+                            <label for="display_name">@lang('labels.display_name')</label>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.display_name')</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="@lang('labels.display_name')" name="friendlyname" value="{{ $animal->display_name }}" readonly="readonly">
+                </div>
+
+                <div class="card-action">
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button class="btn waves-effect waves-light red" type="submit">@lang('buttons.delete')
+                                <i class="material-icons right">send</i>
+                            </button>
                         </div>
                     </div>
 
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-danger" name="submit">@lang('buttons.delete')</button>
-                        </div>
-                    </div>
-
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 @stop

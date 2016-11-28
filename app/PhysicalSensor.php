@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Events\PhysicalSensorDeleted;
+use App\Events\PhysicalSensorUpdated;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
@@ -57,6 +59,8 @@ class PhysicalSensor extends CiliatusModel
             'action'        => 'delete'
         ]);
 
+        broadcast(new PhysicalSensorDeleted($this));
+
         parent::delete();
     }
 
@@ -77,6 +81,8 @@ class PhysicalSensor extends CiliatusModel
             ]);
         }
 
+        broadcast(new PhysicalSensorUpdated($this));
+
         return parent::save($options);
     }
 
@@ -85,10 +91,7 @@ class PhysicalSensor extends CiliatusModel
      */
     public function terrarium()
     {
-        if ($this->belongsTo_type == 'terrarium')
-            return $this->belongsTo('App\Terrarium', 'belongsTo_id', 'id');
-
-        return null;
+         return $this->belongsTo('App\Terrarium', 'belongsTo_id', 'id');
     }
 
     /**

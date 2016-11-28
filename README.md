@@ -10,9 +10,9 @@ Intelligent terrarium automatisation
 * Automatic irrigation schedules
 * File management for your terraria and animals (photos, etc)
 * RESTful API
-* (automatic) Night theme
+* automatic Night theme (not yet avaiable for material design)
 
-# Screenshots (v0.1-alpha)
+# Screenshots (v0.3-alpha)
 Dashboard
 ![Dashboard](/ciliatus_demo01.png?raw=true)
 

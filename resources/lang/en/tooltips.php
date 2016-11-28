@@ -16,5 +16,6 @@ return [
     'start_after_finished'   =>  'Starts as soon as step <b>:id</b> finished',
     'sendnotifications'     =>  'Send notifications',
     'no_schedules'          =>  'No schedules',
-    'runonce'               =>  'Run once'
+    'runonce'               =>  'Run once',
+    'heartbeat_critical'    =>  'Heartbeat is critical!'
 ];

@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\AnimalDeleted;
 use App\Events\AnimalUpdated;
 use Auth;
 use Carbon\Carbon;
@@ -19,6 +20,11 @@ class Animal extends CiliatusModel
      * @var array
      */
     protected  $dates = ['created_at', 'updated_at', 'birth_date', 'death_date'];
+
+    /**
+     * @var array
+     */
+    protected $fillable = ['display_name'];
 
     /**
      * @var array
@@ -61,6 +67,8 @@ class Animal extends CiliatusModel
             'target_id'     =>  $this->id,
             'action'        => 'delete'
         ]);
+
+        broadcast(new AnimalDeleted($this));
 
         parent::delete();
     }
@@ -139,17 +147,17 @@ class Animal extends CiliatusModel
         else {
             $compare_at = $this->death_date;
         }
-        if ($compare_at->diffInYears($this->birth_date) > 3) {
+        if ($compare_at->diffInYears($this->birth_date) >= 2) {
             $amount = $compare_at->diffInYears($this->birth_date);
-            return $amount . ' ' . trans_choice('units.years', $amount);
+            return [$amount, 'years'];
 
         }
         if ($compare_at->diffInMonths($this->birth_date) > 1) {
             $amount = $compare_at->diffInMonths($this->birth_date);
-            return $amount . ' ' . trans_choice('units.months', $amount);
+            return [$amount, 'months'];
         }
 
         $amount = $compare_at->diffInDays($this->birth_date);
-        return $amount . ' ' . trans_choice('units.days', $amount);
+        return [$amount, 'days'];
     }
 }

@@ -1,111 +1,124 @@
 @extends('master')
 
+@section('breadcrumbs')
+<a href="/animals" class="breadcrumb">@choice('components.animals', 2)</a>
+<a href="/animals/{{ $animal->id }}" class="breadcrumb">{{ $animal->display_name }}</a>
+<a href="/animals/{{ $animal->id }}/edit" class="breadcrumb">@lang('buttons.edit')</a>
+@stop
+
 @section('content')
-<div class="col-md-6 col-xs-12">
-    <div class="x_panel">
-        <div class="x_title">
-            <h2><i class="material-icons">pets</i> {{ $animal->display_name }}</h2>
+    <div class="col s12 m12 l6">
+        <div class="card">
+            <form action="{{ url('api/v1/animals/' . $animal->id) }}" data-method="PUT"
+                  data-redirect-success="{{ url('terraria/' . $animal->id) }}">
+                <div class="card-content">
 
-            <div class="clearfix"></div>
-        </div>
+                    <span class="card-title activator grey-text text-darken-4 truncate">
+                        <span>{{ $animal->display_name }}</span>
+                    </span>
 
-        <div class="x_content">
-            <br />
-            <form class="form-horizontal form-label-left" name="f_edit_animal" action="{{ url('api/v1/animals/' . $animal->id) }}" data-method="PUT">
-
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">ID</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" readonly="readonly" placeholder="ID" name="id" value="{{ $animal->id }}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.display_name')</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" placeholder="@lang('labels.display_name')" name="displayname" value="{{ $animal->display_name }}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.common_name')</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" placeholder="@lang('labels.common_name')" name="commonname" value="{{ $animal->common_name }}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.latin_name')</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control" placeholder="@lang('labels.latin_name')" name="latinname" value="{{ $animal->lat_name }}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.gender')</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <select class="form-control" name="gender">
-                            <option></option>
-                            <option value="male" @if($animal->gender == 'male')selected="selected"@endif>@lang('labels.gender_male')</option>
-                            <option value="female" @if($animal->gender == 'female')selected="selected"@endif>@lang('labels.gender_female')</option>
-                        </select>
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.date_birth')</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control datepicker" placeholder="@lang('labels.date_birth')" name="birthdate" value="{{ $animal->birth_date }}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.date_death')</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <input type="text" class="form-control datepicker" placeholder="@lang('labels.date_death')" name="deathdate" value="{{ $animal->death_date }}">
-                    </div>
-                </div>
-                <div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('components.terraria', 1)</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <select class="form-control" name="terrarium">
-                            <option></option>
-                            @foreach ($terraria as $t)
-                                <option value="{{ $t->id }}" @if($animal->terrarium_id == $t->id)selected="selected"@endif>{{ $t->display_name }}</option>
-                            @endforeach
-                        </select>
-                    </div>
-                </div>
-                <!--<div class="form-group">
-                    <label class="control-label col-md-3 col-sm-3 col-xs-12">@choice('labels.notifications', 2)</label>
-                    <div class="col-md-9 col-sm-9 col-xs-12">
-                        <div class="">
-                            <label>
-                                <input type="checkbox" class="js-switch" name="notifications_enabled" @if($animal->notifications_enabled) checked @endif/> @lang('tooltips.sendnotifications')
-                            </label>
+                    <p>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $animal->id }}">
+                            <label for="id">ID</label>
                         </div>
                     </div>
-                </div>-->
 
-
-                <div class="ln_solid"></div>
-                <div class="form-group">
-                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                        <button type="submit" class="btn btn-success" name="submit">@lang('buttons.save')</button>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" placeholder="@lang('labels.display_name')" name="displayname" value="{{ $animal->display_name }}">
+                            <label for="display_name">@lang('labels.display_name')</label>
+                        </div>
                     </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" placeholder="@lang('labels.common_name')" name="commonname" value="{{ $animal->common_name }}">
+                            <label for="name">@lang('labels.common_name')</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" placeholder="@lang('labels.latin_name')" name="latinname" value="{{ $animal->latin_name }}">
+                            <label for="name">@lang('labels.latin_name')</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="date" class="datepicker" placeholder="@lang('labels.date_birth')" name="birthdate" value="{{ $animal->birth_date }}">
+                            <label for="name">@lang('labels.date_birth')</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="date" class="datepicker" placeholder="@lang('labels.date_death')" name="deathdate" value="{{ $animal->death_date }}">
+                            <label for="name">@lang('labels.date_death')</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select name="gender">
+                                <option></option>
+                                <option value="male" @if($animal->gender == 'male')selected="selected"@endif>@lang('labels.gender_male')</option>
+                                <option value="female" @if($animal->gender == 'female')selected="selected"@endif>@lang('labels.gender_female')</option>
+                            </select>
+                            <label for="name">@lang('labels.gender')</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <select name="terrarium">
+                                <option></option>
+                                @foreach ($terraria as $t)
+                                    <option value="{{ $t->id }}" @if($animal->terrarium_id == $t->id)selected="selected"@endif>{{ $t->display_name }}</option>
+                                @endforeach
+                            </select>
+                            <label for="valves">@choice('components.terraria', 2)</label>
+                        </div>
+                    </div>
+                    </p>
+
                 </div>
 
+                <div class="card-action">
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
             </form>
         </div>
     </div>
-</div>
 
-@include('files.create_slice', [
-    'belongsTo_type'    =>  'Animal',
-    'belongsTo_id'      =>  $animal->id
-])
-
-<script>
-    $(function() {
-        $('.datepicker').datepicker({
-            dateFormat: 'yy-mm-dd',
-            changeMonth: true,
-            changeYear: true
+    <script>
+        $(document).ready(function() {
+            $('.datepicker').pickadate({
+                format: 'yyyy-mm-dd',
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: true // Creates a dropdown of 15 years to control year
+            });
         });
-    });
-</script>
+    </script>
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large teal">
+            <i class="large material-icons">mode_edit</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating teal" href="/animals/{{ $animal->id }}"><i class="material-icons">info</i></a></li>
+            <li><a class="btn-floating red" href="/animals/{{ $animal->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green" href="/animals/create"><i class="material-icons">add</i></a></li>
+        </ul>
+    </div>
 @stop

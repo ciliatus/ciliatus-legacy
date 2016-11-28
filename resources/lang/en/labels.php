@@ -66,5 +66,11 @@ return [
     'state'         =>  'Status',
     'actions'       =>  'Actions',
     'irrigate'      =>  'Irrigate',
-    'duration'      =>  'Duration'
+    'duration'      =>  'Duration',
+    'on'            =>  'On',
+    'off'           =>  'Off',
+    'just_fed'      =>  'Just fed',
+    'just_irrigated'=>  'Just irrigated',
+    'add_weight'    =>  'Add weight',
+    'active'        =>  'Aktiv'
 ];

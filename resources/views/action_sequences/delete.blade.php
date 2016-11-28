@@ -1,42 +1,51 @@
 @extends('master')
 
+@section('breadcrumbs')
+    <a href="/action_sequences" class="breadcrumb">@choice('components.action_sequences', 2)</a>
+    <a href="/action_sequences/{{ $action_sequence->id }}" class="breadcrumb">{{ $action_sequence->name }}</a>
+    <a href="/action_sequences/{{ $action_sequence->id }}/delete" class="breadcrumb">@lang('buttons.delete')</a>
+@stop
+
 @section('content')
-    <div class="col-md-6 col-xs-12">
-        <div class="x_panel">
-            <div class="x_title">
-                <h2><i class="material-icons">description</i> {{ $action_sequence->name }}</h2>
+    <div class="col s12 m12 l6">
+        <div class="card">
+            <form action="{{ url('api/v1/action_sequences/' . $action_sequence->id) }}"
+                  data-method="DELETE" data-redirect-success="auto">
+                <div class="card-content">
 
-                <div class="clearfix"></div>
-            </div>
+                    <span class="card-title activator grey-text text-darken-4 truncate">
+                        <span>{{ $action_sequence->name }}</span>
+                    </span>
 
-            <div class="x_content">
-                <br />
-                <form class="form-horizontal form-label-left" name="f_delete_files" action="{{ url('api/v1/action_sequences/' . $action_sequence->id) }}" data-method="DELETE">
-
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">ID</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="ID" name="id" value="{{ $action_sequence->id }}" readonly="readonly">
+                    <p>
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" readonly placeholder="ID" name="id" value="{{ $action_sequence->id }}">
+                            <label for="id">ID</label>
                         </div>
                     </div>
 
-                    <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">@lang('labels.name')</label>
-                        <div class="col-md-9 col-sm-9 col-xs-12">
-                            <input type="text" class="form-control" placeholder="@lang('labels.name')" name="name" value="{{ $action_sequence->name }}" readonly="readonly">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input type="text" placeholder="@lang('labels.name')" readonly name="display_name" value="{{ $action_sequence->name }}">
+                            <label for="name">@lang('labels.name')</label>
                         </div>
                     </div>
 
+                </div>
 
-                    <div class="ln_solid"></div>
-                    <div class="form-group">
-                        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                            <button type="submit" class="btn btn-danger" name="submit">@lang('buttons.delete')</button>
+                <div class="card-action">
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button class="btn waves-effect waves-light red" type="submit">@lang('buttons.delete')
+                                <i class="material-icons right">send</i>
+                            </button>
                         </div>
                     </div>
 
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
     </div>
 @stop
