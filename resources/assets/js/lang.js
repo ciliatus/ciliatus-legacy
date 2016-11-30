@@ -40,7 +40,9 @@ module.exports = {
             'action_sequence_schedules' :'Aktionssequenz Zeitplan | Aktionssequenz Zeitpläne',
             'action_sequence_schedule' :'Aktionssequenz Zeitplan | Aktionssequenz Zeitpläne',
             'admin_panel' : 'Admin Panel',
-            'admin_panels' : 'Admin Panel'
+            'admin_panels' : 'Admin Panel',
+            'animal_feedings' : 'Fütterung | Fütterungen',
+            'animal_feeding_schedules' : 'Fütterungsplan | Fütterungspläne'
         },
         errors: {
             'retrievegraphdata': 'Could not retrieve graph data.'
@@ -121,9 +123,14 @@ module.exports = {
             'daily'         :  'Täglich',
             'last_feeding'  :  'Letzte Fütterung',
             'crickets'      :  'Heimchen',
-            'mixed_fruits'  :  'Fruchbrei',
+            'mixed_fruits'  :  'Fruchtbrei',
             'beetle_jelly'  :  'BeetleJelly',
-            'today'         :  'Heute'
+            'today'         :  'Heute',
+            'due'           :  'Fällig',
+            'overdue'       :  'Überfällig',
+            'meal_type'     :  'Nahrungsart',
+            'interval_days' :  'Intervall in Tagen',
+            'interval'      :  'Intervall'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -220,7 +227,9 @@ module.exports = {
             'action_sequence_schedule' : 'Action sequence schedule|Action sequence schedules',
             'action_sequence_schedules' : 'Action sequence schedule|Action sequence schedules',
             'admin_panel'   :  'Admin panel',
-            'admin_panels'   :  'Admin panel'
+            'admin_panels'   :  'Admin panel',
+            'animal_feedings' : 'Feeding | Feedings',
+            'animal_feeding_schedules' : 'Feeding schedule | Feeding schedules'
         },
         errors: {
             'retrievegraphdata'     :  'Graphdaten konnten nicht ermittelt werden.'
@@ -303,7 +312,12 @@ module.exports = {
             'crickets'      :  'Crickets',
             'mixed_fruits'  :  'Fruits',
             'beetle_jelly'  :  'BeetleJelly',
-            'today'         :  'Heute'
+            'today'         :  'Today',
+            'due'           :  'Due',
+            'overdue'       :  'Overdue',
+            'meal_type'     :  'Meal type',
+            'interval_days' :  'Interval in days',
+            'interval'      :  'Interval'
         },
         menu: {
             'welcome'       :  'Welcome',

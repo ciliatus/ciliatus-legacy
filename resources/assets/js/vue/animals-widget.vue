@@ -74,9 +74,6 @@
                             <a class="waves-effect waves-teal btn" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
                         </p>
                         <p>
-                            <a class="waves-effect waves-teal btn">{{ $t("labels.just_irrigated") }}</a>
-                        </p>
-                        <p>
                             <a class="waves-effect waves-teal btn">{{ $t("labels.add_weight") }}</a>
                         </p>
                     </div>

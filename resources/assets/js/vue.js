@@ -37,7 +37,7 @@ var locales = require("./lang.js");
 
 Vue.use(VueI18n);
 
-
+console.log('Setting lang to ' + $('body').data('lang'));
 Vue.config.lang = $('body').data('lang');
 
 Object.keys(locales).forEach(function (lang) {
@@ -46,6 +46,8 @@ Object.keys(locales).forEach(function (lang) {
 
 import InlineGraph from './vue/inline-graph.vue';
 import AnimalsWidget from './vue/animals-widget.vue';
+import AnimalFeedingsWidget from './vue/animal_feedings-widget.vue';
+import AnimalFeedingSchedulesWidget from './vue/animal_feeding_schedules-widget.vue';
 import TerrariaWidget from './vue/terraria-widget.vue';
 import ControlunitsWidget from './vue/controlunit-widget.vue';
 import FilesWidget from './vue/files-widget.vue';
@@ -89,6 +91,8 @@ window.bodyVue = new Vue({
         'peity': Peity,
         'inline-graph': InlineGraph,
         'animals-widget': AnimalsWidget,
+        'animal_feedings-widget': AnimalFeedingsWidget,
+        'animal_feeding_schedules-widget': AnimalFeedingSchedulesWidget,
         'terraria-widget': TerrariaWidget,
         'controlunits-widget': ControlunitsWidget,
         'files-widget': FilesWidget,
