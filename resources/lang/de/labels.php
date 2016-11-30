@@ -76,6 +76,11 @@ return [
     'daily'         =>  'Täglich',
     'last_feeding'  =>  'Letzte Fütterung',
     'crickets'      =>  'Heimchen',
-    'mixed_fruits'  =>  'Fruchbrei',
-    'beetle_jelly'  =>  'BeetleJelly'
+    'mixed_fruits'  =>  'Fruchtbrei',
+    'beetle_jelly'  =>  'BeetleJelly',
+    'due'           =>  'Fällig',
+    'overdue'       =>  'Überfällig',
+    'meal_type'     =>  'Nahrungsart',
+    'interval_days' =>  'Intervall in Tagen',
+    'interval'      =>  'Intervall'
 ];

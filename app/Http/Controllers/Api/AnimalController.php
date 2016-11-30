@@ -221,34 +221,4 @@ class AnimalController extends ApiController
 
     }
 
-    /**
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function addFeeding(Request $request, $id)
-    {
-        if (Gate::denies('api-write:animal')) {
-            return $this->respondUnauthorized();
-        }
-
-        $animal = Animal::find($id);
-        if (is_null($animal)) {
-            return $this->setStatusCode(404)->respondWithError('Animal not found');
-        }
-
-        Property::create([
-            'belongsTo_type' => 'Animal',
-            'belongsTo_id' => $animal->id,
-            'type' => 'AnimalFeeding',
-            'name' => $request->input('meal_type'),
-            'value' => $request->has('count') ? $request->input('count') : ''
-        ]);
-
-        $animal->save();
-
-        return $this->respondWithData([]);
-
-    }
-
 }

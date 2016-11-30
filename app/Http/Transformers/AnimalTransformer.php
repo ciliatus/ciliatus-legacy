@@ -76,6 +76,14 @@ class AnimalTransformer extends Transformer
                 ];
         }
 
+        if (isset($item['feedings'])) {
+            $return['feedings'] = (new AnimalFeedingTransformer())->transformCollection($item['feedings']);
+        }
+
+        if (isset($item['feeding_schedules'])) {
+            $return['feeding_schedules'] = (new AnimalFeedingScheduleTransformer())->transformCollection($item['feeding_schedules']);
+        }
+
         return $return;
     }
 }

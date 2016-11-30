@@ -113,6 +113,23 @@ class Animal extends CiliatusModel
     }
 
     /**
+     * @return mixed
+     */
+    public function feedings()
+    {
+        return $this->properties()->where('type', 'AnimalFeeding')
+                                  ->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function feeding_schedules()
+    {
+        return $this->properties()->where('type', 'AnimalFeedingSchedule');
+    }
+
+    /**
      * @return string
      */
     public function icon()
@@ -171,13 +188,16 @@ class Animal extends CiliatusModel
     }
 
     /**
-     *
+     * @param null $type
+     * @return mixed
      */
-    public function last_feeding()
+    public function last_feeding($type = null)
     {
-        return $this->properties()->where('type', 'AnimalFeeding')
-                           ->where('belongsTo_id', $this->id)
-                           ->orderBy('created_at', 'DESC')
-                           ->limit(1)->get()->first();
+        if (is_null($type)) {
+            return $this->feedings()->limit(1)->get()->first();
+        }
+        else {
+            return $this->feedings()->where('name', $type)->limit(1)->get()->first();
+        }
     }
 }
