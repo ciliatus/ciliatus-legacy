@@ -50,6 +50,7 @@ import TerrariaWidget from './vue/terraria-widget.vue';
 import ControlunitsWidget from './vue/controlunit-widget.vue';
 import FilesWidget from './vue/files-widget.vue';
 import FilesShowWidget from './vue/files-show-widget.vue';
+import ActionSequencesWidget from './vue/action_sequences-widget.vue';
 import ActionSequenceScheduleWidget from './vue/action_sequence_schedule-widget.vue';
 import PumpsWidget from './vue/pumps-widget.vue';
 import ValvesWidget from './vue/valves-widget.vue';
@@ -92,6 +93,7 @@ window.bodyVue = new Vue({
         'controlunits-widget': ControlunitsWidget,
         'files-widget': FilesWidget,
         'files-show-widget': FilesShowWidget,
+        'action_sequences-widget': ActionSequencesWidget,
         'action_sequence_schedule-widget': ActionSequenceScheduleWidget,
         'pumps-widget': PumpsWidget,
         'valves-widget': ValvesWidget,
