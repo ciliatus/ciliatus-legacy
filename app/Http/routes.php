@@ -50,6 +50,7 @@ Route::group(['prefix' => 'auth'], function() {
 
 Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
     Route::resource('animals', 'AnimalController');
+    Route::post('animals/{id}/feedings', 'AnimalController@addFeeding');
     Route::resource('terraria', 'TerrariumController');
     Route::get('terraria/{id}/sensorreadings', 'TerrariumController@sensorreadings');
     Route::get('terraria/{id}/sensorreadingsByType/{type}', 'TerrariumController@sensorreadingsByType');

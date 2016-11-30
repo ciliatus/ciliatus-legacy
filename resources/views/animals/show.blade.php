@@ -27,7 +27,7 @@
 
     <div class="col s12 m12 l6 no-padding">
         <div class="card">
-            <div class="card-content light-blue darken-1 white-text">
+            <div class="card-content teal lighten-1 white-text">
                 count @lang('labels.measurement_count')
             </div>
 

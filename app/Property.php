@@ -21,6 +21,14 @@ class Property extends CiliatusModel
     public $incrementing = false;
 
     /**
+     * @var array
+     */
+    protected $fillable = [
+        'belongsTo_type', 'belongsTo_id', 'type',
+        'name', 'value'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function file()

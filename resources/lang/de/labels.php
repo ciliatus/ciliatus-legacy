@@ -72,5 +72,10 @@ return [
     'just_fed'      =>  'Gerade gefüttert',
     'just_irrigated'=>  'Gerade bewässert',
     'add_weight'    =>  'Gewicht hinzufügen',
-    'active'        =>  'Aktiv'
+    'active'        =>  'Aktiv',
+    'daily'         =>  'Täglich',
+    'last_feeding'  =>  'Letzte Fütterung',
+    'crickets'      =>  'Heimchen',
+    'mixed_fruits'  =>  'Fruchbrei',
+    'beetle_jelly'  =>  'BeetleJelly'
 ];

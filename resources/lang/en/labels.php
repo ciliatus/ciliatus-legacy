@@ -72,5 +72,10 @@ return [
     'just_fed'      =>  'Just fed',
     'just_irrigated'=>  'Just irrigated',
     'add_weight'    =>  'Add weight',
-    'active'        =>  'Aktiv'
+    'active'        =>  'Aktiv',
+    'daily'         =>  'Daily',
+    'last_feeding'  =>  'Last feeding',
+    'crickets'      =>  'Crickets',
+    'mixed_fruits'  =>  'Fruits',
+    'beetle_jelly'  =>  'BeetleJelly'
 ];

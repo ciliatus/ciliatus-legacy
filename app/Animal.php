@@ -4,6 +4,7 @@ namespace App;
 
 use App\Events\AnimalDeleted;
 use App\Events\AnimalUpdated;
+use App\Repositories\AnimalRepository;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -82,7 +83,7 @@ class Animal extends CiliatusModel
     {
         $result = parent::save($options);
 
-        broadcast(new AnimalUpdated($this));
+        broadcast(new AnimalUpdated((new AnimalRepository($this))->show()));
 
         return $result;
     }
@@ -101,6 +102,14 @@ class Animal extends CiliatusModel
     public function files()
     {
         return $this->hasMany('App\File', 'belongsTo_id')->where('belongsTo_type', 'Animal');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'Animal');
     }
 
     /**
@@ -159,5 +168,16 @@ class Animal extends CiliatusModel
 
         $amount = $compare_at->diffInDays($this->birth_date);
         return [$amount, 'days'];
+    }
+
+    /**
+     *
+     */
+    public function last_feeding()
+    {
+        return $this->properties()->where('type', 'AnimalFeeding')
+                           ->where('belongsTo_id', $this->id)
+                           ->orderBy('created_at', 'DESC')
+                           ->limit(1)->get()->first();
     }
 }
