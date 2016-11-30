@@ -1,4 +1,4 @@
-# ciliatus
+# Ciliatus
 Ciliatus is an open source intelligent solution to automate your terrarium.
 
 With a realtime dashboard you are always up to date with the current state of your terraria's vitals and get notified in case the thresholds you defined are being breached.
