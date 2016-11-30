@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Http\Transformers\AnimalTransformer;
 use App\Animal;
+use App\Property;
+use App\Repositories\AnimalRepository;
 use App\Terrarium;
 use Carbon\Carbon;
 use Gate;
@@ -45,22 +47,7 @@ class AnimalController extends ApiController
         $animals = $this->filter($request, $animals)->get();
 
         foreach ($animals as &$a) {
-            if (!is_null($a->terrarium_id))
-                $a->terrarium_object = $a->terrarium;
-
-            $age = $a->getAge();
-            $a->age_value = $age[0];
-            $a->age_unit = $age[1];
-            $a->gender_icon = $a->gender_icon();
-
-            $files = $a->files()->with('properties')->get();
-            $a->default_background_filepath = null;
-            foreach ($files as $f) {
-                if ($f->property('is_default_background') == true) {
-                    $a->default_background_filepath = $f->path_external();
-                    break;
-                }
-            }
+            $a = (new AnimalRepository($a))->show();
         }
 
 
@@ -88,22 +75,7 @@ class AnimalController extends ApiController
             return $this->respondNotFound('Animal not found');
         }
 
-        if (!is_null($animal->terrarium_id))
-            $animal->terrarium_object = $animal->terrarium;
-
-        $age = $animal->getAge();
-        $animal->age_value = $age[0];
-        $animal->age_unit = $age[1];
-        $animal->gender_icon = $animal->gender_icon();
-
-        $files = $animal->files()->with('properties')->get();
-        $animal->default_background_filepath = null;
-        foreach ($files as $f) {
-            if ($f->property('is_default_background') == true) {
-                $animal->default_background_filepath = $f->path_external();
-                break;
-            }
-        }
+        $animal = (new AnimalRepository($animal))->show();
 
         return $this->setStatusCode(200)->respondWithData(
             $this->animalTransformer->transform(
@@ -179,7 +151,7 @@ class AnimalController extends ApiController
 
         $animal = Animal::find($request->input('id'));
         if (is_null($animal)) {
-            return $this->setStatusCode(422)->respondWithError('Animal not found');
+            return $this->setStatusCode(404)->respondWithError('Animal not found');
         }
 
         if ($request->has('terrarium') && strlen($request->input('terrarium')) > 0) {

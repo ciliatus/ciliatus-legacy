@@ -72,5 +72,15 @@ return [
     'just_fed'      =>  'Gerade gefüttert',
     'just_irrigated'=>  'Gerade bewässert',
     'add_weight'    =>  'Gewicht hinzufügen',
-    'active'        =>  'Aktiv'
+    'active'        =>  'Aktiv',
+    'daily'         =>  'Täglich',
+    'last_feeding'  =>  'Letzte Fütterung',
+    'crickets'      =>  'Heimchen',
+    'mixed_fruits'  =>  'Fruchtbrei',
+    'beetle_jelly'  =>  'BeetleJelly',
+    'due'           =>  'Fällig',
+    'overdue'       =>  'Überfällig',
+    'meal_type'     =>  'Nahrungsart',
+    'interval_days' =>  'Intervall in Tagen',
+    'interval'      =>  'Intervall'
 ];

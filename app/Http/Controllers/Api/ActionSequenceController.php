@@ -31,19 +31,22 @@ class ActionSequenceController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        $actions = ActionSequence::paginate(10);
+        $actions = $this->filter(
+            $request,
+            ActionSequence::with('schedules')
+                            ->with('terrarium')
+        )->get();
 
-        return $this->setStatusCode(200)->respondWithPagination(
+        return $this->setStatusCode(200)->respondWithData(
             $this->actionTransformer->transformCollection(
-                $actions->toArray()['data']
-            ),
-            $actions
+                $actions->toArray()
+            )
         );
     }
 
