@@ -2,7 +2,7 @@
     <div>
         <div :class="wrapperClasses" v-for="controlunit in controlunits">
             <div class="card">
-                <div class="card-content teal lighten-2 white-text">
+                <div class="card-content teal lighten-1 white-text">
                     {{ $tc("components.controlunits", 2) }}
                 </div>
 

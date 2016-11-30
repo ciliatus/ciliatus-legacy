@@ -2,7 +2,7 @@
     <div>
         <div :class="wrapperClasses" v-for="logical_sensor in logical_sensors">
             <div class="card">
-                <div class="card-content teal lighten-2 white-text">
+                <div class="card-content teal lighten-1 white-text">
                     {{ $tc("components.logical_sensors", 2) }}
                 </div>
 

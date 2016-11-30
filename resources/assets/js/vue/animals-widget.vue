@@ -4,21 +4,21 @@
             <div :class="wrapperClasses">
 
                 <div v-bind:id="'modal_just_fed_' + animal.id" class="modal">
-                    <form v-bind:action="'/api/v1/animals/' + animal.id + '/add_feeding'" data-method="POST" onsubmit="$(this).submit(window.submit_form)">
+                    <form v-bind:action="'/api/v1/animals/' + animal.id + '/feedings'" data-method="POST" v-on:submit="submit">
                         <div class="modal-content">
                             <h4>{{ $t("labels.just_fed") }}</h4>
                             <p>
                                 <select name="meal_type" id="meal_type">
                                     <option value="crickets">{{ $t("labels.crickets") }}</option>
                                     <option value="mixed_fruits">{{ $t("labels.mixed_fruits") }}</option>
-                                    <option value="beatle_jelly">{{ $t("labels.beatle_jelly") }}</option>
+                                    <option value="beetle_jelly">{{ $t("labels.beetle_jelly") }}</option>
                                 </select>
                                 <label for="meal_type">{{ $t("labels.meal_type") }}</label>
                             </p>
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
+                            <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
                                 <i class="material-icons right">send</i>
                             </button>
                         </div>
@@ -27,7 +27,7 @@
 
                 <div class="card">
                     <div class="card-image waves-effect waves-block waves-light terrarium-card-image"
-                         v-bind:class="animal.default_background_filepath ? '' : 'teal darken-1'"
+                         v-bind:class="animal.default_background_filepath ? '' : 'teal lighten-1'"
                          v-bind:style="animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : ''">
                     </div>
 
@@ -37,11 +37,22 @@
                             <i class="material-icons right">more_vert</i>
                         </span>
                         <p>
-                            <span v-show="animal.latin_name">{{ animal.latin_name }}<br /></span>
-                            <span v-show="animal.common_name">{{ animal.common_name }}<br /></span>
+                            <span v-show="animal.latin_name">{{ animal.latin_name }}</span>
+                            <span v-show="animal.common_name && !animal.latin_name">{{ animal.common_name }}</span>
+                            <br />
+
                             <span v-show="animal.birth_date !== null">{{ animal.birth_date }}</span>
                             <span v-show="animal.death_date !== null"> - {{ animal.death_date }}</span>
                             <span v-show="animal.birth_date || animal.death_date"><i>{{ animal.age_value }} {{ $tc("units." + animal.age_unit, animal.age_value) }}</i></span>
+                            <br />
+
+                            <span v-if="animal.last_feeding">
+                                {{ $t("labels.last_feeding") }}
+                                <span v-if="animal.last_feeding.timestamps.diff.value == 0">{{ $t("labels.today") }}</span>
+                                <span v-if="animal.last_feeding.timestamps.diff.value > 0">{{ animal.last_feeding.timestamps.diff.value }} {{ $t("units." + animal.last_feeding.timestamps.diff.unit) }}</span>
+                                <i>{{ $t("labels." + animal.last_feeding.name) }}</i>
+                            </span>
+                            <br />
                         </p>
                     </div>
 
@@ -123,6 +134,10 @@ export default {
             if (item !== null) {
                 this.animals.splice(item, 1);
             }
+        },
+
+        submit: function(e) {
+            window.submit_form(e);
         }
 
     },

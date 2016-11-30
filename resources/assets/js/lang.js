@@ -117,7 +117,13 @@ module.exports = {
             'just_fed'      :  'Gerade gefüttert',
             'just_irrigated':  'Gerade bewässert',
             'add_weight'    :  'Gewicht hinzufügen',
-            'active'        :  'Aktiv'
+            'active'        :  'Aktiv',
+            'daily'         :  'Täglich',
+            'last_feeding'  :  'Letzte Fütterung',
+            'crickets'      :  'Heimchen',
+            'mixed_fruits'  :  'Fruchbrei',
+            'beetle_jelly'  :  'BeetleJelly',
+            'today'         :  'Heute'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -291,7 +297,13 @@ module.exports = {
             'just_fed'      :  'Just fed',
             'just_irrigated':  'Just irrigated',
             'add_weight'    :  'Add weight',
-            'active'        :  'Active'
+            'active'        :  'Active',
+            'daily'         :  'Daily',
+            'last_feeding'  :  'Last feeding',
+            'crickets'      :  'Crickets',
+            'mixed_fruits'  :  'Fruits',
+            'beetle_jelly'  :  'BeetleJelly',
+            'today'         :  'Heute'
         },
         menu: {
             'welcome'       :  'Welcome',
