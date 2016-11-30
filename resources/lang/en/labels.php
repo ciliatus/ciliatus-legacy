@@ -77,5 +77,10 @@ return [
     'last_feeding'  =>  'Last feeding',
     'crickets'      =>  'Crickets',
     'mixed_fruits'  =>  'Fruits',
-    'beetle_jelly'  =>  'BeetleJelly'
+    'beetle_jelly'  =>  'BeetleJelly',
+    'due'           =>  'Due',
+    'overdue'       =>  'Overdue',
+    'meal_type'     =>  'Meal type',
+    'interval_days' =>  'Interval in days',
+    'interval'      =>  'Interval'
 ];

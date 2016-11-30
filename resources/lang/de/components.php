@@ -28,5 +28,7 @@ return [
     'action_sequence_schedules' => 'Aktionssequenz Zeitplan|Aktionssequenz Zeitpläne',
     'action_sequence_schedule' => 'Aktionssequenz Zeitplan|Aktionssequenz Zeitpläne',
     'admin_panel'   =>  'Admin Panel',
-    'admin_panels'   =>  'Admin Panel'
+    'admin_panels'   =>  'Admin Panel',
+    'animal_feedings' => 'Fütterung|Fütterungen',
+    'animal_feeding_schedules' => 'Fütterungsplan|Fütterungspläne'
 ];

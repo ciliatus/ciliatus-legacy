@@ -253,6 +253,10 @@ class ApiController extends Controller
             }
         }
 
+        if ($request->has('limit')) {
+            $query = $query->limit($request->input('limit'));
+        }
+
         return $query;
     }
 

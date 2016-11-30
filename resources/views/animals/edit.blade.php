@@ -10,7 +10,7 @@
     <div class="col s12 m12 l6">
         <div class="card">
             <form action="{{ url('api/v1/animals/' . $animal->id) }}" data-method="PUT"
-                  data-redirect-success="{{ url('terraria/' . $animal->id) }}">
+                  data-redirect-success="{{ url('animals/' . $animal->id . '/edit') }}">
                 <div class="card-content">
 
                     <span class="card-title activator grey-text text-darken-4 truncate">
@@ -100,6 +100,44 @@
             </form>
         </div>
     </div>
+
+    <div class="col s12 m12 l6">
+        <div class="card">
+            <div class="card-content">
+
+                <span class="card-title activator grey-text text-darken-4 truncate">
+                    <span>@choice('components.animal_feeding_schedules', 2)</span>
+                </span>
+
+                    @foreach ($animal->feeding_schedules as $afs)
+                        <p>
+                            @lang('labels.' . $afs->name) - {{ $afs->value }} @choice('units.days', $afs->value) @lang('labels.interval')
+
+                            <a class="dropdown-button btn btn-small" href="#" data-activates="dropdown-edit-animal_feeding_schedules_{{ $afs->id }}" style="margin-left: 20px">
+                                @lang('labels.actions') <i class="material-icons">keyboard_arrow_down</i>
+                            </a>
+                        </p>
+
+                        <ul id="dropdown-edit-animal_feeding_schedules_{{ $afs->id }}" class="dropdown-content">
+                            <li>
+                                <a href="{{ url('animals/' . $animal->id . '/feeding_schedules/' . $afs->id . '/edit') }}">
+                                    @lang('buttons.edit')
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{{ url('animals/' . $animal->id . '/feeding_schedules/' . $afs->id . '/delete') }}">
+                                    @lang('buttons.delete')
+                                </a>
+                            </li>
+                        </ul>
+                    @endforeach
+            </div>
+
+        </div>
+
+    </div>
+
+
 
     <script>
         $(document).ready(function() {
