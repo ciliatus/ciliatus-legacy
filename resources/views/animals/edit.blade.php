@@ -109,6 +109,8 @@
                     <span>@choice('components.animal_feeding_schedules', 2)</span>
                 </span>
 
+                <div class="row">
+
                     @foreach ($animal->feeding_schedules as $afs)
                         <p>
                             @lang('labels.' . $afs->name) - {{ $afs->value }} @choice('units.days', $afs->value) @lang('labels.interval')
@@ -131,6 +133,12 @@
                             </li>
                         </ul>
                     @endforeach
+
+                    <a class="btn-floating btn-large waves-effect waves-light green right" href=" {{ url('/animals/' . $animal->id . '/feeding_schedules/create') }}">
+                        <i class="material-icons">add</i>
+                    </a>
+
+                </div>
             </div>
 
         </div>
