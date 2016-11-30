@@ -62,6 +62,28 @@ class AnimalTransformer extends Transformer
             $return['default_background_filepath'] = $item['default_background_filepath'];
         }
 
+        if (isset($item['last_feeding'])) {
+            $return['last_feeding'] = [
+                    'name' => $item['last_feeding']['name'],
+                    'value' => $item['last_feeding']['value'],
+                    'timestamps' => [
+                        'created' => $item['last_feeding']['created_at'],
+                        'diff'  =>  [
+                            'value' => Carbon::parse($item['last_feeding']['created_at'])->diffInDays(Carbon::now()),
+                            'unit' => 'days'
+                        ]
+                    ]
+                ];
+        }
+
+        if (isset($item['feedings'])) {
+            $return['feedings'] = (new AnimalFeedingTransformer())->transformCollection($item['feedings']);
+        }
+
+        if (isset($item['feeding_schedules'])) {
+            $return['feeding_schedules'] = (new AnimalFeedingScheduleTransformer())->transformCollection($item['feeding_schedules']);
+        }
+
         return $return;
     }
 }

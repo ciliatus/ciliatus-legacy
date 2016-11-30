@@ -1,27 +1,26 @@
 <template>
     <div>
-        <div :class="wrapperClasses" v-for="pump in pumps">
+        <div :class="wrapperClasses">
             <div class="card">
                 <div class="card-content teal lighten-1 white-text">
-                    {{ $tc("components.pumps", 2) }}
+                    {{ $tc("components.animal_feedings", 2) }}
                 </div>
 
                 <div class="card-content">
                     <span class="card-title activator truncate">
-                        <span>{{ pump.name }}</span>
+                        <span>{{ $tc("components.animal_feedings", 2) }}</span>
                         <i class="material-icons right">more_vert</i>
                     </span>
-                </div>
 
-                <div class="card-action">
-                    <a v-bind:href="'/pumps/' + pump.id">{{ $t("buttons.details") }}</a>
-                    <a v-bind:href="'/pumps/' + pump.id + '/edit'">{{ $t("buttons.edit") }}</a>
+                    <div v-for="af in animal_feedings">
+                        <p>{{ af.timestamps.created }} - {{ $t("labels." + af.type) }}</p>
+                    </div>
                 </div>
 
                 <div class="card-reveal">
                     <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
-                    <p>
 
+                    <p>
                     </p>
                 </div>
             </div>
@@ -33,25 +32,14 @@
 export default {
     data () {
         return {
-            pumps: []
+            animal_feedings: []
         }
     },
 
     props: {
-        pumpId: {
+        animalId: {
             type: String,
-            default: '',
-            required: false
-        },
-        subscribeAdd: {
-            type: Boolean,
-            default: true,
-            required: false
-        },
-        subscribeDelete: {
-            type: Boolean,
-            default: true,
-            required: false
+            required: true
         },
         wrapperClasses: {
             type: String,
@@ -61,59 +49,59 @@ export default {
     },
 
     methods: {
-        update: function(cu) {
+        update: function(a) {
             var item = null;
-            this.pumps.forEach(function(data, index) {
-                if (data.id === cu.pump.id) {
+            if (a.animal_feeding.animal.id !== this.animalId) {
+                return;
+            }
+
+            this.animal_feedings.forEach(function(data, index) {
+                if (data.id === a.animal_feeding.id) {
                     item = index;
                 }
             });
-            if (item === null && this.subscribeAdd === true1) {
-                this.pumps.push(cu.pump);
+            if (item === null) {
+                this.animal_feedings.push(a.animal_feeding)
             }
             else if (item !== null) {
-                this.pumps.splice(item, 1, cu.pump);
+                this.animal_feedings.splice(item, 1, a.animal_feeding);
             }
         },
 
-        delete: function(cu) {
-            if (this.subscribeDelete !== true) {
-                return;
-            }
+        delete: function(a) {
             var item = null;
-            this.pumps.forEach(function(data, index) {
-                if (data.id === cu.pump.id) {
+            this.animal_feedings.forEach(function(data, index) {
+                if (data.id === a.animal_feeding.id) {
                     item = index;
                 }
             });
 
             if (item !== null) {
-                this.pumps.splice(item, 1);
+                this.animal_feedings.splice(item, 1);
             }
+        },
+
+        submit: function(e) {
+            window.submit_form(e);
         }
+
     },
 
     created: function() {
         window.echo.private('dashboard-updates')
-                .listen('pumpUpdated', (e) => {
+            .listen('AnimalFeedingUpdated', (e) => {
                 this.update(e);
-        }).listen('pumpDeleted', (e) => {
+            }).listen('AnimalFeedingDeleted', (e) => {
                 this.delete(e);
-        });
+            });
 
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/pumps/' + that.pumpId,
+            url: '/api/v1/animals/' + that.animalId + '/feedings?limit=10',
             method: 'GET',
             success: function (data) {
-                if (that.pumpId !== '') {
-                    that.pumps = [data.data];
-                }
-                else {
-                    that.pumps = data.data;
-                }
-
+                that.animal_feedings = data.data;
                 window.eventHubVue.processEnded();
             },
             error: function (error) {
@@ -122,5 +110,6 @@ export default {
             }
         });
     }
+
 }
 </script>

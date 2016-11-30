@@ -4,6 +4,7 @@ namespace App;
 
 use App\Events\AnimalDeleted;
 use App\Events\AnimalUpdated;
+use App\Repositories\AnimalRepository;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -82,7 +83,7 @@ class Animal extends CiliatusModel
     {
         $result = parent::save($options);
 
-        broadcast(new AnimalUpdated($this));
+        broadcast(new AnimalUpdated((new AnimalRepository($this))->show()));
 
         return $result;
     }
@@ -101,6 +102,31 @@ class Animal extends CiliatusModel
     public function files()
     {
         return $this->hasMany('App\File', 'belongsTo_id')->where('belongsTo_type', 'Animal');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'Animal');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function feedings()
+    {
+        return $this->properties()->where('type', 'AnimalFeeding')
+                                  ->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function feeding_schedules()
+    {
+        return $this->properties()->where('type', 'AnimalFeedingSchedule');
     }
 
     /**
@@ -159,5 +185,19 @@ class Animal extends CiliatusModel
 
         $amount = $compare_at->diffInDays($this->birth_date);
         return [$amount, 'days'];
+    }
+
+    /**
+     * @param null $type
+     * @return mixed
+     */
+    public function last_feeding($type = null)
+    {
+        if (is_null($type)) {
+            return $this->feedings()->limit(1)->get()->first();
+        }
+        else {
+            return $this->feedings()->where('name', $type)->limit(1)->get()->first();
+        }
     }
 }

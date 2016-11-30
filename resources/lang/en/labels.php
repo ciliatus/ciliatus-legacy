@@ -72,5 +72,15 @@ return [
     'just_fed'      =>  'Just fed',
     'just_irrigated'=>  'Just irrigated',
     'add_weight'    =>  'Add weight',
-    'active'        =>  'Aktiv'
+    'active'        =>  'Aktiv',
+    'daily'         =>  'Daily',
+    'last_feeding'  =>  'Last feeding',
+    'crickets'      =>  'Crickets',
+    'mixed_fruits'  =>  'Fruits',
+    'beetle_jelly'  =>  'BeetleJelly',
+    'due'           =>  'Due',
+    'overdue'       =>  'Overdue',
+    'meal_type'     =>  'Meal type',
+    'interval_days' =>  'Interval in days',
+    'interval'      =>  'Interval'
 ];

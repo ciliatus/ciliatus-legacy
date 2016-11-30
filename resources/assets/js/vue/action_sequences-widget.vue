@@ -1,25 +1,22 @@
 <template>
+
     <div class="card">
         <div class="card-content teal lighten-1 white-text">
-            {{ files.length }} {{ $tc("components.files", 2) }}
+            {{ action_sequences.length }} {{ $tc("components.action_sequences", 2) }}
         </div>
 
         <div class="card-content">
             <span class="card-title activator truncate">
-                <span>{{ $tc("components.files", 2) }}</span>
+                <span>{{ $tc("components.action_sequences", 2) }}</span>
                 <i class="material-icons right">more_vert</i>
             </span>
-            <p>
-                <div class="chip" v-for="file in files">
-                    <i class="material-icons">insert_drive_file</i>
-                    <a v-bind:href="'/files/' + file.id">{{ file.display_name }}</a> <i>{{ (file.size / 1024 / 1024).toFixed(2) }} MB</i>
-                </div>
-            </p>
-        </div>
 
-        <div class="card-action">
-            <a v-bind:href="'/files/create?preset[belongsTo_type]=' + belongsTo_type + '&preset[belongsTo_id]=' + belongsTo_id">{{ $t("buttons.add") }}</a>
-            <a v-bind:href="'/files/?filter[belongsTo_type]=' + belongsTo_type + '&filter[belongsTo_id]=' + belongsTo_id">{{ $t("buttons.details") }}</a>
+            <div v-for="as in action_sequences">
+                <p><strong>{{ as.name }}</strong> <i>{{ as.duration_minutes }} {{ $tc("units.minutes", as.duration_minutes) }}</i></p>
+
+                <p v-for="ass in as.schedules"><i class="material-icons">subdirectory_arrow_right</i> {{ ass.timestamps.starts }} <i v-show="!ass.runonce">{{ $t("labels.daily") }}</i></p>
+            </div>
+
         </div>
 
         <div class="card-reveal">
@@ -28,6 +25,7 @@
 
             </p>
         </div>
+
     </div>
 </template>
 
@@ -36,27 +34,17 @@ export default {
 
     data () {
         return {
-            files: []
+            action_sequences: []
         }
     },
 
     props: {
-        fileId: {
+        action_sequenceId: {
             type: String,
             default: '',
             required: false
         },
         sourceFilter: {
-            type: String,
-            default: '',
-            required: false
-        },
-        belongsTo_type: {
-            type: String,
-            default: '',
-            required: false
-        },
-        belongsTo_id: {
             type: String,
             default: '',
             required: false
@@ -66,29 +54,29 @@ export default {
     methods: {
         update: function(a) {
             var item = null;
-            this.files.forEach(function(data, index) {
-                if (data.id === a.file.id) {
+            this.action_sequences.forEach(function(data, index) {
+                if (data.id === a.action_sequence.id) {
                     item = index;
                 }
             });
             if (item === null) {
-                this.files.push(a.animal)
+                this.action_sequences.push(a.animal)
             }
             else if (item !== null) {
-                this.files.splice(item, 1, a.animal);
+                this.action_sequences.splice(item, 1, a.animal);
             }
         },
 
         delete: function(a) {
             var item = null;
-            this.files.forEach(function(data, index) {
-                if (data.id === a.files.id) {
+            this.action_sequences.forEach(function(data, index) {
+                if (data.id === a.action_sequences.id) {
                     item = index;
                 }
             });
 
             if (item !== null) {
-                this.files.splice(item, 1);
+                this.action_sequences.splice(item, 1);
             }
         }
 
@@ -96,23 +84,23 @@ export default {
 
     created: function() {
         window.echo.private('dashboard-updates')
-            .listen('FileUpdated', (e) => {
+            .listen('action_sequenceUpdated', (e) => {
                 this.update(e);
-            }).listen('FileDeleted', (e) => {
+            }).listen('action_sequenceDeleted', (e) => {
                 this.delete(e);
             });
 
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/files/' + that.fileId + that.sourceFilter,
+            url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter,
             method: 'GET',
             success: function (data) {
-                if (that.fileId !== '') {
-                    that.files = [data.data];
+                if (that.action_sequenceId !== '') {
+                    that.action_sequences = [data.data];
                 }
                 else {
-                    that.files = data.data;
+                    that.action_sequences = data.data;
                 }
 
                 window.eventHubVue.processEnded();

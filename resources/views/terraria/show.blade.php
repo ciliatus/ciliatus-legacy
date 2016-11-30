@@ -22,9 +22,9 @@
     </div>
 
     <!-- right col -->
-    <div class="col s12 m12 l8 no-padding">
+    <div class="col s12 m12 l8">
         <div class="card">
-            <div class="card-content light-blue darken-1 white-text">
+            <div class="card-content teal lighten-1 white-text">
                 count @lang('labels.measurement_count')
             </div>
 
@@ -56,9 +56,13 @@
 
     </div>
 
-    <div class="col s12 m12 l6 no-padding">
+    <div class="col s12 m12 l4">
         <files-widget source-filter="?filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
                       belongs-to_type="Terrarium" belongs-to_id="{{ $terrarium->id }}"></files-widget>
+    </div>
+
+    <div class="col s12 m12 l4">
+        <action_sequences-widget source-filter="?filter[terrarium_id]={{ $terrarium->id }}"></action_sequences-widget>
     </div>
 
     <div class="fixed-action-btn">

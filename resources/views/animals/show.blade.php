@@ -20,14 +20,29 @@
     </div>
 
     <!-- right col -->
-    <div class="col s12 m12 l6 no-padding">
-        <files-widget source-filter="?filter[belongsTo_type]=Animal&filter[belongsTo_id]={{ $animal->id }}"
-                      belongs-to_type="Animal" belongs-to_id="{{ $animal->id }}"></files-widget>
+
+
+    <div class="col s12 m7 l4 no-padding">
+        <div class="col s12">
+            <animal_feeding_schedules-widget animal-id="{{ $animal->id }}"></animal_feeding_schedules-widget>
+        </div>
+
+        <div class="col s12">
+            <animal_feedings-widget animal-id="{{ $animal->id }}"></animal_feedings-widget>
+        </div>
     </div>
 
-    <div class="col s12 m12 l6 no-padding">
+    <div class="col s12 m12 l4 no-padding">
+        <div class="col s12">
+            <files-widget source-filter="?filter[belongsTo_type]=Animal&filter[belongsTo_id]={{ $animal->id }}"
+                          belongs-to_type="Animal" belongs-to_id="{{ $animal->id }}"></files-widget>
+        </div>
+    </div>
+
+
+    <div class="col s12 m7 l8">
         <div class="card">
-            <div class="card-content light-blue darken-1 white-text">
+            <div class="card-content teal lighten-1 white-text">
                 count @lang('labels.measurement_count')
             </div>
 
