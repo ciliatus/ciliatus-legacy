@@ -1,0 +1,129 @@
+<template>
+    <div>
+        <div :class="wrapperClasses">
+            <div class="card">
+                <div class="card-content teal lighten-1 white-text">
+                    {{ $tc("components.animal_feeding_schedules", 2) }}
+                </div>
+
+                <div class="card-content">
+                    <span class="card-title activator truncate">
+                        <span>{{ $tc("components.animal_feeding_schedules", 2) }}</span>
+                        <i class="material-icons right">more_vert</i>
+                    </span>
+
+                    <div v-for="afs in animal_feeding_schedules">
+                        <p>
+                            {{ afs.timestamps.next }} - {{ $t("labels." + afs.type) }}
+                            <span v-show="afs.due_days == 0">
+                                <span class="new badge" v-bind:data-badge-caption="$t('labels.due')"> </span>
+                            </span>
+                            <span v-show="afs.due_days < 0">
+                                <span class="new badge red" v-bind:data-badge-caption="$t('labels.overdue')"> </span>
+                            </span>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-action">
+                    <a v-bind:href="'/animals/' + animalId + '/feeding_schedules/create'">{{ $t("buttons.add") }}</a>
+                    <a v-bind:href="'/animals/' + animalId + '/edit'">{{ $t("buttons.edit") }}</a>
+                </div>
+
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+
+                    <p>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+export default {
+    data () {
+        return {
+            animal_feeding_schedules: []
+        }
+    },
+
+    props: {
+        animalId: {
+            type: String,
+            required: true
+        },
+        wrapperClasses: {
+            type: String,
+            default: '',
+            required: false
+        }
+    },
+
+    methods: {
+        update: function(a) {
+            var item = null;
+
+            if (a.animal_feeding_schedule.animal.id !== this.animalId) {
+                return;
+            }
+
+            this.animal_feeding_schedules.forEach(function(data, index) {
+                if (data.id === a.animal_feeding_schedule.id) {
+                    item = index;
+                }
+            });
+            if (item === null) {
+                this.animal_feeding_schedules.push(a.animal_feeding_schedule)
+            }
+            else if (item !== null) {
+                this.animal_feeding_schedules.splice(item, 1, a.animal_feeding_schedule);
+            }
+        },
+
+        delete: function(a) {
+            var item = null;
+            this.animal_feeding_schedules.forEach(function(data, index) {
+                if (data.id === a.animal_feeding_schedule.id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                this.animal_feeding_schedules.splice(item, 1);
+            }
+        },
+
+        submit: function(e) {
+            window.submit_form(e);
+        }
+
+    },
+
+    created: function() {
+        window.echo.private('dashboard-updates')
+            .listen('AnimalFeedingScheduleUpdated', (e) => {
+                this.update(e);
+            }).listen('AnimalFeedingScheduleDeleted', (e) => {
+                this.delete(e);
+            });
+
+        window.eventHubVue.processStarted();
+        var that = this;
+        $.ajax({
+            url: '/api/v1/animals/' + that.animalId + '/feeding_schedules',
+            method: 'GET',
+            success: function (data) {
+                that.animal_feeding_schedules = data.data;
+                window.eventHubVue.processEnded();
+            },
+            error: function (error) {
+                alert(JSON.stringify(error));
+                window.eventHubVue.processEnded();
+            }
+        });
+    }
+
+}
+</script>
