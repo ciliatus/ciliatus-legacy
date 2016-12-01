@@ -19,10 +19,18 @@ The frontend was built using Google's material design guidelines and will give y
 * automatic Night theme (not yet avaiable for material design)
 
 # Screenshots (v0.3-alpha)
-Dashboard
-![Dashboard](/ciliatus_demo01.png?raw=true)
+
+Dashboard in mobile view
+
+![Dashboard](/ciliatus_demo03.jpg?raw=true)
+
+Terrarium overview
+
+![Terraria](/ciliatus_demo01.png?raw=true)
+
 
 The frontend allows for easy configuration and exporting configs for control units.
+
 ![Configuration](/ciliatus_demo02.png?raw=true)
 
 # Demo
