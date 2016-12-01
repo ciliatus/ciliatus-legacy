@@ -4,11 +4,10 @@ use Illuminate\Support\Facades\Broadcast;
 
 Route::group(['namespace' => 'Web'], function() {
     Route::get('/', 'DashboardController@index');
+    Route::resource('dashboard', 'DashboardController');
     Route::resource('animals', 'AnimalController');
     Route::resource('animals/{id}/feedings', 'AnimalFeedingController');
-    Route::get('animals/{id}/feedings/{feeding_id}/delete', 'AnimalFeedingController@delete');
     Route::resource('animals/{id}/feeding_schedules', 'AnimalFeedingScheduleController');
-    Route::get('animals/{id}/feeding_schedules/{feeding_id}/delete', 'AnimalFeedingScheduleController@delete');
     Route::get('animals/{id}/delete', 'AnimalController@delete');
     Route::resource('terraria', 'TerrariumController');
     Route::get('terraria/{id}/delete', 'TerrariumController@delete');
@@ -53,6 +52,7 @@ Route::group(['prefix' => 'auth'], function() {
 });
 
 Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
+    Route::resource('dashboard', 'DashboardController');
     Route::resource('animals', 'AnimalController');
     Route::resource('animals/{id}/feedings', 'AnimalFeedingController');
     Route::resource('animals/{id}/feeding_schedules', 'AnimalFeedingScheduleController');

@@ -63,9 +63,14 @@ class Terrarium extends CiliatusModel
      */
     public function save(array $options = [])
     {
+        $this->temperature_critical = !$this->temperatureOk();
+        $this->humidity_critical = !$this->humidityOk();
+
         $result = parent::save($options);
 
-        broadcast(new TerrariumUpdated($this));
+        if (!isset($options['silent'])) {
+            broadcast(new TerrariumUpdated($this));
+        }
 
         return $result;
     }

@@ -81,7 +81,9 @@ class PhysicalSensor extends CiliatusModel
             ]);
         }
 
-        broadcast(new PhysicalSensorUpdated($this));
+        if (!isset($options['silent'])) {
+            broadcast(new PhysicalSensorUpdated($this));
+        }
 
         return parent::save($options);
     }
@@ -152,7 +154,7 @@ class PhysicalSensor extends CiliatusModel
     public function heartbeat()
     {
         $this->heartbeat_at = Carbon::now();
-        $this->save(['silent']);
+        $this->save();
     }
 
     /**

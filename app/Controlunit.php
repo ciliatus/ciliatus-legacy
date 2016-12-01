@@ -69,7 +69,9 @@ class Controlunit extends CiliatusModel
     {
         $result = parent::save($options);
 
-        broadcast(new ControlunitUpdated($this));
+        if (!isset($options['silent'])) {
+            broadcast(new ControlunitUpdated($this));
+        }
 
         return $result;
     }
@@ -96,7 +98,7 @@ class Controlunit extends CiliatusModel
     public function heartbeat()
     {
         $this->heartbeat_at = Carbon::now();
-        $this->save(['silent']);
+        $this->save();
     }
 
     /**

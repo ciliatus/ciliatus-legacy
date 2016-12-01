@@ -58,6 +58,7 @@ return [
     'template'      =>  'Vorlage',
     'timezone'      =>  'Zeitzone',
     'critical'      =>  'Kritisch',
+    'ok'            =>  'OK',
     'running'       =>  'Laufend',
     'runs_since'    =>  'Läuft seit',
     'queued'        =>  'Wartend',

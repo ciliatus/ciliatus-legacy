@@ -58,6 +58,7 @@ return [
     'template'      =>  'Template',
     'timezone'      =>  'Timezone',
     'critical'      =>  'Critical',
+    'ok'            =>  'OK',
     'running'       =>  'Running',
     'runs_since'    =>  'Running since',
     'queued'        =>  'Queued',
