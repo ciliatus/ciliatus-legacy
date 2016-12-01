@@ -20,7 +20,7 @@ The frontend was built using Google's material design guidelines and will give y
 
 # Screenshots (v0.3-alpha)
 
-Dashboard in mobile view
+Mobile view examples
 
 ![Dashboard](/ciliatus_demo03.jpg?raw=true)
 
