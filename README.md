@@ -18,7 +18,7 @@ The frontend was built using Google's material design guidelines and will give y
 * RESTful API
 * automatic Night theme (not yet avaiable for material design)
 
-# Screenshots (v0.3-alpha)
+# Screenshots (v0.4-alpha)
 
 Mobile view examples
 
