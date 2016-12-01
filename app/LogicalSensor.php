@@ -68,7 +68,9 @@ class LogicalSensor extends CiliatusModel
     {
         $result = parent::save($options);
 
-        broadcast(new LogicalSensorUpdated($this));
+        if (!isset($options['silent'])) {
+            broadcast(new LogicalSensorUpdated($this));
+        }
 
         return $result;
     }

@@ -152,7 +152,7 @@ class SensorreadingController extends ApiController
         $sensorreading->sensorreadinggroup_id = $request->input('group_id');
         $sensorreading->logical_sensor_id = $request->input('logical_sensor_id');
         $sensorreading->rawvalue = (float)$request->input('rawvalue');
-        $sensorreading->save(['silent']);
+        $sensorreading->save();
 
         return $this->setStatusCode(200)->respondWithData(
             [
