@@ -113,6 +113,10 @@ class User extends Authenticatable
         return $setting->value;
     }
 
+    /**
+     * @param $id
+     * @return null
+     */
     public function settingById($id)
     {
         $setting = $this->settings()->where('id', $id)->first();
@@ -122,6 +126,10 @@ class User extends Authenticatable
         return $setting->value;
     }
 
+    /**
+     * @param $name
+     * @return null
+     */
     public function settingId($name)
     {
         $setting = $this->settings()->where('name', $name)->first();
@@ -156,6 +164,9 @@ class User extends Authenticatable
             $setting->delete();
     }
 
+    /**
+     * @param $id
+     */
     public function deleteSettingById($id)
     {
         $this->settings()->where('id', $id)->delete();

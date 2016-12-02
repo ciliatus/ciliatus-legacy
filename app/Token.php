@@ -21,6 +21,10 @@ class Token extends Model
 
     public $incrementing = false;
 
+    /**
+     * @param int $length
+     * @return string
+     */
     public static function generate($length = 32)
     {
         $chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';

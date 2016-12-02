@@ -16,5 +16,8 @@ abstract class CiliatusModel extends Model
      */
     abstract public function icon();
 
+    /**
+     * @return string
+     */
     abstract public function url();
 }

@@ -20,8 +20,14 @@ class RunningAction extends CiliatusModel
 
     public $incrementing = false;
 
+    /**
+     * @var array
+     */
     protected $dates = ['created_at', 'updated_at', 'started_at', 'finished_at'];
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'action_id',
         'action_sequence_schedule_id',

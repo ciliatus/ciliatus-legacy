@@ -31,6 +31,9 @@ class CriticalState extends CiliatusModel
         'belongsTo_id',
     ];
 
+    /**
+     * @var array
+     */
     protected $casts = [
         'is_soft_state' =>  'boolean'
     ];
