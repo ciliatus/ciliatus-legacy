@@ -75,7 +75,6 @@ return [
     'add_weight'    =>  'Add weight',
     'active'        =>  'Aktiv',
     'copy_thresholds' =>  'Copy thresholds',
-    'active'        =>  'Aktiv',
     'daily'         =>  'Daily',
     'last_feeding'  =>  'Last feeding',
     'crickets'      =>  'Crickets',
