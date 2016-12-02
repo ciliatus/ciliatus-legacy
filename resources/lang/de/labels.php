@@ -74,6 +74,7 @@ return [
     'just_irrigated'=>  'Gerade bewässert',
     'add_weight'    =>  'Gewicht hinzufügen',
     'active'        =>  'Aktiv',
+    'copy_thresholds' =>  'Grenzwerte kopieren',
     'daily'         =>  'Täglich',
     'last_feeding'  =>  'Letzte Fütterung',
     'crickets'      =>  'Heimchen',

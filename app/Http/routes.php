@@ -65,6 +65,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
     Route::resource('valves', 'ValveController');
     Route::resource('physical_sensors', 'PhysicalSensorController');
     Route::resource('logical_sensors', 'LogicalSensorController');
+    Route::resource('logical_sensor_thresholds/{id}/copy', 'LogicalSensorThresholdController@copy');
     Route::resource('logical_sensor_thresholds', 'LogicalSensorThresholdController');
     Route::post('logical_sensor_thresholds/copy', 'LogicalSensorThresholdController@copy');
     Route::resource('sensorreadings', 'SensorreadingController');

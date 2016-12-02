@@ -121,6 +121,8 @@ module.exports = {
             'just_irrigated':  'Gerade bewässert',
             'add_weight'    :  'Gewicht hinzufügen',
             'active'        :  'Aktiv',
+            'copy_thresholds':  'Grenzwerte kopieren',
+            'active'        :  'Aktiv',
             'daily'         :  'Täglich',
             'last_feeding'  :  'Letzte Fütterung',
             'crickets'      :  'Heimchen',
@@ -174,7 +176,8 @@ module.exports = {
             'sendnotifications'     :  'Benachrichtigungen versenden',
             'no_schedules'          :  'Keine Zeitpläne',
             'runonce'               :  'Einmalig',
-            'heartbeat_critical'    :  'Heartbeat ist kritisch!'
+            'heartbeat_critical'    :  'Heartbeat ist kritisch!',
+            'copy_thresholds_warning': 'Alle existierenden Grenzwerte des Zielsensors werden entfernt.'
         },
         units: {
             'years'     :  'Jahr | Jahre',
@@ -309,6 +312,8 @@ module.exports = {
             'just_irrigated':  'Just irrigated',
             'add_weight'    :  'Add weight',
             'active'        :  'Active',
+            'copy_thresholds':  'Copy thresholds',
+            'active'        :  'Active',
             'daily'         :  'Daily',
             'last_feeding'  :  'Last feeding',
             'crickets'      :  'Crickets',
@@ -362,7 +367,8 @@ module.exports = {
             'sendnotifications'     :  'Send notifications',
             'no_schedules'          :  'No schedules',
             'runonce'               :  'Run once',
-            'heartbeat_critical'    :  'Heartbeat is critical!'
+            'heartbeat_critical'    :  'Heartbeat is critical!',
+            'copy_thresholds_warning': 'All existing thresholds on the target sensor will be removed.'
         },
         units: {
             'years'     :  'year|years',

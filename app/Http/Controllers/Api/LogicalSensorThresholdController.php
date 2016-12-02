@@ -182,13 +182,13 @@ class LogicalSensorThresholdController extends ApiController
 
     }
 
-    public function copy(Request $request)
+    public function copy(Request $request, $source_id)
     {
         if (Gate::denies('api-write:logical_sensor_threshold')) {
             return $this->respondUnauthorized();
         }
 
-        $logical_sensor_source = LogicalSensor::find($request->input('logical_sensor_source'));
+        $logical_sensor_source = LogicalSensor::find($source_id);
         if (is_null($logical_sensor_source)) {
             return $this->respondNotFound('Source LogicalSensor not found');
         }
@@ -215,6 +215,5 @@ class LogicalSensorThresholdController extends ApiController
             ]
         ]);
     }
-
 }
 

@@ -143,8 +143,54 @@
         </div>
     </div>
 
+    <div class="col s12 m12 l6">
+        <div class="card">
+            <form action="{{ url('api/v1/logical_sensor_thresholds/' . $logical_sensor->id . '/copy') }}" data-method="POST">
+                <div class="card-content">
 
-    
+                    <span class="card-title activator grey-text text-darken-4 truncate">
+                        <span>@lang('labels.copy_thresholds')</span>
+                    </span>
+
+                    <p>
+
+                        <div class="row">
+                            <div class="input-field col s12">
+                                <select name="logical_sensor_target">
+                                    @foreach ($copy_target_ls as $ls)
+                                        <option value="{{ $ls->id }}">{{ $ls->name }}</option>
+                                    @endforeach
+                                </select>
+                                <label for="valves">@lang('labels.target') @choice('components.logical_sensors', 1)</label>
+                            </div>
+                        </div>
+
+                    </p>
+
+
+                    <p>
+                        <div class="card-panel deep-orange darken-1 white-text">@lang('tooltips.copy_thresholds_warning')</div>
+                    </p>
+
+                </div>
+
+                <div class="card-action">
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
+        </div>
+    </div>
+
+
+
     <div class="fixed-action-btn">
 
         <a class="btn-floating btn-large teal">
