@@ -58,6 +58,7 @@ return [
     'template'      =>  'Vorlage',
     'timezone'      =>  'Zeitzone',
     'critical'      =>  'Kritisch',
+    'ok'            =>  'OK',
     'running'       =>  'Laufend',
     'runs_since'    =>  'Läuft seit',
     'queued'        =>  'Wartend',
@@ -72,5 +73,17 @@ return [
     'just_fed'      =>  'Gerade gefüttert',
     'just_irrigated'=>  'Gerade bewässert',
     'add_weight'    =>  'Gewicht hinzufügen',
-    'active'        =>  'Aktiv'
+    'active'        =>  'Aktiv',
+    'copy_thresholds' =>  'Grenzwerte kopieren',
+    'daily'         =>  'Täglich',
+    'last_feeding'  =>  'Letzte Fütterung',
+    'crickets'      =>  'Heimchen',
+    'mixed_fruits'  =>  'Fruchtbrei',
+    'beetle_jelly'  =>  'BeetleJelly',
+    'due'           =>  'Fällig',
+    'overdue'       =>  'Überfällig',
+    'meal_type'     =>  'Nahrungsart',
+    'interval_days' =>  'Intervall in Tagen',
+    'interval'      =>  'Intervall',
+    'password'      =>  'Passwort'
 ];
