@@ -84,5 +84,6 @@ return [
     'overdue'       =>  'Überfällig',
     'meal_type'     =>  'Nahrungsart',
     'interval_days' =>  'Intervall in Tagen',
-    'interval'      =>  'Intervall'
+    'interval'      =>  'Intervall',
+    'password'      =>  'Passwort'
 ];

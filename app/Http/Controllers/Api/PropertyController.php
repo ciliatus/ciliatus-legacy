@@ -18,34 +18,51 @@ class PropertyController extends ApiController
     /**
      * @var PropertyTransformer
      */
-    protected $file_propertyTransformer;
+    protected $propertyTransformer;
 
     /**
      * PropertyController constructor.
-     * @param PropertyTransformer $_file_propertyTransformer
+     * @param PropertyTransformer $_propertyTransformer
      */
-    public function __construct(PropertyTransformer $_file_propertyTransformer)
+    public function __construct(PropertyTransformer $_propertyTransformer)
     {
         parent::__construct();
-        $this->file_propertyTransformer = $_file_propertyTransformer;
+        $this->propertyTransformer = $_propertyTransformer;
     }
 
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        $file_propertys = Property::paginate(10);
+        $properties = Property::query();
+
+        $properties = $this->filter($request, $properties);
+
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->propertyTransformer->transformCollection(
+                    $properties->get()->toArray()
+                )
+            );
+        }
+
+        $properties = $properties->paginate(env('PAGINATION_PER_PAGE', 100));
 
         return $this->setStatusCode(200)->respondWithPagination(
-            $this->file_propertyTransformer->transformCollection(
-                $file_propertys->toArray()['data']
+            $this->propertyTransformer->transformCollection(
+                $properties->toArray()['data']
             ),
-            $file_propertys
+            $properties
         );
     }
 
@@ -60,15 +77,15 @@ class PropertyController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $file_property = Property::with('properties')->find($id);
+        $property = Property::with('properties')->find($id);
 
-        if (!$file_property) {
+        if (!$property) {
             return $this->respondNotFound('Property not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
-            $this->file_propertyTransformer->transform(
-                $file_property->toArray()
+            $this->propertyTransformer->transform(
+                $property->toArray()
             )
         );
     }
@@ -96,22 +113,22 @@ class PropertyController extends ApiController
     public function update(Request $request)
     {
 
-        if (Gate::denies('api-write:file_property')) {
+        if (Gate::denies('api-write:property')) {
             return $this->respondUnauthorized();
         }
 
-        $file_property = Property::find($request->input('property_id'));
-        if (is_null($file_property)) {
+        $property = Property::find($request->input('property_id'));
+        if (is_null($property)) {
             return $this->respondNotFound('Property not found');
         }
 
-        $file_property->name = $request->input('property_name');
+        $property->name = $request->input('property_name');
 
-        $file_property->save();
+        $property->save();
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('file_propertys'),
+                'uri'   => url('propertys'),
                 'delay' => 1000
             ]
         ]);

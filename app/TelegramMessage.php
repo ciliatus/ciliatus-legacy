@@ -13,6 +13,9 @@ class TelegramMessage extends Message
 {
     use Traits\Uuids;
 
+    /**
+     * @var string
+     */
     private $url;
 
     /**
@@ -28,14 +31,24 @@ class TelegramMessage extends Message
      */
     protected $table = 'messages';
 
+    /**
+     * @var array
+     */
     protected $fillable = ['user_id', 'content'];
 
+    /**
+     * TelegramMessage constructor.
+     * @param array $attributes
+     */
     public function __construct(array $attributes)
     {
         parent::__construct($attributes);
         $this->url = 'https://api.telegram.org/bot' . env('TELEGRAM_BOT_TOKEN');
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function user()
     {
         return $this->belongsTo('App\User');
@@ -58,6 +71,10 @@ class TelegramMessage extends Message
     }
 
 
+    /**
+     * @param null $chat_id
+     * @return bool
+     */
     public function send($chat_id = null)
     {
         if (strlen($this->content) < 1) {

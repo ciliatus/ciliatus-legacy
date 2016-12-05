@@ -26,6 +26,10 @@ class Log extends Model
      */
     protected $fillable = ['source_type', 'source_id', 'target_type', 'target_id', 'associatedWith_type', 'associatedWith_id', 'action'];
 
+    /**
+     * @param array $attributes
+     * @return static
+     */
     public static function create(array $attributes = [])
     {
 

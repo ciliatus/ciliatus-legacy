@@ -24,13 +24,14 @@ class UserAbility extends Model
      */
     protected $fillable = [
         'user_id',
-        'ability'
+        'name'
     ];
 
     /**
      * @var array
      */
     protected static $abilities = [
+        'grant_admin',
         'grant_api-list',
         'grant_api-list_admin',
         'grant_api-read',
@@ -47,12 +48,12 @@ class UserAbility extends Model
         'grant_api-write:file',
         'grant_api-write:file_property',
         'grant_api-write:user_self',       // edit own profile
-        'grant_api-write:user_all',         // edit all users including permissions and protected properties
         'grant_api-write:user_ability',
         'grant_api-write:user_telegram',
         'grant_api-write:action',
         'grant_api-write:action_sequence',
         'grant_api-write:action_sequence_schedule',
+        'grant_api-write:property',
         'grant_api-fetch:desired_states',
         'grant_api-evaluate:critical_state'
     ];

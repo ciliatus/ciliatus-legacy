@@ -5,13 +5,11 @@
 
                 <div v-bind:id="'modal_just_fed_' + animal.id" class="modal">
                     <form v-bind:action="'/api/v1/animals/' + animal.id + '/feedings'" data-method="POST" v-on:submit="submit">
-                        <div class="modal-content">
+                        <div class="modal-content" style="min-height: 500px">
                             <h4>{{ $t("labels.just_fed") }}</h4>
                             <p>
                                 <select name="meal_type" id="meal_type">
-                                    <option value="crickets">{{ $t("labels.crickets") }}</option>
-                                    <option value="mixed_fruits">{{ $t("labels.mixed_fruits") }}</option>
-                                    <option value="beetle_jelly">{{ $t("labels.beetle_jelly") }}</option>
+                                    <option v-for="ft in feeding_types" v-bind:value="ft.name">{{ ft.name }}</option>
                                 </select>
                                 <label for="meal_type">{{ $t("labels.meal_type") }}</label>
                             </p>
@@ -47,10 +45,10 @@
                             <br />
 
                             <span v-if="animal.last_feeding">
-                                {{ $t("labels.last_feeding") }}
+                                {{ $t("labels.last_feeding") }}:
                                 <span v-if="animal.last_feeding.timestamps.diff.value == 0">{{ $t("labels.today") }}</span>
-                                <span v-if="animal.last_feeding.timestamps.diff.value > 0">{{ animal.last_feeding.timestamps.diff.value }} {{ $t("units." + animal.last_feeding.timestamps.diff.unit) }}</span>
-                                <i>{{ $t("labels." + animal.last_feeding.name) }}</i>
+                                <span v-if="animal.last_feeding.timestamps.diff.value > 0">{{ animal.last_feeding.timestamps.diff.value }} {{ $tc("units." + animal.last_feeding.timestamps.diff.unit, animal.last_feeding.timestamps.diff.value) }}</span>
+                                <i>{{ animal.last_feeding.name }}</i>
                             </span>
                             <br />
                         </p>
@@ -87,7 +85,8 @@
 export default {
     data () {
         return {
-            animals: []
+            animals: [],
+            feeding_types: []
         }
     },
 
@@ -164,6 +163,19 @@ export default {
                     that.animals = data.data;
                 }
 
+                window.eventHubVue.processEnded();
+            },
+            error: function (error) {
+                alert(JSON.stringify(error));
+                window.eventHubVue.processEnded();
+            }
+        });
+
+        $.ajax({
+            url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw',
+            method: 'GET',
+            success: function (data) {
+                that.feeding_types = data.data;
                 window.eventHubVue.processEnded();
             },
             error: function (error) {

@@ -43,16 +43,34 @@ class ValveController extends ApiController
         }
 
         $valves = Valve::with('pump')
-                       ->with('terrarium')
-                       ->with('controlunit');
+            ->with('terrarium')
+            ->with('controlunit');
 
-        $valves = $this->filter($request, $valves)->get();
+        $valves = $this->filter($request, $valves);
 
-        return $this->setStatusCode(200)->respondWithData(
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->valveTransformer->transformCollection(
+                    $valves->get()->toArray()
+                )
+            );
+        }
+
+        $valves = $valves->paginate(env('PAGINATION_PER_PAGE', 20));
+
+        return $this->setStatusCode(200)->respondWithPagination(
             $this->valveTransformer->transformCollection(
-                $valves->toArray()
-            )
+                $valves->toArray()['data']
+            ),
+            $valves
         );
+
+
     }
 
     /**

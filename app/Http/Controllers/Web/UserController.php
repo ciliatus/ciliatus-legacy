@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Token;
+use Gate;
 use Auth;
 use App\User;
 use Illuminate\Http\Request;
@@ -28,9 +29,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('users.index', [
-            'users' => User::orderBy('name')->get()
-        ]);
+        if (Gate::denies('api-list_admin')) {
+            return view('errors.401');
+        }
+
+        return view('users.index');
     }
 
     /**

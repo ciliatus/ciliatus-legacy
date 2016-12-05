@@ -6,6 +6,7 @@ use App\Action;
 use App\ActionSequence;
 use App\ActionSequenceSchedule;
 use App\Http\Transformers\ActionSequenceScheduleTransformer;
+use App\Repositories\ActionSequenceScheduleRepository;
 use App\Terrarium;
 use Carbon\Carbon;
 use DB;
@@ -44,21 +45,45 @@ class ActionSequenceScheduleController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action_sequence_schedules = $this->filter($request, ActionSequenceSchedule::with('sequence'))->get();
 
-        foreach ($action_sequence_schedules as $ass) {
-            $ass->running = $ass->running();
-            $ass->will_run_today = $ass->will_run_today();
-            $ass->ran_today = $ass->ran_today();
-            $ass->is_overdue = $ass->is_overdue(10);
+        $action_sequence_schedules = ActionSequenceSchedule::with('actions')
+                                                            ->with('schedules')
+                                                            ->with('terrarium');
+
+        $action_sequence_schedules = $this->filter($request, $action_sequence_schedules);
+
+
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            foreach ($action_sequence_schedules as &$t) {
+                $t = (new ActionSequenceScheduleRepository($t))->show();
+            }
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->actionSequenceScheduleTransformer->transformCollection(
+                    $action_sequence_schedules->toArray()
+                )
+            );
+
         }
 
-        return $this->setStatusCode(200)->respondWithData(
+        $action_sequence_schedules = $action_sequence_schedules->paginate(env('PAGINATION_PER_PAGE', 20));
+
+        foreach ($action_sequence_schedules->items() as &$t) {
+            $t = (new ActionSequenceScheduleRepository($t))->show();
+        }
+
+        return $this->setStatusCode(200)->respondWithPagination(
             $this->actionSequenceScheduleTransformer->transformCollection(
-                $action_sequence_schedules->toArray()
+                $action_sequence_schedules->toArray()['data']
             ),
             $action_sequence_schedules
         );
+
     }
 
     /**

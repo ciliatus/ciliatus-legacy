@@ -27,7 +27,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $user->name }}"
-                                   @if(Gate::denies('api-write:user_all')) readonly="readonly" @endif>
+                                   @if(Gate::denies('admin')) readonly="readonly" @endif>
                             <label for="name">@lang('labels.name')</label>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <input type="text" placeholder="@lang('labels.email')" name="email" value="{{ $user->email }}"
-                                   @if(Gate::denies('api-write:user_all')) readonly="readonly" @endif>
+                                   @if(Gate::denies('admin')) readonly="readonly" @endif>
                             <label for="name">@lang('labels.email')</label>
                         </div>
                     </div>
@@ -236,11 +236,12 @@
                         </div>
                     </div>
 
-                    @if(Gate::allows('api-write:user_all'))
+                    @if(Gate::allows('admin'))
                         <div class="row"><br /></div>
                         <div class="row">
                             <div class="input-field col s12">
                                 <select name="abilities[]" multiple>
+                                    <option disabled @if(is_null(\App\UserAbility::abilities())) selected @endif></option>
                                     @foreach (\App\UserAbility::abilities() as $a)
                                         <option value="{{ $a }}" @if($user->ability($a) == true)selected="selected"@endif>{{ $a }}</option>
                                     @endforeach
@@ -268,9 +269,9 @@
 
     <div class="col s12 m12 l6">
         <div class="card">
-            <div class="card-content">
-                <form action="{{ url('api/v1/user_settings/' . $user->settingId('notifications_telegram_chat_id')) }}" data-method="DELETE"
-                      data-redirect-success="{{ url('users/' . $user->id . '/edit') }}">
+            <form action="{{ url('api/v1/user_settings/' . $user->settingId('notifications_telegram_chat_id')) }}" data-method="DELETE"
+                  data-redirect-success="{{ url('users/' . $user->id . '/edit') }}">
+                <div class="card-content">
                     <span class="card-title activator grey-text text-darken-4 truncate">
                         <span>Setup Telegram</span>
                     </span>
@@ -281,21 +282,62 @@
                         <div class="card-panel red lighten-2">@lang('messages.users.setup_telegram_err')</div>
                     @endif
 
-                    <div class="card-action">
-                        <div class="row">
-                            <div class="input-field col s12">
-                                @if (!is_null($user->setting('notifications_telegram_chat_id')))<input hidden name="user_id" value="{{ Auth::user()->id }}">
-                                <button class="btn waves-effect waves-light red" type="submit">@lang('buttons.delete')
-                                    <i class="material-icons right">send</i>
-                                </button>
-                                @else
-                                    <a href="{{ url('users/setup/telegram') }}" class="btn waves-effect waves-light teal">@lang('buttons.start_setup')</a>
-                                @endif
-                            </div>
+                </div>
+                <div class="card-action">
+                    <div class="row">
+                        <div class="input-field col s12">
+                            @if (!is_null($user->setting('notifications_telegram_chat_id')))<input hidden name="user_id" value="{{ Auth::user()->id }}">
+                            <button class="btn waves-effect waves-light red" type="submit">@lang('buttons.delete')
+                                <i class="material-icons right">send</i>
+                            </button>
+                            @else
+                                <a href="{{ url('users/setup/telegram') }}" class="btn waves-effect waves-light teal">@lang('buttons.start_setup')</a>
+                            @endif
                         </div>
                     </div>
-                </form>
-            </div>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div class="col s12 m12 l6">
+        <div class="card">
+            <form action="{{ url('api/v1/users/' . $user->id) }}" data-method="PUT"
+                  data-redirect-success="{{ url('/') }}">
+                <div class="card-content">
+
+                    <span class="card-title activator grey-text text-darken-4 truncate">
+                        <span>@lang('labels.password')</span>
+                    </span>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input class="validate" required type="password" placeholder="@lang('labels.password')" name="password" value="">
+                            <label for="password">@lang('labels.password')</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <input class="validate" required type="password" placeholder="@lang('labels.password')" name="password_2" value="">
+                            <label for="password_2">@lang('labels.password')</label>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="card-action">
+
+                    <div class="row">
+                        <div class="input-field col s12">
+                            <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </div>
+
+                </div>
+            </form>
         </div>
     </div>
 
