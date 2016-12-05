@@ -84,5 +84,6 @@ return [
     'overdue'       =>  'Overdue',
     'meal_type'     =>  'Meal type',
     'interval_days' =>  'Interval in days',
-    'interval'      =>  'Interval'
+    'interval'      =>  'Interval',
+    'password'      =>  'Password'
 ];
