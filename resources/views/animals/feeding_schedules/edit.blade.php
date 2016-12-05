@@ -30,9 +30,9 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <select name="meal_type" id="meal_type">
-                                <option value="crickets" @if($afs->name == "crickets") selected @endif>@lang("labels.crickets")</option>
-                                <option value="mixed_fruits" @if($afs->name == "mixed_fruits") selected @endif>@lang("labels.mixed_fruits")</option>
-                                <option value="beetle_jelly" @if($afs->name == "beetle_jelly") selected @endif>@lang("labels.beetle_jelly")</option>
+                                @foreach($feeding_types as $ft)
+                                    <option value="{{ $ft->name }}">{{ $ft->name }}</option>
+                                @endforeach
                             </select>
                             <label for="meal_type">@lang("labels.meal_type")</label>
                         </div>

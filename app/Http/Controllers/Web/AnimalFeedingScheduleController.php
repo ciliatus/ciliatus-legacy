@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Animal;
+use App\Property;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -47,7 +48,8 @@ class AnimalFeedingScheduleController extends \App\Http\Controllers\Controller
         }
 
         return view('animals.feeding_schedules.create', [
-            'animal' => $animal
+            'animal' => $animal,
+            'feeding_types' => Property::where('type', 'AnimalFeedingType')->orderBy('name')->get()
         ]);
     }
 
@@ -93,7 +95,8 @@ class AnimalFeedingScheduleController extends \App\Http\Controllers\Controller
 
         return view('animals.feeding_schedules.edit', [
             'animal' => $animal,
-            'afs' => $afs
+            'afs' => $afs,
+            'feeding_types' => Property::where('type', 'AnimalFeedingType')->orderBy('name')->get()
         ]);
     }
 
