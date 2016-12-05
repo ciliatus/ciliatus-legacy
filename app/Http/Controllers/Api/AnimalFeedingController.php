@@ -72,7 +72,7 @@ class AnimalFeedingController extends ApiController
 
         }
 
-        $feeding = $feedings->paginate(env('PAGINATION_PER_PAGE', 20));
+        $feedings = $feedings->paginate(env('PAGINATION_PER_PAGE', 20));
 
         foreach ($feedings->items() as &$f) {
             $f = (new AnimalFeedingRepository($f))->show()->toArray();
@@ -80,9 +80,9 @@ class AnimalFeedingController extends ApiController
 
         return $this->setStatusCode(200)->respondWithPagination(
             $this->animalFeedingTransformer->transformCollection(
-                $feeding->toArray()['data']
+                $feedings->toArray()['data']
             ),
-            $feeding
+            $feedings
         );
 
     }
