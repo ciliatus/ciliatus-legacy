@@ -44,6 +44,7 @@ Object.keys(locales).forEach(function (lang) {
     Vue.locale(lang, locales[lang])
 });
 
+import DashboardWidget from './vue/dashboard-widget.vue';
 import InlineGraph from './vue/inline-graph.vue';
 import AnimalsWidget from './vue/animals-widget.vue';
 import AnimalFeedingsWidget from './vue/animal_feedings-widget.vue';
@@ -88,6 +89,7 @@ window.bodyVue = new Vue({
     },
 
     components: {
+        'dashboard-widget': DashboardWidget,
         'peity': Peity,
         'inline-graph': InlineGraph,
         'animals-widget': AnimalsWidget,

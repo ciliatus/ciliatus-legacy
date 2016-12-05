@@ -105,6 +105,7 @@ module.exports = {
             'template'      :  'Vorlage',
             'timezone'      :  'Zeitzone',
             'critical'      :  'Kritisch',
+            'ok'            :  'OK',
             'running'       :  'Laufend',
             'runs_since'    :  'Läuft seit',
             'queued'        :  'Wartend',
@@ -119,6 +120,8 @@ module.exports = {
             'just_fed'      :  'Gerade gefüttert',
             'just_irrigated':  'Gerade bewässert',
             'add_weight'    :  'Gewicht hinzufügen',
+            'active'        :  'Aktiv',
+            'copy_thresholds':  'Grenzwerte kopieren',
             'active'        :  'Aktiv',
             'daily'         :  'Täglich',
             'last_feeding'  :  'Letzte Fütterung',
@@ -173,7 +176,8 @@ module.exports = {
             'sendnotifications'     :  'Benachrichtigungen versenden',
             'no_schedules'          :  'Keine Zeitpläne',
             'runonce'               :  'Einmalig',
-            'heartbeat_critical'    :  'Heartbeat ist kritisch!'
+            'heartbeat_critical'    :  'Heartbeat ist kritisch!',
+            'copy_thresholds_warning': 'Alle existierenden Grenzwerte des Zielsensors werden entfernt.'
         },
         units: {
             'years'     :  'Jahr | Jahre',
@@ -292,6 +296,7 @@ module.exports = {
             'template'      :  'Template',
             'timezone'      :  'Timezone',
             'critical'      :  'Critical',
+            'ok'            :  'OK',
             'running'       :  'Running',
             'runs_since'    :  'Running since',
             'queued'        :  'Queued',
@@ -306,6 +311,8 @@ module.exports = {
             'just_fed'      :  'Just fed',
             'just_irrigated':  'Just irrigated',
             'add_weight'    :  'Add weight',
+            'active'        :  'Active',
+            'copy_thresholds':  'Copy thresholds',
             'active'        :  'Active',
             'daily'         :  'Daily',
             'last_feeding'  :  'Last feeding',
@@ -360,7 +367,8 @@ module.exports = {
             'sendnotifications'     :  'Send notifications',
             'no_schedules'          :  'No schedules',
             'runonce'               :  'Run once',
-            'heartbeat_critical'    :  'Heartbeat is critical!'
+            'heartbeat_critical'    :  'Heartbeat is critical!',
+            'copy_thresholds_warning': 'All existing thresholds on the target sensor will be removed.'
         },
         units: {
             'years'     :  'year|years',

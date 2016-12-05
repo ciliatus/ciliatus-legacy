@@ -17,5 +17,6 @@ return [
     'sendnotifications'     =>  'Send notifications',
     'no_schedules'          =>  'No schedules',
     'runonce'               =>  'Run once',
-    'heartbeat_critical'    =>  'Heartbeat is critical!'
+    'heartbeat_critical'    =>  'Heartbeat is critical!',
+    'copy_thresholds_warning'=> 'All existing thresholds on the target sensor will be removed.'
 ];

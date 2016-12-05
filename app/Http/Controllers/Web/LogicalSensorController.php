@@ -89,11 +89,13 @@ class LogicalSensorController extends Controller
 
         $physical_sensors = PhysicalSensor::all();
         $logical_sensors = LogicalSensor::all();
+        $copy_target_ls = LogicalSensor::where('id', '!=', $id)->where('type', $logical_sensor->type)->get();
 
         return view('logical_sensors.edit', [
             'logical_sensor'    => $logical_sensor,
             'physical_sensors'  => $physical_sensors,
             'logical_sensors'   =>  $logical_sensors,
+            'copy_target_ls' => $copy_target_ls
         ]);
     }
 
