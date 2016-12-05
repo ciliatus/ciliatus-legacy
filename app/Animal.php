@@ -115,10 +115,18 @@ class Animal extends CiliatusModel
     /**
      * @return mixed
      */
+    public function events()
+    {
+        return $this->hasMany('App\Event', 'belongsTo_id')->where('belongsTo_type', 'Animal');
+    }
+
+    /**
+     * @return mixed
+     */
     public function feedings()
     {
-        return $this->properties()->where('type', 'AnimalFeeding')
-                                  ->orderBy('created_at', 'desc');
+        return $this->events()->where('type', 'AnimalFeeding')
+                              ->orderBy('created_at', 'desc');
     }
 
     /**

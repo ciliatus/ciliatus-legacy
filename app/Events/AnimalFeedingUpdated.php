@@ -5,6 +5,7 @@ namespace App\Events;
 
 use App\Http\Transformers\AnimalFeedingTransformer;
 use App\Property;
+use App\Event;
 use App\Repositories\AnimalFeedingRepository;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -32,18 +33,18 @@ class AnimalFeedingUpdated implements ShouldBroadcast
      * Create a new event instance.
      *
      * AnimalFeedingUpdated constructor.
-     * @param Property $p
+     * @param Event $e
      */
-    public function __construct(Property $p)
+    public function __construct(Event $e)
     {
         $transformer = new AnimalFeedingTransformer();
 
-        foreach ($p->belongsTo_object->feeding_schedules as $fs) {
+        foreach ($e->belongsTo_object->feeding_schedules as $fs) {
             broadcast(new AnimalFeedingScheduleUpdated($fs));
         }
 
         $this->animal_feeding = $transformer->transform(
-            (new AnimalFeedingRepository($p))->show()->toArray()
+            (new AnimalFeedingRepository($e))->show()->toArray()
         );
     }
 

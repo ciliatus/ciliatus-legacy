@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\Event;
 use App\Events\AnimalFeedingUpdated;
 use App\Http\Transformers\AnimalFeedingTransformer;
 use App\Property;
@@ -114,7 +115,7 @@ class AnimalFeedingController extends ApiController
             return $this->setStatusCode(404)->respondWithError('Animal not found');
         }
 
-        $p = Property::create([
+        $e = Event::create([
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal->id,
             'type' => 'AnimalFeeding',
@@ -124,7 +125,7 @@ class AnimalFeedingController extends ApiController
 
         $animal->save();
 
-        broadcast(new AnimalFeedingUpdated($p));
+        broadcast(new AnimalFeedingUpdated($e));
 
         return $this->respondWithData([]);
     }

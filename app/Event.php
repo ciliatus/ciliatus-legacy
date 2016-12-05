@@ -23,7 +23,10 @@ class Event extends Model
     /**
      * @var array
      */
-    protected $fillable = [];
+    protected $fillable = [
+        'belongsTo_type', 'belongsTo_id', 'type',
+        'name', 'value', 'value_json'
+    ];
 
     /**
      * @var array
@@ -43,4 +46,12 @@ class Event extends Model
             'belongsTo_type' => 'Animal'
         ]
     ];
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function belongsTo_object()
+    {
+        return $this->belongsTo('App\\'. $this->belongsTo_type, 'belongsTo_id');
+    }
 }

@@ -2,7 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Property;
+use App\Event;
 
 /**
  * Class AnimalFeedingRepository
@@ -12,17 +12,17 @@ class AnimalFeedingRepository extends Repository {
 
     /**
      * AnimalFeedingRepository constructor.
-     * @param Property $scope
+     * @param Event $scope
      */
-    public function __construct(Property $scope = null)
+    public function __construct(Event $scope = null)
     {
 
-        $this->scope = $scope ? : new Property();
+        $this->scope = $scope ? : new Event();
 
     }
 
     /**
-     * @return Property
+     * @return Event
      */
     public function show()
     {

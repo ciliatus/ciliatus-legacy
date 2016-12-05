@@ -21,7 +21,7 @@ class CreateEventsTable extends Migration
             $table->string('type');
             $table->string('name');
             $table->string('value');
-            $table->json('value_json');
+            $table->text('value_json');
             $table->timestamps();
         });
     }

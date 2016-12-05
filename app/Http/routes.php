@@ -83,5 +83,6 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
     Route::resource('actions', 'ActionController');
     Route::resource('action_sequences', 'ActionSequenceController');
     Route::resource('action_sequence_schedules', 'ActionSequenceScheduleController');
+    Route::resource('events', 'EventController');
     Route::resource('properties', 'PropertyController');
 });
