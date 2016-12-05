@@ -51,12 +51,12 @@ class PropertyController extends ApiController
 
             return $this->setStatusCode(200)->respondWithData(
                 $this->propertyTransformer->transformCollection(
-                    $properties->get()->toArray()
+                    $properties->orderBy('name')->get()->toArray()
                 )
             );
         }
 
-        $properties = $properties->paginate(env('PAGINATION_PER_PAGE', 100));
+        $properties = $properties->orderBy('name')->paginate(env('PAGINATION_PER_PAGE', 100));
 
         return $this->setStatusCode(200)->respondWithPagination(
             $this->propertyTransformer->transformCollection(
@@ -94,8 +94,20 @@ class PropertyController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy()
+    public function destroy($id)
     {
+        if (Gate::denies('api-write:property')) {
+            return $this->respondUnauthorized();
+        }
+
+        $property = Property::find($id);
+        if (is_null($property)) {
+            return $this->respondNotFound('Property not found');
+        }
+
+        $property->delete();
+
+        return $this->respondWithData([]);
 
     }
 

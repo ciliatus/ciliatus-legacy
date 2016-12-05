@@ -105,41 +105,13 @@
                     </ul>
                 </li>
 
+
                 <li><div class="divider"></div></li>
 
                 <li @if(Request::is('users/' . Auth::user()->id . '/edit')) class="active" @endif><a href="{{ url('users/' . Auth::user()->id . '/edit') }}" class="waves-effect waves-teal"><i class="material-icons">settings</i>@choice('labels.settings', 2)</a></li>
-
-                @if(Gate::allows('admin'))
-                <li class="no-padding">
-                    <ul class="collapsible collapsible-accordion">
-                        <li>
-                            <a class="collapsible-header">@lang('menu.administration')<i class="material-icons">build</i></a>
-                            <div class="collapsible-body">
-                                <ul>
-                                    <li @if(Request::is('users', 'users/*')) class="active" @endif>
-                                        <a href="{{ url('users') }}" class="waves-effect waves-teal">
-                                            <i class="material-icons">group</i>
-                                            @lang('menu.users')
-                                        </a>
-                                    </li><li @if(Request::is('animals/feedings/types')) class="active" @endif>
-                                        <a href="{{ url('animals/feedings/types') }}" class="waves-effect waves-teal">
-                                            <i class="material-icons">pets</i>
-                                            @lang('menu.animal_feeding_types')
-                                        </a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </li>
-                    </ul>
-                </li>
-
-                <li><div class="divider"></div></li>
-
                 <li><a href="https://github.com/matthenning/ciliatus/issues" class="waves-effect waves-teal"><i class="material-icons">bug_report</i>@lang('labels.bugtracker')</a></li>
                 <li><a href="https://github.com/matthenning/ciliatus/wiki" class="waves-effect waves-teal"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
-                <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v0.4.1-alpha" class="waves-effect waves-teal"><i class="material-icons">linear_scale</i>Version v0.4.1-alpha</a></li>
-
-                @endif
+                <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v0.3-alpha" class="waves-effect waves-teal"><i class="material-icons">linear_scale</i>Version v0.3-alpha</a></li>
 
             </ul>
 

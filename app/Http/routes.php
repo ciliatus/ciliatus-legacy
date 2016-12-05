@@ -6,6 +6,8 @@ Route::group(['namespace' => 'Web'], function() {
     Route::get('/', 'DashboardController@index');
     Route::resource('dashboard', 'DashboardController');
     Route::resource('animals', 'AnimalController');
+    Route::get('animals/feedings/types', 'AnimalFeedingController@edit_types');
+    Route::get('animals/feedings/types/create', 'AnimalFeedingController@create_type');
     Route::resource('animals/{id}/feedings', 'AnimalFeedingController');
     Route::resource('animals/{id}/feeding_schedules', 'AnimalFeedingScheduleController');
     Route::get('animals/{id}/delete', 'AnimalController@delete');
@@ -54,6 +56,7 @@ Route::group(['prefix' => 'auth'], function() {
 Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
     Route::resource('dashboard', 'DashboardController');
     Route::resource('animals', 'AnimalController');
+    Route::post('animals/feedings/types', 'AnimalFeedingController@store_type');
     Route::resource('animals/{id}/feedings', 'AnimalFeedingController');
     Route::resource('animals/{id}/feeding_schedules', 'AnimalFeedingScheduleController');
     Route::resource('terraria', 'TerrariumController');
@@ -80,4 +83,5 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
     Route::resource('actions', 'ActionController');
     Route::resource('action_sequences', 'ActionSequenceController');
     Route::resource('action_sequence_schedules', 'ActionSequenceScheduleController');
+    Route::resource('properties', 'PropertyController');
 });

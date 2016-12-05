@@ -17,6 +17,5 @@ return [
     'sendnotifications'     =>  'Benachrichtigungen versenden',
     'no_schedules'          =>  'Keine Zeitpläne',
     'runonce'               =>  'Einmalig',
-    'heartbeat_critical'    =>  'Heartbeat ist kritisch!',
-    'copy_thresholds_warning'=> 'Alle existierenden Grenzwerte des Zielsensors werden entfernt.'
+    'heartbeat_critical'    =>  'Heartbeat ist kritisch!'
 ];

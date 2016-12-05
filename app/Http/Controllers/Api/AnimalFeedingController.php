@@ -173,4 +173,33 @@ class AnimalFeedingController extends ApiController
     {
         //
     }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store_type(Request $request)
+    {
+        if (Gate::denies('admin')) {
+            return $this->respondUnauthorized();
+        }
+
+        if (!$this->checkInput(['name'], $request)) {
+            return $this->setErrorCode(422)->respondWithError('Missing fields');
+        }
+
+        Property::create([
+            'belongsTo_type' => 'System',
+            'belongsTo_id' => '00000000-0000-0000-0000-000000000000',
+            'type' => 'AnimalFeedingType',
+            'name' => $request->input('name')
+        ]);
+
+        return $this->respondWithData([],
+            [
+                'redirect' => [
+                    'uri' => url('animals/feedings/types')
+                ]
+            ]);
+    }
 }
