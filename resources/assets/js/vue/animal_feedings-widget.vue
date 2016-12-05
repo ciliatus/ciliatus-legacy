@@ -13,7 +13,7 @@
                     </span>
 
                     <div v-for="af in animal_feedings">
-                        <p>{{ af.timestamps.created }} - {{ $t("labels." + af.type) }}</p>
+                        <p>{{ af.timestamps.created }} - {{ af.type }}</p>
                     </div>
                 </div>
 
