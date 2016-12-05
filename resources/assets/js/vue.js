@@ -37,15 +37,18 @@ var locales = require("./lang.js");
 
 Vue.use(VueI18n);
 
-
+console.log('Setting lang to ' + $('body').data('lang'));
 Vue.config.lang = $('body').data('lang');
 
 Object.keys(locales).forEach(function (lang) {
     Vue.locale(lang, locales[lang])
 });
 
+import DashboardWidget from './vue/dashboard-widget.vue';
 import InlineGraph from './vue/inline-graph.vue';
 import AnimalsWidget from './vue/animals-widget.vue';
+import AnimalFeedingsWidget from './vue/animal_feedings-widget.vue';
+import AnimalFeedingSchedulesWidget from './vue/animal_feeding_schedules-widget.vue';
 import TerrariaWidget from './vue/terraria-widget.vue';
 import ControlunitsWidget from './vue/controlunit-widget.vue';
 import FilesWidget from './vue/files-widget.vue';
@@ -56,6 +59,7 @@ import PumpsWidget from './vue/pumps-widget.vue';
 import ValvesWidget from './vue/valves-widget.vue';
 import PhysicalSensorsWidget from './vue/physical_sensors-widget.vue';
 import LogicalSensorsWidget from './vue/logical_sensors-widget.vue';
+import UsersWidget from './vue/users-widget.vue';
 
 window.bodyVue = new Vue({
 
@@ -86,9 +90,12 @@ window.bodyVue = new Vue({
     },
 
     components: {
+        'dashboard-widget': DashboardWidget,
         'peity': Peity,
         'inline-graph': InlineGraph,
         'animals-widget': AnimalsWidget,
+        'animal_feedings-widget': AnimalFeedingsWidget,
+        'animal_feeding_schedules-widget': AnimalFeedingSchedulesWidget,
         'terraria-widget': TerrariaWidget,
         'controlunits-widget': ControlunitsWidget,
         'files-widget': FilesWidget,
@@ -98,7 +105,8 @@ window.bodyVue = new Vue({
         'pumps-widget': PumpsWidget,
         'valves-widget': ValvesWidget,
         'physical_sensors-widget': PhysicalSensorsWidget,
-        'logical_sensors-widget': LogicalSensorsWidget
+        'logical_sensors-widget': LogicalSensorsWidget,
+        'users-widget': UsersWidget
     }
 
 });

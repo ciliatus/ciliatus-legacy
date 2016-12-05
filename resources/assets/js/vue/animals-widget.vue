@@ -5,13 +5,11 @@
 
                 <div v-bind:id="'modal_just_fed_' + animal.id" class="modal">
                     <form v-bind:action="'/api/v1/animals/' + animal.id + '/feedings'" data-method="POST" v-on:submit="submit">
-                        <div class="modal-content">
+                        <div class="modal-content" style="min-height: 500px">
                             <h4>{{ $t("labels.just_fed") }}</h4>
                             <p>
                                 <select name="meal_type" id="meal_type">
-                                    <option value="crickets">{{ $t("labels.crickets") }}</option>
-                                    <option value="mixed_fruits">{{ $t("labels.mixed_fruits") }}</option>
-                                    <option value="beetle_jelly">{{ $t("labels.beetle_jelly") }}</option>
+                                    <option v-for="ft in feeding_types" v-bind:value="ft.name">{{ ft.name }}</option>
                                 </select>
                                 <label for="meal_type">{{ $t("labels.meal_type") }}</label>
                             </p>
@@ -37,17 +35,22 @@
                             <i class="material-icons right">more_vert</i>
                         </span>
                         <p>
-                            <span v-show="animal.latin_name">{{ animal.latin_name }}<br /></span>
-                            <!--<span v-show="animal.common_name">{{ animal.common_name }}<br /></span>-->
-                            <span v-if="animal.last_feeding">
-                                {{ $t("labels.last_feeding") }}
-                                <span v-if="animal.last_feeding.timestamps.diff.value == 0">{{ $t("labels.today") }}</span>
-                                <span v-if="animal.last_feeding.timestamps.diff.value > 0">{{ animal.last_feeding.timestamps.diff.value }} {{ $t("units." + animal.last_feeding.timestamps.diff.unit) }}</span>
-                                <i>{{ $t("labels." + animal.last_feeding.name) }}</i><br />
-                            </span>
+                            <span v-show="animal.latin_name">{{ animal.latin_name }}</span>
+                            <span v-show="animal.common_name && !animal.latin_name">{{ animal.common_name }}</span>
+                            <br />
+
                             <span v-show="animal.birth_date !== null">{{ animal.birth_date }}</span>
                             <span v-show="animal.death_date !== null"> - {{ animal.death_date }}</span>
                             <span v-show="animal.birth_date || animal.death_date"><i>{{ animal.age_value }} {{ $tc("units." + animal.age_unit, animal.age_value) }}</i></span>
+                            <br />
+
+                            <span v-if="animal.last_feeding">
+                                {{ $t("labels.last_feeding") }}:
+                                <span v-if="animal.last_feeding.timestamps.diff.value == 0">{{ $t("labels.today") }}</span>
+                                <span v-if="animal.last_feeding.timestamps.diff.value > 0">{{ animal.last_feeding.timestamps.diff.value }} {{ $tc("units." + animal.last_feeding.timestamps.diff.unit, animal.last_feeding.timestamps.diff.value) }}</span>
+                                <i>{{ animal.last_feeding.name }}</i>
+                            </span>
+                            <br />
                         </p>
                     </div>
 
@@ -69,9 +72,6 @@
                             <a class="waves-effect waves-teal btn" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
                         </p>
                         <p>
-                            <a class="waves-effect waves-teal btn">{{ $t("labels.just_irrigated") }}</a>
-                        </p>
-                        <p>
                             <a class="waves-effect waves-teal btn">{{ $t("labels.add_weight") }}</a>
                         </p>
                     </div>
@@ -85,7 +85,8 @@
 export default {
     data () {
         return {
-            animals: []
+            animals: [],
+            feeding_types: []
         }
     },
 
@@ -162,6 +163,19 @@ export default {
                     that.animals = data.data;
                 }
 
+                window.eventHubVue.processEnded();
+            },
+            error: function (error) {
+                alert(JSON.stringify(error));
+                window.eventHubVue.processEnded();
+            }
+        });
+
+        $.ajax({
+            url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw',
+            method: 'GET',
+            success: function (data) {
+                that.feeding_types = data.data;
                 window.eventHubVue.processEnded();
             },
             error: function (error) {

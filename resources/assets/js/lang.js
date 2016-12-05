@@ -40,7 +40,9 @@ module.exports = {
             'action_sequence_schedules' :'Aktionssequenz Zeitplan | Aktionssequenz Zeitpläne',
             'action_sequence_schedule' :'Aktionssequenz Zeitplan | Aktionssequenz Zeitpläne',
             'admin_panel' : 'Admin Panel',
-            'admin_panels' : 'Admin Panel'
+            'admin_panels' : 'Admin Panel',
+            'animal_feedings' : 'Fütterung | Fütterungen',
+            'animal_feeding_schedules' : 'Fütterungsplan | Fütterungspläne'
         },
         errors: {
             'retrievegraphdata': 'Could not retrieve graph data.'
@@ -103,6 +105,7 @@ module.exports = {
             'template'      :  'Vorlage',
             'timezone'      :  'Zeitzone',
             'critical'      :  'Kritisch',
+            'ok'            :  'OK',
             'running'       :  'Laufend',
             'runs_since'    :  'Läuft seit',
             'queued'        :  'Wartend',
@@ -118,12 +121,20 @@ module.exports = {
             'just_irrigated':  'Gerade bewässert',
             'add_weight'    :  'Gewicht hinzufügen',
             'active'        :  'Aktiv',
+            'copy_thresholds':  'Grenzwerte kopieren',
+            'active'        :  'Aktiv',
             'daily'         :  'Täglich',
             'last_feeding'  :  'Letzte Fütterung',
             'crickets'      :  'Heimchen',
-            'mixed_fruits'  :  'Fruchbrei',
+            'mixed_fruits'  :  'Fruchtbrei',
             'beetle_jelly'  :  'BeetleJelly',
-            'today'         :  'Heute'
+            'today'         :  'Heute',
+            'due'           :  'Fällig',
+            'overdue'       :  'Überfällig',
+            'meal_type'     :  'Nahrungsart',
+            'interval_days' :  'Intervall in Tagen',
+            'interval'      :  'Intervall',
+            'password'      :  'Passwort'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -137,7 +148,8 @@ module.exports = {
             'help'          :  'Hilfe',
             'logout'        :  'Abmelden',
             'animals'       :  'Tiere',
-            'terraria'      :  'Terrarien'
+            'terraria'      :  'Terrarien',
+            'users'         :  'Benutzer'
         },
         messages: {
             logical_sensor_thresholds: {
@@ -166,7 +178,8 @@ module.exports = {
             'sendnotifications'     :  'Benachrichtigungen versenden',
             'no_schedules'          :  'Keine Zeitpläne',
             'runonce'               :  'Einmalig',
-            'heartbeat_critical'    :  'Heartbeat ist kritisch!'
+            'heartbeat_critical'    :  'Heartbeat ist kritisch!',
+            'copy_thresholds_warning': 'Alle existierenden Grenzwerte des Zielsensors werden entfernt.'
         },
         units: {
             'years'     :  'Jahr | Jahre',
@@ -220,7 +233,9 @@ module.exports = {
             'action_sequence_schedule' : 'Action sequence schedule|Action sequence schedules',
             'action_sequence_schedules' : 'Action sequence schedule|Action sequence schedules',
             'admin_panel'   :  'Admin panel',
-            'admin_panels'   :  'Admin panel'
+            'admin_panels'   :  'Admin panel',
+            'animal_feedings' : 'Feeding | Feedings',
+            'animal_feeding_schedules' : 'Feeding schedule | Feeding schedules'
         },
         errors: {
             'retrievegraphdata'     :  'Graphdaten konnten nicht ermittelt werden.'
@@ -283,6 +298,7 @@ module.exports = {
             'template'      :  'Template',
             'timezone'      :  'Timezone',
             'critical'      :  'Critical',
+            'ok'            :  'OK',
             'running'       :  'Running',
             'runs_since'    :  'Running since',
             'queued'        :  'Queued',
@@ -298,12 +314,20 @@ module.exports = {
             'just_irrigated':  'Just irrigated',
             'add_weight'    :  'Add weight',
             'active'        :  'Active',
+            'copy_thresholds':  'Copy thresholds',
+            'active'        :  'Active',
             'daily'         :  'Daily',
             'last_feeding'  :  'Last feeding',
             'crickets'      :  'Crickets',
             'mixed_fruits'  :  'Fruits',
             'beetle_jelly'  :  'BeetleJelly',
-            'today'         :  'Heute'
+            'today'         :  'Today',
+            'due'           :  'Due',
+            'overdue'       :  'Overdue',
+            'meal_type'     :  'Meal type',
+            'interval_days' :  'Interval in days',
+            'interval'      :  'Interval',
+            'password'      :  'Password'
         },
         menu: {
             'welcome'       :  'Welcome',
@@ -317,7 +341,8 @@ module.exports = {
             'help'          :  'Help',
             'logout'        :  'Log out',
             'animals'       :  'Animals',
-            'terraria'      :  'Terraria'
+            'terraria'      :  'Terraria',
+            'users'         :  'Users'
         },
         messages: {
             logical_sensor_thresholds: {
@@ -346,7 +371,8 @@ module.exports = {
             'sendnotifications'     :  'Send notifications',
             'no_schedules'          :  'No schedules',
             'runonce'               :  'Run once',
-            'heartbeat_critical'    :  'Heartbeat is critical!'
+            'heartbeat_critical'    :  'Heartbeat is critical!',
+            'copy_thresholds_warning': 'All existing thresholds on the target sensor will be removed.'
         },
         units: {
             'years'     :  'year|years',

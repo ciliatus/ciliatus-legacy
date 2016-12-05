@@ -14963,6 +14963,10 @@ return Vue$3;
 },{}],10:[function(require,module,exports){
 'use strict';
 
+var _labels, _labels2;
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 module.exports = {
     de: {
         buttons: {
@@ -15005,12 +15009,14 @@ module.exports = {
             'action_sequence_schedules': 'Aktionssequenz Zeitplan | Aktionssequenz Zeitpläne',
             'action_sequence_schedule': 'Aktionssequenz Zeitplan | Aktionssequenz Zeitpläne',
             'admin_panel': 'Admin Panel',
-            'admin_panels': 'Admin Panel'
+            'admin_panels': 'Admin Panel',
+            'animal_feedings': 'Fütterung | Fütterungen',
+            'animal_feeding_schedules': 'Fütterungsplan | Fütterungspläne'
         },
         errors: {
             'retrievegraphdata': 'Could not retrieve graph data.'
         },
-        labels: {
+        labels: (_labels = {
             'status': 'Status',
             'health': 'Gesundheit',
             'birth': 'Geburt',
@@ -15068,6 +15074,7 @@ module.exports = {
             'template': 'Vorlage',
             'timezone': 'Zeitzone',
             'critical': 'Kritisch',
+            'ok': 'OK',
             'running': 'Laufend',
             'runs_since': 'Läuft seit',
             'queued': 'Wartend',
@@ -15084,7 +15091,7 @@ module.exports = {
             'add_weight': 'Gewicht hinzufügen',
             'active': 'Aktiv',
             'copy_thresholds': 'Grenzwerte kopieren'
-        },
+        }, _defineProperty(_labels, 'active', 'Aktiv'), _defineProperty(_labels, 'daily', 'Täglich'), _defineProperty(_labels, 'last_feeding', 'Letzte Fütterung'), _defineProperty(_labels, 'crickets', 'Heimchen'), _defineProperty(_labels, 'mixed_fruits', 'Fruchtbrei'), _defineProperty(_labels, 'beetle_jelly', 'BeetleJelly'), _defineProperty(_labels, 'today', 'Heute'), _defineProperty(_labels, 'due', 'Fällig'), _defineProperty(_labels, 'overdue', 'Überfällig'), _defineProperty(_labels, 'meal_type', 'Nahrungsart'), _defineProperty(_labels, 'interval_days', 'Intervall in Tagen'), _defineProperty(_labels, 'interval', 'Intervall'), _defineProperty(_labels, 'password', 'Passwort'), _labels),
         menu: {
             'welcome': 'Willkommen',
             'dashboard': 'Übersicht',
@@ -15097,7 +15104,8 @@ module.exports = {
             'help': 'Hilfe',
             'logout': 'Abmelden',
             'animals': 'Tiere',
-            'terraria': 'Terrarien'
+            'terraria': 'Terrarien',
+            'users': 'Benutzer'
         },
         messages: {
             logical_sensor_thresholds: {
@@ -15181,12 +15189,14 @@ module.exports = {
             'action_sequence_schedule': 'Action sequence schedule|Action sequence schedules',
             'action_sequence_schedules': 'Action sequence schedule|Action sequence schedules',
             'admin_panel': 'Admin panel',
-            'admin_panels': 'Admin panel'
+            'admin_panels': 'Admin panel',
+            'animal_feedings': 'Feeding | Feedings',
+            'animal_feeding_schedules': 'Feeding schedule | Feeding schedules'
         },
         errors: {
             'retrievegraphdata': 'Graphdaten konnten nicht ermittelt werden.'
         },
-        labels: {
+        labels: (_labels2 = {
             'status': 'Status',
             'health': 'Health',
             'birth': 'Birth',
@@ -15244,6 +15254,7 @@ module.exports = {
             'template': 'Template',
             'timezone': 'Timezone',
             'critical': 'Critical',
+            'ok': 'OK',
             'running': 'Running',
             'runs_since': 'Running since',
             'queued': 'Queued',
@@ -15260,7 +15271,7 @@ module.exports = {
             'add_weight': 'Add weight',
             'active': 'Active',
             'copy_thresholds': 'Copy thresholds'
-        },
+        }, _defineProperty(_labels2, 'active', 'Active'), _defineProperty(_labels2, 'daily', 'Daily'), _defineProperty(_labels2, 'last_feeding', 'Last feeding'), _defineProperty(_labels2, 'crickets', 'Crickets'), _defineProperty(_labels2, 'mixed_fruits', 'Fruits'), _defineProperty(_labels2, 'beetle_jelly', 'BeetleJelly'), _defineProperty(_labels2, 'today', 'Today'), _defineProperty(_labels2, 'due', 'Due'), _defineProperty(_labels2, 'overdue', 'Overdue'), _defineProperty(_labels2, 'meal_type', 'Meal type'), _defineProperty(_labels2, 'interval_days', 'Interval in days'), _defineProperty(_labels2, 'interval', 'Interval'), _defineProperty(_labels2, 'password', 'Password'), _labels2),
         menu: {
             'welcome': 'Welcome',
             'dashboard': 'Dashboard',
@@ -15273,7 +15284,8 @@ module.exports = {
             'help': 'Help',
             'logout': 'Log out',
             'animals': 'Animals',
-            'terraria': 'Terraria'
+            'terraria': 'Terraria',
+            'users': 'Users'
         },
         messages: {
             logical_sensor_thresholds: {
@@ -15385,6 +15397,10 @@ var _logical_sensorsWidget = require('./vue/logical_sensors-widget.vue');
 
 var _logical_sensorsWidget2 = _interopRequireDefault(_logical_sensorsWidget);
 
+var _usersWidget = require('./vue/users-widget.vue');
+
+var _usersWidget2 = _interopRequireDefault(_usersWidget);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Vue = require('vue/dist/vue.js');
@@ -15476,12 +15492,13 @@ window.bodyVue = new Vue({
         'pumps-widget': _pumpsWidget2.default,
         'valves-widget': _valvesWidget2.default,
         'physical_sensors-widget': _physical_sensorsWidget2.default,
-        'logical_sensors-widget': _logical_sensorsWidget2.default
+        'logical_sensors-widget': _logical_sensorsWidget2.default,
+        'users-widget': _usersWidget2.default
     }
 
 });
 
-},{"./lang.js":10,"./vue/action_sequence_schedule-widget.vue":12,"./vue/action_sequences-widget.vue":13,"./vue/animal_feeding_schedules-widget.vue":14,"./vue/animal_feedings-widget.vue":15,"./vue/animals-widget.vue":16,"./vue/controlunit-widget.vue":17,"./vue/dashboard-widget.vue":18,"./vue/files-show-widget.vue":19,"./vue/files-widget.vue":20,"./vue/inline-graph.vue":21,"./vue/logical_sensors-widget.vue":22,"./vue/physical_sensors-widget.vue":23,"./vue/pumps-widget.vue":24,"./vue/terraria-widget.vue":25,"./vue/valves-widget.vue":26,"vue-i18n":6,"vue-peity":7,"vue/dist/vue.js":9}],12:[function(require,module,exports){
+},{"./lang.js":10,"./vue/action_sequence_schedule-widget.vue":12,"./vue/action_sequences-widget.vue":13,"./vue/animal_feeding_schedules-widget.vue":14,"./vue/animal_feedings-widget.vue":15,"./vue/animals-widget.vue":16,"./vue/controlunit-widget.vue":17,"./vue/dashboard-widget.vue":18,"./vue/files-show-widget.vue":19,"./vue/files-widget.vue":20,"./vue/inline-graph.vue":21,"./vue/logical_sensors-widget.vue":22,"./vue/physical_sensors-widget.vue":23,"./vue/pumps-widget.vue":24,"./vue/terraria-widget.vue":25,"./vue/users-widget.vue":26,"./vue/valves-widget.vue":27,"vue-i18n":6,"vue-peity":7,"vue/dist/vue.js":9}],12:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -15819,9 +15836,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4", __vue__options__)
+    hotAPI.createRecord("data-v-5", __vue__options__)
   } else {
-    hotAPI.reload("data-v-4", __vue__options__)
+    hotAPI.reload("data-v-5", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],15:[function(require,module,exports){
@@ -15933,9 +15950,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3", __vue__options__)
+    hotAPI.createRecord("data-v-4", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3", __vue__options__)
+    hotAPI.reload("data-v-4", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],16:[function(require,module,exports){
@@ -15955,7 +15972,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
     data: function data() {
         return {
-            animals: []
+            animals: [],
+            feeding_types: []
         };
     },
 
@@ -16035,6 +16053,19 @@ exports.default = {
                 window.eventHubVue.processEnded();
             }
         });
+
+        $.ajax({
+            url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw',
+            method: 'GET',
+            success: function success(data) {
+                that.feeding_types = data.data;
+                window.eventHubVue.processEnded();
+            },
+            error: function error(_error2) {
+                alert((0, _stringify2.default)(_error2));
+                window.eventHubVue.processEnded();
+            }
+        });
     }
 
 };
@@ -16042,16 +16073,16 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[_vm._l((_vm.animals),function(animal){return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"modal",attrs:{"id":'modal_just_fed_' + animal.id}},[_vm._h('form',{attrs:{"action":'/api/v1/animals/' + animal.id + '/feedings',"data-method":"POST"},on:{"submit":_vm.submit}},[_vm._h('div',{staticClass:"modal-content"},[_vm._h('h4',[_vm._s(_vm.$t("labels.just_fed"))])," ",_vm._h('p',[_vm._h('select',{attrs:{"name":"meal_type","id":"meal_type"}},[_vm._h('option',{attrs:{"value":"crickets"}},[_vm._s(_vm.$t("labels.crickets"))])," ",_vm._h('option',{attrs:{"value":"mixed_fruits"}},[_vm._s(_vm.$t("labels.mixed_fruits"))])," ",_vm._h('option',{attrs:{"value":"beetle_jelly"}},[_vm._s(_vm.$t("labels.beetle_jelly"))])])," ",_vm._h('label',{attrs:{"for":"meal_type"}},[_vm._s(_vm.$t("labels.meal_type"))])])])," ",_vm._h('div',{staticClass:"modal-footer"},[_vm._h('button',{staticClass:"btn modal-action modal-close waves-effect waves-light",attrs:{"type":"submit"}},[_vm._s(_vm.$t("buttons.save"))+"\n                            ",_vm._m(0,true)])])])])," ",_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-image waves-effect waves-block waves-light terrarium-card-image",class:animal.default_background_filepath ? '' : 'teal lighten-1',style:(animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : '')})," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator grey-text text-darken-4 truncate"},[_vm._h('span',[_vm._s(animal.display_name)])," ",_vm._m(1,true)])," ",_vm._h('p',[_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.latin_name),expression:"animal.latin_name"}]},[_vm._s(animal.latin_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.common_name && !animal.latin_name),expression:"animal.common_name && !animal.latin_name"}]},[_vm._s(animal.common_name)])," ",_vm._m(2,true)," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.birth_date !== null),expression:"animal.birth_date !== null"}]},[_vm._s(animal.birth_date)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.death_date !== null),expression:"animal.death_date !== null"}]},[" - "+_vm._s(animal.death_date)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.birth_date || animal.death_date),expression:"animal.birth_date || animal.death_date"}]},[_vm._h('i',[_vm._s(animal.age_value)+" "+_vm._s(_vm.$tc("units." + animal.age_unit, animal.age_value))])])," ",_vm._m(3,true)," ",(animal.last_feeding)?_vm._h('span',["\n                            "+_vm._s(_vm.$t("labels.last_feeding"))+":\n                            ",(animal.last_feeding.timestamps.diff.value == 0)?_vm._h('span',[_vm._s(_vm.$t("labels.today"))]):_vm._e()," ",(animal.last_feeding.timestamps.diff.value > 0)?_vm._h('span',[_vm._s(animal.last_feeding.timestamps.diff.value)+" "+_vm._s(_vm.$tc("units." + animal.last_feeding.timestamps.diff.unit, animal.last_feeding.timestamps.diff.value))]):_vm._e()," ",_vm._h('i',[_vm._s(_vm.$t("labels." + animal.last_feeding.name))])]):_vm._e()," ",_vm._m(4,true)])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/animals/' + animal.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/animals/' + animal.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc("components.terraria", 1)),_vm._m(5,true)])," ",_vm._h('p',[(animal.terrarium)?_vm._h('a',{attrs:{"href":'/terraria/' + animal.terrarium.id}},[_vm._s(animal.terrarium.display_name)]):_vm._e()])," ",_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$t("labels.just_fed"))])," ",_vm._h('p',[_vm._h('a',{staticClass:"waves-effect waves-teal btn",attrs:{"href":'#modal_just_fed_' + animal.id,"onclick":'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'}},[_vm._s(_vm.$t("labels.just_fed"))])])," ",_vm._h('p',[_vm._h('a',{staticClass:"waves-effect waves-teal btn"},[_vm._s(_vm.$t("labels.add_weight"))])])])])])])})])}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[_vm._l((_vm.animals),function(animal){return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"modal",attrs:{"id":'modal_just_fed_' + animal.id}},[_vm._h('form',{attrs:{"action":'/api/v1/animals/' + animal.id + '/feedings',"data-method":"POST"},on:{"submit":_vm.submit}},[_vm._h('div',{staticClass:"modal-content",staticStyle:{"min-height":"500px"}},[_vm._h('h4',[_vm._s(_vm.$t("labels.just_fed"))])," ",_vm._h('p',[_vm._h('select',{attrs:{"name":"meal_type","id":"meal_type"}},[_vm._l((_vm.feeding_types),function(ft){return _vm._h('option',{domProps:{"value":ft.name}},[_vm._s(ft.name)])})])," ",_vm._h('label',{attrs:{"for":"meal_type"}},[_vm._s(_vm.$t("labels.meal_type"))])])])," ",_vm._h('div',{staticClass:"modal-footer"},[_vm._h('button',{staticClass:"btn modal-action modal-close waves-effect waves-light",attrs:{"type":"submit"}},[_vm._s(_vm.$t("buttons.save"))+"\n                            ",_vm._m(0,true)])])])])," ",_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-image waves-effect waves-block waves-light terrarium-card-image",class:animal.default_background_filepath ? '' : 'teal lighten-1',style:(animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : '')})," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator grey-text text-darken-4 truncate"},[_vm._h('span',[_vm._s(animal.display_name)])," ",_vm._m(1,true)])," ",_vm._h('p',[_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.latin_name),expression:"animal.latin_name"}]},[_vm._s(animal.latin_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.common_name && !animal.latin_name),expression:"animal.common_name && !animal.latin_name"}]},[_vm._s(animal.common_name)])," ",_vm._m(2,true)," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.birth_date !== null),expression:"animal.birth_date !== null"}]},[_vm._s(animal.birth_date)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.death_date !== null),expression:"animal.death_date !== null"}]},[" - "+_vm._s(animal.death_date)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.birth_date || animal.death_date),expression:"animal.birth_date || animal.death_date"}]},[_vm._h('i',[_vm._s(animal.age_value)+" "+_vm._s(_vm.$tc("units." + animal.age_unit, animal.age_value))])])," ",_vm._m(3,true)," ",(animal.last_feeding)?_vm._h('span',["\n                            "+_vm._s(_vm.$t("labels.last_feeding"))+":\n                            ",(animal.last_feeding.timestamps.diff.value == 0)?_vm._h('span',[_vm._s(_vm.$t("labels.today"))]):_vm._e()," ",(animal.last_feeding.timestamps.diff.value > 0)?_vm._h('span',[_vm._s(animal.last_feeding.timestamps.diff.value)+" "+_vm._s(_vm.$tc("units." + animal.last_feeding.timestamps.diff.unit, animal.last_feeding.timestamps.diff.value))]):_vm._e()," ",_vm._h('i',[_vm._s(animal.last_feeding.name)])]):_vm._e()," ",_vm._m(4,true)])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/animals/' + animal.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/animals/' + animal.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc("components.terraria", 1)),_vm._m(5,true)])," ",_vm._h('p',[(animal.terrarium)?_vm._h('a',{attrs:{"href":'/terraria/' + animal.terrarium.id}},[_vm._s(animal.terrarium.display_name)]):_vm._e()])," ",_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$t("labels.just_fed"))])," ",_vm._h('p',[_vm._h('a',{staticClass:"waves-effect waves-teal btn",attrs:{"href":'#modal_just_fed_' + animal.id,"onclick":'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'}},[_vm._s(_vm.$t("labels.just_fed"))])])," ",_vm._h('p',[_vm._h('a',{staticClass:"waves-effect waves-teal btn"},[_vm._s(_vm.$t("labels.add_weight"))])])])])])])})])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["send"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["close"])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2", __vue__options__)
+    hotAPI.createRecord("data-v-3", __vue__options__)
   } else {
-    hotAPI.reload("data-v-2", __vue__options__)
+    hotAPI.reload("data-v-3", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],17:[function(require,module,exports){
@@ -16172,9 +16203,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6", __vue__options__)
+    hotAPI.createRecord("data-v-7", __vue__options__)
   } else {
-    hotAPI.reload("data-v-6", __vue__options__)
+    hotAPI.reload("data-v-7", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],18:[function(require,module,exports){
@@ -16184,13 +16215,6 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-
-var _stringify = require('babel-runtime/core-js/json/stringify');
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
 exports.default = {
     data: function data() {
         return {
@@ -16231,7 +16255,8 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                window.notification('An error occured :(', 'red darken-1 text-white');
+                console.log(_error);
                 window.eventHubVue.processEnded();
             }
         });
@@ -16241,19 +16266,19 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:_vm.wrapperClass},[_vm._h('div',{staticClass:"col s12 m6 l6"},[_vm._h('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.dashboard.terraria.critical.length > 0),expression:"dashboard.terraria.critical.length > 0"}],staticClass:"card"},[_vm._h('div',{staticClass:"card-content red darken-3 white-text"},["\n                "+_vm._s(_vm.$tc("components.terraria", 2))+"\n            "])," ",_vm._h('div',{staticClass:"card-content red darken-2 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.terraria.critical.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.critical.length))+" "+_vm._s(_vm.$t("labels.critical"))])," ",_vm._m(0)])," ",_vm._l((_vm.dashboard.terraria.critical),function(terrarium){return _vm._h('div',[_vm._h('p',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/terraria/' + terrarium.id}},[_vm._s(terrarium.display_name)])])])})])," ",_vm._m(1)," "])," ",_vm._h('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.dashboard.animal_feeding_schedules.overdue.length > 0),expression:"dashboard.animal_feeding_schedules.overdue.length > 0"}],staticClass:"card"},[_vm._h('div',{staticClass:"card-content orange darken-3 white-text"},[_vm._h('span',[_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.overdue"))])])," ",_vm._h('div',{staticClass:"card-content orange darken-2 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.animal_feeding_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.animal_feedings", _vm.dashboard.animal_feeding_schedules.overdue.length))+" "+_vm._s(_vm.$t("labels.overdue"))])," ",_vm._m(2)])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.overdue),function(schedule){return _vm._h('div',[_vm._h('p',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/animals/' + schedule.animal.id}},["\n                            "+_vm._s(schedule.animal.display_name)+":\n                        "])," ",_vm._h('a',{staticClass:"white-text",attrs:{"href":'/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id}},["\n                            "+_vm._s(_vm.$tc("labels." + schedule.type))+"\n                        "]),"\n\n                        ("+_vm._s(_vm.$t("labels.since"))+" "+_vm._s((schedule.due_days*-1))+" "+_vm._s(_vm.$tc("units.days", (schedule.due_days*-1)))+")\n                    "])])})])," ",_vm._m(3)," "])," "])," ",_vm._h('div',{staticClass:"col s12 m6 l6"},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal white-text"},["\n                "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.animal_feeding_schedules.due.length)+" "+_vm._s(_vm.$tc("components.animal_feedings", _vm.dashboard.animal_feeding_schedules.due.length))+" "+_vm._s(_vm.$t("labels.due"))])," ",_vm._m(4)])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.due),function(schedule){return _vm._h('div',[_vm._h('p',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/animals/' + schedule.animal.id}},["\n                            "+_vm._s(schedule.animal.display_name)+":\n                        "])," ",_vm._h('a',{staticClass:"white-text",attrs:{"href":'/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id}},["\n                            "+_vm._s(_vm.$tc("labels." + schedule.type))+"\n                        "])])])})])," ",_vm._m(5)," "])," ",_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal white-text"},["\n                "+_vm._s(_vm.$tc("components.terraria", 2))+"\n            "])," ",_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.terraria.ok.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.ok.length))+" "+_vm._s(_vm.$t("labels.ok"))])," ",_vm._m(6)])])," ",_vm._m(7)," "])," "])])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal red darken-2 white-text"},[_vm._h('span',{staticClass:"card-title red darken-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal orange darken-2 white-text"},[_vm._h('span',{staticClass:"card-title orange darken-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title teal lighten-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title teal lighten-1 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])}]
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:_vm.wrapperClass},[_vm._h('div',{staticClass:"col s12 m6 l6"},[_vm._h('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.dashboard.terraria.critical.length > 0),expression:"dashboard.terraria.critical.length > 0"}],staticClass:"card"},[_vm._h('div',{staticClass:"card-content red darken-3 white-text"},["\n                "+_vm._s(_vm.$tc("components.terraria", 2))+"\n            "])," ",_vm._h('div',{staticClass:"card-content red darken-2 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.terraria.critical.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.critical.length))+" "+_vm._s(_vm.$t("labels.critical"))])," ",_vm._m(0)])," ",_vm._l((_vm.dashboard.terraria.critical),function(terrarium){return _vm._h('div',[_vm._h('p',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/terraria/' + terrarium.id}},[_vm._s(terrarium.display_name)])])])})])," ",_vm._m(1)," "])," ",_vm._h('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.dashboard.terraria.critical.length < 1),expression:"dashboard.terraria.critical.length < 1"}],staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal white-text"},["\n                "+_vm._s(_vm.$tc("components.terraria", 2))+"\n            "])," ",_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',["0 "+_vm._s(_vm.$tc("components.terraria", 2))+" "+_vm._s(_vm.$t("labels.critical"))])," ",_vm._m(2)])])])," ",_vm._h('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.dashboard.animal_feeding_schedules.overdue.length > 0),expression:"dashboard.animal_feeding_schedules.overdue.length > 0"}],staticClass:"card"},[_vm._h('div',{staticClass:"card-content orange darken-3 white-text"},[_vm._h('span',[_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.overdue"))])])," ",_vm._h('div',{staticClass:"card-content orange darken-2 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.animal_feeding_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.animal_feedings", _vm.dashboard.animal_feeding_schedules.overdue.length))+" "+_vm._s(_vm.$t("labels.overdue"))])," ",_vm._m(3)])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.overdue),function(schedule){return _vm._h('div',[_vm._h('p',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/animals/' + schedule.animal.id}},["\n                            "+_vm._s(schedule.animal.display_name)+":\n                        "])," ",_vm._h('a',{staticClass:"white-text",attrs:{"href":'/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id}},["\n                            "+_vm._s(_vm.$tc("labels." + schedule.type))+"\n                        "]),"\n\n                        ("+_vm._s(_vm.$t("labels.since"))+" "+_vm._s((schedule.due_days*-1))+" "+_vm._s(_vm.$tc("units.days", (schedule.due_days*-1)))+")\n                    "])])})])," ",_vm._m(4)," "])," ",_vm._h('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.dashboard.animal_feeding_schedules.overdue.length < 1),expression:"dashboard.animal_feeding_schedules.overdue.length < 1"}],staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal white-text"},["\n                "+_vm._s(_vm.$tc("components.animal_feedings", 2))+"\n            "])," ",_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',["0 "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.overdue"))])," ",_vm._m(5)])])])," "])," ",_vm._h('div',{staticClass:"col s12 m6 l6"},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal white-text"},["\n                "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.animal_feeding_schedules.due.length)+" "+_vm._s(_vm.$tc("components.animal_feedings", _vm.dashboard.animal_feeding_schedules.due.length))+" "+_vm._s(_vm.$t("labels.due"))])," ",_vm._m(6)])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.due),function(schedule){return _vm._h('div',[_vm._h('p',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/animals/' + schedule.animal.id}},["\n                            "+_vm._s(schedule.animal.display_name)+":\n                        "])," ",_vm._h('a',{staticClass:"white-text",attrs:{"href":'/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id}},["\n                            "+_vm._s(_vm.$tc("labels." + schedule.type))+"\n                        "])])])})])," ",_vm._m(7)," "])," ",_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal white-text"},["\n                "+_vm._s(_vm.$tc("components.terraria", 2))+"\n            "])," ",_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.terraria.ok.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.ok.length))+" "+_vm._s(_vm.$t("labels.ok"))])," ",_vm._m(8)])])," ",_vm._m(9)," "])," "])])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal red darken-2 white-text"},[_vm._h('span',{staticClass:"card-title red darken-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["check"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal orange darken-2 white-text"},[_vm._h('span',{staticClass:"card-title orange darken-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["check"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title teal lighten-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title teal lighten-1 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8", __vue__options__)
+    hotAPI.createRecord("data-v-1", __vue__options__)
   } else {
-    hotAPI.reload("data-v-8", __vue__options__)
+    hotAPI.reload("data-v-1", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],19:[function(require,module,exports){
+},{"vue":8,"vue-hot-reload-api":5}],19:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -16490,9 +16515,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7", __vue__options__)
+    hotAPI.createRecord("data-v-8", __vue__options__)
   } else {
-    hotAPI.reload("data-v-7", __vue__options__)
+    hotAPI.reload("data-v-8", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],21:[function(require,module,exports){
@@ -16578,9 +16603,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1", __vue__options__)
+    hotAPI.createRecord("data-v-2", __vue__options__)
   } else {
-    hotAPI.reload("data-v-1", __vue__options__)
+    hotAPI.reload("data-v-2", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],22:[function(require,module,exports){
@@ -17084,12 +17109,109 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5", __vue__options__)
+    hotAPI.createRecord("data-v-6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-5", __vue__options__)
+    hotAPI.reload("data-v-6", __vue__options__)
   }
 })()}
 },{"./inline-graph.vue":21,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],26:[function(require,module,exports){
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    data: function data() {
+        return {
+            users: [],
+            meta: [],
+            filter: {
+                id: null,
+                name: null,
+                email: null
+            },
+            filter_string: '',
+            page: 1
+        };
+    },
+
+
+    props: {
+        wrapperClasses: {
+            type: String,
+            default: '',
+            required: false
+        }
+    },
+
+    methods: {
+        set_filter: function set_filter() {
+            this.filter_string = '';
+            for (var prop in this.filter) {
+                if (this.filter.hasOwnProperty(prop)) {
+                    if (this.filter[prop] !== null && this.filter[prop] !== '') {
+
+                        this.filter_string += 'filter[' + prop + ']=like:*' + this.filter[prop] + '*&';
+                    }
+                }
+            }
+            this.load_data();
+        },
+        set_page: function set_page(page) {
+            this.page = page;
+            this.load_data();
+        },
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/users?page=' + this.page + '&' + this.filter_string,
+                method: 'GET',
+                success: function success(data) {
+                    that.meta = data.meta;
+                    that.users = data.data;
+                    that.$nextTick(function () {
+                        $('.dropdown-button').dropdown();
+                    });
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    alert((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+        }
+    },
+
+    created: function created() {
+        this.load_data();
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('table',[_vm._h('thead',[_vm._h('tr',[_vm._h('th',{staticClass:"hide-on-med-and-down",attrs:{"data-field":"id"}},["\n                    ID\n                    ",_vm._h('div',{staticClass:"input-field inline"},[_vm._h('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.filter.id),expression:"filter.id"}],attrs:{"id":"filter_id","type":"text"},domProps:{"value":_vm._s(_vm.filter.id)},on:{"keyup":function($event){if($event.keyCode!==13){ return; }_vm.set_filter($event)},"input":function($event){if($event.target.composing){ return; }_vm.filter.id=$event.target.value}}})," ",_vm._m(0)])])," ",_vm._h('th',{attrs:{"data-field":"name"}},["\n                    "+_vm._s(_vm.$t('labels.name'))+"\n                    ",_vm._h('div',{staticClass:"input-field inline"},[_vm._h('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.filter.name),expression:"filter.name"}],attrs:{"id":"filter_name","type":"text"},domProps:{"value":_vm._s(_vm.filter.name)},on:{"keyup":function($event){if($event.keyCode!==13){ return; }_vm.set_filter($event)},"input":function($event){if($event.target.composing){ return; }_vm.filter.name=$event.target.value}}})," ",_vm._m(1)])])," ",_vm._h('th',{attrs:{"data-field":"email"}},["\n                    "+_vm._s(_vm.$t('labels.email'))+"\n                    ",_vm._h('div',{staticClass:"input-field inline"},[_vm._h('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.filter.email),expression:"filter.email"}],attrs:{"id":"filter_email","type":"text"},domProps:{"value":_vm._s(_vm.filter.email)},on:{"keyup":function($event){if($event.keyCode!==13){ return; }_vm.set_filter($event)},"input":function($event){if($event.target.composing){ return; }_vm.filter.email=$event.target.value}}})," ",_vm._m(2)])])," ",_vm._h('th',{attrs:{"data-field":"actions"}},["\n                    "+_vm._s(_vm.$t('labels.actions'))+"\n                "])])])," ",_vm._h('tbody',[_vm._l((_vm.users),function(user){return _vm._h('tr',[_vm._h('td',{staticClass:"hide-on-med-and-down"},[_vm._s(user.id)])," ",_vm._h('td',[_vm._s(user.name)])," ",_vm._h('td',[_vm._s(user.email)])," ",_vm._h('td',[_vm._h('a',{staticClass:"dropdown-button btn btn-small",attrs:{"href":"#!","data-activates":'dropdown-edit-user_' + user.id}},["\n                        "+_vm._s(_vm.$t('labels.actions')),_vm._m(3,true)])," ",_vm._h('ul',{staticClass:"dropdown-content",attrs:{"id":'dropdown-edit-user_' + user.id}},[_vm._h('li',[_vm._h('a',{attrs:{"href":'/users/' + user.id + '/edit'}},["\n                                "+_vm._s(_vm.$t('buttons.edit'))+"\n                            "])])," ",_vm._h('li',[_vm._h('a',{attrs:{"href":'/users/' + user.id + '/delete'}},["\n                                "+_vm._s(_vm.$t('buttons.delete'))+"\n                            "])])])])])})])])," ",_vm._h('ul',{staticClass:"pagination"},[_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1 }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(1)}}},[_vm._m(4)])])," ",_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1 }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-1)}}},[_vm._m(5)])])," ",(_vm.meta.pagination.current_page-3 > 0)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-3)}}},[_vm._s(_vm.meta.pagination.current_page-3)])]):_vm._e()," ",(_vm.meta.pagination.current_page-2 > 0)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-2)}}},[_vm._s(_vm.meta.pagination.current_page-2)])]):_vm._e()," ",(_vm.meta.pagination.current_page-1 > 0)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-1)}}},[_vm._s(_vm.meta.pagination.current_page-1)])]):_vm._e()," ",_vm._h('li',{staticClass:"active"},[_vm._h('a',{attrs:{"href":"#!"}},[_vm._s(_vm.meta.pagination.current_page)])])," ",(_vm.meta.pagination.current_page+1 <= _vm.meta.pagination.total_pages)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+1)}}},[_vm._s(_vm.meta.pagination.current_page+1)])]):_vm._e()," ",(_vm.meta.pagination.current_page+2 <= _vm.meta.pagination.total_pages)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+2)}}},[_vm._s(_vm.meta.pagination.current_page+2)])]):_vm._e()," ",(_vm.meta.pagination.current_page+3 <= _vm.meta.pagination.total_pages)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+3)}}},[_vm._s(_vm.meta.pagination.current_page+3)])]):_vm._e()," ",_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages, 'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+1)}}},[_vm._m(6)])])," ",_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages, 'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.total_pages)}}},[_vm._m(7)])])])])])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('label',{attrs:{"for":"filter_id"}},["Filter"])},function render () {var _vm=this;return _vm._h('label',{attrs:{"for":"filter_name"}},["Filter"])},function render () {var _vm=this;return _vm._h('label',{attrs:{"for":"filter_email"}},["Filter"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["keyboard_arrow_down"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["first_page"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["chevron_left"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["chevron_right"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["last_page"])}]
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-16", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-16", __vue__options__)
+  }
+})()}
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],27:[function(require,module,exports){
 ;(function(){
 'use strict';
 

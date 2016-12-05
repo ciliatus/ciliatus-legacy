@@ -101,7 +101,7 @@ window.submit_form = function (e) {
         },
         success: function success(data) {
             btns.removeAttr('disabled');
-            notification('Saved', 'teal darken-1 text-white');
+            window.notification('Saved', 'teal darken-1 text-white');
 
             if (redirect_success !== undefined) {
                 if (redirect_success == 'auto') {
@@ -121,7 +121,7 @@ window.submit_form = function (e) {
             btns.removeAttr('disabled');
             var msg = 'Unknown';
             if (data.responseJSON !== undefined) msg = data.responseJSON.error.message;
-            notification('Error ' + data.status + '<br />' + data.statusText + ':<br />' + msg, 'orange darken-2 text-white');
+            window.notification('Error ' + data.status + '<br />' + data.statusText + ':<br />' + msg, 'orange darken-2 text-white');
         }
     });
 };
@@ -133,17 +133,20 @@ var progressHandlingFunction = function progressHandlingFunction(e) {
     }
 };
 
-function notification(text, cssClass, length) {
+window.notification = function (text, cssClass, length) {
     length = length || 5000;
     cssClass = cssClass || null;
     Materialize.toast(text, length, cssClass);
-}
+};
 
 global.runPage = function () {
     $('select').material_select();
 
+    $('.dropdown-button').dropdown();
+
     $(".button-collapse").sideNav();
 
+    // SideNav collapse active
     var active_headers = $('.collapsible-body ul li.active').parent().parent().parent();
     active_headers.addClass('active');
     active_headers.children('.collapsible-body').css('display', 'block');
