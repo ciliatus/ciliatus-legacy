@@ -42,19 +42,39 @@ class FileController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $files = $this->filter($request, File::all());
+        $files = File::query();
 
-        foreach ($files as &$f) {
+        $files = $this->filter($request, $files);
+
+
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->fileTransformer->transformCollection(
+                    $files->toArray()
+                )
+            );
+
+        }
+
+        $files = $files->paginate(env('PAGINATION_PER_PAGE', 20));
+
+        foreach ($files->items() as &$f) {
             $f->path_internal = $f->path_internal();
             $f->path_external = $f->path_external();
         }
 
-        return $this->setStatusCode(200)->respondWithData(
+        return $this->setStatusCode(200)->respondWithPagination(
             $this->fileTransformer->transformCollection(
-                $files->toArray()
+                $files->toArray()['data']
             ),
             $files
         );
+
     }
 
     /**

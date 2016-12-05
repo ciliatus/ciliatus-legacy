@@ -11,6 +11,7 @@ use App\Valve;
 use Cache;
 use Carbon\Carbon;
 use Gate;
+use Illuminate\Database\Eloquent\Collection;
 use Log;
 use Illuminate\Http\Request;
 
@@ -41,30 +42,52 @@ class TerrariumController extends ApiController
      */
     public function index(Request $request)
     {
+
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        $terraria = $this->filter(
-            $request,
-            Terrarium::with('animals')
-                     ->with('files')
-                     ->with('action_sequences')
-        )->get();
-
         $history_to = $request->has('history_to') ? $request->input('history_to') : null;
         $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : null;
 
-        $terraria_repository = [];
-        foreach ($terraria as $t) {
-            $terraria_repository[] = (new TerrariumRepository($t))->show($history_to, $history_minutes)->toArray();
+        $terraria = Terrarium::with('animals')
+                             ->with('files')
+                             ->with('action_sequences');
+
+        $terraria = $this->filter($request, $terraria);
+
+
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            foreach ($terraria as &$t) {
+                $t = (new TerrariumRepository($t))->show($history_to, $history_minutes);
+            }
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->terrariumTransformer->transformCollection(
+                    $terraria->toArray()
+                )
+            );
+
         }
 
-        return $this->setStatusCode(200)->respondWithData(
+        $terraria = $terraria->paginate(env('PAGINATION_PER_PAGE', 20));
+
+        foreach ($terraria->items() as &$t) {
+            $t = (new TerrariumRepository($t))->show($history_to, $history_minutes);
+        }
+
+        return $this->setStatusCode(200)->respondWithPagination(
             $this->terrariumTransformer->transformCollection(
-                $terraria_repository
-            )
+                $terraria->toArray()['data']
+            ),
+            $terraria
         );
+
     }
 
     /**

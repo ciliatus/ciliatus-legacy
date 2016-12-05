@@ -41,7 +41,7 @@ class AnimalFeedingScheduleController extends ApiController
      * @param $animal_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index($animal_id)
+    public function index(Request $request, $animal_id)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
@@ -52,13 +52,37 @@ class AnimalFeedingScheduleController extends ApiController
             return $this->respondNotFound("Animal not found");
         }
 
-        $feeding_schedules = $animal->feeding_schedules;
-        foreach ($feeding_schedules as &$fs) {
-            (new AnimalFeedingScheduleRepository($fs, $animal))->show();
+        $feeding_schedules = $this->filter($request, $animal->feeding_schedules());
+
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            foreach ($feeding_schedules as &$fs) {
+                $fs = (new AnimalFeedingScheduleRepository($fs, $animal))->show();
+            }
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->animalFeedingScheduleTransformer->transformCollection(
+                    $feeding_schedules->toArray()
+                )
+            );
+
         }
 
-        return $this->respondWithData(
-            $this->animalFeedingScheduleTransformer->transformCollection($feeding_schedules->toArray())
+        $feeding_schedules = $feeding_schedules->paginate(env('PAGINATION_PER_PAGE', 20));
+
+        foreach ($feeding_schedules->items() as &$fs) {
+            $fs = (new AnimalFeedingScheduleRepository($fs, $animal))->show();
+        }
+
+        return $this->setStatusCode(200)->respondWithPagination(
+            $this->animalFeedingScheduleTransformer->transformCollection(
+                $feeding_schedules->toArray()['data']
+            ),
+            $feeding_schedules
         );
 
     }

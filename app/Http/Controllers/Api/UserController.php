@@ -39,13 +39,30 @@ class UserController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Gate::denies('api-list_admin')) {
             return $this->respondUnauthorized();
         }
 
-        $users = User::paginate(10);
+        $users = User::with('settings');
+
+        $users = $this->filter($request, $users);
+
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->userTransformer->transformCollection(
+                    $users->get()->toArray()
+                )
+            );
+        }
+
+        $users = $users->paginate(env('PAGINATION_PER_PAGE', 20));
 
         return $this->setStatusCode(200)->respondWithPagination(
             $this->userTransformer->transformCollection(

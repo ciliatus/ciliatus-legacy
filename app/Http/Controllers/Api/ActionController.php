@@ -30,20 +30,40 @@ class ActionController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
+
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        $actions = Action::paginate(10);
+        $action = Action::with('schedules')
+            ->with('terrarium');
+
+        $action = $this->filter($request, $action);
+
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->actionTransformer->transformCollection(
+                    $action->get()->toArray()
+                )
+            );
+        }
+
+        $action = $action->paginate(env('PAGINATION_PER_PAGE', 20));
 
         return $this->setStatusCode(200)->respondWithPagination(
             $this->actionTransformer->transformCollection(
-                $actions->toArray()['data']
+                $action->toArray()['data']
             ),
-            $actions
+            $action
         );
+
     }
 
     /**

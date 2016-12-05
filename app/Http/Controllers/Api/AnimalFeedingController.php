@@ -40,7 +40,7 @@ class AnimalFeedingController extends ApiController
      * @param $animal_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index($animal_id)
+    public function index(Request $request, $animal_id)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
@@ -51,15 +51,37 @@ class AnimalFeedingController extends ApiController
             return $this->respondNotFound("Animal not found");
         }
 
-        $feedings = [];
-        foreach ($animal->feedings as $f) {
-            $feedings[] = (new AnimalFeedingRepository($f))->show()->toArray();
+        $feedings = $animal->feedings();
+
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            foreach ($feedings as &$f) {
+                $f = (new AnimalFeedingRepository($f))->show()->toArray();
+            }
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->animalFeedingTransformer->transformCollection(
+                    $feedings->toArray()
+                )
+            );
+
         }
 
-        return $this->respondWithData(
+        $feeding = $feedings->paginate(env('PAGINATION_PER_PAGE', 20));
+
+        foreach ($feedings->items() as &$f) {
+            $f = (new AnimalFeedingRepository($f))->show()->toArray();
+        }
+
+        return $this->setStatusCode(200)->respondWithPagination(
             $this->animalFeedingTransformer->transformCollection(
-                $feedings
-            )
+                $feeding->toArray()['data']
+            ),
+            $feeding
         );
 
     }

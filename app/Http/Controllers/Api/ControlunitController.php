@@ -31,13 +31,30 @@ class ControlunitController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        $controlunits = Controlunit::paginate(10);
+        $controlunits = Controlunit::with('physical_sensors');
+
+        $controlunits = $this->filter($request, $controlunits);
+
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->controlunitTransformer->transformCollection(
+                    $controlunits->get()->toArray()
+                )
+            );
+        }
+
+        $controlunits = $controlunits->paginate(env('PAGINATION_PER_PAGE', 20));
 
         return $this->setStatusCode(200)->respondWithPagination(
             $this->controlunitTransformer->transformCollection(
@@ -45,6 +62,7 @@ class ControlunitController extends ApiController
             ),
             $controlunits
         );
+        
     }
 
     /**
