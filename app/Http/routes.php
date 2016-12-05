@@ -10,6 +10,7 @@ Route::group(['namespace' => 'Web'], function() {
     Route::get('animals/feedings/types/create', 'AnimalFeedingController@create_type');
     Route::resource('animals/{id}/feedings', 'AnimalFeedingController');
     Route::resource('animals/{id}/feeding_schedules', 'AnimalFeedingScheduleController');
+    Route::get('animals/{animal_id}/feeding_schedules/{id}/delete', 'AnimalFeedingScheduleController@delete');
     Route::get('animals/{id}/delete', 'AnimalController@delete');
     Route::resource('terraria', 'TerrariumController');
     Route::get('terraria/{id}/delete', 'TerrariumController@delete');
@@ -58,7 +59,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
     Route::resource('animals', 'AnimalController');
     Route::post('animals/feedings/types', 'AnimalFeedingController@store_type');
     Route::resource('animals/{id}/feedings', 'AnimalFeedingController');
-    Route::resource('animals/{id}/feeding_schedules', 'AnimalFeedingScheduleController');
+    Route::resource('animals/{animal_id}/feeding_schedules', 'AnimalFeedingScheduleController');
     Route::resource('terraria', 'TerrariumController');
     Route::get('terraria/{id}/sensorreadings', 'TerrariumController@sensorreadings');
     Route::get('terraria/{id}/sensorreadingsByType/{type}', 'TerrariumController@sensorreadingsByType');
