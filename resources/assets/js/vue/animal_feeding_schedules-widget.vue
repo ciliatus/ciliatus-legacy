@@ -14,7 +14,7 @@
 
                     <div v-for="afs in animal_feeding_schedules">
                         <p>
-                            {{ afs.timestamps.next }} - {{ $t("labels." + afs.type) }}
+                            {{ afs.timestamps.next }} - {{ afs.type }}
                             <span v-show="afs.due_days == 0">
                                 <span class="new badge" v-bind:data-badge-caption="$t('labels.due')"> </span>
                             </span>
