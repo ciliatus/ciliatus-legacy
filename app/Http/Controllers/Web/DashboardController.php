@@ -31,29 +31,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $terraria_critical = [];
-        foreach (Terrarium::get() as $t) {
-            if (!$t->stateOk()) {
-                $terraria_critical[] = $t;
-            }
-        }
-
-        $ass_will_run_today = [];
-        $ass_running = [];
-        foreach (ActionSequenceSchedule::all() as $ass) {
-            if ($ass->will_run_today()) {
-                $ass_will_run_today[] = $ass;
-            }
-            elseif ($ass->running()) {
-                $ass_running[] = $ass;
-            }
-        }
-
-        return view('dashboard', [
-            'terraria' => $terraria_critical,
-            'ass_will_run_today' => $ass_will_run_today,
-            'ass_running' => $ass_running
-        ]);
+        return view('dashboard');
     }
 
     /**
