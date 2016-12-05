@@ -195,10 +195,71 @@ export default {
 
         },
         updateAnimalFeedingSchedule: function(e) {
+            var item = null;
 
+            /*
+                Check in due array
+            */
+            this.dashboard.animal_feeding_schedules.due.forEach(function(data, index) {
+                if (data.id === e.animal_feeding_schedule.id) {
+                    item = index;
+                }
+            });
+            if (item !== null) {
+                if (e.animal_feeding_schedule.due_days === 0) {
+                    this.dashboard.animal_feeding_schedules.due.splice(item, 1, e.animal_feeding_schedule);
+                }
+                else {
+                    this.dashboard.animal_feeding_schedules.due.splice(item, 1);
+                }
+            }
+
+            /*
+                Check in overdue array
+                if not found under due
+             */
+            if (item === null) {
+                this.dashboard.animal_feeding_schedules.overdue.forEach(function(data, index) {
+                    if (data.id === e.animal_feeding_schedule.id) {
+                        item = index;
+                    }
+                });
+
+                if (item !== null) {
+                    if (e.animal_feeding_schedule.due_days >= 0) {
+                        this.dashboard.animal_feeding_schedules.overdue.splice(item, 1);
+                    }
+                    else {
+                        this.dashboard.animal_feeding_schedules.overdue.splice(item, 1, e.animal_feeding_schedule);
+                    }
+                }
+            }
+
+            /*
+                Push if not found
+            */
+            if (item === null) {
+                if (e.animal_feeding_schedule.due_days == 0) {
+                    this.dashboard.animal_feeding_schedules.due.push(e.animal_feeding_schedule);
+                }
+                else if (e.animal_feeding_schedule.due_days < 0) {
+                    this.dashboard.animal_feeding_schedules.overdue.push(e.animal_feeding_schedule);
+                }
+            }
         },
-        deleteAnimalFeedingSchedule: function(e) {
 
+        deleteAnimalFeedingSchedule: function(e) {
+            this.dashboard.animal_feeding_schedules.due.forEach(function(data, index) {
+                if (data.id === e.animal_feeding_schedule.id) {
+                    this.dashboard.animal_feeding_schedules.due.splice(index, 1);
+                }
+            });
+
+            this.dashboard.animal_feeding_schedules.overdue.forEach(function(data, index) {
+                if (data.id === e.animal_feeding_schedule.id) {
+                    this.dashboard.animal_feeding_schedules.overdue.splice(index, 1);
+                }
+            });
         },
     },
 
