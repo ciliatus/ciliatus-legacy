@@ -104,7 +104,7 @@ export default {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/pumps/' + that.pumpId,
+            url: '/api/v1/pumps/' + that.pumpId + '?raw',
             method: 'GET',
             success: function (data) {
                 if (that.pumpId !== '') {

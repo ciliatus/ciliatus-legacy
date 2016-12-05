@@ -139,7 +139,7 @@ export default {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/terraria/' + that.terrariumId,
+            url: '/api/v1/terraria/' + that.terrariumId + '?raw',
             method: 'GET',
             success: function (data) {
                 if (that.terrariumId !== '') {

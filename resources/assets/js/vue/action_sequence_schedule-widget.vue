@@ -63,7 +63,7 @@ export default {
 
         var uri = '';
         if (this.assid === '') {
-            uri = '/api/v1/action_sequence_schedules/?filter[last_finished_at]=nottoday';
+            uri = '/api/v1/action_sequence_schedules/?filter[last_finished_at]=nottoday&raw';
         }
         else {
             uri = '/api/v1/action_sequence_schedules/' + this.assid;

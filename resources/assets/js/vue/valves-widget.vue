@@ -117,7 +117,7 @@ export default {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/valves/' + that.valveId,
+            url: '/api/v1/valves/' + that.valveId + '?raw',
             method: 'GET',
             success: function (data) {
                 if (that.valveId !== '') {

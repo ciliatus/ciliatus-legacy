@@ -15573,7 +15573,7 @@ exports.default = {
 
         var uri = '';
         if (this.assid === '') {
-            uri = '/api/v1/action_sequence_schedules/?filter[last_finished_at]=nottoday';
+            uri = '/api/v1/action_sequence_schedules/?filter[last_finished_at]=nottoday&raw';
         } else {
             uri = '/api/v1/action_sequence_schedules/' + this.assid;
         }
@@ -15692,7 +15692,7 @@ exports.default = {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter,
+            url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter + '&raw',
             method: 'GET',
             success: function success(data) {
                 if (that.action_sequenceId !== '') {
@@ -15811,7 +15811,7 @@ exports.default = {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/animals/' + that.animalId + '/feeding_schedules',
+            url: '/api/v1/animals/' + that.animalId + '/feeding_schedules?raw',
             method: 'GET',
             success: function success(data) {
                 that.animal_feeding_schedules = data.data;
@@ -15925,7 +15925,7 @@ exports.default = {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/animals/' + that.animalId + '/feedings?limit=10',
+            url: '/api/v1/animals/' + that.animalId + '/feedings',
             method: 'GET',
             success: function success(data) {
                 that.animal_feedings = data.data;
@@ -16174,7 +16174,7 @@ exports.default = {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/controlunits/' + that.controlunitId,
+            url: '/api/v1/controlunits/' + that.controlunitId + '?raw',
             method: 'GET',
             success: function success(data) {
                 if (that.controlunitId !== '') {
@@ -16697,7 +16697,7 @@ exports.default = {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/logical_sensors/' + that.logical_sensorId,
+            url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?raw',
             method: 'GET',
             success: function success(data) {
                 if (that.logical_sensorId !== '') {
@@ -16820,7 +16820,7 @@ exports.default = {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/physical_sensors/' + that.physical_sensorId,
+            url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw',
             method: 'GET',
             success: function success(data) {
                 if (that.physical_sensorId !== '') {
@@ -16943,7 +16943,7 @@ exports.default = {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/pumps/' + that.pumpId,
+            url: '/api/v1/pumps/' + that.pumpId + '?raw',
             method: 'GET',
             success: function success(data) {
                 if (that.pumpId !== '') {
@@ -17079,7 +17079,7 @@ exports.default = {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/terraria/' + that.terrariumId,
+            url: '/api/v1/terraria/' + that.terrariumId + '?raw',
             method: 'GET',
             success: function success(data) {
                 if (that.terrariumId !== '') {
@@ -17300,7 +17300,7 @@ exports.default = {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/valves/' + that.valveId,
+            url: '/api/v1/valves/' + that.valveId + '?raw',
             method: 'GET',
             success: function success(data) {
                 if (that.valveId !== '') {

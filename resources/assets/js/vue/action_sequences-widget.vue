@@ -93,7 +93,7 @@ export default {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter,
+            url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter + '&raw',
             method: 'GET',
             success: function (data) {
                 if (that.action_sequenceId !== '') {

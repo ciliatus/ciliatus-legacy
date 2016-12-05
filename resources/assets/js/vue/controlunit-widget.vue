@@ -104,7 +104,7 @@ export default {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/controlunits/' + that.controlunitId,
+            url: '/api/v1/controlunits/' + that.controlunitId + '?raw',
             method: 'GET',
             success: function (data) {
                 if (that.controlunitId !== '') {

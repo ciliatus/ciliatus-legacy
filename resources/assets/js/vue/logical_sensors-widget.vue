@@ -127,7 +127,7 @@ export default {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/logical_sensors/' + that.logical_sensorId,
+            url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?raw',
             method: 'GET',
             success: function (data) {
                 if (that.logical_sensorId !== '') {

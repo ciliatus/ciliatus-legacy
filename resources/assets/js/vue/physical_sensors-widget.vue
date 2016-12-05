@@ -108,7 +108,7 @@ export default {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/physical_sensors/' + that.physical_sensorId,
+            url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw',
             method: 'GET',
             success: function (data) {
                 if (that.physical_sensorId !== '') {
