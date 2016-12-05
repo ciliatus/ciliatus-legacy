@@ -50,14 +50,30 @@ class LogicalSensorThresholdController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $logical_sensor_thresholds = LogicalSensorThreshold::with('logical_sensor');
+        $logical_sensors = LogicalSensor::with('logical_sensor');
 
-        $logical_sensor_thresholds = $this->filter($request, $logical_sensor_thresholds);
+        $logical_sensors = $this->filter($request, $logical_sensors);
 
-        return $this->setStatusCode(200)->respondWithData(
-            $this->logicalSensorTransformer->transformCollection(
-                $logical_sensor_thresholds->toArray()
-            )
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->logical_sensorTransformer->transformCollection(
+                    $logical_sensors->get()->toArray()
+                )
+            );
+        }
+
+        $logical_sensors = $logical_sensors->paginate(env('PAGINATION_PER_PAGE', 100));
+
+        return $this->setStatusCode(200)->respondWithPagination(
+            $this->logical_sensorTransformer->transformCollection(
+                $logical_sensors->toArray()['data']
+            ),
+            $logical_sensors
         );
     }
 

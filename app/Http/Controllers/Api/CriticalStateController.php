@@ -40,34 +40,31 @@ class CriticalStateController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if (!is_null($request->input('all'))) {
-            $critical_states = CriticalState::paginate(10);
-            foreach ($critical_states as &$cs) {
-                $cs->belongsTo_object = $cs->belongsTo_object();
-                $cs->belongsTo_object->icon = $cs->belongsTo_object->icon();
-                $cs->belongsTo_object->url = $cs->belongsTo_object->url();
-            }
-            return $this->setStatusCode(200)->respondWithPagination(
-                $this->critical_stateTransformer->transformCollection(
-                    $critical_states->toArray()['data']
-                ),
-                $critical_states
-            );
-        }
-        else {
-            $critical_states = CriticalState::whereNull('recovered_at')->orderBy('created_at', 'desc')->get();
-            foreach ($critical_states as &$cs) {
-                $cs->belongsTo_object = $cs->belongsTo_object();
-                $cs->belongsTo_object->icon = $cs->belongsTo_object->icon();
-                $cs->belongsTo_object->url = $cs->belongsTo_object->url();
-            }
+        $critical_states = CriticalState::query();
+
+        $critical_states = $this->filter($request, $critical_states);
+
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
             return $this->setStatusCode(200)->respondWithData(
                 $this->critical_stateTransformer->transformCollection(
-                    $critical_states->toArray()
+                    $critical_states->get()->toArray()
                 )
             );
         }
 
+        $critical_states = $critical_states->paginate(env('PAGINATION_PER_PAGE', 20));
+
+        return $this->setStatusCode(200)->respondWithPagination(
+            $this->critical_stateTransformer->transformCollection(
+                $critical_states->toArray()['data']
+            ),
+            $critical_states
+        );
 
     }
     

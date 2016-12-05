@@ -16,16 +16,16 @@ class ActionSequenceController extends ApiController
     /**
      * @var ActionSequenceTransformer
      */
-    protected $actionTransformer;
+    protected $actionSequenceTransformer;
 
     /**
      * ActionSequenceController constructor.
-     * @param ActionSequenceTransformer $_actionTransformer
+     * @param ActionSequenceTransformer $_actionSequenceTransformer
      */
-    public function __construct(ActionSequenceTransformer $_actionTransformer)
+    public function __construct(ActionSequenceTransformer $_actionSequenceTransformer)
     {
         parent::__construct();
-        $this->actionTransformer = $_actionTransformer;
+        $this->actionSequenceTransformer = $_actionSequenceTransformer;
     }
 
     /**
@@ -37,16 +37,31 @@ class ActionSequenceController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $actions = $this->filter(
-            $request,
-            ActionSequence::with('schedules')
-                            ->with('terrarium')
-        )->get();
+        $action_sequences = ActionSequence::with('schedules')
+                        ->with('terrarium');
 
-        return $this->setStatusCode(200)->respondWithData(
-            $this->actionTransformer->transformCollection(
-                $actions->toArray()
-            )
+        $action_sequences = $this->filter($request, $action_sequences);
+
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->actionSequenceTransformer->transformCollection(
+                    $action_sequences->get()->toArray()
+                )
+            );
+        }
+
+        $action_sequences = $action_sequences->paginate(env('PAGINATION_PER_PAGE', 20));
+
+        return $this->setStatusCode(200)->respondWithPagination(
+            $this->actionSequenceTransformer->transformCollection(
+                $action_sequences->toArray()['data']
+            ),
+            $action_sequences
         );
     }
 

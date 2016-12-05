@@ -81,7 +81,7 @@ class Pump extends CiliatusModel
      */
     public function valves()
     {
-        return $this->belongsTo('App\Valves');
+        return $this->belongsTo('App\Valve');
     }
 
     /**

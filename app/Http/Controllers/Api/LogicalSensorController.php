@@ -46,17 +46,36 @@ class LogicalSensorController extends ApiController
         $logical_sensors = LogicalSensor::with('thresholds')
                                         ->with('physical_sensor');
 
-        $logical_sensors = $this->filter($request, $logical_sensors)->get();
+        $logical_sensors = $this->filter($request, $logical_sensors);
 
-        foreach ($logical_sensors as $ls) {
+
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->logicalSensorTransformer->transformCollection(
+                    $logical_sensors->toArray()
+                )
+            );
+
+        }
+
+        $logical_sensors = $logical_sensors->paginate(env('PAGINATION_PER_PAGE', 20));
+
+        foreach ($logical_sensors->items() as &$ls) {
             $ls->current_threshold_id = is_null($ls->current_threshold()) ? null : $ls->current_threshold()->id;
         }
 
-        return $this->respondWithData(
+        return $this->setStatusCode(200)->respondWithPagination(
             $this->logicalSensorTransformer->transformCollection(
-                $logical_sensors->toArray()
-            )
+                $logical_sensors->toArray()['data']
+            ),
+            $logical_sensors
         );
+
     }
 
     /**

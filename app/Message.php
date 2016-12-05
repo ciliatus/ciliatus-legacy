@@ -58,6 +58,9 @@ abstract class Message extends CiliatusModel
     }
 
     /**
+     * Like find, but returns the child
+     * class by evaluating the type property
+     *
      * @param $id
      * @return null
      */
@@ -76,7 +79,7 @@ abstract class Message extends CiliatusModel
     }
 
     /**
-     * @return mixed
+     * @return boolean
      */
     abstract public function send();
 }

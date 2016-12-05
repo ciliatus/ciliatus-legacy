@@ -133,7 +133,8 @@ module.exports = {
             'overdue'       :  'Überfällig',
             'meal_type'     :  'Nahrungsart',
             'interval_days' :  'Intervall in Tagen',
-            'interval'      :  'Intervall'
+            'interval'      :  'Intervall',
+            'password'      :  'Passwort'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -147,7 +148,8 @@ module.exports = {
             'help'          :  'Hilfe',
             'logout'        :  'Abmelden',
             'animals'       :  'Tiere',
-            'terraria'      :  'Terrarien'
+            'terraria'      :  'Terrarien',
+            'users'         :  'Benutzer'
         },
         messages: {
             logical_sensor_thresholds: {
@@ -324,7 +326,8 @@ module.exports = {
             'overdue'       :  'Overdue',
             'meal_type'     :  'Meal type',
             'interval_days' :  'Interval in days',
-            'interval'      :  'Interval'
+            'interval'      :  'Interval',
+            'password'      :  'Password'
         },
         menu: {
             'welcome'       :  'Welcome',
@@ -338,7 +341,8 @@ module.exports = {
             'help'          :  'Help',
             'logout'        :  'Log out',
             'animals'       :  'Animals',
-            'terraria'      :  'Terraria'
+            'terraria'      :  'Terraria',
+            'users'         :  'Users'
         },
         messages: {
             logical_sensor_thresholds: {

@@ -44,18 +44,39 @@ class AnimalController extends ApiController
 
         $animals = Animal::with('files');
 
-        $animals = $this->filter($request, $animals)->get();
+        $animals = $this->filter($request, $animals);
 
-        foreach ($animals as &$a) {
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+            foreach ($animals as &$t) {
+                $t = (new AnimalRepository($t))->show();
+            }
+
+            return $this->setStatusCode(200)->respondWithData(
+                $this->animalTransformer->transformCollection(
+                    $animals->toArray()
+                )
+            );
+
+        }
+
+        $animals = $animals->paginate(env('PAGINATION_PER_PAGE', 20));
+
+        foreach ($animals->items() as &$a) {
             $a = (new AnimalRepository($a))->show();
         }
 
-
-        return $this->setStatusCode(200)->respondWithData(
+        return $this->setStatusCode(200)->respondWithPagination(
             $this->animalTransformer->transformCollection(
-                $animals->toArray()
-            )
+                $animals->toArray()['data']
+            ),
+            $animals
         );
+
     }
 
     /**

@@ -23,6 +23,9 @@ class ActionSequenceSchedule extends CiliatusModel
      */
     public $incrementing = false;
 
+    /**
+     * @var array
+     */
     protected $fillable = [
         'name', 'runonce', 'starts_at', 'action_sequence_id'
     ];
@@ -80,6 +83,10 @@ class ActionSequenceSchedule extends CiliatusModel
         parent::delete();
     }
 
+    /**
+     * @param array $options
+     * @return bool
+     */
     public function save(array $options = [])
     {
         $return = parent::save($options);

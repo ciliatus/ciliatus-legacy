@@ -30,6 +30,10 @@ class AuthServiceProvider extends ServiceProvider
     {
         $this->registerPolicies($gate);
 
+        $gate->define('admin', function ($user) {
+            return $user->hasAbility('grant_admin');
+        });
+
         $gate->define('api-read', function ($user) {
             return $user->hasAbility('grant_api-read');
         });
@@ -116,6 +120,10 @@ class AuthServiceProvider extends ServiceProvider
 
         $gate->define('api-write:action_sequence_schedule', function ($user) {
             return $user->hasAbility('grant_api-write:action_sequence_schedule');
+        });
+
+        $gate->define('api-write:property', function ($user) {
+            return $user->hasAbility('grant_api-write:property');
         });
 
         $gate->define('api-fetch:desired_states', function ($user) {
