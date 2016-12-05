@@ -126,7 +126,7 @@
                             </ul>
 
                             @foreach ($as->schedules as $ass)
-                                <p><i class="material-icons">subdirectory_arrow_right</i> {{ $ass->starts_at }} @if (!$ass->runonce)<i>@lang('labels.daily')</i>@endif</p>
+                                <li>{{ $ass->starts_at }} @if (!$ass->runonce)<i>@lang('labels.daily')</i>@endif</li>
                             @endforeach
                         </div>
                     @endforeach

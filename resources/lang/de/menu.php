@@ -12,7 +12,5 @@ return [
     'help'          =>  'Hilfe',
     'logout'        =>  'Abmelden',
     'animals'       =>  'Tiere',
-    'terraria'      =>  'Terrarien',
-    'users'         =>  'Benutzer',
-    'animal_feeding_types' => 'Nahrungsarten'
+    'terraria'      =>  'Terrarien'
 ];

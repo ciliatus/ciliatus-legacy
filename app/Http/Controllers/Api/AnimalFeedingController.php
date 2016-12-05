@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\Event;
 use App\Events\AnimalFeedingUpdated;
 use App\Http\Transformers\AnimalFeedingTransformer;
 use App\Property;
@@ -114,7 +115,7 @@ class AnimalFeedingController extends ApiController
             return $this->setStatusCode(404)->respondWithError('Animal not found');
         }
 
-        $p = Property::create([
+        $e = Event::create([
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal->id,
             'type' => 'AnimalFeeding',
@@ -124,7 +125,7 @@ class AnimalFeedingController extends ApiController
 
         $animal->save();
 
-        broadcast(new AnimalFeedingUpdated($p));
+        broadcast(new AnimalFeedingUpdated($e));
 
         return $this->respondWithData([]);
     }
@@ -172,5 +173,34 @@ class AnimalFeedingController extends ApiController
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store_type(Request $request)
+    {
+        if (Gate::denies('admin')) {
+            return $this->respondUnauthorized();
+        }
+
+        if (!$this->checkInput(['name'], $request)) {
+            return $this->setErrorCode(422)->respondWithError('Missing fields');
+        }
+
+        Property::create([
+            'belongsTo_type' => 'System',
+            'belongsTo_id' => '00000000-0000-0000-0000-000000000000',
+            'type' => 'AnimalFeedingType',
+            'name' => $request->input('name')
+        ]);
+
+        return $this->respondWithData([],
+            [
+                'redirect' => [
+                    'uri' => url('animals/feedings/types')
+                ]
+            ]);
     }
 }

@@ -12,7 +12,5 @@ return [
     'help'          =>  'Help',
     'logout'        =>  'Log out',
     'animals'       =>  'Animals',
-    'terraria'      =>  'Terraria',
-    'users'         =>  'Users',
-    'animal_feeding_types' => 'Food types'
+    'terraria'      =>  'Terraria'
 ];

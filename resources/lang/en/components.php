@@ -28,7 +28,5 @@ return [
     'action_sequence_schedule' => 'Action sequence schedule|Action sequence schedules',
     'action_sequence_schedules' => 'Action sequence schedule|Action sequence schedules',
     'admin_panel'   =>  'Admin panel',
-    'admin_panels'   =>  'Admin panel',
-    'animal_feedings' => 'Feeding|Feedings',
-    'animal_feeding_schedules' => 'Feeding schedule|Feeding schedules'
+    'admin_panels'   =>  'Admin panel'
 ];

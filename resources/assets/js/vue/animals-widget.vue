@@ -37,22 +37,17 @@
                             <i class="material-icons right">more_vert</i>
                         </span>
                         <p>
-                            <span v-show="animal.latin_name">{{ animal.latin_name }}</span>
-                            <span v-show="animal.common_name && !animal.latin_name">{{ animal.common_name }}</span>
-                            <br />
-
-                            <span v-show="animal.birth_date !== null">{{ animal.birth_date }}</span>
-                            <span v-show="animal.death_date !== null"> - {{ animal.death_date }}</span>
-                            <span v-show="animal.birth_date || animal.death_date"><i>{{ animal.age_value }} {{ $tc("units." + animal.age_unit, animal.age_value) }}</i></span>
-                            <br />
-
+                            <span v-show="animal.latin_name">{{ animal.latin_name }}<br /></span>
+                            <!--<span v-show="animal.common_name">{{ animal.common_name }}<br /></span>-->
                             <span v-if="animal.last_feeding">
                                 {{ $t("labels.last_feeding") }}
                                 <span v-if="animal.last_feeding.timestamps.diff.value == 0">{{ $t("labels.today") }}</span>
                                 <span v-if="animal.last_feeding.timestamps.diff.value > 0">{{ animal.last_feeding.timestamps.diff.value }} {{ $t("units." + animal.last_feeding.timestamps.diff.unit) }}</span>
-                                <i>{{ $t("labels." + animal.last_feeding.name) }}</i>
+                                <i>{{ $t("labels." + animal.last_feeding.name) }}</i><br />
                             </span>
-                            <br />
+                            <span v-show="animal.birth_date !== null">{{ animal.birth_date }}</span>
+                            <span v-show="animal.death_date !== null"> - {{ animal.death_date }}</span>
+                            <span v-show="animal.birth_date || animal.death_date"><i>{{ animal.age_value }} {{ $tc("units." + animal.age_unit, animal.age_value) }}</i></span>
                         </p>
                     </div>
 
@@ -72,6 +67,9 @@
 
                         <p>
                             <a class="waves-effect waves-teal btn" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
+                        </p>
+                        <p>
+                            <a class="waves-effect waves-teal btn">{{ $t("labels.just_irrigated") }}</a>
                         </p>
                         <p>
                             <a class="waves-effect waves-teal btn">{{ $t("labels.add_weight") }}</a>
