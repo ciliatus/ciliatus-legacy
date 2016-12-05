@@ -42,8 +42,13 @@ class AnimalFeedingScheduleRepository extends Repository {
 
             $next_feeding_at = $last_feeding_at->addDays((int)$fs->value);
 
+            $now = Carbon::now();
+            $now->hour = 0;
+            $now->minute = 0;
+            $now->second = 0;
+
             $fs->next_feeding_at = $next_feeding_at->format('Y-m-d');
-            $fs->next_feeding_at_diff = Carbon::now()->diffInDays($next_feeding_at, false);
+            $fs->next_feeding_at_diff = $now->diffInDays($next_feeding_at, false);
         }
         else {
             $fs->next_feeding_at = Carbon::now()->format('Y-m-d');

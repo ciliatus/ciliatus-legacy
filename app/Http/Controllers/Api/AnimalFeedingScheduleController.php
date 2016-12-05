@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\Events\AnimalFeedingScheduleDeleted;
+use App\Events\AnimalFeedingScheduleUpdated;
 use App\Http\Transformers\AnimalFeedingScheduleTransformer;
 use App\Property;
 use App\Repositories\AnimalFeedingRepository;
@@ -124,6 +126,8 @@ class AnimalFeedingScheduleController extends ApiController
             'value' => $request->input('interval_days')
         ]);
 
+        broadcast(new AnimalFeedingScheduleUpdated($p));
+
         return $this->setStatusCode(200)->respondWithData(
             [
                 'id'    =>  $p->id
@@ -183,6 +187,8 @@ class AnimalFeedingScheduleController extends ApiController
         $afs->value = $request->input('interval_days');
         $afs->save();
 
+        broadcast(new AnimalFeedingScheduleUpdated($p));
+
         return $this->respondWithData([], [
             'redirect' => [
                 'uri'   => url('animals/' . $animal->id . '/edit'),
@@ -208,6 +214,8 @@ class AnimalFeedingScheduleController extends ApiController
         if (is_null($afs)) {
             return view('error.404');
         }
+
+        broadcast(new AnimalFeedingScheduleDeleted((clone $afs)));
 
         $afs->delete();
 

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Animal;
 use App\CriticalState;
+use App\Events\AnimalFeedingScheduleUpdated;
 use App\Http\Transformers\CriticalStateTransformer;
 use App\LogicalSensor;
 use Carbon\Carbon;
@@ -147,6 +149,16 @@ class CriticalStateController extends ApiController
                     $cs->recover();
                     $response['deleted']++;
                 }
+            }
+        }
+
+        /*
+         * Generate AnimalFeedingScheduleUpdated Events
+         * to keep dashboard up to date
+         */
+         foreach (Animal::get() as $animal) {
+            foreach ($animal->feeding_schedules as $afs) {
+                broadcast(new AnimalFeedingScheduleUpdated($afs));
             }
         }
 
