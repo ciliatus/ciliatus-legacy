@@ -40,24 +40,6 @@ class Terrarium extends CiliatusModel
     ];
 
     /**
-     * @param array $attributes
-     * @return CiliatusModel|Terrarium
-     */
-    public static function create(array $attributes = [])
-    {
-        $new = parent::create($attributes);
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
-            'target_id'     =>  $new->id,
-            'action'        => 'create'
-        ]);
-
-        broadcast(new TerrariumUpdated($new));
-
-        return $new;
-    }
-
-    /**
      * @param array $options
      * @return bool
      */
@@ -80,12 +62,6 @@ class Terrarium extends CiliatusModel
      */
     public function delete()
     {
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
-            'target_id'     =>  $this->id,
-            'action'        => 'delete'
-        ]);
-
         broadcast(new TerrariumDeleted($this));
 
         parent::delete();

@@ -43,13 +43,6 @@ class ActionSequenceSchedule extends CiliatusModel
     public static function create(array $attributes = [])
     {
         $new = parent::create($attributes);
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
-            'target_id'     =>  $new->id,
-            'associatedWith_type' => 'ActionSequence',
-            'associatedWith_id' => $new->action_sequence_id,
-            'action'        => 'create'
-        ]);
 
         if ($new->starts_today()->lt(Carbon::now()->subMinutes(10))) {
             $new->last_start_at = Carbon::now();
@@ -66,14 +59,6 @@ class ActionSequenceSchedule extends CiliatusModel
      */
     public function delete()
     {
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
-            'target_id'     =>  $this->id,
-            'associatedWith_type' => 'ActionSequence',
-            'associatedWith_id' => $this->action_sequence_id,
-            'action'        => 'delete'
-        ]);
-
         foreach (RunningAction::where('action_sequence_schedule_id', $this->id)->get() as $ra) {
             $ra->delete();
         }

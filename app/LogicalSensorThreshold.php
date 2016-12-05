@@ -21,41 +21,6 @@ class LogicalSensorThreshold extends CiliatusModel
 
     public $incrementing = false;
 
-
-    /**
-     * @param array $attributes
-     * @return CiliatusModel|LogicalSensorThreshold
-     */
-    public static function create(array $attributes = [])
-    {
-        $new = parent::create($attributes);
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
-            'target_id'     =>  $new->id,
-            'associatedWith_type' => 'LogicalSensor',
-            'associatedWith_id' => $new->logical_sensor_id,
-            'action'        => 'create'
-        ]);
-
-        return $new;
-    }
-
-    /**
-     *
-     */
-    public function delete()
-    {
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
-            'target_id'     =>  $this->id,
-            'associatedWith_type' => 'LogicalSensor',
-            'associatedWith_id' => $this->logical_sensor_id,
-            'action'        => 'delete'
-        ]);
-
-        parent::delete();
-    }
-
     /**
      * @param array $options
      * @return bool

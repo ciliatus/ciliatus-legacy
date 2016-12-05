@@ -31,24 +31,6 @@ class File extends CiliatusModel
     ];
 
     /**
-     * @param array $attributes
-     * @return CiliatusModel|File
-     */
-    public static function create(array $attributes = [])
-    {
-        $new = parent::create($attributes);
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
-            'target_id'     =>  $new->id,
-            'associatedWith_type' => explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
-            'associatedWith_id' => $new->id,
-            'action'        => 'create'
-        ]);
-
-        return $new;
-    }
-
-    /**
      *
      */
     public function delete()
@@ -60,14 +42,6 @@ class File extends CiliatusModel
 
         if (file_exists($this->path_internal()))
             unlink($this->path_internal());
-
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
-            'target_id'     =>  $this->id,
-            'associatedWith_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
-            'associatedWith_id' => $this->id,
-            'action'        => 'delete'
-        ]);
 
         parent::delete();
     }

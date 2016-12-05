@@ -29,36 +29,10 @@ class PhysicalSensor extends CiliatusModel
     protected $dates = ['created_at', 'updated_at', 'heartbeat_at'];
 
     /**
-     * @param array $attributes
-     * @return CiliatusModel|PhysicalSensor
-     */
-    public static function create(array $attributes = [])
-    {
-        $new = parent::create($attributes);
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
-            'target_id'     =>  $new->id,
-            'associatedWith_type' => 'Terrarium',
-            'associatedWith_id' => $new->terrarium_id,
-            'action'        => 'create'
-        ]);
-
-        return $new;
-    }
-
-    /**
      *
      */
     public function delete()
     {
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
-            'target_id'     =>  $this->id,
-            'associatedWith_type' => 'Terrarium',
-            'associatedWith_id' => $this->terrarium_id,
-            'action'        => 'delete'
-        ]);
-
         broadcast(new PhysicalSensorDeleted($this));
 
         parent::delete();
@@ -70,17 +44,6 @@ class PhysicalSensor extends CiliatusModel
      */
     public function save(array $options = [])
     {
-
-        if (!in_array('silent', $options)) {
-            Log::create([
-                'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-                'target_id' => $this->id,
-                'associatedWith_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-                'associatedWith_id' => $this->id,
-                'action' => 'update'
-            ]);
-        }
-
         if (!isset($options['silent'])) {
             broadcast(new PhysicalSensorUpdated($this));
         }
