@@ -20,9 +20,9 @@
                     </span>
                     <p>
                         <span v-bind:class="{ 'red-text': !terrarium.temperature_ok, 'darken-3': !terrarium.temperature_ok }">{{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C</span><br />
-                        <span v-bind:class="{ 'red-text': !terrarium.humidity_ok, 'darken-3': !terrarium.humidity_ok }">{{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%</span>
+                        <span v-bind:class="{ 'red-text': !terrarium.humidity_ok, 'darken-3': !terrarium.humidity_ok }">{{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%</span><br />
                         <span v-show="!terrarium.heartbeat_ok" class="red-text darken-3">
-                            <br />{{ $t("tooltips.heartbeat_critical") }}
+                            {{ $t("tooltips.heartbeat_critical") }}
                         </span>
                     </p>
                 </div>
