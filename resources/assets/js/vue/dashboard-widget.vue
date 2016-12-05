@@ -35,6 +35,19 @@
                 -->
             </div>
 
+            <div class="card" v-show="dashboard.terraria.critical.length < 1">
+                <div class="card-content teal white-text">
+                    {{ $tc("components.terraria", 2) }}
+                </div>
+
+                <div class="card-content teal lighten-1 white-text">
+                    <span class="card-title activator truncate">
+                        <span>0 {{ $tc("components.terraria", 2) }} {{ $t("labels.critical") }}</span>
+                        <i class="material-icons">check</i>
+                    </span>
+                </div>
+            </div>
+
             <div class="card" v-show="dashboard.animal_feeding_schedules.overdue.length > 0">
                 <div class="card-content orange darken-3 white-text">
                     <span>{{ $tc("components.animal_feedings", 2) }} {{ $t("labels.overdue") }}</span>
@@ -73,6 +86,21 @@
                     <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
                 </div>
                 -->
+            </div>
+
+
+
+            <div class="card" v-show="dashboard.animal_feeding_schedules.overdue.length < 1">
+                <div class="card-content teal white-text">
+                    {{ $tc("components.animal_feedings", 2) }}
+                </div>
+
+                <div class="card-content teal lighten-1 white-text">
+                    <span class="card-title activator truncate">
+                        <span>0 {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.overdue") }}</span>
+                        <i class="material-icons">check</i>
+                    </span>
+                </div>
             </div>
             <!-- end feedings -->
         </div>
@@ -196,7 +224,8 @@ export default {
                 window.eventHubVue.processEnded();
             },
             error: function (error) {
-                alert(JSON.stringify(error));
+                window.notification('An error occured :(', 'red darken-1 text-white');
+                console.log(error);
                 window.eventHubVue.processEnded();
             }
         });

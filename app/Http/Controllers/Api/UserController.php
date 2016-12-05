@@ -102,7 +102,7 @@ class UserController extends ApiController
     public function destroy(Request $request, $id)
     {
 
-        if (Gate::denies('api-write:user_self') && Gate::denies('api-write:user_all')) {
+        if (Gate::denies('api-write:user_self') && Gate::denies('admin')) {
             return $this->respondUnauthorized();
         }
 
@@ -114,7 +114,7 @@ class UserController extends ApiController
         /*
          * Make sure non-admin users can only edit themselves
          */
-        if (Gate::denies('api-write:user_all') && $user->id != Auth::user()->id) {
+        if (Gate::denies('admin') && $user->id != Auth::user()->id) {
             return $this->respondUnauthorized();
         }
 
@@ -135,13 +135,36 @@ class UserController extends ApiController
     public function store(Request $request)
     {
 
-        if (Gate::denies('api-write:user_all')) {
+        if (Gate::denies('admin')) {
             return $this->respondUnauthorized();
         }
 
-        $user = User::create();
-        $user->name = $request->input('name');
-        $user->save();
+        $user = User::where('name', $request->input('name'))->get()->first();
+        if (!is_null($user)) {
+            return $this->setStatusCode(422)->respondWithError(trans('errors.username_taken'));
+        }
+
+        $user = User::where('email', $request->input('email'))->get()->first();
+        if (!is_null($user)) {
+            return $this->setStatusCode(422)->respondWithError(trans('errors.email_taken'));
+        }
+
+        if ($request->has('password') && $request->has('password_2')) {
+            if ($request->input('password') !== $request->input('password_2')) {
+                return $this->setStatusCode(422)->respondWithError(trans('errors.passwords_do_not_match'));
+            }
+
+            $password = bcrypt($request->input('password'));
+        }
+        else {
+            return $this->setStatusCode(422)->respondWithError(trans('errors.no_password'));
+        }
+
+        $user = User::create([
+            'name' => $request->input('name'),
+            'email' => $request->input('email'),
+            'password' => $password
+        ]);
 
         return $this->setStatusCode(200)->respondWithData(
             [
@@ -158,16 +181,18 @@ class UserController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
-        if (Gate::denies('api-write:user_self') && Gate::denies('api-write:user_all')) {
+        if (Gate::denies('api-write:user_self') && Gate::denies('admin')) {
             return $this->respondUnauthorized();
         }
 
-        $user = User::find($request->input('id'));
+        $user = User::find($id);
         if (is_null($user)) {
             return $this->respondNotFound('User not found');
         }
@@ -175,33 +200,69 @@ class UserController extends ApiController
         /*
          * Make sure non-admin users can only edit themselves
          */
-        if (Gate::denies('api-write:user_all') && $user->id != Auth::user()->id) {
+        if (Gate::denies('admin') && $user->id != Auth::user()->id) {
             return $this->respondUnauthorized();
         }
 
-        if (Gate::allows('api-write:user_all')) {
-            $user->name = $request->input('name');
-            $user->email = $request->input('email');
-            foreach ($user->abilities as $a) {
-                if (!in_array($a->name, array_values($request->input('abilities')))) {
-                    $a->delete();
+        if (Gate::allows('admin')) {
+            if ($request->has('name')) {
+                $user->name = $request->input('name');
+            }
+
+            if ($request->has('email')) {
+                $user->email = $request->input('email');
+            }
+
+            if ($request->has('password') && $request->has('password_2')) {
+                if ($request->input('password') !== $request->input('password_2')) {
+                    return $this->setStatusCode(422)->respondWithError(trans('errors.passwords_do_not_match'));
+                }
+
+                $user->password = bcrypt($request->input('password'));
+            }
+
+            if ($request->has('abilities')) {
+                foreach ($user->abilities as $a) {
+                    if (!in_array($a->name, array_values($request->input('abilities')))) {
+                        $a->delete();
+                    }
+                }
+
+                foreach ($request->input('abilities') as $a) {
+                    if (!$user->ability($a)) {
+                        UserAbility::create([
+                            'user_id' => $user->id,
+                            'name' => $a
+                        ]);
+                    }
                 }
             }
-            foreach ($request->input('abilities') as $a) {
-                if (!$user->ability($a)) {
-                    $new_ability = UserAbility::create(['user_id', $user->id]);
-                    $new_ability->name = $a;
-                    $new_ability->save();
-                }
-            }
+
         }
 
-        $user->locale = $request->input('language');
-        $user->timezone = $request->input('timezone');
-        $user->setSetting('notification_type', $request->input('notification_type'));
-        $user->setSetting('notifications_enabled', $request->input('notifications_enabled'));
-        $user->setSetting('auto_nightmode_enabled', $request->input('auto_nightmode_enabled'));
-        $user->setSetting('permanent_nightmode_enabled', $request->input('permanent_nightmode_enabled'));
+        if ($request->has('language')) {
+            $user->locale = $request->input('language');
+        }
+
+        if ($request->has('timezone')) {
+            $user->timezone = $request->input('timezone');
+        }
+
+        if ($request->has('notification_type')) {
+            $user->setSetting('notification_type', $request->input('notification_type'));
+        }
+
+        if ($request->has('notifications_enabled')) {
+            $user->setSetting('notifications_enabled', $request->input('notifications_enabled'));
+        }
+
+        if ($request->has('auto_nightmode_enabled')) {
+            $user->setSetting('auto_nightmode_enabled', $request->input('auto_nightmode_enabled'));
+        }
+
+        if ($request->has('permanent_nightmode_enabled')) {
+            $user->setSetting('permanent_nightmode_enabled', $request->input('permanent_nightmode_enabled'));
+        }
 
         $user->save();
 
@@ -214,6 +275,11 @@ class UserController extends ApiController
 
     }
 
+    /**
+     * @param $user_id
+     * @param $setting_name
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function setting($user_id, $setting_name)
     {
         $us = UserSetting::where('user_id', $user_id)->where('name', $setting_name)->first();

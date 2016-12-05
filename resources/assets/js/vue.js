@@ -59,6 +59,7 @@ import PumpsWidget from './vue/pumps-widget.vue';
 import ValvesWidget from './vue/valves-widget.vue';
 import PhysicalSensorsWidget from './vue/physical_sensors-widget.vue';
 import LogicalSensorsWidget from './vue/logical_sensors-widget.vue';
+import UsersWidget from './vue/users-widget.vue';
 
 window.bodyVue = new Vue({
 
@@ -104,7 +105,8 @@ window.bodyVue = new Vue({
         'pumps-widget': PumpsWidget,
         'valves-widget': ValvesWidget,
         'physical_sensors-widget': PhysicalSensorsWidget,
-        'logical_sensors-widget': LogicalSensorsWidget
+        'logical_sensors-widget': LogicalSensorsWidget,
+        'users-widget': UsersWidget
     }
 
 });
