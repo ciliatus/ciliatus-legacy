@@ -15,7 +15,7 @@
         @if (!is_null($terrarium->animals))
             @foreach ($terrarium->animals as $animal)
             <div class="col s12 m6 l12">
-                <animals-widget animal-id="{{ $animal->id }}"></animals-widget>
+                <animals-widget animal-id="{{ $animal->id }}" :subscribe-add="false" :subscribe-delete="false"></animals-widget>
             </div>
             @endforeach
         @endif
