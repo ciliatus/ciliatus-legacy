@@ -159,7 +159,7 @@
 
         <main>
             <div class="container">
-                <div class="row equal" id="content">
+                <div class="row" id="content">
                     @yield('content')
                 </div>
             </div>

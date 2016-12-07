@@ -1,5 +1,5 @@
 @extends('master')
 
 @section('content')
-    <dashboard-widget wrapper-classes="col s12"></dashboard-widget>
+    <dashboard-widget container-classes="row" wrapper-classes="col s12 m6 l6"></dashboard-widget>
 @stop
