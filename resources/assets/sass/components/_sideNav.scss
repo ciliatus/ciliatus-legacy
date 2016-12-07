@@ -175,7 +175,7 @@
     }
 
     a {
-      padding: 0 $sidenav-padding;
+      padding: 0 ($sidenav-padding * 2);
     }
 
     .userView {
