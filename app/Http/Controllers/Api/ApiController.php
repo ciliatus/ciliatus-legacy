@@ -215,46 +215,48 @@ class ApiController extends Controller
      */
     protected function filter(Request $request, $query)
     {
-        if (!$request->has('filter')) {
-            return $query;
-        }
+        if ($request->has('filter')) {
+            foreach ($request->input('filter') as $field => $value) {
+                $field_filter = explode(":", $value);
+                if (count($field_filter) > 1) {
+                    $field_filter[1] = str_replace('*', '%', $field_filter[1]);
+                    $operator = str_replace('notlike', 'not like', $field_filter[0]);
+                    $query = $query->where($field, $operator, $field_filter[1]);
+                } else {
+                    $field_filter = $value;
 
-        $filter = $request->input('filter');
-        foreach ($filter as $field=>$value) {
-            $field_filter = explode(":", $value);
-            if (count($field_filter) > 1) {
-                $field_filter[1] = str_replace('*', '%', $field_filter[1]);
-                $operator = str_replace('notlike', 'not like', $field_filter[0]);
-                $query = $query->where($field, $operator, $field_filter[1]);
-            }
-            else {
-                $field_filter = $value;
-
-                switch ($field_filter) {
-                    case 'today':
-                        $query = $query->where($field, 'like', Carbon::now()->format('Y-m-d').'%');
-                        break;
-                    case 'nottoday':
-                        $query = $query->where(function($q) use ($field) {
-                            $q->where($field, 'not like', Carbon::now()->format('Y-m-d').'%')
-                              ->orWhereNull($field);
-                        });
-                        break;
-                    case 'null':
-                        $query = $query->whereNull($field);
-                        break;
-                    case 'notnull':
-                        $query = $query->whereNotNull($field);
-                        break;
-                    default:
-                        $query = $query->where($field, $value);
-                        break;
+                    switch ($field_filter) {
+                        case 'today':
+                            $query = $query->where($field, 'like', Carbon::now()->format('Y-m-d') . '%');
+                            break;
+                        case 'nottoday':
+                            $query = $query->where(function ($q) use ($field) {
+                                $q->where($field, 'not like', Carbon::now()->format('Y-m-d') . '%')
+                                    ->orWhereNull($field);
+                            });
+                            break;
+                        case 'null':
+                            $query = $query->whereNull($field);
+                            break;
+                        case 'notnull':
+                            $query = $query->whereNotNull($field);
+                            break;
+                        default:
+                            $query = $query->where($field, $value);
+                            break;
+                    }
                 }
             }
         }
 
         if ($request->has('limit')) {
             $query = $query->limit($request->input('limit'));
+        }
+
+        if ($request->has('order')) {
+            foreach ($request->input('order') as $field=>$value) {
+                $query = $query->orderBy($field, $value);
+            }
         }
 
         return $query;
