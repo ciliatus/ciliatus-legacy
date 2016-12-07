@@ -46,6 +46,7 @@ Route::group(['namespace' => 'Web'], function() {
     Route::get('action_sequences/{id}/delete', 'ActionSequenceController@delete');
     Route::resource('action_sequence_schedules', 'ActionSequenceScheduleController');
     Route::get('action_sequence_schedules/{id}/delete', 'ActionSequenceScheduleController@delete');
+    Route::resource('logs', 'LogController');
 });
 
 Route::post('broadcasting/auth', 'BroadcastController@authenticate');
@@ -86,4 +87,5 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
     Route::resource('action_sequence_schedules', 'ActionSequenceScheduleController');
     Route::resource('events', 'EventController');
     Route::resource('properties', 'PropertyController');
+    Route::resource('logs', 'LogController');
 });

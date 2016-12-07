@@ -46,69 +46,28 @@ class Log extends Model
     }
 
     /**
-     * @return null
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function source()
     {
-        if (!is_null($this->source_type) && !is_null($this->source_id)) {
-            $class_name = 'App\\' . $this->source_type;
-            if (class_exists($class_name)) {
-                $source = $class_name::find($this->source_id);
-                if (is_null($source)) {
-                    return null;
-                }
-                return $source;
-            }
-            else {
-                return null;
-            }
-        }
-
-        return null;
+        return $this->belongsTo('App\\' . $this->source_type, 'source_id');
     }
 
     /**
-     * @return null
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function target()
     {
-        if (!is_null($this->target_type) && !is_null($this->target_id)) {
-            $class_name = 'App\\' . $this->target_type;
-            if (class_exists($class_name)) {
-                $target = $class_name::find($this->target_id);
-                if (is_null($target)) {
-                    return null;
-                }
-                return $target;
-            }
-            else {
-                return null;
-            }
-        }
 
-        return null;
+        return $this->belongsTo('App\\' . $this->target_type, 'target_id');
     }
 
     /**
-     * @return null
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
-    public function associatedWith()
+    public function associated()
     {
-        if (!is_null($this->associatedWith_type) && !is_null($this->associatedWith_id)) {
-            $class_name = 'App\\' . $this->associatedWith_type;
-            if (class_exists($class_name)) {
-                $assoc = $class_name::find($this->associatedWith_id);
-                if (is_null($assoc)) {
-                    return null;
-                }
-                return $assoc;
-            }
-            else {
-                return null;
-            }
-        }
-
-        return null;
+        return $this->belongsTo('App\\' . $this->associatedWith_type, 'associatedWith_id');
     }
 
     /**

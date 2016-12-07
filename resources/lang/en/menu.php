@@ -14,5 +14,6 @@ return [
     'animals'       =>  'Animals',
     'terraria'      =>  'Terraria',
     'users'         =>  'Users',
-    'animal_feeding_types' => 'Food types'
+    'animal_feeding_types' => 'Food types',
+    'logs'          =>  'Logs'
 ];

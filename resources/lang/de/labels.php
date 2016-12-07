@@ -32,7 +32,7 @@ return [
     'file'          =>  'Datei',
     'size'          =>  'Größe',
     'current_value' =>  'Aktueller Wert',
-    'created_at'    =>  'Erstellungsdatum',
+    'created_at'    =>  'Erstellt',
     'updated_at'    =>  'Letztes Update',
     'download'      =>  'Herunterladen',
     'properties'    =>  'Eigenschaften',
@@ -85,5 +85,6 @@ return [
     'meal_type'     =>  'Nahrungsart',
     'interval_days' =>  'Intervall in Tagen',
     'interval'      =>  'Intervall',
-    'password'      =>  'Passwort'
+    'password'      =>  'Passwort',
+    'action'        =>  'Aktion'
 ];

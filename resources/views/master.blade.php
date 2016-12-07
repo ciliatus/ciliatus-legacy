@@ -121,10 +121,17 @@
                                             <i class="material-icons">group</i>
                                             @lang('menu.users')
                                         </a>
-                                    </li><li @if(Request::is('animals/feedings/types')) class="active" @endif>
+                                    </li>
+                                    <li @if(Request::is('animals/feedings/types')) class="active" @endif>
                                         <a href="{{ url('animals/feedings/types') }}" class="waves-effect waves-teal">
                                             <i class="material-icons">pets</i>
                                             @lang('menu.animal_feeding_types')
+                                        </a>
+                                    </li>
+                                    <li @if(Request::is('logs', 'logs/*')) class="active" @endif>
+                                        <a href="{{ url('logs') }}" class="waves-effect waves-teal">
+                                            <i class="material-icons">history</i>
+                                            @lang('menu.logs')
                                         </a>
                                     </li>
                                 </ul>
@@ -152,7 +159,7 @@
 
         <main>
             <div class="container">
-                <div class="row" id="content">
+                <div class="row equal" id="content">
                     @yield('content')
                 </div>
             </div>
@@ -166,6 +173,8 @@
         <script src="{{ url('js/materialize.min.js') }}"></script>
         <!-- Materialize.clockpicker.css -->
         <script src="{{ url('js/materialize.clockpicker.js') }}"></script>
+        <!-- Masonry -->
+        <script src="{{ url('js/masonry.pkgd.min.js') }}"></script>
         <!-- ciliatus -->
         <script src="{{ url('js/app.js') }}"></script>
 

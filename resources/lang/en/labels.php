@@ -85,5 +85,6 @@ return [
     'meal_type'     =>  'Meal type',
     'interval_days' =>  'Interval in days',
     'interval'      =>  'Interval',
-    'password'      =>  'Password'
+    'password'      =>  'Password',
+    'action'        =>  'Action'
 ];
