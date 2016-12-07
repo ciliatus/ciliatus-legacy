@@ -79,7 +79,7 @@ module.exports = {
             'file'          :  'Datei',
             'size'          :  'Größe',
             'current_value' :  'Aktueller Wert',
-            'created_at'    :  'Erstellungsdatum',
+            'created_at'    :  'Erstellt',
             'updated_at'    :  'Letztes Update',
             'download'      :  'Herunterladen',
             'properties'    :  'Eigenschaften',
@@ -134,7 +134,8 @@ module.exports = {
             'meal_type'     :  'Nahrungsart',
             'interval_days' :  'Intervall in Tagen',
             'interval'      :  'Intervall',
-            'password'      :  'Passwort'
+            'password'      :  'Passwort',
+            'action'        :  'Aktion'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -149,7 +150,8 @@ module.exports = {
             'logout'        :  'Abmelden',
             'animals'       :  'Tiere',
             'terraria'      :  'Terrarien',
-            'users'         :  'Benutzer'
+            'users'         :  'Benutzer',
+            'logs'          :  'Protokoll'
         },
         messages: {
             logical_sensor_thresholds: {
@@ -327,7 +329,8 @@ module.exports = {
             'meal_type'     :  'Meal type',
             'interval_days' :  'Interval in days',
             'interval'      :  'Interval',
-            'password'      :  'Password'
+            'password'      :  'Password',
+            'action'        :  'Action'
         },
         menu: {
             'welcome'       :  'Welcome',
@@ -342,7 +345,8 @@ module.exports = {
             'logout'        :  'Log out',
             'animals'       :  'Animals',
             'terraria'      :  'Terraria',
-            'users'         :  'Users'
+            'users'         :  'Users',
+            'logs'          :  'Logs'
         },
         messages: {
             logical_sensor_thresholds: {
