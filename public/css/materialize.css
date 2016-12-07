@@ -2575,7 +2575,7 @@ input[type=range] + .thumb {
 
 @media only screen and (min-width: 993px) {
   .container {
-    width: 70%; } }
+    width: 85%; } }
 
 .container .row {
   margin-left: -0.75rem;
@@ -5392,7 +5392,7 @@ input[type=range]:focus::-ms-fill-upper {
       -webkit-transform: translateX(105%);
       transform: translateX(105%); }
   .side-nav a {
-    padding: 0 16px; }
+    padding: 0 32px; }
   .side-nav .userView {
     padding: 16px 16px 0; } }
 

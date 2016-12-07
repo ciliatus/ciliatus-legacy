@@ -1,9 +1,8 @@
 <template>
-    <div :class="wrapperClass">
+    <div :class="containerClasses" :id="containerId">
 
-        <div class="col s12 m6 l6">
-            <!-- start feedings -->
-            <div class="card" v-show="dashboard.terraria.critical.length > 0">
+        <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length > 0">
+            <div class="card">
                 <div class="card-content red darken-3 white-text">
                     {{ $tc("components.terraria", 2) }}
                 </div>
@@ -34,21 +33,9 @@
                 </div>
                 -->
             </div>
-
-            <div class="card" v-show="dashboard.terraria.critical.length < 1">
-                <div class="card-content teal white-text">
-                    {{ $tc("components.terraria", 2) }}
-                </div>
-
-                <div class="card-content teal lighten-1 white-text">
-                    <span class="card-title activator truncate">
-                        <span>0 {{ $tc("components.terraria", 2) }} {{ $t("labels.critical") }}</span>
-                        <i class="material-icons">check</i>
-                    </span>
-                </div>
-            </div>
-
-            <div class="card" v-show="dashboard.animal_feeding_schedules.overdue.length > 0">
+        </div>
+        <div :class="wrapperClasses" v-if="dashboard.animal_feeding_schedules.overdue.length > 0">
+            <div class="card">
                 <div class="card-content orange darken-3 white-text">
                     <span>{{ $tc("components.animal_feedings", 2) }} {{ $t("labels.overdue") }}</span>
                 </div>
@@ -66,7 +53,7 @@
                             </a>
 
                             <a v-bind:href="'/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id" class="white-text">
-                                {{ $tc("labels." + schedule.type) }}
+                                {{ schedule.type }}
                             </a>
 
                             ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
@@ -87,26 +74,22 @@
                 </div>
                 -->
             </div>
-
-
-
-            <div class="card" v-show="dashboard.animal_feeding_schedules.overdue.length < 1">
+        </div>
+        <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length < 1">
+            <div class="card">
                 <div class="card-content teal white-text">
-                    {{ $tc("components.animal_feedings", 2) }}
+                    {{ $tc("components.terraria", 2) }}
                 </div>
 
                 <div class="card-content teal lighten-1 white-text">
                     <span class="card-title activator truncate">
-                        <span>0 {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.overdue") }}</span>
+                        <span>0 {{ $tc("components.terraria", 2) }} {{ $t("labels.critical") }}</span>
                         <i class="material-icons">check</i>
                     </span>
                 </div>
             </div>
-            <!-- end feedings -->
         </div>
-
-        <div class="col s12 m6 l6">
-            <!-- start terraria -->
+        <div :class="wrapperClasses">
             <div class="card">
                 <div class="card-content teal white-text">
                     {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.due") }}
@@ -125,7 +108,7 @@
                             </a>
 
                             <a v-bind:href="'/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id" class="white-text">
-                                {{ $tc("labels." + schedule.type) }}
+                                {{ schedule.type }}
                             </a>
                         </p>
                     </div>
@@ -144,7 +127,8 @@
                 </div>
                 -->
             </div>
-
+        </div>
+        <div :class="wrapperClasses">
             <div class="card">
                 <div class="card-content teal white-text">
                     {{ $tc("components.terraria", 2) }}
@@ -170,8 +154,8 @@
                 </div>
                 -->
             </div>
-            <!-- end terraria -->
         </div>
+
     </div>
 </template>
 
@@ -185,14 +169,29 @@ export default {
     },
 
     props: {
+        wrapperClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerId: {
+            type: String,
+            default: 'dashboard-masonry-grid',
+            required: false
+        }
     },
 
     methods: {
         updateTerrarium: function(e) {
-
+            this.refresh_grid();
         },
         deleteTerrarium: function(e) {
-
+            this.refresh_grid();
         },
         updateAnimalFeedingSchedule: function(e) {
             var item = null;
@@ -246,6 +245,8 @@ export default {
                     this.dashboard.animal_feeding_schedules.overdue.push(e.animal_feeding_schedule);
                 }
             }
+
+            this.refresh_grid();
         },
 
         deleteAnimalFeedingSchedule: function(e) {
@@ -259,6 +260,18 @@ export default {
                 if (data.id === e.animal_feeding_schedule.id) {
                     this.dashboard.animal_feeding_schedules.overdue.splice(index, 1);
                 }
+            });
+
+            this.refresh_grid();
+        },
+
+        refresh_grid: function() {
+            this.$nextTick(function() {
+                var $container = $('#' + this.containerId);
+                $container.masonry({
+                  columnWidth: '.col',
+                  itemSelector: '.col',
+                });
             });
         },
     },
@@ -282,6 +295,7 @@ export default {
             method: 'GET',
             success: function (data) {
                 that.dashboard = data.data;
+                that.refresh_grid();
                 window.eventHubVue.processEnded();
             },
             error: function (error) {

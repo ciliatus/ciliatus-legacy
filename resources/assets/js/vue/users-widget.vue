@@ -1,7 +1,7 @@
 <template>
     <div>
         <div :class="wrapperClasses">
-            <table>
+            <table class="responsive highlight">
                 <thead>
                 <tr>
                     <th data-field="id" class="hide-on-med-and-down">

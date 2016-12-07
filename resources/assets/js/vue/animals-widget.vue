@@ -1,28 +1,27 @@
 <template>
-    <div>
+    <div :class="containerClasses" :id="containerId">
         <div v-for="animal in animals">
+            <div v-bind:id="'modal_just_fed_' + animal.id" class="modal">
+                <form v-bind:action="'/api/v1/animals/' + animal.id + '/feedings'" data-method="POST" v-on:submit="submit">
+                    <div class="modal-content" style="min-height: 500px">
+                        <h4>{{ $t("labels.just_fed") }}</h4>
+                        <p>
+                            <select name="meal_type" id="meal_type">
+                                <option v-for="ft in feeding_types" v-bind:value="ft.name">{{ ft.name }}</option>
+                            </select>
+                            <label for="meal_type">{{ $t("labels.meal_type") }}</label>
+                        </p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
             <div :class="wrapperClasses">
-
-                <div v-bind:id="'modal_just_fed_' + animal.id" class="modal">
-                    <form v-bind:action="'/api/v1/animals/' + animal.id + '/feedings'" data-method="POST" v-on:submit="submit">
-                        <div class="modal-content" style="min-height: 500px">
-                            <h4>{{ $t("labels.just_fed") }}</h4>
-                            <p>
-                                <select name="meal_type" id="meal_type">
-                                    <option v-for="ft in feeding_types" v-bind:value="ft.name">{{ ft.name }}</option>
-                                </select>
-                                <label for="meal_type">{{ $t("labels.meal_type") }}</label>
-                            </p>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
                 <div class="card">
                     <div class="card-image waves-effect waves-block waves-light terrarium-card-image"
                          v-bind:class="animal.default_background_filepath ? '' : 'teal lighten-1'"
@@ -42,10 +41,9 @@
                             <span v-show="animal.birth_date !== null">{{ animal.birth_date }}</span>
                             <span v-show="animal.death_date !== null"> - {{ animal.death_date }}</span>
                             <span v-show="animal.birth_date || animal.death_date"><i>{{ animal.age_value }} {{ $tc("units." + animal.age_unit, animal.age_value) }}</i></span>
-                            <br />
 
                             <span v-if="animal.last_feeding">
-                                {{ $t("labels.last_feeding") }}:
+                                <br />
                                 <span v-if="animal.last_feeding.timestamps.diff.value == 0">{{ $t("labels.today") }}</span>
                                 <span v-if="animal.last_feeding.timestamps.diff.value > 0">{{ animal.last_feeding.timestamps.diff.value }} {{ $tc("units." + animal.last_feeding.timestamps.diff.unit, animal.last_feeding.timestamps.diff.value) }}</span>
                                 <i>{{ animal.last_feeding.name }}</i>
@@ -100,6 +98,16 @@ export default {
             type: String,
             default: '',
             required: false
+        },
+        containerClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerId: {
+            type: String,
+            default: 'animals-masonry-grid',
+            required: false
         }
     },
 
@@ -117,6 +125,8 @@ export default {
             else if (item !== null) {
                 this.animals.splice(item, 1, a.animal);
             }
+
+            this.refresh_grid();
         },
 
         delete: function(a) {
@@ -130,6 +140,18 @@ export default {
             if (item !== null) {
                 this.animals.splice(item, 1);
             }
+
+            this.refresh_grid();
+        },
+
+        refresh_grid: function() {
+            this.$nextTick(function() {
+                var $container = $('#' + this.containerId);
+                $container.masonry({
+                  columnWidth: '.col',
+                  itemSelector: '.col',
+                });
+            });
         },
 
         submit: function(e) {
@@ -146,10 +168,6 @@ export default {
                 this.delete(e);
             });
 
-        /*$.getJSON('/api/v1/animals/' + this.animalId, function(animals) {
-            this.animals = animals.data;
-        }.bind(this));*/
-
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
@@ -162,6 +180,8 @@ export default {
                 else {
                     that.animals = data.data;
                 }
+
+                that.refresh_grid();
 
                 window.eventHubVue.processEnded();
             },

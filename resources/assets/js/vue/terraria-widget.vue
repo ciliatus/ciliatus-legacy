@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div :class="containerClasses" :id="containerId">
         <div :class="wrapperClasses" v-for="terrarium in terraria">
             <div class="card">
                 <div class="card-image waves-effect waves-block waves-light terrarium-card-image"
@@ -20,8 +20,9 @@
                     </span>
                     <p>
                         <span v-bind:class="{ 'red-text': !terrarium.temperature_ok, 'darken-3': !terrarium.temperature_ok }">{{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C</span><br />
-                        <span v-bind:class="{ 'red-text': !terrarium.humidity_ok, 'darken-3': !terrarium.humidity_ok }">{{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%</span><br />
+                        <span v-bind:class="{ 'red-text': !terrarium.humidity_ok, 'darken-3': !terrarium.humidity_ok }">{{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%</span>
                         <span v-show="!terrarium.heartbeat_ok" class="red-text darken-3">
+                            <br />
                             {{ $t("tooltips.heartbeat_critical") }}
                         </span>
                     </p>
@@ -83,6 +84,16 @@ export default {
             type: String,
             default: '',
             required: false
+        },
+        containerClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerId: {
+            type: String,
+            default: 'terraria-masonry-grid',
+            required: false
         }
     },
 
@@ -104,6 +115,8 @@ export default {
             else if (item !== null) {
                 this.terraria.splice(item, 1, t.terrarium);
             }
+
+            that.refresh_grid();
             window.eventHubVue.$emit('TerrariumGraphUpdated', t);
         },
 
@@ -121,11 +134,23 @@ export default {
             if (item !== null) {
                 this.terraria.splice(item, 1);
             }
+
+            that.refresh_grid();
+        },
+
+        refresh_grid: function() {
+            this.$nextTick(function() {
+                var $container = $('#' + this.containerId);
+                $container.masonry({
+                  columnWidth: '.col',
+                  itemSelector: '.col',
+                });
+            });
         },
 
         submit: function(e) {
             window.submit_form(e);
-        }
+        },
     },
 
     created: function() {
@@ -148,7 +173,7 @@ export default {
                 else {
                     that.terraria = data.data;
                 }
-
+                that.refresh_grid();
                 window.eventHubVue.processEnded();
             },
             error: function (error) {
