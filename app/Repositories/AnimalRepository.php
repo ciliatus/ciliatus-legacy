@@ -53,6 +53,9 @@ class AnimalRepository extends Repository
             }
         }
 
+        $animal->icon = $animal->icon();
+        $animal->url = $animal->url();
+
         return $animal;
     }
 

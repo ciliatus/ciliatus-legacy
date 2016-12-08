@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Log
  * @package App
  */
-class Log extends Model
+class Log extends CiliatusModel
 {
     use Traits\Uuids;
 

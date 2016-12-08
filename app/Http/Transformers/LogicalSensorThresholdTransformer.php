@@ -33,7 +33,9 @@ class LogicalSensorThresholdTransformer extends Transformer
                 'created' => $item['created_at'],
                 'updated' => $item['updated_at'],
                 'starts' => $item['starts_at']
-            ]
+            ],
+            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
+            'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
 
         return $return;

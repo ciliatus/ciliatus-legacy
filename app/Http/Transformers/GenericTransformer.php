@@ -9,10 +9,10 @@
 namespace App\Http\Transformers;
 
 /**
- * Class ValveTransformer
+ * Class GenericTransformer
  * @package App\Http\Transformers
  */
-class ValveTransformer extends Transformer
+class GenericTransformer extends Transformer
 {
 
 
@@ -23,11 +23,8 @@ class ValveTransformer extends Transformer
     public function transform($item)
     {
         $return = [
-            'id'    => $item['id'],
-            'name' => $item['name'],
-            'controlunit_id' => $item['controlunit_id'],
-            'terrarium_id' => $item['terrarium_id'],
-            'pump_id' => $item['pump_id'],
+            'id'    =>  $item['id'],
+            'name'  =>  $item['name'],
             'timestamps' => [
                 'created' => $item['created_at'],
                 'updated' => $item['updated_at'],
@@ -36,17 +33,7 @@ class ValveTransformer extends Transformer
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
 
-        if (isset($item['controlunit'])) {
-            $return['controlunit'] = $item['controlunit'];
-        }
 
-        if (isset($item['terrarium'])) {
-            $return['terrarium'] = $item['terrarium'];
-        }
-
-        if (isset($item['pump'])) {
-            $return['pump'] = $item['pump'];
-        }
 
         return $return;
     }

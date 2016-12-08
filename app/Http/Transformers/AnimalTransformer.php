@@ -28,14 +28,16 @@ class AnimalTransformer extends Transformer
             'latin_name' => isset($item['lat_name']) ? $item['lat_name'] : '',
             'common_name' => isset($item['common_name']) ? $item['common_name'] : '',
             'display_name' => $item['display_name'],
-            'birth_date' => !is_null($item['birth_date']) ? Carbon::parse($item['birth_date'])->format('d.m.Y') : null,
-            'death_date' => !is_null($item['death_date']) ? Carbon::parse($item['death_date'])->format('d.m.Y') : null,
+            'birth_date' => isset($item['birth_date']) ? Carbon::parse($item['birth_date'])->format('d.m.Y') : null,
+            'death_date' => isset($item['death_date']) ? Carbon::parse($item['death_date'])->format('d.m.Y') : null,
             'gender' => isset($item['gender']) ? $item['gender'] : '',
             'terrarium_id' => isset($item['terrarium_id']) ? $item['terrarium_id'] : '',
             'timestamps' => [
                 'created' => $item['created_at'],
                 'updated' => $item['updated_at'],
-            ]
+            ],
+            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
+            'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
 
         if (isset($item['terrarium_object'])) {

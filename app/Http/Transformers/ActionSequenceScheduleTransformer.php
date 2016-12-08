@@ -38,7 +38,9 @@ class ActionSequenceScheduleTransformer extends Transformer
                 'last_finished' => isset($item['last_finished_at']) ? $item['last_finished_at'] : null,
                 'created'       => $item['created_at'],
                 'updated'       => $item['updated_at'],
-            ]
+            ],
+            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
+            'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
 
         if (isset($item['sequence'])) {

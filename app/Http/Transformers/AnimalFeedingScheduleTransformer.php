@@ -28,7 +28,9 @@ class AnimalFeedingScheduleTransformer extends Transformer
                 'created' => $item['created_at'],
                 'updated' => $item['updated_at'],
                 'next'    => isset($item['next_feeding_at']) ? $item['next_feeding_at'] : null
-            ]
+            ],
+            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
+            'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
 
         return $return;

@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class UserSetting
  * @package App
  */
-class UserSetting extends Model
+class UserSetting extends CiliatusModel
 {
     use Traits\Uuids;
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Transformers\GenericTransformer;
 use App\Log;
 use App\Property;
 use App\Http\Transformers\LogTransformer;
+use App\Repositories\GenericRepository;
 use Auth;
 use Carbon\Carbon;
 use ErrorException;
@@ -54,9 +56,9 @@ class LogController extends ApiController
             $logs = $logs->get();
 
             foreach ($logs as &$l) {
-                $l->source = $l->source()->get()->first();
-                $l->target = $l->target()->get()->first();
-                $l->associated = $l->associated()->get()->first();
+                $l->source = (new GenericTransformer())->transform((new GenericRepository($l->source()->get()->first()))->show());
+                $l->target = (new GenericTransformer())->transform((new GenericRepository($l->target()->get()->first()))->show());
+                $l->associated = (new GenericTransformer())->transform((new GenericRepository($l->associated()->get()->first()))->show());
             }
 
             return $this->setStatusCode(200)->respondWithData(
@@ -70,9 +72,9 @@ class LogController extends ApiController
         $logs = $logs->paginate(env('PAGINATION_PER_PAGE', 20));
 
         foreach ($logs->items() as &$l) {
-            $l->source = $l->source()->get()->first();
-            $l->target = $l->target()->get()->first();
-            $l->associated = $l->associated()->get()->first();
+            $l->source = (new GenericTransformer())->transform((new GenericRepository($l->source()->get()->first()))->show());
+            $l->target = (new GenericTransformer())->transform((new GenericRepository($l->target()->get()->first()))->show());
+            $l->associated = (new GenericTransformer())->transform((new GenericRepository($l->associated()->get()->first()))->show());
         }
 
         return $this->setStatusCode(200)->respondWithPagination(

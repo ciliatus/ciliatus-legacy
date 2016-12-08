@@ -33,7 +33,9 @@ class ActionTransformer extends Transformer
             'timestamps'    => [
                 'created'       => $item['created_at'],
                 'updated'       => $item['updated_at'],
-            ]
+            ],
+            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
+            'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
 
         if (isset($item['target_object'])) {

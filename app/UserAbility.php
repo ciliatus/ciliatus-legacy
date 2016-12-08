@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class UserAbility
  * @package App
  */
-class UserAbility extends Model
+class UserAbility extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -68,8 +68,8 @@ class UserAbility extends Model
         Log::create([
             'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
             'target_id'     =>  $new->id,
-            'associatedWith_type' => explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
-            'associatedWith_id' => $new->id,
+            'associatedWith_type' => 'User',
+            'associatedWith_id' => $new->user_id,
             'action'        => 'create'
         ]);
 
@@ -84,8 +84,8 @@ class UserAbility extends Model
         Log::create([
             'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
             'target_id'     =>  $this->id,
-            'associatedWith_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
-            'associatedWith_id' => $this->id,
+            'associatedWith_type' => 'User',
+            'associatedWith_id' => $this->user_id,
             'action'        => 'delete'
         ]);
 

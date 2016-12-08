@@ -31,6 +31,9 @@ class ActionSequenceScheduleRepository extends Repository {
         $this->scope->ran_today = $this->scope->ran_today();
         $this->scope->is_overdue = $this->scope->is_overdue(10);
 
+        $this->scope->icon = $this->scope->icon();
+        $this->scope->url = $this->scope->url();
+
         return $this->scope;
     }
 

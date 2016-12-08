@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Model;
  * Class Event
  * @package App
  */
-class Event extends Model
+class Event extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -53,5 +53,21 @@ class Event extends Model
     public function belongsTo_object()
     {
         return $this->belongsTo('App\\'. $this->belongsTo_type, 'belongsTo_id');
+    }
+
+    /**
+     * @return string
+     */
+    public function icon()
+    {
+        // TODO: Implement icon() method.
+    }
+
+    /**
+     * @return string
+     */
+    public function url()
+    {
+        // TODO: Implement url() method.
     }
 }

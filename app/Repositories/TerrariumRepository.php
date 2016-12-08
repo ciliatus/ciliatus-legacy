@@ -102,6 +102,9 @@ class TerrariumRepository extends Repository
             }
         }
 
+        $terrarium->icon = $terrarium->icon();
+        $terrarium->url = $terrarium->url();
+
         return $terrarium;
     }
 
