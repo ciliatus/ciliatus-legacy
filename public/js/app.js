@@ -158,6 +158,12 @@ global.runPage = function () {
     });
 };
 
+String.prototype.toUnderscoreCase = function () {
+    return this.replace(/\.?([A-Z])/g, function (x, y) {
+        return "_" + y.toLowerCase();
+    }).replace(/^_/, "");
+};
+
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}]},{},[1]);
 
