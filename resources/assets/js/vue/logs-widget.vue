@@ -28,7 +28,7 @@
                         </div>
                     </th>
                     <th data-field="associated">
-                        {{ $t('labels.associated') }}
+                        {{ $t('labels.associated_with') }}
                         <div class="input-field inline" style="display: none;">
                             <input id="filter_associated" type="text" v-model="filter.associated" v-on:keyup.enter="set_filter">
                             <label for="filter_associated">Filter</label>
@@ -55,7 +55,8 @@
                             <i class="material-icons" v-show="log.source_type == 'Animal'">pets</i>
                             <i class="material-icons" v-show="log.source_type == 'Terrarium'">video_label</i>
                             <i class="material-icons" v-show="log.source_type == 'User'">person</i>
-                            {{ log.source.name }}
+                            <i class="material-icons" v-show="log.source_type == 'UserAbility'">security</i>
+                            <a v-bind:href="log.source.url">{{ log.source.name }}</a>
                         </span>
                     </td>
                     <td>{{ log.action }}</td>
@@ -69,7 +70,8 @@
                             <i class="material-icons" v-show="log.target_type == 'Animal'">pets</i>
                             <i class="material-icons" v-show="log.target_type == 'Terrarium'">video_label</i>
                             <i class="material-icons" v-show="log.target_type == 'User'">person</i>
-                            {{ log.target.name }}
+                            <i class="material-icons" v-show="log.target_type == 'UserAbility'">security</i>
+                            <a v-bind:href="log.target.url">{{ log.target.name }}</a>
                         </span>
                     </td>
                     <td>
@@ -82,7 +84,8 @@
                             <i class="material-icons" v-show="log.associated_type == 'Animal'">pets</i>
                             <i class="material-icons" v-show="log.associated_type == 'Terrarium'">video_label</i>
                             <i class="material-icons" v-show="log.associated_type == 'User'">person</i>
-                            {{ log.associated.name }}
+                            <i class="material-icons" v-show="log.associated_type == 'UserAbility'">security</i>
+                            <a v-bind:href="log.associated.url">{{ log.associated.name }}</a>
                         </span>
                     </td>
                     <td>

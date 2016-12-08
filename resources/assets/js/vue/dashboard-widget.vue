@@ -246,7 +246,9 @@ export default {
                 }
             }
 
-            this.refresh_grid();
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
         },
 
         deleteAnimalFeedingSchedule: function(e) {
@@ -262,17 +264,14 @@ export default {
                 }
             });
 
-            this.refresh_grid();
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
         },
 
         refresh_grid: function() {
-            this.$nextTick(function() {
-                var $container = $('#' + this.containerId);
-                $container.masonry({
-                  columnWidth: '.col',
-                  itemSelector: '.col',
-                });
-            });
+            $('#' + this.containerId).masonry('reloadItems');
+            $('#' + this.containerId).masonry('layout');
         },
     },
 
@@ -295,7 +294,15 @@ export default {
             method: 'GET',
             success: function (data) {
                 that.dashboard = data.data;
-                that.refresh_grid();
+
+                that.$nextTick(function() {
+                    var $container = $('#' + that.containerId);
+                    $container.masonry({
+                      columnWidth: '.col',
+                      itemSelector: '.col',
+                    });
+                });
+
                 window.eventHubVue.processEnded();
             },
             error: function (error) {

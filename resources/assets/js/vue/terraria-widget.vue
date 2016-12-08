@@ -116,7 +116,9 @@ export default {
                 this.terraria.splice(item, 1, t.terrarium);
             }
 
-            that.refresh_grid();
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
             window.eventHubVue.$emit('TerrariumGraphUpdated', t);
         },
 
@@ -135,17 +137,14 @@ export default {
                 this.terraria.splice(item, 1);
             }
 
-            that.refresh_grid();
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
         },
 
         refresh_grid: function() {
-            this.$nextTick(function() {
-                var $container = $('#' + this.containerId);
-                $container.masonry({
-                  columnWidth: '.col',
-                  itemSelector: '.col',
-                });
-            });
+            $('#' + this.containerId).masonry('reloadItems');
+            $('#' + this.containerId).masonry('layout');
         },
 
         submit: function(e) {
@@ -173,7 +172,14 @@ export default {
                 else {
                     that.terraria = data.data;
                 }
-                that.refresh_grid();
+
+                that.$nextTick(function() {
+                    var $container = $('#' + that.containerId);
+                    $container.masonry({
+                      columnWidth: '.col',
+                      itemSelector: '.col',
+                    });
+                });
                 window.eventHubVue.processEnded();
             },
             error: function (error) {

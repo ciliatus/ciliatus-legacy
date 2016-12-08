@@ -126,7 +126,9 @@ export default {
                 this.animals.splice(item, 1, a.animal);
             }
 
-            this.refresh_grid();
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
         },
 
         delete: function(a) {
@@ -141,17 +143,14 @@ export default {
                 this.animals.splice(item, 1);
             }
 
-            this.refresh_grid();
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
         },
 
         refresh_grid: function() {
-            this.$nextTick(function() {
-                var $container = $('#' + this.containerId);
-                $container.masonry({
-                  columnWidth: '.col',
-                  itemSelector: '.col',
-                });
-            });
+            $('#' + this.containerId).masonry('reloadItems');
+            $('#' + this.containerId).masonry('layout');
         },
 
         submit: function(e) {
@@ -181,7 +180,9 @@ export default {
                     that.animals = data.data;
                 }
 
-                that.refresh_grid();
+                that.$nextTick(function() {
+                    that.refresh_grid();
+                });
 
                 window.eventHubVue.processEnded();
             },
@@ -196,6 +197,14 @@ export default {
             method: 'GET',
             success: function (data) {
                 that.feeding_types = data.data;
+
+                that.$nextTick(function() {
+                    $('#' + this.containerId).masonry({
+                        columnWidth: '.col',
+                        itemSelector: '.col',
+                    });
+                });
+
                 window.eventHubVue.processEnded();
             },
             error: function (error) {
