@@ -160,4 +160,8 @@ global.runPage = function() {
     $('[data-livedata="true"]').each(function() {
         new LiveData($(this).data('livedatasource'), $(this).data('livedatainterval'), domCallbacks[$(this).data('livedatacallback')], this).run();
     });
-}
+};
+
+String.prototype.toUnderscoreCase = function() {
+    return this.replace(/\.?([A-Z])/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "")
+};
