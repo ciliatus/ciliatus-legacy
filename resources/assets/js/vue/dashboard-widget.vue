@@ -75,21 +75,7 @@
                 -->
             </div>
         </div>
-        <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length < 1">
-            <div class="card">
-                <div class="card-content teal white-text">
-                    {{ $tc("components.terraria", 2) }}
-                </div>
-
-                <div class="card-content teal lighten-1 white-text">
-                    <span class="card-title activator truncate">
-                        <span>0 {{ $tc("components.terraria", 2) }} {{ $t("labels.critical") }}</span>
-                        <i class="material-icons">check</i>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div :class="wrapperClasses">
+        <div :class="wrapperClasses" v-if="dashboard.animal_feeding_schedules.due.length > 0">
             <div class="card">
                 <div class="card-content teal white-text">
                     {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.due") }}
@@ -128,7 +114,22 @@
                 -->
             </div>
         </div>
-        <div :class="wrapperClasses">
+
+        <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length < 1">
+            <div class="card">
+                <div class="card-content teal white-text">
+                    {{ $tc("components.terraria", 2) }}
+                </div>
+
+                <div class="card-content teal lighten-1 white-text">
+                    <span class="card-title activator truncate">
+                        <span>0 {{ $tc("components.terraria", 2) }} {{ $t("labels.critical") }}</span>
+                        <i class="material-icons">check</i>
+                    </span>
+                </div>
+            </div>
+        </div>
+        <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length < 1">
             <div class="card">
                 <div class="card-content teal white-text">
                     {{ $tc("components.terraria", 2) }}
