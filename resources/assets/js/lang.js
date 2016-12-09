@@ -42,7 +42,9 @@ module.exports = {
             'admin_panel' : 'Admin Panel',
             'admin_panels' : 'Admin Panel',
             'animal_feedings' : 'Fütterung | Fütterungen',
-            'animal_feeding_schedules' : 'Fütterungsplan | Fütterungspläne'
+            'animal_feeding_schedules' : 'Fütterungsplan | Fütterungspläne',
+            'animal_weighings' : 'Wiegung | Wiegungen',
+            'animal_weighing_schedules' : 'Wiegungsplan | Wiegungspläne'
         },
         errors: {
             'retrievegraphdata': 'Could not retrieve graph data.'
@@ -122,7 +124,6 @@ module.exports = {
             'add_weight'    :  'Gewicht hinzufügen',
             'active'        :  'Aktiv',
             'copy_thresholds':  'Grenzwerte kopieren',
-            'active'        :  'Aktiv',
             'daily'         :  'Täglich',
             'last_feeding'  :  'Letzte Fütterung',
             'crickets'      :  'Heimchen',
@@ -135,7 +136,11 @@ module.exports = {
             'interval_days' :  'Intervall in Tagen',
             'interval'      :  'Intervall',
             'password'      :  'Passwort',
-            'action'        :  'Aktion'
+            'action'        :  'Aktion',
+            'weight'        :  'Gewicht',
+            'no_data'       :  'Keine Daten',
+            'overview'      :  'Übersicht',
+            'environment'   :  'Umgebung'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -191,7 +196,10 @@ module.exports = {
             'minutes'   :  'Minute | Minuten',
             'seconds'   :  'Sekunde | Sekunden',
             'temperature_celsius' : '°C',
-            'humidity_percent' : '%'
+            'humidity_percent' : '%',
+            'days_ago'  :   'vor {val} Tagen',
+            'hours_ago'  :   'vor {val} Stunden',
+            'just_now'  :   'gerade eben'
         }
     },
     en: {
@@ -237,7 +245,9 @@ module.exports = {
             'admin_panel'   :  'Admin panel',
             'admin_panels'   :  'Admin panel',
             'animal_feedings' : 'Feeding | Feedings',
-            'animal_feeding_schedules' : 'Feeding schedule | Feeding schedules'
+            'animal_feeding_schedules' : 'Feeding schedule | Feeding schedules',
+            'animal_weighings' : 'Weighing | Weighings',
+            'animal_weighing_schedules' : 'Weighing schedule | Weighing schedules'
         },
         errors: {
             'retrievegraphdata'     :  'Graphdaten konnten nicht ermittelt werden.'
@@ -317,7 +327,6 @@ module.exports = {
             'add_weight'    :  'Add weight',
             'active'        :  'Active',
             'copy_thresholds':  'Copy thresholds',
-            'active'        :  'Active',
             'daily'         :  'Daily',
             'last_feeding'  :  'Last feeding',
             'crickets'      :  'Crickets',
@@ -330,7 +339,11 @@ module.exports = {
             'interval_days' :  'Interval in days',
             'interval'      :  'Interval',
             'password'      :  'Password',
-            'action'        :  'Action'
+            'action'        :  'Action',
+            'weight'        :  'Weight',
+            'no_data'       :  'No Data',
+            'overview'      :  'Overview',
+            'environment'   :  'Environment'
         },
         menu: {
             'welcome'       :  'Welcome',
@@ -387,6 +400,9 @@ module.exports = {
             'seconds'   :  'second|seconds',
             'temperature_celsius' : '°C',
             'humidity_percent' : '%',
+            'days_ago'  :   '{val} days ago',
+            'hours_ago' :   '{val} hours ago',
+            'just_now'  :   'just now'
         }
     }
 };
