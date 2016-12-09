@@ -3,13 +3,14 @@
         <div :class="wrapperClasses">
             <div class="card">
                 <div class="card-content teal lighten-1 white-text">
+                    <i class="material-icons">schedule</i>
                     {{ $tc("components.animal_feeding_schedules", 2) }}
                 </div>
 
                 <div class="card-content">
                     <span class="card-title activator truncate">
                         <span>{{ $tc("components.animal_feeding_schedules", 2) }}</span>
-                        <i class="material-icons right">more_vert</i>
+                        <!--<i class="material-icons right">more_vert</i>-->
                     </span>
 
                     <div v-for="afs in animal_feeding_schedules">
@@ -22,6 +23,9 @@
                                 <span class="new badge red" v-bind:data-badge-caption="$t('labels.overdue')"> </span>
                             </span>
                         </p>
+                    </div>
+                    <div v-if="animal_feeding_schedules.length < 1">
+                        <p>{{ $t('labels.no_data') }}</p>
                     </div>
                 </div>
 

@@ -1,51 +1,54 @@
 <template>
-    <div>
-        <div :class="wrapperClasses" v-for="logical_sensor in logical_sensors">
-            <div class="card">
-                <div class="card-content teal lighten-1 white-text">
-                    {{ $tc("components.logical_sensors", 2) }}
-                </div>
+    <div :class="containerClasses" :id="containerId">
+        <div v-for="logical_sensor in logical_sensors">
+            <div :class="wrapperClasses">
+                <div class="card">
+                    <div class="card-content teal lighten-1 white-text">
+                        <i class="material-icons">memory</i>
+                        {{ $tc("components.logical_sensors", 2) }}
+                    </div>
 
-                <div class="card-content">
-                    <span class="card-title activator truncate">
-                        <span>{{ logical_sensor.name }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
-
-                    <p>
-                        <span>{{ $t("labels.type") }}: {{ $t("labels." + logical_sensor.type) }}</span>
-                    </p>
-                </div>
-
-                <div class="card-action">
-                    <a v-bind:href="'/logical_sensors/' + logical_sensor.id">{{ $t("buttons.details") }}</a>
-                    <a v-bind:href="'/logical_sensors/' + logical_sensor.id + '/edit'">{{ $t("buttons.edit") }}</a>
-                </div>
-
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4">{{ $tc("components.physical_sensors", 1) }}<i class="material-icons right">close</i></span>
-
-                    <p>
-                        <span v-if="logical_sensor.physical_sensor">
-                            {{ $tc("components.physical_sensor", 1) }}:
-                            <a v-bind:href="'/physical_sensors/' + logical_sensor.physical_sensor.id">{{ logical_sensor.physical_sensor.name }}</a>
+                    <div class="card-content">
+                        <span class="card-title activator truncate">
+                            <span>{{ logical_sensor.name }}</span>
+                            <i class="material-icons right">more_vert</i>
                         </span>
-                    </p>
 
-                    <span class="card-title grey-text text-darken-4">{{ $tc("components.logical_sensor_thresholds", 2) }}</span>
+                        <p>
+                            <span>{{ $t("labels.type") }}: {{ $t("labels." + logical_sensor.type) }}</span>
+                        </p>
+                    </div>
 
-                    <p v-for="lst in logical_sensor.thresholds">
-                        {{ $t("labels.starts_at") }} {{ lst.timestamps.starts }}:
-                        <strong>
-                            <span v-show="lst.rawvalue_lowerlimit && !lst.rawvalue_upperlimit">min {{ lst.rawvalue_lowerlimit }}{{ $t("units." + logical_sensor.type) }}</span>
-                            <span v-show="!lst.rawvalue_lowerlimit && lst.rawvalue_upperlimit">max {{ lst.rawvalue_upperlimit }}{{ $t("units." + logical_sensor.type) }}</span>
-                            <span v-show="lst.rawvalue_lowerlimit && lst.rawvalue_upperlimit">{{ lst.rawvalue_lowerlimit }} - {{ lst.rawvalue_upperlimit }}{{ $t("units." + logical_sensor.type) }}</span>
-                        </strong>
+                    <div class="card-action">
+                        <a v-bind:href="'/logical_sensors/' + logical_sensor.id">{{ $t("buttons.details") }}</a>
+                        <a v-bind:href="'/logical_sensors/' + logical_sensor.id + '/edit'">{{ $t("buttons.edit") }}</a>
+                    </div>
 
-                        <span v-show="lst.id == logical_sensor.current_threshold_id">
-                            <span class="new badge" v-bind:data-badge-caption="$t('labels.active')"> </span>
-                        </span>
-                    </p>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4">{{ $tc("components.physical_sensors", 1) }}<i class="material-icons right">close</i></span>
+
+                        <p>
+                            <span v-if="logical_sensor.physical_sensor">
+                                {{ $tc("components.physical_sensor", 1) }}:
+                                <a v-bind:href="'/physical_sensors/' + logical_sensor.physical_sensor.id">{{ logical_sensor.physical_sensor.name }}</a>
+                            </span>
+                        </p>
+
+                        <span class="card-title grey-text text-darken-4">{{ $tc("components.logical_sensor_thresholds", 2) }}</span>
+
+                        <p v-for="lst in logical_sensor.thresholds">
+                            {{ $t("labels.starts_at") }} {{ lst.timestamps.starts }}:
+                            <strong>
+                                <span v-show="lst.rawvalue_lowerlimit && !lst.rawvalue_upperlimit">min {{ lst.rawvalue_lowerlimit }}{{ $t("units." + logical_sensor.type) }}</span>
+                                <span v-show="!lst.rawvalue_lowerlimit && lst.rawvalue_upperlimit">max {{ lst.rawvalue_upperlimit }}{{ $t("units." + logical_sensor.type) }}</span>
+                                <span v-show="lst.rawvalue_lowerlimit && lst.rawvalue_upperlimit">{{ lst.rawvalue_lowerlimit }} - {{ lst.rawvalue_upperlimit }}{{ $t("units." + logical_sensor.type) }}</span>
+                            </strong>
+
+                            <span v-show="lst.id == logical_sensor.current_threshold_id">
+                                <span class="new badge" v-bind:data-badge-caption="$t('labels.active')"> </span>
+                            </span>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,6 +83,16 @@ export default {
             type: String,
             default: '',
             required: false
+        },
+        containerClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerId: {
+            type: String,
+            default: 'logical_sensors-masonry-grid',
+            required: false
         }
     },
 
@@ -97,6 +110,10 @@ export default {
             else if (item !== null) {
                 this.logical_sensors.splice(item, 1, cu.logical_sensor);
             }
+
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
         },
 
         delete: function(cu) {
@@ -113,6 +130,15 @@ export default {
             if (item !== null) {
                 this.logical_sensors.splice(item, 1);
             }
+
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
+        },
+
+        refresh_grid: function() {
+            $('#' + this.containerId).masonry('reloadItems');
+            $('#' + this.containerId).masonry('layout');
         }
     },
 
@@ -136,6 +162,13 @@ export default {
                 else {
                     that.logical_sensors = data.data;
                 }
+
+                that.$nextTick(function() {
+                    $('#' + that.containerId).masonry({
+                        columnWidth: '.col',
+                        itemSelector: '.col',
+                    });
+                });
 
                 window.eventHubVue.processEnded();
             },

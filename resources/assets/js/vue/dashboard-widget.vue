@@ -123,27 +123,13 @@
 
                 <div class="card-content teal lighten-1 white-text">
                     <span class="card-title activator truncate">
-                        <span>0 {{ $tc("components.terraria", 2) }} {{ $t("labels.critical") }}</span>
-                        <i class="material-icons">check</i>
-                    </span>
-                </div>
-            </div>
-        </div>
-        <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length < 1">
-            <div class="card">
-                <div class="card-content teal white-text">
-                    {{ $tc("components.terraria", 2) }}
-                </div>
-
-                <div class="card-content teal lighten-1 white-text">
-                    <span class="card-title activator truncate">
                         <span>{{ dashboard.terraria.ok.length }} {{ $tc("components.terraria", dashboard.terraria.ok.length) }} {{ $t("labels.ok") }}</span>
                         <i class="material-icons right">more_vert</i>
                     </span>
                 </div>
 
                 <div class="card-reveal teal lighten-1 white-text">
-                    <span class="card-title teal lighten-1 white-text"><i class="material-icons right">close</i></span>
+                    <span class="card-title teal lighten-2 white-text"><i class="material-icons right">close</i></span>
 
                     <p>
                     </p>

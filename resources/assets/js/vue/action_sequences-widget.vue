@@ -2,6 +2,7 @@
 
     <div class="card">
         <div class="card-content teal lighten-1 white-text">
+            <i class="material-icons">playlist_play</i>
             {{ action_sequences.length }} {{ $tc("components.action_sequences", 2) }}
         </div>
 
@@ -17,6 +18,11 @@
                 <p v-for="ass in as.schedules"><i class="material-icons">subdirectory_arrow_right</i> {{ ass.timestamps.starts }} <i v-show="!ass.runonce">{{ $t("labels.daily") }}</i></p>
             </div>
 
+        </div>
+
+        <div class="card-action">
+            <a v-bind:href="'/action_sequences/create?preset[terrarium]=' + terrariumId">{{ $t("buttons.add") }}</a>
+            <a v-bind:href="'/terraria/' + terrariumId + '/edit'">{{ $t("buttons.edit") }}</a>
         </div>
 
         <div class="card-reveal">
@@ -40,6 +46,11 @@ export default {
 
     props: {
         action_sequenceId: {
+            type: String,
+            default: '',
+            required: false
+        },
+        terrariumId: {
             type: String,
             default: '',
             required: false

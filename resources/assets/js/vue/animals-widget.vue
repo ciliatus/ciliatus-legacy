@@ -181,7 +181,10 @@ export default {
                 }
 
                 that.$nextTick(function() {
-                    that.refresh_grid();
+                    $('#' + that.containerId).masonry({
+                        columnWidth: '.col',
+                        itemSelector: '.col',
+                    });
                 });
 
                 window.eventHubVue.processEnded();
@@ -197,14 +200,6 @@ export default {
             method: 'GET',
             success: function (data) {
                 that.feeding_types = data.data;
-
-                that.$nextTick(function() {
-                    $('#' + this.containerId).masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col',
-                    });
-                });
-
                 window.eventHubVue.processEnded();
             },
             error: function (error) {

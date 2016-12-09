@@ -1,28 +1,31 @@
 <template>
-    <div>
-        <div :class="wrapperClasses" v-for="pump in pumps">
-            <div class="card">
-                <div class="card-content teal lighten-1 white-text">
-                    {{ $tc("components.pumps", 2) }}
-                </div>
+    <div :class="containerClasses" :id="containerId">
+        <div v-for="pump in pumps">
+            <div :class="wrapperClasses">
+                <div class="card">
+                    <div class="card-content teal lighten-1 white-text">
+                        <i class="material-icons">rotate_right</i>
+                        {{ $tc("components.pumps", 2) }}
+                    </div>
 
-                <div class="card-content">
-                    <span class="card-title activator truncate">
-                        <span>{{ pump.name }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
-                </div>
+                    <div class="card-content">
+                        <span class="card-title activator truncate">
+                            <span>{{ pump.name }}</span>
+                            <i class="material-icons right">more_vert</i>
+                        </span>
+                    </div>
 
-                <div class="card-action">
-                    <a v-bind:href="'/pumps/' + pump.id">{{ $t("buttons.details") }}</a>
-                    <a v-bind:href="'/pumps/' + pump.id + '/edit'">{{ $t("buttons.edit") }}</a>
-                </div>
+                    <div class="card-action">
+                        <a v-bind:href="'/pumps/' + pump.id">{{ $t("buttons.details") }}</a>
+                        <a v-bind:href="'/pumps/' + pump.id + '/edit'">{{ $t("buttons.edit") }}</a>
+                    </div>
 
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
-                    <p>
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                        <p>
 
-                    </p>
+                        </p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -57,6 +60,16 @@ export default {
             type: String,
             default: '',
             required: false
+        },
+        containerClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerId: {
+            type: String,
+            default: 'valves-masonry-grid',
+            required: false
         }
     },
 
@@ -74,6 +87,10 @@ export default {
             else if (item !== null) {
                 this.pumps.splice(item, 1, cu.pump);
             }
+
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
         },
 
         delete: function(cu) {
@@ -90,6 +107,15 @@ export default {
             if (item !== null) {
                 this.pumps.splice(item, 1);
             }
+
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
+        },
+
+        refresh_grid: function() {
+            $('#' + this.containerId).masonry('reloadItems');
+            $('#' + this.containerId).masonry('layout');
         }
     },
 
@@ -113,6 +139,13 @@ export default {
                 else {
                     that.pumps = data.data;
                 }
+
+                that.$nextTick(function() {
+                    $('#' + that.containerId).masonry({
+                        columnWidth: '.col',
+                        itemSelector: '.col',
+                    });
+                });
 
                 window.eventHubVue.processEnded();
             },

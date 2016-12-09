@@ -1,6 +1,7 @@
 <template>
     <div class="card">
         <div class="card-content teal lighten-1 white-text">
+            <i class="material-icons">attach_file</i>
             {{ files.length }} {{ $tc("components.files", 2) }}
         </div>
 
