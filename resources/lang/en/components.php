@@ -30,5 +30,7 @@ return [
     'admin_panel'   =>  'Admin panel',
     'admin_panels'   =>  'Admin panel',
     'animal_feedings' => 'Feeding|Feedings',
-    'animal_feeding_schedules' => 'Feeding schedule|Feeding schedules'
+    'animal_feeding_schedules' => 'Feeding schedule|Feeding schedules',
+    'animal_weighings' => 'Weighing|Weighings',
+    'animal_weighing_schedules' => 'Weighing schedule|Weighing schedules'
 ];

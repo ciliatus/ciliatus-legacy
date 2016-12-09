@@ -4,36 +4,36 @@ namespace App\Http\Controllers\Api;
 
 use App\Animal;
 use App\Event;
-use App\Events\AnimalFeedingUpdated;
-use App\Http\Transformers\AnimalFeedingTransformer;
+use App\Events\AnimalWeighingUpdated;
+use App\Http\Transformers\AnimalWeighingTransformer;
 use App\Property;
-use App\Repositories\AnimalFeedingRepository;
+use App\Repositories\AnimalWeighingRepository;
 use Illuminate\Http\Request;
 use Gate;
 use App\Http\Requests;
 use Illuminate\Support\Facades\DB;
 
 /**
- * Class AnimalFeedingController
+ * Class AnimalWeighingController
  * @package App\Http\Controllers\Api
  */
-class AnimalFeedingController extends ApiController
+class AnimalWeighingController extends ApiController
 {
 
     /**
-     * @var AnimalFeedingTransformer
+     * @var AnimalWeighingTransformer
      */
-    protected $animalFeedingTransformer;
+    protected $animalWeighingTransformer;
 
 
     /**
-     * AnimalFeedingController constructor.
-     * @param AnimalFeedingTransformer $_animalFeedingTransformer
+     * AnimalWeighingController constructor.
+     * @param AnimalWeighingTransformer $_animalWeighingTransformer
      */
-    public function __construct(AnimalFeedingTransformer $_animalFeedingTransformer)
+    public function __construct(AnimalWeighingTransformer $_animalWeighingTransformer)
     {
         parent::__construct();
-        $this->animalFeedingTransformer = $_animalFeedingTransformer;
+        $this->animalWeighingTransformer = $_animalWeighingTransformer;
     }
 
 
@@ -52,7 +52,7 @@ class AnimalFeedingController extends ApiController
             return $this->respondNotFound("Animal not found");
         }
 
-        $feedings = $animal->feedings();
+        $weighings = $animal->weighings();
 
         /*
          * If raw is passed, pagination will be ignored
@@ -60,29 +60,29 @@ class AnimalFeedingController extends ApiController
          */
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
 
-            foreach ($feedings as &$f) {
-                $f = (new AnimalFeedingRepository($f))->show()->toArray();
+            foreach ($weighings as &$f) {
+                $f = (new AnimalWeighingRepository($f))->show()->toArray();
             }
 
             return $this->setStatusCode(200)->respondWithData(
-                $this->animalFeedingTransformer->transformCollection(
-                    $feedings->toArray()
+                $this->animalWeighingTransformer->transformCollection(
+                    $weighings->toArray()
                 )
             );
 
         }
 
-        $feedings = $feedings->paginate(env('PAGINATION_PER_PAGE', 20));
+        $weighings = $weighings->paginate(env('PAGINATION_PER_PAGE', 20));
 
-        foreach ($feedings->items() as &$f) {
-            $f = (new AnimalFeedingRepository($f))->show()->toArray();
+        foreach ($weighings->items() as &$f) {
+            $f = (new AnimalWeighingRepository($f))->show()->toArray();
         }
 
         return $this->setStatusCode(200)->respondWithPagination(
-            $this->animalFeedingTransformer->transformCollection(
-                $feedings->toArray()['data']
+            $this->animalWeighingTransformer->transformCollection(
+                $weighings->toArray()['data']
             ),
-            $feedings
+            $weighings
         );
 
     }
@@ -118,14 +118,14 @@ class AnimalFeedingController extends ApiController
         $e = Event::create([
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal->id,
-            'type' => 'AnimalFeeding',
-            'name' => $request->input('meal_type'),
-            'value' => $request->has('count') ? $request->input('count') : ''
+            'type' => 'AnimalWeighing',
+            'name' => 'g',
+            'value' => $request->input('weight')
         ]);
 
         $animal->save();
 
-        broadcast(new AnimalFeedingUpdated($e));
+        broadcast(new AnimalWeighingUpdated($e));
 
         return $this->respondWithData([]);
     }
@@ -173,56 +173,5 @@ class AnimalFeedingController extends ApiController
     public function destroy($id)
     {
         //
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function types(Request $request)
-    {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $ft = Property::where('type', 'AnimalFeedingType');
-
-        $ft = $this->filter($request, $ft);
-
-        $return = [];
-        foreach ($ft->get() as $t) {
-            $return[] = $t->name;
-        }
-
-        return $this->respondWithData($return);
-    }
-
-    /**
-     * @param Request $request
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function store_type(Request $request)
-    {
-        if (Gate::denies('admin')) {
-            return $this->respondUnauthorized();
-        }
-
-        if (!$this->checkInput(['name'], $request)) {
-            return $this->setErrorCode(422)->respondWithError('Missing fields');
-        }
-
-        Property::create([
-            'belongsTo_type' => 'System',
-            'belongsTo_id' => '00000000-0000-0000-0000-000000000000',
-            'type' => 'AnimalFeedingType',
-            'name' => $request->input('name')
-        ]);
-
-        return $this->respondWithData([],
-            [
-                'redirect' => [
-                    'uri' => url('animals/feedings/types')
-                ]
-            ]);
     }
 }

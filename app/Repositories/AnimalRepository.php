@@ -43,6 +43,10 @@ class AnimalRepository extends Repository
         if (!is_null($last_feeding)) {
             $animal->last_feeding = $last_feeding;
         }
+        $last_weighing = $animal->last_weighing();
+        if (!is_null($last_weighing)) {
+            $animal->last_weighing = $last_weighing;
+        }
 
         $files = $animal->files()->with('properties')->get();
         $animal->default_background_filepath = null;

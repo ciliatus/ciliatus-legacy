@@ -115,6 +115,23 @@ class Animal extends CiliatusModel
     }
 
     /**
+     * @return mixed
+     */
+    public function weighings()
+    {
+        return $this->events()->where('type', 'AnimalWeighing')
+            ->orderBy('created_at', 'desc');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function weighing_schedules()
+    {
+        return $this->properties()->where('type', 'AnimalWeighingSchedule');
+    }
+
+    /**
      * @return string
      */
     public function icon()
@@ -184,5 +201,13 @@ class Animal extends CiliatusModel
         else {
             return $this->feedings()->where('name', $type)->limit(1)->get()->first();
         }
+    }
+
+    /**
+     * @return mixed
+     */
+    public function last_weighing()
+    {
+        return $this->weighings()->limit(1)->get()->first();
     }
 }

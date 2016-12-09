@@ -9,4 +9,7 @@ return [
     'seconds'   =>  'second|seconds',
     'temperature_celsius' => '°C',
     'humidity_percent' => '%',
+    'days_ago'  =>  ':val days ago',
+    'hours_ago' =>  ':val hours ago',
+    'just_now'  =>  'just now'
 ];

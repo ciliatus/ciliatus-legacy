@@ -86,5 +86,9 @@ return [
     'interval_days' =>  'Interval in days',
     'interval'      =>  'Interval',
     'password'      =>  'Password',
-    'action'        =>  'Action'
+    'action'        =>  'Action',
+    'weight'        =>  'Weight',
+    'no_data'       =>  'No Data',
+    'overview'      =>  'Overview',
+    'environment'   =>  'Environment'
 ];

@@ -30,5 +30,7 @@ return [
     'admin_panel'   =>  'Admin Panel',
     'admin_panels'   =>  'Admin Panel',
     'animal_feedings' => 'Fütterung|Fütterungen',
-    'animal_feeding_schedules' => 'Fütterungsplan|Fütterungspläne'
+    'animal_feeding_schedules' => 'Fütterungsplan|Fütterungspläne',
+    'animal_weighings' => 'Wiegung|Wiegungen',
+    'animal_weighing_schedules' => 'Wiegungsplan|Wiegungspläne'
 ];

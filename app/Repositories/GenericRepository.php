@@ -31,8 +31,10 @@ class GenericRepository extends Repository
     {
         $model = $this->scope;
 
-        $model->icon = $model->icon();
-        $model->url = $model->url();
+        if (!is_null($model)) {
+            $model->icon = $model->icon();
+            $model->url = $model->url();
+        }
 
         return $model;
     }
