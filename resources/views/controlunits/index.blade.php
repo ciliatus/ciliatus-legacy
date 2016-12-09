@@ -6,7 +6,9 @@
 
 
 @section('content')
-    <controlunits-widget wrapper-classes="col s12 m6 l4"></controlunits-widget>
+    <div class="container">
+        <controlunits-widget container-classes="row"  wrapper-classes="col s12 m6 l4"></controlunits-widget>
+    </div>
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large teal">

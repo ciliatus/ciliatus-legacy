@@ -6,7 +6,9 @@
 
 
 @section('content')
-    <logical_sensors-widget wrapper-classes="col s12 m6 l4"></logical_sensors-widget>
+    <div class="container">
+        <logical_sensors-widget container-classes="row" wrapper-classes="col s12 m6 l4"></logical_sensors-widget>
+    </div>
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large teal">

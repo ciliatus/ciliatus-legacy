@@ -7,28 +7,32 @@
 @stop
 
 @section('content')
-    <div class="col s12 m12 l6">
-        <table>
-            <thead>
-            <tr>
-                <th data-field="type">@lang('labels.type')</th>
-                <th data-field="actions">@lang('labels.actions')</th>
-            </tr>
-            </thead>
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <table>
+                    <thead>
+                    <tr>
+                        <th data-field="type">@lang('labels.type')</th>
+                        <th data-field="actions">@lang('labels.actions')</th>
+                    </tr>
+                    </thead>
 
-            <tbody>
-            @foreach ($types as $type)
-            <tr>
-                <td>{{ $type->name }}</td>
-                <td>
-                    <form action="/api/v1/properties/{{ $type->id }}" data-method="DELETE" data-redirect-success="/animals/feedings/types">
-                        <button type="submit" class="btn btn-small red darken-2 white-text">@lang('buttons.delete')</button>
-                    </form>
-                </td>
-            </tr>
-            @endforeach
-            </tbody>
-        </table>
+                    <tbody>
+                    @foreach ($types as $type)
+                    <tr>
+                        <td>{{ $type->name }}</td>
+                        <td>
+                            <form action="/api/v1/properties/{{ $type->id }}" data-method="DELETE" data-redirect-success="/animals/feedings/types">
+                                <button type="submit" class="btn btn-small red darken-2 white-text">@lang('buttons.delete')</button>
+                            </form>
+                        </td>
+                    </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
 
     <div class="fixed-action-btn">

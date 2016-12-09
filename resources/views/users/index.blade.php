@@ -6,7 +6,9 @@
 
 
 @section('content')
-    <users-widget wrapper-classes="col s12"></users-widget>
+    <div class="container">
+        <users-widget wrapper-classes="col s12"></users-widget>
+    </div>
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large teal">

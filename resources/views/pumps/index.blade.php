@@ -6,7 +6,9 @@
 
 
 @section('content')
-    <pumps-widget wrapper-classes="col s12 m6 l4"></pumps-widget>
+    <div class="container">
+        <pumps-widget container-classes="row" wrapper-classes="col s12 m6 l4"></pumps-widget>
+    </div>
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large teal">

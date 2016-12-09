@@ -195,7 +195,7 @@ class ActionSequenceController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('terraria/' . $as->terrarium_id . '/edit'),
+                    'uri'   => url('action_sequences/' . $as->id . '/edit'),
                     'delay' => 1000
                 ]
             ]

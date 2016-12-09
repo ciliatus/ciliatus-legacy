@@ -7,82 +7,86 @@
 @stop
 
 @section('content')
-    <div class="col s12 m12 l6">
-        <div class="card">
-            <form action="{{ url('api/v1/valves/' . $valve->id) }}" data-method="PUT"
-                  data-redirect-success="{{ url('valves/' . $valve->id) }}">
-                <div class="card-content">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <div class="card">
+                    <form action="{{ url('api/v1/valves/' . $valve->id) }}" data-method="PUT"
+                          data-redirect-success="{{ url('valves/' . $valve->id) }}">
+                        <div class="card-content">
 
-                    <span class="card-title activator grey-text text-darken-4 truncate">
-                        <span>{{ $valve->name }}</span>
-                    </span>
+                            <span class="card-title activator grey-text text-darken-4 truncate">
+                                <span>{{ $valve->name }}</span>
+                            </span>
 
-                    <p>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $valve->id }}">
-                                <label for="id">ID</label>
-                            </div>
+                            <p>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $valve->id }}">
+                                        <label for="id">ID</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $valve->name }}">
+                                        <label for="name">@lang('labels.name')</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select name="controlunit">
+                                            <option></option>
+                                            @foreach ($controlunits as $cu)
+                                                <option value="{{ $cu->id }}" @if($valve->controlunit_id == $cu->id)selected="selected"@endif>{{ $cu->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="valves">@choice('components.controlunits', 1)</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select name="pump">
+                                            <option></option>
+                                            @foreach ($pumps as $p)
+                                                <option value="{{ $p->id }}" @if($valve->pump_id == $p->id)selected="selected"@endif>{{ $p->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="valves">@choice('components.pumps', 1)</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select name="terrarium">
+                                            <option></option>
+                                            @foreach ($terraria as $t)
+                                                <option value="{{ $t->id }}" @if($valve->terrarium_id == $t->id)selected="selected"@endif>{{ $t->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="valves">@choice('components.terraria', 1)</label>
+                                    </div>
+                                </div>
+                            </p>
+
                         </div>
-    
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $valve->name }}">
-                                <label for="name">@lang('labels.name')</label>
-                            </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <select name="controlunit">
-                                    <option></option>
-                                    @foreach ($controlunits as $cu)
-                                        <option value="{{ $cu->id }}" @if($valve->controlunit_id == $cu->id)selected="selected"@endif>{{ $cu->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="valves">@choice('components.controlunits', 1)</label>
-                            </div>
-                        </div>
+                        <div class="card-action">
 
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <select name="pump">
-                                    <option></option>
-                                    @foreach ($pumps as $p)
-                                        <option value="{{ $p->id }}" @if($valve->pump_id == $p->id)selected="selected"@endif>{{ $p->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="valves">@choice('components.pumps', 1)</label>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
                             </div>
-                        </div>
 
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <select name="terrarium">
-                                    <option></option>
-                                    @foreach ($terraria as $t)
-                                        <option value="{{ $t->id }}" @if($valve->terrarium_id == $t->id)selected="selected"@endif>{{ $t->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="valves">@choice('components.terraria', 1)</label>
-                            </div>
                         </div>
-                    </p>
-
+                    </form>
                 </div>
-
-                <div class="card-action">
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            </form>
+            </div>
         </div>
     </div>
     

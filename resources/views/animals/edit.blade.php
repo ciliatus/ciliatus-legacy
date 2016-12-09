@@ -7,142 +7,146 @@
 @stop
 
 @section('content')
-    <div class="col s12 m12 l6">
-        <div class="card">
-            <form action="{{ url('api/v1/animals/' . $animal->id) }}" data-method="PUT"
-                  data-redirect-success="{{ url('animals/' . $animal->id . '/edit') }}">
-                <div class="card-content">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <div class="card">
+                    <form action="{{ url('api/v1/animals/' . $animal->id) }}" data-method="PUT"
+                          data-redirect-success="{{ url('animals/' . $animal->id . '/edit') }}">
+                        <div class="card-content">
 
-                    <span class="card-title activator grey-text text-darken-4 truncate">
-                        <span>{{ $animal->display_name }}</span>
-                    </span>
+                            <span class="card-title activator grey-text text-darken-4 truncate">
+                                <span>{{ $animal->display_name }}</span>
+                            </span>
 
-                    <p>
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $animal->id }}">
-                            <label for="id">ID</label>
+                            <p>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $animal->id }}">
+                                    <label for="id">ID</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" placeholder="@lang('labels.display_name')" name="displayname" value="{{ $animal->display_name }}">
+                                    <label for="display_name">@lang('labels.display_name')</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" placeholder="@lang('labels.common_name')" name="commonname" value="{{ $animal->common_name }}">
+                                    <label for="name">@lang('labels.common_name')</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" placeholder="@lang('labels.latin_name')" name="latinname" value="{{ $animal->latin_name }}">
+                                    <label for="name">@lang('labels.latin_name')</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="date" class="datepicker" placeholder="@lang('labels.date_birth')" name="birthdate" value="{{ $animal->birth_date }}">
+                                    <label for="name">@lang('labels.date_birth')</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="date" class="datepicker" placeholder="@lang('labels.date_death')" name="deathdate" value="{{ $animal->death_date }}">
+                                    <label for="name">@lang('labels.date_death')</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <select name="gender">
+                                        <option></option>
+                                        <option value="male" @if($animal->gender == 'male')selected="selected"@endif>@lang('labels.gender_male')</option>
+                                        <option value="female" @if($animal->gender == 'female')selected="selected"@endif>@lang('labels.gender_female')</option>
+                                    </select>
+                                    <label for="name">@lang('labels.gender')</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <select name="terrarium">
+                                        <option></option>
+                                        @foreach ($terraria as $t)
+                                            <option value="{{ $t->id }}" @if($animal->terrarium_id == $t->id)selected="selected"@endif>{{ $t->display_name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="valves">@choice('components.terraria', 2)</label>
+                                </div>
+                            </div>
+                            </p>
+
                         </div>
-                    </div>
 
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" placeholder="@lang('labels.display_name')" name="displayname" value="{{ $animal->display_name }}">
-                            <label for="display_name">@lang('labels.display_name')</label>
+                        <div class="card-action">
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </div>
+
                         </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" placeholder="@lang('labels.common_name')" name="commonname" value="{{ $animal->common_name }}">
-                            <label for="name">@lang('labels.common_name')</label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="text" placeholder="@lang('labels.latin_name')" name="latinname" value="{{ $animal->latin_name }}">
-                            <label for="name">@lang('labels.latin_name')</label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="date" class="datepicker" placeholder="@lang('labels.date_birth')" name="birthdate" value="{{ $animal->birth_date }}">
-                            <label for="name">@lang('labels.date_birth')</label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <input type="date" class="datepicker" placeholder="@lang('labels.date_death')" name="deathdate" value="{{ $animal->death_date }}">
-                            <label for="name">@lang('labels.date_death')</label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <select name="gender">
-                                <option></option>
-                                <option value="male" @if($animal->gender == 'male')selected="selected"@endif>@lang('labels.gender_male')</option>
-                                <option value="female" @if($animal->gender == 'female')selected="selected"@endif>@lang('labels.gender_female')</option>
-                            </select>
-                            <label for="name">@lang('labels.gender')</label>
-                        </div>
-                    </div>
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <select name="terrarium">
-                                <option></option>
-                                @foreach ($terraria as $t)
-                                    <option value="{{ $t->id }}" @if($animal->terrarium_id == $t->id)selected="selected"@endif>{{ $t->display_name }}</option>
-                                @endforeach
-                            </select>
-                            <label for="valves">@choice('components.terraria', 2)</label>
-                        </div>
-                    </div>
-                    </p>
-
-                </div>
-
-                <div class="card-action">
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            </form>
-        </div>
-    </div>
-
-    <div class="col s12 m12 l6">
-        <div class="card">
-            <div class="card-content">
-
-                <span class="card-title activator grey-text text-darken-4 truncate">
-                    <span>@choice('components.animal_feeding_schedules', 2)</span>
-                </span>
-
-                <div class="row">
-
-                    @foreach ($animal->feeding_schedules as $afs)
-                        <p>
-                            @lang('labels.' . $afs->name) - {{ $afs->value }} @choice('units.days', $afs->value) @lang('labels.interval')
-
-                            <a class="dropdown-button btn btn-small" href="#" data-activates="dropdown-edit-animal_feeding_schedules_{{ $afs->id }}" style="margin-left: 20px">
-                                @lang('labels.actions') <i class="material-icons">keyboard_arrow_down</i>
-                            </a>
-                        </p>
-
-                        <ul id="dropdown-edit-animal_feeding_schedules_{{ $afs->id }}" class="dropdown-content">
-                            <li>
-                                <a href="{{ url('animals/' . $animal->id . '/feeding_schedules/' . $afs->id . '/edit') }}">
-                                    @lang('buttons.edit')
-                                </a>
-                            </li>
-                            <li>
-                                <a href="{{ url('animals/' . $animal->id . '/feeding_schedules/' . $afs->id . '/delete') }}">
-                                    @lang('buttons.delete')
-                                </a>
-                            </li>
-                        </ul>
-                    @endforeach
-
-                    <a class="btn-floating btn-large waves-effect waves-light green right" href=" {{ url('/animals/' . $animal->id . '/feeding_schedules/create') }}">
-                        <i class="material-icons">add</i>
-                    </a>
-
+                    </form>
                 </div>
             </div>
 
-        </div>
+            <div class="col s12 m12 l6">
+                <div class="card">
+                    <div class="card-content">
 
+                        <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span>@choice('components.animal_feeding_schedules', 2)</span>
+                        </span>
+
+                        <div class="row">
+
+                            @foreach ($animal->feeding_schedules as $afs)
+                                <p>
+                                    @lang('labels.' . $afs->name) - {{ $afs->value }} @choice('units.days', $afs->value) @lang('labels.interval')
+
+                                    <a class="dropdown-button btn btn-small" href="#" data-activates="dropdown-edit-animal_feeding_schedules_{{ $afs->id }}" style="margin-left: 20px">
+                                        @lang('labels.actions') <i class="material-icons">keyboard_arrow_down</i>
+                                    </a>
+                                </p>
+
+                                <ul id="dropdown-edit-animal_feeding_schedules_{{ $afs->id }}" class="dropdown-content">
+                                    <li>
+                                        <a href="{{ url('animals/' . $animal->id . '/feeding_schedules/' . $afs->id . '/edit') }}">
+                                            @lang('buttons.edit')
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ url('animals/' . $animal->id . '/feeding_schedules/' . $afs->id . '/delete') }}">
+                                            @lang('buttons.delete')
+                                        </a>
+                                    </li>
+                                </ul>
+                            @endforeach
+
+                            <a class="btn-floating btn-large waves-effect waves-light green right" href=" {{ url('/animals/' . $animal->id . '/feeding_schedules/create') }}">
+                                <i class="material-icons">add</i>
+                            </a>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
     </div>
 
 

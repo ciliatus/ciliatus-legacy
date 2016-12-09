@@ -38,7 +38,7 @@ class LogTransformer extends Transformer
                 'updated' => $item['updated_at'],
             ],
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'url'           =>  isset($item['url']) ? $item['url'] : ''
         ];
 
 

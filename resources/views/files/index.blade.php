@@ -6,7 +6,9 @@
 
 
 @section('content')
-    <files-widget wrapper-classes="col s12 m6 l4"></files-widget>
+    <div class="container">
+        <files-widget wrapper-classes="col s12 m6 l4"></files-widget>
+    </div>
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large teal">

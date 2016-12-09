@@ -6,9 +6,8 @@
 @stop
 
 @section('content')
-    <!-- left col -->
-    <div class="col s12 m5 l4 no-padding">
-        <div class="col s12 m12 l12">
+    <div class="container">
+        <div class="row">
             <logical_sensor_thresholds-widget logical_sensor_threshold-id="{{ $logical_sensor_threshold->id }}" :subscribe-add="false" :subscribe-delete="false"></logical_sensor_thresholds-widget>
         </div>
     </div>

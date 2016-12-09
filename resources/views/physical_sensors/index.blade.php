@@ -6,7 +6,9 @@
 
 
 @section('content')
-    <physical_sensors-widget wrapper-classes="col s12 m6 l4"></physical_sensors-widget>
+    <div class="container">
+        <physical_sensors-widget container-classes="row" wrapper-classes="col s12 m6 l4"></physical_sensors-widget>
+    </div>
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large teal">

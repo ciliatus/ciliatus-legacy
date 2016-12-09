@@ -7,88 +7,92 @@
 @stop
 
 @section('content')
-    <div class="col s12 m12 l6">
-        <div class="card">
-            <form action="{{ url('api/v1/logical_sensor_thresholds/' . $logical_sensor_threshold->id) }}" data-method="PUT"
-                  data-redirect-success="auto">
-                <div class="card-content">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <div class="card">
+                    <form action="{{ url('api/v1/logical_sensor_thresholds/' . $logical_sensor_threshold->id) }}" data-method="PUT"
+                          data-redirect-success="auto">
+                        <div class="card-content">
 
-                    <span class="card-title activator grey-text text-darken-4 truncate">
-                        <span>{{ $logical_sensor_threshold->name }}</span>
+                            <span class="card-title activator grey-text text-darken-4 truncate">
+                                <span>{{ $logical_sensor_threshold->name }}</span>
 
-                    </span>
+                            </span>
 
-                    <p>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $logical_sensor_threshold->id }}">
-                                <label for="id">ID</label>
-                            </div>
-                        </div>
+                            <p>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $logical_sensor_threshold->id }}">
+                                        <label for="id">ID</label>
+                                    </div>
+                                </div>
 
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <select name="belongsTo">
-                                    <option></option>
-                                    @foreach ($belongTo_Options as $t=>$objects)
-                                        <optgroup label="@choice('components.' . strtolower($t), 2)">
-                                            @foreach ($objects as $o)
-                                                <option value="{{ $t }}|{{ $o->id }}"
-                                                    @if($logical_sensor_threshold->logical_sensor_id == $o->id)
-                                                        selected
-                                                    @endif>@if(is_null($o->display_name)) {{ $o->name }} @else {{ $o->display_name }} @endif</option>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select name="belongsTo">
+                                            <option></option>
+                                            @foreach ($belongTo_Options as $t=>$objects)
+                                                <optgroup label="@choice('components.' . strtolower($t), 2)">
+                                                    @foreach ($objects as $o)
+                                                        <option value="{{ $t }}|{{ $o->id }}"
+                                                            @if($logical_sensor_threshold->logical_sensor_id == $o->id)
+                                                                selected
+                                                            @endif>@if(is_null($o->display_name)) {{ $o->name }} @else {{ $o->display_name }} @endif</option>
+                                                    @endforeach
+                                                </optgroup>
                                             @endforeach
-                                        </optgroup>
-                                    @endforeach
-                                </select>
-                                <label for="valves">@lang('labels.belongsTo')</label>
-                            </div>
+                                        </select>
+                                        <label for="valves">@lang('labels.belongsTo')</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12 m6 l6">
+                                        <input type="text" placeholder="@lang('labels.rawlimitlo')" name="lowerlimit"
+                                               value="{{ $logical_sensor_threshold->rawvalue_lowerlimit }}">
+                                        <label for="name">@lang('labels.rawlimitlo')</label>
+                                    </div>
+                                    <div class="input-field col s12 m6 l6">
+                                        <input type="text" placeholder="@lang('labels.rawlimithi')" name="upperlimit"
+                                               value="{{ $logical_sensor_threshold->rawvalue_upperlimit }}">
+                                        <label for="name">@lang('labels.rawlimithi')</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input class="timepicker" placeholder="@lang('labels.starts_at')" name="starts_at"
+                                               data-default="{{ $logical_sensor_threshold->starts_at }}" value="{{ $logical_sensor_threshold->starts_at }}">
+                                        <label for="name">@lang('labels.starts_at')</label>
+                                    </div>
+                                </div>
+
+                                <script>
+                                    $(document).ready(function() {
+                                        $('.timepicker').pickatime({
+                                            twelvehour: false
+                                        });
+                                    });
+                                </script>
+                            </p>
+
                         </div>
 
-                        <div class="row">
-                            <div class="input-field col s12 m6 l6">
-                                <input type="text" placeholder="@lang('labels.rawlimitlo')" name="lowerlimit"
-                                       value="{{ $logical_sensor_threshold->rawvalue_lowerlimit }}">
-                                <label for="name">@lang('labels.rawlimitlo')</label>
+                        <div class="card-action">
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
                             </div>
-                            <div class="input-field col s12 m6 l6">
-                                <input type="text" placeholder="@lang('labels.rawlimithi')" name="upperlimit"
-                                       value="{{ $logical_sensor_threshold->rawvalue_upperlimit }}">
-                                <label for="name">@lang('labels.rawlimithi')</label>
-                            </div>
+
                         </div>
-
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input class="timepicker" placeholder="@lang('labels.starts_at')" name="starts_at"
-                                       data-default="{{ $logical_sensor_threshold->starts_at }}" value="{{ $logical_sensor_threshold->starts_at }}">
-                                <label for="name">@lang('labels.starts_at')</label>
-                            </div>
-                        </div>
-
-                        <script>
-                            $(document).ready(function() {
-                                $('.timepicker').pickatime({
-                                    twelvehour: false
-                                });
-                            });
-                        </script>
-                    </p>
-
+                    </form>
                 </div>
-
-                <div class="card-action">
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            </form>
+            </div>
         </div>
     </div>
     

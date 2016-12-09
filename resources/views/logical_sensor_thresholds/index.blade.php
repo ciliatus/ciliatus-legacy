@@ -6,7 +6,9 @@
 
 
 @section('content')
-    <logical_sensor_thresholds-widget wrapper-classes="col s12 m6 l4"></logical_sensor_thresholds-widget>
+    <div class="container">
+        <logical_sensor_thresholds-widget wrapper-classes="col s12 m6 l4"></logical_sensor_thresholds-widget>
+    </div>
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large teal">

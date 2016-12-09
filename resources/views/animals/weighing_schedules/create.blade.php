@@ -3,7 +3,7 @@
 @section('breadcrumbs')
     <a href="/animals" class="breadcrumb">@choice('components.animals', 2)</a>
     <a href="{{ url('animals/' . $animal->id) }}" class="breadcrumb">{{ $animal->display_name }}</a>
-    <a href="#" class="breadcrumb">@choice('components.animal_feeding_schedules', 1)</a>
+    <a href="#" class="breadcrumb">@choice('components.animal_weighing_schedules', 1)</a>
     <a href="#" class="breadcrumb">@lang('buttons.add')</a>
 @stop
 
@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <form action="{{ url('api/v1/animals/' . $animal->id .'/feeding_schedules') }}" data-method="POST" data-redirect-success="auto">
+                    <form action="{{ url('api/v1/animals/' . $animal->id .'/weighing_schedules') }}" data-method="POST" data-redirect-success="auto">
                         <div class="card-content">
 
                             <div class="row">
@@ -26,17 +26,6 @@
                                 <div class="input-field col s12">
                                     <input type="text" placeholder="@lang('labels.interval_days')" name="interval_days" value="">
                                     <label for="interval_days">@lang('labels.interval_days')</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <select name="meal_type" id="meal_type">
-                                    @foreach($feeding_types as $ft)
-                                        <option value="{{ $ft->name }}">{{ $ft->name }}</option>
-                                    @endforeach
-                                    </select>
-                                    <label for="meal_type">@lang("labels.meal_type")</label>
                                 </div>
                             </div>
 

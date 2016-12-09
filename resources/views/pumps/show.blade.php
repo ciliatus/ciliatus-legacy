@@ -6,9 +6,8 @@
 @stop
 
 @section('content')
-    <!-- left col -->
-    <div class="col s12 m5 l4 no-padding">
-        <div class="col s12 m12 l12">
+    <div class="container">
+        <div class="row">
             <pumps-widget pump-id="{{ $pump->id }}" :subscribe-add="false" :subscribe-delete="false"></pumps-widget>
         </div>
     </div>

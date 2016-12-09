@@ -7,138 +7,142 @@
 @stop
 
 @section('content')
-    <div class="col s12 m12 l6">
-        <div class="card">
-            <form action="{{ url('api/v1/logical_sensors/' . $logical_sensor->id) }}" data-method="PUT"
-                  data-redirect-success="{{ url('logical_sensors/' . $logical_sensor->id) }}">
-                <div class="card-content">
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m12 l6">
+                <div class="card">
+                    <form action="{{ url('api/v1/logical_sensors/' . $logical_sensor->id) }}" data-method="PUT"
+                          data-redirect-success="{{ url('logical_sensors/' . $logical_sensor->id) }}">
+                        <div class="card-content">
 
-                    <span class="card-title activator grey-text text-darken-4 truncate">
-                        <span>{{ $logical_sensor->name }}</span>
-                    </span>
+                            <span class="card-title activator grey-text text-darken-4 truncate">
+                                <span>{{ $logical_sensor->name }}</span>
+                            </span>
 
-                    <p>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $logical_sensor->id }}">
-                                <label for="id">ID</label>
-                            </div>
+                            <p>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $logical_sensor->id }}">
+                                        <label for="id">ID</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $logical_sensor->name }}">
+                                        <label for="name">@lang('labels.name')</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select name="type">
+                                            <option></option>
+                                            <option value="humidity_percent" @if($logical_sensor->type == 'humidity_percent')selected="selected"@endif>@lang('labels.humidity') %</option>
+                                            <option value="temperature_celsius" @if($logical_sensor->type == 'temperature_celsius')selected="selected"@endif>@lang('labels.temperature') °C</option>
+                                        </select>
+                                        <label for="valves">@lang('labels.type')</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select name="physical_sensor">
+                                            <option></option>
+                                            @foreach ($physical_sensors as $ps)
+                                                <option value="{{ $ps->id }}" @if($logical_sensor->physical_sensor_id == $ps->id)selected="selected"@endif>{{ $ps->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="valves">@choice('components.physical_sensors', 1)</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12 m6 l6">
+                                        <input type="text" placeholder="@lang('labels.rawlimitlo')" name="lowerlimit" value="{{ $logical_sensor->rawvalue_lowerlimit }}">
+                                        <label for="name">@lang('labels.rawlimitlo')</label>
+                                    </div>
+                                    <div class="input-field col s12 m6 l6">
+                                        <input type="text" placeholder="@lang('labels.rawlimithi')" name="upperlimit" value="{{ $logical_sensor->rawvalue_upperlimit }}">
+                                        <label for="name">@lang('labels.rawlimithi')</label>
+                                    </div>
+                                </div>
+
+                            </p>
+
                         </div>
-    
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $logical_sensor->name }}">
-                                <label for="name">@lang('labels.name')</label>
+
+                        <div class="card-action">
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
                             </div>
+
                         </div>
-
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <select name="type">
-                                    <option></option>
-                                    <option value="humidity_percent" @if($logical_sensor->type == 'humidity_percent')selected="selected"@endif>@lang('labels.humidity') %</option>
-                                    <option value="temperature_celsius" @if($logical_sensor->type == 'temperature_celsius')selected="selected"@endif>@lang('labels.temperature') °C</option>
-                                </select>
-                                <label for="valves">@lang('labels.type')</label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <select name="physical_sensor">
-                                    <option></option>
-                                    @foreach ($physical_sensors as $ps)
-                                        <option value="{{ $ps->id }}" @if($logical_sensor->physical_sensor_id == $ps->id)selected="selected"@endif>{{ $ps->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="valves">@choice('components.physical_sensors', 1)</label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="input-field col s12 m6 l6">
-                                <input type="text" placeholder="@lang('labels.rawlimitlo')" name="lowerlimit" value="{{ $logical_sensor->rawvalue_lowerlimit }}">
-                                <label for="name">@lang('labels.rawlimitlo')</label>
-                            </div>
-                            <div class="input-field col s12 m6 l6">
-                                <input type="text" placeholder="@lang('labels.rawlimithi')" name="upperlimit" value="{{ $logical_sensor->rawvalue_upperlimit }}">
-                                <label for="name">@lang('labels.rawlimithi')</label>
-                            </div>
-                        </div>
-
-                    </p>
-
+                    </form>
                 </div>
+            </div>
 
-                <div class="card-action">
+            <div class="col s12 m12 l6">
+                <div class="card">
+                    <div class="card-content">
 
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </div>
-                    </div>
+                        <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span>@choice('components.logical_sensor_thresholds', 2)</span>
+                        </span>
 
-                </div>
-            </form>
-        </div>
-    </div>
+                        <p>
 
-    <div class="col s12 m12 l6">
-        <div class="card">
-            <div class="card-content">
+                            <div class="row">
+                                @foreach($logical_sensor->thresholds()->orderBy('starts_at')->get() as $t)
+                                    <div class="input-field col s12">
 
-                <span class="card-title activator grey-text text-darken-4 truncate">
-                    <span>@choice('components.logical_sensor_thresholds', 2)</span>
-                </span>
+                                        @lang('labels.starts_at') {{ $t->starts_at }}:
 
-                <p>
+                                        <strong>
+                                            @if(is_null($t->rawvalue_lowerlimit) && !is_null($t->rawvalue_upperlimit))
+                                                max {{ $t->rawvalue_upperlimit }}
+                                            @elseif(!is_null($t->rawvalue_lowerlimit) && is_null($t->rawvalue_upperlimit))
+                                                min {{ $t->rawvalue_lowerlimit }}
+                                            @elseif(is_null($t->rawvalue_lowerlimit) && is_null($t->rawvalue_upperlimit))
+                                            @else
+                                                {{ $t->rawvalue_lowerlimit }} - {{ $t->rawvalue_upperlimit }}
+                                            @endif
+                                        </strong>
 
-                    <div class="row">
-                        @foreach($logical_sensor->thresholds()->orderBy('starts_at')->get() as $t)
-                            <div class="input-field col s12">
+                                        <a class="dropdown-button btn btn-small" href="#" data-activates="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}" style="margin-left: 20px">
+                                            @lang('labels.actions') <i class="material-icons">keyboard_arrow_down</i>
+                                        </a>
 
-                                @lang('labels.starts_at') {{ $t->starts_at }}:
+                                        <ul id="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}" class="dropdown-content">
+                                            <li>
+                                                <a href="{{ url('logical_sensor_thresholds/' . $t->id . '/edit') }}">
+                                                    @lang('buttons.edit')
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ url('logical_sensor_thresholds/' . $t->id . '/delete') }}">
+                                                    @lang('buttons.delete')
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </div>
+                                @endforeach
 
-                                <strong>
-                                    @if(is_null($t->rawvalue_lowerlimit) && !is_null($t->rawvalue_upperlimit))
-                                        max {{ $t->rawvalue_upperlimit }}
-                                    @elseif(!is_null($t->rawvalue_lowerlimit) && is_null($t->rawvalue_upperlimit))
-                                        min {{ $t->rawvalue_lowerlimit }}
-                                    @elseif(is_null($t->rawvalue_lowerlimit) && is_null($t->rawvalue_upperlimit))
-                                    @else
-                                        {{ $t->rawvalue_lowerlimit }} - {{ $t->rawvalue_upperlimit }}
-                                    @endif
-                                </strong>
-
-                                <a class="dropdown-button btn btn-small" href="#" data-activates="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}" style="margin-left: 20px">
-                                    @lang('labels.actions') <i class="material-icons">keyboard_arrow_down</i>
+                                <a class="btn-floating btn-large waves-effect waves-light green right" href="/logical_sensor_thresholds/create?preset[belongsTo_type]=LogicalSensor&preset[belongsTo_id]={{ $logical_sensor->id }}">
+                                    <i class="material-icons">add</i>
                                 </a>
 
-                                <ul id="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}" class="dropdown-content">
-                                    <li>
-                                        <a href="{{ url('logical_sensor_thresholds/' . $t->id . '/edit') }}">
-                                            @lang('buttons.edit')
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('logical_sensor_thresholds/' . $t->id . '/delete') }}">
-                                            @lang('buttons.delete')
-                                        </a>
-                                    </li>
-                                </ul>
                             </div>
-                        @endforeach
 
-                        <a class="btn-floating btn-large waves-effect waves-light green right" href="/logical_sensor_thresholds/create?preset[belongsTo_type]=LogicalSensor&preset[belongsTo_id]={{ $logical_sensor->id }}">
-                            <i class="material-icons">add</i>
-                        </a>
+                        </p>
 
                     </div>
-
-                </p>
-
+                </div>
             </div>
         </div>
     </div>

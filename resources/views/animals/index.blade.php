@@ -6,7 +6,9 @@
 
 
 @section('content')
-    <animals-widget container-classes="row" wrapper-classes="col s12 m6 l4"></animals-widget>
+    <div class="container">
+        <animals-widget container-classes="row" wrapper-classes="col s12 m6 l4"></animals-widget>
+    </div>
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large teal">

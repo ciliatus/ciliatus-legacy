@@ -26,7 +26,7 @@
         <header>
 
             <nav>
-                <div class="nav-wrapper teal">
+                <div class="nav-wrapper">
                     <ul class="left">
                         <li><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a></li>
                     </ul>
@@ -149,7 +149,7 @@
 
             </ul>
 
-            <div style="width: 100%; margin: 0; height: 10px;">
+            <div style="width: 100%; margin: 0; height: 10px; position: relative; z-index: 1001">
                 <div class="progress" id="global-loading-bar" style="display: none; width: 100%; margin: 0">
                     <div class="indeterminate"></div>
                 </div>
@@ -158,10 +158,8 @@
         </header>
 
         <main>
-            <div class="container">
-                <div class="row" id="content">
-                    @yield('content')
-                </div>
+            <div id="content" style="position: relative; top: -10px;">
+                @yield('content')
             </div>
         </main>
 
