@@ -143,9 +143,10 @@ class FileController extends Controller
 
     /**
      * @param $id
-     * @return mixed
+     * @param $display_name for pretty urls
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function download($id)
+    public function download($id, $display_name = null)
     {
         $file = File::find($id);
         if (is_null($file)) {
