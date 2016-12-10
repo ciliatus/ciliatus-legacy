@@ -168,7 +168,7 @@ export default {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/terraria/' + that.terrariumId + '?raw',
+            url: '/api/v1/terraria/' + that.terrariumId + '?raw&history_minutes=0',
             method: 'GET',
             success: function (data) {
                 if (that.terrariumId !== '') {
