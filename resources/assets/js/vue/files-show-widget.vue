@@ -20,7 +20,7 @@
 
                 <div class="card-action">
                     <a v-bind:href="'/files/' + file.id + '/edit'">{{ $t("buttons.edit") }}</a>
-                    <a v-bind:href="'/files/' + file.id + '/download'">{{ $t("buttons.download") }}</a>
+                    <a v-bind:href="'/files/' + file.id + '/download/' + file.display_name">{{ $t("buttons.download") }}</a>
                 </div>
 
                 <div class="card-reveal">
