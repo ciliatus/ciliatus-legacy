@@ -30,6 +30,11 @@ class TerrariumTransformer extends Transformer
             'id'    => $item['id'],
             'name'  => isset($item['name']) ? $item['name'] : '',
             'display_name' => $item['display_name'],
+            'temperature_critical' => $item['temperature_critical'],
+            'humidity_critical' => $item['humidity_critical'],
+            'heartbeat_critical' => $item['heartbeat_critical'],
+            'cooked_temperature_celsius' => $item['cooked_temperature_celsius'],
+            'cooked_humidity_percent' => $item['cooked_humidity_percent'],
             'timestamps' => [
                 'created' => $item['created_at'],
                 'updated' => $item['updated_at'],
@@ -37,10 +42,6 @@ class TerrariumTransformer extends Transformer
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
-
-        if (isset($item['heartbeat_ok'])) {
-            $return['heartbeat_ok'] = $item['heartbeat_ok'];
-        }
 
         if (isset($item['physical_sensors'])) {
             $return['physical_sensors'] = $physicalSensorTransformer->transformCollection($item['physical_sensors']);
@@ -52,42 +53,6 @@ class TerrariumTransformer extends Transformer
 
         if (isset($item['action_sequences'])) {
             $return['action_sequences'] = $actionSequenceTransformer->transformCollection($item['action_sequences']);
-        }
-
-        if (isset($item['cooked_temperature_celsius'])) {
-            $return['cooked_temperature_celsius'] = $item['cooked_temperature_celsius'];
-        }
-
-        if (isset($item['cooked_humidity_percent'])) {
-            $return['cooked_humidity_percent'] = $item['cooked_humidity_percent'];
-        }
-
-        if (isset($item['temperature_history'])) {
-            $return['temperature_history'] = $item['temperature_history'];
-        }
-
-        if (isset($item['humidity_history'])) {
-            $return['humidity_history'] = $item['humidity_history'];
-        }
-
-        if (isset($item['temperature_trend'])) {
-            $return['temperature_trend'] = $item['temperature_trend'];
-        }
-
-        if (isset($item['humidity_trend'])) {
-            $return['humidity_trend'] = $item['humidity_trend'];
-        }
-
-        if (isset($item['temperature_ok'])) {
-            $return['temperature_ok'] = $item['temperature_ok'];
-        }
-
-        if (isset($item['humidity_ok'])) {
-            $return['humidity_ok'] = $item['humidity_ok'];
-        }
-
-        if (isset($item['state_ok'])) {
-            $return['state_ok'] = $item['state_ok'];
         }
 
         if (isset($item['default_background_filepath'])) {

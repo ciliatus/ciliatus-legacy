@@ -29,7 +29,10 @@ class Terrarium extends CiliatusModel
      * @var array
      */
     protected  $casts = [
-        'notifications_enabled' =>  'boolean'
+        'notifications_enabled' =>  'boolean',
+        'temperature_critical'  =>  'boolean',
+        'humidity_critical'     =>  'boolean',
+        'heartbeat_critical'    =>  'boolean'
     ];
 
     /**
@@ -47,6 +50,9 @@ class Terrarium extends CiliatusModel
     {
         $this->temperature_critical = !$this->temperatureOk();
         $this->humidity_critical = !$this->humidityOk();
+        $this->heartbeat_critical = !$this->heartbeatOk();
+        $this->cooked_humidity_percent = $this->getCurrentHumidity();
+        $this->cooked_temperature_celsius = $this->getCurrentTemperature();
 
         $result = parent::save($options);
 
