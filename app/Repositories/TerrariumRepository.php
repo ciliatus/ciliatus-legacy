@@ -28,9 +28,48 @@ class TerrariumRepository extends Repository
 
     }
 
+    /**
+     * @param null $history_to
+     * @param null $history_minutes
+     * @return Terrarium
+     */
     public function show($history_to = null, $history_minutes = null)
     {
         $terrarium = $this->scope;
+
+        if (is_null($history_to))
+            $history_to = Carbon::now();
+
+        if (is_null($history_minutes))
+            $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180);
+
+        if ($history_minutes != 0) {
+            /*
+         * load temperature values and convert them to an array seperated by commata
+         */
+            $temperature_values = array_column($terrarium->getSensorReadingsTemperature($history_minutes, $history_to), 'avg_rawvalue');
+            $terrarium->temperature_history = implode(',',
+                array_map(
+                    function($val) {
+                        return round($val, 1);
+                    },
+                    $temperature_values
+                )
+            );
+
+            /*
+             * load humidity values and convert them to an array seperated by commata
+             */
+            $humidity_values = array_column($terrarium->getSensorReadingsHumidity($history_minutes, $history_to), 'avg_rawvalue');
+            $terrarium->humidity_history = implode(',',
+                array_map(
+                    function($val) {
+                        return round($val, 1);
+                    },
+                    $humidity_values
+                )
+            );
+        }
 
         /*
          * Find background files
