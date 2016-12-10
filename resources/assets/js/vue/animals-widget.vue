@@ -91,7 +91,7 @@ export default {
     props: {
         animalId: {
             type: String,
-            default: '',
+            default: null,
             required: false
         },
         wrapperClasses: {
@@ -168,12 +168,21 @@ export default {
             });
 
         window.eventHubVue.processStarted();
+
+        var source_url = '';
+        if (this.animalId !== null) {
+            source_url = '/api/v1/animals/' + this.animalId
+        }
+        else {
+            source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc';
+        }
+
         var that = this;
         $.ajax({
-            url: '/api/v1/animals/' + that.animalId,
+            url: source_url,
             method: 'GET',
             success: function (data) {
-                if (that.animalId !== '') {
+                if (that.animalId !== null) {
                     that.animals = [data.data];
                 }
                 else {
