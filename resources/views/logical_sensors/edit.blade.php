@@ -15,7 +15,7 @@
                           data-redirect-success="{{ url('logical_sensors/' . $logical_sensor->id) }}">
                         <div class="card-content">
 
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>{{ $logical_sensor->name }}</span>
                             </span>
 
@@ -91,7 +91,7 @@
                 <div class="card">
                     <div class="card-content">
 
-                        <span class="card-title activator grey-text text-darken-4 truncate">
+                        <span class="card-title activator truncate">
                             <span>@choice('components.logical_sensor_thresholds', 2)</span>
                         </span>
 

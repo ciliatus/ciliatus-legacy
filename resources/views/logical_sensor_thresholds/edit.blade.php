@@ -15,7 +15,7 @@
                           data-redirect-success="auto">
                         <div class="card-content">
 
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>{{ $logical_sensor_threshold->name }}</span>
 
                             </span>

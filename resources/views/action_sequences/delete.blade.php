@@ -15,7 +15,7 @@
                           data-method="DELETE" data-redirect-success="auto">
                         <div class="card-content">
 
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>{{ $action_sequence->name }}</span>
                             </span>
 

@@ -15,7 +15,7 @@
                           data-redirect-success="auto">
                         <div class="card-content">
 
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>{{ $action_sequence->name }}</span>
                             </span>
 
@@ -71,7 +71,7 @@
                 <div class="card">
                     <div class="card-content">
 
-                        <span class="card-title activator grey-text text-darken-4 truncate">
+                        <span class="card-title activator truncate">
                             <span>@choice('components.action_sequence_schedules', 2)</span>
                         </span>
 

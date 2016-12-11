@@ -15,7 +15,7 @@
                           data-method="DELETE" data-redirect-success="{{ url('users') }}">
                         <div class="card-content">
 
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>{{ $user->name }}</span>
                             </span>
 

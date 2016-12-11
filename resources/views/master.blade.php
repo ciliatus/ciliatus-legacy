@@ -4,7 +4,13 @@
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
-        <link type="text/css" rel="stylesheet" href="/css/materialize.css"  media="screen,projection"/>
+        @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on' || (Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night()))
+            <link type="text/css" rel="stylesheet" href="/css/materialize_dark.css"  media="screen,projection"/>
+        @else
+            <link type="text/css" rel="stylesheet" href="/css/materialize.css"  media="screen,projection"/>
+        @endif
+
+
         <link type="text/css" rel="stylesheet" href="/css/materialize.clockpicker.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="/css/app.css"  media="screen,projection"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>

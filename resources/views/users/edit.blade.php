@@ -15,7 +15,7 @@
                           data-redirect-success="{{ url('/') }}">
                         <div class="card-content">
 
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>{{ $user->display_name }}</span>
                             </span>
 
@@ -214,11 +214,10 @@
                                 <div class="input-field col s12">
                                     <div class="switch">
                                         <label>
-                                            @lang('labels.off')
                                             <input name="notifications_enabled" type="checkbox"
-                                                   @if($user->setting('notifications_enabled') == true) checked @endif>
+                                                   @if($user->setting('notifications_enabled') == 'on') checked @endif>
                                             <span class="lever"></span>
-                                            @lang('labels.on') @choice('labels.notifications', 2)
+                                            @choice('labels.notifications', 2)
                                         </label>
                                     </div>
                                 </div>
@@ -228,11 +227,23 @@
                                 <div class="input-field col s12">
                                     <div class="switch">
                                         <label>
-                                            @lang('labels.off')
-                                            <input name="notifications_enabled" type="checkbox"
-                                               @if($user->setting('auto_nightmode_enabled') == true) checked @endif>
+                                            <input name="auto_nightmode_enabled" type="checkbox"
+                                               @if($user->setting('auto_nightmode_enabled') == 'on') checked @endif>
                                             <span class="lever"></span>
-                                            @lang('labels.on') @lang('labels.auto_nightmode')
+                                            @lang('labels.auto_nightmode')
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <div class="switch">
+                                        <label>
+                                            <input name="permanent_nightmode_enabled" type="checkbox"
+                                                   @if($user->setting('permanent_nightmode_enabled') == 'on') checked @endif>
+                                            <span class="lever"></span>
+                                            @lang('labels.permanent_nightmode')
                                         </label>
                                     </div>
                                 </div>
@@ -274,7 +285,7 @@
                     <form action="{{ url('api/v1/user_settings/' . $user->settingId('notifications_telegram_chat_id')) }}" data-method="DELETE"
                           data-redirect-success="{{ url('users/' . $user->id . '/edit') }}">
                         <div class="card-content">
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>Setup Telegram</span>
                             </span>
 
@@ -308,7 +319,7 @@
                           data-redirect-success="{{ url('/') }}">
                         <div class="card-content">
 
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>@lang('labels.password')</span>
                             </span>
 

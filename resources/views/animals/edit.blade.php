@@ -15,7 +15,7 @@
                           data-redirect-success="{{ url('animals/' . $animal->id . '/edit') }}">
                         <div class="card-content">
 
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>{{ $animal->display_name }}</span>
                             </span>
 
@@ -107,7 +107,7 @@
                 <div class="card">
                     <div class="card-content">
 
-                        <span class="card-title activator grey-text text-darken-4 truncate">
+                        <span class="card-title activator truncate">
                             <span>@choice('components.animal_feeding_schedules', 2)</span>
                         </span>
 

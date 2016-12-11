@@ -15,7 +15,7 @@
                           data-redirect-success="{{ url('controlunits/' . $controlunit->id) }}">
                         <div class="card-content">
 
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>{{ $controlunit->name }}</span>
                             </span>
 

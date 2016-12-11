@@ -15,7 +15,7 @@
                           data-method="DELETE" data-redirect-success="{{ url('pumps') }}">
                         <div class="card-content">
 
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>{{ $pump->name }}</span>
                             </span>
 

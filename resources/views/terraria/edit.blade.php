@@ -15,7 +15,7 @@
                         data-redirect-success="{{ url('terraria/' . $terrarium->id) }}">
                         <div class="card-content">
 
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>{{ $terrarium->display_name }}</span>
                             </span>
 
@@ -98,7 +98,7 @@
                 <div class="card">
                     <div class="card-content">
 
-                        <span class="card-title activator grey-text text-darken-4 truncate">
+                        <span class="card-title activator truncate">
                             <span>@choice('components.action_sequences', 2)</span>
                         </span>
 

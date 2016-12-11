@@ -15,7 +15,7 @@
                           data-method="DELETE" data-redirect-success="{{ url('logical_sensors') }}">
                         <div class="card-content">
 
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>{{ $logical_sensor->name }}</span>
                             </span>
 

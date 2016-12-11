@@ -253,15 +253,24 @@ class UserController extends ApiController
         }
 
         if ($request->has('notifications_enabled')) {
-            $user->setSetting('notifications_enabled', $request->input('notifications_enabled'));
+            $user->setSetting('notifications_enabled', 'on');
+        }
+        else {
+            $user->setSetting('notifications_enabled', 'off');
         }
 
         if ($request->has('auto_nightmode_enabled')) {
-            $user->setSetting('auto_nightmode_enabled', $request->input('auto_nightmode_enabled'));
+            $user->setSetting('auto_nightmode_enabled', 'on');
+        }
+        else {
+            $user->setSetting('auto_nightmode_enabled', 'off');
         }
 
         if ($request->has('permanent_nightmode_enabled')) {
-            $user->setSetting('permanent_nightmode_enabled', $request->input('permanent_nightmode_enabled'));
+            $user->setSetting('permanent_nightmode_enabled', 'on');
+        }
+        else {
+            $user->setSetting('permanent_nightmode_enabled', 'off');
         }
 
         $user->save();

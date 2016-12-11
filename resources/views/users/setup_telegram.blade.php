@@ -26,7 +26,7 @@
                           data-redirect-success="{{ url('/') }}">
                         <div class="card-content">
 
-                            <span class="card-title activator grey-text text-darken-4 truncate">
+                            <span class="card-title activator truncate">
                                 <span>@lang('tooltips.contact_bot')</span>
                             </span>
 
