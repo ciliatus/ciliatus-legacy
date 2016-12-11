@@ -21,6 +21,24 @@
                 </form>
             </div>
 
+            <div v-bind:id="'modal_add_weight_' + animal.id" class="modal">
+                <form v-bind:action="'/api/v1/animals/' + animal.id + '/weighings'" data-method="POST" v-on:submit="submit">
+                    <div class="modal-content">
+                        <h4>{{ $t("labels.add_weight") }}/g</h4>
+                        <p>
+                            <input name="weight" id="weight">
+                            <label for="weight">{{ $t("labels.weight") }}/g</label>
+                        </p>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
+                            <i class="material-icons right">send</i>
+                        </button>
+                    </div>
+                </form>
+            </div>
+
             <div :class="wrapperClasses">
                 <div class="card">
                     <div class="card-image waves-effect waves-block waves-light terrarium-card-image"
@@ -70,7 +88,7 @@
                             <a class="waves-effect waves-teal btn" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
                         </p>
                         <p>
-                            <a class="waves-effect waves-teal btn">{{ $t("labels.add_weight") }}</a>
+                            <a class="waves-effect waves-teal btn" v-bind:href="'#modal_add_weight_' + animal.id" v-bind:onclick="'$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.add_weight") }}</a>
                         </p>
                     </div>
                 </div>
