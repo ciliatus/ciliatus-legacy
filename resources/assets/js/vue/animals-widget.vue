@@ -24,9 +24,9 @@
             <div v-bind:id="'modal_add_weight_' + animal.id" class="modal">
                 <form v-bind:action="'/api/v1/animals/' + animal.id + '/weighings'" data-method="POST" v-on:submit="submit">
                     <div class="modal-content">
-                        <h4>{{ $t("labels.add_weight") }}/g</h4>
+                        <h4>{{ $t("labels.add_weight") }}</h4>
                         <p>
-                            <input name="weight" id="weight">
+                            <input name="weight" id="weight" v-bind:placeholder="$t('labels.weight')+ '/g'">
                             <label for="weight">{{ $t("labels.weight") }}/g</label>
                         </p>
                     </div>
