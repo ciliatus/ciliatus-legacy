@@ -17,4 +17,8 @@ header, main, footer {
     margin-left: 20px;
     width: 95%; } }
 
+.btn-icon-only {
+  margin-left: 20px;
+  padding: 0 5px; }
+
 /*# sourceMappingURL=app.css.map */
