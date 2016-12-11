@@ -13,14 +13,13 @@ The frontend was built using Google's material design guidelines and will give y
 
 # Features
 
-* Monitor vitals of your terraria
-* Define when a vital should be considered critical
-* Get notifications when a vital is critical
-* Realtime visualization
+* Temperature and humidity monitoring with notification support, e.g. via Telegram
 * Automatic irrigation schedules
-* File management for your terraria and animals (photos, etc)
+* Keep track of your animals' feeding schedules and weight
+* Realtime dashboard using Vue and Pusher, or another push service of your choice
+* File management for photos and other files
 * RESTful API
-* automatic Night theme (not yet avaiable for material design)
+* Responsive Material Design UI with automatic night theme
 
 # Screenshots
 
