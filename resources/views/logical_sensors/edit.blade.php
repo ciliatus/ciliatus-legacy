@@ -142,9 +142,50 @@
                         </a>
                     </div>
                 </div>
+
+                <div class="card">
+                    <div class="card-content teal lighten-1 white-text">
+                        <span class="card-title activator truncate">
+                            <span>@lang('labels.copy_thresholds')</span>
+                        </span>
+                    </div>
+
+                    <form action="{{ url('api/v1/logical_sensor_thresholds/' . $logical_sensor->id . '/copy') }}" data-method="POST">
+                        <div class="card-content">
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <select name="logical_sensor_target">
+                                        @foreach ($copy_target_ls as $ls)
+                                            <option value="{{ $ls->id }}">{{ $ls->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="valves">@lang('labels.target') @choice('components.logical_sensors', 1)</label>
+                                </div>
+                            </div>
+
+
+                            <div class="card-panel deep-orange darken-2 white-text">@lang('tooltips.copy_thresholds_warning')</div>
+
+                        </div>
+
+                        <div class="card-action">
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
+
+
 
 
     
