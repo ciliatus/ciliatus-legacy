@@ -32,7 +32,7 @@ class Sensorreading extends CiliatusModel
      */
     public function icon()
     {
-        return 'circle-o';
+        return 'show_chart';
     }
 
     /**

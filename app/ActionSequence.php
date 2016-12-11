@@ -64,7 +64,7 @@ class ActionSequence extends CiliatusModel
      */
     public function icon()
     {
-        // TODO: Implement icon() method.
+        return 'playlist_play';
     }
 
     /**
@@ -72,6 +72,6 @@ class ActionSequence extends CiliatusModel
      */
     public function url()
     {
-        // TODO: Implement url() method.
+        return url('action_sequences/' . $this->id);
     }
 }

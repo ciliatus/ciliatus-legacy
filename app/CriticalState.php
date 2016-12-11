@@ -215,7 +215,11 @@ class CriticalState extends CiliatusModel
      */
     public function icon()
     {
-        // TODO: Implement icon() method.
+        if ($this->is_soft_state) {
+            return 'error_outline';
+        }
+
+        return 'error';
     }
 
     /**
@@ -223,6 +227,6 @@ class CriticalState extends CiliatusModel
      */
     public function url()
     {
-        // TODO: Implement url() method.
+        return url('critical_states/' . $this->id);
     }
 }

@@ -83,7 +83,7 @@ class Action extends CiliatusModel
      */
     public function icon()
     {
-        // TODO: Implement icon() method.
+        return 'assignment';
     }
 
     /**

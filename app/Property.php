@@ -54,7 +54,7 @@ class Property extends CiliatusModel
      */
     public function icon()
     {
-        // TODO: Implement icon() method.
+        return 'local_offer';
     }
 
     /**
@@ -62,6 +62,6 @@ class Property extends CiliatusModel
      */
     public function url()
     {
-        // TODO: Implement url() method.
+        return '';
     }
 }

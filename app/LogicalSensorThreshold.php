@@ -54,7 +54,7 @@ class LogicalSensorThreshold extends CiliatusModel
      */
     public function icon()
     {
-        return 'circle-o';
+        return 'vertical_align_center';
     }
 
     /**

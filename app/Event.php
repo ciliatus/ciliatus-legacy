@@ -60,7 +60,7 @@ class Event extends CiliatusModel
      */
     public function icon()
     {
-        // TODO: Implement icon() method.
+        return 'event';
     }
 
     /**
@@ -68,6 +68,6 @@ class Event extends CiliatusModel
      */
     public function url()
     {
-        // TODO: Implement url() method.
+        return url('events/' . $this->id);
     }
 }

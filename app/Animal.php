@@ -134,22 +134,6 @@ class Animal extends CiliatusModel
     /**
      * @return string
      */
-    public function icon()
-    {
-        return 'pets';
-    }
-
-    /**
-     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
-     */
-    public function url()
-    {
-        return url('animals/' . $this->id);
-    }
-
-    /**
-     * @return string
-     */
     public function gender_icon()
     {
         switch ($this->gender) {
@@ -209,5 +193,21 @@ class Animal extends CiliatusModel
     public function last_weighing()
     {
         return $this->weighings()->limit(1)->get()->first();
+    }
+
+    /**
+     * @return string
+     */
+    public function icon()
+    {
+        return 'pets';
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function url()
+    {
+        return url('animals/' . $this->id);
     }
 }

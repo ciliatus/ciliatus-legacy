@@ -47,7 +47,7 @@ class RunningAction extends CiliatusModel
      */
     public function icon()
     {
-        // TODO: Implement icon() method.
+        return 'assignment_turned_in';
     }
 
     /**

@@ -299,7 +299,7 @@ class ActionSequenceSchedule extends CiliatusModel
      */
     public function icon()
     {
-        // TODO: Implement icon() method.
+        return 'schedule';
     }
 
     /**
@@ -307,6 +307,6 @@ class ActionSequenceSchedule extends CiliatusModel
      */
     public function url()
     {
-        // TODO: Implement url() method.
+        return url('action_sequence_schedules/' . $this->id);
     }
 }

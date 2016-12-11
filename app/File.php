@@ -136,19 +136,6 @@ class File extends CiliatusModel
     /**
      * @return string
      */
-    public function icon()
-    {
-        switch (explode('/', $this->mimetype)[0]) {
-            case 'image':
-                return 'photo';
-            default:
-                return 'file-o';
-        }
-    }
-
-    /**
-     * @return string
-     */
     public function sizeReadable()
     {
         if ($this->size > pow(1024, 3)) {
@@ -191,20 +178,31 @@ class File extends CiliatusModel
     }
 
     /**
-     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
-     */
-    public function url()
-    {
-        return url('files/' . $this->id);
-    }
-
-
-
-    /**
      * @return array
      */
     public static function belongTo_Types()
     {
         return self::$belongTo_Types;
+    }
+
+    /**
+     * @return string
+     */
+    public function icon()
+    {
+        switch (explode('/', $this->mimetype)[0]) {
+            case 'image':
+                return 'photo';
+            default:
+                return 'attach_file';
+        }
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function url()
+    {
+        return url('files/' . $this->id);
     }
 }
