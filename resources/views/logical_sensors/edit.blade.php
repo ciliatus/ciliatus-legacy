@@ -89,14 +89,13 @@
 
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <div class="card-content">
-
+                    <div class="card-content teal lighten-1 white-text">
                         <span class="card-title activator truncate">
                             <span>@choice('components.logical_sensor_thresholds', 2)</span>
                         </span>
+                    </div>
 
-                        <p>
-
+                    <div class="card-content">
                             <div class="row">
                                 @foreach($logical_sensor->thresholds()->orderBy('starts_at')->get() as $t)
                                     <div class="input-field col s12">
@@ -114,8 +113,8 @@
                                             @endif
                                         </strong>
 
-                                        <a class="dropdown-button btn btn-small" href="#" data-activates="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}" style="margin-left: 20px">
-                                            @lang('labels.actions') <i class="material-icons">keyboard_arrow_down</i>
+                                        <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-activates="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}">
+                                            <i class="material-icons">settings</i>
                                         </a>
 
                                         <ul id="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}" class="dropdown-content">
@@ -133,14 +132,14 @@
                                     </div>
                                 @endforeach
 
-                                <a class="btn-floating btn-large waves-effect waves-light green right" href="/logical_sensor_thresholds/create?preset[belongsTo_type]=LogicalSensor&preset[belongsTo_id]={{ $logical_sensor->id }}">
-                                    <i class="material-icons">add</i>
-                                </a>
-
                             </div>
+                    </div>
 
-                        </p>
 
+                    <div class="card-action">
+                        <a href="/logical_sensor_thresholds/create?preset[belongsTo_type]=LogicalSensor&preset[belongsTo_id]={{ $logical_sensor->id }}">
+                            @lang('buttons.add')
+                        </a>
                     </div>
                 </div>
             </div>

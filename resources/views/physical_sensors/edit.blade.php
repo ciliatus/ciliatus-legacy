@@ -7,78 +7,81 @@
 @stop
 
 @section('content')
+    <div class="container">
+        <div class="row">
+            <div class="col s12 m6 l5">
+                <div class="card">
+                    <form action="{{ url('api/v1/physical_sensors/' . $physical_sensor->id) }}" data-method="PUT"
+                          data-redirect-success="{{ url('physical_sensors/' . $physical_sensor->id) }}">
+                        <div class="card-content">
 
-    <div class="col s12 m12 l6">
-        <div class="card">
-            <form action="{{ url('api/v1/physical_sensors/' . $physical_sensor->id) }}" data-method="PUT"
-                  data-redirect-success="{{ url('physical_sensors/' . $physical_sensor->id) }}">
-                <div class="card-content">
+                            <span class="card-title activator truncate">
+                                <span>{{ $physical_sensor->name }}</span>
+                            </span>
 
-                    <span class="card-title activator truncate">
-                        <span>{{ $physical_sensor->name }}</span>
-                    </span>
+                            <p>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $physical_sensor->id }}">
+                                        <label for="id">ID</label>
+                                    </div>
+                                </div>
 
-                    <p>
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $physical_sensor->id }}">
-                                <label for="id">ID</label>
-                            </div>
-                        </div>
-    
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $physical_sensor->name }}">
-                                <label for="name">@lang('labels.name')</label>
-                            </div>
-                        </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $physical_sensor->name }}">
+                                        <label for="name">@lang('labels.name')</label>
+                                    </div>
+                                </div>
 
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <select name="controlunit">
-                                    <option></option>
-                                    @foreach ($controlunits as $c)
-                                        <option value="{{ $c->id }}" @if($physical_sensor->controlunit_id == $c->id)selected="selected"@endif>{{ $c->name }}</option>
-                                    @endforeach
-                                </select>
-                                <label for="valves">@choice('components.controlunits', 1)</label>
-                            </div>
-                        </div>
-
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <select name="belongsTo">
-                                    <option></option>
-                                    @foreach ($belongTo_Options as $t=>$objects)
-                                        <optgroup label="@choice('components.' . strtolower($t), 2)">
-                                            @foreach ($objects as $o)
-                                                <option value="{{ $t }}|{{ $o->id }}"
-                                                        @if($physical_sensor->belongsTo_id == $o->id && $physical_sensor->belongsTo_type = $t)
-                                                        selected
-                                                        @endif>@if(is_null($o->display_name)) {{ $o->name }} @else {{ $o->display_name }} @endif</option>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select name="controlunit">
+                                            <option></option>
+                                            @foreach ($controlunits as $c)
+                                                <option value="{{ $c->id }}" @if($physical_sensor->controlunit_id == $c->id)selected="selected"@endif>{{ $c->name }}</option>
                                             @endforeach
-                                        </optgroup>
-                                    @endforeach
-                                </select>
-                                <label for="valves">@lang('labels.belongsTo')</label>
+                                        </select>
+                                        <label for="valves">@choice('components.controlunits', 1)</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select name="belongsTo">
+                                            <option></option>
+                                            @foreach ($belongTo_Options as $t=>$objects)
+                                                <optgroup label="@choice('components.' . strtolower($t), 2)">
+                                                    @foreach ($objects as $o)
+                                                        <option value="{{ $t }}|{{ $o->id }}"
+                                                                @if($physical_sensor->belongsTo_id == $o->id && $physical_sensor->belongsTo_type = $t)
+                                                                selected
+                                                                @endif>@if(is_null($o->display_name)) {{ $o->name }} @else {{ $o->display_name }} @endif</option>
+                                                    @endforeach
+                                                </optgroup>
+                                            @endforeach
+                                        </select>
+                                        <label for="valves">@lang('labels.belongsTo')</label>
+                                    </div>
+                                </div>
+                            </p>
+
+                        </div>
+
+                        <div class="card-action">
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
+                                        <i class="material-icons right">send</i>
+                                    </button>
+                                </div>
                             </div>
+
                         </div>
-                    </p>
-
+                    </form>
                 </div>
-
-                <div class="card-action">
-
-                    <div class="row">
-                        <div class="input-field col s12">
-                            <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                <i class="material-icons right">send</i>
-                            </button>
-                        </div>
-                    </div>
-
-                </div>
-            </form>
+            </div>
         </div>
     </div>
     

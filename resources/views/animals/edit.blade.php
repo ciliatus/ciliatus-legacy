@@ -105,42 +105,48 @@
 
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <div class="card-content">
 
+                    <div class="card-content teal lighten-1 white-text">
                         <span class="card-title activator truncate">
                             <span>@choice('components.animal_feeding_schedules', 2)</span>
                         </span>
+                    </div>
+
+                    <div class="card-content">
 
                         <div class="row">
 
                             @foreach ($animal->feeding_schedules as $afs)
-                                <p>
-                                    @lang('labels.' . $afs->name) - {{ $afs->value }} @choice('units.days', $afs->value) @lang('labels.interval')
+                                <div class="col s12">
 
-                                    <a class="dropdown-button btn btn-small" href="#" data-activates="dropdown-edit-animal_feeding_schedules_{{ $afs->id }}" style="margin-left: 20px">
-                                        @lang('labels.actions') <i class="material-icons">keyboard_arrow_down</i>
+                                    {{ $afs->name }} - {{ $afs->value }} @choice('units.days', $afs->value) @lang('labels.interval')
+
+                                    <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-activates="dropdown-edit-animal_feeding_schedules_{{ $afs->id }}">
+                                        <i class="material-icons">settings</i>
                                     </a>
-                                </p>
 
-                                <ul id="dropdown-edit-animal_feeding_schedules_{{ $afs->id }}" class="dropdown-content">
-                                    <li>
-                                        <a href="{{ url('animals/' . $animal->id . '/feeding_schedules/' . $afs->id . '/edit') }}">
-                                            @lang('buttons.edit')
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="{{ url('animals/' . $animal->id . '/feeding_schedules/' . $afs->id . '/delete') }}">
-                                            @lang('buttons.delete')
-                                        </a>
-                                    </li>
-                                </ul>
+                                    <ul id="dropdown-edit-animal_feeding_schedules_{{ $afs->id }}" class="dropdown-content">
+                                        <li>
+                                            <a href="{{ url('animals/' . $animal->id . '/feeding_schedules/' . $afs->id . '/edit') }}">
+                                                @lang('buttons.edit')
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('animals/' . $animal->id . '/feeding_schedules/' . $afs->id . '/delete') }}">
+                                                @lang('buttons.delete')
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
                             @endforeach
 
-                            <a class="btn-floating btn-large waves-effect waves-light green right" href=" {{ url('/animals/' . $animal->id . '/feeding_schedules/create') }}">
-                                <i class="material-icons">add</i>
-                            </a>
-
                         </div>
+                    </div>
+
+                    <div class="card-action">
+                        <a href="{{ url('/animals/' . $animal->id . '/feeding_schedules/create') }}">
+                            @lang('buttons.add')
+                        </a>
                     </div>
 
                 </div>

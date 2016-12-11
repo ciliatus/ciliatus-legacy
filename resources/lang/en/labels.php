@@ -42,6 +42,7 @@ return [
     'associated_with'=> 'Associated with',
     'log'           =>  'Log',
     'starts_at'     =>  'Starts at',
+    'starts_after'  =>  'Starts after',
     'thresholds'    =>  'Thresholds',
     'abilities'     =>  'Ability|Abilities',
     'bugtracker'    =>  'Bugtracker',

@@ -69,21 +69,21 @@
 
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <div class="card-content">
-
+                    <div class="card-content teal lighten-1 white-text">
                         <span class="card-title activator truncate">
                             <span>@choice('components.action_sequence_schedules', 2)</span>
                         </span>
+                    </div>
 
-                        <p>
+                    <div class="card-content">
 
                         <div class="row">
                             @foreach($action_sequence->schedules as $ass)
                                 <div class="input-field col s12">
                                     <li>
                                         {{ $ass->starts_at }} @if (!$ass->runonce)<i>@lang('labels.daily')</i>@endif
-                                        <a class="dropdown-button btn btn-small" href="#" data-activates="dropdown-edit-action_sequence_schedules_{{ $ass->id }}" style="margin-left: 20px">
-                                            @lang('labels.actions') <i class="material-icons">keyboard_arrow_down</i>
+                                        <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-activates="dropdown-edit-action_sequence_schedules_{{ $ass->id }}">
+                                            <i class="material-icons">settings</i>
                                         </a>
 
                                         <ul id="dropdown-edit-action_sequence_schedules_{{ $ass->id }}" class="dropdown-content">
@@ -102,14 +102,66 @@
                                 </div>
                             @endforeach
 
-                            <a class="btn-floating btn-large waves-effect waves-light green right" href="/action_sequence_schedules/create?preset[action_sequence]={{ $action_sequence->id }}">
-                                <i class="material-icons">add</i>
-                            </a>
+                        </div>
+
+                    </div>
+
+                    <div class="card-action">
+                        <a href="/action_sequence_schedules/create?preset[action_sequence]={{ $action_sequence->id }}">
+                            @lang('buttons.add')
+                        </a>
+                    </div>
+
+                </div>
+
+
+                <div class="card">
+                    <div class="card-content teal lighten-1 white-text">
+                        <span class="card-title activator truncate">
+                            <span>@choice('components.actions', 2)</span>
+                        </span>
+                    </div>
+
+                    <div class="card-content">
+
+                        <div class="row">
+                            @foreach($action_sequence->actions as $a)
+                                <div class="input-field col s12">
+                                    [{{ $a->sequence_sort_id }}]
+                                    <i class="material-icons">{{ $a->target_object()->icon() }}</i> <a href="{{ $a->target_object()->url() }}">{{ $a->target_object()->name }}</a>
+                                    <i class="material-icons">keyboard_arrow_right</i>
+                                    @lang('labels.' . $a->desired_state) <i>{{ $a->duration_minutes }} @choice('units.minutes', $a->duration_minutes)</i>
+                                    @if (!is_null($a->wait_for_started_action_object()))
+                                        @lang('labels.starts_after') [{{ $a->wait_for_started_action_object()->sequence_sort_id }}]
+                                    @endif
+
+                                    <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-activates="dropdown-edit-actions_{{ $a->id }}">
+                                        <i class="material-icons">settings</i>
+                                    </a>
+
+                                    <ul id="dropdown-edit-actions_{{ $a->id }}" class="dropdown-content">
+                                        <li>
+                                            <a href="{{ url('actions/' . $a->id . '/edit') }}">
+                                                @lang('buttons.edit')
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('actions/' . $a->id . '/delete') }}">
+                                                @lang('buttons.delete')
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @endforeach
 
                         </div>
 
-                        </p>
+                    </div>
 
+                    <div class="card-action">
+                        <a href="/actions/create?preset[action_sequence]={{ $action_sequence->id }}">
+                            @lang('buttons.add')
+                        </a>
                     </div>
                 </div>
             </div>

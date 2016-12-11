@@ -42,6 +42,7 @@ return [
     'associated_with'=> 'Assoziiert mit',
     'log'           =>  'Log',
     'starts_at'     =>  'Beginnt um',
+    'starts_after'  =>  'Startet nach',
     'thresholds'    =>  'Grenzwerte',
     'abilities'     =>  'Fähigkeit|Fähigkeiten',
     'bugtracker'    =>  'Bugtracker',

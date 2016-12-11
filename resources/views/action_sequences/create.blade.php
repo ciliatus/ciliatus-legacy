@@ -31,6 +31,13 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
+                                    <input type="text" placeholder="@lang('labels.name')" name="name" value="10">
+                                    <label for="name">@lang('labels.name')</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
                                     <select name="template">
                                         <option></option>
                                         <option value="irrigate">@lang('labels.irrigate')</option>

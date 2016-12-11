@@ -96,22 +96,21 @@
 
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <div class="card-content">
-
+                    <div class="card-content teal lighten-1 white-text">
                         <span class="card-title activator truncate">
                             <span>@choice('components.action_sequences', 2)</span>
                         </span>
+                    </div>
 
-                        <p>
-
+                    <div class="card-content">
                         <div class="row">
                             @foreach($terrarium->action_sequences as $as)
                                 <div class="input-field col s12">
 
                                     <strong>{{ $as->name }}</strong> <i>{{ $as->duration_minutes }} @choice('units.minutes', $as->duration_minutes)</i>
 
-                                    <a class="dropdown-button btn btn-small" href="#" data-activates="dropdown-edit-action_sequences_{{ $as->id }}" style="margin-left: 20px">
-                                        @lang('labels.actions') <i class="material-icons">keyboard_arrow_down</i>
+                                    <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-activates="dropdown-edit-action_sequences_{{ $as->id }}" style="margin-left: 20px">
+                                        <i class="material-icons">settings</i>
                                     </a>
 
                                     <ul id="dropdown-edit-action_sequences_{{ $as->id }}" class="dropdown-content">
@@ -133,14 +132,15 @@
                                 </div>
                             @endforeach
 
-                            <a class="btn-floating btn-large waves-effect waves-light green right" href="/action_sequences/create?preset[terrarium]={{ $terrarium->id }}">
-                                <i class="material-icons">add</i>
-                            </a>
-
                         </div>
 
-                        </p>
+                    </div>
 
+
+                    <div class="card-action">
+                        <a href="/action_sequences/create?preset[terrarium]={{ $terrarium->id }}">
+                            @lang('buttons.add')
+                        </a>
                     </div>
                 </div>
             </div>
