@@ -5,9 +5,9 @@ With a realtime dashboard you are always up to date with the current state of yo
 
 A fully fleshed out REST API allows you to feed ciliatus with sensor readings and enables you to create your own client applications. An example can be found on [GitHub](https://github.com/matthenning/ciliatus_controlunit).
 
-Keep track of your animals weight and feeding schedules.
-
 Use Action Sequences and schedules to automatically irrigate your terrarium or trigger other actions.
+
+Keep track of your animals weight and feeding schedules.
 
 The frontend was built using Google's material design guidelines and will give you an easy start without having to read pages of documentation.
 
