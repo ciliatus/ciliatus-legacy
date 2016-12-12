@@ -391,11 +391,11 @@ export default {
             if (item !== null) {
                 if (e.action_sequence_schedule.states.is_overdue === false && e.action_sequence_schedule.states.will_run_today === true) {
                     this.dashboard.action_sequence_schedules.due.splice(item, 1, e.action_sequence_schedule);
+                    found = true;
                 }
                 else {
                     this.dashboard.action_sequence_schedules.due.splice(item, 1);
                 }
-                found = true;
             }
             item = null;
 
@@ -414,10 +414,10 @@ export default {
                 }
                 else {
                     this.dashboard.action_sequence_schedules.overdue.splice(item, 1, e.action_sequence_schedule);
+                    item = null;
                 }
                 found = true;
             }
-            item = null;
 
             /*
              * Check in running array
@@ -434,8 +434,8 @@ export default {
                 }
                 else {
                     this.dashboard.action_sequence_schedules.running.splice(item, 1, e.action_sequence_schedule);
+                    found = true;
                 }
-                found = true;
             }
 
             /*
