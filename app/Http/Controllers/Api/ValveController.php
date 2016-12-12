@@ -43,8 +43,8 @@ class ValveController extends ApiController
         }
 
         $valves = Valve::with('pump')
-            ->with('terrarium')
-            ->with('controlunit');
+                        ->with('terrarium')
+                        ->with('controlunit');
 
         $valves = $this->filter($request, $valves);
 

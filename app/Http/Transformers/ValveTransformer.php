@@ -22,6 +22,9 @@ class ValveTransformer extends Transformer
      */
     public function transform($item)
     {
+        $pumpTransformer = new PumpTransformer();
+        $terrariumTransformer = new TerrariumTransformer();
+        $controlunitsTransformer = new ControlunitTransformer();
         $return = [
             'id'    => $item['id'],
             'name' => $item['name'],
@@ -37,15 +40,15 @@ class ValveTransformer extends Transformer
         ];
 
         if (isset($item['controlunit'])) {
-            $return['controlunit'] = $item['controlunit'];
+            $return['controlunit'] = $controlunitsTransformer->transform($item['controlunit']);
         }
 
         if (isset($item['terrarium'])) {
-            $return['terrarium'] = $item['terrarium'];
+            $return['terrarium'] = $terrariumTransformer->transform($item['terrarium']);
         }
 
         if (isset($item['pump'])) {
-            $return['pump'] = $item['pump'];
+            $return['pump'] = $pumpTransformer->transform($item['pump']);
         }
 
         return $return;

@@ -4,9 +4,11 @@ namespace App\Http\Controllers\Api;
 
 use App\Animal;
 use App\CriticalState;
+use App\Events\ActionSequenceScheduleUpdated;
 use App\Events\AnimalFeedingScheduleUpdated;
 use App\Http\Transformers\CriticalStateTransformer;
 use App\LogicalSensor;
+use App\Terrarium;
 use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
@@ -159,6 +161,18 @@ class CriticalStateController extends ApiController
          foreach (Animal::get() as $animal) {
             foreach ($animal->feeding_schedules as $afs) {
                 broadcast(new AnimalFeedingScheduleUpdated($afs));
+            }
+        }
+
+        /*
+         * Generate ActionSequenceScheduleUpdated Events
+         * to keep dashboard up to date
+         */
+        foreach (Terrarium::get() as $terrarium) {
+            foreach ($terrarium->action_sequences as $as) {
+                foreach ($as->schedules as $ass) {
+                    broadcast(new ActionSequenceScheduleUpdated($ass));
+                }
             }
         }
 

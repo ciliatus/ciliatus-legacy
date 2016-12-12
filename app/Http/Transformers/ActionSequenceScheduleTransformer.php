@@ -44,11 +44,11 @@ class ActionSequenceScheduleTransformer extends Transformer
         ];
 
         if (isset($item['sequence'])) {
-            $return['sequence'] = $item['sequence'];
+            $return['sequence'] = (new ActionSequenceTransformer())->transform($item['sequence']);
         }
 
         if (isset($item['terrarium'])) {
-            $return['terrarium'] = $item['terrarium'];
+            $return['terrarium'] = (new TerrariumTransformer())->transform($item['terrarium']);
         }
 
         if (isset($item['state_ok'])) {

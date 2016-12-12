@@ -28,7 +28,10 @@ class ActionSequenceScheduleUpdated implements ShouldBroadcast
     public function __construct(ActionSequenceSchedule $ass)
     {
         $transformer = new ActionSequenceScheduleTransformer();
-        $repository = new ActionSequenceScheduleRepository($ass);
+        $repository = new ActionSequenceScheduleRepository(
+            ActionSequenceSchedule::with('sequence')
+                                  ->find($ass->id)
+        );
 
         $ass = $repository->show();
         $sequence = $ass->sequence()->get();

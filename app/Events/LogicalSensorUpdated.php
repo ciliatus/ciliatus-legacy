@@ -24,7 +24,11 @@ class LogicalSensorUpdated implements ShouldBroadcast
      */
     public function __construct(LogicalSensor $ls)
     {
-        $transformer = new LogicalSensorTransformer();
+        $transformer = new LogicalSensorTransformer(
+            LogicalSensor::with('thresholds')
+                            ->with('physical_sensor')
+                            ->find($ls->id)
+        );
         $this->logical_sensor = $transformer->transform($ls->toArray());
     }
 

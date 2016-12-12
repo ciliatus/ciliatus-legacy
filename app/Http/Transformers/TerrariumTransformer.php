@@ -23,6 +23,7 @@ class TerrariumTransformer extends Transformer
      */
     public function transform($item)
     {
+        $valveTransformer = new ValveTransformer();
         $physicalSensorTransformer = new PhysicalSensorTransformer();
         $animalTransformer = new AnimalTransformer();
         $actionSequenceTransformer = new ActionSequenceTransformer();
@@ -49,6 +50,10 @@ class TerrariumTransformer extends Transformer
 
         if (isset($item['animals'])) {
             $return['animals'] = $animalTransformer->transformCollection($item['animals']);
+        }
+
+        if (isset($item['valves'])) {
+            $return['valves'] = $valveTransformer->transformCollection($item['valves']);
         }
 
         if (isset($item['action_sequences'])) {

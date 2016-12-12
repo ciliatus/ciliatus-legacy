@@ -46,9 +46,7 @@ class ActionSequenceScheduleController extends ApiController
         }
 
 
-        $action_sequence_schedules = ActionSequenceSchedule::with('actions')
-                                                            ->with('schedules')
-                                                            ->with('terrarium');
+        $action_sequence_schedules = ActionSequenceSchedule::with('sequence');
 
         $action_sequence_schedules = $this->filter($request, $action_sequence_schedules);
 
@@ -97,7 +95,8 @@ class ActionSequenceScheduleController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action = ActionSequenceSchedule::find($id);
+        $action = ActionSequenceSchedule::with('sequence')
+                                        ->find($id);
 
         if (!$action) {
             return $this->respondNotFound('ActionSequenceSchedule not found');
@@ -206,10 +205,18 @@ class ActionSequenceScheduleController extends ApiController
             }
         }
 
-        $action->name = $request->input('name');
-        $action->action_sequence_id = $request->input('action_sequence_id');
-        $action->starts_at = $request->input('starts_at');
-        $action->terrarium_id = $request->input('terrarium_id');
+        if ($request->has('name')) {
+            $action->name = $request->input('name');
+        }
+
+        if ($request->has('action_sequence')) {
+            $action->action_sequence_id = $request->input('action_sequence');
+        }
+
+        if ($request->has('starts_at')) {
+            $action->starts_at = $request->input('starts_at');
+        }
+
         $action->save();
 
         return $this->setStatusCode(200)->respondWithData([], [

@@ -49,8 +49,6 @@ class ActionSequenceSchedule extends CiliatusModel
             $new->last_finished_at = Carbon::now();
         }
 
-        broadcast(new ActionSequenceScheduleUpdated(clone $new));
-
         return $new;
     }
 
@@ -276,14 +274,14 @@ class ActionSequenceSchedule extends CiliatusModel
      * @param $minutes
      * @return bool
      */
-    public function is_overdue($minutes)
+    public function is_overdue($minutes = 10)
     {
         $starts_today = Carbon::now();
         $starts_today->hour = explode(':', $this->starts_at)[0];
         $starts_today->minute = explode(':', $this->starts_at)[1];
         $starts_today->second = 0;
 
-        return !$this->running() && $starts_today->addMinutes($minutes)->lt(Carbon::now());
+        return !$this->running() && !$this->ran_today() && $starts_today->addMinutes($minutes)->lt(Carbon::now());
     }
 
     /**

@@ -22,6 +22,7 @@ class ActionSequenceTransformer extends Transformer
      */
     public function transform($item)
     {
+        $actionTransformer = new ActionTransformer();
         $actionSequenceScheduleTransformer = new ActionSequenceScheduleTransformer();
         $terrariumTransformer = new TerrariumTransformer();
 
@@ -36,6 +37,10 @@ class ActionSequenceTransformer extends Transformer
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
+
+        if (isset($item['actions'])) {
+            $return['actions'] = $actionTransformer->transformCollection($item['actions']);
+        }
 
         if (isset($item['schedules'])) {
             $return['schedules'] = $actionSequenceScheduleTransformer->transformCollection($item['schedules']);

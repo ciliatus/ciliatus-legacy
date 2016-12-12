@@ -74,15 +74,15 @@ class Terrarium extends CiliatusModel
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function physical_sensors()
     {
-        return $this->hasMany('App\PhysicalSensor', 'belongsTo_id')->with('logical_sensors')->where('belongsTo_type', 'terrarium');
+        return $this->hasMany('App\PhysicalSensor', 'belongsTo_id')->with('logical_sensors', 'controlunit')->where('belongsTo_type', 'terrarium');
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function logical_sensors()
     {
@@ -94,7 +94,7 @@ class Terrarium extends CiliatusModel
      */
     public function valves()
     {
-        return $this->hasMany('App\Valve');
+        return $this->hasMany('App\Valve')->with('pump', 'controlunit');
     }
 
     /**
@@ -118,7 +118,7 @@ class Terrarium extends CiliatusModel
      */
     public function action_sequences()
     {
-        return $this->hasMany('App\ActionSequence')->with('schedules');
+        return $this->hasMany('App\ActionSequence')->with('actions', 'schedules');
     }
 
     /**

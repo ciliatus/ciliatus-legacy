@@ -28,8 +28,16 @@ class TerrariumUpdated implements ShouldBroadcast
     public function __construct(Terrarium $t)
     {
         $transformer = new TerrariumTransformer();
-        $repository = new TerrariumRepository($t);
-        $this->terrarium = $transformer->transform($repository->show()->toArray());
+        $repository = new TerrariumRepository(
+            Terrarium::with('action_sequences')
+                    ->with('animals')
+                    ->with('files')
+                    ->with('physical_sensors')
+                    ->with('valves')
+                    ->find($t->id)
+        );
+        $t = $repository->show()->toArray();
+        $this->terrarium = $transformer->transform($t);
     }
 
     /**

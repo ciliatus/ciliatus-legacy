@@ -24,6 +24,7 @@ class PhysicalSensorTransformer extends Transformer
      */
     public function transform($item)
     {
+        $controlunitTransformer = new ControlunitTransformer();
         $logicalSensorTransformer = new LogicalSensorTransformer();
 
         $return = [
@@ -37,6 +38,10 @@ class PhysicalSensorTransformer extends Transformer
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
+
+        if (isset($item['controlunit'])) {
+            $return['controlunit'] = $controlunitTransformer->transform($item['controlunit']);
+        }
 
         if (isset($item['logical_sensors'])) {
             $return['logical_sensors'] = $logicalSensorTransformer->transformCollection($item['logical_sensors']);

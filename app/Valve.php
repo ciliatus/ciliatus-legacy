@@ -67,7 +67,7 @@ class Valve extends CiliatusModel
      */
     public function pump()
     {
-        return $this->belongsTo('App\Pump');
+        return $this->belongsTo('App\Pump')->with('controlunit');
     }
 
     /**

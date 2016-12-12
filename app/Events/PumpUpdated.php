@@ -24,7 +24,11 @@ class PumpUpdated implements ShouldBroadcast
      */
     public function __construct(Pump $p)
     {
-        $transformer = new PumpTransformer();
+        $transformer = new PumpTransformer(
+            Pump::with('valves')
+                ->with('controlunit')
+                ->find($p->id)
+        );
         $this->pump = $transformer->transform($p->toArray());
     }
 

@@ -218,8 +218,10 @@ class ActionSequenceController extends ApiController
             return $this->setStatusCode(404)->respondWithError('ActionSequence not found');
         }
 
-        $action_sequence->name = $request->input('name');
-        $action_sequence->duration_minutes = $request->input('duration_minutes');
+        if ($request->has('name')) {
+            $action_sequence->name = $request->input('name');
+        }
+
         $action_sequence->save();
 
         return $this->setStatusCode(200)->respondWithData([],

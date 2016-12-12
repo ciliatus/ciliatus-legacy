@@ -22,11 +22,14 @@ class AnimalFeedingTransformer extends Transformer
             'id'    => $item['id'],
             'type'  => $item['name'],
             'amount'  => $item['value'],
-            'animal' => (new AnimalTransformer())->transform($item['animal']),
             'timestamps' => $this->parseTimestamps($item),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'url'           =>  isset($item['url']) ? $item['url'] : ''
         ];
+
+        if (isset($item['animal'])) {
+            $return['animal'] = (new AnimalTransformer())->transform($item['animal']);
+        }
 
         return $return;
     }

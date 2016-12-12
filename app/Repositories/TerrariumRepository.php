@@ -97,6 +97,12 @@ class TerrariumRepository extends Repository
             }
         }
 
+        foreach ($terrarium->action_sequences as &$as) {
+            foreach ($as->actions as &$a) {
+                $a->target_object = $a->target()->toArray();
+            }
+        }
+
         $terrarium->icon = $terrarium->icon();
         $terrarium->url = $terrarium->url();
 

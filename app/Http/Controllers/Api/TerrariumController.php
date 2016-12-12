@@ -50,9 +50,11 @@ class TerrariumController extends ApiController
         $history_to = $request->has('history_to') ? $request->input('history_to') : null;
         $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : null;
 
-        $terraria = Terrarium::with('animals')
+        $terraria = Terrarium::with('action_sequences')
+                             ->with('animals')
                              ->with('files')
-                             ->with('action_sequences');
+                             ->with('physical_sensors')
+                             ->with('valves');
 
         $terraria = $this->filter($request, $terraria);
 
@@ -101,7 +103,12 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $terrarium = Terrarium::with('physical_sensors', 'animals')->find($id);
+        $terrarium = Terrarium::with('action_sequences')
+                                ->with('animals')
+                                ->with('files')
+                                ->with('physical_sensors')
+                                ->with('valves')
+                                ->find($id);
 
         if (!$terrarium) {
             return $this->respondNotFound('Terrarium not found');

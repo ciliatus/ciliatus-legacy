@@ -26,7 +26,17 @@ class AnimalUpdated implements ShouldBroadcast
      */
     public function __construct(Animal $a)
     {
-        $transformer = new AnimalTransformer();
+        $transformer = new AnimalTransformer(
+            Animal::with('events')
+                ->with('feedings')
+                ->with('feeding_schedules')
+                ->with('weighings')
+                ->with('weighing_schedules')
+                ->with('files')
+                ->with('properties')
+                ->with('terrarium')
+                ->find($a->id)
+        );
         $this->animal = $transformer->transform($a->toArray());
     }
 
