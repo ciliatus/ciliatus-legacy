@@ -31,7 +31,7 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input type="text" placeholder="@lang('labels.name')" name="name" value="10">
+                                    <input type="text" placeholder="@lang('labels.name')" name="name" value="">
                                     <label for="name">@lang('labels.name')</label>
                                 </div>
                             </div>
@@ -49,7 +49,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <input type="text" placeholder="@choice('units.minutes', 2)" name="duration_minutes" value="10">
-                                    <label for="display_name">@lang('labels.duration') (@choice('units.minutes', 2))</label>
+                                    <label for="duration_minutes">@lang('labels.duration') (@choice('units.minutes', 2))</label>
                                 </div>
                             </div>
 

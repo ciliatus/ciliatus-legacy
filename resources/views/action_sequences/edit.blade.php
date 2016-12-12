@@ -43,13 +43,6 @@
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input type="text" placeholder="@choice('units.minutes', 2)" name="duration_minutes" value="{{ $action_sequence->duration_minutes }}">
-                                    <label for="display_name">@lang('labels.duration') (@choice('units.minutes', 2))</label>
-                                </div>
-                            </div>
-
                         </div>
 
                         <div class="card-action">
@@ -166,5 +159,16 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large teal">
+            <i class="large material-icons">mode_edit</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating teal" href="/action_sequences/{{ $action_sequence->id }}"><i class="material-icons">info</i></a></li>
+            <li><a class="btn-floating red" href="/action_sequences/{{ $action_sequence->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green" href="/action_sequences/create"><i class="material-icons">add</i></a></li>
+        </ul>
     </div>
 @stop
