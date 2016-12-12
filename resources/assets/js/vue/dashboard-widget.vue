@@ -4,6 +4,7 @@
         <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length > 0">
             <div class="card">
                 <div class="card-content red darken-3 white-text">
+                    <i class="material-icons">video_label</i>
                     {{ $tc("components.terraria", 2) }}
                 </div>
 
@@ -37,7 +38,8 @@
         <div :class="wrapperClasses" v-if="dashboard.animal_feeding_schedules.overdue.length > 0">
             <div class="card">
                 <div class="card-content orange darken-3 white-text">
-                    <span>{{ $tc("components.animal_feedings", 2) }} {{ $t("labels.overdue") }}</span>
+                    <i class="material-icons">schedule</i>
+                    {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.overdue") }}
                 </div>
 
                 <div class="card-content orange darken-2 white-text">
@@ -75,9 +77,48 @@
                 -->
             </div>
         </div>
+        <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.overdue.length > 0">
+            <div class="card">
+                <div class="card-content teal white-text">
+                    <i class="material-icons">schedule</i>
+                    {{ $tc("components.action_sequences", 2) }} {{ $t("labels.overdue") }}
+                </div>
+
+                <div class="card-content teal lighten-1 white-text">
+                    <span class="card-title activator truncate">
+                        <span>{{ dashboard.action_sequence_schedules.overdue.length }} {{ $tc("components.action_sequences", dashboard.action_sequence_schedules.overdue.length) }} {{ $t("labels.overdue") }}</span>
+                        <i class="material-icons right">more_vert</i>
+                    </span>
+
+                    <div v-for="action_sequence_schedule in dashboard.action_sequence_schedules.overdue">
+                        <p>
+                            <a v-bind:href="'/action_sequences/' + action_sequence_schedule.sequence.id" class="white-text">
+                                {{ action_sequence_schedule.sequence.name }}
+                            </a>
+
+                            <i>{{ action_sequence_schedule.timestamps.starts }}</i>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-reveal teal lighten-1 white-text">
+                    <span class="card-title teal lighten-2 white-text"><i class="material-icons right">close</i></span>
+
+                    <p>
+                    </p>
+                </div>
+
+                <!--
+                <div class="card-action teal lighten-1">
+                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
+                </div>
+                -->
+            </div>
+        </div>
         <div :class="wrapperClasses" v-if="dashboard.animal_feeding_schedules.due.length > 0">
             <div class="card">
                 <div class="card-content teal white-text">
+                    <i class="material-icons">schedule</i>
                     {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.due") }}
                 </div>
 
@@ -114,10 +155,88 @@
                 -->
             </div>
         </div>
+        <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.due.length > 0">
+            <div class="card">
+                <div class="card-content teal white-text">
+                    <i class="material-icons">schedule</i>
+                    {{ $tc("components.action_sequences", 2) }} {{ $t("labels.due") }}
+                </div>
+
+                <div class="card-content teal lighten-1 white-text">
+                    <span class="card-title activator truncate">
+                        <span>{{ dashboard.action_sequence_schedules.due.length }} {{ $tc("components.action_sequences", dashboard.action_sequence_schedules.due.length) }} {{ $t("labels.due") }}</span>
+                        <i class="material-icons right">more_vert</i>
+                    </span>
+
+                    <div v-for="action_sequence_schedule in dashboard.action_sequence_schedules.due">
+                        <p>
+                            <a v-bind:href="'/action_sequences/' + action_sequence_schedule.sequence.id" class="white-text">
+                                {{ action_sequence_schedule.sequence.name }}
+                            </a>
+
+                            <i>{{ action_sequence_schedule.timestamps.starts }}</i>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-reveal teal lighten-1 white-text">
+                    <span class="card-title teal lighten-2 white-text"><i class="material-icons right">close</i></span>
+
+                    <p>
+                    </p>
+                </div>
+
+                <!--
+                <div class="card-action teal lighten-1">
+                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
+                </div>
+                -->
+            </div>
+        </div>
+
+        <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.running.length > 0">
+            <div class="card">
+                <div class="card-content teal white-text">
+                    <i class="material-icons">schedule</i>
+                    {{ $tc("components.action_sequences", 2) }} {{ $t("labels.running") }}
+                </div>
+
+                <div class="card-content teal lighten-1 white-text">
+                    <span class="card-title activator truncate">
+                        <span>{{ dashboard.action_sequence_schedules.running.length }} {{ $tc("components.action_sequences", dashboard.action_sequence_schedules.running.length) }} {{ $t("labels.running") }}</span>
+                        <i class="material-icons right">more_vert</i>
+                    </span>
+
+                    <div v-for="action_sequence_schedule in dashboard.action_sequence_schedules.running">
+                        <p>
+                            <a v-bind:href="'/action_sequences/' + action_sequence_schedule.sequence.id" class="white-text">
+                                {{ action_sequence_schedule.sequence.name }}
+                            </a>
+
+                            <i v-if="action_sequence_schedule.timestamps.last_start !== null">{{ action_sequence_schedule.timestamps.last_start.split(" ")[1] }}</i>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-reveal teal lighten-1 white-text">
+                    <span class="card-title teal lighten-2 white-text"><i class="material-icons right">close</i></span>
+
+                    <p>
+                    </p>
+                </div>
+
+                <!--
+                <div class="card-action teal lighten-1">
+                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
+                </div>
+                -->
+            </div>
+        </div>
 
         <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length < 1">
             <div class="card">
                 <div class="card-content teal white-text">
+                    <i class="material-icons">video_label</i>
                     {{ $tc("components.terraria", 2) }}
                 </div>
 
@@ -239,15 +358,123 @@ export default {
         },
 
         deleteAnimalFeedingSchedule: function(e) {
+            var that = this;
             this.dashboard.animal_feeding_schedules.due.forEach(function(data, index) {
                 if (data.id === e.animal_feeding_schedule.id) {
-                    this.dashboard.animal_feeding_schedules.due.splice(index, 1);
+                    that.dashboard.animal_feeding_schedules.due.splice(index, 1);
                 }
             });
 
             this.dashboard.animal_feeding_schedules.overdue.forEach(function(data, index) {
                 if (data.id === e.animal_feeding_schedule.id) {
                     this.dashboard.animal_feeding_schedules.overdue.splice(index, 1);
+                }
+            });
+
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
+        },
+        
+        updateActionSequenceSchedule: function(e) {
+            var item = null;
+            var found = false;
+
+            /*
+             * Check in due array
+            */
+            this.dashboard.action_sequence_schedules.due.forEach(function(data, index) {
+                if (data.id === e.action_sequence_schedule.id) {
+                    item = index;
+                }
+            });
+            if (item !== null) {
+                if (e.action_sequence_schedule.states.is_overdue === false && e.action_sequence_schedule.states.will_run_today === true) {
+                    this.dashboard.action_sequence_schedules.due.splice(item, 1, e.action_sequence_schedule);
+                }
+                else {
+                    this.dashboard.action_sequence_schedules.due.splice(item, 1);
+                }
+                found = true;
+            }
+            item = null;
+
+            /*
+             * Check in overdue array
+             */
+            this.dashboard.action_sequence_schedules.overdue.forEach(function(data, index) {
+                if (data.id === e.action_sequence_schedule.id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                if (e.action_sequence_schedule.states.is_overdue === false) {
+                    this.dashboard.action_sequence_schedules.overdue.splice(item, 1);
+                }
+                else {
+                    this.dashboard.action_sequence_schedules.overdue.splice(item, 1, e.action_sequence_schedule);
+                }
+                found = true;
+            }
+            item = null;
+
+            /*
+             * Check in running array
+             */
+            this.dashboard.action_sequence_schedules.running.forEach(function(data, index) {
+                if (data.id === e.action_sequence_schedule.id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                if (e.action_sequence_schedule.states.running === false) {
+                    this.dashboard.action_sequence_schedules.running.splice(item, 1);
+                }
+                else {
+                    this.dashboard.action_sequence_schedules.running.splice(item, 1, e.action_sequence_schedule);
+                }
+                found = true;
+            }
+
+            /*
+                Push if not found
+            */
+            if (found !== true) {
+                if (e.action_sequence_schedule.states.is_overdue === false && e.action_sequence_schedule.states.will_run_today === true) {
+                    this.dashboard.action_sequence_schedules.due.push(e.action_sequence_schedule);
+                }
+                else if (e.action_sequence_schedule.states.is_overdue === true) {
+                    this.dashboard.action_sequence_schedules.overdue.push(e.action_sequence_schedule);
+                }
+                else if (e.action_sequence_schedule.states.running === true) {
+                    this.dashboard.action_sequence_schedules.running.push(e.action_sequence_schedule);
+                }
+            }
+
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
+        },
+
+        deleteActionSequenceSchedule: function(e) {
+            var that = this;
+            this.dashboard.action_sequence_schedules.due.forEach(function(data, index) {
+                if (data.id === e.action_sequence_schedule.id) {
+                    that.dashboard.action_sequence_schedules.due.splice(index, 1);
+                }
+            });
+
+            this.dashboard.action_sequence_schedules.overdue.forEach(function(data, index) {
+                if (data.id === e.action_sequence_schedule.id) {
+                    that.dashboard.action_sequence_schedules.overdue.splice(index, 1);
+                }
+            });
+
+            this.dashboard.action_sequence_schedules.running.forEach(function(data, index) {
+                if (data.id === e.action_sequence_schedule.id) {
+                    that.dashboard.action_sequence_schedules.running.splice(index, 1);
                 }
             });
 
@@ -272,6 +499,10 @@ export default {
                 this.updateAnimalFeedingSchedule(e);
             }).listen('AnimalFeedingScheduleDeleted', (e) => {
                 this.deleteAnimalFeedingSchedule(e);
+            }).listen('ActionSequenceScheduleUpdated', (e) => {
+                this.updateActionSequenceSchedule(e);
+            }).listen('ActionSequenceScheduleDeleted', (e) => {
+                this.deleteActionSequenceSchedule(e);
         });
 
         window.eventHubVue.processStarted();

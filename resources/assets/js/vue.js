@@ -52,6 +52,7 @@ import AnimalFeedingSchedulesWidget from './vue/animal_feeding_schedules-widget.
 import AnimalWeighingsWidget from './vue/animal_weighings-widget.vue';
 import AnimalWeighingSchedulesWidget from './vue/animal_weighing_schedules-widget.vue';
 import TerrariaWidget from './vue/terraria-widget.vue';
+import TerrariaOverviewWidget from './vue/terraria-overview-widget.vue';
 import ControlunitsWidget from './vue/controlunit-widget.vue';
 import FilesWidget from './vue/files-widget.vue';
 import FilesShowWidget from './vue/files-show-widget.vue';
@@ -102,6 +103,7 @@ window.bodyVue = new Vue({
         'animal_weighings-widget': AnimalWeighingsWidget,
         'animal_weighing_schedules-widget': AnimalWeighingSchedulesWidget,
         'terraria-widget': TerrariaWidget,
+        'terraria-overview-widget': TerrariaOverviewWidget,
         'controlunits-widget': ControlunitsWidget,
         'files-widget': FilesWidget,
         'files-show-widget': FilesShowWidget,
