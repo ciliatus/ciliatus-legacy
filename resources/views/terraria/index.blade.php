@@ -5,9 +5,23 @@
 @stop
 
 @section('content')
+    <div class="col s12">
+        <ul class="tabs z-depth-1">
+            <li class="tab col s3"><a class="active" href="#tab_dashboard">@lang('labels.overview')</a></li>
+            <li class="tab col s3"><a href="#tab_details">@lang('labels.details')</a></li>
+        </ul>
+    </div>
 
-    <div class="container">
-        <terraria-widget container-classes="row" wrapper-classes="col s12 m6 l4"></terraria-widget>
+    <div id="tab_dashboard" class="col s12">
+        <div class="container">
+            <terraria-widget container-classes="row" wrapper-classes="col s12 m6 l4"></terraria-widget>
+        </div>
+    </div>
+
+    <div id="tab_details" class="col s12">
+        <div class="container">
+            <terraria-overview-widget container-classes="row" wrapper-classes=""></terraria-overview-widget>
+        </div>
     </div>
 
     <div class="fixed-action-btn">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\Http\Transformers\ActionSequenceScheduleTransformer;
 use App\Http\Transformers\AnimalFeedingScheduleTransformer;
 use App\Http\Transformers\TerrariumTransformer;
 use App\Repositories\AnimalFeedingScheduleRepository;
@@ -42,7 +43,7 @@ class DashboardController extends ApiController
         })->get()->toArray());
 
 
-        $schedules = [
+        $feeding_schedules = [
             'due' => [],
             'overdue' => []
         ];
@@ -51,10 +52,33 @@ class DashboardController extends ApiController
             foreach ($animal->feeding_schedules as $afs) {
                 $afs = (new AnimalFeedingScheduleRepository($afs))->show();
                 if ($afs->next_feeding_at_diff == 0) {
-                    $schedules['due'][] = (new AnimalFeedingScheduleTransformer())->transform($afs->toArray());
+                    $feeding_schedules['due'][] = (new AnimalFeedingScheduleTransformer())->transform($afs->toArray());
+                } elseif ($afs->next_feeding_at_diff < 0) {
+                    $feeding_schedules['overdue'][] = (new AnimalFeedingScheduleTransformer())->transform($afs->toArray());
                 }
-                elseif ($afs->next_feeding_at_diff < 0) {
-                    $schedules['overdue'][] = (new AnimalFeedingScheduleTransformer())->transform($afs->toArray());
+            }
+        }
+
+
+
+        $action_sequence_schedules = [
+            'due' => [],
+            'overdue' => [],
+            'running' => []
+        ];
+
+        foreach (Terrarium::get() as $terrarium) {
+            foreach ($terrarium->action_sequences as $as) {
+                foreach ($as->schedules()->with('sequence')->get() as $ass) {
+                    if ($ass->will_run_today() && !$ass->is_overdue()) {
+                        $action_sequence_schedules['due'][] = (new ActionSequenceScheduleTransformer())->transform($ass->toArray());
+                    }
+                    elseif ($ass->is_overdue()) {
+                        $action_sequence_schedules['overdue'][] = (new ActionSequenceScheduleTransformer())->transform($ass->toArray());
+                    }
+                    elseif ($ass->running()) {
+                        $action_sequence_schedules['running'][] = (new ActionSequenceScheduleTransformer())->transform($ass->toArray());
+                    }
                 }
             }
         }
@@ -65,7 +89,8 @@ class DashboardController extends ApiController
                 'ok' => $terraria_ok,
                 'critical' => $terraria_critical
             ],
-            'animal_feeding_schedules' => $schedules
+            'animal_feeding_schedules' => $feeding_schedules,
+            'action_sequence_schedules' => $action_sequence_schedules
         ]);
     }
 
