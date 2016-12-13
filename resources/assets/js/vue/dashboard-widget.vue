@@ -293,18 +293,102 @@ export default {
     },
 
     methods: {
+
+        /*
+         * Terrarium events
+        */
         updateTerrarium: function(e) {
+            var item = null;
+            var found = false;
+
+            /*
+             * Check in ok array
+            */
+            this.dashboard.terraria.ok.forEach(function(data, index) {
+                if (data.id === e.terrarium.id) {
+                    item = index;
+                }
+            });
+            if (item !== null) {
+                if (e.terrarium.temperature_critical !== false || e.terrarium.humidity_critical !== false || e.terrarium.heartbeat_critical !== false) {
+                    this.dashboard.terraria.ok.splice(item, 1);
+                }
+                else {
+                    this.dashboard.terraria.ok.splice(item, 1, e.terrarium);
+                    found = true;
+                }
+            }
+
+            /*
+             * Check in critical array
+            */
+            this.dashboard.terraria.critical.forEach(function(data, index) {
+                if (data.id === e.terrarium.id) {
+                    item = index;
+                }
+            });
+            if (item !== null) {
+                if (e.terrarium.temperature_critical === false && e.terrarium.humidity_critical === false && e.terrarium.heartbeat_critical === false) {
+                    this.dashboard.terraria.critical.splice(item, 1);
+                }
+                else {
+                    this.dashboard.terraria.ok.splice(item, 1, e.terrarium);
+                    found = true;
+                }
+            }
+
+            /*
+             * If found is not true, the item was either not found
+             * or was removed from an array.
+             * In this case properties will be checked again and
+             * item will be pushed to an array if they match certain criteria
+             */
+            if (found !== true) {
+                if (e.terrarium.temperature_critical === false && e.terrarium.humidity_critical === false && e.terrarium.heartbeat_critical === false) {
+                    this.dashboard.terraria.ok.push(e.terrarium);
+                }
+                else {
+                    this.dashboard.terraria.critical.push(e.terrarium);
+                }
+            }
+
             this.refresh_grid();
         },
         deleteTerrarium: function(e) {
-            this.refresh_grid();
-        },
-        updateAnimalFeedingSchedule: function(e) {
-            var item = null;
+            var that = this;
 
             /*
-                Check in due array
-            */
+             * Check ok array
+             */
+            this.dashboard.terraria.ok.forEach(function(data, index) {
+                if (data.id === e.terrarium.id) {
+                    this.dashboard.terraria.ok.splice(index, 1);
+                }
+            });
+
+            /*
+             * Check critical array
+             */
+            this.dashboard.terraria.critical.forEach(function(data, index) {
+                if (data.id === e.terrarium.id) {
+                    this.dashboard.terraria.critical.splice(index, 1);
+                }
+            });
+
+            this.refresh_grid();
+        },
+
+
+        /*
+         * AnimalFeedingSchedule events
+        */
+        updateAnimalFeedingSchedule: function(e) {
+            var item = null;
+            var found = false;
+
+            /*
+             * Check in due array
+             */
             this.dashboard.animal_feeding_schedules.due.forEach(function(data, index) {
                 if (data.id === e.animal_feeding_schedule.id) {
                     item = index;
@@ -313,6 +397,7 @@ export default {
             if (item !== null) {
                 if (e.animal_feeding_schedule.due_days === 0) {
                     this.dashboard.animal_feeding_schedules.due.splice(item, 1, e.animal_feeding_schedule);
+                    found = true;
                 }
                 else {
                     this.dashboard.animal_feeding_schedules.due.splice(item, 1);
@@ -320,8 +405,7 @@ export default {
             }
 
             /*
-                Check in overdue array
-                if not found under due
+             * Check in overdue array
              */
             if (item === null) {
                 this.dashboard.animal_feeding_schedules.overdue.forEach(function(data, index) {
@@ -336,14 +420,18 @@ export default {
                     }
                     else {
                         this.dashboard.animal_feeding_schedules.overdue.splice(item, 1, e.animal_feeding_schedule);
+                        found = true;
                     }
                 }
             }
 
             /*
-                Push if not found
-            */
-            if (item === null) {
+             * If found is not true, the item was either not found
+             * or was removed from an array.
+             * In this case properties will be checked again and
+             * item will be pushed to an array if they match certain criteria
+             */
+            if (found !== null) {
                 if (e.animal_feeding_schedule.due_days == 0) {
                     this.dashboard.animal_feeding_schedules.due.push(e.animal_feeding_schedule);
                 }
@@ -359,12 +447,19 @@ export default {
 
         deleteAnimalFeedingSchedule: function(e) {
             var that = this;
+
+            /*
+             * check in due array
+             */
             this.dashboard.animal_feeding_schedules.due.forEach(function(data, index) {
                 if (data.id === e.animal_feeding_schedule.id) {
                     that.dashboard.animal_feeding_schedules.due.splice(index, 1);
                 }
             });
 
+            /*
+             * check in overdue array
+             */
             this.dashboard.animal_feeding_schedules.overdue.forEach(function(data, index) {
                 if (data.id === e.animal_feeding_schedule.id) {
                     this.dashboard.animal_feeding_schedules.overdue.splice(index, 1);
@@ -375,14 +470,18 @@ export default {
                 this.refresh_grid();
             });
         },
-        
+
+
+        /*
+         * ActionSequenceSchedule events
+        */
         updateActionSequenceSchedule: function(e) {
             var item = null;
             var found = false;
 
             /*
              * Check in due array
-            */
+             */
             this.dashboard.action_sequence_schedules.due.forEach(function(data, index) {
                 if (data.id === e.action_sequence_schedule.id) {
                     item = index;
@@ -407,7 +506,6 @@ export default {
                     item = index;
                 }
             });
-
             if (item !== null) {
                 if (e.action_sequence_schedule.states.is_overdue === false) {
                     this.dashboard.action_sequence_schedules.overdue.splice(item, 1);
@@ -439,8 +537,11 @@ export default {
             }
 
             /*
-                Push if not found
-            */
+             * If found is not true, the item was either not found
+             * or was removed from an array.
+             * In this case properties will be checked again and
+             * item will be pushed to an array if they match certain criteria
+             */
             if (found !== true) {
                 if (e.action_sequence_schedule.states.is_overdue === false && e.action_sequence_schedule.states.will_run_today === true) {
                     this.dashboard.action_sequence_schedules.due.push(e.action_sequence_schedule);
@@ -460,18 +561,28 @@ export default {
 
         deleteActionSequenceSchedule: function(e) {
             var that = this;
+
+            /*
+             * check in due array
+             */
             this.dashboard.action_sequence_schedules.due.forEach(function(data, index) {
                 if (data.id === e.action_sequence_schedule.id) {
                     that.dashboard.action_sequence_schedules.due.splice(index, 1);
                 }
             });
 
+            /*
+             * check in overdue array
+             */
             this.dashboard.action_sequence_schedules.overdue.forEach(function(data, index) {
                 if (data.id === e.action_sequence_schedule.id) {
                     that.dashboard.action_sequence_schedules.overdue.splice(index, 1);
                 }
             });
 
+            /*
+             * check in running array
+             */
             this.dashboard.action_sequence_schedules.running.forEach(function(data, index) {
                 if (data.id === e.action_sequence_schedule.id) {
                     that.dashboard.action_sequence_schedules.running.splice(index, 1);
