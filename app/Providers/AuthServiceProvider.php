@@ -46,6 +46,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAbility('grant_api-list');
         });
 
+        $gate->define('api-list:raw', function ($user) {
+            return $user->hasAbility('grant_api-list:raw');
+        });
+
         $gate->define('api-list_admin', function ($user) {
             return $user->hasAbility('grant_api-list_admin');
         });

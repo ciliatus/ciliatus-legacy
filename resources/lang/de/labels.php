@@ -91,5 +91,6 @@ return [
     'weight'        =>  'Gewicht',
     'no_data'       =>  'Keine Daten',
     'overview'      =>  'Übersicht',
-    'environment'   =>  'Umgebung'
+    'environment'   =>  'Umgebung',
+    'now'           =>  'Jetzt'
 ];

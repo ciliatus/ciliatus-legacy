@@ -30,31 +30,31 @@ class AnimalWeighingScheduleRepository extends Repository {
      */
     public function show()
     {
-        $fs = $this->scope;
-        $animal = $fs->belongsTo_object()->get()->first();
-        $fs->animal = $animal->toArray();
-        $last_weighing_of_type = $animal->last_weighing($fs->name);
+        $ws = $this->scope;
+        $animal = $ws->belongsTo_object()->get()->first();
+        $ws->animal = $animal->toArray();
+        $last_weighing_of_type = $animal->last_weighing();
         if (!is_null($last_weighing_of_type)) {
             $last_weighing_at = $last_weighing_of_type->created_at;
             $last_weighing_at->hour = 0;
             $last_weighing_at->minute = 0;
             $last_weighing_at->second = 0;
 
-            $next_weighing_at = $last_weighing_at->addDays((int)$fs->value);
+            $next_weighing_at = $last_weighing_at->addDays((int)$ws->value);
 
             $now = Carbon::now();
             $now->hour = 0;
             $now->minute = 0;
             $now->second = 0;
 
-            $fs->next_weighing_at = $next_weighing_at->format('Y-m-d');
-            $fs->next_weighing_at_diff = $now->diffInDays($next_weighing_at, false);
+            $ws->next_weighing_at = $next_weighing_at->format('Y-m-d');
+            $ws->next_weighing_at_diff = $now->diffInDays($next_weighing_at, false);
         }
         else {
-            $fs->next_weighing_at = Carbon::now()->format('Y-m-d');
-            $fs->next_weighing_at_diff = 0;
+            $ws->next_weighing_at = Carbon::now()->format('Y-m-d');
+            $ws->next_weighing_at_diff = 0;
         }
-        return $fs;
+        return $ws;
     }
 
 }

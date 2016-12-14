@@ -61,7 +61,7 @@ class AnimalFeedingScheduleController extends ApiController
          * Permission api-list:raw is required
          */
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
-
+            $feeding_schedules = $feeding_schedules->get();
             foreach ($feeding_schedules as &$fs) {
                 $fs = (new AnimalFeedingScheduleRepository($fs, $animal))->show();
             }

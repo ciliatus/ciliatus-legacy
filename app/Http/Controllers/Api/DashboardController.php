@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Api;
 use App\Animal;
 use App\Http\Transformers\ActionSequenceScheduleTransformer;
 use App\Http\Transformers\AnimalFeedingScheduleTransformer;
+use App\Http\Transformers\AnimalWeighingScheduleTransformer;
 use App\Http\Transformers\TerrariumTransformer;
 use App\Repositories\AnimalFeedingScheduleRepository;
+use App\Repositories\AnimalWeighingScheduleRepository;
 use Gate;
 use App\Terrarium;
 use Illuminate\Http\Request;
@@ -60,6 +62,23 @@ class DashboardController extends ApiController
         }
 
 
+        $weighing_schedules = [
+            'due' => [],
+            'overdue' => []
+        ];
+
+        foreach (Animal::get() as $animal) {
+            foreach ($animal->weighing_schedules as $afs) {
+                $afs = (new AnimalWeighingScheduleRepository($afs))->show();
+                if ($afs->next_weighing_at_diff == 0) {
+                    $weighing_schedules['due'][] = (new AnimalWeighingScheduleTransformer())->transform($afs->toArray());
+                } elseif ($afs->next_weighing_at_diff < 0) {
+                    $weighing_schedules['overdue'][] = (new AnimalWeighingScheduleTransformer())->transform($afs->toArray());
+                }
+            }
+        }
+
+
 
         $action_sequence_schedules = [
             'due' => [],
@@ -90,6 +109,7 @@ class DashboardController extends ApiController
                 'critical' => $terraria_critical
             ],
             'animal_feeding_schedules' => $feeding_schedules,
+            'animal_weighing_schedules' => $weighing_schedules,
             'action_sequence_schedules' => $action_sequence_schedules
         ]);
     }

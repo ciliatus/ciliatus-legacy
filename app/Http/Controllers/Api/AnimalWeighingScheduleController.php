@@ -61,9 +61,9 @@ class AnimalWeighingScheduleController extends ApiController
          * Permission api-list:raw is required
          */
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
-
-            foreach ($weighing_schedules as &$fs) {
-                $fs = (new AnimalWeighingScheduleRepository($fs, $animal))->show();
+            $weighing_schedules = $weighing_schedules->get();
+            foreach ($weighing_schedules as &$ws) {
+                $ws = (new AnimalWeighingScheduleRepository($ws))->show();
             }
 
             return $this->setStatusCode(200)->respondWithData(
@@ -76,8 +76,8 @@ class AnimalWeighingScheduleController extends ApiController
 
         $weighing_schedules = $weighing_schedules->paginate(env('PAGINATION_PER_PAGE', 20));
 
-        foreach ($weighing_schedules->items() as &$fs) {
-            $fs = (new AnimalWeighingScheduleRepository($fs, $animal))->show();
+        foreach ($weighing_schedules->items() as &$ws) {
+            $ws = (new AnimalWeighingScheduleRepository($ws))->show();
         }
 
         return $this->setStatusCode(200)->respondWithPagination(
