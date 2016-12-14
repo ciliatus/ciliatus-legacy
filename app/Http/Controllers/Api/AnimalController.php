@@ -58,7 +58,7 @@ class AnimalController extends ApiController
          * Permission api-list:raw is required
          */
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
-
+            $animals = $animals->get();
             foreach ($animals as &$t) {
                 $t = (new AnimalRepository($t))->show();
             }

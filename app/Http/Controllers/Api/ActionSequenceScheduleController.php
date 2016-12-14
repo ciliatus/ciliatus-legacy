@@ -56,7 +56,7 @@ class ActionSequenceScheduleController extends ApiController
          * Permission api-list:raw is required
          */
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
-
+            $action_sequence_schedules = $action_sequence_schedules->get();
             foreach ($action_sequence_schedules as &$t) {
                 $t = (new ActionSequenceScheduleRepository($t))->show();
             }

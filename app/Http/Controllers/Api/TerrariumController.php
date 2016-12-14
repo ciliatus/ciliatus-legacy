@@ -64,7 +64,7 @@ class TerrariumController extends ApiController
          * Permission api-list:raw is required
          */
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
-
+            $terraria = $terraria->get();
             foreach ($terraria as &$t) {
                 $t = (new TerrariumRepository($t))->show($history_to, $history_minutes);
             }
