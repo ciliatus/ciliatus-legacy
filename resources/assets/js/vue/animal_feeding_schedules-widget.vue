@@ -15,7 +15,7 @@
 
                     <div v-for="afs in animal_feeding_schedules">
                         <p>
-                            {{ afs.timestamps.next }} - {{ afs.type }}
+                            <span v-if="afs.timestamps.next != null">{{ afs.timestamps.next }} - </span>{{ afs.type }}
                             <span v-show="afs.due_days == 0">
                                 <span class="new badge" v-bind:data-badge-caption="$t('labels.due')"> </span>
                             </span>
@@ -116,7 +116,7 @@ export default {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/animals/' + that.animalId + '/feeding_schedules?raw',
+            url: '/api/v1/animals/' + that.animalId + '/feeding_schedules?raw=true',
             method: 'GET',
             success: function (data) {
                 that.animal_feeding_schedules = data.data;

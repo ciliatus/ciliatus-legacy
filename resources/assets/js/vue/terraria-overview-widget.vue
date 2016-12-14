@@ -199,7 +199,7 @@ export default {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/terraria/?raw&history_minutes=0',
+            url: '/api/v1/terraria/?raw=true&history_minutes=0',
             method: 'GET',
             success: function (data) {
                 that.terraria = data.data;

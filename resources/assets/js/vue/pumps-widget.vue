@@ -130,7 +130,7 @@ export default {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/pumps/' + that.pumpId + '?raw',
+            url: '/api/v1/pumps/' + that.pumpId + '?raw=true',
             method: 'GET',
             success: function (data) {
                 if (that.pumpId !== '') {

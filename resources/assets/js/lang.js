@@ -141,7 +141,8 @@ module.exports = {
             'weight'        :  'Gewicht',
             'no_data'       :  'Keine Daten',
             'overview'      :  'Übersicht',
-            'environment'   :  'Umgebung'
+            'environment'   :  'Umgebung',
+            'now'           :  'Jetzt'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -345,7 +346,8 @@ module.exports = {
             'weight'        :  'Weight',
             'no_data'       :  'No Data',
             'overview'      :  'Overview',
-            'environment'   :  'Environment'
+            'environment'   :  'Environment',
+            'now'           :  'Now'
         },
         menu: {
             'welcome'       :  'Welcome',

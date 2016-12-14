@@ -153,7 +153,7 @@ export default {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?raw',
+            url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?raw=true',
             method: 'GET',
             success: function (data) {
                 if (that.logical_sensorId !== '') {

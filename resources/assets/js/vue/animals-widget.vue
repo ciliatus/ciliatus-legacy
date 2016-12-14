@@ -223,7 +223,7 @@ export default {
         });
 
         $.ajax({
-            url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw',
+            url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw=true',
             method: 'GET',
             success: function (data) {
                 that.feeding_types = data.data;

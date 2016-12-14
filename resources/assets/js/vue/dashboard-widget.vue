@@ -77,6 +77,44 @@
                 -->
             </div>
         </div>
+        <div :class="wrapperClasses" v-if="dashboard.animal_weighing_schedules.overdue.length > 0">
+            <div class="card">
+                <div class="card-content orange darken-3 white-text">
+                    <i class="material-icons">schedule</i>
+                    {{ $tc("components.animal_weighings", 2) }} {{ $t("labels.overdue") }}
+                </div>
+
+                <div class="card-content orange darken-2 white-text">
+                    <span class="card-title activator truncate">
+                        <span>{{ dashboard.animal_weighing_schedules.overdue.length }} {{ $tc("components.animal_weighings", dashboard.animal_weighing_schedules.overdue.length) }} {{ $t("labels.overdue") }}</span>
+                        <i class="material-icons right">more_vert</i>
+                    </span>
+
+                    <div v-for="schedule in dashboard.animal_weighing_schedules.overdue">
+                        <p>
+                            <a v-bind:href="'/animals/' + schedule.animal.id" class="white-text">
+                                {{ schedule.animal.display_name }}
+                            </a>
+
+                            ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-reveal orange darken-2 white-text">
+                    <span class="card-title orange darken-2 white-text"><i class="material-icons right">close</i></span>
+
+                    <p>
+                    </p>
+                </div>
+
+                <!--
+                <div class="card-action teal lighten-1">
+                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
+                </div>
+                -->
+            </div>
+        </div>
         <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.overdue.length > 0">
             <div class="card">
                 <div class="card-content teal white-text">
@@ -136,6 +174,42 @@
 
                             <a v-bind:href="'/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id" class="white-text">
                                 {{ schedule.type }}
+                            </a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="card-reveal teal lighten-1 white-text">
+                    <span class="card-title teal lighten-2 white-text"><i class="material-icons right">close</i></span>
+
+                    <p>
+                    </p>
+                </div>
+
+                <!--
+                <div class="card-action teal lighten-1">
+                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
+                </div>
+                -->
+            </div>
+        </div>
+        <div :class="wrapperClasses" v-if="dashboard.animal_weighing_schedules.due.length > 0">
+            <div class="card">
+                <div class="card-content teal white-text">
+                    <i class="material-icons">schedule</i>
+                    {{ $tc("components.animal_weighings", 2) }} {{ $t("labels.due") }}
+                </div>
+
+                <div class="card-content teal lighten-1 white-text">
+                    <span class="card-title activator truncate">
+                        <span>{{ dashboard.animal_weighing_schedules.due.length }} {{ $tc("components.animal_weighings", dashboard.animal_weighing_schedules.due.length) }} {{ $t("labels.due") }}</span>
+                        <i class="material-icons right">more_vert</i>
+                    </span>
+
+                    <div v-for="schedule in dashboard.animal_weighing_schedules.due">
+                        <p>
+                            <a v-bind:href="'/animals/' + schedule.animal.id" class="white-text">
+                                {{ schedule.animal.display_name }}
                             </a>
                         </p>
                     </div>
@@ -470,6 +544,99 @@ export default {
                 this.refresh_grid();
             });
         },
+        
+        
+        /*
+         * AnimalWeighingSchedule events
+        */
+        updateAnimalWeighingSchedule: function(e) {
+            var item = null;
+            var found = false;
+
+            /*
+             * Check in due array
+             */
+            this.dashboard.animal_weighing_schedules.due.forEach(function(data, index) {
+                if (data.id === e.animal_weighing_schedule.id) {
+                    item = index;
+                }
+            });
+            if (item !== null) {
+                if (e.animal_weighing_schedule.due_days === 0) {
+                    this.dashboard.animal_weighing_schedules.due.splice(item, 1, e.animal_weighing_schedule);
+                    found = true;
+                }
+                else {
+                    this.dashboard.animal_weighing_schedules.due.splice(item, 1);
+                }
+            }
+
+            /*
+             * Check in overdue array
+             */
+            if (item === null) {
+                this.dashboard.animal_weighing_schedules.overdue.forEach(function(data, index) {
+                    if (data.id === e.animal_weighing_schedule.id) {
+                        item = index;
+                    }
+                });
+
+                if (item !== null) {
+                    if (e.animal_weighing_schedule.due_days >= 0) {
+                        this.dashboard.animal_weighing_schedules.overdue.splice(item, 1);
+                    }
+                    else {
+                        this.dashboard.animal_weighing_schedules.overdue.splice(item, 1, e.animal_weighing_schedule);
+                        found = true;
+                    }
+                }
+            }
+
+            /*
+             * If found is not true, the item was either not found
+             * or was removed from an array.
+             * In this case properties will be checked again and
+             * item will be pushed to an array if they match certain criteria
+             */
+            if (found !== null) {
+                if (e.animal_weighing_schedule.due_days == 0) {
+                    this.dashboard.animal_weighing_schedules.due.push(e.animal_weighing_schedule);
+                }
+                else if (e.animal_weighing_schedule.due_days < 0) {
+                    this.dashboard.animal_weighing_schedules.overdue.push(e.animal_weighing_schedule);
+                }
+            }
+
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
+        },
+
+        deleteAnimalWeighingSchedule: function(e) {
+            var that = this;
+
+            /*
+             * check in due array
+             */
+            this.dashboard.animal_weighing_schedules.due.forEach(function(data, index) {
+                if (data.id === e.animal_weighing_schedule.id) {
+                    that.dashboard.animal_weighing_schedules.due.splice(index, 1);
+                }
+            });
+
+            /*
+             * check in overdue array
+             */
+            this.dashboard.animal_weighing_schedules.overdue.forEach(function(data, index) {
+                if (data.id === e.animal_weighing_schedule.id) {
+                    this.dashboard.animal_weighing_schedules.overdue.splice(index, 1);
+                }
+            });
+
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
+        },
 
 
         /*
@@ -610,6 +777,10 @@ export default {
                 this.updateAnimalFeedingSchedule(e);
             }).listen('AnimalFeedingScheduleDeleted', (e) => {
                 this.deleteAnimalFeedingSchedule(e);
+            }).listen('AnimalWeighingScheduleUpdated', (e) => {
+                this.updateAnimalWeighingSchedule(e);
+            }).listen('AnimalWeighingScheduleDeleted', (e) => {
+                this.deleteAnimalWeighingSchedule(e);
             }).listen('ActionSequenceScheduleUpdated', (e) => {
                 this.updateActionSequenceSchedule(e);
             }).listen('ActionSequenceScheduleDeleted', (e) => {

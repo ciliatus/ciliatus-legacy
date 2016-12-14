@@ -13,13 +13,14 @@
                         <!--<i class="material-icons right">more_vert</i>-->
                     </span>
 
-                    <div v-for="afs in animal_weighing_schedules">
+                    <div v-for="aws in animal_weighing_schedules">
                         <p>
-                            {{ afs.timestamps.next }}
-                            <span v-show="afs.due_days == 0">
+                            <span v-show="aws.timestamps.next != null">{{ aws.timestamps.next }}</span>
+                            <span v-show="aws.timestamps.next == null">{{ $t("labels.now") }}</span>
+                            <span v-show="aws.due_days == 0">
                                 <span class="new badge" v-bind:data-badge-caption="$t('labels.due')"> </span>
                             </span>
-                            <span v-show="afs.due_days < 0">
+                            <span v-show="aws.due_days < 0">
                                 <span class="new badge red" v-bind:data-badge-caption="$t('labels.overdue')"> </span>
                             </span>
                         </p>
@@ -116,7 +117,7 @@ export default {
         window.eventHubVue.processStarted();
         var that = this;
         $.ajax({
-            url: '/api/v1/animals/' + that.animalId + '/weighing_schedules?raw',
+            url: '/api/v1/animals/' + that.animalId + '/weighing_schedules?raw=true',
             method: 'GET',
             success: function (data) {
                 that.animal_weighing_schedules = data.data;
