@@ -192,7 +192,7 @@ export default {
             source_url = '/api/v1/animals/' + this.animalId
         }
         else {
-            source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc';
+            source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc&raw=true';
         }
 
         var that = this;

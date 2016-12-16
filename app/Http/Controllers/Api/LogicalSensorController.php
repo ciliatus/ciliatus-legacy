@@ -57,7 +57,7 @@ class LogicalSensorController extends ApiController
 
             return $this->setStatusCode(200)->respondWithData(
                 $this->logicalSensorTransformer->transformCollection(
-                    $logical_sensors->toArray()
+                    $logical_sensors->get()->toArray()
                 )
             );
 
