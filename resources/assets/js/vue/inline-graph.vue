@@ -42,6 +42,14 @@ export default {
                 else if (this.graphtype == 'temperature_celsius')
                     this.data = t.terrarium.temperature_history;
             }
+        },
+        rerender: function() {
+            var tmp = this.data;
+            this.data = [0];
+
+            this.$nextTick(function() {
+                this.data = tmp;
+            });
         }
     },
 
@@ -61,6 +69,7 @@ export default {
             }
         });
 
+        window.eventHubVue.$on('ForceRerender', this.rerender);
         window.eventHubVue.$on('SensorreadingCreated', this.createSensorrreading);
         window.eventHubVue.$on('TerrariumGraphUpdated', this.updateTerrariumGraph);
     }
