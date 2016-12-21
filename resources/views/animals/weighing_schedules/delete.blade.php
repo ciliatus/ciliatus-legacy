@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <form action="{{ url('api/v1/animals/' . $animal->id . '/weighing_schedules/' . $afs->id) }}" data-method="DELETE"
+                    <form action="{{ url('api/v1/animals/' . $animal->id . '/weighing_schedules/' . $aws->id) }}" data-method="DELETE"
                           data-redirect-success="{{ url('animals/' . $animal->id . '/edit') }}">
 
                         <div class="card-content">
@@ -26,7 +26,7 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input type="text" placeholder="@lang('labels.interval_days')" name="interval_days" value="{{ $afs->value }}" readonly>
+                                    <input type="text" placeholder="@lang('labels.interval_days')" name="interval_days" value="{{ $aws->value }}" readonly>
                                     <label for="interval_days">@lang('labels.interval_days')</label>
                                 </div>
                             </div>
@@ -34,9 +34,9 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <select name="meal_type" id="meal_type" disabled>
-                                        <option value="crickets" @if($afs->name == "crickets") selected @endif>@lang("labels.crickets")</option>
-                                        <option value="mixed_fruits" @if($afs->name == "mixed_fruits") selected @endif>@lang("labels.mixed_fruits")</option>
-                                        <option value="beetle_jelly" @if($afs->name == "beetle_jelly") selected @endif>@lang("labels.beetle_jelly")</option>
+                                        <option value="crickets" @if($aws->name == "crickets") selected @endif>@lang("labels.crickets")</option>
+                                        <option value="mixed_fruits" @if($aws->name == "mixed_fruits") selected @endif>@lang("labels.mixed_fruits")</option>
+                                        <option value="beetle_jelly" @if($aws->name == "beetle_jelly") selected @endif>@lang("labels.beetle_jelly")</option>
                                     </select>
                                     <label for="meal_type">@lang("labels.meal_type")</label>
                                 </div>
