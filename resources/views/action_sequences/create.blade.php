@@ -31,7 +31,7 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input type="text" placeholder="@lang('labels.name')" name="name" value="">
+                                    <input type="text" placeholder="@lang('labels.name') - @lang('tooltips.leave_empty_for_auto')" name="name" value="">
                                     <label for="name">@lang('labels.name')</label>
                                 </div>
                             </div>

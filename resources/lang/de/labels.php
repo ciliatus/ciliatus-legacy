@@ -93,5 +93,6 @@ return [
     'overview'      =>  'Übersicht',
     'environment'   =>  'Umgebung',
     'now'           =>  'Jetzt',
-    'scheduled'     =>  'Geplant'
+    'scheduled'     =>  'Geplant',
+    'sequence'      =>  'Sequenz'
 ];

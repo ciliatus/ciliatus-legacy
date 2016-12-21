@@ -6,6 +6,7 @@ use App\Action;
 use App\ActionSequence;
 use App\Http\Transformers\ActionSequenceTransformer;
 use App\Terrarium;
+use Auth;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -140,11 +141,11 @@ class ActionSequenceController extends ApiController
             return $this->setStatusCode(422)->respondWithError('No Terrarium selected');
         }
 
-        if ($request->has('name')) {
+        if ($request->has('name') && strlen($request->input('name') > 1)) {
             $name = $request->input('name');
         }
         else {
-            $name = 'AS_' . $request->input('template') . '_' . $t->name;
+            $name = trans('labels.' . $request->input('template')) . ' ' . $t->display_name;
         }
 
         $as->name = $name;
