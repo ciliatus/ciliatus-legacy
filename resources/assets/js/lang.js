@@ -142,7 +142,8 @@ module.exports = {
             'no_data'       :  'Keine Daten',
             'overview'      :  'Übersicht',
             'environment'   :  'Umgebung',
-            'now'           :  'Jetzt'
+            'now'           :  'Jetzt',
+            'scheduled'     :  'Geplant'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -188,7 +189,9 @@ module.exports = {
             'no_schedules'          :  'Keine Zeitpläne',
             'runonce'               :  'Einmalig',
             'heartbeat_critical'    :  'Heartbeat ist kritisch!',
-            'copy_thresholds_warning': 'Alle existierenden Grenzwerte des Zielsensors werden entfernt.'
+            'copy_thresholds_warning': 'Alle existierenden Grenzwerte des Zielsensors werden entfernt.',
+            'animal_feeding_schedule_matrix' : 'Diese Matrix enthält alle definierten Fütterungspläne. Die Zahl in einer Spalte stellt das Intervall dar.',
+            'animal_weighing_schedule_matrix' : 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.'
         },
         units: {
             'years'     :  'Jahr | Jahre',
@@ -347,7 +350,8 @@ module.exports = {
             'no_data'       :  'No Data',
             'overview'      :  'Overview',
             'environment'   :  'Environment',
-            'now'           :  'Now'
+            'now'           :  'Now',
+            'scheduled'     :  'Scheduled'
         },
         menu: {
             'welcome'       :  'Welcome',
@@ -393,7 +397,9 @@ module.exports = {
             'no_schedules'          :  'No schedules',
             'runonce'               :  'Run once',
             'heartbeat_critical'    :  'Heartbeat is critical!',
-            'copy_thresholds_warning': 'All existing thresholds on the target sensor will be removed.'
+            'copy_thresholds_warning': 'All existing thresholds on the target sensor will be removed.',
+            'animal_feeding_schedule_matrix' : 'This matrix contains all defined feeding schedules. A number in a column represents the schedule\'s interval in days.',
+    'animal_weighing_schedule_matrix' : 'This matrix contains all defined weighing schedules. A number in a column represents the schedule\'s interval in days followed by the next due date.'
         },
         units: {
             'years'     :  'year|years',

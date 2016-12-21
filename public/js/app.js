@@ -139,12 +139,12 @@ window.notification = function (text, cssClass, length) {
     Materialize.toast(text, length, cssClass);
 };
 
-global.runPage = function () {
+window.runPage = function () {
     $('select').material_select();
 
     $('.dropdown-button').dropdown();
 
-    $(".button-collapse").sideNav();
+    $('.button-collapse').sideNav();
 
     // SideNav collapse active
     var active_headers = $('.collapsible-body ul li.active').parent().parent().parent();
@@ -155,6 +155,17 @@ global.runPage = function () {
 
     $('[data-livedata="true"]').each(function () {
         new LiveData($(this).data('livedatasource'), $(this).data('livedatainterval'), domCallbacks[$(this).data('livedatacallback')], this).run();
+    });
+
+    /* Enable tabs to update url with tab hash and
+     * force rerender of masonry grids */
+    $('ul.tabs').tabs({
+        onShow: function onShow(event, ui) {
+            location.hash = $(this).attr('href');
+            $('.masonry-grid').masonry('reloadItems');
+            $('.masonry-grid').masonry('layout');
+            window.eventHubVue.$emit('ForceRerender');
+        }
     });
 };
 
