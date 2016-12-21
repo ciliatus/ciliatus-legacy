@@ -152,7 +152,7 @@ export default {
         delete: function(a) {
             var item = null;
             this.animals.forEach(function(data, index) {
-                if (data.id === a.animal.id) {
+                if (data.id === a.animal_id) {
                     item = index;
                 }
             });

@@ -99,7 +99,7 @@ export default {
             }
             var item = null;
             this.pumps.forEach(function(data, index) {
-                if (data.id === cu.pump.id) {
+                if (data.id === cu.pump_id) {
                     item = index;
                 }
             });

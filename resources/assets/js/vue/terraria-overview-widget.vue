@@ -173,7 +173,7 @@ export default {
             }
             var item = null;
             this.terraria.forEach(function(data, index) {
-                if (data.id === t.terrarium.id) {
+                if (data.id === t.terrarium_id) {
                     item = index;
                 }
             });

@@ -81,7 +81,7 @@ export default {
         delete: function(a) {
             var item = null;
             this.action_sequences.forEach(function(data, index) {
-                if (data.id === a.action_sequences.id) {
+                if (data.id === a.action_sequences_id) {
                     item = index;
                 }
             });

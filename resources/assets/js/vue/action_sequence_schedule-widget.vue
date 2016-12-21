@@ -42,7 +42,7 @@ export default {
         delete: function(ass) {
             var item = null;
             this.action_sequence_schedules.forEach(function(data, index) {
-                if (data.id === ass.action_sequence_schedule.id) {
+                if (data.id === ass.action_sequence_schedule_id) {
                     item = index;
                 }
             });

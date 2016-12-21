@@ -112,7 +112,7 @@ export default {
             }
             var item = null;
             this.valves.forEach(function(data, index) {
-                if (data.id === cu.valve.id) {
+                if (data.id === cu.valve_id) {
                     item = index;
                 }
             });

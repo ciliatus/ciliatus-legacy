@@ -102,7 +102,7 @@ export default {
         delete: function(a) {
             var item = null;
             this.animal_weighings.forEach(function(data, index) {
-                if (data.id === a.animal_weighing.id) {
+                if (data.id === a.animal_weighing_id) {
                     item = index;
                 }
             });

@@ -435,7 +435,7 @@ export default {
              * Check ok array
              */
             this.dashboard.terraria.ok.forEach(function(data, index) {
-                if (data.id === e.terrarium.id) {
+                if (data.id === e.terrarium_id) {
                     this.dashboard.terraria.ok.splice(index, 1);
                 }
             });
@@ -444,7 +444,7 @@ export default {
              * Check critical array
              */
             this.dashboard.terraria.critical.forEach(function(data, index) {
-                if (data.id === e.terrarium.id) {
+                if (data.id === e.terrarium_id) {
                     this.dashboard.terraria.critical.splice(index, 1);
                 }
             });
@@ -505,7 +505,7 @@ export default {
              * In this case properties will be checked again and
              * item will be pushed to an array if they match certain criteria
              */
-            if (found !== null) {
+            if (found !== true) {
                 if (e.animal_feeding_schedule.due_days == 0) {
                     this.dashboard.animal_feeding_schedules.due.push(e.animal_feeding_schedule);
                 }
@@ -526,7 +526,7 @@ export default {
              * check in due array
              */
             this.dashboard.animal_feeding_schedules.due.forEach(function(data, index) {
-                if (data.id === e.animal_feeding_schedule.id) {
+                if (data.id === e.animal_feeding_schedule_id) {
                     that.dashboard.animal_feeding_schedules.due.splice(index, 1);
                 }
             });
@@ -535,7 +535,7 @@ export default {
              * check in overdue array
              */
             this.dashboard.animal_feeding_schedules.overdue.forEach(function(data, index) {
-                if (data.id === e.animal_feeding_schedule.id) {
+                if (data.id === e.animal_feeding_schedule_id) {
                     this.dashboard.animal_feeding_schedules.overdue.splice(index, 1);
                 }
             });
@@ -598,7 +598,7 @@ export default {
              * In this case properties will be checked again and
              * item will be pushed to an array if they match certain criteria
              */
-            if (found !== null) {
+            if (found !== true) {
                 if (e.animal_weighing_schedule.due_days == 0) {
                     this.dashboard.animal_weighing_schedules.due.push(e.animal_weighing_schedule);
                 }
@@ -619,7 +619,7 @@ export default {
              * check in due array
              */
             this.dashboard.animal_weighing_schedules.due.forEach(function(data, index) {
-                if (data.id === e.animal_weighing_schedule.id) {
+                if (data.id === e.animal_weighing_schedule_id) {
                     that.dashboard.animal_weighing_schedules.due.splice(index, 1);
                 }
             });
@@ -628,7 +628,7 @@ export default {
              * check in overdue array
              */
             this.dashboard.animal_weighing_schedules.overdue.forEach(function(data, index) {
-                if (data.id === e.animal_weighing_schedule.id) {
+                if (data.id === e.animal_weighing_schedule_id) {
                     this.dashboard.animal_weighing_schedules.overdue.splice(index, 1);
                 }
             });
@@ -733,7 +733,7 @@ export default {
              * check in due array
              */
             this.dashboard.action_sequence_schedules.due.forEach(function(data, index) {
-                if (data.id === e.action_sequence_schedule.id) {
+                if (data.id === e.action_sequence_schedule_id) {
                     that.dashboard.action_sequence_schedules.due.splice(index, 1);
                 }
             });
@@ -742,7 +742,7 @@ export default {
              * check in overdue array
              */
             this.dashboard.action_sequence_schedules.overdue.forEach(function(data, index) {
-                if (data.id === e.action_sequence_schedule.id) {
+                if (data.id === e.action_sequence_schedule_id) {
                     that.dashboard.action_sequence_schedules.overdue.splice(index, 1);
                 }
             });
@@ -751,7 +751,7 @@ export default {
              * check in running array
              */
             this.dashboard.action_sequence_schedules.running.forEach(function(data, index) {
-                if (data.id === e.action_sequence_schedule.id) {
+                if (data.id === e.action_sequence_schedule_id) {
                     that.dashboard.action_sequence_schedules.running.splice(index, 1);
                 }
             });

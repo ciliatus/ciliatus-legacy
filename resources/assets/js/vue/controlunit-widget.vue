@@ -99,7 +99,7 @@ export default {
             }
             var item = null;
             this.controlunits.forEach(function(data, index) {
-                if (data.id === cu.controlunit.id) {
+                if (data.id === cu.controlunit_id) {
                     item = index;
                 }
             });

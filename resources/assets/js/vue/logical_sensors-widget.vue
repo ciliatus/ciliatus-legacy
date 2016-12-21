@@ -122,7 +122,7 @@ export default {
             }
             var item = null;
             this.logical_sensors.forEach(function(data, index) {
-                if (data.id === cu.logical_sensor.id) {
+                if (data.id === cu.logical_sensor_id) {
                     item = index;
                 }
             });

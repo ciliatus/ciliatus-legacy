@@ -103,7 +103,7 @@ export default {
             }
             var item = null;
             this.physical_sensors.forEach(function(data, index) {
-                if (data.id === cu.physical_sensor.id) {
+                if (data.id === cu.physical_sensor_id) {
                     item = index;
                 }
             });

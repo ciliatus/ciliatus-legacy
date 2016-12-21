@@ -105,7 +105,7 @@ export default {
         delete: function(a) {
             var item = null;
             this.animal_feedings.forEach(function(data, index) {
-                if (data.id === a.animal_feeding.id) {
+                if (data.id === a.animal_feeding_id) {
                     item = index;
                 }
             });

@@ -85,7 +85,7 @@ export default {
         delete: function(a) {
             var item = null;
             this.files.forEach(function(data, index) {
-                if (data.id === a.files.id) {
+                if (data.id === a.file_id) {
                     item = index;
                 }
             });
