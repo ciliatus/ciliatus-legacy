@@ -151,6 +151,54 @@
 
                 </div>
 
+
+                <div class="card">
+
+                    <div class="card-content teal lighten-1 white-text">
+                        <span class="card-title activator truncate">
+                            <span>@choice('components.animal_weighing_schedules', 2)</span>
+                        </span>
+                    </div>
+
+                    <div class="card-content">
+
+                        <div class="row">
+
+                            @foreach ($animal->weighing_schedules as $afs)
+                                <div class="col s12">
+
+                                    {{ $afs->name }} - {{ $afs->value }} @choice('units.days', $afs->value) @lang('labels.interval')
+
+                                    <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-activates="dropdown-edit-animal_weighing_schedules_{{ $afs->id }}">
+                                        <i class="material-icons">settings</i>
+                                    </a>
+
+                                    <ul id="dropdown-edit-animal_weighing_schedules_{{ $afs->id }}" class="dropdown-content">
+                                        <li>
+                                            <a href="{{ url('animals/' . $animal->id . '/weighing_schedules/' . $afs->id . '/edit') }}">
+                                                @lang('buttons.edit')
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="{{ url('animals/' . $animal->id . '/weighing_schedules/' . $afs->id . '/delete') }}">
+                                                @lang('buttons.delete')
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @endforeach
+
+                        </div>
+                    </div>
+
+                    <div class="card-action">
+                        <a href="{{ url('/animals/' . $animal->id . '/weighing_schedules/create') }}">
+                            @lang('buttons.add')
+                        </a>
+                    </div>
+
+                </div>
+
             </div>
         </div>
     </div>
