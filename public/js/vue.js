@@ -15108,7 +15108,8 @@ module.exports = {
             'overview': 'Übersicht',
             'environment': 'Umgebung',
             'now': 'Jetzt',
-            'scheduled': 'Geplant'
+            'scheduled': 'Geplant',
+            'sequence': 'Sequenz'
         },
         menu: {
             'welcome': 'Willkommen',
@@ -15316,7 +15317,8 @@ module.exports = {
             'overview': 'Overview',
             'environment': 'Environment',
             'now': 'Now',
-            'scheduled': 'Scheduled'
+            'scheduled': 'Scheduled',
+            'sequence': 'Sequence'
         },
         menu: {
             'welcome': 'Welcome',
@@ -15675,7 +15677,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -15791,7 +15793,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -15878,14 +15880,14 @@ exports.default = {
                                     window.eventHubVue.processEnded();
                                 },
                                 error: function error(_error) {
-                                    alert((0, _stringify2.default)(_error));
+                                    console.log((0, _stringify2.default)(_error));
                                     window.eventHubVue.processEnded();
                                 }
                             });
                             window.eventHubVue.processEnded();
                         },
                         error: function error(_error2) {
-                            alert((0, _stringify2.default)(_error2));
+                            console.log((0, _stringify2.default)(_error2));
                             window.eventHubVue.processEnded();
                         }
                     });
@@ -15893,7 +15895,7 @@ exports.default = {
                     window.eventHubVue.processEnded();
                 },
                 error: function error(_error3) {
-                    alert((0, _stringify2.default)(_error3));
+                    console.log((0, _stringify2.default)(_error3));
                     window.eventHubVue.processEnded();
                 }
             });
@@ -16012,7 +16014,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -16123,7 +16125,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -16136,7 +16138,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error2) {
-                alert((0, _stringify2.default)(_error2));
+                console.log((0, _stringify2.default)(_error2));
                 window.eventHubVue.processEnded();
             }
         });
@@ -16154,9 +16156,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2", __vue__options__)
+    hotAPI.createRecord("data-v-4", __vue__options__)
   } else {
-    hotAPI.reload("data-v-2", __vue__options__)
+    hotAPI.reload("data-v-4", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],17:[function(require,module,exports){
@@ -16217,14 +16219,14 @@ exports.default = {
                             window.eventHubVue.processEnded();
                         },
                         error: function error(_error) {
-                            alert((0, _stringify2.default)(_error));
+                            console.log((0, _stringify2.default)(_error));
                             window.eventHubVue.processEnded();
                         }
                     });
                     window.eventHubVue.processEnded();
                 },
                 error: function error(_error2) {
-                    alert((0, _stringify2.default)(_error2));
+                    console.log((0, _stringify2.default)(_error2));
                     window.eventHubVue.processEnded();
                 }
             });
@@ -16345,7 +16347,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -16455,7 +16457,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -16610,7 +16612,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -16623,7 +16625,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error2) {
-                alert((0, _stringify2.default)(_error2));
+                console.log((0, _stringify2.default)(_error2));
                 window.eventHubVue.processEnded();
             }
         });
@@ -16641,9 +16643,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1", __vue__options__)
+    hotAPI.createRecord("data-v-3", __vue__options__)
   } else {
-    hotAPI.reload("data-v-1", __vue__options__)
+    hotAPI.reload("data-v-3", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],21:[function(require,module,exports){
@@ -16777,7 +16779,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -17183,9 +17185,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4", __vue__options__)
+    hotAPI.createRecord("data-v-1", __vue__options__)
   } else {
-    hotAPI.reload("data-v-4", __vue__options__)
+    hotAPI.reload("data-v-1", __vue__options__)
   }
 })()}
 },{"vue":8,"vue-hot-reload-api":5}],23:[function(require,module,exports){
@@ -17287,7 +17289,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -17408,7 +17410,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -17501,7 +17503,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -17522,9 +17524,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3", __vue__options__)
+    hotAPI.createRecord("data-v-2", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3", __vue__options__)
+    hotAPI.reload("data-v-2", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],26:[function(require,module,exports){
@@ -17658,7 +17660,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -17675,9 +17677,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-21", __vue__options__)
+    hotAPI.createRecord("data-v-20", __vue__options__)
   } else {
-    hotAPI.reload("data-v-21", __vue__options__)
+    hotAPI.reload("data-v-20", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],27:[function(require,module,exports){
@@ -17767,7 +17769,7 @@ exports.default = {
                     window.eventHubVue.processEnded();
                 },
                 error: function error(_error) {
-                    alert((0, _stringify2.default)(_error));
+                    console.log((0, _stringify2.default)(_error));
                     window.eventHubVue.processEnded();
                 }
             });
@@ -17925,7 +17927,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -18078,7 +18080,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -18202,7 +18204,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -18369,7 +18371,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
@@ -18462,7 +18464,7 @@ exports.default = {
                     window.eventHubVue.processEnded();
                 },
                 error: function error(_error) {
-                    alert((0, _stringify2.default)(_error));
+                    console.log((0, _stringify2.default)(_error));
                     window.eventHubVue.processEnded();
                 }
             });
@@ -18484,9 +18486,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-20", __vue__options__)
+    hotAPI.createRecord("data-v-21", __vue__options__)
   } else {
-    hotAPI.reload("data-v-20", __vue__options__)
+    hotAPI.reload("data-v-21", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],33:[function(require,module,exports){
@@ -18620,7 +18622,7 @@ exports.default = {
                 window.eventHubVue.processEnded();
             },
             error: function error(_error) {
-                alert((0, _stringify2.default)(_error));
+                console.log((0, _stringify2.default)(_error));
                 window.eventHubVue.processEnded();
             }
         });
