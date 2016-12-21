@@ -13,7 +13,7 @@
 
         <link type="text/css" rel="stylesheet" href="/css/materialize.clockpicker.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="/css/app.css"  media="screen,projection"/>
-        <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -185,7 +185,7 @@
 
         <script>
             $(document).ready(function() {
-                runPage();
+                window.runPage();
             });
         </script>
 
