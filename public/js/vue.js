@@ -15617,7 +15617,7 @@ exports.default = {
         delete: function _delete(ass) {
             var item = null;
             this.action_sequence_schedules.forEach(function (data, index) {
-                if (data.id === ass.action_sequence_schedule.id) {
+                if (data.id === ass.action_sequence_schedule_id) {
                     item = index;
                 }
             });
@@ -15676,9 +15676,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-13", __vue__options__)
+    hotAPI.createRecord("data-v-14", __vue__options__)
   } else {
-    hotAPI.reload("data-v-13", __vue__options__)
+    hotAPI.reload("data-v-14", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],13:[function(require,module,exports){
@@ -15739,7 +15739,7 @@ exports.default = {
         delete: function _delete(a) {
             var item = null;
             this.action_sequences.forEach(function (data, index) {
-                if (data.id === a.action_sequences.id) {
+                if (data.id === a.action_sequences_id) {
                     item = index;
                 }
             });
@@ -15792,9 +15792,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-12", __vue__options__)
+    hotAPI.createRecord("data-v-13", __vue__options__)
   } else {
-    hotAPI.reload("data-v-12", __vue__options__)
+    hotAPI.reload("data-v-13", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],14:[function(require,module,exports){
@@ -15854,7 +15854,7 @@ exports.default = {
         delete: function _delete(a) {
             var item = null;
             this.animal_feeding_schedules.forEach(function (data, index) {
-                if (data.id === a.animal_feeding_schedule.id) {
+                if (data.id === a.animal_feeding_schedule_id) {
                     item = index;
                 }
             });
@@ -15907,9 +15907,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4", __vue__options__)
+    hotAPI.createRecord("data-v-5", __vue__options__)
   } else {
-    hotAPI.reload("data-v-4", __vue__options__)
+    hotAPI.reload("data-v-5", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],15:[function(require,module,exports){
@@ -15969,7 +15969,7 @@ exports.default = {
         delete: function _delete(a) {
             var item = null;
             this.animal_feedings.forEach(function (data, index) {
-                if (data.id === a.animal_feeding.id) {
+                if (data.id === a.animal_feeding_id) {
                     item = index;
                 }
             });
@@ -16031,9 +16031,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3", __vue__options__)
+    hotAPI.createRecord("data-v-4", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3", __vue__options__)
+    hotAPI.reload("data-v-4", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],16:[function(require,module,exports){
@@ -16093,7 +16093,7 @@ exports.default = {
         delete: function _delete(a) {
             var item = null;
             this.animal_weighing_schedules.forEach(function (data, index) {
-                if (data.id === a.animal_weighing_schedule.id) {
+                if (data.id === a.animal_weighing_schedule_id) {
                     item = index;
                 }
             });
@@ -16146,9 +16146,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6", __vue__options__)
+    hotAPI.createRecord("data-v-7", __vue__options__)
   } else {
-    hotAPI.reload("data-v-6", __vue__options__)
+    hotAPI.reload("data-v-7", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],17:[function(require,module,exports){
@@ -16207,7 +16207,7 @@ exports.default = {
         delete: function _delete(a) {
             var item = null;
             this.animal_weighings.forEach(function (data, index) {
-                if (data.id === a.animal_weighing.id) {
+                if (data.id === a.animal_weighing_id) {
                     item = index;
                 }
             });
@@ -16256,9 +16256,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5", __vue__options__)
+    hotAPI.createRecord("data-v-6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-5", __vue__options__)
+    hotAPI.reload("data-v-6", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],18:[function(require,module,exports){
@@ -16329,7 +16329,7 @@ exports.default = {
         delete: function _delete(a) {
             var item = null;
             this.animals.forEach(function (data, index) {
-                if (data.id === a.animal.id) {
+                if (data.id === a.animal_id) {
                     item = index;
                 }
             });
@@ -16424,9 +16424,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2", __vue__options__)
+    hotAPI.createRecord("data-v-3", __vue__options__)
   } else {
-    hotAPI.reload("data-v-2", __vue__options__)
+    hotAPI.reload("data-v-3", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],19:[function(require,module,exports){
@@ -16509,7 +16509,7 @@ exports.default = {
             }
             var item = null;
             this.controlunits.forEach(function (data, index) {
-                if (data.id === cu.controlunit.id) {
+                if (data.id === cu.controlunit_id) {
                     item = index;
                 }
             });
@@ -16577,9 +16577,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-9", __vue__options__)
+    hotAPI.createRecord("data-v-11", __vue__options__)
   } else {
-    hotAPI.reload("data-v-9", __vue__options__)
+    hotAPI.reload("data-v-11", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],20:[function(require,module,exports){
@@ -16662,13 +16662,13 @@ exports.default = {
             var that = this;
 
             this.dashboard.terraria.ok.forEach(function (data, index) {
-                if (data.id === e.terrarium.id) {
+                if (data.id === e.terrarium_id) {
                     this.dashboard.terraria.ok.splice(index, 1);
                 }
             });
 
             this.dashboard.terraria.critical.forEach(function (data, index) {
-                if (data.id === e.terrarium.id) {
+                if (data.id === e.terrarium_id) {
                     this.dashboard.terraria.critical.splice(index, 1);
                 }
             });
@@ -16711,7 +16711,7 @@ exports.default = {
                 }
             }
 
-            if (found !== null) {
+            if (found !== true) {
                 if (e.animal_feeding_schedule.due_days == 0) {
                     this.dashboard.animal_feeding_schedules.due.push(e.animal_feeding_schedule);
                 } else if (e.animal_feeding_schedule.due_days < 0) {
@@ -16728,13 +16728,13 @@ exports.default = {
             var that = this;
 
             this.dashboard.animal_feeding_schedules.due.forEach(function (data, index) {
-                if (data.id === e.animal_feeding_schedule.id) {
+                if (data.id === e.animal_feeding_schedule_id) {
                     that.dashboard.animal_feeding_schedules.due.splice(index, 1);
                 }
             });
 
             this.dashboard.animal_feeding_schedules.overdue.forEach(function (data, index) {
-                if (data.id === e.animal_feeding_schedule.id) {
+                if (data.id === e.animal_feeding_schedule_id) {
                     this.dashboard.animal_feeding_schedules.overdue.splice(index, 1);
                 }
             });
@@ -16779,7 +16779,7 @@ exports.default = {
                 }
             }
 
-            if (found !== null) {
+            if (found !== true) {
                 if (e.animal_weighing_schedule.due_days == 0) {
                     this.dashboard.animal_weighing_schedules.due.push(e.animal_weighing_schedule);
                 } else if (e.animal_weighing_schedule.due_days < 0) {
@@ -16796,13 +16796,13 @@ exports.default = {
             var that = this;
 
             this.dashboard.animal_weighing_schedules.due.forEach(function (data, index) {
-                if (data.id === e.animal_weighing_schedule.id) {
+                if (data.id === e.animal_weighing_schedule_id) {
                     that.dashboard.animal_weighing_schedules.due.splice(index, 1);
                 }
             });
 
             this.dashboard.animal_weighing_schedules.overdue.forEach(function (data, index) {
-                if (data.id === e.animal_weighing_schedule.id) {
+                if (data.id === e.animal_weighing_schedule_id) {
                     this.dashboard.animal_weighing_schedules.overdue.splice(index, 1);
                 }
             });
@@ -16880,19 +16880,19 @@ exports.default = {
             var that = this;
 
             this.dashboard.action_sequence_schedules.due.forEach(function (data, index) {
-                if (data.id === e.action_sequence_schedule.id) {
+                if (data.id === e.action_sequence_schedule_id) {
                     that.dashboard.action_sequence_schedules.due.splice(index, 1);
                 }
             });
 
             this.dashboard.action_sequence_schedules.overdue.forEach(function (data, index) {
-                if (data.id === e.action_sequence_schedule.id) {
+                if (data.id === e.action_sequence_schedule_id) {
                     that.dashboard.action_sequence_schedules.overdue.splice(index, 1);
                 }
             });
 
             this.dashboard.action_sequence_schedules.running.forEach(function (data, index) {
-                if (data.id === e.action_sequence_schedule.id) {
+                if (data.id === e.action_sequence_schedule_id) {
                     that.dashboard.action_sequence_schedules.running.splice(index, 1);
                 }
             });
@@ -16966,9 +16966,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-20", __vue__options__)
+    hotAPI.createRecord("data-v-1", __vue__options__)
   } else {
-    hotAPI.reload("data-v-20", __vue__options__)
+    hotAPI.reload("data-v-1", __vue__options__)
   }
 })()}
 },{"vue":8,"vue-hot-reload-api":5}],21:[function(require,module,exports){
@@ -17034,7 +17034,7 @@ exports.default = {
         delete: function _delete(a) {
             var item = null;
             this.files.forEach(function (data, index) {
-                if (data.id === a.files.id) {
+                if (data.id === a.file_id) {
                     item = index;
                 }
             });
@@ -17087,9 +17087,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-11", __vue__options__)
+    hotAPI.createRecord("data-v-12", __vue__options__)
   } else {
-    hotAPI.reload("data-v-11", __vue__options__)
+    hotAPI.reload("data-v-12", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],22:[function(require,module,exports){
@@ -17155,7 +17155,7 @@ exports.default = {
         delete: function _delete(a) {
             var item = null;
             this.files.forEach(function (data, index) {
-                if (data.id === a.files.id) {
+                if (data.id === a.file_id) {
                     item = index;
                 }
             });
@@ -17296,9 +17296,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1", __vue__options__)
+    hotAPI.createRecord("data-v-2", __vue__options__)
   } else {
-    hotAPI.reload("data-v-1", __vue__options__)
+    hotAPI.reload("data-v-2", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],24:[function(require,module,exports){
@@ -17381,7 +17381,7 @@ exports.default = {
             }
             var item = null;
             this.logical_sensors.forEach(function (data, index) {
-                if (data.id === cu.logical_sensor.id) {
+                if (data.id === cu.logical_sensor_id) {
                     item = index;
                 }
             });
@@ -17449,9 +17449,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-17", __vue__options__)
+    hotAPI.createRecord("data-v-18", __vue__options__)
   } else {
-    hotAPI.reload("data-v-17", __vue__options__)
+    hotAPI.reload("data-v-18", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],25:[function(require,module,exports){
@@ -17563,9 +17563,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-19", __vue__options__)
+    hotAPI.createRecord("data-v-20", __vue__options__)
   } else {
-    hotAPI.reload("data-v-19", __vue__options__)
+    hotAPI.reload("data-v-20", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],26:[function(require,module,exports){
@@ -17648,7 +17648,7 @@ exports.default = {
             }
             var item = null;
             this.physical_sensors.forEach(function (data, index) {
-                if (data.id === cu.physical_sensor.id) {
+                if (data.id === cu.physical_sensor_id) {
                     item = index;
                 }
             });
@@ -17801,7 +17801,7 @@ exports.default = {
             }
             var item = null;
             this.pumps.forEach(function (data, index) {
-                if (data.id === cu.pump.id) {
+                if (data.id === cu.pump_id) {
                     item = index;
                 }
             });
@@ -17869,9 +17869,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-14", __vue__options__)
+    hotAPI.createRecord("data-v-17", __vue__options__)
   } else {
-    hotAPI.reload("data-v-14", __vue__options__)
+    hotAPI.reload("data-v-17", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],28:[function(require,module,exports){
@@ -17941,7 +17941,7 @@ exports.default = {
             }
             var item = null;
             this.terraria.forEach(function (data, index) {
-                if (data.id === t.terrarium.id) {
+                if (data.id === t.terrarium_id) {
                     item = index;
                 }
             });
@@ -17994,9 +17994,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8", __vue__options__)
+    hotAPI.createRecord("data-v-9", __vue__options__)
   } else {
-    hotAPI.reload("data-v-8", __vue__options__)
+    hotAPI.reload("data-v-9", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],29:[function(require,module,exports){
@@ -18088,7 +18088,7 @@ exports.default = {
             }
             var item = null;
             this.terraria.forEach(function (data, index) {
-                if (data.id === t.terrarium.id) {
+                if (data.id === t.terrarium_id) {
                     item = index;
                 }
             });
@@ -18161,9 +18161,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7", __vue__options__)
+    hotAPI.createRecord("data-v-8", __vue__options__)
   } else {
-    hotAPI.reload("data-v-7", __vue__options__)
+    hotAPI.reload("data-v-8", __vue__options__)
   }
 })()}
 },{"./inline-graph.vue":23,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],30:[function(require,module,exports){
@@ -18258,9 +18258,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-18", __vue__options__)
+    hotAPI.createRecord("data-v-19", __vue__options__)
   } else {
-    hotAPI.reload("data-v-18", __vue__options__)
+    hotAPI.reload("data-v-19", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],31:[function(require,module,exports){
@@ -18343,7 +18343,7 @@ exports.default = {
             }
             var item = null;
             this.valves.forEach(function (data, index) {
-                if (data.id === cu.valve.id) {
+                if (data.id === cu.valve_id) {
                     item = index;
                 }
             });
