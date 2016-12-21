@@ -1,5 +1,5 @@
 <template>
-    <div :class="containerClasses" :id="containerId">
+    <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
         <div v-for="animal in animals">
             <div v-bind:id="'modal_just_fed_' + animal.id" class="modal">
                 <form v-bind:action="'/api/v1/animals/' + animal.id + '/feedings'" data-method="POST" v-on:submit="submit">

@@ -1,5 +1,5 @@
 <template>
-    <div :class="containerClasses" :id="containerId">
+    <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
 
         <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length > 0">
             <div class="card">

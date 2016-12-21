@@ -49,6 +49,7 @@ import InlineGraph from './vue/inline-graph.vue';
 import AnimalsWidget from './vue/animals-widget.vue';
 import AnimalFeedingsWidget from './vue/animal_feedings-widget.vue';
 import AnimalFeedingSchedulesWidget from './vue/animal_feeding_schedules-widget.vue';
+import AnimalFeedingSchedulesMatrixWidget from './vue/animal_feeding_schedules-matrix-widget.vue';
 import AnimalWeighingsWidget from './vue/animal_weighings-widget.vue';
 import AnimalWeighingSchedulesWidget from './vue/animal_weighing_schedules-widget.vue';
 import TerrariaWidget from './vue/terraria-widget.vue';
@@ -100,6 +101,7 @@ window.bodyVue = new Vue({
         'animals-widget': AnimalsWidget,
         'animal_feedings-widget': AnimalFeedingsWidget,
         'animal_feeding_schedules-widget': AnimalFeedingSchedulesWidget,
+        'animal_feeding_schedules-matrix-widget': AnimalFeedingSchedulesMatrixWidget,
         'animal_weighings-widget': AnimalWeighingsWidget,
         'animal_weighing_schedules-widget': AnimalWeighingSchedulesWidget,
         'terraria-widget': TerrariaWidget,

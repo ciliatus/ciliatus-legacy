@@ -1,5 +1,5 @@
 <template>
-    <div :class="containerClasses" :id="containerId">
+    <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
         <div :class="wrapperClasses" v-for="terrarium in terraria">
             <div class="card">
                 <div class="card-image waves-effect waves-block waves-light terrarium-card-image"

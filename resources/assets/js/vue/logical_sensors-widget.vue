@@ -1,5 +1,5 @@
 <template>
-    <div :class="containerClasses" :id="containerId">
+    <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
         <div v-for="logical_sensor in logical_sensors">
             <div :class="wrapperClasses">
                 <div class="card">
