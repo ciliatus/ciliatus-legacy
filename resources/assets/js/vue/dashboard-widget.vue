@@ -17,6 +17,9 @@
                     <div v-for="terrarium in dashboard.terraria.critical">
                         <p>
                             <a v-bind:href="'/terraria/' + terrarium.id" class="white-text">{{ terrarium.display_name }}</a>
+                            <span v-show="terrarium.humidity_critical === true && terrarium.temperature_critical !== true">({{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%)</span>
+                            <span v-show="terrarium.humidity_critical === true && terrarium.temperature_critical === true">({{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%, {{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C)</span>
+                            <span v-show="terrarium.humidity_critical !== true && terrarium.temperature_critical === true">({{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C)</span>
                         </p>
                     </div>
                 </div>
@@ -130,7 +133,7 @@
 
                     <div v-for="action_sequence_schedule in dashboard.action_sequence_schedules.overdue">
                         <p>
-                            <a v-bind:href="'/action_sequences/' + action_sequence_schedule.sequence.id" class="white-text">
+                            <a v-bind:href="'/action_sequences/' + action_sequence_schedule.sequence.id + '/edit'" class="white-text">
                                 {{ action_sequence_schedule.sequence.name }}
                             </a>
 
@@ -244,7 +247,7 @@
 
                     <div v-for="action_sequence_schedule in dashboard.action_sequence_schedules.due">
                         <p>
-                            <a v-bind:href="'/action_sequences/' + action_sequence_schedule.sequence.id" class="white-text">
+                            <a v-bind:href="'/action_sequences/' + action_sequence_schedule.sequence.id + '/edit'" class="white-text">
                                 {{ action_sequence_schedule.sequence.name }}
                             </a>
 
