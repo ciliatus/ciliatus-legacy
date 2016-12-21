@@ -11,8 +11,10 @@ Route::group(['namespace' => 'Web'], function() {
     Route::resource('animals/{id}/feedings', 'AnimalFeedingController');
     Route::resource('animals/{id}/feeding_schedules', 'AnimalFeedingScheduleController');
     Route::get('animals/{animal_id}/feeding_schedules/{id}/delete', 'AnimalFeedingScheduleController@delete');
+    Route::get('animal_feeding_schedules', 'AnimalFeedingScheduleController@index');
     Route::resource('animals/{id}/weighings', 'AnimalWeighingController');
     Route::resource('animals/{id}/weighing_schedules', 'AnimalWeighingScheduleController');
+    Route::get('animal_weighing_schedules', 'AnimalWeighingScheduleController@index');
     Route::get('animals/{animal_id}/weighing_schedules/{id}/delete', 'AnimalWeighingScheduleController@delete');
     Route::get('animals/{id}/delete', 'AnimalController@delete');
     Route::resource('terraria', 'TerrariumController');
@@ -62,11 +64,14 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
     Route::resource('dashboard', 'DashboardController');
     Route::get('animals/feedings/types', 'AnimalFeedingController@types');
     Route::post('animals/feedings/types', 'AnimalFeedingController@store_type');
+    Route::delete('animals/feedings/types/{id}', 'AnimalFeedingController@delete_type');
     Route::resource('animals/{id}/feedings', 'AnimalFeedingController');
     Route::resource('animals/{animal_id}/feeding_schedules', 'AnimalFeedingScheduleController');
     Route::resource('animals/{id}/weighings', 'AnimalWeighingController');
     Route::resource('animals/{animal_id}/weighing_schedules', 'AnimalWeighingScheduleController');
     Route::resource('animals', 'AnimalController');
+    Route::get('animal_feeding_schedules', 'AnimalFeedingScheduleController@index');
+    Route::get('animal_weighing_schedules', 'AnimalWeighingScheduleController@index');
     Route::resource('terraria', 'TerrariumController');
     Route::get('terraria/{id}/sensorreadings', 'TerrariumController@sensorreadings');
     Route::get('terraria/{id}/sensorreadingsByType/{type}', 'TerrariumController@sensorreadingsByType');

@@ -92,5 +92,6 @@ return [
     'no_data'       =>  'No Data',
     'overview'      =>  'Overview',
     'environment'   =>  'Environment',
-    'now'           =>  'Now'
+    'now'           =>  'Now',
+    'scheduled'     =>  'Scheduled'
 ];

@@ -43,18 +43,26 @@ class AnimalFeedingScheduleController extends ApiController
      * @param $animal_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request, $animal_id)
+    public function index(Request $request, $animal_id = false)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        $animal = Animal::find($animal_id);
-        if (is_null($animal)) {
-            return $this->respondNotFound("Animal not found");
+        if ($animal_id == false) {
+            $feeding_schedules = $this->filter(
+                $request,
+                Property::where('type', 'AnimalFeedingSchedule')
+            );
         }
+        else {
+            $animal = Animal::find($animal_id);
+            if (is_null($animal)) {
+                return $this->respondNotFound("Animal not found");
+            }
 
-        $feeding_schedules = $this->filter($request, $animal->feeding_schedules());
+            $feeding_schedules = $this->filter($request, $animal->feeding_schedules());
+        }
 
         /*
          * If raw is passed, pagination will be ignored
@@ -63,7 +71,7 @@ class AnimalFeedingScheduleController extends ApiController
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
             $feeding_schedules = $feeding_schedules->get();
             foreach ($feeding_schedules as &$fs) {
-                $fs = (new AnimalFeedingScheduleRepository($fs, $animal))->show();
+                $fs = (new AnimalFeedingScheduleRepository($fs))->show();
             }
 
             return $this->setStatusCode(200)->respondWithData(
@@ -77,7 +85,7 @@ class AnimalFeedingScheduleController extends ApiController
         $feeding_schedules = $feeding_schedules->paginate(env('PAGINATION_PER_PAGE', 20));
 
         foreach ($feeding_schedules->items() as &$fs) {
-            $fs = (new AnimalFeedingScheduleRepository($fs, $animal))->show();
+            $fs = (new AnimalFeedingScheduleRepository($fs))->show();
         }
 
         return $this->setStatusCode(200)->respondWithPagination(
@@ -125,6 +133,16 @@ class AnimalFeedingScheduleController extends ApiController
             'name' => $request->input('meal_type'),
             'value' => $request->input('interval_days')
         ]);
+
+        if ($request->has('starts_at')) {
+            Property::create([
+                'belongsTo_type' => 'Property',
+                'belongsTo_id' => $p->id,
+                'type' => 'AnimalFeedingScheduleStartDate',
+                'name' => 'starts_at',
+                'value' => $request->input('starts_at')
+            ]);
+        }
 
         broadcast(new AnimalFeedingScheduleUpdated($p));
 
@@ -213,6 +231,11 @@ class AnimalFeedingScheduleController extends ApiController
         $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
         if (is_null($afs)) {
             return view('error.404');
+        }
+
+        $afs_properties = Property::where('belongsTo_type', 'Property')->where('belongsTo_id', $afs->id)->get();
+        foreach ($afs_properties as $p) {
+            $p->delete();
         }
 
         broadcast(new AnimalFeedingScheduleDeleted($afs->id));

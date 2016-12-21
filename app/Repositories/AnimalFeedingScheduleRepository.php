@@ -34,7 +34,16 @@ class AnimalFeedingScheduleRepository extends Repository {
         $animal = $fs->belongsTo_object()->get()->first();
         $fs->animal = $animal->toArray();
         $last_feeding_of_type = $animal->last_feeding($fs->name);
-        if (!is_null($last_feeding_of_type)) {
+        $starts_at = Property::where('type', 'AnimalFeedingScheduleStartDate')->where('belongsTo_id', $fs->id)->get()->first();
+
+
+        /*
+         * If there already was a feeding of this type
+         * and the last feeding was after the schedule's starts_at date:
+         *
+         * Compare the schedule to the last feeding
+         */
+        if (!is_null($last_feeding_of_type) && (is_null($starts_at) || Carbon::parse($starts_at->value)->lt($last_feeding_of_type->created_at))) {
             $last_feeding_at = $last_feeding_of_type->created_at;
             $last_feeding_at->hour = 0;
             $last_feeding_at->minute = 0;
@@ -51,8 +60,23 @@ class AnimalFeedingScheduleRepository extends Repository {
             $fs->next_feeding_at_diff = $now->diffInDays($next_feeding_at, false);
         }
         else {
-            $fs->next_feeding_at = Carbon::now()->format('Y-m-d');
-            $fs->next_feeding_at_diff = 0;
+            /*
+             * There was no last feeding or
+             * there was no feeding since the starts_at value of the schedule:
+             *
+             * Compare to the starts_at date
+             * if there is no starts_at: Compare to current date
+             */
+            $next_feeding_at = '';
+            if (is_null($starts_at)) {
+                $next_feeding_at = $fs->created_at->addDays((int)$fs->value);
+                $fs->next_feeding_at = $next_feeding_at->format('Y-m-d');
+            }
+            else {
+                $next_feeding_at = Carbon::parse($starts_at->value);
+                $fs->next_feeding_at = $starts_at->value;
+            }
+            $fs->next_feeding_at_diff = Carbon::now()->diffInDays($next_feeding_at);
         }
         return $fs;
     }

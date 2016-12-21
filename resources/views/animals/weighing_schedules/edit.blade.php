@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <form action="{{ url('api/v1/animals/' . $animal->id .'/weighing_schedules/' . $afs->id) }}" data-method="PUT" data-redirect-success="auto">
+                    <form action="{{ url('api/v1/animals/' . $animal->id .'/weighing_schedules/' . $aws->id) }}" data-method="PUT" data-redirect-success="auto">
                         <div class="card-content">
 
                             <div class="row">
@@ -24,7 +24,7 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input type="text" placeholder="@lang('labels.interval_days')" name="interval_days" value="{{ $afs->value }}">
+                                    <input type="text" placeholder="@lang('labels.interval_days')" name="interval_days" value="{{ $aws->value }}">
                                     <label for="interval_days">@lang('labels.interval_days')</label>
                                 </div>
                             </div>

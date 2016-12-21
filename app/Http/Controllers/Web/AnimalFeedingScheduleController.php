@@ -28,9 +28,11 @@ class AnimalFeedingScheduleController extends \App\Http\Controllers\Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($animal_id)
+    public function index($animal_id = null)
     {
-        //
+        return view('animals.feeding_schedules.index', [
+            'animal_id' => $animal_id
+        ]);
     }
 
 

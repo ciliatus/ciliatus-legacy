@@ -92,5 +92,6 @@ return [
     'no_data'       =>  'Keine Daten',
     'overview'      =>  'Übersicht',
     'environment'   =>  'Umgebung',
-    'now'           =>  'Jetzt'
+    'now'           =>  'Jetzt',
+    'scheduled'     =>  'Geplant'
 ];

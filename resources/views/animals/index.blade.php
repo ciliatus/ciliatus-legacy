@@ -10,6 +10,7 @@
         <ul class="tabs z-depth-1">
             <li class="tab col s3"><a class="active" href="#tab_dashboard">@lang('labels.overview')</a></li>
             <li class="tab col s3"><a href="#tab_feeding_schedules">@choice('components.animal_feeding_schedules', 2)</a></li>
+            <li class="tab col s3"><a href="#tab_weighing_schedules">@choice('components.animal_weighing_schedules', 2)</a></li>
         </ul>
     </div>
 
@@ -23,6 +24,13 @@
         <div class="container">
             <p>@lang('tooltips.animal_feeding_schedule_matrix')</p>
             <animal_feeding_schedules-matrix-widget container-classes="row" wrapper-classes=""></animal_feeding_schedules-matrix-widget>
+        </div>
+    </div>
+
+    <div id="tab_weighing_schedules" class="col s12">
+        <div class="container">
+            <p>@lang('tooltips.animal_weighing_schedule_matrix')</p>
+            <animal_weighing_schedules-matrix-widget container-classes="row" wrapper-classes=""></animal_weighing_schedules-matrix-widget>
         </div>
     </div>
 

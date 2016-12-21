@@ -43,18 +43,27 @@ class AnimalWeighingScheduleController extends ApiController
      * @param $animal_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request, $animal_id)
+    public function index(Request $request, $animal_id = false)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        $animal = Animal::find($animal_id);
-        if (is_null($animal)) {
-            return $this->respondNotFound("Animal not found");
+        if ($animal_id == false) {
+            $weighing_schedules = $this->filter(
+                $request,
+                Property::where('type', 'AnimalWeighingSchedule')
+            );
+        }
+        else {
+            $animal = Animal::find($animal_id);
+            if (is_null($animal)) {
+                return $this->respondNotFound("Animal not found");
+            }
+
+            $weighing_schedules = $this->filter($request, $animal->weighing_schedules());
         }
 
-        $weighing_schedules = $this->filter($request, $animal->weighing_schedules());
 
         /*
          * If raw is passed, pagination will be ignored
@@ -125,6 +134,16 @@ class AnimalWeighingScheduleController extends ApiController
             'name' => 'g',
             'value' => $request->input('interval_days')
         ]);
+
+        if ($request->has('starts_at')) {
+            Property::create([
+                'belongsTo_type' => 'Property',
+                'belongsTo_id' => $p->id,
+                'type' => 'AnimalWeighingScheduleStartDate',
+                'name' => 'starts_at',
+                'value' => $request->input('starts_at')
+            ]);
+        }
 
         broadcast(new AnimalWeighingScheduleUpdated($p));
 

@@ -34,7 +34,16 @@ class AnimalWeighingScheduleRepository extends Repository {
         $animal = $ws->belongsTo_object()->get()->first();
         $ws->animal = $animal->toArray();
         $last_weighing_of_type = $animal->last_weighing();
-        if (!is_null($last_weighing_of_type)) {
+        $starts_at = Property::where('type', 'AnimalWeighingScheduleStartDate')->where('belongsTo_id', $ws->id)->get()->first();
+
+
+        /*
+         * If there already was a weighing of this type
+         * and the last weighing was after the schedule's starts_at date:
+         *
+         * Compare the schedule to the last weighing
+         */
+        if (!is_null($last_weighing_of_type) && (is_null($starts_at) || Carbon::parse($starts_at->value)->lt($last_weighing_of_type->created_at))) {
             $last_weighing_at = $last_weighing_of_type->created_at;
             $last_weighing_at->hour = 0;
             $last_weighing_at->minute = 0;
@@ -51,8 +60,23 @@ class AnimalWeighingScheduleRepository extends Repository {
             $ws->next_weighing_at_diff = $now->diffInDays($next_weighing_at, false);
         }
         else {
-            $ws->next_weighing_at = Carbon::now()->format('Y-m-d');
-            $ws->next_weighing_at_diff = 0;
+            /*
+             * There was no last weighing or
+             * there was no weighing since the starts_at value of the schedule:
+             *
+             * Compare to the starts_at date
+             * if there is no starts_at: Compare to current date
+             */
+            $next_weighing_at = '';
+            if (is_null($starts_at)) {
+                $next_weighing_at = $ws->created_at->addDays((int)$ws->value);
+                $ws->next_weighing_at = $next_weighing_at->format('Y-m-d');
+            }
+            else {
+                $next_weighing_at = Carbon::parse($starts_at->value);
+                $ws->next_weighing_at = $starts_at->value;
+            }
+            $ws->next_weighing_at_diff = Carbon::now()->diffInDays($next_weighing_at);
         }
         return $ws;
     }

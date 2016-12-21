@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Animal;
 use App\Event;
+use App\Events\AnimalFeedingScheduleDeleted;
 use App\Events\AnimalFeedingUpdated;
 use App\Http\Transformers\AnimalFeedingTransformer;
 use App\Property;
@@ -217,6 +218,33 @@ class AnimalFeedingController extends ApiController
             'type' => 'AnimalFeedingType',
             'name' => $request->input('name')
         ]);
+
+        return $this->respondWithData([],
+            [
+                'redirect' => [
+                    'uri' => url('animals/feedings/types')
+                ]
+            ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete_type(Request $request, $id)
+    {
+        if (Gate::denies('admin')) {
+            return $this->respondUnauthorized();
+        }
+
+        $type = Property::find($id);
+        $schedules = Property::where('type', 'AnimalFeedingSchedule')->where('name', $type->name)->get();
+
+        foreach ($schedules as $s) {
+            broadcast(new AnimalFeedingScheduleDeleted($s->id));
+            $s->delete();
+        }
+        $type->delete();
 
         return $this->respondWithData([],
             [

@@ -33,7 +33,7 @@
                                 <div class="input-field col s12">
                                     <select name="meal_type" id="meal_type">
                                         @foreach($feeding_types as $ft)
-                                            <option value="{{ $ft->name }}">{{ $ft->name }}</option>
+                                            <option value="{{ $ft->name }}" @if($afs->name == $ft->name) selected @endif>{{ $ft->name }}</option>
                                         @endforeach
                                     </select>
                                     <label for="meal_type">@lang("labels.meal_type")</label>
@@ -57,5 +57,15 @@
                 </div>
             </div>
         </div>
+    </div>
+
+    <div class="fixed-action-btn">
+        <a class="btn-floating btn-large teal">
+            <i class="large material-icons">mode_edit</i>
+        </a>
+        <ul>
+            <li><a class="btn-floating red" href="/animals/{{ $animal->id }}/feeding_schedules/{{ $afs->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green" href="/animals/{{ $animal->id }}/feeding_schedules/create"><i class="material-icons">add</i></a></li>
+        </ul>
     </div>
 @stop

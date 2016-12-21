@@ -23,7 +23,7 @@
                     <tr>
                         <td>{{ $type->name }}</td>
                         <td>
-                            <form action="/api/v1/properties/{{ $type->id }}" data-method="DELETE" data-redirect-success="/animals/feedings/types">
+                            <form action="/api/v1/animals/feedings/types/{{ $type->id }}" data-method="DELETE" data-redirect-success="/animals/feedings/types">
                                 <button type="submit" class="btn btn-small red darken-2 white-text">@lang('buttons.delete')</button>
                             </form>
                         </td>
