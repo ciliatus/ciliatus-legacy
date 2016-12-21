@@ -31,24 +31,26 @@
 
         <header>
 
-            <nav>
-                <div class="nav-wrapper">
-                    <ul class="left">
-                        <li><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a></li>
-                    </ul>
+            <div class="navbar-fixed">
+                <nav>
+                    <div class="nav-wrapper">
+                        <ul class="left">
+                            <li><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a></li>
+                        </ul>
 
-                    <a href="/" class="breadcrumb">Start</a>
-                    @yield('breadcrumbs')
+                        <a href="/" class="breadcrumb">Start</a>
+                        @yield('breadcrumbs')
 
-                    <a href="/" class="brand-logo"></a>
-                    <ul class="right hide-on-med-and-down">
-                        <!--
-                        <li><a href="sass.html"><i class="material-icons left">search</i>Link with Left Icon</a></li>
-                        <li><a href="badges.html"><i class="material-icons right">view_module</i>Link with Right Icon</a></li>
-                        -->
-                    </ul>
-                </div>
-            </nav>
+                        <a href="/" class="brand-logo"></a>
+                        <ul class="right hide-on-med-and-down">
+                            <!--
+                            <li><a href="sass.html"><i class="material-icons left">search</i>Link with Left Icon</a></li>
+                            <li><a href="badges.html"><i class="material-icons right">view_module</i>Link with Right Icon</a></li>
+                            -->
+                        </ul>
+                    </div>
+                </nav>
+            </div>
 
             <ul id="nav-mobile" class="side-nav fixed">
                 <li>
