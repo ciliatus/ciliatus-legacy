@@ -124,7 +124,7 @@ export default {
                 window.eventHubVue.processEnded();
             },
             error: function (error) {
-                alert(JSON.stringify(error));
+                console.log(JSON.stringify(error));
                 window.eventHubVue.processEnded();
             }
         });

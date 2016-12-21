@@ -8,7 +8,7 @@
                         {{ $tc('components.animals', 1) }}
                     </th>
                     <th>
-                        {{ $t('lang.next') }}
+                        {{ $t('labels.scheduled') }}
                     </th>
                 </tr>
                 </thead>
@@ -85,7 +85,7 @@ export default {
                             window.eventHubVue.processEnded();
                         },
                         error: function (error) {
-                            alert(JSON.stringify(error));
+                            console.log(JSON.stringify(error));
                             window.eventHubVue.processEnded();
                         }
                     });
@@ -96,7 +96,7 @@ export default {
                      */
                 },
                 error: function (error) {
-                    alert(JSON.stringify(error));
+                    console.log(JSON.stringify(error));
                     window.eventHubVue.processEnded();
                 }
             });
