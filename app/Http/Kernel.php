@@ -33,9 +33,8 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'auth.basic',
-            \App\Http\Middleware\Localization::class,
             'throttle:60,1',
+            'localization',
         ],
     ];
 
@@ -52,5 +51,6 @@ class Kernel extends HttpKernel
         'can' => \Illuminate\Auth\Middleware\Authorize::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
+        'localization' => \App\Http\Middleware\Localization::class,
     ];
 }
