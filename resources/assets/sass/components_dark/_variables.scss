@@ -33,11 +33,11 @@
 // 1. Colors
 // ==========================================================================
 
-$primary-color: color("teal", "darken-1") !default;
+$primary-color: color("teal", "lighten-1") !default;
 $primary-color-light: lighten($primary-color, 15%) !default;
 $primary-color-dark: darken($primary-color, 15%) !default;
 
-$secondary-color: color("teal", "darken-2") !default;
+$secondary-color: color("teal", "base") !default;
 $success-color: color("green", "base") !default;
 $error-color: color("red", "base") !default;
 $link-color: color("light-blue", "base") !default;
@@ -132,7 +132,7 @@ $datepicker-selected-outfocus: desaturate(lighten($secondary-color, 35%), 15%) !
 // ==========================================================================
 
 $dropdown-bg-color: color("grey", "darken-3") !default;
-$dropdown-hover-bg-color: #eee !default;
+$dropdown-hover-bg-color: #404040 !default;
 $dropdown-color: $secondary-color !default;
 $dropdown-item-height: 50px !default;
 

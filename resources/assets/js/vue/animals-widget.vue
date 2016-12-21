@@ -3,7 +3,7 @@
         <div v-for="animal in animals">
             <div v-bind:id="'modal_just_fed_' + animal.id" class="modal">
                 <form v-bind:action="'/api/v1/animals/' + animal.id + '/feedings'" data-method="POST" v-on:submit="submit">
-                    <div class="modal-content" style="min-height: 500px">
+                    <div class="modal-content" style="min-height: 300px">
                         <h4>{{ $t("labels.just_fed") }}</h4>
                         <p>
                             <select name="meal_type" id="meal_type">
@@ -76,13 +76,13 @@
                     </div>
 
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">{{ $tc("components.terraria", 1) }}<i class="material-icons right">close</i></span>
+                        <span class="card-title">{{ $tc("components.terraria", 1) }}<i class="material-icons right">close</i></span>
 
                         <p>
                             <a v-if="animal.terrarium" v-bind:href="'/terraria/' + animal.terrarium.id">{{ animal.terrarium.display_name }}</a>
                         </p>
 
-                        <span class="card-title grey-text text-darken-4">{{ $t("labels.just_fed") }}</span>
+                        <span class="card-title">{{ $t("labels.just_fed") }}</span>
 
                         <p>
                             <a class="waves-effect waves-teal btn" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
