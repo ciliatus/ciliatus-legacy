@@ -143,7 +143,8 @@ module.exports = {
             'overview'      :  'Übersicht',
             'environment'   :  'Umgebung',
             'now'           :  'Jetzt',
-            'scheduled'     :  'Geplant'
+            'scheduled'     :  'Geplant',
+            'sequence'      :  'Sequenz'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -351,7 +352,8 @@ module.exports = {
             'overview'      :  'Overview',
             'environment'   :  'Environment',
             'now'           :  'Now',
-            'scheduled'     :  'Scheduled'
+            'scheduled'     :  'Scheduled',
+            'sequence'      :  'Sequence'
         },
         menu: {
             'welcome'       :  'Welcome',
