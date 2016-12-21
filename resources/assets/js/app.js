@@ -169,6 +169,14 @@ window.runPage = function() {
             $('.masonry-grid').masonry('reloadItems');
             $('.masonry-grid').masonry('layout');
             window.eventHubVue.$emit('ForceRerender');
+
+            /*
+             * Avoid scrolling when anchor is in url
+             * @TODO: find better solution, it's quite sloppy
+             */
+            setTimeout(function() {
+                window.scrollTo(0, 0);
+            }, 1);
         }
     });
 };
