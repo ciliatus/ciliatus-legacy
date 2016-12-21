@@ -33,7 +33,7 @@ class PhysicalSensor extends CiliatusModel
      */
     public function delete()
     {
-        broadcast(new PhysicalSensorDeleted($this));
+        broadcast(new PhysicalSensorDeleted($this->id));
 
         parent::delete();
     }

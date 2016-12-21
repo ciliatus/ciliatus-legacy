@@ -215,7 +215,7 @@ class AnimalWeighingScheduleController extends ApiController
             return view('error.404');
         }
 
-        broadcast(new AnimalWeighingScheduleDeleted((clone $aws)));
+        broadcast(new AnimalWeighingScheduleDeleted($aws->id));
 
         $aws->delete();
 

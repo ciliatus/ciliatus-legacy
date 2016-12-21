@@ -33,7 +33,7 @@ class Controlunit extends CiliatusModel
      */
     public function delete()
     {
-        broadcast(new ControlunitDeleted($this));
+        broadcast(new ControlunitDeleted($this->id));
 
         parent::delete();
     }

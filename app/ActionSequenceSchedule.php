@@ -61,7 +61,7 @@ class ActionSequenceSchedule extends CiliatusModel
             $ra->delete();
         }
 
-        broadcast(new ActionSequenceScheduleDeleted($this));
+        broadcast(new ActionSequenceScheduleDeleted($this->id));
 
         parent::delete();
     }

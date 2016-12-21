@@ -27,7 +27,7 @@ class Pump extends CiliatusModel
      */
     public function delete()
     {
-        broadcast(new PumpDeleted($this));
+        broadcast(new PumpDeleted($this->id));
 
         parent::delete();
     }

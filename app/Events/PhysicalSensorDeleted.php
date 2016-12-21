@@ -15,17 +15,16 @@ class PhysicalSensorDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $physical_sensor;
+    public $physical_sensor_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(PhysicalSensor $ps)
+    public function __construct($physical_sensor_id)
     {
-        $transformer = new PhysicalSensorTransformer();
-        $this->physical_sensor = $transformer->transform($ps->toArray());
+        $this->physical_sensor_id = $physical_sensor_id;
     }
 
     /**

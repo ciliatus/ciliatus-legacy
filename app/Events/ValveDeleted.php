@@ -15,17 +15,16 @@ class ValveDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $valve;
+    public $valve_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Valve $v)
+    public function __construct($valve_id)
     {
-        $transformer = new ValveTransformer();
-        $this->valve = $transformer->transform($v->toArray());
+        $this->valve_id = $valve_id;
     }
 
     /**

@@ -26,20 +26,16 @@ class AnimalFeedingScheduleDeleted implements ShouldBroadcast
     /**
      * @var
      */
-    public $animal_feeding_schedule;
+    public $animal_feeding_schedule_id;
 
 
     /**
      * AnimalFeedingScheduleDeleted constructor.
-     * @param Property $p
+     * @param String $animal_feeding_schedule_id
      */
-    public function __construct(Property $p)
+    public function __construct($animal_feeding_schedule_id)
     {
-        $transformer = new AnimalFeedingScheduleTransformer();
-
-        $this->animal_feeding = $transformer->transform(
-            (new AnimalFeedingScheduleRepository($p))->show()->toArray()
-        );
+        $this->animal_feeding_schedule_id = $animal_feeding_schedule_id;
     }
 
     /**

@@ -15,17 +15,16 @@ class LogicalSensorDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $logical_sensor;
+    public $logical_sensor_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(LogicalSensor $ls)
+    public function __construct($logical_sensor_id)
     {
-        $transformer = new LogicalSensorTransformer();
-        $this->logical_sensor = $transformer->transform($ls->toArray());
+        $this->logical_sensor_id = $logical_sensor_id;
     }
 
     /**

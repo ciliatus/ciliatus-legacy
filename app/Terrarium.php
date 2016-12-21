@@ -68,7 +68,7 @@ class Terrarium extends CiliatusModel
      */
     public function delete()
     {
-        broadcast(new TerrariumDeleted($this));
+        broadcast(new TerrariumDeleted($this->id));
 
         parent::delete();
     }

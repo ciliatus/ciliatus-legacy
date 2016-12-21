@@ -28,7 +28,7 @@ class LogicalSensor extends CiliatusModel
      */
     public function delete()
     {
-        broadcast(new LogicalSensorDeleted($this));
+        broadcast(new LogicalSensorDeleted($this->id));
 
         parent::delete();
     }
@@ -109,8 +109,9 @@ class LogicalSensor extends CiliatusModel
     public function stateOk()
     {
         $t = $this->current_threshold();
-        if (is_null($t))
+        if (is_null($t)) {
             return true;
+        }
 
         if (!is_null($t->rawvalue_lowerlimit)) {
             if ($this->rawvalue < $t->rawvalue_lowerlimit) {

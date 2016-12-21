@@ -15,17 +15,16 @@ class ControlunitDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $controlunit;
+    public $controlunit_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Controlunit $cu)
+    public function __construct($controlunit_id)
     {
-        $transformer = new ControlunitTransformer();
-        $this->controlunit = $transformer->transform($cu->toArray());
+        $this->controlunit_id = $controlunit_id;
     }
 
     /**

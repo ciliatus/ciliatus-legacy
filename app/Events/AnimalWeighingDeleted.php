@@ -25,22 +25,18 @@ class AnimalWeighingDeleted implements ShouldBroadcast
     /**
      * @var array
      */
-    public $animal_weighing;
+    public $animal_weighing_id;
 
 
     /**
      * Create a new event instance.
      *
      * AnimalWeighingDeleted constructor.
-     * @param Property $p
+     * @param String $animal_weighing_id
      */
-    public function __construct(Property $p)
+    public function __construct($animal_weighing_id)
     {
-        $transformer = new AnimalWeighingTransformer();
-
-        $this->animal_weighing = $transformer->transform(
-            (new AnimalWeighingRepository($p))->toArray()
-        );
+        $this->animal_weighing_id = $animal_weighing_id;
     }
 
     /**

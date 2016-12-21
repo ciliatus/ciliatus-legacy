@@ -16,16 +16,16 @@ class CriticalStateDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $critical_state;
+    public $critical_state_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(CriticalState $critical_state)
+    public function __construct($critical_state_id)
     {
-        $this->critical_state = $critical_state;
+        $this->critical_state_id = $critical_state_id;
     }
 
     /**

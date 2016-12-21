@@ -15,17 +15,16 @@ class AnimalDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $animal;
+    public $animal_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Animal $a)
+    public function __construct($animal_id)
     {
-        $transformer = new AnimalTransformer();
-        $this->animal = $transformer->transform($a->toArray());
+        $this->animal_id = $animal_id;
     }
 
     /**

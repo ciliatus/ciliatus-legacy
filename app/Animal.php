@@ -46,7 +46,7 @@ class Animal extends CiliatusModel
      */
     public function delete()
     {
-        broadcast(new AnimalDeleted($this));
+        broadcast(new AnimalDeleted($this->id));
 
         parent::delete();
     }

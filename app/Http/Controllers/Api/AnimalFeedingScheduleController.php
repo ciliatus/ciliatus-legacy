@@ -215,7 +215,7 @@ class AnimalFeedingScheduleController extends ApiController
             return view('error.404');
         }
 
-        broadcast(new AnimalFeedingScheduleDeleted((clone $afs)));
+        broadcast(new AnimalFeedingScheduleDeleted($afs->id));
 
         $afs->delete();
 

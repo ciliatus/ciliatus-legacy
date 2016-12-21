@@ -17,17 +17,16 @@ class ActionSequenceScheduleDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $action_sequence_schedule;
+    public $action_sequence_schedule_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(ActionSequenceSchedule $ass)
+    public function __construct($action_sequence_schedule_id)
     {
-        $transformer = new ActionSequenceScheduleTransformer();
-        $this->action_sequence_schedule = $transformer->transform($ass->toArray());
+        $this->action_sequence_schedule_id = $action_sequence_schedule_id;
     }
 
     /**

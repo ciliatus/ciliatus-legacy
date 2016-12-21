@@ -27,7 +27,7 @@ class Valve extends CiliatusModel
      */
     public function delete()
     {
-        broadcast(new ValveDeleted($this));
+        broadcast(new ValveDeleted($this->id));
 
         parent::delete();
     }

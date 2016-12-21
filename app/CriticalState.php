@@ -79,7 +79,7 @@ class CriticalState extends CiliatusModel
             'action'        => 'delete'
         ]);
 
-        broadcast(new CriticalStateDeleted($this));
+        broadcast(new CriticalStateDeleted($this->id));
 
         parent::delete();
     }

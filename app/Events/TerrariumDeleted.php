@@ -18,18 +18,16 @@ class TerrariumDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $terrarium;
+    public $terrarium_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Terrarium $t)
+    public function __construct($terrarium_id)
     {
-        $transformer = new TerrariumTransformer();
-        $repository = new TerrariumRepository($t);
-        $this->terrarium = $transformer->transform($repository->show()->toArray());
+        $this->terrarium_id = $terrarium_id;
     }
 
     /**

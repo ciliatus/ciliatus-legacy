@@ -15,17 +15,16 @@ class PumpDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $pump;
+    public $pump_id;
 
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct(Pump $p)
+    public function __construct($pump_id)
     {
-        $transformer = new PumpTransformer();
-        $this->pump = $transformer->transform($p->toArray());
+        $this->pump_id = $pump_id;
     }
 
     /**
