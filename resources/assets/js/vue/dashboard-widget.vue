@@ -399,6 +399,7 @@ export default {
             /*
              * Check in critical array
             */
+            item = null;
             this.dashboard.terraria.critical.forEach(function(data, index) {
                 if (data.id === e.terrarium.id) {
                     item = index;
@@ -484,23 +485,23 @@ export default {
             /*
              * Check in overdue array
              */
-            if (item === null) {
-                this.dashboard.animal_feeding_schedules.overdue.forEach(function(data, index) {
-                    if (data.id === e.animal_feeding_schedule.id) {
-                        item = index;
-                    }
-                });
+            item = null;
+            this.dashboard.animal_feeding_schedules.overdue.forEach(function(data, index) {
+                if (data.id === e.animal_feeding_schedule.id) {
+                    item = index;
+                }
+            });
 
-                if (item !== null) {
-                    if (e.animal_feeding_schedule.due_days >= 0) {
-                        this.dashboard.animal_feeding_schedules.overdue.splice(item, 1);
-                    }
-                    else {
-                        this.dashboard.animal_feeding_schedules.overdue.splice(item, 1, e.animal_feeding_schedule);
-                        found = true;
-                    }
+            if (item !== null) {
+                if (e.animal_feeding_schedule.due_days >= 0) {
+                    this.dashboard.animal_feeding_schedules.overdue.splice(item, 1);
+                }
+                else {
+                    this.dashboard.animal_feeding_schedules.overdue.splice(item, 1, e.animal_feeding_schedule);
+                    found = true;
                 }
             }
+
 
             /*
              * If found is not true, the item was either not found
@@ -577,21 +578,20 @@ export default {
             /*
              * Check in overdue array
              */
-            if (item === null) {
-                this.dashboard.animal_weighing_schedules.overdue.forEach(function(data, index) {
-                    if (data.id === e.animal_weighing_schedule.id) {
-                        item = index;
-                    }
-                });
+            item = null;
+            this.dashboard.animal_weighing_schedules.overdue.forEach(function(data, index) {
+                if (data.id === e.animal_weighing_schedule.id) {
+                    item = index;
+                }
+            });
 
-                if (item !== null) {
-                    if (e.animal_weighing_schedule.due_days >= 0) {
-                        this.dashboard.animal_weighing_schedules.overdue.splice(item, 1);
-                    }
-                    else {
-                        this.dashboard.animal_weighing_schedules.overdue.splice(item, 1, e.animal_weighing_schedule);
-                        found = true;
-                    }
+            if (item !== null) {
+                if (e.animal_weighing_schedule.due_days >= 0) {
+                    this.dashboard.animal_weighing_schedules.overdue.splice(item, 1);
+                }
+                else {
+                    this.dashboard.animal_weighing_schedules.overdue.splice(item, 1, e.animal_weighing_schedule);
+                    found = true;
                 }
             }
 
@@ -671,6 +671,7 @@ export default {
             /*
              * Check in overdue array
              */
+            item = null;
             this.dashboard.action_sequence_schedules.overdue.forEach(function(data, index) {
                 if (data.id === e.action_sequence_schedule.id) {
                     item = index;
@@ -690,6 +691,7 @@ export default {
             /*
              * Check in running array
              */
+            item = null;
             this.dashboard.action_sequence_schedules.running.forEach(function(data, index) {
                 if (data.id === e.action_sequence_schedule.id) {
                     item = index;
