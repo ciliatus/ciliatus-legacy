@@ -15917,9 +15917,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6", __vue__options__)
+    hotAPI.createRecord("data-v-7", __vue__options__)
   } else {
-    hotAPI.reload("data-v-6", __vue__options__)
+    hotAPI.reload("data-v-7", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],15:[function(require,module,exports){
@@ -16156,9 +16156,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2", __vue__options__)
+    hotAPI.createRecord("data-v-4", __vue__options__)
   } else {
-    hotAPI.reload("data-v-2", __vue__options__)
+    hotAPI.reload("data-v-4", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],17:[function(require,module,exports){
@@ -16250,9 +16250,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8", __vue__options__)
+    hotAPI.createRecord("data-v-6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-8", __vue__options__)
+    hotAPI.reload("data-v-6", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],18:[function(require,module,exports){
@@ -16475,9 +16475,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7", __vue__options__)
+    hotAPI.createRecord("data-v-8", __vue__options__)
   } else {
-    hotAPI.reload("data-v-7", __vue__options__)
+    hotAPI.reload("data-v-8", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],20:[function(require,module,exports){
@@ -16643,9 +16643,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1", __vue__options__)
+    hotAPI.createRecord("data-v-3", __vue__options__)
   } else {
-    hotAPI.reload("data-v-1", __vue__options__)
+    hotAPI.reload("data-v-3", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],21:[function(require,module,exports){
@@ -16796,9 +16796,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-11", __vue__options__)
+    hotAPI.createRecord("data-v-13", __vue__options__)
   } else {
-    hotAPI.reload("data-v-11", __vue__options__)
+    hotAPI.reload("data-v-13", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],22:[function(require,module,exports){
@@ -16853,6 +16853,7 @@ exports.default = {
                 }
             }
 
+            item = null;
             this.dashboard.terraria.critical.forEach(function (data, index) {
                 if (data.id === e.terrarium.id) {
                     item = index;
@@ -16913,20 +16914,19 @@ exports.default = {
                 }
             }
 
-            if (item === null) {
-                this.dashboard.animal_feeding_schedules.overdue.forEach(function (data, index) {
-                    if (data.id === e.animal_feeding_schedule.id) {
-                        item = index;
-                    }
-                });
+            item = null;
+            this.dashboard.animal_feeding_schedules.overdue.forEach(function (data, index) {
+                if (data.id === e.animal_feeding_schedule.id) {
+                    item = index;
+                }
+            });
 
-                if (item !== null) {
-                    if (e.animal_feeding_schedule.due_days >= 0) {
-                        this.dashboard.animal_feeding_schedules.overdue.splice(item, 1);
-                    } else {
-                        this.dashboard.animal_feeding_schedules.overdue.splice(item, 1, e.animal_feeding_schedule);
-                        found = true;
-                    }
+            if (item !== null) {
+                if (e.animal_feeding_schedule.due_days >= 0) {
+                    this.dashboard.animal_feeding_schedules.overdue.splice(item, 1);
+                } else {
+                    this.dashboard.animal_feeding_schedules.overdue.splice(item, 1, e.animal_feeding_schedule);
+                    found = true;
                 }
             }
 
@@ -16981,20 +16981,19 @@ exports.default = {
                 }
             }
 
-            if (item === null) {
-                this.dashboard.animal_weighing_schedules.overdue.forEach(function (data, index) {
-                    if (data.id === e.animal_weighing_schedule.id) {
-                        item = index;
-                    }
-                });
+            item = null;
+            this.dashboard.animal_weighing_schedules.overdue.forEach(function (data, index) {
+                if (data.id === e.animal_weighing_schedule.id) {
+                    item = index;
+                }
+            });
 
-                if (item !== null) {
-                    if (e.animal_weighing_schedule.due_days >= 0) {
-                        this.dashboard.animal_weighing_schedules.overdue.splice(item, 1);
-                    } else {
-                        this.dashboard.animal_weighing_schedules.overdue.splice(item, 1, e.animal_weighing_schedule);
-                        found = true;
-                    }
+            if (item !== null) {
+                if (e.animal_weighing_schedule.due_days >= 0) {
+                    this.dashboard.animal_weighing_schedules.overdue.splice(item, 1);
+                } else {
+                    this.dashboard.animal_weighing_schedules.overdue.splice(item, 1, e.animal_weighing_schedule);
+                    found = true;
                 }
             }
 
@@ -17050,6 +17049,7 @@ exports.default = {
             }
             item = null;
 
+            item = null;
             this.dashboard.action_sequence_schedules.overdue.forEach(function (data, index) {
                 if (data.id === e.action_sequence_schedule.id) {
                     item = index;
@@ -17065,6 +17065,7 @@ exports.default = {
                 found = true;
             }
 
+            item = null;
             this.dashboard.action_sequence_schedules.running.forEach(function (data, index) {
                 if (data.id === e.action_sequence_schedule.id) {
                     item = index;
@@ -17185,9 +17186,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4", __vue__options__)
+    hotAPI.createRecord("data-v-1", __vue__options__)
   } else {
-    hotAPI.reload("data-v-4", __vue__options__)
+    hotAPI.reload("data-v-1", __vue__options__)
   }
 })()}
 },{"vue":8,"vue-hot-reload-api":5}],23:[function(require,module,exports){
@@ -17306,9 +17307,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-14", __vue__options__)
+    hotAPI.createRecord("data-v-12", __vue__options__)
   } else {
-    hotAPI.reload("data-v-14", __vue__options__)
+    hotAPI.reload("data-v-12", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],24:[function(require,module,exports){
@@ -17427,9 +17428,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-13", __vue__options__)
+    hotAPI.createRecord("data-v-14", __vue__options__)
   } else {
-    hotAPI.reload("data-v-13", __vue__options__)
+    hotAPI.reload("data-v-14", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],25:[function(require,module,exports){
@@ -17524,9 +17525,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3", __vue__options__)
+    hotAPI.createRecord("data-v-2", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3", __vue__options__)
+    hotAPI.reload("data-v-2", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],26:[function(require,module,exports){
@@ -18389,9 +18390,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-12", __vue__options__)
+    hotAPI.createRecord("data-v-11", __vue__options__)
   } else {
-    hotAPI.reload("data-v-12", __vue__options__)
+    hotAPI.reload("data-v-11", __vue__options__)
   }
 })()}
 },{"./inline-graph.vue":25,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],32:[function(require,module,exports){
