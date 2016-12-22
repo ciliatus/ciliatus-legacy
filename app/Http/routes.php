@@ -3,6 +3,10 @@ use Illuminate\Support\Facades\Broadcast;
 
 
 Route::group(['namespace' => 'Web'], function() {
+
+    Route::get('setup/' . env('APP_KEY'), 'SetupController@start');
+    Route::get('setup/' . env('APP_KEY') . '/step/{id}', 'SetupController@step');
+
     Route::get('/', 'DashboardController@index');
     Route::resource('dashboard', 'DashboardController');
     Route::resource('animals', 'AnimalController');
@@ -61,6 +65,9 @@ Route::group(['prefix' => 'auth'], function() {
 });
 
 Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
+
+    Route::post('setup/' . env('APP_KEY') . '/step/{id}', 'SetupController@step');
+
     Route::resource('dashboard', 'DashboardController');
     Route::get('animals/feedings/types', 'AnimalFeedingController@types');
     Route::post('animals/feedings/types', 'AnimalFeedingController@store_type');
