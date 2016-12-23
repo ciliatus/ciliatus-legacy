@@ -94,7 +94,7 @@ class SetupController extends ApiController
             return $this->setStatusCode(422)->respondWithError(trans('errors.no_password'));
         }
 
-        $locale_prop = Property::where('type', 'SetupConfiguration')->where('name', 'language')->first()->get();
+        $locale_prop = Property::where('type', 'SetupConfiguration')->where('name', 'language')->get()->first();
         if (is_null($locale_prop)) {
             $locale = 'en';
         }
@@ -111,8 +111,6 @@ class SetupController extends ApiController
 
         $user->grantFullAbilities();
 
-        $this->cleanup();
-
         return $this->respondWithData([]);
     }
 
@@ -127,16 +125,6 @@ class SetupController extends ApiController
         }
         else {
             app()->setLocale($p->value);
-        }
-    }
-
-    /**
-     *
-     */
-    private function cleanup()
-    {
-        foreach (Property::where('type', 'SetupConfiguration')->get() as $p) {
-            $p->delete();
         }
     }
 
