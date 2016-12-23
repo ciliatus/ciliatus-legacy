@@ -12,7 +12,6 @@
 
 
         <link type="text/css" rel="stylesheet" href="/css/materialize.clockpicker.css"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="/css/app.css"  media="screen,projection"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
         <!--Let browser know website is optimized for mobile-->
@@ -171,16 +170,18 @@
             </div>
         </main>
 
-        <!-- Laravel-Echo -->
-        <script src="{{ url('js/echo.js') }}"></script>
-        <!-- Vue -->
-        <script src="{{ url('js/vue.js') }}"></script>
+        <!-- Google Charts -->
+        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <!-- Materialize.css -->
         <script src="{{ url('js/materialize.min.js') }}"></script>
         <!-- Materialize.clockpicker.css -->
         <script src="{{ url('js/materialize.clockpicker.js') }}"></script>
         <!-- Masonry -->
         <script src="{{ url('js/masonry.pkgd.min.js') }}"></script>
+        <!-- Laravel-Echo -->
+        <script src="{{ url('js/echo.js') }}"></script>
+        <!-- Vue -->
+        <script src="{{ url('js/vue.js') }}"></script>
         <!-- ciliatus -->
         <script src="{{ url('js/app.js') }}"></script>
 
@@ -191,7 +192,6 @@
             });
         </script>
 
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined.js"></script>
 
     </body>

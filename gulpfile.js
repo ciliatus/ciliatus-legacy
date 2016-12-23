@@ -21,5 +21,5 @@ elixir(function(mix) {
     mix.sass([
         'materialize.scss'
     ], 'public/css/materialize.css');
-    mix.sass('app.scss');
+    mix.sass('_app.scss');
 });

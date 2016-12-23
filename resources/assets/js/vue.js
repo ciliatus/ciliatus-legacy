@@ -45,6 +45,8 @@ Object.keys(locales).forEach(function (lang) {
 });
 
 import DashboardWidget from './vue/dashboard-widget.vue';
+import GoogleGraph from './vue/google-graph.vue';
+import DygraphGraph from './vue/dygraph-graph.vue';
 import InlineGraph from './vue/inline-graph.vue';
 import AnimalsWidget from './vue/animals-widget.vue';
 import AnimalFeedingsWidget from './vue/animal_feedings-widget.vue';
@@ -98,6 +100,8 @@ window.bodyVue = new Vue({
     components: {
         'dashboard-widget': DashboardWidget,
         'peity': Peity,
+        'google-graph': GoogleGraph,
+        'dygraph-graph': DygraphGraph,
         'inline-graph': InlineGraph,
         'animals-widget': AnimalsWidget,
         'animal_feedings-widget': AnimalFeedingsWidget,

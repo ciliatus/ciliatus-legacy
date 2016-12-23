@@ -28,3 +28,25 @@ header, main, footer {
   margin-left: 20px;
   padding: 0 5px;
 }
+
+.chartBackgroundColor {
+  background-color: rgba(0,0,0,0);
+}
+.chartTextColor {
+  color: rgba(255, 255, 255, 0.7);
+}
+.chartColor1 {
+  color: $primary-color;
+}
+.chartColor2 {
+  color: $primary-color-dark;
+}
+.chartColor3 {
+  color: $primary-color-light;
+}
+.chartColor4 {
+  color: $primary-color;
+}
+text {
+  fill: #FFFFFF;
+}

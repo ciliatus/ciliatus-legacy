@@ -144,7 +144,13 @@ module.exports = {
             'environment'   :  'Umgebung',
             'now'           :  'Jetzt',
             'scheduled'     :  'Geplant',
-            'sequence'      :  'Sequenz'
+            'sequence'      :  'Sequenz',
+            'date'          :  'Datum',
+            'weighprogression':  'Gewichtsverlauf',
+            'from'          :  'Von',
+            'to'            :  'Bis',
+            'feedings'      :  'Fütterungen',
+            'temp_and_hum_history'  :  'Temperatur- und Feuchtigkeitsverlauf'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -353,7 +359,13 @@ module.exports = {
             'environment'   :  'Environment',
             'now'           :  'Now',
             'scheduled'     :  'Scheduled',
-            'sequence'      :  'Sequence'
+            'sequence'      :  'Sequence',
+            'date'          :  'Date',
+            'weighprogression':  'Weight progression',
+            'from'          :  'From',
+            'to'            :  'To',
+            'feedings'      :  'Feedings',
+            'temp_and_hum_history'  :  'Temperature and Humidity History'
         },
         menu: {
             'welcome'       :  'Welcome',
