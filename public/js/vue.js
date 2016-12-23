@@ -15716,9 +15716,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-17", __vue__options__)
+    hotAPI.createRecord("data-v-18", __vue__options__)
   } else {
-    hotAPI.reload("data-v-17", __vue__options__)
+    hotAPI.reload("data-v-18", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],13:[function(require,module,exports){
@@ -15832,9 +15832,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-16", __vue__options__)
+    hotAPI.createRecord("data-v-17", __vue__options__)
   } else {
-    hotAPI.reload("data-v-16", __vue__options__)
+    hotAPI.reload("data-v-17", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],14:[function(require,module,exports){
@@ -15939,9 +15939,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7", __vue__options__)
+    hotAPI.createRecord("data-v-8", __vue__options__)
   } else {
-    hotAPI.reload("data-v-7", __vue__options__)
+    hotAPI.reload("data-v-8", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],15:[function(require,module,exports){
@@ -16054,9 +16054,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6", __vue__options__)
+    hotAPI.createRecord("data-v-7", __vue__options__)
   } else {
-    hotAPI.reload("data-v-6", __vue__options__)
+    hotAPI.reload("data-v-7", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],16:[function(require,module,exports){
@@ -16178,9 +16178,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5", __vue__options__)
+    hotAPI.createRecord("data-v-6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-5", __vue__options__)
+    hotAPI.reload("data-v-6", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],17:[function(require,module,exports){
@@ -16272,9 +16272,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8", __vue__options__)
+    hotAPI.createRecord("data-v-9", __vue__options__)
   } else {
-    hotAPI.reload("data-v-8", __vue__options__)
+    hotAPI.reload("data-v-9", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],18:[function(require,module,exports){
@@ -16387,9 +16387,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-10", __vue__options__)
+    hotAPI.createRecord("data-v-11", __vue__options__)
   } else {
-    hotAPI.reload("data-v-10", __vue__options__)
+    hotAPI.reload("data-v-11", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],19:[function(require,module,exports){
@@ -16497,9 +16497,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-9", __vue__options__)
+    hotAPI.createRecord("data-v-10", __vue__options__)
   } else {
-    hotAPI.reload("data-v-9", __vue__options__)
+    hotAPI.reload("data-v-10", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],20:[function(require,module,exports){
@@ -16665,9 +16665,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4", __vue__options__)
+    hotAPI.createRecord("data-v-5", __vue__options__)
   } else {
-    hotAPI.reload("data-v-4", __vue__options__)
+    hotAPI.reload("data-v-5", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],21:[function(require,module,exports){
@@ -16818,9 +16818,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-13", __vue__options__)
+    hotAPI.createRecord("data-v-14", __vue__options__)
   } else {
-    hotAPI.reload("data-v-13", __vue__options__)
+    hotAPI.reload("data-v-14", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],22:[function(require,module,exports){
@@ -17296,7 +17296,11 @@ exports.default = {
                 method: 'GET',
                 success: function success(data) {
                     that.data = data.data.csv;
-                    that.draw();
+                    if (that.data.split(/\r\n|\r|\n/).length > 1) {
+                        that.draw();
+                    } else {
+                        $('#dygraph_' + that.id + '_loading').hide();
+                    }
                 },
                 error: function error(_error) {
                     $('#dygraph_' + that.id + '_loading').hide();
@@ -17467,9 +17471,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-15", __vue__options__)
+    hotAPI.createRecord("data-v-16", __vue__options__)
   } else {
-    hotAPI.reload("data-v-15", __vue__options__)
+    hotAPI.reload("data-v-16", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],25:[function(require,module,exports){
@@ -17588,9 +17592,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-14", __vue__options__)
+    hotAPI.createRecord("data-v-15", __vue__options__)
   } else {
-    hotAPI.reload("data-v-14", __vue__options__)
+    hotAPI.reload("data-v-15", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],26:[function(require,module,exports){
@@ -17899,9 +17903,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-24", __vue__options__)
+    hotAPI.createRecord("data-v-4", __vue__options__)
   } else {
-    hotAPI.reload("data-v-24", __vue__options__)
+    hotAPI.reload("data-v-4", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],28:[function(require,module,exports){
@@ -18052,9 +18056,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-21", __vue__options__)
+    hotAPI.createRecord("data-v-22", __vue__options__)
   } else {
-    hotAPI.reload("data-v-21", __vue__options__)
+    hotAPI.reload("data-v-22", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],29:[function(require,module,exports){
@@ -18166,9 +18170,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-23", __vue__options__)
+    hotAPI.createRecord("data-v-24", __vue__options__)
   } else {
-    hotAPI.reload("data-v-23", __vue__options__)
+    hotAPI.reload("data-v-24", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],30:[function(require,module,exports){
@@ -18319,9 +18323,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-20", __vue__options__)
+    hotAPI.createRecord("data-v-21", __vue__options__)
   } else {
-    hotAPI.reload("data-v-20", __vue__options__)
+    hotAPI.reload("data-v-21", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],31:[function(require,module,exports){
@@ -18472,9 +18476,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-18", __vue__options__)
+    hotAPI.createRecord("data-v-19", __vue__options__)
   } else {
-    hotAPI.reload("data-v-18", __vue__options__)
+    hotAPI.reload("data-v-19", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],32:[function(require,module,exports){
@@ -18597,9 +18601,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-12", __vue__options__)
+    hotAPI.createRecord("data-v-13", __vue__options__)
   } else {
-    hotAPI.reload("data-v-12", __vue__options__)
+    hotAPI.reload("data-v-13", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],33:[function(require,module,exports){
@@ -18764,9 +18768,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-11", __vue__options__)
+    hotAPI.createRecord("data-v-12", __vue__options__)
   } else {
-    hotAPI.reload("data-v-11", __vue__options__)
+    hotAPI.reload("data-v-12", __vue__options__)
   }
 })()}
 },{"./inline-graph.vue":27,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],34:[function(require,module,exports){
@@ -18861,9 +18865,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-22", __vue__options__)
+    hotAPI.createRecord("data-v-23", __vue__options__)
   } else {
-    hotAPI.reload("data-v-22", __vue__options__)
+    hotAPI.reload("data-v-23", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],35:[function(require,module,exports){
@@ -19014,9 +19018,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-19", __vue__options__)
+    hotAPI.createRecord("data-v-20", __vue__options__)
   } else {
-    hotAPI.reload("data-v-19", __vue__options__)
+    hotAPI.reload("data-v-20", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}]},{},[11]);

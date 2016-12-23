@@ -4681,7 +4681,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 window.echo = new _laravelEcho2.default({
     broadcaster: 'pusher',
-    key: '0c8933e7ceb3ed05bc9c',
+    key: '<YOUR_PUSHER_KEY>',
     namespace: 'App\\Events',
     cluster: 'eu'
 });
