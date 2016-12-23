@@ -10,7 +10,8 @@
     <div class="col s12">
         <ul class="tabs z-depth-1">
             <li class="tab col s3"><a class="active" href="#tab_overview">@lang('labels.overview')</a></li>
-            <li class="tab col s3"><a href="#tab_health">@lang('labels.health')</a></li>
+            <li class="tab col s3"><a href="#tab_health_feeding">@lang('labels.feedings')</a></li>
+            <li class="tab col s3"><a href="#tab_health_weight">@lang('labels.weight')</a></li>
             @if (!is_null($animal->terrarium))
                 <li class="tab col s3"><a href="#tab_environment">@lang('labels.environment')</a></li>
             @endif
@@ -34,95 +35,42 @@
         </div>
     </div>
 
-    <div id="tab_health" class="col s12">
+    <div id="tab_health_feeding" class="col s12">
         <div class="container">
             <div class="row">
                 <div class="col s12 m6 l4">
                     <animal_feeding_schedules-widget animal-id="{{ $animal->id }}"></animal_feeding_schedules-widget>
-
+                </div>
+                <div class="col s12 m6 l4">
                     <animal_feedings-widget animal-id="{{ $animal->id }}"></animal_feedings-widget>
                 </div>
+            </div>
+        </div>
+    </div>
 
+    <div id="tab_health_weight" class="col s12">
+        <div class="container">
+            <div class="row">
                 <div class="col s12 m6 l4">
                     <animal_weighing_schedules-widget animal-id="{{ $animal->id }}"></animal_weighing_schedules-widget>
 
                     <animal_weighings-widget animal-id="{{ $animal->id }}"></animal_weighings-widget>
                 </div>
 
-                <!--
-                <div class="col s12 m7 l8">
+                <div class="col s12 m12 l8">
                     <div class="card">
                         <div class="card-content teal lighten-1 white-text">
-                            count @lang('labels.measurement_count')
+                            <span>@lang('labels.weighprogression')</span>
                         </div>
-
                         <div class="card-content">
-                        <span class="card-title activator truncate">
-                            @lang('labels.weight_history')
-                            <i class="material-icons right">more_vert</i>
-                        </span>
-                            <p>
-                            <div id="material-graph-animal-weight-{{ $animal->id }}"></div>
-                            </p>
-                        </div>
+                            <google-graph type="line" event-type="AnimalWeighingUpdated"
+                                          vertical-axis-title="@lang('labels.weight')" horizontal-axis-title="@lang('labels.date')"
+                                          show-filter-field="created_at" :height="400"
 
-                        <div class="card-action">
-                        </div>
-
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
-                            <p>
-
-                            </p>
+                                          source="{{ url('api/v1/animals/' . $animal->id .'/weighings?graph=true') }}"></google-graph>
                         </div>
                     </div>
-
-                    <script>
-                        document.addEventListener("DOMContentLoaded", function(event) {
-                            google.charts.load('current', {packages: ['corechart', 'line']});
-                            google.charts.setOnLoadCallback(drawTrendlines);
-
-                            function drawTrendlines() {
-                                var data = new google.visualization.DataTable();
-                                data.addColumn('date', 'Time');
-                                data.addColumn('number', 'Weight/g');
-
-                                data.addRows([
-                                    [new Date('2016-11-01'), 5], [new Date('2016-11-02'), 7], [new Date('2016-11-03'), 5],
-                                    [new Date('2016-11-07'), 9], [new Date('2016-11-08'), 20], [new Date('2016-11-10'), 18]
-                                ]);
-
-                                var options = {
-                                    chartArea: {
-                                        'width': '90%',
-                                        'height': '80%'
-                                    },
-                                    legend: 'none',
-                                    hAxis: {
-                                        textPosition: 'none'
-                                    },
-                                    colors: ['#AB0D06'],
-                                    trendlines: {
-                                        0: {
-                                            type: 'exponential',
-                                            color: '#333',
-                                            opacity: 1
-                                        },
-                                        1: {
-                                            type: 'linear',
-                                            color: '#111',
-                                            opacity: .3
-                                        }
-                                    }
-                                };
-
-                                var chart = new google.visualization.LineChart(document.getElementById('material-graph-animal-weight-{{ $animal->id }}'));
-                                chart.draw(data, options);
-                            }
-                        });
-                    </script>
                 </div>
-                -->
             </div>
         </div>
     </div>
@@ -140,60 +88,13 @@
                 <div class="col s12 m7 l8">
                     <div class="card">
                         <div class="card-content teal lighten-1 white-text">
-                            @lang('labels.sensorreadings_history')
+                            @lang('labels.temp_and_hum_history')
                         </div>
                         <div class="card-content">
-                            <div id="sensorgraph-terrarium-waiting-{{ $animal->terrarium_id }}" class="center">
-                                <div class="btn btn-success btn-lg" id="sensorgraph-terrarium-btn_load-{{ $animal->terrarium_id }}">@lang('buttons.loadgraph')</div>
-                            </div>
-                            <div id="sensorgraph-terrarium-loading-{{ $animal->terrarium_id }}" class="center" style="display:none;">
-                                <div class="preloader-wrapper small active">
-                                    <div class="spinner-layer spinner-green-only">
-                                        <div class="circle-clipper left">
-                                            <div class="circle"></div>
-                                        </div><div class="gap-patch">
-                                            <div class="circle"></div>
-                                        </div><div class="circle-clipper right">
-                                            <div class="circle"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="sensorgraph-terrarium-{{ $animal->terrarium_id }}" style="width: 100%;"></div>
+                            <dygraph-graph show-filter-field="created_at"
+                                          source="{{ url('api/v1/terraria/' . $animal->terrarium_id . '/sensorreadings?graph=true') }}"></dygraph-graph>
                         </div>
                     </div>
-
-                    <script>
-                        document.addEventListener('DOMContentLoaded', function() {
-                            $('#sensorgraph-terrarium-btn_load-{{ $animal->terrarium_id }}').click(function() {
-                                $('#sensorgraph-terrarium-waiting-{{ $animal->terrarium_id }}').hide();
-                                $('#sensorgraph-terrarium-loading-{{ $animal->terrarium_id }}').show();
-                                $.ajax({
-                                    url: '{{ url('api/v1/terraria/' . $animal->terrarium_id . '/sensorreadings?history_minutes=20160') }}',
-                                    type: 'GET',
-                                    error: function() {
-                                        notification('danger', '@lang('errors.retrievegraphdata')');
-                                        $('#sensorgraph-terrarium-waiting-{{ $animal->terrarium_id }}').show();
-                                        $('#sensorgraph-terrarium-loading-{{ $animal->terrarium_id }}').hide();
-                                    },
-                                    success: function(data) {
-                                        var g = new Dygraph(
-                                            document.getElementById("sensorgraph-terrarium-{{ $animal->terrarium_id }}"),
-                                            data.data.csv,
-                                            {
-                                                'connectSeparatedPoints': true,
-                                                colors: ['#5555EE', '#CC5555'],
-                                                axisLineColor: '#D4D4D4'
-                                            }
-                                        );
-                                        g.ready(function() {
-                                            $('#sensorgraph-terrarium-loading-{{ $animal->terrarium_id }}').hide();
-                                        });
-                                    }
-                                });
-                            });
-                        });
-                    </script>
                 </div>
             </div>
         </div>

@@ -10,6 +10,7 @@ use App\Terrarium;
 use App\Valve;
 use Cache;
 use Carbon\Carbon;
+use DB;
 use Gate;
 use Illuminate\Database\Eloquent\Collection;
 use Log;
@@ -196,26 +197,7 @@ class TerrariumController extends ApiController
 
         $terrarium->heartbeat_ok = $terrarium->heartbeatOk();
 
-        $history_to = null;
-        if ($request->has('history_to')) {
-            $history_to = Carbon::parse($request->input('history_to'));
-            $history_to->second = 0;
-            $history_to->minute = 0;
-            $history_to->hour = 0;
-        }
-
-        $history_minutes = 180;
-        if ($request->has('history_minutes')) {
-            $history_minutes = $request->input('history_minutes');
-        }
-
-        /*
-         * Check cache
-         */
-        $cache_key = 'api-show-terrarium-sensorreadings-' . $history_minutes . '-' . $history_to . '-' . $id;
-        if (Cache::has($cache_key)) {
-            return $this->setStatusCode(200)->respondWithData(['csv' => Cache::get($cache_key)]);
-        }
+        $query = $this->filter($request, DB::table('sensorreadings'));
 
         /*
          * Get sensorreadings
@@ -234,7 +216,7 @@ class TerrariumController extends ApiController
             /*
              * Get temperature sensorreadings
              */
-            $data[$st] = (new SensorreadingRepository())->getAvgByLogicalSensor($logical_sensor_ids, $history_minutes, $history_to)->get();
+            $data[$st] = (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids)->get();
         }
 
         /*
@@ -259,8 +241,6 @@ class TerrariumController extends ApiController
                 $data_csv .= ',' . (isset($group[$type]) ? $group[$type] : '');
             }
         }
-
-        Cache::add($cache_key, $data_csv, env('CACHE_API_TERRARIUM_GRAPH_DURATION') / 60);
 
         return $this->setStatusCode(200)->respondWithData(['csv' => $data_csv]);
     }

@@ -52,7 +52,7 @@ class AnimalWeighingController extends ApiController
             return $this->respondNotFound("Animal not found");
         }
 
-        $weighings = $animal->weighings();
+        $weighings = $this->filter($request, $animal->weighings());
 
         /*
          * If raw is passed, pagination will be ignored
@@ -70,6 +70,33 @@ class AnimalWeighingController extends ApiController
                 )
             );
 
+        }
+
+        if ($request->has('graph')) {
+            $weighings = $weighings->get();
+
+            $return = [
+                'columns' => [
+                    [
+                        'type' => 'date',
+                        'name' => 'X'
+                    ],
+                    [
+                        'type' => 'number',
+                        'name' => 'g'
+                    ]
+                ],
+                'rows' => []
+            ];
+
+            foreach ($weighings as $weight) {
+                $return['rows'][] = [
+                    $weight->created_at->toDateString(),
+                    (int)$weight->value
+                ];
+            }
+
+            return $this->respondWithData($return);
         }
 
         $weighings = $weighings->paginate(env('PAGINATION_PER_PAGE', 20));

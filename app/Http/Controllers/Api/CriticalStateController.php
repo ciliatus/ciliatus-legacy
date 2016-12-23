@@ -38,6 +38,10 @@ class CriticalStateController extends ApiController
         $this->critical_stateTransformer = $_critical_stateTransformer;
     }
 
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function index(Request $request)
     {
         if (Gate::denies('api-list')) {

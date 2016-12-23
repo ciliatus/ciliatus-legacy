@@ -205,6 +205,9 @@ class ApiController extends Controller
      * .../?filter[name]=like:*s00hvm*&filter[status]=null:
      * will match all entities where name contains s00hvm and status is null
      *
+     * Multiple filters on one field can be chained:
+     * .../?filter[created_at]=lt:2016-12-10:and:gt:2016-12-08
+     *
      * special operators:
      * like, notlike, today, nottoday
      */
@@ -217,33 +220,39 @@ class ApiController extends Controller
     {
         if ($request->has('filter')) {
             foreach ($request->input('filter') as $field => $value) {
-                $field_filter = explode(":", $value);
-                if (count($field_filter) > 1) {
-                    $field_filter[1] = str_replace('*', '%', $field_filter[1]);
-                    $operator = str_replace('notlike', 'not like', $field_filter[0]);
-                    $query = $query->where($field, $operator, $field_filter[1]);
-                } else {
-                    $field_filter = $value;
+                $fields = explode(":and:", $value);
+                foreach ($fields as $v) {
+                    $field_filter = explode(":", $v);
+                    if (count($field_filter) > 1) {
+                        $field_filter[1] = str_replace('*', '%', $field_filter[1]);
+                        $operator = str_replace('notlike', 'not like', $field_filter[0]);
+                        $operator = str_replace('gt', '>', $operator);
+                        $operator = str_replace('lt', '<', $operator);
+                        $operator = str_replace('eq', '=', $operator);
+                        $query = $query->where($field, $operator, $field_filter[1]);
+                    } else {
+                        $field_filter = $value;
 
-                    switch ($field_filter) {
-                        case 'today':
-                            $query = $query->where($field, 'like', Carbon::now()->format('Y-m-d') . '%');
-                            break;
-                        case 'nottoday':
-                            $query = $query->where(function ($q) use ($field) {
-                                $q->where($field, 'not like', Carbon::now()->format('Y-m-d') . '%')
-                                    ->orWhereNull($field);
-                            });
-                            break;
-                        case 'null':
-                            $query = $query->whereNull($field);
-                            break;
-                        case 'notnull':
-                            $query = $query->whereNotNull($field);
-                            break;
-                        default:
-                            $query = $query->where($field, $value);
-                            break;
+                        switch ($field_filter) {
+                            case 'today':
+                                $query = $query->where($field, 'like', Carbon::now()->format('Y-m-d') . '%');
+                                break;
+                            case 'nottoday':
+                                $query = $query->where(function ($q) use ($field) {
+                                    $q->where($field, 'not like', Carbon::now()->format('Y-m-d') . '%')
+                                        ->orWhereNull($field);
+                                });
+                                break;
+                            case 'null':
+                                $query = $query->whereNull($field);
+                                break;
+                            case 'notnull':
+                                $query = $query->whereNotNull($field);
+                                break;
+                            default:
+                                $query = $query->where($field, $value);
+                                break;
+                        }
                     }
                 }
             }

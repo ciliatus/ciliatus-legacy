@@ -7,6 +7,7 @@ use App\Events\TerrariumDeleted;
 use App\Http\Transformers\TerrariumTransformer;
 use App\Repositories\SensorreadingRepository;
 use Carbon\Carbon;
+use DB;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -173,24 +174,21 @@ class Terrarium extends CiliatusModel
 
     /**
      * @param int $minutes
-     * @param null $from
+     * @param Carbon $to
      * @return mixed
      */
-    public function getSensorReadingsTemperature($minutes = 120, $to = null)
+    public function getSensorReadingsTemperature($minutes = 120, Carbon $to = null)
     {
-        if (is_null($to))
-            $to = Carbon::now();
-
         return $this->fetchSensorreadings('temperature_celsius', $minutes, $to);
     }
 
 
     /**
      * @param int $minutes
-     * @param null $from
+     * @param Carbon $to
      * @return mixed
      */
-    public function getSensorReadingsHumidity($minutes = 120, $to = null)
+    public function getSensorReadingsHumidity($minutes = 120, Carbon $to = null)
     {
         return $this->fetchSensorreadings('humidity_percent', $minutes, $to);
     }
@@ -222,19 +220,34 @@ class Terrarium extends CiliatusModel
      */
     private function fetchSensorreadings($type, $minutes = null, Carbon $to = null)
     {
-        $logical_sensor_ids = [];
+        if (is_null($to)) {
+            $to = Carbon::now();
+        }
+
+        if (is_null($minutes)) {
+            $minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 120);
+        }
+
+        $from = clone $to;
+        $from->subMinutes($minutes);
 
         /*
          * Fetch all logical sensors
          * of this terrarium with matching type
          */
+        $logical_sensor_ids = [];
         foreach ($this->physical_sensors as $ps) {
             foreach ($ps->logical_sensors()->where('type', $type)->get() as $ls) {
                 $logical_sensor_ids[] = $ls->id;
             }
         }
 
-        $sensor_readings = (new SensorreadingRepository())->getAvgByLogicalSensor($logical_sensor_ids, $minutes, $to);
+
+        $query = DB::table('sensorreadings')->where('created_at', '<', $to)
+                                            ->where('created_at', '>', $from);
+
+
+        $sensor_readings = (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids);
 
         return $sensor_readings->get()->toArray();
 

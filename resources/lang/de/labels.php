@@ -94,5 +94,11 @@ return [
     'environment'   =>  'Umgebung',
     'now'           =>  'Jetzt',
     'scheduled'     =>  'Geplant',
-    'sequence'      =>  'Sequenz'
+    'sequence'      =>  'Sequenz',
+    'date'          =>  'Datum',
+    'weighprogression'=>  'Gewichtsverlauf',
+    'from'          =>  'Von',
+    'tO'            =>  'Bis',
+    'feedings'      =>  'Fütterungen',
+    'temp_and_hum_history'  =>  'Temperatur- und Feuchtigkeitsverlauf'
 ];
