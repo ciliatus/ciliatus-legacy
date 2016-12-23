@@ -6577,4 +6577,48 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   .picker--time .picker__box {
     margin-bottom: 5em; } }
 
+.terrarium-card-image {
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 140px; }
+
+header, main, footer {
+  padding-left: 300px; }
+
+@media only screen and (max-width: 992px) {
+  header, main, footer {
+    padding-left: 0; } }
+
+@media only screen and (min-width: 993px) and (max-width: 1520px) {
+  .container {
+    margin-right: 20px;
+    margin-left: 20px;
+    width: 95%; } }
+
+.btn-icon-only {
+  margin-left: 20px;
+  padding: 0 5px; }
+
+.chartBackgroundColor {
+  background-color: transparent; }
+
+.chartTextColor {
+  color: rgba(255, 255, 255, 0.7); }
+
+.chartColor1 {
+  color: #26a69a; }
+
+.chartColor2 {
+  color: #186860; }
+
+.chartColor3 {
+  color: #44d4c7; }
+
+.chartColor4 {
+  color: #26a69a; }
+
+text {
+  fill: #000000; }
+
 /*# sourceMappingURL=materialize.css.map */
