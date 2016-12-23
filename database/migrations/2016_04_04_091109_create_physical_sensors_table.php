@@ -16,7 +16,6 @@ class CreatePhysicalSensorsTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('controlunit_id');
-            #$table->foreign('controlunit_id')->references('id')->on('controlunits');
             $table->string('belongsTo_type');
             $table->uuid('belongsTo_id');
             $table->string('name');

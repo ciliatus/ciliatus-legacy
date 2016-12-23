@@ -17,7 +17,6 @@ class CreateLogicalSensorsTable extends Migration
             $table->primary('id');
             $table->string('name');
             $table->uuid('physical_sensor_id');
-            #$table->foreign('physical_sensor_id')->references('id')->on('physical_sensors');
             $table->string('type');
             $table->double('rawvalue');
             $table->double('rawvalue_lowerlimit');

@@ -16,7 +16,6 @@ class CreatePumpsTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('controlunit_id')->nullable();
-            #$table->foreign('controlunit_id')->references('id')->on('controlunits');
             $table->string('name');
             $table->string('state')->default('unknown');
             $table->timestamps();

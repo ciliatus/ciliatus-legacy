@@ -15,12 +15,12 @@ class CreateLogsTable extends Migration
         Schema::create('logs', function (Blueprint $table) {
             $table->uuid('id');
             $table->primary('id');
-            $table->string('source_type');
-            $table->uuid('source_id');
-            $table->string('target_type');
-            $table->uuid('target_id');
-            $table->string('associatedWith_type');
-            $table->uuid('associatedWith_id');
+            $table->string('source_type')->nullable();
+            $table->uuid('source_id')->nullable();
+            $table->string('target_type')->nullable();
+            $table->uuid('target_id')->nullable();
+            $table->string('associatedWith_type')->nullable();
+            $table->uuid('associatedWith_id')->nullable();
             $table->string('action');
             $table->timestamps();
         });

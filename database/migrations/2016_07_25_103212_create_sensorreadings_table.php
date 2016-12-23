@@ -17,7 +17,6 @@ class CreateSensorreadingsTable extends Migration
             $table->primary('id');
             $table->uuid('sensorreadinggroup_id');
             $table->uuid('logical_sensor_id');
-            #$table->foreign('logical_sensor_id')->references('id')->on('logical_sensors');
             $table->double('rawvalue');
             $table->timestamps();
         });

@@ -50,7 +50,7 @@ class User extends CiliatusModel implements
 
     /**
      * @param array $attributes
-     * @return Authenticatable|User
+     * @return CiliatusModel|User
      */
     public static function create(array $attributes = [])
     {

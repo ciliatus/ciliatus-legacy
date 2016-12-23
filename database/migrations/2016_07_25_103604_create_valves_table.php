@@ -16,9 +16,7 @@ class CreateValvesTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('controlunit_id')->nullable();
-            #$table->foreign('controlunit_id')->references('id')->on('controlunits');
             $table->uuid('terrarium_id')->nullable();
-            #$table->foreign('terrarium_id')->references('id')->on('terraria');
             $table->uuid('pump_id');
             $table->string('name');
             $table->string('state')->default('unknown');

@@ -16,7 +16,6 @@ class CreateAnimalsTable extends Migration
             $table->uuid('id');
             $table->primary('id');
             $table->uuid('terrarium_id')->nullable();
-            #$table->foreign('terrarium_id')->references('id')->on('terraria');
             $table->string('lat_name')->nullable();
             $table->string('common_name')->nullable();
             $table->string('display_name')->nullable();
