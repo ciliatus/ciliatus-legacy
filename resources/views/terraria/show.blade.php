@@ -27,36 +27,11 @@
                 <div class="col s12 m7 l8">
                     <div class="card">
                         <div class="card-content teal lighten-1 white-text">
-                            count @lang('labels.measurement_count')
+                            @lang('labels.temp_and_hum_history')
                         </div>
-
                         <div class="card-content">
-                            <p>
-                            <div id="sensorgraph-terrarium-waiting-{{ $terrarium->id }}" class="center">
-                                <div class="btn btn-success btn-lg" id="sensorgraph-terrarium-btn_load-{{ $terrarium->id }}">@lang('buttons.loadgraph')</div>
-                            </div>
-                            <div id="sensorgraph-terrarium-loading-{{ $terrarium->id }}" class="center" style="display:none;">
-                                <div class="preloader-wrapper small active">
-                                    <div class="spinner-layer spinner-green-only">
-                                        <div class="circle-clipper left">
-                                            <div class="circle"></div>
-                                        </div><div class="gap-patch">
-                                            <div class="circle"></div>
-                                        </div><div class="circle-clipper right">
-                                            <div class="circle"></div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div id="sensorgraph-terrarium-{{ $terrarium->id }}" style="width: 100%;"></div>
-                            </p>
-                        </div>
-
-                        <div class="card-reveal">
-                            <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
-                            <p>
-
-                            </p>
+                            <dygraph-graph show-filter-field="created_at"
+                                           source="{{ url('api/v1/terraria/' . $terrarium->id . '/sensorreadings?graph=true') }}"></dygraph-graph>
                         </div>
                     </div>
                 </div>
@@ -108,38 +83,6 @@
             <li><a class="btn-floating green" href="/terraria/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            $('#sensorgraph-terrarium-btn_load-{{ $terrarium->id }}').click(function() {
-                $('#sensorgraph-terrarium-waiting-{{ $terrarium->id }}').hide();
-                $('#sensorgraph-terrarium-loading-{{ $terrarium->id }}').show();
-                $.ajax({
-                    url: '{{ url('api/v1/terraria/' . $terrarium->id . '/sensorreadings?history_minutes=20160') }}',
-                    type: 'GET',
-                    error: function() {
-                        notification('danger', '@lang('errors.retrievegraphdata')');
-                        $('#sensorgraph-terrarium-waiting-{{ $terrarium->id }}').show();
-                        $('#sensorgraph-terrarium-loading-{{ $terrarium->id }}').hide();
-                    },
-                    success: function(data) {
-                        var g = new Dygraph(
-                            document.getElementById("sensorgraph-terrarium-{{ $terrarium->id }}"),
-                            data.data.csv,
-                            {
-                                'connectSeparatedPoints': true,
-                                colors: ['#5555EE', '#CC5555'],
-                                axisLineColor: '#D4D4D4'
-                            }
-                        );
-                        g.ready(function() {
-                            $('#sensorgraph-terrarium-loading-{{ $terrarium->id }}').hide();
-                        });
-                    }
-                });
-            });
-        });
-    </script>
 
     <script>
         ($(function() {
