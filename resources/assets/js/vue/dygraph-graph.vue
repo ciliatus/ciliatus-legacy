@@ -111,7 +111,12 @@ export default {
                 method: 'GET',
                 success: function (data) {
                     that.data = data.data.csv;
-                    that.draw();
+                    if (that.data.split(/\r\n|\r|\n/).length > 1) {
+                        that.draw();
+                    }
+                    else {
+                        $('#dygraph_' + that.id + '_loading').hide();
+                    }
                 },
                 error: function (error) {
                     $('#dygraph_' + that.id + '_loading').hide();
