@@ -94,11 +94,19 @@ class SetupController extends ApiController
             return $this->setStatusCode(422)->respondWithError(trans('errors.no_password'));
         }
 
+        $locale_prop = Property::where('type', 'SetupConfiguration')->where('name', 'language')->first()->get();
+        if (is_null($locale_prop)) {
+            $locale = 'en';
+        }
+        else {
+            $locale = $locale_prop->value;
+        }
+
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
             'password' => $password,
-            'locale' => app()->getLocale()
+            'locale' => $locale
         ]);
 
         $user->grantFullAbilities();
