@@ -198,12 +198,12 @@ class AnimalWeighingScheduleController extends ApiController
 
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return view('error.404');
+            return $this->respondNotFound();
         }
 
         $aws = $animal->weighing_schedules()->where('id', $id)->get()->first();
         if (is_null($aws)) {
-            return view('error.404');
+            return $this->respondNotFound();
         }
 
         $aws->name = 'g';
@@ -234,12 +234,12 @@ class AnimalWeighingScheduleController extends ApiController
 
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return view('error.404');
+            return $this->respondNotFound();
         }
 
         $aws = $animal->weighing_schedules()->where('id', $id)->get()->first();
         if (is_null($aws)) {
-            return view('error.404');
+            return $this->respondNotFound();
         }
 
         broadcast(new AnimalWeighingScheduleDeleted($aws->id));

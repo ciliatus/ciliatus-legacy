@@ -197,12 +197,12 @@ class AnimalFeedingScheduleController extends ApiController
 
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return view('error.404');
+            return $this->respondNotFound();
         }
 
         $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
         if (is_null($afs)) {
-            return view('error.404');
+            return $this->respondNotFound();
         }
 
         $afs->name = $request->input('meal_type');
@@ -233,12 +233,12 @@ class AnimalFeedingScheduleController extends ApiController
 
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return view('error.404');
+            return $this->respondNotFound();
         }
 
         $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
         if (is_null($afs)) {
-            return view('error.404');
+            return $this->respondNotFound();
         }
 
         $afs_properties = Property::where('belongsTo_type', 'Property')->where('belongsTo_id', $afs->id)->get();
