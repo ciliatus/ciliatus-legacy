@@ -57,8 +57,10 @@
                             {{ schedule.animal.display_name }}:
                         </a>
 
+                        {{ schedule.type }}
+
                         <a href="#" v-bind:data-activates="'dropdown-edit-animal_feeding_schedules_' + schedule.id" class="white-text dropdown-button">
-                            {{ schedule.type }}
+                            {{ $t('labels.actions') }}
                         </a>
 
                         <ul v-bind:id="'dropdown-edit-animal_feeding_schedules_' + schedule.id" class="dropdown-content">
@@ -112,8 +114,10 @@
                                 {{ schedule.animal.display_name }}
                             </a>
 
+                            ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
+
                             <a href="#" v-bind:data-activates="'dropdown-edit-animal_weighing_schedules_' + schedule.id" class="white-text dropdown-button">
-                                ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
+                                {{ $t('labels.actions') }}
                             </a>
 
                             <ul v-bind:id="'dropdown-edit-animal_weighing_schedules_' + schedule.id" class="dropdown-content">
@@ -260,8 +264,10 @@
                                 {{ schedule.animal.display_name }}
                             </a>
 
+                            {{ $t('labels.today') }}
+
                             <a href="#" v-bind:data-activates="'dropdown-edit-animal_weighing_schedules_' + schedule.id" class="white-text dropdown-button">
-                                {{ $t('labels.today') }}
+                                {{ $t('labels.actions') }}
                             </a>
 
                             <ul v-bind:id="'dropdown-edit-animal_weighing_schedules_' + schedule.id" class="dropdown-content">
