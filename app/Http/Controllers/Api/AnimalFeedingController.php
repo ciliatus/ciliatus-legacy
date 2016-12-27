@@ -107,7 +107,7 @@ class AnimalFeedingController extends ApiController
      */
     public function store(Request $request, $id)
     {
-        if (Gate::denies('api-write:animal')) {
+        if (Gate::denies('api-write:animal_feeding')) {
             return $this->respondUnauthorized();
         }
 

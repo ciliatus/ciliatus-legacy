@@ -117,7 +117,7 @@ class AnimalFeedingScheduleController extends ApiController
      */
     public function store(Request $request, $animal_id)
     {
-        if (Gate::denies('api-write:controlunit')) {
+        if (Gate::denies('api-write:animal_feeding_schedule')) {
             return $this->respondUnauthorized();
         }
 
@@ -191,6 +191,10 @@ class AnimalFeedingScheduleController extends ApiController
      */
     public function update(Request $request, $animal_id, $id)
     {
+        if (Gate::denies('api-write:animal_feeding_schedule')) {
+            return $this->respondUnauthorized();
+        }
+
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
             return view('error.404');
@@ -223,6 +227,10 @@ class AnimalFeedingScheduleController extends ApiController
      */
     public function destroy($animal_id, $id)
     {
+        if (Gate::denies('api-write:animal_feeding_schedule')) {
+            return $this->respondUnauthorized();
+        }
+
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
             return view('error.404');
@@ -248,5 +256,15 @@ class AnimalFeedingScheduleController extends ApiController
                 'delay' => 1000
             ]
         ]);
+    }
+
+    public function done($animal_id, $id)
+    {
+
+    }
+
+    public function skip($animal_id, $id)
+    {
+
     }
 }
