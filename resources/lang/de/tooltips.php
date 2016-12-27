@@ -20,5 +20,7 @@ return [
     'heartbeat_critical'    =>  'Heartbeat ist kritisch!',
     'copy_thresholds_warning'=> 'Alle existierenden Grenzwerte des Zielsensors werden entfernt.',
     'animal_feeding_schedule_matrix' => 'Diese Matrix enthält alle definierten Fütterungspläne. Die Zahl in einer Spalte stellt das Intervall dar.',
-    'animal_weighing_schedule_matrix' => 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.'
+    'animal_weighing_schedule_matrix' => 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.',
+    'done'                  =>  'Erledigt',
+    'skip'                  =>  'Überspringen'
 ];

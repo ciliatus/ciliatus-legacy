@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Animal;
 use App\Events\AnimalWeighingScheduleDeleted;
 use App\Events\AnimalWeighingScheduleUpdated;
+use App\Events\AnimalWeighingUpdated;
 use App\Http\Transformers\AnimalWeighingScheduleTransformer;
 use App\Property;
 use App\Repositories\AnimalWeighingRepository;
 use App\Repositories\AnimalWeighingScheduleRepository;
 use Carbon\Carbon;
+use Event;
 use Illuminate\Http\Request;
 use Gate;
 use App\Http\Requests;
@@ -252,5 +254,73 @@ class AnimalWeighingScheduleController extends ApiController
                 'delay' => 1000
             ]
         ]);
+    }
+
+    /**
+     * @param $animal_id
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function done($animal_id, $id)
+    {
+        if (Gate::denies('api-write:animal_weighing_schedule')) {
+            return $this->respondUnauthorized();
+        }
+
+        $animal = Animal::find($animal_id);
+        if (is_null($animal)) {
+            return $this->respondNotFound();
+        }
+
+        $afs = $animal->weighing_schedules()->where('id', $id)->get()->first();
+        if (is_null($afs)) {
+            return $this->respondNotFound();
+        }
+
+        $e = Event::create([
+            'belongsTo_type' => 'Animal',
+            'belongsTo_id' => $animal->id,
+            'type' => 'AnimalWeighing',
+            'name' => $afs->name
+        ]);
+
+        broadcast(new AnimalWeighingUpdated($e));
+        broadcast(new AnimalWeighingScheduleUpdated($afs));
+
+        return $this->respondWithData([]);
+    }
+
+    /**
+     * @param $animal_id
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function skip($animal_id, $id)
+    {
+        if (Gate::denies('api-write:animal_weighing_schedule')) {
+            return $this->respondUnauthorized();
+        }
+
+        $animal = Animal::find($animal_id);
+        if (is_null($animal)) {
+            return $this->respondNotFound();
+        }
+
+        $afs = $animal->weighing_schedules()->where('id', $id)->get()->first();
+        if (is_null($afs)) {
+            return $this->respondNotFound();
+        }
+
+        $p = Property::create([
+            'belongsTo_type' => 'Property',
+            'belongsTo_id' => $afs->id,
+            'type' => 'AnimalWeighingScheduleStartDate',
+            'name' => 'starts_at',
+            'value' => Carbon::today()->addDays((int)$afs->value)->format('Y-m-d')
+        ]);
+
+        broadcast(new AnimalWeighingScheduleUpdated($afs));
+
+        return $this->respondWithData([]);
     }
 }

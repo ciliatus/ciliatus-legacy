@@ -34,7 +34,7 @@ class AnimalWeighingScheduleRepository extends Repository {
         $animal = $ws->belongsTo_object()->get()->first();
         $ws->animal = $animal->toArray();
         $last_weighing_of_type = $animal->last_weighing();
-        $starts_at = Property::where('type', 'AnimalWeighingScheduleStartDate')->where('belongsTo_id', $ws->id)->get()->first();
+        $starts_at = Property::where('type', 'AnimalWeighingScheduleStartDate')->where('belongsTo_id', $ws->id)->orderBy('created_at', 'desc')->get()->first();
 
 
         /*

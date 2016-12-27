@@ -34,7 +34,7 @@ class AnimalFeedingScheduleRepository extends Repository {
         $animal = $fs->belongsTo_object()->get()->first();
         $fs->animal = $animal->toArray();
         $last_feeding_of_type = $animal->last_feeding($fs->name);
-        $starts_at = Property::where('type', 'AnimalFeedingScheduleStartDate')->where('belongsTo_id', $fs->id)->get()->first();
+        $starts_at = Property::where('type', 'AnimalFeedingScheduleStartDate')->where('belongsTo_id', $fs->id)->orderBy('created_at', 'desc')->get()->first();
 
 
         /*

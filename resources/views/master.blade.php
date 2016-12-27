@@ -19,7 +19,7 @@
 
         <meta name="theme-color" content="#009688" />
 
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
     </head>
 
     <body data-lang="{{ Auth::user()->locale }}">
@@ -189,6 +189,10 @@
         <script>
             $(document).ready(function() {
                 window.runPage();
+                $.ajaxSetup({
+                    headers:
+                        { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
+                });
             });
         </script>
 

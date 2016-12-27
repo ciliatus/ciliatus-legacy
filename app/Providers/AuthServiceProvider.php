@@ -70,16 +70,16 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAbility('grant_api-write:animal_feeding');
         });
 
-        $gate->define('api-write:animal_feeding_schedules', function ($user) {
-            return $user->hasAbility('grant_api-write:animal_feeding_schedules');
+        $gate->define('api-write:animal_feeding_schedule', function ($user) {
+            return $user->hasAbility('grant_api-write:animal_feeding_schedule');
         });
 
         $gate->define('api-write:animal_weighing', function ($user) {
             return $user->hasAbility('grant_api-write:animal_weighing');
         });
 
-        $gate->define('api-write:animal_weighing_schedules', function ($user) {
-            return $user->hasAbility('grant_api-write:animal_weighing_schedules');
+        $gate->define('api-write:animal_weighing_schedule', function ($user) {
+            return $user->hasAbility('grant_api-write:animal_weighing_schedule');
         });
 
         $gate->define('api-write:valve', function ($user) {
