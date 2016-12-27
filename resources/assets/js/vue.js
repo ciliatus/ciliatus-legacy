@@ -44,6 +44,7 @@ Object.keys(locales).forEach(function (lang) {
     Vue.locale(lang, locales[lang])
 });
 
+
 import DashboardWidget from './vue/dashboard-widget.vue';
 import GoogleGraph from './vue/google-graph.vue';
 import DygraphGraph from './vue/dygraph-graph.vue';

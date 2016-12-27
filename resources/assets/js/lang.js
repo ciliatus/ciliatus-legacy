@@ -198,7 +198,9 @@ module.exports = {
             'heartbeat_critical'    :  'Heartbeat ist kritisch!',
             'copy_thresholds_warning': 'Alle existierenden Grenzwerte des Zielsensors werden entfernt.',
             'animal_feeding_schedule_matrix' : 'Diese Matrix enthält alle definierten Fütterungspläne. Die Zahl in einer Spalte stellt das Intervall dar.',
-            'animal_weighing_schedule_matrix' : 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.'
+            'animal_weighing_schedule_matrix' : 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.',
+            'done'                  :  'Erledigt',
+            'skip'                  :  'Überspringen'
         },
         units: {
             'years'     :  'Jahr | Jahre',
@@ -413,7 +415,9 @@ module.exports = {
             'heartbeat_critical'    :  'Heartbeat is critical!',
             'copy_thresholds_warning': 'All existing thresholds on the target sensor will be removed.',
             'animal_feeding_schedule_matrix' : 'This matrix contains all defined feeding schedules. A number in a column represents the schedule\'s interval in days.',
-    'animal_weighing_schedule_matrix' : 'This matrix contains all defined weighing schedules. A number in a column represents the schedule\'s interval in days followed by the next due date.'
+            'animal_weighing_schedule_matrix' : 'This matrix contains all defined weighing schedules. A number in a column represents the schedule\'s interval in days followed by the next due date.',
+            'done'                  :  'Done',
+            'skip'                  :  'Skip'
         },
         units: {
             'years'     :  'year|years',

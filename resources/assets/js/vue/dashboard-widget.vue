@@ -48,21 +48,34 @@
                 <div class="card-content orange darken-2 white-text">
                     <span class="card-title activator truncate">
                         <span>{{ dashboard.animal_feeding_schedules.overdue.length }} {{ $tc("components.animal_feedings", dashboard.animal_feeding_schedules.overdue.length) }} {{ $t("labels.overdue") }}</span>
-                        <i class="material-icons right">more_vert</i>
+                        
                     </span>
 
                     <div v-for="schedule in dashboard.animal_feeding_schedules.overdue">
-                        <p>
-                            <a v-bind:href="'/animals/' + schedule.animal.id" class="white-text">
-                                {{ schedule.animal.display_name }}:
-                            </a>
 
-                            <a v-bind:href="'/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id" class="white-text">
-                                {{ schedule.type }}
-                            </a>
+                        <a v-bind:href="'/animals/' + schedule.animal.id" class="white-text">
+                            {{ schedule.animal.display_name }}:
+                        </a>
 
-                            ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
-                        </p>
+                        <a href="#" v-bind:data-activates="'dropdown-edit-animal_feeding_schedules_' + schedule.id" class="white-text dropdown-button">
+                            {{ schedule.type }}
+                        </a>
+
+                        <ul v-bind:id="'dropdown-edit-animal_feeding_schedules_' + schedule.id" class="dropdown-content">
+                            <li>
+                                <a v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'" v-on:click="link_post">
+                                    <i class="material-icons">done</i> {{ $t('tooltips.done') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                                    <i class="material-icons">update</i> {{ $t('tooltips.skip') }}
+                                </a>
+                            </li>
+                        </ul>
+
+                        ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
+
                     </div>
                 </div>
 
@@ -99,7 +112,24 @@
                                 {{ schedule.animal.display_name }}
                             </a>
 
-                            ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
+                            <a href="#" v-bind:data-activates="'dropdown-edit-animal_weighing_schedules_' + schedule.id" class="white-text dropdown-button">
+                                ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
+                            </a>
+
+                            <ul v-bind:id="'dropdown-edit-animal_weighing_schedules_' + schedule.id" class="dropdown-content">
+                                <!-- @TODO implement modal to enter weight
+                                <li>
+                                    <a v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/done'" v-on:click="link_post">
+                                        <i class="material-icons">done</i> {{ $t('tooltips.done') }}
+                                    </a>
+                                </li>
+                                -->
+                                <li>
+                                    <a v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                                        <i class="material-icons">update</i> {{ $t('tooltips.skip') }}
+                                    </a>
+                                </li>
+                            </ul>
                         </p>
                     </div>
                 </div>
@@ -170,15 +200,30 @@
                     </span>
 
                     <div v-for="schedule in dashboard.animal_feeding_schedules.due">
-                        <p>
-                            <a v-bind:href="'/animals/' + schedule.animal.id" class="white-text">
-                                {{ schedule.animal.display_name }}:
-                            </a>
 
-                            <a v-bind:href="'/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id" class="white-text">
-                                {{ schedule.type }}
-                            </a>
-                        </p>
+                        <a v-bind:href="'/animals/' + schedule.animal.id" class="white-text">
+                            {{ schedule.animal.display_name }}:
+                        </a>
+
+                        <a href="#" v-bind:data-activates="'dropdown-edit-animal_feeding_schedules_' + schedule.id" class="white-text dropdown-button">
+                            {{ schedule.type }}
+                        </a>
+
+                        <ul v-bind:id="'dropdown-edit-animal_feeding_schedules_' + schedule.id" class="dropdown-content">
+                            <li>
+                                <a v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'" v-on:click="link_post">
+                                    <i class="material-icons">done</i> {{ $t('tooltips.done') }}
+                                </a>
+                            </li>
+                            <li>
+                                <a v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                                    <i class="material-icons">update</i> {{ $t('tooltips.skip') }}
+                                </a>
+                            </li>
+                        </ul>
+
+                        ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
+
                     </div>
                 </div>
 
@@ -214,6 +259,25 @@
                             <a v-bind:href="'/animals/' + schedule.animal.id" class="white-text">
                                 {{ schedule.animal.display_name }}
                             </a>
+
+                            <a href="#" v-bind:data-activates="'dropdown-edit-animal_weighing_schedules_' + schedule.id" class="white-text dropdown-button">
+                                {{ $t('labels.today') }}
+                            </a>
+
+                            <ul v-bind:id="'dropdown-edit-animal_weighing_schedules_' + schedule.id" class="dropdown-content">
+                                <!-- @TODO implement modal to enter weight
+                                <li>
+                                    <a v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/done'" v-on:click="link_post">
+                                        <i class="material-icons">done</i> {{ $t('tooltips.done') }}
+                                    </a>
+                                </li>
+                                -->
+                                <li>
+                                    <a v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                                        <i class="material-icons">update</i> {{ $t('tooltips.skip') }}
+                                    </a>
+                                </li>
+                            </ul>
                         </p>
                     </div>
                 </div>
@@ -767,9 +831,21 @@ export default {
         },
 
         refresh_grid: function() {
+             $('.dropdown-button').dropdown({
+                constrain_width: false
+             });
             $('#' + this.containerId).masonry('reloadItems');
             $('#' + this.containerId).masonry('layout');
         },
+
+        submit: function(e) {
+            window.submit_form(e);
+        },
+
+        link_post: function(e) {
+            e.preventDefault();
+            $.post(e.target.href);
+        }
     },
 
     created: function() {
@@ -806,7 +882,10 @@ export default {
                       columnWidth: '.col',
                       itemSelector: '.col',
                     });
+
+                    that.refresh_grid();
                 });
+
 
                 window.eventHubVue.processEnded();
             },
