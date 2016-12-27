@@ -214,9 +214,10 @@ class TerrariumController extends ApiController
             }
 
             /*
-             * Get temperature sensorreadings
+             * Get sensorreadings
              */
-            $data[$st] = (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids)->get();
+            $data[$st] = (new SensorreadingRepository())->getAvgByLogicalSensor(clone $query, $logical_sensor_ids)->get();
+
         }
 
         /*
