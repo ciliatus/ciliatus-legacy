@@ -126,7 +126,24 @@ class CriticalState extends CiliatusModel
 
         foreach (User::get() as $u) {
             if ($u->setting('notifications_enabled') == 'on') {
-                $u->message(trans('user.messages.critical_state_notification'));
+                switch ($this->belongsTo_type) {
+                    case 'LogicalSensor':
+                        $ls = LogicalSensor::find($this->belongsTo_id);
+                        if (is_null($ls)) {
+                            \Log::error('CriticalState ' . $this->id . ' belongs to LogicalSensor ' . $this->belongsTo_id . ' which could not be found.');
+                            break;
+                        }
+                        $u->message(trans('messages.critical_state_notification_logical_sensor.' . $ls->type, [
+                            'logical_sensor' => $ls->name,
+                            $ls->type => $ls->getCurrentCookedValue()
+                        ]));
+                        break;
+                    default:
+                        $u->message(trans('messages.critical_state_generic', [
+                            'critical_state' => $this->name
+                        ]));
+                }
+
             }
         }
 
@@ -156,7 +173,23 @@ class CriticalState extends CiliatusModel
 
         foreach (User::get() as $u) {
             if ($u->setting('notifications_enabled') == 'on') {
-                $u->message(trans('user.messages.critical_state_notification_recovered'));
+                switch ($this->belongsTo_type) {
+                    case 'LogicalSensor':
+                        $ls = LogicalSensor::find($this->belongsTo_id);
+                        if (is_null($ls)) {
+                            \Log::error('CriticalState ' . $this->id . ' recovered belongs to LogicalSensor ' . $this->belongsTo_id . ' which could not be found.');
+                            break;
+                        }
+                        $u->message(trans('messages.critical_state_recovery_notification_logical_sensor.' . $ls->type, [
+                            'logical_sensor' => $ls->name,
+                            $ls->type => $ls->getCurrentCookedValue()
+                        ]));
+                        break;
+                    default:
+                        $u->message(trans('messages.critical_state_generic', [
+                            'critical_state' => $this->name
+                        ]));
+                }
             }
         }
 
