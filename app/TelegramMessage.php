@@ -82,9 +82,12 @@ class TelegramMessage extends Message
             return false;
         }
 
-        if (!is_null($this->user)) {
-            $chat_id = $this->user->setting('notifications_telegram_chat_id');
+        if (is_null($this->user)) {
+            \Log::error('TelegramMessage not associated with a user.');
+            return false;
         }
+
+        $chat_id = $this->user->setting('notifications_telegram_chat_id');
 
         if (is_null($chat_id)) {
             \Log::error('TelegramMessage chat_id missing');
