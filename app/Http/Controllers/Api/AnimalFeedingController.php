@@ -222,7 +222,7 @@ class AnimalFeedingController extends ApiController
         return $this->respondWithData([],
             [
                 'redirect' => [
-                    'uri' => url('animals/feedings/types')
+                    'uri' => url('categories#tab_feeding_types')
                 ]
             ]);
     }
@@ -249,7 +249,7 @@ class AnimalFeedingController extends ApiController
         return $this->respondWithData([],
             [
                 'redirect' => [
-                    'uri' => url('animals/feedings/types')
+                    'uri' => url('categories#tab_feeding_types')
                 ]
             ]);
     }

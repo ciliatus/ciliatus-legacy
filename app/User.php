@@ -247,15 +247,26 @@ class User extends CiliatusModel implements
      */
     public function night()
     {
-        $night_start = $this->time();
-        $night_start->hour = 20;
-        $night_start->minute = 0;
-        $night_start->second = 0;
+        if (is_null($this->setting('night_starts_at'))) {
+            $night_start = $this->time();
+            $night_start->hour = 20;
+            $night_start->minute = 0;
+            $night_start->second = 0;
+        }
+        else {
+            $night_start = Carbon::parse($this->setting('night_starts_at'));
+        }
 
-        $night_end = $this->time();
-        $night_end->hour = 8;
-        $night_end->minute = 0;
-        $night_end->second = 0;
+
+        if (is_null($this->setting('night_ends_at'))) {
+            $night_end = $this->time();
+            $night_end->hour = 8;
+            $night_end->minute = 0;
+            $night_end->second = 0;
+        }
+        else {
+            $night_end = Carbon::parse($this->setting('night_ends_at'));
+        }
 
         return !$this->time()->between($night_start, $night_end);
     }

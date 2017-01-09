@@ -28,6 +28,12 @@ class Property extends CiliatusModel
         'name', 'value'
     ];
 
+    protected static $belongTo_Types = [
+        'BiographyEntry' => [
+            'Terrarium', 'Animal'
+        ]
+    ];
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
@@ -47,6 +53,18 @@ class Property extends CiliatusModel
             case 'false': return false;
             default: return $value;
         }
+    }
+
+    /**
+     * Return all object types that can belong
+     * to a Property of type $property_type
+     *
+     * @param String $property_type
+     * @return array
+     */
+    public static function belongTo_Types($property_type)
+    {
+        return self::$belongTo_Types[$property_type];
     }
 
     /**
