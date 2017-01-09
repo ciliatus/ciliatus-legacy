@@ -11,7 +11,7 @@ use App\Property;
 use App\Repositories\AnimalFeedingRepository;
 use App\Repositories\AnimalFeedingScheduleRepository;
 use Carbon\Carbon;
-use Event;
+use App\Event;
 use Illuminate\Http\Request;
 use Gate;
 use App\Http\Requests;
