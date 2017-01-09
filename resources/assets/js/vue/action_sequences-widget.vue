@@ -45,6 +45,11 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         action_sequenceId: {
             type: String,
             default: '',
@@ -89,6 +94,29 @@ export default {
             if (item !== null) {
                 this.action_sequences.splice(item, 1);
             }
+        },
+
+        load_data: function() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter + '&raw=true',
+                method: 'GET',
+                success: function (data) {
+                    if (that.action_sequenceId !== '') {
+                        that.action_sequences = [data.data];
+                    }
+                    else {
+                        that.action_sequences = data.data;
+                    }
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
 
     },
@@ -101,26 +129,15 @@ export default {
                 this.delete(e);
             });
 
-        window.eventHubVue.processStarted();
-        var that = this;
-        $.ajax({
-            url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter + '&raw=true',
-            method: 'GET',
-            success: function (data) {
-                if (that.action_sequenceId !== '') {
-                    that.action_sequences = [data.data];
-                }
-                else {
-                    that.action_sequences = data.data;
-                }
 
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        this.load_data();
+
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 }
 </script>

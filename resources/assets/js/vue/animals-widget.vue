@@ -107,6 +107,11 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         animalId: {
             type: String,
             default: null,
@@ -173,6 +178,59 @@ export default {
 
         submit: function(e) {
             window.submit_form(e);
+        },
+
+        load_data: function() {
+            var that = this;
+
+            var source_url = '';
+            if (this.animalId !== null) {
+                source_url = '/api/v1/animals/' + this.animalId
+            }
+            else {
+                source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc&raw=true';
+            }
+
+            window.eventHubVue.processStarted();
+            $.ajax({
+                url: source_url,
+                method: 'GET',
+                success: function (data) {
+                    if (that.animalId !== null) {
+                        that.animals = [data.data];
+                    }
+                    else {
+                        that.animals = data.data;
+                    }
+
+                    that.$nextTick(function() {
+                        $('#' + that.containerId).masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col',
+                        });
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+
+            window.eventHubVue.processStarted();
+            $.ajax({
+                url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw=true',
+                method: 'GET',
+                success: function (data) {
+                    that.feeding_types = data.data;
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
 
     },
@@ -185,55 +243,15 @@ export default {
                 this.delete(e);
             });
 
-        window.eventHubVue.processStarted();
 
-        var source_url = '';
-        if (this.animalId !== null) {
-            source_url = '/api/v1/animals/' + this.animalId
-        }
-        else {
-            source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc&raw=true';
-        }
+        this.load_data();
 
         var that = this;
-        $.ajax({
-            url: source_url,
-            method: 'GET',
-            success: function (data) {
-                if (that.animalId !== null) {
-                    that.animals = [data.data];
-                }
-                else {
-                    that.animals = data.data;
-                }
-
-                that.$nextTick(function() {
-                    $('#' + that.containerId).masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col',
-                    });
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
-
-        $.ajax({
-            url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw=true',
-            method: 'GET',
-            success: function (data) {
-                that.feeding_types = data.data;
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 
 }

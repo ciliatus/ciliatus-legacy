@@ -45,6 +45,11 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         physical_sensorId: {
             type: String,
             default: '',
@@ -120,6 +125,36 @@ export default {
         refresh_grid: function() {
             $('#' + this.containerId).masonry('reloadItems');
             $('#' + this.containerId).masonry('layout');
+        },
+
+        load_data: function() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw=true',
+                method: 'GET',
+                success: function (data) {
+                    if (that.physical_sensorId !== '') {
+                        that.physical_sensors = [data.data];
+                    }
+                    else {
+                        that.physical_sensors = data.data;
+                    }
+
+                    that.$nextTick(function() {
+                        $('#' + that.containerId).masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col',
+                        });
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -131,33 +166,14 @@ export default {
                 this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw=true',
-            method: 'GET',
-            success: function (data) {
-                if (that.physical_sensorId !== '') {
-                    that.physical_sensors = [data.data];
-                }
-                else {
-                    that.physical_sensors = data.data;
-                }
-
-                that.$nextTick(function() {
-                    $('#' + that.containerId).masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col',
-                    });
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 }
 </script>

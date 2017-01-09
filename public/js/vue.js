@@ -14973,6 +14973,7 @@ module.exports = {
             'upload': 'Hochladen',
             'start_setup': 'Setup starten',
             'add': 'Hinzufügen',
+            'create': 'Hinzufügen',
             'edit': 'Bearbeiten',
             'details': 'Details',
             'download': 'Herunterladen'
@@ -15009,12 +15010,16 @@ module.exports = {
             'animal_feedings': 'Fütterung | Fütterungen',
             'animal_feeding_schedules': 'Fütterungsplan | Fütterungspläne',
             'animal_weighings': 'Wiegung | Wiegungen',
-            'animal_weighing_schedules': 'Wiegungsplan | Wiegungspläne'
+            'animal_weighing_schedules': 'Wiegungsplan | Wiegungspläne',
+            'biography_entries': 'Biografieeintrag | Biografieeinträge'
         },
         errors: {
             'retrievegraphdata': 'Could not retrieve graph data.'
         },
         labels: {
+            'title': 'Titel',
+            'text': 'Text',
+            'tags': 'Tags',
             'status': 'Status',
             'health': 'Gesundheit',
             'birth': 'Geburt',
@@ -15035,6 +15040,7 @@ module.exports = {
             'humidity': 'Feuchtigkeit',
             'humidity_percent': 'Feuchtigkeit',
             'heartbeat': 'Puls',
+            'last_heartbeat': 'Letzter Puls',
             'noanimals': 'Keine Tiere',
             'create': 'Erstelle',
             'settings': 'Einstellung | Einstellungen',
@@ -15056,6 +15062,7 @@ module.exports = {
             'associated_with': 'Assoziiert mit',
             'log': 'Log',
             'starts_at': 'Beginnt um',
+            'ends_at': 'Endet um',
             'starts_after': 'Startet nach',
             'thresholds': 'Grenzwerte',
             'abilities': 'Fähigkeit | Fähigkeiten',
@@ -15115,7 +15122,10 @@ module.exports = {
             'from': 'Von',
             'to': 'Bis',
             'feedings': 'Fütterungen',
-            'temp_and_hum_history': 'Temperatur- und Feuchtigkeitsverlauf'
+            'temp_and_hum_history': 'Temperatur- und Feuchtigkeitsverlauf',
+            'biography': 'Biografie',
+            'bio_categories': 'Biographiekategorien',
+            'icon': 'Symbol'
         },
         menu: {
             'welcome': 'Willkommen',
@@ -15131,7 +15141,8 @@ module.exports = {
             'animals': 'Tiere',
             'terraria': 'Terrarien',
             'users': 'Benutzer',
-            'logs': 'Protokoll'
+            'logs': 'Protokoll',
+            'categories': 'Kategorien'
         },
         messages: {
             logical_sensor_thresholds: {
@@ -15178,6 +15189,7 @@ module.exports = {
             'humidity_percent': '%',
             'days_ago': 'vor {val} Tagen',
             'hours_ago': 'vor {val} Stunden',
+            'minutes_ago': 'vor {val} Minuten',
             'just_now': 'gerade eben'
         }
     },
@@ -15190,6 +15202,7 @@ module.exports = {
             'upload': 'Upload',
             'start_setup': 'Start Setup',
             'add': 'Add',
+            'create': 'Add',
             'edit': 'Edit',
             'details': 'Details',
             'download': 'Download'
@@ -15226,12 +15239,16 @@ module.exports = {
             'animal_feedings': 'Feeding | Feedings',
             'animal_feeding_schedules': 'Feeding schedule | Feeding schedules',
             'animal_weighings': 'Weighing | Weighings',
-            'animal_weighing_schedules': 'Weighing schedule | Weighing schedules'
+            'animal_weighing_schedules': 'Weighing schedule | Weighing schedules',
+            'biography_entries': 'Biography entry | Biography entries'
         },
         errors: {
             'retrievegraphdata': 'Graphdaten konnten nicht ermittelt werden.'
         },
         labels: {
+            'title': 'Title',
+            'text': 'Text',
+            'tags': 'Tags',
             'status': 'Status',
             'health': 'Health',
             'birth': 'Birth',
@@ -15252,6 +15269,7 @@ module.exports = {
             'humidity': 'Humidity',
             'humidity_percent': 'Humidity',
             'heartbeat': 'Heartbeat',
+            'last_heartbeat': 'Last Heartbeat',
             'noanimals': 'No Animals',
             'create': 'Create',
             'settings': 'Setting|Settings',
@@ -15273,6 +15291,7 @@ module.exports = {
             'associated_with': 'Associated with',
             'log': 'Log',
             'starts_at': 'Starts at',
+            'ends_at': 'Ends at',
             'starts_after': 'Starts after',
             'thresholds': 'Thresholds',
             'abilities': 'Ability|Abilities',
@@ -15332,7 +15351,10 @@ module.exports = {
             'from': 'From',
             'to': 'To',
             'feedings': 'Feedings',
-            'temp_and_hum_history': 'Temperature and Humidity History'
+            'temp_and_hum_history': 'Temperature and Humidity History',
+            'biography': 'Biography',
+            'bio_categories': 'Biography categories',
+            'icon': 'Icon'
         },
         menu: {
             'welcome': 'Welcome',
@@ -15348,7 +15370,8 @@ module.exports = {
             'animals': 'Animals',
             'terraria': 'Terraria',
             'users': 'Users',
-            'logs': 'Logs'
+            'logs': 'Logs',
+            'categories': 'Categories'
         },
         messages: {
             logical_sensor_thresholds: {
@@ -15395,6 +15418,7 @@ module.exports = {
             'humidity_percent': '%',
             'days_ago': '{val} days ago',
             'hours_ago': '{val} hours ago',
+            'minutes_ago': '{val} minutes ago',
             'just_now': 'just now'
         }
     }
@@ -15498,6 +15522,10 @@ var _logical_sensorsWidget2 = _interopRequireDefault(_logical_sensorsWidget);
 var _usersWidget = require('./vue/users-widget.vue');
 
 var _usersWidget2 = _interopRequireDefault(_usersWidget);
+
+var _biography_entriesWidget = require('./vue/biography_entries-widget.vue');
+
+var _biography_entriesWidget2 = _interopRequireDefault(_biography_entriesWidget);
 
 var _logsWidget = require('./vue/logs-widget.vue');
 
@@ -15603,12 +15631,13 @@ window.bodyVue = new Vue({
         'physical_sensors-widget': _physical_sensorsWidget2.default,
         'logical_sensors-widget': _logical_sensorsWidget2.default,
         'users-widget': _usersWidget2.default,
+        'biography_entries-widget': _biography_entriesWidget2.default,
         'logs-widget': _logsWidget2.default
     }
 
 });
 
-},{"./lang.js":10,"./vue/action_sequence_schedule-widget.vue":12,"./vue/action_sequences-widget.vue":13,"./vue/animal_feeding_schedules-matrix-widget.vue":14,"./vue/animal_feeding_schedules-widget.vue":15,"./vue/animal_feedings-widget.vue":16,"./vue/animal_weighing_schedules-matrix-widget.vue":17,"./vue/animal_weighing_schedules-widget.vue":18,"./vue/animal_weighings-widget.vue":19,"./vue/animals-widget.vue":20,"./vue/controlunit-widget.vue":21,"./vue/dashboard-widget.vue":22,"./vue/dygraph-graph.vue":23,"./vue/files-show-widget.vue":24,"./vue/files-widget.vue":25,"./vue/google-graph.vue":26,"./vue/inline-graph.vue":27,"./vue/logical_sensors-widget.vue":28,"./vue/logs-widget.vue":29,"./vue/physical_sensors-widget.vue":30,"./vue/pumps-widget.vue":31,"./vue/terraria-overview-widget.vue":32,"./vue/terraria-widget.vue":33,"./vue/users-widget.vue":34,"./vue/valves-widget.vue":35,"vue-i18n":6,"vue-peity":7,"vue/dist/vue.js":9}],12:[function(require,module,exports){
+},{"./lang.js":10,"./vue/action_sequence_schedule-widget.vue":12,"./vue/action_sequences-widget.vue":13,"./vue/animal_feeding_schedules-matrix-widget.vue":14,"./vue/animal_feeding_schedules-widget.vue":15,"./vue/animal_feedings-widget.vue":16,"./vue/animal_weighing_schedules-matrix-widget.vue":17,"./vue/animal_weighing_schedules-widget.vue":18,"./vue/animal_weighings-widget.vue":19,"./vue/animals-widget.vue":20,"./vue/biography_entries-widget.vue":21,"./vue/controlunit-widget.vue":22,"./vue/dashboard-widget.vue":23,"./vue/dygraph-graph.vue":24,"./vue/files-show-widget.vue":25,"./vue/files-widget.vue":26,"./vue/google-graph.vue":27,"./vue/inline-graph.vue":28,"./vue/logical_sensors-widget.vue":29,"./vue/logs-widget.vue":30,"./vue/physical_sensors-widget.vue":31,"./vue/pumps-widget.vue":32,"./vue/terraria-overview-widget.vue":33,"./vue/terraria-widget.vue":34,"./vue/users-widget.vue":35,"./vue/valves-widget.vue":36,"vue-i18n":6,"vue-peity":7,"vue/dist/vue.js":9}],12:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -15631,6 +15660,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         assId: {
             type: String,
             default: '',
@@ -15669,6 +15703,28 @@ exports.default = {
             if (item !== null) {
                 this.action_sequence_schedules.splice(item, 1);
             }
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: uri,
+                method: 'GET',
+                success: function success(data) {
+                    if (that.assId !== '') {
+                        that.action_sequence_schedules = [data.data];
+                    } else {
+                        that.action_sequence_schedules = data.data;
+                    }
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -15688,25 +15744,14 @@ exports.default = {
             uri = '/api/v1/action_sequence_schedules/' + this.assid;
         }
 
-        window.eventHubVue.processStarted();
-        var that = this;
-        $.ajax({
-            url: uri,
-            method: 'GET',
-            success: function success(data) {
-                if (that.assId !== '') {
-                    that.action_sequence_schedules = [data.data];
-                } else {
-                    that.action_sequence_schedules = data.data;
-                }
+        this.load_data();
 
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 };
 })()
@@ -15748,6 +15793,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         action_sequenceId: {
             type: String,
             default: '',
@@ -15791,6 +15841,28 @@ exports.default = {
             if (item !== null) {
                 this.action_sequences.splice(item, 1);
             }
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter + '&raw=true',
+                method: 'GET',
+                success: function success(data) {
+                    if (that.action_sequenceId !== '') {
+                        that.action_sequences = [data.data];
+                    } else {
+                        that.action_sequences = data.data;
+                    }
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
 
     },
@@ -15804,25 +15876,14 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
-        var that = this;
-        $.ajax({
-            url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter + '&raw=true',
-            method: 'GET',
-            success: function success(data) {
-                if (that.action_sequenceId !== '') {
-                    that.action_sequences = [data.data];
-                } else {
-                    that.action_sequences = data.data;
-                }
+        this.load_data();
 
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 };
 })()
@@ -15866,6 +15927,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -15930,6 +15996,13 @@ exports.default = {
 
     created: function created() {
         this.load_data();
+
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 };
 })()
@@ -15971,6 +16044,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         animalId: {
             type: String,
             required: true
@@ -16017,6 +16095,23 @@ exports.default = {
 
         submit: function submit(e) {
             window.submit_form(e);
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/animals/' + that.animalId + '/feeding_schedules?raw=true',
+                method: 'GET',
+                success: function success(data) {
+                    that.animal_feeding_schedules = data.data;
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
 
     },
@@ -16030,20 +16125,14 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/animals/' + that.animalId + '/feeding_schedules?raw=true',
-            method: 'GET',
-            success: function success(data) {
-                that.animal_feeding_schedules = data.data;
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 
 };
@@ -16058,9 +16147,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6", __vue__options__)
+    hotAPI.createRecord("data-v-7", __vue__options__)
   } else {
-    hotAPI.reload("data-v-6", __vue__options__)
+    hotAPI.reload("data-v-7", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],16:[function(require,module,exports){
@@ -16087,6 +16176,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         animalId: {
             type: String,
             required: true
@@ -16128,6 +16222,37 @@ exports.default = {
             if (item !== null) {
                 this.animal_feedings.splice(item, 1);
             }
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/animals/' + that.animalId + '/feedings',
+                method: 'GET',
+                success: function success(data) {
+                    that.animal_feedings = data.data;
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+
+            window.eventHubVue.processStarted();
+            $.ajax({
+                url: '/api/v1/animals/feedings/types',
+                method: 'GET',
+                success: function success(data) {
+                    that.animal_feeding_types = data.data;
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error2) {
+                    console.log((0, _stringify2.default)(_error2));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
 
     },
@@ -16141,33 +16266,14 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
-        var that = this;
-        $.ajax({
-            url: '/api/v1/animals/' + that.animalId + '/feedings',
-            method: 'GET',
-            success: function success(data) {
-                that.animal_feedings = data.data;
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        this.load_data();
 
-        $.ajax({
-            url: '/api/v1/animals/feedings/types',
-            method: 'GET',
-            success: function success(data) {
-                that.animal_feeding_types = data.data;
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error2) {
-                console.log((0, _stringify2.default)(_error2));
-                window.eventHubVue.processEnded();
-            }
-        });
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 
 };
@@ -16182,9 +16288,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7", __vue__options__)
+    hotAPI.createRecord("data-v-6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-7", __vue__options__)
+    hotAPI.reload("data-v-6", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],17:[function(require,module,exports){
@@ -16211,6 +16317,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -16263,6 +16374,13 @@ exports.default = {
 
     created: function created() {
         this.load_data();
+
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 };
 })()
@@ -16304,6 +16422,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         animalId: {
             type: String,
             required: true
@@ -16350,8 +16473,24 @@ exports.default = {
 
         submit: function submit(e) {
             window.submit_form(e);
-        }
+        },
 
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/animals/' + that.animalId + '/weighing_schedules?raw=true',
+                method: 'GET',
+                success: function success(data) {
+                    that.animal_weighing_schedules = data.data;
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+        }
     },
 
     created: function created() {
@@ -16363,20 +16502,14 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/animals/' + that.animalId + '/weighing_schedules?raw=true',
-            method: 'GET',
-            success: function success(data) {
-                that.animal_weighing_schedules = data.data;
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 
 };
@@ -16419,6 +16552,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         animalId: {
             type: String,
             required: true
@@ -16460,6 +16598,23 @@ exports.default = {
             if (item !== null) {
                 this.animal_weighings.splice(item, 1);
             }
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/animals/' + that.animalId + '/weighings',
+                method: 'GET',
+                success: function success(data) {
+                    that.animal_weighings = data.data;
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
 
     },
@@ -16473,20 +16628,14 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/animals/' + that.animalId + '/weighings',
-            method: 'GET',
-            success: function success(data) {
-                that.animal_weighings = data.data;
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 
 };
@@ -16530,6 +16679,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         animalId: {
             type: String,
             default: null,
@@ -16595,6 +16749,57 @@ exports.default = {
 
         submit: function submit(e) {
             window.submit_form(e);
+        },
+
+        load_data: function load_data() {
+            var that = this;
+
+            var source_url = '';
+            if (this.animalId !== null) {
+                source_url = '/api/v1/animals/' + this.animalId;
+            } else {
+                source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc&raw=true';
+            }
+
+            window.eventHubVue.processStarted();
+            $.ajax({
+                url: source_url,
+                method: 'GET',
+                success: function success(data) {
+                    if (that.animalId !== null) {
+                        that.animals = [data.data];
+                    } else {
+                        that.animals = data.data;
+                    }
+
+                    that.$nextTick(function () {
+                        $('#' + that.containerId).masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col'
+                        });
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+
+            window.eventHubVue.processStarted();
+            $.ajax({
+                url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw=true',
+                method: 'GET',
+                success: function success(data) {
+                    that.feeding_types = data.data;
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error2) {
+                    console.log((0, _stringify2.default)(_error2));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
 
     },
@@ -16608,53 +16813,14 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
-
-        var source_url = '';
-        if (this.animalId !== null) {
-            source_url = '/api/v1/animals/' + this.animalId;
-        } else {
-            source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc&raw=true';
-        }
+        this.load_data();
 
         var that = this;
-        $.ajax({
-            url: source_url,
-            method: 'GET',
-            success: function success(data) {
-                if (that.animalId !== null) {
-                    that.animals = [data.data];
-                } else {
-                    that.animals = data.data;
-                }
-
-                that.$nextTick(function () {
-                    $('#' + that.containerId).masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col'
-                    });
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
-
-        $.ajax({
-            url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw=true',
-            method: 'GET',
-            success: function success(data) {
-                that.feeding_types = data.data;
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error2) {
-                console.log((0, _stringify2.default)(_error2));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 
 };
@@ -16691,12 +16857,189 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
     data: function data() {
         return {
+            entries: []
+        };
+    },
+
+
+    props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
+        belongsToType: {
+            type: String,
+            default: null,
+            required: false
+        },
+        belongsToId: {
+            type: String,
+            default: null,
+            required: false
+        },
+        entryId: {
+            type: String,
+            default: null,
+            required: false
+        },
+        wrapperClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerClasses: {
+            type: String,
+            default: '',
+            required: false
+        }
+    },
+
+    methods: {
+        update: function update(a) {
+            var item = null;
+            this.entries.forEach(function (data, index) {
+                if (data.id === a.entry.id) {
+                    item = index;
+                }
+            });
+            if (item === null) {
+                this.entries.push(a.animal);
+            } else if (item !== null) {
+                this.entries.splice(item, 1, a.entry);
+            }
+
+            this.$nextTick(function () {
+                this.refresh_grid();
+            });
+        },
+
+        delete: function _delete(a) {
+            var item = null;
+            this.entries.forEach(function (data, index) {
+                if (data.id === a.entry_id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                this.entries.splice(item, 1);
+            }
+
+            this.$nextTick(function () {
+                this.refresh_grid();
+            });
+        },
+
+        refresh_grid: function refresh_grid() {
+            $('.tooltipped').tooltip({ delay: 50 });
+        },
+
+        load_data: function load_data() {
+            var that = this;
+
+            var source_url = '';
+            if (this.entryId !== null) {
+                source_url = '/api/v1/biography_entries/' + this.entryId;
+            } else {
+                source_url = '/api/v1/biography_entries/?order[created_at]=desc&filter[belongsTo_type]=' + this.belongsToType + '&filter[belongsTo_id]=' + this.belongsToId + '&raw=true';
+            }
+
+            window.eventHubVue.processStarted();
+            $.ajax({
+                url: source_url,
+                method: 'GET',
+                success: function success(data) {
+                    if (that.entryId !== null) {
+                        that.entries = [data.data];
+                    } else {
+                        that.entries = data.data;
+                    }
+
+                    that.$nextTick(function () {
+                        that.refresh_grid();
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+        }
+
+    },
+
+    created: function created() {
+        var _this = this;
+
+        window.echo.private('dashboard-updates').listen('BiographyEntryUpdated', function (e) {
+            _this.update(e);
+        }).listen('BiographyEntryDeleted', function (e) {
+            _this.delete(e);
+        });
+
+        this.load_data();
+
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
+    }
+
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:_vm.containerClasses,attrs:{"id":_vm.containerId}},[_vm._h('div',{staticClass:"timeline"},[_vm._l((_vm.entries),function(entry){return _vm._h('div',{staticClass:"timeline-event"},[_vm._h('div',{staticClass:"timeline-date"},[_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(entry.timestamps.created_diff.days > 0),expression:"entry.timestamps.created_diff.days > 0"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":entry.timestamps.created}},["\n                            "+_vm._s(_vm.$t('units.days_ago', {val: entry.timestamps.created_diff.days}))+"\n                "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(entry.timestamps.created_diff.days < 1 &&
+                              entry.timestamps.created_diff.hours > 0),expression:"entry.timestamps.created_diff.days < 1 &&\n                              entry.timestamps.created_diff.hours > 0"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":entry.timestamps.created}},["\n                            "+_vm._s(_vm.$t('units.hours_ago', {val: entry.timestamps.created_diff.hours}))+"\n                "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(entry.timestamps.created_diff.days < 1 &&
+                              entry.timestamps.created_diff.hours < 1 &&
+                              entry.timestamps.created_diff.minutes > 1),expression:"entry.timestamps.created_diff.days < 1 &&\n                              entry.timestamps.created_diff.hours < 1 &&\n                              entry.timestamps.created_diff.minutes > 1"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":entry.timestamps.created}},["\n                            "+_vm._s(_vm.$t('units.minutes_ago', {val: entry.timestamps.created_diff.minutes}))+"\n                "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(entry.timestamps.created_diff.days < 1 &&
+                              entry.timestamps.created_diff.hours < 1 &&
+                              entry.timestamps.created_diff.minutes < 2),expression:"entry.timestamps.created_diff.days < 1 &&\n                              entry.timestamps.created_diff.hours < 1 &&\n                              entry.timestamps.created_diff.minutes < 2"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":entry.timestamps.created}},["\n                            "+_vm._s(_vm.$t('units.just_now'))+"\n                "])])," ",_vm._h('div',{staticClass:"card timeline-content"},[_vm._h('div',{staticClass:"card-content"},[_vm._h('h5',[_vm._s(entry.title)])," ",_vm._h('p',{domProps:{"innerHTML":_vm._s(entry.text)}})])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/biography_entries/' + entry.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])])," ",_vm._h('div',{staticClass:"timeline-badge teal darken-2 white-text"},[(entry.category)?_vm._h('i',{staticClass:"material-icons tooltipped",attrs:{"data-position":"top","data-delay":"50","data-tooltip":entry.category.name}},["\n                    "+_vm._s(entry.category.icon)+"\n                "]):_vm._e()])])})])])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-24", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-24", __vue__options__)
+  }
+})()}
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],22:[function(require,module,exports){
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    data: function data() {
+        return {
             controlunits: []
         };
     },
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         controlunitId: {
             type: String,
             default: '',
@@ -16771,6 +17114,37 @@ exports.default = {
         refresh_grid: function refresh_grid() {
             $('#' + this.containerId).masonry('reloadItems');
             $('#' + this.containerId).masonry('layout');
+            $('.tooltipped').tooltip({ delay: 50 });
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/controlunits/' + that.controlunitId + '?raw=true',
+                method: 'GET',
+                success: function success(data) {
+                    if (that.controlunitId !== '') {
+                        that.controlunits = [data.data];
+                    } else {
+                        that.controlunits = data.data;
+                    }
+
+                    that.$nextTick(function () {
+                        $('#' + that.containerId).masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col'
+                        });
+                        $('.tooltipped').tooltip({ delay: 50 });
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -16783,40 +17157,27 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/controlunits/' + that.controlunitId + '?raw=true',
-            method: 'GET',
-            success: function success(data) {
-                if (that.controlunitId !== '') {
-                    that.controlunits = [data.data];
-                } else {
-                    that.controlunits = data.data;
-                }
-
-                that.$nextTick(function () {
-                    $('#' + that.containerId).masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col'
-                    });
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 };
 })()
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.controlunits),function(controlunit){return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(0,true),"\n                    "+_vm._s(_vm.$tc("components.controlunits", 2))+"\n                "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(controlunit.name)])," ",_vm._m(1,true)])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/controlunits/' + controlunit.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/controlunits/' + controlunit.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._m(2,true)])])])})])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["developer_board"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])}]
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.controlunits),function(controlunit){return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(0,true),"\n                    "+_vm._s(_vm.$tc("components.controlunits", 2))+"\n                "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(controlunit.name)])," ",_vm._m(1,true)])," ",_vm._h('p',["\n                        "+_vm._s(_vm.$t('labels.last_heartbeat'))+":\n                        "," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(controlunit.timestamps.last_heartbeat_diff.days > 0),expression:"controlunit.timestamps.last_heartbeat_diff.days > 0"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":controlunit.timestamps.last_heartbeat}},["\n                            "+_vm._s(_vm.$t('units.days_ago', {val: controlunit.timestamps.last_heartbeat_diff.days}))+"\n                        "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(controlunit.timestamps.last_heartbeat_diff.days < 1 &&
+                                      controlunit.timestamps.last_heartbeat_diff.hours > 0),expression:"controlunit.timestamps.last_heartbeat_diff.days < 1 &&\n                                      controlunit.timestamps.last_heartbeat_diff.hours > 0"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":controlunit.timestamps.last_heartbeat}},["\n                            "+_vm._s(_vm.$t('units.hours_ago', {val: controlunit.timestamps.last_heartbeat_diff.hours}))+"\n                        "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(controlunit.timestamps.last_heartbeat_diff.days < 1 &&
+                                      controlunit.timestamps.last_heartbeat_diff.hours < 1 &&
+                                      controlunit.timestamps.last_heartbeat_diff.minutes > 1),expression:"controlunit.timestamps.last_heartbeat_diff.days < 1 &&\n                                      controlunit.timestamps.last_heartbeat_diff.hours < 1 &&\n                                      controlunit.timestamps.last_heartbeat_diff.minutes > 1"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":controlunit.timestamps.last_heartbeat}},["\n                            "+_vm._s(_vm.$t('units.minutes_ago', {val: controlunit.timestamps.last_heartbeat_diff.minutes}))+"\n                        "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(controlunit.timestamps.last_heartbeat_diff.days < 1 &&
+                                      controlunit.timestamps.last_heartbeat_diff.hours < 1 &&
+                                      controlunit.timestamps.last_heartbeat_diff.minutes < 2),expression:"controlunit.timestamps.last_heartbeat_diff.days < 1 &&\n                                      controlunit.timestamps.last_heartbeat_diff.hours < 1 &&\n                                      controlunit.timestamps.last_heartbeat_diff.minutes < 2"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":controlunit.timestamps.last_heartbeat}},["\n                            "+_vm._s(_vm.$t('units.just_now'))+"\n                        "])," ",_vm._m(2,true)])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/controlunits/' + controlunit.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/controlunits/' + controlunit.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title"},[_vm._s(_vm.$tc("components.physical_sensors", 2)),_vm._m(3,true)])," ",_vm._l((controlunit.physical_sensors),function(physical_sensor){return _vm._h('p',[_vm._h('a',{attrs:{"href":'/physical_sensors/' + physical_sensor.id}},[_vm._s(physical_sensor.name)])])})])])])])})])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["developer_board"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["close"])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -16827,7 +17188,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-14", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],22:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],23:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -16843,6 +17204,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -17163,6 +17529,35 @@ exports.default = {
         link_post: function link_post(e) {
             e.preventDefault();
             $.post(e.target.href);
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/dashboard',
+                method: 'GET',
+                success: function success(data) {
+                    that.dashboard = data.data;
+
+                    that.$nextTick(function () {
+                        var $container = $('#' + that.containerId);
+                        $container.masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col'
+                        });
+
+                        that.refresh_grid();
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    window.notification('An error occured :(', 'red darken-1 text-white');
+                    console.log(_error);
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -17187,32 +17582,14 @@ exports.default = {
             _this.deleteActionSequenceSchedule(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/dashboard',
-            method: 'GET',
-            success: function success(data) {
-                that.dashboard = data.data;
-
-                that.$nextTick(function () {
-                    var $container = $('#' + that.containerId);
-                    $container.masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col'
-                    });
-
-                    that.refresh_grid();
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                window.notification('An error occured :(', 'red darken-1 text-white');
-                console.log(_error);
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 };
 })()
@@ -17231,7 +17608,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-1", __vue__options__)
   }
 })()}
-},{"vue":8,"vue-hot-reload-api":5}],23:[function(require,module,exports){
+},{"vue":8,"vue-hot-reload-api":5}],24:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17373,127 +17750,6 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-3", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],24:[function(require,module,exports){
-;(function(){
-'use strict';
-
-Object.defineProperty(exports, "__esModule", {
-    value: true
-});
-
-var _stringify = require('babel-runtime/core-js/json/stringify');
-
-var _stringify2 = _interopRequireDefault(_stringify);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-exports.default = {
-    data: function data() {
-        return {
-            files: []
-        };
-    },
-
-
-    props: {
-        fileId: {
-            type: String,
-            default: '',
-            required: false
-        },
-        sourceFilter: {
-            type: String,
-            default: '',
-            required: false
-        },
-        belongsTo_type: {
-            type: String,
-            default: '',
-            required: false
-        },
-        belongsTo_id: {
-            type: String,
-            default: '',
-            required: false
-        }
-    },
-
-    methods: {
-        update: function update(a) {
-            var item = null;
-            this.files.forEach(function (data, index) {
-                if (data.id === a.file.id) {
-                    item = index;
-                }
-            });
-            if (item === null) {
-                this.files.push(a.animal);
-            } else if (item !== null) {
-                this.files.splice(item, 1, a.animal);
-            }
-        },
-
-        delete: function _delete(a) {
-            var item = null;
-            this.files.forEach(function (data, index) {
-                if (data.id === a.file_id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.files.splice(item, 1);
-            }
-        }
-
-    },
-
-    created: function created() {
-        var _this = this;
-
-        window.echo.private('dashboard-updates').listen('FileUpdated', function (e) {
-            _this.update(e);
-        }).listen('FileDeleted', function (e) {
-            _this.delete(e);
-        });
-
-        window.eventHubVue.processStarted();
-        var that = this;
-        $.ajax({
-            url: '/api/v1/files/' + that.fileId + that.sourceFilter,
-            method: 'GET',
-            success: function success(data) {
-                if (that.fileId !== '') {
-                    that.files = [data.data];
-                } else {
-                    that.files = data.data;
-                }
-
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
-    }
-};
-})()
-if (module.exports.__esModule) module.exports = module.exports.default
-var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
-if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[_vm._l((_vm.files),function(file){return _vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(0,true),"\n                "+_vm._s(_vm.$tc("components.files", 1))+"\n            "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(file.display_name)])," ",_vm._m(1,true)])," ",_vm._h('p',[_vm._h('span',[_vm._s(_vm.$t("labels.size"))+": "+_vm._s((file.size / 1024 / 1024).toFixed(2))+" MB"]),_vm._m(2,true)," ",_vm._h('span',[_vm._s(_vm.$t("labels.type"))+": "+_vm._s(file.mimetype)])])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/files/' + file.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])," ",_vm._h('a',{attrs:{"href":'/files/' + file.id + '/download/' + file.display_name}},[_vm._s(_vm.$t("buttons.download"))])])," ",_vm._m(3,true)])])})])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["attach_file"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])}]
-if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), true)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-16", __vue__options__)
-  } else {
-    hotAPI.reload("data-v-16", __vue__options__)
-  }
-})()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],25:[function(require,module,exports){
 ;(function(){
 'use strict';
@@ -17517,6 +17773,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         fileId: {
             type: String,
             default: '',
@@ -17565,6 +17826,164 @@ exports.default = {
             if (item !== null) {
                 this.files.splice(item, 1);
             }
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/files/' + that.fileId + that.sourceFilter,
+                method: 'GET',
+                success: function success(data) {
+                    if (that.fileId !== '') {
+                        that.files = [data.data];
+                    } else {
+                        that.files = data.data;
+                    }
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+        }
+    },
+
+    created: function created() {
+        var _this = this;
+
+        window.echo.private('dashboard-updates').listen('FileUpdated', function (e) {
+            _this.update(e);
+        }).listen('FileDeleted', function (e) {
+            _this.delete(e);
+        });
+
+        this.load_data();
+
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[_vm._l((_vm.files),function(file){return _vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(0,true),"\n                "+_vm._s(_vm.$tc("components.files", 1))+"\n            "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(file.display_name)])," ",_vm._m(1,true)])," ",_vm._h('p',[_vm._h('span',[_vm._s(_vm.$t("labels.size"))+": "+_vm._s((file.size / 1024 / 1024).toFixed(2))+" MB"]),_vm._m(2,true)," ",_vm._h('span',[_vm._s(_vm.$t("labels.type"))+": "+_vm._s(file.mimetype)])])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/files/' + file.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])," ",_vm._h('a',{attrs:{"href":'/files/' + file.id + '/download/' + file.display_name}},[_vm._s(_vm.$t("buttons.download"))])])," ",_vm._m(3,true)])])})])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["attach_file"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])}]
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-16", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-16", __vue__options__)
+  }
+})()}
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],26:[function(require,module,exports){
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    data: function data() {
+        return {
+            files: []
+        };
+    },
+
+
+    props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
+        fileId: {
+            type: String,
+            default: '',
+            required: false
+        },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
+        belongsTo_type: {
+            type: String,
+            default: '',
+            required: false
+        },
+        belongsTo_id: {
+            type: String,
+            default: '',
+            required: false
+        }
+    },
+
+    methods: {
+        update: function update(a) {
+            var item = null;
+            this.files.forEach(function (data, index) {
+                if (data.id === a.file.id) {
+                    item = index;
+                }
+            });
+            if (item === null) {
+                this.files.push(a.animal);
+            } else if (item !== null) {
+                this.files.splice(item, 1, a.animal);
+            }
+        },
+
+        delete: function _delete(a) {
+            var item = null;
+            this.files.forEach(function (data, index) {
+                if (data.id === a.file_id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                this.files.splice(item, 1);
+            }
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/files/' + that.fileId + that.sourceFilter,
+                method: 'GET',
+                success: function success(data) {
+                    if (that.fileId !== '') {
+                        that.files = [data.data];
+                    } else {
+                        that.files = data.data;
+                    }
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
 
     },
@@ -17578,25 +17997,14 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
-        var that = this;
-        $.ajax({
-            url: '/api/v1/files/' + that.fileId + that.sourceFilter,
-            method: 'GET',
-            success: function success(data) {
-                if (that.fileId !== '') {
-                    that.files = [data.data];
-                } else {
-                    that.files = data.data;
-                }
+        this.load_data();
 
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 };
 })()
@@ -17615,7 +18023,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-15", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],26:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],27:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17829,7 +18237,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-2", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],27:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],28:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17926,7 +18334,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-4", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],28:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],29:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17949,6 +18357,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         logical_sensorId: {
             type: String,
             default: '',
@@ -18023,6 +18436,35 @@ exports.default = {
         refresh_grid: function refresh_grid() {
             $('#' + this.containerId).masonry('reloadItems');
             $('#' + this.containerId).masonry('layout');
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?raw=true',
+                method: 'GET',
+                success: function success(data) {
+                    if (that.logical_sensorId !== '') {
+                        that.logical_sensors = [data.data];
+                    } else {
+                        that.logical_sensors = data.data;
+                    }
+
+                    that.$nextTick(function () {
+                        $('#' + that.containerId).masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col'
+                        });
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -18035,32 +18477,14 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?raw=true',
-            method: 'GET',
-            success: function success(data) {
-                if (that.logical_sensorId !== '') {
-                    that.logical_sensors = [data.data];
-                } else {
-                    that.logical_sensors = data.data;
-                }
-
-                that.$nextTick(function () {
-                    $('#' + that.containerId).masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col'
-                    });
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 };
 })()
@@ -18074,12 +18498,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-21", __vue__options__)
+    hotAPI.createRecord("data-v-22", __vue__options__)
   } else {
-    hotAPI.reload("data-v-21", __vue__options__)
+    hotAPI.reload("data-v-22", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],29:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],30:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18188,12 +18612,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-24", __vue__options__)
+    hotAPI.createRecord("data-v-25", __vue__options__)
   } else {
-    hotAPI.reload("data-v-24", __vue__options__)
+    hotAPI.reload("data-v-25", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],30:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],31:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18216,6 +18640,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         physical_sensorId: {
             type: String,
             default: '',
@@ -18290,6 +18719,35 @@ exports.default = {
         refresh_grid: function refresh_grid() {
             $('#' + this.containerId).masonry('reloadItems');
             $('#' + this.containerId).masonry('layout');
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw=true',
+                method: 'GET',
+                success: function success(data) {
+                    if (that.physical_sensorId !== '') {
+                        that.physical_sensors = [data.data];
+                    } else {
+                        that.physical_sensors = data.data;
+                    }
+
+                    that.$nextTick(function () {
+                        $('#' + that.containerId).masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col'
+                        });
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -18302,32 +18760,14 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw=true',
-            method: 'GET',
-            success: function success(data) {
-                if (that.physical_sensorId !== '') {
-                    that.physical_sensors = [data.data];
-                } else {
-                    that.physical_sensors = data.data;
-                }
-
-                that.$nextTick(function () {
-                    $('#' + that.containerId).masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col'
-                    });
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 };
 })()
@@ -18341,12 +18781,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-20", __vue__options__)
+    hotAPI.createRecord("data-v-21", __vue__options__)
   } else {
-    hotAPI.reload("data-v-20", __vue__options__)
+    hotAPI.reload("data-v-21", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],31:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],32:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18369,6 +18809,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         pumpId: {
             type: String,
             default: '',
@@ -18443,6 +18888,35 @@ exports.default = {
         refresh_grid: function refresh_grid() {
             $('#' + this.containerId).masonry('reloadItems');
             $('#' + this.containerId).masonry('layout');
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/pumps/' + that.pumpId + '?raw=true',
+                method: 'GET',
+                success: function success(data) {
+                    if (that.pumpId !== '') {
+                        that.pumps = [data.data];
+                    } else {
+                        that.pumps = data.data;
+                    }
+
+                    that.$nextTick(function () {
+                        $('#' + that.containerId).masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col'
+                        });
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -18455,32 +18929,14 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/pumps/' + that.pumpId + '?raw=true',
-            method: 'GET',
-            success: function success(data) {
-                if (that.pumpId !== '') {
-                    that.pumps = [data.data];
-                } else {
-                    that.pumps = data.data;
-                }
-
-                that.$nextTick(function () {
-                    $('#' + that.containerId).masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col'
-                    });
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 };
 })()
@@ -18494,12 +18950,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-22", __vue__options__)
+    hotAPI.createRecord("data-v-19", __vue__options__)
   } else {
-    hotAPI.reload("data-v-22", __vue__options__)
+    hotAPI.reload("data-v-19", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],32:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],33:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18522,6 +18978,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         subscribeAdd: {
             type: Boolean,
             default: true,
@@ -18578,6 +19039,24 @@ exports.default = {
 
         submit: function submit(e) {
             window.submit_form(e);
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/terraria/?raw=true&history_minutes=0',
+                method: 'GET',
+                success: function success(data) {
+                    that.terraria = data.data;
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -18590,21 +19069,14 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
-        var that = this;
-        $.ajax({
-            url: '/api/v1/terraria/?raw=true&history_minutes=0',
-            method: 'GET',
-            success: function success(data) {
-                that.terraria = data.data;
+        this.load_data();
 
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 
 };
@@ -18624,7 +19096,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-13", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],33:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],34:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18651,6 +19123,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         terrariumId: {
             type: String,
             default: '',
@@ -18734,6 +19211,35 @@ exports.default = {
 
         submit: function submit(e) {
             window.submit_form(e);
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/terraria/' + that.terrariumId + '?raw=true&history_minutes=0',
+                method: 'GET',
+                success: function success(data) {
+                    if (that.terrariumId !== '') {
+                        that.terraria = [data.data];
+                    } else {
+                        that.terraria = data.data;
+                    }
+
+                    that.$nextTick(function () {
+                        var $container = $('#' + that.containerId);
+                        $container.masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col'
+                        });
+                    });
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -18746,32 +19252,14 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
-        var that = this;
-        $.ajax({
-            url: '/api/v1/terraria/' + that.terrariumId + '?raw=true&history_minutes=0',
-            method: 'GET',
-            success: function success(data) {
-                if (that.terrariumId !== '') {
-                    that.terraria = [data.data];
-                } else {
-                    that.terraria = data.data;
-                }
+        this.load_data();
 
-                that.$nextTick(function () {
-                    var $container = $('#' + that.containerId);
-                    $container.masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col'
-                    });
-                });
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 
 };
@@ -18791,7 +19279,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-12", __vue__options__)
   }
 })()}
-},{"./inline-graph.vue":27,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],34:[function(require,module,exports){
+},{"./inline-graph.vue":28,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],35:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18888,7 +19376,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-23", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],35:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],36:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18911,6 +19399,11 @@ exports.default = {
 
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         valveId: {
             type: String,
             default: '',
@@ -18985,6 +19478,35 @@ exports.default = {
         refresh_grid: function refresh_grid() {
             $('#' + this.containerId).masonry('reloadItems');
             $('#' + this.containerId).masonry('layout');
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/valves/' + that.valveId + '?raw=true',
+                method: 'GET',
+                success: function success(data) {
+                    if (that.valveId !== '') {
+                        that.valves = [data.data];
+                    } else {
+                        that.valves = data.data;
+                    }
+
+                    that.$nextTick(function () {
+                        $('#' + that.containerId).masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col'
+                        });
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -18997,32 +19519,14 @@ exports.default = {
             _this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/valves/' + that.valveId + '?raw=true',
-            method: 'GET',
-            success: function success(data) {
-                if (that.valveId !== '') {
-                    that.valves = [data.data];
-                } else {
-                    that.valves = data.data;
-                }
-
-                that.$nextTick(function () {
-                    $('#' + that.containerId).masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col'
-                    });
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function error(_error) {
-                console.log((0, _stringify2.default)(_error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
     }
 };
 })()
@@ -19036,9 +19540,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-19", __vue__options__)
+    hotAPI.createRecord("data-v-20", __vue__options__)
   } else {
-    hotAPI.reload("data-v-19", __vue__options__)
+    hotAPI.reload("data-v-20", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}]},{},[11]);

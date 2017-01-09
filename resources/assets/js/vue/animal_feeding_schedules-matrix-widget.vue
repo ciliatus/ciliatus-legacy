@@ -43,6 +43,11 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -139,6 +144,13 @@ export default {
 
     created: function() {
         this.load_data();
+
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 }
 </script>

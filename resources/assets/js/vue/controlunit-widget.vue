@@ -13,6 +13,33 @@
                             <span>{{ controlunit.name }}</span>
                             <i class="material-icons right">more_vert</i>
                         </span>
+
+                        <p>
+                            {{ $t('labels.last_heartbeat') }}:
+                            <!-- @TODO: there has to be a better way to do this -->
+                            <span v-show="controlunit.timestamps.last_heartbeat_diff.days > 0"
+                                  class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
+                                {{ $t('units.days_ago', {val: controlunit.timestamps.last_heartbeat_diff.days}) }}
+                            </span>
+                            <span v-show="controlunit.timestamps.last_heartbeat_diff.days < 1 &&
+                                          controlunit.timestamps.last_heartbeat_diff.hours > 0"
+                                          class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
+                                {{ $t('units.hours_ago', {val: controlunit.timestamps.last_heartbeat_diff.hours}) }}
+                            </span>
+                            <span v-show="controlunit.timestamps.last_heartbeat_diff.days < 1 &&
+                                          controlunit.timestamps.last_heartbeat_diff.hours < 1 &&
+                                          controlunit.timestamps.last_heartbeat_diff.minutes > 1"
+                                          class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
+                                {{ $t('units.minutes_ago', {val: controlunit.timestamps.last_heartbeat_diff.minutes}) }}
+                            </span>
+                            <span v-show="controlunit.timestamps.last_heartbeat_diff.days < 1 &&
+                                          controlunit.timestamps.last_heartbeat_diff.hours < 1 &&
+                                          controlunit.timestamps.last_heartbeat_diff.minutes < 2"
+                                          class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
+                                {{ $t('units.just_now') }}
+                            </span>
+                            <br />
+                        </p>
                     </div>
 
                     <div class="card-action">
@@ -21,9 +48,10 @@
                     </div>
 
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                        <span class="card-title">{{ $tc("components.physical_sensors", 2) }}<i class="material-icons right">close</i></span>
 
-                        <p>
+                        <p v-for="physical_sensor in controlunit.physical_sensors">
+                            <a v-bind:href="'/physical_sensors/' + physical_sensor.id">{{ physical_sensor.name }}</a>
                         </p>
                     </div>
                 </div>
@@ -41,6 +69,11 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         controlunitId: {
             type: String,
             default: '',
@@ -116,6 +149,38 @@ export default {
         refresh_grid: function() {
             $('#' + this.containerId).masonry('reloadItems');
             $('#' + this.containerId).masonry('layout');
+            $('.tooltipped').tooltip({delay: 50});
+        },
+
+        load_data: function() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/controlunits/' + that.controlunitId + '?raw=true',
+                method: 'GET',
+                success: function (data) {
+                    if (that.controlunitId !== '') {
+                        that.controlunits = [data.data];
+                    }
+                    else {
+                        that.controlunits = data.data;
+                    }
+
+                    that.$nextTick(function() {
+                        $('#' + that.containerId).masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col',
+                        });
+                $('.tooltipped').tooltip({delay: 50});
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -127,33 +192,14 @@ export default {
                 this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/controlunits/' + that.controlunitId + '?raw=true',
-            method: 'GET',
-            success: function (data) {
-                if (that.controlunitId !== '') {
-                    that.controlunits = [data.data];
-                }
-                else {
-                    that.controlunits = data.data;
-                }
-
-                that.$nextTick(function() {
-                    $('#' + that.containerId).masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col',
-                    });
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 }
 </script>

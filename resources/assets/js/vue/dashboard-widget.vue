@@ -422,6 +422,11 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -851,6 +856,36 @@ export default {
         link_post: function(e) {
             e.preventDefault();
             $.post(e.target.href);
+        },
+
+        load_data: function() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/dashboard',
+                method: 'GET',
+                success: function (data) {
+                    that.dashboard = data.data;
+
+                    that.$nextTick(function() {
+                        var $container = $('#' + that.containerId);
+                        $container.masonry({
+                          columnWidth: '.col',
+                          itemSelector: '.col',
+                        });
+
+                        that.refresh_grid();
+                    });
+
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    window.notification('An error occured :(', 'red darken-1 text-white');
+                    console.log(error);
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -874,33 +909,14 @@ export default {
                 this.deleteActionSequenceSchedule(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/dashboard',
-            method: 'GET',
-            success: function (data) {
-                that.dashboard = data.data;
-
-                that.$nextTick(function() {
-                    var $container = $('#' + that.containerId);
-                    $container.masonry({
-                      columnWidth: '.col',
-                      itemSelector: '.col',
-                    });
-
-                    that.refresh_grid();
-                });
-
-
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                window.notification('An error occured :(', 'red darken-1 text-white');
-                console.log(error);
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 }
 </script>

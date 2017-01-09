@@ -68,6 +68,11 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         animalId: {
             type: String,
             required: true
@@ -110,6 +115,23 @@ export default {
             if (item !== null) {
                 this.animal_weighings.splice(item, 1);
             }
+        },
+
+        load_data: function() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/animals/' + that.animalId + '/weighings',
+                method: 'GET',
+                success: function (data) {
+                    that.animal_weighings = data.data;
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
 
     },
@@ -122,20 +144,14 @@ export default {
                 this.delete(e);
             });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/animals/' + that.animalId + '/weighings',
-            method: 'GET',
-            success: function (data) {
-                that.animal_weighings = data.data;
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 
 }

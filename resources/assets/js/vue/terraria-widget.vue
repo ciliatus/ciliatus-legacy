@@ -70,6 +70,11 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         terrariumId: {
             type: String,
             default: '',
@@ -155,6 +160,36 @@ export default {
         submit: function(e) {
             window.submit_form(e);
         },
+
+        load_data: function() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/terraria/' + that.terrariumId + '?raw=true&history_minutes=0',
+                method: 'GET',
+                success: function (data) {
+                    if (that.terrariumId !== '') {
+                        that.terraria = [data.data];
+                    }
+                    else {
+                        that.terraria = data.data;
+                    }
+
+                    that.$nextTick(function() {
+                        var $container = $('#' + that.containerId);
+                        $container.masonry({
+                          columnWidth: '.col',
+                          itemSelector: '.col',
+                        });
+                    });
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+        }
     },
 
     created: function() {
@@ -165,33 +200,15 @@ export default {
                 this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
-        var that = this;
-        $.ajax({
-            url: '/api/v1/terraria/' + that.terrariumId + '?raw=true&history_minutes=0',
-            method: 'GET',
-            success: function (data) {
-                if (that.terrariumId !== '') {
-                    that.terraria = [data.data];
-                }
-                else {
-                    that.terraria = data.data;
-                }
+        this.load_data();
 
-                that.$nextTick(function() {
-                    var $container = $('#' + that.containerId);
-                    $container.masonry({
-                      columnWidth: '.col',
-                      itemSelector: '.col',
-                    });
-                });
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
+
     }
 
 }

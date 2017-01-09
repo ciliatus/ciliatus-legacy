@@ -71,6 +71,11 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         animalId: {
             type: String,
             required: true
@@ -113,6 +118,37 @@ export default {
             if (item !== null) {
                 this.animal_feedings.splice(item, 1);
             }
+        },
+
+        load_data: function() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/animals/' + that.animalId + '/feedings',
+                method: 'GET',
+                success: function (data) {
+                    that.animal_feedings = data.data;
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+
+            window.eventHubVue.processStarted();
+            $.ajax({
+                url: '/api/v1/animals/feedings/types',
+                method: 'GET',
+                success: function (data) {
+                    that.animal_feeding_types = data.data;
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
 
     },
@@ -125,33 +161,14 @@ export default {
                 this.delete(e);
             });
 
-        window.eventHubVue.processStarted();
-        var that = this;
-        $.ajax({
-            url: '/api/v1/animals/' + that.animalId + '/feedings',
-            method: 'GET',
-            success: function (data) {
-                that.animal_feedings = data.data;
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        this.load_data();
 
-        $.ajax({
-            url: '/api/v1/animals/feedings/types',
-            method: 'GET',
-            success: function (data) {
-                that.animal_feeding_types = data.data;
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 
 }

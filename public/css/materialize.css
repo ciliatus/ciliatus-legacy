@@ -2556,7 +2556,7 @@ input[type=range] + .thumb {
   padding: 0 !important; }
 
 /* This is needed for some mobile phones to display the Google Icon font properly */
-.material-icons {
+.material-icons, div.select-wrapper.icons ul li {
   text-rendering: optimizeLegibility;
   -webkit-font-feature-settings: 'liga';
   font-feature-settings: 'liga';
@@ -4579,12 +4579,16 @@ textarea.materialize-textarea {
     color: #444; }
     .input-field input[type=search]:focus + label i,
     .input-field input[type=search]:focus ~ .mdi-navigation-close,
-    .input-field input[type=search]:focus ~ .material-icons {
+    .input-field input[type=search]:focus ~ .material-icons,
+    .input-field div.select-wrapper.icons ul input[type=search]:focus ~ li, div.select-wrapper.icons ul
+    .input-field input[type=search]:focus ~ li {
       color: #444; }
   .input-field input[type=search] + label {
     left: 1rem; }
   .input-field input[type=search] ~ .mdi-navigation-close,
-  .input-field input[type=search] ~ .material-icons {
+  .input-field input[type=search] ~ .material-icons,
+  .input-field div.select-wrapper.icons ul input[type=search] ~ li, div.select-wrapper.icons ul
+  .input-field input[type=search] ~ li {
     position: absolute;
     top: 0;
     right: 1rem;
@@ -6620,5 +6624,24 @@ header, main, footer {
 
 text {
   fill: #000000; }
+
+/* Material icon select */
+.material-icons, div.select-wrapper.icons ul li {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased; }
+
+div.select-wrapper.icons ul li span {
+  font-size: 24px; }
 
 /*# sourceMappingURL=materialize.css.map */
