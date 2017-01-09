@@ -247,6 +247,14 @@ class UserController extends ApiController
         if ($request->has('timezone')) {
             $user->timezone = $request->input('timezone');
         }
+        
+        if ($request->has('night_starts_at')) {
+            $user->setSetting('night_starts_at', $request->input('night_starts_at'));
+        }
+
+        if ($request->has('night_ends_at')) {
+            $user->setSetting('night_ends_at', $request->input('night_ends_at'));
+        }
 
         if ($request->has('notification_type')) {
             $user->setSetting('notification_type', $request->input('notification_type'));

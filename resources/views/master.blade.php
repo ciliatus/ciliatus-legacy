@@ -9,6 +9,7 @@
         @else
             <link type="text/css" rel="stylesheet" href="/css/materialize.css"  media="screen,projection"/>
         @endif
+        <link type="text/css" rel="stylesheet" href="/css/timeline.css"  media="screen,projection"/>
 
 
         <link type="text/css" rel="stylesheet" href="/css/materialize.clockpicker.css"  media="screen,projection"/>
@@ -129,16 +130,16 @@
                                             @lang('menu.users')
                                         </a>
                                     </li>
-                                    <li @if(Request::is('animals/feedings/types')) class="active" @endif>
-                                        <a href="{{ url('animals/feedings/types') }}" class="waves-effect waves-teal">
-                                            <i class="material-icons">pets</i>
-                                            @lang('menu.animal_feeding_types')
-                                        </a>
-                                    </li>
                                     <li @if(Request::is('logs', 'logs/*')) class="active" @endif>
                                         <a href="{{ url('logs') }}" class="waves-effect waves-teal">
                                             <i class="material-icons">history</i>
                                             @lang('menu.logs')
+                                        </a>
+                                    </li>
+                                    <li @if(Request::is('categories')) class="active" @endif>
+                                        <a href="{{ url('categories') }}" class="waves-effect waves-teal">
+                                            <i class="material-icons">layers</i>
+                                            @lang('menu.categories')
                                         </a>
                                     </li>
                                 </ul>
@@ -185,6 +186,7 @@
         <!-- ciliatus -->
         <script src="{{ url('js/app.js') }}"></script>
 
+        @yield('scripts')
 
         <script>
             $(document).ready(function() {

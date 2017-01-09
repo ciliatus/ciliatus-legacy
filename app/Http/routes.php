@@ -9,6 +9,7 @@ Route::group(['namespace' => 'Web'], function() {
 
     Route::get('/', 'DashboardController@index');
     Route::resource('dashboard', 'DashboardController');
+    Route::get('categories', 'AdminController@categories');
     Route::resource('animals', 'AnimalController');
     Route::get('animals/feedings/types', 'AnimalFeedingController@edit_types');
     Route::get('animals/feedings/types/create', 'AnimalFeedingController@create_type');
@@ -55,6 +56,10 @@ Route::group(['namespace' => 'Web'], function() {
     Route::get('action_sequences/{id}/delete', 'ActionSequenceController@delete');
     Route::resource('action_sequence_schedules', 'ActionSequenceScheduleController');
     Route::get('action_sequence_schedules/{id}/delete', 'ActionSequenceScheduleController@delete');
+    Route::resource('biography_entries', 'BiographyEntryController');
+    Route::get('biography_entries/{id}/delete', 'BiographyEntryController@delete');
+    Route::get('biography_entries/categories/create', 'BiographyEntryController@create_type');
+    Route::get('biography_entries/categories/{id}/delete', 'BiographyEntryController@delete_type');
     Route::resource('logs', 'LogController');
 });
 
@@ -109,5 +114,9 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
     Route::resource('action_sequence_schedules', 'ActionSequenceScheduleController');
     Route::resource('events', 'EventController');
     Route::resource('properties', 'PropertyController');
+    Route::resource('biography_entries', 'BiographyEntryController');
+    Route::get('biography_entries/categories', 'BiographyEntryController@types');
+    Route::post('biography_entries/categories', 'BiographyEntryController@store_type');
+    Route::delete('biography_entries/categories/{id}', 'BiographyEntryController@delete_type');
     Route::resource('logs', 'LogController');
 });
