@@ -96,7 +96,7 @@ class AdminController extends Controller
 
         return view('admin.categories', [
             'animal_feeding_types' => Property::where('type', 'AnimalFeedingType')->get(),
-            'bio_categories' => Property::where('type', 'BiographyEntryCategory')->get()
+            'bio_categories' => Property::where('type', 'BiographyEntryCategoryType')->get()
         ]);
     }
 }
