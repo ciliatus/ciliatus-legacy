@@ -68,6 +68,7 @@ import ValvesWidget from './vue/valves-widget.vue';
 import PhysicalSensorsWidget from './vue/physical_sensors-widget.vue';
 import LogicalSensorsWidget from './vue/logical_sensors-widget.vue';
 import UsersWidget from './vue/users-widget.vue';
+import BiographyEntriesWidget from './vue/biography_entries-widget.vue'
 import LogsWidget from './vue/logs-widget.vue';
 
 window.bodyVue = new Vue({
@@ -123,6 +124,7 @@ window.bodyVue = new Vue({
         'physical_sensors-widget': PhysicalSensorsWidget,
         'logical_sensors-widget': LogicalSensorsWidget,
         'users-widget': UsersWidget,
+        'biography_entries-widget': BiographyEntriesWidget,
         'logs-widget': LogsWidget
     }
 
