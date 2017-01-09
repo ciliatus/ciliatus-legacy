@@ -14,13 +14,13 @@
 
     <div id="tab_dashboard" class="col s12">
         <div class="container">
-            <terraria-widget container-classes="row" wrapper-classes="col s12 m6 l4"></terraria-widget>
+            <terraria-widget :refresh-timeout-seconds="60" container-classes="row" wrapper-classes="col s12 m6 l4"></terraria-widget>
         </div>
     </div>
 
     <div id="tab_details" class="col s12">
         <div class="container">
-            <terraria-overview-widget container-classes="row" wrapper-classes=""></terraria-overview-widget>
+            <terraria-overview-widget :refresh-timeout-seconds="60" container-classes="row" wrapper-classes=""></terraria-overview-widget>
         </div>
     </div>
 

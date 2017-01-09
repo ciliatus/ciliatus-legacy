@@ -8,7 +8,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <pumps-widget pump-id="{{ $pump->id }}" :subscribe-add="false" :subscribe-delete="false"></pumps-widget>
+            <pumps-widget :refresh-timeout-seconds="60" pump-id="{{ $pump->id }}" :subscribe-add="false" :subscribe-delete="false"></pumps-widget>
         </div>
     </div>
 

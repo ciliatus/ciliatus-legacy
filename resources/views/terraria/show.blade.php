@@ -13,6 +13,7 @@
             @if (!is_null($terrarium->animals))
                 <li class="tab col s3"><a href="#tab_animals">@choice('components.animals', 2)</a></li>
             @endif
+            <li class="tab col s3"><a href="#tab_biography">@lang('labels.biography')</a></li>
             <li class="tab col s3"><a target="_self" href="{{ url('terraria/' . $terrarium->id . '/edit') }}">@lang('buttons.edit')</a></li>
         </ul>
     </div>
@@ -20,7 +21,8 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m5 l4">
-                    <terraria-widget terrarium-id="{{ $terrarium->id }}" :subscribe-add="false" :subscribe-delete="false"
+                    <terraria-widget :refresh-timeout-seconds="60"
+                                     terrarium-id="{{ $terrarium->id }}" :subscribe-add="false" :subscribe-delete="false"
                                      container-classes="row" wrapper-classes="col s12"></terraria-widget>
                 </div>
 
@@ -37,13 +39,24 @@
                 </div>
             </div>
         </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large teal">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating orange" href="/terraria/{{ $terrarium->id }}/edit"><i class="material-icons">edit</i></a></li>
+                <li><a class="btn-floating red" href="/terraria/{{ $terrarium->id }}/delete"><i class="material-icons">delete</i></a></li>
+                <li><a class="btn-floating green" href="/terraria/create"><i class="material-icons">add</i></a></li>
+            </ul>
+        </div>
     </div>
 
     <div id="tab_details" class="col s12">
         <div class="container">
             <div class="row">
                 <div class="col s12 m12 l4">
-                    <action_sequences-widget source-filter="?filter[terrarium_id]={{ $terrarium->id }}"
+                    <action_sequences-widget :refresh-timeout-seconds="60" source-filter="?filter[terrarium_id]={{ $terrarium->id }}"
                                              terrarium-id="{{ $terrarium->id }}"
                                              container-classes="row" wrapper-classes="col s12"></action_sequences-widget>
                 </div>
@@ -72,23 +85,26 @@
     </div>
     @endif
 
+    <div id="tab_biography" class="col s12">
+        <div class="container">
+            <biography_entries-widget :refresh-timeout-seconds="60"
+                                      belongs-to-type="Terrarium" belongs-to-id="{{ $terrarium->id }}"
+                                      container-classes="container"></biography_entries-widget>
+        </div>
 
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-large teal">
-            <i class="large material-icons">mode_edit</i>
-        </a>
-        <ul>
-            <li><a class="btn-floating orange" href="/terraria/{{ $terrarium->id }}/edit"><i class="material-icons">edit</i></a></li>
-            <li><a class="btn-floating red" href="/terraria/{{ $terrarium->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green" href="/terraria/create"><i class="material-icons">add</i></a></li>
-        </ul>
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large teal">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating green" href="/biography_entries/create?preset[belongsTo_type]=Terrarium&preset[belongsTo_id]={{ $terrarium->id }}"><i class="material-icons">add</i></a></li>
+            </ul>
+        </div>
     </div>
 
     <script>
-        ($(function() {
-            $(document).ready(function(){
-                $('ul.tabs').tabs();
-            });
-        }));
+        $(document).ready(function(){
+            $('ul.tabs').tabs();
+        });
     </script>
 @stop

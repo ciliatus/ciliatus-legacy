@@ -8,7 +8,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <logical_sensor_thresholds-widget logical_sensor_threshold-id="{{ $logical_sensor_threshold->id }}" :subscribe-add="false" :subscribe-delete="false"></logical_sensor_thresholds-widget>
+            <logical_sensor_thresholds-widget :refresh-timeout-seconds="60" logical_sensor_threshold-id="{{ $logical_sensor_threshold->id }}"
+                                              :subscribe-add="false" :subscribe-delete="false"></logical_sensor_thresholds-widget>
         </div>
     </div>
 

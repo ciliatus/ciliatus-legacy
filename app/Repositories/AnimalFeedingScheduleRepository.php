@@ -44,7 +44,7 @@ class AnimalFeedingScheduleRepository extends Repository {
          * Compare the schedule to the last feeding
          */
         if ((!is_null($last_feeding_of_type) && is_null($starts_at)) ||
-            (!is_null($starts_at) && !is_null($last_feeding_of_type) && Carbon::parse($starts_at->value)->isSameDay($last_feeding_of_type->created_at))) {
+            (!is_null($last_feeding_of_type) && !is_null($starts_at) && Carbon::parse($starts_at->value)->lte($last_feeding_of_type->created_at))) {
             $last_feeding_at = $last_feeding_of_type->created_at;
             $last_feeding_at->hour = 0;
             $last_feeding_at->minute = 0;

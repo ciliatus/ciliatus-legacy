@@ -15,6 +15,7 @@
             @if (!is_null($animal->terrarium))
                 <li class="tab col s3"><a href="#tab_environment">@lang('labels.environment')</a></li>
             @endif
+            <li class="tab col s3"><a href="#tab_biography">@lang('labels.biography')</a></li>
             <li class="tab col s3"><a target="_self" href="{{ url('animals/' . $animal->id . '/edit') }}">@lang('buttons.edit')</a></li>
         </ul>
     </div>
@@ -32,6 +33,17 @@
                                   container-classes="row" wrapper-classes="col s12"></files-widget>
                 </div>
             </div>
+        </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large teal">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating orange" href="/animals/{{ $animal->id }}/edit"><i class="material-icons">edit</i></a></li>
+                <li><a class="btn-floating red" href="/animals/{{ $animal->id }}/delete"><i class="material-icons">delete</i></a></li>
+                <li><a class="btn-floating green" href="/animals/create"><i class="material-icons">add</i></a></li>
+            </ul>
         </div>
     </div>
 
@@ -75,6 +87,23 @@
         </div>
     </div>
 
+    <div id="tab_biography" class="col s12">
+        <div class="container">
+            <biography_entries-widget :refresh-timeout-seconds="60"
+                                      belongs-to-type="Animal" belongs-to-id="{{ $animal->id }}"
+                                      container-classes="container"></biography_entries-widget>
+        </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large teal">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating green" href="/biography_entries/create?preset[belongsTo_type]=Animal&preset[belongsTo_id]={{ $animal->id }}"><i class="material-icons">add</i></a></li>
+            </ul>
+        </div>
+    </div>
+
     @if (!is_null($animal->terrarium))
     <div id="tab_environment" class="col s12">
         <div class="container">
@@ -102,21 +131,8 @@
     @endif
 
     <script>
-        ($(function() {
-            $(document).ready(function(){
-                $('ul.tabs').tabs();
-            });
-        }));
+        $(document).ready(function(){
+            $('ul.tabs').tabs();
+        });
     </script>
-
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-large teal">
-            <i class="large material-icons">mode_edit</i>
-        </a>
-        <ul>
-            <li><a class="btn-floating orange" href="/animals/{{ $animal->id }}/edit"><i class="material-icons">edit</i></a></li>
-            <li><a class="btn-floating red" href="/animals/{{ $animal->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green" href="/animals/create"><i class="material-icons">add</i></a></li>
-        </ul>
-    </div>
 @stop

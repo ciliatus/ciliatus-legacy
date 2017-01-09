@@ -8,7 +8,8 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <physical_sensors-widget physical_sensor-id="{{ $physical_sensor->id }}" :subscribe-add="false" :subscribe-delete="false"></physical_sensors-widget>
+            <physical_sensors-widget :refresh-timeout-seconds="60" physical_sensor-id="{{ $physical_sensor->id }}"
+                                     :subscribe-add="false" :subscribe-delete="false"></physical_sensors-widget>
         </div>
     </div>
 
