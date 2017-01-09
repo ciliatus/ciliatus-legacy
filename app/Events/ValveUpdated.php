@@ -24,14 +24,15 @@ class ValveUpdated implements ShouldBroadcast
      */
     public function __construct(Valve $v)
     {
-        $transformer = new ValveTransformer(
+        $transformer = new ValveTransformer();
+
+        $this->valve = $transformer->transform(
             Valve::with('pump')
                 ->with('terrarium')
                 ->with('controlunit')
                 ->find($v->id)
+                ->toArray()
         );
-
-        $this->valve = $transformer->transform($v->toArray());
     }
 
     /**

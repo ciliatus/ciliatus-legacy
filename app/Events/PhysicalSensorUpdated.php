@@ -24,10 +24,10 @@ class PhysicalSensorUpdated implements ShouldBroadcast
      */
     public function __construct(PhysicalSensor $ps)
     {
-        $transformer = new PhysicalSensorTransformer(
-            PhysicalSensor::with('logical_sensors')->find($ps->id)
+        $transformer = new PhysicalSensorTransformer();
+        $this->physical_sensor = $transformer->transform(
+            PhysicalSensor::with('logical_sensors')->find($ps->id)->toArray()
         );
-        $this->physical_sensor = $transformer->transform($ps->toArray());
     }
 
     /**

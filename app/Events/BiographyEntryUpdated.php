@@ -2,31 +2,34 @@
 
 namespace App\Events;
 
-use App\Controlunit;
-use App\Http\Transformers\ControlunitTransformer;
+use App\Http\Transformers\BiographyEntryTransformer;
+use App\Event;
+use App\Repositories\BiographyEntryRepository;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Log;
 
-class ControlunitUpdated implements ShouldBroadcast
+class BiographyEntryUpdated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $controlunit;
+    public $biography_entry;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Event $be
      */
-    public function __construct(Controlunit $cu)
+    public function __construct(Event $be)
     {
-        $transformer = new ControlunitTransformer();
-        $this->controlunit = $transformer->transform(
-            Controlunit::with('physical_sensors')->find($cu->id)->toArray()
+        $transformer = new BiographyEntryTransformer();
+
+        $this->biography_entry = $transformer->transform(
+            (new BiographyEntryRepository($be))->show()->toArray()
         );
     }
 
