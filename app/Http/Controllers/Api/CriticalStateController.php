@@ -158,28 +158,6 @@ class CriticalStateController extends ApiController
             }
         }
 
-        /*
-         * Generate AnimalFeedingScheduleUpdated Events
-         * to keep dashboard up to date
-         */
-         foreach (Animal::get() as $animal) {
-            foreach ($animal->feeding_schedules as $afs) {
-                broadcast(new AnimalFeedingScheduleUpdated($afs));
-            }
-        }
-
-        /*
-         * Generate ActionSequenceScheduleUpdated Events
-         * to keep dashboard up to date
-         */
-        foreach (Terrarium::get() as $terrarium) {
-            foreach ($terrarium->action_sequences as $as) {
-                foreach ($as->schedules as $ass) {
-                    broadcast(new ActionSequenceScheduleUpdated($ass));
-                }
-            }
-        }
-
         return $this->respondWithData($response);
     }
 
