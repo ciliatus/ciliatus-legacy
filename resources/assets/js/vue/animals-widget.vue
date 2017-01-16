@@ -48,23 +48,21 @@
 
                     <div class="card-content">
                         <span class="card-title activator truncate">
-                            <span>{{ animal.display_name }}</span>
+                            <span>{{ animal.display_name }} </span>
                             <i class="material-icons right">more_vert</i>
                         </span>
                         <p>
                             <span v-show="animal.latin_name">{{ animal.latin_name }}</span>
                             <span v-show="animal.common_name && !animal.latin_name">{{ animal.common_name }}</span>
-                            <br />
-
-                            <span v-show="animal.birth_date !== null">{{ animal.birth_date }}</span>
-                            <span v-show="animal.death_date !== null"> - {{ animal.death_date }}</span>
-                            <span v-show="animal.birth_date || animal.death_date"><i>{{ animal.age_value }} {{ $tc("units." + animal.age_unit, animal.age_value) }}</i></span>
+                            <span v-show="animal.birth_date || animal.death_date">, {{ animal.age_value }} {{ $tc("units." + animal.age_unit, animal.age_value) }}</span>
 
                             <span v-if="animal.last_feeding">
                                 <br />
+                                <i class="material-icons tiny">local_dining</i>
                                 <span v-if="animal.last_feeding.timestamps.diff.value == 0">{{ $t("labels.today") }}</span>
-                                <span v-if="animal.last_feeding.timestamps.diff.value > 0">{{ animal.last_feeding.timestamps.diff.value }} {{ $tc("units." + animal.last_feeding.timestamps.diff.unit, animal.last_feeding.timestamps.diff.value) }}</span>
-                                <i>{{ animal.last_feeding.name }}</i>
+                                <span v-if="animal.last_feeding.timestamps.diff.value > 0">
+                                    {{ $t('units.' + animal.last_feeding.timestamps.diff.unit + '_ago', {val: animal.last_feeding.timestamps.diff.value}) }}: {{ animal.last_feeding.name }}
+                                </span>
                             </span>
                             <br />
                         </p>

@@ -1,15 +1,15 @@
 <template>
     <div>
-        <div v-if="ShowFilterField !== null">
+        <div v-if="ShowFilterForm === true">
             <div class="row" style="margin-bottom: 0">
                 <div class="input-field col s12 m4 l4">
                     <input class="datepicker" type="date" :placeholder="$t('labels.from')" name="filter_from" :id="'filter_from_' + id"
-                            :data-default="new Date().getFullYear() + '-01-01'" :value="new Date().getFullYear() + '-01-01'">
+                            :data-default="FilterFromDate" :value="FilterFromDate">
                     <label :for="'filter_from_' + id">{{ $t('labels.from') }}</label>
                 </div>
                 <div class="input-field col s12 m4 l4">
                     <input class="datepicker" type="date" :placeholder="$t('labels.to')" name="filter_to" :id="'filter_to_' + id"
-                           :data-default="new Date().getFullYear() + '-31-31'" :value="new Date().getFullYear() + '-12-31'">
+                           :data-default="FilterToDate" :value="FilterToDate">
                     <label :for="'filter_to_' + id">{{ $t('labels.to') }}</label>
                 </div>
                 <div class="input-field col s12 m4 l4">
@@ -75,11 +75,6 @@ export default {
             default: 5,
             required: false
         },
-        ShowFilterField: {
-            type: String,
-            default: null,
-            required: false
-        },
         Height: {
             type: Number,
             default: 300,
@@ -88,6 +83,26 @@ export default {
         BackgroundColor: {
             type: String,
             default: '',
+            required: false
+        },
+        FilterColumn: {
+            type: String,
+            default: null,
+            required: true
+        },
+        ShowFilterForm: {
+            type: Boolean,
+            default: false,
+            required: false
+        },
+        FilterFromDate: {
+            type: String,
+            default: (new Date).toYmd(),
+            required: false
+        },
+        FilterToDate: {
+            type: String,
+            default: (new Date).toYmd(),
             required: false
         }
     },
@@ -100,48 +115,29 @@ export default {
     },
 
     methods: {
-        filterFrom: function() {
-            if (this.ShowFilterField === null) {
-                return null;
+        get_filter_from_date: function() {
+            if ($('#filter_from_' + this.id).val() === null) {
+                return this.FilterFromDate;
             }
-            if ($('#filter_from_' + this.id).val() == '') {
-                return null;
-            }
-            else {
-                $('#filter_from_' + this.id).val()
-            }
-        },
-        filterTo: function() {
-            if (this.ShowFilterField === null) {
-                return null;
-            }
-            if ($('#filter_to_' + this.id).val() == '') {
-                return null;
-            }
-            else {
-                $('#filter_to_' + this.id).val()
-            }
-        },
 
+            return $('#filter_from_' + this.id).val();
+        },
+        get_filter_to_date: function() {
+            if ($('#filter_to_' + this.id).val() === null) {
+                return this.FilterToDate;
+            }
+
+            return $('#filter_to_' + this.id).val();
+        },
         init: function() {
-
             this.data = new google.visualization.DataTable();
             this.build();
-
         },
         build: function() {
             $('#dygraph_' + this.id + '_loading').show();
             var that = this;
-            var url = this.source;
-            if (this.filterFrom !== null) {
-                url = url + '&filter[' + this.ShowFilterField + ']=gt:' + $('#filter_from_' + this.id).val();
-            }
-            if (this.filterTo !== null && this.filterFrom !== null) {
-                url = url + ':and:lt:' + $('#filter_to_' + this.id).val();
-            }
-            else if (this.filterTo !== null) {
-                url = url + '&filter[' + this.ShowFilterField + ']=lt:' + $('#filter_to_' + this.id).val();
-            }
+            var url = this.source + '&filter[' + this.FilterColumn + ']=gt:' + this.get_filter_from_date() + ':and:lt:' + this.get_filter_to_date();
+
             $.ajax({
                 url: url,
                 method: 'GET',
@@ -194,7 +190,9 @@ export default {
                 },
                 height: this.Height,
                 width: '100%',
-                backgroundColor: 'transparent'
+                backgroundColor: 'transparent',
+                curveType: 'function',
+                pointSize: 4,
             }
 
             this.chart.draw(this.data, this.options);

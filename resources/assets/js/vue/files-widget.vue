@@ -1,33 +1,37 @@
 <template>
-    <div class="card">
-        <div class="card-content teal lighten-1 white-text">
-            <i class="material-icons">attach_file</i>
-            {{ files.length }} {{ $tc("components.files", 2) }}
-        </div>
-
-        <div class="card-content">
-            <span class="card-title activator truncate">
-                <span>{{ $tc("components.files", 2) }}</span>
-                <i class="material-icons right">more_vert</i>
-            </span>
-            <p>
-                <div class="chip" v-for="file in files">
-                    <i class="material-icons">insert_drive_file</i>
-                    <a v-bind:href="'/files/' + file.id">{{ file.display_name }}</a> <i>{{ (file.size / 1024 / 1024).toFixed(2) }} MB</i>
+    <div :class="containerClasses">
+        <div :class="wrapperClasses">
+            <div class="card">
+                <div class="card-content teal lighten-1 white-text">
+                    <i class="material-icons">attach_file</i>
+                    {{ files.length }} {{ $tc("components.files", 2) }}
                 </div>
-            </p>
-        </div>
 
-        <div class="card-action">
-            <a v-bind:href="'/files/create?preset[belongsTo_type]=' + belongsTo_type + '&preset[belongsTo_id]=' + belongsTo_id">{{ $t("buttons.add") }}</a>
-            <a v-bind:href="'/files/?filter[belongsTo_type]=' + belongsTo_type + '&filter[belongsTo_id]=' + belongsTo_id">{{ $t("buttons.details") }}</a>
-        </div>
+                <div class="card-content">
+                    <span class="card-title activator truncate">
+                        <span>{{ $tc("components.files", 2) }}</span>
+                        <i class="material-icons right">more_vert</i>
+                    </span>
+                    <p>
+                        <div class="chip" v-for="file in files">
+                            <i class="material-icons">insert_drive_file</i>
+                            <a v-bind:href="'/files/' + file.id">{{ file.display_name }}</a> <i>{{ (file.size / 1024 / 1024).toFixed(2) }} MB</i>
+                        </div>
+                    </p>
+                </div>
 
-        <div class="card-reveal">
-            <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
-            <p>
+                <div class="card-action">
+                    <a v-bind:href="'/files/create?preset[belongsTo_type]=' + belongsTo_type + '&preset[belongsTo_id]=' + belongsTo_id">{{ $t("buttons.add") }}</a>
+                    <a v-bind:href="'/files/?filter[belongsTo_type]=' + belongsTo_type + '&filter[belongsTo_id]=' + belongsTo_id">{{ $t("buttons.details") }}</a>
+                </div>
 
-            </p>
+                <div class="card-reveal">
+                    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                    <p>
+
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </template>
@@ -63,6 +67,16 @@ export default {
             required: false
         },
         belongsTo_id: {
+            type: String,
+            default: '',
+            required: false
+        },
+        wrapperClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerClasses: {
             type: String,
             default: '',
             required: false
