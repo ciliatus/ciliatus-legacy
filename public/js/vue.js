@@ -15527,6 +15527,10 @@ var _biography_entriesWidget = require('./vue/biography_entries-widget.vue');
 
 var _biography_entriesWidget2 = _interopRequireDefault(_biography_entriesWidget);
 
+var _caresheetsWidget = require('./vue/caresheets-widget.vue');
+
+var _caresheetsWidget2 = _interopRequireDefault(_caresheetsWidget);
+
 var _logsWidget = require('./vue/logs-widget.vue');
 
 var _logsWidget2 = _interopRequireDefault(_logsWidget);
@@ -15632,12 +15636,13 @@ window.bodyVue = new Vue({
         'logical_sensors-widget': _logical_sensorsWidget2.default,
         'users-widget': _usersWidget2.default,
         'biography_entries-widget': _biography_entriesWidget2.default,
+        'caresheets-widget': _caresheetsWidget2.default,
         'logs-widget': _logsWidget2.default
     }
 
 });
 
-},{"./lang.js":10,"./vue/action_sequence_schedule-widget.vue":12,"./vue/action_sequences-widget.vue":13,"./vue/animal_feeding_schedules-matrix-widget.vue":14,"./vue/animal_feeding_schedules-widget.vue":15,"./vue/animal_feedings-widget.vue":16,"./vue/animal_weighing_schedules-matrix-widget.vue":17,"./vue/animal_weighing_schedules-widget.vue":18,"./vue/animal_weighings-widget.vue":19,"./vue/animals-widget.vue":20,"./vue/biography_entries-widget.vue":21,"./vue/controlunit-widget.vue":22,"./vue/dashboard-widget.vue":23,"./vue/dygraph-graph.vue":24,"./vue/files-show-widget.vue":25,"./vue/files-widget.vue":26,"./vue/google-graph.vue":27,"./vue/inline-graph.vue":28,"./vue/logical_sensors-widget.vue":29,"./vue/logs-widget.vue":30,"./vue/physical_sensors-widget.vue":31,"./vue/pumps-widget.vue":32,"./vue/terraria-overview-widget.vue":33,"./vue/terraria-widget.vue":34,"./vue/users-widget.vue":35,"./vue/valves-widget.vue":36,"vue-i18n":6,"vue-peity":7,"vue/dist/vue.js":9}],12:[function(require,module,exports){
+},{"./lang.js":10,"./vue/action_sequence_schedule-widget.vue":12,"./vue/action_sequences-widget.vue":13,"./vue/animal_feeding_schedules-matrix-widget.vue":14,"./vue/animal_feeding_schedules-widget.vue":15,"./vue/animal_feedings-widget.vue":16,"./vue/animal_weighing_schedules-matrix-widget.vue":17,"./vue/animal_weighing_schedules-widget.vue":18,"./vue/animal_weighings-widget.vue":19,"./vue/animals-widget.vue":20,"./vue/biography_entries-widget.vue":21,"./vue/caresheets-widget.vue":22,"./vue/controlunit-widget.vue":23,"./vue/dashboard-widget.vue":24,"./vue/dygraph-graph.vue":25,"./vue/files-show-widget.vue":26,"./vue/files-widget.vue":27,"./vue/google-graph.vue":28,"./vue/inline-graph.vue":29,"./vue/logical_sensors-widget.vue":30,"./vue/logs-widget.vue":31,"./vue/physical_sensors-widget.vue":32,"./vue/pumps-widget.vue":33,"./vue/terraria-overview-widget.vue":34,"./vue/terraria-widget.vue":35,"./vue/users-widget.vue":36,"./vue/valves-widget.vue":37,"vue-i18n":6,"vue-peity":7,"vue/dist/vue.js":9}],12:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -16828,8 +16833,8 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.animals),function(animal){return _vm._h('div',[_vm._h('div',{staticClass:"modal",attrs:{"id":'modal_just_fed_' + animal.id}},[_vm._h('form',{attrs:{"action":'/api/v1/animals/' + animal.id + '/feedings',"data-method":"POST"},on:{"submit":_vm.submit}},[_vm._h('div',{staticClass:"modal-content",staticStyle:{"min-height":"300px"}},[_vm._h('h4',[_vm._s(_vm.$t("labels.just_fed"))])," ",_vm._h('p',[_vm._h('select',{attrs:{"name":"meal_type","id":"meal_type"}},[_vm._l((_vm.feeding_types),function(ft){return _vm._h('option',{domProps:{"value":ft.name}},[_vm._s(ft.name)])})])," ",_vm._h('label',{attrs:{"for":"meal_type"}},[_vm._s(_vm.$t("labels.meal_type"))])])])," ",_vm._h('div',{staticClass:"modal-footer"},[_vm._h('button',{staticClass:"btn modal-action modal-close waves-effect waves-light",attrs:{"type":"submit"}},[_vm._s(_vm.$t("buttons.save"))+"\n                        ",_vm._m(0,true)])])])])," ",_vm._h('div',{staticClass:"modal",attrs:{"id":'modal_add_weight_' + animal.id}},[_vm._h('form',{attrs:{"action":'/api/v1/animals/' + animal.id + '/weighings',"data-method":"POST"},on:{"submit":_vm.submit}},[_vm._h('div',{staticClass:"modal-content"},[_vm._h('h4',[_vm._s(_vm.$t("labels.add_weight"))])," ",_vm._h('p',[_vm._h('input',{attrs:{"name":"weight","id":"weight","placeholder":_vm.$t('labels.weight')+ '/g'}})," ",_vm._h('label',{attrs:{"for":"weight"}},[_vm._s(_vm.$t("labels.weight"))+"/g"])])])," ",_vm._h('div',{staticClass:"modal-footer"},[_vm._h('button',{staticClass:"btn modal-action modal-close waves-effect waves-light",attrs:{"type":"submit"}},[_vm._s(_vm.$t("buttons.save"))+"\n                        ",_vm._m(1,true)])])])])," ",_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-image waves-effect waves-block waves-light terrarium-card-image",class:animal.default_background_filepath ? '' : 'teal lighten-1',style:(animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : '')})," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(animal.display_name)])," ",_vm._m(2,true)])," ",_vm._h('p',[_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.latin_name),expression:"animal.latin_name"}]},[_vm._s(animal.latin_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.common_name && !animal.latin_name),expression:"animal.common_name && !animal.latin_name"}]},[_vm._s(animal.common_name)])," ",_vm._m(3,true)," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.birth_date !== null),expression:"animal.birth_date !== null"}]},[_vm._s(animal.birth_date)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.death_date !== null),expression:"animal.death_date !== null"}]},[" - "+_vm._s(animal.death_date)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.birth_date || animal.death_date),expression:"animal.birth_date || animal.death_date"}]},[_vm._h('i',[_vm._s(animal.age_value)+" "+_vm._s(_vm.$tc("units." + animal.age_unit, animal.age_value))])])," ",(animal.last_feeding)?_vm._h('span',[_vm._m(4,true)," ",(animal.last_feeding.timestamps.diff.value == 0)?_vm._h('span',[_vm._s(_vm.$t("labels.today"))]):_vm._e()," ",(animal.last_feeding.timestamps.diff.value > 0)?_vm._h('span',[_vm._s(animal.last_feeding.timestamps.diff.value)+" "+_vm._s(_vm.$tc("units." + animal.last_feeding.timestamps.diff.unit, animal.last_feeding.timestamps.diff.value))]):_vm._e()," ",_vm._h('i',[_vm._s(animal.last_feeding.name)])]):_vm._e()," ",_vm._m(5,true)])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/animals/' + animal.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/animals/' + animal.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title"},[_vm._s(_vm.$tc("components.terraria", 1)),_vm._m(6,true)])," ",_vm._h('p',[(animal.terrarium)?_vm._h('a',{attrs:{"href":'/terraria/' + animal.terrarium.id}},[_vm._s(animal.terrarium.display_name)]):_vm._e()])," ",_vm._h('span',{staticClass:"card-title"},[_vm._s(_vm.$t("labels.just_fed"))])," ",_vm._h('p',[_vm._h('a',{staticClass:"waves-effect waves-teal btn",attrs:{"href":'#modal_just_fed_' + animal.id,"onclick":'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'}},[_vm._s(_vm.$t("labels.just_fed"))])])," ",_vm._h('p',[_vm._h('a',{staticClass:"waves-effect waves-teal btn",attrs:{"href":'#modal_add_weight_' + animal.id,"onclick":'$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'}},[_vm._s(_vm.$t("labels.add_weight"))])])])])])])})])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["send"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["send"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["close"])}]
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.animals),function(animal){return _vm._h('div',[_vm._h('div',{staticClass:"modal",attrs:{"id":'modal_just_fed_' + animal.id}},[_vm._h('form',{attrs:{"action":'/api/v1/animals/' + animal.id + '/feedings',"data-method":"POST"},on:{"submit":_vm.submit}},[_vm._h('div',{staticClass:"modal-content",staticStyle:{"min-height":"300px"}},[_vm._h('h4',[_vm._s(_vm.$t("labels.just_fed"))])," ",_vm._h('p',[_vm._h('select',{attrs:{"name":"meal_type","id":"meal_type"}},[_vm._l((_vm.feeding_types),function(ft){return _vm._h('option',{domProps:{"value":ft.name}},[_vm._s(ft.name)])})])," ",_vm._h('label',{attrs:{"for":"meal_type"}},[_vm._s(_vm.$t("labels.meal_type"))])])])," ",_vm._h('div',{staticClass:"modal-footer"},[_vm._h('button',{staticClass:"btn modal-action modal-close waves-effect waves-light",attrs:{"type":"submit"}},[_vm._s(_vm.$t("buttons.save"))+"\n                        ",_vm._m(0,true)])])])])," ",_vm._h('div',{staticClass:"modal",attrs:{"id":'modal_add_weight_' + animal.id}},[_vm._h('form',{attrs:{"action":'/api/v1/animals/' + animal.id + '/weighings',"data-method":"POST"},on:{"submit":_vm.submit}},[_vm._h('div',{staticClass:"modal-content"},[_vm._h('h4',[_vm._s(_vm.$t("labels.add_weight"))])," ",_vm._h('p',[_vm._h('input',{attrs:{"name":"weight","id":"weight","placeholder":_vm.$t('labels.weight')+ '/g'}})," ",_vm._h('label',{attrs:{"for":"weight"}},[_vm._s(_vm.$t("labels.weight"))+"/g"])])])," ",_vm._h('div',{staticClass:"modal-footer"},[_vm._h('button',{staticClass:"btn modal-action modal-close waves-effect waves-light",attrs:{"type":"submit"}},[_vm._s(_vm.$t("buttons.save"))+"\n                        ",_vm._m(1,true)])])])])," ",_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-image waves-effect waves-block waves-light terrarium-card-image",class:animal.default_background_filepath ? '' : 'teal lighten-1',style:(animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : '')})," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(animal.display_name)+" "])," ",_vm._m(2,true)])," ",_vm._h('p',[_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.latin_name),expression:"animal.latin_name"}]},[_vm._s(animal.latin_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.common_name && !animal.latin_name),expression:"animal.common_name && !animal.latin_name"}]},[_vm._s(animal.common_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.birth_date || animal.death_date),expression:"animal.birth_date || animal.death_date"}]},[", "+_vm._s(animal.age_value)+" "+_vm._s(_vm.$tc("units." + animal.age_unit, animal.age_value))])," ",(animal.last_feeding)?_vm._h('span',[_vm._m(3,true)," ",_vm._m(4,true)," ",(animal.last_feeding.timestamps.diff.value == 0)?_vm._h('span',[_vm._s(_vm.$t("labels.today"))]):_vm._e()," ",(animal.last_feeding.timestamps.diff.value > 0)?_vm._h('span',["\n                                "+_vm._s(_vm.$t('units.' + animal.last_feeding.timestamps.diff.unit + '_ago', {val: animal.last_feeding.timestamps.diff.value}))+": "+_vm._s(animal.last_feeding.name)+"\n                            "]):_vm._e()]):_vm._e()," ",_vm._m(5,true)])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/animals/' + animal.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/animals/' + animal.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title"},[_vm._s(_vm.$tc("components.terraria", 1)),_vm._m(6,true)])," ",_vm._h('p',[(animal.terrarium)?_vm._h('a',{attrs:{"href":'/terraria/' + animal.terrarium.id}},[_vm._s(animal.terrarium.display_name)]):_vm._e()])," ",_vm._h('span',{staticClass:"card-title"},[_vm._s(_vm.$t("labels.just_fed"))])," ",_vm._h('p',[_vm._h('a',{staticClass:"waves-effect waves-teal btn",attrs:{"href":'#modal_just_fed_' + animal.id,"onclick":'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'}},[_vm._s(_vm.$t("labels.just_fed"))])])," ",_vm._h('p',[_vm._h('a',{staticClass:"waves-effect waves-teal btn",attrs:{"href":'#modal_add_weight_' + animal.id,"onclick":'$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'}},[_vm._s(_vm.$t("labels.add_weight"))])])])])])])})])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["send"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["send"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons tiny"},["local_dining"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["close"])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -17029,6 +17034,178 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
     data: function data() {
         return {
+            caresheets: []
+        };
+    },
+
+
+    props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
+        belongsToType: {
+            type: String,
+            default: 'Animal',
+            required: false
+        },
+        belongsToId: {
+            type: String,
+            default: null,
+            required: false
+        },
+        caresheetId: {
+            type: String,
+            default: null,
+            required: false
+        },
+        wrapperClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerClasses: {
+            type: String,
+            default: '',
+            required: false
+        }
+    },
+
+    methods: {
+        update: function update(a) {
+            var item = null;
+            this.caresheets.forEach(function (data, index) {
+                if (data.id === a.caresheet.id) {
+                    item = index;
+                }
+            });
+            if (item === null) {
+                this.caresheets.push(a.caresheet);
+            } else if (item !== null) {
+                this.caresheets.splice(item, 1, a.caresheet);
+            }
+
+            this.$nextTick(function () {
+                this.refresh_grid();
+            });
+        },
+
+        delete: function _delete(a) {
+            var item = null;
+            this.caresheets.forEach(function (data, index) {
+                if (data.id === a.caresheet_id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                this.caresheets.splice(item, 1);
+            }
+
+            this.$nextTick(function () {
+                this.refresh_grid();
+            });
+        },
+
+        refresh_grid: function refresh_grid() {
+            $('.tooltipped').tooltip({ delay: 50 });
+        },
+
+        load_data: function load_data() {
+            var that = this;
+
+            var source_url = '';
+            if (this.caresheetId !== null) {
+                source_url = '/api/v1/animals/caresheets/' + this.caresheetId;
+            } else {
+                source_url = '/api/v1/animals/' + this.belongsToId + '/caresheets/?order[created_at]=desc&filter[belongsTo_type]=' + this.belongsToType + '&filter[belongsTo_id]=' + this.belongsToId + '&raw=true';
+            }
+
+            window.eventHubVue.processStarted();
+            $.ajax({
+                url: source_url,
+                method: 'GET',
+                success: function success(data) {
+                    if (that.caresheetId !== null) {
+                        that.caresheets = [data.data];
+                    } else {
+                        that.caresheets = data.data;
+                    }
+
+                    that.$nextTick(function () {
+                        that.refresh_grid();
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+        }
+
+    },
+
+    created: function created() {
+        var _this = this;
+
+        window.echo.private('dashboard-updates').listen('BiographyEntryUpdated', function (e) {
+            _this.update(e);
+        }).listen('BiographyEntryDeleted', function (e) {
+            _this.delete(e);
+        });
+
+        this.load_data();
+
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
+    }
+
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:_vm.containerClasses,attrs:{"id":_vm.containerId}},[_vm._h('div',{staticClass:"timeline"},[_vm._l((_vm.caresheets),function(caresheet){return _vm._h('div',{staticClass:"timeline-event"},[_vm._h('div',{staticClass:"timeline-date"},[_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(caresheet.timestamps.created_diff.days > 0),expression:"caresheet.timestamps.created_diff.days > 0"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":caresheet.timestamps.created}},["\n                            "+_vm._s(_vm.$t('units.days_ago', {val: caresheet.timestamps.created_diff.days}))+"\n                "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(caresheet.timestamps.created_diff.days < 1 &&
+                              caresheet.timestamps.created_diff.hours > 0),expression:"caresheet.timestamps.created_diff.days < 1 &&\n                              caresheet.timestamps.created_diff.hours > 0"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":caresheet.timestamps.created}},["\n                            "+_vm._s(_vm.$t('units.hours_ago', {val: caresheet.timestamps.created_diff.hours}))+"\n                "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(caresheet.timestamps.created_diff.days < 1 &&
+                              caresheet.timestamps.created_diff.hours < 1 &&
+                              caresheet.timestamps.created_diff.minutes > 1),expression:"caresheet.timestamps.created_diff.days < 1 &&\n                              caresheet.timestamps.created_diff.hours < 1 &&\n                              caresheet.timestamps.created_diff.minutes > 1"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":caresheet.timestamps.created}},["\n                            "+_vm._s(_vm.$t('units.minutes_ago', {val: caresheet.timestamps.created_diff.minutes}))+"\n                "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(caresheet.timestamps.created_diff.days < 1 &&
+                              caresheet.timestamps.created_diff.hours < 1 &&
+                              caresheet.timestamps.created_diff.minutes < 2),expression:"caresheet.timestamps.created_diff.days < 1 &&\n                              caresheet.timestamps.created_diff.hours < 1 &&\n                              caresheet.timestamps.created_diff.minutes < 2"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":caresheet.timestamps.created}},["\n                            "+_vm._s(_vm.$t('units.just_now'))+"\n                "])])," ",_vm._h('div',{staticClass:"card timeline-content"},[_vm._h('div',{staticClass:"card-content"},[_vm._h('h5',[_vm._s(caresheet.title)])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/animals/' + _vm.belongsToId + '/caresheets/' + caresheet.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/animals/' + _vm.belongsToId + '/caresheets/' + caresheet.id + '/delete'}},[_vm._s(_vm.$t("buttons.delete"))])])])," ",_vm._m(0,true)])})])])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('div',{staticClass:"timeline-badge teal darken-2 white-text"},[_vm._h('i',{staticClass:"material-icons"},["content_paste"])])}]
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-25", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-25", __vue__options__)
+  }
+})()}
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],23:[function(require,module,exports){
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    data: function data() {
+        return {
             controlunits: []
         };
     },
@@ -17188,7 +17365,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-14", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],23:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],24:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17608,7 +17785,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-1", __vue__options__)
   }
 })()}
-},{"vue":8,"vue-hot-reload-api":5}],24:[function(require,module,exports){
+},{"vue":8,"vue-hot-reload-api":5}],25:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17634,9 +17811,24 @@ exports.default = {
             type: String,
             required: true
         },
-        ShowFilterField: {
+        FilterColumn: {
             type: String,
             default: null,
+            required: true
+        },
+        ShowFilterForm: {
+            type: Boolean,
+            default: false,
+            required: false
+        },
+        FilterFromDate: {
+            type: String,
+            default: new Date().toYmd(),
+            required: false
+        },
+        FilterToDate: {
+            type: String,
+            default: new Date().toYmd(),
             required: false
         }
     },
@@ -17650,25 +17842,19 @@ exports.default = {
 
 
     methods: {
-        filterFrom: function filterFrom() {
-            if (this.ShowFilterField === null) {
-                return null;
+        get_filter_from_date: function get_filter_from_date() {
+            if ($('#filter_from_' + this.id).val() === null) {
+                return this.FilterFromDate;
             }
-            if ($('#filter_from_' + this.id).val() == '') {
-                return null;
-            } else {
-                $('#filter_from_' + this.id).val();
-            }
+
+            return $('#filter_from_' + this.id).val();
         },
-        filterTo: function filterTo() {
-            if (this.ShowFilterField === null) {
-                return null;
+        get_filter_to_date: function get_filter_to_date() {
+            if ($('#filter_to_' + this.id).val() === null) {
+                return this.FilterToDate;
             }
-            if ($('#filter_to_' + this.id).val() == '') {
-                return null;
-            } else {
-                $('#filter_to_' + this.id).val();
-            }
+
+            return $('#filter_to_' + this.id).val();
         },
 
         init: function init() {
@@ -17677,15 +17863,8 @@ exports.default = {
         build: function build() {
             $('#dygraph_' + this.id + '_loading').show();
             var that = this;
-            var url = this.source;
-            if (this.filterFrom !== null) {
-                url = url + '&filter[' + this.ShowFilterField + ']=gt:' + $('#filter_from_' + this.id).val();
-            }
-            if (this.filterTo !== null && this.filterFrom !== null) {
-                url = url + ':and:lt:' + $('#filter_to_' + this.id).val();
-            } else if (this.filterTo !== null) {
-                url = url + '&filter[' + this.ShowFilterField + ']=lt:' + $('#filter_to_' + this.id).val();
-            }
+            var url = this.source + '&filter[' + this.FilterColumn + ']=gt:' + this.get_filter_from_date() + ':and:lt:' + this.get_filter_to_date();
+
             $.ajax({
                 url: url,
                 method: 'GET',
@@ -17725,10 +17904,13 @@ exports.default = {
 
         window.eventHubVue.$on('ForceRerender', this.draw);
 
+        var that = this;
         this.$nextTick(function () {
             $('.datepicker').pickadate({
                 format: 'yyyy-mm-dd'
             });
+
+            that.build();
         });
 
         window.eventHubVue.processEnded();
@@ -17738,7 +17920,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[(_vm.ShowFilterField !== null)?_vm._h('div',[_vm._h('div',{staticClass:"row",staticStyle:{"margin-bottom":"0"}},[_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.from'),"name":"filter_from","id":'filter_from_' + _vm.id,"data-default":new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-01'},domProps:{"value":new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-01'}})," ",_vm._h('label',{attrs:{"for":'filter_from_' + _vm.id}},[_vm._s(_vm.$t('labels.from'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.to'),"name":"filter_to","id":'filter_to_' + _vm.id,"data-default":new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()},domProps:{"value":new Date().getFullYear() + '-' + (new Date().getMonth() + 1) + '-' + new Date().getDate()}})," ",_vm._h('label',{attrs:{"for":'filter_to_' + _vm.id}},[_vm._s(_vm.$t('labels.to'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",on:{"click":_vm.build}},[_vm._s(_vm.$t('buttons.next'))])])])]):_vm._e()," ",_vm._h('div',{staticClass:"center",staticStyle:{"display":"none"},attrs:{"id":'dygraph_' + _vm.id + '_loading'}},[_vm._m(0)])," ",_vm._h('div',{staticStyle:{"width":"100%"},attrs:{"id":'dygraph_' + _vm.id}})])}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[(_vm.ShowFilterForm === true)?_vm._h('div',[_vm._h('div',{staticClass:"row",staticStyle:{"margin-bottom":"0"}},[_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.from'),"name":"filter_from","id":'filter_from_' + _vm.id,"data-default":_vm.FilterFromDate},domProps:{"value":_vm.FilterFromDate}})," ",_vm._h('label',{attrs:{"for":'filter_from_' + _vm.id}},[_vm._s(_vm.$t('labels.from'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.to'),"name":"filter_to","id":'filter_to_' + _vm.id,"data-default":_vm.FilterToDate},domProps:{"value":_vm.FilterToDate}})," ",_vm._h('label',{attrs:{"for":'filter_to_' + _vm.id}},[_vm._s(_vm.$t('labels.to'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",on:{"click":_vm.build}},[_vm._s(_vm.$t('buttons.next'))])])])]):_vm._e()," ",_vm._h('div',{staticClass:"center",staticStyle:{"display":"none"},attrs:{"id":'dygraph_' + _vm.id + '_loading'}},[_vm._m(0)])," ",_vm._h('div',{staticStyle:{"width":"100%"},attrs:{"id":'dygraph_' + _vm.id}})])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('div',{staticClass:"preloader-wrapper small active"},[_vm._h('div',{staticClass:"spinner-layer spinner-green-only"},[_vm._h('div',{staticClass:"circle-clipper left"},[_vm._h('div',{staticClass:"circle"})]),_vm._h('div',{staticClass:"gap-patch"},[_vm._h('div',{staticClass:"circle"})]),_vm._h('div',{staticClass:"circle-clipper right"},[_vm._h('div',{staticClass:"circle"})])])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -17750,7 +17932,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-3", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],25:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],26:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17886,7 +18068,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-16", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],26:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],27:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17930,6 +18112,16 @@ exports.default = {
             required: false
         },
         belongsTo_id: {
+            type: String,
+            default: '',
+            required: false
+        },
+        wrapperClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerClasses: {
             type: String,
             default: '',
             required: false
@@ -18011,7 +18203,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(0),"\n        "+_vm._s(_vm.files.length)+" "+_vm._s(_vm.$tc("components.files", 2))+"\n    "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.$tc("components.files", 2))])," ",_vm._m(1)])," ",_vm._m(2),_vm._l((_vm.files),function(file){return _vm._h('div',{staticClass:"chip"},[_vm._m(3,true)," ",_vm._h('a',{attrs:{"href":'/files/' + file.id}},[_vm._s(file.display_name)])," ",_vm._h('i',[_vm._s((file.size / 1024 / 1024).toFixed(2))+" MB"])])})," ",_vm._m(4)])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/files/create?preset[belongsTo_type]=' + _vm.belongsTo_type + '&preset[belongsTo_id]=' + _vm.belongsTo_id}},[_vm._s(_vm.$t("buttons.add"))])," ",_vm._h('a',{attrs:{"href":'/files/?filter[belongsTo_type]=' + _vm.belongsTo_type + '&filter[belongsTo_id]=' + _vm.belongsTo_id}},[_vm._s(_vm.$t("buttons.details"))])])," ",_vm._m(5)])}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:_vm.containerClasses},[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(0),"\n                "+_vm._s(_vm.files.length)+" "+_vm._s(_vm.$tc("components.files", 2))+"\n            "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.$tc("components.files", 2))])," ",_vm._m(1)])," ",_vm._m(2),_vm._l((_vm.files),function(file){return _vm._h('div',{staticClass:"chip"},[_vm._m(3,true)," ",_vm._h('a',{attrs:{"href":'/files/' + file.id}},[_vm._s(file.display_name)])," ",_vm._h('i',[_vm._s((file.size / 1024 / 1024).toFixed(2))+" MB"])])})," ",_vm._m(4)])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/files/create?preset[belongsTo_type]=' + _vm.belongsTo_type + '&preset[belongsTo_id]=' + _vm.belongsTo_id}},[_vm._s(_vm.$t("buttons.add"))])," ",_vm._h('a',{attrs:{"href":'/files/?filter[belongsTo_type]=' + _vm.belongsTo_type + '&filter[belongsTo_id]=' + _vm.belongsTo_id}},[_vm._s(_vm.$t("buttons.details"))])])," ",_vm._m(5)])])])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["attach_file"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('p')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["insert_drive_file"])},function render () {var _vm=this;return _vm._h('p')},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -18023,7 +18215,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-15", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],27:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],28:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18074,11 +18266,6 @@ exports.default = {
             default: 5,
             required: false
         },
-        ShowFilterField: {
-            type: String,
-            default: null,
-            required: false
-        },
         Height: {
             type: Number,
             default: 300,
@@ -18087,6 +18274,26 @@ exports.default = {
         BackgroundColor: {
             type: String,
             default: '',
+            required: false
+        },
+        FilterColumn: {
+            type: String,
+            default: null,
+            required: true
+        },
+        ShowFilterForm: {
+            type: Boolean,
+            default: false,
+            required: false
+        },
+        FilterFromDate: {
+            type: String,
+            default: new Date().toYmd(),
+            required: false
+        },
+        FilterToDate: {
+            type: String,
+            default: new Date().toYmd(),
             required: false
         }
     },
@@ -18100,44 +18307,29 @@ exports.default = {
 
 
     methods: {
-        filterFrom: function filterFrom() {
-            if (this.ShowFilterField === null) {
-                return null;
+        get_filter_from_date: function get_filter_from_date() {
+            if ($('#filter_from_' + this.id).val() === null) {
+                return this.FilterFromDate;
             }
-            if ($('#filter_from_' + this.id).val() == '') {
-                return null;
-            } else {
-                $('#filter_from_' + this.id).val();
-            }
-        },
-        filterTo: function filterTo() {
-            if (this.ShowFilterField === null) {
-                return null;
-            }
-            if ($('#filter_to_' + this.id).val() == '') {
-                return null;
-            } else {
-                $('#filter_to_' + this.id).val();
-            }
-        },
 
+            return $('#filter_from_' + this.id).val();
+        },
+        get_filter_to_date: function get_filter_to_date() {
+            if ($('#filter_to_' + this.id).val() === null) {
+                return this.FilterToDate;
+            }
+
+            return $('#filter_to_' + this.id).val();
+        },
         init: function init() {
-
             this.data = new google.visualization.DataTable();
             this.build();
         },
         build: function build() {
             $('#dygraph_' + this.id + '_loading').show();
             var that = this;
-            var url = this.source;
-            if (this.filterFrom !== null) {
-                url = url + '&filter[' + this.ShowFilterField + ']=gt:' + $('#filter_from_' + this.id).val();
-            }
-            if (this.filterTo !== null && this.filterFrom !== null) {
-                url = url + ':and:lt:' + $('#filter_to_' + this.id).val();
-            } else if (this.filterTo !== null) {
-                url = url + '&filter[' + this.ShowFilterField + ']=lt:' + $('#filter_to_' + this.id).val();
-            }
+            var url = this.source + '&filter[' + this.FilterColumn + ']=gt:' + this.get_filter_from_date() + ':and:lt:' + this.get_filter_to_date();
+
             $.ajax({
                 url: url,
                 method: 'GET',
@@ -18188,7 +18380,9 @@ exports.default = {
                 },
                 height: this.Height,
                 width: '100%',
-                backgroundColor: 'transparent'
+                backgroundColor: 'transparent',
+                curveType: 'function',
+                pointSize: 4
             };
 
             this.chart.draw(this.data, this.options);
@@ -18225,7 +18419,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[(_vm.ShowFilterField !== null)?_vm._h('div',[_vm._h('div',{staticClass:"row",staticStyle:{"margin-bottom":"0"}},[_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.from'),"name":"filter_from","id":'filter_from_' + _vm.id,"data-default":new Date().getFullYear() + '-01-01'},domProps:{"value":new Date().getFullYear() + '-01-01'}})," ",_vm._h('label',{attrs:{"for":'filter_from_' + _vm.id}},[_vm._s(_vm.$t('labels.from'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.to'),"name":"filter_to","id":'filter_to_' + _vm.id,"data-default":new Date().getFullYear() + '-31-31'},domProps:{"value":new Date().getFullYear() + '-12-31'}})," ",_vm._h('label',{attrs:{"for":'filter_to_' + _vm.id}},[_vm._s(_vm.$t('labels.to'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",on:{"click":_vm.build}},[_vm._s(_vm.$t('buttons.next'))])])])]):_vm._e()," ",_vm._h('div',{staticClass:"center",staticStyle:{"display":"none"},attrs:{"id":'google_chart_' + _vm.id + '_loading'}},[_vm._m(0)])," ",_vm._h('div',{attrs:{"id":'google_chart_' + _vm.id}})])}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[(_vm.ShowFilterForm === true)?_vm._h('div',[_vm._h('div',{staticClass:"row",staticStyle:{"margin-bottom":"0"}},[_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.from'),"name":"filter_from","id":'filter_from_' + _vm.id,"data-default":_vm.FilterFromDate},domProps:{"value":_vm.FilterFromDate}})," ",_vm._h('label',{attrs:{"for":'filter_from_' + _vm.id}},[_vm._s(_vm.$t('labels.from'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.to'),"name":"filter_to","id":'filter_to_' + _vm.id,"data-default":_vm.FilterToDate},domProps:{"value":_vm.FilterToDate}})," ",_vm._h('label',{attrs:{"for":'filter_to_' + _vm.id}},[_vm._s(_vm.$t('labels.to'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",on:{"click":_vm.build}},[_vm._s(_vm.$t('buttons.next'))])])])]):_vm._e()," ",_vm._h('div',{staticClass:"center",staticStyle:{"display":"none"},attrs:{"id":'google_chart_' + _vm.id + '_loading'}},[_vm._m(0)])," ",_vm._h('div',{attrs:{"id":'google_chart_' + _vm.id}})])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('div',{staticClass:"preloader-wrapper small active"},[_vm._h('div',{staticClass:"spinner-layer spinner-green-only"},[_vm._h('div',{staticClass:"circle-clipper left"},[_vm._h('div',{staticClass:"circle"})]),_vm._h('div',{staticClass:"gap-patch"},[_vm._h('div',{staticClass:"circle"})]),_vm._h('div',{staticClass:"circle-clipper right"},[_vm._h('div',{staticClass:"circle"})])])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -18237,7 +18431,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-2", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],28:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],29:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18334,7 +18528,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-4", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],29:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],30:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18503,7 +18697,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-22", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],30:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],31:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18612,12 +18806,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-25", __vue__options__)
+    hotAPI.createRecord("data-v-26", __vue__options__)
   } else {
-    hotAPI.reload("data-v-25", __vue__options__)
+    hotAPI.reload("data-v-26", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],31:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],32:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18786,7 +18980,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-21", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],32:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],33:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18955,7 +19149,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-19", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],33:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],34:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19096,7 +19290,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-13", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],34:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],35:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19279,7 +19473,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-12", __vue__options__)
   }
 })()}
-},{"./inline-graph.vue":28,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],35:[function(require,module,exports){
+},{"./inline-graph.vue":29,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],36:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19376,7 +19570,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-23", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],36:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],37:[function(require,module,exports){
 ;(function(){
 'use strict';
 

@@ -162,8 +162,11 @@ window.runPage = function () {
     $('ul.tabs').tabs({
         onShow: function onShow(event, ui) {
             location.hash = $(this).attr('href');
-            $('.masonry-grid').masonry('reloadItems');
-            $('.masonry-grid').masonry('layout');
+            var grid = $('.masonry-grid');
+            if (grid !== undefined) {
+                grid.masonry('layout');
+                grid.masonry('reloadItems');
+            }
             window.eventHubVue.$emit('ForceRerender');
 
             /*
@@ -181,6 +184,12 @@ String.prototype.toUnderscoreCase = function () {
     return this.replace(/\.?([A-Z])/g, function (x, y) {
         return "_" + y.toLowerCase();
     }).replace(/^_/, "");
+};
+
+Date.prototype.toYmd = function () {
+    var month = this.getMonth() + 1;
+    var date = this.getDate();
+    return this.getFullYear() + '-' + (month > 9 ? month : '0' + month) + '-' + (date > 9 ? date : '0' + date);
 };
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})

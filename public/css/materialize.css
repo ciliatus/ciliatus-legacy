@@ -3313,6 +3313,11 @@ small {
   margin: 0.5rem 0 1rem 0;
   border-radius: 2px;
   background-color: #fff; }
+  .card-panel .card-title {
+    font-size: 24px;
+    font-weight: 300; }
+    .card-panel .card-title.activator {
+      cursor: pointer; }
 
 .card {
   position: relative;
@@ -6643,5 +6648,44 @@ text {
 
 div.select-wrapper.icons ul li span {
   font-size: 24px; }
+
+/* Printable */
+page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0, 0, 0, 0.5); }
+
+page[size="A4"] {
+  width: 21cm;
+  height: 29.7cm; }
+
+page[size="A4"][layout="portrait"] {
+  width: 29.7cm;
+  height: 21cm; }
+
+page[size="A3"] {
+  width: 29.7cm;
+  height: 42cm; }
+
+page[size="A3"][layout="portrait"] {
+  width: 42cm;
+  height: 29.7cm; }
+
+page[size="A5"] {
+  width: 14.8cm;
+  height: 21cm; }
+
+page[size="A5"][layout="portrait"] {
+  width: 21cm;
+  height: 14.8cm; }
+
+@media print {
+  body * {
+    visibility: hidden; }
+  page * {
+    visibility: visible; } }
 
 /*# sourceMappingURL=materialize.css.map */

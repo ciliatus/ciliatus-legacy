@@ -108,5 +108,11 @@ return [
     'temp_and_hum_history'  =>  'Temperature and Humidity History',
     'biography'     =>  'Biography',
     'bio_categories'=>  'Biography categories',
-    'icon'          =>  'Icon'
+    'icon'          =>  'Icon',
+    'average'       =>  'Average',
+    'min'           =>  'Minimum',
+    'max'           =>  'Maximum',
+    'during_day'    =>  'Daytime',
+    'during_night'  =>  'Nighttime',
+    'total'         =>  'Total'
 ];

@@ -23,5 +23,6 @@ return [
     'animal_weighing_schedule_matrix' => 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.',
     'done'                  =>  'Erledigt',
     'skip'                  =>  'Überspringen',
-    'material_icons_list'   =>  'Die komplette Symbolliste ist unter <a href="http://materializecss.com/icons.html">materializecss.com/icons.html</a> einsehbar.'
+    'material_icons_list'   =>  'Die komplette Symbolliste ist unter <a href="http://materializecss.com/icons.html">materializecss.com/icons.html</a> einsehbar.',
+    'no_data'               =>  'Keine Daten.'
 ];

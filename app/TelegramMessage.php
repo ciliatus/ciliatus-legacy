@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Model;
 
@@ -54,22 +55,6 @@ class TelegramMessage extends Message
         return $this->belongsTo('App\User');
     }
 
-    /**
-     * @return string
-     */
-    public function icon()
-    {
-        // TODO: Implement icon() method.
-    }
-
-    /**
-     *
-     */
-    public function url()
-    {
-        // TODO: Implement url() method.
-    }
-
 
     /**
      * @param null $chat_id
@@ -77,6 +62,8 @@ class TelegramMessage extends Message
      */
     public function send($chat_id = null)
     {
+        $this->type = 'out';
+
         if (strlen($this->content) < 1) {
             \Log::error('TelegramMessage content missing');
             return false;
@@ -108,12 +95,35 @@ class TelegramMessage extends Message
             $res = $client->request('POST', $this->url . '/sendMessage', [
                 'form_params'   => $params
             ]);
+
+            $this->state = 'sent';
+            $this->sent_at = Carbon::now();
+            $this->save();
         }
         catch (\GuzzleHttp\Exception\ClientException $ex) {
+            $this->state = 'send_failed';
+            $this->sent_at = Carbon::now();
+            $this->save();
             \Log::error($ex->getMessage());
             return false;
         }
 
         return true;
+    }
+
+    /**
+     * @return string
+     */
+    public function icon()
+    {
+        // TODO: Implement icon() method.
+    }
+
+    /**
+     *
+     */
+    public function url()
+    {
+        // TODO: Implement url() method.
     }
 }

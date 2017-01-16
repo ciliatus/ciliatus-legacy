@@ -181,10 +181,10 @@
         <script src="{{ url('js/masonry.pkgd.min.js') }}"></script>
         <!-- Laravel-Echo -->
         <script src="{{ url('js/echo.js') }}"></script>
-        <!-- Vue -->
-        <script src="{{ url('js/vue.js') }}"></script>
         <!-- ciliatus -->
         <script src="{{ url('js/app.js') }}"></script>
+        <!-- Vue -->
+        <script src="{{ url('js/vue.js') }}"></script>
 
         @yield('scripts')
 

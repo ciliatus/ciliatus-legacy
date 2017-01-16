@@ -31,6 +31,7 @@ class AnimalUpdated implements ShouldBroadcast
             ->with('feeding_schedules')
             ->with('weighings')
             ->with('weighing_schedules')
+            ->with('biography_entries')
             ->with('files')
             ->with('properties')
             ->with('terrarium')

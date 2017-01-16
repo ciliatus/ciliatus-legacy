@@ -47,7 +47,7 @@ class TerrariumRepository extends Repository
             /*
          * load temperature values and convert them to an array seperated by commata
          */
-            $temperature_values = array_column($terrarium->getSensorReadingsTemperature($history_minutes, $history_to), 'avg_rawvalue');
+            $temperature_values = array_column($terrarium->getSensorReadingsTemperature($history_minutes, $history_to)->toArray(), 'avg_rawvalue');
             $terrarium->temperature_history = implode(',',
                 array_map(
                     function($val) {
@@ -60,7 +60,7 @@ class TerrariumRepository extends Repository
             /*
              * load humidity values and convert them to an array seperated by commata
              */
-            $humidity_values = array_column($terrarium->getSensorReadingsHumidity($history_minutes, $history_to), 'avg_rawvalue');
+            $humidity_values = array_column($terrarium->getSensorReadingsHumidity($history_minutes, $history_to)->toArray(), 'avg_rawvalue');
             $terrarium->humidity_history = implode(',',
                 array_map(
                     function($val) {

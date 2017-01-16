@@ -62,6 +62,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAbility('grant_api-write:terrarium');
         });
 
+        $gate->define('api-write:caresheet', function ($user) {
+            return $user->hasAbility('grant_api-write:caresheet');
+        });
+
         $gate->define('api-write:animal', function ($user) {
             return $user->hasAbility('grant_api-write:animal');
         });

@@ -37,6 +37,7 @@ class UserAbility extends CiliatusModel
         'grant_api-list_admin',
         'grant_api-read',
         'grant_api-read_admin',
+        'grant_api-write:caresheet',
         'grant_api-write:animal',
         'grant_api-write:animal_feeding',
         'grant_api-write:animal_feeding_schedule',

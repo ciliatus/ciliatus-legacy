@@ -46,7 +46,8 @@ module.exports = {
             'animal_feeding_schedules' : 'Fütterungsplan | Fütterungspläne',
             'animal_weighings' : 'Wiegung | Wiegungen',
             'animal_weighing_schedules' : 'Wiegungsplan | Wiegungspläne',
-            'biography_entries'     :  'Biografieeintrag | Biografieeinträge'
+            'biography_entries'     :  'Biografieeintrag | Biografieeinträge',
+            'caresheets' :   'Begleitblatt | Begleitblätter'
         },
         errors: {
             'retrievegraphdata': 'Could not retrieve graph data.'
@@ -160,7 +161,13 @@ module.exports = {
             'temp_and_hum_history'  :  'Temperatur- und Feuchtigkeitsverlauf',
             'biography'     :  'Biografie',
             'bio_categories':  'Biographiekategorien',
-            'icon'          :  'Symbol'
+            'icon'          :  'Symbol',
+            'average'       :  'Durchschnitt',
+            'min'           :  'Minimum',
+            'max'           :  'Maximum',
+            'during_day'    :  'Tags',
+            'during_night'  :  'Nachts',
+            'total'         :  'Total'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -211,7 +218,8 @@ module.exports = {
             'animal_feeding_schedule_matrix' : 'Diese Matrix enthält alle definierten Fütterungspläne. Die Zahl in einer Spalte stellt das Intervall dar.',
             'animal_weighing_schedule_matrix' : 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.',
             'done'                  :  'Erledigt',
-            'skip'                  :  'Überspringen'
+            'skip'                  :  'Überspringen',
+            'no_data'               :  'Keine Daten.'
         },
         units: {
             'years'     :  'Jahr | Jahre',
@@ -275,7 +283,8 @@ module.exports = {
             'animal_feeding_schedules' : 'Feeding schedule | Feeding schedules',
             'animal_weighings' : 'Weighing | Weighings',
             'animal_weighing_schedules' : 'Weighing schedule | Weighing schedules',
-            'biography_entries'     :  'Biography entry | Biography entries'
+            'biography_entries'     :  'Biography entry | Biography entries',
+            'caresheets' :   'Care Sheet | Care Sheets'
         },
         errors: {
             'retrievegraphdata'     :  'Graphdaten konnten nicht ermittelt werden.'
@@ -389,7 +398,13 @@ module.exports = {
             'temp_and_hum_history'  :  'Temperature and Humidity History',
             'biography'     :  'Biography',
             'bio_categories':  'Biography categories',
-            'icon'          :  'Icon'
+            'icon'          :  'Icon',
+            'average'       :  'Average',
+            'min'           :  'Minimum',
+            'max'           :  'Maximum',
+            'during_day'    :  'Daytime',
+            'during_night'  :  'Nighttime',
+            'total'         :  'Total'
         },
         menu: {
             'welcome'       :  'Welcome',
@@ -440,7 +455,8 @@ module.exports = {
             'animal_feeding_schedule_matrix' : 'This matrix contains all defined feeding schedules. A number in a column represents the schedule\'s interval in days.',
             'animal_weighing_schedule_matrix' : 'This matrix contains all defined weighing schedules. A number in a column represents the schedule\'s interval in days followed by the next due date.',
             'done'                  :  'Done',
-            'skip'                  :  'Skip'
+            'skip'                  :  'Skip',
+            'no_data'               :  'No Data.'
         },
         units: {
             'years'     :  'year|years',

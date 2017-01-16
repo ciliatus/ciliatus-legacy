@@ -7,6 +7,7 @@
  */
 
 namespace App\Http\Transformers;
+use App\Http\Controllers\Api\BiographyEntryController;
 use Carbon\Carbon;
 
 /**
@@ -84,6 +85,18 @@ class AnimalTransformer extends Transformer
 
         if (isset($item['feeding_schedules'])) {
             $return['feeding_schedules'] = (new AnimalFeedingScheduleTransformer())->transformCollection($item['feeding_schedules']);
+        }
+
+        if (isset($item['weighings'])) {
+            $return['weighings'] = (new AnimalWeighingTransformer())->transformCollection($item['weighings']);
+        }
+
+        if (isset($item['weighing_schedules'])) {
+            $return['weighing_schedules'] = (new AnimalWeighingScheduleTransformer())->transformCollection($item['weighing_schedules']);
+        }
+
+        if (isset($item['biography_entries'])) {
+            $return['biography_entries'] = (new BiographyEntryTransformer())->transformCollection($item['biography_entries']);
         }
 
         return $return;

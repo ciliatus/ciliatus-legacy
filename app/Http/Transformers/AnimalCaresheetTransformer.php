@@ -5,10 +5,10 @@ namespace App\Http\Transformers;
 use Carbon\Carbon;
 
 /**
- * Class AnimalWeighingTransformer
+ * Class AnimalCaresheetTransformer
  * @package App\Http\Transformers
  */
-class AnimalWeighingTransformer extends Transformer
+class AnimalCaresheetTransformer extends Transformer
 {
 
 
@@ -20,16 +20,11 @@ class AnimalWeighingTransformer extends Transformer
     {
         $return = [
             'id'    => $item['id'],
-            'type'  => $item['name'],
-            'amount'  => $item['value'],
+            'title'  => $item['name'],
             'timestamps' => $this->parseTimestamps($item),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'url'           =>  isset($item['url']) ? $item['url'] : ''
         ];
-
-        if (isset($item['animal'])) {
-            $return['animal'] = (new AnimalTransformer())->transform($item['animal']);
-        }
 
         return $return;
     }

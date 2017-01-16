@@ -23,7 +23,7 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <select class="icons" name="icon">
+                                    <select name="icon">
                                         <option value="add_alert">add_alert</option>
                                         <option value="airplay">airplay</option>
                                         <option value="alarm_off">alarm_off</option>
@@ -98,6 +98,7 @@
                                         <option value="library_music">library_music</option>
                                         <option value="list">list</option>
                                         <option value="live_help">live_help</option>
+                                        <option value="local_hospital">local_hospital</option>
                                         <option value="location_off">location_off</option>
                                         <option value="location_on">location_on</option>
                                         <option value="lock">lock</option>

@@ -108,5 +108,11 @@ return [
     'temp_and_hum_history'  =>  'Temperatur- und Feuchtigkeitsverlauf',
     'biography'     =>  'Biografie',
     'bio_categories'=>  'Biografiekategorien',
-    'icon'          =>  'Symbol'
+    'icon'          =>  'Symbol',
+    'average'       =>  'Durchschnitt',
+    'min'           =>  'Minimum',
+    'max'           =>  'Maximum',
+    'during_day'    =>  'Tags',
+    'during_night'  =>  'Nachts',
+    'total'         =>  'Total'
 ];

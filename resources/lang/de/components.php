@@ -33,5 +33,6 @@ return [
     'animal_feeding_schedules' => 'Fütterungsplan|Fütterungspläne',
     'animal_weighings' => 'Wiegung|Wiegungen',
     'animal_weighing_schedules' => 'Wiegeplan|Wiegepläne',
-    'biography_entries' => 'Biografieeintrag|Biografieeinträge'
+    'biography_entries' => 'Biografieeintrag|Biografieeinträge',
+    'caresheets' =>   'Begleitblatt|Begleitblätter'
 ];

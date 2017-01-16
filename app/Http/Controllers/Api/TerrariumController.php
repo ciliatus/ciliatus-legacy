@@ -152,10 +152,10 @@ class TerrariumController extends ApiController
 
         switch ($type) {
             case 'humidity_percent':
-                $values = array_column($terrarium->getSensorReadingsHumidity(env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 15), Carbon::now()), 'avg_rawvalue');
+                $values = array_column($terrarium->getSensorReadingsHumidity(env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 15), Carbon::now())->toArray(), 'avg_rawvalue');
                 break;
             case 'temperature_celsius':
-                $values = array_column($terrarium->getSensorReadingsTemperature(env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 15), Carbon::now()), 'avg_rawvalue');
+                $values = array_column($terrarium->getSensorReadingsTemperature(env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 15), Carbon::now())->toArray(), 'avg_rawvalue');
                 break;
             default:
                 return $this->setStatusCode(422)->respondWithError('Invalid type');
