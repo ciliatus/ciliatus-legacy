@@ -2062,7 +2062,7 @@ video.responsive-video {
   vertical-align: top;
   height: 30px; }
   .pagination li a {
-    color: #444;
+    color: #999;
     display: inline-block;
     font-size: 1.2rem;
     padding: 0 10px;
@@ -2073,7 +2073,7 @@ video.responsive-video {
     background-color: #26a69a; }
   .pagination li.disabled a {
     cursor: default;
-    color: #999; }
+    color: #444; }
   .pagination li i {
     font-size: 2rem; }
 
@@ -2224,21 +2224,21 @@ table {
   display: table; }
   table.bordered > thead > tr,
   table.bordered > tbody > tr {
-    border-bottom: 1px solid #d0d0d0; }
+    border-bottom: 1px solid #a0a0a0; }
   table.striped > tbody > tr:nth-child(odd) {
-    background-color: #f2f2f2; }
+    background-color: #404040; }
   table.striped > tbody > tr > td {
     border-radius: 0; }
   table.highlight > tbody > tr {
     -webkit-transition: background-color .25s ease;
     transition: background-color .25s ease; }
     table.highlight > tbody > tr:hover {
-      background-color: #f2f2f2; }
+      background-color: #404040; }
   table.centered thead tr th, table.centered tbody tr td {
     text-align: center; }
 
 thead {
-  border-bottom: 1px solid #d0d0d0; }
+  border-bottom: 1px solid #a0a0a0; }
 
 td, th {
   padding: 15px 5px;
@@ -2291,7 +2291,7 @@ td, th {
       padding: 0 10px; }
     table.responsive-table thead {
       border: 0;
-      border-right: 1px solid #d0d0d0; }
+      border-right: 1px solid #a0a0a0; }
     table.responsive-table.bordered th {
       border-bottom: 0;
       border-left: 0; }
@@ -2302,7 +2302,7 @@ td, th {
     table.responsive-table.bordered tr {
       border: 0; }
     table.responsive-table.bordered tbody tr {
-      border-right: 1px solid #d0d0d0; } }
+      border-right: 1px solid #a0a0a0; } }
 
 .collection {
   margin: 0.5rem 0 1rem 0;
@@ -5062,12 +5062,12 @@ select:disabled {
   border-bottom: 1px solid rgba(0, 0, 0, 0.3); }
 
 .select-wrapper i {
-  color: rgba(0, 0, 0, 0.3); }
+  color: rgba(255, 255, 255, 0.4); }
 
 .select-dropdown li.disabled,
 .select-dropdown li.disabled > span,
 .select-dropdown li.optgroup {
-  color: rgba(0, 0, 0, 0.3);
+  color: rgba(255, 255, 255, 0.4);
   background-color: transparent; }
 
 .prefix ~ .select-wrapper {
@@ -5087,9 +5087,9 @@ select:disabled {
 .select-dropdown li.optgroup {
   border-top: 1px solid #404040; }
   .select-dropdown li.optgroup.selected > span {
-    color: rgba(0, 0, 0, 0.7); }
+    color: rgba(255, 255, 255, 0.3); }
   .select-dropdown li.optgroup > span {
-    color: rgba(0, 0, 0, 0.4); }
+    color: rgba(255, 255, 255, 0.6); }
   .select-dropdown li.optgroup ~ li.optgroup-option {
     padding-left: 1rem; }
 
