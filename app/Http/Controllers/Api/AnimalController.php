@@ -91,13 +91,12 @@ class AnimalController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $animal = Animal::query();
+        $animal = (new AnimalRepository())->show($id);
 
         if (!$animal) {
             return $this->respondNotFound('Animal not found');
         }
 
-        $animal = (new AnimalRepository($animal))->show();
 
         return $this->setStatusCode(200)->respondWithData(
             $this->animalTransformer->transform(
