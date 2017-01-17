@@ -49,14 +49,14 @@
                     <div class="card-content">
                         <span class="card-title activator truncate">
                             <span>{{ animal.display_name }} </span>
-                            <i class="material-icons right">more_vert</i>
+                            <i class="material-icons right" v-if="!animal.death_date">more_vert</i>
                         </span>
                         <p>
                             <span v-show="animal.latin_name">{{ animal.latin_name }}</span>
                             <span v-show="animal.common_name && !animal.latin_name">{{ animal.common_name }}</span>
                             <span v-show="animal.birth_date || animal.death_date">, {{ animal.age_value }} {{ $tc("units." + animal.age_unit, animal.age_value) }}</span>
 
-                            <span v-if="animal.last_feeding">
+                            <span v-if="animal.last_feeding && !animal.death_date">
                                 <br />
                                 <i class="material-icons tiny">local_dining</i>
                                 <span v-if="animal.last_feeding.timestamps.diff.value == 0">{{ $t("labels.today") }}</span>
@@ -73,7 +73,7 @@
                         <a v-bind:href="'/animals/' + animal.id + '/edit'">{{ $t("buttons.edit") }}</a>
                     </div>
 
-                    <div class="card-reveal">
+                    <div class="card-reveal" v-if="!animal.death_date">
                         <span class="card-title">{{ $tc("components.terraria", 1) }}<i class="material-icons right">close</i></span>
 
                         <p>
