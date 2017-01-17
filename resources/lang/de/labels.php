@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'connecting'    =>  'Verbinde',
     'title'         =>  'Titel',
     'text'          =>  'Text',
     'tags'          =>  'Tags',

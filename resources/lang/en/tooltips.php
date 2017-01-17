@@ -24,5 +24,6 @@ return [
     'done'                  =>  'Done',
     'skip'                  =>  'Skip',
     'material_icons_list'   =>  'Visit <a href="http://materializecss.com/icons.html">materializecss.com/icons.html</a> for a complete icon overview.',
-    'no_data'               =>  'No data.'
+    'no_data'               =>  'No data.',
+    'connecting_to_server'  =>  'Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.'
 ];

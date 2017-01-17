@@ -64,6 +64,10 @@
                     </div>
                 </li>
 
+                <li class="no-padding" id="system-indicator">
+                    <system-indicator></system-indicator>
+                </li>
+
                 <li @if(Request::is('/')) class="active" @endif><a href="{{ url('/') }}" class="waves-effect waves-teal"><i class="material-icons">dashboard</i>@choice('menu.dashboard', 1)</a></li>
 
                 <li><div class="divider"></div></li>

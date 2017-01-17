@@ -24,5 +24,6 @@ return [
     'done'                  =>  'Erledigt',
     'skip'                  =>  'Überspringen',
     'material_icons_list'   =>  'Die komplette Symbolliste ist unter <a href="http://materializecss.com/icons.html">materializecss.com/icons.html</a> einsehbar.',
-    'no_data'               =>  'Keine Daten.'
+    'no_data'               =>  'Keine Daten.',
+    'connecting_to_server'  =>  'Verbindung zum Ciliatus Server wird hergestellt. Sollte dies länger als einige Sekunden dauern, überprüfen Sie bitte Ihre Internetverbindung.'
 ];
