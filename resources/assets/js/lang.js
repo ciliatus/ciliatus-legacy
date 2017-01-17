@@ -53,6 +53,7 @@ module.exports = {
             'retrievegraphdata': 'Could not retrieve graph data.'
         },
         labels: {
+            'connecting'    :  'Verbinde',
             'title'         :  'Titel',
             'text'          :  'Text',
             'tags'          :  'Tags',
@@ -219,7 +220,8 @@ module.exports = {
             'animal_weighing_schedule_matrix' : 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.',
             'done'                  :  'Erledigt',
             'skip'                  :  'Überspringen',
-            'no_data'               :  'Keine Daten.'
+            'no_data'               :  'Keine Daten.',
+            'connecting_to_server'  :  'Verbindung zum Ciliatus Server wird hergestellt. Sollte dies länger als einige Sekunden dauern, überprüfen Sie bitte Ihre Internetverbindung.'
         },
         units: {
             'years'     :  'Jahr | Jahre',
@@ -290,6 +292,7 @@ module.exports = {
             'retrievegraphdata'     :  'Graphdaten konnten nicht ermittelt werden.'
         },
         labels: {
+            'connecting'    :  'Connecting',
             'title'         :  'Title',
             'text'          :  'Text',
             'tags'          :  'Tags',
@@ -456,7 +459,8 @@ module.exports = {
             'animal_weighing_schedule_matrix' : 'This matrix contains all defined weighing schedules. A number in a column represents the schedule\'s interval in days followed by the next due date.',
             'done'                  :  'Done',
             'skip'                  :  'Skip',
-            'no_data'               :  'No Data.'
+            'no_data'               :  'No Data.',
+            'connecting_to_server'  :  'Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.'
         },
         units: {
             'years'     :  'year|years',

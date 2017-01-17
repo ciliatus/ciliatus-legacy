@@ -44,6 +44,7 @@ Object.keys(locales).forEach(function (lang) {
     Vue.locale(lang, locales[lang])
 });
 
+import SystemIndicator from './vue/system-indicator.vue';
 
 import DashboardWidget from './vue/dashboard-widget.vue';
 import GoogleGraph from './vue/google-graph.vue';
@@ -71,6 +72,16 @@ import UsersWidget from './vue/users-widget.vue';
 import BiographyEntriesWidget from './vue/biography_entries-widget.vue'
 import CaresheetsWidget from './vue/caresheets-widget.vue'
 import LogsWidget from './vue/logs-widget.vue';
+
+window.systemVue = new Vue({
+
+    el: '#system-indicator',
+
+    components: {
+        'system-indicator': SystemIndicator
+    }
+
+});
 
 window.bodyVue = new Vue({
 
