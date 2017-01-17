@@ -4679,12 +4679,16 @@ var _laravelEcho2 = _interopRequireDefault(_laravelEcho);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-window.echo = new _laravelEcho2.default({
-    broadcaster: 'pusher',
-    key: '0c8933e7ceb3ed05bc9c',
-    namespace: 'App\\Events',
-    cluster: 'eu'
-});
+try {
+    window.echo = new _laravelEcho2.default({
+        broadcaster: 'pusher',
+        key: '0c8933e7ceb3ed05bc9c',
+        namespace: 'App\\Events',
+        cluster: 'eu'
+    });
+} catch (ex) {
+    console.log(ex);
+}
 
 },{"laravel-echo":1}]},{},[3]);
 
