@@ -44,16 +44,7 @@ class AnimalController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $animals = Animal::with('events')
-                        ->with('feedings')
-                        ->with('feeding_schedules')
-                        ->with('weighings')
-                        ->with('weighing_schedules')
-                        ->with('biography_entries')
-                        ->with('files')
-                        ->with('properties')
-                        ->with('terrarium');
-
+        $animals = Animal::query();
         $animals = $this->filter($request, $animals);
 
         /*
@@ -100,16 +91,7 @@ class AnimalController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $animal = Animal::with('events')
-                        ->with('feedings')
-                        ->with('feeding_schedules')
-                        ->with('weighings')
-                        ->with('weighing_schedules')
-                        ->with('biography_entries')
-                        ->with('files')
-                        ->with('properties')
-                        ->with('terrarium')
-                        ->find($id);
+        $animal = Animal::query();
 
         if (!$animal) {
             return $this->respondNotFound('Animal not found');

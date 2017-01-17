@@ -6,6 +6,7 @@ use App\Animal;
 use App\Events\AnimalFeedingScheduleDeleted;
 use App\Events\AnimalFeedingScheduleUpdated;
 use App\Events\AnimalFeedingUpdated;
+use App\Events\AnimalUpdated;
 use App\Http\Transformers\AnimalFeedingScheduleTransformer;
 use App\Property;
 use App\Repositories\AnimalFeedingRepository;
@@ -147,6 +148,7 @@ class AnimalFeedingScheduleController extends ApiController
         }
 
         broadcast(new AnimalFeedingScheduleUpdated($p));
+        broadcast(new AnimalUpdated($animal));
 
         return $this->setStatusCode(200)->respondWithData(
             [
@@ -212,6 +214,7 @@ class AnimalFeedingScheduleController extends ApiController
         $afs->save();
 
         broadcast(new AnimalFeedingScheduleUpdated($afs));
+        broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([], [
             'redirect' => [
@@ -249,6 +252,7 @@ class AnimalFeedingScheduleController extends ApiController
         }
 
         broadcast(new AnimalFeedingScheduleDeleted($afs->id));
+        broadcast(new AnimalUpdated($animal));
 
         $afs->delete();
 
@@ -290,6 +294,7 @@ class AnimalFeedingScheduleController extends ApiController
 
         broadcast(new AnimalFeedingUpdated($e));
         broadcast(new AnimalFeedingScheduleUpdated($afs));
+        broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
     }
@@ -324,6 +329,7 @@ class AnimalFeedingScheduleController extends ApiController
         ]);
 
         broadcast(new AnimalFeedingScheduleUpdated($afs));
+        broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
     }

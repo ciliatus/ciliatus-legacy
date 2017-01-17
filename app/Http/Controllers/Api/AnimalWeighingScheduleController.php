@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\Events\AnimalUpdated;
 use App\Events\AnimalWeighingScheduleDeleted;
 use App\Events\AnimalWeighingScheduleUpdated;
 use App\Events\AnimalWeighingUpdated;
@@ -148,6 +149,7 @@ class AnimalWeighingScheduleController extends ApiController
         }
 
         broadcast(new AnimalWeighingScheduleUpdated($p));
+        broadcast(new AnimalUpdated($animal));
 
         return $this->setStatusCode(200)->respondWithData(
             [
@@ -213,6 +215,7 @@ class AnimalWeighingScheduleController extends ApiController
         $aws->save();
 
         broadcast(new AnimalWeighingScheduleUpdated($aws));
+        broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([], [
             'redirect' => [
@@ -245,6 +248,7 @@ class AnimalWeighingScheduleController extends ApiController
         }
 
         broadcast(new AnimalWeighingScheduleDeleted($aws->id));
+        broadcast(new AnimalUpdated($animal));
 
         $aws->delete();
 
@@ -286,6 +290,7 @@ class AnimalWeighingScheduleController extends ApiController
 
         broadcast(new AnimalWeighingUpdated($e));
         broadcast(new AnimalWeighingScheduleUpdated($afs));
+        broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
     }
@@ -320,6 +325,7 @@ class AnimalWeighingScheduleController extends ApiController
         ]);
 
         broadcast(new AnimalWeighingScheduleUpdated($afs));
+        broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
     }
