@@ -1,18 +1,17 @@
 <template>
-    <ul>
-        <li v-show="echo.connector.pusher.connection.state !== 'connected' && ready"
-            class="amber side-menu-info-title">
+    <transition name="fade">
+        <ul class="side-menu-info-container" v-show="echo.connector.pusher.connection.state !== 'connected' && ready">
 
-            <a><i class="material-icons">signal_wifi_off</i> {{ $t('labels.connecting') }}</a>
+            <li class="amber side-menu-info-title">
+                <a><i class="material-icons">signal_wifi_off</i> {{ $t('labels.connecting') }}</a>
+            </li>
 
-        </li>
-        <li v-show="echo.connector.pusher.connection.state !== 'connected' && ready"
-            class="amber side-menu-info">
+            <li class="amber side-menu-info-content">
+                <a class="grey-text">{{ $t('tooltips.connecting_to_server') }}</a>
+            </li>
+        </ul>
 
-            <a class="grey-text">{{ $t('tooltips.connecting_to_server') }}</a>
-
-        </li>
-    </ul>
+    </transition>
 </template>
 
 <script>
@@ -31,5 +30,6 @@ export default {
             that.ready = true;
         }, 2000);
     }
+
 }
 </script>
