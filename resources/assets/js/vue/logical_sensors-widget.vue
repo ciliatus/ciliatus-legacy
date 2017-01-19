@@ -74,6 +74,11 @@ export default {
             default: '',
             required: false
         },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
         subscribeAdd: {
             type: Boolean,
             default: true,
@@ -150,7 +155,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?raw=true',
+                url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.logical_sensorId !== '') {
