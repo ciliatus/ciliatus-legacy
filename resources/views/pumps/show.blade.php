@@ -6,20 +6,60 @@
 @stop
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <pumps-widget :refresh-timeout-seconds="60" pump-id="{{ $pump->id }}" :subscribe-add="false" :subscribe-delete="false"></pumps-widget>
+    <div class="col s12">
+        <ul class="tabs z-depth-1">
+            <li class="tab col s3"><a class="active" href="#tab_overview">@lang('labels.overview')</a></li>
+            <li class="tab col s3"><a class="active" href="#tab_valves">@choice('components.valves', 2)</a></li>
+        </ul>
+    </div>
+
+    <div id="tab_overview" class="col s12">
+        <div class="container">
+            <pumps-widget :refresh-timeout-seconds="60" pump-id="{{ $pump->id }}"
+                          container-classes="row" wrapper-classes="col s12 m6 l4"
+                          :subscribe-add="false" :subscribe-delete="false"></pumps-widget>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <h5>@lang('belongsTo')</h5>
+                </div>
+            </div>
+
+            <div class="row">
+                <controlunits-widget :refresh-timeout-seconds="60" controlunit-id="{{ $pump->controlunit_id }}"
+                                     container-classes="col s12 m6 l4" wrapper-classes=""
+                                     :subscribe-add="false" :subscribe-delete="false"></controlunits-widget>
+            </div>
+        </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large teal">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating orange" href="/pumps/{{ $pump->id }}/edit"><i class="material-icons">edit</i></a></li>
+                <li><a class="btn-floating red" href="/pumps/{{ $pump->id }}/delete"><i class="material-icons">delete</i></a></li>
+                <li><a class="btn-floating green" href="/pumps/create"><i class="material-icons">add</i></a></li>
+            </ul>
         </div>
     </div>
 
-    <div class="fixed-action-btn">
-        <a class="btn-floating btn-large teal">
-            <i class="large material-icons">mode_edit</i>
-        </a>
-        <ul>
-            <li><a class="btn-floating orange" href="/pumps/{{ $pump->id }}/edit"><i class="material-icons">edit</i></a></li>
-            <li><a class="btn-floating red" href="/pumps/{{ $pump->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green" href="/pumps/create"><i class="material-icons">add</i></a></li>
-        </ul>
+    <div id="tab_valves" class="col s12">
+        <div class="container">
+            <valves-widget :refresh-timeout-seconds="60" source-filter="filter[pump_id]={{ $pump->id }}"
+                           container-classes="row" wrapper-classes="col s12 m6 l4"
+                           :subscribe-add="true" :subscribe-delete="true"></valves-widget>
+        </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large teal">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating green" href="/valves/create"><i class="material-icons">add</i></a></li>
+            </ul>
+        </div>
     </div>
 @stop

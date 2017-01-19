@@ -31,7 +31,7 @@
                                          :subscribe-add="false" :subscribe-delete="false"
                                          container-classes="col s12 m6 l4" wrapper-classes=""></terraria-widget>
 
-                <files-widget source-filter="?filter[belongsTo_type]=Animal&filter[belongsTo_id]={{ $animal->id }}"
+                <files-widget source-filter="filter[belongsTo_type]=Animal&filter[belongsTo_id]={{ $animal->id }}"
                               belongs-to_type="Animal" belongs-to_id="{{ $animal->id }}"
                               container-classes="col s12 m6 l4" wrapper-classes=""></files-widget>
             </div>

@@ -289,7 +289,8 @@ class AnimalFeedingScheduleController extends ApiController
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal->id,
             'type' => 'AnimalFeeding',
-            'name' => $afs->name
+            'name' => $afs->name,
+            'value' => 1
         ]);
 
         broadcast(new AnimalFeedingUpdated($e));

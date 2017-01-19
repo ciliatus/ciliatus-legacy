@@ -6,24 +6,50 @@
 @stop
 
 @section('content')
-    <div class="container">
-        <div class="row">
-            <div class="col s12 m5 l4 no-padding">
-                <div class="col s12 m12 l12">
-                    <valves-widget valve-id="{{ $valve->id }}" :subscribe-add="false" :subscribe-delete="false"></valves-widget>
+    <div class="col s12">
+        <ul class="tabs z-depth-1">
+            <li class="tab col s3"><a class="active" href="#tab_overview">@lang('labels.overview')</a></li>
+        </ul>
+    </div>
+
+    <div id="tab_overview" class="col s12">
+        <div class="container">
+            <valves-widget :refresh-timeout-seconds="60" valve-id="{{ $valve->id }}"
+                           container-classes="row" wrapper-classes="col s12 m6 l4"
+                           :subscribe-add="false" :subscribe-delete="false"></valves-widget>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                <div class="col s12">
+                    <h5>@lang('belongsTo')</h5>
                 </div>
             </div>
 
-            <div class="fixed-action-btn">
-                <a class="btn-floating btn-large teal">
-                    <i class="large material-icons">mode_edit</i>
-                </a>
-                <ul>
-                    <li><a class="btn-floating orange" href="/valves/{{ $valve->id }}/edit"><i class="material-icons">edit</i></a></li>
-                    <li><a class="btn-floating red" href="/valves/{{ $valve->id }}/delete"><i class="material-icons">delete</i></a></li>
-                    <li><a class="btn-floating green" href="/valves/create"><i class="material-icons">add</i></a></li>
-                </ul>
+            <div class="row">
+                <pumps-widget :refresh-timeout-seconds="60" pump-id="{{ $valve->pump_id }}"
+                                     container-classes="col s12 m6 l4" wrapper-classes=""
+                                     :subscribe-add="false" :subscribe-delete="false"></pumps-widget>
+
+                <controlunits-widget :refresh-timeout-seconds="60" controlunit-id="{{ $valve->controlunit_id }}"
+                                     container-classes="col s12 m6 l4" wrapper-classes=""
+                                     :subscribe-add="false" :subscribe-delete="false"></controlunits-widget>
+
+                <terraria-widget :refresh-timeout-seconds="60" terrarium-id="{{ $valve->terrarium_id }}"
+                                     container-classes="col s12 m6 l4" wrapper-classes=""
+                                     :subscribe-add="false" :subscribe-delete="false"></terraria-widget>
             </div>
+        </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large teal">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating orange" href="/valves/{{ $valve->id }}/edit"><i class="material-icons">edit</i></a></li>
+                <li><a class="btn-floating red" href="/valves/{{ $valve->id }}/delete"><i class="material-icons">delete</i></a></li>
+                <li><a class="btn-floating green" href="/valves/create"><i class="material-icons">add</i></a></li>
+            </ul>
         </div>
     </div>
 @stop
