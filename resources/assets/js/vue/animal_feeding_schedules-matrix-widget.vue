@@ -77,7 +77,7 @@ export default {
              * Load feeding types
              */
             $.ajax({
-                url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw',
+                url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw=true',
                 method: 'GET',
                 success: function (data) {
                     that.feeding_types = data.data;
@@ -86,7 +86,7 @@ export default {
                      * Load animals
                      */
                     $.ajax({
-                        url: '/api/v1/animals?filter[death_date]=null&raw',
+                        url: '/api/v1/animals?filter[death_date]=null&raw=true',
                         method: 'GET',
                         success: function (data) {
                             that.animals = data.data;

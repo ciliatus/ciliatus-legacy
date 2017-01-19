@@ -4,7 +4,7 @@
             <div :class="wrapperClasses">
                 <div class="card">
                     <div class="card-content teal lighten-1 white-text">
-                        <i class="material-icons">rotate_right</i>
+                        <i class="material-icons">transform</i>
                         {{ $tc("components.valves", 2) }}
                     </div>
 
@@ -64,6 +64,11 @@ export default {
             default: '',
             required: false
         },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
         subscribeAdd: {
             type: Boolean,
             default: true,
@@ -99,7 +104,7 @@ export default {
                     item = index;
                 }
             });
-            if (item === null && this.subscribeAdd === true1) {
+            if (item === null && this.subscribeAdd === true) {
                 this.valves.push(cu.valve);
             }
             else if (item !== null) {
@@ -140,7 +145,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/valves/' + that.valveId + '?raw=true',
+                url: '/api/v1/valves/' + that.valveId + '?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.valveId !== '') {

@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">{{ $tc("components.logical_sensors", 2) }}</span>
+                        <span class="card-title grey-text text-darken-4">{{ $tc("components.logical_sensors", 2) }} <i class="material-icons right">close</i></span>
 
                         <p v-for="logical_sensor in physical_sensor.logical_sensors">
                             <a v-bind:href="'/logical_sensors/' + logical_sensor.id">{{ logical_sensor.name }}</a>
@@ -51,6 +51,11 @@ export default {
             required: false
         },
         physical_sensorId: {
+            type: String,
+            default: '',
+            required: false
+        },
+        sourceFilter: {
             type: String,
             default: '',
             required: false
@@ -90,7 +95,7 @@ export default {
                     item = index;
                 }
             });
-            if (item === null && this.subscribeAdd === true1) {
+            if (item === null && this.subscribeAdd === true) {
                 this.physical_sensors.push(cu.physical_sensor);
             }
             else if (item !== null) {
@@ -131,7 +136,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw=true',
+                url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.physical_sensorId !== '') {

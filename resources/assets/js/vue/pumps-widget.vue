@@ -51,6 +51,11 @@ export default {
             default: '',
             required: false
         },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
         subscribeAdd: {
             type: Boolean,
             default: true,
@@ -86,7 +91,7 @@ export default {
                     item = index;
                 }
             });
-            if (item === null && this.subscribeAdd === true1) {
+            if (item === null && this.subscribeAdd === true) {
                 this.pumps.push(cu.pump);
             }
             else if (item !== null) {
@@ -127,7 +132,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/pumps/' + that.pumpId + '?raw=true',
+                url: '/api/v1/pumps/' + that.pumpId + '?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.pumpId !== '') {

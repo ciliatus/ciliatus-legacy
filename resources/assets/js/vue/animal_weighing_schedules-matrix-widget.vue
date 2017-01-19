@@ -49,6 +49,11 @@ export default {
             default: null,
             required: false
         },
+        sourceFilter: {
+            type: String,
+            default: 'filter[death_date]=null',
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -71,7 +76,7 @@ export default {
              * then load weighing schedules
              */
             $.ajax({
-                url: '/api/v1/animals?filter[death_date]=null&raw',
+                url: '/api/v1/animals?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     that.animals = data.data;
@@ -80,7 +85,7 @@ export default {
                      * Load weighing schedules
                      */
                     $.ajax({
-                        url: '/api/v1/animal_weighing_schedules?raw',
+                        url: '/api/v1/animal_weighing_schedules?raw=true',
                         method: 'GET',
                         success: function (data) {
                             that.schedules = data.data;

@@ -1591,7 +1591,7 @@
 .white {
   background-color: #FFFFFF !important; }
 
-.white-text {
+.white-text, .collection.ok, .collection.warning, .collection.critical {
   color: #FFFFFF !important; }
 
 .transparent {
@@ -2355,6 +2355,30 @@ td, th {
     padding-left: 30px; }
   .collection.with-header .collection-item.avatar {
     padding-left: 72px; }
+  .collection.ok {
+    border: 1px solid #009688; }
+    .collection.ok .collection-header {
+      background-color: #009688;
+      border-bottom: 1px solid #009688; }
+    .collection.ok .collection-item {
+      background-color: #26a69a;
+      border-bottom: 1px solid #009688; }
+  .collection.warning {
+    border: 1px solid #ef6c00; }
+    .collection.warning .collection-header {
+      background-color: #ef6c00;
+      border-bottom: 1px solid #ef6c00; }
+    .collection.warning .collection-item {
+      background-color: #f57c00;
+      border-bottom: 1px solid #ef6c00; }
+  .collection.critical {
+    border: 1px solid #B71C1C; }
+    .collection.critical .collection-header {
+      background-color: #B71C1C;
+      border-bottom: 1px solid #B71C1C; }
+    .collection.critical .collection-item {
+      background-color: #D32F2F;
+      border-bottom: 1px solid #B71C1C; }
 
 .secondary-content {
   float: right;
@@ -5452,6 +5476,9 @@ input[type=range]:focus::-ms-fill-upper {
   position: relative;
   width: 48px;
   height: 48px; }
+  .preloader-wrapper.tiny {
+    width: 20px;
+    height: 20px; }
   .preloader-wrapper.small {
     width: 36px;
     height: 36px; }

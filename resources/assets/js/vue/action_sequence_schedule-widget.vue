@@ -21,6 +21,11 @@ export default {
             default: '',
             required: false
         },
+        sourceFilter: {
+            type: String,
+            default: 'filter[last_finished_at]=nottoday',
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -91,7 +96,7 @@ export default {
 
         var uri = '';
         if (this.assid === '') {
-            uri = '/api/v1/action_sequence_schedules/?filter[last_finished_at]=nottoday&raw=true';
+            uri = '/api/v1/action_sequence_schedules/?raw=true&' + this.sourceFilter;
         }
         else {
             uri = '/api/v1/action_sequence_schedules/' + this.assid;

@@ -115,6 +115,11 @@ export default {
             default: null,
             required: false
         },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -186,7 +191,7 @@ export default {
                 source_url = '/api/v1/animals/' + this.animalId
             }
             else {
-                source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc&raw=true';
+                source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc&raw=true&' + this.sourceFilter;
             }
 
             window.eventHubVue.processStarted();

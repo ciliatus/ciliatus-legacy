@@ -15709,6 +15709,11 @@ exports.default = {
             default: '',
             required: false
         },
+        sourceFilter: {
+            type: String,
+            default: 'filter[last_finished_at]=nottoday',
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -15778,7 +15783,7 @@ exports.default = {
 
         var uri = '';
         if (this.assid === '') {
-            uri = '/api/v1/action_sequence_schedules/?filter[last_finished_at]=nottoday&raw=true';
+            uri = '/api/v1/action_sequence_schedules/?raw=true&' + this.sourceFilter;
         } else {
             uri = '/api/v1/action_sequence_schedules/' + this.assid;
         }
@@ -15886,7 +15891,7 @@ exports.default = {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter + '&raw=true',
+                url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter + '?raw=true',
                 method: 'GET',
                 success: function success(data) {
                     if (that.action_sequenceId !== '') {
@@ -15930,7 +15935,7 @@ if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;return _vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(0),"\n        "+_vm._s(_vm.action_sequences.length)+" "+_vm._s(_vm.$tc("components.action_sequences", 2))+"\n    "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.$tc("components.action_sequences", 2))])," ",_vm._m(1)])," ",_vm._l((_vm.action_sequences),function(as){return _vm._h('div',[_vm._h('p',[_vm._h('strong',[_vm._s(as.name)])," ",_vm._h('i',[_vm._s(as.duration_minutes)+" "+_vm._s(_vm.$tc("units.minutes", as.duration_minutes))])])," ",_vm._l((as.schedules),function(ass){return _vm._h('p',[_vm._m(2,true)," "+_vm._s(ass.timestamps.starts)+" ",_vm._h('i',{directives:[{name:"show",rawName:"v-show",value:(!ass.runonce),expression:"!ass.runonce"}]},[_vm._s(_vm.$t("labels.daily"))])])})])})])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/action_sequences/create?preset[terrarium]=' + _vm.terrariumId}},[_vm._s(_vm.$t("buttons.add"))])," ",_vm._h('a',{attrs:{"href":'/terraria/' + _vm.terrariumId + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._m(3)])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["subdirectory_arrow_right"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])}]
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["schedule"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -15989,13 +15994,13 @@ exports.default = {
             var that = this;
 
             $.ajax({
-                url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw',
+                url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw=true',
                 method: 'GET',
                 success: function success(data) {
                     that.feeding_types = data.data;
 
                     $.ajax({
-                        url: '/api/v1/animals?filter[death_date]=null&raw',
+                        url: '/api/v1/animals?filter[death_date]=null&raw=true',
                         method: 'GET',
                         success: function success(data) {
                             that.animals = data.data;
@@ -16055,9 +16060,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8", __vue__options__)
+    hotAPI.createRecord("data-v-9", __vue__options__)
   } else {
-    hotAPI.reload("data-v-8", __vue__options__)
+    hotAPI.reload("data-v-9", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],15:[function(require,module,exports){
@@ -16091,6 +16096,11 @@ exports.default = {
         animalId: {
             type: String,
             required: true
+        },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
         },
         wrapperClasses: {
             type: String,
@@ -16140,7 +16150,7 @@ exports.default = {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/animals/' + that.animalId + '/feeding_schedules?raw=true',
+                url: '/api/v1/animals/' + that.animalId + '/feeding_schedules?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     that.animal_feeding_schedules = data.data;
@@ -16186,9 +16196,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7", __vue__options__)
+    hotAPI.createRecord("data-v-8", __vue__options__)
   } else {
-    hotAPI.reload("data-v-7", __vue__options__)
+    hotAPI.reload("data-v-8", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],16:[function(require,module,exports){
@@ -16223,6 +16233,11 @@ exports.default = {
         animalId: {
             type: String,
             required: true
+        },
+        sourceFilter: {
+            type: String,
+            default: 'filter[last_finished_at]=nottoday',
+            required: false
         },
         wrapperClasses: {
             type: String,
@@ -16267,7 +16282,7 @@ exports.default = {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/animals/' + that.animalId + '/feedings',
+                url: '/api/v1/animals/' + that.animalId + '/feedings?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     that.animal_feedings = data.data;
@@ -16327,9 +16342,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6", __vue__options__)
+    hotAPI.createRecord("data-v-7", __vue__options__)
   } else {
-    hotAPI.reload("data-v-6", __vue__options__)
+    hotAPI.reload("data-v-7", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],17:[function(require,module,exports){
@@ -16361,6 +16376,11 @@ exports.default = {
             default: null,
             required: false
         },
+        sourceFilter: {
+            type: String,
+            default: 'filter[death_date]=null',
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -16379,13 +16399,13 @@ exports.default = {
             var that = this;
 
             $.ajax({
-                url: '/api/v1/animals?filter[death_date]=null&raw',
+                url: '/api/v1/animals?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     that.animals = data.data;
 
                     $.ajax({
-                        url: '/api/v1/animal_weighing_schedules?raw',
+                        url: '/api/v1/animal_weighing_schedules?raw=true',
                         method: 'GET',
                         success: function success(data) {
                             that.schedules = data.data;
@@ -16433,9 +16453,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-9", __vue__options__)
+    hotAPI.createRecord("data-v-10", __vue__options__)
   } else {
-    hotAPI.reload("data-v-9", __vue__options__)
+    hotAPI.reload("data-v-10", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],18:[function(require,module,exports){
@@ -16469,6 +16489,11 @@ exports.default = {
         animalId: {
             type: String,
             required: true
+        },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
         },
         wrapperClasses: {
             type: String,
@@ -16518,7 +16543,7 @@ exports.default = {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/animals/' + that.animalId + '/weighing_schedules?raw=true',
+                url: '/api/v1/animals/' + that.animalId + '/weighing_schedules?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     that.animal_weighing_schedules = data.data;
@@ -16563,9 +16588,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-11", __vue__options__)
+    hotAPI.createRecord("data-v-12", __vue__options__)
   } else {
-    hotAPI.reload("data-v-11", __vue__options__)
+    hotAPI.reload("data-v-12", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],19:[function(require,module,exports){
@@ -16599,6 +16624,11 @@ exports.default = {
         animalId: {
             type: String,
             required: true
+        },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
         },
         wrapperClasses: {
             type: String,
@@ -16643,7 +16673,7 @@ exports.default = {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/animals/' + that.animalId + '/weighings',
+                url: '/api/v1/animals/' + that.animalId + '/weighings?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     that.animal_weighings = data.data;
@@ -16689,9 +16719,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-10", __vue__options__)
+    hotAPI.createRecord("data-v-11", __vue__options__)
   } else {
-    hotAPI.reload("data-v-10", __vue__options__)
+    hotAPI.reload("data-v-11", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],20:[function(require,module,exports){
@@ -16726,6 +16756,11 @@ exports.default = {
         animalId: {
             type: String,
             default: null,
+            required: false
+        },
+        sourceFilter: {
+            type: String,
+            default: '',
             required: false
         },
         wrapperClasses: {
@@ -16797,7 +16832,7 @@ exports.default = {
             if (this.animalId !== null) {
                 source_url = '/api/v1/animals/' + this.animalId;
             } else {
-                source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc&raw=true';
+                source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc&raw=true&' + this.sourceFilter;
             }
 
             window.eventHubVue.processStarted();
@@ -16874,9 +16909,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5", __vue__options__)
+    hotAPI.createRecord("data-v-6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-5", __vue__options__)
+    hotAPI.reload("data-v-6", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],21:[function(require,module,exports){
@@ -17291,7 +17326,7 @@ exports.default = {
                     item = index;
                 }
             });
-            if (item === null && this.subscribeAdd === true1) {
+            if (item === null && this.subscribeAdd === true) {
                 this.controlunits.push(cu.controlunit);
             } else if (item !== null) {
                 this.controlunits.splice(item, 1, cu.controlunit);
@@ -17394,9 +17429,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-14", __vue__options__)
+    hotAPI.createRecord("data-v-15", __vue__options__)
   } else {
-    hotAPI.reload("data-v-14", __vue__options__)
+    hotAPI.reload("data-v-15", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],24:[function(require,module,exports){
@@ -17739,7 +17774,15 @@ exports.default = {
 
         link_post: function link_post(e) {
             e.preventDefault();
-            $.post(e.target.href);
+            var old = e;
+
+            var parentElement = e.target.href ? e.target : e.target.parentElement;
+            var oldContent = parentElement.innerHTML;
+            $(parentElement).html('<div class="preloader-wrapper tiny active">' + '<div class="spinner-layer spinner-green-only">' + '<div class="circle-clipper left">' + '<div class="circle"></div>' + '</div><div class="gap-patch">' + '<div class="circle"></div>' + '</div><div class="circle-clipper right">' + '<div class="circle"></div>' + '</div>' + '</div>' + '</div>');
+
+            $.post(parentElement.href, null, function (e) {
+                $(parentElement).html(oldContent);
+            });
         },
 
         load_data: function load_data() {
@@ -17807,16 +17850,16 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[(_vm.dashboard.terraria.critical.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content red darken-3 white-text"},[_vm._m(0),"\n                "+_vm._s(_vm.$tc("components.terraria", 2))+"\n            "])," ",_vm._h('div',{staticClass:"card-content red darken-2 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.terraria.critical.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.critical.length))+" "+_vm._s(_vm.$t("labels.critical"))])," ",_vm._m(1)])," ",_vm._l((_vm.dashboard.terraria.critical),function(terrarium){return _vm._h('div',[_vm._h('p',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/terraria/' + terrarium.id}},[_vm._s(terrarium.display_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical === true && terrarium.temperature_critical !== true),expression:"terrarium.humidity_critical === true && terrarium.temperature_critical !== true"}]},["("+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%)"])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical === true && terrarium.temperature_critical === true),expression:"terrarium.humidity_critical === true && terrarium.temperature_critical === true"}]},["("+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%, "+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C)"])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical !== true && terrarium.temperature_critical === true),expression:"terrarium.humidity_critical !== true && terrarium.temperature_critical === true"}]},["("+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C)"])])])})])," ",_vm._m(2)," "])]):_vm._e()," ",(_vm.dashboard.animal_feeding_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content orange darken-3 white-text"},[_vm._m(3),"\n                "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.overdue"))+"\n            "])," ",_vm._h('div',{staticClass:"card-content orange darken-2 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.animal_feeding_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.animal_feedings", _vm.dashboard.animal_feeding_schedules.overdue.length))+" "+_vm._s(_vm.$t("labels.overdue"))])])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.overdue),function(schedule){return _vm._h('div',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/animals/' + schedule.animal.id}},["\n                        "+_vm._s(schedule.animal.display_name)+":\n                    "]),"\n\n                    "+_vm._s(schedule.type)+"\n\n                    ",_vm._h('a',{staticClass:"white-text dropdown-button",attrs:{"href":"#","data-activates":'dropdown-edit-animal_feeding_schedules_' + schedule.id}},["\n                        "+_vm._s(_vm.$t('labels.actions'))+"\n                    "])," ",_vm._h('ul',{staticClass:"dropdown-content",attrs:{"id":'dropdown-edit-animal_feeding_schedules_' + schedule.id}},[_vm._h('li',[_vm._h('a',{attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'},on:{"click":_vm.link_post}},[_vm._m(4,true)," "+_vm._s(_vm.$t('tooltips.done'))+"\n                            "])])," ",_vm._h('li',[_vm._h('a',{attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(5,true)," "+_vm._s(_vm.$t('tooltips.skip'))+"\n                            "])])]),"\n\n                    ("+_vm._s(_vm.$t("labels.since"))+" "+_vm._s((schedule.due_days*-1))+" "+_vm._s(_vm.$tc("units.days", (schedule.due_days*-1)))+")\n\n                "])})])," ",_vm._m(6)," "])]):_vm._e()," ",(_vm.dashboard.animal_weighing_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content orange darken-3 white-text"},[_vm._m(7),"\n                "+_vm._s(_vm.$tc("components.animal_weighings", 2))+" "+_vm._s(_vm.$t("labels.overdue"))+"\n            "])," ",_vm._h('div',{staticClass:"card-content orange darken-2 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.animal_weighing_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.animal_weighings", _vm.dashboard.animal_weighing_schedules.overdue.length))+" "+_vm._s(_vm.$t("labels.overdue"))])," ",_vm._m(8)])," ",_vm._l((_vm.dashboard.animal_weighing_schedules.overdue),function(schedule){return _vm._h('div',[_vm._h('p',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/animals/' + schedule.animal.id}},["\n                            "+_vm._s(schedule.animal.display_name)+"\n                        "]),"\n\n                        ("+_vm._s(_vm.$t("labels.since"))+" "+_vm._s((schedule.due_days*-1))+" "+_vm._s(_vm.$tc("units.days", (schedule.due_days*-1)))+")\n\n                        ",_vm._h('a',{staticClass:"white-text dropdown-button",attrs:{"href":"#","data-activates":'dropdown-edit-animal_weighing_schedules_' + schedule.id}},["\n                            "+_vm._s(_vm.$t('labels.actions'))+"\n                        "])," ",_vm._h('ul',{staticClass:"dropdown-content",attrs:{"id":'dropdown-edit-animal_weighing_schedules_' + schedule.id}},[_vm._h('li',[_vm._h('a',{attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(9,true)," "+_vm._s(_vm.$t('tooltips.skip'))+"\n                                "])])])])])})])," ",_vm._m(10)," "])]):_vm._e()," ",(_vm.dashboard.action_sequence_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal white-text"},[_vm._m(11),"\n                "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.overdue"))+"\n            "])," ",_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.action_sequence_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.action_sequences", _vm.dashboard.action_sequence_schedules.overdue.length))+" "+_vm._s(_vm.$t("labels.overdue"))])," ",_vm._m(12)])," ",_vm._l((_vm.dashboard.action_sequence_schedules.overdue),function(action_sequence_schedule){return _vm._h('div',[_vm._h('p',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/action_sequences/' + action_sequence_schedule.sequence.id + '/edit'}},["\n                            "+_vm._s(action_sequence_schedule.sequence.name)+"\n                        "])," ",_vm._h('i',[_vm._s(action_sequence_schedule.timestamps.starts)])])])})])," ",_vm._m(13)," "])]):_vm._e()," ",(_vm.dashboard.animal_feeding_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal white-text"},[_vm._m(14),"\n                "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.animal_feeding_schedules.due.length)+" "+_vm._s(_vm.$tc("components.animal_feedings", _vm.dashboard.animal_feeding_schedules.due.length))+" "+_vm._s(_vm.$t("labels.due"))])," ",_vm._m(15)])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.due),function(schedule){return _vm._h('div',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/animals/' + schedule.animal.id}},["\n                        "+_vm._s(schedule.animal.display_name)+":\n                    "])," ",_vm._h('a',{staticClass:"white-text dropdown-button",attrs:{"href":"#","data-activates":'dropdown-edit-animal_feeding_schedules_' + schedule.id}},["\n                        "+_vm._s(schedule.type)+"\n                    "])," ",_vm._h('ul',{staticClass:"dropdown-content",attrs:{"id":'dropdown-edit-animal_feeding_schedules_' + schedule.id}},[_vm._h('li',[_vm._h('a',{attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'},on:{"click":_vm.link_post}},[_vm._m(16,true)," "+_vm._s(_vm.$t('tooltips.done'))+"\n                            "])])," ",_vm._h('li',[_vm._h('a',{attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(17,true)," "+_vm._s(_vm.$t('tooltips.skip'))+"\n                            "])])]),"\n\n                    ("+_vm._s(_vm.$t("labels.since"))+" "+_vm._s((schedule.due_days*-1))+" "+_vm._s(_vm.$tc("units.days", (schedule.due_days*-1)))+")\n\n                "])})])," ",_vm._m(18)," "])]):_vm._e()," ",(_vm.dashboard.animal_weighing_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal white-text"},[_vm._m(19),"\n                "+_vm._s(_vm.$tc("components.animal_weighings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.animal_weighing_schedules.due.length)+" "+_vm._s(_vm.$tc("components.animal_weighings", _vm.dashboard.animal_weighing_schedules.due.length))+" "+_vm._s(_vm.$t("labels.due"))])," ",_vm._m(20)])," ",_vm._l((_vm.dashboard.animal_weighing_schedules.due),function(schedule){return _vm._h('div',[_vm._h('p',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/animals/' + schedule.animal.id}},["\n                            "+_vm._s(schedule.animal.display_name)+"\n                        "]),"\n\n                        "+_vm._s(_vm.$t('labels.today'))+"\n\n                        ",_vm._h('a',{staticClass:"white-text dropdown-button",attrs:{"href":"#","data-activates":'dropdown-edit-animal_weighing_schedules_' + schedule.id}},["\n                            "+_vm._s(_vm.$t('labels.actions'))+"\n                        "])," ",_vm._h('ul',{staticClass:"dropdown-content",attrs:{"id":'dropdown-edit-animal_weighing_schedules_' + schedule.id}},[_vm._h('li',[_vm._h('a',{attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(21,true)," "+_vm._s(_vm.$t('tooltips.skip'))+"\n                                "])])])])])})])," ",_vm._m(22)," "])]):_vm._e()," ",(_vm.dashboard.action_sequence_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal white-text"},[_vm._m(23),"\n                "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.action_sequence_schedules.due.length)+" "+_vm._s(_vm.$tc("components.action_sequences", _vm.dashboard.action_sequence_schedules.due.length))+" "+_vm._s(_vm.$t("labels.due"))])," ",_vm._m(24)])," ",_vm._l((_vm.dashboard.action_sequence_schedules.due),function(action_sequence_schedule){return _vm._h('div',[_vm._h('p',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/action_sequences/' + action_sequence_schedule.sequence.id + '/edit'}},["\n                            "+_vm._s(action_sequence_schedule.sequence.name)+"\n                        "])," ",_vm._h('i',[_vm._s(action_sequence_schedule.timestamps.starts)])])])})])," ",_vm._m(25)," "])]):_vm._e()," ",(_vm.dashboard.action_sequence_schedules.running.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal white-text"},[_vm._m(26),"\n                "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.running"))+"\n            "])," ",_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.action_sequence_schedules.running.length)+" "+_vm._s(_vm.$tc("components.action_sequences", _vm.dashboard.action_sequence_schedules.running.length))+" "+_vm._s(_vm.$t("labels.running"))])," ",_vm._m(27)])," ",_vm._l((_vm.dashboard.action_sequence_schedules.running),function(action_sequence_schedule){return _vm._h('div',[_vm._h('p',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/action_sequences/' + action_sequence_schedule.sequence.id}},["\n                            "+_vm._s(action_sequence_schedule.sequence.name)+"\n                        "])," ",(action_sequence_schedule.timestamps.last_start !== null)?_vm._h('i',[_vm._s(action_sequence_schedule.timestamps.last_start.split(" ")[1])]):_vm._e()])])})])," ",_vm._m(28)," "])]):_vm._e()," ",(_vm.dashboard.terraria.critical.length < 1)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal white-text"},[_vm._m(29),"\n                "+_vm._s(_vm.$tc("components.terraria", 2))+"\n            "])," ",_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.dashboard.terraria.ok.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.ok.length))+" "+_vm._s(_vm.$t("labels.ok"))])," ",_vm._m(30)])])," ",_vm._m(31)," "])]):_vm._e()])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["video_label"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal red darken-2 white-text"},[_vm._h('span',{staticClass:"card-title red darken-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["schedule"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["done"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal orange darken-2 white-text"},[_vm._h('span',{staticClass:"card-title orange darken-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["schedule"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal orange darken-2 white-text"},[_vm._h('span',{staticClass:"card-title orange darken-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["schedule"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title teal lighten-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["schedule"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["done"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title teal lighten-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["schedule"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title teal lighten-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["schedule"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title teal lighten-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["schedule"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title teal lighten-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["video_label"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal teal lighten-1 white-text"},[_vm._h('span',{staticClass:"card-title teal lighten-2 white-text"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])}]
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[(_vm.dashboard.terraria.critical.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection critical with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(0),"\n                "+_vm._s(_vm.dashboard.terraria.critical.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.critical.length))+" "+_vm._s(_vm.$t("labels.critical"))+"\n            "])," ",_vm._l((_vm.dashboard.terraria.critical),function(terrarium){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/terraria/' + terrarium.id}},[_vm._s(terrarium.display_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical === true && terrarium.temperature_critical !== true),expression:"terrarium.humidity_critical === true && terrarium.temperature_critical !== true"}]},["("+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%)"])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical === true && terrarium.temperature_critical === true),expression:"terrarium.humidity_critical === true && terrarium.temperature_critical === true"}]},["("+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%, "+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C)"])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical !== true && terrarium.temperature_critical === true),expression:"terrarium.humidity_critical !== true && terrarium.temperature_critical === true"}]},["("+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C)"])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_feeding_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(1),"\n                "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.overdue"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(schedule.animal.display_name)+": "+_vm._s(schedule.type)+" ("+_vm._s(_vm.$t("labels.since"))+" "+_vm._s((schedule.due_days*-1))+" "+_vm._s(_vm.$tc("units.days", (schedule.due_days*-1)))+")\n\n\n                    ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(2,true)])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'},on:{"click":_vm.link_post}},[_vm._m(3,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_weighing_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(4),"\n                "+_vm._s(_vm.$tc("components.animal_weighings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_weighing_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(schedule.animal.display_name)+" "+_vm._s(_vm.$t('labels.today'))+" "+_vm._s(_vm.$t('labels.actions'))+"\n\n\n                    ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(5,true)])," "," ",_vm._m(6,true)])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(7),"\n                "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(schedule.timestamps.starts)+": "+_vm._s(schedule.sequence.name)+"\n\n                    ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(8,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_feeding_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(9),"\n                "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(schedule.animal.display_name)+": "+_vm._s(schedule.type)+"\n\n\n                    ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(10,true)])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'},on:{"click":_vm.link_post}},[_vm._m(11,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_weighing_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(12),"\n                "+_vm._s(_vm.$tc("components.animal_weighings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_weighing_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(schedule.animal.display_name)+" "+_vm._s(_vm.$t('labels.today'))+" "+_vm._s(_vm.$t('labels.actions'))+"\n\n\n                    ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(13,true)])," "," ",_vm._m(14,true)])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(15),"\n                "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(schedule.timestamps.starts)+": "+_vm._s(schedule.sequence.name)+"\n\n                    ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(16,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.running.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(17),"\n                "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.running"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.running),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[(schedule.timestamps.last_start !== null)?_vm._h('a',[_vm._s(schedule.timestamps.last_start.split(" ")[1])]):_vm._e()," ",_vm._h('a',{staticClass:"white-text",attrs:{"href":'/action_sequences/' + schedule.sequence.id}},["\n                        "+_vm._s(schedule.sequence.name)+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(18,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.terraria.critical.length < 1)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(19),"\n                "+_vm._s(_vm.$tc("components.terraria", 2))+"\n            "])," ",_vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(_vm.dashboard.terraria.ok.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.ok.length))+" "+_vm._s(_vm.$t("labels.ok"))+"\n\n                "])])])]):_vm._e()])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["video_label"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["local_dining"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["done"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["vertical_align_bottom"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('a',{staticClass:"secondary-content white-text"},[_vm._h('i',{staticClass:"material-icons"},["done"])])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["local_dining"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["done"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["vertical_align_bottom"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('a',{staticClass:"secondary-content white-text"},[_vm._h('i',{staticClass:"material-icons"},["done"])])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["video_label"])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1", __vue__options__)
+    hotAPI.createRecord("data-v-2", __vue__options__)
   } else {
-    hotAPI.reload("data-v-1", __vue__options__)
+    hotAPI.reload("data-v-2", __vue__options__)
   }
 })()}
 },{"vue":8,"vue-hot-reload-api":5}],25:[function(require,module,exports){
@@ -17847,8 +17890,8 @@ exports.default = {
         },
         FilterColumn: {
             type: String,
-            default: null,
-            required: true
+            default: 'created_at',
+            required: false
         },
         ShowFilterForm: {
             type: Boolean,
@@ -17857,7 +17900,7 @@ exports.default = {
         },
         FilterFromDate: {
             type: String,
-            default: new Date().toYmd(),
+            default: new Date(new Date().setDate(new Date().getDate() - 7)).toYmd(),
             required: false
         },
         FilterToDate: {
@@ -17866,6 +17909,7 @@ exports.default = {
             required: false
         }
     },
+
     data: function data() {
         return {
             chart: null,
@@ -17877,18 +17921,18 @@ exports.default = {
 
     methods: {
         get_filter_from_date: function get_filter_from_date() {
-            if ($('#filter_from_' + this.id).val() === null) {
+            if ($('#filter_from_' + this.id).val() == undefined) {
                 return this.FilterFromDate;
             }
 
             return $('#filter_from_' + this.id).val();
         },
         get_filter_to_date: function get_filter_to_date() {
-            if ($('#filter_to_' + this.id).val() === null) {
-                return this.FilterToDate;
+            if ($('#filter_to_' + this.id).val() == undefined) {
+                return this.FilterToDate + " 23:59:59";
             }
 
-            return $('#filter_to_' + this.id).val();
+            return $('#filter_to_' + this.id).val() + " 23:59:59";
         },
 
         init: function init() {
@@ -17897,7 +17941,7 @@ exports.default = {
         build: function build() {
             $('#dygraph_' + this.id + '_loading').show();
             var that = this;
-            var url = this.source + '&filter[' + this.FilterColumn + ']=gt:' + this.get_filter_from_date() + ':and:lt:' + this.get_filter_to_date();
+            var url = this.source + '&filter[' + this.FilterColumn + ']=ge:' + this.get_filter_from_date() + ':and:le:' + this.get_filter_to_date();
 
             $.ajax({
                 url: url,
@@ -17961,9 +18005,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3", __vue__options__)
+    hotAPI.createRecord("data-v-4", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3", __vue__options__)
+    hotAPI.reload("data-v-4", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],26:[function(require,module,exports){
@@ -18194,7 +18238,7 @@ exports.default = {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/files/' + that.fileId + that.sourceFilter,
+                url: '/api/v1/files/' + that.fileId + '?' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.fileId !== '') {
@@ -18244,9 +18288,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-15", __vue__options__)
+    hotAPI.createRecord("data-v-16", __vue__options__)
   } else {
-    hotAPI.reload("data-v-15", __vue__options__)
+    hotAPI.reload("data-v-16", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],28:[function(require,module,exports){
@@ -18322,7 +18366,7 @@ exports.default = {
         },
         FilterFromDate: {
             type: String,
-            default: new Date().toYmd(),
+            default: new Date(new Date().setMonth(new Date().getMonth() - 3)).toYmd(),
             required: false
         },
         FilterToDate: {
@@ -18342,18 +18386,18 @@ exports.default = {
 
     methods: {
         get_filter_from_date: function get_filter_from_date() {
-            if ($('#filter_from_' + this.id).val() === null) {
+            if ($('#filter_from_' + this.id).val() == undefined) {
                 return this.FilterFromDate;
             }
 
             return $('#filter_from_' + this.id).val();
         },
         get_filter_to_date: function get_filter_to_date() {
-            if ($('#filter_to_' + this.id).val() === null) {
-                return this.FilterToDate;
+            if ($('#filter_to_' + this.id).val() == undefined) {
+                return this.FilterToDate + " 23:59:59";
             }
 
-            return $('#filter_to_' + this.id).val();
+            return $('#filter_to_' + this.id).val() + " 23:59:59";
         },
         init: function init() {
             this.data = new google.visualization.DataTable();
@@ -18362,7 +18406,7 @@ exports.default = {
         build: function build() {
             $('#dygraph_' + this.id + '_loading').show();
             var that = this;
-            var url = this.source + '&filter[' + this.FilterColumn + ']=gt:' + this.get_filter_from_date() + ':and:lt:' + this.get_filter_to_date();
+            var url = this.source + '&filter[' + this.FilterColumn + ']=ge:' + this.get_filter_from_date() + ':and:le:' + this.get_filter_to_date();
 
             $.ajax({
                 url: url,
@@ -18460,9 +18504,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2", __vue__options__)
+    hotAPI.createRecord("data-v-3", __vue__options__)
   } else {
-    hotAPI.reload("data-v-2", __vue__options__)
+    hotAPI.reload("data-v-3", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],29:[function(require,module,exports){
@@ -18557,9 +18601,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4", __vue__options__)
+    hotAPI.createRecord("data-v-5", __vue__options__)
   } else {
-    hotAPI.reload("data-v-4", __vue__options__)
+    hotAPI.reload("data-v-5", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],30:[function(require,module,exports){
@@ -18630,7 +18674,7 @@ exports.default = {
                     item = index;
                 }
             });
-            if (item === null && this.subscribeAdd === true1) {
+            if (item === null && this.subscribeAdd === true) {
                 this.logical_sensors.push(cu.logical_sensor);
             } else if (item !== null) {
                 this.logical_sensors.splice(item, 1, cu.logical_sensor);
@@ -18878,6 +18922,11 @@ exports.default = {
             default: '',
             required: false
         },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
         subscribeAdd: {
             type: Boolean,
             default: true,
@@ -18913,7 +18962,7 @@ exports.default = {
                     item = index;
                 }
             });
-            if (item === null && this.subscribeAdd === true1) {
+            if (item === null && this.subscribeAdd === true) {
                 this.physical_sensors.push(cu.physical_sensor);
             } else if (item !== null) {
                 this.physical_sensors.splice(item, 1, cu.physical_sensor);
@@ -18953,7 +19002,7 @@ exports.default = {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw=true',
+                url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.physical_sensorId !== '') {
@@ -19002,8 +19051,8 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.physical_sensors),function(physical_sensor){return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(0,true),"\n                    "+_vm._s(_vm.$tc("components.physical_sensors", 2))+"\n                "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(physical_sensor.name)])," ",_vm._m(1,true)])," ",_vm._m(2,true)])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/physical_sensors/' + physical_sensor.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/physical_sensors/' + physical_sensor.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc("components.logical_sensors", 2))])," ",_vm._l((physical_sensor.logical_sensors),function(logical_sensor){return _vm._h('p',[_vm._h('a',{attrs:{"href":'/logical_sensors/' + logical_sensor.id}},[_vm._s(logical_sensor.name)])," ",_vm._h('i',[_vm._s(_vm.$t("labels." + logical_sensor.type))])])})])])])])})])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["memory"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('p')}]
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.physical_sensors),function(physical_sensor){return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(0,true),"\n                    "+_vm._s(_vm.$tc("components.physical_sensors", 2))+"\n                "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(physical_sensor.name)])," ",_vm._m(1,true)])," ",_vm._m(2,true)])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/physical_sensors/' + physical_sensor.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/physical_sensors/' + physical_sensor.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc("components.logical_sensors", 2))+" ",_vm._m(3,true)])," ",_vm._l((physical_sensor.logical_sensors),function(logical_sensor){return _vm._h('p',[_vm._h('a',{attrs:{"href":'/logical_sensors/' + logical_sensor.id}},[_vm._s(logical_sensor.name)])," ",_vm._h('i',[_vm._s(_vm.$t("labels." + logical_sensor.type))])])})])])])])})])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["memory"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('p')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["close"])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -19047,6 +19096,11 @@ exports.default = {
             default: '',
             required: false
         },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
         subscribeAdd: {
             type: Boolean,
             default: true,
@@ -19082,7 +19136,7 @@ exports.default = {
                     item = index;
                 }
             });
-            if (item === null && this.subscribeAdd === true1) {
+            if (item === null && this.subscribeAdd === true) {
                 this.pumps.push(cu.pump);
             } else if (item !== null) {
                 this.pumps.splice(item, 1, cu.pump);
@@ -19122,7 +19176,7 @@ exports.default = {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/pumps/' + that.pumpId + '?raw=true',
+                url: '/api/v1/pumps/' + that.pumpId + '?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.pumpId !== '') {
@@ -19215,9 +19269,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-16", __vue__options__)
+    hotAPI.createRecord("data-v-1", __vue__options__)
   } else {
-    hotAPI.reload("data-v-16", __vue__options__)
+    hotAPI.reload("data-v-1", __vue__options__)
   }
 })()}
 },{"vue":8,"vue-hot-reload-api":5}],35:[function(require,module,exports){
@@ -19356,9 +19410,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-13", __vue__options__)
+    hotAPI.createRecord("data-v-14", __vue__options__)
   } else {
-    hotAPI.reload("data-v-13", __vue__options__)
+    hotAPI.reload("data-v-14", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],36:[function(require,module,exports){
@@ -19539,9 +19593,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-12", __vue__options__)
+    hotAPI.createRecord("data-v-13", __vue__options__)
   } else {
-    hotAPI.reload("data-v-12", __vue__options__)
+    hotAPI.reload("data-v-13", __vue__options__)
   }
 })()}
 },{"./inline-graph.vue":29,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],37:[function(require,module,exports){
@@ -19674,6 +19728,11 @@ exports.default = {
             default: '',
             required: false
         },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
         subscribeAdd: {
             type: Boolean,
             default: true,
@@ -19709,7 +19768,7 @@ exports.default = {
                     item = index;
                 }
             });
-            if (item === null && this.subscribeAdd === true1) {
+            if (item === null && this.subscribeAdd === true) {
                 this.valves.push(cu.valve);
             } else if (item !== null) {
                 this.valves.splice(item, 1, cu.valve);
@@ -19749,7 +19808,7 @@ exports.default = {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/valves/' + that.valveId + '?raw=true',
+                url: '/api/v1/valves/' + that.valveId + '?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.valveId !== '') {
@@ -19799,7 +19858,7 @@ if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
 __vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.valves),function(valve){return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(0,true),"\n                    "+_vm._s(_vm.$tc("components.valves", 2))+"\n                "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(valve.name)])," ",_vm._m(1,true)])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/valves/' + valve.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/valves/' + valve.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc("components.pumps", 1)),_vm._m(2,true)])," ",(valve.pump)?_vm._h('p',[_vm._h('a',{attrs:{"href":'/pumps/' + valve.pump.id}},[_vm._s(valve.pump.name)])]):_vm._e()," ",_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc("components.terraria", 1))])," ",(valve.terrarium)?_vm._h('p',[_vm._h('a',{attrs:{"href":'/terraria/' + valve.terrarium.id}},[_vm._s(valve.terrarium.name)])]):_vm._e()," ",_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc("components.controlunits", 1))])," ",(valve.controlunit)?_vm._h('p',[_vm._h('a',{attrs:{"href":'/controlunits/' + valve.controlunit.id}},[_vm._s(valve.controlunit.name)])]):_vm._e()])])])])})])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["rotate_right"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["close"])}]
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["transform"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["close"])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return

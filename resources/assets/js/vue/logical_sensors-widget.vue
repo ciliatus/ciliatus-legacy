@@ -109,7 +109,7 @@ export default {
                     item = index;
                 }
             });
-            if (item === null && this.subscribeAdd === true1) {
+            if (item === null && this.subscribeAdd === true) {
                 this.logical_sensors.push(cu.logical_sensor);
             }
             else if (item !== null) {

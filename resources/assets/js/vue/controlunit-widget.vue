@@ -114,7 +114,7 @@ export default {
                     item = index;
                 }
             });
-            if (item === null && this.subscribeAdd === true1) {
+            if (item === null && this.subscribeAdd === true) {
                 this.controlunits.push(cu.controlunit);
             }
             else if (item !== null) {

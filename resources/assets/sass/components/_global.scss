@@ -579,6 +579,50 @@ td, th{
     }
   }
 
+  &.ok {
+    @extend .white-text;
+    border: 1px solid color('teal', 'base');
+
+    .collection-header {
+      background-color: color('teal', 'base');
+      border-bottom: 1px solid color('teal', 'base');
+    }
+
+    .collection-item {
+      background-color: color('teal', 'lighten-1');
+      border-bottom: 1px solid color('teal', 'base');
+    }
+  }
+
+  &.warning {
+    @extend .white-text;
+    border: 1px solid color('orange', 'darken-3');
+
+    .collection-header {
+      background-color: color('orange', 'darken-3');
+      border-bottom: 1px solid color('orange', 'darken-3');
+    }
+
+    .collection-item {
+      background-color: color('orange', 'darken-2');
+      border-bottom: 1px solid color('orange', 'darken-3');
+    }
+  }
+
+  &.critical {
+    @extend .white-text;
+    border: 1px solid color('red', 'darken-4');
+
+    .collection-header {
+      background-color: color('red', 'darken-4');
+      border-bottom: 1px solid color('red', 'darken-4');
+    }
+
+    .collection-item {
+      background-color: color('red', 'darken-2');
+      border-bottom: 1px solid color('red', 'darken-4');
+    }
+  }
 }
 // Made less specific to allow easier overriding
 .secondary-content {

@@ -15,7 +15,7 @@
             <div v-for="as in action_sequences">
                 <p><strong>{{ as.name }}</strong> <i>{{ as.duration_minutes }} {{ $tc("units.minutes", as.duration_minutes) }}</i></p>
 
-                <p v-for="ass in as.schedules"><i class="material-icons">subdirectory_arrow_right</i> {{ ass.timestamps.starts }} <i v-show="!ass.runonce">{{ $t("labels.daily") }}</i></p>
+                <p v-for="ass in as.schedules"><i class="material-icons">schedule</i> {{ ass.timestamps.starts }} <i v-show="!ass.runonce">{{ $t("labels.daily") }}</i></p>
             </div>
 
         </div>
@@ -100,7 +100,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter + '&raw=true',
+                url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter + '?raw=true',
                 method: 'GET',
                 success: function (data) {
                     if (that.action_sequenceId !== '') {

@@ -77,6 +77,11 @@ export default {
             type: String,
             required: true
         },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -121,7 +126,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/animals/' + that.animalId + '/weighings',
+                url: '/api/v1/animals/' + that.animalId + '/weighings?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     that.animal_weighings = data.data;

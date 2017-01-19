@@ -52,8 +52,8 @@ export default {
         },
         FilterColumn: {
             type: String,
-            default: null,
-            required: true
+            default: 'created_at',
+            required: false
         },
         ShowFilterForm: {
             type: Boolean,
@@ -62,7 +62,7 @@ export default {
         },
         FilterFromDate: {
             type: String,
-            default: (new Date).toYmd(),
+            default: (new Date((new Date).setDate((new Date).getDate() - 7))).toYmd(),
             required: false
         },
         FilterToDate: {
@@ -71,6 +71,7 @@ export default {
             required: false
         }
     },
+
     data () {
         return {
             chart: null,
@@ -81,18 +82,18 @@ export default {
 
     methods: {
         get_filter_from_date: function() {
-            if ($('#filter_from_' + this.id).val() === null) {
+            if ($('#filter_from_' + this.id).val() == undefined) {
                 return this.FilterFromDate;
             }
 
             return $('#filter_from_' + this.id).val();
         },
         get_filter_to_date: function() {
-            if ($('#filter_to_' + this.id).val() === null) {
-                return this.FilterToDate;
+            if ($('#filter_to_' + this.id).val() == undefined) {
+                return this.FilterToDate + " 23:59:59";
             }
 
-            return $('#filter_to_' + this.id).val();
+            return $('#filter_to_' + this.id).val() + " 23:59:59";
         },
 
         init: function() {
@@ -101,7 +102,7 @@ export default {
         build: function() {
             $('#dygraph_' + this.id + '_loading').show();
             var that = this;
-            var url = this.source + '&filter[' + this.FilterColumn + ']=gt:' + this.get_filter_from_date() + ':and:lt:' + this.get_filter_to_date();
+            var url = this.source + '&filter[' + this.FilterColumn + ']=ge:' + this.get_filter_from_date() + ':and:le:' + this.get_filter_to_date();
 
             $.ajax({
                 url: url,

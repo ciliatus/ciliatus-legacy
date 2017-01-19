@@ -80,6 +80,11 @@ export default {
             type: String,
             required: true
         },
+        sourceFilter: {
+            type: String,
+            default: 'filter[last_finished_at]=nottoday',
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -124,7 +129,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/animals/' + that.animalId + '/feedings',
+                url: '/api/v1/animals/' + that.animalId + '/feedings?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     that.animal_feedings = data.data;
