@@ -262,7 +262,9 @@ class ApiController extends Controller
                         $field_filter[1] = str_replace('*', '%', $field_filter[1]);
                         $operator = str_replace('notlike', 'not like', $field_filter[0]);
                         $operator = str_replace('gt', '>', $operator);
+                        $operator = str_replace('ge', '>=', $operator);
                         $operator = str_replace('lt', '<', $operator);
+                        $operator = str_replace('le', '<=', $operator);
                         $operator = str_replace('eq', '=', $operator);
                         $query = $query->where($field, $operator, $field_filter[1]);
                     } else {
