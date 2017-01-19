@@ -48,23 +48,21 @@
 
                     <div class="card-content">
                         <span class="card-title activator truncate">
-                            <span>{{ animal.display_name }}</span>
-                            <i class="material-icons right">more_vert</i>
+                            <span>{{ animal.display_name }} </span>
+                            <i class="material-icons right" v-if="!animal.death_date">more_vert</i>
                         </span>
                         <p>
                             <span v-show="animal.latin_name">{{ animal.latin_name }}</span>
                             <span v-show="animal.common_name && !animal.latin_name">{{ animal.common_name }}</span>
-                            <br />
+                            <span v-show="animal.birth_date || animal.death_date">, {{ animal.age_value }} {{ $tc("units." + animal.age_unit, animal.age_value) }}</span>
 
-                            <span v-show="animal.birth_date !== null">{{ animal.birth_date }}</span>
-                            <span v-show="animal.death_date !== null"> - {{ animal.death_date }}</span>
-                            <span v-show="animal.birth_date || animal.death_date"><i>{{ animal.age_value }} {{ $tc("units." + animal.age_unit, animal.age_value) }}</i></span>
-
-                            <span v-if="animal.last_feeding">
+                            <span v-if="animal.last_feeding && !animal.death_date">
                                 <br />
+                                <i class="material-icons tiny">local_dining</i>
                                 <span v-if="animal.last_feeding.timestamps.diff.value == 0">{{ $t("labels.today") }}</span>
-                                <span v-if="animal.last_feeding.timestamps.diff.value > 0">{{ animal.last_feeding.timestamps.diff.value }} {{ $tc("units." + animal.last_feeding.timestamps.diff.unit, animal.last_feeding.timestamps.diff.value) }}</span>
-                                <i>{{ animal.last_feeding.name }}</i>
+                                <span v-if="animal.last_feeding.timestamps.diff.value > 0">
+                                    {{ $t('units.' + animal.last_feeding.timestamps.diff.unit + '_ago', {val: animal.last_feeding.timestamps.diff.value}) }}: {{ animal.last_feeding.name }}
+                                </span>
                             </span>
                             <br />
                         </p>
@@ -75,7 +73,7 @@
                         <a v-bind:href="'/animals/' + animal.id + '/edit'">{{ $t("buttons.edit") }}</a>
                     </div>
 
-                    <div class="card-reveal">
+                    <div class="card-reveal" v-if="!animal.death_date">
                         <span class="card-title">{{ $tc("components.terraria", 1) }}<i class="material-icons right">close</i></span>
 
                         <p>
@@ -107,9 +105,19 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         animalId: {
             type: String,
             default: null,
+            required: false
+        },
+        sourceFilter: {
+            type: String,
+            default: '',
             required: false
         },
         wrapperClasses: {
@@ -173,6 +181,59 @@ export default {
 
         submit: function(e) {
             window.submit_form(e);
+        },
+
+        load_data: function() {
+            var that = this;
+
+            var source_url = '';
+            if (this.animalId !== null) {
+                source_url = '/api/v1/animals/' + this.animalId
+            }
+            else {
+                source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc&raw=true&' + this.sourceFilter;
+            }
+
+            window.eventHubVue.processStarted();
+            $.ajax({
+                url: source_url,
+                method: 'GET',
+                success: function (data) {
+                    if (that.animalId !== null) {
+                        that.animals = [data.data];
+                    }
+                    else {
+                        that.animals = data.data;
+                    }
+
+                    that.$nextTick(function() {
+                        $('#' + that.containerId).masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col',
+                        });
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+
+            window.eventHubVue.processStarted();
+            $.ajax({
+                url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw=true',
+                method: 'GET',
+                success: function (data) {
+                    that.feeding_types = data.data;
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
 
     },
@@ -185,55 +246,15 @@ export default {
                 this.delete(e);
             });
 
-        window.eventHubVue.processStarted();
 
-        var source_url = '';
-        if (this.animalId !== null) {
-            source_url = '/api/v1/animals/' + this.animalId
-        }
-        else {
-            source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc&raw=true';
-        }
+        this.load_data();
 
         var that = this;
-        $.ajax({
-            url: source_url,
-            method: 'GET',
-            success: function (data) {
-                if (that.animalId !== null) {
-                    that.animals = [data.data];
-                }
-                else {
-                    that.animals = data.data;
-                }
-
-                that.$nextTick(function() {
-                    $('#' + that.containerId).masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col',
-                    });
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
-
-        $.ajax({
-            url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw=true',
-            method: 'GET',
-            success: function (data) {
-                that.feeding_types = data.data;
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 
 }

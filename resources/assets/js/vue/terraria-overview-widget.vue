@@ -128,6 +128,11 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         subscribeAdd: {
             type: Boolean,
             default: true,
@@ -186,6 +191,24 @@ export default {
         submit: function(e) {
             window.submit_form(e);
         },
+
+        load_data: function() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/terraria/?raw=true&history_minutes=0',
+                method: 'GET',
+                success: function (data) {
+                    that.terraria = data.data;
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+        }
     },
 
     created: function() {
@@ -196,21 +219,15 @@ export default {
                 this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
-        var that = this;
-        $.ajax({
-            url: '/api/v1/terraria/?raw=true&history_minutes=0',
-            method: 'GET',
-            success: function (data) {
-                that.terraria = data.data;
 
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        this.load_data();
+
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 
 }

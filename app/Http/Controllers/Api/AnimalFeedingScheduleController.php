@@ -5,11 +5,14 @@ namespace App\Http\Controllers\Api;
 use App\Animal;
 use App\Events\AnimalFeedingScheduleDeleted;
 use App\Events\AnimalFeedingScheduleUpdated;
+use App\Events\AnimalFeedingUpdated;
+use App\Events\AnimalUpdated;
 use App\Http\Transformers\AnimalFeedingScheduleTransformer;
 use App\Property;
 use App\Repositories\AnimalFeedingRepository;
 use App\Repositories\AnimalFeedingScheduleRepository;
 use Carbon\Carbon;
+use App\Event;
 use Illuminate\Http\Request;
 use Gate;
 use App\Http\Requests;
@@ -117,7 +120,7 @@ class AnimalFeedingScheduleController extends ApiController
      */
     public function store(Request $request, $animal_id)
     {
-        if (Gate::denies('api-write:controlunit')) {
+        if (Gate::denies('api-write:animal_feeding_schedule')) {
             return $this->respondUnauthorized();
         }
 
@@ -145,6 +148,7 @@ class AnimalFeedingScheduleController extends ApiController
         }
 
         broadcast(new AnimalFeedingScheduleUpdated($p));
+        broadcast(new AnimalUpdated($animal));
 
         return $this->setStatusCode(200)->respondWithData(
             [
@@ -191,14 +195,18 @@ class AnimalFeedingScheduleController extends ApiController
      */
     public function update(Request $request, $animal_id, $id)
     {
+        if (Gate::denies('api-write:animal_feeding_schedule')) {
+            return $this->respondUnauthorized();
+        }
+
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return view('error.404');
+            return $this->respondNotFound();
         }
 
         $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
         if (is_null($afs)) {
-            return view('error.404');
+            return $this->respondNotFound();
         }
 
         $afs->name = $request->input('meal_type');
@@ -206,6 +214,7 @@ class AnimalFeedingScheduleController extends ApiController
         $afs->save();
 
         broadcast(new AnimalFeedingScheduleUpdated($afs));
+        broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([], [
             'redirect' => [
@@ -223,14 +232,18 @@ class AnimalFeedingScheduleController extends ApiController
      */
     public function destroy($animal_id, $id)
     {
+        if (Gate::denies('api-write:animal_feeding_schedule')) {
+            return $this->respondUnauthorized();
+        }
+
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return view('error.404');
+            return $this->respondNotFound();
         }
 
         $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
         if (is_null($afs)) {
-            return view('error.404');
+            return $this->respondNotFound();
         }
 
         $afs_properties = Property::where('belongsTo_type', 'Property')->where('belongsTo_id', $afs->id)->get();
@@ -239,6 +252,7 @@ class AnimalFeedingScheduleController extends ApiController
         }
 
         broadcast(new AnimalFeedingScheduleDeleted($afs->id));
+        broadcast(new AnimalUpdated($animal));
 
         $afs->delete();
 
@@ -248,5 +262,76 @@ class AnimalFeedingScheduleController extends ApiController
                 'delay' => 1000
             ]
         ]);
+    }
+
+    /**
+     * @param $animal_id
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function done($animal_id, $id)
+    {
+        if (Gate::denies('api-write:animal_feeding_schedule')) {
+            return $this->respondUnauthorized();
+        }
+
+        $animal = Animal::find($animal_id);
+        if (is_null($animal)) {
+            return $this->respondNotFound();
+        }
+
+        $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
+        if (is_null($afs)) {
+            return $this->respondNotFound();
+        }
+
+        $e = Event::create([
+            'belongsTo_type' => 'Animal',
+            'belongsTo_id' => $animal->id,
+            'type' => 'AnimalFeeding',
+            'name' => $afs->name,
+            'value' => 1
+        ]);
+
+        broadcast(new AnimalFeedingUpdated($e));
+        broadcast(new AnimalFeedingScheduleUpdated($afs));
+        broadcast(new AnimalUpdated($animal));
+
+        return $this->respondWithData([]);
+    }
+
+    /**
+     * @param $animal_id
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function skip($animal_id, $id)
+    {
+        if (Gate::denies('api-write:animal_feeding_schedule')) {
+            return $this->respondUnauthorized();
+        }
+
+        $animal = Animal::find($animal_id);
+        if (is_null($animal)) {
+            return $this->respondNotFound();
+        }
+
+        $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
+        if (is_null($afs)) {
+            return $this->respondNotFound();
+        }
+
+        $p = Property::create([
+            'belongsTo_type' => 'Property',
+            'belongsTo_id' => $afs->id,
+            'type' => 'AnimalFeedingScheduleStartDate',
+            'name' => 'starts_at',
+            'value' => Carbon::today()->addDays((int)$afs->value)->format('Y-m-d')
+        ]);
+
+        broadcast(new AnimalFeedingScheduleUpdated($afs));
+        broadcast(new AnimalUpdated($animal));
+
+        return $this->respondWithData([]);
     }
 }

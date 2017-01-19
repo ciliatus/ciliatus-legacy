@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">{{ $tc("components.logical_sensors", 2) }}</span>
+                        <span class="card-title grey-text text-darken-4">{{ $tc("components.logical_sensors", 2) }} <i class="material-icons right">close</i></span>
 
                         <p v-for="logical_sensor in physical_sensor.logical_sensors">
                             <a v-bind:href="'/logical_sensors/' + logical_sensor.id">{{ logical_sensor.name }}</a>
@@ -45,7 +45,17 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         physical_sensorId: {
+            type: String,
+            default: '',
+            required: false
+        },
+        sourceFilter: {
             type: String,
             default: '',
             required: false
@@ -85,7 +95,7 @@ export default {
                     item = index;
                 }
             });
-            if (item === null && this.subscribeAdd === true1) {
+            if (item === null && this.subscribeAdd === true) {
                 this.physical_sensors.push(cu.physical_sensor);
             }
             else if (item !== null) {
@@ -120,6 +130,36 @@ export default {
         refresh_grid: function() {
             $('#' + this.containerId).masonry('reloadItems');
             $('#' + this.containerId).masonry('layout');
+        },
+
+        load_data: function() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw=true&' + that.sourceFilter,
+                method: 'GET',
+                success: function (data) {
+                    if (that.physical_sensorId !== '') {
+                        that.physical_sensors = [data.data];
+                    }
+                    else {
+                        that.physical_sensors = data.data;
+                    }
+
+                    that.$nextTick(function() {
+                        $('#' + that.containerId).masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col',
+                        });
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -131,33 +171,14 @@ export default {
                 this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw=true',
-            method: 'GET',
-            success: function (data) {
-                if (that.physical_sensorId !== '') {
-                    that.physical_sensors = [data.data];
-                }
-                else {
-                    that.physical_sensors = data.data;
-                }
-
-                that.$nextTick(function() {
-                    $('#' + that.containerId).masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col',
-                    });
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 }
 </script>

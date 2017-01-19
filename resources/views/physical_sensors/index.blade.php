@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="container">
-        <physical_sensors-widget container-classes="row" wrapper-classes="col s12 m6 l4"></physical_sensors-widget>
+        <physical_sensors-widget :refresh-timeout-seconds="60" container-classes="row" wrapper-classes="col s12 m6 l4"></physical_sensors-widget>
     </div>
 
     <div class="fixed-action-btn">

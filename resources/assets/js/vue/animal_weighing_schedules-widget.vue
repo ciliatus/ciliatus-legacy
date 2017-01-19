@@ -55,9 +55,19 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         animalId: {
             type: String,
             required: true
+        },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
         },
         wrapperClasses: {
             type: String,
@@ -102,8 +112,24 @@ export default {
 
         submit: function(e) {
             window.submit_form(e);
-        }
+        },
 
+        load_data: function() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/animals/' + that.animalId + '/weighing_schedules?raw=true&' + that.sourceFilter,
+                method: 'GET',
+                success: function (data) {
+                    that.animal_weighing_schedules = data.data;
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+        }
     },
 
     created: function() {
@@ -114,20 +140,15 @@ export default {
                 this.delete(e);
             });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/animals/' + that.animalId + '/weighing_schedules?raw=true',
-            method: 'GET',
-            success: function (data) {
-                that.animal_weighing_schedules = data.data;
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
+
     }
 
 }

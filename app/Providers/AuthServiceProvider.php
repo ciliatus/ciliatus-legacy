@@ -62,8 +62,28 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAbility('grant_api-write:terrarium');
         });
 
+        $gate->define('api-write:caresheet', function ($user) {
+            return $user->hasAbility('grant_api-write:caresheet');
+        });
+
         $gate->define('api-write:animal', function ($user) {
             return $user->hasAbility('grant_api-write:animal');
+        });
+
+        $gate->define('api-write:animal_feeding', function ($user) {
+            return $user->hasAbility('grant_api-write:animal_feeding');
+        });
+
+        $gate->define('api-write:animal_feeding_schedule', function ($user) {
+            return $user->hasAbility('grant_api-write:animal_feeding_schedule');
+        });
+
+        $gate->define('api-write:animal_weighing', function ($user) {
+            return $user->hasAbility('grant_api-write:animal_weighing');
+        });
+
+        $gate->define('api-write:animal_weighing_schedule', function ($user) {
+            return $user->hasAbility('grant_api-write:animal_weighing_schedule');
         });
 
         $gate->define('api-write:valve', function ($user) {
@@ -124,6 +144,10 @@ class AuthServiceProvider extends ServiceProvider
 
         $gate->define('api-write:action_sequence_schedule', function ($user) {
             return $user->hasAbility('grant_api-write:action_sequence_schedule');
+        });
+
+        $gate->define('api-write:property', function ($user) {
+            return $user->hasAbility('grant_api-write:property');
         });
 
         $gate->define('api-write:property', function ($user) {

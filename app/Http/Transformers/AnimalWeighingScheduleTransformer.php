@@ -22,7 +22,6 @@ class AnimalWeighingScheduleTransformer extends Transformer
             'id'    => $item['id'],
             'type'  => $item['name'],
             'interval_days'  => $item['value'],
-            'animal' => (new AnimalTransformer())->transform($item['animal']),
             'due_days' => isset($item['next_weighing_at_diff']) ? $item['next_weighing_at_diff'] : 0,
             'timestamps' => [
                 'created' => $item['created_at'],
@@ -32,6 +31,10 @@ class AnimalWeighingScheduleTransformer extends Transformer
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
+
+        if (isset($item['animal'])) {
+            $return['animal'] = (new AnimalTransformer())->transform($item['animal']);
+        }
 
         return $return;
     }

@@ -59,7 +59,7 @@ class Controlunit extends CiliatusModel
      */
     public function physical_sensors()
     {
-        return $this->hasMany('App\PhysicalSensor');
+        return $this->hasMany('App\PhysicalSensor')->with('logical_sensors');
     }
 
     /**

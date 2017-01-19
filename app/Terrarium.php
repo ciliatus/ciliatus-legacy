@@ -9,6 +9,7 @@ use App\Repositories\SensorreadingRepository;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 
 /**
  * Class Terrarium
@@ -193,32 +194,63 @@ class Terrarium extends CiliatusModel
         return $this->fetchSensorreadings('humidity_percent', $minutes, $to);
     }
 
+
     /**
-     * @return bool
+     * @param $type
+     * @param int $days
+     * @param Carbon $to
+     * @param Carbon|null $time_from
+     * @param Carbon|null $time_to
+     * @return Collection
      */
-    public function heartbeatOk()
+    public function getSensorreadingStats($type, $days, Carbon $to, Carbon $time_from = null, Carbon $time_to = null)
     {
-        foreach ($this->physical_sensors as $ps) {
-            if ($ps->heartbeatOk() !== true)
-                return false;
+        return $this->fetchSensorreadings($type, $days*24*60, $to, $time_from, $time_to, true);
+    }
 
-            if (!is_null($ps->controlunit)) {
-                if ($ps->controlunit->heartbeatOk() !== true)
-                    return false;
-            }
+    /**
+     * @param int $days
+     * @param Carbon $to
+     * @param Carbon|null $time_from
+     * @param Carbon|null $time_to
+     * @return Collection
+     */
+    public function getHumidityStats($days, Carbon $to = null, Carbon $time_from = null, Carbon $time_to = null)
+    {
+        if (is_null($to)) {
+            $to = Carbon::today();
         }
-
-        return true;
+        return $this->getSensorreadingStats('humidity_percent', $days, $to, $time_from, $time_to);
     }
 
 
     /**
+     * @param int $days
+     * @param Carbon $to
+     * @param Carbon|null $time_from
+     * @param Carbon|null $time_to
+     * @return Collection
+     */
+    public function getTemperatureStats($days, Carbon $to = null, Carbon $time_from = null, Carbon $time_to = null)
+    {
+        if (is_null($to)) {
+            $to = Carbon::today();
+        }
+        return $this->getSensorreadingStats('temperature_celsius', $days, $to, $time_from, $time_to);
+    }
+
+    /**
      * @param $type
      * @param null $minutes
-     * @param Carbon $to
-     * @return array|static[]
+     * @param Carbon|null $to
+     * @param Carbon|null $time_from
+     * @param Carbon|null $time_to
+     * @param bool $return_stats If true, a float with the average value will be returned
+     * @return Collection
      */
-    private function fetchSensorreadings($type, $minutes = null, Carbon $to = null)
+    private function fetchSensorreadings($type, $minutes = null, Carbon $to = null,
+                                         Carbon $time_from = null, Carbon $time_to = null,
+                                         $return_stats = false)
     {
         if (is_null($to)) {
             $to = Carbon::now();
@@ -242,15 +274,14 @@ class Terrarium extends CiliatusModel
             }
         }
 
-
         $query = DB::table('sensorreadings')->where('created_at', '<', $to)
                                             ->where('created_at', '>', $from);
 
+        if ($return_stats) {
+            return (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids, $time_from, $time_to, true)->get()->first();
+        }
 
-        $sensor_readings = (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids);
-
-        return $sensor_readings->get()->toArray();
-
+        return (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids, $time_from, $time_to)->get();
     }
 
     /**
@@ -273,6 +304,24 @@ class Terrarium extends CiliatusModel
             return round($avg / $count, 1);
 
         return null;
+    }
+
+    /**
+     * @return bool
+     */
+    public function heartbeatOk()
+    {
+        foreach ($this->physical_sensors as $ps) {
+            if ($ps->heartbeatOk() !== true)
+                return false;
+
+            if (!is_null($ps->controlunit)) {
+                if ($ps->controlunit->heartbeatOk() !== true)
+                    return false;
+            }
+        }
+
+        return true;
     }
 
     /**

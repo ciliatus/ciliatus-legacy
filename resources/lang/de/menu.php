@@ -15,5 +15,6 @@ return [
     'terraria'      =>  'Terrarien',
     'users'         =>  'Benutzer',
     'animal_feeding_types' => 'Nahrungsarten',
-    'logs'          =>  'Protokoll'
+    'logs'          =>  'Protokoll',
+    'categories'    =>  'Kategorien'
 ];

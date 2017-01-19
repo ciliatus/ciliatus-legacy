@@ -11,9 +11,19 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         assId: {
             type: String,
             default: '',
+            required: false
+        },
+        sourceFilter: {
+            type: String,
+            default: 'filter[last_finished_at]=nottoday',
             required: false
         },
         wrapperClasses: {
@@ -50,6 +60,29 @@ export default {
             if (item !== null) {
                 this.action_sequence_schedules.splice(item, 1);
             }
+        },
+
+        load_data: function() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: uri,
+                method: 'GET',
+                success: function (data) {
+                    if (that.assId !== '') {
+                        that.action_sequence_schedules = [data.data];
+                    }
+                    else {
+                        that.action_sequence_schedules = data.data;
+                    }
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -63,32 +96,20 @@ export default {
 
         var uri = '';
         if (this.assid === '') {
-            uri = '/api/v1/action_sequence_schedules/?filter[last_finished_at]=nottoday&raw=true';
+            uri = '/api/v1/action_sequence_schedules/?raw=true&' + this.sourceFilter;
         }
         else {
             uri = '/api/v1/action_sequence_schedules/' + this.assid;
         }
 
-        window.eventHubVue.processStarted();
-        var that = this;
-        $.ajax({
-            url: uri,
-            method: 'GET',
-            success: function (data) {
-                if (that.assId !== '') {
-                    that.action_sequence_schedules = [data.data];
-                }
-                else {
-                    that.action_sequence_schedules = data.data;
-                }
+        this.load_data();
 
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 }
 </script>

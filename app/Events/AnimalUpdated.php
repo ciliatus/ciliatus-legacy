@@ -4,7 +4,7 @@ namespace App\Events;
 
 use App\Http\Transformers\AnimalTransformer;
 use App\Animal;
-use Carbon\Carbon;
+use App\Repositories\AnimalRepository;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -26,18 +26,9 @@ class AnimalUpdated implements ShouldBroadcast
      */
     public function __construct(Animal $a)
     {
-        $transformer = new AnimalTransformer(
-            Animal::with('events')
-                ->with('feedings')
-                ->with('feeding_schedules')
-                ->with('weighings')
-                ->with('weighing_schedules')
-                ->with('files')
-                ->with('properties')
-                ->with('terrarium')
-                ->find($a->id)
-        );
-        $this->animal = $transformer->transform($a->toArray());
+        $animal = (new AnimalRepository())->show($a->id);
+        $transformer = new AnimalTransformer();
+        $this->animal = $transformer->transform($animal->toArray());
     }
 
     /**

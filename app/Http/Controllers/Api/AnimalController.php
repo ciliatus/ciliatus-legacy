@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Event;
+use App\Http\Transformers\AnimalCaresheetTransformer;
 use App\Http\Transformers\AnimalTransformer;
 use App\Animal;
 use App\Property;
@@ -42,15 +44,7 @@ class AnimalController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $animals = Animal::with('events')
-                        ->with('feedings')
-                        ->with('feeding_schedules')
-                        ->with('weighings')
-                        ->with('weighing_schedules')
-                        ->with('files')
-                        ->with('properties')
-                        ->with('terrarium');
-
+        $animals = Animal::query();
         $animals = $this->filter($request, $animals);
 
         /*
@@ -97,21 +91,12 @@ class AnimalController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $animal = Animal::with('events')
-                        ->with('feedings')
-                        ->with('feeding_schedules')
-                        ->with('weighings')
-                        ->with('weighing_schedules')
-                        ->with('files')
-                        ->with('properties')
-                        ->with('terrarium')
-                        ->find($id);
+        $animal = (new AnimalRepository())->show($id);
 
         if (!$animal) {
             return $this->respondNotFound('Animal not found');
         }
 
-        $animal = (new AnimalRepository($animal))->show();
 
         return $this->setStatusCode(200)->respondWithData(
             $this->animalTransformer->transform(
@@ -255,6 +240,75 @@ class AnimalController extends ApiController
             ]
         ]);
 
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store_caresheet(Request $request)
+    {
+        if (Gate::denies('api-write:caresheet')) {
+            return $this->respondUnauthorized();
+        }
+
+        $animal = Animal::find($this->getBelongsTo($request)['belongsTo_id']);
+        if (is_null($animal)) {
+            return $this->respondNotFound('Animal not found.');
+        }
+
+        $caresheet = $animal->generate_caresheet();
+
+        return $this->respondWithData([], [
+            'redirect' => [
+                'uri' => url('animals/' . $animal->id . '/caresheets/' . $caresheet->id)
+            ]
+        ]);
+
+    }
+
+    /**
+     * @param $animal_id
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete_caresheet($animal_id, $id)
+    {
+        if (Gate::denies('api-write:caresheet')) {
+            return $this->respondUnauthorized();
+        }
+
+        $animal = Animal::find($animal_id);
+        if (is_null($animal)) {
+            return $this->respondNotFound();
+        }
+
+        $animal->delete_caresheet($id);
+
+        return $this->respondWithData([], [
+            'redirect' => [
+                'uri' => url('animals/' . $animal->id . '/#tab_caresheets')
+            ]
+        ]);
+
+    }
+
+    /**
+     * @param $animal_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function caresheets($animal_id)
+    {
+        $animal = Animal::find($animal_id);
+        if (is_null($animal)) {
+            return view('errors.404');
+        }
+
+        return $this->respondWithData(
+            (new AnimalCaresheetTransformer())->transformCollection(
+                $animal->caresheets->toArray()
+            )
+        );
     }
 
 }

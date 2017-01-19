@@ -161,6 +161,9 @@ class ApiController extends Controller
     }
 
     /**
+     * Retrieve belonging object from belongsTo request field
+     * and set properties on $object
+     *
      * @param $request
      * @param $object
      * @param bool $dynamic
@@ -197,6 +200,38 @@ class ApiController extends Controller
         return $object;
     }
 
+    /**
+     * Return belonging object name and id from belongsTo request field
+     *
+     * @param $request
+     * @return array|\Illuminate\Http\JsonResponse
+     */
+    protected function getBelongsTo($request)
+    {
+        if ($request->has('belongsTo') && $request->input('belongsTo') != '') {
+            $belongsTo_type = explode("|", $request->input('belongsTo'))[0];
+            $belongsTo_id = explode("|", $request->input('belongsTo'))[1];
+            $class_name = 'App\\' . $belongsTo_type;
+            if (class_exists($class_name)) {
+                $belongs = $class_name::find($belongsTo_id);
+                if (is_null($belongs)) {
+                    return $this->setStatusCode(422)
+                        ->respondWithError('Model not found');
+                }
+            }
+            else {
+                return $this->setStatusCode(422)
+                    ->respondWithError('Class not found');
+            }
+
+            return [
+                'belongsTo_type' => $belongsTo_type,
+                'belongsTo_id' => $belongsTo_id
+            ];
+        }
+
+    }
+
     /*
      * .../?filter[field]=operator:comparison
      * .../?filter[field]=operator
@@ -227,7 +262,9 @@ class ApiController extends Controller
                         $field_filter[1] = str_replace('*', '%', $field_filter[1]);
                         $operator = str_replace('notlike', 'not like', $field_filter[0]);
                         $operator = str_replace('gt', '>', $operator);
+                        $operator = str_replace('ge', '>=', $operator);
                         $operator = str_replace('lt', '<', $operator);
+                        $operator = str_replace('le', '<=', $operator);
                         $operator = str_replace('eq', '=', $operator);
                         $query = $query->where($field, $operator, $field_filter[1]);
                     } else {

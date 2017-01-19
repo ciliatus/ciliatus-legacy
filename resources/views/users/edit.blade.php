@@ -249,6 +249,22 @@
                                 </div>
                             </div>
 
+                            <div class="row"><div class="col s12"><br /></div></div>
+
+                            <div class="row">
+                                <div class="input-field col s12 m6 l6">
+                                    <input class="timepicker" placeholder="@lang('labels.auto_nightmode') @lang('labels.starts_at')" name="night_starts_at"
+                                           data-default="{{ $user->setting('night_starts_at') }}" value="{{ $user->setting('night_starts_at') }}">
+                                    <label for="name">@lang('labels.auto_nightmode') @lang('labels.starts_at')</label>
+                                </div>
+
+                                <div class="input-field col s12 m6 l6">
+                                    <input class="timepicker" placeholder="@lang('labels.auto_nightmode') @lang('labels.ends_at')" name="night_ends_at"
+                                           data-default="{{ $user->setting('night_ends_at') }}" value="{{ $user->setting('night_ends_at') }}">
+                                    <label for="name">@lang('labels.auto_nightmode') @lang('labels.ends_at')</label>
+                                </div>
+                            </div>
+
                             @if(Gate::allows('admin'))
                                 <div class="row"><br /></div>
                                 <div class="row">
@@ -355,6 +371,14 @@
             </div>
         </div>
     </div>
+
+    <script>
+        $(document).ready(function() {
+            $('.timepicker').pickatime({
+                twelvehour: false
+            });
+        });
+    </script>
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large teal">

@@ -43,6 +43,11 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -72,7 +77,7 @@ export default {
              * Load feeding types
              */
             $.ajax({
-                url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw',
+                url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw=true',
                 method: 'GET',
                 success: function (data) {
                     that.feeding_types = data.data;
@@ -81,7 +86,7 @@ export default {
                      * Load animals
                      */
                     $.ajax({
-                        url: '/api/v1/animals?filter[death_date]=null&raw',
+                        url: '/api/v1/animals?filter[death_date]=null&raw=true',
                         method: 'GET',
                         success: function (data) {
                             that.animals = data.data;
@@ -139,6 +144,13 @@ export default {
 
     created: function() {
         this.load_data();
+
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 }
 </script>

@@ -8,7 +8,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <controlunits-widget controlunit-id="{{ $controlunit->id }}" :subscribe-add="false" :subscribe-delete="false"></controlunits-widget>
+            <controlunits-widget :refresh-timeout-seconds="60" controlunit-id="{{ $controlunit->id }}" :subscribe-add="false" :subscribe-delete="false"></controlunits-widget>
         </div>
     </div>
 

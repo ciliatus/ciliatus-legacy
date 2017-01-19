@@ -26,11 +26,26 @@ class AnimalRepository extends Repository
     }
 
     /**
+     * @param $id integer
      * @return Animal
      */
-    public function show()
+    public function show($id = null)
     {
-        $animal = $this->scope;
+        if (is_null($id)) {
+            $animal = $this->scope;
+        }
+        else {
+            $animal = Animal::with('events')
+                            ->with('feedings')
+                            ->with('feeding_schedules')
+                            ->with('weighings')
+                            ->with('weighing_schedules')
+                            ->with('biography_entries')
+                            ->with('files')
+                            ->with('properties')
+                            ->with('terrarium')
+                            ->find($id);
+        }
 
         if (!is_null($animal->terrarium_id))
             $animal->terrarium_object = $animal->terrarium;

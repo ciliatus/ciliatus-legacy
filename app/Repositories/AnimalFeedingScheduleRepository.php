@@ -34,8 +34,7 @@ class AnimalFeedingScheduleRepository extends Repository {
         $animal = $fs->belongsTo_object()->get()->first();
         $fs->animal = $animal->toArray();
         $last_feeding_of_type = $animal->last_feeding($fs->name);
-        $starts_at = Property::where('type', 'AnimalFeedingScheduleStartDate')->where('belongsTo_id', $fs->id)->get()->first();
-
+        $starts_at = Property::where('type', 'AnimalFeedingScheduleStartDate')->where('belongsTo_id', $fs->id)->orderBy('created_at', 'desc')->get()->first();
 
         /*
          * If there already was a feeding of this type
@@ -43,13 +42,15 @@ class AnimalFeedingScheduleRepository extends Repository {
          *
          * Compare the schedule to the last feeding
          */
-        if (!is_null($last_feeding_of_type) && (is_null($starts_at) || Carbon::parse($starts_at->value)->lt($last_feeding_of_type->created_at))) {
+        if ((!is_null($last_feeding_of_type) && is_null($starts_at)) ||
+            (!is_null($last_feeding_of_type) && !is_null($starts_at) &&
+                Carbon::parse($starts_at->value)->lte($last_feeding_of_type->created_at->addDays((int)$fs->value)))) {
             $last_feeding_at = $last_feeding_of_type->created_at;
             $last_feeding_at->hour = 0;
             $last_feeding_at->minute = 0;
             $last_feeding_at->second = 0;
 
-            $next_feeding_at = $last_feeding_at->addDays((int)$fs->value);
+            $next_feeding_at = (clone $last_feeding_at)->addDays((int)$fs->value);
 
             $now = Carbon::now();
             $now->hour = 0;
@@ -76,7 +77,7 @@ class AnimalFeedingScheduleRepository extends Repository {
                 $next_feeding_at = Carbon::parse($starts_at->value);
                 $fs->next_feeding_at = $starts_at->value;
             }
-            $fs->next_feeding_at_diff = Carbon::now()->diffInDays($next_feeding_at);
+            $fs->next_feeding_at_diff = Carbon::now()->diffInDays($next_feeding_at, false);
         }
         return $fs;
     }

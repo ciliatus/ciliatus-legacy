@@ -6,6 +6,7 @@ use App\Animal;
 use App\Event;
 use App\Events\AnimalFeedingScheduleDeleted;
 use App\Events\AnimalFeedingUpdated;
+use App\Events\AnimalUpdated;
 use App\Http\Transformers\AnimalFeedingTransformer;
 use App\Property;
 use App\Repositories\AnimalFeedingRepository;
@@ -107,7 +108,7 @@ class AnimalFeedingController extends ApiController
      */
     public function store(Request $request, $id)
     {
-        if (Gate::denies('api-write:animal')) {
+        if (Gate::denies('api-write:animal_feeding')) {
             return $this->respondUnauthorized();
         }
 
@@ -124,9 +125,8 @@ class AnimalFeedingController extends ApiController
             'value' => $request->has('count') ? $request->input('count') : ''
         ]);
 
-        $animal->save();
-
         broadcast(new AnimalFeedingUpdated($e));
+        broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
     }
@@ -222,7 +222,7 @@ class AnimalFeedingController extends ApiController
         return $this->respondWithData([],
             [
                 'redirect' => [
-                    'uri' => url('animals/feedings/types')
+                    'uri' => url('categories#tab_feeding_types')
                 ]
             ]);
     }
@@ -249,7 +249,7 @@ class AnimalFeedingController extends ApiController
         return $this->respondWithData([],
             [
                 'redirect' => [
-                    'uri' => url('animals/feedings/types')
+                    'uri' => url('categories#tab_feeding_types')
                 ]
             ]);
     }

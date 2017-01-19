@@ -133,7 +133,7 @@ class AnimalWeighingController extends ApiController
      */
     public function store(Request $request, $id)
     {
-        if (Gate::denies('api-write:animal')) {
+        if (Gate::denies('api-write:animal_weighing')) {
             return $this->respondUnauthorized();
         }
 
@@ -150,9 +150,8 @@ class AnimalWeighingController extends ApiController
             'value' => $request->input('weight')
         ]);
 
-        $animal->save();
-
         broadcast(new AnimalWeighingUpdated($e));
+        broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
     }

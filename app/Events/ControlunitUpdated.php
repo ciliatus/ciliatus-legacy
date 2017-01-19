@@ -24,10 +24,10 @@ class ControlunitUpdated implements ShouldBroadcast
      */
     public function __construct(Controlunit $cu)
     {
-        $transformer = new ControlunitTransformer(
-            Controlunit::with('physical_sensors')->find($cu->id)
+        $transformer = new ControlunitTransformer();
+        $this->controlunit = $transformer->transform(
+            Controlunit::with('physical_sensors')->find($cu->id)->toArray()
         );
-        $this->controlunit = $transformer->transform($cu->toArray());
     }
 
     /**

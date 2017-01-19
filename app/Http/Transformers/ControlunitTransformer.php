@@ -25,13 +25,14 @@ class ControlunitTransformer extends Transformer
         $return = [
             'id'    => $item['id'],
             'name' => $item['name'],
-            'timestamps' => [
-                'created' => $item['created_at'],
-                'updated' => $item['updated_at'],
-            ],
+            'timestamps' => $this->parseTimestamps($item, ['heartbeat_at' => 'last_heartbeat']),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
+
+        if (isset($item['physical_sensors'])) {
+            $return['physical_sensors'] = (new PhysicalSensorTransformer())->transformCollection($item['physical_sensors']);
+        }
 
         return $return;
     }

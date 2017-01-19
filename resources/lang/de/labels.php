@@ -1,6 +1,10 @@
 <?php
 
 return [
+    'connecting'    =>  'Verbinde',
+    'title'         =>  'Titel',
+    'text'          =>  'Text',
+    'tags'          =>  'Tags',
     'status'        =>  'Status',
     'health'        =>  'Gesundheit',
     'birth'         =>  'Geburt',
@@ -21,6 +25,7 @@ return [
     'humidity'      =>  'Feuchtigkeit',
     'humidity_percent'  =>  'Feuchtigkeit',
     'heartbeat'     =>  'Puls',
+    'last_heartbeat'=>  'Letzter Puls',
     'noanimals'     =>  'Keine Tiere',
     'create'        =>  'Erstelle',
     'settings'      =>  'Einstellung|Einstellungen',
@@ -42,6 +47,7 @@ return [
     'associated_with'=> 'Assoziiert mit',
     'log'           =>  'Log',
     'starts_at'     =>  'Beginnt um',
+    'ends_at'       =>  'Endet um',
     'starts_after'  =>  'Startet nach',
     'thresholds'    =>  'Grenzwerte',
     'abilities'     =>  'Fähigkeit|Fähigkeiten',
@@ -100,5 +106,14 @@ return [
     'from'          =>  'Von',
     'tO'            =>  'Bis',
     'feedings'      =>  'Fütterungen',
-    'temp_and_hum_history'  =>  'Temperatur- und Feuchtigkeitsverlauf'
+    'temp_and_hum_history'  =>  'Temperatur- und Feuchtigkeitsverlauf',
+    'biography'     =>  'Biografie',
+    'bio_categories'=>  'Biografiekategorien',
+    'icon'          =>  'Symbol',
+    'average'       =>  'Durchschnitt',
+    'min'           =>  'Minimum',
+    'max'           =>  'Maximum',
+    'during_day'    =>  'Tags',
+    'during_night'  =>  'Nachts',
+    'total'         =>  'Total'
 ];

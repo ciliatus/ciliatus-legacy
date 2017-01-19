@@ -8,6 +8,7 @@ return [
     'upload'    =>  'Upload',
     'start_setup'=> 'Start Setup',
     'add'       =>  'Add',
+    'create'    =>  'Add',
     'edit'      =>  'Edit',
     'details'   =>  'Details',
     'download'  =>  'Download'

@@ -64,7 +64,17 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         logical_sensorId: {
+            type: String,
+            default: '',
+            required: false
+        },
+        sourceFilter: {
             type: String,
             default: '',
             required: false
@@ -104,7 +114,7 @@ export default {
                     item = index;
                 }
             });
-            if (item === null && this.subscribeAdd === true1) {
+            if (item === null && this.subscribeAdd === true) {
                 this.logical_sensors.push(cu.logical_sensor);
             }
             else if (item !== null) {
@@ -139,6 +149,36 @@ export default {
         refresh_grid: function() {
             $('#' + this.containerId).masonry('reloadItems');
             $('#' + this.containerId).masonry('layout');
+        },
+
+        load_data: function() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?raw=true&' + that.sourceFilter,
+                method: 'GET',
+                success: function (data) {
+                    if (that.logical_sensorId !== '') {
+                        that.logical_sensors = [data.data];
+                    }
+                    else {
+                        that.logical_sensors = data.data;
+                    }
+
+                    that.$nextTick(function() {
+                        $('#' + that.containerId).masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col',
+                        });
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
         }
     },
 
@@ -150,33 +190,16 @@ export default {
                 this.delete(e);
         });
 
-        window.eventHubVue.processStarted();
+
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?raw=true',
-            method: 'GET',
-            success: function (data) {
-                if (that.logical_sensorId !== '') {
-                    that.logical_sensors = [data.data];
-                }
-                else {
-                    that.logical_sensors = data.data;
-                }
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
 
-                that.$nextTick(function() {
-                    $('#' + that.containerId).masonry({
-                        columnWidth: '.col',
-                        itemSelector: '.col',
-                    });
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
     }
 }
 </script>

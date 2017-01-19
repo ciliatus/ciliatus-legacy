@@ -44,6 +44,8 @@ Object.keys(locales).forEach(function (lang) {
     Vue.locale(lang, locales[lang])
 });
 
+import SystemIndicator from './vue/system-indicator.vue';
+
 import DashboardWidget from './vue/dashboard-widget.vue';
 import GoogleGraph from './vue/google-graph.vue';
 import DygraphGraph from './vue/dygraph-graph.vue';
@@ -67,7 +69,19 @@ import ValvesWidget from './vue/valves-widget.vue';
 import PhysicalSensorsWidget from './vue/physical_sensors-widget.vue';
 import LogicalSensorsWidget from './vue/logical_sensors-widget.vue';
 import UsersWidget from './vue/users-widget.vue';
+import BiographyEntriesWidget from './vue/biography_entries-widget.vue'
+import CaresheetsWidget from './vue/caresheets-widget.vue'
 import LogsWidget from './vue/logs-widget.vue';
+
+window.systemVue = new Vue({
+
+    el: '#system-indicator',
+
+    components: {
+        'system-indicator': SystemIndicator
+    }
+
+});
 
 window.bodyVue = new Vue({
 
@@ -122,6 +136,8 @@ window.bodyVue = new Vue({
         'physical_sensors-widget': PhysicalSensorsWidget,
         'logical_sensors-widget': LogicalSensorsWidget,
         'users-widget': UsersWidget,
+        'biography_entries-widget': BiographyEntriesWidget,
+        'caresheets-widget': CaresheetsWidget,
         'logs-widget': LogsWidget
     }
 

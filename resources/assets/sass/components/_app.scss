@@ -5,6 +5,26 @@
   height: 140px;
 }
 
+.side-nav .userView {
+  margin-bottom: 0;
+}
+
+.side-nav .side-menu-info a {
+  @extend .grey-text, .text-darken-2;
+
+  height: auto;
+  line-height: 24px;
+  padding-bottom: 12px;
+}
+
+.side-nav .side-menu-info-title a {
+  @extend .grey-text, .text-darken-3;
+}
+
+.side-nav .side-menu-info-title i {
+  @extend .grey-text, .text-darken-3;
+}
+
 header, main, footer {
   padding-left: 300px;
 }
@@ -49,4 +69,73 @@ header, main, footer {
 }
 text {
   fill: #000000;
+}
+
+/* Material icon select */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+
+div.select-wrapper.icons ul li {
+  @extend .material-icons;
+}
+div.select-wrapper.icons ul li span {
+  font-size: 24px;
+}
+
+/* Printable */
+
+page {
+  background: white;
+  display: block;
+  margin: 0 auto;
+  margin-top: 20px;
+  margin-bottom: 0.5cm;
+  box-shadow: 0 0 0.5cm rgba(0,0,0,0.5);
+}
+page[size="A4"] {
+  width: 21cm;
+  height: 29.7cm;
+}
+page[size="A4"][layout="portrait"] {
+  width: 29.7cm;
+  height: 21cm;
+}
+page[size="A3"] {
+  width: 29.7cm;
+  height: 42cm;
+}
+page[size="A3"][layout="portrait"] {
+  width: 42cm;
+  height: 29.7cm;
+}
+page[size="A5"] {
+  width: 14.8cm;
+  height: 21cm;
+}
+page[size="A5"][layout="portrait"] {
+  width: 21cm;
+  height: 14.8cm;
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+  page * {
+    visibility: visible;
+  }
 }

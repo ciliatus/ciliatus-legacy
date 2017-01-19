@@ -32,5 +32,7 @@ return [
     'animal_feedings' => 'Feeding|Feedings',
     'animal_feeding_schedules' => 'Feeding schedule|Feeding schedules',
     'animal_weighings' => 'Weighing|Weighings',
-    'animal_weighing_schedules' => 'Weighing schedule|Weighing schedules'
+    'animal_weighing_schedules' => 'Weighing schedule|Weighing schedules',
+    'biography_entries' =>  'Biography entry|Biography entries',
+    'caresheets' =>   'Care Sheet|Care Sheets'
 ];

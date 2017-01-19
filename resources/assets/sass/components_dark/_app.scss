@@ -5,6 +5,39 @@
   height: 140px;
 }
 
+.side-nav .userView {
+  margin-bottom: 0;
+}
+
+.side-menu-info-container {
+}
+
+.side-nav .side-menu-info-title a {
+  @extend .grey-text, .text-darken-3;
+}
+.side-nav .side-menu-info-title i {
+  @extend .grey-text, .text-darken-3;
+}
+
+.side-nav .side-menu-info-content a {
+  @extend .grey-text, .text-darken-2;
+
+  height: auto;
+  line-height: 24px;
+  padding-bottom: 12px;
+}
+
+.fade-enter-active, .fade-leave-active {
+  transition: opacity .5s;
+}
+.fade-enter, .fade-leave-to, .fade-leave-active {
+  transition: opacity .2s;
+  opacity: 0
+}
+
+
+
+
 header, main, footer {
   padding-left: 300px;
 }
@@ -22,6 +55,8 @@ header, main, footer {
     width: 95%;
   }
 }
+
+
 
 
 .btn-icon-only {
@@ -49,4 +84,29 @@ header, main, footer {
 }
 text {
   fill: #FFFFFF;
+}
+
+/* Material icon select */
+.material-icons {
+  font-family: 'Material Icons';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 24px;
+  line-height: 1;
+  letter-spacing: normal;
+  text-transform: none;
+  display: inline-block;
+  white-space: nowrap;
+  word-wrap: normal;
+  direction: ltr;
+  -webkit-font-feature-settings: 'liga';
+  -webkit-font-smoothing: antialiased;
+}
+
+
+div.select-wrapper.icons ul li {
+  @extend .material-icons;
+}
+div.select-wrapper.icons ul li span {
+  font-size: 24px;
 }

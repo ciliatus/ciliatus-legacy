@@ -20,5 +20,10 @@ return [
     'heartbeat_critical'    =>  'Heartbeat is critical!',
     'copy_thresholds_warning'=> 'All existing thresholds on the target sensor will be removed.',
     'animal_feeding_schedule_matrix' => 'This matrix contains all defined feeding schedules. A number in a column represents the schedule\'s interval in days.',
-    'animal_weighing_schedule_matrix' => 'This matrix contains all defined weighing schedules. A number in a column represents the schedule\'s interval in days followed by the next due date.'
+    'animal_weighing_schedule_matrix' => 'This matrix contains all defined weighing schedules. A number in a column represents the schedule\'s interval in days followed by the next due date.',
+    'done'                  =>  'Done',
+    'skip'                  =>  'Skip',
+    'material_icons_list'   =>  'Visit <a href="http://materializecss.com/icons.html">materializecss.com/icons.html</a> for a complete icon overview.',
+    'no_data'               =>  'No data.',
+    'connecting_to_server'  =>  'Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.'
 ];

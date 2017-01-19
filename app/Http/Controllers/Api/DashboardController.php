@@ -55,7 +55,8 @@ class DashboardController extends ApiController
                 $afs = (new AnimalFeedingScheduleRepository($afs))->show();
                 if ($afs->next_feeding_at_diff == 0) {
                     $feeding_schedules['due'][] = (new AnimalFeedingScheduleTransformer())->transform($afs->toArray());
-                } elseif ($afs->next_feeding_at_diff < 0) {
+                }
+                elseif ($afs->next_feeding_at_diff < 0) {
                     $feeding_schedules['overdue'][] = (new AnimalFeedingScheduleTransformer())->transform($afs->toArray());
                 }
             }

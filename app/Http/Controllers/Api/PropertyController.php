@@ -114,8 +114,41 @@ class PropertyController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function store()
+    public function store(Request $request)
     {
+        if (Gate::denies('api-write:property')) {
+            return $this->respondUnauthorized();
+        }
+
+        $required_fields = ['belongsTo_type', 'belongsTo_id', 'type', 'name'];
+        if (!$this->checkInput($required_fields, $request)) {
+            return $this->setStatusCode(422)->respondWithError("Missing fields. Required: " . implode(',', $required_fields));
+        }
+
+        $belongs_to = ('App\\' . $request->input('belongsTo_type'))::find($request->input('belongsTo_id'));
+        if (is_null($belongs_to)) {
+            return $this->setStatusCode(422)->respondWithError("Object " . $request->input('belongsTo_id') .
+                                                               " of type " . $request->input('belongsTo_type') . " not found.");
+        }
+
+        $p = Property::create([
+            'belongsTo_type' => $request->input('belongsTo_type'),
+            'belongsTo_id' => $request->input('belongsTo_id'),
+            'type' => $request->input('type'),
+            'name' => $request->input('name')
+        ]);
+
+        if ($request->has('value')) {
+            $p->value = $request->input('value');
+        }
+
+        $p->save();
+
+        if ($request->has('update_belongs_to')) {
+            $belongs_to->save();
+        }
+
+        return $this->respondWithData([]);
 
     }
 

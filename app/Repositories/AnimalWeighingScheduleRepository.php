@@ -34,8 +34,7 @@ class AnimalWeighingScheduleRepository extends Repository {
         $animal = $ws->belongsTo_object()->get()->first();
         $ws->animal = $animal->toArray();
         $last_weighing_of_type = $animal->last_weighing();
-        $starts_at = Property::where('type', 'AnimalWeighingScheduleStartDate')->where('belongsTo_id', $ws->id)->get()->first();
-
+        $starts_at = Property::where('type', 'AnimalWeighingScheduleStartDate')->where('belongsTo_id', $ws->id)->orderBy('created_at', 'desc')->get()->first();
 
         /*
          * If there already was a weighing of this type
@@ -43,13 +42,14 @@ class AnimalWeighingScheduleRepository extends Repository {
          *
          * Compare the schedule to the last weighing
          */
-        if (!is_null($last_weighing_of_type) && (is_null($starts_at) || Carbon::parse($starts_at->value)->lt($last_weighing_of_type->created_at))) {
+        if ((!is_null($last_weighing_of_type) && is_null($starts_at)) ||
+            (!is_null($last_weighing_of_type) && !is_null($starts_at) && Carbon::parse($starts_at->value)->lte($last_weighing_of_type->created_at->addDays((int)$ws->value)))) {
             $last_weighing_at = $last_weighing_of_type->created_at;
             $last_weighing_at->hour = 0;
             $last_weighing_at->minute = 0;
             $last_weighing_at->second = 0;
 
-            $next_weighing_at = $last_weighing_at->addDays((int)$ws->value);
+            $next_weighing_at = (clone $last_weighing_at)->addDays((int)$ws->value);
 
             $now = Carbon::now();
             $now->hour = 0;
@@ -76,7 +76,7 @@ class AnimalWeighingScheduleRepository extends Repository {
                 $next_weighing_at = Carbon::parse($starts_at->value);
                 $ws->next_weighing_at = $starts_at->value;
             }
-            $ws->next_weighing_at_diff = Carbon::now()->diffInDays($next_weighing_at);
+            $ws->next_weighing_at_diff = Carbon::now()->diffInDays($next_weighing_at, false);
         }
         return $ws;
     }

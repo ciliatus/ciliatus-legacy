@@ -8,6 +8,7 @@ module.exports = {
             'upload': 'Hochladen',
             'start_setup': 'Setup starten',
             'add': 'Hinzufügen',
+            'create': 'Hinzufügen',
             'edit': 'Bearbeiten',
             'details': 'Details',
             'download':  'Herunterladen'
@@ -44,12 +45,18 @@ module.exports = {
             'animal_feedings' : 'Fütterung | Fütterungen',
             'animal_feeding_schedules' : 'Fütterungsplan | Fütterungspläne',
             'animal_weighings' : 'Wiegung | Wiegungen',
-            'animal_weighing_schedules' : 'Wiegungsplan | Wiegungspläne'
+            'animal_weighing_schedules' : 'Wiegungsplan | Wiegungspläne',
+            'biography_entries'     :  'Biografieeintrag | Biografieeinträge',
+            'caresheets' :   'Begleitblatt | Begleitblätter'
         },
         errors: {
             'retrievegraphdata': 'Could not retrieve graph data.'
         },
         labels: {
+            'connecting'    :  'Verbinde',
+            'title'         :  'Titel',
+            'text'          :  'Text',
+            'tags'          :  'Tags',
             'status'        :  'Status',
             'health'        :  'Gesundheit',
             'birth'         :  'Geburt',
@@ -70,6 +77,7 @@ module.exports = {
             'humidity'      :  'Feuchtigkeit',
             'humidity_percent'  :  'Feuchtigkeit',
             'heartbeat'     :  'Puls',
+            'last_heartbeat':  'Letzter Puls',
             'noanimals'     :  'Keine Tiere',
             'create'        :  'Erstelle',
             'settings'      :  'Einstellung | Einstellungen',
@@ -91,6 +99,7 @@ module.exports = {
             'associated_with': 'Assoziiert mit',
             'log'           :  'Log',
             'starts_at'     :  'Beginnt um',
+            'ends_at'       :  'Endet um',
             'starts_after'  :  'Startet nach',
             'thresholds'    :  'Grenzwerte',
             'abilities'     :  'Fähigkeit | Fähigkeiten',
@@ -150,7 +159,16 @@ module.exports = {
             'from'          :  'Von',
             'to'            :  'Bis',
             'feedings'      :  'Fütterungen',
-            'temp_and_hum_history'  :  'Temperatur- und Feuchtigkeitsverlauf'
+            'temp_and_hum_history'  :  'Temperatur- und Feuchtigkeitsverlauf',
+            'biography'     :  'Biografie',
+            'bio_categories':  'Biographiekategorien',
+            'icon'          :  'Symbol',
+            'average'       :  'Durchschnitt',
+            'min'           :  'Minimum',
+            'max'           :  'Maximum',
+            'during_day'    :  'Tags',
+            'during_night'  :  'Nachts',
+            'total'         :  'Total'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -166,7 +184,8 @@ module.exports = {
             'animals'       :  'Tiere',
             'terraria'      :  'Terrarien',
             'users'         :  'Benutzer',
-            'logs'          :  'Protokoll'
+            'logs'          :  'Protokoll',
+            'categories'    :  'Kategorien'
         },
         messages: {
             logical_sensor_thresholds: {
@@ -198,7 +217,11 @@ module.exports = {
             'heartbeat_critical'    :  'Heartbeat ist kritisch!',
             'copy_thresholds_warning': 'Alle existierenden Grenzwerte des Zielsensors werden entfernt.',
             'animal_feeding_schedule_matrix' : 'Diese Matrix enthält alle definierten Fütterungspläne. Die Zahl in einer Spalte stellt das Intervall dar.',
-            'animal_weighing_schedule_matrix' : 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.'
+            'animal_weighing_schedule_matrix' : 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.',
+            'done'                  :  'Erledigt',
+            'skip'                  :  'Überspringen',
+            'no_data'               :  'Keine Daten.',
+            'connecting_to_server'  :  'Verbindung zum Ciliatus Server wird hergestellt. Sollte dies länger als einige Sekunden dauern, überprüfen Sie bitte Ihre Internetverbindung.'
         },
         units: {
             'years'     :  'Jahr | Jahre',
@@ -211,6 +234,7 @@ module.exports = {
             'humidity_percent' : '%',
             'days_ago'  :   'vor {val} Tagen',
             'hours_ago'  :   'vor {val} Stunden',
+            'minutes_ago' :   'vor {val} Minuten',
             'just_now'  :   'gerade eben'
         }
     },
@@ -223,6 +247,7 @@ module.exports = {
             'upload'    :  'Upload',
             'start_setup': 'Start Setup',
             'add'       :  'Add',
+            'create'    :  'Add',
             'edit'      :  'Edit',
             'details'   :  'Details',
             'download'  :  'Download'
@@ -259,12 +284,18 @@ module.exports = {
             'animal_feedings' : 'Feeding | Feedings',
             'animal_feeding_schedules' : 'Feeding schedule | Feeding schedules',
             'animal_weighings' : 'Weighing | Weighings',
-            'animal_weighing_schedules' : 'Weighing schedule | Weighing schedules'
+            'animal_weighing_schedules' : 'Weighing schedule | Weighing schedules',
+            'biography_entries'     :  'Biography entry | Biography entries',
+            'caresheets' :   'Care Sheet | Care Sheets'
         },
         errors: {
             'retrievegraphdata'     :  'Graphdaten konnten nicht ermittelt werden.'
         },
         labels: {
+            'connecting'    :  'Connecting',
+            'title'         :  'Title',
+            'text'          :  'Text',
+            'tags'          :  'Tags',
             'status'        :  'Status',
             'health'        :  'Health',
             'birth'         :  'Birth',
@@ -285,6 +316,7 @@ module.exports = {
             'humidity'      :  'Humidity',
             'humidity_percent'  :  'Humidity',
             'heartbeat'     :  'Heartbeat',
+            'last_heartbeat':  'Last Heartbeat',
             'noanimals'     :  'No Animals',
             'create'        :  'Create',
             'settings'      :  'Setting|Settings',
@@ -306,6 +338,7 @@ module.exports = {
             'associated_with': 'Associated with',
             'log'           :  'Log',
             'starts_at'     :  'Starts at',
+            'ends_at'       :  'Ends at',
             'starts_after'  :  'Starts after',
             'thresholds'    :  'Thresholds',
             'abilities'     :  'Ability|Abilities',
@@ -365,7 +398,16 @@ module.exports = {
             'from'          :  'From',
             'to'            :  'To',
             'feedings'      :  'Feedings',
-            'temp_and_hum_history'  :  'Temperature and Humidity History'
+            'temp_and_hum_history'  :  'Temperature and Humidity History',
+            'biography'     :  'Biography',
+            'bio_categories':  'Biography categories',
+            'icon'          :  'Icon',
+            'average'       :  'Average',
+            'min'           :  'Minimum',
+            'max'           :  'Maximum',
+            'during_day'    :  'Daytime',
+            'during_night'  :  'Nighttime',
+            'total'         :  'Total'
         },
         menu: {
             'welcome'       :  'Welcome',
@@ -381,7 +423,8 @@ module.exports = {
             'animals'       :  'Animals',
             'terraria'      :  'Terraria',
             'users'         :  'Users',
-            'logs'          :  'Logs'
+            'logs'          :  'Logs',
+            'categories'    :  'Categories'
         },
         messages: {
             logical_sensor_thresholds: {
@@ -413,7 +456,11 @@ module.exports = {
             'heartbeat_critical'    :  'Heartbeat is critical!',
             'copy_thresholds_warning': 'All existing thresholds on the target sensor will be removed.',
             'animal_feeding_schedule_matrix' : 'This matrix contains all defined feeding schedules. A number in a column represents the schedule\'s interval in days.',
-    'animal_weighing_schedule_matrix' : 'This matrix contains all defined weighing schedules. A number in a column represents the schedule\'s interval in days followed by the next due date.'
+            'animal_weighing_schedule_matrix' : 'This matrix contains all defined weighing schedules. A number in a column represents the schedule\'s interval in days followed by the next due date.',
+            'done'                  :  'Done',
+            'skip'                  :  'Skip',
+            'no_data'               :  'No Data.',
+            'connecting_to_server'  :  'Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.'
         },
         units: {
             'years'     :  'year|years',
@@ -426,6 +473,7 @@ module.exports = {
             'humidity_percent' : '%',
             'days_ago'  :   '{val} days ago',
             'hours_ago' :   '{val} hours ago',
+            'minutes_ago' :   '{val} minutes ago',
             'just_now'  :   'just now'
         }
     }

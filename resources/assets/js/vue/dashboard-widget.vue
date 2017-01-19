@@ -1,342 +1,282 @@
 <template>
     <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
 
+        <!--
+            Terraria critical
+        -->
         <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length > 0">
-            <div class="card">
-                <div class="card-content red darken-3 white-text">
+
+            <ul class="collection critical with-header">
+                <li class="collection-header">
                     <i class="material-icons">video_label</i>
-                    {{ $tc("components.terraria", 2) }}
-                </div>
+                    {{ dashboard.terraria.critical.length }} {{ $tc("components.terraria", dashboard.terraria.critical.length) }} {{ $t("labels.critical") }}
+                </li>
 
-                <div class="card-content red darken-2 white-text">
-                    <span class="card-title activator truncate">
-                        <span>{{ dashboard.terraria.critical.length }} {{ $tc("components.terraria", dashboard.terraria.critical.length) }} {{ $t("labels.critical") }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
+                <li class="collection-item" v-for="terrarium in dashboard.terraria.critical">
 
-                    <div v-for="terrarium in dashboard.terraria.critical">
-                        <p>
-                            <a v-bind:href="'/terraria/' + terrarium.id" class="white-text">{{ terrarium.display_name }}</a>
-                            <span v-show="terrarium.humidity_critical === true && terrarium.temperature_critical !== true">({{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%)</span>
-                            <span v-show="terrarium.humidity_critical === true && terrarium.temperature_critical === true">({{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%, {{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C)</span>
-                            <span v-show="terrarium.humidity_critical !== true && terrarium.temperature_critical === true">({{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C)</span>
-                        </p>
+                    <div>
+
+                        <a v-bind:href="'/terraria/' + terrarium.id" class="white-text">{{ terrarium.display_name }}</a>
+                        <span v-show="terrarium.humidity_critical === true && terrarium.temperature_critical !== true">({{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%)</span>
+                        <span v-show="terrarium.humidity_critical === true && terrarium.temperature_critical === true">({{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%, {{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C)</span>
+                        <span v-show="terrarium.humidity_critical !== true && terrarium.temperature_critical === true">({{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C)</span>
+
                     </div>
-                </div>
 
-                <div class="card-reveal red darken-2 white-text">
-                    <span class="card-title red darken-2 white-text"><i class="material-icons right">close</i></span>
+                </li>
 
-                    <p>
-                    </p>
-                </div>
+            </ul>
 
-                <!--
-                <div class="card-action teal lighten-1">
-                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
-                </div>
-                -->
-            </div>
         </div>
+
+        <!--
+            Animal Feeding Schedules overdue
+        -->
         <div :class="wrapperClasses" v-if="dashboard.animal_feeding_schedules.overdue.length > 0">
-            <div class="card">
-                <div class="card-content orange darken-3 white-text">
-                    <i class="material-icons">schedule</i>
+
+            <ul class="collection warning with-header">
+                <li class="collection-header">
+                    <i class="material-icons">local_dining</i>
                     {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.overdue") }}
-                </div>
+                </li>
 
-                <div class="card-content orange darken-2 white-text">
-                    <span class="card-title activator truncate">
-                        <span>{{ dashboard.animal_feeding_schedules.overdue.length }} {{ $tc("components.animal_feedings", dashboard.animal_feeding_schedules.overdue.length) }} {{ $t("labels.overdue") }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
+                <li class="collection-item" v-for="schedule in dashboard.animal_feeding_schedules.overdue">
 
-                    <div v-for="schedule in dashboard.animal_feeding_schedules.overdue">
-                        <p>
-                            <a v-bind:href="'/animals/' + schedule.animal.id" class="white-text">
-                                {{ schedule.animal.display_name }}:
-                            </a>
+                    <div class="white-text">
 
-                            <a v-bind:href="'/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id" class="white-text">
-                                {{ schedule.type }}
-                            </a>
+                        {{ schedule.animal.display_name }}: {{ schedule.type }} ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
 
-                            ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
-                        </p>
+
+                        <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                            <i class="material-icons">update</i>
+                        </a>
+                        <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'" v-on:click="link_post">
+                            <i class="material-icons">done</i>
+                        </a>
+
                     </div>
-                </div>
 
-                <div class="card-reveal orange darken-2 white-text">
-                    <span class="card-title orange darken-2 white-text"><i class="material-icons right">close</i></span>
+                </li>
 
-                    <p>
-                    </p>
-                </div>
+            </ul>
 
-                <!--
-                <div class="card-action teal lighten-1">
-                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
-                </div>
-                -->
-            </div>
+
         </div>
+
+        <!--
+            Animal Weighing Schedules overdue
+        -->
         <div :class="wrapperClasses" v-if="dashboard.animal_weighing_schedules.overdue.length > 0">
-            <div class="card">
-                <div class="card-content orange darken-3 white-text">
-                    <i class="material-icons">schedule</i>
-                    {{ $tc("components.animal_weighings", 2) }} {{ $t("labels.overdue") }}
-                </div>
 
-                <div class="card-content orange darken-2 white-text">
-                    <span class="card-title activator truncate">
-                        <span>{{ dashboard.animal_weighing_schedules.overdue.length }} {{ $tc("components.animal_weighings", dashboard.animal_weighing_schedules.overdue.length) }} {{ $t("labels.overdue") }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
-
-                    <div v-for="schedule in dashboard.animal_weighing_schedules.overdue">
-                        <p>
-                            <a v-bind:href="'/animals/' + schedule.animal.id" class="white-text">
-                                {{ schedule.animal.display_name }}
-                            </a>
-
-                            ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
-                        </p>
-                    </div>
-                </div>
-
-                <div class="card-reveal orange darken-2 white-text">
-                    <span class="card-title orange darken-2 white-text"><i class="material-icons right">close</i></span>
-
-                    <p>
-                    </p>
-                </div>
-
-                <!--
-                <div class="card-action teal lighten-1">
-                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
-                </div>
-                -->
-            </div>
-        </div>
-        <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.overdue.length > 0">
-            <div class="card">
-                <div class="card-content teal white-text">
-                    <i class="material-icons">schedule</i>
-                    {{ $tc("components.action_sequences", 2) }} {{ $t("labels.overdue") }}
-                </div>
-
-                <div class="card-content teal lighten-1 white-text">
-                    <span class="card-title activator truncate">
-                        <span>{{ dashboard.action_sequence_schedules.overdue.length }} {{ $tc("components.action_sequences", dashboard.action_sequence_schedules.overdue.length) }} {{ $t("labels.overdue") }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
-
-                    <div v-for="action_sequence_schedule in dashboard.action_sequence_schedules.overdue">
-                        <p>
-                            <a v-bind:href="'/action_sequences/' + action_sequence_schedule.sequence.id + '/edit'" class="white-text">
-                                {{ action_sequence_schedule.sequence.name }}
-                            </a>
-
-                            <i>{{ action_sequence_schedule.timestamps.starts }}</i>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="card-reveal teal lighten-1 white-text">
-                    <span class="card-title teal lighten-2 white-text"><i class="material-icons right">close</i></span>
-
-                    <p>
-                    </p>
-                </div>
-
-                <!--
-                <div class="card-action teal lighten-1">
-                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
-                </div>
-                -->
-            </div>
-        </div>
-        <div :class="wrapperClasses" v-if="dashboard.animal_feeding_schedules.due.length > 0">
-            <div class="card">
-                <div class="card-content teal white-text">
-                    <i class="material-icons">schedule</i>
-                    {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.due") }}
-                </div>
-
-                <div class="card-content teal lighten-1 white-text">
-                    <span class="card-title activator truncate">
-                        <span>{{ dashboard.animal_feeding_schedules.due.length }} {{ $tc("components.animal_feedings", dashboard.animal_feeding_schedules.due.length) }} {{ $t("labels.due") }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
-
-                    <div v-for="schedule in dashboard.animal_feeding_schedules.due">
-                        <p>
-                            <a v-bind:href="'/animals/' + schedule.animal.id" class="white-text">
-                                {{ schedule.animal.display_name }}:
-                            </a>
-
-                            <a v-bind:href="'/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id" class="white-text">
-                                {{ schedule.type }}
-                            </a>
-                        </p>
-                    </div>
-                </div>
-
-                <div class="card-reveal teal lighten-1 white-text">
-                    <span class="card-title teal lighten-2 white-text"><i class="material-icons right">close</i></span>
-
-                    <p>
-                    </p>
-                </div>
-
-                <!--
-                <div class="card-action teal lighten-1">
-                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
-                </div>
-                -->
-            </div>
-        </div>
-        <div :class="wrapperClasses" v-if="dashboard.animal_weighing_schedules.due.length > 0">
-            <div class="card">
-                <div class="card-content teal white-text">
-                    <i class="material-icons">schedule</i>
+            <ul class="collection warning with-header">
+                <li class="collection-header">
+                    <i class="material-icons">vertical_align_bottom</i>
                     {{ $tc("components.animal_weighings", 2) }} {{ $t("labels.due") }}
-                </div>
+                </li>
 
-                <div class="card-content teal lighten-1 white-text">
-                    <span class="card-title activator truncate">
-                        <span>{{ dashboard.animal_weighing_schedules.due.length }} {{ $tc("components.animal_weighings", dashboard.animal_weighing_schedules.due.length) }} {{ $t("labels.due") }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
+                <li class="collection-item" v-for="schedule in dashboard.animal_weighing_schedules.overdue">
 
-                    <div v-for="schedule in dashboard.animal_weighing_schedules.due">
-                        <p>
-                            <a v-bind:href="'/animals/' + schedule.animal.id" class="white-text">
-                                {{ schedule.animal.display_name }}
-                            </a>
-                        </p>
+                    <div class="white-text">
+
+                        {{ schedule.animal.display_name }} {{ $t('labels.today') }} {{ $t('labels.actions') }}
+
+
+                        <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                            <i class="material-icons">update</i>
+                        </a>
+                        <!-- @TODO: Toggle Modal -->
+                        <a class="secondary-content white-text">
+                            <i class="material-icons">done</i>
+                        </a>
+
                     </div>
-                </div>
 
-                <div class="card-reveal teal lighten-1 white-text">
-                    <span class="card-title teal lighten-2 white-text"><i class="material-icons right">close</i></span>
+                </li>
 
-                    <p>
-                    </p>
-                </div>
+            </ul>
 
-                <!--
-                <div class="card-action teal lighten-1">
-                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
-                </div>
-                -->
-            </div>
         </div>
-        <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.due.length > 0">
-            <div class="card">
-                <div class="card-content teal white-text">
-                    <i class="material-icons">schedule</i>
+
+        <!--
+            Action Sequence Schedules overdue
+        -->
+        <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.overdue.length > 0">
+
+            <ul class="collection warning with-header">
+                <li class="collection-header">
+                    <i class="material-icons">playlist_play</i>
                     {{ $tc("components.action_sequences", 2) }} {{ $t("labels.due") }}
-                </div>
+                </li>
 
-                <div class="card-content teal lighten-1 white-text">
-                    <span class="card-title activator truncate">
-                        <span>{{ dashboard.action_sequence_schedules.due.length }} {{ $tc("components.action_sequences", dashboard.action_sequence_schedules.due.length) }} {{ $t("labels.due") }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
+                <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.overdue">
 
-                    <div v-for="action_sequence_schedule in dashboard.action_sequence_schedules.due">
-                        <p>
-                            <a v-bind:href="'/action_sequences/' + action_sequence_schedule.sequence.id + '/edit'" class="white-text">
-                                {{ action_sequence_schedule.sequence.name }}
-                            </a>
+                    <div class="white-text">
 
-                            <i>{{ action_sequence_schedule.timestamps.starts }}</i>
-                        </p>
+                        {{ schedule.timestamps.starts }}: {{ schedule.sequence.name }}
+
+                        <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                            <i class="material-icons">update</i>
+                        </a>
+
                     </div>
-                </div>
 
-                <div class="card-reveal teal lighten-1 white-text">
-                    <span class="card-title teal lighten-2 white-text"><i class="material-icons right">close</i></span>
+                </li>
 
-                    <p>
-                    </p>
-                </div>
+            </ul>
 
-                <!--
-                <div class="card-action teal lighten-1">
-                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
-                </div>
-                -->
-            </div>
         </div>
 
+        <!--
+            Animal Feeding Schedules due
+        -->
+        <div :class="wrapperClasses" v-if="dashboard.animal_feeding_schedules.due.length > 0">
+
+            <ul class="collection ok with-header">
+                <li class="collection-header">
+                    <i class="material-icons">local_dining</i>
+                    {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.due") }}
+                </li>
+
+                <li class="collection-item" v-for="schedule in dashboard.animal_feeding_schedules.due">
+
+                    <div class="white-text">
+
+                        {{ schedule.animal.display_name }}: {{ schedule.type }}
+
+
+                        <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                            <i class="material-icons">update</i>
+                        </a>
+                        <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'" v-on:click="link_post">
+                            <i class="material-icons">done</i>
+                        </a>
+
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!--
+            Animal Weighing Schedules due
+        -->
+        <div :class="wrapperClasses" v-if="dashboard.animal_weighing_schedules.due.length > 0">
+
+            <ul class="collection ok with-header">
+                <li class="collection-header">
+                    <i class="material-icons">vertical_align_bottom</i>
+                    {{ $tc("components.animal_weighings", 2) }} {{ $t("labels.due") }}
+                </li>
+
+                <li class="collection-item" v-for="schedule in dashboard.animal_weighing_schedules.due">
+
+                    <div class="white-text">
+
+                        {{ schedule.animal.display_name }} {{ $t('labels.today') }} {{ $t('labels.actions') }}
+
+
+                        <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                            <i class="material-icons">update</i>
+                        </a>
+                        <!-- @TODO: Toggle Modal -->
+                        <a class="secondary-content white-text">
+                            <i class="material-icons">done</i>
+                        </a>
+
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!--
+            Action Sequence Schedules due
+        -->
+        <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.due.length > 0">
+
+            <ul class="collection ok with-header">
+                <li class="collection-header">
+                    <i class="material-icons">playlist_play</i>
+                    {{ $tc("components.action_sequences", 2) }} {{ $t("labels.due") }}
+                </li>
+
+                <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.due">
+
+                    <div class="white-text">
+
+                        {{ schedule.timestamps.starts }}: {{ schedule.sequence.name }}
+
+                        <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                            <i class="material-icons">update</i>
+                        </a>
+
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+        <!--
+            Action Sequence schedules running
+        -->
         <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.running.length > 0">
-            <div class="card">
-                <div class="card-content teal white-text">
-                    <i class="material-icons">schedule</i>
+
+            <ul class="collection ok with-header">
+                <li class="collection-header">
+                    <i class="material-icons">playlist_play</i>
                     {{ $tc("components.action_sequences", 2) }} {{ $t("labels.running") }}
-                </div>
+                </li>
 
-                <div class="card-content teal lighten-1 white-text">
-                    <span class="card-title activator truncate">
-                        <span>{{ dashboard.action_sequence_schedules.running.length }} {{ $tc("components.action_sequences", dashboard.action_sequence_schedules.running.length) }} {{ $t("labels.running") }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
+                <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.running">
 
-                    <div v-for="action_sequence_schedule in dashboard.action_sequence_schedules.running">
-                        <p>
-                            <a v-bind:href="'/action_sequences/' + action_sequence_schedule.sequence.id" class="white-text">
-                                {{ action_sequence_schedule.sequence.name }}
-                            </a>
+                    <div class="white-text">
 
-                            <i v-if="action_sequence_schedule.timestamps.last_start !== null">{{ action_sequence_schedule.timestamps.last_start.split(" ")[1] }}</i>
-                        </p>
+                        <a v-if="schedule.timestamps.last_start !== null">{{ schedule.timestamps.last_start.split(" ")[1] }}</a>
+                        <a v-bind:href="'/action_sequences/' + schedule.sequence.id" class="white-text">
+                            {{ schedule.sequence.name }}
+                        </a>
+
+                        <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                            <i class="material-icons">update</i>
+                        </a>
+
                     </div>
-                </div>
 
-                <div class="card-reveal teal lighten-1 white-text">
-                    <span class="card-title teal lighten-2 white-text"><i class="material-icons right">close</i></span>
+                </li>
 
-                    <p>
-                    </p>
-                </div>
+            </ul>
 
-                <!--
-                <div class="card-action teal lighten-1">
-                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
-                </div>
-                -->
-            </div>
         </div>
 
+        <!--
+            Terraria ok
+        -->
         <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length < 1">
-            <div class="card">
-                <div class="card-content teal white-text">
+
+            <ul class="collection ok with-header">
+                <li class="collection-header">
                     <i class="material-icons">video_label</i>
                     {{ $tc("components.terraria", 2) }}
-                </div>
+                </li>
 
-                <div class="card-content teal lighten-1 white-text">
-                    <span class="card-title activator truncate">
-                        <span>{{ dashboard.terraria.ok.length }} {{ $tc("components.terraria", dashboard.terraria.ok.length) }} {{ $t("labels.ok") }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
-                </div>
+                <li class="collection-item">
 
-                <div class="card-reveal teal lighten-1 white-text">
-                    <span class="card-title teal lighten-2 white-text"><i class="material-icons right">close</i></span>
+                    <div class="white-text">
 
-                    <p>
-                    </p>
-                </div>
+                        {{ dashboard.terraria.ok.length }} {{ $tc("components.terraria", dashboard.terraria.ok.length) }} {{ $t("labels.ok") }}
 
-                <!--
-                <div class="card-action teal lighten-1">
-                    <a v-bind:href="''" class="white-text">{{ $t("buttons.details") }}</a>
-                </div>
-                -->
-            </div>
+                    </div>
+
+                </li>
+
+            </ul>
+
         </div>
 
     </div>
@@ -352,6 +292,11 @@ export default {
     },
 
     props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -767,9 +712,71 @@ export default {
         },
 
         refresh_grid: function() {
+             $('.dropdown-button').dropdown({
+                constrain_width: false
+             });
             $('#' + this.containerId).masonry('reloadItems');
             $('#' + this.containerId).masonry('layout');
         },
+
+        submit: function(e) {
+            window.submit_form(e);
+        },
+
+        link_post: function(e) {
+            e.preventDefault();
+            var old = e;
+
+            var parentElement = e.target.href ? e.target : e.target.parentElement;
+            var oldContent = parentElement.innerHTML;
+            $(parentElement).html('<div class="preloader-wrapper tiny active">' +
+                '<div class="spinner-layer spinner-green-only">' +
+                  '<div class="circle-clipper left">' +
+                    '<div class="circle"></div>' +
+                  '</div><div class="gap-patch">' +
+                    '<div class="circle"></div>' +
+                  '</div><div class="circle-clipper right">' +
+                    '<div class="circle"></div>' +
+                  '</div>' +
+                '</div>' +
+              '</div>');
+
+            $.post(parentElement.href, null,
+                function (e) {
+                    $(parentElement).html(oldContent);
+                }
+             );
+        },
+
+        load_data: function() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/dashboard',
+                method: 'GET',
+                success: function (data) {
+                    that.dashboard = data.data;
+
+                    that.$nextTick(function() {
+                        var $container = $('#' + that.containerId);
+                        $container.masonry({
+                          columnWidth: '.col',
+                          itemSelector: '.col',
+                        });
+
+                        that.refresh_grid();
+                    });
+
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    window.notification('An error occured :(', 'red darken-1 text-white');
+                    console.log(error);
+                    window.eventHubVue.processEnded();
+                }
+            });
+        }
     },
 
     created: function() {
@@ -792,30 +799,14 @@ export default {
                 this.deleteActionSequenceSchedule(e);
         });
 
-        window.eventHubVue.processStarted();
+        this.load_data();
+
         var that = this;
-        $.ajax({
-            url: '/api/v1/dashboard',
-            method: 'GET',
-            success: function (data) {
-                that.dashboard = data.data;
-
-                that.$nextTick(function() {
-                    var $container = $('#' + that.containerId);
-                    $container.masonry({
-                      columnWidth: '.col',
-                      itemSelector: '.col',
-                    });
-                });
-
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                window.notification('An error occured :(', 'red darken-1 text-white');
-                console.log(error);
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function() {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000)
+        }
     }
 }
 </script>
