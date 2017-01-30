@@ -24,7 +24,7 @@ The frontend was built using Google's material design guidelines and will give y
 
 # Demo
 
-**Be aware:** The demo version pulls it's data from our live environment every hour. Real-time updates
+**Be aware:** The demo version pulls it's data from our live environment every hour. Real-time updates are not available in the demo environment
 
 [Demo](https://demo01.ciliatus.io)
 
