@@ -13,7 +13,7 @@ The frontend was built using Google's material design guidelines and will give y
 
 # Features
 
-* Realtime dashboard using Vue and Pusher or another push service of your choice
+* Real-time dashboard using Vue and Pusher or another push service of your choice
 * Temperature and humidity monitoring with notification support, e.g. via Telegram
 * Automatic irrigation schedules
 * Keep track of your animals' feeding schedules, weight and everything else
