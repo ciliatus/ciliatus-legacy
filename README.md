@@ -21,21 +21,6 @@ The frontend was built using Google's material design guidelines and will give y
 * RESTful API
 * Responsive Material Design UI with automatic night theme
 
-# Screenshots
-
-Mobile view examples
-
-![Dashboard](/ciliatus_demo03.jpg?raw=true)
-
-Terrarium overview
-
-![Terraria](/ciliatus_demo01.png?raw=true)
-
-
-Simple configuration dialogs
-
-![Configuration](/ciliatus_demo02.png?raw=true)
-
 # Demo
 
 **Be aware:** The demo version pulls it's data from the live version every hour. There will be no realtime dashboard updates
