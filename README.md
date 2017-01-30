@@ -13,17 +13,18 @@ The frontend was built using Google's material design guidelines and will give y
 
 # Features
 
+* Realtime dashboard using Vue and Pusher or another push service of your choice
 * Temperature and humidity monitoring with notification support, e.g. via Telegram
 * Automatic irrigation schedules
-* Keep track of your animals' feeding schedules and weight
-* Realtime dashboard using Vue and Pusher, or another push service of your choice
+* Keep track of your animals' feeding schedules, weight and everything else
+* Printable caresheets with all relevant data about your animals' health
 * File management for photos and other files
+* Responsive Material Design UI with automatic night theme to relieve eye strain
 * RESTful API
-* Responsive Material Design UI with automatic night theme
 
 # Demo
 
-**Be aware:** The demo version pulls it's data from the live version every hour. There will be no realtime dashboard updates
+**Be aware:** The demo version pulls it's data from our live environment every hour. Real-time updates
 
 [Demo](https://demo01.ciliatus.io)
 
