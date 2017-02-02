@@ -14973,6 +14973,8 @@ module.exports = {
             'upload': 'Hochladen',
             'start_setup': 'Setup starten',
             'add': 'Hinzufügen',
+            'add_property': 'Neue Eigenschaft',
+            'add_state': 'Neuer Zustand',
             'create': 'Hinzufügen',
             'edit': 'Bearbeiten',
             'details': 'Details',
@@ -15005,6 +15007,8 @@ module.exports = {
             'action_sequences': 'Aktionssequenz | Aktionssequenzen',
             'action_sequence_schedules': 'Aktionssequenz Zeitplan | Aktionssequenz Zeitpläne',
             'action_sequence_schedule': 'Aktionssequenz Zeitplan | Aktionssequenz Zeitpläne',
+            'action_sequence_triggers': 'Aktionssequenz Auslöser | Aktionssequenz Auslöser',
+            'action_sequence_trigger': 'Aktionssequenz Auslöser | Aktionssequenz Auslöser',
             'admin_panel': 'Admin Panel',
             'admin_panels': 'Admin Panel',
             'animal_feedings': 'Fütterung | Fütterungen',
@@ -15012,7 +15016,9 @@ module.exports = {
             'animal_weighings': 'Wiegung | Wiegungen',
             'animal_weighing_schedules': 'Wiegungsplan | Wiegungspläne',
             'biography_entries': 'Biografieeintrag | Biografieeinträge',
-            'caresheets': 'Begleitblatt | Begleitblätter'
+            'caresheets': 'Begleitblatt | Begleitblätter',
+            'generic_components': 'Generische Komponente | Generische Komponenten',
+            'generic_component_types': 'Generischer Komponententyp | Generische Komponententypen'
         },
         errors: {
             'retrievegraphdata': 'Could not retrieve graph data.'
@@ -15034,6 +15040,8 @@ module.exports = {
             'type': 'Typ',
             'email': 'E-Mail',
             'name': 'Name',
+            'name_singular': 'Name (Singular)',
+            'name_plural': 'Name (Plural)',
             'display_name': 'Anzeigename',
             'common_name': 'Gemeiner Name',
             'latin_name': 'Lateinischer Name',
@@ -15088,7 +15096,7 @@ module.exports = {
             'queued': 'Wartend',
             'criticalstates': 'Kritische Zustände',
             'since': 'Seit',
-            'state': 'Status',
+            'state': 'Zustand',
             'actions': 'Aktionen',
             'irrigate': 'Bewässern',
             'duration': 'Dauer',
@@ -15133,7 +15141,13 @@ module.exports = {
             'max': 'Maximum',
             'during_day': 'Tags',
             'during_night': 'Nachts',
-            'total': 'Total'
+            'total': 'Total',
+            'infrastructure': 'Infrastruktur',
+            'timeframe_start': 'Zeitrahmen ab',
+            'timeframe_end': 'Zeitrahmen bis',
+            'reference_value': 'Vergleichswert',
+            'reference_value_duration_threshold_minutes': 'Vergleichswert unter/überschritten seit (Minuten)',
+            'for': 'für'
         },
         menu: {
             'welcome': 'Willkommen',
@@ -15185,8 +15199,16 @@ module.exports = {
             'animal_weighing_schedule_matrix': 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.',
             'done': 'Erledigt',
             'skip': 'Überspringen',
+            'material_icons_list': 'Die komplette Symbolliste ist unter <a href="https://material.io/icons/">material.io</a> einsehbar.',
             'no_data': 'Keine Daten.',
-            'connecting_to_server': 'Verbindung zum Ciliatus Server wird hergestellt. Sollte dies länger als einige Sekunden dauern, überprüfen Sie bitte Ihre Internetverbindung.'
+            'connecting_to_server': 'Verbindung zum Ciliatus Server wird hergestellt. Sollte dies länger als einige Sekunden dauern, überprüfen Sie bitte Ihre Internetverbindung.',
+            'generic_components': {
+                'about': 'Generische Komponenten sind Komponenten eines benutzerdefinierten Typs.',
+                'type_about': 'Generische Komponententypen definieren Name, Eigenschaften und mögliche Zustände für generische Komponenten. Sie dienen als Vorlage beim Erstellen einer neuen generischen Komponente.',
+                'property_templates': 'Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszufüllen.',
+                'state_templates': 'Definiert mögliche Zustände die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zuständen den gewünschten Zustand auswählen.',
+                'type_delete_warning': 'Beim Löschen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gelöscht.'
+            }
         },
         units: {
             'years': 'Jahr | Jahre',
@@ -15200,7 +15222,10 @@ module.exports = {
             'days_ago': 'vor {val} Tagen',
             'hours_ago': 'vor {val} Stunden',
             'minutes_ago': 'vor {val} Minuten',
-            'just_now': 'gerade eben'
+            'just_now': 'gerade eben',
+            'lesser': '<',
+            'greater': '>',
+            'equals': '='
         }
     },
     en: {
@@ -15212,6 +15237,8 @@ module.exports = {
             'upload': 'Upload',
             'start_setup': 'Start Setup',
             'add': 'Add',
+            'add_property': 'Add Property',
+            'add_state': 'Add State',
             'create': 'Add',
             'edit': 'Edit',
             'details': 'Details',
@@ -15244,6 +15271,8 @@ module.exports = {
             'action_sequences': 'Action sequence|Action sequences',
             'action_sequence_schedule': 'Action sequence schedule|Action sequence schedules',
             'action_sequence_schedules': 'Action sequence schedule|Action sequence schedules',
+            'action_sequence_triggers': 'Action sequence trigger|Action sequence triggers',
+            'action_sequence_trigger': 'Action sequence trigger|Action sequence triggers',
             'admin_panel': 'Admin panel',
             'admin_panels': 'Admin panel',
             'animal_feedings': 'Feeding | Feedings',
@@ -15251,7 +15280,9 @@ module.exports = {
             'animal_weighings': 'Weighing | Weighings',
             'animal_weighing_schedules': 'Weighing schedule | Weighing schedules',
             'biography_entries': 'Biography entry | Biography entries',
-            'caresheets': 'Care Sheet | Care Sheets'
+            'caresheets': 'Care Sheet | Care Sheets',
+            'generic_components': 'Generic Component | Generic Components',
+            'generic_component_types': 'Generic Component Type | Generic Component Types'
         },
         errors: {
             'retrievegraphdata': 'Graphdaten konnten nicht ermittelt werden.'
@@ -15273,6 +15304,8 @@ module.exports = {
             'type': 'Type',
             'email': 'E-Mail',
             'name': 'Name',
+            'name_singular': 'Name (Singular)',
+            'name_plural': 'Name (Plural)',
             'display_name': 'Display Name',
             'common_name': 'Common Name',
             'latin_name': 'Latin Name',
@@ -15327,7 +15360,7 @@ module.exports = {
             'queued': 'Queued',
             'criticalstates': 'Critical States',
             'since': 'Since',
-            'state': 'Status',
+            'state': 'State',
             'actions': 'Actions',
             'irrigate': 'Irrigate',
             'duration': 'Duration',
@@ -15372,7 +15405,13 @@ module.exports = {
             'max': 'Maximum',
             'during_day': 'Daytime',
             'during_night': 'Nighttime',
-            'total': 'Total'
+            'total': 'Total',
+            'infrastructure': 'Infrastructure',
+            'timeframe_start': 'Timeframe from',
+            'timeframe_end': 'Timeframe to',
+            'reference_value': 'Reference value',
+            'reference_value_duration_threshold_minutes': 'Reference value undershot/exceeded for (Minutes)',
+            'for': 'for'
         },
         menu: {
             'welcome': 'Welcome',
@@ -15424,8 +15463,16 @@ module.exports = {
             'animal_weighing_schedule_matrix': 'This matrix contains all defined weighing schedules. A number in a column represents the schedule\'s interval in days followed by the next due date.',
             'done': 'Done',
             'skip': 'Skip',
+            'material_icons_list': 'Visit <a href="https://material.io/icons/">material.io</a> for a complete icon overview.',
             'no_data': 'No Data.',
-            'connecting_to_server': 'Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.'
+            'connecting_to_server': 'Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.',
+            'generic_components': {
+                'about': 'Generic components are components of a user defined type.',
+                'type_about': 'Generic component types define name, properties and possible states of a generic component. They are used as a template when creating a new generic component.',
+                'property_templates': 'Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.',
+                'state_templates': 'Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.',
+                'type_delete_warning': 'When deleting a component type <strong>all components of this type</strong> will also be deleted.'
+            }
         },
         units: {
             'years': 'year|years',
@@ -15439,7 +15486,10 @@ module.exports = {
             'days_ago': '{val} days ago',
             'hours_ago': '{val} hours ago',
             'minutes_ago': '{val} minutes ago',
-            'just_now': 'just now'
+            'just_now': 'just now',
+            'lesser': '<',
+            'greater': '>',
+            'equals': '='
         }
     }
 };
@@ -15543,6 +15593,10 @@ var _logical_sensorsWidget = require('./vue/logical_sensors-widget.vue');
 
 var _logical_sensorsWidget2 = _interopRequireDefault(_logical_sensorsWidget);
 
+var _generic_componentsWidget = require('./vue/generic_components-widget.vue');
+
+var _generic_componentsWidget2 = _interopRequireDefault(_generic_componentsWidget);
+
 var _usersWidget = require('./vue/users-widget.vue');
 
 var _usersWidget2 = _interopRequireDefault(_usersWidget);
@@ -15558,6 +15612,10 @@ var _caresheetsWidget2 = _interopRequireDefault(_caresheetsWidget);
 var _logsWidget = require('./vue/logs-widget.vue');
 
 var _logsWidget2 = _interopRequireDefault(_logsWidget);
+
+var _generic_component_type_createForm = require('./vue/generic_component_type_create-form.vue');
+
+var _generic_component_type_createForm2 = _interopRequireDefault(_generic_component_type_createForm);
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -15668,15 +15726,18 @@ window.bodyVue = new Vue({
         'valves-widget': _valvesWidget2.default,
         'physical_sensors-widget': _physical_sensorsWidget2.default,
         'logical_sensors-widget': _logical_sensorsWidget2.default,
+        'generic_components-widget': _generic_componentsWidget2.default,
         'users-widget': _usersWidget2.default,
         'biography_entries-widget': _biography_entriesWidget2.default,
         'caresheets-widget': _caresheetsWidget2.default,
-        'logs-widget': _logsWidget2.default
+        'logs-widget': _logsWidget2.default,
+
+        'generic_component_type_create-form': _generic_component_type_createForm2.default
     }
 
 });
 
-},{"./lang.js":10,"./vue/action_sequence_schedule-widget.vue":12,"./vue/action_sequences-widget.vue":13,"./vue/animal_feeding_schedules-matrix-widget.vue":14,"./vue/animal_feeding_schedules-widget.vue":15,"./vue/animal_feedings-widget.vue":16,"./vue/animal_weighing_schedules-matrix-widget.vue":17,"./vue/animal_weighing_schedules-widget.vue":18,"./vue/animal_weighings-widget.vue":19,"./vue/animals-widget.vue":20,"./vue/biography_entries-widget.vue":21,"./vue/caresheets-widget.vue":22,"./vue/controlunit-widget.vue":23,"./vue/dashboard-widget.vue":24,"./vue/dygraph-graph.vue":25,"./vue/files-show-widget.vue":26,"./vue/files-widget.vue":27,"./vue/google-graph.vue":28,"./vue/inline-graph.vue":29,"./vue/logical_sensors-widget.vue":30,"./vue/logs-widget.vue":31,"./vue/physical_sensors-widget.vue":32,"./vue/pumps-widget.vue":33,"./vue/system-indicator.vue":34,"./vue/terraria-overview-widget.vue":35,"./vue/terraria-widget.vue":36,"./vue/users-widget.vue":37,"./vue/valves-widget.vue":38,"vue-i18n":6,"vue-peity":7,"vue/dist/vue.js":9}],12:[function(require,module,exports){
+},{"./lang.js":10,"./vue/action_sequence_schedule-widget.vue":12,"./vue/action_sequences-widget.vue":13,"./vue/animal_feeding_schedules-matrix-widget.vue":14,"./vue/animal_feeding_schedules-widget.vue":15,"./vue/animal_feedings-widget.vue":16,"./vue/animal_weighing_schedules-matrix-widget.vue":17,"./vue/animal_weighing_schedules-widget.vue":18,"./vue/animal_weighings-widget.vue":19,"./vue/animals-widget.vue":20,"./vue/biography_entries-widget.vue":21,"./vue/caresheets-widget.vue":22,"./vue/controlunit-widget.vue":23,"./vue/dashboard-widget.vue":24,"./vue/dygraph-graph.vue":25,"./vue/files-show-widget.vue":26,"./vue/files-widget.vue":27,"./vue/generic_component_type_create-form.vue":28,"./vue/generic_components-widget.vue":29,"./vue/google-graph.vue":30,"./vue/inline-graph.vue":31,"./vue/logical_sensors-widget.vue":32,"./vue/logs-widget.vue":33,"./vue/physical_sensors-widget.vue":34,"./vue/pumps-widget.vue":35,"./vue/system-indicator.vue":36,"./vue/terraria-overview-widget.vue":37,"./vue/terraria-widget.vue":38,"./vue/users-widget.vue":39,"./vue/valves-widget.vue":40,"vue-i18n":6,"vue-peity":7,"vue/dist/vue.js":9}],12:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -15891,7 +15952,7 @@ exports.default = {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter + '?raw=true',
+                url: '/api/v1/action_sequences/' + that.action_sequenceId + '?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.action_sequenceId !== '') {
@@ -16060,9 +16121,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8", __vue__options__)
+    hotAPI.createRecord("data-v-9", __vue__options__)
   } else {
-    hotAPI.reload("data-v-8", __vue__options__)
+    hotAPI.reload("data-v-9", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],15:[function(require,module,exports){
@@ -16196,9 +16257,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7", __vue__options__)
+    hotAPI.createRecord("data-v-8", __vue__options__)
   } else {
-    hotAPI.reload("data-v-7", __vue__options__)
+    hotAPI.reload("data-v-8", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],16:[function(require,module,exports){
@@ -16342,9 +16403,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6", __vue__options__)
+    hotAPI.createRecord("data-v-7", __vue__options__)
   } else {
-    hotAPI.reload("data-v-6", __vue__options__)
+    hotAPI.reload("data-v-7", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],17:[function(require,module,exports){
@@ -16453,9 +16514,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-9", __vue__options__)
+    hotAPI.createRecord("data-v-10", __vue__options__)
   } else {
-    hotAPI.reload("data-v-9", __vue__options__)
+    hotAPI.reload("data-v-10", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],18:[function(require,module,exports){
@@ -16909,9 +16970,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5", __vue__options__)
+    hotAPI.createRecord("data-v-6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-5", __vue__options__)
+    hotAPI.reload("data-v-6", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],21:[function(require,module,exports){
@@ -17081,9 +17142,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-25", __vue__options__)
+    hotAPI.createRecord("data-v-26", __vue__options__)
   } else {
-    hotAPI.reload("data-v-25", __vue__options__)
+    hotAPI.reload("data-v-26", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],22:[function(require,module,exports){
@@ -17253,9 +17314,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-26", __vue__options__)
+    hotAPI.createRecord("data-v-27", __vue__options__)
   } else {
-    hotAPI.reload("data-v-26", __vue__options__)
+    hotAPI.reload("data-v-27", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],23:[function(require,module,exports){
@@ -17760,6 +17821,51 @@ exports.default = {
             });
         },
 
+        updateActionSequenceTrigger: function updateActionSequenceTrigger(e) {
+            var item = null;
+            var found = false;
+
+            item = null;
+            this.dashboard.action_sequence_triggers.running.forEach(function (data, index) {
+                if (data.id === e.action_sequence_trigger.id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                if (e.action_sequence_trigger.states.running === false) {
+                    this.dashboard.action_sequence_triggers.running.splice(item, 1);
+                } else {
+                    this.dashboard.action_sequence_triggers.running.splice(item, 1, e.action_sequence_trigger);
+                    found = true;
+                }
+            }
+
+            if (found !== true) {
+                if (e.action_sequence_trigger.states.running === true) {
+                    this.dashboard.action_sequence_triggers.running.push(e.action_sequence_trigger);
+                }
+            }
+
+            this.$nextTick(function () {
+                this.refresh_grid();
+            });
+        },
+
+        deleteActionSequenceTrigger: function deleteActionSequenceTrigger(e) {
+            var that = this;
+
+            this.dashboard.action_sequence_triggers.running.forEach(function (data, index) {
+                if (data.id === e.action_sequence_trigger_id) {
+                    that.dashboard.action_sequence_triggers.running.splice(index, 1);
+                }
+            });
+
+            this.$nextTick(function () {
+                this.refresh_grid();
+            });
+        },
+
         refresh_grid: function refresh_grid() {
             $('.dropdown-button').dropdown({
                 constrain_width: false
@@ -17834,6 +17940,10 @@ exports.default = {
             _this.updateActionSequenceSchedule(e);
         }).listen('ActionSequenceScheduleDeleted', function (e) {
             _this.deleteActionSequenceSchedule(e);
+        }).listen('ActionSequenceTriggerUpdated', function (e) {
+            _this.updateActionSequenceTrigger(e);
+        }).listen('ActionSequenceTriggerDeleted', function (e) {
+            _this.deleteActionSequenceTrigger(e);
         });
 
         this.load_data();
@@ -17850,8 +17960,8 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[(_vm.dashboard.terraria.critical.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection critical with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(0),"\n                "+_vm._s(_vm.dashboard.terraria.critical.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.critical.length))+" "+_vm._s(_vm.$t("labels.critical"))+"\n            "])," ",_vm._l((_vm.dashboard.terraria.critical),function(terrarium){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/terraria/' + terrarium.id}},[_vm._s(terrarium.display_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical === true && terrarium.temperature_critical !== true),expression:"terrarium.humidity_critical === true && terrarium.temperature_critical !== true"}]},["("+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%)"])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical === true && terrarium.temperature_critical === true),expression:"terrarium.humidity_critical === true && terrarium.temperature_critical === true"}]},["("+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%, "+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C)"])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical !== true && terrarium.temperature_critical === true),expression:"terrarium.humidity_critical !== true && terrarium.temperature_critical === true"}]},["("+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C)"])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_feeding_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(1),"\n                "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.overdue"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(schedule.animal.display_name)+": "+_vm._s(schedule.type)+" ("+_vm._s(_vm.$t("labels.since"))+" "+_vm._s((schedule.due_days*-1))+" "+_vm._s(_vm.$tc("units.days", (schedule.due_days*-1)))+")\n\n\n                    ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(2,true)])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'},on:{"click":_vm.link_post}},[_vm._m(3,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_weighing_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(4),"\n                "+_vm._s(_vm.$tc("components.animal_weighings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_weighing_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(schedule.animal.display_name)+" "+_vm._s(_vm.$t('labels.today'))+" "+_vm._s(_vm.$t('labels.actions'))+"\n\n\n                    ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(5,true)])," "," ",_vm._m(6,true)])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(7),"\n                "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(schedule.timestamps.starts)+": "+_vm._s(schedule.sequence.name)+"\n\n                    ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(8,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_feeding_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(9),"\n                "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(schedule.animal.display_name)+": "+_vm._s(schedule.type)+"\n\n\n                    ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(10,true)])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'},on:{"click":_vm.link_post}},[_vm._m(11,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_weighing_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(12),"\n                "+_vm._s(_vm.$tc("components.animal_weighings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_weighing_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(schedule.animal.display_name)+" "+_vm._s(_vm.$t('labels.today'))+" "+_vm._s(_vm.$t('labels.actions'))+"\n\n\n                    ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(13,true)])," "," ",_vm._m(14,true)])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(15),"\n                "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(schedule.timestamps.starts)+": "+_vm._s(schedule.sequence.name)+"\n\n                    ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(16,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.running.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(17),"\n                "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.running"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.running),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[(schedule.timestamps.last_start !== null)?_vm._h('a',[_vm._s(schedule.timestamps.last_start.split(" ")[1])]):_vm._e()," ",_vm._h('a',{staticClass:"white-text",attrs:{"href":'/action_sequences/' + schedule.sequence.id}},["\n                        "+_vm._s(schedule.sequence.name)+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(18,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.terraria.critical.length < 1)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(19),"\n                "+_vm._s(_vm.$tc("components.terraria", 2))+"\n            "])," ",_vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(_vm.dashboard.terraria.ok.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.ok.length))+" "+_vm._s(_vm.$t("labels.ok"))+"\n\n                "])])])]):_vm._e()])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["video_label"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["local_dining"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["done"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["vertical_align_bottom"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('a',{staticClass:"secondary-content white-text"},[_vm._h('i',{staticClass:"material-icons"},["done"])])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["local_dining"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["done"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["vertical_align_bottom"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('a',{staticClass:"secondary-content white-text"},[_vm._h('i',{staticClass:"material-icons"},["done"])])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["video_label"])}]
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[(_vm.dashboard.terraria.critical.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection critical with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(0),"\n                "+_vm._s(_vm.dashboard.terraria.critical.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.critical.length))+" "+_vm._s(_vm.$t("labels.critical"))+"\n            "])," ",_vm._l((_vm.dashboard.terraria.critical),function(terrarium){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/terraria/' + terrarium.id}},[_vm._s(terrarium.display_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical === true && terrarium.temperature_critical !== true),expression:"terrarium.humidity_critical === true && terrarium.temperature_critical !== true"}]},["("+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%)"])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical === true && terrarium.temperature_critical === true),expression:"terrarium.humidity_critical === true && terrarium.temperature_critical === true"}]},["("+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%, "+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C)"])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical !== true && terrarium.temperature_critical === true),expression:"terrarium.humidity_critical !== true && terrarium.temperature_critical === true"}]},["("+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C)"])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_feeding_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(1),"\n                "+_vm._s(_vm.dashboard.animal_feeding_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.overdue"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 60px)"}},["\n                        "+_vm._s(schedule.animal.display_name)+": "+_vm._s(schedule.type)+" ("+_vm._s(_vm.$t("labels.since"))+" "+_vm._s((schedule.due_days*-1))+" "+_vm._s(_vm.$tc("units.days", (schedule.due_days*-1)))+")\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(2,true)])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'},on:{"click":_vm.link_post}},[_vm._m(3,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_weighing_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(4),"\n                "+_vm._s(_vm.dashboard.animal_weighing_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.animal_weighings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_weighing_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 60px)"}},["\n                        "+_vm._s(schedule.animal.display_name)+" "+_vm._s(_vm.$t('labels.today'))+" "+_vm._s(_vm.$t('labels.actions'))+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(5,true)])," "," ",_vm._m(6,true)])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(7),"\n                "+_vm._s(_vm.dashboard.action_sequence_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 30px)"}},["\n                        "+_vm._s(schedule.timestamps.starts)+": "+_vm._s(schedule.sequence.name)+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(8,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_feeding_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(9),"\n                "+_vm._s(_vm.dashboard.animal_feeding_schedules.due.length)+" "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 60px)"}},["\n                        "+_vm._s(schedule.animal.display_name)+": "+_vm._s(schedule.type)+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(10,true)])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'},on:{"click":_vm.link_post}},[_vm._m(11,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_weighing_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(12),"\n                "+_vm._s(_vm.dashboard.animal_weighing_schedules.due.length)+" "+_vm._s(_vm.$tc("components.animal_weighings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_weighing_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 60px)"}},["\n                        "+_vm._s(schedule.animal.display_name)+" "+_vm._s(_vm.$t('labels.today'))+" "+_vm._s(_vm.$t('labels.actions'))+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(13,true)])," "," ",_vm._m(14,true)])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(15),"\n                "+_vm._s(_vm.dashboard.action_sequence_schedules.due.length)+" "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 30px)"}},["\n                        "+_vm._s(schedule.timestamps.starts)+": "+_vm._s(schedule.sequence.name)+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(16,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.running.length > 0 || _vm.dashboard.action_sequence_triggers.running.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(17),"\n                "+_vm._s((_vm.dashboard.action_sequence_schedules.running.length + _vm.dashboard.action_sequence_triggers.running.length))+"\n                "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.running"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.running),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 30px)"}},[(schedule.timestamps.last_start !== null)?_vm._h('a',{staticClass:"white-text"},[_vm._s(schedule.timestamps.last_start.split(" ")[1])]):_vm._e()," ",_vm._h('a',{staticClass:"white-text",attrs:{"href":'/action_sequences/' + schedule.sequence.id}},["\n                            "+_vm._s(schedule.sequence.name)+"\n                        "])])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(18,true)])])])})," ",_vm._l((_vm.dashboard.action_sequence_triggers.running),function(trigger){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 30px)"}},[(trigger.timestamps.last_start !== null)?_vm._h('a',{staticClass:"white-text"},[_vm._s(trigger.timestamps.last_start.split(" ")[1])]):_vm._e()," ",_vm._h('a',{staticClass:"white-text",attrs:{"href":'/action_sequences/' + trigger.sequence.id}},["\n                            "+_vm._s(trigger.sequence.name)+"\n                        "])])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_triggers/' + trigger.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(19,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.terraria.critical.length < 1)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(20),"\n                "+_vm._s(_vm.dashboard.terraria.ok.length)+" "+_vm._s(_vm.$tc("components.terraria", 2))+"\n            "])," ",_vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(_vm.dashboard.terraria.ok.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.ok.length))+" "+_vm._s(_vm.$t("labels.ok"))+"\n\n                "])])])]):_vm._e()])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["video_label"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["local_dining"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["done"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["vertical_align_bottom"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('a',{staticClass:"secondary-content white-text"},[_vm._h('i',{staticClass:"material-icons"},["done"])])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["local_dining"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["done"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["vertical_align_bottom"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('a',{staticClass:"secondary-content white-text"},[_vm._h('i',{staticClass:"material-icons"},["done"])])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["video_label"])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -18005,9 +18115,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3", __vue__options__)
+    hotAPI.createRecord("data-v-4", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3", __vue__options__)
+    hotAPI.reload("data-v-4", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],26:[function(require,module,exports){
@@ -18300,6 +18410,302 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+exports.default = {
+    data: function data() {
+        return {};
+    },
+
+
+    props: {
+        wrapperClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        id: {
+            type: String,
+            default: null,
+            required: false
+        },
+        nameSingular: {
+            type: String,
+            default: null,
+            required: false
+        },
+        namePlural: {
+            type: String,
+            default: null,
+            required: false
+        },
+        icon: {
+            type: String,
+            default: null,
+            required: false
+        },
+        properties: {
+            type: Array,
+            default: null,
+            required: false
+        },
+        states: {
+            type: Array,
+            default: null,
+            required: false
+        }
+    },
+
+    methods: {
+
+        add_property: function add_property(e) {
+            var preset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+            if (e !== null) {
+                e.preventDefault();
+            }
+
+            $('#generic_component_type_create_prop_input_tpl input[type="text"]').attr('value', preset || '');
+            $('#generic_component_type_create_props').append($('#generic_component_type_create_prop_input_tpl').html());
+        },
+
+        add_state: function add_state(e) {
+            var preset = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : null;
+
+            if (e !== null) {
+                e.preventDefault();
+            }
+
+            $('#generic_component_state_create_prop_input_tpl input[type="text"]').attr('value', preset || '');
+            $('#generic_component_state_create_props').append($('#generic_component_state_create_prop_input_tpl').html());
+        }
+
+    },
+
+    created: function created() {
+        var that = this;
+        this.$nextTick(function () {
+            if (that.id !== null) {
+                $('#' + that.id).attr('action', $('#' + that.id).attr('action') + '/' + that.id);
+                $('#' + that.id).attr('data-method', 'PUT');
+                $('#' + that.id + ' select[name=icon]').val(that.icon);
+                $('#' + that.id + ' input[name=name_singular]').attr('value', that.nameSingular || '');
+                $('#' + that.id + ' input[name=name_plural]').attr('value', that.namePlural || '');
+
+                if (that.properties !== null) {
+                    that.properties.forEach(function (el) {
+                        that.add_property(null, el);
+                    });
+                }
+                if (that.states !== null) {
+                    that.states.forEach(function (el) {
+                        that.add_state(null, el);
+                    });
+                }
+            }
+        });
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:_vm.containerClasses},[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('form',{attrs:{"action":"/api/v1/generic_component_types","id":_vm.id,"data-method":"POST","data-redirect-success":"/categories#tab_generic_components_types"}},[_vm._h('div',{staticClass:"card-content"},[_vm._h('div',{staticClass:"row"},[_vm._h('div',{staticClass:"col s12"},[_vm._h('strong',[_vm._s(_vm.$tc('components.generic_component_types', 1))])])," ",_vm._h('div',{staticClass:"col s12 m6 l6"},[_vm._h('div',{staticClass:"row"},[_vm._h('div',{staticClass:"input-field col s12 m6 l6"},[_vm._h('input',{attrs:{"type":"text","placeholder":_vm.$t('labels.name_singular'),"name":"name_singular","value":""}})," ",_vm._h('label',{attrs:{"for":"name_singular"}},[_vm._s(_vm.$t('labels.name_singular'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m6 l6"},[_vm._h('input',{attrs:{"type":"text","placeholder":_vm.$t('labels.name_plural'),"name":"name_plural","value":""}})," ",_vm._h('label',{attrs:{"for":"name_plural"}},[_vm._s(_vm.$t('labels.name_plural'))])])])])," ",_vm._h('div',{staticClass:"col s12 m6 l6"},[_vm._h('div',{staticClass:"row"},[_vm._h('div',{staticClass:"input-field col s12"},[_vm._m(0)," ",_vm._h('label',{attrs:{"for":"icon"}},[_vm._s(_vm.$t('labels.icon'))])," ",_vm._h('p',{domProps:{"innerHTML":_vm._s('<i>' + _vm.$t('tooltips.material_icons_list') + '</i>')}})])])])])," ",_vm._h('div',{staticClass:"row"},[_vm._h('div',{staticClass:"col s12 m6 l6"},[_vm._h('div',{staticClass:"row"},[_vm._h('div',{staticClass:"col s12"},[_vm._h('strong',[_vm._s(_vm.$t('labels.properties'))])," ",_vm._h('p',[_vm._s(_vm.$t('tooltips.generic_components.property_templates'))])])])," ",_vm._h('div',{staticClass:"row"},[_vm._h('div',{staticClass:"col s12"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",on:{"click":_vm.add_property}},[_vm._s(_vm.$t('buttons.add_property'))+"\n                                        ",_vm._m(1)])])," ",_vm._m(2)])])," ",_vm._h('div',{staticClass:"col s12 m6 l6"},[_vm._h('div',{staticClass:"row"},[_vm._h('div',{staticClass:"col s12"},[_vm._h('strong',[_vm._s(_vm.$t('labels.state'))])," ",_vm._h('p',[_vm._s(_vm.$t('tooltips.generic_components.state_templates'))])])])," ",_vm._h('div',{staticClass:"row"},[_vm._h('div',{staticClass:"col s12"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",on:{"click":_vm.add_state}},[_vm._s(_vm.$t('buttons.add_state'))+"\n                                        ",_vm._m(3)])])," ",_vm._m(4)])])])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('div',{staticClass:"row"},[_vm._h('div',{staticClass:"input-field col s12"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",attrs:{"type":"submit"}},[_vm._s(_vm.$t('buttons.next'))+"\n                                ",_vm._m(5)])])])])])])])," ",_vm._m(6)," ",_vm._m(7)])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('select',{attrs:{"name":"icon"}},[_vm._h('option',{attrs:{"value":"3d_rotation"}},["3d_rotation"])," ",_vm._h('option',{attrs:{"value":"ac_unit"}},["ac_unit"])," ",_vm._h('option',{attrs:{"value":"access_alarm"}},["access_alarm"])," ",_vm._h('option',{attrs:{"value":"access_alarms"}},["access_alarms"])," ",_vm._h('option',{attrs:{"value":"access_time"}},["access_time"])," ",_vm._h('option',{attrs:{"value":"accessibility"}},["accessibility"])," ",_vm._h('option',{attrs:{"value":"accessible"}},["accessible"])," ",_vm._h('option',{attrs:{"value":"account_balance"}},["account_balance"])," ",_vm._h('option',{attrs:{"value":"account_balance_wallet"}},["account_balance_wallet"])," ",_vm._h('option',{attrs:{"value":"account_box"}},["account_box"])," ",_vm._h('option',{attrs:{"value":"account_circle"}},["account_circle"])," ",_vm._h('option',{attrs:{"value":"adb"}},["adb"])," ",_vm._h('option',{attrs:{"value":"add"}},["add"])," ",_vm._h('option',{attrs:{"value":"add_a_photo"}},["add_a_photo"])," ",_vm._h('option',{attrs:{"value":"add_alarm"}},["add_alarm"])," ",_vm._h('option',{attrs:{"value":"add_alert"}},["add_alert"])," ",_vm._h('option',{attrs:{"value":"add_box"}},["add_box"])," ",_vm._h('option',{attrs:{"value":"add_circle"}},["add_circle"])," ",_vm._h('option',{attrs:{"value":"add_circle_outline"}},["add_circle_outline"])," ",_vm._h('option',{attrs:{"value":"add_location"}},["add_location"])," ",_vm._h('option',{attrs:{"value":"add_shopping_cart"}},["add_shopping_cart"])," ",_vm._h('option',{attrs:{"value":"add_to_photos"}},["add_to_photos"])," ",_vm._h('option',{attrs:{"value":"add_to_queue"}},["add_to_queue"])," ",_vm._h('option',{attrs:{"value":"adjust"}},["adjust"])," ",_vm._h('option',{attrs:{"value":"airline_seat_flat"}},["airline_seat_flat"])," ",_vm._h('option',{attrs:{"value":"airline_seat_flat_angled"}},["airline_seat_flat_angled"])," ",_vm._h('option',{attrs:{"value":"airline_seat_individual_suite"}},["airline_seat_individual_suite"])," ",_vm._h('option',{attrs:{"value":"airline_seat_legroom_extra"}},["airline_seat_legroom_extra"])," ",_vm._h('option',{attrs:{"value":"airline_seat_legroom_normal"}},["airline_seat_legroom_normal"])," ",_vm._h('option',{attrs:{"value":"airline_seat_legroom_reduced"}},["airline_seat_legroom_reduced"])," ",_vm._h('option',{attrs:{"value":"airline_seat_recline_extra"}},["airline_seat_recline_extra"])," ",_vm._h('option',{attrs:{"value":"airline_seat_recline_normal"}},["airline_seat_recline_normal"])," ",_vm._h('option',{attrs:{"value":"airplanemode_active"}},["airplanemode_active"])," ",_vm._h('option',{attrs:{"value":"airplanemode_inactive"}},["airplanemode_inactive"])," ",_vm._h('option',{attrs:{"value":"airplay"}},["airplay"])," ",_vm._h('option',{attrs:{"value":"airport_shuttle"}},["airport_shuttle"])," ",_vm._h('option',{attrs:{"value":"alarm"}},["alarm"])," ",_vm._h('option',{attrs:{"value":"alarm_add"}},["alarm_add"])," ",_vm._h('option',{attrs:{"value":"alarm_off"}},["alarm_off"])," ",_vm._h('option',{attrs:{"value":"alarm_on"}},["alarm_on"])," ",_vm._h('option',{attrs:{"value":"album"}},["album"])," ",_vm._h('option',{attrs:{"value":"all_inclusive"}},["all_inclusive"])," ",_vm._h('option',{attrs:{"value":"all_out"}},["all_out"])," ",_vm._h('option',{attrs:{"value":"android"}},["android"])," ",_vm._h('option',{attrs:{"value":"announcement"}},["announcement"])," ",_vm._h('option',{attrs:{"value":"apps"}},["apps"])," ",_vm._h('option',{attrs:{"value":"archive"}},["archive"])," ",_vm._h('option',{attrs:{"value":"arrow_back"}},["arrow_back"])," ",_vm._h('option',{attrs:{"value":"arrow_downward"}},["arrow_downward"])," ",_vm._h('option',{attrs:{"value":"arrow_drop_down"}},["arrow_drop_down"])," ",_vm._h('option',{attrs:{"value":"arrow_drop_down_circle"}},["arrow_drop_down_circle"])," ",_vm._h('option',{attrs:{"value":"arrow_drop_up"}},["arrow_drop_up"])," ",_vm._h('option',{attrs:{"value":"arrow_forward"}},["arrow_forward"])," ",_vm._h('option',{attrs:{"value":"arrow_upward"}},["arrow_upward"])," ",_vm._h('option',{attrs:{"value":"art_track"}},["art_track"])," ",_vm._h('option',{attrs:{"value":"aspect_ratio"}},["aspect_ratio"])," ",_vm._h('option',{attrs:{"value":"assessment"}},["assessment"])," ",_vm._h('option',{attrs:{"value":"assignment"}},["assignment"])," ",_vm._h('option',{attrs:{"value":"assignment_ind"}},["assignment_ind"])," ",_vm._h('option',{attrs:{"value":"assignment_late"}},["assignment_late"])," ",_vm._h('option',{attrs:{"value":"assignment_return"}},["assignment_return"])," ",_vm._h('option',{attrs:{"value":"assignment_returned"}},["assignment_returned"])," ",_vm._h('option',{attrs:{"value":"assignment_turned_in"}},["assignment_turned_in"])," ",_vm._h('option',{attrs:{"value":"assistant"}},["assistant"])," ",_vm._h('option',{attrs:{"value":"assistant_photo"}},["assistant_photo"])," ",_vm._h('option',{attrs:{"value":"attach_file"}},["attach_file"])," ",_vm._h('option',{attrs:{"value":"attach_money"}},["attach_money"])," ",_vm._h('option',{attrs:{"value":"attachment"}},["attachment"])," ",_vm._h('option',{attrs:{"value":"audiotrack"}},["audiotrack"])," ",_vm._h('option',{attrs:{"value":"autorenew"}},["autorenew"])," ",_vm._h('option',{attrs:{"value":"av_timer"}},["av_timer"])," ",_vm._h('option',{attrs:{"value":"backspace"}},["backspace"])," ",_vm._h('option',{attrs:{"value":"backup"}},["backup"])," ",_vm._h('option',{attrs:{"value":"battery_alert"}},["battery_alert"])," ",_vm._h('option',{attrs:{"value":"battery_charging_full"}},["battery_charging_full"])," ",_vm._h('option',{attrs:{"value":"battery_full"}},["battery_full"])," ",_vm._h('option',{attrs:{"value":"battery_std"}},["battery_std"])," ",_vm._h('option',{attrs:{"value":"battery_unknown"}},["battery_unknown"])," ",_vm._h('option',{attrs:{"value":"beach_access"}},["beach_access"])," ",_vm._h('option',{attrs:{"value":"beenhere"}},["beenhere"])," ",_vm._h('option',{attrs:{"value":"block"}},["block"])," ",_vm._h('option',{attrs:{"value":"bluetooth"}},["bluetooth"])," ",_vm._h('option',{attrs:{"value":"bluetooth_audio"}},["bluetooth_audio"])," ",_vm._h('option',{attrs:{"value":"bluetooth_connected"}},["bluetooth_connected"])," ",_vm._h('option',{attrs:{"value":"bluetooth_disabled"}},["bluetooth_disabled"])," ",_vm._h('option',{attrs:{"value":"bluetooth_searching"}},["bluetooth_searching"])," ",_vm._h('option',{attrs:{"value":"blur_circular"}},["blur_circular"])," ",_vm._h('option',{attrs:{"value":"blur_linear"}},["blur_linear"])," ",_vm._h('option',{attrs:{"value":"blur_off"}},["blur_off"])," ",_vm._h('option',{attrs:{"value":"blur_on"}},["blur_on"])," ",_vm._h('option',{attrs:{"value":"book"}},["book"])," ",_vm._h('option',{attrs:{"value":"bookmark"}},["bookmark"])," ",_vm._h('option',{attrs:{"value":"bookmark_border"}},["bookmark_border"])," ",_vm._h('option',{attrs:{"value":"border_all"}},["border_all"])," ",_vm._h('option',{attrs:{"value":"border_bottom"}},["border_bottom"])," ",_vm._h('option',{attrs:{"value":"border_clear"}},["border_clear"])," ",_vm._h('option',{attrs:{"value":"border_color"}},["border_color"])," ",_vm._h('option',{attrs:{"value":"border_horizontal"}},["border_horizontal"])," ",_vm._h('option',{attrs:{"value":"border_inner"}},["border_inner"])," ",_vm._h('option',{attrs:{"value":"border_left"}},["border_left"])," ",_vm._h('option',{attrs:{"value":"border_outer"}},["border_outer"])," ",_vm._h('option',{attrs:{"value":"border_right"}},["border_right"])," ",_vm._h('option',{attrs:{"value":"border_style"}},["border_style"])," ",_vm._h('option',{attrs:{"value":"border_top"}},["border_top"])," ",_vm._h('option',{attrs:{"value":"border_vertical"}},["border_vertical"])," ",_vm._h('option',{attrs:{"value":"branding_watermark"}},["branding_watermark"])," ",_vm._h('option',{attrs:{"value":"brightness_1"}},["brightness_1"])," ",_vm._h('option',{attrs:{"value":"brightness_2"}},["brightness_2"])," ",_vm._h('option',{attrs:{"value":"brightness_3"}},["brightness_3"])," ",_vm._h('option',{attrs:{"value":"brightness_4"}},["brightness_4"])," ",_vm._h('option',{attrs:{"value":"brightness_5"}},["brightness_5"])," ",_vm._h('option',{attrs:{"value":"brightness_6"}},["brightness_6"])," ",_vm._h('option',{attrs:{"value":"brightness_7"}},["brightness_7"])," ",_vm._h('option',{attrs:{"value":"brightness_auto"}},["brightness_auto"])," ",_vm._h('option',{attrs:{"value":"brightness_high"}},["brightness_high"])," ",_vm._h('option',{attrs:{"value":"brightness_low"}},["brightness_low"])," ",_vm._h('option',{attrs:{"value":"brightness_medium"}},["brightness_medium"])," ",_vm._h('option',{attrs:{"value":"broken_image"}},["broken_image"])," ",_vm._h('option',{attrs:{"value":"brush"}},["brush"])," ",_vm._h('option',{attrs:{"value":"bubble_chart"}},["bubble_chart"])," ",_vm._h('option',{attrs:{"value":"bug_report"}},["bug_report"])," ",_vm._h('option',{attrs:{"value":"build"}},["build"])," ",_vm._h('option',{attrs:{"value":"burst_mode"}},["burst_mode"])," ",_vm._h('option',{attrs:{"value":"business"}},["business"])," ",_vm._h('option',{attrs:{"value":"business_center"}},["business_center"])," ",_vm._h('option',{attrs:{"value":"cached"}},["cached"])," ",_vm._h('option',{attrs:{"value":"cake"}},["cake"])," ",_vm._h('option',{attrs:{"value":"call"}},["call"])," ",_vm._h('option',{attrs:{"value":"call_end"}},["call_end"])," ",_vm._h('option',{attrs:{"value":"call_made"}},["call_made"])," ",_vm._h('option',{attrs:{"value":"call_merge"}},["call_merge"])," ",_vm._h('option',{attrs:{"value":"call_missed"}},["call_missed"])," ",_vm._h('option',{attrs:{"value":"call_missed_outgoing"}},["call_missed_outgoing"])," ",_vm._h('option',{attrs:{"value":"call_received"}},["call_received"])," ",_vm._h('option',{attrs:{"value":"call_split"}},["call_split"])," ",_vm._h('option',{attrs:{"value":"call_to_action"}},["call_to_action"])," ",_vm._h('option',{attrs:{"value":"camera"}},["camera"])," ",_vm._h('option',{attrs:{"value":"camera_alt"}},["camera_alt"])," ",_vm._h('option',{attrs:{"value":"camera_enhance"}},["camera_enhance"])," ",_vm._h('option',{attrs:{"value":"camera_front"}},["camera_front"])," ",_vm._h('option',{attrs:{"value":"camera_rear"}},["camera_rear"])," ",_vm._h('option',{attrs:{"value":"camera_roll"}},["camera_roll"])," ",_vm._h('option',{attrs:{"value":"cancel"}},["cancel"])," ",_vm._h('option',{attrs:{"value":"card_giftcard"}},["card_giftcard"])," ",_vm._h('option',{attrs:{"value":"card_membership"}},["card_membership"])," ",_vm._h('option',{attrs:{"value":"card_travel"}},["card_travel"])," ",_vm._h('option',{attrs:{"value":"casino"}},["casino"])," ",_vm._h('option',{attrs:{"value":"cast"}},["cast"])," ",_vm._h('option',{attrs:{"value":"cast_connected"}},["cast_connected"])," ",_vm._h('option',{attrs:{"value":"center_focus_strong"}},["center_focus_strong"])," ",_vm._h('option',{attrs:{"value":"center_focus_weak"}},["center_focus_weak"])," ",_vm._h('option',{attrs:{"value":"change_history"}},["change_history"])," ",_vm._h('option',{attrs:{"value":"chat"}},["chat"])," ",_vm._h('option',{attrs:{"value":"chat_bubble"}},["chat_bubble"])," ",_vm._h('option',{attrs:{"value":"chat_bubble_outline"}},["chat_bubble_outline"])," ",_vm._h('option',{attrs:{"value":"check"}},["check"])," ",_vm._h('option',{attrs:{"value":"check_box"}},["check_box"])," ",_vm._h('option',{attrs:{"value":"check_box_outline_blank"}},["check_box_outline_blank"])," ",_vm._h('option',{attrs:{"value":"check_circle"}},["check_circle"])," ",_vm._h('option',{attrs:{"value":"chevron_left"}},["chevron_left"])," ",_vm._h('option',{attrs:{"value":"chevron_right"}},["chevron_right"])," ",_vm._h('option',{attrs:{"value":"child_care"}},["child_care"])," ",_vm._h('option',{attrs:{"value":"child_friendly"}},["child_friendly"])," ",_vm._h('option',{attrs:{"value":"chrome_reader_mode"}},["chrome_reader_mode"])," ",_vm._h('option',{attrs:{"value":"class"}},["class"])," ",_vm._h('option',{attrs:{"value":"clear"}},["clear"])," ",_vm._h('option',{attrs:{"value":"clear_all"}},["clear_all"])," ",_vm._h('option',{attrs:{"value":"close"}},["close"])," ",_vm._h('option',{attrs:{"value":"closed_caption"}},["closed_caption"])," ",_vm._h('option',{attrs:{"value":"cloud"}},["cloud"])," ",_vm._h('option',{attrs:{"value":"cloud_circle"}},["cloud_circle"])," ",_vm._h('option',{attrs:{"value":"cloud_done"}},["cloud_done"])," ",_vm._h('option',{attrs:{"value":"cloud_download"}},["cloud_download"])," ",_vm._h('option',{attrs:{"value":"cloud_off"}},["cloud_off"])," ",_vm._h('option',{attrs:{"value":"cloud_queue"}},["cloud_queue"])," ",_vm._h('option',{attrs:{"value":"cloud_upload"}},["cloud_upload"])," ",_vm._h('option',{attrs:{"value":"code"}},["code"])," ",_vm._h('option',{attrs:{"value":"collections"}},["collections"])," ",_vm._h('option',{attrs:{"value":"collections_bookmark"}},["collections_bookmark"])," ",_vm._h('option',{attrs:{"value":"color_lens"}},["color_lens"])," ",_vm._h('option',{attrs:{"value":"colorize"}},["colorize"])," ",_vm._h('option',{attrs:{"value":"comment"}},["comment"])," ",_vm._h('option',{attrs:{"value":"compare"}},["compare"])," ",_vm._h('option',{attrs:{"value":"compare_arrows"}},["compare_arrows"])," ",_vm._h('option',{attrs:{"value":"computer"}},["computer"])," ",_vm._h('option',{attrs:{"value":"confirmation_number"}},["confirmation_number"])," ",_vm._h('option',{attrs:{"value":"contact_mail"}},["contact_mail"])," ",_vm._h('option',{attrs:{"value":"contact_phone"}},["contact_phone"])," ",_vm._h('option',{attrs:{"value":"contacts"}},["contacts"])," ",_vm._h('option',{attrs:{"value":"content_copy"}},["content_copy"])," ",_vm._h('option',{attrs:{"value":"content_cut"}},["content_cut"])," ",_vm._h('option',{attrs:{"value":"content_paste"}},["content_paste"])," ",_vm._h('option',{attrs:{"value":"control_point"}},["control_point"])," ",_vm._h('option',{attrs:{"value":"control_point_duplicate"}},["control_point_duplicate"])," ",_vm._h('option',{attrs:{"value":"copyright"}},["copyright"])," ",_vm._h('option',{attrs:{"value":"create"}},["create"])," ",_vm._h('option',{attrs:{"value":"create_new_folder"}},["create_new_folder"])," ",_vm._h('option',{attrs:{"value":"credit_card"}},["credit_card"])," ",_vm._h('option',{attrs:{"value":"crop"}},["crop"])," ",_vm._h('option',{attrs:{"value":"crop_16_9"}},["crop_16_9"])," ",_vm._h('option',{attrs:{"value":"crop_3_2"}},["crop_3_2"])," ",_vm._h('option',{attrs:{"value":"crop_5_4"}},["crop_5_4"])," ",_vm._h('option',{attrs:{"value":"crop_7_5"}},["crop_7_5"])," ",_vm._h('option',{attrs:{"value":"crop_din"}},["crop_din"])," ",_vm._h('option',{attrs:{"value":"crop_free"}},["crop_free"])," ",_vm._h('option',{attrs:{"value":"crop_landscape"}},["crop_landscape"])," ",_vm._h('option',{attrs:{"value":"crop_original"}},["crop_original"])," ",_vm._h('option',{attrs:{"value":"crop_portrait"}},["crop_portrait"])," ",_vm._h('option',{attrs:{"value":"crop_rotate"}},["crop_rotate"])," ",_vm._h('option',{attrs:{"value":"crop_square"}},["crop_square"])," ",_vm._h('option',{attrs:{"value":"dashboard"}},["dashboard"])," ",_vm._h('option',{attrs:{"value":"data_usage"}},["data_usage"])," ",_vm._h('option',{attrs:{"value":"date_range"}},["date_range"])," ",_vm._h('option',{attrs:{"value":"dehaze"}},["dehaze"])," ",_vm._h('option',{attrs:{"value":"delete"}},["delete"])," ",_vm._h('option',{attrs:{"value":"delete_forever"}},["delete_forever"])," ",_vm._h('option',{attrs:{"value":"delete_sweep"}},["delete_sweep"])," ",_vm._h('option',{attrs:{"value":"description"}},["description"])," ",_vm._h('option',{attrs:{"value":"desktop_mac"}},["desktop_mac"])," ",_vm._h('option',{attrs:{"value":"desktop_windows"}},["desktop_windows"])," ",_vm._h('option',{attrs:{"value":"details"}},["details"])," ",_vm._h('option',{attrs:{"value":"developer_board"}},["developer_board"])," ",_vm._h('option',{attrs:{"value":"developer_mode"}},["developer_mode"])," ",_vm._h('option',{attrs:{"value":"device_hub"}},["device_hub"])," ",_vm._h('option',{attrs:{"value":"devices"}},["devices"])," ",_vm._h('option',{attrs:{"value":"devices_other"}},["devices_other"])," ",_vm._h('option',{attrs:{"value":"dialer_sip"}},["dialer_sip"])," ",_vm._h('option',{attrs:{"value":"dialpad"}},["dialpad"])," ",_vm._h('option',{attrs:{"value":"directions"}},["directions"])," ",_vm._h('option',{attrs:{"value":"directions_bike"}},["directions_bike"])," ",_vm._h('option',{attrs:{"value":"directions_boat"}},["directions_boat"])," ",_vm._h('option',{attrs:{"value":"directions_bus"}},["directions_bus"])," ",_vm._h('option',{attrs:{"value":"directions_car"}},["directions_car"])," ",_vm._h('option',{attrs:{"value":"directions_railway"}},["directions_railway"])," ",_vm._h('option',{attrs:{"value":"directions_run"}},["directions_run"])," ",_vm._h('option',{attrs:{"value":"directions_subway"}},["directions_subway"])," ",_vm._h('option',{attrs:{"value":"directions_transit"}},["directions_transit"])," ",_vm._h('option',{attrs:{"value":"directions_walk"}},["directions_walk"])," ",_vm._h('option',{attrs:{"value":"disc_full"}},["disc_full"])," ",_vm._h('option',{attrs:{"value":"dns"}},["dns"])," ",_vm._h('option',{attrs:{"value":"do_not_disturb"}},["do_not_disturb"])," ",_vm._h('option',{attrs:{"value":"do_not_disturb_alt"}},["do_not_disturb_alt"])," ",_vm._h('option',{attrs:{"value":"do_not_disturb_off"}},["do_not_disturb_off"])," ",_vm._h('option',{attrs:{"value":"do_not_disturb_on"}},["do_not_disturb_on"])," ",_vm._h('option',{attrs:{"value":"dock"}},["dock"])," ",_vm._h('option',{attrs:{"value":"domain"}},["domain"])," ",_vm._h('option',{attrs:{"value":"done"}},["done"])," ",_vm._h('option',{attrs:{"value":"done_all"}},["done_all"])," ",_vm._h('option',{attrs:{"value":"donut_large"}},["donut_large"])," ",_vm._h('option',{attrs:{"value":"donut_small"}},["donut_small"])," ",_vm._h('option',{attrs:{"value":"drafts"}},["drafts"])," ",_vm._h('option',{attrs:{"value":"drag_handle"}},["drag_handle"])," ",_vm._h('option',{attrs:{"value":"drive_eta"}},["drive_eta"])," ",_vm._h('option',{attrs:{"value":"dvr"}},["dvr"])," ",_vm._h('option',{attrs:{"value":"edit"}},["edit"])," ",_vm._h('option',{attrs:{"value":"edit_location"}},["edit_location"])," ",_vm._h('option',{attrs:{"value":"eject"}},["eject"])," ",_vm._h('option',{attrs:{"value":"email"}},["email"])," ",_vm._h('option',{attrs:{"value":"enhanced_encryption"}},["enhanced_encryption"])," ",_vm._h('option',{attrs:{"value":"equalizer"}},["equalizer"])," ",_vm._h('option',{attrs:{"value":"error"}},["error"])," ",_vm._h('option',{attrs:{"value":"error_outline"}},["error_outline"])," ",_vm._h('option',{attrs:{"value":"euro_symbol"}},["euro_symbol"])," ",_vm._h('option',{attrs:{"value":"ev_station"}},["ev_station"])," ",_vm._h('option',{attrs:{"value":"event"}},["event"])," ",_vm._h('option',{attrs:{"value":"event_available"}},["event_available"])," ",_vm._h('option',{attrs:{"value":"event_busy"}},["event_busy"])," ",_vm._h('option',{attrs:{"value":"event_note"}},["event_note"])," ",_vm._h('option',{attrs:{"value":"event_seat"}},["event_seat"])," ",_vm._h('option',{attrs:{"value":"exit_to_app"}},["exit_to_app"])," ",_vm._h('option',{attrs:{"value":"expand_less"}},["expand_less"])," ",_vm._h('option',{attrs:{"value":"expand_more"}},["expand_more"])," ",_vm._h('option',{attrs:{"value":"explicit"}},["explicit"])," ",_vm._h('option',{attrs:{"value":"explore"}},["explore"])," ",_vm._h('option',{attrs:{"value":"exposure"}},["exposure"])," ",_vm._h('option',{attrs:{"value":"exposure_neg_1"}},["exposure_neg_1"])," ",_vm._h('option',{attrs:{"value":"exposure_neg_2"}},["exposure_neg_2"])," ",_vm._h('option',{attrs:{"value":"exposure_plus_1"}},["exposure_plus_1"])," ",_vm._h('option',{attrs:{"value":"exposure_plus_2"}},["exposure_plus_2"])," ",_vm._h('option',{attrs:{"value":"exposure_zero"}},["exposure_zero"])," ",_vm._h('option',{attrs:{"value":"extension"}},["extension"])," ",_vm._h('option',{attrs:{"value":"face"}},["face"])," ",_vm._h('option',{attrs:{"value":"fast_forward"}},["fast_forward"])," ",_vm._h('option',{attrs:{"value":"fast_rewind"}},["fast_rewind"])," ",_vm._h('option',{attrs:{"value":"favorite"}},["favorite"])," ",_vm._h('option',{attrs:{"value":"favorite_border"}},["favorite_border"])," ",_vm._h('option',{attrs:{"value":"featured_play_list"}},["featured_play_list"])," ",_vm._h('option',{attrs:{"value":"featured_video"}},["featured_video"])," ",_vm._h('option',{attrs:{"value":"feedback"}},["feedback"])," ",_vm._h('option',{attrs:{"value":"fiber_dvr"}},["fiber_dvr"])," ",_vm._h('option',{attrs:{"value":"fiber_manual_record"}},["fiber_manual_record"])," ",_vm._h('option',{attrs:{"value":"fiber_new"}},["fiber_new"])," ",_vm._h('option',{attrs:{"value":"fiber_pin"}},["fiber_pin"])," ",_vm._h('option',{attrs:{"value":"fiber_smart_record"}},["fiber_smart_record"])," ",_vm._h('option',{attrs:{"value":"file_download"}},["file_download"])," ",_vm._h('option',{attrs:{"value":"file_upload"}},["file_upload"])," ",_vm._h('option',{attrs:{"value":"filter"}},["filter"])," ",_vm._h('option',{attrs:{"value":"filter_1"}},["filter_1"])," ",_vm._h('option',{attrs:{"value":"filter_2"}},["filter_2"])," ",_vm._h('option',{attrs:{"value":"filter_3"}},["filter_3"])," ",_vm._h('option',{attrs:{"value":"filter_4"}},["filter_4"])," ",_vm._h('option',{attrs:{"value":"filter_5"}},["filter_5"])," ",_vm._h('option',{attrs:{"value":"filter_6"}},["filter_6"])," ",_vm._h('option',{attrs:{"value":"filter_7"}},["filter_7"])," ",_vm._h('option',{attrs:{"value":"filter_8"}},["filter_8"])," ",_vm._h('option',{attrs:{"value":"filter_9"}},["filter_9"])," ",_vm._h('option',{attrs:{"value":"filter_9_plus"}},["filter_9_plus"])," ",_vm._h('option',{attrs:{"value":"filter_b_and_w"}},["filter_b_and_w"])," ",_vm._h('option',{attrs:{"value":"filter_center_focus"}},["filter_center_focus"])," ",_vm._h('option',{attrs:{"value":"filter_drama"}},["filter_drama"])," ",_vm._h('option',{attrs:{"value":"filter_frames"}},["filter_frames"])," ",_vm._h('option',{attrs:{"value":"filter_hdr"}},["filter_hdr"])," ",_vm._h('option',{attrs:{"value":"filter_list"}},["filter_list"])," ",_vm._h('option',{attrs:{"value":"filter_none"}},["filter_none"])," ",_vm._h('option',{attrs:{"value":"filter_tilt_shift"}},["filter_tilt_shift"])," ",_vm._h('option',{attrs:{"value":"filter_vintage"}},["filter_vintage"])," ",_vm._h('option',{attrs:{"value":"find_in_page"}},["find_in_page"])," ",_vm._h('option',{attrs:{"value":"find_replace"}},["find_replace"])," ",_vm._h('option',{attrs:{"value":"fingerprint"}},["fingerprint"])," ",_vm._h('option',{attrs:{"value":"first_page"}},["first_page"])," ",_vm._h('option',{attrs:{"value":"fitness_center"}},["fitness_center"])," ",_vm._h('option',{attrs:{"value":"flag"}},["flag"])," ",_vm._h('option',{attrs:{"value":"flare"}},["flare"])," ",_vm._h('option',{attrs:{"value":"flash_auto"}},["flash_auto"])," ",_vm._h('option',{attrs:{"value":"flash_off"}},["flash_off"])," ",_vm._h('option',{attrs:{"value":"flash_on"}},["flash_on"])," ",_vm._h('option',{attrs:{"value":"flight"}},["flight"])," ",_vm._h('option',{attrs:{"value":"flight_land"}},["flight_land"])," ",_vm._h('option',{attrs:{"value":"flight_takeoff"}},["flight_takeoff"])," ",_vm._h('option',{attrs:{"value":"flip"}},["flip"])," ",_vm._h('option',{attrs:{"value":"flip_to_back"}},["flip_to_back"])," ",_vm._h('option',{attrs:{"value":"flip_to_front"}},["flip_to_front"])," ",_vm._h('option',{attrs:{"value":"folder"}},["folder"])," ",_vm._h('option',{attrs:{"value":"folder_open"}},["folder_open"])," ",_vm._h('option',{attrs:{"value":"folder_shared"}},["folder_shared"])," ",_vm._h('option',{attrs:{"value":"folder_special"}},["folder_special"])," ",_vm._h('option',{attrs:{"value":"font_download"}},["font_download"])," ",_vm._h('option',{attrs:{"value":"format_align_center"}},["format_align_center"])," ",_vm._h('option',{attrs:{"value":"format_align_justify"}},["format_align_justify"])," ",_vm._h('option',{attrs:{"value":"format_align_left"}},["format_align_left"])," ",_vm._h('option',{attrs:{"value":"format_align_right"}},["format_align_right"])," ",_vm._h('option',{attrs:{"value":"format_bold"}},["format_bold"])," ",_vm._h('option',{attrs:{"value":"format_clear"}},["format_clear"])," ",_vm._h('option',{attrs:{"value":"format_color_fill"}},["format_color_fill"])," ",_vm._h('option',{attrs:{"value":"format_color_reset"}},["format_color_reset"])," ",_vm._h('option',{attrs:{"value":"format_color_text"}},["format_color_text"])," ",_vm._h('option',{attrs:{"value":"format_indent_decrease"}},["format_indent_decrease"])," ",_vm._h('option',{attrs:{"value":"format_indent_increase"}},["format_indent_increase"])," ",_vm._h('option',{attrs:{"value":"format_italic"}},["format_italic"])," ",_vm._h('option',{attrs:{"value":"format_line_spacing"}},["format_line_spacing"])," ",_vm._h('option',{attrs:{"value":"format_list_bulleted"}},["format_list_bulleted"])," ",_vm._h('option',{attrs:{"value":"format_list_numbered"}},["format_list_numbered"])," ",_vm._h('option',{attrs:{"value":"format_paint"}},["format_paint"])," ",_vm._h('option',{attrs:{"value":"format_quote"}},["format_quote"])," ",_vm._h('option',{attrs:{"value":"format_shapes"}},["format_shapes"])," ",_vm._h('option',{attrs:{"value":"format_size"}},["format_size"])," ",_vm._h('option',{attrs:{"value":"format_strikethrough"}},["format_strikethrough"])," ",_vm._h('option',{attrs:{"value":"format_textdirection_l_to_r"}},["format_textdirection_l_to_r"])," ",_vm._h('option',{attrs:{"value":"format_textdirection_r_to_l"}},["format_textdirection_r_to_l"])," ",_vm._h('option',{attrs:{"value":"format_underlined"}},["format_underlined"])," ",_vm._h('option',{attrs:{"value":"forum"}},["forum"])," ",_vm._h('option',{attrs:{"value":"forward"}},["forward"])," ",_vm._h('option',{attrs:{"value":"forward_10"}},["forward_10"])," ",_vm._h('option',{attrs:{"value":"forward_30"}},["forward_30"])," ",_vm._h('option',{attrs:{"value":"forward_5"}},["forward_5"])," ",_vm._h('option',{attrs:{"value":"free_breakfast"}},["free_breakfast"])," ",_vm._h('option',{attrs:{"value":"fullscreen"}},["fullscreen"])," ",_vm._h('option',{attrs:{"value":"fullscreen_exit"}},["fullscreen_exit"])," ",_vm._h('option',{attrs:{"value":"functions"}},["functions"])," ",_vm._h('option',{attrs:{"value":"g_translate"}},["g_translate"])," ",_vm._h('option',{attrs:{"value":"gamepad"}},["gamepad"])," ",_vm._h('option',{attrs:{"value":"games"}},["games"])," ",_vm._h('option',{attrs:{"value":"gavel"}},["gavel"])," ",_vm._h('option',{attrs:{"value":"gesture"}},["gesture"])," ",_vm._h('option',{attrs:{"value":"get_app"}},["get_app"])," ",_vm._h('option',{attrs:{"value":"gif"}},["gif"])," ",_vm._h('option',{attrs:{"value":"golf_course"}},["golf_course"])," ",_vm._h('option',{attrs:{"value":"gps_fixed"}},["gps_fixed"])," ",_vm._h('option',{attrs:{"value":"gps_not_fixed"}},["gps_not_fixed"])," ",_vm._h('option',{attrs:{"value":"gps_off"}},["gps_off"])," ",_vm._h('option',{attrs:{"value":"grade"}},["grade"])," ",_vm._h('option',{attrs:{"value":"gradient"}},["gradient"])," ",_vm._h('option',{attrs:{"value":"grain"}},["grain"])," ",_vm._h('option',{attrs:{"value":"graphic_eq"}},["graphic_eq"])," ",_vm._h('option',{attrs:{"value":"grid_off"}},["grid_off"])," ",_vm._h('option',{attrs:{"value":"grid_on"}},["grid_on"])," ",_vm._h('option',{attrs:{"value":"group"}},["group"])," ",_vm._h('option',{attrs:{"value":"group_add"}},["group_add"])," ",_vm._h('option',{attrs:{"value":"group_work"}},["group_work"])," ",_vm._h('option',{attrs:{"value":"hd"}},["hd"])," ",_vm._h('option',{attrs:{"value":"hdr_off"}},["hdr_off"])," ",_vm._h('option',{attrs:{"value":"hdr_on"}},["hdr_on"])," ",_vm._h('option',{attrs:{"value":"hdr_strong"}},["hdr_strong"])," ",_vm._h('option',{attrs:{"value":"hdr_weak"}},["hdr_weak"])," ",_vm._h('option',{attrs:{"value":"headset"}},["headset"])," ",_vm._h('option',{attrs:{"value":"headset_mic"}},["headset_mic"])," ",_vm._h('option',{attrs:{"value":"healing"}},["healing"])," ",_vm._h('option',{attrs:{"value":"hearing"}},["hearing"])," ",_vm._h('option',{attrs:{"value":"help"}},["help"])," ",_vm._h('option',{attrs:{"value":"help_outline"}},["help_outline"])," ",_vm._h('option',{attrs:{"value":"high_quality"}},["high_quality"])," ",_vm._h('option',{attrs:{"value":"highlight"}},["highlight"])," ",_vm._h('option',{attrs:{"value":"highlight_off"}},["highlight_off"])," ",_vm._h('option',{attrs:{"value":"history"}},["history"])," ",_vm._h('option',{attrs:{"value":"home"}},["home"])," ",_vm._h('option',{attrs:{"value":"hot_tub"}},["hot_tub"])," ",_vm._h('option',{attrs:{"value":"hotel"}},["hotel"])," ",_vm._h('option',{attrs:{"value":"hourglass_empty"}},["hourglass_empty"])," ",_vm._h('option',{attrs:{"value":"hourglass_full"}},["hourglass_full"])," ",_vm._h('option',{attrs:{"value":"http"}},["http"])," ",_vm._h('option',{attrs:{"value":"https"}},["https"])," ",_vm._h('option',{attrs:{"value":"image"}},["image"])," ",_vm._h('option',{attrs:{"value":"image_aspect_ratio"}},["image_aspect_ratio"])," ",_vm._h('option',{attrs:{"value":"import_contacts"}},["import_contacts"])," ",_vm._h('option',{attrs:{"value":"import_export"}},["import_export"])," ",_vm._h('option',{attrs:{"value":"important_devices"}},["important_devices"])," ",_vm._h('option',{attrs:{"value":"inbox"}},["inbox"])," ",_vm._h('option',{attrs:{"value":"indeterminate_check_box"}},["indeterminate_check_box"])," ",_vm._h('option',{attrs:{"value":"info"}},["info"])," ",_vm._h('option',{attrs:{"value":"info_outline"}},["info_outline"])," ",_vm._h('option',{attrs:{"value":"input"}},["input"])," ",_vm._h('option',{attrs:{"value":"insert_chart"}},["insert_chart"])," ",_vm._h('option',{attrs:{"value":"insert_comment"}},["insert_comment"])," ",_vm._h('option',{attrs:{"value":"insert_drive_file"}},["insert_drive_file"])," ",_vm._h('option',{attrs:{"value":"insert_emoticon"}},["insert_emoticon"])," ",_vm._h('option',{attrs:{"value":"insert_invitation"}},["insert_invitation"])," ",_vm._h('option',{attrs:{"value":"insert_link"}},["insert_link"])," ",_vm._h('option',{attrs:{"value":"insert_photo"}},["insert_photo"])," ",_vm._h('option',{attrs:{"value":"invert_colors"}},["invert_colors"])," ",_vm._h('option',{attrs:{"value":"invert_colors_off"}},["invert_colors_off"])," ",_vm._h('option',{attrs:{"value":"iso"}},["iso"])," ",_vm._h('option',{attrs:{"value":"keyboard"}},["keyboard"])," ",_vm._h('option',{attrs:{"value":"keyboard_arrow_down"}},["keyboard_arrow_down"])," ",_vm._h('option',{attrs:{"value":"keyboard_arrow_left"}},["keyboard_arrow_left"])," ",_vm._h('option',{attrs:{"value":"keyboard_arrow_right"}},["keyboard_arrow_right"])," ",_vm._h('option',{attrs:{"value":"keyboard_arrow_up"}},["keyboard_arrow_up"])," ",_vm._h('option',{attrs:{"value":"keyboard_backspace"}},["keyboard_backspace"])," ",_vm._h('option',{attrs:{"value":"keyboard_capslock"}},["keyboard_capslock"])," ",_vm._h('option',{attrs:{"value":"keyboard_hide"}},["keyboard_hide"])," ",_vm._h('option',{attrs:{"value":"keyboard_return"}},["keyboard_return"])," ",_vm._h('option',{attrs:{"value":"keyboard_tab"}},["keyboard_tab"])," ",_vm._h('option',{attrs:{"value":"keyboard_voice"}},["keyboard_voice"])," ",_vm._h('option',{attrs:{"value":"kitchen"}},["kitchen"])," ",_vm._h('option',{attrs:{"value":"label"}},["label"])," ",_vm._h('option',{attrs:{"value":"label_outline"}},["label_outline"])," ",_vm._h('option',{attrs:{"value":"landscape"}},["landscape"])," ",_vm._h('option',{attrs:{"value":"language"}},["language"])," ",_vm._h('option',{attrs:{"value":"laptop"}},["laptop"])," ",_vm._h('option',{attrs:{"value":"laptop_chromebook"}},["laptop_chromebook"])," ",_vm._h('option',{attrs:{"value":"laptop_mac"}},["laptop_mac"])," ",_vm._h('option',{attrs:{"value":"laptop_windows"}},["laptop_windows"])," ",_vm._h('option',{attrs:{"value":"last_page"}},["last_page"])," ",_vm._h('option',{attrs:{"value":"launch"}},["launch"])," ",_vm._h('option',{attrs:{"value":"layers"}},["layers"])," ",_vm._h('option',{attrs:{"value":"layers_clear"}},["layers_clear"])," ",_vm._h('option',{attrs:{"value":"leak_add"}},["leak_add"])," ",_vm._h('option',{attrs:{"value":"leak_remove"}},["leak_remove"])," ",_vm._h('option',{attrs:{"value":"lens"}},["lens"])," ",_vm._h('option',{attrs:{"value":"library_add"}},["library_add"])," ",_vm._h('option',{attrs:{"value":"library_books"}},["library_books"])," ",_vm._h('option',{attrs:{"value":"library_music"}},["library_music"])," ",_vm._h('option',{attrs:{"value":"lightbulb_outline"}},["lightbulb_outline"])," ",_vm._h('option',{attrs:{"value":"line_style"}},["line_style"])," ",_vm._h('option',{attrs:{"value":"line_weight"}},["line_weight"])," ",_vm._h('option',{attrs:{"value":"linear_scale"}},["linear_scale"])," ",_vm._h('option',{attrs:{"value":"link"}},["link"])," ",_vm._h('option',{attrs:{"value":"linked_camera"}},["linked_camera"])," ",_vm._h('option',{attrs:{"value":"list"}},["list"])," ",_vm._h('option',{attrs:{"value":"live_help"}},["live_help"])," ",_vm._h('option',{attrs:{"value":"live_tv"}},["live_tv"])," ",_vm._h('option',{attrs:{"value":"local_activity"}},["local_activity"])," ",_vm._h('option',{attrs:{"value":"local_airport"}},["local_airport"])," ",_vm._h('option',{attrs:{"value":"local_atm"}},["local_atm"])," ",_vm._h('option',{attrs:{"value":"local_bar"}},["local_bar"])," ",_vm._h('option',{attrs:{"value":"local_cafe"}},["local_cafe"])," ",_vm._h('option',{attrs:{"value":"local_car_wash"}},["local_car_wash"])," ",_vm._h('option',{attrs:{"value":"local_convenience_store"}},["local_convenience_store"])," ",_vm._h('option',{attrs:{"value":"local_dining"}},["local_dining"])," ",_vm._h('option',{attrs:{"value":"local_drink"}},["local_drink"])," ",_vm._h('option',{attrs:{"value":"local_florist"}},["local_florist"])," ",_vm._h('option',{attrs:{"value":"local_gas_station"}},["local_gas_station"])," ",_vm._h('option',{attrs:{"value":"local_grocery_store"}},["local_grocery_store"])," ",_vm._h('option',{attrs:{"value":"local_hospital"}},["local_hospital"])," ",_vm._h('option',{attrs:{"value":"local_hotel"}},["local_hotel"])," ",_vm._h('option',{attrs:{"value":"local_laundry_service"}},["local_laundry_service"])," ",_vm._h('option',{attrs:{"value":"local_library"}},["local_library"])," ",_vm._h('option',{attrs:{"value":"local_mall"}},["local_mall"])," ",_vm._h('option',{attrs:{"value":"local_movies"}},["local_movies"])," ",_vm._h('option',{attrs:{"value":"local_offer"}},["local_offer"])," ",_vm._h('option',{attrs:{"value":"local_parking"}},["local_parking"])," ",_vm._h('option',{attrs:{"value":"local_pharmacy"}},["local_pharmacy"])," ",_vm._h('option',{attrs:{"value":"local_phone"}},["local_phone"])," ",_vm._h('option',{attrs:{"value":"local_pizza"}},["local_pizza"])," ",_vm._h('option',{attrs:{"value":"local_play"}},["local_play"])," ",_vm._h('option',{attrs:{"value":"local_post_office"}},["local_post_office"])," ",_vm._h('option',{attrs:{"value":"local_printshop"}},["local_printshop"])," ",_vm._h('option',{attrs:{"value":"local_see"}},["local_see"])," ",_vm._h('option',{attrs:{"value":"local_shipping"}},["local_shipping"])," ",_vm._h('option',{attrs:{"value":"local_taxi"}},["local_taxi"])," ",_vm._h('option',{attrs:{"value":"location_city"}},["location_city"])," ",_vm._h('option',{attrs:{"value":"location_disabled"}},["location_disabled"])," ",_vm._h('option',{attrs:{"value":"location_off"}},["location_off"])," ",_vm._h('option',{attrs:{"value":"location_on"}},["location_on"])," ",_vm._h('option',{attrs:{"value":"location_searching"}},["location_searching"])," ",_vm._h('option',{attrs:{"value":"lock"}},["lock"])," ",_vm._h('option',{attrs:{"value":"lock_open"}},["lock_open"])," ",_vm._h('option',{attrs:{"value":"lock_outline"}},["lock_outline"])," ",_vm._h('option',{attrs:{"value":"looks"}},["looks"])," ",_vm._h('option',{attrs:{"value":"looks_3"}},["looks_3"])," ",_vm._h('option',{attrs:{"value":"looks_4"}},["looks_4"])," ",_vm._h('option',{attrs:{"value":"looks_5"}},["looks_5"])," ",_vm._h('option',{attrs:{"value":"looks_6"}},["looks_6"])," ",_vm._h('option',{attrs:{"value":"looks_one"}},["looks_one"])," ",_vm._h('option',{attrs:{"value":"looks_two"}},["looks_two"])," ",_vm._h('option',{attrs:{"value":"loop"}},["loop"])," ",_vm._h('option',{attrs:{"value":"loupe"}},["loupe"])," ",_vm._h('option',{attrs:{"value":"low_priority"}},["low_priority"])," ",_vm._h('option',{attrs:{"value":"loyalty"}},["loyalty"])," ",_vm._h('option',{attrs:{"value":"mail"}},["mail"])," ",_vm._h('option',{attrs:{"value":"mail_outline"}},["mail_outline"])," ",_vm._h('option',{attrs:{"value":"map"}},["map"])," ",_vm._h('option',{attrs:{"value":"markunread"}},["markunread"])," ",_vm._h('option',{attrs:{"value":"markunread_mailbox"}},["markunread_mailbox"])," ",_vm._h('option',{attrs:{"value":"memory"}},["memory"])," ",_vm._h('option',{attrs:{"value":"menu"}},["menu"])," ",_vm._h('option',{attrs:{"value":"merge_type"}},["merge_type"])," ",_vm._h('option',{attrs:{"value":"message"}},["message"])," ",_vm._h('option',{attrs:{"value":"mic"}},["mic"])," ",_vm._h('option',{attrs:{"value":"mic_none"}},["mic_none"])," ",_vm._h('option',{attrs:{"value":"mic_off"}},["mic_off"])," ",_vm._h('option',{attrs:{"value":"mms"}},["mms"])," ",_vm._h('option',{attrs:{"value":"mode_comment"}},["mode_comment"])," ",_vm._h('option',{attrs:{"value":"mode_edit"}},["mode_edit"])," ",_vm._h('option',{attrs:{"value":"monetization_on"}},["monetization_on"])," ",_vm._h('option',{attrs:{"value":"money_off"}},["money_off"])," ",_vm._h('option',{attrs:{"value":"monochrome_photos"}},["monochrome_photos"])," ",_vm._h('option',{attrs:{"value":"mood"}},["mood"])," ",_vm._h('option',{attrs:{"value":"mood_bad"}},["mood_bad"])," ",_vm._h('option',{attrs:{"value":"more"}},["more"])," ",_vm._h('option',{attrs:{"value":"more_horiz"}},["more_horiz"])," ",_vm._h('option',{attrs:{"value":"more_vert"}},["more_vert"])," ",_vm._h('option',{attrs:{"value":"motorcycle"}},["motorcycle"])," ",_vm._h('option',{attrs:{"value":"mouse"}},["mouse"])," ",_vm._h('option',{attrs:{"value":"move_to_inbox"}},["move_to_inbox"])," ",_vm._h('option',{attrs:{"value":"movie"}},["movie"])," ",_vm._h('option',{attrs:{"value":"movie_creation"}},["movie_creation"])," ",_vm._h('option',{attrs:{"value":"movie_filter"}},["movie_filter"])," ",_vm._h('option',{attrs:{"value":"multiline_chart"}},["multiline_chart"])," ",_vm._h('option',{attrs:{"value":"music_note"}},["music_note"])," ",_vm._h('option',{attrs:{"value":"music_video"}},["music_video"])," ",_vm._h('option',{attrs:{"value":"my_location"}},["my_location"])," ",_vm._h('option',{attrs:{"value":"nature"}},["nature"])," ",_vm._h('option',{attrs:{"value":"nature_people"}},["nature_people"])," ",_vm._h('option',{attrs:{"value":"navigate_before"}},["navigate_before"])," ",_vm._h('option',{attrs:{"value":"navigate_next"}},["navigate_next"])," ",_vm._h('option',{attrs:{"value":"navigation"}},["navigation"])," ",_vm._h('option',{attrs:{"value":"near_me"}},["near_me"])," ",_vm._h('option',{attrs:{"value":"network_cell"}},["network_cell"])," ",_vm._h('option',{attrs:{"value":"network_check"}},["network_check"])," ",_vm._h('option',{attrs:{"value":"network_locked"}},["network_locked"])," ",_vm._h('option',{attrs:{"value":"network_wifi"}},["network_wifi"])," ",_vm._h('option',{attrs:{"value":"new_releases"}},["new_releases"])," ",_vm._h('option',{attrs:{"value":"next_week"}},["next_week"])," ",_vm._h('option',{attrs:{"value":"nfc"}},["nfc"])," ",_vm._h('option',{attrs:{"value":"no_encryption"}},["no_encryption"])," ",_vm._h('option',{attrs:{"value":"no_sim"}},["no_sim"])," ",_vm._h('option',{attrs:{"value":"not_interested"}},["not_interested"])," ",_vm._h('option',{attrs:{"value":"note"}},["note"])," ",_vm._h('option',{attrs:{"value":"note_add"}},["note_add"])," ",_vm._h('option',{attrs:{"value":"notifications"}},["notifications"])," ",_vm._h('option',{attrs:{"value":"notifications_active"}},["notifications_active"])," ",_vm._h('option',{attrs:{"value":"notifications_none"}},["notifications_none"])," ",_vm._h('option',{attrs:{"value":"notifications_off"}},["notifications_off"])," ",_vm._h('option',{attrs:{"value":"notifications_paused"}},["notifications_paused"])," ",_vm._h('option',{attrs:{"value":"offline_pin"}},["offline_pin"])," ",_vm._h('option',{attrs:{"value":"ondemand_video"}},["ondemand_video"])," ",_vm._h('option',{attrs:{"value":"opacity"}},["opacity"])," ",_vm._h('option',{attrs:{"value":"open_in_browser"}},["open_in_browser"])," ",_vm._h('option',{attrs:{"value":"open_in_new"}},["open_in_new"])," ",_vm._h('option',{attrs:{"value":"open_with"}},["open_with"])," ",_vm._h('option',{attrs:{"value":"pages"}},["pages"])," ",_vm._h('option',{attrs:{"value":"pageview"}},["pageview"])," ",_vm._h('option',{attrs:{"value":"palette"}},["palette"])," ",_vm._h('option',{attrs:{"value":"pan_tool"}},["pan_tool"])," ",_vm._h('option',{attrs:{"value":"panorama"}},["panorama"])," ",_vm._h('option',{attrs:{"value":"panorama_fish_eye"}},["panorama_fish_eye"])," ",_vm._h('option',{attrs:{"value":"panorama_horizontal"}},["panorama_horizontal"])," ",_vm._h('option',{attrs:{"value":"panorama_vertical"}},["panorama_vertical"])," ",_vm._h('option',{attrs:{"value":"panorama_wide_angle"}},["panorama_wide_angle"])," ",_vm._h('option',{attrs:{"value":"party_mode"}},["party_mode"])," ",_vm._h('option',{attrs:{"value":"pause"}},["pause"])," ",_vm._h('option',{attrs:{"value":"pause_circle_filled"}},["pause_circle_filled"])," ",_vm._h('option',{attrs:{"value":"pause_circle_outline"}},["pause_circle_outline"])," ",_vm._h('option',{attrs:{"value":"payment"}},["payment"])," ",_vm._h('option',{attrs:{"value":"people"}},["people"])," ",_vm._h('option',{attrs:{"value":"people_outline"}},["people_outline"])," ",_vm._h('option',{attrs:{"value":"perm_camera_mic"}},["perm_camera_mic"])," ",_vm._h('option',{attrs:{"value":"perm_contact_calendar"}},["perm_contact_calendar"])," ",_vm._h('option',{attrs:{"value":"perm_data_setting"}},["perm_data_setting"])," ",_vm._h('option',{attrs:{"value":"perm_device_information"}},["perm_device_information"])," ",_vm._h('option',{attrs:{"value":"perm_identity"}},["perm_identity"])," ",_vm._h('option',{attrs:{"value":"perm_media"}},["perm_media"])," ",_vm._h('option',{attrs:{"value":"perm_phone_msg"}},["perm_phone_msg"])," ",_vm._h('option',{attrs:{"value":"perm_scan_wifi"}},["perm_scan_wifi"])," ",_vm._h('option',{attrs:{"value":"person"}},["person"])," ",_vm._h('option',{attrs:{"value":"person_add"}},["person_add"])," ",_vm._h('option',{attrs:{"value":"person_outline"}},["person_outline"])," ",_vm._h('option',{attrs:{"value":"person_pin"}},["person_pin"])," ",_vm._h('option',{attrs:{"value":"person_pin_circle"}},["person_pin_circle"])," ",_vm._h('option',{attrs:{"value":"personal_video"}},["personal_video"])," ",_vm._h('option',{attrs:{"value":"pets"}},["pets"])," ",_vm._h('option',{attrs:{"value":"phone"}},["phone"])," ",_vm._h('option',{attrs:{"value":"phone_android"}},["phone_android"])," ",_vm._h('option',{attrs:{"value":"phone_bluetooth_speaker"}},["phone_bluetooth_speaker"])," ",_vm._h('option',{attrs:{"value":"phone_forwarded"}},["phone_forwarded"])," ",_vm._h('option',{attrs:{"value":"phone_in_talk"}},["phone_in_talk"])," ",_vm._h('option',{attrs:{"value":"phone_iphone"}},["phone_iphone"])," ",_vm._h('option',{attrs:{"value":"phone_locked"}},["phone_locked"])," ",_vm._h('option',{attrs:{"value":"phone_missed"}},["phone_missed"])," ",_vm._h('option',{attrs:{"value":"phone_paused"}},["phone_paused"])," ",_vm._h('option',{attrs:{"value":"phonelink"}},["phonelink"])," ",_vm._h('option',{attrs:{"value":"phonelink_erase"}},["phonelink_erase"])," ",_vm._h('option',{attrs:{"value":"phonelink_lock"}},["phonelink_lock"])," ",_vm._h('option',{attrs:{"value":"phonelink_off"}},["phonelink_off"])," ",_vm._h('option',{attrs:{"value":"phonelink_ring"}},["phonelink_ring"])," ",_vm._h('option',{attrs:{"value":"phonelink_setup"}},["phonelink_setup"])," ",_vm._h('option',{attrs:{"value":"photo"}},["photo"])," ",_vm._h('option',{attrs:{"value":"photo_album"}},["photo_album"])," ",_vm._h('option',{attrs:{"value":"photo_camera"}},["photo_camera"])," ",_vm._h('option',{attrs:{"value":"photo_filter"}},["photo_filter"])," ",_vm._h('option',{attrs:{"value":"photo_library"}},["photo_library"])," ",_vm._h('option',{attrs:{"value":"photo_size_select_actual"}},["photo_size_select_actual"])," ",_vm._h('option',{attrs:{"value":"photo_size_select_large"}},["photo_size_select_large"])," ",_vm._h('option',{attrs:{"value":"photo_size_select_small"}},["photo_size_select_small"])," ",_vm._h('option',{attrs:{"value":"picture_as_pdf"}},["picture_as_pdf"])," ",_vm._h('option',{attrs:{"value":"picture_in_picture"}},["picture_in_picture"])," ",_vm._h('option',{attrs:{"value":"picture_in_picture_alt"}},["picture_in_picture_alt"])," ",_vm._h('option',{attrs:{"value":"pie_chart"}},["pie_chart"])," ",_vm._h('option',{attrs:{"value":"pie_chart_outlined"}},["pie_chart_outlined"])," ",_vm._h('option',{attrs:{"value":"pin_drop"}},["pin_drop"])," ",_vm._h('option',{attrs:{"value":"place"}},["place"])," ",_vm._h('option',{attrs:{"value":"play_arrow"}},["play_arrow"])," ",_vm._h('option',{attrs:{"value":"play_circle_filled"}},["play_circle_filled"])," ",_vm._h('option',{attrs:{"value":"play_circle_outline"}},["play_circle_outline"])," ",_vm._h('option',{attrs:{"value":"play_for_work"}},["play_for_work"])," ",_vm._h('option',{attrs:{"value":"playlist_add"}},["playlist_add"])," ",_vm._h('option',{attrs:{"value":"playlist_add_check"}},["playlist_add_check"])," ",_vm._h('option',{attrs:{"value":"playlist_play"}},["playlist_play"])," ",_vm._h('option',{attrs:{"value":"plus_one"}},["plus_one"])," ",_vm._h('option',{attrs:{"value":"poll"}},["poll"])," ",_vm._h('option',{attrs:{"value":"polymer"}},["polymer"])," ",_vm._h('option',{attrs:{"value":"pool"}},["pool"])," ",_vm._h('option',{attrs:{"value":"portable_wifi_off"}},["portable_wifi_off"])," ",_vm._h('option',{attrs:{"value":"portrait"}},["portrait"])," ",_vm._h('option',{attrs:{"value":"power"}},["power"])," ",_vm._h('option',{attrs:{"value":"power_input"}},["power_input"])," ",_vm._h('option',{attrs:{"value":"power_settings_new"}},["power_settings_new"])," ",_vm._h('option',{attrs:{"value":"pregnant_woman"}},["pregnant_woman"])," ",_vm._h('option',{attrs:{"value":"present_to_all"}},["present_to_all"])," ",_vm._h('option',{attrs:{"value":"print"}},["print"])," ",_vm._h('option',{attrs:{"value":"priority_high"}},["priority_high"])," ",_vm._h('option',{attrs:{"value":"public"}},["public"])," ",_vm._h('option',{attrs:{"value":"publish"}},["publish"])," ",_vm._h('option',{attrs:{"value":"query_builder"}},["query_builder"])," ",_vm._h('option',{attrs:{"value":"question_answer"}},["question_answer"])," ",_vm._h('option',{attrs:{"value":"queue"}},["queue"])," ",_vm._h('option',{attrs:{"value":"queue_music"}},["queue_music"])," ",_vm._h('option',{attrs:{"value":"queue_play_next"}},["queue_play_next"])," ",_vm._h('option',{attrs:{"value":"radio"}},["radio"])," ",_vm._h('option',{attrs:{"value":"radio_button_checked"}},["radio_button_checked"])," ",_vm._h('option',{attrs:{"value":"radio_button_unchecked"}},["radio_button_unchecked"])," ",_vm._h('option',{attrs:{"value":"rate_review"}},["rate_review"])," ",_vm._h('option',{attrs:{"value":"receipt"}},["receipt"])," ",_vm._h('option',{attrs:{"value":"recent_actors"}},["recent_actors"])," ",_vm._h('option',{attrs:{"value":"record_voice_over"}},["record_voice_over"])," ",_vm._h('option',{attrs:{"value":"redeem"}},["redeem"])," ",_vm._h('option',{attrs:{"value":"redo"}},["redo"])," ",_vm._h('option',{attrs:{"value":"refresh"}},["refresh"])," ",_vm._h('option',{attrs:{"value":"remove"}},["remove"])," ",_vm._h('option',{attrs:{"value":"remove_circle"}},["remove_circle"])," ",_vm._h('option',{attrs:{"value":"remove_circle_outline"}},["remove_circle_outline"])," ",_vm._h('option',{attrs:{"value":"remove_from_queue"}},["remove_from_queue"])," ",_vm._h('option',{attrs:{"value":"remove_red_eye"}},["remove_red_eye"])," ",_vm._h('option',{attrs:{"value":"remove_shopping_cart"}},["remove_shopping_cart"])," ",_vm._h('option',{attrs:{"value":"reorder"}},["reorder"])," ",_vm._h('option',{attrs:{"value":"repeat"}},["repeat"])," ",_vm._h('option',{attrs:{"value":"repeat_one"}},["repeat_one"])," ",_vm._h('option',{attrs:{"value":"replay"}},["replay"])," ",_vm._h('option',{attrs:{"value":"replay_10"}},["replay_10"])," ",_vm._h('option',{attrs:{"value":"replay_30"}},["replay_30"])," ",_vm._h('option',{attrs:{"value":"replay_5"}},["replay_5"])," ",_vm._h('option',{attrs:{"value":"reply"}},["reply"])," ",_vm._h('option',{attrs:{"value":"reply_all"}},["reply_all"])," ",_vm._h('option',{attrs:{"value":"report"}},["report"])," ",_vm._h('option',{attrs:{"value":"report_problem"}},["report_problem"])," ",_vm._h('option',{attrs:{"value":"restaurant"}},["restaurant"])," ",_vm._h('option',{attrs:{"value":"restaurant_menu"}},["restaurant_menu"])," ",_vm._h('option',{attrs:{"value":"restore"}},["restore"])," ",_vm._h('option',{attrs:{"value":"restore_page"}},["restore_page"])," ",_vm._h('option',{attrs:{"value":"ring_volume"}},["ring_volume"])," ",_vm._h('option',{attrs:{"value":"room"}},["room"])," ",_vm._h('option',{attrs:{"value":"room_service"}},["room_service"])," ",_vm._h('option',{attrs:{"value":"rotate_90_degrees_ccw"}},["rotate_90_degrees_ccw"])," ",_vm._h('option',{attrs:{"value":"rotate_left"}},["rotate_left"])," ",_vm._h('option',{attrs:{"value":"rotate_right"}},["rotate_right"])," ",_vm._h('option',{attrs:{"value":"rounded_corner"}},["rounded_corner"])," ",_vm._h('option',{attrs:{"value":"router"}},["router"])," ",_vm._h('option',{attrs:{"value":"rowing"}},["rowing"])," ",_vm._h('option',{attrs:{"value":"rss_feed"}},["rss_feed"])," ",_vm._h('option',{attrs:{"value":"rv_hookup"}},["rv_hookup"])," ",_vm._h('option',{attrs:{"value":"satellite"}},["satellite"])," ",_vm._h('option',{attrs:{"value":"save"}},["save"])," ",_vm._h('option',{attrs:{"value":"scanner"}},["scanner"])," ",_vm._h('option',{attrs:{"value":"schedule"}},["schedule"])," ",_vm._h('option',{attrs:{"value":"school"}},["school"])," ",_vm._h('option',{attrs:{"value":"screen_lock_landscape"}},["screen_lock_landscape"])," ",_vm._h('option',{attrs:{"value":"screen_lock_portrait"}},["screen_lock_portrait"])," ",_vm._h('option',{attrs:{"value":"screen_lock_rotation"}},["screen_lock_rotation"])," ",_vm._h('option',{attrs:{"value":"screen_rotation"}},["screen_rotation"])," ",_vm._h('option',{attrs:{"value":"screen_share"}},["screen_share"])," ",_vm._h('option',{attrs:{"value":"sd_card"}},["sd_card"])," ",_vm._h('option',{attrs:{"value":"sd_storage"}},["sd_storage"])," ",_vm._h('option',{attrs:{"value":"search"}},["search"])," ",_vm._h('option',{attrs:{"value":"security"}},["security"])," ",_vm._h('option',{attrs:{"value":"select_all"}},["select_all"])," ",_vm._h('option',{attrs:{"value":"send"}},["send"])," ",_vm._h('option',{attrs:{"value":"sentiment_dissatisfied"}},["sentiment_dissatisfied"])," ",_vm._h('option',{attrs:{"value":"sentiment_neutral"}},["sentiment_neutral"])," ",_vm._h('option',{attrs:{"value":"sentiment_satisfied"}},["sentiment_satisfied"])," ",_vm._h('option',{attrs:{"value":"sentiment_very_dissatisfied"}},["sentiment_very_dissatisfied"])," ",_vm._h('option',{attrs:{"value":"sentiment_very_satisfied"}},["sentiment_very_satisfied"])," ",_vm._h('option',{attrs:{"value":"settings"}},["settings"])," ",_vm._h('option',{attrs:{"value":"settings_applications"}},["settings_applications"])," ",_vm._h('option',{attrs:{"value":"settings_backup_restore"}},["settings_backup_restore"])," ",_vm._h('option',{attrs:{"value":"settings_bluetooth"}},["settings_bluetooth"])," ",_vm._h('option',{attrs:{"value":"settings_brightness"}},["settings_brightness"])," ",_vm._h('option',{attrs:{"value":"settings_cell"}},["settings_cell"])," ",_vm._h('option',{attrs:{"value":"settings_ethernet"}},["settings_ethernet"])," ",_vm._h('option',{attrs:{"value":"settings_input_antenna"}},["settings_input_antenna"])," ",_vm._h('option',{attrs:{"value":"settings_input_component"}},["settings_input_component"])," ",_vm._h('option',{attrs:{"value":"settings_input_composite"}},["settings_input_composite"])," ",_vm._h('option',{attrs:{"value":"settings_input_hdmi"}},["settings_input_hdmi"])," ",_vm._h('option',{attrs:{"value":"settings_input_svideo"}},["settings_input_svideo"])," ",_vm._h('option',{attrs:{"value":"settings_overscan"}},["settings_overscan"])," ",_vm._h('option',{attrs:{"value":"settings_phone"}},["settings_phone"])," ",_vm._h('option',{attrs:{"value":"settings_power"}},["settings_power"])," ",_vm._h('option',{attrs:{"value":"settings_remote"}},["settings_remote"])," ",_vm._h('option',{attrs:{"value":"settings_system_daydream"}},["settings_system_daydream"])," ",_vm._h('option',{attrs:{"value":"settings_voice"}},["settings_voice"])," ",_vm._h('option',{attrs:{"value":"share"}},["share"])," ",_vm._h('option',{attrs:{"value":"shop"}},["shop"])," ",_vm._h('option',{attrs:{"value":"shop_two"}},["shop_two"])," ",_vm._h('option',{attrs:{"value":"shopping_basket"}},["shopping_basket"])," ",_vm._h('option',{attrs:{"value":"shopping_cart"}},["shopping_cart"])," ",_vm._h('option',{attrs:{"value":"short_text"}},["short_text"])," ",_vm._h('option',{attrs:{"value":"show_chart"}},["show_chart"])," ",_vm._h('option',{attrs:{"value":"shuffle"}},["shuffle"])," ",_vm._h('option',{attrs:{"value":"signal_cellular_4_bar"}},["signal_cellular_4_bar"])," ",_vm._h('option',{attrs:{"value":"signal_cellular_connected_no_internet_4_bar"}},["signal_cellular_connected_no_internet_4_bar"])," ",_vm._h('option',{attrs:{"value":"signal_cellular_no_sim"}},["signal_cellular_no_sim"])," ",_vm._h('option',{attrs:{"value":"signal_cellular_null"}},["signal_cellular_null"])," ",_vm._h('option',{attrs:{"value":"signal_cellular_off"}},["signal_cellular_off"])," ",_vm._h('option',{attrs:{"value":"signal_wifi_4_bar"}},["signal_wifi_4_bar"])," ",_vm._h('option',{attrs:{"value":"signal_wifi_4_bar_lock"}},["signal_wifi_4_bar_lock"])," ",_vm._h('option',{attrs:{"value":"signal_wifi_off"}},["signal_wifi_off"])," ",_vm._h('option',{attrs:{"value":"sim_card"}},["sim_card"])," ",_vm._h('option',{attrs:{"value":"sim_card_alert"}},["sim_card_alert"])," ",_vm._h('option',{attrs:{"value":"skip_next"}},["skip_next"])," ",_vm._h('option',{attrs:{"value":"skip_previous"}},["skip_previous"])," ",_vm._h('option',{attrs:{"value":"slideshow"}},["slideshow"])," ",_vm._h('option',{attrs:{"value":"slow_motion_video"}},["slow_motion_video"])," ",_vm._h('option',{attrs:{"value":"smartphone"}},["smartphone"])," ",_vm._h('option',{attrs:{"value":"smoke_free"}},["smoke_free"])," ",_vm._h('option',{attrs:{"value":"smoking_rooms"}},["smoking_rooms"])," ",_vm._h('option',{attrs:{"value":"sms"}},["sms"])," ",_vm._h('option',{attrs:{"value":"sms_failed"}},["sms_failed"])," ",_vm._h('option',{attrs:{"value":"snooze"}},["snooze"])," ",_vm._h('option',{attrs:{"value":"sort"}},["sort"])," ",_vm._h('option',{attrs:{"value":"sort_by_alpha"}},["sort_by_alpha"])," ",_vm._h('option',{attrs:{"value":"spa"}},["spa"])," ",_vm._h('option',{attrs:{"value":"space_bar"}},["space_bar"])," ",_vm._h('option',{attrs:{"value":"speaker"}},["speaker"])," ",_vm._h('option',{attrs:{"value":"speaker_group"}},["speaker_group"])," ",_vm._h('option',{attrs:{"value":"speaker_notes"}},["speaker_notes"])," ",_vm._h('option',{attrs:{"value":"speaker_notes_off"}},["speaker_notes_off"])," ",_vm._h('option',{attrs:{"value":"speaker_phone"}},["speaker_phone"])," ",_vm._h('option',{attrs:{"value":"spellcheck"}},["spellcheck"])," ",_vm._h('option',{attrs:{"value":"star"}},["star"])," ",_vm._h('option',{attrs:{"value":"star_border"}},["star_border"])," ",_vm._h('option',{attrs:{"value":"star_half"}},["star_half"])," ",_vm._h('option',{attrs:{"value":"stars"}},["stars"])," ",_vm._h('option',{attrs:{"value":"stay_current_landscape"}},["stay_current_landscape"])," ",_vm._h('option',{attrs:{"value":"stay_current_portrait"}},["stay_current_portrait"])," ",_vm._h('option',{attrs:{"value":"stay_primary_landscape"}},["stay_primary_landscape"])," ",_vm._h('option',{attrs:{"value":"stay_primary_portrait"}},["stay_primary_portrait"])," ",_vm._h('option',{attrs:{"value":"stop"}},["stop"])," ",_vm._h('option',{attrs:{"value":"stop_screen_share"}},["stop_screen_share"])," ",_vm._h('option',{attrs:{"value":"storage"}},["storage"])," ",_vm._h('option',{attrs:{"value":"store"}},["store"])," ",_vm._h('option',{attrs:{"value":"store_mall_directory"}},["store_mall_directory"])," ",_vm._h('option',{attrs:{"value":"straighten"}},["straighten"])," ",_vm._h('option',{attrs:{"value":"streetview"}},["streetview"])," ",_vm._h('option',{attrs:{"value":"strikethrough_s"}},["strikethrough_s"])," ",_vm._h('option',{attrs:{"value":"style"}},["style"])," ",_vm._h('option',{attrs:{"value":"subdirectory_arrow_left"}},["subdirectory_arrow_left"])," ",_vm._h('option',{attrs:{"value":"subdirectory_arrow_right"}},["subdirectory_arrow_right"])," ",_vm._h('option',{attrs:{"value":"subject"}},["subject"])," ",_vm._h('option',{attrs:{"value":"subscriptions"}},["subscriptions"])," ",_vm._h('option',{attrs:{"value":"subtitles"}},["subtitles"])," ",_vm._h('option',{attrs:{"value":"subway"}},["subway"])," ",_vm._h('option',{attrs:{"value":"supervisor_account"}},["supervisor_account"])," ",_vm._h('option',{attrs:{"value":"surround_sound"}},["surround_sound"])," ",_vm._h('option',{attrs:{"value":"swap_calls"}},["swap_calls"])," ",_vm._h('option',{attrs:{"value":"swap_horiz"}},["swap_horiz"])," ",_vm._h('option',{attrs:{"value":"swap_vert"}},["swap_vert"])," ",_vm._h('option',{attrs:{"value":"swap_vertical_circle"}},["swap_vertical_circle"])," ",_vm._h('option',{attrs:{"value":"switch_camera"}},["switch_camera"])," ",_vm._h('option',{attrs:{"value":"switch_video"}},["switch_video"])," ",_vm._h('option',{attrs:{"value":"sync"}},["sync"])," ",_vm._h('option',{attrs:{"value":"sync_disabled"}},["sync_disabled"])," ",_vm._h('option',{attrs:{"value":"sync_problem"}},["sync_problem"])," ",_vm._h('option',{attrs:{"value":"system_update"}},["system_update"])," ",_vm._h('option',{attrs:{"value":"system_update_alt"}},["system_update_alt"])," ",_vm._h('option',{attrs:{"value":"tab"}},["tab"])," ",_vm._h('option',{attrs:{"value":"tab_unselected"}},["tab_unselected"])," ",_vm._h('option',{attrs:{"value":"tablet"}},["tablet"])," ",_vm._h('option',{attrs:{"value":"tablet_android"}},["tablet_android"])," ",_vm._h('option',{attrs:{"value":"tablet_mac"}},["tablet_mac"])," ",_vm._h('option',{attrs:{"value":"tag_faces"}},["tag_faces"])," ",_vm._h('option',{attrs:{"value":"tap_and_play"}},["tap_and_play"])," ",_vm._h('option',{attrs:{"value":"terrain"}},["terrain"])," ",_vm._h('option',{attrs:{"value":"text_fields"}},["text_fields"])," ",_vm._h('option',{attrs:{"value":"text_format"}},["text_format"])," ",_vm._h('option',{attrs:{"value":"textsms"}},["textsms"])," ",_vm._h('option',{attrs:{"value":"texture"}},["texture"])," ",_vm._h('option',{attrs:{"value":"theaters"}},["theaters"])," ",_vm._h('option',{attrs:{"value":"thumb_down"}},["thumb_down"])," ",_vm._h('option',{attrs:{"value":"thumb_up"}},["thumb_up"])," ",_vm._h('option',{attrs:{"value":"thumbs_up_down"}},["thumbs_up_down"])," ",_vm._h('option',{attrs:{"value":"time_to_leave"}},["time_to_leave"])," ",_vm._h('option',{attrs:{"value":"timelapse"}},["timelapse"])," ",_vm._h('option',{attrs:{"value":"timeline"}},["timeline"])," ",_vm._h('option',{attrs:{"value":"timer"}},["timer"])," ",_vm._h('option',{attrs:{"value":"timer_10"}},["timer_10"])," ",_vm._h('option',{attrs:{"value":"timer_3"}},["timer_3"])," ",_vm._h('option',{attrs:{"value":"timer_off"}},["timer_off"])," ",_vm._h('option',{attrs:{"value":"title"}},["title"])," ",_vm._h('option',{attrs:{"value":"toc"}},["toc"])," ",_vm._h('option',{attrs:{"value":"today"}},["today"])," ",_vm._h('option',{attrs:{"value":"toll"}},["toll"])," ",_vm._h('option',{attrs:{"value":"tonality"}},["tonality"])," ",_vm._h('option',{attrs:{"value":"touch_app"}},["touch_app"])," ",_vm._h('option',{attrs:{"value":"toys"}},["toys"])," ",_vm._h('option',{attrs:{"value":"track_changes"}},["track_changes"])," ",_vm._h('option',{attrs:{"value":"traffic"}},["traffic"])," ",_vm._h('option',{attrs:{"value":"train"}},["train"])," ",_vm._h('option',{attrs:{"value":"tram"}},["tram"])," ",_vm._h('option',{attrs:{"value":"transfer_within_a_station"}},["transfer_within_a_station"])," ",_vm._h('option',{attrs:{"value":"transform"}},["transform"])," ",_vm._h('option',{attrs:{"value":"translate"}},["translate"])," ",_vm._h('option',{attrs:{"value":"trending_down"}},["trending_down"])," ",_vm._h('option',{attrs:{"value":"trending_flat"}},["trending_flat"])," ",_vm._h('option',{attrs:{"value":"trending_up"}},["trending_up"])," ",_vm._h('option',{attrs:{"value":"tune"}},["tune"])," ",_vm._h('option',{attrs:{"value":"turned_in"}},["turned_in"])," ",_vm._h('option',{attrs:{"value":"turned_in_not"}},["turned_in_not"])," ",_vm._h('option',{attrs:{"value":"tv"}},["tv"])," ",_vm._h('option',{attrs:{"value":"unarchive"}},["unarchive"])," ",_vm._h('option',{attrs:{"value":"undo"}},["undo"])," ",_vm._h('option',{attrs:{"value":"unfold_less"}},["unfold_less"])," ",_vm._h('option',{attrs:{"value":"unfold_more"}},["unfold_more"])," ",_vm._h('option',{attrs:{"value":"update"}},["update"])," ",_vm._h('option',{attrs:{"value":"usb"}},["usb"])," ",_vm._h('option',{attrs:{"value":"verified_user"}},["verified_user"])," ",_vm._h('option',{attrs:{"value":"vertical_align_bottom"}},["vertical_align_bottom"])," ",_vm._h('option',{attrs:{"value":"vertical_align_center"}},["vertical_align_center"])," ",_vm._h('option',{attrs:{"value":"vertical_align_top"}},["vertical_align_top"])," ",_vm._h('option',{attrs:{"value":"vibration"}},["vibration"])," ",_vm._h('option',{attrs:{"value":"video_call"}},["video_call"])," ",_vm._h('option',{attrs:{"value":"video_label"}},["video_label"])," ",_vm._h('option',{attrs:{"value":"video_library"}},["video_library"])," ",_vm._h('option',{attrs:{"value":"videocam"}},["videocam"])," ",_vm._h('option',{attrs:{"value":"videocam_off"}},["videocam_off"])," ",_vm._h('option',{attrs:{"value":"videogame_asset"}},["videogame_asset"])," ",_vm._h('option',{attrs:{"value":"view_agenda"}},["view_agenda"])," ",_vm._h('option',{attrs:{"value":"view_array"}},["view_array"])," ",_vm._h('option',{attrs:{"value":"view_carousel"}},["view_carousel"])," ",_vm._h('option',{attrs:{"value":"view_column"}},["view_column"])," ",_vm._h('option',{attrs:{"value":"view_comfy"}},["view_comfy"])," ",_vm._h('option',{attrs:{"value":"view_compact"}},["view_compact"])," ",_vm._h('option',{attrs:{"value":"view_day"}},["view_day"])," ",_vm._h('option',{attrs:{"value":"view_headline"}},["view_headline"])," ",_vm._h('option',{attrs:{"value":"view_list"}},["view_list"])," ",_vm._h('option',{attrs:{"value":"view_module"}},["view_module"])," ",_vm._h('option',{attrs:{"value":"view_quilt"}},["view_quilt"])," ",_vm._h('option',{attrs:{"value":"view_stream"}},["view_stream"])," ",_vm._h('option',{attrs:{"value":"view_week"}},["view_week"])," ",_vm._h('option',{attrs:{"value":"vignette"}},["vignette"])," ",_vm._h('option',{attrs:{"value":"visibility"}},["visibility"])," ",_vm._h('option',{attrs:{"value":"visibility_off"}},["visibility_off"])," ",_vm._h('option',{attrs:{"value":"voice_chat"}},["voice_chat"])," ",_vm._h('option',{attrs:{"value":"voicemail"}},["voicemail"])," ",_vm._h('option',{attrs:{"value":"volume_down"}},["volume_down"])," ",_vm._h('option',{attrs:{"value":"volume_mute"}},["volume_mute"])," ",_vm._h('option',{attrs:{"value":"volume_off"}},["volume_off"])," ",_vm._h('option',{attrs:{"value":"volume_up"}},["volume_up"])," ",_vm._h('option',{attrs:{"value":"vpn_key"}},["vpn_key"])," ",_vm._h('option',{attrs:{"value":"vpn_lock"}},["vpn_lock"])," ",_vm._h('option',{attrs:{"value":"wallpaper"}},["wallpaper"])," ",_vm._h('option',{attrs:{"value":"warning"}},["warning"])," ",_vm._h('option',{attrs:{"value":"watch"}},["watch"])," ",_vm._h('option',{attrs:{"value":"watch_later"}},["watch_later"])," ",_vm._h('option',{attrs:{"value":"wb_auto"}},["wb_auto"])," ",_vm._h('option',{attrs:{"value":"wb_cloudy"}},["wb_cloudy"])," ",_vm._h('option',{attrs:{"value":"wb_incandescent"}},["wb_incandescent"])," ",_vm._h('option',{attrs:{"value":"wb_iridescent"}},["wb_iridescent"])," ",_vm._h('option',{attrs:{"value":"wb_sunny"}},["wb_sunny"])," ",_vm._h('option',{attrs:{"value":"wc"}},["wc"])," ",_vm._h('option',{attrs:{"value":"web"}},["web"])," ",_vm._h('option',{attrs:{"value":"web_asset"}},["web_asset"])," ",_vm._h('option',{attrs:{"value":"weekend"}},["weekend"])," ",_vm._h('option',{attrs:{"value":"whatshot"}},["whatshot"])," ",_vm._h('option',{attrs:{"value":"widgets"}},["widgets"])," ",_vm._h('option',{attrs:{"value":"wifi"}},["wifi"])," ",_vm._h('option',{attrs:{"value":"wifi_lock"}},["wifi_lock"])," ",_vm._h('option',{attrs:{"value":"wifi_tethering"}},["wifi_tethering"])," ",_vm._h('option',{attrs:{"value":"work"}},["work"])," ",_vm._h('option',{attrs:{"value":"wrap_text"}},["wrap_text"])," ",_vm._h('option',{attrs:{"value":"youtube_searched_for"}},["youtube_searched_for"])," ",_vm._h('option',{attrs:{"value":"zoom_in"}},["zoom_in"])," ",_vm._h('option',{attrs:{"value":"zoom_out"}},["zoom_out"])," ",_vm._h('option',{attrs:{"value":"zoom_out_map"}},["zoom_out_map"])])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["add"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"col s12",attrs:{"id":"generic_component_type_create_props"}},[_vm._h('br')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["add"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"col s12",attrs:{"id":"generic_component_state_create_props"}},[_vm._h('br')])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["send"])},function render () {var _vm=this;return _vm._h('div',{attrs:{"id":"generic_component_type_create_prop_input_tpl","hidden":""}},[_vm._h('div',{staticClass:"row"},[_vm._h('div',{staticClass:"input-field col s10 m10 l10"},[_vm._h('input',{attrs:{"type":"text","name":"property_name[]","value":""}})])," ",_vm._h('div',{staticClass:"input-field col s2 m2 l2"},[_vm._h('a',{staticClass:"red-text",attrs:{"href":"#","onclick":"$(this)[0].parentElement.parentElement.remove(); return false;"}},[_vm._h('i',{staticClass:"material-icons"},["delete"])])])])])},function render () {var _vm=this;return _vm._h('div',{attrs:{"id":"generic_component_state_create_prop_input_tpl","hidden":""}},[_vm._h('div',{staticClass:"row"},[_vm._h('div',{staticClass:"input-field col s10 m10 l10"},[_vm._h('input',{attrs:{"type":"text","name":"state[]","value":""}})])," ",_vm._h('div',{staticClass:"input-field col s2 m2 l2"},[_vm._h('a',{staticClass:"red-text",attrs:{"href":"#","onclick":"$(this)[0].parentElement.parentElement.remove(); return false;"}},[_vm._h('i',{staticClass:"material-icons"},["delete"])])])])])}]
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-29", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-29", __vue__options__)
+  }
+})()}
+},{"vue":8,"vue-hot-reload-api":5}],29:[function(require,module,exports){
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    data: function data() {
+        return {
+            generic_components: []
+        };
+    },
+
+
+    props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
+        genericComponentId: {
+            type: String,
+            default: '',
+            required: false
+        },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
+        subscribeAdd: {
+            type: Boolean,
+            default: true,
+            required: false
+        },
+        subscribeDelete: {
+            type: Boolean,
+            default: true,
+            required: false
+        },
+        wrapperClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerId: {
+            type: String,
+            default: 'generic_components-masonry-grid',
+            required: false
+        }
+    },
+
+    methods: {
+        update: function update(gc) {
+            var item = null;
+            this.generic_components.forEach(function (data, index) {
+                if (data.id === gc.generic_component.id) {
+                    item = index;
+                }
+            });
+            if (item === null && this.subscribeAdd === true) {
+                this.generic_components.push(gc.generic_component);
+            } else if (item !== null) {
+                this.generic_components.splice(item, 1, gc.generic_component);
+            }
+
+            this.$nextTick(function () {
+                this.refresh_grid();
+            });
+        },
+
+        delete: function _delete(gc) {
+            if (this.subscribeDelete !== true) {
+                return;
+            }
+            var item = null;
+            this.generic_components.forEach(function (data, index) {
+                if (data.id === gc.generic_component_id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                this.generic_components.splice(item, 1);
+            }
+
+            this.$nextTick(function () {
+                this.refresh_grid();
+            });
+        },
+
+        refresh_grid: function refresh_grid() {
+            $('#' + this.containerId).masonry('reloadItems');
+            $('#' + this.containerId).masonry('layout');
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/generic_components/' + that.genericComponentId + '?raw=true&' + that.sourceFilter,
+                method: 'GET',
+                success: function success(data) {
+                    if (that.genericComponentId !== '') {
+                        that.generic_components = [data.data];
+                    } else {
+                        that.generic_components = data.data;
+                    }
+
+                    that.$nextTick(function () {
+                        $('#' + that.containerId).masonry({
+                            columnWidth: '.col',
+                            itemSelector: '.col'
+                        });
+                    });
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+        }
+    },
+
+    created: function created() {
+        var _this = this;
+
+        window.echo.private('dashboard-updates').listen('generic_componentUpdated', function (e) {
+            _this.update(e);
+        }).listen('generic_componentDeleted', function (e) {
+            _this.delete(e);
+        });
+
+        this.load_data();
+
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.generic_components),function(generic_component){return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('i',{staticClass:"material-icons"},[_vm._s(generic_component.type.icon)]),"\n                    "+_vm._s(generic_component.type.name_singular)+"\n                "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(generic_component.name)])," ",_vm._m(0,true)])," ",_vm._h('p',[_vm._h('span',[_vm._s(_vm.$t('labels.state'))+": "+_vm._s(generic_component.state)])])," ",_vm._h('p',[_vm._l((generic_component.properties),function(value,name){return _vm._h('span',[_vm._s(name)+": "+_vm._s(value),_vm._m(1,true)])})])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/generic_components/' + generic_component.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/generic_components/' + generic_component.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc('components.controlunits', 1)),_vm._m(2,true)])," ",_vm._h('p',[_vm._h('a',{attrs:{"href":'/controlunits/' + generic_component.controlunit.id}},[_vm._s(generic_component.controlunit.name)])])," ",_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(generic_component.belongsTo_type)])," ",_vm._h('p',[(generic_component.belongsTo)?_vm._h('a',{attrs:{"href":generic_component.belongsTo.url}},[_vm._s(generic_component.belongsTo.name)]):_vm._e()])])])])])})])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["close"])}]
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-24", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-24", __vue__options__)
+  }
+})()}
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],30:[function(require,module,exports){
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
 
 var _stringify = require('babel-runtime/core-js/json/stringify');
 
@@ -18504,12 +18910,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1", __vue__options__)
+    hotAPI.createRecord("data-v-3", __vue__options__)
   } else {
-    hotAPI.reload("data-v-1", __vue__options__)
+    hotAPI.reload("data-v-3", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],29:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],31:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18601,12 +19007,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4", __vue__options__)
+    hotAPI.createRecord("data-v-5", __vue__options__)
   } else {
-    hotAPI.reload("data-v-4", __vue__options__)
+    hotAPI.reload("data-v-5", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],30:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],32:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18780,7 +19186,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-23", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],31:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],33:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18889,12 +19295,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-27", __vue__options__)
+    hotAPI.createRecord("data-v-28", __vue__options__)
   } else {
-    hotAPI.reload("data-v-27", __vue__options__)
+    hotAPI.reload("data-v-28", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],32:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],34:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19068,7 +19474,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-22", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],33:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],35:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19242,7 +19648,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-20", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],34:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],36:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -19274,12 +19680,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-10", __vue__options__)
+    hotAPI.createRecord("data-v-1", __vue__options__)
   } else {
-    hotAPI.reload("data-v-10", __vue__options__)
+    hotAPI.reload("data-v-1", __vue__options__)
   }
 })()}
-},{"vue":8,"vue-hot-reload-api":5}],35:[function(require,module,exports){
+},{"vue":8,"vue-hot-reload-api":5}],37:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19420,7 +19826,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-14", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],36:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],38:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19603,7 +20009,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-13", __vue__options__)
   }
 })()}
-},{"./inline-graph.vue":29,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],37:[function(require,module,exports){
+},{"./inline-graph.vue":31,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],39:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19695,12 +20101,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-24", __vue__options__)
+    hotAPI.createRecord("data-v-25", __vue__options__)
   } else {
-    hotAPI.reload("data-v-24", __vue__options__)
+    hotAPI.reload("data-v-25", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],38:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],40:[function(require,module,exports){
 ;(function(){
 'use strict';
 

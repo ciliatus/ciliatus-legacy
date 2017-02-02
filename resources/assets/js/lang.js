@@ -8,6 +8,8 @@ module.exports = {
             'upload': 'Hochladen',
             'start_setup': 'Setup starten',
             'add': 'Hinzufügen',
+            'add_property': 'Neue Eigenschaft',
+            'add_state': 'Neuer Zustand',
             'create': 'Hinzufügen',
             'edit': 'Bearbeiten',
             'details': 'Details',
@@ -40,6 +42,8 @@ module.exports = {
             'action_sequences' :'Aktionssequenz | Aktionssequenzen',
             'action_sequence_schedules' :'Aktionssequenz Zeitplan | Aktionssequenz Zeitpläne',
             'action_sequence_schedule' :'Aktionssequenz Zeitplan | Aktionssequenz Zeitpläne',
+            'action_sequence_triggers' : 'Aktionssequenz Auslöser | Aktionssequenz Auslöser',
+            'action_sequence_trigger' : 'Aktionssequenz Auslöser | Aktionssequenz Auslöser',
             'admin_panel' : 'Admin Panel',
             'admin_panels' : 'Admin Panel',
             'animal_feedings' : 'Fütterung | Fütterungen',
@@ -47,7 +51,9 @@ module.exports = {
             'animal_weighings' : 'Wiegung | Wiegungen',
             'animal_weighing_schedules' : 'Wiegungsplan | Wiegungspläne',
             'biography_entries'     :  'Biografieeintrag | Biografieeinträge',
-            'caresheets' :   'Begleitblatt | Begleitblätter'
+            'caresheets' :   'Begleitblatt | Begleitblätter',
+            'generic_components' : 'Generische Komponente | Generische Komponenten',
+            'generic_component_types' : 'Generischer Komponententyp | Generische Komponententypen'
         },
         errors: {
             'retrievegraphdata': 'Could not retrieve graph data.'
@@ -69,6 +75,8 @@ module.exports = {
             'type'          :  'Typ',
             'email'         :  'E-Mail',
             'name'          :  'Name',
+            'name_singular' :  'Name (Singular)',
+            'name_plural'   :  'Name (Plural)',
             'display_name'  :  'Anzeigename',
             'common_name'   :  'Gemeiner Name',
             'latin_name'    :  'Lateinischer Name',
@@ -123,7 +131,7 @@ module.exports = {
             'queued'        :  'Wartend',
             'criticalstates':  'Kritische Zustände',
             'since'         :  'Seit',
-            'state'         :  'Status',
+            'state'         :  'Zustand',
             'actions'       :  'Aktionen',
             'irrigate'      :  'Bewässern',
             'duration'      :  'Dauer',
@@ -168,7 +176,13 @@ module.exports = {
             'max'           :  'Maximum',
             'during_day'    :  'Tags',
             'during_night'  :  'Nachts',
-            'total'         :  'Total'
+            'total'         :  'Total',
+            'infrastructure':  'Infrastruktur',
+            'timeframe_start': 'Zeitrahmen ab',
+            'timeframe_end' :  'Zeitrahmen bis',
+            'reference_value': 'Vergleichswert',
+            'reference_value_duration_threshold_minutes' : 'Vergleichswert unter/überschritten seit (Minuten)',
+            'for'           :  'für'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -220,8 +234,16 @@ module.exports = {
             'animal_weighing_schedule_matrix' : 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.',
             'done'                  :  'Erledigt',
             'skip'                  :  'Überspringen',
+            'material_icons_list'   :  'Die komplette Symbolliste ist unter <a href="https://material.io/icons/">material.io</a> einsehbar.',
             'no_data'               :  'Keine Daten.',
-            'connecting_to_server'  :  'Verbindung zum Ciliatus Server wird hergestellt. Sollte dies länger als einige Sekunden dauern, überprüfen Sie bitte Ihre Internetverbindung.'
+            'connecting_to_server'  :  'Verbindung zum Ciliatus Server wird hergestellt. Sollte dies länger als einige Sekunden dauern, überprüfen Sie bitte Ihre Internetverbindung.',
+            'generic_components': {
+                'about'              : 'Generische Komponenten sind Komponenten eines benutzerdefinierten Typs.',
+                'type_about'         : 'Generische Komponententypen definieren Name, Eigenschaften und mögliche Zustände für generische Komponenten. Sie dienen als Vorlage beim Erstellen einer neuen generischen Komponente.',
+                'property_templates' : 'Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszufüllen.',
+                'state_templates'    : 'Definiert mögliche Zustände die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zuständen den gewünschten Zustand auswählen.',
+                'type_delete_warning': 'Beim Löschen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gelöscht.'
+            }
         },
         units: {
             'years'     :  'Jahr | Jahre',
@@ -235,7 +257,10 @@ module.exports = {
             'days_ago'  :   'vor {val} Tagen',
             'hours_ago'  :   'vor {val} Stunden',
             'minutes_ago' :   'vor {val} Minuten',
-            'just_now'  :   'gerade eben'
+            'just_now'  :   'gerade eben',
+            'lesser'    :  '<',
+            'greater'   :  '>',
+            'equals'    :  '='
         }
     },
     en: {
@@ -247,6 +272,8 @@ module.exports = {
             'upload'    :  'Upload',
             'start_setup': 'Start Setup',
             'add'       :  'Add',
+            'add_property': 'Add Property',
+            'add_state': 'Add State',
             'create'    :  'Add',
             'edit'      :  'Edit',
             'details'   :  'Details',
@@ -279,6 +306,8 @@ module.exports = {
             'action_sequences' : 'Action sequence|Action sequences',
             'action_sequence_schedule' : 'Action sequence schedule|Action sequence schedules',
             'action_sequence_schedules' : 'Action sequence schedule|Action sequence schedules',
+            'action_sequence_triggers' : 'Action sequence trigger|Action sequence triggers',
+            'action_sequence_trigger' : 'Action sequence trigger|Action sequence triggers',
             'admin_panel'   :  'Admin panel',
             'admin_panels'   :  'Admin panel',
             'animal_feedings' : 'Feeding | Feedings',
@@ -286,7 +315,9 @@ module.exports = {
             'animal_weighings' : 'Weighing | Weighings',
             'animal_weighing_schedules' : 'Weighing schedule | Weighing schedules',
             'biography_entries'     :  'Biography entry | Biography entries',
-            'caresheets' :   'Care Sheet | Care Sheets'
+            'caresheets' :   'Care Sheet | Care Sheets',
+            'generic_components' : 'Generic Component | Generic Components',
+            'generic_component_types' : 'Generic Component Type | Generic Component Types'
         },
         errors: {
             'retrievegraphdata'     :  'Graphdaten konnten nicht ermittelt werden.'
@@ -308,6 +339,8 @@ module.exports = {
             'type'          :  'Type',
             'email'         :  'E-Mail',
             'name'          :  'Name',
+            'name_singular' :  'Name (Singular)',
+            'name_plural'   :  'Name (Plural)',
             'display_name'  :  'Display Name',
             'common_name'   :  'Common Name',
             'latin_name'    :  'Latin Name',
@@ -362,7 +395,7 @@ module.exports = {
             'queued'        :  'Queued',
             'criticalstates':  'Critical States',
             'since'         :  'Since',
-            'state'         :  'Status',
+            'state'         :  'State',
             'actions'       :  'Actions',
             'irrigate'      :  'Irrigate',
             'duration'      :  'Duration',
@@ -407,7 +440,13 @@ module.exports = {
             'max'           :  'Maximum',
             'during_day'    :  'Daytime',
             'during_night'  :  'Nighttime',
-            'total'         :  'Total'
+            'total'         :  'Total',
+            'infrastructure':  'Infrastructure',
+            'timeframe_start': 'Timeframe from',
+            'timeframe_end' :  'Timeframe to',
+            'reference_value': 'Reference value',
+            'reference_value_duration_threshold_minutes' : 'Reference value undershot/exceeded for (Minutes)',
+            'for'           :  'for'
         },
         menu: {
             'welcome'       :  'Welcome',
@@ -459,8 +498,16 @@ module.exports = {
             'animal_weighing_schedule_matrix' : 'This matrix contains all defined weighing schedules. A number in a column represents the schedule\'s interval in days followed by the next due date.',
             'done'                  :  'Done',
             'skip'                  :  'Skip',
+            'material_icons_list'   :  'Visit <a href="https://material.io/icons/">material.io</a> for a complete icon overview.',
             'no_data'               :  'No Data.',
-            'connecting_to_server'  :  'Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.'
+            'connecting_to_server'  :  'Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.',
+            'generic_components': {
+                'about'              : 'Generic components are components of a user defined type.',
+                'type_about'         : 'Generic component types define name, properties and possible states of a generic component. They are used as a template when creating a new generic component.',
+                'property_templates' : 'Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.',
+                'state_templates'    : 'Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.',
+                'type_delete_warning': 'When deleting a component type <strong>all components of this type</strong> will also be deleted.'
+            }
         },
         units: {
             'years'     :  'year|years',
@@ -474,7 +521,10 @@ module.exports = {
             'days_ago'  :   '{val} days ago',
             'hours_ago' :   '{val} hours ago',
             'minutes_ago' :   '{val} minutes ago',
-            'just_now'  :   'just now'
+            'just_now'  :   'just now',
+            'lesser'    :  '<',
+            'greater'   :  '>',
+            'equals'    :  '='
         }
     }
 };
