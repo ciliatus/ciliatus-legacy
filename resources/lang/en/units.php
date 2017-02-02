@@ -12,5 +12,8 @@ return [
     'days_ago'  =>  ':val days ago',
     'hours_ago' =>  ':val hours ago',
     'minutes_ago' =>  ':val minutes ago',
-    'just_now'  =>  'just now'
+    'just_now'  =>  'just now',
+    'lesser'    =>  '<',
+    'greater'   =>  '>',
+    'equals'    =>  '='
 ];

@@ -23,7 +23,14 @@ return [
     'animal_weighing_schedule_matrix' => 'This matrix contains all defined weighing schedules. A number in a column represents the schedule\'s interval in days followed by the next due date.',
     'done'                  =>  'Done',
     'skip'                  =>  'Skip',
-    'material_icons_list'   =>  'Visit <a href="http://materializecss.com/icons.html">materializecss.com/icons.html</a> for a complete icon overview.',
+    'material_icons_list'   =>  'Visit <a href="https://material.io/icons/">material.io</a> for a complete icon overview.',
     'no_data'               =>  'No data.',
-    'connecting_to_server'  =>  'Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.'
+    'connecting_to_server'  =>  'Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.',
+    'generic_components' => [
+        'about'                 => 'Generic components are components of a user defined type.',
+        'type_about'            => 'Generic component types define name, properties and possible states of a generic component. They are used as a template when creating a new generic component.',
+        'property_templates'    => 'Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.',
+        'state_templates'       => 'Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.',
+        'type_delete_warning'   => 'When deleting a component type <strong>all components of this type</strong> will also be deleted.'
+    ]
 ];

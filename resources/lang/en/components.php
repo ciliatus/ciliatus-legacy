@@ -27,6 +27,8 @@ return [
     'action_sequences' => 'Action sequence|Action sequences',
     'action_sequence_schedule' => 'Action sequence schedule|Action sequence schedules',
     'action_sequence_schedules' => 'Action sequence schedule|Action sequence schedules',
+    'action_sequence_triggers' => 'Action sequence trigger|Action sequence triggers',
+    'action_sequence_trigger' => 'Action sequence trigger|Action sequence triggers',
     'admin_panel'   =>  'Admin panel',
     'admin_panels'   =>  'Admin panel',
     'animal_feedings' => 'Feeding|Feedings',
@@ -34,5 +36,7 @@ return [
     'animal_weighings' => 'Weighing|Weighings',
     'animal_weighing_schedules' => 'Weighing schedule|Weighing schedules',
     'biography_entries' =>  'Biography entry|Biography entries',
-    'caresheets' =>   'Care Sheet|Care Sheets'
+    'caresheets' =>   'Care Sheet|Care Sheets',
+    'generic_components' => 'Generic Component|Generic Components',
+    'generic_component_types' => 'Generic Component Type|Generic Component Types'
 ];

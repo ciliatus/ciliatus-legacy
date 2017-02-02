@@ -27,6 +27,8 @@ return [
     'action_sequences' => 'Aktionssequenz|Aktionssequenzen',
     'action_sequence_schedules' => 'Aktionssequenz Zeitplan|Aktionssequenz Zeitpläne',
     'action_sequence_schedule' => 'Aktionssequenz Zeitplan|Aktionssequenz Zeitpläne',
+    'action_sequence_triggers' => 'Aktionssequenz Auslöser|Aktionssequenz Auslöser',
+    'action_sequence_trigger' => 'Aktionssequenz Auslöser|Aktionssequenz Auslöser',
     'admin_panel'   =>  'Admin Panel',
     'admin_panels'   =>  'Admin Panel',
     'animal_feedings' => 'Fütterung|Fütterungen',
@@ -34,5 +36,7 @@ return [
     'animal_weighings' => 'Wiegung|Wiegungen',
     'animal_weighing_schedules' => 'Wiegeplan|Wiegepläne',
     'biography_entries' => 'Biografieeintrag|Biografieeinträge',
-    'caresheets' =>   'Begleitblatt|Begleitblätter'
+    'caresheets' =>   'Begleitblatt|Begleitblätter',
+    'generic_components' => 'Generische Komponente|Generische Komponenten',
+    'generic_component_types' => 'Generischer Komponententyp|Generische Komponententypen'
 ];

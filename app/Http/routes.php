@@ -90,6 +90,14 @@ Route::group(['namespace' => 'Web'], function() {
     Route::get('logical_sensor_thresholds/{id}/delete', 'LogicalSensorThresholdController@delete');
 
     /*
+     * Generic components
+     */
+    Route::resource('generic_components', 'GenericComponentController');
+    Route::get('generic_components/{id}/delete', 'GenericComponentController@delete');
+    Route::resource('generic_component_types', 'GenericComponentTypeController');
+    Route::get('generic_component_types/{id}/delete', 'GenericComponentTypeController@delete');
+
+    /*
      * Sensorreadings
      */
     Route::resource('sensorreadings', 'SensorreadingController');
@@ -136,6 +144,10 @@ Route::group(['namespace' => 'Web'], function() {
     // Action sequence schedules
     Route::resource('action_sequence_schedules', 'ActionSequenceScheduleController');
     Route::get('action_sequence_schedules/{id}/delete', 'ActionSequenceScheduleController@delete');
+
+    // Action sequence triggers
+    Route::resource('action_sequence_triggers', 'ActionSequenceTriggerController');
+    Route::get('action_sequence_triggers/{id}/delete', 'ActionSequenceTriggerController@delete');
 
     /*
      * Biography entries
@@ -247,6 +259,12 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
     Route::post('logical_sensor_thresholds/copy', 'LogicalSensorThresholdController@copy');
 
     /*
+     * Generic components
+     */
+    Route::resource('generic_components', 'GenericComponentController');
+    Route::resource('generic_component_types', 'GenericComponentTypeController');
+
+    /*
      * Sensorreadings
      */
     Route::resource('sensorreadings', 'SensorreadingController');
@@ -289,6 +307,11 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
      * Action sequence schedules
      */
     Route::resource('action_sequence_schedules', 'ActionSequenceScheduleController');
+
+    /*
+     * Action sequence triggers
+     */
+    Route::resource('action_sequence_triggers', 'ActionSequenceTriggerController');
 
     /*
      * Events

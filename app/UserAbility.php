@@ -50,6 +50,8 @@ class UserAbility extends CiliatusModel
         'grant_api-write:physical_sensor',
         'grant_api-write:logical_sensor',
         'grant_api-write:logical_sensor_threshold',
+        'grant_api-write:generic_component',
+        'grant_api-write:generic_component_type',
         'grant_api-write:controlunit',
         'grant_api-write:file',
         'grant_api-write:file_property',
@@ -59,6 +61,7 @@ class UserAbility extends CiliatusModel
         'grant_api-write:action',
         'grant_api-write:action_sequence',
         'grant_api-write:action_sequence_schedule',
+        'grant_api-write:action_sequence_trigger',
         'grant_api-write:property',
         'grant_api-fetch:desired_states',
         'grant_api-evaluate:critical_state'

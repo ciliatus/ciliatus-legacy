@@ -23,7 +23,14 @@ return [
     'animal_weighing_schedule_matrix' => 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.',
     'done'                  =>  'Erledigt',
     'skip'                  =>  'Überspringen',
-    'material_icons_list'   =>  'Die komplette Symbolliste ist unter <a href="http://materializecss.com/icons.html">materializecss.com/icons.html</a> einsehbar.',
+    'material_icons_list'   =>  'Die komplette Symbolliste ist unter <a href="https://material.io/icons/">material.io</a> einsehbar.',
     'no_data'               =>  'Keine Daten.',
-    'connecting_to_server'  =>  'Verbindung zum Ciliatus Server wird hergestellt. Sollte dies länger als einige Sekunden dauern, überprüfen Sie bitte Ihre Internetverbindung.'
+    'connecting_to_server'  =>  'Verbindung zum Ciliatus Server wird hergestellt. Sollte dies länger als einige Sekunden dauern, überprüfen Sie bitte Ihre Internetverbindung.',
+    'generic_components' => [
+        'about'                 => 'Generische Komponenten sind Komponenten eines benutzerdefinierten Typs.',
+        'type_about'            => 'Generische Komponententypen definieren Name, Eigenschaften und mögliche Zustände für generische Komponenten. Sie dienen als Vorlage beim Erstellen einer neuen generischen Komponente.',
+        'property_templates'    => 'Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszufüllen.',
+        'state_templates'       => 'Definiert mögliche Zustände die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zuständen den gewünschten Zustand auswählen.',
+        'type_delete_warning'   => 'Beim Löschen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gelöscht.',
+    ]
 ];

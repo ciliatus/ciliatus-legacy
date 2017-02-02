@@ -141,11 +141,16 @@ class ActionSequenceController extends ApiController
             return $this->setStatusCode(422)->respondWithError('No Terrarium selected');
         }
 
-        if ($request->has('name') && strlen($request->input('name') > 1)) {
+        if ($request->has('name')) {
             $name = $request->input('name');
         }
         else {
-            $name = trans('labels.' . $request->input('template')) . ' ' . $t->display_name;
+            if ($request->has('template')) {
+                $name = trans('labels.' . $request->input('template')) . ' ' . $t->display_name;
+            }
+            else {
+                $name = trans_choice('components.action_sequences', 1) . ' ' . $t->display_name;
+            }
         }
 
         $as->name = $name;

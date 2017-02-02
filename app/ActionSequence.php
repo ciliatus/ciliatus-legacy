@@ -32,6 +32,10 @@ class ActionSequence extends CiliatusModel
             $ass->delete();
         }
 
+        foreach ($this->triggers as $ast) {
+            $ast->delete();
+        }
+
         parent::delete();
     }
 
@@ -49,6 +53,14 @@ class ActionSequence extends CiliatusModel
     public function schedules()
     {
         return $this->hasMany('App\ActionSequenceSchedule')->orderBy('starts_at');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function triggers()
+    {
+        return $this->hasMany('App\ActionSequenceTrigger')->orderBy('timeframe_start');
     }
 
     /**

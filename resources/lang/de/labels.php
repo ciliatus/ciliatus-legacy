@@ -17,6 +17,8 @@ return [
     'type'          =>  'Typ',
     'email'         =>  'E-Mail',
     'name'          =>  'Name',
+    'name_singular' =>  'Name (Singular)',
+    'name_plural'   =>  'Name (Plural)',
     'display_name'  =>  'Anzeigename',
     'common_name'   =>  'Gemeiner Name',
     'latin_name'    =>  'Lateinischer Name',
@@ -71,7 +73,7 @@ return [
     'queued'        =>  'Wartend',
     'criticalstates'=>  'Kritische Zustände',
     'since'         =>  'Seit',
-    'state'         =>  'Status',
+    'state'         =>  'Zustand',
     'actions'       =>  'Aktionen',
     'irrigate'      =>  'Bewässern',
     'duration'      =>  'Dauer',
@@ -115,5 +117,11 @@ return [
     'max'           =>  'Maximum',
     'during_day'    =>  'Tags',
     'during_night'  =>  'Nachts',
-    'total'         =>  'Total'
+    'total'         =>  'Total',
+    'infrastructure'=>  'Infrastruktur',
+    'timeframe_start'=> 'Zeitrahmen ab',
+    'timeframe_end' =>  'Zeitrahmen bis',
+    'reference_value'=> 'Vergleichswert',
+    'reference_value_duration_threshold_minutes' => 'Vergleichswert unter/überschritten seit (Minuten)',
+    'for'           =>  'für'
 ];

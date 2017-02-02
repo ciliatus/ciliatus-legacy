@@ -1,18 +1,21 @@
 <!DOCTYPE html>
 <html>
     <head>
+
+        <title>Ciliatus</title>
+
         <!--Import Google Icon Font-->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on' || (Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night()))
-            <link type="text/css" rel="stylesheet" href="/v1.1-beta/css/materialize_dark.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/v1.2-beta/css/materialize_dark.css"  media="screen,projection"/>
         @else
-            <link type="text/css" rel="stylesheet" href="/v1.1-beta/css/materialize.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/v1.2-beta/css/materialize.css"  media="screen,projection"/>
         @endif
-        <link type="text/css" rel="stylesheet" href="/v1.1-beta/css/timeline.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/v1.2-beta/css/timeline.css"  media="screen,projection"/>
 
 
-        <link type="text/css" rel="stylesheet" href="/v1.1-beta/css/materialize.clockpicker.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/v1.2-beta/css/materialize.clockpicker.css"  media="screen,projection"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
         <!--Let browser know website is optimized for mobile-->
@@ -113,6 +116,14 @@
                                             @choice('components.logical_sensors', 2)
                                         </a>
                                     </li>
+                                    @foreach(\App\GenericComponentType::get() as $gct)
+                                    <li @if(Request::is('generic_component_types/' . $gct->id, 'generic_component_types/' . $gct->id . '/*')) class="active" @endif>
+                                        <a href="{{ url('generic_component_types/' . $gct->id) }}" class="waves-effect waves-teal">
+                                            <i class="material-icons">{{ $gct->icon }}</i>
+                                            {{ $gct->name_plural }}
+                                        </a>
+                                    </li>
+                                    @endforeach
                                 </ul>
                             </div>
                         </li>
@@ -158,7 +169,7 @@
 
                 <li><a href="https://github.com/matthenning/ciliatus/issues" class="waves-effect waves-teal"><i class="material-icons">bug_report</i>@lang('labels.bugtracker')</a></li>
                 <li><a href="https://github.com/matthenning/ciliatus/wiki" class="waves-effect waves-teal"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
-                <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v1.1-beta" class="waves-effect waves-teal"><i class="material-icons">linear_scale</i>Version v1.1-beta</a></li>
+                <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v1.2-beta" class="waves-effect waves-teal"><i class="material-icons">linear_scale</i>Version v1.2-beta (dev)</a></li>
                 @endif
 
             </ul>
@@ -180,17 +191,17 @@
         <!-- Google Charts -->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <!-- Materialize.css -->
-        <script src="{{ url('v1.1-beta/js/materialize.min.js') }}"></script>
+        <script src="{{ url('v1.2-beta/js/materialize.min.js') }}"></script>
         <!-- Materialize.clockpicker.css -->
-        <script src="{{ url('v1.1-beta/js/materialize.clockpicker.js') }}"></script>
+        <script src="{{ url('v1.2-beta/js/materialize.clockpicker.js') }}"></script>
         <!-- Masonry -->
-        <script src="{{ url('v1.1-beta/js/masonry.pkgd.min.js') }}"></script>
+        <script src="{{ url('v1.2-beta/js/masonry.pkgd.min.js') }}"></script>
         <!-- Laravel-Echo -->
-        <script src="{{ url('v1.1-beta/js/echo.js') }}"></script>
+        <script src="{{ url('v1.2-beta/js/echo.js') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('v1.1-beta/js/app.js') }}"></script>
+        <script src="{{ url('v1.2-beta/js/app.js') }}"></script>
         <!-- Vue -->
-        <script src="{{ url('v1.1-beta/js/vue.js') }}"></script>
+        <script src="{{ url('v1.2-beta/js/vue.js') }}"></script>
 
         @yield('scripts')
 

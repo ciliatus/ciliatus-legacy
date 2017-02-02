@@ -2,9 +2,12 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\GenericComponentType;
 use App\Http\Controllers\Controller;
 use App\Action;
 use App\ActionSequence;
+use App\Pump;
+use App\Valve;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -43,11 +46,49 @@ class ActionController extends Controller
      */
     public function create(Request $request)
     {
-        $sequences = ActionSequence::all();
+        $components = [
+            'Valves' => [
+                'display_name' => trans_choice('components.valves', 2),
+                'tech_name' => 'Valve',
+                'objects' => []
+            ],
+            'Pumps' => [
+                'display_name' => trans_choice('components.pumps', 2),
+                'tech_name' => 'Pump',
+                'objects' => []
+            ]
+        ];
+        foreach (Valve::get() as $v) {
+            $components['Valves']['objects'][] = [
+                'id' => $v->id,
+                'name' => $v->name,
+                'states' => $v->states()
+            ];
+        }
+        foreach (Pump::get() as $p) {
+            $components['Pumps']['objects'][] = [
+                'id' => $p->id,
+                'name' => $p->name,
+                'states' => $p->states()
+            ];
+        }
+        foreach (GenericComponentType::get() as $gct) {
+            $components['GenericComponent_' . $gct->id]['display_name'] = $gct->name_plural;
+            $components['GenericComponent_' . $gct->id]['tech_name'] = 'GenericComponent';
+            $components['GenericComponent_' . $gct->id]['objects'] = [];
+            foreach ($gct->components as $gc) {
+                $components['GenericComponent_' . $gct->id]['objects'][] = [
+                    'id' => $gc->id,
+                    'name' => $gc->name,
+                    'states' => array_column($gc->states->toArray(), 'name')
+                ];
+            }
+        }
 
         return view('actions.create', [
-            'sequences'        => $sequences,
-            'preset' => $request->input('preset')
+            'action_sequences' => ActionSequence::get(),
+            'preset' => $request->input('preset'),
+            'components' => $components
         ]);
     }
 

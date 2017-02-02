@@ -27,6 +27,25 @@ class Action extends CiliatusModel
     protected $dates = ['created_at', 'updated_at', 'last_start_at', 'last_end_at'];
 
     /**
+     * @var array
+     */
+    protected $fillable = [
+        'action_sequence_id', 'target_type', 'target_id', 'desired_state', 'duration_minutes', 'sequence_sort_id'
+    ];
+
+    /**
+     * @return bool|null
+     */
+    public function delete()
+    {
+        foreach ($this->running_actions as $ra) {
+            $ra->delete();
+        }
+
+        return parent::delete();
+    }
+
+    /**
      * @return null
      */
     public function target_object()
@@ -68,6 +87,14 @@ class Action extends CiliatusModel
     public function sequence()
     {
         return $this->belongsTo('App\ActionSequence', 'action_sequence_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function running_actions()
+    {
+        return $this->hasMany('App\RunningAction');
     }
 
     /**

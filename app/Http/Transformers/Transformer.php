@@ -9,6 +9,7 @@
 namespace App\Http\Transformers;
 
 use Carbon\Carbon;
+use ReflectionException;
 
 
 /**
@@ -78,6 +79,48 @@ abstract class Transformer
         }
 
         return $return;
+    }
+
+    /**
+     * Tries to find the object defined by belongsTo_type and belongsTo_id.
+     * If a repository is present, the object will be piped through that.
+     * If a matching Transformer exists the object will be transformed.
+     *
+     * On error the original item will be returned
+     * Otherwise the field belongsTo will be added
+     * to the original item and then returned
+     *
+     * @param $item
+     * @return mixed
+     */
+    protected function parseBelongsTo($item)
+    {
+        if (isset($item['belongsTo_type']) && isset($item['belongsTo_id'])) {
+
+            $object_name = 'App\\' . $item['belongsTo_type'];
+            $repo_name = 'App\\Repositories\\' . $item['belongsTo_type'] . 'Repository';
+            $transformer_name = 'App\\Http\\Transformers\\' . $item['belongsTo_type'] . 'Transformer';
+
+            if (class_exists($object_name)) {
+                $object = $object_name::find($item['belongsTo_id']);
+            }
+            else {
+                return $item;
+            }
+
+            if (class_exists($repo_name)) {
+                $object = (new $repo_name($object))->show();
+            }
+
+            if (class_exists($transformer_name)) {
+                $transformer = new $transformer_name();
+                $item['belongsTo'] = $transformer->transform($object->toArray());
+            }
+
+            return $item;
+        }
+
+        return $item;
     }
 
 }
