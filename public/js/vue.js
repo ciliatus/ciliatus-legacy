@@ -14978,7 +14978,9 @@ module.exports = {
             'create': 'Hinzufügen',
             'edit': 'Bearbeiten',
             'details': 'Details',
-            'download': 'Herunterladen'
+            'download': 'Herunterladen',
+            'emergency_stop': 'Notaus',
+            'emergency_resume': 'Notus aufheben'
         },
         components: {
             'terrarium': 'Terrarium | Terraria',
@@ -15009,6 +15011,8 @@ module.exports = {
             'action_sequence_schedule': 'Aktionssequenz Zeitplan | Aktionssequenz Zeitpläne',
             'action_sequence_triggers': 'Aktionssequenz Auslöser | Aktionssequenz Auslöser',
             'action_sequence_trigger': 'Aktionssequenz Auslöser | Aktionssequenz Auslöser',
+            'trigger': 'Auslöser | Auslöser',
+            'triggers': 'Auslöser | Auslöser',
             'admin_panel': 'Admin Panel',
             'admin_panels': 'Admin Panel',
             'animal_feedings': 'Fütterung | Fütterungen',
@@ -15147,7 +15151,9 @@ module.exports = {
             'timeframe_end': 'Zeitrahmen bis',
             'reference_value': 'Vergleichswert',
             'reference_value_duration_threshold_minutes': 'Vergleichswert unter/überschritten seit (Minuten)',
-            'for': 'für'
+            'for': 'für',
+            'minimum_timeout_minutes': 'Timeout (Minuten)',
+            'emergency_stop': 'Notaus'
         },
         menu: {
             'welcome': 'Willkommen',
@@ -15208,7 +15214,12 @@ module.exports = {
                 'property_templates': 'Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszufüllen.',
                 'state_templates': 'Definiert mögliche Zustände die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zuständen den gewünschten Zustand auswählen.',
                 'type_delete_warning': 'Beim Löschen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gelöscht.'
-            }
+            },
+            'minimum_timeout_minutes': 'Definiert die Dauer der minimalen Pause, bevor die Aktionssequenz durch diesen Auslöser nach einem Durchlauf erneut gestartet werden kann.',
+            'reference_value': 'Der Wert, mit dem der Sensorwert verglichen werden soll.',
+            'reference_value_duration_threshold_minutes': 'Dauer in Minuten, die der Sensorwert den Grenzwert unter/überschritten haben muss, bevor die Aktionssequenz ausgelöst wird.',
+            'emergency_stop': 'Hält sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.',
+            'emergency_resume': 'Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.'
         },
         units: {
             'years': 'Jahr | Jahre',
@@ -15242,7 +15253,9 @@ module.exports = {
             'create': 'Add',
             'edit': 'Edit',
             'details': 'Details',
-            'download': 'Download'
+            'download': 'Download',
+            'emergency_stop': 'Emergency stop',
+            'emergency_resume': 'Remove emergency stop'
         },
         components: {
             'terrarium': 'Terrarium|Terraria',
@@ -15273,6 +15286,8 @@ module.exports = {
             'action_sequence_schedules': 'Action sequence schedule|Action sequence schedules',
             'action_sequence_triggers': 'Action sequence trigger|Action sequence triggers',
             'action_sequence_trigger': 'Action sequence trigger|Action sequence triggers',
+            'trigger': 'Trigger | Triggers',
+            'triggers': 'Trigger | Triggers',
             'admin_panel': 'Admin panel',
             'admin_panels': 'Admin panel',
             'animal_feedings': 'Feeding | Feedings',
@@ -15411,7 +15426,9 @@ module.exports = {
             'timeframe_end': 'Timeframe to',
             'reference_value': 'Reference value',
             'reference_value_duration_threshold_minutes': 'Reference value undershot/exceeded for (Minutes)',
-            'for': 'for'
+            'for': 'for',
+            'minimum_timeout_minutes': 'Timeout (minutes)',
+            'emergency_stop': 'Emergency stop'
         },
         menu: {
             'welcome': 'Welcome',
@@ -15472,7 +15489,12 @@ module.exports = {
                 'property_templates': 'Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.',
                 'state_templates': 'Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.',
                 'type_delete_warning': 'When deleting a component type <strong>all components of this type</strong> will also be deleted.'
-            }
+            },
+            'minimum_timeout_minutes': 'Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.',
+            'reference_value': 'Reference value which will be compared to the sensor values.',
+            'reference_value_duration_threshold_minutes': 'Duration in minutes for which the sensor value has to be greater/lower/equal to the reference value before triggering the action sequence.',
+            'emergency_stop': 'Instantly stops all running action sequences and prohibits action sequences from starting.',
+            'emergency_resume': 'Revokes the emergency stop and allows action sequences to start.'
         },
         units: {
             'years': 'year|years',
@@ -15870,9 +15892,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-19", __vue__options__)
+    hotAPI.createRecord("data-v-20", __vue__options__)
   } else {
-    hotAPI.reload("data-v-19", __vue__options__)
+    hotAPI.reload("data-v-20", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],13:[function(require,module,exports){
@@ -15995,16 +16017,16 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(0),"\n        "+_vm._s(_vm.action_sequences.length)+" "+_vm._s(_vm.$tc("components.action_sequences", 2))+"\n    "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.$tc("components.action_sequences", 2))])," ",_vm._m(1)])," ",_vm._l((_vm.action_sequences),function(as){return _vm._h('div',[_vm._h('p',[_vm._h('strong',[_vm._s(as.name)])," ",_vm._h('i',[_vm._s(as.duration_minutes)+" "+_vm._s(_vm.$tc("units.minutes", as.duration_minutes))])])," ",_vm._l((as.schedules),function(ass){return _vm._h('p',[_vm._m(2,true)," "+_vm._s(ass.timestamps.starts)+" ",_vm._h('i',{directives:[{name:"show",rawName:"v-show",value:(!ass.runonce),expression:"!ass.runonce"}]},[_vm._s(_vm.$t("labels.daily"))])])})])})])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/action_sequences/create?preset[terrarium]=' + _vm.terrariumId}},[_vm._s(_vm.$t("buttons.add"))])," ",_vm._h('a',{attrs:{"href":'/terraria/' + _vm.terrariumId + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._m(3)])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["schedule"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])}]
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(0),"\n        "+_vm._s(_vm.action_sequences.length)+" "+_vm._s(_vm.$tc("components.action_sequences", 2))+"\n    "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.$tc("components.action_sequences", 2))])," ",_vm._m(1)])," ",_vm._l((_vm.action_sequences),function(as){return _vm._h('div',[_vm._h('p',[_vm._h('a',{attrs:{"href":'/action_sequences/' + as.id + '/edit'}},[_vm._h('strong',[_vm._s(as.name)])])])," ",_vm._l((as.triggers),function(ast){return _vm._h('p',[_vm._m(2,true)," "+_vm._s(ast.logical_sensor.name)+" "+_vm._s(_vm.$t('units.' + ast.reference_value_comparison_type))+" "+_vm._s(ast.reference_value)+"\n                ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(ast.states.running),expression:"ast.states.running"}]},[_vm._h('span',{staticClass:"new badge",attrs:{"data-badge-caption":_vm.$t('labels.active')}})])])})," ",_vm._l((as.schedules),function(ass){return _vm._h('p',[_vm._m(3,true)," "+_vm._s(ass.timestamps.starts)+" ",_vm._h('i',{directives:[{name:"show",rawName:"v-show",value:(!ass.runonce),expression:"!ass.runonce"}]},[_vm._s(_vm.$t("labels.daily"))])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(ass.states.running),expression:"ass.states.running"}]},[_vm._h('span',{staticClass:"new badge",attrs:{"data-badge-caption":_vm.$t('labels.active')}})])])})])})])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/action_sequences/create?preset[terrarium]=' + _vm.terrariumId}},[_vm._s(_vm.$t("buttons.add"))])])," ",_vm._m(4)])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["flare"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["schedule"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-18", __vue__options__)
+    hotAPI.createRecord("data-v-17", __vue__options__)
   } else {
-    hotAPI.reload("data-v-18", __vue__options__)
+    hotAPI.reload("data-v-17", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],14:[function(require,module,exports){
@@ -16297,7 +16319,7 @@ exports.default = {
         },
         sourceFilter: {
             type: String,
-            default: 'filter[last_finished_at]=nottoday',
+            default: '',
             required: false
         },
         wrapperClasses: {
@@ -16970,9 +16992,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6", __vue__options__)
+    hotAPI.createRecord("data-v-5", __vue__options__)
   } else {
-    hotAPI.reload("data-v-6", __vue__options__)
+    hotAPI.reload("data-v-5", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],21:[function(require,module,exports){
@@ -17490,9 +17512,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-15", __vue__options__)
+    hotAPI.createRecord("data-v-16", __vue__options__)
   } else {
-    hotAPI.reload("data-v-15", __vue__options__)
+    hotAPI.reload("data-v-16", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],24:[function(require,module,exports){
@@ -17960,16 +17982,16 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[(_vm.dashboard.terraria.critical.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection critical with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(0),"\n                "+_vm._s(_vm.dashboard.terraria.critical.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.critical.length))+" "+_vm._s(_vm.$t("labels.critical"))+"\n            "])," ",_vm._l((_vm.dashboard.terraria.critical),function(terrarium){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/terraria/' + terrarium.id}},[_vm._s(terrarium.display_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical === true && terrarium.temperature_critical !== true),expression:"terrarium.humidity_critical === true && terrarium.temperature_critical !== true"}]},["("+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%)"])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical === true && terrarium.temperature_critical === true),expression:"terrarium.humidity_critical === true && terrarium.temperature_critical === true"}]},["("+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%, "+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C)"])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical !== true && terrarium.temperature_critical === true),expression:"terrarium.humidity_critical !== true && terrarium.temperature_critical === true"}]},["("+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C)"])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_feeding_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(1),"\n                "+_vm._s(_vm.dashboard.animal_feeding_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.overdue"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 60px)"}},["\n                        "+_vm._s(schedule.animal.display_name)+": "+_vm._s(schedule.type)+" ("+_vm._s(_vm.$t("labels.since"))+" "+_vm._s((schedule.due_days*-1))+" "+_vm._s(_vm.$tc("units.days", (schedule.due_days*-1)))+")\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(2,true)])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'},on:{"click":_vm.link_post}},[_vm._m(3,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_weighing_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(4),"\n                "+_vm._s(_vm.dashboard.animal_weighing_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.animal_weighings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_weighing_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 60px)"}},["\n                        "+_vm._s(schedule.animal.display_name)+" "+_vm._s(_vm.$t('labels.today'))+" "+_vm._s(_vm.$t('labels.actions'))+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(5,true)])," "," ",_vm._m(6,true)])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(7),"\n                "+_vm._s(_vm.dashboard.action_sequence_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 30px)"}},["\n                        "+_vm._s(schedule.timestamps.starts)+": "+_vm._s(schedule.sequence.name)+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(8,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_feeding_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(9),"\n                "+_vm._s(_vm.dashboard.animal_feeding_schedules.due.length)+" "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 60px)"}},["\n                        "+_vm._s(schedule.animal.display_name)+": "+_vm._s(schedule.type)+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(10,true)])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'},on:{"click":_vm.link_post}},[_vm._m(11,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_weighing_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(12),"\n                "+_vm._s(_vm.dashboard.animal_weighing_schedules.due.length)+" "+_vm._s(_vm.$tc("components.animal_weighings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_weighing_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 60px)"}},["\n                        "+_vm._s(schedule.animal.display_name)+" "+_vm._s(_vm.$t('labels.today'))+" "+_vm._s(_vm.$t('labels.actions'))+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(13,true)])," "," ",_vm._m(14,true)])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(15),"\n                "+_vm._s(_vm.dashboard.action_sequence_schedules.due.length)+" "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 30px)"}},["\n                        "+_vm._s(schedule.timestamps.starts)+": "+_vm._s(schedule.sequence.name)+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(16,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.running.length > 0 || _vm.dashboard.action_sequence_triggers.running.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(17),"\n                "+_vm._s((_vm.dashboard.action_sequence_schedules.running.length + _vm.dashboard.action_sequence_triggers.running.length))+"\n                "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.running"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.running),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 30px)"}},[(schedule.timestamps.last_start !== null)?_vm._h('a',{staticClass:"white-text"},[_vm._s(schedule.timestamps.last_start.split(" ")[1])]):_vm._e()," ",_vm._h('a',{staticClass:"white-text",attrs:{"href":'/action_sequences/' + schedule.sequence.id}},["\n                            "+_vm._s(schedule.sequence.name)+"\n                        "])])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(18,true)])])])})," ",_vm._l((_vm.dashboard.action_sequence_triggers.running),function(trigger){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 30px)"}},[(trigger.timestamps.last_start !== null)?_vm._h('a',{staticClass:"white-text"},[_vm._s(trigger.timestamps.last_start.split(" ")[1])]):_vm._e()," ",_vm._h('a',{staticClass:"white-text",attrs:{"href":'/action_sequences/' + trigger.sequence.id}},["\n                            "+_vm._s(trigger.sequence.name)+"\n                        "])])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_triggers/' + trigger.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(19,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.terraria.critical.length < 1)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(20),"\n                "+_vm._s(_vm.dashboard.terraria.ok.length)+" "+_vm._s(_vm.$tc("components.terraria", 2))+"\n            "])," ",_vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(_vm.dashboard.terraria.ok.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.ok.length))+" "+_vm._s(_vm.$t("labels.ok"))+"\n\n                "])])])]):_vm._e()])}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[(_vm.dashboard.terraria.critical.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection critical with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(0),"\n                "+_vm._s(_vm.dashboard.terraria.critical.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.critical.length))+" "+_vm._s(_vm.$t("labels.critical"))+"\n            "])," ",_vm._l((_vm.dashboard.terraria.critical),function(terrarium){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',[_vm._h('a',{staticClass:"white-text",attrs:{"href":'/terraria/' + terrarium.id}},[_vm._s(terrarium.display_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical === true && terrarium.temperature_critical !== true),expression:"terrarium.humidity_critical === true && terrarium.temperature_critical !== true"}]},["("+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%)"])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical === true && terrarium.temperature_critical === true),expression:"terrarium.humidity_critical === true && terrarium.temperature_critical === true"}]},["("+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%, "+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C)"])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.humidity_critical !== true && terrarium.temperature_critical === true),expression:"terrarium.humidity_critical !== true && terrarium.temperature_critical === true"}]},["("+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C)"])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_feeding_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(1),"\n                "+_vm._s(_vm.dashboard.animal_feeding_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.overdue"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 60px)"}},["\n                        "+_vm._s(schedule.animal.display_name)+": "+_vm._s(schedule.type)+" ("+_vm._s(_vm.$t("labels.since"))+" "+_vm._s((schedule.due_days*-1))+" "+_vm._s(_vm.$tc("units.days", (schedule.due_days*-1)))+")\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(2,true)])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'},on:{"click":_vm.link_post}},[_vm._m(3,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_weighing_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(4),"\n                "+_vm._s(_vm.dashboard.animal_weighing_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.animal_weighings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_weighing_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 60px)"}},["\n                        "+_vm._s(schedule.animal.display_name)+" "+_vm._s(_vm.$t('labels.today'))+" "+_vm._s(_vm.$t('labels.actions'))+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(5,true)])," "," ",_vm._m(6,true)])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.overdue.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection warning with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(7),"\n                "+_vm._s(_vm.dashboard.action_sequence_schedules.overdue.length)+" "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.overdue),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 30px)"}},["\n                        "+_vm._s(schedule.timestamps.starts)+": "+_vm._s(schedule.sequence.name)+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(8,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_feeding_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(9),"\n                "+_vm._s(_vm.dashboard.animal_feeding_schedules.due.length)+" "+_vm._s(_vm.$tc("components.animal_feedings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_feeding_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 60px)"}},["\n                        "+_vm._s(schedule.animal.display_name)+": "+_vm._s(schedule.type)+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(10,true)])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'},on:{"click":_vm.link_post}},[_vm._m(11,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.animal_weighing_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(12),"\n                "+_vm._s(_vm.dashboard.animal_weighing_schedules.due.length)+" "+_vm._s(_vm.$tc("components.animal_weighings", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.animal_weighing_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 60px)"}},["\n                        "+_vm._s(schedule.animal.display_name)+" "+_vm._s(_vm.$t('labels.today'))+" "+_vm._s(_vm.$t('labels.actions'))+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(13,true)])," "," ",_vm._m(14,true)])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.due.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(15),"\n                "+_vm._s(_vm.dashboard.action_sequence_schedules.due.length)+" "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.due"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.due),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 30px)"}},["\n                        "+_vm._s(schedule.timestamps.starts)+": "+_vm._s(schedule.sequence.name)+"\n                    "])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(16,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.action_sequence_schedules.running.length > 0 || _vm.dashboard.action_sequence_triggers.running.length > 0)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(17),"\n                "+_vm._s((_vm.dashboard.action_sequence_schedules.running.length + _vm.dashboard.action_sequence_triggers.running.length))+"\n                "+_vm._s(_vm.$tc("components.action_sequences", 2))+" "+_vm._s(_vm.$t("labels.running"))+"\n            "])," ",_vm._l((_vm.dashboard.action_sequence_schedules.running),function(schedule){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 30px)"}},[(schedule.timestamps.last_start !== null)?_vm._h('a',{staticClass:"white-text"},[_vm._s(schedule.timestamps.last_start.split(" ")[1])]):_vm._e()," ",_vm._h('a',{staticClass:"white-text",attrs:{"href":'/action_sequences/' + schedule.sequence.id + '/edit'}},["\n                            "+_vm._s(schedule.sequence.name)+"\n                        "])])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(18,true)])])])})," ",_vm._l((_vm.dashboard.action_sequence_triggers.running),function(trigger){return _vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},[_vm._h('span',{staticStyle:{"display":"inline-block","width":"calc(100% - 30px)"}},[(trigger.timestamps.last_start !== null)?_vm._h('a',{staticClass:"white-text"},[_vm._s(trigger.timestamps.last_start.split(" ")[1])]):_vm._e()," ",_vm._h('a',{staticClass:"white-text",attrs:{"href":'/action_sequences/' + trigger.sequence.id + '/edit'}},["\n                            "+_vm._s(trigger.sequence.name)+"\n                        "])])," ",_vm._h('a',{staticClass:"secondary-content white-text",attrs:{"href":'/api/v1/action_sequence_triggers/' + trigger.id + '/skip'},on:{"click":_vm.link_post}},[_vm._m(19,true)])])])})])]):_vm._e()," "," ",(_vm.dashboard.terraria.critical.length < 1)?_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('ul',{staticClass:"collection ok with-header"},[_vm._h('li',{staticClass:"collection-header"},[_vm._m(20),"\n                "+_vm._s(_vm.dashboard.terraria.ok.length)+" "+_vm._s(_vm.$tc("components.terraria", 2))+"\n            "])," ",_vm._h('li',{staticClass:"collection-item"},[_vm._h('div',{staticClass:"white-text"},["\n\n                    "+_vm._s(_vm.dashboard.terraria.ok.length)+" "+_vm._s(_vm.$tc("components.terraria", _vm.dashboard.terraria.ok.length))+" "+_vm._s(_vm.$t("labels.ok"))+"\n\n                "])])])]):_vm._e()])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["video_label"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["local_dining"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["done"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["vertical_align_bottom"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('a',{staticClass:"secondary-content white-text"},[_vm._h('i',{staticClass:"material-icons"},["done"])])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["local_dining"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["done"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["vertical_align_bottom"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('a',{staticClass:"secondary-content white-text"},[_vm._h('i',{staticClass:"material-icons"},["done"])])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["playlist_play"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["update"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["video_label"])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2", __vue__options__)
+    hotAPI.createRecord("data-v-1", __vue__options__)
   } else {
-    hotAPI.reload("data-v-2", __vue__options__)
+    hotAPI.reload("data-v-1", __vue__options__)
   }
 })()}
 },{"vue":8,"vue-hot-reload-api":5}],25:[function(require,module,exports){
@@ -18108,7 +18130,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[(_vm.ShowFilterForm === true)?_vm._h('div',[_vm._h('div',{staticClass:"row",staticStyle:{"margin-bottom":"0"}},[_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.from'),"name":"filter_from","id":'filter_from_' + _vm.id,"data-default":_vm.FilterFromDate},domProps:{"value":_vm.FilterFromDate}})," ",_vm._h('label',{attrs:{"for":'filter_from_' + _vm.id}},[_vm._s(_vm.$t('labels.from'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.to'),"name":"filter_to","id":'filter_to_' + _vm.id,"data-default":_vm.FilterToDate},domProps:{"value":_vm.FilterToDate}})," ",_vm._h('label',{attrs:{"for":'filter_to_' + _vm.id}},[_vm._s(_vm.$t('labels.to'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",on:{"click":_vm.build}},[_vm._s(_vm.$t('buttons.next'))])])])]):_vm._e()," ",_vm._h('div',{staticClass:"center",staticStyle:{"display":"none"},attrs:{"id":'dygraph_' + _vm.id + '_loading'}},[_vm._m(0)])," ",_vm._h('div',{staticStyle:{"width":"100%"},attrs:{"id":'dygraph_' + _vm.id}})])}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[(_vm.ShowFilterForm === true)?_vm._h('div',[_vm._h('div',{staticClass:"row",staticStyle:{"margin-bottom":"0"}},[_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.from'),"name":"filter_from","id":'filter_from_' + _vm.id,"data-default":_vm.FilterFromDate},domProps:{"value":_vm.FilterFromDate}})," ",_vm._h('label',{attrs:{"for":'filter_from_' + _vm.id}},[_vm._s(_vm.$t('labels.from'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.to'),"name":"filter_to","id":'filter_to_' + _vm.id,"data-default":_vm.FilterToDate},domProps:{"value":_vm.FilterToDate}})," ",_vm._h('label',{attrs:{"for":'filter_to_' + _vm.id}},[_vm._s(_vm.$t('labels.to'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",on:{"click":_vm.build}},[_vm._s(_vm.$t('buttons.loadgraph'))])])])]):_vm._e()," ",_vm._h('div',{staticClass:"center",staticStyle:{"display":"none"},attrs:{"id":'dygraph_' + _vm.id + '_loading'}},[_vm._m(0)])," ",_vm._h('div',{staticStyle:{"width":"100%"},attrs:{"id":'dygraph_' + _vm.id}})])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('div',{staticClass:"preloader-wrapper small active"},[_vm._h('div',{staticClass:"spinner-layer spinner-green-only"},[_vm._h('div',{staticClass:"circle-clipper left"},[_vm._h('div',{staticClass:"circle"})]),_vm._h('div',{staticClass:"gap-patch"},[_vm._h('div',{staticClass:"circle"})]),_vm._h('div',{staticClass:"circle-clipper right"},[_vm._h('div',{staticClass:"circle"})])])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -18251,9 +18273,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-17", __vue__options__)
+    hotAPI.createRecord("data-v-18", __vue__options__)
   } else {
-    hotAPI.reload("data-v-17", __vue__options__)
+    hotAPI.reload("data-v-18", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],27:[function(require,module,exports){
@@ -18398,9 +18420,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-16", __vue__options__)
+    hotAPI.createRecord("data-v-15", __vue__options__)
   } else {
-    hotAPI.reload("data-v-16", __vue__options__)
+    hotAPI.reload("data-v-15", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],28:[function(require,module,exports){
@@ -18687,7 +18709,7 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.generic_components),function(generic_component){return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('i',{staticClass:"material-icons"},[_vm._s(generic_component.type.icon)]),"\n                    "+_vm._s(generic_component.type.name_singular)+"\n                "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(generic_component.name)])," ",_vm._m(0,true)])," ",_vm._h('p',[_vm._h('span',[_vm._s(_vm.$t('labels.state'))+": "+_vm._s(generic_component.state)])])," ",_vm._h('p',[_vm._l((generic_component.properties),function(value,name){return _vm._h('span',[_vm._s(name)+": "+_vm._s(value),_vm._m(1,true)])})])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/generic_components/' + generic_component.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/generic_components/' + generic_component.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc('components.controlunits', 1)),_vm._m(2,true)])," ",_vm._h('p',[_vm._h('a',{attrs:{"href":'/controlunits/' + generic_component.controlunit.id}},[_vm._s(generic_component.controlunit.name)])])," ",_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(generic_component.belongsTo_type)])," ",_vm._h('p',[(generic_component.belongsTo)?_vm._h('a',{attrs:{"href":generic_component.belongsTo.url}},[_vm._s(generic_component.belongsTo.name)]):_vm._e()])])])])])})])}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.generic_components),function(generic_component){return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._h('i',{staticClass:"material-icons"},[_vm._s(generic_component.type.icon)]),"\n                    "+_vm._s(generic_component.type.name_singular)+"\n                "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(generic_component.name)])," ",_vm._m(0,true)])," ",_vm._h('p',[_vm._l((generic_component.properties),function(value,name){return _vm._h('span',[_vm._s(name)+": "+_vm._s(value),_vm._m(1,true)])})])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/generic_components/' + generic_component.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/generic_components/' + generic_component.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc('components.controlunits', 1)),_vm._m(2,true)])," ",_vm._h('p',[_vm._h('a',{attrs:{"href":'/controlunits/' + generic_component.controlunit.id}},[_vm._s(generic_component.controlunit.name)])])," ",_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(generic_component.belongsTo_type)])," ",_vm._h('p',[(generic_component.belongsTo)?_vm._h('a',{attrs:{"href":generic_component.belongsTo.url}},[_vm._s(generic_component.belongsTo.name)]):_vm._e()])])])])])})])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["close"])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -18903,16 +18925,16 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[(_vm.ShowFilterForm === true)?_vm._h('div',[_vm._h('div',{staticClass:"row",staticStyle:{"margin-bottom":"0"}},[_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.from'),"name":"filter_from","id":'filter_from_' + _vm.id,"data-default":_vm.FilterFromDate},domProps:{"value":_vm.FilterFromDate}})," ",_vm._h('label',{attrs:{"for":'filter_from_' + _vm.id}},[_vm._s(_vm.$t('labels.from'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.to'),"name":"filter_to","id":'filter_to_' + _vm.id,"data-default":_vm.FilterToDate},domProps:{"value":_vm.FilterToDate}})," ",_vm._h('label',{attrs:{"for":'filter_to_' + _vm.id}},[_vm._s(_vm.$t('labels.to'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",on:{"click":_vm.build}},[_vm._s(_vm.$t('buttons.next'))])])])]):_vm._e()," ",_vm._h('div',{staticClass:"center",staticStyle:{"display":"none"},attrs:{"id":'google_chart_' + _vm.id + '_loading'}},[_vm._m(0)])," ",_vm._h('div',{attrs:{"id":'google_chart_' + _vm.id}})])}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[(_vm.ShowFilterForm === true)?_vm._h('div',[_vm._h('div',{staticClass:"row",staticStyle:{"margin-bottom":"0"}},[_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.from'),"name":"filter_from","id":'filter_from_' + _vm.id,"data-default":_vm.FilterFromDate},domProps:{"value":_vm.FilterFromDate}})," ",_vm._h('label',{attrs:{"for":'filter_from_' + _vm.id}},[_vm._s(_vm.$t('labels.from'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.to'),"name":"filter_to","id":'filter_to_' + _vm.id,"data-default":_vm.FilterToDate},domProps:{"value":_vm.FilterToDate}})," ",_vm._h('label',{attrs:{"for":'filter_to_' + _vm.id}},[_vm._s(_vm.$t('labels.to'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",on:{"click":_vm.build}},[_vm._s(_vm.$t('buttons.loadgraph'))])])])]):_vm._e()," ",_vm._h('div',{staticClass:"center",staticStyle:{"display":"none"},attrs:{"id":'google_chart_' + _vm.id + '_loading'}},[_vm._m(0)])," ",_vm._h('div',{attrs:{"id":'google_chart_' + _vm.id}})])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('div',{staticClass:"preloader-wrapper small active"},[_vm._h('div',{staticClass:"spinner-layer spinner-green-only"},[_vm._h('div',{staticClass:"circle-clipper left"},[_vm._h('div',{staticClass:"circle"})]),_vm._h('div',{staticClass:"gap-patch"},[_vm._h('div',{staticClass:"circle"})]),_vm._h('div',{staticClass:"circle-clipper right"},[_vm._h('div',{staticClass:"circle"})])])])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3", __vue__options__)
+    hotAPI.createRecord("data-v-2", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3", __vue__options__)
+    hotAPI.reload("data-v-2", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],31:[function(require,module,exports){
@@ -19007,9 +19029,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5", __vue__options__)
+    hotAPI.createRecord("data-v-6", __vue__options__)
   } else {
-    hotAPI.reload("data-v-5", __vue__options__)
+    hotAPI.reload("data-v-6", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],32:[function(require,module,exports){
@@ -19643,27 +19665,55 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-20", __vue__options__)
+    hotAPI.createRecord("data-v-19", __vue__options__)
   } else {
-    hotAPI.reload("data-v-20", __vue__options__)
+    hotAPI.reload("data-v-19", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],36:[function(require,module,exports){
 ;(function(){
-"use strict";
+'use strict';
 
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
+
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
 exports.default = {
     data: function data() {
         return {
             echo: window.echo,
-            ready: false
+            ready: false,
+            system: {
+                emergency_stop: false
+            }
         };
     },
     created: function created() {
+        var _this = this;
+
         var that = this;
+
+        $.ajax({
+            url: '/api/v1/dashboard/system_status?raw=true',
+            method: 'GET',
+            success: function success(data) {
+                that.system = data.data;
+            },
+            error: function error(_error) {
+                console.log((0, _stringify2.default)(_error));
+            }
+        });
+
+        window.echo.private('dashboard-updates').listen('SystemStatusUpdated', function (e) {
+            _this.system = e.system_status;
+        });
+
         setTimeout(function () {
             that.ready = true;
         }, 2000);
@@ -19673,19 +19723,21 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('transition',{attrs:{"name":"fade"}},[_vm._h('ul',{directives:[{name:"show",rawName:"v-show",value:(_vm.echo.connector.pusher.connection.state !== 'connected' && _vm.ready),expression:"echo.connector.pusher.connection.state !== 'connected' && ready"}],staticClass:"side-menu-info-container"},[_vm._h('li',{staticClass:"amber side-menu-info-title"},[_vm._h('a',[_vm._h('i',{staticClass:"material-icons"},["signal_wifi_off"])," "+_vm._s(_vm.$t('labels.connecting'))])])," ",_vm._h('li',{staticClass:"amber side-menu-info-content"},[_vm._h('a',{staticClass:"grey-text"},[_vm._s(_vm.$t('tooltips.connecting_to_server'))])])])])}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[_vm._h('transition',{attrs:{"name":"fade"}},[_vm._h('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.echo.connector.pusher.connection.state !== 'connected'
+                  && _vm.echo.connector.pusher.connection.state !== 'initialized'
+                  && _vm.ready),expression:"echo.connector.pusher.connection.state !== 'connected'\n                  && echo.connector.pusher.connection.state !== 'initialized'\n                  && ready"}],staticClass:"side-menu-info"},[_vm._h('div',{staticClass:"side-menu-info-title"},[_vm._h('i',{staticClass:"material-icons"},["signal_wifi_off"])," "+_vm._s(_vm.$t('labels.connecting'))+"\n            "])," ",_vm._h('div',{staticClass:"side-menu-info-content"},[_vm._h('span',[_vm._s(_vm.$t('tooltips.connecting_to_server'))])])])])," ",_vm._h('transition',{attrs:{"name":"fade"}},[_vm._h('div',{directives:[{name:"show",rawName:"v-show",value:(_vm.system.emergency_stop === true),expression:"system.emergency_stop === true"}],staticClass:"side-menu-info"},[_vm._h('div',{staticClass:"side-menu-info-title"},[_vm._h('i',{staticClass:"material-icons"},["power_settings_new"])," "+_vm._s(_vm.$t('labels.emergency_stop'))+"\n            "])," ",_vm._h('div',{staticClass:"side-menu-info-content"},[_vm._h('span',[_vm._s(_vm.$t('tooltips.emergency_stop'))])])])])])}
 __vue__options__.staticRenderFns = []
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1", __vue__options__)
+    hotAPI.createRecord("data-v-3", __vue__options__)
   } else {
-    hotAPI.reload("data-v-1", __vue__options__)
+    hotAPI.reload("data-v-3", __vue__options__)
   }
 })()}
-},{"vue":8,"vue-hot-reload-api":5}],37:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],37:[function(require,module,exports){
 ;(function(){
 'use strict';
 

@@ -232,7 +232,7 @@
         </div>
 
         <!--
-            Action Sequence schedules running
+            Action Sequence schedules/triggers running
         -->
         <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.running.length > 0 || dashboard.action_sequence_triggers.running.length > 0">
 
@@ -249,7 +249,7 @@
 
                         <span style="display: inline-block; width: calc(100% - 30px);">
                             <a v-if="schedule.timestamps.last_start !== null" class="white-text">{{ schedule.timestamps.last_start.split(" ")[1] }}</a>
-                            <a v-bind:href="'/action_sequences/' + schedule.sequence.id" class="white-text">
+                            <a v-bind:href="'/action_sequences/' + schedule.sequence.id + '/edit'" class="white-text">
                                 {{ schedule.sequence.name }}
                             </a>
                         </span>
@@ -268,7 +268,7 @@
 
                         <span style="display: inline-block; width: calc(100% - 30px);">
                             <a v-if="trigger.timestamps.last_start !== null" class="white-text">{{ trigger.timestamps.last_start.split(" ")[1] }}</a>
-                            <a v-bind:href="'/action_sequences/' + trigger.sequence.id" class="white-text">
+                            <a v-bind:href="'/action_sequences/' + trigger.sequence.id + '/edit'" class="white-text">
                                 {{ trigger.sequence.name }}
                             </a>
                         </span>

@@ -14,9 +14,6 @@
                             <i class="material-icons right">more_vert</i>
                         </span>
                         <p>
-                            <span>{{ $t('labels.state') }}: {{ generic_component.state }}</span>
-                        </p>
-                        <p>
                             <span v-for="(value, name) in generic_component.properties">{{ name }}: {{ value }}<br /></span>
                         </p>
                     </div>

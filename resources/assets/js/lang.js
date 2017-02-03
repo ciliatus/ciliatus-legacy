@@ -13,7 +13,9 @@ module.exports = {
             'create': 'Hinzufügen',
             'edit': 'Bearbeiten',
             'details': 'Details',
-            'download':  'Herunterladen'
+            'download':  'Herunterladen',
+            'emergency_stop' : 'Notaus',
+            'emergency_resume' : 'Notus aufheben'
         },
         components: {
             'terrarium': 'Terrarium | Terraria',
@@ -44,6 +46,8 @@ module.exports = {
             'action_sequence_schedule' :'Aktionssequenz Zeitplan | Aktionssequenz Zeitpläne',
             'action_sequence_triggers' : 'Aktionssequenz Auslöser | Aktionssequenz Auslöser',
             'action_sequence_trigger' : 'Aktionssequenz Auslöser | Aktionssequenz Auslöser',
+            'trigger' : 'Auslöser | Auslöser',
+            'triggers' : 'Auslöser | Auslöser',
             'admin_panel' : 'Admin Panel',
             'admin_panels' : 'Admin Panel',
             'animal_feedings' : 'Fütterung | Fütterungen',
@@ -182,7 +186,9 @@ module.exports = {
             'timeframe_end' :  'Zeitrahmen bis',
             'reference_value': 'Vergleichswert',
             'reference_value_duration_threshold_minutes' : 'Vergleichswert unter/überschritten seit (Minuten)',
-            'for'           :  'für'
+            'for'           :  'für',
+            'minimum_timeout_minutes' : 'Timeout (Minuten)',
+            'emergency_stop':  'Notaus'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -243,7 +249,12 @@ module.exports = {
                 'property_templates' : 'Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszufüllen.',
                 'state_templates'    : 'Definiert mögliche Zustände die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zuständen den gewünschten Zustand auswählen.',
                 'type_delete_warning': 'Beim Löschen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gelöscht.'
-            }
+            },
+            'minimum_timeout_minutes': 'Definiert die Dauer der minimalen Pause, bevor die Aktionssequenz durch diesen Auslöser nach einem Durchlauf erneut gestartet werden kann.',
+            'reference_value' : 'Der Wert, mit dem der Sensorwert verglichen werden soll.',
+            'reference_value_duration_threshold_minutes' : 'Dauer in Minuten, die der Sensorwert den Grenzwert unter/überschritten haben muss, bevor die Aktionssequenz ausgelöst wird.',
+            'emergency_stop'  :  'Hält sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.',
+            'emergency_resume':  'Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.'
         },
         units: {
             'years'     :  'Jahr | Jahre',
@@ -277,7 +288,9 @@ module.exports = {
             'create'    :  'Add',
             'edit'      :  'Edit',
             'details'   :  'Details',
-            'download'  :  'Download'
+            'download'  :  'Download',
+            'emergency_stop' : 'Emergency stop',
+            'emergency_resume' : 'Remove emergency stop'
         },
         components: {
             'terrarium'      :  'Terrarium|Terraria',
@@ -308,6 +321,8 @@ module.exports = {
             'action_sequence_schedules' : 'Action sequence schedule|Action sequence schedules',
             'action_sequence_triggers' : 'Action sequence trigger|Action sequence triggers',
             'action_sequence_trigger' : 'Action sequence trigger|Action sequence triggers',
+            'trigger' : 'Trigger | Triggers',
+            'triggers' : 'Trigger | Triggers',
             'admin_panel'   :  'Admin panel',
             'admin_panels'   :  'Admin panel',
             'animal_feedings' : 'Feeding | Feedings',
@@ -446,7 +461,9 @@ module.exports = {
             'timeframe_end' :  'Timeframe to',
             'reference_value': 'Reference value',
             'reference_value_duration_threshold_minutes' : 'Reference value undershot/exceeded for (Minutes)',
-            'for'           :  'for'
+            'for'           :  'for',
+            'minimum_timeout_minutes' : 'Timeout (minutes)',
+            'emergency_stop':  'Emergency stop'
         },
         menu: {
             'welcome'       :  'Welcome',
@@ -507,7 +524,12 @@ module.exports = {
                 'property_templates' : 'Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.',
                 'state_templates'    : 'Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.',
                 'type_delete_warning': 'When deleting a component type <strong>all components of this type</strong> will also be deleted.'
-            }
+            },
+            'minimum_timeout_minutes': 'Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.',
+            'reference_value'   : 'Reference value which will be compared to the sensor values.',
+            'reference_value_duration_threshold_minutes' : 'Duration in minutes for which the sensor value has to be greater/lower/equal to the reference value before triggering the action sequence.',
+            'emergency_stop'    :  'Instantly stops all running action sequences and prohibits action sequences from starting.',
+            'emergency_resume'  :  'Revokes the emergency stop and allows action sequences to start.'
         },
         units: {
             'years'     :  'year|years',

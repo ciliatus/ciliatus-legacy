@@ -13,7 +13,7 @@
                     <label :for="'filter_to_' + id">{{ $t('labels.to') }}</label>
                 </div>
                 <div class="input-field col s12 m4 l4">
-                    <button class="btn waves-effect waves-light" v-on:click="build">{{ $t('buttons.next') }}</button>
+                    <button class="btn waves-effect waves-light" v-on:click="build">{{ $t('buttons.loadgraph') }}</button>
                 </div>
             </div>
         </div>
