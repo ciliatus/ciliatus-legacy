@@ -36,7 +36,7 @@ class TerrariumUpdated implements ShouldBroadcast
                     ->with('valves')
                     ->find($t->id)
         );
-        $t = $repository->show()->toArray();
+        $t = $repository->show(Carbon::now(), env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 120))->toArray();
         $this->terrarium = $transformer->transform($t);
     }
 

@@ -32,5 +32,10 @@ return [
         'property_templates'    => 'Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszufüllen.',
         'state_templates'       => 'Definiert mögliche Zustände die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zuständen den gewünschten Zustand auswählen.',
         'type_delete_warning'   => 'Beim Löschen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gelöscht.',
-    ]
+    ],
+    'minimum_timeout_minutes'=> 'Definiert die Dauer der minimalen Pause, bevor die Aktionssequenz durch diesen Auslöser nach einem Durchlauf erneut gestartet werden kann.',
+    'reference_value' => 'Der Wert, mit dem der Sensorwert verglichen werden soll.',
+    'reference_value_duration_threshold_minutes' => 'Dauer in Minuten, die der Sensorwert den Grenzwert unter/überschritten haben muss, bevor die Aktionssequenz ausgelöst wird.',
+    'emergency_stop'    =>  'Hält sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.',
+    'emergency_resume'  =>  'Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.'
 ];

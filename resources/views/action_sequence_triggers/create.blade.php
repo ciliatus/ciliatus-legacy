@@ -62,23 +62,31 @@
                                 </div>
                                 <div class="input-field col s12 m9 l10">
                                     <input type="text" name="reference_value" placeholder="@lang('labels.reference_value')">
-                                    <label for="reference_value">@lang('labels.reference_value')</label>
+                                    <label for="reference_value">
+                                        @lang('labels.reference_value')
+                                        <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                                           data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.reference_value')</div>">info_outline</a>
+                                    </label>
                                 </div>
                             </div>
 
 
                             <div class="row">
-                                <div class="input-field col s12">
+                                <div class="input-field col s12 m7 l8">
                                     <input type="text" name="reference_value_duration_threshold_minutes" placeholder="@lang('labels.reference_value_duration_threshold_minutes')">
-                                    <label for="reference_value_duration_threshold_minutes">@lang('labels.reference_value_duration_threshold_minutes')</label>
+                                    <label for="reference_value_duration_threshold_minutes">
+                                        @lang('labels.reference_value_duration_threshold_minutes')
+                                        <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                                           data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.reference_value_duration_threshold_minutes')</div>">info_outline</a>
+                                    </label>
                                 </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="input-field col s12">
+                                <div class="input-field col s12 m5 l4">
                                     <input type="text" name="minimum_timeout_minutes" placeholder="@lang('labels.minimum_timeout_minutes')">
-                                    <label for="minimum_timeout_minutes">@lang('labels.minimum_timeout_minutes')</label>
+                                    <label for="minimum_timeout_minutes">
+                                        @lang('labels.minimum_timeout_minutes')
+                                        <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                                           data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.minimum_timeout_minutes')</div>">info_outline</a>
+                                    </label>
                                 </div>
                             </div>
 
@@ -96,8 +104,8 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <button class="btn waves-effect waves-light" type="submit">@lang('buttons.next')
-                                        <i class="material-icons right">send</i>
+                                    <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
+                                        <i class="material-icons right">save</i>
                                     </button>
                                 </div>
                             </div>

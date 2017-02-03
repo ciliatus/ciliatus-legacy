@@ -65,10 +65,9 @@
                             </div>
                         </div>
                     </div>
-                </li>
-
-                <li class="no-padding" id="system-indicator">
-                    <system-indicator></system-indicator>
+                    <div class="no-padding" id="system-indicator">
+                        <system-indicator></system-indicator>
+                    </div>
                 </li>
 
                 <li style="height: 5px !important;"> </li>
@@ -172,6 +171,7 @@
                 <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v1.2-beta" class="waves-effect waves-teal"><i class="material-icons">linear_scale</i>Version v1.2-beta (dev)</a></li>
                 @endif
 
+                <li class="red lighten-5"><a @if(!App\ActionSequence::stopped())href="/action_sequences/stop_all" @else href="/action_sequences/resume_all" @endif class="waves-effect waves-red red-text"><i class="material-icons red-text">power_settings_new</i>@lang('buttons.emergency_stop')</a></li>
             </ul>
 
             <div style="width: 100%; margin: 0; height: 10px; position: relative; z-index: 1001">

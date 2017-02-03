@@ -30,6 +30,8 @@ class LogicalSensorUpdated implements ShouldBroadcast
                         ->with('physical_sensor')
                         ->find($ls->id)->toArray()
         );
+
+        $this->logical_sensor->current_threshold_id = is_null($this->logical_sensor->current_threshold()) ? null : $this->logical_sensor->current_threshold()->id;
     }
 
     /**

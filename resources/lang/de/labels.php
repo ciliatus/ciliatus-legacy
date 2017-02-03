@@ -123,5 +123,7 @@ return [
     'timeframe_end' =>  'Zeitrahmen bis',
     'reference_value'=> 'Vergleichswert',
     'reference_value_duration_threshold_minutes' => 'Vergleichswert unter/überschritten seit (Minuten)',
-    'for'           =>  'für'
+    'for'           =>  'für',
+    'minimum_timeout_minutes' => 'Timeout (Minuten)',
+    'emergency_stop'=> 'Notaus'
 ];

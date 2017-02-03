@@ -27,7 +27,7 @@ class ActionSequenceTrigger extends CiliatusModel
      * @var array
      */
     protected $fillable = [
-        'name', 'action_sequence_id', 'logical_sensor_id', 'reference_value',
+        'name', 'action_sequence_id', 'logical_sensor_id', 'reference_value', 'minimum_timeout_minutes',
         'reference_value_comparison_type', 'reference_value_duration_threshold',
         'reference_value_duration_threshold_minutes', 'timeframe_start', 'timeframe_end'
     ];
@@ -115,10 +115,14 @@ class ActionSequenceTrigger extends CiliatusModel
     }
 
     /**
-     * @return array
+     * @return array|void
      */
     public static function createAndUpdateRunningActions()
     {
+        if (ActionSequence::stopped()) {
+            return;
+        }
+
         foreach (ActionSequenceTrigger::get() as $ast) {
 
             if (!$ast->running() && $ast->trigger_active()) {

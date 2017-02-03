@@ -12,10 +12,9 @@
             @if (!is_null($terrarium->animals))
                 <li class="tab col s3"><a href="#tab_animals">@choice('components.animals', 2)</a></li>
             @endif
-            <li class="tab col s3"><a href="#tab_files">@choice('components.files', 2)</a></li>
             <li class="tab col s3"><a href="#tab_infrastructure">@lang('labels.infrastructure')</a></li>
             <li class="tab col s3"><a href="#tab_biography">@lang('labels.biography')</a></li>
-            <li class="tab col s3"><a target="_self" href="{{ url('terraria/' . $terrarium->id . '/edit') }}">@lang('buttons.edit')</a></li>
+            <li class="tab col s3"><a href="#tab_files">@choice('components.files', 2)</a></li>
         </ul>
     </div>
     <div id="tab_overview" class="col s12">
@@ -68,14 +67,6 @@
         </div>
     @endif
 
-    <div id="tab_files" class="col s12">
-        <div class="container">
-            <files-widget source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
-                          belongs-to_type="Terrarium" belongs-to_id="{{ $terrarium->id }}"
-                          container-classes="row" wrapper-classes="col s12"></files-widget>
-        </div>
-    </div>
-
     <div id="tab_infrastructure" class="col s12">
         <div class="container">
             <physical_sensors-widget :refresh-timeout-seconds="60" source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
@@ -115,6 +106,14 @@
             <ul>
                 <li><a class="btn-floating green" href="/biography_entries/create?preset[belongsTo_type]=Terrarium&preset[belongsTo_id]={{ $terrarium->id }}"><i class="material-icons">add</i></a></li>
             </ul>
+        </div>
+    </div>
+
+    <div id="tab_files" class="col s12">
+        <div class="container">
+            <files-widget source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
+                          belongs-to_type="Terrarium" belongs-to_id="{{ $terrarium->id }}"
+                          container-classes="row" wrapper-classes="col s12"></files-widget>
         </div>
     </div>
 

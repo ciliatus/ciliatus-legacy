@@ -123,5 +123,7 @@ return [
     'timeframe_end' =>  'Timeframe to',
     'reference_value'=> 'Reference value',
     'reference_value_duration_threshold_minutes' => 'Reference value undershot/exceeded for (Minutes)',
-    'for'           =>  'for'
+    'for'           =>  'for',
+    'minimum_timeout_minutes' => 'Timeout (minutes)',
+    'emergency_stop'=> 'Emergency stop'
 ];

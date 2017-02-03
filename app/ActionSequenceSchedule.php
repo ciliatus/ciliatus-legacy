@@ -135,10 +135,14 @@ class ActionSequenceSchedule extends CiliatusModel
     }
 
     /**
-     * @return array
+     * @return array|void
      */
     public static function createAndUpdateRunningActions()
     {
+        if (ActionSequence::stopped()) {
+            return;
+        }
+
         foreach (ActionSequenceSchedule::get() as $ass) {
             $starts_today = Carbon::now();
             $starts_today->hour = explode(':', $ass->starts_at)[0];

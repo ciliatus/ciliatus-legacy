@@ -138,8 +138,10 @@ Route::group(['namespace' => 'Web'], function() {
     Route::get('actions/{id}/delete', 'ActionController@delete');
 
     // Action sequences
-    Route::resource('action_sequences', 'ActionSequenceController');
     Route::get('action_sequences/{id}/delete', 'ActionSequenceController@delete');
+    Route::get('action_sequences/stop_all', 'ActionSequenceController@stop_all');
+    Route::get('action_sequences/resume_all', 'ActionSequenceController@resume_all');
+    Route::resource('action_sequences', 'ActionSequenceController');
 
     // Action sequence schedules
     Route::resource('action_sequence_schedules', 'ActionSequenceScheduleController');
@@ -183,6 +185,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
 
     Route::post('setup/' . env('APP_KEY') . '/step/{id}', 'SetupController@step');
 
+    Route::get('dashboard/system_status', 'DashboardController@system_status');
     Route::resource('dashboard', 'DashboardController');
 
     /*
@@ -302,6 +305,8 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
      * Action sequences
      */
     Route::resource('action_sequences', 'ActionSequenceController');
+    Route::post('action_sequences/stop_all', 'ActionSequenceController@stop_all');
+    Route::post('action_sequences/resume_all', 'ActionSequenceController@resume_all');
 
     /*
      * Action sequence schedules

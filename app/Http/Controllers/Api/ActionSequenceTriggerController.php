@@ -259,8 +259,8 @@ class ActionSequenceTriggerController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('action_sequence_triggers'),
-                'delay' => 1000
+                'uri'   => url('action_sequences/' . $trigger->sequence->id . '/edit'),
+                'delay' => 100
             ]
         ]);
 

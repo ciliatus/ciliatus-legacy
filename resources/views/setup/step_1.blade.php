@@ -42,7 +42,7 @@
 
                         </div>
                         <div class="card-action right-align">
-                            <button type="submit" class="btn waves-effect waves-light">@lang('buttons.next')</button>
+                            <button type="submit" class="btn waves-effect waves-light">@lang('buttons.save')</button>
                         </div>
                     </form>
                 </div>

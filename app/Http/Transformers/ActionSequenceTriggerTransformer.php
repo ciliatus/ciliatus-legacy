@@ -24,11 +24,19 @@ class ActionSequenceTriggerTransformer extends Transformer
     public function transform($item)
     {
         $return = [
-            'id'            =>  $item['id'],
-            'runonce'       =>  isset($item['runonce']) ? $item['runonce'] : false,
-            'states'        => [
-                'running' => isset($item['running']) ? $item['running'] : false,
-                'trigger_active' => isset($item['trigger_active']) ? $item['trigger_active'] : false,
+            'id'                    =>  $item['id'],
+            'action_sequence_id'    => $item['action_sequence_id'],
+            'logical_sensor_id'     => $item['logical_sensor_id'],
+            'reference_value'       => $item['reference_value'],
+            'reference_value_comparison_type' => $item['reference_value_comparison_type'],
+            'minimum_timeout_minutes' => $item['minimum_timeout_minutes'],
+            'timeframe' => [
+                'start' => $item['timeframe_start'],
+                'end'   => $item['timeframe_end'],
+            ],
+            'states'    => [
+                'running'       => isset($item['running']) ? $item['running'] : false,
+                'trigger_active'=> isset($item['trigger_active']) ? $item['trigger_active'] : false,
             ],
             'timestamps'    => [
                 'last_start'    => isset($item['last_start_at']) ? $item['last_start_at'] : null,
@@ -42,6 +50,10 @@ class ActionSequenceTriggerTransformer extends Transformer
 
         if (isset($item['sequence'])) {
             $return['sequence'] = (new ActionSequenceTransformer())->transform($item['sequence']);
+        }
+
+        if (isset($item['logical_sensor'])) {
+            $return['logical_sensor'] = (new LogicalSensorTransformer())->transform($item['logical_sensor']);
         }
 
         return $return;

@@ -24,6 +24,7 @@ class ActionSequenceTransformer extends Transformer
     {
         $actionTransformer = new ActionTransformer();
         $actionSequenceScheduleTransformer = new ActionSequenceScheduleTransformer();
+        $actionSequenceTriggerTransformer = new ActionSequenceTriggerTransformer();
         $terrariumTransformer = new TerrariumTransformer();
 
         $return = [
@@ -44,6 +45,10 @@ class ActionSequenceTransformer extends Transformer
 
         if (isset($item['schedules'])) {
             $return['schedules'] = $actionSequenceScheduleTransformer->transformCollection($item['schedules']);
+        }
+
+        if (isset($item['triggers'])) {
+            $return['triggers'] = $actionSequenceTriggerTransformer->transformCollection($item['triggers']);
         }
 
         if (isset($item['terrarium'])) {

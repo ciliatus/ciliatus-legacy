@@ -10,6 +10,7 @@
         <ul class="tabs z-depth-1">
             <li class="tab col s3"><a class="active" href="#tab_overview">@lang('labels.overview')</a></li>
             <li class="tab col s3"><a class="active" href="#tab_valves">@choice('components.valves', 2)</a></li>
+            <li class="tab col s3"><a class="active" href="#tab_belongsTo">@lang('labels.belongsTo')</a></li>
         </ul>
     </div>
 
@@ -18,20 +19,6 @@
             <pumps-widget :refresh-timeout-seconds="60" pump-id="{{ $pump->id }}"
                           container-classes="row" wrapper-classes="col s12 m6 l4"
                           :subscribe-add="false" :subscribe-delete="false"></pumps-widget>
-        </div>
-
-        <div class="container">
-            <div class="row">
-                <div class="col s12">
-                    <h5>@lang('belongsTo')</h5>
-                </div>
-            </div>
-
-            <div class="row">
-                <controlunits-widget :refresh-timeout-seconds="60" controlunit-id="{{ $pump->controlunit_id }}"
-                                     container-classes="col s12 m6 l4" wrapper-classes=""
-                                     :subscribe-add="false" :subscribe-delete="false"></controlunits-widget>
-            </div>
         </div>
 
         <div class="fixed-action-btn">
@@ -43,6 +30,16 @@
                 <li><a class="btn-floating red" href="/pumps/{{ $pump->id }}/delete"><i class="material-icons">delete</i></a></li>
                 <li><a class="btn-floating green" href="/pumps/create"><i class="material-icons">add</i></a></li>
             </ul>
+        </div>
+    </div>
+
+    <div id="tab_belongsTo" class="col s12">
+        <div class="container">
+            <div class="row">
+                <controlunits-widget :refresh-timeout-seconds="60" controlunit-id="{{ $pump->controlunit_id }}"
+                                     container-classes="col s12 m6 l4" wrapper-classes=""
+                                     :subscribe-add="false" :subscribe-delete="false"></controlunits-widget>
+            </div>
         </div>
     </div>
 

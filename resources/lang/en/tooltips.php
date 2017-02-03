@@ -32,5 +32,10 @@ return [
         'property_templates'    => 'Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.',
         'state_templates'       => 'Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.',
         'type_delete_warning'   => 'When deleting a component type <strong>all components of this type</strong> will also be deleted.'
-    ]
+    ],
+    'minimum_timeout_minutes'=> 'Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.',
+    'reference_value' => 'Reference value which will be compared to the sensor values.',
+    'reference_value_duration_threshold_minutes' => 'Duration in minutes for which the sensor value has to be greater/lower/equal to the reference value before triggering the action sequence.',
+    'emergency_stop'    =>  'Instantly stops all running action sequences and prohibits action sequences from starting.',
+    'emergency_resume'  =>  'Revokes the emergency stop and allows action sequences to start.'
 ];

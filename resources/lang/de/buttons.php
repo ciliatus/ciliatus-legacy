@@ -13,5 +13,7 @@ return [
     'create'    =>  'Hinzufügen',
     'edit'      =>  'Bearbeiten',
     'details'   =>  'Details',
-    'download'  =>  'Herunterladen'
+    'download'  =>  'Herunterladen',
+    'emergency_stop' => 'Notaus',
+    'emergency_resume' => 'Notus aufheben'
 ];

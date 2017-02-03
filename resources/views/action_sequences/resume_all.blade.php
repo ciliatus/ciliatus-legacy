@@ -1,8 +1,6 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/terraria" class="breadcrumb">@choice('components.terraria', 2)</a>
-    <a href="/terraria/create" class="breadcrumb">@lang('buttons.create')</a>
 @stop
 
 @section('content')
@@ -10,13 +8,13 @@
         <div class="row">
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <form action="{{ url('api/v1/terraria') }}" data-method="POST" data-redirect-success="auto">
+                    <form action="{{ url('api/v1/action_sequences/resume_all') }}" data-method="POST"
+                          data-redirect-success="auto">
                         <div class="card-content">
 
                             <div class="row">
-                                <div class="input-field col s12">
-                                    <input type="text" placeholder="@lang('labels.display_name')" name="display_name" value="">
-                                    <label for="display_name">@lang('labels.display_name')</label>
+                                <div class="col s12">
+                                    <strong>@lang('tooltips.emergency_resume')</strong>
                                 </div>
                             </div>
 
@@ -26,8 +24,8 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons right">save</i>
+                                    <button class="btn green btn-large waves-effect waves-light" type="submit">@lang('buttons.emergency_resume')
+                                        <i class="material-icons green right">power_settings_new</i>
                                     </button>
                                 </div>
                             </div>

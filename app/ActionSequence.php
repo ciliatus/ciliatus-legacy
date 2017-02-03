@@ -60,7 +60,7 @@ class ActionSequence extends CiliatusModel
      */
     public function triggers()
     {
-        return $this->hasMany('App\ActionSequenceTrigger')->orderBy('timeframe_start');
+        return $this->hasMany('App\ActionSequenceTrigger')->with('logical_sensor')->orderBy('timeframe_start');
     }
 
     /**
@@ -69,6 +69,14 @@ class ActionSequence extends CiliatusModel
     public function terrarium()
     {
         return $this->belongsTo('App\Terrarium');
+    }
+
+    /**
+     * @return bool
+     */
+    public static function stopped()
+    {
+        return !is_null(Property::where('type', 'SystemProperty')->where('name', 'stop_all_action_sequences')->get()->first());
     }
 
     /**

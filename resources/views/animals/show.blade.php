@@ -17,7 +17,7 @@
             @endif
             <li class="tab col s3"><a href="#tab_biography">@lang('labels.biography')</a></li>
             <li class="tab col s3"><a href="#tab_caresheets">@choice('components.caresheets', 2)</a></li>
-            <li class="tab col s3"><a target="_self" href="{{ url('animals/' . $animal->id . '/edit') }}">@lang('buttons.edit')</a></li>
+            <li class="tab col s3"><a href="#tab_files">@choice('components.files', 2)</a></li>
         </ul>
     </div>
     <div id="tab_overview" class="col s12">
@@ -30,10 +30,6 @@
                 <terraria-widget terrarium-id="{{ $animal->terrarium_id }}"
                                          :subscribe-add="false" :subscribe-delete="false"
                                          container-classes="col s12 m6 l4" wrapper-classes=""></terraria-widget>
-
-                <files-widget source-filter="filter[belongsTo_type]=Animal&filter[belongsTo_id]={{ $animal->id }}"
-                              belongs-to_type="Animal" belongs-to_id="{{ $animal->id }}"
-                              container-classes="col s12 m6 l4" wrapper-classes=""></files-widget>
             </div>
         </div>
 
@@ -56,7 +52,7 @@
                     <animal_feeding_schedules-widget animal-id="{{ $animal->id }}"></animal_feeding_schedules-widget>
                 </div>
                 <div class="col s12 m6 l4">
-                    <animal_feedings-widget animal-id="{{ $animal->id }}"></animal_feedings-widget>
+                    <animal_feedings-widget animal-id="{{ $animal->id }}" source-filter="limit=10"></animal_feedings-widget>
                 </div>
             </div>
         </div>
@@ -148,6 +144,14 @@
             <ul>
                 <li><a class="btn-floating green" href="/animals/caresheets/create?preset[belongsTo_type]=Animal&preset[belongsTo_id]={{ $animal->id }}"><i class="material-icons">add</i></a></li>
             </ul>
+        </div>
+    </div>
+
+    <div id="tab_files" class="col s12">
+        <div class="container">
+            <files-widget source-filter="filter[belongsTo_type]=Animal&filter[belongsTo_id]={{ $animal->id }}"
+                          belongs-to_type="Animal" belongs-to_id="{{ $animal->id }}"
+                          container-classes="row" wrapper-classes="col s12"></files-widget>
         </div>
     </div>
 

@@ -13,5 +13,7 @@ return [
     'create'    =>  'Add',
     'edit'      =>  'Edit',
     'details'   =>  'Details',
-    'download'  =>  'Download'
+    'download'  =>  'Download',
+    'emergency_stop' => 'Emergency stop',
+    'emergency_resume' => 'Remove emergency stop'
 ];
