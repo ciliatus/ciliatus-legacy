@@ -29,6 +29,8 @@ return [
     'action_sequence_schedule' => 'Aktionssequenz Zeitplan|Aktionssequenz Zeitpläne',
     'action_sequence_triggers' => 'Aktionssequenz Auslöser|Aktionssequenz Auslöser',
     'action_sequence_trigger' => 'Aktionssequenz Auslöser|Aktionssequenz Auslöser',
+    'action_sequence_intentions' => 'Aktionssequenz Intention|Aktionssequenz Intentionen',
+    'action_sequence_intention' => 'Aktionssequenz Intention|Aktionssequenz Intentionen',
     'triggers' => 'Auslöser|Auslöser',
     'trigger' => 'Auslöser|Auslöser',
     'admin_panel'   =>  'Admin Panel',

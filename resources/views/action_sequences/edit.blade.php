@@ -209,6 +209,57 @@
                     </div>
 
                 </div>
+
+                <div class="card">
+                    <div class="card-content teal lighten-1 white-text">
+                        <span class="activator truncate">
+                            <span><i class="material-icons">explore</i> @choice('components.action_sequence_intentions', 2)</span>
+                        </span>
+                    </div>
+
+                    <div class="card-content">
+
+                        <div class="row">
+                            @foreach($action_sequence->intentions as $intention)
+                                <div class="input-field col s12">
+                                    <li>
+                                        <span style="width: calc(100% - 60px); display: inline-block">
+                                            @if($intention->intention == 'increase')<span>@lang('labels.increases')</span>@endif
+                                            @if($intention->intention == 'decrease')<span>@lang('labels.decreases')</span>@endif
+                                            @lang('labels.' . $intention->type)
+                                        </span>
+
+                                        <a style="margin: 0" class="dropdown-button btn btn-small btn-icon-only" href="#" data-activates="dropdown-edit-action_sequence_intentions_{{ $intention->id }}">
+                                            <i class="material-icons">settings</i>
+                                        </a>
+
+                                        <ul id="dropdown-edit-action_sequence_intentions_{{ $intention->id }}" class="dropdown-content">
+                                            <li>
+                                                <a href="{{ url('action_sequence_intentions/' . $intention->id . '/edit') }}">
+                                                    @lang('buttons.edit')
+                                                </a>
+                                            </li>
+                                            <li>
+                                                <a href="{{ url('action_sequence_intentions/' . $intention->id . '/delete') }}">
+                                                    @lang('buttons.delete')
+                                                </a>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </div>
+                            @endforeach
+
+                        </div>
+
+                    </div>
+
+                    <div class="card-action">
+                        <a href="/action_sequence_intentions/create?preset[action_sequence]={{ $action_sequence->id }}">
+                            @lang('buttons.add')
+                        </a>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>

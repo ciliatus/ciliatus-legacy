@@ -2,16 +2,16 @@
 
 namespace App;
 
-use App\Events\ActionSequenceTriggerDeleted;
-use App\Events\ActionSequenceTriggerUpdated;
+use App\Events\ActionSequenceIntentionDeleted;
+use App\Events\ActionSequenceIntentionUpdated;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class ActionSequenceTrigger
+ * Class ActionSequenceIntention
  * @package App
  */
-class ActionSequenceTrigger extends CiliatusModel
+class ActionSequenceIntention extends CiliatusModel
 {
 
     use Traits\Uuids;
@@ -27,9 +27,8 @@ class ActionSequenceTrigger extends CiliatusModel
      * @var array
      */
     protected $fillable = [
-        'name', 'action_sequence_id', 'logical_sensor_id', 'reference_value', 'minimum_timeout_minutes',
-        'reference_value_comparison_type', 'reference_value_duration_threshold',
-        'reference_value_duration_threshold_minutes', 'timeframe_start', 'timeframe_end'
+        'name', 'action_sequence_id', 'timeframe_start', 'timeframe_end',
+        'intention', 'type', 'minimum_timeout_minutes'
     ];
 
     /**
@@ -42,11 +41,11 @@ class ActionSequenceTrigger extends CiliatusModel
      */
     public function delete()
     {
-        foreach (RunningAction::where('action_sequence_trigger_id', $this->id)->get() as $ra) {
+        foreach (RunningAction::where('action_sequence_intention_id', $this->id)->get() as $ra) {
             $ra->delete();
         }
 
-        broadcast(new ActionSequenceTriggerDeleted($this->id));
+        broadcast(new ActionSequenceIntentionDeleted($this->id));
 
         parent::delete();
     }
@@ -59,7 +58,7 @@ class ActionSequenceTrigger extends CiliatusModel
     {
         $return = parent::save($options);
 
-        broadcast(new ActionSequenceTriggerUpdated($this));
+        broadcast(new ActionSequenceIntentionUpdated($this));
 
         return $return;
     }
@@ -70,14 +69,6 @@ class ActionSequenceTrigger extends CiliatusModel
     public function sequence()
     {
         return $this->belongsTo('App\ActionSequence', 'action_sequence_id', 'id');
-    }
-
-    /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function logical_sensor()
-    {
-        return $this->belongsTo('App\LogicalSensor');
     }
 
     /**
@@ -123,10 +114,10 @@ class ActionSequenceTrigger extends CiliatusModel
             return;
         }
 
-        foreach (ActionSequenceTrigger::get() as $ast) {
+        foreach (ActionSequenceIntention::get() as $asi) {
 
-            if (!$ast->running() && $ast->trigger_active()) {
-                $ast->start();
+            if (!$asi->running() && $asi->intention_active()) {
+                $asi->start();
             }
 
             /*
@@ -134,17 +125,17 @@ class ActionSequenceTrigger extends CiliatusModel
              * and check if conditions to
              * start these actions are met
              */
-            if (is_null($ast->sequence))
+            if (is_null($asi->sequence))
                 continue;
 
-            if (is_null($ast->sequence->actions))
+            if (is_null($asi->sequence->actions))
                 continue;
 
             $all_actions_finished = true;
 
-            foreach ($ast->sequence->actions as $a) {
+            foreach ($asi->sequence->actions as $a) {
                 $running_action = RunningAction::where('action_id', $a->id)
-                    ->where('action_sequence_trigger_id', $ast->id)
+                    ->where('action_sequence_intention_id', $asi->id)
                     ->first();
 
                 /*
@@ -166,12 +157,12 @@ class ActionSequenceTrigger extends CiliatusModel
                      * Check conditions before
                      * starting the action
                      */
-                    if (!$ast->trigger_active()) {
+                    if (!$asi->intention_active()) {
                         $start = false;
                     }
                     if (!is_null($a->wait_for_started_action_id)) {
                         $running_action = RunningAction::where('action_id', $a->wait_for_started_action_id)
-                            ->where('action_sequence_trigger_id', $ast->id)
+                            ->where('action_sequence_intention_id', $asi->id)
                             ->first();
 
                         if (is_null($running_action))
@@ -180,7 +171,7 @@ class ActionSequenceTrigger extends CiliatusModel
 
                     if (!is_null($a->wait_for_finished_action_id)) {
                         $running_action = RunningAction::where('action_id', $a->wait_for_finished_action_id)
-                            ->where('action_sequence_trigger_id', $ast->id)
+                            ->where('action_sequence_intention_id', $asi->id)
                             ->first();
 
                         if (is_null($running_action))
@@ -199,7 +190,7 @@ class ActionSequenceTrigger extends CiliatusModel
                     if ($start) {
                         $new_ra = RunningAction::create([
                             'action_id' => $a->id,
-                            'action_sequence_trigger_id' => $ast->id,
+                            'action_sequence_intention_id' => $asi->id,
                             'started_at' => Carbon::now()
                         ]);
                     }
@@ -213,11 +204,11 @@ class ActionSequenceTrigger extends CiliatusModel
             }
 
             if ($all_actions_finished) {
-                $running_actions = RunningAction::where('action_sequence_trigger_id', $ast->id)->get();
+                $running_actions = RunningAction::where('action_sequence_intention_id', $asi->id)->get();
                 foreach ($running_actions as $ra) {
                     $ra->delete();
                 }
-                $ast->finish();
+                $asi->finish();
             }
         }
 
@@ -234,19 +225,14 @@ class ActionSequenceTrigger extends CiliatusModel
 
     /**
      * Gets sensorreadings withing reference_value_duration_threshold_minutes
-     * from the LogicalSensor and tries to match them to the trigger condition.
-     * If one sensorreadings is not withing trigger bounds, return false
+     * from the LogicalSensor and tries to match them to the intention condition.
+     * If one sensorreadings is not withing intention bounds, return false
      * Otherwise return true
      *
      * @return bool
      */
-    public function trigger_active()
+    public function intention_active()
     {
-        $logical_sensor = LogicalSensor::find($this->logical_sensor_id);
-        if (is_null($logical_sensor)) {
-            return false;
-        }
-
         if ($this->timeframe_start_today()->gt(Carbon::now())
             || $this->timeframe_end_today()->lt(Carbon::now())) {
 
@@ -259,49 +245,51 @@ class ActionSequenceTrigger extends CiliatusModel
             return false;
         }
 
-        $sensor_data = $logical_sensor->sensorreadings()
-            ->where('created_at', '>', Carbon::now()->subMinutes($this->reference_value_duration_threshold_minutes)->toDateTimeString())
-            ->get();
+        $critical_states = CriticalState::whereNull('recovered_at')
+                                        ->where('is_soft_state', false)
+                                        ->where('belongsTo_type', 'LogicalSensor')
+                                        ->get();
 
-        if ($sensor_data->count() < 1) {
+        if ($critical_states->count() < 1) {
             return false;
         }
 
-        foreach ($sensor_data as $s) {
-            if (!$this->match_condition($s->rawvalue)) {
-                return false;
+        foreach ($critical_states as $cs) {
+            if ($this->match_condition($cs)) {
+                return true;
             }
         }
 
-        return true;
+        return false;
 
     }
 
     /**
-     * Returns true if $component_value matches
-     * the reference value using the comparison type
+     * Returns true if critical state can be solved
+     * by this intention
      *
-     * @param $component_value
+     * @param CriticalState $cs
      * @return bool
      */
-    private function match_condition($component_value)
+    private function match_condition(CriticalState $cs)
     {
-        if (Carbon::now()->lt($this->timeframe_start_today())
-         || Carbon::now()->gt($this->timeframe_end_today())) {
+        $ls = $cs->belongsTo_object();
+        if (!is_a($ls, 'App\LogicalSensor')) {
             return false;
         }
 
-        switch ($this->reference_value_comparison_type) {
-            case 'equal':
-                return ($component_value == $this->reference_value);
-                break;
-            case 'lesser':
-                return ($component_value < $this->reference_value);
-                break;
-            case 'greater':
-                return ($component_value > $this->reference_value);
-                break;
+        if ($ls->physical_sensor->belongsTo_object()->id == $this->sequence->terrarium_id) {
+            if ($ls->type == $this->type) {
+                switch ($this->intention) {
+                    case 'increase':
+                        return $ls->isCurrentValueLowerThanThreshold();
+                    case 'decrease':
+                        return $ls->isCurrentValueGreaterThanThreshold();
+                }
+            }
         }
+
+        return false;
     }
 
     /**
@@ -343,6 +331,6 @@ class ActionSequenceTrigger extends CiliatusModel
      */
     public function url()
     {
-        return url('action_sequence_triggers/' . $this->id);
+        return url('action_sequence_intentions/' . $this->id);
     }
 }

@@ -62,6 +62,7 @@ class UserAbility extends CiliatusModel
         'grant_api-write:action_sequence',
         'grant_api-write:action_sequence_schedule',
         'grant_api-write:action_sequence_trigger',
+        'grant_api-write:action_sequence_intention',
         'grant_api-write:property',
         'grant_api-fetch:desired_states',
         'grant_api-evaluate:critical_state'

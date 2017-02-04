@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\Http\Transformers\ActionSequenceIntentionTransformer;
 use App\Http\Transformers\ActionSequenceScheduleTransformer;
 use App\Http\Transformers\ActionSequenceTriggerTransformer;
 use App\Http\Transformers\AnimalFeedingScheduleTransformer;
@@ -98,6 +99,10 @@ class DashboardController extends ApiController
             'running' => []
         ];
 
+        $action_sequence_intentions = [
+            'running' => []
+        ];
+
         foreach (Terrarium::get() as $terrarium) {
             foreach ($terrarium->action_sequences as $as) {
                 foreach ($as->schedules()->with('sequence')->get() as $ass) {
@@ -120,6 +125,14 @@ class DashboardController extends ApiController
                     }
                 }
             }
+
+            foreach ($terrarium->action_sequences as $as) {
+                foreach ($as->intentions()->with('sequence')->get() as $ast) {
+                    if ($ast->running()) {
+                        $action_sequence_intentions['running'][] = (new ActionSequenceIntentionTransformer())->transform($ast->toArray());
+                    }
+                }
+            }
         }
 
         return $this->respondWithData([
@@ -130,7 +143,8 @@ class DashboardController extends ApiController
             'animal_feeding_schedules' => $feeding_schedules,
             'animal_weighing_schedules' => $weighing_schedules,
             'action_sequence_schedules' => $action_sequence_schedules,
-            'action_sequence_triggers' => $action_sequence_triggers
+            'action_sequence_triggers' => $action_sequence_triggers,
+            'action_sequence_intentions' => $action_sequence_intentions
         ]);
     }
 

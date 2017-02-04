@@ -74,18 +74,17 @@ class LogicalSensor extends CiliatusModel
     }
 
     /**
+     * Check if there is an active threshold
+     * from today before now
+     *
+     * Otherwise check for thresholds
+     * in the future (which would be last day's
+     * still active threshold)
+     *
      * @return mixed
      */
     public function current_threshold()
     {
-        /*
-         * Check if there is an active threshold
-         * from today before now
-         *
-         * Otherwise check for thresholds
-         * in the future (which would be last day's
-         * still active threshold)
-         */
         $today = $this->thresholds()
                     ->where('starts_at', '<', Carbon::now())
                     ->where('active', true)
@@ -101,6 +100,17 @@ class LogicalSensor extends CiliatusModel
             ->first();
 
         return $yesterday;
+    }
+
+    /**
+     * Returns all logical sensor types
+     * from db
+     *
+     * @return array
+     */
+    public static function types()
+    {
+        return array_column(LogicalSensor::groupBy('type')->get()->toArray(), 'type');
     }
 
     /**
@@ -150,6 +160,44 @@ class LogicalSensor extends CiliatusModel
     public function checkRawValue($value)
     {
         return ($value >= $this->rawvalue_lowerlimit && $value <= $this->rawvalue_upperlimit);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCurrentValueLowerThanThreshold()
+    {
+        $t = $this->current_threshold();
+        if (is_null($t)) {
+            return false;
+        }
+
+        if (!is_null($t->rawvalue_lowerlimit)) {
+            if ($this->rawvalue < $t->rawvalue_lowerlimit) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isCurrentValueGreaterThanThreshold()
+    {
+        $t = $this->current_threshold();
+        if (is_null($t)) {
+            return false;
+        }
+
+        if (!is_null($t->rawvalue_upperlimit)) {
+            if ($this->rawvalue > $t->rawvalue_upperlimit) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

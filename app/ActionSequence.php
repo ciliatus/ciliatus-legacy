@@ -66,6 +66,14 @@ class ActionSequence extends CiliatusModel
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    public function intentions()
+    {
+        return $this->hasMany('App\ActionSequenceIntention')->orderBy('timeframe_start');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function terrarium()
     {
         return $this->belongsTo('App\Terrarium');

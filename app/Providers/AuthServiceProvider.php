@@ -158,6 +158,10 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAbility('grant_api-write:action_sequence_trigger');
         });
 
+        $gate->define('api-write:action_sequence_intention', function ($user) {
+            return $user->hasAbility('grant_api-write:action_sequence_intention');
+        });
+
         $gate->define('api-write:property', function ($user) {
             return $user->hasAbility('grant_api-write:property');
         });

@@ -29,6 +29,8 @@ return [
     'action_sequence_schedules' => 'Action sequence schedule|Action sequence schedules',
     'action_sequence_triggers' => 'Action sequence trigger|Action sequence triggers',
     'action_sequence_trigger' => 'Action sequence trigger|Action sequence triggers',
+    'action_sequence_intentions' => 'Action sequence intention|Action sequence intentions',
+    'action_sequence_intention' => 'Action sequence intention|Action sequence intentions',
     'triggers' => 'Trigger|Triggers',
     'trigger' => 'Trigger|Triggers',
     'admin_panel'   =>  'Admin panel',

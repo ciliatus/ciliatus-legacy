@@ -120,7 +120,7 @@ class Terrarium extends CiliatusModel
      */
     public function action_sequences()
     {
-        return $this->hasMany('App\ActionSequence')->with('actions', 'schedules');
+        return $this->hasMany('App\ActionSequence')->with('actions', 'schedules', 'triggers', 'intentions');
     }
 
     /**

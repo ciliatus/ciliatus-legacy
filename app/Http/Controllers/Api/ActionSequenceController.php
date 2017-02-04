@@ -49,6 +49,7 @@ class ActionSequenceController extends ApiController
 
         $action_sequences = ActionSequence::with('schedules')
                                           ->with('triggers')
+                                          ->with('intentions')
                                           ->with('terrarium');
 
         $action_sequences = $this->filter($request, $action_sequences);
@@ -89,6 +90,7 @@ class ActionSequenceController extends ApiController
 
         $action = ActionSequence::with('schedules')
                                 ->with('triggers')
+                                ->with('intentions')
                                 ->with('terrarium')
                                 ->find($id);
 

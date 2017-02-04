@@ -125,5 +125,7 @@ return [
     'reference_value_duration_threshold_minutes' => 'Vergleichswert unter/überschritten seit (Minuten)',
     'for'           =>  'für',
     'minimum_timeout_minutes' => 'Timeout (Minuten)',
-    'emergency_stop'=> 'Notaus'
+    'emergency_stop'=> 'Notaus',
+    'increases'     => 'Erhöht',
+    'decreases'     => 'Senkt'
 ];

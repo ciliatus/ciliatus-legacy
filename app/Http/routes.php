@@ -151,6 +151,10 @@ Route::group(['namespace' => 'Web'], function() {
     Route::resource('action_sequence_triggers', 'ActionSequenceTriggerController');
     Route::get('action_sequence_triggers/{id}/delete', 'ActionSequenceTriggerController@delete');
 
+    // Action sequence intentions
+    Route::resource('action_sequence_intentions', 'ActionSequenceIntentionController');
+    Route::get('action_sequence_intentions/{id}/delete', 'ActionSequenceIntentionController@delete');
+
     /*
      * Biography entries
      */
@@ -317,6 +321,11 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
      * Action sequence triggers
      */
     Route::resource('action_sequence_triggers', 'ActionSequenceTriggerController');
+
+    /*
+     * Action sequence intentions
+     */
+    Route::resource('action_sequence_intentions', 'ActionSequenceIntentionController');
 
     /*
      * Events
