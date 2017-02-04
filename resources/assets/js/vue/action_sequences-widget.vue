@@ -17,6 +17,19 @@
                     <a :href="'/action_sequences/' + as.id + '/edit'"><strong>{{ as.name }}</strong></a>
                 </p>
 
+                <p v-for="asi in as.intentions">
+                    <i class="material-icons">explore</i>
+
+                    <span v-if="asi.intention === 'increase'">{{ $t('labels.increases') }}</span>
+                    <span v-if="asi.intention === 'decrease'">{{ $t('labels.decreases') }}</span>
+
+                    {{ $t('labels.' + asi.type) }}
+
+                    <span v-show="asi.states.running">
+                        <span class="new badge" v-bind:data-badge-caption="$t('labels.active')"> </span>
+                    </span>
+                </p>
+
                 <p v-for="ast in as.triggers">
                     <i class="material-icons">flare</i> {{ ast.logical_sensor.name }} {{ $t('units.' + ast.reference_value_comparison_type) }} {{ ast.reference_value }}
                     <span v-show="ast.states.running">

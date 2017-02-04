@@ -234,12 +234,15 @@
         <!--
             Action Sequence schedules/triggers running
         -->
-        <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.running.length > 0 || dashboard.action_sequence_triggers.running.length > 0">
+        <div :class="wrapperClasses"
+             v-if="dashboard.action_sequence_schedules.running.length > 0
+                || dashboard.action_sequence_triggers.running.length > 0
+                || dashboard.action_sequence_intentions.running.length > 0">
 
             <ul class="collection ok with-header">
                 <li class="collection-header">
                     <i class="material-icons">playlist_play</i>
-                    {{ (dashboard.action_sequence_schedules.running.length + dashboard.action_sequence_triggers.running.length) }}
+                    {{ (dashboard.action_sequence_schedules.running.length + dashboard.action_sequence_triggers.running.length + dashboard.action_sequence_intentions.running.length) }}
                     {{ $tc("components.action_sequences", 2) }} {{ $t("labels.running") }}
                 </li>
 
@@ -248,6 +251,7 @@
                     <div class="white-text">
 
                         <span style="display: inline-block; width: calc(100% - 30px);">
+                            <i class="material-icons">schedule</i>
                             <a v-if="schedule.timestamps.last_start !== null" class="white-text">{{ schedule.timestamps.last_start.split(" ")[1] }}</a>
                             <a v-bind:href="'/action_sequences/' + schedule.sequence.id + '/edit'" class="white-text">
                                 {{ schedule.sequence.name }}
@@ -267,6 +271,7 @@
                     <div class="white-text">
 
                         <span style="display: inline-block; width: calc(100% - 30px);">
+                            <i class="material-icons">flare</i>
                             <a v-if="trigger.timestamps.last_start !== null" class="white-text">{{ trigger.timestamps.last_start.split(" ")[1] }}</a>
                             <a v-bind:href="'/action_sequences/' + trigger.sequence.id + '/edit'" class="white-text">
                                 {{ trigger.sequence.name }}
@@ -274,6 +279,26 @@
                         </span>
 
                         <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_triggers/' + trigger.id + '/skip'" v-on:click="link_post">
+                            <i class="material-icons">update</i>
+                        </a>
+
+                    </div>
+
+                </li>
+
+                <li class="collection-item" v-for="intention in dashboard.action_sequence_intentions.running">
+
+                    <div class="white-text">
+
+                        <span style="display: inline-block; width: calc(100% - 30px);">
+                            <i class="material-icons">explore</i>
+                            <a v-if="intention.timestamps.last_start !== null" class="white-text">{{ intention.timestamps.last_start.split(" ")[1] }}</a>
+                            <a v-bind:href="'/action_sequences/' + intention.sequence.id + '/edit'" class="white-text">
+                                {{ intention.sequence.name }}
+                            </a>
+                        </span>
+
+                        <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_intentions/' + intention.id + '/skip'" v-on:click="link_post">
                             <i class="material-icons">update</i>
                         </a>
 
@@ -802,6 +827,67 @@ export default {
                 this.refresh_grid();
             });
         },
+        
+        /*
+         * ActionSequenceIntention events
+        */
+        updateActionSequenceIntention: function(e) {
+            var item = null;
+            var found = false;
+
+            /*
+             * Check in running array
+             */
+            item = null;
+            this.dashboard.action_sequence_intentions.running.forEach(function(data, index) {
+                if (data.id === e.action_sequence_intention.id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                if (e.action_sequence_intention.states.running === false) {
+                    this.dashboard.action_sequence_intentions.running.splice(item, 1);
+                }
+                else {
+                    this.dashboard.action_sequence_intentions.running.splice(item, 1, e.action_sequence_intention);
+                    found = true;
+                }
+            }
+
+            /*
+             * If found is not true, the item was either not found
+             * or was removed from an array.
+             * In this case properties will be checked again and
+             * item will be pushed to an array if they match certain criteria
+             */
+            if (found !== true) {
+                if (e.action_sequence_intention.states.running === true) {
+                    this.dashboard.action_sequence_intentions.running.push(e.action_sequence_intention);
+                }
+            }
+
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
+        },
+
+        deleteActionSequenceIntention: function(e) {
+            var that = this;
+
+            /*
+             * check in running array
+             */
+            this.dashboard.action_sequence_intentions.running.forEach(function(data, index) {
+                if (data.id === e.action_sequence_intention_id) {
+                    that.dashboard.action_sequence_intentions.running.splice(index, 1);
+                }
+            });
+
+            this.$nextTick(function() {
+                this.refresh_grid();
+            });
+        },
 
         refresh_grid: function() {
              $('.dropdown-button').dropdown({
@@ -893,6 +979,10 @@ export default {
                 this.updateActionSequenceTrigger(e);
             }).listen('ActionSequenceTriggerDeleted', (e) => {
                 this.deleteActionSequenceTrigger(e);
+            }).listen('ActionSequenceIntentionUpdated', (e) => {
+                this.updateActionSequenceIntention(e);
+            }).listen('ActionSequenceIntentionDeleted', (e) => {
+                this.deleteActionSequenceIntention(e);
         });
 
         this.load_data();

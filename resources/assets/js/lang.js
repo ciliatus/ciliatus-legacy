@@ -46,6 +46,8 @@ module.exports = {
             'action_sequence_schedule' :'Aktionssequenz Zeitplan | Aktionssequenz Zeitpläne',
             'action_sequence_triggers' : 'Aktionssequenz Auslöser | Aktionssequenz Auslöser',
             'action_sequence_trigger' : 'Aktionssequenz Auslöser | Aktionssequenz Auslöser',
+            'action_sequence_intentions' : 'Aktionssequenz Intention|Aktionssequenz Intentionen',
+            'action_sequence_intention' : 'Aktionssequenz Intention|Aktionssequenz Intentionen',
             'trigger' : 'Auslöser | Auslöser',
             'triggers' : 'Auslöser | Auslöser',
             'admin_panel' : 'Admin Panel',
@@ -188,7 +190,9 @@ module.exports = {
             'reference_value_duration_threshold_minutes' : 'Vergleichswert unter/überschritten seit (Minuten)',
             'for'           :  'für',
             'minimum_timeout_minutes' : 'Timeout (Minuten)',
-            'emergency_stop':  'Notaus'
+            'emergency_stop':  'Notaus',
+            'increases'     :  'Erhöht',
+            'decreases'     :  'Senkt'
         },
         menu: {
             'welcome'       :  'Willkommen',
@@ -321,6 +325,8 @@ module.exports = {
             'action_sequence_schedules' : 'Action sequence schedule|Action sequence schedules',
             'action_sequence_triggers' : 'Action sequence trigger|Action sequence triggers',
             'action_sequence_trigger' : 'Action sequence trigger|Action sequence triggers',
+            'action_sequence_intentions' : 'Action sequence intention|Action sequence intentions',
+            'action_sequence_intention' : 'Action sequence intention|Action sequence intentions',
             'trigger' : 'Trigger | Triggers',
             'triggers' : 'Trigger | Triggers',
             'admin_panel'   :  'Admin panel',
@@ -463,7 +469,9 @@ module.exports = {
             'reference_value_duration_threshold_minutes' : 'Reference value undershot/exceeded for (Minutes)',
             'for'           :  'for',
             'minimum_timeout_minutes' : 'Timeout (minutes)',
-            'emergency_stop':  'Emergency stop'
+            'emergency_stop':  'Emergency stop',
+            'increases'     :  'Increases',
+            'decreases'     :  'Decreases'
         },
         menu: {
             'welcome'       :  'Welcome',
