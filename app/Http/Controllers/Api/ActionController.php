@@ -131,16 +131,38 @@ class ActionController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action = Action::create();
+        $sequence = ActionSequence::find($request->input('action_sequence'));
+        if (is_null($sequence)) {
+            return $this->setStatusCode(422)->respondWithError('Action Sequence not found');
+        }
+
+        list($component_type, $component_id) = explode('|', $request->input('component'));
+        if (!class_exists('App\\' . $component_type)) {
+            return $this->setStatusCode(422)->respondWithError('Component type not found');
+        }
+        $component = ('App\\' . $component_type)::find($component_id);
+        if (is_null($component)) {
+            return $this->setStatusCode(422)->respondWithError('Component not found');
+        }
+
+        $action = Action::create([
+            'action_sequence_id' => $request->input('action_sequence'),
+            'target_type' => $component_type,
+            'target_id' => $component_id,
+            'desired_state' => $request->input('state'),
+            'duration_minutes' => (int)$request->input('duration'),
+            'sequence_sort_id' => count($sequence->actions) + 1
+        ]);
+
         $action->save();
 
-        return $this->setStatusCode(200)->respondWithData(
+        return $this->respondWithData(
             [
                 'id'    =>  $action->id
             ],
             [
                 'redirect' => [
-                    'uri'   => url('actions/' . $action->id . '/edit'),
+                    'uri'   => url('action_sequences/' . $sequence->id . '/edit'),
                     'delay' => 100
                 ]
             ]

@@ -10,6 +10,7 @@
         <ul class="tabs z-depth-1">
             <li class="tab col s3"><a class="active" href="#tab_overview">@lang('labels.overview')</a></li>
             <li class="tab col s3"><a class="active" href="#tab_logical_sensors">@choice('components.logical_sensors', 2)</a></li>
+            <li class="tab col s3"><a class="active" href="#tab_belongsTo">@lang('labels.belongsTo')</a></li>
         </ul>
     </div>
 
@@ -19,10 +20,6 @@
                 <physical_sensors-widget :refresh-timeout-seconds="60" physical_sensor-id="{{ $physical_sensor->id }}"
                                          container-classes="col s12 m6 l4" wrapper-classes=""
                                          :subscribe-add="false" :subscribe-delete="false"></physical_sensors-widget>
-
-                <controlunits-widget :refresh-timeout-seconds="60" controlunit-id="{{ $physical_sensor->controlunit_id }}"
-                                     container-classes="col s12 m6 l4" wrapper-classes=""
-                                     :subscribe-add="false" :subscribe-delete="false"></controlunits-widget>
             </div>
         </div>
 
@@ -35,6 +32,16 @@
                 <li><a class="btn-floating red" href="/physical_sensors/{{ $physical_sensor->id }}/delete"><i class="material-icons">delete</i></a></li>
                 <li><a class="btn-floating green" href="/physical_sensors/create"><i class="material-icons">add</i></a></li>
             </ul>
+        </div>
+    </div>
+
+    <div id="tab_belongsTo" class="col s12">
+        <div class="container">
+            <div class="row">
+                <controlunits-widget :refresh-timeout-seconds="60" controlunit-id="{{ $physical_sensor->controlunit_id }}"
+                                     container-classes="col s12 m6 l4" wrapper-classes=""
+                                     :subscribe-add="false" :subscribe-delete="false"></controlunits-widget>
+            </div>
         </div>
     </div>
 

@@ -32,6 +32,10 @@ class ActionSequence extends CiliatusModel
             $ass->delete();
         }
 
+        foreach ($this->triggers as $ast) {
+            $ast->delete();
+        }
+
         parent::delete();
     }
 
@@ -54,9 +58,33 @@ class ActionSequence extends CiliatusModel
     /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
+    public function triggers()
+    {
+        return $this->hasMany('App\ActionSequenceTrigger')->with('logical_sensor')->orderBy('timeframe_start');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function intentions()
+    {
+        return $this->hasMany('App\ActionSequenceIntention')->orderBy('timeframe_start');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function terrarium()
     {
         return $this->belongsTo('App\Terrarium');
+    }
+
+    /**
+     * @return bool
+     */
+    public static function stopped()
+    {
+        return !is_null(Property::where('type', 'SystemProperty')->where('name', 'stop_all_action_sequences')->get()->first());
     }
 
     /**

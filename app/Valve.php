@@ -23,6 +23,22 @@ class Valve extends CiliatusModel
     public $incrementing = false;
 
     /**
+     * @var array
+     */
+    private static $states = [
+        'Open',
+        'Closed'
+    ];
+
+    /**
+     * @return array
+     */
+    public static function states()
+    {
+        return self::$states;
+    }
+
+    /**
      *
      */
     public function delete()

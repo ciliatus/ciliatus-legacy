@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\GenericComponentType;
 use App\Http\Controllers\Controller;
 use App\Property;
 use Gate;
@@ -96,7 +97,8 @@ class AdminController extends Controller
 
         return view('admin.categories', [
             'animal_feeding_types' => Property::where('type', 'AnimalFeedingType')->get(),
-            'bio_categories' => Property::where('type', 'BiographyEntryCategoryType')->get()
+            'bio_categories' => Property::where('type', 'BiographyEntryCategoryType')->get(),
+            'generic_component_types' => GenericComponentType::get()
         ]);
     }
 }

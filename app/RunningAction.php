@@ -31,6 +31,8 @@ class RunningAction extends CiliatusModel
     protected $fillable = [
         'action_id',
         'action_sequence_schedule_id',
+        'action_sequence_trigger_id',
+        'action_sequence_intention_id',
         'started_at'
     ];
 

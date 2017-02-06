@@ -4,7 +4,12 @@ namespace App\Http\Controllers\Api;
 
 use App\Action;
 use App\ActionSequence;
+use App\ActionSequenceSchedule;
+use App\ActionSequenceTrigger;
+use App\Events\SystemStatusUpdated;
 use App\Http\Transformers\ActionSequenceTransformer;
+use App\Property;
+use App\RunningAction;
 use App\Terrarium;
 use Auth;
 use Gate;
@@ -12,6 +17,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+/**
+ * Class ActionSequenceController
+ * @package App\Http\Controllers\Api
+ */
 class ActionSequenceController extends ApiController
 {
     /**
@@ -39,7 +48,9 @@ class ActionSequenceController extends ApiController
         }
 
         $action_sequences = ActionSequence::with('schedules')
-                        ->with('terrarium');
+                                          ->with('triggers')
+                                          ->with('intentions')
+                                          ->with('terrarium');
 
         $action_sequences = $this->filter($request, $action_sequences);
 
@@ -77,14 +88,18 @@ class ActionSequenceController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action = ActionSequence::find($id);
+        $action = ActionSequence::with('schedules')
+                                ->with('triggers')
+                                ->with('intentions')
+                                ->with('terrarium')
+                                ->find($id);
 
         if (!$action) {
             return $this->respondNotFound('ActionSequence not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
-            $this->actionTransformer->transform(
+            $this->actionSequenceTransformer->transform(
                 $action->toArray()
             )
         );
@@ -141,11 +156,16 @@ class ActionSequenceController extends ApiController
             return $this->setStatusCode(422)->respondWithError('No Terrarium selected');
         }
 
-        if ($request->has('name') && strlen($request->input('name') > 1)) {
+        if ($request->has('name')) {
             $name = $request->input('name');
         }
         else {
-            $name = trans('labels.' . $request->input('template')) . ' ' . $t->display_name;
+            if ($request->has('template')) {
+                $name = trans('labels.' . $request->input('template')) . ' ' . $t->display_name;
+            }
+            else {
+                $name = trans_choice('components.action_sequences', 1) . ' ' . $t->display_name;
+            }
         }
 
         $as->name = $name;
@@ -235,4 +255,64 @@ class ActionSequenceController extends ApiController
         );
 
     }
+
+    /**
+     *
+     */
+    public function stop_all()
+    {
+        Property::create([
+            'belongsTo_type' => 'System',
+            'belongsTo_id' => '00000000-0000-0000-0000-000000000000',
+            'type' => 'SystemProperty',
+            'name' => 'stop_all_action_sequences'
+        ]);
+
+        foreach (RunningAction::get() as $ra) {
+            $ra->delete();
+        }
+
+        foreach (ActionSequenceSchedule::get() as $ass) {
+            if ($ass->running()) {
+                $ass->finish();
+            }
+        }
+
+        foreach (ActionSequenceTrigger::get() as $ast) {
+            if ($ast->running()) {
+                $ast->finish();
+            }
+        }
+
+        broadcast(new SystemStatusUpdated());
+
+        return $this->setStatusCode(200)->respondWithData([],
+            [
+                'redirect' => [
+                    'uri'   => url('/'),
+                ]
+            ]
+        );
+    }
+
+    /**
+     *
+     */
+    public function resume_all()
+    {
+        foreach (Property::where('type', 'SystemProperty')->where('name', 'stop_all_action_sequences')->get() as $p) {
+            $p->delete();
+        }
+
+        broadcast(new SystemStatusUpdated());
+
+        return $this->setStatusCode(200)->respondWithData([],
+            [
+                'redirect' => [
+                    'uri'   => url('/'),
+                ]
+            ]
+        );
+    }
+
 }

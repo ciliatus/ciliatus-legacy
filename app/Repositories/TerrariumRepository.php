@@ -41,12 +41,12 @@ class TerrariumRepository extends Repository
             $history_to = Carbon::now();
 
         if (is_null($history_minutes))
-            $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180);
+            $history_minutes = 0;
 
         if ($history_minutes != 0) {
             /*
-         * load temperature values and convert them to an array seperated by commata
-         */
+             * load temperature values and convert them to an array seperated by commata
+             */
             $temperature_values = array_column($terrarium->getSensorReadingsTemperature($history_minutes, $history_to)->toArray(), 'avg_rawvalue');
             $terrarium->temperature_history = implode(',',
                 array_map(
@@ -94,12 +94,6 @@ class TerrariumRepository extends Repository
                 if (!is_null($terrarium->default_background_filepath)) {
                     break;
                 }
-            }
-        }
-
-        foreach ($terrarium->action_sequences as &$as) {
-            foreach ($as->actions as &$a) {
-                $a->target_object = $a->target()->toArray();
             }
         }
 

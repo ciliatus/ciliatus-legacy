@@ -12,11 +12,9 @@
             @if (!is_null($terrarium->animals))
                 <li class="tab col s3"><a href="#tab_animals">@choice('components.animals', 2)</a></li>
             @endif
-            <li class="tab col s3"><a href="#tab_files">@choice('components.files', 2)</a></li>
-            <li class="tab col s3"><a href="#tab_physical-sensors">@choice('components.physical_sensors', 2)</a></li>
-            <li class="tab col s3"><a class="active" href="#tab_valves">@choice('components.valves', 2)</a></li>
+            <li class="tab col s3"><a href="#tab_infrastructure">@lang('labels.infrastructure')</a></li>
             <li class="tab col s3"><a href="#tab_biography">@lang('labels.biography')</a></li>
-            <li class="tab col s3"><a target="_self" href="{{ url('terraria/' . $terrarium->id . '/edit') }}">@lang('buttons.edit')</a></li>
+            <li class="tab col s3"><a href="#tab_files">@choice('components.files', 2)</a></li>
         </ul>
     </div>
     <div id="tab_overview" class="col s12">
@@ -28,7 +26,7 @@
                                      container-classes="row" wrapper-classes="col s12"></terraria-widget>
 
 
-                    <action_sequences-widget :refresh-timeout-seconds="60" source-filter="?filter[terrarium_id]={{ $terrarium->id }}"
+                    <action_sequences-widget :refresh-timeout-seconds="60" source-filter="filter[terrarium_id]={{ $terrarium->id }}"
                                              terrarium-id="{{ $terrarium->id }}"
                                              container-classes="row" wrapper-classes="col s12"></action_sequences-widget>
                 </div>
@@ -69,19 +67,19 @@
         </div>
     @endif
 
-    <div id="tab_files" class="col s12">
-        <div class="container">
-            <files-widget source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
-                          belongs-to_type="Terrarium" belongs-to_id="{{ $terrarium->id }}"
-                          container-classes="row" wrapper-classes="col s12"></files-widget>
-        </div>
-    </div>
-
-    <div id="tab_physical-sensors" class="col s12">
+    <div id="tab_infrastructure" class="col s12">
         <div class="container">
             <physical_sensors-widget :refresh-timeout-seconds="60" source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
                                      container-classes="row" wrapper-classes="col s12 m6 l4"
                                      :subscribe-add="true" :subscribe-delete="true"></physical_sensors-widget>
+
+            <valves-widget :refresh-timeout-seconds="60" source-filter="filter[terrarium_id]={{ $terrarium->id }}"
+                           container-classes="row" wrapper-classes="col s12 m6 l4"
+                           :subscribe-add="true" :subscribe-delete="true"></valves-widget>
+
+            <generic_components-widget :refresh-timeout-seconds="60" source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
+                           container-classes="row" wrapper-classes="col s12 m6 l4"
+                           :subscribe-add="true" :subscribe-delete="true"></generic_components-widget>
         </div>
 
         <div class="fixed-action-btn">
@@ -90,23 +88,6 @@
             </a>
             <ul>
                 <li><a class="btn-floating green" href="/physical_sensors/create"><i class="material-icons">add</i></a></li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="tab_valves" class="col s12">
-        <div class="container">
-            <valves-widget :refresh-timeout-seconds="60" source-filter="filter[terrarium_id]={{ $terrarium->id }}"
-                           container-classes="row" wrapper-classes="col s12 m6 l4"
-                           :subscribe-add="true" :subscribe-delete="true"></valves-widget>
-        </div>
-
-        <div class="fixed-action-btn">
-            <a class="btn-floating btn-large teal">
-                <i class="large material-icons">mode_edit</i>
-            </a>
-            <ul>
-                <li><a class="btn-floating green" href="/valves/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
@@ -125,6 +106,14 @@
             <ul>
                 <li><a class="btn-floating green" href="/biography_entries/create?preset[belongsTo_type]=Terrarium&preset[belongsTo_id]={{ $terrarium->id }}"><i class="material-icons">add</i></a></li>
             </ul>
+        </div>
+    </div>
+
+    <div id="tab_files" class="col s12">
+        <div class="container">
+            <files-widget source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
+                          belongs-to_type="Terrarium" belongs-to_id="{{ $terrarium->id }}"
+                          container-classes="row" wrapper-classes="col s12"></files-widget>
         </div>
     </div>
 

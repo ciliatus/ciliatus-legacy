@@ -102,6 +102,14 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAbility('grant_api-write:logical_sensor');
         });
 
+        $gate->define('api-write:generic_component', function ($user) {
+            return $user->hasAbility('grant_api-write:generic_component');
+        });
+
+        $gate->define('api-write:generic_component_type', function ($user) {
+            return $user->hasAbility('grant_api-write:generic_component_type');
+        });
+
         $gate->define('api-write:controlunit', function ($user) {
             return $user->hasAbility('grant_api-write:controlunit');
         });
@@ -144,6 +152,14 @@ class AuthServiceProvider extends ServiceProvider
 
         $gate->define('api-write:action_sequence_schedule', function ($user) {
             return $user->hasAbility('grant_api-write:action_sequence_schedule');
+        });
+
+        $gate->define('api-write:action_sequence_trigger', function ($user) {
+            return $user->hasAbility('grant_api-write:action_sequence_trigger');
+        });
+
+        $gate->define('api-write:action_sequence_intention', function ($user) {
+            return $user->hasAbility('grant_api-write:action_sequence_intention');
         });
 
         $gate->define('api-write:property', function ($user) {

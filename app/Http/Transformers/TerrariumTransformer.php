@@ -27,6 +27,7 @@ class TerrariumTransformer extends Transformer
         $physicalSensorTransformer = new PhysicalSensorTransformer();
         $animalTransformer = new AnimalTransformer();
         $actionSequenceTransformer = new ActionSequenceTransformer();
+
         $return = [
             'id'    => $item['id'],
             'name'  => isset($item['name']) ? $item['name'] : '',

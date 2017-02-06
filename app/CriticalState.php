@@ -228,7 +228,7 @@ class CriticalState extends CiliatusModel
     }
 
     /**
-     * @return null
+     * @return null|CiliatusModel
      */
     public function belongsTo_object()
     {

@@ -82,7 +82,7 @@ export default {
         },
         sourceFilter: {
             type: String,
-            default: 'filter[last_finished_at]=nottoday',
+            default: '',
             required: false
         },
         wrapperClasses: {

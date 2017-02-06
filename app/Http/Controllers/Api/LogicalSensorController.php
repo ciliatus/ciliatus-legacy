@@ -54,10 +54,15 @@ class LogicalSensorController extends ApiController
          * Permission api-list:raw is required
          */
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
+            $logical_sensors = $logical_sensors->get();
+
+            foreach ($logical_sensors as &$ls) {
+                $ls->current_threshold_id = is_null($ls->current_threshold()) ? null : $ls->current_threshold()->id;
+            }
 
             return $this->setStatusCode(200)->respondWithData(
                 $this->logicalSensorTransformer->transformCollection(
-                    $logical_sensors->get()->toArray()
+                    $logical_sensors->toArray()
                 )
             );
 

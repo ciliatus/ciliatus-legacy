@@ -3,18 +3,26 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\Http\Transformers\ActionSequenceIntentionTransformer;
 use App\Http\Transformers\ActionSequenceScheduleTransformer;
+use App\Http\Transformers\ActionSequenceTriggerTransformer;
 use App\Http\Transformers\AnimalFeedingScheduleTransformer;
 use App\Http\Transformers\AnimalWeighingScheduleTransformer;
 use App\Http\Transformers\TerrariumTransformer;
+use App\Property;
 use App\Repositories\AnimalFeedingScheduleRepository;
 use App\Repositories\AnimalWeighingScheduleRepository;
+use App\System;
 use Gate;
 use App\Terrarium;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+/**
+ * Class DashboardController
+ * @package App\Http\Controllers\Api
+ */
 class DashboardController extends ApiController
 {
     /**
@@ -87,6 +95,14 @@ class DashboardController extends ApiController
             'running' => []
         ];
 
+        $action_sequence_triggers = [
+            'running' => []
+        ];
+
+        $action_sequence_intentions = [
+            'running' => []
+        ];
+
         foreach (Terrarium::get() as $terrarium) {
             foreach ($terrarium->action_sequences as $as) {
                 foreach ($as->schedules()->with('sequence')->get() as $ass) {
@@ -101,8 +117,23 @@ class DashboardController extends ApiController
                     }
                 }
             }
-        }
 
+            foreach ($terrarium->action_sequences as $as) {
+                foreach ($as->triggers()->with('sequence')->get() as $ast) {
+                    if ($ast->running()) {
+                        $action_sequence_triggers['running'][] = (new ActionSequenceTriggerTransformer())->transform($ast->toArray());
+                    }
+                }
+            }
+
+            foreach ($terrarium->action_sequences as $as) {
+                foreach ($as->intentions()->with('sequence')->get() as $ast) {
+                    if ($ast->running()) {
+                        $action_sequence_intentions['running'][] = (new ActionSequenceIntentionTransformer())->transform($ast->toArray());
+                    }
+                }
+            }
+        }
 
         return $this->respondWithData([
             'terraria' => [
@@ -111,7 +142,9 @@ class DashboardController extends ApiController
             ],
             'animal_feeding_schedules' => $feeding_schedules,
             'animal_weighing_schedules' => $weighing_schedules,
-            'action_sequence_schedules' => $action_sequence_schedules
+            'action_sequence_schedules' => $action_sequence_schedules,
+            'action_sequence_triggers' => $action_sequence_triggers,
+            'action_sequence_intentions' => $action_sequence_intentions
         ]);
     }
 
@@ -179,5 +212,13 @@ class DashboardController extends ApiController
     public function destroy($id)
     {
         //
+    }
+
+    /**
+     *
+     */
+    public function system_status()
+    {
+        return $this->respondWithData(System::status());
     }
 }

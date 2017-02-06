@@ -84,7 +84,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons right">send</i>
+                                        <i class="material-icons right">save</i>
                                     </button>
                                 </div>
                             </div>
@@ -97,8 +97,8 @@
             <div class="col s12 m12 l6">
                 <div class="card">
                     <div class="card-content teal lighten-1 white-text">
-                        <span class="card-title activator truncate">
-                            <span>@choice('components.action_sequences', 2)</span>
+                        <span class="activator truncate">
+                            <span><i class="material-icons">playlist_play</i> @choice('components.action_sequences', 2)</span>
                         </span>
                     </div>
 

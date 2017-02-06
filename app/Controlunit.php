@@ -106,6 +106,8 @@ class Controlunit extends CiliatusModel
         ];
 
         ActionSequenceSchedule::createAndUpdateRunningActions();
+        ActionSequenceTrigger::createAndUpdateRunningActions();
+        ActionSequenceIntention::createAndUpdateRunningActions();
 
         foreach (RunningAction::whereNull('finished_at')->get() as $ra) {
             if ($ra->action->target_object()->controlunit_id == $this->id) {

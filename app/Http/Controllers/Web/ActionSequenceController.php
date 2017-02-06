@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Web;
 use App\Http\Controllers\Controller;
 use App\ActionSequence;
 use App\ActionSequenceSchedule;
+use App\Property;
 use App\Terrarium;
 use Illuminate\Http\Request;
 
@@ -140,5 +141,15 @@ class ActionSequenceController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function stop_all()
+    {
+        return view('action_sequences.stop_all');
+    }
+
+    public function resume_all()
+    {
+        return view('action_sequences.resume_all');
     }
 }

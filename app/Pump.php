@@ -23,6 +23,22 @@ class Pump extends CiliatusModel
     public $incrementing = false;
 
     /**
+     * @var array
+     */
+    private static $states = [
+        'Running',
+        'Stopped'
+    ];
+
+    /**
+     * @return array
+     */
+    public static function states()
+    {
+        return self::$states;
+    }
+
+    /**
      *
      */
     public function delete()

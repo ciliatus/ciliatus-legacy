@@ -9,20 +9,29 @@
   margin-bottom: 0;
 }
 
-.side-nav .side-menu-info a {
-  @extend .grey-text, .text-darken-2;
+.side-nav .side-menu-info {
+  @extend .amber;
 
-  height: auto;
-  line-height: 24px;
-  padding-bottom: 12px;
 }
 
-.side-nav .side-menu-info-title a {
-  @extend .grey-text, .text-darken-3;
+.side-nav .side-menu-info-title {
+  @extend .grey-text, .text-darken-4;
+
+  padding-top: 12px;
+  padding-left: 12px;
+  padding-bottom: 8px;
 }
 
 .side-nav .side-menu-info-title i {
+  @extend .grey-text, .text-darken-4;
+}
+
+.side-nav .side-menu-info-content {
   @extend .grey-text, .text-darken-3;
+
+  padding-left: 12px;
+  padding-bottom: 12px;
+  line-height: 24px;
 }
 
 header, main, footer {

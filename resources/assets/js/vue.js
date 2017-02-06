@@ -68,10 +68,13 @@ import PumpsWidget from './vue/pumps-widget.vue';
 import ValvesWidget from './vue/valves-widget.vue';
 import PhysicalSensorsWidget from './vue/physical_sensors-widget.vue';
 import LogicalSensorsWidget from './vue/logical_sensors-widget.vue';
+import GenericComponentsWidget from './vue/generic_components-widget.vue';
 import UsersWidget from './vue/users-widget.vue';
 import BiographyEntriesWidget from './vue/biography_entries-widget.vue'
 import CaresheetsWidget from './vue/caresheets-widget.vue'
 import LogsWidget from './vue/logs-widget.vue';
+
+import GenericComponentTypeCreateForm from './vue/generic_component_type_create-form.vue';
 
 window.systemVue = new Vue({
 
@@ -135,10 +138,13 @@ window.bodyVue = new Vue({
         'valves-widget': ValvesWidget,
         'physical_sensors-widget': PhysicalSensorsWidget,
         'logical_sensors-widget': LogicalSensorsWidget,
+        'generic_components-widget': GenericComponentsWidget,
         'users-widget': UsersWidget,
         'biography_entries-widget': BiographyEntriesWidget,
         'caresheets-widget': CaresheetsWidget,
-        'logs-widget': LogsWidget
+        'logs-widget': LogsWidget,
+
+        'generic_component_type_create-form': GenericComponentTypeCreateForm
     }
 
 });

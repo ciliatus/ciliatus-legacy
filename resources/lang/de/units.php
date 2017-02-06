@@ -12,5 +12,8 @@ return [
     'days_ago'  =>  'vor :val Tagen',
     'hours_ago' =>  'vor :val Stunden',
     'minutes_ago' =>  'vor :val Minuten',
-    'just_now'  =>  'gerade eben'
+    'just_now'  =>  'gerade eben',
+    'lesser'    =>  '<',
+    'greater'   =>  '>',
+    'equals'    =>  '='
 ];

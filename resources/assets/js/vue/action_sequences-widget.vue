@@ -13,16 +13,42 @@
             </span>
 
             <div v-for="as in action_sequences">
-                <p><strong>{{ as.name }}</strong> <i>{{ as.duration_minutes }} {{ $tc("units.minutes", as.duration_minutes) }}</i></p>
+                <p>
+                    <a :href="'/action_sequences/' + as.id + '/edit'"><strong>{{ as.name }}</strong></a>
+                </p>
 
-                <p v-for="ass in as.schedules"><i class="material-icons">schedule</i> {{ ass.timestamps.starts }} <i v-show="!ass.runonce">{{ $t("labels.daily") }}</i></p>
+                <p v-for="asi in as.intentions">
+                    <i class="material-icons">explore</i>
+
+                    <span v-if="asi.intention === 'increase'">{{ $t('labels.increases') }}</span>
+                    <span v-if="asi.intention === 'decrease'">{{ $t('labels.decreases') }}</span>
+
+                    {{ $t('labels.' + asi.type) }}
+
+                    <span v-show="asi.states.running">
+                        <span class="new badge" v-bind:data-badge-caption="$t('labels.active')"> </span>
+                    </span>
+                </p>
+
+                <p v-for="ast in as.triggers">
+                    <i class="material-icons">flare</i> {{ ast.logical_sensor.name }} {{ $t('units.' + ast.reference_value_comparison_type) }} {{ ast.reference_value }}
+                    <span v-show="ast.states.running">
+                        <span class="new badge" v-bind:data-badge-caption="$t('labels.active')"> </span>
+                    </span>
+                </p>
+
+                <p v-for="ass in as.schedules">
+                    <i class="material-icons">schedule</i> {{ ass.timestamps.starts }} <i v-show="!ass.runonce">{{ $t("labels.daily") }}</i>
+                    <span v-show="ass.states.running">
+                        <span class="new badge" v-bind:data-badge-caption="$t('labels.active')"> </span>
+                    </span>
+                </p>
             </div>
 
         </div>
 
         <div class="card-action">
             <a v-bind:href="'/action_sequences/create?preset[terrarium]=' + terrariumId">{{ $t("buttons.add") }}</a>
-            <a v-bind:href="'/terraria/' + terrariumId + '/edit'">{{ $t("buttons.edit") }}</a>
         </div>
 
         <div class="card-reveal">
@@ -100,7 +126,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/action_sequences/' + that.action_sequenceId + that.sourceFilter + '?raw=true',
+                url: '/api/v1/action_sequences/' + that.action_sequenceId + '?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.action_sequenceId !== '') {

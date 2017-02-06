@@ -286,7 +286,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons right">send</i>
+                                        <i class="material-icons right">save</i>
                                     </button>
                                 </div>
                             </div>
@@ -317,7 +317,7 @@
                                 <div class="input-field col s12">
                                     @if (!is_null($user->setting('notifications_telegram_chat_id')))<input hidden name="user_id" value="{{ Auth::user()->id }}">
                                     <button class="btn waves-effect waves-light red" type="submit">@lang('buttons.delete')
-                                        <i class="material-icons right">send</i>
+                                        <i class="material-icons right">delete</i>
                                     </button>
                                     @else
                                         <a href="{{ url('users/setup/telegram') }}" class="btn waves-effect waves-light teal">@lang('buttons.start_setup')</a>
@@ -360,7 +360,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons right">send</i>
+                                        <i class="material-icons right">save</i>
                                     </button>
                                 </div>
                             </div>

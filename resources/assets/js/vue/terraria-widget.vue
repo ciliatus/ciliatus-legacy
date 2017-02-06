@@ -48,9 +48,7 @@
                     <span class="card-title grey-text text-darken-4">{{ $tc("components.action_sequence_schedules", 2) }}</span>
 
                     <p v-for="as in terrarium.action_sequences">
-                        <span v-for="ass in as.schedules">
-                            <a v-bind:href="'/action_sequences/' + as.id">{{ as.name }}</a> <i>{{ $t("labels.starts_at") }} {{ ass.timestamps.starts }}</i>
-                        </span>
+                        <a v-bind:href="'/action_sequences/' + as.id">{{ as.name }}</a>
                     </p>
                 </div>
             </div>
