@@ -13,9 +13,9 @@ The frontend was built using Google's material design guidelines and will give y
 
 # Features
 
+* Fully automatic intelligent control over your terrariums' vital parameters
 * Real-time dashboard using Vue and Pusher or another push service of your choice
 * Temperature and humidity monitoring with notification support, e.g. via Telegram
-* Automatic irrigation schedules
 * Keep track of your animals' feeding schedules, weight and everything else
 * Printable caresheets with all relevant data about your animals' health
 * File management for photos and other files
