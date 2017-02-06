@@ -14,7 +14,10 @@ Ciliatus is an open source intelligent solution to automate your terrarium.
 
 # Demo
 
-**Be aware:** The demo version pulls it's data from our live environment every hour. Real-time updates are not available in the demo environment.
+**Be aware:** 
+
+The demo version pulls it's data from our live environment every hour. Real-time updates are not available in the demo environment.
+Also: Because the source environment is in german you will find user defined names which cannot be localized. You won't see that in your own environment.
 
 [Demo](https://demo01.ciliatus.io)
 
