@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Animal;
 use App\Event;
+use App\Events\AnimalUpdated;
 use App\Events\AnimalWeighingUpdated;
 use App\Http\Transformers\AnimalWeighingTransformer;
 use App\Property;
