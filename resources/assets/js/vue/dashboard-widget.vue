@@ -80,7 +80,7 @@
                     <div class="white-text">
 
                         <span style="display: inline-block; width: calc(100% - 60px);">
-                            {{ schedule.animal.display_name }} {{ $t('labels.today') }} {{ $t('labels.actions') }}
+                            {{ schedule.animal.display_name }} {{ $t('labels.today') }}
                         </span>
 
 
@@ -181,7 +181,7 @@
                     <div class="white-text">
 
                         <span style="display: inline-block; width: calc(100% - 60px);">
-                            {{ schedule.animal.display_name }} {{ $t('labels.today') }} {{ $t('labels.actions') }}
+                            {{ schedule.animal.display_name }} {{ $t('labels.today') }}
                         </span>
 
                         <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
