@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\File;
 use App\Property;
 use App\Http\Transformers\FileTransformer;
+use App\Repositories\FileRepository;
 use Auth;
 use Carbon\Carbon;
 use ErrorException;
@@ -52,6 +53,10 @@ class FileController extends ApiController
          * Permission api-list:raw is required
          */
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
+            $files = $files->get();
+            foreach ($files as &$file) {
+                $file = (new FileRepository($file))->show();
+            }
 
             return $this->setStatusCode(200)->respondWithData(
                 $this->fileTransformer->transformCollection(
@@ -63,9 +68,8 @@ class FileController extends ApiController
 
         $files = $files->paginate(env('PAGINATION_PER_PAGE', 20));
 
-        foreach ($files->items() as &$f) {
-            $f->path_internal = $f->path_internal();
-            $f->path_external = $f->path_external();
+        foreach ($files->items() as &$file) {
+            $file = (new FileRepository($file))->show();
         }
 
         return $this->setStatusCode(200)->respondWithPagination(
@@ -93,6 +97,8 @@ class FileController extends ApiController
         if (!$file) {
             return $this->respondNotFound('File not found');
         }
+
+        $file = (new FileRepository($file))->show();
 
         return $this->setStatusCode(200)->respondWithData(
             $this->fileTransformer->transform(
@@ -144,83 +150,22 @@ class FileController extends ApiController
                         ->setErrorCode(101)
                         ->respondWithError('Required inputs: ' . implode(',', $required_inputs));
         }
-
-        $year_str = Carbon::now()->year;
-        $month_str = str_pad(Carbon::now()->month, 2, '0', STR_PAD_LEFT);
-        $parent_path = 'storage/app/files';
-
-        /*
-         * check whether year/month folder exists
-         * create if not
-         */
-        $parent_path = File::joinPath([
-            $parent_path,
-            $year_str,
-            $month_str
-        ]);
-        $absolute_path = File::joinPath([
-            base_path(),
-            $parent_path
-        ]);
-
-        if (!is_dir($absolute_path)) {
-            try {
-                umask(0);
-                mkdir($absolute_path, 0774, true);
-            }
-            catch (ErrorException $ex) {
-                return $this->setStatusCode(500)
-                            ->respondWithError('Directory could not be created.' . $ex->getMessage() . $parent_path);
-            }
-        }
-
         /*
          * Create file model
          */
-        $file = File::create();
-        $file->parent_path  = $parent_path;
-        $file->user_id      = Auth::user()->id;
-        $file->state        = 'Creating';
-        $file->name         = $file->id . '.' .
-            strtolower($request->file('file')->getClientOriginalExtension());
+        try {
+            $file = File::createFromRequest($request, Auth::user()->id);
+        }
+        Catch (ErrorException $ex) {
+            return $this->setStatusCode(500)
+                ->respondWithError('Directory could not be created.' . $ex->getMessage());
+        }
 
         /*
          * Look for optional inputs
          */
         $file = $this->addBelongsTo($request, $file);
 
-        /*
-         * Move file to storage
-         */
-        $request->file('file')->move(
-            File::joinPath([
-                base_path(),
-                $file->parent_path
-            ]),
-            $file->name
-        );
-        umask(0);
-        chmod($file->path_internal(), 0664);
-
-        switch ($request->file('file')->getClientMimeType()) {
-            case 'image/jpeg':
-                $exif = exif_read_data($file->path_internal(), 0, true);
-                if ($exif) {
-                    foreach($exif as $key=>$section) {
-                        foreach($section as $name=>$value) {
-                            if (!is_array($value)) {
-                                $fp = Property::create();
-                                $fp->belongsTo_type = 'File';
-                                $fp->belongsTo_id = $file->id;
-                                $fp->type = 'exif';
-                                $fp->name = $key.$name;
-                                $fp->value = $value;
-                                $fp->save();
-                            }
-                        }
-                    }
-                }
-        }
 
         if ($request->has('use_as_background') && $request->input('use_as_background') == 'On') {
             if (is_null($file->property('is_default_background'))) {
@@ -238,9 +183,6 @@ class FileController extends ApiController
             }
         }
 
-        $file->display_name = $request->file('file')->getClientOriginalName();
-        $file->mimetype = $request->file('file')->getClientMimeType();
-        $file->size = $request->file('file')->getClientSize();
         $file->state = 'Uploaded';
         $file->save();
 

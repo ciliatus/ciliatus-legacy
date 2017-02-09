@@ -8,8 +8,9 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <files-show-widget file-id="{{ $file->id }}" :subscribe-add="false" :subscribe-delete="false"
-                               container-classes="row" wrapper-classes="col s4"></files-show-widget>
+            <files-show-widget file-id="{{ $file->id }}"
+                               :subscribe-add="false" :subscribe-delete="false"
+                               container-classes="row"></files-show-widget>
         </div>
     </div>
 

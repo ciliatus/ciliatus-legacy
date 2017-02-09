@@ -51,6 +51,14 @@ class FileTransformer extends Transformer
             $return['path_external'] = $item['path_external'];
         }
 
+        if (isset($item['thumb'])) {
+            $return['thumb'] = (new FileTransformer())->transform($item['thumb']->toArray());
+        }
+
+        if (explode('/', $item['mimetype'])[0] == 'image') {
+            $return['is_image'] = true;
+        }
+
         return $return;
     }
 }

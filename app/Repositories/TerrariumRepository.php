@@ -78,7 +78,13 @@ class TerrariumRepository extends Repository
         $terrarium->default_background_filepath = null;
         foreach ($files as $f) {
             if ($f->property('is_default_background') == true) {
-                $terrarium->default_background_filepath = $f->path_external();
+                if (!is_null($f->thumb())) {
+                    $terrarium->default_background_filepath = $f->thumb()->path_external();
+                }
+                else {
+                    $terrarium->default_background_filepath = $f->path_external();
+                }
+
                 break;
             }
         }
@@ -87,7 +93,12 @@ class TerrariumRepository extends Repository
             foreach ($terrarium->animals as $a) {
                 foreach ($a->files as $f) {
                     if ($f->property('is_default_background') == true) {
-                        $terrarium->default_background_filepath = $f->path_external();
+                        if (!is_null($f->thumb())) {
+                            $terrarium->default_background_filepath = $f->thumb()->path_external();
+                        }
+                        else {
+                            $terrarium->default_background_filepath = $f->path_external();
+                        }
                         break;
                     }
                 }
