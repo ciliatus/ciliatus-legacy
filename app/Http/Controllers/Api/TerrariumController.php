@@ -48,8 +48,8 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $history_to = $request->has('history_to') ? $request->input('history_to') : null;
-        $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : null;
+        $history_to = $request->has('history_to') ? $request->input('history_to') : Carbon::now();
+        $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 120);
 
         $terraria = Terrarium::with('action_sequences')
                              ->with('animals')
@@ -150,16 +150,28 @@ class TerrariumController extends ApiController
             return $this->respondNotFound('Terrarium not found');
         }
 
+        $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 120);
+        $cache_key = 'TerrariumController@sensorreadingsByType_' . $id . '_' . $type . '_' . $history_minutes;
+        if (Cache::has($cache_key)) {
+            return $this->respondWithData(Cache::get($cache_key), [
+                'meta' => [
+                    'from_cache' => true
+                ]
+            ]);
+        }
+
         switch ($type) {
             case 'humidity_percent':
-                $values = array_column($terrarium->getSensorReadingsHumidity(env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 15), Carbon::now())->toArray(), 'avg_rawvalue');
+                $values = array_column($terrarium->getSensorReadingsHumidity($history_minutes, Carbon::now())->toArray(), 'avg_rawvalue');
                 break;
             case 'temperature_celsius':
-                $values = array_column($terrarium->getSensorReadingsTemperature(env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 15), Carbon::now())->toArray(), 'avg_rawvalue');
+                $values = array_column($terrarium->getSensorReadingsTemperature($history_minutes, Carbon::now())->toArray(), 'avg_rawvalue');
                 break;
             default:
                 return $this->setStatusCode(422)->respondWithError('Invalid type');
         }
+
+        /*
         $history = implode(',',
             array_map(
                 function($val) {
@@ -168,9 +180,22 @@ class TerrariumController extends ApiController
                 $values
             )
         );
+        */
 
+        $history = array_map(
+            function($val) {
+                return round($val, 1);
+            },
+            $values
+        );
 
-        return $this->respondWithData($history);
+        Cache::put($cache_key, $history, env('TERRARIUM_DEFAULT_HISTORY_CACHE_MINUTES', 5));
+
+        return $this->respondWithData($history, [
+            'meta' => [
+                'from_cache' => false
+            ]
+        ]);
 
     }
 
