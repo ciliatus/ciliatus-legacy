@@ -8,14 +8,14 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on' || (Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night()))
-            <link type="text/css" rel="stylesheet" href="/v1.2-beta/css/materialize_dark.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/css/materialize_dark.css"  media="screen,projection"/>
         @else
-            <link type="text/css" rel="stylesheet" href="/v1.2-beta/css/materialize.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/css/materialize.css"  media="screen,projection"/>
         @endif
-        <link type="text/css" rel="stylesheet" href="/v1.2-beta/css/timeline.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/timeline.css"  media="screen,projection"/>
 
 
-        <link type="text/css" rel="stylesheet" href="/v1.2-beta/css/materialize.clockpicker.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/materialize.clockpicker.css"  media="screen,projection"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
         <!--Let browser know website is optimized for mobile-->
@@ -190,18 +190,18 @@
 
         <!-- Google Charts -->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-        <!-- Materialize.css -->
-        <script src="{{ url('v1.2-beta/js/materialize.min.js') }}"></script>
-        <!-- Materialize.clockpicker.css -->
-        <script src="{{ url('v1.2-beta/js/materialize.clockpicker.js') }}"></script>
+        <!-- Materialize.js -->
+        <script src="{{ url('js/materialize.min.js') }}"></script>
+        <!-- Materialize.clockpicker.js -->
+        <script src="{{ url('js/materialize.clockpicker.js') }}"></script>
         <!-- Masonry -->
-        <script src="{{ url('v1.2-beta/js/masonry.pkgd.min.js') }}"></script>
+        <script src="{{ url('js/masonry.pkgd.min.js') }}"></script>
         <!-- Laravel-Echo -->
-        <script src="{{ url('v1.2-beta/js/echo.js') }}"></script>
+        <script src="{{ url('js/echo.js') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('v1.2-beta/js/app.js') }}"></script>
+        <script src="{{ url('js/app.js') }}"></script>
         <!-- Vue -->
-        <script src="{{ url('v1.2-beta/js/vue.js') }}"></script>
+        <script src="{{ url('js/vue.js') }}"></script>
 
         @yield('scripts')
 
