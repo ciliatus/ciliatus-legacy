@@ -1,33 +1,44 @@
 <template>
-    <div>
+    <div :class="containerClasses">
         <div :class="wrapperClasses" v-for="file in files">
-            <div class="card">
-                <div class="card-content teal lighten-1 white-text">
-                    <i class="material-icons">attach_file</i>
-                    {{ $tc("components.files", 1) }}
+            <div class="col s12 m12 l4">
+                <div class="card">
+                    <div class="card-content teal lighten-1 white-text">
+                        <i class="material-icons">attach_file</i>
+                        {{ $tc("components.files", 1) }}
+                    </div>
+
+                    <div class="card-content">
+                        <span class="card-title activator truncate">
+                            <span>{{ file.display_name }}</span>
+                            <i class="material-icons right">more_vert</i>
+                        </span>
+                        <p>
+                            <span>{{ $t("labels.size") }}: {{ (file.size / 1024 / 1024).toFixed(2) }} MB</span><br />
+                            <span>{{ $t("labels.type") }}: {{ file.mimetype }}</span>
+                        </p>
+                    </div>
+
+                    <div class="card-action">
+                        <a v-bind:href="'/files/' + file.id + '/edit'">{{ $t("buttons.edit") }}</a>
+                        <a v-bind:href="'/files/' + file.id + '/download/' + file.display_name">{{ $t("buttons.download") }}</a>
+                    </div>
+
+                    <div class="card-reveal">
+                        <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                        <p>
+
+                        </p>
+                    </div>
                 </div>
+            </div>
 
-                <div class="card-content">
-                    <span class="card-title activator truncate">
-                        <span>{{ file.display_name }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
-                    <p>
-                        <span>{{ $t("labels.size") }}: {{ (file.size / 1024 / 1024).toFixed(2) }} MB</span><br />
-                        <span>{{ $t("labels.type") }}: {{ file.mimetype }}</span>
-                    </p>
-                </div>
-
-                <div class="card-action">
-                    <a v-bind:href="'/files/' + file.id + '/edit'">{{ $t("buttons.edit") }}</a>
-                    <a v-bind:href="'/files/' + file.id + '/download/' + file.display_name">{{ $t("buttons.download") }}</a>
-                </div>
-
-                <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
-                    <p>
-
-                    </p>
+            <div class="col s12 m12 l8">
+                <div class="card">
+                    <div v-if="file.is_image"
+                         class="card-image waves-effect waves-block waves-light file-card-image">
+                        <img :src="file.path_external" />
+                    </div>
                 </div>
             </div>
         </div>
