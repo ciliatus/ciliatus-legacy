@@ -27,9 +27,11 @@
                                          :subscribe-add="false" :subscribe-delete="false"
                                          container-classes="col s12 m6 l4" wrapper-classes=""></animals-widget>
 
+                @if (!is_null($animal->terrarium))
                 <terraria-widget terrarium-id="{{ $animal->terrarium_id }}"
                                          :subscribe-add="false" :subscribe-delete="false"
                                          container-classes="col s12 m6 l4" wrapper-classes=""></terraria-widget>
+                @endif
             </div>
         </div>
 
