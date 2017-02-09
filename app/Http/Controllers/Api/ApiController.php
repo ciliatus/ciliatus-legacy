@@ -61,6 +61,7 @@ class ApiController extends Controller
 
     /**
      * @param mixed $errorCode
+     * @return ApiController
      */
     public function setErrorCode($errorCode)
     {
@@ -147,6 +148,7 @@ class ApiController extends Controller
 
     /**
      * @param $required_fields
+     * @param Request $request
      * @return bool
      */
     public function checkInput($required_fields, Request $request)
@@ -244,7 +246,7 @@ class ApiController extends Controller
      * .../?filter[created_at]=lt:2016-12-10:and:gt:2016-12-08
      *
      * special operators:
-     * like, notlike, today, nottoday
+     * like, notlike, today, nottoday, null, notnull
      */
     /**
      * @param Request $request
