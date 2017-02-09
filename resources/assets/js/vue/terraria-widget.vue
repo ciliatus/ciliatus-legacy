@@ -6,11 +6,16 @@
                      v-bind:class="terrarium.default_background_filepath ? '' : 'teal lighten-1'"
                      v-bind:style="terrarium.default_background_filepath ? 'background-image: url(\'' + terrarium.default_background_filepath + '\');' : ''">
                     <div>
-                        <inline-graph :parentid="terrarium.id" graphtype="humidity_percent" type="line" :options="{'fill': null, 'strokeWidth': '3', 'stroke': '#2196f3', width: '100%', height:'140px', min: 1, max: 99}" :source="'/api/v1/terraria/'+terrarium.id+'/sensorreadingsByType/humidity_percent'"></inline-graph>
+                        <inline-graph :parentid="terrarium.id" graphtype="humidity_percent" type="line"
+                                      :options="{'fill': null, 'strokeWidth': '3', 'stroke': '#2196f3', width: '100%', height:'140px', min: 1, max: 99}"
+                                      :source="'/api/v1/terraria/'+terrarium.id+'/sensorreadingsByType/humidity_percent'"></inline-graph>
                     </div>
 
                     <div style="position: relative; top: -145px">
-                        <inline-graph :parentid="terrarium.id" graphtype="temperature_celsius" type="line" :options="{'fill': null, 'strokeWidth': '3', 'stroke': '#b71c1c', width: '100%', height:'140px', min: 1, max: 99}" :source="'/api/v1/terraria/'+terrarium.id+'/sensorreadingsByType/temperature_celsius'"></inline-graph>
+                        <inline-graph :parentid="terrarium.id" graphtype="temperature_celsius" type="line"
+                                      :options="{'fill': null, 'strokeWidth': '3', 'stroke': '#b71c1c', width: '100%', height:'140px', min: 1, max: 99}"
+                                      :source="'/api/v1/terraria/'+terrarium.id+'/sensorreadingsByType/temperature_celsius'"></inline-graph>
+
                     </div>
                 </div>
                 <div class="card-content">
@@ -74,6 +79,11 @@ export default {
             required: false
         },
         terrariumId: {
+            type: String,
+            default: '',
+            required: false
+        },
+        sourceFilter: {
             type: String,
             default: '',
             required: false
@@ -163,7 +173,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/terraria/' + that.terrariumId + '?raw=true&history_minutes=0',
+                url: '/api/v1/terraria/' + that.terrariumId + '?raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.terrariumId !== '') {
