@@ -6632,6 +6632,12 @@ button.picker__today:focus, button.picker__clear:focus, button.picker__close:foc
   padding-bottom: 12px;
   line-height: 24px; }
 
+.file-card-image {
+  padding: 0; }
+
+.file-card-image img {
+  margin: 0; }
+
 header, main, footer {
   padding-left: 300px; }
 
