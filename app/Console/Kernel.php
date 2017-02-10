@@ -13,7 +13,10 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        // Commands\Inspire::class,
+        Commands\EvaluateCriticalStates::class,
+        Commands\RebuildCache::class,
+        Commands\SendNotifications::class,
+        Commands\Update13b::class
     ];
 
     /**
@@ -24,7 +27,13 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')
-        //          ->hourly();
+        $schedule->command('ciliatus:critical_states:evaluate')
+                 ->everyMinute();
+
+        $schedule->command('ciliatus:cache:rebuild')
+                 ->everyFiveMinutes();
+
+        $schedule->command('ciliatus:notifications:send')
+                 ->dailyAt(env('SCHEDULED_NOTIFICATION_SEND_TIME', '09:00:00'));
     }
 }

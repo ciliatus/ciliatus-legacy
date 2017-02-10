@@ -6,6 +6,7 @@ use App\Events\TerrariumUpdated;
 use App\Events\TerrariumDeleted;
 use App\Http\Transformers\TerrariumTransformer;
 use App\Repositories\SensorreadingRepository;
+use Cache;
 use Carbon\Carbon;
 use DB;
 use Illuminate\Database\Eloquent\Model;
@@ -174,6 +175,45 @@ class Terrarium extends CiliatusModel
     }
 
     /**
+     * Returns sensorreadings of a specific type
+     * while using caching to deliver optimal performance
+     *
+     * @param $type
+     * @param $kill_cache = false
+     * @return array|mixed
+     */
+    public function getSensorreadingsByType($type, $kill_cache = false)
+    {
+        $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 120);
+        $cache_key = 'sensorreadingsByType_' . $this->id . '_' . $type . '_' . $history_minutes;
+        if (Cache::has($cache_key) && !$kill_cache) {
+            return Cache::get($cache_key);
+        }
+
+        switch ($type) {
+            case 'humidity_percent':
+                $values = array_column($this->getSensorReadingsHumidity($history_minutes, Carbon::now())->toArray(), 'avg_rawvalue');
+                break;
+            case 'temperature_celsius':
+                $values = array_column($this->getSensorReadingsTemperature($history_minutes, Carbon::now())->toArray(), 'avg_rawvalue');
+                break;
+            default:
+                throw new \InvalidArgumentException("Type not found");
+        }
+
+        $history = array_map(
+            function($val) {
+                return round($val, 1);
+            },
+            $values
+        );
+
+        Cache::put($cache_key, $history, env('TERRARIUM_DEFAULT_HISTORY_CACHE_MINUTES', 5));
+
+        return $history;
+    }
+
+    /**
      * @param int $minutes
      * @param Carbon $to
      * @return mixed
@@ -192,6 +232,16 @@ class Terrarium extends CiliatusModel
     public function getSensorReadingsHumidity($minutes = 120, Carbon $to = null)
     {
         return $this->fetchSensorreadings('humidity_percent', $minutes, $to);
+    }
+
+    /**
+     * @param int $minutes
+     * @param Carbon|null $to
+     * @return Collection
+     */
+    public function getSensorReadings($minutes = 120, Carbon $to = null)
+    {
+        return $this->fetchSensorreadings(LogicalSensor::types(), $minutes, $to);
     }
 
 
@@ -263,13 +313,17 @@ class Terrarium extends CiliatusModel
         $from = clone $to;
         $from->subMinutes($minutes);
 
+        if (!is_array($type)) {
+            $type = [$type];
+        }
+
         /*
          * Fetch all logical sensors
          * of this terrarium with matching type
          */
         $logical_sensor_ids = [];
         foreach ($this->physical_sensors as $ps) {
-            foreach ($ps->logical_sensors()->where('type', $type)->get() as $ls) {
+            foreach ($ps->logical_sensors()->whereIn('type', $type)->get() as $ls) {
                 $logical_sensor_ids[] = $ls->id;
             }
         }
@@ -306,6 +360,8 @@ class Terrarium extends CiliatusModel
         return null;
     }
 
+    
+
     /**
      * @return bool
      */
@@ -330,6 +386,19 @@ class Terrarium extends CiliatusModel
     public function check_notifications_enabled()
     {
         return $this->notifications_enabled;
+    }
+
+    /**
+     *
+     */
+    public static function rebuild_cache()
+    {
+        $reading_types = LogicalSensor::types();
+        foreach (Terrarium::get() as $t) {
+            foreach ($reading_types as $type) {
+                $t->getSensorreadingsByType($type, true);
+            }
+        }
     }
 
     /**

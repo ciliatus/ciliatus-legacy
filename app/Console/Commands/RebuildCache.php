@@ -2,32 +2,36 @@
 
 namespace App\Console\Commands;
 
+use App\Terrarium;
 use Illuminate\Console\Command;
-use Illuminate\Foundation\Inspiring;
 
-class Inspire extends Command
+class RebuildCache extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'inspire';
+    protected $signature = 'ciliatus:cache:rebuild';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Display an inspiring quote';
+    protected $description = 'Rebuild caches to accelerate page load times.';
 
     /**
      * Execute the console command.
      *
-     * @return mixed
+     * @return boolean
      */
     public function handle()
     {
-        $this->comment(PHP_EOL.Inspiring::quote().PHP_EOL);
+        echo "Rebuilding terrarium caches ..." . PHP_EOL;
+        Terrarium::rebuild_cache();
+        echo "Done" . PHP_EOL;
+
+        return true;
     }
 }
