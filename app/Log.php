@@ -40,6 +40,18 @@ class Log extends CiliatusModel
             $new->source_id = Auth::user()->id;
         }
 
+        if (!is_null($new->source)) {
+            $new->source_name = $new->source->name;
+        }
+
+        if (!is_null($new->target)) {
+            $new->target_name = $new->target->name;
+        }
+
+        if (!is_null($new->associated)) {
+            $new->associatedWith_name = $new->associated->name;
+        }
+
         $new->save();
 
         return $new;

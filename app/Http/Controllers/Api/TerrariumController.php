@@ -132,12 +132,11 @@ class TerrariumController extends ApiController
      * filtered by type and grouped by
      * sensor reading group
      *
-     * @param Request $request
      * @param $id
      * @param $type
      * @return \Illuminate\Http\JsonResponse
      */
-    public function sensorreadingsByType(Request $request, $id, $type)
+    public function sensorreadingsByType($id, $type)
     {
 
         if (Gate::denies('api-read')) {
@@ -150,60 +149,17 @@ class TerrariumController extends ApiController
             return $this->respondNotFound('Terrarium not found');
         }
 
-        $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 120);
-        $cache_key = 'TerrariumController@sensorreadingsByType_' . $id . '_' . $type . '_' . $history_minutes;
-        if (Cache::has($cache_key)) {
-            return $this->respondWithData(Cache::get($cache_key), [
-                'meta' => [
-                    'from_cache' => true
-                ]
-            ]);
-        }
+        $data = $terrarium->getSensorreadingsByType($type);
 
-        switch ($type) {
-            case 'humidity_percent':
-                $values = array_column($terrarium->getSensorReadingsHumidity($history_minutes, Carbon::now())->toArray(), 'avg_rawvalue');
-                break;
-            case 'temperature_celsius':
-                $values = array_column($terrarium->getSensorReadingsTemperature($history_minutes, Carbon::now())->toArray(), 'avg_rawvalue');
-                break;
-            default:
-                return $this->setStatusCode(422)->respondWithError('Invalid type');
-        }
-
-        /*
-        $history = implode(',',
-            array_map(
-                function($val) {
-                    return round($val, 1);
-                },
-                $values
-            )
-        );
-        */
-
-        $history = array_map(
-            function($val) {
-                return round($val, 1);
-            },
-            $values
-        );
-
-        Cache::put($cache_key, $history, env('TERRARIUM_DEFAULT_HISTORY_CACHE_MINUTES', 5));
-
-        return $this->respondWithData($history, [
-            'meta' => [
-                'from_cache' => false
-            ]
-        ]);
+        return $this->respondWithData($data);
 
     }
 
     /**
      * Returns sensor readings
      * grouped by sensor reading group
-     * formatted as CSV
      *
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
@@ -214,19 +170,14 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $terrarium = Terrarium::with('physical_sensors', 'animals')->find($id);
+        $terrarium = Terrarium::find($id);
 
         if (!$terrarium) {
             return $this->respondNotFound('Terrarium not found');
         }
 
-        $terrarium->heartbeat_ok = $terrarium->heartbeatOk();
-
         $query = $this->filter($request, DB::table('sensorreadings'));
 
-        /*
-         * Get sensorreadings
-         */
         $sensor_types = ['humidity_percent', 'temperature_celsius'];
         $data = [];
 
@@ -238,37 +189,27 @@ class TerrariumController extends ApiController
                 }
             }
 
-            /*
-             * Get sensorreadings
-             */
             $data[$st] = (new SensorreadingRepository())->getAvgByLogicalSensor(clone $query, $logical_sensor_ids)->get();
 
         }
 
-        /*
-         * Format CSV
-         */
-        $data_arr = [];
-        foreach ($data as $type=>$values) {
-            foreach ($values as $reading) {
-                $data_arr[$reading->sensorreadinggroup_id]['created_at'] = $reading->created_at;
-                $data_arr[$reading->sensorreadinggroup_id][$type] = $reading->avg_rawvalue;
-            }
-        }
-
-        $data_csv = 'created_at';
-        foreach ($data as $type=>$values) {
-            $data_csv .= ',' . trans('labels.' . $type);
-        }
-
-        foreach ($data_arr as $group) {
-            $data_csv .= PHP_EOL . $group['created_at'];
+        if ($request->has('csv')) {
+            $data_arr = [];
+            $csv_fields = [];
+            $csv_fields['created_at'] = trans('labels.created_at');
             foreach ($data as $type=>$values) {
-                $data_csv .= ',' . (isset($group[$type]) ? $group[$type] : '');
+                $csv_fields[$type] = trans('labels.' . $type);
+                foreach ($values as $reading) {
+                    $data_arr[$reading->sensorreadinggroup_id]['created_at'] = $reading->created_at;
+                    $data_arr[$reading->sensorreadinggroup_id][$type] = $reading->avg_rawvalue;
+                }
             }
+
+            $data = $this->convert('csv', $csv_fields, $data_arr);
+
         }
 
-        return $this->setStatusCode(200)->respondWithData(['csv' => $data_csv]);
+        return $this->setStatusCode(200)->respondWithData($data);
     }
 
 

@@ -6,6 +6,7 @@ use App\Events\CriticalStateCreated;
 use App\Events\CriticalStateDeleted;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 /**
  * Class CriticalState
@@ -50,6 +51,8 @@ class CriticalState extends CiliatusModel
     public static function create(array $attributes = [])
     {
         $new = parent::create($attributes);
+        $new->save();
+
         Log::create([
             'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
             'target_id'     =>  $new->id,
@@ -90,17 +93,6 @@ class CriticalState extends CiliatusModel
      */
     public function save(array $options = [])
     {
-
-        if (!in_array('silent', $options)) {
-            Log::create([
-                'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-                'target_id' => $this->id,
-                'associatedWith_type' => $this->belongsTo_type,
-                'associatedWith_id' => $this->belongsTo_id,
-                'action' => 'update'
-            ]);
-        }
-
         if (!in_array('no_new_name', $options)) {
             $this->name = 'CS_';
             if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
@@ -241,6 +233,88 @@ class CriticalState extends CiliatusModel
         }
 
         return null;
+    }
+
+    /**
+     * Evaluates critical states
+     * Creates/deletes
+     */
+    public static function evaluate()
+    {
+
+        $result = [
+            'created' => 0,
+            'deleted' => 0,
+            'notified'=> 0,
+            'recovered'=>0
+        ];
+
+        /*
+         * Evaluate LogicalSensor states
+         * and create CriticalStates for
+         * critical sensors
+         */
+        foreach (LogicalSensor::get() as $ls) {
+            if (!$ls->stateOk()) {
+                $existing_cs = CriticalState::where('belongsTo_type', 'LogicalSensor')
+                    ->where('belongsTo_id', $ls->id)
+                    ->whereNull('recovered_at')
+                    ->get();
+                if ($existing_cs->count() < 1) {
+                    CriticalState::create([
+                        'belongsTo_type' => 'LogicalSensor',
+                        'belongsTo_id'   => $ls->id
+                    ]);
+
+                    $result['created']++;
+                }
+                else {
+                    foreach ($existing_cs as $cs) {
+                        if ($cs->created_at->diffInMinutes(Carbon::now()) > $ls->soft_state_duration_minutes
+                            && is_null($cs->notifications_sent_at)) {
+
+                            $cs->is_soft_state = false;
+                            $cs->save(['silent']);
+                            $cs->notify();
+
+                            $result['notified']++;
+                        }
+                    }
+                }
+            }
+        }
+
+        /*
+         * Evaluate active CriticalStates
+         * and recover them in case they are stateOk
+         *
+         * Delete them in case their belonging
+         * doest not exist
+         */
+        foreach (CriticalState::whereNull('recovered_at')->get() as $cs) {
+            if (!is_null($cs->belongsTo_type) && !is_null($cs->belongsTo_id)) {
+                $cs_belongs = nulL;
+                try {
+                    $cs_belongs = ('App\\' . $cs->belongsTo_type)::find($cs->belongsTo_id);
+                }
+                catch (FatalThrowableError $ex) {
+                    $cs->delete();
+                    $result['deleted']++;
+                }
+
+                if (is_null($cs_belongs)) {
+                    $cs->delete();
+                    $result['deleted']++;
+                }
+
+                if ($cs_belongs->stateOk()) {
+                    $cs->recover();
+                    $result['recovered']++;
+                }
+            }
+        }
+
+        return $result;
     }
 
     /**
