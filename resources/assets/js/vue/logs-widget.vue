@@ -5,9 +5,11 @@
                 <thead>
                 <tr>
                     <th data-field="source">
-                        {{ $t('labels.source') }}
-                        <div class="input-field inline" style="display: none;">
-                            <input id="filter_source" type="text" v-model="filter.source" v-on:keyup.enter="set_filter">
+                        <a href="#!" v-on:click="set_order('source_name')">{{ $t('labels.source') }}</a>
+                        <i v-show="order.field == 'source_name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
+                        <i v-show="order.field == 'source_name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
+                        <div class="input-field inline">
+                            <input id="filter_source" type="text" v-model="filter.source_name" v-on:keyup.enter="set_filter">
                             <label for="filter_source">Filter</label>
                         </div>
                     </th>
@@ -15,23 +17,27 @@
                         <a href="#!" v-on:click="set_order('action')">{{ $t('labels.action') }}</a>
                         <i v-show="order.field == 'action' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'action' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline" style="display: none;">
+                        <div class="input-field inline">
                             <input id="filter_action" type="text" v-model="filter.action" v-on:keyup.enter="set_filter">
                             <label for="filter_action">Filter</label>
                         </div>
                     </th>
                     <th data-field="target">
-                        {{ $t('labels.target') }}
-                        <div class="input-field inline" style="display: none;">
-                            <input id="filter_target" type="text" v-model="filter.target" v-on:keyup.enter="set_filter">
+                        <a href="#!" v-on:click="set_order('target_name')">{{ $t('labels.target') }}</a>
+                        <i v-show="order.field == 'target_name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
+                        <i v-show="order.field == 'target_name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
+                        <div class="input-field inline">
+                            <input id="filter_target" type="text" v-model="filter.target_name" v-on:keyup.enter="set_filter">
                             <label for="filter_target">Filter</label>
                         </div>
                     </th>
                     <th data-field="associated">
-                        {{ $t('labels.associated_with') }}
-                        <div class="input-field inline" style="display: none;">
-                            <input id="filter_associated" type="text" v-model="filter.associated" v-on:keyup.enter="set_filter">
-                            <label for="filter_associated">Filter</label>
+                        <a href="#!" v-on:click="set_order('associatedWith_name')">{{ $t('labels.associated_with') }}</a>
+                        <i v-show="order.field == 'associatedWith_name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
+                        <i v-show="order.field == 'associatedWith_name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
+                        <div class="input-field inline">
+                            <input id="filter_associated_with" type="text" v-model="filter.associatedWith_name" v-on:keyup.enter="set_filter">
+                            <label for="filter_associated_with">Filter</label>
                         </div>
                     </th>
                     <th>
@@ -130,11 +136,7 @@ export default {
         return {
             logs: [],
             meta: [],
-            filter: {
-                id: null,
-                name: null,
-                email: null
-            },
+            filter: {},
             filter_string: '',
             order: {
                 field: 'created_at',
