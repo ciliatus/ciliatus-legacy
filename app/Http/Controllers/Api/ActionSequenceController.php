@@ -9,6 +9,7 @@ use App\ActionSequenceTrigger;
 use App\Events\SystemStatusUpdated;
 use App\Http\Transformers\ActionSequenceTransformer;
 use App\Property;
+use App\Repositories\ActionSequenceRepository;
 use App\RunningAction;
 use App\Terrarium;
 use Auth;
@@ -59,15 +60,24 @@ class ActionSequenceController extends ApiController
          * Permission api-list:raw is required
          */
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
+            $action_sequences = $action_sequences->get();
+
+            foreach ($action_sequences as &$as) {
+                $as = (new ActionSequenceRepository($as))->show();
+            }
 
             return $this->setStatusCode(200)->respondWithData(
                 $this->actionSequenceTransformer->transformCollection(
-                    $action_sequences->get()->toArray()
+                    $action_sequences->toArray()
                 )
             );
         }
 
         $action_sequences = $action_sequences->paginate(env('PAGINATION_PER_PAGE', 20));
+
+        foreach ($action_sequences->items() as &$as) {
+            $as = (new ActionSequenceRepository($as))->show();
+        }
 
         return $this->setStatusCode(200)->respondWithPagination(
             $this->actionSequenceTransformer->transformCollection(
