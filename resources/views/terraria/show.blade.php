@@ -38,7 +38,7 @@
                         </div>
                         <div class="card-content">
                             <dygraph-graph show-filter-field="created_at" :show-filter-form="true"
-                                           source="{{ url('api/v1/terraria/' . $terrarium->id . '/sensorreadings?graph=true') }}"></dygraph-graph>
+                                           source="{{ url('api/v1/terraria/' . $terrarium->id . '/sensorreadings') }}"></dygraph-graph>
                         </div>
                     </div>
                 </div>
