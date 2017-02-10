@@ -34,21 +34,22 @@ class Log extends CiliatusModel
     {
 
         $new = parent::create($attributes);
+        $new->save();
 
         if (!Auth::guest()) {
             $new->source_type = 'User';
             $new->source_id = Auth::user()->id;
         }
 
-        if (!is_null($new->source)) {
+        if (!is_null($new->belongsTo_type) && !is_null($new->belongsTo_id)) {
             $new->source_name = $new->source->name;
         }
 
-        if (!is_null($new->target)) {
+        if (!is_null($new->target_type) && !is_null($new->target_id)) {
             $new->target_name = $new->target->name;
         }
 
-        if (!is_null($new->associated)) {
+        if (!is_null($new->associatedWith_type) && !is_null($new->associatedWith_id)) {
             $new->associatedWith_name = $new->associated->name;
         }
 
