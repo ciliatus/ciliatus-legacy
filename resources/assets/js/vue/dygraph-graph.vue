@@ -102,13 +102,13 @@ export default {
         build: function() {
             $('#dygraph_' + this.id + '_loading').show();
             var that = this;
-            var url = this.source + '&filter[' + this.FilterColumn + ']=ge:' + this.get_filter_from_date() + ':and:le:' + this.get_filter_to_date();
+            var url = this.source + '?csv=true&filter[' + this.FilterColumn + ']=ge:' + this.get_filter_from_date() + ':and:le:' + this.get_filter_to_date();
 
             $.ajax({
                 url: url,
                 method: 'GET',
                 success: function (data) {
-                    that.data = data.data.csv;
+                    that.data = data.data;
                     if (that.data.split(/\r\n|\r|\n/).length > 1) {
                         that.draw();
                     }
@@ -133,6 +133,9 @@ export default {
                 this.data,
                 {
                     'connectSeparatedPoints': true,
+                    rollPeriod: 20,
+                    showRangeSelector: true,
+                    legend: 'always',
                     colors: ['#5555EE', '#CC5555'],
                     axisLineColor: '#D4D4D4'
                 }
