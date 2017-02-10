@@ -2,6 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Animal;
+use App\Repositories\AnimalFeedingScheduleRepository;
+use App\Repositories\AnimalWeighingScheduleRepository;
+use App\User;
 use Illuminate\Console\Command;
 
 class SendNotifications extends Command
@@ -27,6 +31,55 @@ class SendNotifications extends Command
      */
     public function handle()
     {
+        $is_weighings_due = false;
+        $weighings_due = '';
+        foreach (Animal::get() as $animal) {
+            foreach ($animal->weighing_schedules as $afs) {
+                $afs = (new AnimalWeighingScheduleRepository($afs))->show();
+                if ($afs->next_weighing_at_diff <= 0) {
+                    $is_weighings_due = true;
+                    $weighings_due .= PHP_EOL . ' * ' . $animal;
+                }
+            }
+        }
+
+        $is_feedings_due = false;
+        $feedings_due = '';
+        foreach (Animal::get() as $animal) {
+            foreach ($animal->feeding_schedules as $afs) {
+                $afs = (new AnimalFeedingScheduleRepository($afs))->show();
+                if ($afs->next_feeding_at_diff <= 0) {
+                    $is_feedings_due = true;
+                    $feedings_due .= PHP_EOL . ' * ' . $animal->display_name . ': ' . $afs->name;
+                }
+            }
+        }
+
+        if ($is_feedings_due || $is_weighings_due) {
+            foreach (User::get() as $u) {
+
+                if ($u->setting('notifications_enabled') == 'on') {
+
+                    echo "Sending notifications to " . $u->email;
+
+                    $text = trans('messages.daily.intro', [], '', $u->locale) . PHP_EOL;
+
+                    if ($is_feedings_due) {
+                        $text .= trans('messages.daily.feedings_due', [], '', $u->locale);
+                        $text .= PHP_EOL . $feedings_due;
+                    }
+
+                    if ($is_weighings_due) {
+                        $text .= trans('messages.daily.weighings_due', [], '', $u->locale);
+                        $text .= PHP_EOL . $weighings_due;
+                    }
+
+                    $u->message($text);
+                }
+
+            }
+        }
+
         \Log::debug('Notifications sent');
         return true;
     }

@@ -20,5 +20,11 @@ return [
     'critical_state_recovery_notification_logical_sensor' => [
         'humidity_percent' => 'OK: The sensor :logical_sensor reports a humidity of :humidity_percent%C.',
         'temperature_celsius' => 'OK: The sensor :logical_sensor reports a temperature of :temperature_celsius°C.'
+    ],
+
+    'daily' => [
+        'intro' => 'Daily reminders',
+        'feedings_due'  =>  'Feedings due:',
+        'weighings_due' =>  'Weighings due:'
     ]
 ];

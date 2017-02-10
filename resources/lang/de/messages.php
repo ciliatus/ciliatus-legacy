@@ -20,5 +20,11 @@ return [
     'critical_state_recovery_notification_logical_sensor' => [
         'humidity_percent' => 'OK: Der Sensor :logical_sensor meldet eine Feuchtigkeit von :humidity_percent%.',
         'temperature_celsius' => 'OK: Der Sensor :terrarium meldet eine Temperatur von :temperature_celsius°C.'
+    ],
+
+    'daily' => [
+        'intro' => 'Tägliche Erinnerungen',
+        'feedings_due'  =>  'Fällige Fütterungen:',
+        'weighings_due' =>  'Fällige Wiegungen:'
     ]
 ];
