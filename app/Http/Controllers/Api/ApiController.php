@@ -13,7 +13,6 @@ use Illuminate\Http\Request;
  */
 class ApiController extends Controller
 {
-
     /**
      * @var
      */
@@ -232,6 +231,7 @@ class ApiController extends Controller
             ];
         }
 
+        return null;
     }
 
     /*
@@ -308,6 +308,48 @@ class ApiController extends Controller
         }
 
         return $query;
+    }
+
+    /**
+     * Converts selected fields from data array
+     * to the desired format (e.g. csv)
+     *
+     * @param $type
+     * @param $fields
+     * @param $data
+     * @return null|string
+     */
+    public function convert($type, $fields, $data)
+    {
+        switch ($type) {
+
+            case 'csv':
+                $fields_final = [];
+                foreach ($fields as $f=>$display_name) {
+                    if (is_null($display_name)) {
+                        $fields_final[] = $f;
+                    }
+                    else {
+                        $fields_final[] = $display_name;
+                    }
+                }
+
+                $csv = implode(',', $fields_final);
+
+                foreach ($data as $row) {
+                    $row_arr = [];
+                    foreach ($fields as $f=>$display_name) {
+                        if (isset($row[$f])) {
+                            $row_arr[] = $row[$f];
+                        }
+                    }
+                    $csv .= PHP_EOL . implode(',', $row_arr);
+                }
+
+                return $csv;
+        }
+
+        return null;
     }
 
     /**
