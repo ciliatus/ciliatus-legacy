@@ -128,7 +128,7 @@ class CriticalState extends CiliatusModel
                         $u->message(trans('messages.critical_state_notification_logical_sensor.' . $ls->type, [
                             'logical_sensor' => $ls->name,
                             $ls->type => $ls->getCurrentCookedValue()
-                        ]));
+                        ], '', $u->locale));
                         break;
                     default:
                         $u->message(trans('messages.critical_state_generic', [
@@ -175,7 +175,7 @@ class CriticalState extends CiliatusModel
                         $u->message(trans('messages.critical_state_recovery_notification_logical_sensor.' . $ls->type, [
                             'logical_sensor' => $ls->name,
                             $ls->type => $ls->getCurrentCookedValue()
-                        ]));
+                        ], '', $u->locale));
                         break;
                     default:
                         $u->message(trans('messages.critical_state_generic', [
@@ -207,7 +207,7 @@ class CriticalState extends CiliatusModel
             $this->notifyRecovered();
 
         $this->recovered_at = Carbon::now();
-        $this->save(['silent']);
+        $this->save();
 
         Log::create([
             'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
