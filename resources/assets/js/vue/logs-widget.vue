@@ -52,48 +52,41 @@
 
                 <tr v-for="log in logs">
                     <td>
-                        <span v-if="log.source !== null">
-                            <i class="material-icons" v-show="log.source_type == 'Controlunit'">developer_board</i>
-                            <i class="material-icons" v-show="log.source_type == 'Pump'">rotate_right</i>
-                            <i class="material-icons" v-show="log.source_type == 'Valve'">transform</i>
-                            <i class="material-icons" v-show="log.source_type == 'PhysicalSensor'">memory</i>
-                            <i class="material-icons" v-show="log.source_type == 'LogicalSensor'">memory</i>
-                            <i class="material-icons" v-show="log.source_type == 'Animal'">pets</i>
-                            <i class="material-icons" v-show="log.source_type == 'Terrarium'">video_label</i>
-                            <i class="material-icons" v-show="log.source_type == 'User'">person</i>
-                            <i class="material-icons" v-show="log.source_type == 'UserAbility'">security</i>
+                        <span v-if="log.source != null">
+                            <i class="material-icons" v-show="log.source">{{ log.source.icon }}</i>
                             <a v-bind:href="log.source.url">{{ log.source.name }}</a>
                         </span>
+                        <span v-else>
+                            {{ log.source_name }}
+                        </span>
                     </td>
-                    <td>{{ log.action }}</td>
+
                     <td>
-                        <span v-if="log.target !== null">
-                            <i class="material-icons" v-show="log.target_type == 'Controlunit'">developer_board</i>
-                            <i class="material-icons" v-show="log.target_type == 'Pump'">rotate_right</i>
-                            <i class="material-icons" v-show="log.target_type == 'Valve'">transform</i>
-                            <i class="material-icons" v-show="log.target_type == 'PhysicalSensor'">memory</i>
-                            <i class="material-icons" v-show="log.target_type == 'LogicalSensor'">memory</i>
-                            <i class="material-icons" v-show="log.target_type == 'Animal'">pets</i>
-                            <i class="material-icons" v-show="log.target_type == 'Terrarium'">video_label</i>
-                            <i class="material-icons" v-show="log.target_type == 'User'">person</i>
-                            <i class="material-icons" v-show="log.target_type == 'UserAbility'">security</i>
+                        <span v-if="log.action == 'start'" class="material-icons">play_arrow</span>
+                        <span v-if="log.action == 'finish'" class="material-icons">done</span>
+                        {{ log.action }}
+                    </td>
+
+                    <td>
+                        <span v-if="log.target != null">
+                            <i class="material-icons" v-show="log.target">{{ log.target.icon }}</i>
                             <a v-bind:href="log.target.url">{{ log.target.name }}</a>
                         </span>
-                    </td>
-                    <td>
-                        <span v-if="log.associated !== null">
-                            <i class="material-icons" v-show="log.associated_type == 'Controlunit'">developer_board</i>
-                            <i class="material-icons" v-show="log.associated_type == 'Pump'">rotate_right</i>
-                            <i class="material-icons" v-show="log.associated_type == 'Valve'">transform</i>
-                            <i class="material-icons" v-show="log.associated_type == 'PhysicalSensor'">memory</i>
-                            <i class="material-icons" v-show="log.associated_type == 'LogicalSensor'">memory</i>
-                            <i class="material-icons" v-show="log.associated_type == 'Animal'">pets</i>
-                            <i class="material-icons" v-show="log.associated_type == 'Terrarium'">video_label</i>
-                            <i class="material-icons" v-show="log.associated_type == 'User'">person</i>
-                            <i class="material-icons" v-show="log.associated_type == 'UserAbility'">security</i>
-                            <a v-bind:href="log.associated.url">{{ log.associated.name }}</a>
+                        <span v-else>
+                            {{ log.target_name }}
                         </span>
                     </td>
+
+                    <td>
+                        <span v-if="log.associated != null">
+                            <i class="material-icons" v-show="log.associated">{{ log.associated.icon }}</i>
+                            <a v-bind:href="log.associated.url">{{ log.associated.name }}</a>
+                        </span>
+                        <span v-else>
+                            {{ log.associated_name }}
+                        </span>
+                    </td>
+
                     <td>
                         {{ log.timestamps.created }}
                     </td>
@@ -101,7 +94,7 @@
                 </tbody>
             </table>
 
-            <ul class="pagination">
+            <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
                 <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
                     <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
                 </li>
