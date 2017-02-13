@@ -133,7 +133,7 @@ export default {
                 this.data,
                 {
                     'connectSeparatedPoints': true,
-                    rollPeriod: 20,
+                    rollPeriod: 10,
                     showRangeSelector: true,
                     legend: 'always',
                     colors: ['#5555EE', '#CC5555'],
