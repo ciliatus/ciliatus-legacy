@@ -20,7 +20,7 @@
                                     <select name="action_sequence" disabled>
                                         @foreach ($action_sequences as $as)
                                             <option value="{{ $as->id }}"
-                                                    @if($action_sequence_intention->id == $as->id) selected @endif >@if(is_null($as->display_name)){{ $as->name }}@else{{ $as->display_name }}@endif
+                                                    @if($action_sequence_intention->sequence->id == $as->id) selected @endif >@if(is_null($as->display_name)){{ $as->name }}@else{{ $as->display_name }}@endif
                                             </option>
                                         @endforeach
                                     </select>
@@ -54,8 +54,8 @@
                                 </div>
                                 <div class="input-field col s12 m6 l6">
                                     <select name="intention">
-                                        <option value="increase" @if($action_sequence_intention->condition == 'increase') selected @endif>@lang('labels.increase')</option>
-                                        <option value="decrease" @if($action_sequence_intention->condition == 'decrease') selected @endif>@lang('labels.decrease')</option>
+                                        <option value="increase" @if($action_sequence_intention->intention == 'increase') selected @endif>@lang('labels.increase')</option>
+                                        <option value="decrease" @if($action_sequence_intention->intention == 'decrease') selected @endif>@lang('labels.decrease')</option>
                                     </select>
                                     <label for="intention"> </label>
                                 </div>

@@ -27,9 +27,9 @@ class ActionSequenceScheduleRepository extends Repository {
     public function show()
     {
         $this->scope->running = $this->scope->running();
-        $this->scope->will_run_today = $this->scope->will_run_today();
-        $this->scope->ran_today = $this->scope->ran_today();
-        $this->scope->is_overdue = $this->scope->is_overdue(10);
+        $this->scope->will_run_today = $this->scope->willRunToday();
+        $this->scope->ran_today = $this->scope->ranToday();
+        $this->scope->is_overdue = $this->scope->isOverdue(10);
 
         $this->scope->icon = $this->scope->icon();
         $this->scope->url = $this->scope->url();

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Action;
 use App\ActionSequence;
+use App\ActionSequenceIntention;
 use App\ActionSequenceSchedule;
 use App\ActionSequenceTrigger;
 use App\Events\SystemStatusUpdated;
@@ -291,6 +292,12 @@ class ActionSequenceController extends ApiController
         foreach (ActionSequenceTrigger::get() as $ast) {
             if ($ast->running()) {
                 $ast->finish();
+            }
+        }
+
+        foreach (ActionSequenceIntention::get() as $asi) {
+            if ($asi->running()) {
+                $asi->finish();
             }
         }
 

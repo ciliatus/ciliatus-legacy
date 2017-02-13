@@ -68,6 +68,14 @@ class LogicalSensor extends CiliatusModel
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function critical_states()
+    {
+        return $this->hasMany('App\CriticalState', 'belongsTo_id')->where('belongsTo_type', 'LogicalSensor');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function thresholds()
     {
         return $this->hasMany('App\LogicalSensorThreshold');

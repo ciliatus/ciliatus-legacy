@@ -256,10 +256,8 @@ class CriticalState extends CiliatusModel
          */
         foreach (LogicalSensor::get() as $ls) {
             if (!$ls->stateOk()) {
-                $existing_cs = CriticalState::where('belongsTo_type', 'LogicalSensor')
-                    ->where('belongsTo_id', $ls->id)
-                    ->whereNull('recovered_at')
-                    ->get();
+                $existing_cs = $ls->critical_states()->whereNull('recovered_at')->get();
+
                 if ($existing_cs->count() < 1) {
                     CriticalState::create([
                         'belongsTo_type' => 'LogicalSensor',

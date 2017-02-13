@@ -44,7 +44,7 @@ class ActionSequenceSchedule extends CiliatusModel
     {
         $new = parent::create($attributes);
 
-        if ($new->starts_today()->lt(Carbon::now()->subMinutes(10))) {
+        if ($new->startsToday()->lt(Carbon::now()->subMinutes(10))) {
             $new->last_start_at = Carbon::now();
             $new->last_finished_at = Carbon::now();
         }
@@ -90,14 +90,14 @@ class ActionSequenceSchedule extends CiliatusModel
     /**
      * @return \Carbon\Carbon
      */
-    public function starts_today()
+    public function startsToday()
     {
-        $starts_today = Carbon::now();
-        $starts_today->hour = explode(':', $this->starts_at)[0];
-        $starts_today->minute = explode(':', $this->starts_at)[1];
-        $starts_today->second = 0;
+        $startsToday = Carbon::now();
+        $startsToday->hour = explode(':', $this->starts_at)[0];
+        $startsToday->minute = explode(':', $this->starts_at)[1];
+        $startsToday->second = 0;
 
-        return $starts_today;
+        return $startsToday;
     }
 
     /**
@@ -135,119 +135,69 @@ class ActionSequenceSchedule extends CiliatusModel
     }
 
     /**
+     * @param Controlunit $controlunit
      * @return array|void
      */
-    public static function createAndUpdateRunningActions()
+    public static function createAndUpdateRunningActions(Controlunit $controlunit)
     {
         if (ActionSequence::stopped()) {
             return;
         }
 
         foreach (ActionSequenceSchedule::get() as $ass) {
-            $starts_today = Carbon::now();
-            $starts_today->hour = explode(':', $ass->starts_at)[0];
-            $starts_today->minute = explode(':', $ass->starts_at)[1];
-            $starts_today->second = 0;
 
-            if ($starts_today->lt(Carbon::now()) && (is_null($ass->last_finished_at) || !$ass->last_finished_at->isToday())) {
+            if (!$ass->shouldBeHandledBy($controlunit)) {
+                continue;
+            }
 
-                if (is_null($ass->last_start_at) || $ass->last_start_at->lt($starts_today)) {
-                    $ass->start();
-                }
+            if (!$ass->checkConsistency()) {
+                continue;
+            }
+
+            if (!$ass->running() && !$ass->shouldBeRunning()) {
+                continue;
+            }
+
+            if ($ass->shouldBeStarted()) {
+                $ass->start();
+            }
+
+            $all_actions_finished = true;
+
+            foreach ($ass->sequence->actions as $a) {
+                $running_action = RunningAction::where('action_id', $a->id)
+                    ->where('action_sequence_schedule_id', $ass->id)
+                    ->first();
 
                 /*
-                 * Loop actions of the task sequence
-                 * and check if conditions to
-                 * start these actions are met
+                 * Check whether the RunningAction
+                 * ran long enough
                  */
-                if (is_null($ass->sequence))
-                    continue;
-
-                if (is_null($ass->sequence->actions))
-                    continue;
-
-                $all_actions_finished = true;
-
-                foreach ($ass->sequence->actions as $a) {
-                    $running_action = RunningAction::where('action_id', $a->id)
-                        ->where('action_sequence_schedule_id', $ass->id)
-                        ->first();
-
-                    /*
-                     * Check whether the RunningAction
-                     * ran long enough
-                     */
-                    if (!is_null($running_action)
-                        && $running_action->started_at->addMinutes($a->duration_minutes)->lt(Carbon::now())
-                        && is_null($running_action->finished_at)) {
-
-                        $running_action->finished_at = Carbon::now();
-                        $running_action->save();
-                    }
-                    elseif (is_null($running_action)) {
+                if (is_null($running_action)) {
+                    if ($a->startConditionsMetForSchedule($ass, $controlunit)) {
                         $all_actions_finished = false;
-                        $start = true;
-
-                        /*
-                         * Check conditions before
-                         * starting the action
-                         */
-                        if (!is_null($a->wait_for_started_action_id)) {
-                            $running_action = RunningAction::where('action_id', $a->wait_for_started_action_id)
-                                ->where('action_sequence_schedule_id', $ass->id)
-                                ->first();
-
-                            if (is_null($running_action))
-                                $start = false;
-                        }
-
-                        if (!is_null($a->wait_for_finished_action_id)) {
-                            $running_action = RunningAction::where('action_id', $a->wait_for_finished_action_id)
-                                ->where('action_sequence_schedule_id', $ass->id)
-                                ->first();
-
-                            if (is_null($running_action))
-                                $start = false;
-                            elseif (is_null($running_action->finished_at)
-                                    || !$running_action->finished_at->lt(Carbon::now())) {
-
-                                $start = false;
-                            }
-
-                        }
-
-                        /*
-                         * Create a new RunningAction
-                         */
-                        if ($start) {
-                            $new_ra = RunningAction::create([
-                                'action_id' => $a->id,
-                                'action_sequence_schedule_id' => $ass->id,
-                                'started_at' => Carbon::now()
-                            ]);
-                        }
-                    }
-                    elseif (!is_null($running_action)
-                            && $running_action->started_at->addMinutes($a->duration_minutes)->lt(Carbon::now())) {
-                    }
-                    else {
-                        $all_actions_finished = false;
+                        RunningAction::create([
+                            'action_id' => $a->id,
+                            'action_sequence_schedule_id' => $ass->id,
+                            'started_at' => Carbon::now()
+                        ]);
                     }
                 }
-
-                if ($all_actions_finished) {
-                    foreach ($ass->sequence->actions as $a) {
-                        $running_actions = RunningAction::where('action_sequence_schedule_id', $ass->id)->get();
-                        foreach ($running_actions as $ra) {
-                            $ra->delete();
-                        }
-                    }
-                    $ass->finish();
-
-                    if ($ass->runonce == true) {
-                        $ass->delete();
-                    }
+                elseif ($running_action->shouldBeStopped()) {
+                    $running_action->stop();
                 }
+                else {
+                    // Action still running
+                    $all_actions_finished = false;
+                }
+            }
+
+            if ($all_actions_finished) {
+                $running_actions = RunningAction::where('action_sequence_schedule_id', $ass->id)->get();
+                foreach ($running_actions as $ra) {
+                    $ra->delete();
+                }
+                $ass->finish();
             }
         }
         
@@ -266,33 +216,104 @@ class ActionSequenceSchedule extends CiliatusModel
      * @TODO: Clean this up. It's horrible
      * @return bool
      */
-    public function will_run_today()
+    public function willRunToday()
     {
-        return (($this->starts_today()->lt(Carbon::now()) &&
-                (is_null($this->last_finished_at) ||
-                !$this->last_finished_at->isToday()))
-                || $this->starts_today()->gt(Carbon::now()))
+        return (
+                    (
+                          $this->startsToday()->lt(Carbon::now())
+                          && (is_null($this->last_finished_at) || !$this->last_finished_at->isToday())
+                    )
+                    || $this->startsToday()->gt(Carbon::now())
+                )
                 && !$this->running();
+    }
+
+    /**
+     * Checks whether any of the sequences actions
+     * can be started by this $controlunit.
+     *
+     * If not return false
+     *
+     * @param Controlunit $controlunit
+     * @return bool
+     */
+    public function shouldBeHandledBy(Controlunit $controlunit)
+    {
+        foreach ($this->sequence->actions as $a) {
+            if (!is_null($a->target_object()) && $a->target_object()->controlunit_id == $controlunit->id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns true if the sequence did not
+     * run today but the start time has passed
+     *
+     * @return bool
+     */
+    public function shouldBeRunning()
+    {
+        return $this->startsToday()->lt(Carbon::now())
+            && (is_null($this->last_finished_at) || !$this->last_finished_at->isToday());
+    }
+
+    /**
+     * Checks whether any of the sequences actions
+     * can be started by this $controlunit.
+     *
+     * If not return false,
+     * otherwise return result of shouldBeStarted
+     *
+     * @param Controlunit $controlunit
+     * @return bool
+     */
+    public function shouldBeStartedBy(Controlunit $controlunit)
+    {
+        return $this->shouldBeHandledBy($controlunit) && $this->shouldBeStarted();
+    }
+
+    /**
+     * Returns true if the sequence should be running
+     * but is not running
+     *
+     * @return bool
+     */
+    public function shouldBeStarted()
+    {
+        return $this->shouldBeRunning() && !$this->running();
+    }
+
+    /**
+     * Return true if the schedule has a valid sequence
+     *
+     * @return bool
+     */
+    public function checkConsistency()
+    {
+        return !is_null($this->sequence);
     }
 
     /**
      * @param $minutes
      * @return bool
      */
-    public function is_overdue($minutes = 10)
+    public function isOverdue($minutes = 10)
     {
-        $starts_today = Carbon::now();
-        $starts_today->hour = explode(':', $this->starts_at)[0];
-        $starts_today->minute = explode(':', $this->starts_at)[1];
-        $starts_today->second = 0;
+        $startsToday = Carbon::now();
+        $startsToday->hour = explode(':', $this->starts_at)[0];
+        $startsToday->minute = explode(':', $this->starts_at)[1];
+        $startsToday->second = 0;
 
-        return !$this->running() && !$this->ran_today() && $starts_today->addMinutes($minutes)->lt(Carbon::now());
+        return !$this->running() && !$this->ranToday() && $startsToday->addMinutes($minutes)->lt(Carbon::now());
     }
 
     /**
      * @return bool
      */
-    public function ran_today()
+    public function ranToday()
     {
         return !is_null($this->last_finished_at) && $this->last_finished_at->isToday();
     }

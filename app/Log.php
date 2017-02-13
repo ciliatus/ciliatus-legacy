@@ -2,8 +2,11 @@
 
 namespace App;
 
+use App\Http\Transformers\GenericTransformer;
+use App\Repositories\GenericRepository;
 use Auth;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class Log
@@ -41,7 +44,7 @@ class Log extends CiliatusModel
             $new->source_id = Auth::user()->id;
         }
 
-        if (!is_null($new->belongsTo_type) && !is_null($new->belongsTo_id)) {
+        if (!is_null($new->source_type) && !is_null($new->source_type)) {
             $new->source_name = $new->source->name;
         }
 
@@ -81,6 +84,82 @@ class Log extends CiliatusModel
     public function associated()
     {
         return $this->belongsTo('App\\' . $this->associatedWith_type, 'associatedWith_id');
+    }
+
+    /**
+     *
+     * @param $transform boolean
+     */
+    public function addSourceTargetAssociated($transform = false)
+    {
+        if (!is_null($this->source_type) && !is_null($this->source_id)) {
+            $obj = null;
+
+            try {
+                $obj = $this->source;
+            }
+            catch (ModelNotFoundException $ex) {
+                \Log::debug('source not found ' . $ex->getMessage());
+            }
+
+            if (!is_null($obj)) {
+                $this->addSource($transform);
+            }
+        }
+
+        if (!is_null($this->target_type) && !is_null($this->target_id)) {
+            $obj = null;
+
+            try {
+                $obj = $this->target;
+            }
+            catch (ModelNotFoundException $ex) {
+                \Log::debug('target not found ' . $ex->getMessage());
+            }
+
+            if (!is_null($obj)) {
+                $this->addTarget($transform);
+            }
+        }
+        
+        if (!is_null($this->associatedWith_type) && !is_null($this->associatedWith_id)) {
+            $obj = null;
+
+            try {
+                $obj = $this->associated;
+            }
+            catch (ModelNotFoundException $ex) {
+                \Log::debug('assoc not found ' . $ex->getMessage());
+            }
+
+            if (!is_null($obj)) {
+                $this->addAssociated($transform);
+            }
+        }
+    }
+
+    public function addSource($transform = false)
+    {
+        $this->source = (new GenericRepository($this->source))->show();
+        if ($transform) {
+            $this->source = (new GenericTransformer())->transform($this->source);
+        }
+    }
+
+    public function addTarget($transform = false)
+    {
+        $this->target = (new GenericRepository($this->target))->show();
+        if ($transform) {
+            $this->target = (new GenericTransformer())->transform($this->target);
+        }
+    }
+
+    public function addAssociated($transform = false)
+    {
+        $this->associated = (new GenericRepository($this->associated))->show();
+        if ($transform) {
+            $this->associated = (new GenericTransformer())->transform($this->associated);
+        }
     }
 
     /**

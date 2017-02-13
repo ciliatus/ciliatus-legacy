@@ -105,9 +105,9 @@ class Controlunit extends CiliatusModel
             'Pump' => []
         ];
 
-        ActionSequenceSchedule::createAndUpdateRunningActions();
-        ActionSequenceTrigger::createAndUpdateRunningActions();
-        ActionSequenceIntention::createAndUpdateRunningActions();
+        ActionSequenceSchedule::createAndUpdateRunningActions($this);
+        ActionSequenceTrigger::createAndUpdateRunningActions($this);
+        ActionSequenceIntention::createAndUpdateRunningActions($this);
 
         foreach (RunningAction::whereNull('finished_at')->get() as $ra) {
             if ($ra->action->target_object()->controlunit_id == $this->id) {

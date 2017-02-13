@@ -106,10 +106,10 @@ class DashboardController extends ApiController
         foreach (Terrarium::get() as $terrarium) {
             foreach ($terrarium->action_sequences as $as) {
                 foreach ($as->schedules()->with('sequence')->get() as $ass) {
-                    if ($ass->will_run_today() && !$ass->is_overdue()) {
+                    if ($ass->willRunToday() && !$ass->isOverdue()) {
                         $action_sequence_schedules['due'][] = (new ActionSequenceScheduleTransformer())->transform($ass->toArray());
                     }
-                    elseif ($ass->is_overdue()) {
+                    elseif ($ass->isOverdue()) {
                         $action_sequence_schedules['overdue'][] = (new ActionSequenceScheduleTransformer())->transform($ass->toArray());
                     }
                     elseif ($ass->running()) {

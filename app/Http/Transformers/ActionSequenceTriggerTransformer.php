@@ -36,7 +36,7 @@ class ActionSequenceTriggerTransformer extends Transformer
             ],
             'states'    => [
                 'running'       => isset($item['running']) ? $item['running'] : false,
-                'trigger_active'=> isset($item['trigger_active']) ? $item['trigger_active'] : false,
+                'should_be_started' => isset($item['should_be_started']) ? $item['should_be_started'] : false,
             ],
             'timestamps'    => [
                 'last_start'    => isset($item['last_start_at']) ? $item['last_start_at'] : null,

@@ -56,9 +56,7 @@ class LogController extends ApiController
             $logs = $logs->get();
 
             foreach ($logs as &$l) {
-                $l->source = (new GenericTransformer())->transform((new GenericRepository($l->source()->get()->first()))->show());
-                $l->target = (new GenericTransformer())->transform((new GenericRepository($l->target()->get()->first()))->show());
-                $l->associated = (new GenericTransformer())->transform((new GenericRepository($l->associated()->get()->first()))->show());
+                $l->addSourceTargetAssociated(true);
             }
 
             return $this->setStatusCode(200)->respondWithData(
@@ -72,18 +70,7 @@ class LogController extends ApiController
         $logs = $logs->paginate(env('PAGINATION_PER_PAGE', 20));
 
         foreach ($logs->items() as &$l) {
-            if (!is_null($l->source_type) && !is_null($l->source_id)) {
-                $l->source = (new GenericTransformer())->transform((new GenericRepository($l->source()->get()->first()))->show());
-
-            }
-
-            if (!is_null($l->target_type) && !is_null($l->target_id)) {
-                $l->target = (new GenericTransformer())->transform((new GenericRepository($l->target()->get()->first()))->show());
-            }
-
-            if (!is_null($l->associatedWith_type) && !is_null($l->associatedWith_type)) {
-                $l->associated = (new GenericTransformer())->transform((new GenericRepository($l->associated()->get()->first()))->show());
-            }
+            $l->addSourceTargetAssociated(true);
         }
 
         return $this->setStatusCode(200)->respondWithPagination(

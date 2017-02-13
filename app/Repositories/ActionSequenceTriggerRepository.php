@@ -27,7 +27,7 @@ class ActionSequenceTriggerRepository extends Repository {
     public function show()
     {
         $this->scope->running = $this->scope->running();
-        $this->scope->trigger_active = $this->scope->trigger_active();
+        $this->scope->should_be_started = $this->scope->shouldBeStarted();
 
         $this->scope->icon = $this->scope->icon();
         $this->scope->url = $this->scope->url();

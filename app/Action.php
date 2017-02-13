@@ -106,6 +106,157 @@ class Action extends CiliatusModel
     }
 
     /**
+     * Returns true if the target component's
+     * controlunit matches $controlunit parameter
+     *
+     * @param Controlunit $controlunit
+     * @return bool
+     */
+    public function belongsToControlunit(Controlunit $controlunit)
+    {
+        if (!is_null($this->target_object())) {
+            return ($this->target_object()->controlunit_id == $controlunit->id);
+        }
+
+        return false;
+    }
+
+    /**
+     * Returns true of conditions
+     * to start his action are met
+     * for the specified action sequence schedule
+     *
+     * @param ActionSequenceSchedule $ass
+     * @param Controlunit $controlunit null
+     * @return boolean
+     */
+    public function startConditionsMetForSchedule(ActionSequenceSchedule $ass, Controlunit $controlunit = null)
+    {
+
+        if(!is_null($controlunit) && !$this->belongsToControlunit($controlunit)) {
+            return false;
+        }
+
+        if (!is_null($this->wait_for_started_action_id)) {
+            $running_action = RunningAction::where('action_id', $this->wait_for_started_action_id)
+                                           ->where('action_sequence_schedule_id', $ass->id)
+                                           ->first();
+
+            if (is_null($running_action)) {
+                return false;
+            }
+        }
+
+        if (!is_null($this->wait_for_finished_action_id)) {
+            $running_action = RunningAction::where('action_id', $this->wait_for_finished_action_id)
+                                           ->where('action_sequence_schedule_id', $ass->id)
+                                           ->first();
+
+            if (is_null($running_action)) {
+                return false;
+            }
+            elseif (is_null($running_action->finished_at)
+                || !$running_action->finished_at->lt(Carbon::now())) {
+
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns true of conditions
+     * to start his action are met
+     * for the specified action sequence trigger
+     *
+     * @param ActionSequenceTrigger $ast
+     * @param Controlunit $controlunit null
+     * @return boolean
+     */
+    public function startConditionsMetForTrigger(ActionSequenceTrigger $ast, Controlunit $controlunit = null)
+    {
+
+        if(!is_null($controlunit) && !$this->belongsToControlunit($controlunit)) {
+            return false;
+        }
+
+        if (!is_null($this->wait_for_started_action_id)) {
+            $running_action = RunningAction::where('action_id', $this->wait_for_started_action_id)
+                                           ->where('action_sequence_trigger_id', $ast->id)
+                                           ->first();
+
+            if (is_null($running_action)) {
+                return false;
+            }
+        }
+
+        if (!is_null($this->wait_for_finished_action_id)) {
+            $running_action = RunningAction::where('action_id', $this->wait_for_finished_action_id)
+                ->where('action_sequence_trigger_id', $ast->id)
+                ->first();
+
+            if (is_null($running_action)) {
+                return false;
+            }
+            elseif (is_null($running_action->finished_at)
+                || !$running_action->finished_at->lt(Carbon::now())) {
+
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+
+    /**
+     * Returns true of conditions
+     * to start his action are met
+     * for the specified action sequence intention
+     *
+     * @param ActionSequenceIntention $asi
+     * @param Controlunit $controlunit null
+     * @return boolean
+     */
+    public function startConditionsMetForIntention(ActionSequenceIntention $asi, Controlunit $controlunit = null)
+    {
+
+        if(!is_null($controlunit) && !$this->belongsToControlunit($controlunit)) {
+            return false;
+        }
+
+        if (!is_null($this->wait_for_started_action_id)) {
+            $running_action = RunningAction::where('action_id', $this->wait_for_started_action_id)
+                ->where('action_sequence_intention_id', $asi->id)
+                ->first();
+
+            if (is_null($running_action)) {
+                return false;
+            }
+        }
+
+        if (!is_null($this->wait_for_finished_action_id)) {
+            $running_action = RunningAction::where('action_id', $this->wait_for_finished_action_id)
+                ->where('action_sequence_intention_id', $asi->id)
+                ->first();
+
+            if (is_null($running_action)) {
+                return false;
+            }
+            elseif (is_null($running_action->finished_at)
+                || !$running_action->finished_at->lt(Carbon::now())) {
+
+                return false;
+            }
+
+        }
+
+        return true;
+    }
+
+    /**
      * @return string
      */
     public function icon()

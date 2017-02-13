@@ -27,7 +27,7 @@ class ActionSequenceScheduleTransformer extends Transformer
             'id'            =>  $item['id'],
             'runonce'       =>  isset($item['runonce']) ? $item['runonce'] : false,
             'states'        => [
-                'will_run_today' => isset($item['will_run_today']) ? $item['will_run_today'] : false,
+                'willRunToday' => isset($item['willRunToday']) ? $item['willRunToday'] : false,
                 'ran_today' => isset($item['ran_today']) ? $item['ran_today'] : false,
                 'running' => isset($item['running']) ? $item['running'] : false,
                 'is_overdue' => isset($item['is_overdue']) ? $item['is_overdue'] : false,

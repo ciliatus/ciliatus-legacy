@@ -106,9 +106,10 @@ class ActionSequenceIntention extends CiliatusModel
     }
 
     /**
+     * @param Controlunit $controlunit
      * @return array|void
      */
-    public static function createAndUpdateRunningActions()
+    public static function createAndUpdateRunningActions(Controlunit $controlunit)
     {
         if (ActionSequence::stopped()) {
             return;
@@ -116,20 +117,21 @@ class ActionSequenceIntention extends CiliatusModel
 
         foreach (ActionSequenceIntention::get() as $asi) {
 
-            if (!$asi->running() && $asi->intention_active()) {
-                $asi->start();
+            if (!$asi->shouldBeHandledBy($controlunit)) {
+                continue;
             }
 
-            /*
-             * Loop actions of the task sequence
-             * and check if conditions to
-             * start these actions are met
-             */
-            if (is_null($asi->sequence))
+            if (!$asi->checkConsistency()) {
                 continue;
+            }
 
-            if (is_null($asi->sequence->actions))
+            if (!$asi->running() && !$asi->shouldBeRunning()) {
                 continue;
+            }
+
+            if ($asi->shouldBeStarted()) {
+                $asi->start();
+            }
 
             $all_actions_finished = true;
 
@@ -142,63 +144,22 @@ class ActionSequenceIntention extends CiliatusModel
                  * Check whether the RunningAction
                  * ran long enough
                  */
-                if (!is_null($running_action)
-                    && $running_action->started_at->addMinutes($a->duration_minutes)->lt(Carbon::now())
-                    && is_null($running_action->finished_at)) {
-
-                    $running_action->finished_at = Carbon::now();
-                    $running_action->save();
-                }
-                elseif (is_null($running_action)) {
+                if (is_null($running_action)) {
                     $all_actions_finished = false;
-                    $start = true;
 
-                    /*
-                     * Check conditions before
-                     * starting the action
-                     */
-                    if (!$asi->intention_active()) {
-                        $start = false;
-                    }
-                    if (!is_null($a->wait_for_started_action_id)) {
-                        $running_action = RunningAction::where('action_id', $a->wait_for_started_action_id)
-                            ->where('action_sequence_intention_id', $asi->id)
-                            ->first();
-
-                        if (is_null($running_action))
-                            $start = false;
-                    }
-
-                    if (!is_null($a->wait_for_finished_action_id)) {
-                        $running_action = RunningAction::where('action_id', $a->wait_for_finished_action_id)
-                            ->where('action_sequence_intention_id', $asi->id)
-                            ->first();
-
-                        if (is_null($running_action))
-                            $start = false;
-                        elseif (is_null($running_action->finished_at)
-                            || !$running_action->finished_at->lt(Carbon::now())) {
-
-                            $start = false;
-                        }
-
-                    }
-
-                    /*
-                     * Create a new RunningAction
-                     */
-                    if ($start) {
-                        $new_ra = RunningAction::create([
+                    if ($a->startConditionsMetForIntention($asi, $controlunit)) {
+                        RunningAction::create([
                             'action_id' => $a->id,
                             'action_sequence_intention_id' => $asi->id,
                             'started_at' => Carbon::now()
                         ]);
                     }
                 }
-                elseif (!is_null($running_action)
-                    && $running_action->started_at->addMinutes($a->duration_minutes)->lt(Carbon::now())) {
+                elseif ($running_action->shouldBeStopped()) {
+                    $running_action->stop();
                 }
                 else {
+                    // Action still running
                     $all_actions_finished = false;
                 }
             }
@@ -215,6 +176,16 @@ class ActionSequenceIntention extends CiliatusModel
     }
 
     /**
+     * Return true if the schedule has a valid sequence
+     *
+     * @return bool
+     */
+    public function checkConsistency()
+    {
+        return !is_null($this->sequence);
+    }
+
+    /**
      * @return bool
      */
     public function running()
@@ -223,15 +194,61 @@ class ActionSequenceIntention extends CiliatusModel
             || !is_null($this->last_start_at) && is_null($this->last_finished_at));
     }
 
+
+    /**
+     * Checks whether any of the sequences actions
+     * can be started by this $controlunit.
+     *
+     * If not return false
+     *
+     * @param Controlunit $controlunit
+     * @return bool
+     */
+    public function shouldBeHandledBy(Controlunit $controlunit)
+    {
+        foreach ($this->sequence->actions as $a) {
+            if (!is_null($a->target_object()) && $a->target_object()->controlunit_id == $controlunit->id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks whether any of the sequences actions
+     * can be started by this $controlunit.
+     *
+     * If not return false,
+     * otherwise return result of shouldBeStarted
+     *
+     * @param Controlunit $controlunit
+     * @return bool
+     */
+    public function shouldBeStartedBy(Controlunit $controlunit)
+    {
+        return $this->shouldBeHandledBy($controlunit) && $this->shouldBeStarted();
+    }
+
+    /**
+     * Returns true if it should be running but isn't
+     *
+     * @return bool
+     */
+    public function shouldBeStarted()
+    {
+        return $this->shouldBeRunning() && !$this->running();
+    }
+
     /**
      * Gets sensorreadings withing reference_value_duration_threshold_minutes
-     * from the LogicalSensor and tries to match them to the intention condition.
-     * If one sensorreadings is not withing intention bounds, return false
+     * from the LogicalSensor and tries to match them to the trigger condition.
+     * If one sensorreadings is not withing trigger bounds, return false
      * Otherwise return true
      *
      * @return bool
      */
-    public function intention_active()
+    public function shouldBeRunning()
     {
         if ($this->timeframe_start_today()->gt(Carbon::now())
             || $this->timeframe_end_today()->lt(Carbon::now())) {
@@ -246,16 +263,16 @@ class ActionSequenceIntention extends CiliatusModel
         }
 
         $critical_states = CriticalState::whereNull('recovered_at')
-                                        ->where('is_soft_state', false)
-                                        ->where('belongsTo_type', 'LogicalSensor')
-                                        ->get();
+            ->where('is_soft_state', false)
+            ->where('belongsTo_type', 'LogicalSensor')
+            ->get();
 
         if ($critical_states->count() < 1) {
             return false;
         }
 
         foreach ($critical_states as $cs) {
-            if ($this->match_condition($cs)) {
+            if ($this->matchCondition($cs)) {
                 return true;
             }
         }
@@ -271,7 +288,7 @@ class ActionSequenceIntention extends CiliatusModel
      * @param CriticalState $cs
      * @return bool
      */
-    private function match_condition(CriticalState $cs)
+    private function matchCondition(CriticalState $cs)
     {
         $ls = $cs->belongsTo_object();
         if (!is_a($ls, 'App\LogicalSensor')) {
@@ -323,7 +340,7 @@ class ActionSequenceIntention extends CiliatusModel
      */
     public function icon()
     {
-        return 'flare';
+        return 'explore';
     }
 
     /**

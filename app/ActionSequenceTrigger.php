@@ -115,9 +115,10 @@ class ActionSequenceTrigger extends CiliatusModel
     }
 
     /**
+     * @param Controlunit $controlunit
      * @return array|void
      */
-    public static function createAndUpdateRunningActions()
+    public static function createAndUpdateRunningActions(Controlunit $controlunit)
     {
         if (ActionSequence::stopped()) {
             return;
@@ -125,20 +126,21 @@ class ActionSequenceTrigger extends CiliatusModel
 
         foreach (ActionSequenceTrigger::get() as $ast) {
 
-            if (!$ast->running() && $ast->trigger_active()) {
-                $ast->start();
+            if (!$ast->shouldBeHandledBy($controlunit)) {
+                continue;
             }
 
-            /*
-             * Loop actions of the task sequence
-             * and check if conditions to
-             * start these actions are met
-             */
-            if (is_null($ast->sequence))
+            if (!$ast->checkConsistency()) {
                 continue;
+            }
 
-            if (is_null($ast->sequence->actions))
+            if (!$ast->running() && !$ast->shouldBeRunning()) {
                 continue;
+            }
+
+            if ($ast->shouldBeStarted()) {
+                $ast->start();
+            }
 
             $all_actions_finished = true;
 
@@ -151,63 +153,22 @@ class ActionSequenceTrigger extends CiliatusModel
                  * Check whether the RunningAction
                  * ran long enough
                  */
-                if (!is_null($running_action)
-                    && $running_action->started_at->addMinutes($a->duration_minutes)->lt(Carbon::now())
-                    && is_null($running_action->finished_at)) {
-
-                    $running_action->finished_at = Carbon::now();
-                    $running_action->save();
-                }
-                elseif (is_null($running_action)) {
+                if (is_null($running_action)) {
                     $all_actions_finished = false;
-                    $start = true;
 
-                    /*
-                     * Check conditions before
-                     * starting the action
-                     */
-                    if (!$ast->trigger_active()) {
-                        $start = false;
-                    }
-                    if (!is_null($a->wait_for_started_action_id)) {
-                        $running_action = RunningAction::where('action_id', $a->wait_for_started_action_id)
-                            ->where('action_sequence_trigger_id', $ast->id)
-                            ->first();
-
-                        if (is_null($running_action))
-                            $start = false;
-                    }
-
-                    if (!is_null($a->wait_for_finished_action_id)) {
-                        $running_action = RunningAction::where('action_id', $a->wait_for_finished_action_id)
-                            ->where('action_sequence_trigger_id', $ast->id)
-                            ->first();
-
-                        if (is_null($running_action))
-                            $start = false;
-                        elseif (is_null($running_action->finished_at)
-                            || !$running_action->finished_at->lt(Carbon::now())) {
-
-                            $start = false;
-                        }
-
-                    }
-
-                    /*
-                     * Create a new RunningAction
-                     */
-                    if ($start) {
-                        $new_ra = RunningAction::create([
+                    if ($a->startConditionsMetForTrigger($ast, $controlunit)) {
+                        RunningAction::create([
                             'action_id' => $a->id,
                             'action_sequence_trigger_id' => $ast->id,
                             'started_at' => Carbon::now()
                         ]);
                     }
                 }
-                elseif (!is_null($running_action)
-                    && $running_action->started_at->addMinutes($a->duration_minutes)->lt(Carbon::now())) {
+                elseif ($running_action->shouldBeStopped()) {
+                    $running_action->stop();
                 }
                 else {
+                    // Action still running
                     $all_actions_finished = false;
                 }
             }
@@ -224,12 +185,64 @@ class ActionSequenceTrigger extends CiliatusModel
     }
 
     /**
+     * Return true if the schedule has a valid sequence
+     *
+     * @return bool
+     */
+    public function checkConsistency()
+    {
+        return !is_null($this->sequence);
+    }
+
+    /**
      * @return bool
      */
     public function running()
     {
         return ($this->last_start_at > $this->last_finished_at
             || !is_null($this->last_start_at) && is_null($this->last_finished_at));
+    }
+    /**
+     * Checks whether any of the sequences actions
+     * can be started by this $controlunit.
+     *
+     * If not return false
+     *
+     * @param Controlunit $controlunit
+     * @return bool
+     */
+    public function shouldBeHandledBy(Controlunit $controlunit)
+    {
+        foreach ($this->sequence->actions as $a) {
+            if (!is_null($a->target_object()) && $a->target_object()->controlunit_id == $controlunit->id) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks whether any of the sequences actions
+     * can be started by this $controlunit.
+     *
+     * If not return false,
+     * otherwise return result of shouldBeStarted
+     *
+     * @param Controlunit $controlunit
+     * @return bool
+     */
+    public function shouldBeStartedBy(Controlunit $controlunit)
+    {
+        return $this->shouldBeHandledBy($controlunit) && $this->shouldBeStarted();
+    }
+
+    /**
+     * @return bool
+     */
+    public function shouldBeStarted()
+    {
+        return $this->shouldBeRunning() && !$this->running();
     }
 
     /**
@@ -240,10 +253,11 @@ class ActionSequenceTrigger extends CiliatusModel
      *
      * @return bool
      */
-    public function trigger_active()
+    public function shouldBeRunning()
     {
         $logical_sensor = LogicalSensor::find($this->logical_sensor_id);
         if (is_null($logical_sensor)) {
+
             return false;
         }
 
@@ -268,7 +282,7 @@ class ActionSequenceTrigger extends CiliatusModel
         }
 
         foreach ($sensor_data as $s) {
-            if (!$this->match_condition($s->rawvalue)) {
+            if (!$this->matchCondition($s->rawvalue)) {
                 return false;
             }
         }
@@ -284,7 +298,7 @@ class ActionSequenceTrigger extends CiliatusModel
      * @param $component_value
      * @return bool
      */
-    private function match_condition($component_value)
+    private function matchCondition($component_value)
     {
         if (Carbon::now()->lt($this->timeframe_start_today())
          || Carbon::now()->gt($this->timeframe_end_today())) {
