@@ -69,6 +69,11 @@
 
     <div id="tab_infrastructure" class="col s12">
         <div class="container">
+
+            <components-list-widget :refresh-timeout-seconds="60"
+                                    source-api-base-url="terraria/{{ $terrarium->id }}/infrastructure"></components-list-widget>
+
+            <!--
             <physical_sensors-widget :refresh-timeout-seconds="60" source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
                                      container-classes="row" wrapper-classes="col s12 m6 l4"
                                      :subscribe-add="true" :subscribe-delete="true"></physical_sensors-widget>
@@ -80,6 +85,7 @@
             <generic_components-widget :refresh-timeout-seconds="60" source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
                            container-classes="row" wrapper-classes="col s12 m6 l4"
                            :subscribe-add="true" :subscribe-delete="true"></generic_components-widget>
+                           -->
         </div>
 
         <div class="fixed-action-btn">

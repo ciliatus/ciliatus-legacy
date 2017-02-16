@@ -6,44 +6,45 @@
 
 
 @section('content')
-    <div class="col s12">
+    <div class="row">
         <ul class="tabs z-depth-1">
-            <li class="tab col s3"><a class="active" href="#tab_dashboard">@lang('labels.overview')</a></li>
-            <li class="tab col s3"><a href="#tab_feeding_schedules">@choice('components.animal_feeding_schedules', 2)</a></li>
-            <li class="tab col s3"><a href="#tab_weighing_schedules">@choice('components.animal_weighing_schedules', 2)</a></li>
-            <li class="tab col s3"><a href="#tab_dashboard_deceased">@lang('labels.deceased')</a></li>
+            <li class="tab"><a class="active" href="#tab_dashboard">@lang('labels.overview')</a></li>
+            <li class="tab"><a href="#tab_feeding_schedules">@choice('components.animal_feeding_schedules', 2)</a></li>
+            <li class="tab"><a href="#tab_weighing_schedules">@choice('components.animal_weighing_schedules', 2)</a></li>
+            <li class="tab"><a href="#tab_dashboard_deceased">@lang('labels.deceased')</a></li>
         </ul>
-    </div>
 
-    <div id="tab_dashboard" class="col s12">
-        <div class="container">
-            <animals-widget container-classes="row" wrapper-classes="col s12 m6 l4"
-                            source-filter="filter[death_date]=null"
-                            :refresh-timeout-seconds="60"
-                            :subscribe-add="false"></animals-widget>
+
+        <div id="tab_dashboard" class="col s12">
+            <div class="container">
+                <animals-widget container-classes="" wrapper-classes="col s12 m6 l4"
+                                source-filter="filter[death_date]=null"
+                                :refresh-timeout-seconds="60"
+                                :subscribe-add="false"></animals-widget>
+            </div>
         </div>
-    </div>
 
-    <div id="tab_feeding_schedules" class="col s12">
-        <div class="container">
-            <p>@lang('tooltips.animal_feeding_schedule_matrix')</p>
-            <animal_feeding_schedules-matrix-widget container-classes="row" wrapper-classes=""></animal_feeding_schedules-matrix-widget>
+        <div id="tab_feeding_schedules" class="col s12">
+            <div class="container">
+                <p>@lang('tooltips.animal_feeding_schedule_matrix')</p>
+                <animal_feeding_schedules-matrix-widget container-classes="row" wrapper-classes=""></animal_feeding_schedules-matrix-widget>
+            </div>
         </div>
-    </div>
 
-    <div id="tab_weighing_schedules" class="col s12">
-        <div class="container">
-            <p>@lang('tooltips.animal_weighing_schedule_matrix')</p>
-            <animal_weighing_schedules-matrix-widget container-classes="row" wrapper-classes=""></animal_weighing_schedules-matrix-widget>
+        <div id="tab_weighing_schedules" class="col s12">
+            <div class="container">
+                <p>@lang('tooltips.animal_weighing_schedule_matrix')</p>
+                <animal_weighing_schedules-matrix-widget container-classes="row" wrapper-classes=""></animal_weighing_schedules-matrix-widget>
+            </div>
         </div>
-    </div>
 
-    <div id="tab_dashboard_deceased" class="col s12">
-        <div class="container">
-            <animals-widget container-classes="row" wrapper-classes="col s12 m6 l4"
-                            source-filter="filter[death_date]=notnull"
-                            :refresh-timeout-seconds="180"
-                            :subscribe-add="false"></animals-widget>
+        <div id="tab_dashboard_deceased" class="col s12">
+            <div class="container">
+                <animals-widget container-classes="row" wrapper-classes="col s12 m6 l4"
+                                source-filter="filter[death_date]=notnull"
+                                :refresh-timeout-seconds="180"
+                                :subscribe-add="false"></animals-widget>
+            </div>
         </div>
     </div>
 

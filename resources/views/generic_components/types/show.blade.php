@@ -8,9 +8,9 @@
 
 @section('content')
     <div class="container">
-        <generic_components-widget :refresh-timeout-seconds="60"
-                                   source-filter="filter[generic_component_type_id]={{ $generic_component_type->id }}"
-                                   container-classes="row" wrapper-classes="col s12 m5 l4"></generic_components-widget>
+        <generic_components-list-widget :refresh-timeout-seconds="60"
+                                   default-type-filter="{{ $generic_component_type->name_singular }}"
+                                   container-classes="" wrapper-classes=""></generic_components-list-widget>
     </div>
 
     <div class="fixed-action-btn">

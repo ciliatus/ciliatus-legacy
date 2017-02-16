@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="container">
-        <pumps-widget :refresh-timeout-seconds="60" container-classes="row" wrapper-classes="col s12 m6 l4"></pumps-widget>
+        <pumps-list-widget :refresh-timeout-seconds="60" container-classes="" wrapper-classes=""></pumps-list-widget>
     </div>
 
     <div class="fixed-action-btn">

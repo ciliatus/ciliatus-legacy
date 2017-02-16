@@ -104,9 +104,8 @@
                                 @lang('labels.temp_and_hum_history')
                             </div>
                             <div class="card-content">
-                                <dygraph-graph :show-filter-form="true" filter-column="created_at"
-                                               filter-from-date="{{ Carbon\Carbon::now()->subDays(7)->toDateString() }}"
-                                               source="{{ url('api/v1/terraria/' . $animal->terrarium_id . '/sensorreadings?graph=true') }}"></dygraph-graph>
+                                <dygraph-graph show-filter-field="created_at" :show-filter-form="true"
+                                               source="{{ url('api/v1/terraria/' . $animal->terrarium->id . '/sensorreadings') }}"></dygraph-graph>
                             </div>
                         </div>
                     </div>
