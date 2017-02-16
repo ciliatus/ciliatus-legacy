@@ -4,6 +4,7 @@ namespace App\Events;
 
 use App\Http\Transformers\PumpTransformer;
 use App\Pump;
+use App\Repositories\GenericRepository;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -26,10 +27,11 @@ class PumpUpdated implements ShouldBroadcast
     {
         $transformer = new PumpTransformer();
         $this->pump = $transformer->transform(
-            Pump::with('valves')
-                ->with('controlunit')
-                ->find($p->id)
-                ->toArray()
+            (new GenericRepository(
+                Pump::with('valves', 'controlunit')
+                    ->find($p->id)
+            ))->show()
+              ->toArray()
         );
     }
 

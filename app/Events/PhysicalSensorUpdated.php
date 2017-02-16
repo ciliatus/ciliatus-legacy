@@ -4,6 +4,7 @@ namespace App\Events;
 
 use App\Http\Transformers\PhysicalSensorTransformer;
 use App\PhysicalSensor;
+use App\Repositories\GenericRepository;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -26,7 +27,10 @@ class PhysicalSensorUpdated implements ShouldBroadcast
     {
         $transformer = new PhysicalSensorTransformer();
         $this->physical_sensor = $transformer->transform(
-            PhysicalSensor::with('logical_sensors')->find($ps->id)->toArray()
+            (new GenericRepository(
+                PhysicalSensor::with('logical_sensors', 'controlunit', 'terrarium')->find($ps->id)
+            ))->show()
+              ->toArray()
         );
     }
 

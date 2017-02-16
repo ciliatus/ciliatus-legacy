@@ -3,6 +3,7 @@
 namespace App\Events;
 
 use App\Http\Transformers\ValveTransformer;
+use App\Repositories\GenericRepository;
 use App\Valve;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
@@ -27,11 +28,11 @@ class ValveUpdated implements ShouldBroadcast
         $transformer = new ValveTransformer();
 
         $this->valve = $transformer->transform(
-            Valve::with('pump')
-                ->with('terrarium')
-                ->with('controlunit')
-                ->find($v->id)
-                ->toArray()
+            (new GenericRepository(
+                Valve::with('pump', 'terrarium', 'controlunit')
+                    ->find($v->id)
+            ))->show()
+              ->toArray()
         );
     }
 

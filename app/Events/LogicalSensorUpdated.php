@@ -4,6 +4,7 @@ namespace App\Events;
 
 use App\Http\Transformers\LogicalSensorTransformer;
 use App\LogicalSensor;
+use App\Repositories\GenericRepository;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -31,7 +32,9 @@ class LogicalSensorUpdated implements ShouldBroadcast
 
         $logical_sensor->current_threshold_id = is_null($logical_sensor->current_threshold()) ? null : $logical_sensor->current_threshold()->id;
 
-        $this->logical_sensor = $transformer->transform($logical_sensor->toArray());
+        $this->logical_sensor = $transformer->transform(
+            (new GenericRepository($logical_sensor))->show()->toArray()
+        );
     }
 
     /**
