@@ -38,7 +38,7 @@ class SendNotifications extends Command
                 $afs = (new AnimalWeighingScheduleRepository($afs))->show();
                 if ($afs->next_weighing_at_diff <= 0) {
                     $is_weighings_due = true;
-                    $weighings_due .= PHP_EOL . ' * ' . $animal;
+                    $weighings_due .= PHP_EOL . ' * ' . $animal->display_name;
                 }
             }
         }
