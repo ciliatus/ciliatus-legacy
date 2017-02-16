@@ -36,6 +36,34 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
+                                        <input type="text" placeholder="@lang('labels.model')" name="model" value="{{ $physical_sensor->model }}"
+                                               class="autocomplete" id="model-autocomplete" autocomplete="off">
+                                        <label for="model">@lang('labels.model')</label>
+
+                                        <script>
+                                            /*
+                                             * TODO: find alternative to using a timeout
+                                             */
+                                            $(document).ready(function () {
+                                                setTimeout(function()
+                                                {
+                                                    $('#model-autocomplete').autocomplete({
+                                                        data: {
+                                                            @foreach ($models as $model)
+                                                            '{{ $model }}': null,
+                                                            @endforeach
+                                                        },
+                                                        limit: 20,
+                                                    });
+
+                                                }, 500)
+                                            });
+                                        </script>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
                                         <select name="controlunit">
                                             <option></option>
                                             @foreach ($controlunits as $c)
