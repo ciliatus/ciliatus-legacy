@@ -229,6 +229,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
      * Terraria
      */
     Route::resource('terraria', 'TerrariumController');
+    Route::get('terraria/{id}/infrastructure', 'TerrariumController@infrastructure');
 
     // Sensorreadings
     Route::get('terraria/{id}/sensorreadings', 'TerrariumController@sensorreadings');
