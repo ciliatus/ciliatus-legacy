@@ -3,9 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\Http\Transformers\GenericComponentTransformer;
+use App\Http\Transformers\PhysicalSensorTransformer;
 use App\Http\Transformers\TerrariumTransformer;
+use App\Http\Transformers\ValveTransformer;
+use App\Repositories\GenericRepository;
 use App\Repositories\SensorreadingRepository;
 use App\Repositories\TerrariumRepository;
+use App\Sensorreading;
 use App\Terrarium;
 use App\Valve;
 use Cache;
@@ -176,7 +181,7 @@ class TerrariumController extends ApiController
             return $this->respondNotFound('Terrarium not found');
         }
 
-        $query = $this->filter($request, DB::table('sensorreadings'));
+        $query = $this->filter($request, Sensorreading::query());
 
         $sensor_types = ['humidity_percent', 'temperature_celsius'];
         $data = [];
@@ -421,6 +426,42 @@ class TerrariumController extends ApiController
             ]
         ]);
 
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function infrastructure(Request $request, $id)
+    {
+        $terrarium = Terrarium::find($id);
+        if (is_null($terrarium)) {
+            return $this->respondNotFound('Terrarium not found');
+        }
+
+
+        $valves = $this->filter($request, $terrarium->valves()->getQuery())->get();
+        foreach ($valves as &$v) {
+            $v = (new GenericRepository($v))->show();
+        }
+        $valves = (new ValveTransformer())->transformCollection($valves->toArray());
+
+
+        $physical_sensors = $this->filter($request, $terrarium->physical_sensors()->getQuery())->get();
+        foreach ($physical_sensors as &$p) {
+            $p = (new GenericRepository($p))->show();
+        }
+        $physical_sensors = (new PhysicalSensorTransformer())->transformCollection($physical_sensors->toArray());
+
+
+        $generic_components = $this->filter($request, $terrarium->generic_components()->getQuery())->get();
+        foreach ($generic_components as &$gc) {
+            $gc = (new GenericRepository($gc))->show();
+        }
+        $generic_components = (new GenericComponentTransformer())->transformCollection($generic_components->toArray());
+
+        return $this->respondWithData(array_merge($valves, $physical_sensors, $generic_components));
     }
 
 }
