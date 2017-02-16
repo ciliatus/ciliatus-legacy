@@ -42,7 +42,7 @@ class PhysicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $physical_sensors = PhysicalSensor::with('logical_sensors');
+        $physical_sensors = PhysicalSensor::with('controlunit', 'logical_sensors', 'terrarium');
 
         $physical_sensors = $this->filter($request, $physical_sensors);
 
@@ -80,7 +80,7 @@ class PhysicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $physical_sensor = PhysicalSensor::with('logical_sensors')->find($id);
+        $physical_sensor = PhysicalSensor::with('controlunit', 'logical_sensors', 'terrarium')->find($id);
 
         if (!$physical_sensor) {
             return $this->respondNotFound('PhysicalSensor not found');
@@ -104,7 +104,7 @@ class PhysicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $physical_sensor = PhysicalSensor::find($id);
+        $physical_sensor = PhysicalSensor::with('controlunit', 'logical_sensors', 'terrarium')->find($id);
         if (is_null($physical_sensor)) {
             return $this->respondNotFound('PhysicalSensor not found');
         }
@@ -180,11 +180,24 @@ class PhysicalSensorController extends ApiController
             $controlunit_id = null;
         }
 
-        $physical_sensor->name = $request->input('name');
-        $physical_sensor->model = $request->input('model');
-        $physical_sensor->belongsTo_type = 'terrarium';
-        $physical_sensor->belongsTo_id = $request->input('terrarium');
-        $physical_sensor->controlunit_id = $controlunit_id;
+        if ($request->has('name')) {
+            $physical_sensor->name = $request->input('name');
+        }
+
+        if ($request->has('model')) {
+            $physical_sensor->model = $request->input('model');
+        }
+
+        if ($request->has('terrarium')) {
+            $physical_sensor->belongsTo_type = 'terrarium';
+        }
+
+        if ($request->has('controlunit')) {
+            $physical_sensor->controlunit_id = $controlunit_id;
+        }
+
+
+
         $physical_sensor = $this->addBelongsTo($request, $physical_sensor);
 
         $physical_sensor->save();

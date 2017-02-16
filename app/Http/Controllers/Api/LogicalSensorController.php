@@ -195,11 +195,21 @@ class LogicalSensorController extends ApiController
             $physical_sensor_id = null;
         }
 
-        $logical_sensor->name = $request->input('name');
-        $logical_sensor->type = $request->input('type');
-        $logical_sensor->rawvalue_lowerlimit = $request->input('lowerlimit');
-        $logical_sensor->rawvalue_upperlimit = $request->input('upperlimit');
-        $logical_sensor->physical_sensor_id = $physical_sensor_id;
+        if ($request->has('name')) {
+            $logical_sensor->name = $request->input('name');
+        }
+
+        if ($request->has('lowerlimit')) {
+            $logical_sensor->rawvalue_lowerlimit = $request->input('lowerlimit');
+        }
+
+        if ($request->has('upperlimit')) {
+            $logical_sensor->rawvalue_upperlimit = $request->input('upperlimit');
+        }
+
+        if ($request->has('physical_sensor')) {
+            $logical_sensor->physical_sensor_id = $physical_sensor_id;
+        }
 
         $logical_sensor->save();
 
