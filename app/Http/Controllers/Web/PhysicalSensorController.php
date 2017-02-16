@@ -88,12 +88,14 @@ class PhysicalSensorController extends Controller
             return view('errors.404');
         }
 
+        $models = array_column(PhysicalSensor::groupBy('model')->get()->toArray(), 'model');
         $controlunit = Controlunit::all();
         $belongTo_Options['Terrarium'] = Terrarium::get();
 
         return view('physical_sensors.edit', [
             'physical_sensor'   => $physical_sensor,
             'controlunits'      => $controlunit,
+            'models'            => $models,
             'belongTo_Options'          => $belongTo_Options
         ]);
     }
