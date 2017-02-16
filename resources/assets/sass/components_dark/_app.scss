@@ -1,3 +1,41 @@
+
+// Fix for 200px height on swipeable tabs
+.tabs-content.carousel {
+  height: 100%;
+  overflow: inherit;
+}
+
+// Fix for collapsible-header class on tr
+tr.collapsible-header {
+  display: table-row;
+  cursor: pointer;
+  min-height: inherit;
+  line-height: inherit;
+  background-color: inherit;
+  border-bottom: inherit;
+
+  i {
+    width: inherit;
+    line-height: inherit;
+    display: inherit;
+    float: inherit;
+    text-align: inherit;
+    margin-right: inherit;
+  }
+
+  td {
+    padding-bottom: 9px;
+    padding-top: 9px;
+  }
+}
+
+table.collapsible {
+  border: inherit;
+  margin: inherit;
+  box-shadow: none;
+}
+
+
 .terrarium-card-image {
   background-size: cover;
   background-repeat: no-repeat;

@@ -47,6 +47,7 @@ $link-color: color("light-blue", "darken-1") !default;
 // ==========================================================================
 
 $badge-bg-color: $secondary-color !default;
+$badge-height: 22px !default;
 
 
 // 3. Buttons
@@ -68,6 +69,10 @@ $button-disabled-color: #9F9F9F !default;
 $button-raised-background: $secondary-color !default;
 $button-raised-background-hover: lighten($button-raised-background, 5%) !default;
 $button-raised-color: #fff !default;
+
+// Tiny buttons
+$button-tiny-icon-font-size: 0.6rem !default;
+$button-tiny-height: $button-height * 0.4 !default;
 
 // Small buttons
 $button-small-icon-font-size: 1.0rem !default;
@@ -104,6 +109,7 @@ $card-link-color-light: lighten($card-link-color, 10%) !default;
 // ==========================================================================
 
 $collapsible-height: 3rem !default;
+$collapsible-line-height: $collapsible-height !default;
 $collapsible-header-color: #fff !default;
 $collapsible-border-color: #ddd !default;
 
@@ -222,7 +228,9 @@ $element-bottom-margin: ($gutter-width*2)/3 !default;
 // ==========================================================================
 
 $navbar-height: 64px !default;
+$navbar-line-height: $navbar-height !default;
 $navbar-height-mobile: 56px !default;
+$navbar-line-height-mobile: $navbar-height-mobile !default;
 $navbar-font-size: 1rem !default;
 $navbar-font-color: #fff !default;
 $navbar-brand-font-size: 2.1rem !default;
@@ -235,6 +243,7 @@ $sidenav-font-color: rgba(0,0,0,.87) !default;
 $sidenav-bg-color: #fff !default;
 $sidenav-padding: 16px !default;
 $sidenav-item-height: 48px !default;
+$sidenav-line-height: $sidenav-item-height !default;
 
 
 // 15. Photo Slider
@@ -310,6 +319,7 @@ $collection-active-bg-color: $secondary-color !default;
 $collection-active-color: lighten($secondary-color, 55%) !default;
 $collection-hover-bg-color: #ddd !default;
 $collection-link-color: $secondary-color !default;
+$collection-line-height: 1.5rem !default;
 
 
 // 24. Progress Bar

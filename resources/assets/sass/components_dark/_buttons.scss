@@ -24,6 +24,7 @@
 .btn-flat:disabled,
 .btn[disabled],
 .btn-floating[disabled],
+.btn-tiny[disabled],
 .btn-small[disabled],
 .btn-large[disabled],
 .btn-flat[disabled] {
@@ -42,6 +43,7 @@
 // Shared icon styles
 .btn,
 .btn-floating,
+.btn-tiny,
 .btn-small,
 .btn-large,
 .btn-flat {
@@ -81,6 +83,35 @@
 
 // Floating button
 .btn-floating {
+  &:hover {
+    background-color: $button-floating-background-hover;
+    @extend .z-depth-1-half;
+  }
+
+  &:before {
+    border-radius: 0;
+  }
+
+  &.btn-large {
+    width: $button-floating-large-size;
+    height: $button-floating-large-size;
+    i {
+      line-height: $button-floating-large-size;
+    }
+  }
+
+  &.halfway-fab {
+    &.left {
+      right: auto;
+      left: 24px;
+    }
+
+    position: absolute;
+    right: 24px;
+    bottom: 0;
+    transform: translateY(50%);
+  }
+
   display: inline-block;
   color: $button-floating-color;
   position: relative;
@@ -104,31 +135,6 @@
     color: $button-floating-color;
     font-size: $button-large-icon-font-size;
     line-height: $button-floating-size;
-  }
-
-  &:hover {
-    background-color: $button-floating-background-hover;
-    @extend .z-depth-1-half;
-  }
-
-  &:before {
-    border-radius: 0;
-  }
-
-  &.btn-small {
-    width: $button-floating-small-size;
-    height: $button-floating-small-size;
-    i {
-      line-height: $button-floating-small-size;
-    }
-  }
-
-  &.btn-large {
-    width: $button-floating-large-size;
-    height: $button-floating-large-size;
-    i {
-      line-height: $button-floating-large-size;
-    }
   }
 }
 
@@ -281,7 +287,7 @@ button.btn-floating {
   line-height: $button-large-height;
 
   i {
-    font-size: $button-large-icon-font-size;
+    font-size: $button-large-icon-font-size !important;
   }
 }
 
@@ -290,9 +296,24 @@ button.btn-floating {
   @extend .btn;
   height: $button-small-height;
   line-height: $button-small-height;
+  padding-left: 10px;
+  padding-right: 10px;
+  
+  i {
+    font-size: $button-small-icon-font-size !important;
+  }
+}
+
+// Small button
+.btn-tiny {
+  @extend .btn;
+  height: $button-tiny-height;
+  line-height: $button-tiny-icon-font-size !important;
+  padding-left: 6px;
+  padding-right: 6px;
 
   i {
-    font-size: $button-small-icon-font-size;
+    font-size: $button-tiny-height;
   }
 }
 
