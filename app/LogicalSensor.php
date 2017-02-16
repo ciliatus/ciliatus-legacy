@@ -54,7 +54,7 @@ class LogicalSensor extends CiliatusModel
      */
     public function physical_sensor()
     {
-        return $this->belongsTo('App\PhysicalSensor');
+        return $this->belongsTo('App\PhysicalSensor')->with('terrarium', 'controlunit');
     }
 
     /**

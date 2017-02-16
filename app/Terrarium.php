@@ -101,6 +101,14 @@ class Terrarium extends CiliatusModel
     }
 
     /**
+     * @return mixed
+     */
+    public function generic_components()
+    {
+        return $this->hasMany('App\GenericComponent', 'belongsTo_id')->with('controlunit')->where('belongsTo_type', 'Terrarium');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function animals()

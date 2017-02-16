@@ -63,6 +63,30 @@ class Controlunit extends CiliatusModel
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function valves()
+    {
+        return $this->hasMany('App\Valve')->with('pump');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function pumps()
+    {
+        return $this->hasMany('App\Pump')->with('valves');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function generic_components()
+    {
+        return $this->hasMany('App\GenericComponent')->with('type');
+    }
+
+    /**
      * @return string
      */
     public function heartbeatOk()

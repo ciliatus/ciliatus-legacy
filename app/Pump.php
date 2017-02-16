@@ -71,11 +71,11 @@ class Pump extends CiliatusModel
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function valves()
     {
-        return $this->belongsTo('App\Valve');
+        return $this->hasMany('App\Valve');
     }
 
     /**
