@@ -168,9 +168,9 @@ export default {
 
     created: function() {
         window.echo.private('dashboard-updates')
-            .listen('generic_componentUpdated', (e) => {
+            .listen('GenericComponentUpdated', (e) => {
                 this.update(e);
-            }).listen('generic_componentDeleted', (e) => {
+            }).listen('GenericComponentDeleted', (e) => {
                 this.delete(e);
             });
 

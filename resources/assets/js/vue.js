@@ -37,7 +37,6 @@ var locales = require("./lang.js");
 
 Vue.use(VueI18n);
 
-console.log('Setting lang to ' + $('body').data('lang'));
 Vue.config.lang = $('body').data('lang');
 
 Object.keys(locales).forEach(function (lang) {
@@ -60,19 +59,26 @@ import AnimalWeighingSchedulesWidget from './vue/animal_weighing_schedules-widge
 import TerrariaWidget from './vue/terraria-widget.vue';
 import TerrariaOverviewWidget from './vue/terraria-overview-widget.vue';
 import ControlunitsWidget from './vue/controlunit-widget.vue';
+import ControlunitsListWidget from './vue/controlunits-list-widget.vue';
 import FilesWidget from './vue/files-widget.vue';
 import FilesShowWidget from './vue/files-show-widget.vue';
 import ActionSequencesWidget from './vue/action_sequences-widget.vue';
 import ActionSequenceScheduleWidget from './vue/action_sequence_schedule-widget.vue';
 import PumpsWidget from './vue/pumps-widget.vue';
+import PumpsListWidget from './vue/pumps-list-widget.vue';
 import ValvesWidget from './vue/valves-widget.vue';
+import ValvesListWidget from './vue/valves-list-widget.vue';
 import PhysicalSensorsWidget from './vue/physical_sensors-widget.vue';
+import PhysicalSensorsListWidget from './vue/physical_sensors-list-widget.vue';
 import LogicalSensorsWidget from './vue/logical_sensors-widget.vue';
+import LogicalSensorsListWidget from './vue/logical_sensors-list-widget.vue';
 import GenericComponentsWidget from './vue/generic_components-widget.vue';
+import GenericComponentsListWidget from './vue/generic_components-list-widget.vue';
 import UsersWidget from './vue/users-widget.vue';
 import BiographyEntriesWidget from './vue/biography_entries-widget.vue'
 import CaresheetsWidget from './vue/caresheets-widget.vue'
 import LogsWidget from './vue/logs-widget.vue';
+import ComponentsListWidget from './vue/components-list-widget.vue';
 
 import GenericComponentTypeCreateForm from './vue/generic_component_type_create-form.vue';
 
@@ -130,19 +136,26 @@ window.bodyVue = new Vue({
         'terraria-widget': TerrariaWidget,
         'terraria-overview-widget': TerrariaOverviewWidget,
         'controlunits-widget': ControlunitsWidget,
+        'controlunits-list-widget': ControlunitsListWidget,
         'files-widget': FilesWidget,
         'files-show-widget': FilesShowWidget,
         'action_sequences-widget': ActionSequencesWidget,
         'action_sequence_schedule-widget': ActionSequenceScheduleWidget,
         'pumps-widget': PumpsWidget,
+        'pumps-list-widget': PumpsListWidget,
         'valves-widget': ValvesWidget,
+        'valves-list-widget': ValvesListWidget,
         'physical_sensors-widget': PhysicalSensorsWidget,
+        'physical_sensors-list-widget': PhysicalSensorsListWidget,
         'logical_sensors-widget': LogicalSensorsWidget,
+        'logical_sensors-list-widget': LogicalSensorsListWidget,
         'generic_components-widget': GenericComponentsWidget,
+        'generic_components-list-widget': GenericComponentsListWidget,
         'users-widget': UsersWidget,
         'biography_entries-widget': BiographyEntriesWidget,
         'caresheets-widget': CaresheetsWidget,
         'logs-widget': LogsWidget,
+        'components-list-widget': ComponentsListWidget,
 
         'generic_component_type_create-form': GenericComponentTypeCreateForm
     }

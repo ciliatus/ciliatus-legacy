@@ -174,9 +174,9 @@ export default {
 
     created: function() {
         window.echo.private('dashboard-updates')
-                .listen('valveUpdated', (e) => {
+                .listen('ValveUpdated', (e) => {
                 this.update(e);
-        }).listen('valveDeleted', (e) => {
+        }).listen('ValveDeleted', (e) => {
                 this.delete(e);
         });
 

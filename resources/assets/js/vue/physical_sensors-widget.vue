@@ -165,9 +165,9 @@ export default {
 
     created: function() {
         window.echo.private('dashboard-updates')
-                .listen('physical_sensorUpdated', (e) => {
+                .listen('PhysicalSensorUpdated', (e) => {
                 this.update(e);
-        }).listen('physical_sensorDeleted', (e) => {
+        }).listen('PhysicalSensorDeleted', (e) => {
                 this.delete(e);
         });
 

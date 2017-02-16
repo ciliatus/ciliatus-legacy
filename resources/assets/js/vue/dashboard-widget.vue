@@ -203,6 +203,7 @@
         <!--
             Action Sequence Schedules due
         -->
+        <!--
         <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.due.length > 0">
 
             <ul class="collection ok with-header">
@@ -230,9 +231,11 @@
             </ul>
 
         </div>
+        -->
+
 
         <!--
-            Action Sequence schedules/triggers running
+            Action Sequence schedules/triggers/intentions running
         -->
         <div :class="wrapperClasses"
              v-if="dashboard.action_sequence_schedules.running.length > 0
@@ -950,7 +953,7 @@ export default {
                 },
                 error: function (error) {
                     window.notification('An error occured :(', 'red darken-1 text-white');
-                    console.log(error);
+                    console.log(JSON.stringify(error));
                     window.eventHubVue.processEnded();
                 }
             });

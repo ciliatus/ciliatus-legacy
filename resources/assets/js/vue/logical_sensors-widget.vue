@@ -184,9 +184,9 @@ export default {
 
     created: function() {
         window.echo.private('dashboard-updates')
-                .listen('logical_sensorUpdated', (e) => {
+                .listen('LogicalSensorUpdated', (e) => {
                 this.update(e);
-        }).listen('logical_sensorDeleted', (e) => {
+        }).listen('LogicalSensorDeleted', (e) => {
                 this.delete(e);
         });
 

@@ -161,9 +161,9 @@ export default {
 
     created: function() {
         window.echo.private('dashboard-updates')
-                .listen('pumpUpdated', (e) => {
+                .listen('PumpUpdated', (e) => {
                 this.update(e);
-        }).listen('pumpDeleted', (e) => {
+        }).listen('PumpDeleted', (e) => {
                 this.delete(e);
         });
 

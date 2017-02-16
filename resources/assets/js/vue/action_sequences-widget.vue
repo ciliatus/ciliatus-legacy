@@ -149,9 +149,9 @@ export default {
 
     created: function() {
         window.echo.private('dashboard-updates')
-            .listen('action_sequenceUpdated', (e) => {
+            .listen('ActionSequenceUpdated', (e) => {
                 this.update(e);
-            }).listen('action_sequenceDeleted', (e) => {
+            }).listen('ActionSequenceDeleted', (e) => {
                 this.delete(e);
             });
 
