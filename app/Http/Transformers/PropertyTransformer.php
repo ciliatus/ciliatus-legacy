@@ -24,6 +24,7 @@ class PropertyTransformer extends Transformer
     {
         $return = [
             'id'    => $item['id'],
+            'class' => 'Property',
             'name' => $item['name'],
             'value' => $item['value'],
             'timestamps' => [

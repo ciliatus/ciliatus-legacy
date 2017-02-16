@@ -24,6 +24,7 @@ class UserTransformer extends Transformer
     {
         $return = [
             'id'    => $item['id'],
+            'class' => 'User',
             'name'  => $item['name'],
             'email' => $item['email'],
             'timestamps' => [

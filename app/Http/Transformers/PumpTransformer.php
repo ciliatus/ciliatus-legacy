@@ -26,9 +26,9 @@ class PumpTransformer extends Transformer
         $valveTransformer = new ValveTransformer();
         $return = [
             'id'    => $item['id'],
+            'class' => 'Pump',
             'name' => $item['name'],
             'controlunit_id' => isset($item['controlunit_id']) ? $item['controlunit_id'] : '',
-            'valve_id' => isset($item['valve_id']) ? $item['valve_id'] : '',
             'timestamps' => [
                 'created' => $item['created_at'],
                 'updated' => $item['updated_at'],
@@ -41,8 +41,8 @@ class PumpTransformer extends Transformer
             $return['controlunit'] = $controlunitTransformer->transform($item['controlunit']);
         }
 
-        if (isset($item['valve'])) {
-            $return['valve'] = $valveTransformer->transform($item['valve']);
+        if (isset($item['valves'])) {
+            $return['valves'] = $valveTransformer->transformCollection($item['valves']);
         }
 
         return $return;

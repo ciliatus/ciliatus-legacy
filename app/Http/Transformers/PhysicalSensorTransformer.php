@@ -26,21 +26,25 @@ class PhysicalSensorTransformer extends Transformer
     {
         $controlunitTransformer = new ControlunitTransformer();
         $logicalSensorTransformer = new LogicalSensorTransformer();
+        $terrariumTransformer = new TerrariumTransformer();
 
         $return = [
             'id'    => $item['id'],
+            'class' => 'PhysicalSensor',
             'controlunit_id'  => $item['controlunit_id'],
             'name' => $item['name'],
-            'timestamps' => [
-                'created' => $item['created_at'],
-                'updated' => $item['updated_at'],
-            ],
+            'model' => $item['model'],
+            'timestamps' => $this->parseTimestamps($item, ['heartbeat_at' => 'last_heartbeat']),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
 
         if (isset($item['controlunit'])) {
             $return['controlunit'] = $controlunitTransformer->transform($item['controlunit']);
+        }
+
+        if (isset($item['terrarium'])) {
+            $return['terrarium'] = $terrariumTransformer->transform($item['terrarium']);
         }
 
         if (isset($item['logical_sensors'])) {

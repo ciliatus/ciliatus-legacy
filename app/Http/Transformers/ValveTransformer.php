@@ -27,6 +27,7 @@ class ValveTransformer extends Transformer
         $controlunitsTransformer = new ControlunitTransformer();
         $return = [
             'id'    => $item['id'],
+            'class' => 'Valve',
             'name' => $item['name'],
             'controlunit_id' => $item['controlunit_id'],
             'terrarium_id' => $item['terrarium_id'],

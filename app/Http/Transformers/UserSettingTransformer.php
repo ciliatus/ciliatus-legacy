@@ -24,6 +24,7 @@ class UserSettingTransformer extends Transformer
     {
         $return = [
             'id'    => $item['id'],
+            'class' => 'UserSetting',
             'name' => $item['name'],
             'value' => $item['value'],
             'timestamps' => [

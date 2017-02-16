@@ -24,6 +24,7 @@ class LogTransformer extends Transformer
     {
         $return = [
             'id'    =>  $item['id'],
+            'class' =>  'Log',
             'type'  =>  $item['type'],
             'action'=>  $item['action'],
             'description'   =>  $item['description'],
