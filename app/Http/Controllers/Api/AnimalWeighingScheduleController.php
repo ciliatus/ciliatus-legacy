@@ -64,7 +64,7 @@ class AnimalWeighingScheduleController extends ApiController
                 return $this->respondNotFound("Animal not found");
             }
 
-            $weighing_schedules = $this->filter($request, $animal->weighing_schedules());
+            $weighing_schedules = $this->filter($request, $animal->weighing_schedules()->getQuery());
         }
 
 

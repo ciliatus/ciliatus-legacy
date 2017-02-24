@@ -64,7 +64,7 @@ class AnimalFeedingScheduleController extends ApiController
                 return $this->respondNotFound("Animal not found");
             }
 
-            $feeding_schedules = $this->filter($request, $animal->feeding_schedules());
+            $feeding_schedules = $this->filter($request, $animal->feeding_schedules()->getQuery());
         }
 
         /*
