@@ -127,5 +127,15 @@ return [
     'minimum_timeout_minutes' => 'Timeout (Minuten)',
     'emergency_stop'=> 'Notaus',
     'increases'     => 'Erhöht',
-    'decreases'     => 'Senkt'
+    'decreases'     => 'Senkt',
+    'personal_access_tokens' => 'Zugriffstoken',
+    'expires'       => 'Läuft ab',
+    'security'      => 'Sicherheit',
+    'general'       => 'Allgemein',
+    'component'     => 'Komponente',
+    'to'            => 'Bis',
+    'daily_reminders'=> 'Tägliche Erinnerungen',
+    'yesterday'     => 'Gestern',
+    'tomorrow'      => 'Morgen',
+    'today'         => 'Heute'
 ];

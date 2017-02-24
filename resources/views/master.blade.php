@@ -24,6 +24,12 @@
         <meta name="theme-color" content="#009688" />
 
         <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
+
+        <script>
+            window.Laravel = {
+                csrfToken: "{{ csrf_token() }}"
+            };
+        </script>
     </head>
 
     <body data-lang="{{ Auth::user()->locale }}">

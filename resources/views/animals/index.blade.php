@@ -6,7 +6,7 @@
 
 
 @section('content')
-    <div class="row">
+    <div class="col s12">
         <ul class="tabs z-depth-1">
             <li class="tab"><a class="active" href="#tab_dashboard">@lang('labels.overview')</a></li>
             <li class="tab"><a href="#tab_feeding_schedules">@choice('components.animal_feeding_schedules', 2)</a></li>
@@ -17,7 +17,7 @@
 
         <div id="tab_dashboard" class="col s12">
             <div class="container">
-                <animals-widget container-classes="" wrapper-classes="col s12 m6 l4"
+                <animals-widget container-classes="row" wrapper-classes="col s12 m6 l4"
                                 source-filter="filter[death_date]=null"
                                 :refresh-timeout-seconds="60"
                                 :subscribe-add="false"></animals-widget>

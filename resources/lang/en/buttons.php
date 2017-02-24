@@ -15,5 +15,6 @@ return [
     'details'   =>  'Details',
     'download'  =>  'Download',
     'emergency_stop' => 'Emergency stop',
-    'emergency_resume' => 'Remove emergency stop'
+    'emergency_resume' => 'Remove emergency stop',
+    'revoke'    =>  'Revoke'
 ];

@@ -43,7 +43,7 @@
                                                 </optgroup>
                                             @endforeach
                                         </select>
-                                        <label for="valves">@lang('labels.belongsTo')</label>
+                                        <label for="belongsTo">@lang('labels.belongsTo')</label>
                                     </div>
                                 </div>
 
@@ -51,12 +51,12 @@
                                     <div class="input-field col s12 m6 l6">
                                         <input type="text" placeholder="@lang('labels.rawlimitlo')" name="lowerlimit"
                                                value="{{ $logical_sensor_threshold->rawvalue_lowerlimit }}">
-                                        <label for="name">@lang('labels.rawlimitlo')</label>
+                                        <label for="lowerlimit">@lang('labels.rawlimitlo')</label>
                                     </div>
                                     <div class="input-field col s12 m6 l6">
                                         <input type="text" placeholder="@lang('labels.rawlimithi')" name="upperlimit"
                                                value="{{ $logical_sensor_threshold->rawvalue_upperlimit }}">
-                                        <label for="name">@lang('labels.rawlimithi')</label>
+                                        <label for="upperlimit">@lang('labels.rawlimithi')</label>
                                     </div>
                                 </div>
 
@@ -64,7 +64,7 @@
                                     <div class="input-field col s12">
                                         <input class="timepicker" placeholder="@lang('labels.starts_at')" name="starts_at"
                                                data-default="{{ $logical_sensor_threshold->starts_at }}" value="{{ $logical_sensor_threshold->starts_at }}">
-                                        <label for="name">@lang('labels.starts_at')</label>
+                                        <label for="starts_at">@lang('labels.starts_at')</label>
                                     </div>
                                 </div>
 

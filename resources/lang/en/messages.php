@@ -21,6 +21,8 @@ return [
         'humidity_percent' => 'OK: The sensor :logical_sensor reports a humidity of :humidity_percent%C.',
         'temperature_celsius' => 'OK: The sensor :logical_sensor reports a temperature of :temperature_celsius°C.'
     ],
+    'critical_state_notification_controlunit' => 'Critical: The controlunit :controlunit is not sending data.',
+    'critical_state_recovery_notification_controlunit' => 'OK: The controlunit :controlunit ist sending data again.',
 
     'daily' => [
         'intro' => 'Daily reminders',

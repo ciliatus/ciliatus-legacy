@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'user'         =>  'Benutzer|Benutzer',
+    'users'         =>  'Benutzer|Benutzer',
     'terrarium'      =>  'Terrarium|Terraria',
     'terraria'      =>  'Terrarium|Terrarien',
     'animal'       =>  'Tier|Tiere',

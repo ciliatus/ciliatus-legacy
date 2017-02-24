@@ -15,5 +15,6 @@ return [
     'details'   =>  'Details',
     'download'  =>  'Herunterladen',
     'emergency_stop' => 'Notaus',
-    'emergency_resume' => 'Notus aufheben'
+    'emergency_resume' => 'Notus aufheben',
+    'revoke'    =>  'Widerrufen'
 ];
