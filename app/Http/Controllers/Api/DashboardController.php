@@ -13,6 +13,7 @@ use App\Property;
 use App\Repositories\AnimalFeedingScheduleRepository;
 use App\Repositories\AnimalWeighingScheduleRepository;
 use App\System;
+use Carbon\Carbon;
 use Gate;
 use App\Terrarium;
 use Illuminate\Http\Request;
@@ -96,17 +97,19 @@ class DashboardController extends ApiController
         ];
 
         $action_sequence_triggers = [
-            'running' => []
+            'running' => [],
+            'should_be_running' => []
         ];
 
         $action_sequence_intentions = [
-            'running' => []
+            'running' => [],
+            'should_be_running' => []
         ];
 
         foreach (Terrarium::get() as $terrarium) {
             foreach ($terrarium->action_sequences as $as) {
                 foreach ($as->schedules()->with('sequence')->get() as $ass) {
-                    if ($ass->willRunToday() && !$ass->isOverdue()) {
+                    if ($ass->willRunToday() && !$ass->isOverdue() && $ass->startsToday()->diffInHours(Carbon::now()) < 3) {
                         $action_sequence_schedules['due'][] = (new ActionSequenceScheduleTransformer())->transform($ass->toArray());
                     }
                     elseif ($ass->isOverdue()) {
