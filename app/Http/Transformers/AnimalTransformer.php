@@ -69,13 +69,7 @@ class AnimalTransformer extends Transformer
             $return['last_feeding'] = [
                     'name' => $item['last_feeding']['name'],
                     'value' => $item['last_feeding']['value'],
-                    'timestamps' => [
-                        'created' => $item['last_feeding']['created_at'],
-                        'diff'  =>  [
-                            'value' => Carbon::parse($item['last_feeding']['created_at'])->diffInDays(Carbon::now()),
-                            'unit' => 'days'
-                        ]
-                    ]
+                    'timestamps' => $this->parseTimestamps($item['last_feeding'])
                 ];
         }
 

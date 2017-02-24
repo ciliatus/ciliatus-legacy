@@ -58,13 +58,15 @@ abstract class Transformer
             'created_diff' => [
                 'days' => $now->diffInDays($created),
                 'hours' => $now->diffInHours($created),
-                'minutes' => $now->diffInMinutes($created)
+                'minutes' => $now->diffInMinutes($created),
+                'is_today' => $created->isToday()
             ],
             'updated' => $item['updated_at'],
             'updated_diff' => [
                 'days' => $now->diffInDays($updated),
                 'hours' => $now->diffInHours($updated),
-                'minutes' => $now->diffInMinutes($updated)
+                'minutes' => $now->diffInMinutes($updated),
+                'is_today' => $updated->isToday()
             ]
         ];
 
@@ -74,7 +76,8 @@ abstract class Transformer
             $return[$v . '_diff'] = [
                 'days' => $now->diffInDays($date),
                 'hours' => $now->diffInHours($date),
-                'minutes' => $now->diffInMinutes($date)
+                'minutes' => $now->diffInMinutes($date),
+                'is_today' => $date->isToday()
             ];
         }
 

@@ -206,6 +206,10 @@ class ActionSequenceIntention extends CiliatusModel
      */
     public function shouldBeHandledBy(Controlunit $controlunit)
     {
+        if (is_null($this->sequence)) {
+            return false;
+        }
+
         foreach ($this->sequence->actions as $a) {
             if (!is_null($a->target_object()) && $a->target_object()->controlunit_id == $controlunit->id) {
                 return true;

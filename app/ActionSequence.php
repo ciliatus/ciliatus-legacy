@@ -31,9 +31,11 @@ class ActionSequence extends CiliatusModel
         foreach ($this->schedules as $ass) {
             $ass->delete();
         }
-
         foreach ($this->triggers as $ast) {
             $ast->delete();
+        }
+        foreach ($this->intentions as $asi) {
+            $asi->delete();
         }
 
         parent::delete();

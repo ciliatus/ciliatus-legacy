@@ -30,6 +30,10 @@ class ActionSequenceSchedule extends CiliatusModel
         'name', 'runonce', 'starts_at', 'action_sequence_id'
     ];
 
+    protected $casts = [
+        'runonce' => 'boolean'
+    ];
+
 
     /**
      * @var array
@@ -42,13 +46,15 @@ class ActionSequenceSchedule extends CiliatusModel
      */
     public static function create(array $attributes = [])
     {
-        $new = parent::create($attributes);
+        $new = new ActionSequenceSchedule($attributes);
+        $new->save();
 
         if ($new->startsToday()->lt(Carbon::now()->subMinutes(10))) {
             $new->last_start_at = Carbon::now();
             $new->last_finished_at = Carbon::now();
         }
 
+        $new->save();
         return $new;
     }
 
@@ -122,6 +128,11 @@ class ActionSequenceSchedule extends CiliatusModel
      */
     public function finish()
     {
+        if ($this->runonce == true) {
+            $this->delete();
+            return;
+        }
+
         $this->last_finished_at = Carbon::now();
         $this->save();
 
