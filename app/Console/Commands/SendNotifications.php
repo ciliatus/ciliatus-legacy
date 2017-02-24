@@ -58,7 +58,8 @@ class SendNotifications extends Command
         if ($is_feedings_due || $is_weighings_due) {
             foreach (User::get() as $u) {
 
-                if ($u->setting('notifications_enabled') == 'on') {
+                if ($u->setting('notifications_enabled') == 'on'
+                 && $u->setting('notifications_terraria_enabled') == 'on') {
 
                     echo "Sending notifications to " . $u->email;
 

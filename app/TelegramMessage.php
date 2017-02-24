@@ -41,10 +41,21 @@ class TelegramMessage extends Message
      * TelegramMessage constructor.
      * @param array $attributes
      */
-    public function __construct(array $attributes)
+    public function __construct(array $attributes = [])
     {
         parent::__construct($attributes);
         $this->url = 'https://api.telegram.org/bot' . env('TELEGRAM_BOT_TOKEN');
+    }
+
+    /**
+     * @param array $attributes
+     * @return TelegramMessage
+     */
+    public static function create(array $attributes = [])
+    {
+        $telegram_message = new TelegramMessage($attributes);
+        $telegram_message->save();
+        return $telegram_message;
     }
 
     /**
@@ -80,6 +91,7 @@ class TelegramMessage extends Message
             \Log::error('TelegramMessage chat_id missing');
             return false;
         }
+
 
         $client = new Client();
         try {

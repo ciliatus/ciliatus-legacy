@@ -6,6 +6,7 @@ namespace App;
  * Class Message
  * @package App
  */
+use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 /**
@@ -39,21 +40,23 @@ abstract class Message extends CiliatusModel
      * method is defined in $attributes
      *
      * @param array $attributes
+     * @throws \InvalidArgumentException
      * @return CiliatusModel|Message|TelegramMessage
      */
     public static function create(array $attributes = [])
     {
-        if (isset($attributes['type'])) {
+        if (array_key_exists('type', $attributes)) {
             switch ($attributes['type']) {
                 case 'Telegram':
                     unset($attributes['type']);
                     return TelegramMessage::create($attributes);
                 default:
-                    return null;
+                    throw new \InvalidArgumentException('Invalid type attribute');
             }
         }
         else {
-            return parent::create($attributes);
+            \Log::debug('in4');
+            throw new \InvalidArgumentException('Missing attribute: type');
         }
     }
 

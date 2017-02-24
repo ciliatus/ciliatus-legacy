@@ -10,6 +10,7 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Carbon\Carbon;
+use Laravel\Passport\HasApiTokens;
 
 /**
  * Class User
@@ -20,8 +21,7 @@ class User extends CiliatusModel implements
     AuthorizableContract,
     CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, CanResetPassword;
-    use Traits\Uuids;
+    use Authenticatable, Authorizable, HasApiTokens, CanResetPassword, Traits\Uuids;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -54,7 +54,9 @@ class User extends CiliatusModel implements
      */
     public static function create(array $attributes = [])
     {
-        $new = parent::create($attributes);
+        $new = new User($attributes);
+        $new->save();
+
         Log::create([
             'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
             'target_id'     =>  $new->id,
@@ -285,10 +287,16 @@ class User extends CiliatusModel implements
             return false;
         }
 
-        $message = Message::create([
-            'type' => $this->setting('notification_type'),
-            'user_id' => $this->id
-        ]);
+        try {
+            $message = Message::create([
+                'type' => $this->setting('notification_type'),
+                'user_id' => $this->id
+            ]);
+        }
+        catch (\InvalidArgumentException $ex) {
+            \Log::error('Invalid message type for user ' . $this->name . ': ' . $this->setting('notification_type') . '. Exception: ' . $ex->getMessage());
+            return false;
+        }
 
         if (is_null($message)) {
             \Log::error('Message type missing');
