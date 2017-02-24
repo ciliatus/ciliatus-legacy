@@ -148,11 +148,9 @@ class ActionSequenceScheduleController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if ($request->has('action_sequence')) {
-            $a = ActionSequence::find($request->input('action_sequence'));
-            if (is_null($a)) {
-                return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
-            }
+        $a = ActionSequence::find($request->input('action_sequence'));
+        if (is_null($a)) {
+            return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
         }
 
         $ass = ActionSequenceSchedule::create([
