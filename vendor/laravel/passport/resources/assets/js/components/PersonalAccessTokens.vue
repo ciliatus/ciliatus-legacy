@@ -33,8 +33,10 @@
                     <!-- Personal Access Tokens -->
                     <table class="table table-borderless m-b-none" v-if="tokens.length > 0">
                         <thead>
-                            <th>Name</th>
-                            <th></th>
+                            <tr>
+                                <th>Name</th>
+                                <th></th>
+                            </tr>
                         </thead>
 
                         <tbody>
@@ -177,23 +179,37 @@
         },
 
         /**
-         * Prepare the component.
+         * Prepare the component (Vue 1.x).
          */
         ready() {
-            this.getTokens();
-            this.getScopes();
+            this.prepareComponent();
+        },
 
-            $('#modal-create-token').on('shown.bs.modal', () => {
-                $('#create-token-name').focus();
-            });
+        /**
+         * Prepare the component (Vue 2.x).
+         */
+        mounted() {
+            this.prepareComponent();
         },
 
         methods: {
             /**
+             * Prepare the component.
+             */
+            prepareComponent() {
+                this.getTokens();
+                this.getScopes();
+
+                $('#modal-create-token').on('shown.bs.modal', () => {
+                    $('#create-token-name').focus();
+                });
+            },
+
+            /**
              * Get all of the personal access tokens for the user.
              */
             getTokens() {
-                this.$http.get('/oauth/personal-access-tokens')
+                axios.get('/oauth/personal-access-tokens')
                         .then(response => {
                             this.tokens = response.data;
                         });
@@ -203,7 +219,7 @@
              * Get all of the available scopes.
              */
             getScopes() {
-                this.$http.get('/oauth/scopes')
+                axios.get('/oauth/scopes')
                         .then(response => {
                             this.scopes = response.data;
                         });
@@ -224,7 +240,7 @@
 
                 this.form.errors = [];
 
-                this.$http.post('/oauth/personal-access-tokens', this.form)
+                axios.post('/oauth/personal-access-tokens', this.form)
                         .then(response => {
                             this.form.name = '';
                             this.form.scopes = [];
@@ -234,9 +250,9 @@
 
                             this.showAccessToken(response.data.accessToken);
                         })
-                        .catch(response => {
-                            if (typeof response.data === 'object') {
-                                this.form.errors = _.flatten(_.toArray(response.data));
+                        .catch(error => {
+                            if (typeof error.response.data === 'object') {
+                                this.form.errors = _.flatten(_.toArray(error.response.data));
                             } else {
                                 this.form.errors = ['Something went wrong. Please try again.'];
                             }
@@ -258,7 +274,7 @@
              * Determine if the given scope has been assigned to the token.
              */
             scopeIsAssigned(scope) {
-                return _.indexOf(this.form.scopes, scope) > 0;
+                return _.indexOf(this.form.scopes, scope) >= 0;
             },
 
             /**
@@ -276,7 +292,7 @@
              * Revoke the given token.
              */
             revoke(token) {
-                this.$http.delete('/oauth/personal-access-tokens/' + token.id)
+                axios.delete('/oauth/personal-access-tokens/' + token.id)
                         .then(response => {
                             this.getTokens();
                         });

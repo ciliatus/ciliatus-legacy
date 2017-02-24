@@ -5,11 +5,11 @@ namespace Illuminate\Notifications\Messages;
 class MailMessage extends SimpleMessage
 {
     /**
-     * The view for the message.
+     * The view to be rendered.
      *
-     * @var string
+     * @var array|string
      */
-    public $view = 'notifications::email';
+    public $view;
 
     /**
      * The view data for the message.
@@ -17,6 +17,27 @@ class MailMessage extends SimpleMessage
      * @var array
      */
     public $viewData = [];
+
+    /**
+     * The Markdown template to render (if applicable).
+     *
+     * @var string|null
+     */
+    public $markdown = 'notifications::email';
+
+    /**
+     * The "from" information for the message.
+     *
+     * @var array
+     */
+    public $from = [];
+
+    /**
+     * The "reply to" information for the message.
+     *
+     * @var array
+     */
+    public $replyTo = [];
 
     /**
      * The attachments for the message.
@@ -33,9 +54,16 @@ class MailMessage extends SimpleMessage
     public $rawAttachments = [];
 
     /**
+     * Priority level of the message.
+     *
+     * @var int
+     */
+    public $priority;
+
+    /**
      * Set the view for the mail message.
      *
-     * @param  string  $view
+     * @param  array|string  $view
      * @param  array  $data
      * @return $this
      */
@@ -43,6 +71,53 @@ class MailMessage extends SimpleMessage
     {
         $this->view = $view;
         $this->viewData = $data;
+
+        $this->markdown = null;
+
+        return $this;
+    }
+
+    /**
+     * Set the Markdown template for the notification.
+     *
+     * @param  string  $view
+     * @param  array  $data
+     * @return $this
+     */
+    public function markdown($view, array $data = [])
+    {
+        $this->markdown = $view;
+        $this->viewData = $data;
+
+        $this->view = null;
+
+        return $this;
+    }
+
+    /**
+     * Set the from address for the mail message.
+     *
+     * @param  string  $address
+     * @param  string|null  $name
+     * @return $this
+     */
+    public function from($address, $name = null)
+    {
+        $this->from = [$address, $name];
+
+        return $this;
+    }
+
+    /**
+     * Set the "reply to" address of the message.
+     *
+     * @param  array|string  $address
+     * @param  string|null  $name
+     * @return $this
+     */
+    public function replyTo($address, $name = null)
+    {
+        $this->replyTo = [$address, $name];
 
         return $this;
     }
@@ -72,6 +147,21 @@ class MailMessage extends SimpleMessage
     public function attachData($data, $name, array $options = [])
     {
         $this->rawAttachments[] = compact('data', 'name', 'options');
+
+        return $this;
+    }
+
+    /**
+     * Set the priority of this message.
+     *
+     * The value is an integer where 1 is the highest priority and 5 is the lowest.
+     *
+     * @param  int  $level
+     * @return $this
+     */
+    public function priority($level)
+    {
+        $this->priority = $level;
 
         return $this;
     }

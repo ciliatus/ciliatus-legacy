@@ -44,7 +44,7 @@ class ControllerDispatcher
             return $controller->callAction($method, $parameters);
         }
 
-        return call_user_func_array([$controller, $method], $parameters);
+        return $controller->{$method}(...array_values($parameters));
     }
 
     /**
@@ -60,9 +60,9 @@ class ControllerDispatcher
             return [];
         }
 
-        return collect($controller->getMiddleware())->reject(function ($options, $name) use ($method) {
-            return static::methodExcludedByOptions($method, $options);
-        })->keys()->all();
+        return collect($controller->getMiddleware())->reject(function ($data) use ($method) {
+            return static::methodExcludedByOptions($method, $data['options']);
+        })->pluck('middleware')->all();
     }
 
     /**

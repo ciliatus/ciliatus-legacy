@@ -31,11 +31,13 @@
 
                 <table class="table table-borderless m-b-none" v-if="clients.length > 0">
                     <thead>
-                        <th>Client ID</th>
-                        <th>Name</th>
-                        <th>Secret</th>
-                        <th></th>
-                        <th></th>
+                        <tr>
+                            <th>Client ID</th>
+                            <th>Name</th>
+                            <th>Secret</th>
+                            <th></th>
+                            <th></th>
+                        </tr>
                     </thead>
 
                     <tbody>
@@ -236,26 +238,40 @@
         },
 
         /**
-         * Prepare the component.
+         * Prepare the component (Vue 1.x).
          */
         ready() {
-            this.getClients();
+            this.prepareComponent();
+        },
 
-            $('#modal-create-client').on('shown.bs.modal', () => {
-                $('#create-client-name').focus();
-            });
-
-            $('#modal-edit-client').on('shown.bs.modal', () => {
-                $('#edit-client-name').focus();
-            });
+        /**
+         * Prepare the component (Vue 2.x).
+         */
+        mounted() {
+            this.prepareComponent();
         },
 
         methods: {
             /**
+             * Prepare the component.
+             */
+            prepareComponent() {
+                this.getClients();
+
+                $('#modal-create-client').on('shown.bs.modal', () => {
+                    $('#create-client-name').focus();
+                });
+
+                $('#modal-edit-client').on('shown.bs.modal', () => {
+                    $('#edit-client-name').focus();
+                });
+            },
+
+            /**
              * Get all of the OAuth clients for the user.
              */
             getClients() {
-                this.$http.get('/oauth/clients')
+                axios.get('/oauth/clients')
                         .then(response => {
                             this.clients = response.data;
                         });
@@ -305,7 +321,7 @@
             persistClient(method, uri, form, modal) {
                 form.errors = [];
 
-                this.$http[method](uri, form)
+                axios[method](uri, form)
                     .then(response => {
                         this.getClients();
 
@@ -315,9 +331,9 @@
 
                         $(modal).modal('hide');
                     })
-                    .catch(response => {
-                        if (typeof response.data === 'object') {
-                            form.errors = _.flatten(_.toArray(response.data));
+                    .catch(error => {
+                        if (typeof error.response.data === 'object') {
+                            form.errors = _.flatten(_.toArray(error.response.data));
                         } else {
                             form.errors = ['Something went wrong. Please try again.'];
                         }
@@ -328,7 +344,7 @@
              * Destroy the given client.
              */
             destroy(client) {
-                this.$http.delete('/oauth/clients/' + client.id)
+                axios.delete('/oauth/clients/' + client.id)
                         .then(response => {
                             this.getClients();
                         });

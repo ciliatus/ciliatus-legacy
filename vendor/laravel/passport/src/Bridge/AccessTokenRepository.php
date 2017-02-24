@@ -3,7 +3,9 @@
 namespace Laravel\Passport\Bridge;
 
 use DateTime;
-use Illuminate\Database\Connection;
+use Laravel\Passport\TokenRepository;
+use Illuminate\Contracts\Events\Dispatcher;
+use Laravel\Passport\Events\AccessTokenCreated;
 use League\OAuth2\Server\Entities\ClientEntityInterface;
 use League\OAuth2\Server\Entities\AccessTokenEntityInterface;
 use League\OAuth2\Server\Repositories\AccessTokenRepositoryInterface;
@@ -13,21 +15,30 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
     use FormatsScopesForStorage;
 
     /**
-     * The database connection.
+     * The token repository instance.
      *
-     * @var \Illuminate\Database\Connection
+     * @var TokenRepository
      */
-    protected $database;
+    protected $tokenRepository;
+
+    /**
+     * The event dispatcher instance.
+     *
+     * @var \Illuminate\Events\Dispatcher
+     */
+    private $events;
 
     /**
      * Create a new repository instance.
      *
-     * @param  \Illuminate\Database\Connection  $database
+     * @param  TokenRepository  $tokenRepository
+     * @param  \Illuminate\Events\Dispatcher  $events
      * @return void
      */
-    public function __construct(Connection $database)
+    public function __construct(TokenRepository $tokenRepository, Dispatcher $events)
     {
-        $this->database = $database;
+        $this->events = $events;
+        $this->tokenRepository = $tokenRepository;
     }
 
     /**
@@ -43,16 +54,22 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
      */
     public function persistNewAccessToken(AccessTokenEntityInterface $accessTokenEntity)
     {
-        $this->database->table('oauth_access_tokens')->insert([
+        $this->tokenRepository->create([
             'id' => $accessTokenEntity->getIdentifier(),
             'user_id' => $accessTokenEntity->getUserIdentifier(),
             'client_id' => $accessTokenEntity->getClient()->getIdentifier(),
-            'scopes' => $this->formatScopesForStorage($accessTokenEntity->getScopes()),
+            'scopes' => $this->scopesToArray($accessTokenEntity->getScopes()),
             'revoked' => false,
             'created_at' => new DateTime,
             'updated_at' => new DateTime,
             'expires_at' => $accessTokenEntity->getExpiryDateTime(),
         ]);
+
+        $this->events->dispatch(new AccessTokenCreated(
+            $accessTokenEntity->getIdentifier(),
+            $accessTokenEntity->getUserIdentifier(),
+            $accessTokenEntity->getClient()->getIdentifier()
+        ));
     }
 
     /**
@@ -60,8 +77,7 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
      */
     public function revokeAccessToken($tokenId)
     {
-        $this->database->table('oauth_access_tokens')
-                    ->where('id', $tokenId)->update(['revoked' => true]);
+        $this->tokenRepository->revokeAccessToken($tokenId);
     }
 
     /**
@@ -69,7 +85,6 @@ class AccessTokenRepository implements AccessTokenRepositoryInterface
      */
     public function isAccessTokenRevoked($tokenId)
     {
-        return $this->database->table('oauth_access_tokens')
-                    ->where('id', $tokenId)->where('revoked', 1)->exists();
+        return $this->tokenRepository->isAccessTokenRevoked($tokenId);
     }
 }

@@ -2,6 +2,7 @@
 
 namespace Illuminate\Foundation\Console;
 
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class DownCommand extends Command
@@ -12,7 +13,7 @@ class DownCommand extends Command
      * @var string
      */
     protected $signature = 'down {--message= : The message for the maintenance mode. }
-            {--retry= : The number of seconds after which the request may be retried.}';
+                                 {--retry= : The number of seconds after which the request may be retried.}';
 
     /**
      * The console command description.
@@ -44,7 +45,7 @@ class DownCommand extends Command
     protected function getDownFilePayload()
     {
         return [
-            'time' => time(),
+            'time' => Carbon::now()->getTimestamp(),
             'message' => $this->option('message'),
             'retry' => $this->getRetryTime(),
         ];

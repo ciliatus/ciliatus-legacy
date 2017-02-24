@@ -2,6 +2,155 @@
 
 All notable changes to this project will be documented in this file, in reverse chronological order by release.
 
+## 1.3.11 - TBD
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
+## 1.3.10 - 2017-01-23
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#226](https://github.com/zendframework/zend-diactoros/pull/226) fixed an
+  issue with the `SapiStreamEmitter` causing the response body to be cast
+  to `(string)` and also be read as a readable stream, potentially producing
+  double output.
+
+## 1.3.9 - 2017-01-17
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#223](https://github.com/zendframework/zend-diactoros/issues/223)
+  [#224](https://github.com/zendframework/zend-diactoros/pull/224) fixed an issue
+  with the `SapiStreamEmitter` consuming too much memory when producing output
+  for readable bodies.
+
+## 1.3.8 - 2017-01-05
+
+### Added
+
+- Nothing.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#222](https://github.com/zendframework/zend-diactoros/pull/222) fixes the
+  `SapiStreamEmitter`'s handling of the `Content-Range` header to properly only
+  emit a range of bytes if the header value is in the form `bytes {first-last}/length`.
+  This allows using other range units, such as `items`, without incorrectly
+  emitting truncated content.
+
+## 1.3.7 - 2016-10-11
+
+### Added
+
+- [#208](https://github.com/zendframework/zend-diactoros/pull/208) adds several
+  missing response codes to `Zend\Diactoros\Response`, including:
+  - 226 ('IM used')
+  - 308 ('Permanent Redirect')
+  - 444 ('Connection Closed Without Response')
+  - 499 ('Client Closed Request')
+  - 510 ('Not Extended')
+  - 599 ('Network Connect Timeout Error')
+- [#211](https://github.com/zendframework/zend-diactoros/pull/211) adds support
+  for UTF-8 characters in query strings handled by `Zend\Diactoros\Uri`.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- Nothing.
+
+## 1.3.6 - 2016-09-07
+
+### Added
+
+- [#170](https://github.com/zendframework/zend-diactoros/pull/170) prepared
+  documentation for publication at https://zendframework.github.io/zend-diactoros/
+- [#165](https://github.com/zendframework/zend-diactoros/pull/165) adds support
+  for Apache `REDIRECT_HTTP_*` header detection in the `ServerRequestFactory`.
+- [#166](https://github.com/zendframework/zend-diactoros/pull/166) adds support
+  for UTF-8 characters in URI paths.
+- [#204](https://github.com/zendframework/zend-diactoros/pull/204) adds testing
+  against PHP 7.1 release-candidate builds.
+
+### Deprecated
+
+- Nothing.
+
+### Removed
+
+- Nothing.
+
+### Fixed
+
+- [#186](https://github.com/zendframework/zend-diactoros/pull/186) fixes a typo
+  in a variable name within the `SapiStreamEmitter`.
+- [#200](https://github.com/zendframework/zend-diactoros/pull/200) updates the
+  `SapiStreamEmitter` to implement a check for `isSeekable()` prior to attempts
+  to rewind; this allows it to work with non-seekable streams such as the
+  `CallbackStream`.
+- [#169](https://github.com/zendframework/zend-diactoros/pull/169) ensures that
+  response serialization always provides a `\r\n\r\n` sequence following the
+  headers, even when no message body is present, to ensure it conforms with RFC
+  7230.
+- [#175](https://github.com/zendframework/zend-diactoros/pull/175) updates the
+  `Request` class to set the `Host` header from the URI host if no header is
+  already present. (Ensures conformity with PSR-7 specification.)
+- [#197](https://github.com/zendframework/zend-diactoros/pull/197) updates the
+  `Uri` class to ensure that string serialization does not include a colon after
+  the host name if no port is present in the instance.
+
 ## 1.3.5 - 2016-03-17
 
 ### Added

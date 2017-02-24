@@ -2,8 +2,22 @@
 
 namespace Laravel\Passport;
 
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Model;
+
 class TokenRepository
 {
+    /**
+     * Creates a new Access Token
+     *
+     * @param  array  $attributes
+     * @return Token
+     */
+    public function create($attributes)
+    {
+        return Token::create($attributes);
+    }
+
     /**
      * Get a token by the given ID.
      *
@@ -16,37 +30,72 @@ class TokenRepository
     }
 
     /**
+     * Get a valid token instance for the given user and client.
+     *
+     * @param  Model  $userId
+     * @param  Client  $client
+     * @return Token|null
+     */
+    public function getValidToken($user, $client)
+    {
+        return $client->tokens()
+                    ->whereUserId($user->id)
+                    ->whereRevoked(0)
+                    ->where('expires_at', '>', Carbon::now())
+                    ->first();
+    }
+
+    /**
      * Store the given token instance.
      *
      * @param  Token  $token
      * @return void
      */
-    public function save($token)
+    public function save(Token $token)
     {
         $token->save();
     }
 
     /**
-     * Revoke all of the access tokens for a given user and client.
+     * Revoke an access token.
      *
-     * @param  mixed  $clientId
-     * @param  mixed  $userId
-     * @param  bool  $prune
-     * @return void
+     * @param string $id
      */
-    public function revokeOtherAccessTokens($clientId, $userId, $except = null, $prune = false)
+    public function revokeAccessToken($id)
     {
-        $query = Token::where('user_id', $userId)
-                      ->where('client_id', $clientId);
+        return $this->find($id)->update(['revoked' => true]);
+    }
 
-        if ($except) {
-            $query->where('id', '<>', $except);
+    /**
+     * Check if the access token has been revoked.
+     *
+     * @param string $id
+     *
+     * @return bool Return true if this token has been revoked
+     */
+    public function isAccessTokenRevoked($id)
+    {
+        if ($token = $this->find($id)) {
+            return $token->revoked;
         }
 
-        if ($prune) {
-            $query->delete();
-        } else {
-            $query->update(['revoked' => true]);
-        }
+        return true;
+    }
+
+        /**
+     * Find a valid token for the given user and client.
+     *
+     * @param  Model  $userId
+     * @param  Client  $client
+     * @return Token|null
+     */
+    public function findValidToken($user, $client)
+    {
+        return $client->tokens()
+                      ->whereUserId($user->id)
+                      ->whereRevoked(0)
+                      ->where('expires_at', '>', Carbon::now())
+                      ->latest('expires_at')
+                      ->first();
     }
 }

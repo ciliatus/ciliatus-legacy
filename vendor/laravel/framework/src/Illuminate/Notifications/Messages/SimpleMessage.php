@@ -21,6 +21,20 @@ class SimpleMessage
     public $subject;
 
     /**
+     * The notification's greeting.
+     *
+     * @var string
+     */
+    public $greeting;
+
+    /**
+     * The notification's salutation.
+     *
+     * @var string
+     */
+    public $salutation;
+
+    /**
      * The "intro" lines of the notification.
      *
      * @var array
@@ -99,6 +113,32 @@ class SimpleMessage
     }
 
     /**
+     * Set the greeting of the notification.
+     *
+     * @param  string  $greeting
+     * @return $this
+     */
+    public function greeting($greeting)
+    {
+        $this->greeting = $greeting;
+
+        return $this;
+    }
+
+    /**
+     * Set the salutation of the notification.
+     *
+     * @param  string  $salutation
+     * @return $this
+     */
+    public function salutation($salutation)
+    {
+        $this->salutation = $salutation;
+
+        return $this;
+    }
+
+    /**
      * Add a line of text to the notification.
      *
      * @param  \Illuminate\Notifications\Action|string  $line
@@ -140,7 +180,7 @@ class SimpleMessage
             return implode(' ', array_map('trim', $line));
         }
 
-        return trim(implode(' ', array_map('trim', explode(PHP_EOL, $line))));
+        return trim(implode(' ', array_map('trim', preg_split('/\\r\\n|\\r|\\n/', $line))));
     }
 
     /**
@@ -168,6 +208,8 @@ class SimpleMessage
         return [
             'level' => $this->level,
             'subject' => $this->subject,
+            'greeting' => $this->greeting,
+            'salutation' => $this->salutation,
             'introLines' => $this->introLines,
             'outroLines' => $this->outroLines,
             'actionText' => $this->actionText,

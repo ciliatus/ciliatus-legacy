@@ -64,6 +64,18 @@ class Token extends Model
     }
 
     /**
+     * Get the user that the token belongs to.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        $provider = config('auth.guards.api.provider');
+
+        return $this->belongsTo(config('auth.providers.'.$provider.'.model'));
+    }
+
+    /**
      * Determine if the token has a given scope.
      *
      * @param  string  $scope

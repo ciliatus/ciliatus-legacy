@@ -14,12 +14,20 @@ class Collection extends BaseCollection implements QueueableCollection
      *
      * @param  mixed  $key
      * @param  mixed  $default
-     * @return \Illuminate\Database\Eloquent\Model
+     * @return \Illuminate\Database\Eloquent\Model|static
      */
     public function find($key, $default = null)
     {
         if ($key instanceof Model) {
             $key = $key->getKey();
+        }
+
+        if (is_array($key)) {
+            if ($this->isEmpty()) {
+                return new static;
+            }
+
+            return $this->whereIn($this->first()->getKeyName(), $key);
         }
 
         return Arr::first($this->items, function ($model) use ($key) {
@@ -65,17 +73,14 @@ class Collection extends BaseCollection implements QueueableCollection
      * Determine if a key exists in the collection.
      *
      * @param  mixed  $key
+     * @param  mixed  $operator
      * @param  mixed  $value
      * @return bool
      */
-    public function contains($key, $value = null)
+    public function contains($key, $operator = null, $value = null)
     {
-        if (func_num_args() == 2) {
-            return parent::contains($key, $value);
-        }
-
-        if ($this->useAsCallable($key)) {
-            return parent::contains($key);
+        if (func_num_args() > 1 || $this->useAsCallable($key)) {
+            return parent::contains(...func_get_args());
         }
 
         $key = $key instanceof Model ? $key->getKey() : $key;
@@ -118,7 +123,7 @@ class Collection extends BaseCollection implements QueueableCollection
      * Run a map over each of the items.
      *
      * @param  callable  $callback
-     * @return static
+     * @return \Illuminate\Support\Collection
      */
     public function map(callable $callback)
     {
@@ -176,7 +181,7 @@ class Collection extends BaseCollection implements QueueableCollection
      *
      * @param  string|callable|null  $key
      * @param  bool  $strict
-     * @return static
+     * @return static|\Illuminate\Support\Collection
      */
     public function unique($key = null, $strict = false)
     {
@@ -195,6 +200,10 @@ class Collection extends BaseCollection implements QueueableCollection
      */
     public function only($keys)
     {
+        if (is_null($keys)) {
+            return new static($this->items);
+        }
+
         $dictionary = Arr::only($this->getDictionary(), $keys);
 
         return new static(array_values($dictionary));
