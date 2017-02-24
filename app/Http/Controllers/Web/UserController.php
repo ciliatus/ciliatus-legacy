@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+/**
+ * Class UserController
+ * @package App\Http\Controllers\Web
+ */
 class UserController extends Controller
 {
 
@@ -89,6 +93,13 @@ class UserController extends Controller
             return view('errors.404');
         }
 
+        /*
+         * Make sure non-admin users can only edit themselves
+         */
+        if (Gate::denies('admin') && $user->id != Auth::user()->id) {
+            return view('errors.401');
+        }
+
 
         return view('users.edit', [
             'user'     => $user
@@ -107,12 +118,23 @@ class UserController extends Controller
         //
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function delete($id)
     {
         $user = User::find($id);
 
         if (is_null($user)) {
             return view('errors.404');
+        }
+
+        /*
+         * Make sure non-admin users can only edit themselves
+         */
+        if (Gate::denies('admin') && $user->id != Auth::user()->id) {
+            return view('errors.401');
         }
 
         return view('users.delete', [
@@ -131,6 +153,9 @@ class UserController extends Controller
         //
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function setup_Telegram()
     {
         $user = Auth::user();
@@ -141,6 +166,32 @@ class UserController extends Controller
         return view('users.setup_telegram', [
             'user'  =>  $user,
             'token' =>  $user->setting('notifications_telegram_verification_code')
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create_personal_accesss_token(Request $request, $id)
+    {
+        $user = User::find($id);
+
+        if (is_null($user)) {
+            return view('errors.404');
+        }
+
+        /*
+         * Make sure non-admin users can only edit themselves
+         */
+        if (Gate::denies('admin') && $user->id != Auth::user()->id) {
+            return view('errors.401');
+        }
+
+
+        return view('users.personal_access_tokens.create', [
+            'user'     => $user
         ]);
     }
 }

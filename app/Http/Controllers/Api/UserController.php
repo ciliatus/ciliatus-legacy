@@ -13,6 +13,7 @@ use App\UserSetting;
 use Auth;
 use Gate;
 use Illuminate\Http\Request;
+use Laravel\Passport\Token;
 
 
 /**
@@ -261,24 +262,27 @@ class UserController extends ApiController
         }
 
         if ($request->has('notifications_enabled')) {
-            $user->setSetting('notifications_enabled', 'on');
+            $user->setSetting('notifications_enabled', $request->input('notifications_enabled'));
         }
-        else {
-            $user->setSetting('notifications_enabled', 'off');
+
+        if ($request->has('notifications_controlunits_enabled')) {
+            $user->setSetting('notifications_controlunits_enabled', $request->input('notifications_controlunits_enabled'));
+        }
+
+        if ($request->has('notifications_terraria_enabled')) {
+            $user->setSetting('notifications_terraria_enabled', $request->input('notifications_terraria_enabled'));
+        }
+
+        if ($request->has('notifications_daily_enabled')) {
+            $user->setSetting('notifications_daily_enabled', $request->input('notifications_daily_enabled'));
         }
 
         if ($request->has('auto_nightmode_enabled')) {
-            $user->setSetting('auto_nightmode_enabled', 'on');
-        }
-        else {
-            $user->setSetting('auto_nightmode_enabled', 'off');
+            $user->setSetting('auto_nightmode_enabled', $request->input('auto_nightmode_enabled'));
         }
 
         if ($request->has('permanent_nightmode_enabled')) {
-            $user->setSetting('permanent_nightmode_enabled', 'on');
-        }
-        else {
-            $user->setSetting('permanent_nightmode_enabled', 'off');
+            $user->setSetting('permanent_nightmode_enabled', $request->input('permanent_nightmode_enabled'));
         }
 
         $user->save();
@@ -306,6 +310,79 @@ class UserController extends ApiController
         $user_setting_controller = new UserSettingController(new UserSettingTransformer());
         return $user_setting_controller->show($us->id);
 
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function store_personal_access_token(Request $request, $id)
+    {
+        if (Gate::denies('api-write:user_self') && Gate::denies('admin')) {
+            return $this->respondUnauthorized();
+        }
+
+        $user = User::find($id);
+        if (is_null($user)) {
+            return $this->respondNotFound('User not found');
+        }
+
+        /*
+         * Make sure non-admin users can only edit themselves
+         */
+        if (Gate::denies('admin') && $user->id != Auth::user()->id) {
+            return $this->respondUnauthorized();
+        }
+
+        $token = $user->createToken($request->input('name'))->accessToken;
+
+        return $this->respondWithData([
+            'token' => $token
+        ], [
+            'redirect' => [
+                'uri' => url('users/' . $user->id . '/personal_access_tokens')
+            ]
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @param $token_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function delete_personal_access_token(Request $request, $id, $token_id)
+    {
+        if (Gate::denies('api-write:user_self') && Gate::denies('admin')) {
+            return $this->respondUnauthorized();
+        }
+
+        $user = User::find($id);
+        if (is_null($user)) {
+            return $this->respondNotFound('User not found');
+        }
+
+        /*
+         * Make sure non-admin users can only edit themselves
+         */
+        if (Gate::denies('admin') && $user->id != Auth::user()->id) {
+            return $this->respondUnauthorized();
+        }
+
+        /*
+         * TODO:
+         * Should work but doesn't :(
+         */
+        //$request->user()->tokens()->where('id', $token_id)->get()->revoke();
+
+        Token::find($token_id)->revoke();
+
+        return $this->respondWithData([], [
+            'redirect' => [
+                'uri' => url('users/' . $user->id . '/edit')
+            ]
+        ]);
     }
 
 }
