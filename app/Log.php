@@ -35,8 +35,7 @@ class Log extends CiliatusModel
      */
     public static function create(array $attributes = [])
     {
-
-        $new = parent::create($attributes);
+        $new = new Log($attributes);
         $new->save();
 
         if (!Auth::guest()) {

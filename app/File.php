@@ -49,7 +49,8 @@ class File extends CiliatusModel
      */
     public static function create(array $attributes = [])
     {
-        $file = parent::create($attributes);
+        $file = new File($attributes);
+        $file->save();
         $file->name = $file->id . '.' . $file->name;
         $file->parent_path = File::generateParentPaths();
         $file->state = 'Creating';

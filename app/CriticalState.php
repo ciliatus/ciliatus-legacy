@@ -50,7 +50,7 @@ class CriticalState extends CiliatusModel
      */
     public static function create(array $attributes = [])
     {
-        $new = parent::create($attributes);
+        $new = new CriticalState($attributes);
         $new->save();
 
         Log::create([
@@ -119,22 +119,40 @@ class CriticalState extends CiliatusModel
         foreach (User::get() as $u) {
             if ($u->setting('notifications_enabled') == 'on') {
                 switch ($this->belongsTo_type) {
+
                     case 'LogicalSensor':
-                        $ls = LogicalSensor::find($this->belongsTo_id);
-                        if (is_null($ls)) {
-                            \Log::error('CriticalState ' . $this->id . ' belongs to LogicalSensor ' . $this->belongsTo_id . ' which could not be found.');
-                            break;
+                        if ($u->setting('notifications_terraria_enabled') == 'on') {
+                            $ls = LogicalSensor::find($this->belongsTo_id);
+                            if (is_null($ls)) {
+                                \Log::error('CriticalState ' . $this->id . ' belongs to LogicalSensor ' . $this->belongsTo_id . ' which could not be found.');
+                                break;
+                            }
+                            $u->message(trans('messages.critical_state_notification_logical_sensor.' . $ls->type, [
+                                'logical_sensor' => $ls->name,
+                                $ls->type => $ls->getCurrentCookedValue()
+                            ], '', $u->locale));
                         }
-                        $u->message(trans('messages.critical_state_notification_logical_sensor.' . $ls->type, [
-                            'logical_sensor' => $ls->name,
-                            $ls->type => $ls->getCurrentCookedValue()
-                        ], '', $u->locale));
                         break;
+
+                    case 'Controlunit':
+                        if ($u->setting('notifications_controlunits_enabled') == 'on') {
+                            $cu = Controlunit::find($this->belongsTo_id);
+                            if (is_null($cu)) {
+                                \Log::error('CriticalState ' . $this->id . ' belongs to Controlunit ' . $this->belongsTo_id . ' which could not be found.');
+                                break;
+                            }
+                            $u->message(trans('messages.critical_state_notification_controlunit', [
+                                'controlunit' => $cu->name
+                            ], '', $u->locale));
+                        }
+                        break;
+
                     default:
                         $u->message(trans('messages.critical_state_generic', [
                             'critical_state' => $this->name
                         ]));
                 }
+
 
             }
         }
@@ -166,17 +184,34 @@ class CriticalState extends CiliatusModel
         foreach (User::get() as $u) {
             if ($u->setting('notifications_enabled') == 'on') {
                 switch ($this->belongsTo_type) {
+
                     case 'LogicalSensor':
-                        $ls = LogicalSensor::find($this->belongsTo_id);
-                        if (is_null($ls)) {
-                            \Log::error('CriticalState ' . $this->id . ' recovered belongs to LogicalSensor ' . $this->belongsTo_id . ' which could not be found.');
-                            break;
+                        if ($u->setting('notifications_terraria_enabled') == 'on') {
+                            $ls = LogicalSensor::find($this->belongsTo_id);
+                            if (is_null($ls)) {
+                                \Log::error('CriticalState ' . $this->id . ' recovered belongs to LogicalSensor ' . $this->belongsTo_id . ' which could not be found.');
+                                break;
+                            }
+                            $u->message(trans('messages.critical_state_recovery_notification_logical_sensor.' . $ls->type, [
+                                'logical_sensor' => $ls->name,
+                                $ls->type => $ls->getCurrentCookedValue()
+                            ], '', $u->locale));
                         }
-                        $u->message(trans('messages.critical_state_recovery_notification_logical_sensor.' . $ls->type, [
-                            'logical_sensor' => $ls->name,
-                            $ls->type => $ls->getCurrentCookedValue()
-                        ], '', $u->locale));
                         break;
+
+                    case 'Controlunit':
+                        if ($u->setting('notifications_controlunits_enabled') == 'on') {
+                            $cu = Controlunit::find($this->belongsTo_id);
+                            if (is_null($cu)) {
+                                \Log::error('CriticalState ' . $this->id . ' recovered belongs to Controlunit ' . $this->belongsTo_id . ' which could not be found.');
+                                break;
+                            }
+                            $u->message(trans('messages.critical_state_recovery_notification_controlunit', [
+                                'controlunit' => $cu->name
+                            ], '', $u->locale));
+                        }
+                        break;
+
                     default:
                         $u->message(trans('messages.critical_state_generic', [
                             'critical_state' => $this->name
@@ -203,8 +238,9 @@ class CriticalState extends CiliatusModel
      */
     public function recover()
     {
-        if (!$this->is_soft_state)
+        if (!$this->is_soft_state) {
             $this->notifyRecovered();
+        }
 
         $this->recovered_at = Carbon::now();
         $this->save();
@@ -226,9 +262,6 @@ class CriticalState extends CiliatusModel
     {
         if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
             $obj = ('App\\' . ucfirst($this->belongsTo_type))::find($this->belongsTo_id);
-            if (!is_null($obj)) {
-                $obj->current_threshold = $obj->current_threshold();
-            }
             return $obj;
         }
 
@@ -269,6 +302,34 @@ class CriticalState extends CiliatusModel
                 else {
                     foreach ($existing_cs as $cs) {
                         if ($cs->created_at->diffInMinutes(Carbon::now()) > $ls->soft_state_duration_minutes
+                            && is_null($cs->notifications_sent_at)) {
+
+                            $cs->is_soft_state = false;
+                            $cs->save(['silent']);
+                            $cs->notify();
+
+                            $result['notified']++;
+                        }
+                    }
+                }
+            }
+        }
+
+        foreach (Controlunit::get() as $cu) {
+            if (!$cu->stateOk()) {
+                $existing_cs = $cu->critical_states()->whereNull('recovered_at')->get();
+
+                if ($existing_cs->count() < 1) {
+                    CriticalState::create([
+                        'belongsTo_type' => 'Controlunit',
+                        'belongsTo_id'   => $cu->id
+                    ]);
+
+                    $result['created']++;
+                }
+                else {
+                    foreach ($existing_cs as $cs) {
+                        if ($cs->created_at->diffInMinutes(Carbon::now()) > env('DEFAULT_SOFT_STATE_DURATION_MINUTES', 10)
                             && is_null($cs->notifications_sent_at)) {
 
                             $cs->is_soft_state = false;

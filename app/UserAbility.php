@@ -74,7 +74,9 @@ class UserAbility extends CiliatusModel
      */
     public static function create(array $attributes = [])
     {
-        $new = parent::create($attributes);
+        $new = new UserAbility($attributes);
+        $new->save();
+
         Log::create([
             'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
             'target_id'     =>  $new->id,

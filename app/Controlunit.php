@@ -59,7 +59,7 @@ class Controlunit extends CiliatusModel
      */
     public function physical_sensors()
     {
-        return $this->hasMany('App\PhysicalSensor')->with('logical_sensors');
+        return $this->hasMany('App\PhysicalSensor');
     }
 
     /**
@@ -67,7 +67,7 @@ class Controlunit extends CiliatusModel
      */
     public function valves()
     {
-        return $this->hasMany('App\Valve')->with('pump');
+        return $this->hasMany('App\Valve');
     }
 
     /**
@@ -75,7 +75,7 @@ class Controlunit extends CiliatusModel
      */
     public function pumps()
     {
-        return $this->hasMany('App\Pump')->with('valves');
+        return $this->hasMany('App\Pump');
     }
 
     /**
@@ -87,11 +87,36 @@ class Controlunit extends CiliatusModel
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function critical_states()
+    {
+        return $this->hasMany('App\CriticalState', 'belongsTo_id')->where('belongsTo_type', 'Controlunit');
+    }
+
+    /**
      * @return string
      */
     public function heartbeatOk()
     {
-        return Carbon::now()->diffInMinutes($this->heartbeat_at) < 10 && !is_null($this->heartbeat_at);
+        return Carbon::now()->diffInMinutes($this->heartbeat_at) < env('CONTROLUNIT_MAX_TIMESPAN_MINUTES', 10) && !is_null($this->heartbeat_at);
+    }
+
+    /**
+     * @return bool
+     */
+    public function check_notifications_enabled()
+    {
+        // TODO add attribute
+        return true;
+    }
+
+    /**
+     * @return string
+     */
+    public function stateOk()
+    {
+        return $this->heartbeatOk();
     }
 
     /**
