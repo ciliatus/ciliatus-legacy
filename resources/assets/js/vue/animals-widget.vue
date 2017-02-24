@@ -59,10 +59,18 @@
                             <span v-if="animal.last_feeding && !animal.death_date">
                                 <br />
                                 <i class="material-icons tiny">local_dining</i>
-                                <span v-if="animal.last_feeding.timestamps.diff.value == 0">{{ $t("labels.today") }}</span>
-                                <span v-if="animal.last_feeding.timestamps.diff.value > 0">
-                                    {{ $t('units.' + animal.last_feeding.timestamps.diff.unit + '_ago', {val: animal.last_feeding.timestamps.diff.value}) }}: {{ animal.last_feeding.name }}
+                                <span v-if="animal.last_feeding.timestamps.created_diff.days == 0">
+                                    <span v-if="animal.last_feeding.timestamps.created_diff.is_today">
+                                        {{ $t("labels.today") }}:
+                                    </span>
+                                    <span v-else>
+                                        {{ $t("labels.yesterday") }}:
+                                    </span>
                                 </span>
+                                <span v-else>
+                                    {{ $t('units.days_ago', {val: animal.last_feeding.timestamps.created_diff.days}) }}:
+                                </span>
+                                {{ animal.last_feeding.name }}
                             </span>
                             <br />
                         </p>

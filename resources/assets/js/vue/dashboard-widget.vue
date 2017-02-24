@@ -72,7 +72,7 @@
             <ul class="collection warning with-header">
                 <li class="collection-header">
                     <i class="material-icons">vertical_align_bottom</i>
-                    {{ dashboard.animal_weighing_schedules.overdue.length }} {{ $tc("components.animal_weighings", 2) }} {{ $t("labels.due") }}
+                    {{ dashboard.animal_weighing_schedules.overdue.length }} {{ $tc("components.animal_weighings", 2) }} {{ $t("labels.overdue") }}
                 </li>
 
                 <li class="collection-item" v-for="schedule in dashboard.animal_weighing_schedules.overdue">
@@ -80,7 +80,7 @@
                     <div class="white-text">
 
                         <span style="display: inline-block; width: calc(100% - 60px);">
-                            {{ schedule.animal.display_name }} {{ $t('labels.today') }}
+                            {{ schedule.animal.display_name }} ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
                         </span>
 
 
@@ -108,7 +108,7 @@
             <ul class="collection warning with-header">
                 <li class="collection-header">
                     <i class="material-icons">playlist_play</i>
-                    {{ dashboard.action_sequence_schedules.overdue.length }} {{ $tc("components.action_sequences", 2) }} {{ $t("labels.due") }}
+                    {{ dashboard.action_sequence_schedules.overdue.length }} {{ $tc("components.action_sequences", 2) }} {{ $t("labels.overdue") }}
                 </li>
 
                 <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.overdue">
@@ -203,7 +203,6 @@
         <!--
             Action Sequence Schedules due
         -->
-        <!--
         <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.due.length > 0">
 
             <ul class="collection ok with-header">
@@ -231,7 +230,6 @@
             </ul>
 
         </div>
-        -->
 
 
         <!--
@@ -414,7 +412,7 @@ export default {
                     this.dashboard.terraria.critical.splice(item, 1);
                 }
                 else {
-                    this.dashboard.terraria.ok.splice(item, 1, e.terrarium);
+                    this.dashboard.terraria.critical.splice(item, 1, e.terrarium);
                     found = true;
                 }
             }

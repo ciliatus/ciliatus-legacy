@@ -1,6 +1,24 @@
 var Vue = require('vue');
 import Peity from 'vue-peity'
 
+/*
+import VueResource from 'vue-resource';
+Vue.use(VueResource);
+Vue.http.interceptors.push((request, next) => {
+    request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
+
+    next();
+});
+*/
+
+$.ajaxPrefilter(function(options) {
+    if (!options.beforeSend) {
+        options.beforeSend = function (xhr) {
+            xhr.setRequestHeader('X-CSRF-TOKEN', Laravel.csrfToken);
+        }
+    }
+});
+
 window.eventHubVue = new Vue({
     props: {
         globalLoadingBarCount: {

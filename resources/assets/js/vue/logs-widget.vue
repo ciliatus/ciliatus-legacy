@@ -64,6 +64,12 @@
                     <td>
                         <span v-if="log.action == 'start'" class="material-icons">play_arrow</span>
                         <span v-if="log.action == 'finish'" class="material-icons">done</span>
+                        <span v-if="log.action == 'create'" class="material-icons">add</span>
+                        <span v-if="log.action == 'delete'" class="material-icons">delete</span>
+                        <span v-if="log.action == 'update'" class="material-icons">update</span>
+                        <span v-if="log.action == 'recover'" class="material-icons">settings_backup_restore</span>
+                        <span v-if="log.action == 'notify_recovered'" class="material-icons">notifications_none</span>
+                        <span v-if="log.action == 'notify'" class="material-icons">notifications_active</span>
                         {{ log.action }}
                     </td>
 

@@ -157,7 +157,7 @@ video.responsive-video {
     height: 30px;
 
     a {
-      color: #444;
+      color: #999;
       display: inline-block;
       font-size: 1.2rem;
       padding: 0 10px;
@@ -170,7 +170,7 @@ video.responsive-video {
 
     &.disabled a {
       cursor: default;
-      color: #999;
+      color: #444;
     }
 
     i {

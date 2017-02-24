@@ -103,6 +103,10 @@ window.submit_form = function (e) {
             btns.removeAttr('disabled');
             window.notification('<i class="material-icons">check</i>', 'teal darken-1 text-white');
 
+            if (callback !== undefined) {
+                window[callback](data);
+            }
+
             if (redirect_success !== undefined) {
                 if (redirect_success == 'auto') {
                     if (data.meta.redirect.uri !== undefined) {
