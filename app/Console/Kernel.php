@@ -16,7 +16,8 @@ class Kernel extends ConsoleKernel
         Commands\EvaluateCriticalStates::class,
         Commands\RebuildCache::class,
         Commands\SendNotifications::class,
-        Commands\Update13b::class
+        Commands\Update13b::class,
+        Commands\ConvertLangToJson::class
     ];
 
     /**
