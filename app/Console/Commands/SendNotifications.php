@@ -59,7 +59,7 @@ class SendNotifications extends Command
             foreach (User::get() as $u) {
 
                 if ($u->setting('notifications_enabled') == 'on'
-                 && $u->setting('notifications_terraria_enabled') == 'on') {
+                 && $u->setting('notifications_daily_enabled') == 'on') {
 
                     echo "Sending notifications to " . $u->email;
 
