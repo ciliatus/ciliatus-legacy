@@ -51,12 +51,8 @@ class Terrarium extends CiliatusModel
      */
     public function save(array $options = [])
     {
-        $this->temperature_critical = !$this->temperatureOk();
-        $this->humidity_critical = !$this->humidityOk();
-        $this->heartbeat_critical = !$this->heartbeatOk();
-        $this->cooked_humidity_percent = $this->getCurrentHumidity();
-        $this->cooked_temperature_celsius = $this->getCurrentTemperature();
 
+        $this->updateStaticFields();
         $result = parent::save($options);
 
         if (!isset($options['silent'])) {
@@ -74,6 +70,15 @@ class Terrarium extends CiliatusModel
         broadcast(new TerrariumDeleted($this->id));
 
         parent::delete();
+    }
+
+    public function updateStaticFields()
+    {
+        $this->temperature_critical = !$this->temperatureOk();
+        $this->humidity_critical = !$this->humidityOk();
+        $this->heartbeat_critical = !$this->heartbeatOk();
+        $this->cooked_humidity_percent = $this->getCurrentHumidity();
+        $this->cooked_temperature_celsius = $this->getCurrentTemperature();
     }
 
     /**

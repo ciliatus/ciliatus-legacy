@@ -152,6 +152,9 @@ class SensorreadingController extends ApiController
                         ->respondWithError('The reading group already has a reading for this logical sensor');
         }
 
+        $logical_sensor->rawvalue = (float)$request->input('rawvalue');
+        $logical_sensor->save(['silent']);
+
         if (!is_null($logical_sensor->physical_sensor)) {
 
             if (!is_null($logical_sensor->physical_sensor->terrarium))
@@ -162,9 +165,6 @@ class SensorreadingController extends ApiController
 
             $logical_sensor->physical_sensor->heartbeat();
         }
-
-        $logical_sensor->rawvalue = (float)$request->input('rawvalue');
-        $logical_sensor->save(['silent']);
 
         $sensorreading = Sensorreading::create();
         $sensorreading->sensorreadinggroup_id = $request->input('group_id');
