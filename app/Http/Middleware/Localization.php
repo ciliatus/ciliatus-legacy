@@ -21,9 +21,9 @@ class Localization
         /*
          * set user specific locale
          */
-        if (!is_null(Auth::user())) {
-            if (!is_null(Auth::user()->locale)) {
-                app()->setLocale(Auth::user()->locale);
+        if (!is_null($request->user())) {
+            if (!is_null($request->user()->locale)) {
+                app()->setLocale($request->user()->locale);
             }
         }
 

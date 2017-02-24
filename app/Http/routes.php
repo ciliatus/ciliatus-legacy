@@ -192,7 +192,7 @@ Route::group(['prefix' => 'auth', 'middleware' => 'web'], function() {
  * /api/v1/ Prefix
  *
  */
-Route::group(['namespace' => 'Api', 'prefix' => 'api/v1', 'middleware' => 'auth:api'], function() {
+Route::group(['namespace' => 'Api', 'prefix' => 'api/v1', 'middleware' => ['auth:api', 'localization']], function() {
 
     Route::post('setup/' . env('APP_KEY') . '/step/{id}', 'SetupController@step');
 
