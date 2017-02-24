@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\Access\Gate as GateContract;
 use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Laravel\Passport\Passport;
 
 /**
  * Class AuthServiceProvider
@@ -177,5 +179,7 @@ class AuthServiceProvider extends ServiceProvider
         $gate->define('api-evaluate:critical_state', function ($user) {
             return $user->hasAbility('grant_api-evaluate:critical_state');
         });
+
+        Passport::routes();
     }
 }

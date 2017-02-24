@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Broadcast;
  * / Prefix
  *
  */
-Route::group(['namespace' => 'Web'], function() {
+Route::group(['namespace' => 'Web', 'middleware' => 'web'], function() {
 
     Route::get('setup/' . env('APP_KEY'), 'SetupController@start');
     Route::get('setup/' . env('APP_KEY') . '/step/{id}', 'SetupController@step');
@@ -125,6 +125,7 @@ Route::group(['namespace' => 'Web'], function() {
      */
     Route::resource('users', 'UserController');
     Route::get('users/{id}/delete', 'UserController@delete');
+    Route::get('users/{id}/personal_access_tokens/create', 'UserController@create_personal_accesss_token');
     Route::get('users/setup/telegram', 'UserController@setup_Telegram');
 
     // User settings
@@ -171,11 +172,17 @@ Route::group(['namespace' => 'Web'], function() {
      * Logs
      */
     Route::resource('logs', 'LogController');
+
+
 });
 
-Route::post('broadcasting/auth', 'BroadcastController@authenticate');
+Route::post('broadcasting/auth', 'BroadcastController@authenticate')->middleware('auth:api');
 
-Route::group(['prefix' => 'auth'], function() {
+Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
+    Route::post('telegram/' . env('TELEGRAM_WEBHOOK_TOKEN'), 'TelegramController@handle');
+});
+
+Route::group(['prefix' => 'auth', 'middleware' => 'web'], function() {
     Auth::routes();
 });
 
@@ -185,7 +192,7 @@ Route::group(['prefix' => 'auth'], function() {
  * /api/v1/ Prefix
  *
  */
-Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
+Route::group(['namespace' => 'Api', 'prefix' => 'api/v1', 'middleware' => 'auth:api'], function() {
 
     Route::post('setup/' . env('APP_KEY') . '/step/{id}', 'SetupController@step');
 
@@ -296,10 +303,11 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1'], function() {
      */
     Route::resource('users', 'UserController');
     Route::get('users/{id}/setting/{setting_name}', 'UserController@setting');
+    Route::post('users/{id}/personal_access_tokens', 'UserController@store_personal_access_token');
+    Route::delete('users/{id}/personal_access_tokens/{token_id}', 'UserController@delete_personal_access_token');
 
     // User settings
     Route::resource('user_settings', 'UserSettingController');
-    Route::post('telegram/' . env('TELEGRAM_WEBHOOK_TOKEN'), 'TelegramController@handle');
 
     /*
      * Actions
