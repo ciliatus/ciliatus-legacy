@@ -111,6 +111,22 @@ class LogicalSensor extends CiliatusModel
     }
 
     /**
+     * If soft_state_duration_minutes is null we will fallback to
+     * environment variable DEFAULT_SOFT_STATE_DURATION_MINUTES
+     *
+     * @param $value
+     * @return mixed
+     */
+    public function getSoftStateDurationMinutesAttribute($value)
+    {
+        if (is_null($value)) {
+            return env('DEFAULT_SOFT_STATE_DURATION_MINUTES', 10);
+        }
+
+        return $value;
+    }
+
+    /**
      * Returns all logical sensor types
      * from db
      *
