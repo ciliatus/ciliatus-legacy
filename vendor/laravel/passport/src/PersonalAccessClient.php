@@ -2,20 +2,10 @@
 
 namespace Laravel\Passport;
 
-use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
 class PersonalAccessClient extends Model
 {
-    use Uuids;
-
-    /**
-     * Indicates if the IDs are auto-incrementing.
-     *
-     * @var bool
-     */
-    public $incrementing = false;
-
     /**
      * The database table used by the model.
      *
