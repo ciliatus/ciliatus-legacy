@@ -37,5 +37,7 @@ return [
     'reference_value' => 'Reference value which will be compared to the sensor values.',
     'reference_value_duration_threshold_minutes' => 'Duration in minutes for which the sensor value has to be greater/lower/equal to the reference value before triggering the action sequence.',
     'emergency_stop'    =>  'Instantly stops all running action sequences and prohibits action sequences from starting.',
-    'emergency_resume'  =>  'Revokes the emergency stop and allows action sequences to start.'
+    'emergency_resume'  =>  'Revokes the emergency stop and allows action sequences to start.',
+    'leave_empty_for_auto'=>'Leave empty for automatic',
+    'intention_increase_decrease'=>'Defines whether the intention of this action sequence is to increase or decrease the sensor\'s readings'
 ];

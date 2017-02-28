@@ -45,19 +45,23 @@
 
                             <div class="row">
                                 <div class="input-field col s12 m6 l6">
+                                    <select name="intention">
+                                        <option value="increase" @if($action_sequence_intention->intention == 'increase') selected @endif>@lang('labels.increase')</option>
+                                        <option value="decrease" @if($action_sequence_intention->intention == 'decrease') selected @endif>@lang('labels.decrease')</option>
+                                    </select>
+                                    <label for="intention">
+                                        @lang('labels.intention')
+                                        <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                                           data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.intention_increase_decrease')</div>">info_outline</a>
+                                    </label>
+                                </div>
+                                <div class="input-field col s12 m6 l6">
                                     <select name="type">
                                         @foreach ($sensorreading_types as $srt)
                                             <option value="{{ $srt }}" @if($action_sequence_intention->type == $srt) selected @endif>@lang('labels.' . $srt)</option>
                                         @endforeach
                                     </select>
                                     <label for="type">@choice('components.logical_sensors', 1)</label>
-                                </div>
-                                <div class="input-field col s12 m6 l6">
-                                    <select name="intention">
-                                        <option value="increase" @if($action_sequence_intention->intention == 'increase') selected @endif>@lang('labels.increase')</option>
-                                        <option value="decrease" @if($action_sequence_intention->intention == 'decrease') selected @endif>@lang('labels.decrease')</option>
-                                    </select>
-                                    <label for="intention"> </label>
                                 </div>
                             </div>
 

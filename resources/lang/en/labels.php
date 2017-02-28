@@ -137,5 +137,7 @@ return [
     'daily_reminders'=> 'Daily Reminders',
     'yesterday'     => 'Yesterday',
     'tomorrow'      => 'Tomorrow',
-    'today'         => 'Today'
+    'today'         => 'Today',
+    'runonce'       => 'Only run once',
+    'intention'     => 'Intention'
 ];

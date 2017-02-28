@@ -37,5 +37,7 @@ return [
     'reference_value' => 'Der Wert, mit dem der Sensorwert verglichen werden soll.',
     'reference_value_duration_threshold_minutes' => 'Dauer in Minuten, die der Sensorwert den Grenzwert unter/überschritten haben muss, bevor die Aktionssequenz ausgelöst wird.',
     'emergency_stop'    =>  'Hält sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.',
-    'emergency_resume'  =>  'Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.'
+    'emergency_resume'  =>  'Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.',
+    'leave_empty_for_auto'=>'Frei lassen für automatisch',
+    'intention_increase_decrease'=>'Definiert ob die Intention dieser Aktionssequenz das Erhöhen oder Senken des Sensorwerts ist.'
 ];

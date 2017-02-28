@@ -25,7 +25,7 @@
                                         @endforeach
                                         </optgroup>
                                     </select>
-                                    <label for="action_sequence">@lang('labels.action_sequences')</label>
+                                    <label for="action_sequence">@choice('components.action_sequences', 1)</label>
                                 </div>
                             </div>
 
@@ -40,10 +40,9 @@
                                 <div class="input-field col s12">
                                     <div class="switch">
                                         <label>
-                                            @lang('labels.off')
                                             <input name="runonce" type="checkbox">
                                             <span class="lever"></span>
-                                            @lang('labels.on') @lang('labels.runonce')
+                                            @lang('labels.runonce')
                                         </label>
                                     </div>
                                 </div>
