@@ -44,11 +44,13 @@ class PhysicalSensor extends CiliatusModel
      */
     public function save(array $options = [])
     {
+        $result = parent::save($options);
+
         if (!isset($options['silent'])) {
             broadcast(new PhysicalSensorUpdated($this));
         }
 
-        return parent::save($options);
+        return $result;
     }
 
     /**
