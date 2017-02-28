@@ -18,8 +18,16 @@ elixir(function(mix) {
     mix.browserify('app.js');
     mix.browserify('echo.js');
     mix.browserify('vue.js');
+
     mix.sass([
         'materialize.scss'
     ], 'public/css/materialize.css');
-    mix.sass('_app.scss');
+
+    mix.sass([
+        'materialize_dark.scss'
+    ], 'public/css/materialize_dark.css');
+
+    mix.sass([
+	'timeline.scss'
+    ], 'public/css/timeline.css');
 });
