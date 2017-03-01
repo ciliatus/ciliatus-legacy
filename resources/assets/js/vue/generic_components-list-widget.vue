@@ -143,6 +143,11 @@ export default {
             default: '',
             required: false
         },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
         refreshTimeoutSeconds: {
             type: Number,
             default: 60,
