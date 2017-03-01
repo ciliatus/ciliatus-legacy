@@ -100,7 +100,8 @@ class PhysicalSensor extends CiliatusModel
         }
         $lsstr = implode('|', $lsstr);
 
-        $config = "[sensor_{$this->name}]\nid = {$this->id}\npin =\nname = {$this->name}\nmodel = {$this->model}\nlogical = {$lsstr}\nenabled = True";
+        $name = preg_replace('/[^a-zA-Z0-9_]|[\s]/', '', $this->name);
+        $config = "[sensor_{$name}]\nid = {$this->id}\npin =\nname = {$this->name}\nmodel = {$this->model}\nlogical = {$lsstr}\nenabled = True";
 
         return $config;
     }

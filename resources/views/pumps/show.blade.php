@@ -45,9 +45,9 @@
 
     <div id="tab_valves" class="col s12">
         <div class="container">
-            <valves-widget :refresh-timeout-seconds="60" source-filter="filter[pump_id]={{ $pump->id }}"
-                           container-classes="row" wrapper-classes="col s12 m6 l4"
-                           :subscribe-add="true" :subscribe-delete="true"></valves-widget>
+            <valves-list-widget :refresh-timeout-seconds="60"
+                                :subscribe-add="false"
+                                source-filter="filter[pump_id]={{ $pump->id }}"></valves-list-widget>
         </div>
 
         <div class="fixed-action-btn">

@@ -47,9 +47,8 @@
 
     <div id="tab_logical_sensors" class="col s12">
         <div class="container">
-            <logical_sensors-widget :refresh-timeout-seconds="60" source-filter="filter[physical_sensor_id]={{ $physical_sensor->id }}"
-                                    container-classes="row" wrapper-classes="col s12 m6 l4"
-                                    :subscribe-add="false" :subscribe-delete="false"></logical_sensors-widget>
+            <logical_sensors-list-widget :refresh-timeout-seconds="60" source-filter="filter[physical_sensor_id]={{ $physical_sensor->id }}"
+                                         :subscribe-add="false"></logical_sensors-list-widget>
         </div>
     </div>
 @stop
