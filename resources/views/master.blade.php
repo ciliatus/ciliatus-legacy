@@ -8,9 +8,9 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on' || (Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night()))
-            <link type="text/css" rel="stylesheet" href="/v1.3-beta/css/materialize_dark.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/v1.3-beta/css/materialize_dark.min.css"  media="screen,projection"/>
         @else
-            <link type="text/css" rel="stylesheet" href="/v1.3-beta/css/materialize.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/v1.3-beta/css/materialize.min.css"  media="screen,projection"/>
         @endif
         <link type="text/css" rel="stylesheet" href="/v1.3-beta/css/timeline.css"  media="screen,projection"/>
 
@@ -203,11 +203,11 @@
         <!-- Masonry -->
         <script src="{{ url('v1.3-beta/js/masonry.pkgd.min.js') }}"></script>
         <!-- Laravel-Echo -->
-        <script src="{{ url('v1.3-beta/js/echo.js') }}"></script>
+        <script src="{{ url('v1.3-beta/js/echo.min.js') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('v1.3-beta/js/app.js') }}"></script>
+        <script src="{{ url('v1.3-beta/js/app.min.js') }}"></script>
         <!-- Vue -->
-        <script src="{{ url('v1.3-beta/js/vue.js') }}"></script>
+        <script src="{{ url('v1.3-beta/js/vue.min.js') }}"></script>
 
         @yield('scripts')
 
