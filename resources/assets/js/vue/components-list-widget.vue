@@ -97,6 +97,11 @@ export default {
             type: String,
             required: true
         },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
         refreshTimeoutSeconds: {
             type: Number,
             default: 60,
