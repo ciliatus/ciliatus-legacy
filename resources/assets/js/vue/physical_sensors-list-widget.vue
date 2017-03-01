@@ -185,6 +185,11 @@ export default {
             type: Number,
             default: 60,
             required: false
+        },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
         }
     },
 
