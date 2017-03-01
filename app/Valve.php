@@ -89,6 +89,17 @@ class Valve extends CiliatusModel
     /**
      * @return string
      */
+    public function generateConfig()
+    {
+        $name = preg_replace('/[^a-zA-Z0-9_]|[\s]/', '', $this->name);
+        $config = "[valve_{$name}]\nid = {$this->id}\npin =\nname = {$this->name}\n";
+
+        return $config;
+    }
+
+    /**
+     * @return string
+     */
     public function icon()
     {
         return 'transform';

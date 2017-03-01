@@ -130,6 +130,18 @@ class GenericComponent extends CiliatusModel
     /**
      * @return string
      */
+    public function generateConfig()
+    {
+        $type_name = preg_replace('/[^a-zA-Z0-9_]|[\s]/', '', $this->type->name_singular);
+        $name = preg_replace('/[^a-zA-Z]|[\s]/', '', $this->name);
+        $config = "[generic_component_{$name}]\nid = {$this->id}\npin =\nname = {$this->name}\ntype = {$type_name}";
+
+        return $config;
+    }
+
+    /**
+     * @return string
+     */
     public function icon()
     {
         return $this->type->icon;

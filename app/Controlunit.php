@@ -133,13 +133,38 @@ class Controlunit extends CiliatusModel
      */
     public function generateConfig()
     {
-        $config = "[main]\nid = {$this->id}\nname = {$this->name}\n\n[api]\nuri = " . env('APP_URL') . "/api/v1\ncheck_interval = 180\nauth_type = basic\n\n[api_auth_basic]\nuser = \npassword = ";
+        $config = "[main]\n";
+        $config.= "id = {$this->id}\n";
+        $config.= "name = {$this->name}\n\n";
+
+        $config.= "[api]\n";
+        $config.= "uri = https://ciliatushost/api/v1\n";
+        $config.= "submit_sensorreadings_interval = 180\n";
+        $config.= "fetch_desired_states_interval = 10\n";
+        $config.= "auth_type = oauth2_personal_token\n\n";
+
+        $config.= "[api_auth_basic]\n";
+        $config.= "user = \n";
+        $config.= "password = \n\n";
+
+        $config.= "[api_auth_oauth2_personal_token]\n";
+        $config.= "token = ";
 
         foreach ($this->physical_sensors as $ps) {
             $config .= "\n\n" . $ps->generateConfig();
         }
 
+        foreach ($this->valves as $v) {
+            $config .= "\n\n" . $v->generateConfig();
+        }
 
+        foreach ($this->pumps as $p) {
+            $config .= "\n\n" . $p->generateConfig();
+        }
+
+        foreach ($this->generic_components as $gc) {
+            $config .= "\n\n" . $gc->generateConfig();
+        }
 
         return $config;
     }
