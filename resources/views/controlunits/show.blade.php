@@ -12,6 +12,7 @@
             <li class="tab col s3"><a class="active" href="#tab_physical-sensors">@choice('components.physical_sensors', 2)</a></li>
             <li class="tab col s3"><a class="active" href="#tab_pumps">@choice('components.pumps', 2)</a></li>
             <li class="tab col s3"><a class="active" href="#tab_valves">@choice('components.valves', 2)</a></li>
+            <li class="tab col s3"><a class="active" href="#tab_configuration">@lang('labels.configuration')</a></li>
         </ul>
     </div>
 
@@ -36,9 +37,9 @@
 
     <div id="tab_physical-sensors" class="col s12">
         <div class="container">
-            <physical_sensors-widget :refresh-timeout-seconds="60" source-filter="filter[controlunit_id]={{ $controlunit->id }}"
-                                     container-classes="row" wrapper-classes="col s12 m6 l4"
-                                     :subscribe-add="true" :subscribe-delete="true"></physical_sensors-widget>
+            <physical_sensors-list-widget :refresh-timeout-seconds="60"
+                                :subscribe-add="false"
+                                source-filter="filter[controlunit_id]={{ $controlunit->id }}"></physical_sensors-list-widget>
         </div>
 
         <div class="fixed-action-btn">
@@ -53,9 +54,9 @@
 
     <div id="tab_pumps" class="col s12">
         <div class="container">
-            <pumps-widget :refresh-timeout-seconds="60" source-filter="filter[controlunit_id]={{ $controlunit->id }}"
-                          container-classes="row" wrapper-classes="col s12 m6 l4"
-                          :subscribe-add="true" :subscribe-delete="true"></pumps-widget>
+            <pumps-list-widget :refresh-timeout-seconds="60"
+                                :subscribe-add="false"
+                                source-filter="filter[controlunit_id]={{ $controlunit->id }}"></pumps-list-widget>
         </div>
 
         <div class="fixed-action-btn">
@@ -70,9 +71,9 @@
 
     <div id="tab_valves" class="col s12">
         <div class="container">
-            <valves-widget :refresh-timeout-seconds="60" source-filter="filter[controlunit_id]={{ $controlunit->id }}"
-                           container-classes="row" wrapper-classes="col s12 m6 l4"
-                           :subscribe-add="true" :subscribe-delete="true"></valves-widget>
+            <valves-list-widget :refresh-timeout-seconds="60"
+                                :subscribe-add="false"
+                                source-filter="filter[controlunit_id]={{ $controlunit->id }}"></valves-list-widget>
         </div>
 
         <div class="fixed-action-btn">
@@ -81,6 +82,25 @@
             </a>
             <ul>
                 <li><a class="btn-floating green" href="/valves/create"><i class="material-icons">add</i></a></li>
+            </ul>
+        </div>
+    </div>
+
+    <div id="tab_configuration" class="col s12">
+        <div class="container">
+            <div class="card">
+                <div class="card-content">
+                    <pre>{{ $controlunit->generateConfig() }} </pre>
+                </div>
+            </div>
+        </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large teal">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating green" href="/configuration/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
