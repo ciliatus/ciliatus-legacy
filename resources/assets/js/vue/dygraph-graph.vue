@@ -134,6 +134,7 @@ export default {
                 {
                     'connectSeparatedPoints': true,
                     rollPeriod: 10,
+                    showRoller: true,
                     showRangeSelector: true,
                     legend: 'always',
                     colors: ['#5555EE', '#CC5555'],

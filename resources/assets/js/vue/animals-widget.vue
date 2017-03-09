@@ -79,6 +79,17 @@
                     <div class="card-action">
                         <a v-bind:href="'/animals/' + animal.id">{{ $t("buttons.details") }}</a>
                         <a v-bind:href="'/animals/' + animal.id + '/edit'">{{ $t("buttons.edit") }}</a>
+                        <div class="preloader-wrapper tiny active right" v-if="animal.loading_data">
+                            <div class="spinner-layer spinner-green-only">
+                                <div class="circle-clipper left">
+                                    <div class="circle"></div>
+                                </div><div class="gap-patch">
+                                <div class="circle"></div>
+                            </div><div class="circle-clipper right">
+                                <div class="circle"></div>
+                            </div>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card-reveal" v-if="!animal.death_date">
@@ -128,6 +139,16 @@ export default {
             default: '',
             required: false
         },
+        subscribeAdd: {
+            type: Boolean,
+            default: true,
+            required: false
+        },
+        subscribeDelete: {
+            type: Boolean,
+            default: true,
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -149,15 +170,45 @@ export default {
         update: function(a) {
             var item = null;
             this.animals.forEach(function(data, index) {
-                if (data.id === a.animal.id) {
+                if (data.id === a.animal_id) {
                     item = index;
                 }
             });
-            if (item === null) {
-                this.animals.push(a.animal)
+            if (item === null && this.subscribeAdd === true) {
+                var that = this;
+                $.ajax({
+                    url: '/api/v1/animals/' + a.animal_id,
+                    method: 'GET',
+                    success: function (data) {
+                        that.animals.push(data.data);
+
+                        that.$nextTick(function() {
+                            that.refresh_grid();
+                        });
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
             }
             else if (item !== null) {
-                this.animals.splice(item, 1, a.animal);
+                this.$set(this.animals[item], 'loading_data', true);
+                var that = this;
+                $.ajax({
+                    url: '/api/v1/animals/' + a.animal_id,
+                    method: 'GET',
+                    success: function (data) {
+                        that.animals.splice(item, 1, data.data);
+
+                        that.$nextTick(function() {
+                            that.refresh_grid();
+                        });
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                        this.$set(this.animals[item], 'loading_data', false);
+                    }
+                });
             }
 
             this.$nextTick(function() {
@@ -173,7 +224,7 @@ export default {
                 }
             });
 
-            if (item !== null) {
+            if (item !== null && this.subscribeDelete === true) {
                 this.animals.splice(item, 1);
             }
 
