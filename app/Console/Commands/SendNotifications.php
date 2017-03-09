@@ -61,17 +61,17 @@ class SendNotifications extends Command
                 if ($u->setting('notifications_enabled') == 'on'
                  && $u->setting('notifications_daily_enabled') == 'on') {
 
-                    echo "Sending notifications to " . $u->email;
+                    echo "Sending notifications to " . $u->email . PHP_EOL;
 
-                    $text = trans('messages.daily.intro', [], '', $u->locale) . PHP_EOL;
+                    $text = trans('messages.daily.intro', [], $u->locale) . PHP_EOL;
 
                     if ($is_feedings_due) {
-                        $text .= trans('messages.daily.feedings_due', [], '', $u->locale);
+                        $text .= trans('messages.daily.feedings_due', [], $u->locale);
                         $text .= PHP_EOL . $feedings_due;
                     }
 
                     if ($is_weighings_due) {
-                        $text .= trans('messages.daily.weighings_due', [], '', $u->locale);
+                        $text .= trans('messages.daily.weighings_due', [], $u->locale);
                         $text .= PHP_EOL . $weighings_due;
                     }
 
