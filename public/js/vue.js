@@ -14963,7 +14963,7 @@ return Vue$3;
 },{}],10:[function(require,module,exports){
 "use strict";
 
-module.exports = { "de": { "buttons": { "next": "Weiter", "save": "Speichern", "delete": "L\xF6schen", "loadgraph": "Graph laden", "upload": "Hochladen", "start_setup": "Setup starten", "add": "Hinzuf\xFCgen", "add_property": "Neue Eigenschaft", "add_state": "Neuer Zustand", "create": "Hinzuf\xFCgen", "edit": "Bearbeiten", "details": "Details", "download": "Herunterladen", "emergency_stop": "Notaus", "emergency_resume": "Notus aufheben", "revoke": "Widerrufen" }, "components": { "user": "Benutzer|Benutzer", "users": "Benutzer|Benutzer", "terrarium": "Terrarium|Terraria", "terraria": "Terrarium|Terrarien", "animal": "Tier|Tiere", "animals": "Tier|Tiere", "controlunit": "Steuereinheit|Steuereinheiten", "controlunits": "Steuereinheit|Steuereinheiten", "pump": "Pumpe|Pumpen", "pumps": "Pumpe|Pumpen", "valve": "Ventil|Ventile", "valves": "Ventil|Ventile", "physical_sensor": "Physischer Sensor|Physische Sensoren", "physical_sensors": "Physischer Sensor|Physische Sensoren", "logical_sensor": "Logischer Sensor|Logische Sensoren", "logical_sensors": "Logischer Sensor|Logische Sensoren", "logical_sensor_threshold": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "logical_sensor_thresholds": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "file": "Datei|Dateien", "files": "Datei|Dateien", "log": "Systemlog|Systemlogs", "logs": "Systemlog|Systemlogs", "action": "Aktion|Aktionen", "actions": "Aktion|Aktionen", "action_sequence": "Aktionssequenz|Aktionssequenzen", "action_sequences": "Aktionssequenz|Aktionssequenzen", "action_sequence_schedules": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "action_sequence_schedule": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "action_sequence_triggers": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "action_sequence_trigger": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "action_sequence_intentions": "Aktionssequenz Intention|Aktionssequenz Intentionen", "action_sequence_intention": "Aktionssequenz Intention|Aktionssequenz Intentionen", "triggers": "Ausl\xF6ser|Ausl\xF6ser", "trigger": "Ausl\xF6ser|Ausl\xF6ser", "admin_panel": "Admin Panel", "admin_panels": "Admin Panel", "animal_feedings": "F\xFCtterung|F\xFCtterungen", "animal_feeding_schedules": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "animal_weighings": "Wiegung|Wiegungen", "animal_weighing_schedules": "Wiegeplan|Wiegepl\xE4ne", "biography_entries": "Biografieeintrag|Biografieeintr\xE4ge", "caresheets": "Begleitblatt|Begleitbl\xE4tter", "generic_components": "Generische Komponente|Generische Komponenten", "generic_component_types": "Generischer Komponententyp|Generische Komponententypen" }, "errors": { "retrievegraphdata": "Could not retrieve graph data." }, "labels": { "connecting": "Verbinde", "title": "Titel", "text": "Text", "tags": "Tags", "status": "Status", "health": "Gesundheit", "birth": "Geburt", "gender": "Geschlecht", "gender_male": "M\xE4nnlich", "gender_female": "Weiblich", "date_birth": "Geburtstag", "date_death": "Todestag", "model": "Modell", "type": "Typ", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Anzeigename", "common_name": "Gemeiner Name", "latin_name": "Lateinischer Name", "temperature": "Temperatur", "temperature_celsius": "Temperatur", "humidity": "Feuchtigkeit", "humidity_percent": "Feuchtigkeit", "heartbeat": "Puls", "last_heartbeat": "Letzter Puls", "noanimals": "Keine Tiere", "create": "Erstelle", "settings": "Einstellung|Einstellungen", "notifications": "Benachrichtigung|Benachrichtigungen", "notification_type": "Nachrichten Kanal", "details": "Details", "rawlimitlo": "Rohwert - unteres Limit", "rawlimithi": "Rohwert - oberes Limit", "file": "Datei", "size": "Gr\xF6\xDFe", "current_value": "Aktueller Wert", "created_at": "Erstellt", "updated_at": "Letztes Update", "download": "Herunterladen", "properties": "Eigenschaften", "preview": "Vorschau", "source": "Quelle", "target": "Ziel", "associated_with": "Assoziiert mit", "log": "Log", "starts_at": "Beginnt um", "ends_at": "Endet um", "starts_after": "Startet nach", "thresholds": "Grenzwerte", "abilities": "F\xE4higkeit|F\xE4higkeiten", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto Nachtmodus", "permanent_nightmode": "Permanenter Nachtmodus", "language": "Sprache", "belongsTo_type": "Geh\xF6rt zu (Typ)", "belongsTo_id": "Geh\xF6rt zu (ID)", "belongsTo": "Geh\xF6rt zu", "doku": "Dokumentation", "step": "Schritt", "phone_number": "Telefonnummer", "template": "Vorlage", "timezone": "Zeitzone", "critical": "Kritisch", "ok": "OK", "running": "Laufend", "runs_since": "L\xE4uft seit", "queued": "Wartend", "criticalstates": "Kritische Zust\xE4nde", "since": "Seit", "state": "Zustand", "actions": "Aktionen", "irrigate": "Bew\xE4ssern", "duration": "Dauer", "on": "An", "off": "Aus", "just_fed": "Gerade gef\xFCttert", "just_irrigated": "Gerade bew\xE4ssert", "add_weight": "Gewicht hinzuf\xFCgen", "active": "Aktiv", "copy_thresholds": "Grenzwerte kopieren", "daily": "T\xE4glich", "last_feeding": "Letzte F\xFCtterung", "crickets": "Heimchen", "mixed_fruits": "Fruchtbrei", "beetle_jelly": "BeetleJelly", "due": "F\xE4llig", "overdue": "\xDCberf\xE4llig", "meal_type": "Nahrungsart", "interval_days": "Intervall in Tagen", "interval": "Intervall", "password": "Passwort", "action": "Aktion", "weight": "Gewicht", "no_data": "Keine Daten", "overview": "\xDCbersicht", "environment": "Umgebung", "now": "Jetzt", "scheduled": "Geplant", "sequence": "Sequenz", "date": "Datum", "weighprogression": "Gewichtsverlauf", "from": "Von", "tO": "Bis", "feedings": "F\xFCtterungen", "temp_and_hum_history": "Temperatur- und Feuchtigkeitsverlauf", "biography": "Biografie", "bio_categories": "Biografiekategorien", "icon": "Symbol", "average": "Durchschnitt", "min": "Minimum", "max": "Maximum", "during_day": "Tags", "during_night": "Nachts", "total": "Total", "infrastructure": "Infrastruktur", "timeframe_start": "Zeitrahmen ab", "timeframe_end": "Zeitrahmen bis", "reference_value": "Vergleichswert", "reference_value_duration_threshold_minutes": "Vergleichswert unter/\xFCberschritten seit (Minuten)", "for": "f\xFCr", "minimum_timeout_minutes": "Timeout (Minuten)", "emergency_stop": "Notaus", "increases": "Erh\xF6ht", "decreases": "Senkt", "personal_access_tokens": "Zugriffstoken", "expires": "L\xE4uft ab", "security": "Sicherheit", "general": "Allgemein", "component": "Komponente", "to": "Bis", "daily_reminders": "T\xE4gliche Erinnerungen", "yesterday": "Gestern", "tomorrow": "Morgen", "today": "Heute", "runonce": "Nur einmal ausf\xFChren", "intention": "Intention" }, "languages": { "german": "Deutsch", "english": "Englisch" }, "menu": { "welcome": "Willkommen", "dashboard": "\xDCbersicht", "general": "Allgemein", "administration": "Administration", "create": "Erstellen", "edit": "Editieren", "delete": "L\xF6schen", "infrastructure": "Infrastruktur", "help": "Hilfe", "logout": "Abmelden", "animals": "Tiere", "terraria": "Terrarien", "users": "Benutzer", "animal_feeding_types": "Nahrungsarten", "logs": "Protokoll", "categories": "Kategorien" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "Alle preexistenten Grenzwerte des Zielsensors werden entfernt." }, "users": { "setup_telegram_ok": "Telegram ist eingerichtet.", "setup_telegram_err": "Telegram ist noch nicht eingerichtet.", "setup_telegram_description": "Bitte \xF6ffnen Sie Telegram in Ihrem <a href=\"https://web.telegram.org/#/im?p=@ciliatusbot\">Browser</a> oder auf ihrem Smartphone und kontaktieren Sie <b>@ciliatusbot</b> mit untenstehendem Aktivierungscode." }, "critical_state_generic": "Kritisch: {critical}_state", "critical_state_notification_logical_sensor": { "humidity_percent": "Kritisch: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "temperature_celsius": "Kritisch: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." }, "critical_state_recovery_notification_logical_sensor": { "humidity_percent": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "temperature_celsius": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." }, "critical_state_notification_controlunit": "Kritisch: Die Steuereinheit {controlunit} sendet keine Daten.", "critical_state_recovery_notification_controlunit": "OK: Die Steuereinheit {controlunit} sendet wieder Daten.", "daily": { "intro": "T\xE4gliche Erinnerungen", "feedings_due": "F\xE4llige F\xFCtterungen:", "weighings_due": "F\xE4llige Wiegungen:" } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Willkommen zu Ciliatus", "create_user": "Erstelle Deinen Benutzer", "done": "Geschafft!", "what_now": "Was nun?", "login": "Einloggen", "tooltip_login": "Logge Dich mit Deinem soeben erstellten Nutzer bei Ciliatus an.", "add_terrarium": "Terrarium anlegen", "tooltip_add_terrarium": "Erstelle Dein erstes Terrarium in Ciliatus.", "add_animal": "Tier anlegen", "tooltip_add_animal": "Erstelle Dein erstes Tier und ordne es einem Terrarium zu.", "setup_telegram": "Telegram einrichten", "tooltip_setup_telegram": "Lerne, wie Du Telegram mit Ciliatus konfigurieren kannst.", "setup_controlunit": "Kontrolleinheit erstellen", "tooltip_setup_controlunit": "Lerne eine Kontrolleinheit und zugeordnete Sensoren anzulegen um damit zu beginnen Sensordaten zu Deinen Terrarien zu \xFCbermitteln.", "err_completed": "Das Setup wurde bereits durchgef\xFChrt." }, "tooltips": { "ctrltoselect": "Strg+Klick zum selektieren", "active": "Aktiv", "showondefaultdashboard": "Auf Default Dashboard anzeigen", "autoirrigation": "Automatische Bew\xE4sserung", "sendnotificationsfor": "Benachrichtigungen versenden f\xFCr", "loadandrendergraph": "Daten werden ermittelt und Graph wird gerendert", "disables_option": "Deaktiviert \"{option}\"", "phone_number": "Mobilnummer", "contact_bot": "Den Bot kontaktieren", "wait_confirmation": "Auf Best\xE4tigung warten", "set_state_to": "Zustand von <b>{target}</b> auf <b>{state}</b> \xE4ndern f\xFCr <b>{minutes} Minuten</b>", "start_after_started": "Startet wenn Schritt <b>{id}<\/b> gestartet wurde", "start_after_finished": "Startet wenn Schritt <b>{id}<\/b> beendet wurde", "sendnotifications": "Benachrichtigungen versenden", "no_schedules": "Keine Zeitpl\xE4ne", "runonce": "Einmalig", "heartbeat_critical": "Heartbeat ist kritisch!", "copy_thresholds_warning": "Alle existierenden Grenzwerte des Zielsensors werden entfernt.", "animal_feeding_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten F\xFCtterungspl\xE4ne. Die Zahl in einer Spalte stellt das Intervall dar.", "animal_weighing_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten Wiegepl\xE4ne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom n\xE4chsten F\xE4lligkeitsdatum dar.", "done": "Erledigt", "skip": "\xDCberspringen", "material_icons_list": "Die komplette Symbolliste ist unter <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> einsehbar.", "no_data": "Keine Daten.", "connecting_to_server": "Verbindung zum Ciliatus Server wird hergestellt. Sollte dies l\xE4nger als einige Sekunden dauern, \xFCberpr\xFCfen Sie bitte Ihre Internetverbindung.", "generic_components": { "about": "Generische Komponenten sind Komponenten eines benutzerdefinierten Typs.", "type_about": "Generische Komponententypen definieren Name, Eigenschaften und m\xF6gliche Zust\xE4nde f\xFCr generische Komponenten. Sie dienen als Vorlage beim Erstellen einer neuen generischen Komponente.", "property_templates": "Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszuf\xFCllen.", "state_templates": "Definiert m\xF6gliche Zust\xE4nde die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zust\xE4nden den gew\xFCnschten Zustand ausw\xE4hlen.", "type_delete_warning": "Beim L\xF6schen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gel\xF6scht." }, "minimum_timeout_minutes": "Definiert die Dauer der minimalen Pause, bevor die Aktionssequenz durch diesen Ausl\xF6ser nach einem Durchlauf erneut gestartet werden kann.", "reference_value": "Der Wert, mit dem der Sensorwert verglichen werden soll.", "reference_value_duration_threshold_minutes": "Dauer in Minuten, die der Sensorwert den Grenzwert unter/\xFCberschritten haben muss, bevor die Aktionssequenz ausgel\xF6st wird.", "emergency_stop": "H\xE4lt sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.", "emergency_resume": "Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.", "leave_empty_for_auto": "Frei lassen f\xFCr automatisch", "intention_increase_decrease": "Definiert ob die Intention dieser Aktionssequenz das Erh\xF6hen oder Senken des Sensorwerts ist." }, "units": { "years": "Jahr|Jahre", "months": "Monat|Monate", "days": "Tag|Tage", "hours": "Stunde|Stunden", "minutes": "Minute|Minuten", "seconds": "Sekunde|Sekunden", "temperature_celsius": "\xB0C", "humidity_percent": "%", "days_ago": "vor {val} Tagen", "hours_ago": "vor {val} Stunden", "minutes_ago": "vor {val} Minuten", "just_now": "gerade eben", "lesser": "<", "greater": ">", "equals": "=" } }, "en": { "buttons": { "next": "Next", "save": "Save", "delete": "Delete", "loadgraph": "Load graph", "upload": "Upload", "start_setup": "Start Setup", "add": "Add", "add_property": "Add Property", "add_state": "Add State", "create": "Add", "edit": "Edit", "details": "Details", "download": "Download", "emergency_stop": "Emergency stop", "emergency_resume": "Remove emergency stop", "revoke": "Revoke" }, "components": { "user": "User|Users", "users": "User|Users", "terrarium": "Terrarium|Terraria", "terraria": "Terrarium|Terraria", "animal": "Animal|Animals", "animals": "Animal|Animals", "controlunit": "Control Unit|Control Units", "controlunits": "Control Unit|Control Units", "pump": "Pump|Pumps", "pumps": "Pump|Pumps", "valve": "Valve|Valves", "valves": "Valve|Valves", "physical_sensor": "Physical Sensor|Physical Sensors", "physical_sensors": "Physical Sensor|Physical Sensors", "logical_sensor": "Logical Sensor|Logical Sensors", "logical_sensors": "Logical Sensor|Logical Sensors", "logical_sensor_threshold": "Logical Sensor Threshold|Logical Sensor Thresholds", "logical_sensor_thresholds": "Logical Sensor Threshold|Logical Sensor Thresholds", "file": "File|Files", "files": "File|Files", "log": "System log|System logs", "logs": "System log|System logs", "action": "Action|Actions", "actions": "Action|Actions", "action_sequence": "Action sequence|Action sequences", "action_sequences": "Action sequence|Action sequences", "action_sequence_schedule": "Action sequence schedule|Action sequence schedules", "action_sequence_schedules": "Action sequence schedule|Action sequence schedules", "action_sequence_triggers": "Action sequence trigger|Action sequence triggers", "action_sequence_trigger": "Action sequence trigger|Action sequence triggers", "action_sequence_intentions": "Action sequence intention|Action sequence intentions", "action_sequence_intention": "Action sequence intention|Action sequence intentions", "triggers": "Trigger|Triggers", "trigger": "Trigger|Triggers", "admin_panel": "Admin panel", "admin_panels": "Admin panel", "animal_feedings": "Feeding|Feedings", "animal_feeding_schedules": "Feeding schedule|Feeding schedules", "animal_weighings": "Weighing|Weighings", "animal_weighing_schedules": "Weighing schedule|Weighing schedules", "biography_entries": "Biography entry|Biography entries", "caresheets": "Care Sheet|Care Sheets", "generic_components": "Generic Component|Generic Components", "generic_component_types": "Generic Component Type|Generic Component Types" }, "errors": { "retrievegraphdata": "Graphdaten konnten nicht ermittelt werden." }, "labels": { "connecting": "Connecting", "title": "Title", "text": "Text", "tags": "Tags", "status": "Status", "health": "Health", "birth": "Birth", "gender": "Gender", "gender_male": "Male", "gender_female": "Female", "date_birth": "Day of birth", "date_death": "Day of death", "model": "Model", "type": "Type", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Display Name", "common_name": "Common Name", "latin_name": "Latin Name", "temperature": "Temperature", "temperature_celsius": "Temperature", "humidity": "Humidity", "humidity_percent": "Humidity", "heartbeat": "Heartbeat", "last_heartbeat": "Last Heartbeat", "noanimals": "No Animals", "create": "Create", "settings": "Setting|Settings", "notifications": "Notification|Notifications", "notification_type": "Notification channel", "details": "Details", "rawlimitlo": "Raw value - lower limit", "rawlimithi": "Raw value - upper limit", "file": "File", "size": "Size", "current_value": "Current value", "created_at": "Creation", "updated_at": "Last update", "download": "Download", "properties": "Properties", "preview": "Preview", "source": "Source", "target": "Target", "associated_with": "Associated with", "log": "Log", "starts_at": "Starts at", "ends_at": "Ends at", "starts_after": "Starts after", "thresholds": "Thresholds", "abilities": "Ability|Abilities", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto night mode", "permanent_nightmode": "Permanent night mode", "language": "Language", "belongsTo_type": "Belongs to (type)", "belongsTo_id": "Belongs to (ID)", "belongsTo": "Belongs to", "doku": "Documentation", "step": "Step", "phone_number": "Phone number", "template": "Template", "timezone": "Timezone", "critical": "Critical", "ok": "OK", "running": "Running", "runs_since": "Running since", "queued": "Queued", "criticalstates": "Critical States", "since": "Since", "state": "State", "actions": "Actions", "irrigate": "Irrigate", "duration": "Duration", "on": "On", "off": "Off", "just_fed": "Just fed", "just_irrigated": "Just irrigated", "add_weight": "Add weight", "active": "Aktiv", "copy_thresholds": "Copy thresholds", "daily": "Daily", "last_feeding": "Last feeding", "crickets": "Crickets", "mixed_fruits": "Fruits", "beetle_jelly": "BeetleJelly", "due": "Due", "overdue": "Overdue", "meal_type": "Meal type", "interval_days": "Interval in days", "interval": "Interval", "password": "Password", "action": "Action", "weight": "Weight", "no_data": "No Data", "overview": "Overview", "environment": "Environment", "now": "Now", "scheduled": "Scheduled", "sequence": "Sequence", "date": "Date", "weighprogression": "Weight progression", "from": "From", "tO": "To", "feedings": "Feedings", "temp_and_hum_history": "Temperature and Humidity History", "biography": "Biography", "bio_categories": "Biography categories", "icon": "Icon", "average": "Average", "min": "Minimum", "max": "Maximum", "during_day": "Daytime", "during_night": "Nighttime", "total": "Total", "infrastructure": "Infrastructure", "timeframe_start": "Timeframe from", "timeframe_end": "Timeframe to", "reference_value": "Reference value", "reference_value_duration_threshold_minutes": "Reference value undershot\/exceeded for (Minutes)", "for": "for", "minimum_timeout_minutes": "Timeout (minutes)", "emergency_stop": "Emergency stop", "increases": "Increases", "decreases": "Decreases", "personal_access_tokens": "Access Tokens", "expires": "Expires", "security": "Security", "general": "General", "component": "Component", "to": "To", "daily_reminders": "Daily Reminders", "yesterday": "Yesterday", "tomorrow": "Tomorrow", "today": "Today", "runonce": "Only run once", "intention": "Intention" }, "languages": { "german": "German", "english": "English" }, "menu": { "welcome": "Welcome", "dashboard": "Dashboard", "general": "General", "administration": "Administration", "create": "Create", "edit": "Edit", "delete": "Delete", "infrastructure": "Infrastructure", "help": "Help", "logout": "Log out", "animals": "Animals", "terraria": "Terraria", "users": "Users", "animal_feeding_types": "Food types", "logs": "Logs", "categories": "Categories" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "All existing thresholds associated with the target sensor will be deleted." }, "users": { "setup_telegram_ok": "Telegram is set up.", "setup_telegram_err": "Telegram has not yet been set up.", "setup_telegram_description": "Please point your browser to <a href=\"https:\/\/web.telegram.org\/#\/im?p=@ciliatusbot\">Telegram Web<\/a> or use your smartphone to contact <b>@ciliatusbot<\/b> with your verification code below." }, "critical_state_generic": "Critical: {critical}_state", "critical_state_notification_logical_sensor": { "humidity_percent": "Critical: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "temperature_celsius": "Critical: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C." }, "critical_state_recovery_notification_logical_sensor": { "humidity_percent": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "temperature_celsius": "OK: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C." }, "critical_state_notification_controlunit": "Critical: The controlunit {controlunit} is not sending data.", "critical_state_recovery_notification_controlunit": "OK: The controlunit {controlunit} ist sending data again.", "daily": { "intro": "Daily reminders", "feedings_due": "Feedings due:", "weighings_due": "Weighings due:" } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Welcome to Ciliatus", "create_user": "Create your user", "done": "Done!", "what_now": "What now?", "login": "Log in", "tooltip_login": "Log in to Ciliatus with the user you just created.", "add_terrarium": "Create Terrarium", "tooltip_add_terrarium": "Create your first terrarium in Ciliatus.", "add_animal": "Create animal", "tooltip_add_animal": "Create your first animal and assign it to a terrarium.", "setup_telegram": "Setup Telegram", "tooltip_setup_telegram": "Learn how to configure Telegram with Ciliatus.", "setup_controlunit": "Create Controlunit", "tooltip_setup_controlunit": "Learn how to setup a controlunit to start feeding Ciliatus with sensor readings.", "err_completed": "Setup is already completed." }, "tooltips": { "ctrltoselect": "Ctrl-click to deselect", "active": "Active", "showondefaultdashboard": "Show on default dashboard", "autoirrigation": "Automatic irrigation (if available)", "sendnotificationsfor": "Send notifications for", "loadandrendergraph": "Collection data and rendering graph", "disables_option": "Disables \"{option}\"", "phone_number": "Mobile number", "contact_bot": "Contacting the bot", "wait_confirmation": "Waiting for confirmation", "set_state_to": "Set state of <b>{target}<\/b> to <b>{state}<\/b> for <b>{minutes} minutes<\/b>", "start_after_started": "Starts as soon as step <b>{id}<\/b> was started", "start_after_finished": "Starts as soon as step <b>{id}<\/b> finished", "sendnotifications": "Send notifications", "no_schedules": "No schedules", "runonce": "Run once", "heartbeat_critical": "Heartbeat is critical!", "copy_thresholds_warning": "All existing thresholds on the target sensor will be removed.", "animal_feeding_schedule_matrix": "This matrix contains all defined feeding schedules. A number in a column represents the schedule's interval in days.", "animal_weighing_schedule_matrix": "This matrix contains all defined weighing schedules. A number in a column represents the schedule's interval in days followed by the next due date.", "done": "Done", "skip": "Skip", "material_icons_list": "Visit <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> for a complete icon overview.", "no_data": "No data.", "connecting_to_server": "Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.", "generic_components": { "about": "Generic components are components of a user defined type.", "type_about": "Generic component types define name, properties and possible states of a generic component. They are used as a template when creating a new generic component.", "property_templates": "Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.", "state_templates": "Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.", "type_delete_warning": "When deleting a component type <strong>all components of this type<\/strong> will also be deleted." }, "minimum_timeout_minutes": "Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.", "reference_value": "Reference value which will be compared to the sensor values.", "reference_value_duration_threshold_minutes": "Duration in minutes for which the sensor value has to be greater\/lower\/equal to the reference value before triggering the action sequence.", "emergency_stop": "Instantly stops all running action sequences and prohibits action sequences from starting.", "emergency_resume": "Revokes the emergency stop and allows action sequences to start.", "leave_empty_for_auto": "Leave empty for automatic", "intention_increase_decrease": "Defines whether the intention of this action sequence is to increase or decrease the sensor's readings" }, "units": { "years": "year|years", "months": "month|months", "days": "day|days", "hours": "hour|hours", "minutes": "minute|minutes", "seconds": "second|seconds", "temperature_celsius": "\xB0C", "humidity_percent": "%", "days_ago": "{val} days ago", "hours_ago": "{val} hours ago", "minutes_ago": "{val} minutes ago", "just_now": "just now", "lesser": "<", "greater": ">", "equals": "=" } } };
+module.exports = { "de": { "buttons": { "next": "Weiter", "save": "Speichern", "delete": "L\xF6schen", "loadgraph": "Graph laden", "upload": "Hochladen", "start_setup": "Setup starten", "add": "Hinzuf\xFCgen", "add_property": "Neue Eigenschaft", "add_state": "Neuer Zustand", "create": "Hinzuf\xFCgen", "edit": "Bearbeiten", "details": "Details", "download": "Herunterladen", "emergency_stop": "Notaus", "emergency_resume": "Notus aufheben", "revoke": "Widerrufen" }, "components": { "user": "Benutzer|Benutzer", "users": "Benutzer|Benutzer", "terrarium": "Terrarium|Terraria", "terraria": "Terrarium|Terrarien", "animal": "Tier|Tiere", "animals": "Tier|Tiere", "controlunit": "Steuereinheit|Steuereinheiten", "controlunits": "Steuereinheit|Steuereinheiten", "pump": "Pumpe|Pumpen", "pumps": "Pumpe|Pumpen", "valve": "Ventil|Ventile", "valves": "Ventil|Ventile", "physical_sensor": "Physischer Sensor|Physische Sensoren", "physical_sensors": "Physischer Sensor|Physische Sensoren", "logical_sensor": "Logischer Sensor|Logische Sensoren", "logical_sensors": "Logischer Sensor|Logische Sensoren", "logical_sensor_threshold": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "logical_sensor_thresholds": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "file": "Datei|Dateien", "files": "Datei|Dateien", "log": "Systemlog|Systemlogs", "logs": "Systemlog|Systemlogs", "action": "Aktion|Aktionen", "actions": "Aktion|Aktionen", "action_sequence": "Aktionssequenz|Aktionssequenzen", "action_sequences": "Aktionssequenz|Aktionssequenzen", "action_sequence_schedules": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "action_sequence_schedule": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "action_sequence_triggers": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "action_sequence_trigger": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "action_sequence_intentions": "Aktionssequenz Intention|Aktionssequenz Intentionen", "action_sequence_intention": "Aktionssequenz Intention|Aktionssequenz Intentionen", "triggers": "Ausl\xF6ser|Ausl\xF6ser", "trigger": "Ausl\xF6ser|Ausl\xF6ser", "admin_panel": "Admin Panel", "admin_panels": "Admin Panel", "animal_feedings": "F\xFCtterung|F\xFCtterungen", "animal_feeding_schedules": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "animal_weighings": "Wiegung|Wiegungen", "animal_weighing_schedules": "Wiegeplan|Wiegepl\xE4ne", "biography_entries": "Biografieeintrag|Biografieeintr\xE4ge", "caresheets": "Begleitblatt|Begleitbl\xE4tter", "generic_components": "Generische Komponente|Generische Komponenten", "generic_component_types": "Generischer Komponententyp|Generische Komponententypen" }, "errors": { "retrievegraphdata": "Could not retrieve graph data." }, "labels": { "connecting": "Verbinde", "title": "Titel", "text": "Text", "tags": "Tags", "status": "Status", "health": "Gesundheit", "birth": "Geburt", "gender": "Geschlecht", "gender_male": "M\xE4nnlich", "gender_female": "Weiblich", "date_birth": "Geburtstag", "date_death": "Todestag", "model": "Modell", "type": "Typ", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Anzeigename", "common_name": "Gemeiner Name", "latin_name": "Lateinischer Name", "temperature": "Temperatur", "temperature_celsius": "Temperatur", "humidity": "Feuchtigkeit", "humidity_percent": "Feuchtigkeit", "heartbeat": "Puls", "last_heartbeat": "Letzter Puls", "noanimals": "Keine Tiere", "create": "Erstelle", "settings": "Einstellung|Einstellungen", "notifications": "Benachrichtigung|Benachrichtigungen", "notification_type": "Nachrichten Kanal", "details": "Details", "rawlimitlo": "Rohwert - unteres Limit", "rawlimithi": "Rohwert - oberes Limit", "file": "Datei", "size": "Gr\xF6\xDFe", "current_value": "Aktueller Wert", "created_at": "Erstellt", "updated_at": "Letztes Update", "download": "Herunterladen", "properties": "Eigenschaften", "preview": "Vorschau", "source": "Quelle", "target": "Ziel", "associated_with": "Assoziiert mit", "log": "Log", "starts_at": "Beginnt um", "ends_at": "Endet um", "starts_after": "Startet nach", "thresholds": "Grenzwerte", "abilities": "F\xE4higkeit|F\xE4higkeiten", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto Nachtmodus", "permanent_nightmode": "Permanenter Nachtmodus", "language": "Sprache", "belongsTo_type": "Geh\xF6rt zu (Typ)", "belongsTo_id": "Geh\xF6rt zu (ID)", "belongsTo": "Geh\xF6rt zu", "doku": "Dokumentation", "step": "Schritt", "phone_number": "Telefonnummer", "template": "Vorlage", "timezone": "Zeitzone", "critical": "Kritisch", "ok": "OK", "running": "Laufend", "runs_since": "L\xE4uft seit", "queued": "Wartend", "criticalstates": "Kritische Zust\xE4nde", "since": "Seit", "state": "Zustand", "actions": "Aktionen", "irrigate": "Bew\xE4ssern", "duration": "Dauer", "on": "An", "off": "Aus", "just_fed": "Gerade gef\xFCttert", "just_irrigated": "Gerade bew\xE4ssert", "add_weight": "Gewicht hinzuf\xFCgen", "active": "Aktiv", "copy_thresholds": "Grenzwerte kopieren", "daily": "T\xE4glich", "last_feeding": "Letzte F\xFCtterung", "crickets": "Heimchen", "mixed_fruits": "Fruchtbrei", "beetle_jelly": "BeetleJelly", "due": "F\xE4llig", "overdue": "\xDCberf\xE4llig", "meal_type": "Nahrungsart", "interval_days": "Intervall in Tagen", "interval": "Intervall", "password": "Passwort", "action": "Aktion", "weight": "Gewicht", "no_data": "Keine Daten", "overview": "\xDCbersicht", "environment": "Umgebung", "now": "Jetzt", "scheduled": "Geplant", "sequence": "Sequenz", "date": "Datum", "weighprogression": "Gewichtsverlauf", "from": "Von", "tO": "Bis", "feedings": "F\xFCtterungen", "temp_and_hum_history": "Temperatur- und Feuchtigkeitsverlauf", "biography": "Biografie", "bio_categories": "Biografiekategorien", "icon": "Symbol", "average": "Durchschnitt", "min": "Minimum", "max": "Maximum", "during_day": "Tags", "during_night": "Nachts", "total": "Total", "infrastructure": "Infrastruktur", "timeframe_start": "Zeitrahmen ab", "timeframe_end": "Zeitrahmen bis", "reference_value": "Vergleichswert", "reference_value_duration_threshold_minutes": "Vergleichswert unter/\xFCberschritten seit (Minuten)", "for": "f\xFCr", "minimum_timeout_minutes": "Timeout (Minuten)", "emergency_stop": "Notaus", "increases": "Erh\xF6ht", "decreases": "Senkt", "personal_access_tokens": "Zugriffstoken", "expires": "L\xE4uft ab", "security": "Sicherheit", "general": "Allgemein", "component": "Komponente", "to": "Bis", "daily_reminders": "T\xE4gliche Erinnerungen", "yesterday": "Gestern", "tomorrow": "Morgen", "today": "Heute", "runonce": "Nur einmal ausf\xFChren", "intention": "Intention", "deceased": "Verstorben", "software_version": "Software Version", "use_as_background": "Als Hintergrund verwenden" }, "languages": { "german": "Deutsch", "english": "Englisch" }, "menu": { "welcome": "Willkommen", "dashboard": "\xDCbersicht", "general": "Allgemein", "administration": "Administration", "create": "Erstellen", "edit": "Editieren", "delete": "L\xF6schen", "infrastructure": "Infrastruktur", "help": "Hilfe", "logout": "Abmelden", "animals": "Tiere", "terraria": "Terrarien", "users": "Benutzer", "animal_feeding_types": "Nahrungsarten", "logs": "Protokoll", "categories": "Kategorien" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "Alle preexistenten Grenzwerte des Zielsensors werden entfernt." }, "users": { "setup_telegram_ok": "Telegram ist eingerichtet.", "setup_telegram_err": "Telegram ist noch nicht eingerichtet.", "setup_telegram_description": "Bitte \xF6ffnen Sie Telegram in Ihrem <a href=\"https://web.telegram.org/#/im?p=@ciliatusbot\">Browser</a> oder auf ihrem Smartphone und kontaktieren Sie <b>@ciliatusbot</b> mit untenstehendem Aktivierungscode." }, "critical_state_generic": "Kritisch: {critical}_state", "critical_state_notification_logical_sensor": { "humidity_percent": "Kritisch: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "temperature_celsius": "Kritisch: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." }, "critical_state_recovery_notification_logical_sensor": { "humidity_percent": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "temperature_celsius": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." }, "critical_state_notification_controlunit": "Kritisch: Die Steuereinheit {controlunit} sendet keine Daten.", "critical_state_recovery_notification_controlunit": "OK: Die Steuereinheit {controlunit} sendet wieder Daten.", "daily": { "intro": "T\xE4gliche Erinnerungen", "feedings_due": "F\xE4llige F\xFCtterungen:", "weighings_due": "F\xE4llige Wiegungen:" } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Willkommen zu Ciliatus", "create_user": "Erstelle Deinen Benutzer", "done": "Geschafft!", "what_now": "Was nun?", "login": "Einloggen", "tooltip_login": "Logge Dich mit Deinem soeben erstellten Nutzer bei Ciliatus an.", "add_terrarium": "Terrarium anlegen", "tooltip_add_terrarium": "Erstelle Dein erstes Terrarium in Ciliatus.", "add_animal": "Tier anlegen", "tooltip_add_animal": "Erstelle Dein erstes Tier und ordne es einem Terrarium zu.", "setup_telegram": "Telegram einrichten", "tooltip_setup_telegram": "Lerne, wie Du Telegram mit Ciliatus konfigurieren kannst.", "setup_controlunit": "Kontrolleinheit erstellen", "tooltip_setup_controlunit": "Lerne eine Kontrolleinheit und zugeordnete Sensoren anzulegen um damit zu beginnen Sensordaten zu Deinen Terrarien zu \xFCbermitteln.", "err_completed": "Das Setup wurde bereits durchgef\xFChrt." }, "tooltips": { "ctrltoselect": "Strg+Klick zum selektieren", "active": "Aktiv", "showondefaultdashboard": "Auf Default Dashboard anzeigen", "autoirrigation": "Automatische Bew\xE4sserung", "sendnotificationsfor": "Benachrichtigungen versenden f\xFCr", "loadandrendergraph": "Daten werden ermittelt und Graph wird gerendert", "disables_option": "Deaktiviert \"{option}\"", "phone_number": "Mobilnummer", "contact_bot": "Den Bot kontaktieren", "wait_confirmation": "Auf Best\xE4tigung warten", "set_state_to": "Zustand von <b>{target}</b> auf <b>{state}</b> \xE4ndern f\xFCr <b>{minutes} Minuten</b>", "start_after_started": "Startet wenn Schritt <b>{id}<\/b> gestartet wurde", "start_after_finished": "Startet wenn Schritt <b>{id}<\/b> beendet wurde", "sendnotifications": "Benachrichtigungen versenden", "no_schedules": "Keine Zeitpl\xE4ne", "runonce": "Einmalig", "heartbeat_critical": "Heartbeat ist kritisch!", "copy_thresholds_warning": "Alle existierenden Grenzwerte des Zielsensors werden entfernt.", "animal_feeding_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten F\xFCtterungspl\xE4ne. Die Zahl in einer Spalte stellt das Intervall dar.", "animal_weighing_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten Wiegepl\xE4ne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom n\xE4chsten F\xE4lligkeitsdatum dar.", "done": "Erledigt", "skip": "\xDCberspringen", "material_icons_list": "Die komplette Symbolliste ist unter <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> einsehbar.", "no_data": "Keine Daten.", "connecting_to_server": "Verbindung zum Ciliatus Server wird hergestellt. Sollte dies l\xE4nger als einige Sekunden dauern, \xFCberpr\xFCfen Sie bitte Ihre Internetverbindung.", "generic_components": { "about": "Generische Komponenten sind Komponenten eines benutzerdefinierten Typs.", "type_about": "Generische Komponententypen definieren Name, Eigenschaften und m\xF6gliche Zust\xE4nde f\xFCr generische Komponenten. Sie dienen als Vorlage beim Erstellen einer neuen generischen Komponente.", "property_templates": "Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszuf\xFCllen.", "state_templates": "Definiert m\xF6gliche Zust\xE4nde die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zust\xE4nden den gew\xFCnschten Zustand ausw\xE4hlen.", "type_delete_warning": "Beim L\xF6schen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gel\xF6scht." }, "minimum_timeout_minutes": "Definiert die Dauer der minimalen Pause, bevor die Aktionssequenz durch diesen Ausl\xF6ser nach einem Durchlauf erneut gestartet werden kann.", "reference_value": "Der Wert, mit dem der Sensorwert verglichen werden soll.", "reference_value_duration_threshold_minutes": "Dauer in Minuten, die der Sensorwert den Grenzwert unter/\xFCberschritten haben muss, bevor die Aktionssequenz ausgel\xF6st wird.", "emergency_stop": "H\xE4lt sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.", "emergency_resume": "Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.", "leave_empty_for_auto": "Frei lassen f\xFCr automatisch", "intention_increase_decrease": "Definiert ob die Intention dieser Aktionssequenz das Erh\xF6hen oder Senken des Sensorwerts ist." }, "units": { "years": "Jahr|Jahre", "months": "Monat|Monate", "days": "Tag|Tage", "hours": "Stunde|Stunden", "minutes": "Minute|Minuten", "seconds": "Sekunde|Sekunden", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "vor {val} Jahren", "months_ago": "vor {val} Monaten", "weeks_ago": "vor {val} Wochen", "days_ago": "vor {val} Tagen", "hours_ago": "vor {val} Stunden", "minutes_ago": "vor {val} Minuten", "just_now": "gerade eben", "lesser": "<", "greater": ">", "equals": "=" } }, "en": { "buttons": { "next": "Next", "save": "Save", "delete": "Delete", "loadgraph": "Load graph", "upload": "Upload", "start_setup": "Start Setup", "add": "Add", "add_property": "Add Property", "add_state": "Add State", "create": "Add", "edit": "Edit", "details": "Details", "download": "Download", "emergency_stop": "Emergency stop", "emergency_resume": "Remove emergency stop", "revoke": "Revoke" }, "components": { "user": "User|Users", "users": "User|Users", "terrarium": "Terrarium|Terraria", "terraria": "Terrarium|Terraria", "animal": "Animal|Animals", "animals": "Animal|Animals", "controlunit": "Control Unit|Control Units", "controlunits": "Control Unit|Control Units", "pump": "Pump|Pumps", "pumps": "Pump|Pumps", "valve": "Valve|Valves", "valves": "Valve|Valves", "physical_sensor": "Physical Sensor|Physical Sensors", "physical_sensors": "Physical Sensor|Physical Sensors", "logical_sensor": "Logical Sensor|Logical Sensors", "logical_sensors": "Logical Sensor|Logical Sensors", "logical_sensor_threshold": "Logical Sensor Threshold|Logical Sensor Thresholds", "logical_sensor_thresholds": "Logical Sensor Threshold|Logical Sensor Thresholds", "file": "File|Files", "files": "File|Files", "log": "System log|System logs", "logs": "System log|System logs", "action": "Action|Actions", "actions": "Action|Actions", "action_sequence": "Action sequence|Action sequences", "action_sequences": "Action sequence|Action sequences", "action_sequence_schedule": "Action sequence schedule|Action sequence schedules", "action_sequence_schedules": "Action sequence schedule|Action sequence schedules", "action_sequence_triggers": "Action sequence trigger|Action sequence triggers", "action_sequence_trigger": "Action sequence trigger|Action sequence triggers", "action_sequence_intentions": "Action sequence intention|Action sequence intentions", "action_sequence_intention": "Action sequence intention|Action sequence intentions", "triggers": "Trigger|Triggers", "trigger": "Trigger|Triggers", "admin_panel": "Admin panel", "admin_panels": "Admin panel", "animal_feedings": "Feeding|Feedings", "animal_feeding_schedules": "Feeding schedule|Feeding schedules", "animal_weighings": "Weighing|Weighings", "animal_weighing_schedules": "Weighing schedule|Weighing schedules", "biography_entries": "Biography entry|Biography entries", "caresheets": "Care Sheet|Care Sheets", "generic_components": "Generic Component|Generic Components", "generic_component_types": "Generic Component Type|Generic Component Types" }, "errors": { "retrievegraphdata": "Graphdaten konnten nicht ermittelt werden." }, "labels": { "connecting": "Connecting", "title": "Title", "text": "Text", "tags": "Tags", "status": "Status", "health": "Health", "birth": "Birth", "gender": "Gender", "gender_male": "Male", "gender_female": "Female", "date_birth": "Day of birth", "date_death": "Day of death", "model": "Model", "type": "Type", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Display Name", "common_name": "Common Name", "latin_name": "Latin Name", "temperature": "Temperature", "temperature_celsius": "Temperature", "humidity": "Humidity", "humidity_percent": "Humidity", "heartbeat": "Heartbeat", "last_heartbeat": "Last Heartbeat", "noanimals": "No Animals", "create": "Create", "settings": "Setting|Settings", "notifications": "Notification|Notifications", "notification_type": "Notification channel", "details": "Details", "rawlimitlo": "Raw value - lower limit", "rawlimithi": "Raw value - upper limit", "file": "File", "size": "Size", "current_value": "Current value", "created_at": "Creation", "updated_at": "Last update", "download": "Download", "properties": "Properties", "preview": "Preview", "source": "Source", "target": "Target", "associated_with": "Associated with", "log": "Log", "starts_at": "Starts at", "ends_at": "Ends at", "starts_after": "Starts after", "thresholds": "Thresholds", "abilities": "Ability|Abilities", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto night mode", "permanent_nightmode": "Permanent night mode", "language": "Language", "belongsTo_type": "Belongs to (type)", "belongsTo_id": "Belongs to (ID)", "belongsTo": "Belongs to", "doku": "Documentation", "step": "Step", "phone_number": "Phone number", "template": "Template", "timezone": "Timezone", "critical": "Critical", "ok": "OK", "running": "Running", "runs_since": "Running since", "queued": "Queued", "criticalstates": "Critical States", "since": "Since", "state": "State", "actions": "Actions", "irrigate": "Irrigate", "duration": "Duration", "on": "On", "off": "Off", "just_fed": "Just fed", "just_irrigated": "Just irrigated", "add_weight": "Add weight", "active": "Aktiv", "copy_thresholds": "Copy thresholds", "daily": "Daily", "last_feeding": "Last feeding", "crickets": "Crickets", "mixed_fruits": "Fruits", "beetle_jelly": "BeetleJelly", "due": "Due", "overdue": "Overdue", "meal_type": "Meal type", "interval_days": "Interval in days", "interval": "Interval", "password": "Password", "action": "Action", "weight": "Weight", "no_data": "No Data", "overview": "Overview", "environment": "Environment", "now": "Now", "scheduled": "Scheduled", "sequence": "Sequence", "date": "Date", "weighprogression": "Weight progression", "from": "From", "tO": "To", "feedings": "Feedings", "temp_and_hum_history": "Temperature and Humidity History", "biography": "Biography", "bio_categories": "Biography categories", "icon": "Icon", "average": "Average", "min": "Minimum", "max": "Maximum", "during_day": "Daytime", "during_night": "Nighttime", "total": "Total", "infrastructure": "Infrastructure", "timeframe_start": "Timeframe from", "timeframe_end": "Timeframe to", "reference_value": "Reference value", "reference_value_duration_threshold_minutes": "Reference value undershot\/exceeded for (Minutes)", "for": "for", "minimum_timeout_minutes": "Timeout (minutes)", "emergency_stop": "Emergency stop", "increases": "Increases", "decreases": "Decreases", "personal_access_tokens": "Access Tokens", "expires": "Expires", "security": "Security", "general": "General", "component": "Component", "to": "To", "daily_reminders": "Daily Reminders", "yesterday": "Yesterday", "tomorrow": "Tomorrow", "today": "Today", "runonce": "Only run once", "intention": "Intention", "deceased": "Deceased", "software_version": "Software Version", "use_as_background": "Use as background image" }, "languages": { "german": "German", "english": "English" }, "menu": { "welcome": "Welcome", "dashboard": "Dashboard", "general": "General", "administration": "Administration", "create": "Create", "edit": "Edit", "delete": "Delete", "infrastructure": "Infrastructure", "help": "Help", "logout": "Log out", "animals": "Animals", "terraria": "Terraria", "users": "Users", "animal_feeding_types": "Food types", "logs": "Logs", "categories": "Categories" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "All existing thresholds associated with the target sensor will be deleted." }, "users": { "setup_telegram_ok": "Telegram is set up.", "setup_telegram_err": "Telegram has not yet been set up.", "setup_telegram_description": "Please point your browser to <a href=\"https:\/\/web.telegram.org\/#\/im?p=@ciliatusbot\">Telegram Web<\/a> or use your smartphone to contact <b>@ciliatusbot<\/b> with your verification code below." }, "critical_state_generic": "Critical: {critical}_state", "critical_state_notification_logical_sensor": { "humidity_percent": "Critical: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "temperature_celsius": "Critical: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C." }, "critical_state_recovery_notification_logical_sensor": { "humidity_percent": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "temperature_celsius": "OK: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C." }, "critical_state_notification_controlunit": "Critical: The controlunit {controlunit} is not sending data.", "critical_state_recovery_notification_controlunit": "OK: The controlunit {controlunit} ist sending data again.", "daily": { "intro": "Daily reminders", "feedings_due": "Feedings due:", "weighings_due": "Weighings due:" } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Welcome to Ciliatus", "create_user": "Create your user", "done": "Done!", "what_now": "What now?", "login": "Log in", "tooltip_login": "Log in to Ciliatus with the user you just created.", "add_terrarium": "Create Terrarium", "tooltip_add_terrarium": "Create your first terrarium in Ciliatus.", "add_animal": "Create animal", "tooltip_add_animal": "Create your first animal and assign it to a terrarium.", "setup_telegram": "Setup Telegram", "tooltip_setup_telegram": "Learn how to configure Telegram with Ciliatus.", "setup_controlunit": "Create Controlunit", "tooltip_setup_controlunit": "Learn how to setup a controlunit to start feeding Ciliatus with sensor readings.", "err_completed": "Setup is already completed." }, "tooltips": { "ctrltoselect": "Ctrl-click to deselect", "active": "Active", "showondefaultdashboard": "Show on default dashboard", "autoirrigation": "Automatic irrigation (if available)", "sendnotificationsfor": "Send notifications for", "loadandrendergraph": "Collection data and rendering graph", "disables_option": "Disables \"{option}\"", "phone_number": "Mobile number", "contact_bot": "Contacting the bot", "wait_confirmation": "Waiting for confirmation", "set_state_to": "Set state of <b>{target}<\/b> to <b>{state}<\/b> for <b>{minutes} minutes<\/b>", "start_after_started": "Starts as soon as step <b>{id}<\/b> was started", "start_after_finished": "Starts as soon as step <b>{id}<\/b> finished", "sendnotifications": "Send notifications", "no_schedules": "No schedules", "runonce": "Run once", "heartbeat_critical": "Heartbeat is critical!", "copy_thresholds_warning": "All existing thresholds on the target sensor will be removed.", "animal_feeding_schedule_matrix": "This matrix contains all defined feeding schedules. A number in a column represents the schedule's interval in days.", "animal_weighing_schedule_matrix": "This matrix contains all defined weighing schedules. A number in a column represents the schedule's interval in days followed by the next due date.", "done": "Done", "skip": "Skip", "material_icons_list": "Visit <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> for a complete icon overview.", "no_data": "No data.", "connecting_to_server": "Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.", "generic_components": { "about": "Generic components are components of a user defined type.", "type_about": "Generic component types define name, properties and possible states of a generic component. They are used as a template when creating a new generic component.", "property_templates": "Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.", "state_templates": "Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.", "type_delete_warning": "When deleting a component type <strong>all components of this type<\/strong> will also be deleted." }, "minimum_timeout_minutes": "Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.", "reference_value": "Reference value which will be compared to the sensor values.", "reference_value_duration_threshold_minutes": "Duration in minutes for which the sensor value has to be greater\/lower\/equal to the reference value before triggering the action sequence.", "emergency_stop": "Instantly stops all running action sequences and prohibits action sequences from starting.", "emergency_resume": "Revokes the emergency stop and allows action sequences to start.", "leave_empty_for_auto": "Leave empty for automatic", "intention_increase_decrease": "Defines whether the intention of this action sequence is to increase or decrease the sensor's readings" }, "units": { "years": "year|years", "months": "month|months", "days": "day|days", "hours": "hour|hours", "minutes": "minute|minutes", "seconds": "second|seconds", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "{val} years ago", "months_ago": "{val} months ago", "weeks_ago": "{val} weeks ago", "days_ago": "{val} days ago", "hours_ago": "{val} hours ago", "minutes_ago": "{val} minutes ago", "just_now": "just now", "lesser": "<", "greater": ">", "equals": "=" } } };
 
 },{}],11:[function(require,module,exports){
 'use strict';
@@ -15039,6 +15039,10 @@ var _controlunitsListWidget2 = _interopRequireDefault(_controlunitsListWidget);
 var _filesWidget = require('./vue/files-widget.vue');
 
 var _filesWidget2 = _interopRequireDefault(_filesWidget);
+
+var _filesListWidget = require('./vue/files-list-widget.vue');
+
+var _filesListWidget2 = _interopRequireDefault(_filesListWidget);
 
 var _filesShowWidget = require('./vue/files-show-widget.vue');
 
@@ -15180,6 +15184,33 @@ Object.keys(locales).forEach(function (lang) {
     Vue.locale(lang, locales[lang]);
 });
 
+var TimeStringFormatter = Object;
+TimeStringFormatter.install = function (Vue, options) {
+    Vue.prototype.$getMatchingTimeDiff = function (obj) {
+        if (obj.years > 1) {
+            return { val: obj.years, unit: 'years_ago' };
+        }
+        if (obj.months > 1) {
+            return { val: obj.months, unit: 'months_ago' };
+        }
+        if (obj.weeks > 1) {
+            return { val: obj.weeks, unit: 'weeks_ago' };
+        }
+        if (obj.days > 1) {
+            return { val: obj.days, unit: 'days_ago' };
+        }
+        if (obj.hours > 1) {
+            return { val: obj.hours, unit: 'hours_ago' };
+        }
+        if (obj.minutes > 1) {
+            return { val: obj.minutes, unit: 'minutes_ago' };
+        }
+        return { val: null, unit: 'just_now' };
+    };
+};
+
+Vue.use(TimeStringFormatter);
+
 window.systemVue = new Vue({
 
     el: '#system-indicator',
@@ -15236,6 +15267,7 @@ window.bodyVue = new Vue({
         'controlunits-widget': _controlunitWidget2.default,
         'controlunits-list-widget': _controlunitsListWidget2.default,
         'files-widget': _filesWidget2.default,
+        'files-list-widget': _filesListWidget2.default,
         'files-show-widget': _filesShowWidget2.default,
         'action_sequences-widget': _action_sequencesWidget2.default,
         'action_sequence_schedule-widget': _action_sequence_scheduleWidget2.default,
@@ -15260,7 +15292,7 @@ window.bodyVue = new Vue({
 
 });
 
-},{"./lang.js":10,"./vue/action_sequence_schedule-widget.vue":12,"./vue/action_sequences-widget.vue":13,"./vue/animal_feeding_schedules-matrix-widget.vue":14,"./vue/animal_feeding_schedules-widget.vue":15,"./vue/animal_feedings-widget.vue":16,"./vue/animal_weighing_schedules-matrix-widget.vue":17,"./vue/animal_weighing_schedules-widget.vue":18,"./vue/animal_weighings-widget.vue":19,"./vue/animals-widget.vue":20,"./vue/biography_entries-widget.vue":21,"./vue/caresheets-widget.vue":22,"./vue/components-list-widget.vue":23,"./vue/controlunit-widget.vue":24,"./vue/controlunits-list-widget.vue":25,"./vue/dashboard-widget.vue":26,"./vue/dygraph-graph.vue":27,"./vue/files-show-widget.vue":28,"./vue/files-widget.vue":29,"./vue/generic_component_type_create-form.vue":30,"./vue/generic_components-list-widget.vue":31,"./vue/generic_components-widget.vue":32,"./vue/google-graph.vue":33,"./vue/inline-graph.vue":34,"./vue/logical_sensors-list-widget.vue":35,"./vue/logical_sensors-widget.vue":36,"./vue/logs-widget.vue":37,"./vue/physical_sensors-list-widget.vue":38,"./vue/physical_sensors-widget.vue":39,"./vue/pumps-list-widget.vue":40,"./vue/pumps-widget.vue":41,"./vue/system-indicator.vue":42,"./vue/terraria-overview-widget.vue":43,"./vue/terraria-widget.vue":44,"./vue/users-widget.vue":45,"./vue/valves-list-widget.vue":46,"./vue/valves-widget.vue":47,"vue-i18n":6,"vue-peity":7,"vue/dist/vue.js":9}],12:[function(require,module,exports){
+},{"./lang.js":10,"./vue/action_sequence_schedule-widget.vue":12,"./vue/action_sequences-widget.vue":13,"./vue/animal_feeding_schedules-matrix-widget.vue":14,"./vue/animal_feeding_schedules-widget.vue":15,"./vue/animal_feedings-widget.vue":16,"./vue/animal_weighing_schedules-matrix-widget.vue":17,"./vue/animal_weighing_schedules-widget.vue":18,"./vue/animal_weighings-widget.vue":19,"./vue/animals-widget.vue":20,"./vue/biography_entries-widget.vue":21,"./vue/caresheets-widget.vue":22,"./vue/components-list-widget.vue":23,"./vue/controlunit-widget.vue":24,"./vue/controlunits-list-widget.vue":25,"./vue/dashboard-widget.vue":26,"./vue/dygraph-graph.vue":27,"./vue/files-list-widget.vue":28,"./vue/files-show-widget.vue":29,"./vue/files-widget.vue":30,"./vue/generic_component_type_create-form.vue":31,"./vue/generic_components-list-widget.vue":32,"./vue/generic_components-widget.vue":33,"./vue/google-graph.vue":34,"./vue/inline-graph.vue":35,"./vue/logical_sensors-list-widget.vue":36,"./vue/logical_sensors-widget.vue":37,"./vue/logs-widget.vue":38,"./vue/physical_sensors-list-widget.vue":39,"./vue/physical_sensors-widget.vue":40,"./vue/pumps-list-widget.vue":41,"./vue/pumps-widget.vue":42,"./vue/system-indicator.vue":43,"./vue/terraria-overview-widget.vue":44,"./vue/terraria-widget.vue":45,"./vue/users-widget.vue":46,"./vue/valves-list-widget.vue":47,"./vue/valves-widget.vue":48,"vue-i18n":6,"vue-peity":7,"vue/dist/vue.js":9}],12:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -15393,9 +15425,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-20", __vue__options__)
+    hotAPI.createRecord("data-v-21", __vue__options__)
   } else {
-    hotAPI.reload("data-v-20", __vue__options__)
+    hotAPI.reload("data-v-21", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],13:[function(require,module,exports){
@@ -15525,9 +15557,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-19", __vue__options__)
+    hotAPI.createRecord("data-v-20", __vue__options__)
   } else {
-    hotAPI.reload("data-v-19", __vue__options__)
+    hotAPI.reload("data-v-20", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],14:[function(require,module,exports){
@@ -16037,9 +16069,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-13", __vue__options__)
+    hotAPI.createRecord("data-v-10", __vue__options__)
   } else {
-    hotAPI.reload("data-v-13", __vue__options__)
+    hotAPI.reload("data-v-10", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],18:[function(require,module,exports){
@@ -16172,9 +16204,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-11", __vue__options__)
+    hotAPI.createRecord("data-v-12", __vue__options__)
   } else {
-    hotAPI.reload("data-v-11", __vue__options__)
+    hotAPI.reload("data-v-12", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],19:[function(require,module,exports){
@@ -16296,16 +16328,16 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"modal",attrs:{"id":'modal_add_weighing_' + _vm.animalId}},[_vm._h('form',{attrs:{"action":'/api/v1/animals/' + _vm.animalId + '/weighings',"data-method":"POST","onsubmit":"window.submit_form"}},[_vm._h('div',{staticClass:"modal-content"},[_vm._h('h4',[_vm._s(_vm.$t("labels.add_weight"))])," ",_vm._h('p',[_vm._h('input',{attrs:{"type":"text","name":"weight","id":"weight","placeholder":_vm.$t('labels.weight'),"value":""}})," ",_vm._h('label',{attrs:{"for":"weight"}},[_vm._s(_vm.$t("labels.weight"))])])])," ",_vm._h('div',{staticClass:"modal-footer"},[_vm._h('button',{staticClass:"btn modal-action modal-close waves-effect waves-light",attrs:{"type":"submit"}},[_vm._s(_vm.$t("buttons.save"))+"\n                        ",_vm._m(0)])])])])," ",_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(1),"\n                "+_vm._s(_vm.$tc("components.animal_weighings", 2))+"\n            "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.$tc("components.animal_weighings", 2))])," ",_vm._m(2)])," ",_vm._l((_vm.animal_weighings),function(af){return _vm._h('div',[_vm._h('p',[(af.timestamps.created_diff.days > 1)?_vm._h('span',[_vm._s(_vm.$t('units.days_ago', {val: af.timestamps.created_diff.days}))]):_vm._e()," ",(af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours > 1)?_vm._h('span',[_vm._s(_vm.$t('units.hours_ago', {val: af.timestamps.created_diff.hours}))]):_vm._e()," ",(af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours <= 1)?_vm._h('span',[_vm._s(_vm.$t('units.just_now'))]):_vm._e()," ",_vm._h('span',[" - "+_vm._s(af.amount)+"g"])])])})," ",(_vm.animal_weighings.length < 1)?_vm._h('div',[_vm._h('p',[_vm._s(_vm.$t('labels.no_data'))])]):_vm._e()])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'#modal_add_weighing_' + _vm.animalId,"onclick":'$(\'#modal_add_weighing_' + _vm.animalId + '\').modal(); $(\'#modal_add_weighing_' + _vm.animalId + ' select\').material_select(); $(\'#modal_add_weighing_' + _vm.animalId + '\').modal(\'open\');'}},[_vm._s(_vm.$t("buttons.add"))])])," ",_vm._m(3)])])])}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"modal",attrs:{"id":'modal_add_weighing_' + _vm.animalId}},[_vm._h('form',{attrs:{"action":'/api/v1/animals/' + _vm.animalId + '/weighings',"data-method":"POST","onsubmit":"window.submit_form"}},[_vm._h('div',{staticClass:"modal-content"},[_vm._h('h4',[_vm._s(_vm.$t("labels.add_weight"))])," ",_vm._h('p',[_vm._h('input',{attrs:{"type":"text","name":"weight","id":"weight","placeholder":_vm.$t('labels.weight'),"value":""}})," ",_vm._h('label',{attrs:{"for":"weight"}},[_vm._s(_vm.$t("labels.weight"))+"/g"])])])," ",_vm._h('div',{staticClass:"modal-footer"},[_vm._h('button',{staticClass:"btn modal-action modal-close waves-effect waves-light",attrs:{"type":"submit"}},[_vm._s(_vm.$t("buttons.save"))+"\n                        ",_vm._m(0)])])])])," ",_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-content teal lighten-1 white-text"},[_vm._m(1),"\n                "+_vm._s(_vm.$tc("components.animal_weighings", 2))+"\n            "])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(_vm.$tc("components.animal_weighings", 2))])," ",_vm._m(2)])," ",_vm._l((_vm.animal_weighings),function(af){return _vm._h('div',[_vm._h('p',[(af.timestamps.created_diff.days > 1)?_vm._h('span',[_vm._s(_vm.$t('units.days_ago', {val: af.timestamps.created_diff.days}))]):_vm._e()," ",(af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours > 1)?_vm._h('span',[_vm._s(_vm.$t('units.hours_ago', {val: af.timestamps.created_diff.hours}))]):_vm._e()," ",(af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours <= 1)?_vm._h('span',[_vm._s(_vm.$t('units.just_now'))]):_vm._e()," ",_vm._h('span',[" - "+_vm._s(af.amount)+"g"])])])})," ",(_vm.animal_weighings.length < 1)?_vm._h('div',[_vm._h('p',[_vm._s(_vm.$t('labels.no_data'))])]):_vm._e()])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'#modal_add_weighing_' + _vm.animalId,"onclick":'$(\'#modal_add_weighing_' + _vm.animalId + '\').modal(); $(\'#modal_add_weighing_' + _vm.animalId + ' select\').material_select(); $(\'#modal_add_weighing_' + _vm.animalId + '\').modal(\'open\');'}},[_vm._s(_vm.$t("buttons.add"))])])," ",_vm._m(3)])])])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["send"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["vertical_align_bottom"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._h('i',{staticClass:"material-icons right"},["close"])])," ",_vm._h('p')])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-10", __vue__options__)
+    hotAPI.createRecord("data-v-11", __vue__options__)
   } else {
-    hotAPI.reload("data-v-10", __vue__options__)
+    hotAPI.reload("data-v-11", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],20:[function(require,module,exports){
@@ -16347,6 +16379,16 @@ exports.default = {
             default: '',
             required: false
         },
+        subscribeAdd: {
+            type: Boolean,
+            default: true,
+            required: false
+        },
+        subscribeDelete: {
+            type: Boolean,
+            default: true,
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -16368,14 +16410,44 @@ exports.default = {
         update: function update(a) {
             var item = null;
             this.animals.forEach(function (data, index) {
-                if (data.id === a.animal.id) {
+                if (data.id === a.animal_id) {
                     item = index;
                 }
             });
-            if (item === null) {
-                this.animals.push(a.animal);
+            if (item === null && this.subscribeAdd === true) {
+                var that = this;
+                $.ajax({
+                    url: '/api/v1/animals/' + a.animal_id,
+                    method: 'GET',
+                    success: function success(data) {
+                        that.animals.push(data.data);
+
+                        that.$nextTick(function () {
+                            that.refresh_grid();
+                        });
+                    },
+                    error: function error(_error) {
+                        console.log((0, _stringify2.default)(_error));
+                    }
+                });
             } else if (item !== null) {
-                this.animals.splice(item, 1, a.animal);
+                this.$set(this.animals[item], 'loading_data', true);
+                var that = this;
+                $.ajax({
+                    url: '/api/v1/animals/' + a.animal_id,
+                    method: 'GET',
+                    success: function success(data) {
+                        that.animals.splice(item, 1, data.data);
+
+                        that.$nextTick(function () {
+                            that.refresh_grid();
+                        });
+                    },
+                    error: function error(_error2) {
+                        console.log((0, _stringify2.default)(_error2));
+                        this.$set(this.animals[item], 'loading_data', false);
+                    }
+                });
             }
 
             this.$nextTick(function () {
@@ -16391,7 +16463,7 @@ exports.default = {
                 }
             });
 
-            if (item !== null) {
+            if (item !== null && this.subscribeDelete === true) {
                 this.animals.splice(item, 1);
             }
 
@@ -16439,8 +16511,8 @@ exports.default = {
 
                     window.eventHubVue.processEnded();
                 },
-                error: function error(_error) {
-                    console.log((0, _stringify2.default)(_error));
+                error: function error(_error3) {
+                    console.log((0, _stringify2.default)(_error3));
                     window.eventHubVue.processEnded();
                 }
             });
@@ -16453,8 +16525,8 @@ exports.default = {
                     that.feeding_types = data.data;
                     window.eventHubVue.processEnded();
                 },
-                error: function error(_error2) {
-                    console.log((0, _stringify2.default)(_error2));
+                error: function error(_error4) {
+                    console.log((0, _stringify2.default)(_error4));
                     window.eventHubVue.processEnded();
                 }
             });
@@ -16486,8 +16558,8 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.animals),function(animal){return _vm._h('div',[_vm._h('div',{staticClass:"modal",attrs:{"id":'modal_just_fed_' + animal.id}},[_vm._h('form',{attrs:{"action":'/api/v1/animals/' + animal.id + '/feedings',"data-method":"POST"},on:{"submit":_vm.submit}},[_vm._h('div',{staticClass:"modal-content",staticStyle:{"min-height":"300px"}},[_vm._h('h4',[_vm._s(_vm.$t("labels.just_fed"))])," ",_vm._h('p',[_vm._h('select',{attrs:{"name":"meal_type","id":"meal_type"}},[_vm._l((_vm.feeding_types),function(ft){return _vm._h('option',{domProps:{"value":ft.name}},[_vm._s(ft.name)])})])," ",_vm._h('label',{attrs:{"for":"meal_type"}},[_vm._s(_vm.$t("labels.meal_type"))])])])," ",_vm._h('div',{staticClass:"modal-footer"},[_vm._h('button',{staticClass:"btn modal-action modal-close waves-effect waves-light",attrs:{"type":"submit"}},[_vm._s(_vm.$t("buttons.save"))+"\n                        ",_vm._m(0,true)])])])])," ",_vm._h('div',{staticClass:"modal",attrs:{"id":'modal_add_weight_' + animal.id}},[_vm._h('form',{attrs:{"action":'/api/v1/animals/' + animal.id + '/weighings',"data-method":"POST"},on:{"submit":_vm.submit}},[_vm._h('div',{staticClass:"modal-content"},[_vm._h('h4',[_vm._s(_vm.$t("labels.add_weight"))])," ",_vm._h('p',[_vm._h('input',{attrs:{"name":"weight","id":"weight","placeholder":_vm.$t('labels.weight')+ '/g'}})," ",_vm._h('label',{attrs:{"for":"weight"}},[_vm._s(_vm.$t("labels.weight"))+"/g"])])])," ",_vm._h('div',{staticClass:"modal-footer"},[_vm._h('button',{staticClass:"btn modal-action modal-close waves-effect waves-light",attrs:{"type":"submit"}},[_vm._s(_vm.$t("buttons.save"))+"\n                        ",_vm._m(1,true)])])])])," ",_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-image waves-effect waves-block waves-light terrarium-card-image",class:animal.default_background_filepath ? '' : 'teal lighten-1',style:(animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : '')})," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(animal.display_name)+" "])," ",(!animal.death_date)?_vm._h('i',{staticClass:"material-icons right"},["more_vert"]):_vm._e()])," ",_vm._h('p',[_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.latin_name),expression:"animal.latin_name"}]},[_vm._s(animal.latin_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.common_name && !animal.latin_name),expression:"animal.common_name && !animal.latin_name"}]},[_vm._s(animal.common_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.birth_date || animal.death_date),expression:"animal.birth_date || animal.death_date"}]},[", "+_vm._s(animal.age_value)+" "+_vm._s(_vm.$tc("units." + animal.age_unit, animal.age_value))])," ",(animal.last_feeding && !animal.death_date)?_vm._h('span',[_vm._m(2,true)," ",_vm._m(3,true)," ",(animal.last_feeding.timestamps.created_diff.days == 0)?_vm._h('span',[(animal.last_feeding.timestamps.created_diff.is_today)?_vm._h('span',["\n                                    "+_vm._s(_vm.$t("labels.today"))+":\n                                "]):_vm._h('span',["\n                                    "+_vm._s(_vm.$t("labels.yesterday"))+":\n                                "])," "]):_vm._h('span',["\n                                "+_vm._s(_vm.$t('units.days_ago', {val: animal.last_feeding.timestamps.created_diff.days}))+":\n                            "])," ","\n                            "+_vm._s(animal.last_feeding.name)+"\n                        "]):_vm._e()," ",_vm._m(4,true)])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/animals/' + animal.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/animals/' + animal.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",(!animal.death_date)?_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title"},[_vm._s(_vm.$tc("components.terraria", 1)),_vm._m(5,true)])," ",_vm._h('p',[(animal.terrarium)?_vm._h('a',{attrs:{"href":'/terraria/' + animal.terrarium.id}},[_vm._s(animal.terrarium.display_name)]):_vm._e()])," ",_vm._h('span',{staticClass:"card-title"},[_vm._s(_vm.$t("labels.just_fed"))])," ",_vm._h('p',[_vm._h('a',{staticClass:"waves-effect waves-teal btn",attrs:{"href":'#modal_just_fed_' + animal.id,"onclick":'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'}},[_vm._s(_vm.$t("labels.just_fed"))])])," ",_vm._h('p',[_vm._h('a',{staticClass:"waves-effect waves-teal btn",attrs:{"href":'#modal_add_weight_' + animal.id,"onclick":'$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'}},[_vm._s(_vm.$t("labels.add_weight"))])])]):_vm._e()])])])})])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["send"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["send"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons tiny"},["local_dining"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["close"])}]
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.animals),function(animal){return _vm._h('div',[_vm._h('div',{staticClass:"modal",attrs:{"id":'modal_just_fed_' + animal.id}},[_vm._h('form',{attrs:{"action":'/api/v1/animals/' + animal.id + '/feedings',"data-method":"POST"},on:{"submit":_vm.submit}},[_vm._h('div',{staticClass:"modal-content",staticStyle:{"min-height":"300px"}},[_vm._h('h4',[_vm._s(_vm.$t("labels.just_fed"))])," ",_vm._h('p',[_vm._h('select',{attrs:{"name":"meal_type","id":"meal_type"}},[_vm._l((_vm.feeding_types),function(ft){return _vm._h('option',{domProps:{"value":ft.name}},[_vm._s(ft.name)])})])," ",_vm._h('label',{attrs:{"for":"meal_type"}},[_vm._s(_vm.$t("labels.meal_type"))])])])," ",_vm._h('div',{staticClass:"modal-footer"},[_vm._h('button',{staticClass:"btn modal-action modal-close waves-effect waves-light",attrs:{"type":"submit"}},[_vm._s(_vm.$t("buttons.save"))+"\n                        ",_vm._m(0,true)])])])])," ",_vm._h('div',{staticClass:"modal",attrs:{"id":'modal_add_weight_' + animal.id}},[_vm._h('form',{attrs:{"action":'/api/v1/animals/' + animal.id + '/weighings',"data-method":"POST"},on:{"submit":_vm.submit}},[_vm._h('div',{staticClass:"modal-content"},[_vm._h('h4',[_vm._s(_vm.$t("labels.add_weight"))])," ",_vm._h('p',[_vm._h('input',{attrs:{"name":"weight","id":"weight","placeholder":_vm.$t('labels.weight')+ '/g'}})," ",_vm._h('label',{attrs:{"for":"weight"}},[_vm._s(_vm.$t("labels.weight"))+"/g"])])])," ",_vm._h('div',{staticClass:"modal-footer"},[_vm._h('button',{staticClass:"btn modal-action modal-close waves-effect waves-light",attrs:{"type":"submit"}},[_vm._s(_vm.$t("buttons.save"))+"\n                        ",_vm._m(1,true)])])])])," ",_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-image waves-effect waves-block waves-light terrarium-card-image",class:animal.default_background_filepath ? '' : 'teal lighten-1',style:(animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : '')})," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(animal.display_name)+" "])," ",(!animal.death_date)?_vm._h('i',{staticClass:"material-icons right"},["more_vert"]):_vm._e()])," ",_vm._h('p',[_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.latin_name),expression:"animal.latin_name"}]},[_vm._s(animal.latin_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.common_name && !animal.latin_name),expression:"animal.common_name && !animal.latin_name"}]},[_vm._s(animal.common_name)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(animal.birth_date || animal.death_date),expression:"animal.birth_date || animal.death_date"}]},[", "+_vm._s(animal.age_value)+" "+_vm._s(_vm.$tc("units." + animal.age_unit, animal.age_value))])," ",(animal.last_feeding && !animal.death_date)?_vm._h('span',[_vm._m(2,true)," ",_vm._m(3,true)," ",(animal.last_feeding.timestamps.created_diff.days == 0)?_vm._h('span',[(animal.last_feeding.timestamps.created_diff.is_today)?_vm._h('span',["\n                                    "+_vm._s(_vm.$t("labels.today"))+":\n                                "]):_vm._h('span',["\n                                    "+_vm._s(_vm.$t("labels.yesterday"))+":\n                                "])," "]):_vm._h('span',["\n                                "+_vm._s(_vm.$t('units.days_ago', {val: animal.last_feeding.timestamps.created_diff.days}))+":\n                            "])," ","\n                            "+_vm._s(animal.last_feeding.name)+"\n                        "]):_vm._e()," ",_vm._m(4,true)])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/animals/' + animal.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/animals/' + animal.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])," ",(animal.loading_data)?_vm._h('div',{staticClass:"preloader-wrapper tiny active right"},[_vm._m(5,true)]):_vm._e()])," ",(!animal.death_date)?_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title"},[_vm._s(_vm.$tc("components.terraria", 1)),_vm._m(6,true)])," ",_vm._h('p',[(animal.terrarium)?_vm._h('a',{attrs:{"href":'/terraria/' + animal.terrarium.id}},[_vm._s(animal.terrarium.display_name)]):_vm._e()])," ",_vm._h('span',{staticClass:"card-title"},[_vm._s(_vm.$t("labels.just_fed"))])," ",_vm._h('p',[_vm._h('a',{staticClass:"waves-effect waves-teal btn",attrs:{"href":'#modal_just_fed_' + animal.id,"onclick":'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'}},[_vm._s(_vm.$t("labels.just_fed"))])])," ",_vm._h('p',[_vm._h('a',{staticClass:"waves-effect waves-teal btn",attrs:{"href":'#modal_add_weight_' + animal.id,"onclick":'$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'}},[_vm._s(_vm.$t("labels.add_weight"))])])]):_vm._e()])])])})])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["send"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["send"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons tiny"},["local_dining"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('div',{staticClass:"spinner-layer spinner-green-only"},[_vm._h('div',{staticClass:"circle-clipper left"},[_vm._h('div',{staticClass:"circle"})]),_vm._h('div',{staticClass:"gap-patch"},[_vm._h('div',{staticClass:"circle"})]),_vm._h('div',{staticClass:"circle-clipper right"},[_vm._h('div',{staticClass:"circle"})])])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["close"])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -16665,9 +16737,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-32", __vue__options__)
+    hotAPI.createRecord("data-v-33", __vue__options__)
   } else {
-    hotAPI.reload("data-v-32", __vue__options__)
+    hotAPI.reload("data-v-33", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],22:[function(require,module,exports){
@@ -16837,9 +16909,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-33", __vue__options__)
+    hotAPI.createRecord("data-v-34", __vue__options__)
   } else {
-    hotAPI.reload("data-v-33", __vue__options__)
+    hotAPI.reload("data-v-34", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],23:[function(require,module,exports){
@@ -17043,9 +17115,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-35", __vue__options__)
+    hotAPI.createRecord("data-v-36", __vue__options__)
   } else {
-    hotAPI.reload("data-v-35", __vue__options__)
+    hotAPI.reload("data-v-36", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],24:[function(require,module,exports){
@@ -17279,22 +17351,32 @@ exports.default = {
     },
 
     methods: {
-        update: function update(ps) {
+        update: function update(cu) {
             var item = null;
             this.controlunits.forEach(function (data, index) {
-                if (data.id === ps.controlunit.id) {
+                if (data.id === cu.controlunit.id) {
                     item = index;
                 }
             });
             if (item !== null) {
-                this.controlunits.splice(item, 1, ps.controlunit);
+                var that = this;
+                $.ajax({
+                    url: '/api/v1/controlunits/' + cu.controlunit.id,
+                    method: 'GET',
+                    success: function success(data) {
+                        that.controlunits.splice(item, 1, data.data);
+                    },
+                    error: function error(_error) {
+                        console.log((0, _stringify2.default)(_error));
+                    }
+                });
             }
         },
 
-        delete: function _delete(ps) {
+        delete: function _delete(cu) {
             var item = null;
             this.controlunits.forEach(function (data, index) {
-                if (data.id === ps.controlunit.id) {
+                if (data.id === cu.controlunit.id) {
                     item = index;
                 }
             });
@@ -17349,8 +17431,8 @@ exports.default = {
                     });
                     window.eventHubVue.processEnded();
                 },
-                error: function error(_error) {
-                    console.log((0, _stringify2.default)(_error));
+                error: function error(_error2) {
+                    console.log((0, _stringify2.default)(_error2));
                     window.eventHubVue.processEnded();
                 }
             });
@@ -17380,12 +17462,10 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('table',{staticClass:"responsive highlight collapsible",attrs:{"data-collapsible":"expandable"}},[_vm._h('thead',[_vm._h('tr',[_vm._h('th',{attrs:{"data-field":"name"}},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_order('name')}}},[_vm._s(_vm.$t('labels.name'))])," ",_vm._h('i',{directives:[{name:"show",rawName:"v-show",value:(_vm.order.field == 'name' && _vm.order.direction == 'asc'),expression:"order.field == 'name' && order.direction == 'asc'"}],staticClass:"material-icons"},["arrow_drop_up"])," ",_vm._h('i',{directives:[{name:"show",rawName:"v-show",value:(_vm.order.field == 'name' && _vm.order.direction == 'desc'),expression:"order.field == 'name' && order.direction == 'desc'"}],staticClass:"material-icons"},["arrow_drop_down"])," ",_vm._h('div',{staticClass:"input-field inline"},[_vm._h('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.filter.name),expression:"filter.name"}],attrs:{"id":"filter_name","type":"text"},domProps:{"value":_vm._s(_vm.filter.name)},on:{"keyup":function($event){if($event.keyCode!==13){ return; }_vm.set_filter($event)},"input":function($event){if($event.target.composing){ return; }_vm.filter.name=$event.target.value}}})," ",_vm._m(0)])])," ",_vm._h('th',{attrs:{"data-field":"timestamps.last_heartbeat"}},["\n                    "+_vm._s(_vm.$t('labels.last_heartbeat'))+"\n                "])," ",_vm._m(1)])])," ",_vm._l((_vm.controlunits),function(controlunit){return [_vm._h('tbody',[_vm._h('tr',{staticClass:"collapsible-header"},[_vm._h('td',[_vm._h('span',[_vm._m(2,true)," ",_vm._h('a',{attrs:{"href":'/controlunits/' + controlunit.id}},[_vm._s(controlunit.name)])])])," ",_vm._h('td',[_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(controlunit.timestamps.last_heartbeat_diff.days > 0),expression:"controlunit.timestamps.last_heartbeat_diff.days > 0"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":controlunit.timestamps.last_heartbeat}},["\n                                "+_vm._s(_vm.$t('units.days_ago', {val: controlunit.timestamps.last_heartbeat_diff.days}))+"\n                            "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(controlunit.timestamps.last_heartbeat_diff.days < 1 &&
-                                          controlunit.timestamps.last_heartbeat_diff.hours > 0),expression:"controlunit.timestamps.last_heartbeat_diff.days < 1 &&\n                                          controlunit.timestamps.last_heartbeat_diff.hours > 0"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":controlunit.timestamps.last_heartbeat}},["\n\n                                "+_vm._s(_vm.$t('units.hours_ago', {val: controlunit.timestamps.last_heartbeat_diff.hours}))+"\n                            "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(controlunit.timestamps.last_heartbeat_diff.days < 1 &&
-                                          controlunit.timestamps.last_heartbeat_diff.hours < 1 &&
-                                          controlunit.timestamps.last_heartbeat_diff.minutes > 1),expression:"controlunit.timestamps.last_heartbeat_diff.days < 1 &&\n                                          controlunit.timestamps.last_heartbeat_diff.hours < 1 &&\n                                          controlunit.timestamps.last_heartbeat_diff.minutes > 1"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":controlunit.timestamps.last_heartbeat}},["\n\n                                "+_vm._s(_vm.$t('units.minutes_ago', {val: controlunit.timestamps.last_heartbeat_diff.minutes}))+"\n                            "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(controlunit.timestamps.last_heartbeat_diff.days < 1 &&
-                                          controlunit.timestamps.last_heartbeat_diff.hours < 1 &&
-                                          controlunit.timestamps.last_heartbeat_diff.minutes < 2),expression:"controlunit.timestamps.last_heartbeat_diff.days < 1 &&\n                                          controlunit.timestamps.last_heartbeat_diff.hours < 1 &&\n                                          controlunit.timestamps.last_heartbeat_diff.minutes < 2"}],staticClass:"tooltipped",attrs:{"data-position":"bottom","data-delay":"50","data-tooltip":controlunit.timestamps.last_heartbeat}},["\n\n                                "+_vm._s(_vm.$t('units.just_now'))+"\n                            "])])," ",_vm._h('td',[_vm._h('span',[_vm._h('a',{staticClass:"waves-effect waves-light btn-small",attrs:{"href":'/controlunits/' + controlunit.id + '/edit'}},[_vm._m(3,true)])])])])," ",_vm._h('tr',{staticClass:"collapsible-body"},[_vm._h('td',{attrs:{"colspan":"3"}},["\n                            "+_vm._s(_vm.$tc('components.physical_sensors', 2))+":\n                            ",_vm._l((controlunit.physical_sensors),function(physical_sensor,index){return _vm._h('span',[_vm._m(4,true)," ",_vm._h('a',{attrs:{"href":'/physical_sensors/' + physical_sensor.id}},[_vm._s(physical_sensor.name)])," ",(index < controlunit.physical_sensors.length-1)?[", "]:_vm._e()])})," ",_vm._m(5,true),"\n                            "+_vm._s(_vm.$tc('components.valves', 2))+":\n                            ",_vm._l((controlunit.valves),function(valve,index){return _vm._h('span',[_vm._m(6,true)," ",_vm._h('a',{attrs:{"href":'/valves/' + valve.id}},[_vm._s(valve.name)])," ",(index < controlunit.valves.length-1)?[", "]:_vm._e()])})," ",_vm._m(7,true),"\n                            "+_vm._s(_vm.$tc('components.pumps', 2))+":\n                            ",_vm._l((controlunit.pumps),function(pump,index){return _vm._h('span',[_vm._m(8,true)," ",_vm._h('a',{attrs:{"href":'/pumps/' + pump.id}},[_vm._s(pump.name)])," ",(index < controlunit.pumps.length-1)?[", "]:_vm._e()])})," ",_vm._m(9,true),"\n                            "+_vm._s(_vm.$tc('components.generic_components', 2))+":\n                            ",_vm._l((controlunit.generic_components),function(generic_component,index){return _vm._h('span',[_vm._h('i',{staticClass:"material-icons"},[_vm._s(generic_component.type.icon)])," ",_vm._h('a',{attrs:{"href":'/generic_components/' + generic_component.id}},[_vm._s(generic_component.name)])," ",(index < controlunit.generic_components.length-1)?[", "]:_vm._e()])})," ",_vm._m(10,true)])])])]})])," ",(_vm.meta.hasOwnProperty('pagination'))?_vm._h('ul',{staticClass:"pagination"},[_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1 }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(1)}}},[_vm._m(11)])])," ",_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1 }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-1)}}},[_vm._m(12)])])," ",(_vm.meta.pagination.current_page-3 > 0)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-3)}}},[_vm._s(_vm.meta.pagination.current_page-3)])]):_vm._e()," ",(_vm.meta.pagination.current_page-2 > 0)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-2)}}},[_vm._s(_vm.meta.pagination.current_page-2)])]):_vm._e()," ",(_vm.meta.pagination.current_page-1 > 0)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-1)}}},[_vm._s(_vm.meta.pagination.current_page-1)])]):_vm._e()," ",_vm._h('li',{staticClass:"active"},[_vm._h('a',{attrs:{"href":"#!"}},[_vm._s(_vm.meta.pagination.current_page)])])," ",(_vm.meta.pagination.current_page+1 <= _vm.meta.pagination.total_pages)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+1)}}},[_vm._s(_vm.meta.pagination.current_page+1)])]):_vm._e()," ",(_vm.meta.pagination.current_page+2 <= _vm.meta.pagination.total_pages)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+2)}}},[_vm._s(_vm.meta.pagination.current_page+2)])]):_vm._e()," ",(_vm.meta.pagination.current_page+3 <= _vm.meta.pagination.total_pages)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+3)}}},[_vm._s(_vm.meta.pagination.current_page+3)])]):_vm._e()," ",_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages, 'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+1)}}},[_vm._m(13)])])," ",_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages, 'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.total_pages)}}},[_vm._m(14)])])]):_vm._e()])])}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('table',{staticClass:"responsive highlight collapsible",attrs:{"data-collapsible":"expandable"}},[_vm._h('thead',[_vm._h('tr',[_vm._h('th',{attrs:{"data-field":"name"}},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_order('name')}}},[_vm._s(_vm.$t('labels.name'))])," ",_vm._h('i',{directives:[{name:"show",rawName:"v-show",value:(_vm.order.field == 'name' && _vm.order.direction == 'asc'),expression:"order.field == 'name' && order.direction == 'asc'"}],staticClass:"material-icons"},["arrow_drop_up"])," ",_vm._h('i',{directives:[{name:"show",rawName:"v-show",value:(_vm.order.field == 'name' && _vm.order.direction == 'desc'),expression:"order.field == 'name' && order.direction == 'desc'"}],staticClass:"material-icons"},["arrow_drop_down"])," ",_vm._h('div',{staticClass:"input-field inline"},[_vm._h('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.filter.name),expression:"filter.name"}],attrs:{"id":"filter_name","type":"text"},domProps:{"value":_vm._s(_vm.filter.name)},on:{"keyup":function($event){if($event.keyCode!==13){ return; }_vm.set_filter($event)},"input":function($event){if($event.target.composing){ return; }_vm.filter.name=$event.target.value}}})," ",_vm._m(0)])])," ",_vm._h('th',{attrs:{"data-field":"software_version"}},["\n                    "+_vm._s(_vm.$t('labels.software_version'))+"\n                "])," ",_vm._h('th',{attrs:{"data-field":"timestamps.last_heartbeat"}},["\n                    "+_vm._s(_vm.$t('labels.last_heartbeat'))+"\n                "])," ",_vm._m(1)])])," ",_vm._l((_vm.controlunits),function(controlunit){return [_vm._h('tbody',[_vm._h('tr',{staticClass:"collapsible-header"},[_vm._h('td',[_vm._h('span',[_vm._m(2,true)," ",_vm._h('a',{attrs:{"href":'/controlunits/' + controlunit.id}},[_vm._s(controlunit.name)])])])," ",_vm._h('td',[_vm._h('span',["\n                                "+_vm._s(controlunit.software_version)+"\n                            "])])," ",_vm._h('td',["\n                            "+_vm._s(_vm.$t(
+                                'units.' + _vm.$getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).unit,
+                                {val: _vm.$getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).val}
+                            ))+"\n                        "])," ",_vm._h('td',[_vm._h('span',[_vm._h('a',{staticClass:"waves-effect waves-light btn-small",attrs:{"href":'/controlunits/' + controlunit.id + '/edit'}},[_vm._m(3,true)])])])])," ",_vm._h('tr',{staticClass:"collapsible-body"},[_vm._h('td',{attrs:{"colspan":"3"}},["\n                            "+_vm._s(_vm.$tc('components.physical_sensors', 2))+":\n                            ",_vm._l((controlunit.physical_sensors),function(physical_sensor,index){return _vm._h('span',[_vm._m(4,true)," ",_vm._h('a',{attrs:{"href":'/physical_sensors/' + physical_sensor.id}},[_vm._s(physical_sensor.name)])," ",(index < controlunit.physical_sensors.length-1)?[", "]:_vm._e()])})," ",_vm._m(5,true),"\n                            "+_vm._s(_vm.$tc('components.valves', 2))+":\n                            ",_vm._l((controlunit.valves),function(valve,index){return _vm._h('span',[_vm._m(6,true)," ",_vm._h('a',{attrs:{"href":'/valves/' + valve.id}},[_vm._s(valve.name)])," ",(index < controlunit.valves.length-1)?[", "]:_vm._e()])})," ",_vm._m(7,true),"\n                            "+_vm._s(_vm.$tc('components.pumps', 2))+":\n                            ",_vm._l((controlunit.pumps),function(pump,index){return _vm._h('span',[_vm._m(8,true)," ",_vm._h('a',{attrs:{"href":'/pumps/' + pump.id}},[_vm._s(pump.name)])," ",(index < controlunit.pumps.length-1)?[", "]:_vm._e()])})," ",_vm._m(9,true),"\n                            "+_vm._s(_vm.$tc('components.generic_components', 2))+":\n                            ",_vm._l((controlunit.generic_components),function(generic_component,index){return _vm._h('span',[_vm._h('i',{staticClass:"material-icons"},[_vm._s(generic_component.type.icon)])," ",_vm._h('a',{attrs:{"href":'/generic_components/' + generic_component.id}},[_vm._s(generic_component.name)])," ",(index < controlunit.generic_components.length-1)?[", "]:_vm._e()])})," ",_vm._m(10,true)])])])]})])," ",(_vm.meta.hasOwnProperty('pagination'))?_vm._h('ul',{staticClass:"pagination"},[_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1 }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(1)}}},[_vm._m(11)])])," ",_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1 }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-1)}}},[_vm._m(12)])])," ",(_vm.meta.pagination.current_page-3 > 0)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-3)}}},[_vm._s(_vm.meta.pagination.current_page-3)])]):_vm._e()," ",(_vm.meta.pagination.current_page-2 > 0)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-2)}}},[_vm._s(_vm.meta.pagination.current_page-2)])]):_vm._e()," ",(_vm.meta.pagination.current_page-1 > 0)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-1)}}},[_vm._s(_vm.meta.pagination.current_page-1)])]):_vm._e()," ",_vm._h('li',{staticClass:"active"},[_vm._h('a',{attrs:{"href":"#!"}},[_vm._s(_vm.meta.pagination.current_page)])])," ",(_vm.meta.pagination.current_page+1 <= _vm.meta.pagination.total_pages)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+1)}}},[_vm._s(_vm.meta.pagination.current_page+1)])]):_vm._e()," ",(_vm.meta.pagination.current_page+2 <= _vm.meta.pagination.total_pages)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+2)}}},[_vm._s(_vm.meta.pagination.current_page+2)])]):_vm._e()," ",(_vm.meta.pagination.current_page+3 <= _vm.meta.pagination.total_pages)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+3)}}},[_vm._s(_vm.meta.pagination.current_page+3)])]):_vm._e()," ",_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages, 'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+1)}}},[_vm._m(13)])])," ",_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages, 'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.total_pages)}}},[_vm._m(14)])])]):_vm._e()])])}
 __vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('label',{attrs:{"for":"filter_name"}},["Filter"])},function render () {var _vm=this;return _vm._h('th',{staticStyle:{"width":"40px"}})},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["developer_board"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["edit"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["memory"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["transform"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["rotate_right"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["first_page"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["chevron_left"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["chevron_right"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["last_page"])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
@@ -17927,9 +18007,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1", __vue__options__)
+    hotAPI.createRecord("data-v-2", __vue__options__)
   } else {
-    hotAPI.reload("data-v-1", __vue__options__)
+    hotAPI.reload("data-v-2", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],27:[function(require,module,exports){
@@ -18039,6 +18119,7 @@ exports.default = {
             var g = new Dygraph(document.getElementById('dygraph_' + this.id), this.data, {
                 'connectSeparatedPoints': true,
                 rollPeriod: 10,
+                showRoller: true,
                 showRangeSelector: true,
                 legend: 'always',
                 colors: ['#5555EE', '#CC5555'],
@@ -18084,6 +18165,177 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],28:[function(require,module,exports){
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+    data: function data() {
+        return {
+            files: [],
+            meta: [],
+            filter: {
+                name: '',
+                model: '',
+                'file.name': '',
+                'terrarium.display_name': ''
+            },
+            filter_string: '',
+            order: {
+                field: 'name',
+                direction: 'asc'
+            },
+            order_string: '',
+            page: 1
+        };
+    },
+
+
+    props: {
+        wrapperClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: 60,
+            required: false
+        }
+    },
+
+    methods: {
+        update: function update(f) {
+            var item = null;
+            this.files.forEach(function (data, index) {
+                if (data.id === f.file.id) {
+                    item = index;
+                }
+            });
+            if (item !== null) {
+                this.files.splice(item, 1, f.file);
+            }
+        },
+
+        delete: function _delete(f) {
+            var item = null;
+            this.files.forEach(function (data, index) {
+                if (data.id === f.file.id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                this.files.splice(item, 1);
+            }
+        },
+
+        set_order: function set_order(field) {
+            if (this.order.field == field || field === null) {
+                if (this.order.direction == 'asc') {
+                    this.order.direction = 'desc';
+                } else {
+                    this.order.direction = 'asc';
+                }
+            } else {
+                this.order.field = field;
+            }
+
+            this.order_string = '&order[' + this.order.field + ']=' + this.order.direction;
+            this.load_data();
+        },
+        set_filter: function set_filter() {
+            this.filter_string = '&';
+            for (var prop in this.filter) {
+                if (this.filter.hasOwnProperty(prop)) {
+                    if (this.filter[prop] !== null && this.filter[prop] !== '') {
+
+                        this.filter_string += 'filter[' + prop + ']=like:*' + this.filter[prop] + '*&';
+                    }
+                }
+            }
+            this.load_data();
+        },
+        set_page: function set_page(page) {
+            this.page = page;
+            this.load_data();
+        },
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            this.order_string = '&order[' + this.order.field + ']=' + this.order.direction;
+            var that = this;
+            $.ajax({
+                url: '/api/v1/files?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
+                method: 'GET',
+                success: function success(data) {
+                    that.meta = data.meta;
+                    that.files = data.data;
+                    that.$nextTick(function () {
+                        $('table.collapsible').collapsibletable();
+                    });
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log((0, _stringify2.default)(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+        }
+    },
+
+    created: function created() {
+        var _this = this;
+
+        window.echo.private('dashboard-updates').listen('FileUpdated', function (e) {
+            _this.update(e);
+        }).listen('FileDeleted', function (e) {
+            _this.delete(e);
+        });
+
+        this.load_data();
+
+        var that = this;
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[_vm._h('div',{class:_vm.wrapperClasses},[_vm._h('table',{staticClass:"responsive highlight collapsible",attrs:{"data-collapsible":"expandable"}},[_vm._h('thead',[_vm._h('tr',[_vm._h('th',{attrs:{"data-field":"display_name"}},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_order('name')}}},[_vm._s(_vm.$t('labels.display_name'))])," ",_vm._h('i',{directives:[{name:"show",rawName:"v-show",value:(_vm.order.field == 'display_name' && _vm.order.direction == 'asc'),expression:"order.field == 'display_name' && order.direction == 'asc'"}],staticClass:"material-icons"},["arrow_drop_up"])," ",_vm._h('i',{directives:[{name:"show",rawName:"v-show",value:(_vm.order.field == 'display_name' && _vm.order.direction == 'desc'),expression:"order.field == 'display_name' && order.direction == 'desc'"}],staticClass:"material-icons"},["arrow_drop_down"])," ",_vm._h('div',{staticClass:"input-field inline"},[_vm._h('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.filter.display_name),expression:"filter.display_name"}],attrs:{"id":"filter_display_name","type":"text"},domProps:{"value":_vm._s(_vm.filter.display_name)},on:{"keyup":function($event){if($event.keyCode!==13){ return; }_vm.set_filter($event)},"input":function($event){if($event.target.composing){ return; }_vm.filter.display_name=$event.target.value}}})," ",_vm._m(0)])])," ",_vm._h('th',{attrs:{"data-field":"mimetype"}},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_order('name')}}},[_vm._s(_vm.$t('labels.type'))])," ",_vm._h('i',{directives:[{name:"show",rawName:"v-show",value:(_vm.order.field == 'mimetype' && _vm.order.direction == 'mimetype'),expression:"order.field == 'mimetype' && order.direction == 'mimetype'"}],staticClass:"material-icons"},["arrow_drop_up"])," ",_vm._h('i',{directives:[{name:"show",rawName:"v-show",value:(_vm.order.field == 'mimetype' && _vm.order.direction == 'mimetype'),expression:"order.field == 'mimetype' && order.direction == 'mimetype'"}],staticClass:"material-icons"},["arrow_drop_down"])," ",_vm._h('div',{staticClass:"input-field inline"},[_vm._h('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.filter.mimetype),expression:"filter.mimetype"}],attrs:{"id":"filter_mimetype","type":"text"},domProps:{"value":_vm._s(_vm.filter.mimetype)},on:{"keyup":function($event){if($event.keyCode!==13){ return; }_vm.set_filter($event)},"input":function($event){if($event.target.composing){ return; }_vm.filter.mimetype=$event.target.value}}})," ",_vm._m(1)])])," ",_vm._h('th',{attrs:{"data-field":"size"}},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_order('name')}}},[_vm._s(_vm.$t('labels.size'))])," ",_vm._h('i',{directives:[{name:"show",rawName:"v-show",value:(_vm.order.field == 'size' && _vm.order.direction == 'size'),expression:"order.field == 'size' && order.direction == 'size'"}],staticClass:"material-icons"},["arrow_drop_up"])," ",_vm._h('i',{directives:[{name:"show",rawName:"v-show",value:(_vm.order.field == 'size' && _vm.order.direction == 'size'),expression:"order.field == 'size' && order.direction == 'size'"}],staticClass:"material-icons"},["arrow_drop_down"])," ",_vm._h('div',{staticClass:"input-field inline"},[_vm._h('input',{directives:[{name:"model",rawName:"v-model",value:(_vm.filter.size),expression:"filter.size"}],attrs:{"id":"filter_size","type":"text"},domProps:{"value":_vm._s(_vm.filter.size)},on:{"keyup":function($event){if($event.keyCode!==13){ return; }_vm.set_filter($event)},"input":function($event){if($event.target.composing){ return; }_vm.filter.size=$event.target.value}}})," ",_vm._m(2)])])," ",_vm._h('th',{attrs:{"data-field":"timestamps.created_at"}},["\n                    "+_vm._s(_vm.$t('labels.created_at'))+"\n                "])])])," ",_vm._l((_vm.files),function(file){return [_vm._h('tbody',[_vm._h('tr',{staticClass:"collapsible-header"},[_vm._h('td',[_vm._h('span',[_vm._h('i',{staticClass:"material-icons"},[_vm._s(file.icon)])," ",_vm._h('a',{attrs:{"href":'/files/' + file.id}},[_vm._s(file.display_name)])])])," ",_vm._h('td',[_vm._h('span',["\n                                "+_vm._s(file.mimetype)+"\n                            "])])," ",_vm._h('td',[(file.size / 1024 > 1024)?_vm._h('span',["\n                                "+_vm._s(Math.round(file.size / 1024 / 1024, 1))+" MB\n                            "]):_vm._h('span',["\n                                "+_vm._s(Math.round(file.size / 1024, 0))+" KB\n                            "])," "])," ",_vm._h('td',["\n                            "+_vm._s(_vm.$t(
+                                'units.' + _vm.$getMatchingTimeDiff(file.timestamps.created_diff).unit,
+                                {val: _vm.$getMatchingTimeDiff(file.timestamps.created_diff).val}
+                            ))+"\n                            "])," ",_vm._h('td',[_vm._h('span',[_vm._h('a',{staticClass:"waves-effect waves-light btn-small",attrs:{"href":'/files/' + file.id + '/edit'}},[_vm._m(3,true)])])])])," ",_vm._m(4,true)])]})])," ",(_vm.meta.hasOwnProperty('pagination'))?_vm._h('ul',{staticClass:"pagination"},[_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1 }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(1)}}},[_vm._m(5)])])," ",_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1 }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-1)}}},[_vm._m(6)])])," ",(_vm.meta.pagination.current_page-3 > 0)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-3)}}},[_vm._s(_vm.meta.pagination.current_page-3)])]):_vm._e()," ",(_vm.meta.pagination.current_page-2 > 0)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-2)}}},[_vm._s(_vm.meta.pagination.current_page-2)])]):_vm._e()," ",(_vm.meta.pagination.current_page-1 > 0)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page-1)}}},[_vm._s(_vm.meta.pagination.current_page-1)])]):_vm._e()," ",_vm._h('li',{staticClass:"active"},[_vm._h('a',{attrs:{"href":"#!"}},[_vm._s(_vm.meta.pagination.current_page)])])," ",(_vm.meta.pagination.current_page+1 <= _vm.meta.pagination.total_pages)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+1)}}},[_vm._s(_vm.meta.pagination.current_page+1)])]):_vm._e()," ",(_vm.meta.pagination.current_page+2 <= _vm.meta.pagination.total_pages)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+2)}}},[_vm._s(_vm.meta.pagination.current_page+2)])]):_vm._e()," ",(_vm.meta.pagination.current_page+3 <= _vm.meta.pagination.total_pages)?_vm._h('li',{staticClass:"waves-effect"},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+3)}}},[_vm._s(_vm.meta.pagination.current_page+3)])]):_vm._e()," ",_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages, 'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.current_page+1)}}},[_vm._m(7)])])," ",_vm._h('li',{class:{ 'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages, 'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages }},[_vm._h('a',{attrs:{"href":"#!"},on:{"click":function($event){_vm.set_page(_vm.meta.pagination.total_pages)}}},[_vm._m(8)])])]):_vm._e()])])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('label',{attrs:{"for":"filter_display_name"}},["Filter"])},function render () {var _vm=this;return _vm._h('label',{attrs:{"for":"filter_mimetype"}},["Filter"])},function render () {var _vm=this;return _vm._h('label',{attrs:{"for":"filter_size"}},["Filter"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["edit"])},function render () {var _vm=this;return _vm._h('tr',{staticClass:"collapsible-body"},[_vm._h('td',{attrs:{"colspan":"3"}})])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["first_page"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["chevron_left"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["chevron_right"])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["last_page"])}]
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-18", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-18", __vue__options__)
+  }
+})()}
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],29:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18214,12 +18466,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-18", __vue__options__)
+    hotAPI.createRecord("data-v-19", __vue__options__)
   } else {
-    hotAPI.reload("data-v-18", __vue__options__)
+    hotAPI.reload("data-v-19", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],29:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],30:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18366,7 +18618,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-17", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],30:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],31:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18483,12 +18735,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-36", __vue__options__)
+    hotAPI.createRecord("data-v-37", __vue__options__)
   } else {
-    hotAPI.reload("data-v-36", __vue__options__)
+    hotAPI.reload("data-v-37", __vue__options__)
   }
 })()}
-},{"vue":8,"vue-hot-reload-api":5}],31:[function(require,module,exports){
+},{"vue":8,"vue-hot-reload-api":5}],32:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18656,12 +18908,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-30", __vue__options__)
+    hotAPI.createRecord("data-v-31", __vue__options__)
   } else {
-    hotAPI.reload("data-v-30", __vue__options__)
+    hotAPI.reload("data-v-31", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],32:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],33:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18830,12 +19082,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-28", __vue__options__)
+    hotAPI.createRecord("data-v-30", __vue__options__)
   } else {
-    hotAPI.reload("data-v-28", __vue__options__)
+    hotAPI.reload("data-v-30", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],33:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],34:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19046,12 +19298,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2", __vue__options__)
+    hotAPI.createRecord("data-v-3", __vue__options__)
   } else {
-    hotAPI.reload("data-v-2", __vue__options__)
+    hotAPI.reload("data-v-3", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],34:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],35:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19097,8 +19349,8 @@ exports.default = {
             this.data.push(value);
         },
         updateTerrariumGraph: function updateTerrariumGraph(t) {
-            if (t.terrarium.id == this.parentid) {
-                if (this.graphtype == 'humidity_percent') this.data = t.terrarium.humidity_history;else if (this.graphtype == 'temperature_celsius') this.data = t.terrarium.temperature_history;
+            if (t.id == this.parentid) {
+                if (this.graphtype == 'humidity_percent') this.data = t.humidity_history;else if (this.graphtype == 'temperature_celsius') this.data = t.temperature_history;
             }
         },
         rerender: function rerender() {
@@ -19148,7 +19400,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-5", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],35:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],36:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19303,7 +19555,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-29", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],36:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],37:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19472,12 +19724,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-27", __vue__options__)
+    hotAPI.createRecord("data-v-28", __vue__options__)
   } else {
-    hotAPI.reload("data-v-27", __vue__options__)
+    hotAPI.reload("data-v-28", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],37:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],38:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19582,12 +19834,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-34", __vue__options__)
+    hotAPI.createRecord("data-v-35", __vue__options__)
   } else {
-    hotAPI.reload("data-v-34", __vue__options__)
+    hotAPI.reload("data-v-35", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],38:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],39:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19755,12 +20007,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-25", __vue__options__)
+    hotAPI.createRecord("data-v-27", __vue__options__)
   } else {
-    hotAPI.reload("data-v-25", __vue__options__)
+    hotAPI.reload("data-v-27", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],39:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],40:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19929,12 +20181,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-24", __vue__options__)
+    hotAPI.createRecord("data-v-26", __vue__options__)
   } else {
-    hotAPI.reload("data-v-24", __vue__options__)
+    hotAPI.reload("data-v-26", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],40:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],41:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -20083,12 +20335,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-22", __vue__options__)
+    hotAPI.createRecord("data-v-23", __vue__options__)
   } else {
-    hotAPI.reload("data-v-22", __vue__options__)
+    hotAPI.reload("data-v-23", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],41:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],42:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -20257,12 +20509,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-21", __vue__options__)
+    hotAPI.createRecord("data-v-22", __vue__options__)
   } else {
-    hotAPI.reload("data-v-21", __vue__options__)
+    hotAPI.reload("data-v-22", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],42:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],43:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -20324,12 +20576,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3", __vue__options__)
+    hotAPI.createRecord("data-v-1", __vue__options__)
   } else {
-    hotAPI.reload("data-v-3", __vue__options__)
+    hotAPI.reload("data-v-1", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],43:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],44:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -20470,7 +20722,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-14", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],44:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],45:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -20547,20 +20799,47 @@ exports.default = {
         update: function update(t) {
             var item = null;
             this.terraria.forEach(function (data, index) {
-                if (data.id === t.terrarium.id) {
+                if (data.id === t.terrarium_id) {
                     item = index;
                 }
             });
             if (item === null && this.subscribeAdd === true) {
-                this.terraria.push(t.terrarium);
-            } else if (item !== null) {
-                this.terraria.splice(item, 1, t.terrarium);
-            }
+                var that = this;
+                $.ajax({
+                    url: '/api/v1/terraria/' + t.terrarium_id + '?default_history_minutes=true',
+                    method: 'GET',
+                    success: function success(data) {
+                        that.terraria.push(data.data);
+                        window.eventHubVue.$emit('TerrariumGraphUpdated', data.data);
 
-            this.$nextTick(function () {
-                this.refresh_grid();
-            });
-            window.eventHubVue.$emit('TerrariumGraphUpdated', t);
+                        that.$nextTick(function () {
+                            that.refresh_grid();
+                        });
+                    },
+                    error: function error(_error) {
+                        console.log((0, _stringify2.default)(_error));
+                    }
+                });
+            } else if (item !== null) {
+                this.$set(this.terraria[item], 'loading_data', true);
+                var that = this;
+                $.ajax({
+                    url: '/api/v1/terraria/' + t.terrarium_id + '?default_history_minutes=true',
+                    method: 'GET',
+                    success: function success(data) {
+                        that.terraria.splice(item, 1, data.data);
+                        window.eventHubVue.$emit('TerrariumGraphUpdated', data.data);
+
+                        that.$nextTick(function () {
+                            that.refresh_grid();
+                        });
+                    },
+                    error: function error(_error2) {
+                        console.log((0, _stringify2.default)(_error2));
+                        this.$set(this.terraria[item], 'loading_data', false);
+                    }
+                });
+            }
         },
 
         delete: function _delete(t) {
@@ -20614,8 +20893,8 @@ exports.default = {
                     });
                     window.eventHubVue.processEnded();
                 },
-                error: function error(_error) {
-                    console.log((0, _stringify2.default)(_error));
+                error: function error(_error3) {
+                    console.log((0, _stringify2.default)(_error3));
                     window.eventHubVue.processEnded();
                 }
             });
@@ -20646,19 +20925,19 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.terraria),function(terrarium){return _vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-image waves-effect waves-block waves-light terrarium-card-image",class:terrarium.default_background_filepath ? '' : 'teal lighten-1',style:(terrarium.default_background_filepath ? 'background-image: url(\'' + terrarium.default_background_filepath + '\');' : '')},[_vm._h('div',[_vm._h('inline-graph',{attrs:{"parentid":terrarium.id,"graphtype":"humidity_percent","type":"line","options":{'fill': null, 'strokeWidth': '3', 'stroke': '#2196f3', width: '100%', height:'140px', min: 1, max: 99},"source":'/api/v1/terraria/'+terrarium.id+'/sensorreadingsByType/humidity_percent'}})])," ",_vm._h('div',{staticStyle:{"position":"relative","top":"-145px"}},[_vm._h('inline-graph',{attrs:{"parentid":terrarium.id,"graphtype":"temperature_celsius","type":"line","options":{'fill': null, 'strokeWidth': '3', 'stroke': '#b71c1c', width: '100%', height:'140px', min: 1, max: 99},"source":'/api/v1/terraria/'+terrarium.id+'/sensorreadingsByType/temperature_celsius'}})])])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(terrarium.display_name)])," ",_vm._m(0,true)])," ",_vm._h('p',[_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.cooked_temperature_celsius !== null),expression:"terrarium.cooked_temperature_celsius !== null"}],class:{ 'red-text': terrarium.temperature_critical, 'darken-3': terrarium.temperature_critical }},["\n                        "+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C\n                        ",_vm._m(1,true)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.cooked_humidity_percent !== null),expression:"terrarium.cooked_humidity_percent !== null"}],class:{ 'red-text': terrarium.humidity_critical, 'darken-3': terrarium.humidity_critical }},["\n                        "+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%\n                    "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.heartbeat_critical),expression:"terrarium.heartbeat_critical"}],staticClass:"red-text darken-3"},[_vm._m(2,true),"\n                        "+_vm._s(_vm.$t("tooltips.heartbeat_critical"))+"\n                    "])])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/terraria/' + terrarium.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/terraria/' + terrarium.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])])," ",_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc("components.animals", 2)),_vm._m(3,true)])," ",_vm._l((terrarium.animals),function(animal){return _vm._h('p',[_vm._h('a',{attrs:{"href":'/animals/' + animal.id}},[_vm._s(animal.display_name)])," ",_vm._h('i',[_vm._s(animal.common_name)])])})," ",_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc("components.action_sequence_schedules", 2))])," ",_vm._l((terrarium.action_sequences),function(as){return _vm._h('p',[_vm._h('a',{attrs:{"href":'/action_sequences/' + as.id}},[_vm._s(as.name)])])})])])])})])}
-__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["close"])}]
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',{class:[_vm.containerClasses, 'masonry-grid'],attrs:{"id":_vm.containerId}},[_vm._l((_vm.terraria),function(terrarium){return _vm._h('div',{class:_vm.wrapperClasses},[_vm._h('div',{staticClass:"card"},[_vm._h('div',{staticClass:"card-image waves-effect waves-block waves-light terrarium-card-image",class:terrarium.default_background_filepath ? '' : 'teal lighten-1',style:(terrarium.default_background_filepath ? 'background-image: url(\'' + terrarium.default_background_filepath + '\');' : '')},[_vm._h('div',[_vm._h('inline-graph',{attrs:{"parentid":terrarium.id,"graphtype":"humidity_percent","type":"line","options":{'fill': null, 'strokeWidth': '3', 'stroke': '#2196f3', width: '100%', height:'140px', min: 1, max: 99},"source":'/api/v1/terraria/'+terrarium.id+'/sensorreadingsByType/humidity_percent'}})])," ",_vm._h('div',{staticStyle:{"position":"relative","top":"-145px"}},[_vm._h('inline-graph',{attrs:{"parentid":terrarium.id,"graphtype":"temperature_celsius","type":"line","options":{'fill': null, 'strokeWidth': '3', 'stroke': '#b71c1c', width: '100%', height:'140px', min: 1, max: 99},"source":'/api/v1/terraria/'+terrarium.id+'/sensorreadingsByType/temperature_celsius'}})])])," ",_vm._h('div',{staticClass:"card-content"},[_vm._h('span',{staticClass:"card-title activator truncate"},[_vm._h('span',[_vm._s(terrarium.display_name)])," ",_vm._m(0,true)])," ",_vm._h('p',[_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.cooked_temperature_celsius !== null),expression:"terrarium.cooked_temperature_celsius !== null"}],class:{ 'red-text': terrarium.temperature_critical, 'darken-3': terrarium.temperature_critical }},["\n                        "+_vm._s(_vm.$t("labels.temperature"))+": "+_vm._s(terrarium.cooked_temperature_celsius)+"°C\n                        ",_vm._m(1,true)])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.cooked_humidity_percent !== null),expression:"terrarium.cooked_humidity_percent !== null"}],class:{ 'red-text': terrarium.humidity_critical, 'darken-3': terrarium.humidity_critical }},["\n                        "+_vm._s(_vm.$t("labels.humidity"))+": "+_vm._s(terrarium.cooked_humidity_percent)+"%\n                    "])," ",_vm._h('span',{directives:[{name:"show",rawName:"v-show",value:(terrarium.heartbeat_critical),expression:"terrarium.heartbeat_critical"}],staticClass:"red-text darken-3"},[_vm._m(2,true),"\n                        "+_vm._s(_vm.$t("tooltips.heartbeat_critical"))+"\n                    "])])])," ",_vm._h('div',{staticClass:"card-action"},[_vm._h('a',{attrs:{"href":'/terraria/' + terrarium.id}},[_vm._s(_vm.$t("buttons.details"))])," ",_vm._h('a',{attrs:{"href":'/terraria/' + terrarium.id + '/edit'}},[_vm._s(_vm.$t("buttons.edit"))])," ",(terrarium.loading_data)?_vm._h('div',{staticClass:"preloader-wrapper tiny active right"},[_vm._m(3,true)]):_vm._e()])," ",_vm._h('div',{staticClass:"card-reveal"},[_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc("components.animals", 2)),_vm._m(4,true)])," ",_vm._l((terrarium.animals),function(animal){return _vm._h('p',[_vm._h('a',{attrs:{"href":'/animals/' + animal.id}},[_vm._s(animal.display_name)])," ",_vm._h('i',[_vm._s(animal.common_name)])])})," ",_vm._h('span',{staticClass:"card-title grey-text text-darken-4"},[_vm._s(_vm.$tc("components.action_sequence_schedules", 2))])," ",_vm._l((terrarium.action_sequences),function(as){return _vm._h('p',[_vm._h('a',{attrs:{"href":'/action_sequences/' + as.id}},[_vm._s(as.name)])])})])])])})])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["more_vert"])},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('br')},function render () {var _vm=this;return _vm._h('div',{staticClass:"spinner-layer spinner-green-only"},[_vm._h('div',{staticClass:"circle-clipper left"},[_vm._h('div',{staticClass:"circle"})]),_vm._h('div',{staticClass:"gap-patch"},[_vm._h('div',{staticClass:"circle"})]),_vm._h('div',{staticClass:"circle-clipper right"},[_vm._h('div',{staticClass:"circle"})])])},function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons right"},["close"])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-12", __vue__options__)
+    hotAPI.createRecord("data-v-13", __vue__options__)
   } else {
-    hotAPI.reload("data-v-12", __vue__options__)
+    hotAPI.reload("data-v-13", __vue__options__)
   }
 })()}
-},{"./inline-graph.vue":34,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],45:[function(require,module,exports){
+},{"./inline-graph.vue":35,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],46:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -20750,12 +21029,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-31", __vue__options__)
+    hotAPI.createRecord("data-v-32", __vue__options__)
   } else {
-    hotAPI.reload("data-v-31", __vue__options__)
+    hotAPI.reload("data-v-32", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],46:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],47:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -20905,12 +21184,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-26", __vue__options__)
+    hotAPI.createRecord("data-v-25", __vue__options__)
   } else {
-    hotAPI.reload("data-v-26", __vue__options__)
+    hotAPI.reload("data-v-25", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],47:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],48:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -21079,9 +21358,9 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-23", __vue__options__)
+    hotAPI.createRecord("data-v-24", __vue__options__)
   } else {
-    hotAPI.reload("data-v-23", __vue__options__)
+    hotAPI.reload("data-v-24", __vue__options__)
   }
 })()}
 },{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}]},{},[11]);

@@ -6665,6 +6665,33 @@ table.collapsible {
   padding-bottom: 12px;
   line-height: 24px; }
 
+/*
+ * Border for collapsible navi items
+ */
+#nav-mobile div.collapsible-body {
+  border-left: 5px #26a69a solid; }
+
+#nav-mobile > li.active > a,
+#nav-mobile > li.active > a > i,
+#nav-mobile div.collapsible-body > ul > li.active > a,
+#nav-mobile div.collapsible-body > ul > li.active > a > i {
+  color: #FFF; }
+
+#nav-mobile div.collapsible-body > ul > li > a {
+  padding: 0 18.5px 0 31px; }
+
+/*
+ * Background for active navi items
+ */
+#nav-mobile > li.active {
+  background-color: #26a69a; }
+
+/*
+ * Remove margin from divider in navi
+ */
+#nav-mobile > li > div.divider {
+  margin: 0; }
+
 .file-card-image {
   padding: 0; }
 
