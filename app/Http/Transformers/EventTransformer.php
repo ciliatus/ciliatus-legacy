@@ -30,10 +30,7 @@ class EventTransformer extends Transformer
             'name' => $item['name'],
             'value' => $item['value'],
             'value_json' => json_decode($item['value_json']),
-            'timestamps' => [
-                'created' => $item['created_at'],
-                'updated' => $item['updated_at'],
-            ],
+            'timestamps' => $this->parseTimestamps($item),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];

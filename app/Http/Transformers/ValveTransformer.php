@@ -32,10 +32,7 @@ class ValveTransformer extends Transformer
             'controlunit_id' => $item['controlunit_id'],
             'terrarium_id' => $item['terrarium_id'],
             'pump_id' => $item['pump_id'],
-            'timestamps' => [
-                'created' => $item['created_at'],
-                'updated' => $item['updated_at'],
-            ],
+            'timestamps' => $this->parseTimestamps($item),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];

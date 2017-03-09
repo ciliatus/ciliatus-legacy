@@ -27,10 +27,7 @@ class PropertyTransformer extends Transformer
             'class' => 'Property',
             'name' => $item['name'],
             'value' => $item['value'],
-            'timestamps' => [
-                'created' => $item['created_at'],
-                'updated' => $item['updated_at'],
-            ],
+            'timestamps' => $this->parseTimestamps($item),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
