@@ -17,18 +17,16 @@ class AnimalUpdated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $animal;
+    public $animal_id;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Animal $a
      */
     public function __construct(Animal $a)
     {
-        $animal = (new AnimalRepository())->show($a->id);
-        $transformer = new AnimalTransformer();
-        $this->animal = $transformer->transform($animal->toArray());
+        $this->animal_id = $a->id;
     }
 
     /**

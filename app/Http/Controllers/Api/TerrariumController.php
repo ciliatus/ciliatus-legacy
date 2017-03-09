@@ -104,7 +104,6 @@ class TerrariumController extends ApiController
      */
     public function show(Request $request, $id)
     {
-
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
@@ -122,6 +121,9 @@ class TerrariumController extends ApiController
 
         $history_to = $request->has('history_to') ? $request->input('history_to') : null;
         $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : null;
+        if (is_null($history_minutes) && $request->has('default_history_minutes')) {
+            $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180);
+        }
 
         return $this->setStatusCode(200)
                     ->respondWithData(

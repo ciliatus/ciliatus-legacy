@@ -60,7 +60,7 @@ class Animal extends CiliatusModel
     {
         $result = parent::save($options);
 
-        broadcast(new AnimalUpdated((new AnimalRepository($this))->show()));
+        broadcast(new AnimalUpdated($this));
 
         return $result;
     }
@@ -409,6 +409,26 @@ class Animal extends CiliatusModel
             }
             $caresheet->delete();
         }
+    }
+
+    /**
+     * @return null
+     */
+    public function background_image_path()
+    {
+        $files = $this->files()->with('properties')->get();
+        foreach ($files as $f) {
+            if ($f->property('is_default_background') == true) {
+                if (!is_null($f->thumb())) {
+                    return $f->thumb()->path_external();
+                }
+                else {
+                    return $f->path_external();
+                }
+            }
+        }
+
+        return null;
     }
 
     /**
