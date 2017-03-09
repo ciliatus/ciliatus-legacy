@@ -117,9 +117,9 @@
 
     <div id="tab_files" class="col s12">
         <div class="container">
-            <files-widget source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
-                          belongs-to_type="Terrarium" belongs-to_id="{{ $terrarium->id }}"
-                          container-classes="row" wrapper-classes="col s12"></files-widget>
+            <files-list-widget
+                    source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}">
+            </files-list-widget>
         </div>
     </div>
 

@@ -150,9 +150,10 @@
 
     <div id="tab_files" class="col s12">
         <div class="container">
-            <files-widget source-filter="filter[belongsTo_type]=Animal&filter[belongsTo_id]={{ $animal->id }}"
-                          belongs-to_type="Animal" belongs-to_id="{{ $animal->id }}"
-                          container-classes="row" wrapper-classes="col s12"></files-widget>
+            <files-list-widget
+                    source-filter="filter[belongsTo_type]=Animal&filter[belongsTo_id]={{ $animal->id }}"
+                    subscribe-add="false">
+            </files-list-widget>
         </div>
     </div>
 
