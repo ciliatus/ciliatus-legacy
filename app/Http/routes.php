@@ -174,6 +174,8 @@ Route::group(['namespace' => 'Web', 'middleware' => 'web'], function() {
     Route::resource('logs', 'LogController');
 
 
+    Route::get('map', 'DashboardController@map');
+
 });
 
 Route::post('broadcasting/auth', 'BroadcastController@authenticate')->middleware('auth:api');
@@ -248,8 +250,9 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1', 'middleware' => ['auth
     /*
      * Controlunits
      */
-    Route::resource('controlunits', 'ControlunitController');
     Route::get('controlunits/{id}/fetch_desired_states', 'ControlunitController@fetchDesiredStates');
+    Route::put('controlunits/{id}/check_in', 'ControlunitController@check_in');
+    Route::resource('controlunits', 'ControlunitController');
 
     /*
      * Pumps

@@ -414,6 +414,27 @@ class Terrarium extends CiliatusModel
         }
     }
 
+    public function background_image_path()
+    {
+        $files = $this->files()->with('properties')->get();
+        foreach ($files as $f) {
+            if ($f->property('is_default_background') == true) {
+                if (!is_null($f->thumb())) {
+                    return $f->thumb()->path_external();
+                }
+                else {
+                    return $f->path_external();
+                }
+            }
+        }
+
+        foreach ($this->animals as $a) {
+            if (!is_null($a->background_image_path())) {
+                return $a->background_image_path();
+            }
+        }
+    }
+
     /**
      * @return string
      */

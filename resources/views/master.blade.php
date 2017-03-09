@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="height: calc(100% - 75px);">
     <head>
 
         <title>Ciliatus</title>
@@ -32,7 +32,7 @@
         </script>
     </head>
 
-    <body data-lang="{{ Auth::user()->locale }}">
+    <body data-lang="{{ Auth::user()->locale }}" style="height: 100%;">
 
         <script>
             var domCallbacks = [];
@@ -91,6 +91,12 @@
                             <a class="collapsible-header">@lang('menu.infrastructure')<i class="material-icons">device_hub</i></a>
                             <div class="collapsible-body">
                                 <ul>
+                                    <li @if(Request::is('map', 'map/*')) class="active" @endif>
+                                        <a href="{{ url('map') }}" class="waves-effect waves-teal">
+                                            <i class="material-icons">map</i>
+                                            @lang('labels.relation_map')
+                                        </a>
+                                    </li>
                                     <li @if(Request::is('controlunits', 'controlunits/*')) class="active" @endif>
                                         <a href="{{ url('controlunits') }}" class="waves-effect waves-teal">
                                             <i class="material-icons">developer_board</i>
@@ -188,8 +194,8 @@
 
         </header>
 
-        <main>
-            <div id="content" style="position: relative; top: -10px;">
+        <main style="height: 100%;">
+            <div id="content" style="height: 100%; position: relative; top: -10px;">
                 @yield('content')
             </div>
         </main>
@@ -207,7 +213,7 @@
         <!-- ciliatus -->
         <script src="{{ url('v1.3-beta/js/app.min.js') }}"></script>
         <!-- Vue -->
-        <script src="{{ url('v1.3-beta/js/vue.min.js') }}"></script>
+        <script src="{{ url('v1.3-beta/js/vue.js') }}"></script>
 
         @yield('scripts')
 
