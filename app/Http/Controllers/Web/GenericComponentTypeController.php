@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\GenericComponentType;
 use App\Http\Controllers\Controller;
+use App\LogicalSensor;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -32,7 +33,9 @@ class GenericComponentTypeController extends Controller
             return view('errors.401');
         }
 
-        return view('generic_components.types.create');
+        return view('generic_components.types.create', [
+            'sensorreading_types' => LogicalSensor::types()
+        ]);
     }
 
     /**
@@ -82,7 +85,8 @@ class GenericComponentTypeController extends Controller
         }
 
         return view('generic_components.types.edit', [
-            'generic_component_type' => $type
+            'generic_component_type' => $type,
+            'sensorreading_types' => LogicalSensor::types()
         ]);
     }
 

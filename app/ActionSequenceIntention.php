@@ -23,6 +23,12 @@ class ActionSequenceIntention extends CiliatusModel
      */
     public $incrementing = false;
 
+
+    const TYPE_HUMIDITY_PERCENT = 'humidity_percent';
+    const TYPE_TEMPERATURE_CELSIUS = 'temperature_celsius';
+    const INTENTION_INCREASE = 'increase';
+    const INTENTION_DECREASE = 'decrease';
+
     /**
      * @var array
      */
@@ -95,6 +101,10 @@ class ActionSequenceIntention extends CiliatusModel
     {
         $this->last_finished_at = Carbon::now();
         $this->save();
+
+        if ($this->sequence->runonce === true) {
+            $this->sequence->delete();
+        }
 
         Log::create([
             'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],

@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Pump extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Traits\Uuids, Traits\Components;
 
     /**
      * Indicates if the IDs are auto-incrementing.

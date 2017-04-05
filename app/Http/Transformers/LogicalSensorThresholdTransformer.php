@@ -29,11 +29,9 @@ class LogicalSensorThresholdTransformer extends Transformer
             'logical_sensor_id' => $item['logical_sensor_id'],
             'rawvalue_lowerlimit' => $item['rawvalue_lowerlimit'],
             'rawvalue_upperlimit' => $item['rawvalue_upperlimit'],
-            'timestamps' => [
-                'created' => $item['created_at'],
-                'updated' => $item['updated_at'],
-                'starts' => $item['starts_at']
-            ],
+            'timestamps' => $this->parseTimestamps($item, [
+                'starts_at' => 'starts'
+            ]),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];

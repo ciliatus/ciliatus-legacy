@@ -86,17 +86,16 @@ class AnimalController extends ApiController
      */
     public function show($id)
     {
-
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $animal = (new AnimalRepository())->show($id);
-
-        if (!$animal) {
-            return $this->respondNotFound('Animal not found');
+        $animal = Animal::find($id);
+        if (is_null($animal)) {
+            return $this->respondNotFound();
         }
 
+        $animal = (new AnimalRepository($animal))->show();
 
         return $this->setStatusCode(200)->respondWithData(
             $this->animalTransformer->transform(

@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/action_sequence_schedules" class="breadcrumb">@choice('components.action_sequence_schedules', 2)</a>
-    <a href="{{ url('action_sequence_schedules/' . $action_sequence_schedule->id) }}" class="breadcrumb">{{ $action_sequence_schedule->name }}</a>
-    <a href="{{ url('action_sequence_schedules/' . $action_sequence_schedule->id . '/edit') }}" class="breadcrumb">@lang('buttons.edit')</a>
+    <a href="/action_sequence_schedules" class="breadcrumb hide-on-small-and-down">@choice('components.action_sequence_schedules', 2)</a>
+    <a href="{{ url('action_sequence_schedules/' . $action_sequence_schedule->id) }}" class="breadcrumb hide-on-small-and-down">{{ $action_sequence_schedule->name }}</a>
+    <a href="{{ url('action_sequence_schedules/' . $action_sequence_schedule->id . '/edit') }}" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
 
 @section('content')

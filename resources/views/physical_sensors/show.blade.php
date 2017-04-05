@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/physical_sensors" class="breadcrumb">@choice('components.physical_sensors', 2)</a>
-    <a href="/physical_sensors/{{ $physical_sensor->id }}" class="breadcrumb">{{ $physical_sensor->name }}</a>
+    <a href="/physical_sensors" class="breadcrumb hide-on-small-and-down">@choice('components.physical_sensors', 2)</a>
+    <a href="/physical_sensors/{{ $physical_sensor->id }}" class="breadcrumb hide-on-small-and-down">{{ $physical_sensor->name }}</a>
 @stop
 
 @section('content')

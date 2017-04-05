@@ -137,7 +137,7 @@ class ActionSequenceController extends ApiController
         return $this->setStatusCode(200)->respondWithData([],
             [
                 'redirect' => [
-                    'uri'   => url('terraria/' . $as->terrarium_id . '/edit'),
+                    'uri'   => url('terraria/' . $as->terrarium_id),
                     'delay' => 1000
                 ]
             ]
@@ -179,46 +179,41 @@ class ActionSequenceController extends ApiController
             }
         }
 
+        if ($request->has('runonce')) {
+            $as->runonce = $request->input('runonce') == 'on' ? true : false;
+        }
+
+
         $as->name = $name;
         $as->duration_minutes = $request->input('duration_minutes');
         $as->terrarium_id = $request->input('terrarium');
         $as->save();
 
-        switch ($request->input('template')) {
-            case 'irrigate':
-                $a_prev = null;
-                $sort_id = 1;
-                if (is_null($t->valves))
+        if ($request->has('template')) {
+            switch ($request->input('template')) {
+                case 'irrigate':
+                    $template_name = ActionSequence::TEMPLATE_IRRIGATION;
                     break;
+                case 'ventilate':
+                    $template_name = ActionSequence::TEMPLATE_VENTILATE;
+                    break;
+                case 'heat_up':
+                    $template_name = ActionSequence::TEMPLATE_HEAT_UP;
+                    break;
+                case 'cool_down':
+                    $template_name = ActionSequence::TEMPLATE_COOL_DOWN;
+                    break;
+                default:
+                    $template_name = null;
+            }
 
-                foreach ($t->valves as $v) {
-                    $a = Action::create();
-                    $a->action_sequence_id = $as->id;
-                    $a->target_type = 'Valve';
-                    $a->target_id = $v->id;
-                    $a->desired_state = 'running';
-                    $a->duration_minutes = $as->duration_minutes;
-                    $a->wait_for_started_action_id = $a_prev;
-                    $a->sequence_sort_id = $sort_id;
-                    $a->save();
-                    $sort_id++;
-                    $a_prev = $a->id;
+            if (!is_null($template_name)) {
+                $as->generateActionByTemplate($template_name);
 
-                    if (!is_null($v->pump)) {
-                        $a = Action::create();
-                        $a->action_sequence_id = $as->id;
-                        $a->target_type = 'Pump';
-                        $a->target_id = $v->pump->id;
-                        $a->desired_state = 'running';
-                        $a->duration_minutes = $as->duration_minutes;
-                        $a->wait_for_started_action_id = $a_prev;
-                        $a->sequence_sort_id = $sort_id;
-                        $a->save();
-                        $sort_id++;
-                        $a_prev = $a->id;
-                    }
+                if ($request->input('generate_intentions') == 'On') {
+                    $as->generateIntentionsByTemplate($template_name);
                 }
-                break;
+            }
         }
 
         return $this->setStatusCode(200)->respondWithData(
@@ -254,12 +249,16 @@ class ActionSequenceController extends ApiController
             $action_sequence->name = $request->input('name');
         }
 
+        if ($request->has('runonce')) {
+            $action_sequence->runonce = $request->input('runonce') == 'on' ? true : false;
+        }
+
         $action_sequence->save();
 
         return $this->setStatusCode(200)->respondWithData([],
             [
                 'redirect' => [
-                    'uri'   => url('terraria/' . $action_sequence->terrarium_id . '/edit'),
+                    'uri'   => url('terraria/' . $action_sequence->terrarium_id),
                     'delay' => 1000
                 ]
             ]

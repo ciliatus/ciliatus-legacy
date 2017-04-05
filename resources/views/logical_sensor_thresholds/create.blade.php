@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/logical_sensor_thresholds" class="breadcrumb">@choice('components.logical_sensor_thresholds', 2)</a>
-    <a href="/logical_sensor_thresholds/create" class="breadcrumb">@lang('buttons.create')</a>
+    <a href="/logical_sensor_thresholds" class="breadcrumb hide-on-small-and-down">@choice('components.logical_sensor_thresholds', 2)</a>
+    <a href="/logical_sensor_thresholds/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create')</a>
 @stop
 
 @section('content')

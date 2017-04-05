@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-<a href="/logical_sensors" class="breadcrumb">@choice('components.logical_sensors', 2)</a>
-<a href="/logical_sensors/{{ $logical_sensor->id }}" class="breadcrumb">{{ $logical_sensor->name }}</a>
-<a href="/logical_sensors/{{ $logical_sensor->id }}/edit" class="breadcrumb">@lang('buttons.edit')</a>
+<a href="/logical_sensors" class="breadcrumb hide-on-small-and-down">@choice('components.logical_sensors', 2)</a>
+<a href="/logical_sensors/{{ $logical_sensor->id }}" class="breadcrumb hide-on-small-and-down">{{ $logical_sensor->name }}</a>
+<a href="/logical_sensors/{{ $logical_sensor->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
 
 @section('content')
@@ -90,9 +90,7 @@
             <div class="col s12 m12 l6">
                 <div class="card">
                     <div class="card-content teal lighten-1 white-text">
-                        <span class="card-title activator truncate">
-                            <span>@choice('components.logical_sensor_thresholds', 2)</span>
-                        </span>
+                        <span>@choice('components.logical_sensor_thresholds', 2)</span>
                     </div>
 
                     <div class="card-content">
@@ -145,9 +143,7 @@
 
                 <div class="card">
                     <div class="card-content teal lighten-1 white-text">
-                        <span class="card-title activator truncate">
-                            <span>@lang('labels.copy_thresholds')</span>
-                        </span>
+                        <span>@lang('labels.copy_thresholds')</span>
                     </div>
 
                     <form action="{{ url('api/v1/logical_sensor_thresholds/' . $logical_sensor->id . '/copy') }}" data-method="POST">

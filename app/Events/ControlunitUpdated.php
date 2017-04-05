@@ -21,16 +21,14 @@ class ControlunitUpdated implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Controlunit $cu
      */
     public function __construct(Controlunit $cu)
     {
         $transformer = new ControlunitTransformer();
+
         $this->controlunit = $transformer->transform(
-            (new GenericRepository(
-                Controlunit::with('physical_sensors', 'valves', 'pumps', 'generic_components')->find($cu->id)
-            ))->show()
-              ->toArray()
+            (new GenericRepository($cu))->show()->toArray()
         );
     }
 

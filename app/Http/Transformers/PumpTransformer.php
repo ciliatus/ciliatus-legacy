@@ -29,10 +29,7 @@ class PumpTransformer extends Transformer
             'class' => 'Pump',
             'name' => $item['name'],
             'controlunit_id' => isset($item['controlunit_id']) ? $item['controlunit_id'] : '',
-            'timestamps' => [
-                'created' => $item['created_at'],
-                'updated' => $item['updated_at'],
-            ],
+            'timestamps' => $this->parseTimestamps($item),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];

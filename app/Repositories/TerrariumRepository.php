@@ -2,6 +2,7 @@
 
 namespace App\Repositories;
 
+use App\ActionSequence;
 use App\Http\Transformers\ActionSequenceScheduleTransformer;
 use App\Terrarium;
 use Cache;
@@ -108,6 +109,7 @@ class TerrariumRepository extends Repository
             }
         }
 
+        $terrarium->capabilities = $terrarium->capabilities();
         $terrarium->icon = $terrarium->icon();
         $terrarium->url = $terrarium->url();
 

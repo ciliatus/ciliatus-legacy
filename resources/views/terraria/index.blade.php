@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/terraria" class="breadcrumb">@choice('components.terraria', 2)</a>
+    <a href="/terraria" class="breadcrumb hide-on-small-and-down">@choice('components.terraria', 2)</a>
 @stop
 
 @section('content')

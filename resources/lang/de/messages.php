@@ -28,5 +28,9 @@ return [
         'intro' => 'Tägliche Erinnerungen',
         'feedings_due'  =>  'Fällige Fütterungen:',
         'weighings_due' =>  'Fällige Wiegungen:'
+    ],
+
+    'suggestions' => [
+        'humidity_percent' => 'Tägliche Aktionssequenz zum Bewässern um :hour Uhr'
     ]
 ];

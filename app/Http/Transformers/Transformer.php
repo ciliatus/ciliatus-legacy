@@ -56,6 +56,9 @@ abstract class Transformer
         $return = [
             'created' => $item['created_at'],
             'created_diff' => [
+                'years' => $now->diffInYears($created),
+                'months' => $now->diffInMonths($created),
+                'weeks' => $now->diffInWeeks($created),
                 'days' => $now->diffInDays($created),
                 'hours' => $now->diffInHours($created),
                 'minutes' => $now->diffInMinutes($created),
@@ -63,6 +66,9 @@ abstract class Transformer
             ],
             'updated' => $item['updated_at'],
             'updated_diff' => [
+                'years' => $now->diffInYears($created),
+                'months' => $now->diffInMonths($created),
+                'weeks' => $now->diffInWeeks($created),
                 'days' => $now->diffInDays($updated),
                 'hours' => $now->diffInHours($updated),
                 'minutes' => $now->diffInMinutes($updated),
@@ -71,9 +77,16 @@ abstract class Transformer
         ];
 
         foreach ($additional_fields as $k=>$v) {
+            if (!isset($item[$k])) {
+                continue;
+            }
+
             $return[$v] = $item[$k];
             $date = Carbon::parse($item[$k]);
             $return[$v . '_diff'] = [
+                'years' => $now->diffInYears($date),
+                'months' => $now->diffInMonths($date),
+                'weeks' => $now->diffInWeeks($date),
                 'days' => $now->diffInDays($date),
                 'hours' => $now->diffInHours($date),
                 'minutes' => $now->diffInMinutes($date),

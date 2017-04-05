@@ -30,12 +30,10 @@ class CriticalStateTransformer extends Transformer
                 'type' => $item['belongsTo_type'],
                 'id'   => $item['belongsTo_id']
             ],
-            'timestamps' => [
-                'created' => $item['created_at'],
-                'updated' => $item['updated_at'],
-                'notifications_sent_at' => isset($item['notifications_sent_at']) ? $item['notifications_sent_at'] : null,
-                'recovered_at' =>isset($item['recovered_at']) ? $item['recovered_at'] : null,
-            ],
+            'timestamps' => $this->parseTimestamps($item, [
+                'notifications_sent_at' => 'notifications_sent_at',
+                'recovered_at' => 'recovered_at'
+            ]),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];

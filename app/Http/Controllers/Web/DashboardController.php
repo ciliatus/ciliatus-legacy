@@ -2,9 +2,16 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Animal;
+use App\Controlunit;
+use App\GenericComponent;
 use App\Http\Controllers\Controller;
 use App\ActionSequenceSchedule;
+use App\LogicalSensor;
+use App\PhysicalSensor;
+use App\Pump;
 use App\Terrarium;
+use App\Valve;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -98,5 +105,19 @@ class DashboardController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function map()
+    {
+        return view('map', [
+            'terraria' => Terrarium::get(),
+            'animals' => Animal::get(),
+            'controlunits' => Controlunit::get(),
+            'physical_sensors' => PhysicalSensor::get(),
+            'logical_sensors' => LogicalSensor::get(),
+            'valves' => Valve::get(),
+            'pumps' => Pump::get(),
+            'generic_components' => GenericComponent::get()
+        ]);
     }
 }

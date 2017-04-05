@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html style="height: calc(100% - 75px);">
     <head>
 
         <title>Ciliatus</title>
@@ -8,14 +8,14 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on' || (Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night()))
-            <link type="text/css" rel="stylesheet" href="/v1.3-beta/css/materialize_dark.min.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/v1.4-beta/css/materialize_dark.min.css"  media="screen,projection"/>
         @else
-            <link type="text/css" rel="stylesheet" href="/v1.3-beta/css/materialize.min.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/v1.4-beta/css/materialize.min.css"  media="screen,projection"/>
         @endif
-        <link type="text/css" rel="stylesheet" href="/v1.3-beta/css/timeline.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/v1.4-beta/css/timeline.css"  media="screen,projection"/>
 
 
-        <link type="text/css" rel="stylesheet" href="/v1.3-beta/css/materialize.clockpicker.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/v1.4-beta/css/materialize.clockpicker.css"  media="screen,projection"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
         <!--Let browser know website is optimized for mobile-->
@@ -32,7 +32,7 @@
         </script>
     </head>
 
-    <body data-lang="{{ Auth::user()->locale }}">
+    <body data-lang="{{ Auth::user()->locale }}" style="height: 100%;">
 
         <script>
             var domCallbacks = [];
@@ -47,7 +47,7 @@
                             <li><a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"><i class="material-icons">menu</i></a></li>
                         </ul>
 
-                        <a href="/" class="breadcrumb">Start</a>
+                        <a href="/" class="breadcrumb hide-on-small-and-down">Start</a>
                         @yield('breadcrumbs')
 
                         <a href="/" class="brand-logo"></a>
@@ -91,6 +91,12 @@
                             <a class="collapsible-header">@lang('menu.infrastructure')<i class="material-icons">device_hub</i></a>
                             <div class="collapsible-body">
                                 <ul>
+                                    <li @if(Request::is('map', 'map/*')) class="active" @endif>
+                                        <a href="{{ url('map') }}" class="waves-effect waves-teal">
+                                            <i class="material-icons">map</i>
+                                            @lang('labels.relation_map')
+                                        </a>
+                                    </li>
                                     <li @if(Request::is('controlunits', 'controlunits/*')) class="active" @endif>
                                         <a href="{{ url('controlunits') }}" class="waves-effect waves-teal">
                                             <i class="material-icons">developer_board</i>
@@ -174,7 +180,7 @@
 
                 <li><a href="https://github.com/matthenning/ciliatus/issues" class="waves-effect waves-teal"><i class="material-icons">bug_report</i>@lang('labels.bugtracker')</a></li>
                 <li><a href="https://github.com/matthenning/ciliatus/wiki" class="waves-effect waves-teal"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
-                <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v1.3-beta" class="waves-effect waves-teal"><i class="material-icons">linear_scale</i>Version v1.3-beta</a></li>
+                <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v1.4-beta" class="waves-effect waves-teal"><i class="material-icons">linear_scale</i>Version v1.4-beta</a></li>
                 @endif
 
                 <li class="red lighten-5"><a @if(!App\ActionSequence::stopped())href="/action_sequences/stop_all" @else href="/action_sequences/resume_all" @endif class="waves-effect waves-red red-text"><i class="material-icons red-text">power_settings_new</i>@lang('buttons.emergency_stop')</a></li>
@@ -188,8 +194,8 @@
 
         </header>
 
-        <main>
-            <div id="content" style="position: relative; top: -10px;">
+        <main style="height: 100%;">
+            <div id="content" style="height: 100%; position: relative; top: -10px;">
                 @yield('content')
             </div>
         </main>
@@ -197,17 +203,17 @@
         <!-- Google Charts -->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <!-- Materialize.js -->
-        <script src="{{ url('v1.3-beta/js/materialize.min.js') }}"></script>
+        <script src="{{ url('v1.4-beta/js/materialize.min.js') }}"></script>
         <!-- Materialize.clockpicker.js -->
-        <script src="{{ url('v1.3-beta/js/materialize.clockpicker.js') }}"></script>
+        <script src="{{ url('v1.4-beta/js/materialize.clockpicker.js') }}"></script>
         <!-- Masonry -->
-        <script src="{{ url('v1.3-beta/js/masonry.pkgd.min.js') }}"></script>
+        <script src="{{ url('v1.4-beta/js/masonry.pkgd.min.js') }}"></script>
         <!-- Laravel-Echo -->
-        <script src="{{ url('v1.3-beta/js/echo.min.js') }}"></script>
+        <script src="{{ url('v1.4-beta/js/echo.min.js') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('v1.3-beta/js/app.min.js') }}"></script>
+        <script src="{{ url('v1.4-beta/js/app.min.js') }}"></script>
         <!-- Vue -->
-        <script src="{{ url('v1.3-beta/js/vue.min.js') }}"></script>
+        <script src="{{ url('v1.4-beta/js/vue.min.js') }}"></script>
 
         @yield('scripts')
 

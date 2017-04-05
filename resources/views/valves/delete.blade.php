@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/valves" class="breadcrumb">@choice('components.valves', 2)</a>
-    <a href="/valves/{{ $valve->id }}" class="breadcrumb">{{ $valve->name }}</a>
-    <a href="/valves/{{ $valve->id }}/delete" class="breadcrumb">@lang('buttons.delete')</a>
+    <a href="/valves" class="breadcrumb hide-on-small-and-down">@choice('components.valves', 2)</a>
+    <a href="/valves/{{ $valve->id }}" class="breadcrumb hide-on-small-and-down">{{ $valve->name }}</a>
+    <a href="/valves/{{ $valve->id }}/delete" class="breadcrumb hide-on-small-and-down">@lang('buttons.delete')</a>
 @stop
 
 @section('content')

@@ -30,10 +30,7 @@ class ActionTransformer extends Transformer
             'duration_minutes'=>$item['duration_minutes'],
             'wait_for_started_action_id' => $item['wait_for_started_action_id'],
             'wait_for_finished_action_id' => $item['wait_for_finished_action_id'],
-            'timestamps'    => [
-                'created'       => $item['created_at'],
-                'updated'       => $item['updated_at'],
-            ],
+            'timestamps' => $this->parseTimestamps($item),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];

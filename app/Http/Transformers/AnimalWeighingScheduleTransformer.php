@@ -23,11 +23,9 @@ class AnimalWeighingScheduleTransformer extends Transformer
             'type'  => $item['name'],
             'interval_days'  => $item['value'],
             'due_days' => isset($item['next_weighing_at_diff']) ? $item['next_weighing_at_diff'] : 0,
-            'timestamps' => [
-                'created' => $item['created_at'],
-                'updated' => $item['updated_at'],
-                'next'    => isset($item['next_weighing_at']) ? $item['next_weighing_at'] : null
-            ],
+            'timestamps' => $this->parseTimestamps($item, [
+                'next_weighing_at' => 'next'
+            ]),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];

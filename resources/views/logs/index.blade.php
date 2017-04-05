@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/logs" class="breadcrumb">@lang('menu.logs')</a>
+    <a href="/logs" class="breadcrumb hide-on-small-and-down">@lang('menu.logs')</a>
 @stop
 
 

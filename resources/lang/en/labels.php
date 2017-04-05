@@ -139,5 +139,9 @@ return [
     'tomorrow'      => 'Tomorrow',
     'today'         => 'Today',
     'runonce'       => 'Only run once',
-    'intention'     => 'Intention'
+    'intention'     => 'Intention',
+    'deceased'      => 'Deceased',
+    'software_version'=>'Software Version',
+    'use_as_background' => 'Use as background image',
+    'relation_map'  => 'Relation map'
 ];

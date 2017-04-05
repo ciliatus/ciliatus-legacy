@@ -159,8 +159,9 @@ class ControlunitController extends ApiController
             return $this->setStatusCode(422)->respondWithError('Controlunit not found');
         }
 
-
-        $controlunit->name = $request->input('name');
+        if ($request->has('name')) {
+            $controlunit->name = $request->input('name');
+        }
 
         $controlunit->save();
 
@@ -189,6 +190,31 @@ class ControlunitController extends ApiController
         }
 
         return $this->respondWithData($controlunit->fetchAndAckDesiredStates());
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function check_in(Request $request, $id)
+    {
+        if (Gate::denies('api-write:controlunit')) {
+            return $this->respondUnauthorized();
+        }
+
+        $controlunit = Controlunit::find($id);
+        if (is_null($controlunit)) {
+            return $this->setStatusCode(422)->respondWithError('Controlunit not found');
+        }
+
+        if ($request->has('software_version')) {
+            $controlunit->software_version = $request->input('software_version');
+        }
+
+        $controlunit->save();
+
+        return $this->respondWithData([]);
     }
 
 }

@@ -14,6 +14,10 @@
                         </div>
                     </th>
 
+                    <th data-field="software_version">
+                        {{ $t('labels.software_version') }}
+                    </th>
+
                     <th data-field="timestamps.last_heartbeat">
                         {{ $t('labels.last_heartbeat') }}
                     </th>
@@ -35,31 +39,16 @@
                             </td>
 
                             <td>
-                                <!-- @TODO: there has to be a better way to do this -->
-                                <span v-show="controlunit.timestamps.last_heartbeat_diff.days > 0"
-                                      class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
-                                    {{ $t('units.days_ago', {val: controlunit.timestamps.last_heartbeat_diff.days}) }}
+                                <span>
+                                    {{ controlunit.software_version }}
                                 </span>
-                                <span v-show="controlunit.timestamps.last_heartbeat_diff.days < 1 &&
-                                              controlunit.timestamps.last_heartbeat_diff.hours > 0"
-                                      class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
+                            </td>
 
-                                    {{ $t('units.hours_ago', {val: controlunit.timestamps.last_heartbeat_diff.hours}) }}
-                                </span>
-                                <span v-show="controlunit.timestamps.last_heartbeat_diff.days < 1 &&
-                                              controlunit.timestamps.last_heartbeat_diff.hours < 1 &&
-                                              controlunit.timestamps.last_heartbeat_diff.minutes > 1"
-                                      class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
-
-                                    {{ $t('units.minutes_ago', {val: controlunit.timestamps.last_heartbeat_diff.minutes}) }}
-                                </span>
-                                <span v-show="controlunit.timestamps.last_heartbeat_diff.days < 1 &&
-                                              controlunit.timestamps.last_heartbeat_diff.hours < 1 &&
-                                              controlunit.timestamps.last_heartbeat_diff.minutes < 2"
-                                      class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
-
-                                    {{ $t('units.just_now') }}
-                                </span>
+                            <td>
+                                {{ $t(
+                                    'units.' + $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).unit,
+                                    {val: $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).val}
+                                )}}
                             </td>
 
                             <td>
@@ -177,22 +166,32 @@ export default {
     },
 
     methods: {
-        update: function(ps) {
+        update: function(cu) {
             var item = null;
             this.controlunits.forEach(function(data, index) {
-                if (data.id === ps.controlunit.id) {
+                if (data.id === cu.controlunit.id) {
                     item = index;
                 }
             });
             if (item !== null) {
-                this.controlunits.splice(item, 1, ps.controlunit);
+                var that = this;
+                $.ajax({
+                    url: '/api/v1/controlunits/' + cu.controlunit.id,
+                    method: 'GET',
+                    success: function (data) {
+                        that.controlunits.splice(item, 1, data.data);
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
             }
         },
 
-        delete: function(ps) {
+        delete: function(cu) {
             var item = null;
             this.controlunits.forEach(function(data, index) {
-                if (data.id === ps.controlunit.id) {
+                if (data.id === cu.controlunit.id) {
                     item = index;
                 }
             });

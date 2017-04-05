@@ -107,14 +107,31 @@ class GenericComponentTypeController extends ApiController
             }
         }
 
+        if ($request->has('default_intention_intention') && $request->has('default_intention_type')) {
+            for ($i = 0; $i < count($request->get('default_intention_intention')); $i++) {
+                $p = Property::create([
+                    'belongsTo_type' => 'GenericComponentType',
+                    'belongsTo_id' => $type->id,
+                    'type' => 'GenericComponentTypeIntention',
+                    'name' => $request->get('default_intention_intention')[$i],
+                    'value' => $request->get('default_intention_type')[$i]
+                ]);
+            }
+        }
+
         if ($request->has('state')) {
-            foreach ($request->get('state') as $prop) {
+            foreach ($request->get('state') as $state) {
                 $p = Property::create([
                     'belongsTo_type' => 'GenericComponentType',
                     'belongsTo_id' => $type->id,
                     'type' => 'GenericComponentTypeState',
-                    'name' => $prop
+                    'name' => $state
                 ]);
+
+                if ($request->has('default_running_state') && $request->input('default_running_state') == $state) {
+                    $type->default_running_state_id = $p->id;
+                    $type->save();
+                }
             }
         }
 
@@ -211,13 +228,14 @@ class GenericComponentTypeController extends ApiController
          * Keep existing, remove non existing and add new states
          */
         if ($request->has('state')) {
-            foreach ($request->get('state') as $n) {
-                if (is_null($type->states()->where('name', $n)->get()->first())) {
-                    Property::create([
+            foreach ($request->get('state') as $new_state) {
+                $state = $type->states()->where('name', $new_state)->get()->first();
+                if (is_null($state)) {
+                    $p = Property::create([
                         'belongsTo_type' => 'GenericComponentType',
                         'belongsTo_id' => $type->id,
                         'type' => 'GenericComponentTypeState',
-                        'name' => $n
+                        'name' => $new_state
                     ]);
                 }
             }
@@ -226,11 +244,40 @@ class GenericComponentTypeController extends ApiController
                 if (array_search($s->name, $request->get('state')) === false) {
                     $s->delete();
                 }
+                elseif ($request->has('default_running_state') && $request->input('default_running_state') == $s->name) {
+                    $type->default_running_state_id = $s->id;
+                }
             }
         }
 
         foreach ($type->components as $component) {
             $component->resync_states();
+        }
+
+        /*
+         * Keep existing, remove non existing and add new intentions
+         */
+        if ($request->has('default_intention_intention') && $request->has('default_intention_type')) {
+            foreach ($type->intentions as $intention) {
+                $intention->delete();
+            }
+
+            for ($i = 0; $i < count($request->get('default_intention_intention')); $i++) {
+                $intention = $request->get('default_intention_intention')[$i];
+                $value = $request->get('default_intention_type')[$i];
+
+                Property::create([
+                    'belongsTo_type' => 'GenericComponentType',
+                    'belongsTo_id' => $type->id,
+                    'type' => 'GenericComponentTypeIntention',
+                    'name' => $intention,
+                    'value' => $value
+                ]);
+            }
+        }
+
+        foreach ($type->components as $component) {
+            $component->resync_properties();
         }
 
         $type->save();

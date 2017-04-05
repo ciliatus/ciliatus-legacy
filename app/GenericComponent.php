@@ -16,8 +16,7 @@ use InvalidArgumentException;
  */
 class GenericComponent extends CiliatusModel
 {
-
-    use Traits\Uuids;
+    use Traits\Uuids, Traits\Components;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -63,6 +62,14 @@ class GenericComponent extends CiliatusModel
     public function states()
     {
         return $this->hasMany('App\Property', 'belongsTo_id')->where('type', 'GenericComponentState');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function intentions()
+    {
+        return $this->type->intentions();
     }
 
     /**
@@ -137,6 +144,57 @@ class GenericComponent extends CiliatusModel
         $config = "[generic_component_{$name}]\nid = {$this->id}\npin =\nname = {$this->name}\ntype = {$type_name}";
 
         return $config;
+    }
+
+    /**
+     * Returns the associated GenericComponentTypeIntention property or null.
+     *
+     * @return null
+     */
+    public function getDefaultIntention()
+    {
+        return $this->type->getDefaultIntention();
+    }
+
+    /**
+     * Returns the associated GenericComponentType property.
+     * If that is null, the result of getDefaultIntention() will be returned.
+     *
+     * @return null
+     */
+    public function getIntention()
+    {
+        $intention = $this->properties()->where('type', 'GenericComponentIntention')->get()->first();
+        if (is_null($intention)) {
+            return $this->getDefaultIntention();
+        }
+
+        return $intention;
+    }
+
+    /**
+     * Returns the associated GenericComponentTypeRunningState property or null.
+     *
+     * @return null
+     */
+    public function getDefaultRunningState()
+    {
+        return $this->type->getDefaultRunningState();
+    }
+
+    /**
+     * Returns the default state in which this component is running.
+     *
+     * @return string
+     */
+    public function getRunningState()
+    {
+        $running_state = $this->properties()->where('type', 'GenericComponentRunningState')->get()->first();
+        if (is_null($running_state)) {
+            return $this->getDefaultRunningState();
+        }
+
+        return $running_state;
     }
 
     /**

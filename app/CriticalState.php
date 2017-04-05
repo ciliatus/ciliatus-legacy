@@ -5,7 +5,9 @@ namespace App;
 use App\Events\CriticalStateCreated;
 use App\Events\CriticalStateDeleted;
 use Carbon\Carbon;
+use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 /**
@@ -374,6 +376,65 @@ class CriticalState extends CiliatusModel
         }
 
         return $result;
+    }
+
+    /**
+     * Walks over the critical states collection and assigns each
+     * hour the amount of active critical states.
+     *
+     * The returned timeline is sorted by amount of active
+     * critical states per hour in descending order.
+     *
+     * @param Collection $critical_states
+     * @return array
+     */
+    public static function getTimelineFromCriticalStates(Collection $critical_states)
+    {
+        $timeline = [];
+        foreach ($critical_states as $cs) {
+
+            $hour_start = $cs->created_at->hour;
+            $hour_end = is_null($cs->recovered_at) ? 24 : $cs->recovered_at->hour;
+
+            for ($hour = $hour_start; $hour <= $hour_end; $hour++) {
+                if (!isset($timeline[$hour])) {
+                    $timeline[$hour] = 0;
+                }
+                $timeline[$hour] += 1;
+            }
+
+        }
+
+        arsort($timeline);
+
+        return $timeline;
+    }
+
+    /**
+     * Calls getTimelineFromCriticalStates and returns the the first
+     * (sorted by time in descending order) time
+     *
+     * @param Collection $critical_states
+     * @param $threshold
+     * @return mixed
+     */
+    public static function getFirstTimeUnitViolatingThreshold(Collection $critical_states, $threshold)
+    {
+        $cs_timeline = CriticalState::getTimelineFromCriticalStates($critical_states);
+
+        foreach ($cs_timeline as $k=>$v) {
+            if ($v < (int)$threshold) {
+                unset($cs_timeline[$k]);
+            }
+        }
+
+        if (count($cs_timeline) < 1) {
+            return null;
+        }
+
+        ksort($cs_timeline);
+        reset($cs_timeline);
+        return [key($cs_timeline) => current($cs_timeline)];
     }
 
     /**

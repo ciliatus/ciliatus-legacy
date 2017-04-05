@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/users" class="breadcrumb">@lang('menu.users')</a>
-    <a href="/users/{{ $user->id }}" class="breadcrumb">{{ $user->email }}</a>
-    <a class="breadcrumb">@lang('labels.personal_access_tokens')</a>
+    <a href="/users" class="breadcrumb hide-on-small-and-down">@lang('menu.users')</a>
+    <a href="/users/{{ $user->id }}" class="breadcrumb hide-on-small-and-down">{{ $user->email }}</a>
+    <a class="breadcrumb hide-on-small-and-down">@lang('labels.personal_access_tokens')</a>
 @stop
 
 @section('content')

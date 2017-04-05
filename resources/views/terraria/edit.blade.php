@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/terraria" class="breadcrumb">@choice('components.terraria', 2)</a>
-    <a href="/terraria/{{ $terrarium->id }}" class="breadcrumb">{{ $terrarium->display_name }}</a>
-    <a href="/terraria/{{ $terrarium->id }}/edit" class="breadcrumb">@lang('buttons.edit')</a>
+    <a href="/terraria" class="breadcrumb hide-on-small-and-down">@choice('components.terraria', 2)</a>
+    <a href="/terraria/{{ $terrarium->id }}" class="breadcrumb hide-on-small-and-down">{{ $terrarium->display_name }}</a>
+    <a href="/terraria/{{ $terrarium->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
 
 @section('content')
@@ -55,8 +55,14 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <select multiple="multiple" name="animals[]">
+                                        @if ($terrarium->animals->count() < 1)
+                                        <option disabled="disabled"> </option>
+                                        @endif
                                         @foreach ($animals as $a)
-                                            <option value="{{ $a->id }}" @if($a->terrarium_id == $terrarium->id)selected="selected"@endif>{{ $a->display_name }} <i>{{ $a->lat_name }}</i></option>
+                                            <option value="{{ $a->id }}"
+                                                    data-icon="{{ $a->background_image_path() }}" class="circle"
+                                                    @if($a->terrarium_id == $terrarium->id)selected="selected"@endif>{{ $a->display_name }} <i>{{ $a->lat_name }}</i>
+                                            </option>
                                         @endforeach
                                     </select>
                                     <label for="animals">@choice('components.animals', 2)</label>
@@ -67,10 +73,10 @@
                                 <div class="input-field col s12">
                                     <div class="switch">
                                         <label>
-                                            @lang('labels.off')
+                                            <input name="notifications_enabled" type="hidden" value="off">
                                             <input name="notifications_enabled" type="checkbox" @if($terrarium->notifications_enabled) checked @endif>
                                             <span class="lever"></span>
-                                            @lang('labels.on') @lang('tooltips.sendnotifications')
+                                            @lang('tooltips.sendnotifications')
                                         </label>
                                     </div>
                                 </div>
@@ -92,57 +98,95 @@
                         </div>
                     </form>
                 </div>
+
             </div>
 
             <div class="col s12 m12 l6">
-                <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
-                        <span class="activator truncate">
-                            <span><i class="material-icons">playlist_play</i> @choice('components.action_sequences', 2)</span>
-                        </span>
-                    </div>
 
-                    <div class="card-content">
-                        <div class="row">
-                            @foreach($terrarium->action_sequences as $as)
-                                <div class="input-field col s12">
-
-                                    <strong>{{ $as->name }}</strong> <i>{{ $as->duration_minutes }} @choice('units.minutes', $as->duration_minutes)</i>
-
-                                    <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-activates="dropdown-edit-action_sequences_{{ $as->id }}" style="margin-left: 20px">
-                                        <i class="material-icons">settings</i>
-                                    </a>
-
-                                    <ul id="dropdown-edit-action_sequences_{{ $as->id }}" class="dropdown-content">
-                                        <li>
-                                            <a href="{{ url('action_sequences/' . $as->id . '/edit') }}">
-                                                @lang('buttons.edit')
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="{{ url('action_sequences/' . $as->id . '/delete') }}">
-                                                @lang('buttons.delete')
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                    @foreach ($as->schedules as $ass)
-                                        <li>{{ $ass->starts_at }} @if (!$ass->runonce)<i>@lang('labels.daily')</i>@endif</li>
-                                    @endforeach
-                                </div>
-                            @endforeach
-
+                <form action="{{ url('api/v1/terraria/' . $terrarium->id) }}" data-method="PUT"
+                      data-redirect-success="{{ url('terraria/' . $terrarium->id) }}">
+                    <div class="card">
+                        <div class="card-content teal lighten-1 white-text">
+                            <span class="activator truncate">
+                                <span>@lang('labels.suggestions')</span>
+                            </span>
                         </div>
 
-                    </div>
+                        <div class="card-content">
+                            @foreach (['humidity_percent', 'temperature_celsius'] as $type)
+
+                                <strong>@lang('labels.suggestions') @lang('labels.' . $type)</strong>
 
 
-                    <div class="card-action">
-                        <a href="/action_sequences/create?preset[terrarium]={{ $terrarium->id }}">
-                            @lang('buttons.add')
-                        </a>
+                                <div class="row">
+
+                                    <div class="input-field col s12 m6">
+                                        <div class="switch">
+                                            <label>
+                                                <input name="suggestions[{{ $type }}][enabled]" type="hidden" value="off">
+                                                <input name="suggestions[{{ $type }}][enabled]" type="checkbox" value="on" @if($terrarium->getSuggestionsEnabled($type)) checked @endif>
+                                                <span class="lever"></span>
+                                                @lang('tooltips.show_suggestions')
+                                            </label>
+                                        </div>
+                                    </div>
+
+                                    <div class="input-field col s12 m6">
+                                        <input type="text" placeholder="@lang('labels.suggestions_threshold') @lang('labels.' . $type)"
+                                               name="suggestions[{{ $type }}][threshold]" value="{{ $terrarium->getSuggestionThreshold($type) }}">
+                                        <label for="suggestions[{{ $type }}][threshold]">
+                                            @lang('labels.suggestions_unit') @lang('labels.' . $type)
+                                            <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                                               data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.suggestions_unit')</div>">info_outline</a>
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                                <div class="row">
+
+                                    <div class="input-field col s12 m6">
+                                        <select name="suggestions[{{ $type }}][timeframe_unit]">
+                                            <option value="year" @if($terrarium->getSuggestionTimeframeUnit($type) == 'year') selected @endif>@choice('units.years', 1)</option>
+                                            <option value="month" @if($terrarium->getSuggestionTimeframeUnit($type) == 'month') selected @endif>@choice('units.months', 1)</option>
+                                            <option value="week" @if($terrarium->getSuggestionTimeframeUnit($type) == 'week') selected @endif>@choice('units.weeks', 1)</option>
+                                        </select>
+
+                                        <label for="suggestions[{{ $type }}][timeframe_unit]">
+                                            @lang('labels.suggestion_timeframe_unit') @lang('labels.' . $type)
+                                            <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                                               data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.suggestion_timeframe_unit')</div>">info_outline</a>
+                                        </label>
+                                    </div>
+
+                                    <div class="input-field col s12 m6">
+                                        <input type="text" placeholder="@lang('labels.suggestions_timeframe') @lang('labels.' . $type)"
+                                               name="suggestions[{{ $type }}][timeframe_start]" value="{{ $terrarium->getSuggestionTimeframe($type) }}">
+                                        <label for="suggestions[{{ $type }}][timeframe_start]">
+                                            @lang('labels.suggestions_timeframe') @lang('labels.' . $type)
+                                            <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                                               data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.suggestions_timeframe')</div>">info_outline</a>
+                                        </label>
+                                    </div>
+
+                                </div>
+
+                            @endforeach
+                        </div>
+
+                        <div class="card-action">
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
+                                        <i class="material-icons right">save</i>
+                                    </button>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
         </div>
     </div>

@@ -18,26 +18,16 @@ class TerrariumUpdated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $terrarium;
+    public $terrarium_id;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Terrarium $t
      */
     public function __construct(Terrarium $t)
     {
-        $transformer = new TerrariumTransformer();
-        $repository = new TerrariumRepository(
-            Terrarium::with('action_sequences')
-                    ->with('animals')
-                    ->with('files')
-                    ->with('physical_sensors')
-                    ->with('valves')
-                    ->find($t->id)
-        );
-        $t = $repository->show(Carbon::now(), env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 120))->toArray();
-        $this->terrarium = $transformer->transform($t);
+        $this->terrarium_id = $t->id;
     }
 
     /**

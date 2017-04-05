@@ -32,13 +32,11 @@ class ActionSequenceScheduleTransformer extends Transformer
                 'running' => isset($item['running']) ? $item['running'] : false,
                 'is_overdue' => isset($item['is_overdue']) ? $item['is_overdue'] : false,
             ],
-            'timestamps'    => [
-                'starts'        => Carbon::parse($item['starts_at'])->format('H:i'),
-                'last_start'    => isset($item['last_start_at']) ? $item['last_start_at'] : null,
-                'last_finished' => isset($item['last_finished_at']) ? $item['last_finished_at'] : null,
-                'created'       => $item['created_at'],
-                'updated'       => $item['updated_at'],
-            ],
+            'timestamps' => $this->parseTimestamps($item, [
+                'starts_at' => 'starts',
+                'last_start_at' => 'last_start',
+                'last_finished_at' => 'last_finished'
+            ]),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];

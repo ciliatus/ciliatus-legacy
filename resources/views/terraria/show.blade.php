@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/terraria" class="breadcrumb">@choice('components.terraria', 2)</a>
-    <a href="/terraria/{{ $terrarium->id }}" class="breadcrumb">{{ $terrarium->display_name }}</a>
+    <a href="/terraria" class="breadcrumb hide-on-small-and-down">@choice('components.terraria', 2)</a>
+    <a href="/terraria/{{ $terrarium->id }}" class="breadcrumb hide-on-small-and-down">{{ $terrarium->display_name }}</a>
 @stop
 
 @section('content')
@@ -117,9 +117,18 @@
 
     <div id="tab_files" class="col s12">
         <div class="container">
-            <files-widget source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
-                          belongs-to_type="Terrarium" belongs-to_id="{{ $terrarium->id }}"
-                          container-classes="row" wrapper-classes="col s12"></files-widget>
+            <files-list-widget
+                    source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}">
+            </files-list-widget>
+        </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large teal">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating green" href="/files/create?preset[belongsTo_type]=Terrarium&preset[belongsTo_id]={{ $terrarium->id }}"><i class="material-icons">add</i></a></li>
+            </ul>
         </div>
     </div>
 

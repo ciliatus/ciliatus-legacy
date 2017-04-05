@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/physical_sensors" class="breadcrumb">@choice('components.physical_sensors', 2)</a>
+    <a href="/physical_sensors" class="breadcrumb hide-on-small-and-down">@choice('components.physical_sensors', 2)</a>
 @stop
 
 

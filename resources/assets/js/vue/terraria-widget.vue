@@ -41,6 +41,17 @@
                 <div class="card-action">
                     <a v-bind:href="'/terraria/' + terrarium.id">{{ $t("buttons.details") }}</a>
                     <a v-bind:href="'/terraria/' + terrarium.id + '/edit'">{{ $t("buttons.edit") }}</a>
+                    <div class="preloader-wrapper tiny active right" v-if="terrarium.loading_data">
+                        <div class="spinner-layer spinner-green-only">
+                            <div class="circle-clipper left">
+                                <div class="circle"></div>
+                            </div><div class="gap-patch">
+                            <div class="circle"></div>
+                        </div><div class="circle-clipper right">
+                            <div class="circle"></div>
+                        </div>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="card-reveal">
@@ -123,21 +134,48 @@ export default {
         update: function(t) {
             var item = null;
             this.terraria.forEach(function(data, index) {
-                if (data.id === t.terrarium.id) {
+                if (data.id === t.terrarium_id) {
                     item = index;
                 }
             });
             if (item === null && this.subscribeAdd === true) {
-                this.terraria.push(t.terrarium);
+                var that = this;
+                $.ajax({
+                    url: '/api/v1/terraria/' + t.terrarium_id + '?default_history_minutes=true',
+                    method: 'GET',
+                    success: function (data) {
+                        that.terraria.push(data.data);
+                        window.eventHubVue.$emit('TerrariumGraphUpdated', data.data);
+
+                        that.$nextTick(function() {
+                            that.refresh_grid();
+                        });
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
             }
             else if (item !== null) {
-                this.terraria.splice(item, 1, t.terrarium);
-            }
+                this.$set(this.terraria[item], 'loading_data', true);
+                var that = this;
+                $.ajax({
+                    url: '/api/v1/terraria/' + t.terrarium_id + '?default_history_minutes=true',
+                    method: 'GET',
+                    success: function (data) {
+                        that.terraria.splice(item, 1, data.data);
+                        window.eventHubVue.$emit('TerrariumGraphUpdated', data.data);
 
-            this.$nextTick(function() {
-                this.refresh_grid();
-            });
-            window.eventHubVue.$emit('TerrariumGraphUpdated', t);
+                        that.$nextTick(function() {
+                            that.refresh_grid();
+                        });
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                        this.$set(this.terraria[item], 'loading_data', false);
+                    }
+                });
+            }
         },
 
         delete: function(t) {

@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/pumps" class="breadcrumb">@choice('components.pumps', 2)</a>
-    <a href="/pumps/{{ $pump->id }}" class="breadcrumb">{{ $pump->name }}</a>
+    <a href="/pumps" class="breadcrumb hide-on-small-and-down">@choice('components.pumps', 2)</a>
+    <a href="/pumps/{{ $pump->id }}" class="breadcrumb hide-on-small-and-down">{{ $pump->name }}</a>
 @stop
 
 @section('content')

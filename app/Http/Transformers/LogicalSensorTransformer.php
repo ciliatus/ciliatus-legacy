@@ -31,10 +31,7 @@ class LogicalSensorTransformer extends Transformer
             'rawvalue' => $item['rawvalue'],
             'rawvalue_lowerlimit' => $item['rawvalue_lowerlimit'],
             'rawvalue_upperlimit' => $item['rawvalue_upperlimit'],
-            'timestamps' => [
-                'created' => $item['created_at'],
-                'updated' => $item['updated_at']
-            ],
+            'timestamps' => $this->parseTimestamps($item),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
