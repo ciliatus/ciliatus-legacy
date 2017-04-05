@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-<a href="/pumps" class="breadcrumb">@choice('components.pumps', 2)</a>
-<a href="/pumps/{{ $pump->id }}" class="breadcrumb">{{ $pump->name }}</a>
-<a href="/pumps/{{ $pump->id }}/edit" class="breadcrumb">@lang('buttons.edit')</a>
+<a href="/pumps" class="breadcrumb hide-on-small-and-down">@choice('components.pumps', 2)</a>
+<a href="/pumps/{{ $pump->id }}" class="breadcrumb hide-on-small-and-down">{{ $pump->name }}</a>
+<a href="/pumps/{{ $pump->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
 
 @section('content')

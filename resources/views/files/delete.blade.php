@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/files" class="breadcrumb">@choice('components.files', 2)</a>
-    <a href="/files/{{ $file->id }}" class="breadcrumb">{{ $file->name }}</a>
-    <a href="/files/{{ $file->id }}/delete" class="breadcrumb">@lang('buttons.delete')</a>
+    <a href="/files" class="breadcrumb hide-on-small-and-down">@choice('components.files', 2)</a>
+    <a href="/files/{{ $file->id }}" class="breadcrumb hide-on-small-and-down">{{ $file->name }}</a>
+    <a href="/files/{{ $file->id }}/delete" class="breadcrumb hide-on-small-and-down">@lang('buttons.delete')</a>
 @stop
 
 @section('content')

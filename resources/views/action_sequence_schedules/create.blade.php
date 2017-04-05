@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/action_sequence_schedules" class="breadcrumb">@choice('components.action_sequence_schedules', 2)</a>
-    <a href="/action_sequence_schedules/create" class="breadcrumb">@lang('buttons.create')</a>
+    <a href="/action_sequence_schedules" class="breadcrumb hide-on-small-and-down">@choice('components.action_sequence_schedules', 2)</a>
+    <a href="/action_sequence_schedules/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create')</a>
 @stop
 
 @section('content')

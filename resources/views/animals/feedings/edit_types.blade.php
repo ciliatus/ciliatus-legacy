@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/animals" class="breadcrumb">@choice('components.animals', 2)</a>
-    <a href="#" class="breadcrumb">@choice('components.animal_feedings', 1)</a>
-    <a href="#" class="breadcrumb">@lang('labels.type')</a>
+    <a href="/animals" class="breadcrumb hide-on-small-and-down">@choice('components.animals', 2)</a>
+    <a href="#" class="breadcrumb hide-on-small-and-down">@choice('components.animal_feedings', 1)</a>
+    <a href="#" class="breadcrumb hide-on-small-and-down">@lang('labels.type')</a>
 @stop
 
 @section('content')

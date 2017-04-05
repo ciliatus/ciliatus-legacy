@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/users" class="breadcrumb">@lang('menu.users')</a>
-    <a href="/users/create" class="breadcrumb">@lang('labels.create')</a>
+    <a href="/users" class="breadcrumb hide-on-small-and-down">@lang('menu.users')</a>
+    <a href="/users/create" class="breadcrumb hide-on-small-and-down">@lang('labels.create')</a>
 @stop
 
 @section('content')

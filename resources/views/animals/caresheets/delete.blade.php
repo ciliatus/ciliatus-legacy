@@ -1,11 +1,11 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/caresheets" class="breadcrumb">@choice('components.animals', 2)</a>
-    <a href="/animal/{{ $caresheet->belongsTo_id }}" class="breadcrumb">{{ $caresheet->belongsTo_object->display_name }}</a>
-    <a href="/animal/{{ $caresheet->belongsTo_id }}/#tab_caresheets" class="breadcrumb">@choice('components.caresheets', 2)</a>
-    <a href="/animal/{{ $caresheet->belongsTo_id }}/caresheets/{{ $caresheet->id }}" class="breadcrumb">{{ $caresheet->name }}</a>
-    <a href="/caresheets/{{ $caresheet->id }}/delete" class="breadcrumb">@lang('buttons.delete')</a>
+    <a href="/caresheets" class="breadcrumb hide-on-small-and-down">@choice('components.animals', 2)</a>
+    <a href="/animal/{{ $caresheet->belongsTo_id }}" class="breadcrumb hide-on-small-and-down">{{ $caresheet->belongsTo_object->display_name }}</a>
+    <a href="/animal/{{ $caresheet->belongsTo_id }}/#tab_caresheets" class="breadcrumb hide-on-small-and-down">@choice('components.caresheets', 2)</a>
+    <a href="/animal/{{ $caresheet->belongsTo_id }}/caresheets/{{ $caresheet->id }}" class="breadcrumb hide-on-small-and-down">{{ $caresheet->name }}</a>
+    <a href="/caresheets/{{ $caresheet->id }}/delete" class="breadcrumb hide-on-small-and-down">@lang('buttons.delete')</a>
 @stop
 
 @section('content')

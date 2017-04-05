@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/animals" class="breadcrumb">@choice('components.animals', 2)</a>
-    <a href="/animals/{{ $animal->id }}" class="breadcrumb">{{ $animal->display_name }}</a>
+    <a href="/animals" class="breadcrumb hide-on-small-and-down">@choice('components.animals', 2)</a>
+    <a href="/animals/{{ $animal->id }}" class="breadcrumb hide-on-small-and-down">{{ $animal->display_name }}</a>
 @stop
 
 @section('content')
@@ -154,6 +154,15 @@
                     source-filter="filter[belongsTo_type]=Animal&filter[belongsTo_id]={{ $animal->id }}"
                     subscribe-add="false">
             </files-list-widget>
+        </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large teal">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating green" href="/files/create?preset[belongsTo_type]=Animal&preset[belongsTo_id]={{ $animal->id }}"><i class="material-icons">add</i></a></li>
+            </ul>
         </div>
     </div>
 

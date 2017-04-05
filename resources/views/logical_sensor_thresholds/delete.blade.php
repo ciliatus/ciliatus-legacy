@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/logical_sensor_thresholds" class="breadcrumb">@choice('components.logical_sensor_thresholds', 2)</a>
-    <a href="/logical_sensor_thresholds/{{ $logical_sensor_threshold->id }}" class="breadcrumb">{{ $logical_sensor_threshold->name }}</a>
-    <a href="/logical_sensor_thresholds/{{ $logical_sensor_threshold->id }}/delete" class="breadcrumb">@lang('buttons.delete')</a>
+    <a href="/logical_sensor_thresholds" class="breadcrumb hide-on-small-and-down">@choice('components.logical_sensor_thresholds', 2)</a>
+    <a href="/logical_sensor_thresholds/{{ $logical_sensor_threshold->id }}" class="breadcrumb hide-on-small-and-down">{{ $logical_sensor_threshold->name }}</a>
+    <a href="/logical_sensor_thresholds/{{ $logical_sensor_threshold->id }}/delete" class="breadcrumb hide-on-small-and-down">@lang('buttons.delete')</a>
 @stop
 
 @section('content')

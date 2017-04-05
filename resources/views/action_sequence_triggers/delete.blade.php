@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/action_sequence_triggers" class="breadcrumb">@choice('components.action_sequence_triggers', 2)</a>
-    <a href="/action_sequence_triggers/{{ $action_sequence_trigger->id }}" class="breadcrumb">{{ $action_sequence_trigger->name }}</a>
-    <a href="/action_sequence_triggers/{{ $action_sequence_trigger->id }}/delete" class="breadcrumb">@lang('buttons.delete')</a>
+    <a href="/action_sequence_triggers" class="breadcrumb hide-on-small-and-down">@choice('components.action_sequence_triggers', 2)</a>
+    <a href="/action_sequence_triggers/{{ $action_sequence_trigger->id }}" class="breadcrumb hide-on-small-and-down">{{ $action_sequence_trigger->name }}</a>
+    <a href="/action_sequence_triggers/{{ $action_sequence_trigger->id }}/delete" class="breadcrumb hide-on-small-and-down">@lang('buttons.delete')</a>
 @stop
 
 @section('content')

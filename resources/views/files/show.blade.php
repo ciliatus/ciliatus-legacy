@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/files" class="breadcrumb">@choice('components.files', 2)</a>
-    <a href="/files/{{ $file->id }}" class="breadcrumb">{{ $file->display_name }}</a>
+    <a href="/files" class="breadcrumb hide-on-small-and-down">@choice('components.files', 2)</a>
+    <a href="/files/{{ $file->id }}" class="breadcrumb hide-on-small-and-down">{{ $file->display_name }}</a>
 @stop
 
 @section('content')

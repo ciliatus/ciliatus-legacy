@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/action_sequences" class="breadcrumb">@choice('components.action_sequences', 2)</a>
-    <a href="/action_sequences/create" class="breadcrumb">@lang('buttons.create')</a>
+    <a href="/action_sequences" class="breadcrumb hide-on-small-and-down">@choice('components.action_sequences', 2)</a>
+    <a href="/action_sequences/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create')</a>
 @stop
 
 @section('content')
@@ -41,6 +41,9 @@
                                     <select name="template">
                                         <option></option>
                                         <option value="irrigate">@lang('labels.irrigate')</option>
+                                        <option value="ventilate">@lang('labels.ventilate')</option>
+                                        <option value="heat_up">@lang('labels.heat_up')</option>
+                                        <option value="cool_down">@lang('labels.cool_down')</option>
                                     </select>
                                     <label for="template">@lang('labels.template')</label>
                                 </div>

@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/biography_entries" class="breadcrumb">@choice('components.biography_entries', 2)</a>
-    <a href="/biography_entries/{{ $entry->id }}" class="breadcrumb">/{{ $entry->name }}</a>
-    <a href="/biography_entries/{{ $entry->id }}/edit" class="breadcrumb">@lang('buttons.edit')</a>
+    <a href="/biography_entries" class="breadcrumb hide-on-small-and-down">@choice('components.biography_entries', 2)</a>
+    <a href="/biography_entries/{{ $entry->id }}" class="breadcrumb hide-on-small-and-down">/{{ $entry->name }}</a>
+    <a href="/biography_entries/{{ $entry->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
 
 @section('content')
