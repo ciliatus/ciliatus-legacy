@@ -61,6 +61,34 @@ Object.keys(locales).forEach(function (lang) {
     Vue.locale(lang, locales[lang])
 });
 
+var TimeStringFormatter = Object;
+TimeStringFormatter.install = function(Vue, options) {
+    Vue.prototype.$getMatchingTimeDiff = function(obj) {
+        if (obj.years > 1) {
+            return {val: obj.years, unit: 'years_ago'};
+        }
+        if (obj.months > 1) {
+            return {val: obj.months, unit: 'months_ago'};
+        }
+        if (obj.weeks > 1) {
+            return {val: obj.weeks, unit: 'weeks_ago'};
+        }
+        if (obj.days > 1) {
+            return {val: obj.days, unit: 'days_ago'};
+        }
+        if (obj.hours > 1) {
+            return {val: obj.hours, unit: 'hours_ago'};
+        }
+        if (obj.minutes > 1) {
+            return {val: obj.minutes, unit: 'minutes_ago'};
+        }
+        return {val: null, unit: 'just_now'};
+    };
+};
+
+Vue.use(TimeStringFormatter);
+
+
 import SystemIndicator from './vue/system-indicator.vue';
 
 import DashboardWidget from './vue/dashboard-widget.vue';
@@ -79,6 +107,7 @@ import TerrariaOverviewWidget from './vue/terraria-overview-widget.vue';
 import ControlunitsWidget from './vue/controlunit-widget.vue';
 import ControlunitsListWidget from './vue/controlunits-list-widget.vue';
 import FilesWidget from './vue/files-widget.vue';
+import FilesListWidget from './vue/files-list-widget.vue';
 import FilesShowWidget from './vue/files-show-widget.vue';
 import ActionSequencesWidget from './vue/action_sequences-widget.vue';
 import ActionSequenceScheduleWidget from './vue/action_sequence_schedule-widget.vue';
@@ -156,6 +185,7 @@ window.bodyVue = new Vue({
         'controlunits-widget': ControlunitsWidget,
         'controlunits-list-widget': ControlunitsListWidget,
         'files-widget': FilesWidget,
+        'files-list-widget': FilesListWidget,
         'files-show-widget': FilesShowWidget,
         'action_sequences-widget': ActionSequencesWidget,
         'action_sequence_schedule-widget': ActionSequenceScheduleWidget,

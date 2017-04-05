@@ -7,7 +7,7 @@
                         <h4>{{ $t("labels.add_weight") }}</h4>
                         <p>
                             <input type="text" name="weight" id="weight" :placeholder="$t('labels.weight')" value="">
-                            <label for="weight">{{ $t("labels.weight") }}</label>
+                            <label for="weight">{{ $t("labels.weight") }}/g</label>
                         </p>
                     </div>
 

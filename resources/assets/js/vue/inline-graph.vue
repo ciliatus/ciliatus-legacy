@@ -36,11 +36,11 @@ export default {
             this.data.push(value);
         },
         updateTerrariumGraph: function(t) {
-            if (t.terrarium.id == this.parentid) {
+            if (t.id == this.parentid) {
                 if (this.graphtype == 'humidity_percent')
-                    this.data = t.terrarium.humidity_history;
+                    this.data = t.humidity_history;
                 else if (this.graphtype == 'temperature_celsius')
-                    this.data = t.terrarium.temperature_history;
+                    this.data = t.temperature_history;
             }
         },
         rerender: function() {

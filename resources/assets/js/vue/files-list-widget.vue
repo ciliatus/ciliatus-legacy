@@ -4,56 +4,78 @@
             <table class="responsive highlight collapsible" data-collapsible="expandable">
                 <thead>
                 <tr>
-                    <th data-field="name">
-                        <a href="#!" v-on:click="set_order('name')">{{ $t('labels.name') }}</a>
-                        <i v-show="order.field == 'name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
+                    <th data-field="display_name">
+                        <a href="#!" v-on:click="set_order('name')">{{ $t('labels.display_name') }}</a>
+                        <i v-show="order.field == 'display_name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
+                        <i v-show="order.field == 'display_name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
                         <div class="input-field inline">
-                            <input id="filter_name" type="text" v-model="filter.name" v-on:keyup.enter="set_filter">
-                            <label for="filter_name">Filter</label>
+                            <input id="filter_display_name" type="text" v-model="filter.display_name" v-on:keyup.enter="set_filter">
+                            <label for="filter_display_name">Filter</label>
                         </div>
                     </th>
 
-                    <th data-field="software_version">
-                        {{ $t('labels.software_version') }}
+                    <th data-field="mimetype">
+                        <a href="#!" v-on:click="set_order('name')">{{ $t('labels.type') }}</a>
+                        <i v-show="order.field == 'mimetype' && order.direction == 'mimetype'" class="material-icons">arrow_drop_up</i>
+                        <i v-show="order.field == 'mimetype' && order.direction == 'mimetype'" class="material-icons">arrow_drop_down</i>
+                        <div class="input-field inline">
+                            <input id="filter_mimetype" type="text" v-model="filter.mimetype" v-on:keyup.enter="set_filter">
+                            <label for="filter_mimetype">Filter</label>
+                        </div>
                     </th>
 
-                    <th data-field="timestamps.last_heartbeat">
-                        {{ $t('labels.last_heartbeat') }}
+                    <th data-field="size">
+                        <a href="#!" v-on:click="set_order('name')">{{ $t('labels.size') }}</a>
+                        <i v-show="order.field == 'size' && order.direction == 'size'" class="material-icons">arrow_drop_up</i>
+                        <i v-show="order.field == 'size' && order.direction == 'size'" class="material-icons">arrow_drop_down</i>
+                        <div class="input-field inline">
+                            <input id="filter_size" type="text" v-model="filter.size" v-on:keyup.enter="set_filter">
+                            <label for="filter_size">Filter</label>
+                        </div>
                     </th>
 
-                    <th style="width: 40px">
+                    <th data-field="timestamps.created_at">
+                        {{ $t('labels.created_at') }}
                     </th>
                 </tr>
                 </thead>
 
-                <template v-for="controlunit in controlunits">
+                <template v-for="file in files">
                     <tbody>
                         <tr class="collapsible-header">
 
                             <td>
                                 <span>
-                                    <i class="material-icons">developer_board</i>
-                                    <a v-bind:href="'/controlunits/' + controlunit.id">{{ controlunit.name }}</a>
+                                    <i class="material-icons">{{ file.icon }}</i>
+                                    <a v-bind:href="'/files/' + file.id">{{ file.display_name }}</a>
                                 </span>
                             </td>
 
                             <td>
                                 <span>
-                                    {{ controlunit.software_version }}
+                                    {{ file.mimetype }}
+                                </span>
+                            </td>
+
+                            <td>
+                                <span v-if="file.size / 1024 > 1024">
+                                    {{ Math.round(file.size / 1024 / 1024, 1) }} MB
+                                </span>
+                                <span v-else>
+                                    {{ Math.round(file.size / 1024, 0) }} KB
                                 </span>
                             </td>
 
                             <td>
                                 {{ $t(
-                                    'units.' + $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).unit,
-                                    {val: $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).val}
+                                    'units.' + $getMatchingTimeDiff(file.timestamps.created_diff).unit,
+                                    {val: $getMatchingTimeDiff(file.timestamps.created_diff).val}
                                 )}}
                             </td>
 
                             <td>
                                 <span>
-                                    <a class="waves-effect waves-light btn-small" v-bind:href="'/controlunits/' + controlunit.id + '/edit'">
+                                    <a class="waves-effect waves-light btn-small" v-bind:href="'/files/' + file.id + '/edit'">
                                         <i class="material-icons">edit</i>
                                     </a>
                                 </span>
@@ -62,34 +84,7 @@
                         </tr>
                         <tr class="collapsible-body">
                             <td colspan="3">
-                                {{ $tc('components.physical_sensors', 2) }}:
-                                <span v-for="(physical_sensor, index) in controlunit.physical_sensors">
-                                    <i class="material-icons">memory</i>
-                                    <a v-bind:href="'/physical_sensors/' + physical_sensor.id">{{ physical_sensor.name }}</a>
-                                    <template v-if="index < controlunit.physical_sensors.length-1">, </template>
-                                </span>
-                                <br />
-                                {{ $tc('components.valves', 2) }}:
-                                <span v-for="(valve, index) in controlunit.valves">
-                                    <i class="material-icons">transform</i>
-                                    <a v-bind:href="'/valves/' + valve.id">{{ valve.name }}</a>
-                                    <template v-if="index < controlunit.valves.length-1">, </template>
-                                </span>
-                                <br />
-                                {{ $tc('components.pumps', 2) }}:
-                                <span v-for="(pump, index) in controlunit.pumps">
-                                    <i class="material-icons">rotate_right</i>
-                                    <a v-bind:href="'/pumps/' + pump.id">{{ pump.name }}</a>
-                                    <template v-if="index < controlunit.pumps.length-1">, </template>
-                                </span>
-                                <br />
-                                {{ $tc('components.generic_components', 2) }}:
-                                <span v-for="(generic_component, index) in controlunit.generic_components">
-                                    <i class="material-icons">{{ generic_component.type.icon }}</i>
-                                    <a v-bind:href="'/generic_components/' + generic_component.id">{{ generic_component.name }}</a>
-                                    <template v-if="index < controlunit.generic_components.length-1">, </template>
-                                </span>
-                                <br />
+                                
                             </td>
                         </tr>
                     </tbody>
@@ -129,12 +124,12 @@
 export default {
     data () {
         return {
-            controlunits: [],
+            files: [],
             meta: [],
             filter: {
                 name: '',
                 model: '',
-                'controlunit.name': '',
+                'file.name': '',
                 'terrarium.display_name': ''
             },
             filter_string: '',
@@ -166,38 +161,28 @@ export default {
     },
 
     methods: {
-        update: function(cu) {
+        update: function(f) {
             var item = null;
-            this.controlunits.forEach(function(data, index) {
-                if (data.id === cu.controlunit.id) {
+            this.files.forEach(function(data, index) {
+                if (data.id === f.file.id) {
                     item = index;
                 }
             });
             if (item !== null) {
-                var that = this;
-                $.ajax({
-                    url: '/api/v1/controlunits/' + cu.controlunit.id,
-                    method: 'GET',
-                    success: function (data) {
-                        that.controlunits.splice(item, 1, data.data);
-                    },
-                    error: function (error) {
-                        console.log(JSON.stringify(error));
-                    }
-                });
+                this.files.splice(item, 1, f.file);
             }
         },
 
-        delete: function(cu) {
+        delete: function(f) {
             var item = null;
-            this.controlunits.forEach(function(data, index) {
-                if (data.id === cu.controlunit.id) {
+            this.files.forEach(function(data, index) {
+                if (data.id === f.file.id) {
                     item = index;
                 }
             });
 
             if (item !== null) {
-                this.controlunits.splice(item, 1);
+                this.files.splice(item, 1);
             }
         },
         
@@ -239,11 +224,11 @@ export default {
             this.order_string = '&order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/controlunits?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
+                url: '/api/v1/files?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     that.meta = data.meta;
-                    that.controlunits = data.data;
+                    that.files = data.data;
                     that.$nextTick(function() {
                         $('table.collapsible').collapsibletable();
                     });
@@ -259,9 +244,9 @@ export default {
 
     created: function() {
         window.echo.private('dashboard-updates')
-                .listen('ControlunitUpdated', (e) => {
+                .listen('FileUpdated', (e) => {
                 this.update(e);
-        }).listen('ControlunitDeleted', (e) => {
+        }).listen('FileDeleted', (e) => {
                 this.delete(e);
         });
 
