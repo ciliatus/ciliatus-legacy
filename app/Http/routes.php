@@ -350,6 +350,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1', 'middleware' => ['auth
     /*
      * Properties
      */
+    Route::post('properties/read/{target_type}/{target_id}', 'PropertyController@setReadFlag');
     Route::resource('properties', 'PropertyController');
 
     /*

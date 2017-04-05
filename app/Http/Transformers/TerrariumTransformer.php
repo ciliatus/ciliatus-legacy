@@ -71,6 +71,10 @@ class TerrariumTransformer extends Transformer
             $return['default_background_filepath'] = $item['default_background_filepath'];
         }
 
+        if (isset($item['capabilities'])) {
+            $return['capabilities'] = $item['capabilities'];
+        }
+
         return $return;
     }
 }

@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Events\ReadFlagSet;
 use App\Property;
 use App\Http\Transformers\PropertyTransformer;
 use Cache;
 use Gate;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 
@@ -177,6 +179,36 @@ class PropertyController extends ApiController
                 'delay' => 1000
             ]
         ]);
+
+    }
+
+    /**
+     * @param $target_type
+     * @param $target_id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function setReadFlag($target_type, $target_id)
+    {
+        if (Gate::denies('api-write:property')) {
+            return $this->respondUnauthorized();
+        }
+
+        try {
+            $target = ('App\\' . $target_type)::find($target_id);
+        }
+        catch (ModelNotFoundException $ex) {
+            return $this->respondNotFound();
+        }
+
+        Property::create([
+            'belongsTo_type' => $target_type,
+            'belongsTo_id' => $target_id,
+            'type' => 'ReadFlag'
+        ]);
+
+        broadcast(new ReadFlagSet($target_type, $target_id));
+
+        return $this->respondWithData([]);
 
     }
 

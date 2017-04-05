@@ -288,6 +288,8 @@ class TerrariumController extends ApiController
             'display_name' => $request->input('display_name')
         ]);
 
+        $terrarium->generateDefaultSuggestionSettings();
+
         return $this->setStatusCode(200)->respondWithData(
             [
                 'id'    =>  $terrarium->id
@@ -306,14 +308,14 @@ class TerrariumController extends ApiController
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         if (Gate::denies('api-write:terrarium')) {
             return $this->respondUnauthorized();
         }
 
-        $terrarium = Terrarium::find($request->input('id'));
+        $terrarium = Terrarium::find($id);
         if (is_null($terrarium)) {
             return $this->respondNotFound('Terrarium not found');
         }
@@ -416,9 +418,28 @@ class TerrariumController extends ApiController
             }
         }
 
-        $terrarium->name = $request->input('name');
-        $terrarium->display_name = $request->input('display_name');
-        $terrarium->notifications_enabled = $request->has('notifications_enabled');
+        /*
+         * Parse suggestions
+         */
+        if ($request->has('suggestions')) {
+            foreach ($request->input('suggestions') as $type=>$options) {
+                $terrarium->toggleSuggestions($type, $options['enabled'] != 'off');
+                $terrarium->setSuggestionSettings($type, $options['timeframe_start'], $options['timeframe_unit'], $options['threshold']);
+            }
+        }
+
+        if ($request->has('name')) {
+            $terrarium->name = $request->input('name');
+        }
+
+        if ($request->has('display_name')) {
+            $terrarium->display_name = $request->input('display_name');
+        }
+
+        if ($request->has('notifications_enabled')) {
+            $terrarium->notifications_enabled = $request->input('notifications_enabled') != 'off';
+        }
+
         $terrarium->save();
 
         return $this->setStatusCode(200)->respondWithData([], [

@@ -8,6 +8,7 @@
 
 namespace App\Http\Transformers;
 
+
 /**
  * Class EventTransformer
  * @package App\Http\Transformers
@@ -26,7 +27,6 @@ class EventTransformer extends Transformer
             'id'    => $item['id'],
             'belongsTo_type' => $item['belongsTo_type'],
             'belongsTo_id' => $item['belongsTo_id'],
-            $item['belongsTo_type'] => isset($item['belongsTo_object']) ? $item['belongsTo_object'] : null,
             'name' => $item['name'],
             'value' => $item['value'],
             'value_json' => json_decode($item['value_json']),
@@ -34,6 +34,12 @@ class EventTransformer extends Transformer
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
+
+        if (isset($item['belongsTo_object'])) {
+            $transformerName = 'App\\Http\\Transformers\\' . $item['belongsTo_type'] . 'Transformer';
+            $transformer = new $transformerName();
+            $return['belongsTo_object'] = $transformer->transform($item['belongsTo_object']);
+        }
 
         return $return;
     }

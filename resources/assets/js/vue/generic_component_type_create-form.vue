@@ -2,21 +2,28 @@
     <div :class="containerClasses">
         <div :class="wrapperClasses">
             <div class="card">
-                <form action="/api/v1/generic_component_types" :id="id" data-method="POST" data-redirect-success="/categories#tab_generic_components_types">
+                <form :action="'/api/v1/generic_component_types/' + (generic_component_type === null ? '' : generic_component_type.id)"
+                      :data-method="generic_component_type === null ? 'POST' : 'PUT'"
+                      :id="generic_component_type.id"
+                      data-redirect-success="/categories#tab_generic_components_types">
                     <div class="card-content">
 
                         <div class="row">
                             <div class="col s12">
-                                <strong>{{ $tc('components.generic_component_types', 1) }}</strong>
+                                <h5>{{ $tc('components.generic_component_types', 1) }}</h5>
                             </div>
                             <div class="col s12 m6 l6">
                                 <div class="row">
                                     <div class="input-field col s12 m6 l6">
-                                        <input type="text" :placeholder="$t('labels.name_singular')" name="name_singular" value="">
+                                        <input type="text" :placeholder="$t('labels.name_singular')"
+                                               name="name_singular"
+                                               v-model="generic_component_type.name_singular">
                                         <label for="name_singular">{{ $t('labels.name_singular') }}</label>
                                     </div>
                                     <div class="input-field col s12 m6 l6">
-                                        <input type="text" :placeholder="$t('labels.name_plural')" name="name_plural" value="">
+                                        <input type="text" :placeholder="$t('labels.name_plural')"
+                                               name="name_plural"
+                                               v-model="generic_component_type.name_plural">
                                         <label for="name_plural">{{ $t('labels.name_plural') }}</label>
                                     </div>
                                 </div>
@@ -24,7 +31,7 @@
                             <div class="col s12 m6 l6">
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <select name="icon">
+                                        <select name="icon" :value="generic_component_type.icon">
                                             <option value="3d_rotation">3d_rotation</option>
                                             <option value="ac_unit">ac_unit</option>
                                             <option value="access_alarm">access_alarm</option>
@@ -966,21 +973,78 @@
                         </div>
 
                         <div class="row">
+                            <div class="col s12">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <h5>{{ $t('labels.intention') }}</h5>
+                                        <p>{{ $t('tooltips.generic_components.intentions') }}</p>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col s12">
+                                        <button class="btn waves-effect waves-light" type="button" v-on:click="add_intention">{{ $t('buttons.add_intention') }}<i class="material-icons right">add</i></button>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <template v-for="(intention, index) in component_intentions">
+                                    <div class="input-field col s12 m5 l5">
+                                        <select name="default_intention_intention[]" id="default_intention_intention">
+                                            <option value="increase"
+                                                    :selected="intention.intention == 'increase'">{{ $t('labels.increases') }}
+                                            </option>
+                                            <option value="decrease"
+                                                    :selected="intention.intention == 'decrease'">{{ $t('labels.decreases') }}
+                                            </option>
+                                        </select>
+                                        <label for="default_intention_intention">
+                                            {{ $t('labels.intention') }}
+                                        </label>
+                                    </div>
+                                    <div class="input-field col s12 m5 l5">
+                                        <select name="default_intention_type[]" id="default_intention_type">
+                                            <option v-for="(srt, index) in sensorreadingTypes" :value="srt"
+                                                    :selected="intention.type == srt">{{ $t('labels.' + srt) }}
+                                            </option>
+                                        </select>
+                                        <label for="default_intention_type">{{ $tc('components.logical_sensors', 1) }}</label>
+                                    </div>
+
+                                    <div class="input-field col s2 m2 l2">
+                                        <a href="#" class="red-text" v-on:click="component_intentions.splice(index, 1)">
+                                            <i class="material-icons">delete</i>
+                                        </a>
+                                    </div>
+                                    </template>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
                             <div class="col s12 m6 l6">
                                 <div class="row">
                                     <div class="col s12">
-                                        <strong>{{ $t('labels.properties') }}</strong>
+                                        <h5>{{ $t('labels.properties') }}</h5>
                                         <p>{{ $t('tooltips.generic_components.property_templates') }}</p>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col s12">
-                                        <button class="btn waves-effect waves-light" v-on:click="add_property">{{ $t('buttons.add_property') }}
+                                        <button class="btn waves-effect waves-light" type="button" v-on:click="add_property">{{ $t('buttons.add_property') }}
                                             <i class="material-icons right">add</i>
                                         </button>
                                     </div>
                                     <div class="col s12" id="generic_component_type_create_props">
-                                        <br />
+
+                                        <div class="row" v-for="(item, index) in component_properties">
+                                            <div class="input-field col s10 m10 l10">
+                                                <input type="text" name="property_name[]" v-model="item.name">
+                                            </div>
+                                            <div class="input-field col s2 m2 l2">
+                                                <a href="#" class="red-text" v-on:click="component_properties.splice(index, 1)">
+                                                    <i class="material-icons">delete</i>
+                                                </a>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -989,19 +1053,42 @@
                             <div class="col s12 m6 l6">
                                 <div class="row">
                                     <div class="col s12">
-                                        <strong>{{ $t('labels.state') }}</strong>
-                                        <p>{{ $t('tooltips.generic_components.state_templates') }}</p>
+                                        <h5>{{ $t('labels.state') }}</h5>
+                                        <p v-html="$t('tooltips.generic_components.state_templates')"></p>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="col s12">
-                                        <button class="btn waves-effect waves-light" v-on:click="add_state">{{ $t('buttons.add_state') }}
+                                        <button class="btn waves-effect waves-light" type="button" v-on:click="add_state">{{ $t('buttons.add_state') }}
                                             <i class="material-icons right">add</i>
                                         </button>
                                     </div>
                                     <div class="col s12" id="generic_component_state_create_props">
-                                        <br />
+
+                                        <div class="row" v-for="(item, index) in component_states">
+
+                                            <div class="input-field col s2 m2 l2">
+                                                <input name="default_running_state" :id="'default_running_state_' + item.name"
+                                                       type="radio" v-on:click="default_running_state = item.name"
+                                                       :value="item.name"
+                                                       :checked="default_running_state == item.name" />
+
+                                                <label :for="'default_running_state_' + item.name" data-delay="50"
+                                                       data-html="true"
+                                                       :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.generic_components.type_default_running_state') + '</div>'"></label>
+                                            </div>
+
+                                            <div class="input-field col s8 m8 l8">
+                                                <input type="text" name="state[]" v-model="item.name">
+                                            </div>
+
+                                            <div class="input-field col s2 m2 l2">
+                                                <a href="#" class="red-text" v-on:click="component_states.splice(index, 1)">
+                                                    <i class="material-icons">delete</i>
+                                                </a>
+                                            </div>
+                                        </div>
 
                                     </div>
                                 </div>
@@ -1026,35 +1113,6 @@
             </div>
         </div>
 
-        <div id="generic_component_type_create_prop_input_tpl" hidden>
-
-            <div class="row">
-                <div class="input-field col s10 m10 l10">
-                    <input type="text" name="property_name[]" value="">
-                </div>
-                <div class="input-field col s2 m2 l2">
-                    <a href="#" class="red-text" onclick="$(this)[0].parentElement.parentElement.remove(); return false;">
-                        <i class="material-icons">delete</i>
-                    </a>
-                </div>
-            </div>
-
-        </div>
-
-        <div id="generic_component_state_create_prop_input_tpl" hidden>
-
-            <div class="row">
-                <div class="input-field col s10 m10 l10">
-                    <input type="text" name="state[]" value="">
-                </div>
-                <div class="input-field col s2 m2 l2">
-                    <a href="#" class="red-text" onclick="$(this)[0].parentElement.parentElement.remove(); return false;">
-                        <i class="material-icons">delete</i>
-                    </a>
-                </div>
-            </div>
-
-        </div>
     </div>
 </template>
 
@@ -1062,6 +1120,10 @@
 export default {
     data () {
         return {
+            component_properties: [],
+            component_states: [],
+            component_intentions: [],
+            generic_component_type: null
         }
     },
 
@@ -1076,22 +1138,7 @@ export default {
             default: '',
             required: false
         },
-        id: {
-            type: String,
-            default: null,
-            required: false
-        },
-        nameSingular: {
-            type: String,
-            default: null,
-            required: false
-        },
-        namePlural: {
-            type: String,
-            default: null,
-            required: false
-        },
-        icon: {
+        genericComponentType: {
             type: String,
             default: null,
             required: false
@@ -1105,27 +1152,39 @@ export default {
             type: Array,
             default: null,
             required: false
+        },
+        intentions: {
+            type: Array,
+            default: null,
+            required: false
+        },
+        defaultRunningState: {
+            type: String,
+            default: null,
+            required: false
+        },
+        sensorreadingTypes: {
+            type: Array,
+            default: [],
+            required: false
         }
     },
 
     methods: {
 
-        add_property: function(e, preset = null) {
-            if (e !== null) {
-                e.preventDefault();
-            }
-
-            $('#generic_component_type_create_prop_input_tpl input[type="text"]').attr('value', preset || '');
-            $('#generic_component_type_create_props').append($('#generic_component_type_create_prop_input_tpl').html());
+        add_property: function() {
+            this.component_properties.push({name:''});
         },
 
-        add_state: function(e, preset = null) {
-            if (e !== null) {
-                e.preventDefault();
-            }
+        add_state: function() {
+            this.component_states.push({name:''});
+        },
 
-            $('#generic_component_state_create_prop_input_tpl input[type="text"]').attr('value', preset || '');
-            $('#generic_component_state_create_props').append($('#generic_component_state_create_prop_input_tpl').html());
+        add_intention: function() {
+            this.component_intentions.push({default_intention_intention:'', default_intention_type:''});
+            this.$nextTick(function() {
+                $('select').material_select();
+            });
         }
 
     },
@@ -1133,21 +1192,25 @@ export default {
     created: function() {
         var that = this;
         this.$nextTick(function() {
-            if (that.id !== null) {
-                 $('#' + that.id).attr('action', $('#' + that.id).attr('action') + '/' + that.id);
-                 $('#' + that.id).attr('data-method', 'PUT');
-                 $('#' + that.id + ' select[name=icon]').val(that.icon);
-                 $('#' + that.id + ' input[name=name_singular]').attr('value', that.nameSingular || '');
-                 $('#' + that.id + ' input[name=name_plural]').attr('value', that.namePlural || '');
+            if (that.genericComponentType !== null) {
+                that.generic_component_type = that.genericComponentType;
+                $('#' + that.generic_component_type.id).attr('data-method', 'PUT');
+
+                that.default_running_state = that.defaultRunningState;
 
                 if (that.properties !== null) {
                     that.properties.forEach(function (el) {
-                        that.add_property(null, el);
+                        that.component_properties.push({name:el});
                     })
                 }
                 if (that.states !== null) {
                     that.states.forEach(function (el) {
-                        that.add_state(null, el);
+                        that.component_states.push({name:el});
+                    })
+                }
+                if (that.intentions !== null) {
+                    that.intentions.forEach(function (el) {
+                        that.component_intentions.push({intention:el.name, type:el.value});
                     })
                 }
             }

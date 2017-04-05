@@ -17,7 +17,9 @@ class Kernel extends ConsoleKernel
         Commands\RebuildCache::class,
         Commands\SendNotifications::class,
         Commands\Update13b::class,
-        Commands\ConvertLangToJson::class
+        Commands\Update14b::class,
+        Commands\ConvertLangToJson::class,
+        Commands\GenerateSuggestions::class
     ];
 
     /**
@@ -36,5 +38,8 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('ciliatus:notifications:send')
                  ->dailyAt(env('SCHEDULED_NOTIFICATION_SEND_TIME', '09:00:00'));
+
+        $schedule->command('ciliatus:suggestions:generate')
+                 ->weekly();
     }
 }

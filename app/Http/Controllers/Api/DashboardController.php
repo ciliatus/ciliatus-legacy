@@ -3,17 +3,21 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\Event;
 use App\Http\Transformers\ActionSequenceIntentionTransformer;
 use App\Http\Transformers\ActionSequenceScheduleTransformer;
 use App\Http\Transformers\ActionSequenceTriggerTransformer;
 use App\Http\Transformers\AnimalFeedingScheduleTransformer;
 use App\Http\Transformers\AnimalWeighingScheduleTransformer;
+use App\Http\Transformers\EventTransformer;
 use App\Http\Transformers\TerrariumTransformer;
 use App\Property;
 use App\Repositories\AnimalFeedingScheduleRepository;
 use App\Repositories\AnimalWeighingScheduleRepository;
+use App\Repositories\GenericRepository;
 use App\System;
 use Carbon\Carbon;
+use Doctrine\DBAL\Events;
 use Gate;
 use App\Terrarium;
 use Illuminate\Http\Request;
@@ -130,12 +134,32 @@ class DashboardController extends ApiController
             }
 
             foreach ($terrarium->action_sequences as $as) {
-                foreach ($as->intentions()->with('sequence')->get() as $ast) {
-                    if ($ast->running()) {
-                        $action_sequence_intentions['running'][] = (new ActionSequenceIntentionTransformer())->transform($ast->toArray());
+                foreach ($as->intentions()->with('sequence')->get() as $asi) {
+                    if ($asi->running()) {
+                        $action_sequence_intentions['running'][] = (new ActionSequenceIntentionTransformer())->transform($asi->toArray());
+                    }
+                    elseif ($asi->shouldBeRunning()) {
+                        $action_sequence_intentions['should_be_running'][] = (new ActionSequenceIntentionTransformer())->transform($asi->toArray());
                     }
                 }
             }
+        }
+
+        $suggestions = [];
+        foreach (Event::where('type', 'Suggestion')->get() as $suggestion) {
+
+            if (is_null(Property::where('belongsTo_type', 'Event')
+                                ->where('belongsTo_id', $suggestion->id)
+                                ->where('type', 'ReadFlag')
+                                ->get()->first())) {
+
+                $belongsTo = $suggestion->belongsTo_object()->get()->first();
+                $belongsTo = (new GenericRepository($belongsTo))->show();
+                $suggestion->belongsTo_object = $belongsTo->toArray();
+                $suggestions[] = (new EventTransformer())->transform($suggestion->toArray());
+
+            }
+
         }
 
         return $this->respondWithData([
@@ -147,7 +171,8 @@ class DashboardController extends ApiController
             'animal_weighing_schedules' => $weighing_schedules,
             'action_sequence_schedules' => $action_sequence_schedules,
             'action_sequence_triggers' => $action_sequence_triggers,
-            'action_sequence_intentions' => $action_sequence_intentions
+            'action_sequence_intentions' => $action_sequence_intentions,
+            'suggestions' => $suggestions
         ]);
     }
 

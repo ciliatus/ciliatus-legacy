@@ -8,6 +8,7 @@ use App\Http\Transformers\TerrariumTransformer;
 use App\Repositories\SensorreadingRepository;
 use Cache;
 use Carbon\Carbon;
+use Carbon\CarbonInterval;
 use DB;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -72,6 +73,9 @@ class Terrarium extends CiliatusModel
         parent::delete();
     }
 
+    /**
+     *
+     */
     public function updateStaticFields()
     {
         $this->temperature_critical = !$this->temperatureOk();
@@ -79,6 +83,14 @@ class Terrarium extends CiliatusModel
         $this->heartbeat_critical = !$this->heartbeatOk();
         $this->cooked_humidity_percent = $this->getCurrentHumidity();
         $this->cooked_temperature_celsius = $this->getCurrentTemperature();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'Terrarium');
     }
 
     /**
@@ -414,6 +426,9 @@ class Terrarium extends CiliatusModel
         }
     }
 
+    /**
+     * @return mixed
+     */
     public function background_image_path()
     {
         $files = $this->files()->with('properties')->get();
@@ -433,6 +448,297 @@ class Terrarium extends CiliatusModel
                 return $a->background_image_path();
             }
         }
+
+        return null;
+    }
+
+    /**
+     * @param array $options
+     * @return array
+     */
+    public function getSuggestions($options = null)
+    {
+        if (is_null($options)) {
+            $options = [
+                'critical_states'
+            ];
+        }
+        $suggestions = [];
+
+        foreach ($options as $category) {
+            switch ($category) {
+                case 'critical_states':
+                    $suggestions['critical_states'] = $this->getSuggestionsForCriticalStates();
+                    break;
+            }
+        }
+
+        return $suggestions;
+    }
+
+    /**
+     * @return array
+     * @throws \Exception
+     */
+    protected function getSuggestionsForCriticalStates()
+    {
+        $suggestions = [];
+        foreach (['temperature_celsius', 'humidity_percent'] as $type) {
+            if (!$this->getSuggestionsEnabled($type)) {
+                continue;
+            }
+
+            $critical_states = CriticalState::where('belongsTo_type', 'LogicalSensor')
+                                            ->whereIn('belongsTo_id', array_column(
+                                                $this->logical_sensors()->where('type', $type)->get()->toArray(),
+                                                'id'
+                                            ))
+                                            ->where('is_soft_state', false)
+                                            ->where('created_at', '>=', $this->getSuggestionTimeframe($type, true))
+                                            ->get();
+
+            $first = CriticalState::getFirstTimeUnitViolatingThreshold(
+                $critical_states,
+                $this->getSuggestionThreshold($type)
+            );
+
+            if (!is_null($first)) {
+                $suggestions[$type] = $first;
+            }
+        }
+
+        return $suggestions;
+    }
+
+    /**
+     * @param $type
+     * @param $to_carbon
+     * @return int|Carbon|null
+     */
+    public function getSuggestionTimeframe($type, $to_carbon = false)
+    {
+        $timeframe = $this->properties()->where('type', 'SuggestionsCriticalStateTimeframe')
+                                        ->where('name', $type)
+                                        ->get()->first();
+
+        if (!is_null($timeframe)) {
+            if ($to_carbon) {
+                $now = Carbon::now();
+                $method = 'sub' . ucfirst($this->getSuggestionTimeframeUnit($type));
+                return $now->$method($timeframe->value);
+            }
+            return $timeframe->value;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param $type
+     * @return string
+     */
+    public function getSuggestionTimeframeUnit($type)
+    {
+        $by = $this->properties()->where('type', 'SuggestionsCriticalStateTimeframeUnit')
+                                 ->where('name', $type)
+                                 ->get()->first();
+
+        if (!is_null($by)) {
+            return $by->value;
+        }
+
+        return 'month';
+    }
+
+    /**
+     * @param $type
+     * @return null
+     */
+    public function getSuggestionThreshold($type)
+    {
+        $threshold = $this->properties()->where('type', 'SuggestionsCriticalStateAmountPerHourThreshold')
+                                        ->where('name', $type)
+                                        ->get()->first();
+
+        if (!is_null($threshold)) {
+            return $threshold->value;
+        }
+        return null;
+    }
+
+    /**
+     * @param $type
+     * @return bool
+     */
+    public function getSuggestionsEnabled($type)
+    {
+        $property = $this->properties()->where('type', 'SuggestionsCriticalStateEnabled')
+                                        ->where('name', $type)
+                                        ->get()->first();
+
+        if (!is_null($property)) {
+            return $property->value == 'On';
+        }
+        return false;
+    }
+
+    /**
+     * @param String $type
+     * @param bool $value
+     */
+    public function toggleSuggestions($type, $value)
+    {
+        $property = $this->properties()->where('type', 'SuggestionsCriticalStateEnabled')
+                                       ->where('name', $type)
+                                       ->get()->first();
+
+        if (!is_null($property)) {
+            $property->value = $value ? 'On' : 'Off';
+            $property->save();
+            return;
+        }
+
+        Property::create([
+            'belongsTo_type' => 'Terrarium',
+            'belongsTo_id' => $this->id,
+            'type' => 'SuggestionsCriticalStateEnabled',
+            'name' => $type,
+            'value' => $value ? 'On' : 'Off'
+        ]);
+    }
+
+    /**
+     * @param $type
+     * @param $timeframe_option
+     * @param $timeframe_unit_option
+     * @param $threshold_option
+     */
+    public function setSuggestionSettings($type, $timeframe_option, $timeframe_unit_option, $threshold_option)
+    {
+        $by = $this->properties()->where('type', 'SuggestionsCriticalStateTimeframeUnit')
+                                 ->where('name', $type)
+                                 ->get()->first();
+
+        if (!is_null($by)) {
+            $by->value = $timeframe_unit_option;
+            $by->save();
+        }
+        else {
+            Property::create([
+                'belongsTo_type' => 'Terrarium',
+                'belongsTo_id' => $this->id,
+                'type' => 'SuggestionsCriticalStateTimeframeUnit',
+                'name' => $type,
+                'value' => $timeframe_unit_option
+            ]);
+        }
+
+        $threshold = $this->properties()->where('type', 'SuggestionsCriticalStateAmountPerHourThreshold')
+                                        ->where('name', $type)
+                                        ->get()->first();
+
+        if (!is_null($threshold)) {
+            $threshold->value = $threshold_option;
+            $threshold->save();
+        }
+        else {
+            Property::create([
+                'belongsTo_type' => 'Terrarium',
+                'belongsTo_id' => $this->id,
+                'type' => 'SuggestionsCriticalStateAmountPerHourThreshold',
+                'name' => $type,
+                'value' => $threshold_option
+            ]);
+        }
+
+        $timeframe = $this->properties()->where('type', 'SuggestionsCriticalStateTimeframe')
+            ->where('name', $type)
+            ->get()->first();
+
+        if (!is_null($timeframe)) {
+            $timeframe->value = $timeframe_option;
+            $timeframe->save();
+        }
+        else {
+            Property::create([
+                'belongsTo_type' => 'Terrarium',
+                'belongsTo_id' => $this->id,
+                'type' => 'SuggestionsCriticalStateTimeframe',
+                'name' => $type,
+                'value' => $timeframe_option
+            ]);
+        }
+    }
+
+    public function generateDefaultSuggestionSettings()
+    {
+        foreach (['humidity_percent'] as $type) {
+            $this->setSuggestionSettings($type, 1, 'month', 10);
+        }
+    }
+    
+    public function capabilities()
+    {
+        $capabilities = [];
+        $capabilities[ActionSequence::TEMPLATE_IRRIGATION] =
+            $this->hasComponentsForActionSequenceTemplate(ActionSequence::TEMPLATE_IRRIGATION);
+        $capabilities[ActionSequence::TEMPLATE_VENTILATE] =
+            $this->hasComponentsForActionSequenceTemplate(ActionSequence::TEMPLATE_VENTILATE);
+        $capabilities[ActionSequence::TEMPLATE_HEAT_UP] =
+            $this->hasComponentsForActionSequenceTemplate(ActionSequence::TEMPLATE_HEAT_UP);
+        $capabilities[ActionSequence::TEMPLATE_COOL_DOWN] =
+            $this->hasComponentsForActionSequenceTemplate(ActionSequence::TEMPLATE_COOL_DOWN);
+
+        return $capabilities;
+    }
+
+    /**
+     * Returns true if the terrarium has components
+     * which can serve the defined template.
+     *
+     * @param $template
+     * @return bool
+     */
+    public function hasComponentsForActionSequenceTemplate($template)
+    {
+        switch ($template) {
+
+            case ActionSequence::TEMPLATE_IRRIGATION:
+
+                return $this->valves->count() > 0;
+
+            case ActionSequence::TEMPLATE_VENTILATE:
+
+                $generic_components = GenericComponentType::getGenericComponentsByIntention(
+                    ActionSequenceIntention::TYPE_HUMIDITY_PERCENT,
+                    ActionSequenceIntention::INTENTION_DECREASE,
+                    $this->generic_components()->getQuery()
+                );
+
+                return $generic_components->count() > 0;
+
+            case ActionSequence::TEMPLATE_HEAT_UP:
+
+                $generic_components = GenericComponentType::getGenericComponentsByIntention(
+                    ActionSequenceIntention::TYPE_TEMPERATURE_CELSIUS,
+                    ActionSequenceIntention::INTENTION_INCREASE,
+                    $this->generic_components()->getQuery()
+                );
+
+                return $generic_components->count() > 0;
+
+            case ActionSequence::TEMPLATE_COOL_DOWN:
+
+                $generic_components = GenericComponentType::getGenericComponentsByIntention(
+                    ActionSequenceIntention::TYPE_TEMPERATURE_CELSIUS,
+                    ActionSequenceIntention::INTENTION_DECREASE,
+                    $this->generic_components()->getQuery()
+                );
+
+                return $generic_components->count() > 0;
+        }
+
+        return false;
     }
 
     /**

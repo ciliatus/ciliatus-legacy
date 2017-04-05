@@ -28,5 +28,9 @@ return [
         'intro' => 'Daily reminders',
         'feedings_due'  =>  'Feedings due:',
         'weighings_due' =>  'Weighings due:'
+    ],
+
+    'suggestions' => [
+        'humidity_percent' => 'Daily irrigation action sequence at :hour o\'clock.'
     ]
 ];

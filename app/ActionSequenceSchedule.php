@@ -136,6 +136,10 @@ class ActionSequenceSchedule extends CiliatusModel
         $this->last_finished_at = Carbon::now();
         $this->save();
 
+        if ($this->sequence->runonce === true) {
+            $this->sequence->delete();
+        }
+
         Log::create([
             'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
             'target_id'     =>  $this->id,
