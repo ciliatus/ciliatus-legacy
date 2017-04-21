@@ -44,5 +44,6 @@ return [
     'biography_entries' =>  'Biography entry|Biography entries',
     'caresheets' =>   'Care Sheet|Care Sheets',
     'generic_components' => 'Generic Component|Generic Components',
-    'generic_component_types' => 'Generic Component Type|Generic Component Types'
+    'generic_component_types' => 'Generic Component Type|Generic Component Types',
+    'suggestions'   =>  'Suggestion|Suggestions'
 ];

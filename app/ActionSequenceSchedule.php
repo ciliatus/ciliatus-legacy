@@ -86,6 +86,14 @@ class ActionSequenceSchedule extends CiliatusModel
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'ActionSequenceSchedule');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function sequence()
@@ -128,17 +136,6 @@ class ActionSequenceSchedule extends CiliatusModel
      */
     public function finish()
     {
-        if ($this->runonce == true) {
-            $this->delete();
-            return;
-        }
-
-        $this->last_finished_at = Carbon::now();
-        $this->save();
-
-        if ($this->sequence->runonce === true) {
-            $this->sequence->delete();
-        }
 
         Log::create([
             'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
@@ -147,6 +144,17 @@ class ActionSequenceSchedule extends CiliatusModel
             'associatedWith_id' => $this->action_sequence_id,
             'action'        => 'finish'
         ]);
+
+        if ($this->sequence->runonce == true) {
+            $this->sequence->delete();
+        }
+        elseif ($this->runonce == true) {
+            $this->delete();
+        }
+        else {
+            $this->last_finished_at = Carbon::now();
+            $this->save();
+        }
     }
 
     /**

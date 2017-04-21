@@ -32,8 +32,7 @@ class GenericRepository extends Repository
         $model = $this->scope;
 
         if (!is_null($model)) {
-            $model->icon = $model->icon();
-            $model->url = $model->url();
+            $this->addCiliatusSpecificFields();
         }
 
         return $model;

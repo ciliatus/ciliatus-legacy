@@ -12,7 +12,7 @@ class ActionSequenceScheduleRepository extends Repository {
 
     /**
      * ActionSequenceScheduleRepository constructor.
-     * @param null $scope
+     * @param ActionSequenceSchedule|null $scope
      */
     public function __construct(ActionSequenceSchedule $scope = null)
     {

@@ -14,7 +14,7 @@ export default {
         Peity
     },
 
-    props: ['source', 'type', 'options', 'parentid', 'graphtype'],
+    props: ['source', 'type', 'options', 'parentid', 'graphtype', 'dataPrefill'],
 
     computed: {
         graphData: function() {
@@ -36,10 +36,10 @@ export default {
             this.data.push(value);
         },
         updateTerrariumGraph: function(t) {
-            if (t.id == this.parentid) {
-                if (this.graphtype == 'humidity_percent')
+            if (t.id === this.parentid) {
+                if (this.graphtype === 'humidity_percent')
                     this.data = t.humidity_history;
-                else if (this.graphtype == 'temperature_celsius')
+                else if (this.graphtype === 'temperature_celsius')
                     this.data = t.temperature_history;
             }
         },
@@ -54,20 +54,25 @@ export default {
     },
 
     created: function() {
-        window.eventHubVue.processStarted();
-        var that = this;
-        $.ajax({
-            url: that.source,
-            method: 'GET',
-            success: function (data) {
-                that.data = data.data;
-                window.eventHubVue.processEnded();
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-                window.eventHubVue.processEnded();
-            }
-        });
+        if (this.dataPrefill != null) {
+            this.data = this.dataPrefill;
+        }
+        else {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: that.source,
+                method: 'GET',
+                success: function (data) {
+                    that.data = data.data;
+                    window.eventHubVue.processEnded();
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+        }
 
         window.eventHubVue.$on('ForceRerender', this.rerender);
         window.eventHubVue.$on('SensorreadingCreated', this.createSensorrreading);

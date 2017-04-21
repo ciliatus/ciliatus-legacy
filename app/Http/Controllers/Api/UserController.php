@@ -241,13 +241,9 @@ class UserController extends ApiController
 
         }
 
-        if ($request->has('language')) {
-            $user->locale = $request->input('language');
-        }
-
-        if ($request->has('timezone')) {
-            $user->timezone = $request->input('timezone');
-        }
+        $this->updateModelProperties($user, $request, [
+            'locale' => 'language', 'timezone'
+        ]);
         
         if ($request->has('night_starts_at')) {
             $user->setSetting('night_starts_at', $request->input('night_starts_at'));

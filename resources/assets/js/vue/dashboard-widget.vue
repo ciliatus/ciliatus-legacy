@@ -1,6 +1,6 @@
 <template>
     <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
-
+        
         <!--
             Active suggestions
         -->
@@ -42,6 +42,35 @@
 
 
         <!--
+            Controlunits critical
+        -->
+        <div :class="wrapperClasses" v-if="dashboard.controlunits.critical.length > 0">
+
+            <ul class="collection critical with-header">
+                <li class="collection-header">
+                    <i class="material-icons">developer_board</i>
+                    {{ dashboard.controlunits.critical.length }} {{ $tc("components.controlunits", dashboard.controlunits.critical.length) }} {{ $t("labels.critical") }}
+                </li>
+
+                <li class="collection-item" v-for="controlunit in dashboard.controlunits.critical">
+
+                    <div>
+                        <a v-bind:href="'/controlunits/' + controlunit.id" class="white-text">{{ controlunit.name }}</a>
+
+                        <span>({{ $t("labels.last_heartbeat") }}: {{ $t(
+                            'units.' + $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).unit,
+                            {val: $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).val}
+                        )}})</span>
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!--
             Terraria critical
         -->
         <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length > 0">
@@ -68,6 +97,35 @@
 
         </div>
 
+        <!--
+            Physical Sensors critical
+        -->
+        <div :class="wrapperClasses" v-if="dashboard.physical_sensors.critical.length > 0">
+
+            <ul class="collection critical with-header">
+                <li class="collection-header">
+                    <i class="material-icons">memory</i>
+                    {{ dashboard.physical_sensors.critical.length }} {{ $tc("components.physical_sensors", dashboard.physical_sensors.critical.length) }} {{ $t("labels.critical") }}
+                </li>
+
+                <li class="collection-item" v-for="physical_sensor in dashboard.physical_sensors.critical">
+
+                    <div>
+                        <a v-bind:href="'/physical_sensors/' + physical_sensor.id" class="white-text">{{ physical_sensor.name }}</a>
+
+                        <span>({{ $t("labels.last_heartbeat") }}:
+                        {{ $t(
+                            'units.' + $getMatchingTimeDiff(physical_sensor.timestamps.last_heartbeat_diff).unit,
+                            {val: $getMatchingTimeDiff(physical_sensor.timestamps.last_heartbeat_diff).val}
+                        )}})</span>
+                    </div>
+
+                </li>
+
+            </ul>
+
+        </div>
+        
         <!--
             Animal Feeding Schedules overdue
         -->
@@ -1008,7 +1066,7 @@
                 );
             },
 
-            load_data: function() {
+            load_data: function(initial) {
                 window.eventHubVue.processStarted();
                 var that = this;
                 $.ajax({
@@ -1018,11 +1076,13 @@
                         that.dashboard = data.data;
 
                         that.$nextTick(function() {
-                            var $container = $('#' + that.containerId);
-                            $container.masonry({
-                                columnWidth: '.col',
-                                itemSelector: '.col',
-                            });
+                            if (initial) {
+                                var container = $('#' + that.containerId);
+                                container.masonry({
+                                    columnWidth: '.col',
+                                    itemSelector: '.col',
+                                });
+                            }
 
                             that.refresh_grid();
                         });
@@ -1069,7 +1129,7 @@
                 this.deleteSuggestion(e);
             });
 
-            this.load_data();
+            this.load_data(true);
 
             var that = this;
             if (this.refreshTimeoutSeconds !== null) {

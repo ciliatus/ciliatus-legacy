@@ -107,6 +107,14 @@ class User extends CiliatusModel implements
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'User');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function settings()
     {
         return $this->hasMany('App\UserSetting');

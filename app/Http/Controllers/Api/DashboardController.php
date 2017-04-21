@@ -3,14 +3,18 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\Controlunit;
 use App\Event;
 use App\Http\Transformers\ActionSequenceIntentionTransformer;
 use App\Http\Transformers\ActionSequenceScheduleTransformer;
 use App\Http\Transformers\ActionSequenceTriggerTransformer;
 use App\Http\Transformers\AnimalFeedingScheduleTransformer;
 use App\Http\Transformers\AnimalWeighingScheduleTransformer;
+use App\Http\Transformers\ControlunitTransformer;
 use App\Http\Transformers\EventTransformer;
+use App\Http\Transformers\PhysicalSensorTransformer;
 use App\Http\Transformers\TerrariumTransformer;
+use App\PhysicalSensor;
 use App\Property;
 use App\Repositories\AnimalFeedingScheduleRepository;
 use App\Repositories\AnimalWeighingScheduleRepository;
@@ -23,6 +27,7 @@ use App\Terrarium;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
+use Illuminate\Support\Collection;
 
 /**
  * Class DashboardController
@@ -49,13 +54,30 @@ class DashboardController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        $controlunits_critical = new Collection();
+        foreach (Controlunit::orderBy('name')->get() as $controlunit) {
+            if (!$controlunit->heartbeatOk()) {
+                $controlunits_critical->push($controlunit);
+            }
+        }
+        $controlunits_critical = (new ControlunitTransformer())->transformCollection($controlunits_critical->toArray());
+
+        $physical_sensors_critical = new Collection();
+        foreach (PhysicalSensor::orderBy('name')->get() as $physical_sensor) {
+            if (!$physical_sensor->heartbeatOk() &&
+                !is_null($physical_sensor->controlunit)) {
+                $physical_sensors_critical->push($physical_sensor);
+            }
+        }
+        $physical_sensors_critical = (new PhysicalSensorTransformer())->transformCollection($physical_sensors_critical->toArray());
+
         $terraria_ok = (new TerrariumTransformer())->transformCollection(Terrarium::where('humidity_critical', false)
             ->where('temperature_critical', false)->get()->toArray());
 
         $terraria_critical = (new TerrariumTransformer())->transformCollection(Terrarium::where(function($query) {
             $query->where('humidity_critical', true)
                 ->orWhere('temperature_critical', true);
-        })->get()->toArray());
+        })->orderBy('name')->get()->toArray());
 
 
         $feeding_schedules = [
@@ -63,7 +85,7 @@ class DashboardController extends ApiController
             'overdue' => []
         ];
 
-        foreach (Animal::get() as $animal) {
+        foreach (Animal::orderBy('display_name')->get() as $animal) {
             foreach ($animal->feeding_schedules as $afs) {
                 $afs = (new AnimalFeedingScheduleRepository($afs))->show();
                 if ($afs->next_feeding_at_diff == 0) {
@@ -81,7 +103,7 @@ class DashboardController extends ApiController
             'overdue' => []
         ];
 
-        foreach (Animal::get() as $animal) {
+        foreach (Animal::orderBy('display_name')->get() as $animal) {
             foreach ($animal->weighing_schedules as $afs) {
                 $afs = (new AnimalWeighingScheduleRepository($afs))->show();
                 if ($afs->next_weighing_at_diff == 0) {
@@ -110,7 +132,7 @@ class DashboardController extends ApiController
             'should_be_running' => []
         ];
 
-        foreach (Terrarium::get() as $terrarium) {
+        foreach (Terrarium::orderBy('name')->get() as $terrarium) {
             foreach ($terrarium->action_sequences as $as) {
                 foreach ($as->schedules()->with('sequence')->get() as $ass) {
                     if ($ass->willRunToday() && !$ass->isOverdue() && $ass->startsToday()->diffInHours(Carbon::now()) < 3) {
@@ -146,7 +168,7 @@ class DashboardController extends ApiController
         }
 
         $suggestions = [];
-        foreach (Event::where('type', 'Suggestion')->get() as $suggestion) {
+        foreach (Event::orderBy('name')->where('type', 'Suggestion')->get() as $suggestion) {
 
             if (is_null(Property::where('belongsTo_type', 'Event')
                                 ->where('belongsTo_id', $suggestion->id)
@@ -163,6 +185,12 @@ class DashboardController extends ApiController
         }
 
         return $this->respondWithData([
+            'controlunits' => [
+                'critical' => $controlunits_critical
+            ],
+            'physical_sensors' => [
+                'critical' => $physical_sensors_critical
+            ],
             'terraria' => [
                 'ok' => $terraria_ok,
                 'critical' => $terraria_critical

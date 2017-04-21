@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\CiliatusModel;
 use App\Http\Controllers\Controller;
+use App\Property;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
@@ -285,6 +287,118 @@ class ApiController extends Controller
         }
 
         return null;
+    }
+
+    /**
+     * Updates properties of an object.
+     *
+     * $fields has to contain an array of fields to update.
+     * You can use an associative array to pull data from
+     * request inputs with different names than the model
+     * property.
+     *
+     * Example array structure for $fields:
+     *
+     *  [
+     *      'name',
+     *      'value' => 'form_input_value'
+     *  ]
+     *
+     * @param CiliatusModel $model
+     * @param Request $request
+     * @param array $fields
+     * @return CiliatusModel
+     */
+    public function updateModelProperties(CiliatusModel $model, Request $request, array $fields)
+    {
+        foreach ($fields as $model_field=>$request_field)
+        {
+            if (is_int($model_field)) { // if true, this is no associative array -> model field equals request field
+                $model_field = $request_field;
+            }
+            if ($request->exists($request_field)) {
+                if ($request->has($request_field)) {
+                    $model->$model_field = $request->get($request_field);
+                }
+                else {
+                    $model->$model_field = null;
+                }
+            }
+        }
+
+        return $model;
+    }
+
+    /**
+     * Updates external Properties of a model.
+     * If a Property object doesn't exist it will be created.
+     * Existing properties not contained in $fields will NOT
+     * be removed by default. Use $remove_not_existing
+     *
+     * Example array structure for $fields:
+     *  [
+     *      'SomePropertyType' => [
+     *          'some_property' // value will be retrieved from $request->input('SomePropertyType::some_property')
+     *          'another_property'  =>  'more stuff'
+     *      ]
+     *  ];
+     *
+     * @param CiliatusModel $model
+     * @param Request $request
+     * @param array $fields
+     * @param boolean $remove_not_existing If true: Existing properties not contained in the request will be removed
+     * @return CiliatusModel
+     */
+    public function updateExternalProperties(CiliatusModel $model, Request $request, array $fields, $remove_not_existing = false)
+    {
+        foreach ($fields as $property_type=>$properties) {
+            foreach ($properties as $name=>$value) {
+                if (is_int($name)) { // if true, this is no associative array -> auto detect value from request
+                    $name = $value;
+                    $value = $request->exists($property_type . '::' . $name) ? $request->get($property_type . '::' . $name) : null;
+                }
+
+                $property = $model->properties()->where('type', $property_type)->where('name', $name)->get()->first();
+
+                if (!is_null($property) && is_null($value) && $remove_not_existing) {
+                    $property->delete();
+                }
+                elseif (!is_null($value)) {
+                    $this->updateExternalProperty($model, $property_type, $name, $value, $property);
+                }
+            }
+        }
+
+        return $model;
+    }
+
+    /**
+     * @param CiliatusModel $model
+     * @param Property|null $property
+     * @param $type
+     * @param $name
+     * @param $value
+     * @return mixed
+     */
+    protected function updateExternalProperty(CiliatusModel $model, $type, $name, $value, $property = null)
+    {
+        if (is_null($property)) {
+            $class_name = explode('\\', get_class($model));
+            $class_name = end($class_name);
+            Property::create([
+                'belongsTo_type'    => $class_name,
+                'belongsTo_id'      => $model->id,
+                'type'              => $type,
+                'name'              => $name,
+                'value'             => $value
+            ]);
+        }
+        else {
+            $property->value = $value;
+            $property->save();
+        }
+
+        return $property;
     }
 
     /**

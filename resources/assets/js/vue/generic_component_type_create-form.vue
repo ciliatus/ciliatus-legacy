@@ -16,13 +16,13 @@
                                 <div class="row">
                                     <div class="input-field col s12 m6 l6">
                                         <input type="text" :placeholder="$t('labels.name_singular')"
-                                               name="name_singular"
+                                               name="name_singular" id="name_singular"
                                                v-model="generic_component_type.name_singular">
                                         <label for="name_singular">{{ $t('labels.name_singular') }}</label>
                                     </div>
                                     <div class="input-field col s12 m6 l6">
                                         <input type="text" :placeholder="$t('labels.name_plural')"
-                                               name="name_plural"
+                                               name="name_plural" id="name_plural"
                                                v-model="generic_component_type.name_plural">
                                         <label for="name_plural">{{ $t('labels.name_plural') }}</label>
                                     </div>
@@ -31,7 +31,7 @@
                             <div class="col s12 m6 l6">
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <select name="icon" :value="generic_component_type.icon">
+                                        <select name="icon" id="icon" :value="generic_component_type.icon">
                                             <option value="3d_rotation">3d_rotation</option>
                                             <option value="ac_unit">ac_unit</option>
                                             <option value="access_alarm">access_alarm</option>

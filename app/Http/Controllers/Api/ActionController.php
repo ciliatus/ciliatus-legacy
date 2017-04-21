@@ -173,14 +173,14 @@ class ActionController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         if (Gate::denies('api-write:action')) {
             return $this->respondUnauthorized();
         }
 
-        $action = Action::find($request->input('id'));
+        $action = Action::find($id);
         if (is_null($action)) {
             return $this->setStatusCode(404)->respondWithError('Action not found');
         }
@@ -192,7 +192,7 @@ class ActionController extends ApiController
             }
         }
 
-        if ($request->has('wait_for_started_action_id')) {
+        if ($$request->has('wait_for_started_action_id')) {
             $a = Action::find($request->input('wait_for_started_action_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('Action not found');
@@ -206,13 +206,10 @@ class ActionController extends ApiController
             }
         }
 
-        $action->action_sequence_id = $request->input('action_sequence_id');
-        $action->target_type = $request->input('target_type');
-        $action->target_id = $request->input('target_id');
-        $action->desired_state = $request->input('desired_state');
-        $action->duration_minutes = $request->input('duration_minutes');
-        $action->wait_for_started_action_id = $request->input('wait_for_started_action_id');
-        $action->wait_for_finished_action_id = $request->input('wait_for_finished_action_id');
+        $this->updateModelProperties($action, $request, [
+            'action_sequence_id', 'target_type', 'target_id', 'desired_state',
+            'duration_minutes', 'wait_for_started_action_id', 'wait_for_finished_action_id'
+        ]);
 
         $action->save();
 

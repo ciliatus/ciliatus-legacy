@@ -168,11 +168,14 @@ export default {
                 this.order.field = field;
             }
 
-            this.order_string = '&order[' + this.order.field + ']=' + this.order.direction;
+            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             this.load_data();
         },
         set_filter: function() {
             this.filter_string = '&';
+            if (this.sourceFilter !== '') {
+                this.filter_string += this.sourceFilter + '&';
+            }
             for (var prop in this.filter) {
                 if (this.filter.hasOwnProperty(prop)) {
                     if (this.filter[prop] !== null
@@ -190,7 +193,7 @@ export default {
         },
         load_data: function() {
             window.eventHubVue.processStarted();
-            this.order_string = '&order[' + this.order.field + ']=' + this.order.direction;
+            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
                 url: '/api/v1/logs?page=' + this.page + this.filter_string + this.order_string,
@@ -209,7 +212,7 @@ export default {
     },
 
     created: function() {
-        this.load_data();
+        this.set_filter();
     }
 }
 </script>

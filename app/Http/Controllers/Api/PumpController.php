@@ -154,14 +154,14 @@ class PumpController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         if (Gate::denies('api-write:pump')) {
             return $this->respondUnauthorized();
         }
 
-        $pump = Pump::find($request->input('id'));
+        $pump = Pump::find($id);
         if (is_null($pump)) {
             return $this->respondNotFound('Pump not found');
         }
@@ -171,15 +171,17 @@ class PumpController extends ApiController
             if (is_null($controlunit)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');
             }
-            $controlunit_id = $controlunit->id;
-        }
-        else {
-            $controlunit_id = null;
         }
 
-        $pump->name = $request->input('name');
-        $pump->controlunit_id = $controlunit_id;
+        $this->updateModelProperties($pump, $request, [
+            'name', 'controlunit_id' => 'controlunit'
+        ]);
 
+        $this->updateExternalProperties($pump, $request, [
+            'ControlunitConnectivity' => [
+                'bus_type', 'i2c_address', 'i2c_multiplexer_address', 'i2c_multiplexer_port', 'gpio_pin'
+            ]
+        ]);
         $pump->save();
 
         return $this->setStatusCode(200)->respondWithData([], [

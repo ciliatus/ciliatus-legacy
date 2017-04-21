@@ -42,6 +42,14 @@ class LogicalSensorThreshold extends CiliatusModel
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'LogicalSensorThreshold');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function logical_sensor()

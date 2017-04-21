@@ -16,7 +16,7 @@ class AnimalFeedingScheduleRepository extends Repository {
 
     /**
      * AnimalFeedingScheduleRepository constructor.
-     * @param Property $scope
+     * @param Property|null $scope
      */
     public function __construct(Property $scope = null)
     {
@@ -34,7 +34,9 @@ class AnimalFeedingScheduleRepository extends Repository {
         $animal = $fs->belongsTo_object()->get()->first();
         $fs->animal = $animal->toArray();
         $last_feeding_of_type = $animal->last_feeding($fs->name);
-        $starts_at = Property::where('type', 'AnimalFeedingScheduleStartDate')->where('belongsTo_id', $fs->id)->orderBy('created_at', 'desc')->get()->first();
+        $starts_at = $fs->properties()->where('type', 'AnimalFeedingScheduleStartDate')
+                         ->orderBy('created_at', 'desc')
+                         ->get()->first();
 
         /*
          * If there already was a feeding of this type

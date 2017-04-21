@@ -233,21 +233,21 @@ class ActionSequenceController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         if (Gate::denies('api-write:action_sequence')) {
             return $this->respondUnauthorized();
         }
 
-        $action_sequence = ActionSequence::find($request->input('id'));
+        $action_sequence = ActionSequence::find($id);
         if (is_null($action_sequence)) {
             return $this->setStatusCode(404)->respondWithError('ActionSequence not found');
         }
 
-        if ($request->has('name')) {
-            $action_sequence->name = $request->input('name');
-        }
+        $this->updateModelProperties($action_sequence, $request, [
+            'name'
+        ]);
 
         if ($request->has('runonce')) {
             $action_sequence->runonce = $request->input('runonce') == 'on' ? true : false;

@@ -12,43 +12,40 @@
             <div class="col s12 m12 l6">
                 <div class="card">
                     <form action="{{ url('api/v1/files/' . $file->id) }}" data-method="PUT"
-                          data-redirect-success="{{ url('files/' . $file->id) }}">
+                          >
                         <div class="card-content">
 
                             <span class="card-title activator truncate">
                                 <span>{{ $file->display_name }}</span>
                             </span>
 
-                            <p>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $file->id }}">
-                                        <label for="id">ID</label>
-                                    </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $file->id }}">
+                                    <label for="id">ID</label>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input type="text" placeholder="@lang('labels.display_name')" name="display_name" value="{{ $file->display_name }}">
-                                        <label for="name">@lang('labels.display_name')</label>
-                                    </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" placeholder="@lang('labels.display_name')" name="display_name" value="{{ $file->display_name }}">
+                                    <label for="name">@lang('labels.display_name')</label>
                                 </div>
+                            </div>
 
-                                @if(explode("/", $file->mimetype)[0] == 'image')
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <div class="switch">
-                                            <label>
-                                                @lang('labels.off')
-                                                <input name="use_as_background" type="checkbox" @if($file->property('is_default_background') == true) checked @endif>
-                                                <span class="lever"></span>
-                                                @lang('labels.on') @lang('labels.use_as_background')
-                                            </label>
-                                        </div>
+                            @if(explode("/", $file->mimetype)[0] == 'image')
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <div class="switch">
+                                        <label>
+                                            <input name="use_as_background" type="checkbox" @if($file->property('generic', 'is_default_background') == true) checked @endif>
+                                            <span class="lever"></span>
+                                            @lang('labels.use_as_background')
+                                        </label>
                                     </div>
                                 </div>
-                                @endif
-                            </p>
+                            </div>
+                            @endif
 
                         </div>
 

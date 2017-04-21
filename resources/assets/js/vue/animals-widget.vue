@@ -1,45 +1,81 @@
 <template>
-    <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
-        <div v-for="animal in animals">
-            <div v-bind:id="'modal_just_fed_' + animal.id" class="modal">
-                <form v-bind:action="'/api/v1/animals/' + animal.id + '/feedings'" data-method="POST" v-on:submit="submit">
-                    <div class="modal-content" style="min-height: 300px">
-                        <h4>{{ $t("labels.just_fed") }}</h4>
-                        <p>
-                            <select name="meal_type" id="meal_type">
-                                <option v-for="ft in feeding_types" v-bind:value="ft.name">{{ ft.name }}</option>
-                            </select>
-                            <label for="meal_type">{{ $t("labels.meal_type") }}</label>
-                        </p>
-                    </div>
+    <div>
+        <div class="row" v-if="!animalId" v-show="showFilters">
+            <div class="col s10 m8 l8">
+                <div class="input-field inline">
+                    <input id="filter_display_name" type="text" :placeholder="$t('labels.display_name')"
+                           v-model="filter.display_name" v-on:keyup.enter="set_filter">
+                    <label for="filter_display_name">{{ $t('labels.display_name') }}</label>
+                </div>
 
-                    <div class="modal-footer">
-                        <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </div>
-                </form>
+                <div class="input-field inline">
+                    <input id="filter_lat_name" type="text" :placeholder="$t('labels.latin_name')"
+                           v-model="filter.lat_name" v-on:keyup.enter="set_filter">
+                    <label for="filter_lat_name">{{ $t('labels.latin_name') }}</label>
+                </div>
+
+                <div class="input-field inline">
+                    <input id="filter_common_name" type="text" :placeholder="$t('labels.common_name')"
+                           v-model="filter.common_name" v-on:keyup.enter="set_filter">
+                    <label for="filter_common_name">{{ $t('labels.common_name') }}</label>
+                </div>
             </div>
-
-            <div v-bind:id="'modal_add_weight_' + animal.id" class="modal">
-                <form v-bind:action="'/api/v1/animals/' + animal.id + '/weighings'" data-method="POST" v-on:submit="submit">
-                    <div class="modal-content">
-                        <h4>{{ $t("labels.add_weight") }}</h4>
-                        <p>
-                            <input name="weight" id="weight" v-bind:placeholder="$t('labels.weight')+ '/g'">
-                            <label for="weight">{{ $t("labels.weight") }}/g</label>
-                        </p>
-                    </div>
-
-                    <div class="modal-footer">
-                        <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
-                            <i class="material-icons right">send</i>
-                        </button>
-                    </div>
-                </form>
+            <div class="col s2 m4 l4 right-align">
+                <div class="input-field inline">
+                    <a href="#!"><i class="material-icons" v-on:click="toggle_filters">filter_list</i></a>
+                </div>
             </div>
+        </div>
+        <div class="row" v-if="!animalId" v-show="!showFilters">
+            <div class="col s12 right-align">
+                <div class="input-field inline">
+                    {{ $t('labels.filter') }}
+                    <a href="#!"><i class="material-icons" v-on:click="toggle_filters">filter_list</i></a>
+                </div>
+            </div>
+        </div>
+        <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
+            <div :class="wrapperClasses" v-for="animal in animals">
+                <!-- Modals -->
+                <div v-bind:id="'modal_just_fed_' + animal.id" class="modal">
+                    <form v-bind:action="'/api/v1/animals/' + animal.id + '/feedings'" data-method="POST" v-on:submit="submit">
+                        <div class="modal-content" style="min-height: 300px">
+                            <h4>{{ $t("labels.just_fed") }}</h4>
+                            <p>
+                                <select name="meal_type" id="meal_type">
+                                    <option v-for="ft in feeding_types" v-bind:value="ft.name">{{ ft.name }}</option>
+                                </select>
+                                <label for="meal_type">{{ $t("labels.meal_type") }}</label>
+                            </p>
+                        </div>
 
-            <div :class="wrapperClasses">
+                        <div class="modal-footer">
+                            <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <div v-bind:id="'modal_add_weight_' + animal.id" class="modal">
+                    <form v-bind:action="'/api/v1/animals/' + animal.id + '/weighings'" data-method="POST" v-on:submit="submit">
+                        <div class="modal-content">
+                            <h4>{{ $t("labels.add_weight") }}</h4>
+                            <p>
+                                <input name="weight" id="weight" v-bind:placeholder="$t('labels.weight')+ '/g'">
+                                <label for="weight">{{ $t("labels.weight") }}/g</label>
+                            </p>
+                        </div>
+
+                        <div class="modal-footer">
+                            <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
+                                <i class="material-icons right">send</i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Card -->
                 <div class="card">
                     <div class="card-image waves-effect waves-block waves-light terrarium-card-image"
                          v-bind:class="animal.default_background_filepath ? '' : 'teal lighten-1'"
@@ -52,9 +88,9 @@
                             <i class="material-icons right" v-if="!animal.death_date">more_vert</i>
                         </span>
                         <p>
-                            <span v-show="animal.latin_name">{{ animal.latin_name }}</span>
-                            <span v-show="animal.common_name && !animal.latin_name">{{ animal.common_name }}</span>
-                            <span v-show="animal.birth_date || animal.death_date">, {{ animal.age_value }} {{ $tc("units." + animal.age_unit, animal.age_value) }}</span>
+                            <span v-show="animal.latin_name">{{ animal.latin_name }},</span>
+                            <span v-show="animal.common_name && !animal.latin_name">{{ animal.common_name }},</span>
+                            <span v-show="animal.birth_date || animal.death_date">{{ animal.age_value }} {{ $tc("units." + animal.age_unit, animal.age_value) }}</span>
 
                             <span v-if="animal.last_feeding && !animal.death_date">
                                 <br />
@@ -111,6 +147,33 @@
                 </div>
             </div>
         </div>
+        <div class="row" v-if="!animalId">
+            <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
+                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
+                    <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
+                </li>
+                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
+                    <a href="#!" v-on:click="set_page(meta.pagination.current_page-1)"><i class="material-icons">chevron_left</i></a>
+                </li>
+
+                <li v-if="meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
+                <li v-if="meta.pagination.current_page-2 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-2)">{{ meta.pagination.current_page-2 }}</a></li>
+                <li v-if="meta.pagination.current_page-1 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-1)">{{ meta.pagination.current_page-1 }}</a></li>
+
+                <li class="active"><a href="#!">{{ meta.pagination.current_page }}</a></li>
+
+                <li v-if="meta.pagination.current_page+1 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+1)">{{ meta.pagination.current_page+1 }}</a></li>
+                <li v-if="meta.pagination.current_page+2 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+2)">{{ meta.pagination.current_page+2 }}</a></li>
+                <li v-if="meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
+
+                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
+                    <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="material-icons">chevron_right</i></a>
+                </li>
+                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
+                    <a href="#!" v-on:click="set_page(meta.pagination.total_pages)"><i class="material-icons">last_page</i></a>
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
@@ -119,7 +182,17 @@ export default {
     data () {
         return {
             animals: [],
-            feeding_types: []
+            initial: true,
+            meta: [],
+            feeding_types: [],
+            filter: {},
+            filter_string: '',
+            order: {
+                field: 'display_name',
+                direction: 'asc'
+            },
+            order_string: '',
+            page: 1
         }
     },
 
@@ -163,10 +236,54 @@ export default {
             type: String,
             default: 'animals-masonry-grid',
             required: false
+        },
+        showFilters: {
+            type: Boolean,
+            default: false,
+            required: false
         }
     },
 
     methods: {
+        toggle_filters: function() {
+            this.showFilters = !this.showFilters;
+        },
+        set_order: function(field) {
+            if (this.order.field == field || field === null) {
+                if (this.order.direction == 'asc') {
+                    this.order.direction = 'desc';
+                }
+                else {
+                    this.order.direction = 'asc';
+                }
+            }
+            else {
+                this.order.field = field;
+            }
+
+            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
+            this.load_data();
+        },
+        set_filter: function() {
+            this.filter_string = '&';
+            if (this.sourceFilter !== '') {
+                this.filter_string += this.sourceFilter + '&';
+            }
+            for (var prop in this.filter) {
+                if (this.filter.hasOwnProperty(prop)) {
+                    if (this.filter[prop] !== null
+                        && this.filter[prop] !== '') {
+
+                        this.filter_string += 'filter[' + prop + ']=like:*' + this.filter[prop] + '*&';
+                    }
+                }
+            }
+            this.load_data();
+        },
+        set_page: function(page) {
+            this.page = page;
+            this.load_data();
+        },
         update: function(a) {
             var item = null;
             this.animals.forEach(function(data, index) {
@@ -215,7 +332,6 @@ export default {
                 this.refresh_grid();
             });
         },
-
         delete: function(a) {
             var item = null;
             this.animals.forEach(function(data, index) {
@@ -233,24 +349,19 @@ export default {
             });
         },
 
-        refresh_grid: function() {
-            $('#' + this.containerId).masonry('reloadItems');
-            $('#' + this.containerId).masonry('layout');
-        },
-
         submit: function(e) {
             window.submit_form(e);
         },
 
         load_data: function() {
             var that = this;
-
             var source_url = '';
+            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             if (this.animalId !== null) {
                 source_url = '/api/v1/animals/' + this.animalId
             }
             else {
-                source_url = '/api/v1/animals/?order[death_date]=asc&order[display_name]=asc&raw=true&' + this.sourceFilter;
+                source_url = '/api/v1/animals/?page=' + this.page + this.filter_string + this.order_string;
             }
 
             window.eventHubVue.processStarted();
@@ -262,14 +373,20 @@ export default {
                         that.animals = [data.data];
                     }
                     else {
+                        that.meta = data.meta;
                         that.animals = data.data;
                     }
 
                     that.$nextTick(function() {
-                        $('#' + that.containerId).masonry({
-                            columnWidth: '.col',
-                            itemSelector: '.col',
-                        });
+                        if (that.initial) {
+                            var element = '#' + this.containerId;
+                            $(element).masonry({
+                                columnWidth: '.col',
+                                itemSelector: '.col',
+                            });
+                            that.initial = false;
+                        }
+                        that.refresh_grid();
                     });
 
                     window.eventHubVue.processEnded();
@@ -293,8 +410,13 @@ export default {
                     window.eventHubVue.processEnded();
                 }
             });
-        }
+        },
 
+        refresh_grid: function() {
+            $('#' + this.containerId).masonry('reloadItems');
+            $('#' + this.containerId).masonry('layout');
+            $('.modal').modal();
+        }
     },
 
     created: function() {
@@ -305,8 +427,7 @@ export default {
                 this.delete(e);
             });
 
-
-        this.load_data();
+        this.set_filter();
 
         var that = this;
         if (this.refreshTimeoutSeconds !== null) {

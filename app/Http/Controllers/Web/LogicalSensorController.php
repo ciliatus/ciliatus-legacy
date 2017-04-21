@@ -39,8 +39,11 @@ class LogicalSensorController extends Controller
      */
     public function create(Request $request)
     {
+        $physical_sensors = PhysicalSensor::all();
+
         return view('logical_sensors.create', [
-            'preset' => $request->input('preset')
+            'preset' => $request->input('preset'),
+            'physical_sensors'  => $physical_sensors
         ]);
     }
 

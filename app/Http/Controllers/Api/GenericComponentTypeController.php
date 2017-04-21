@@ -188,15 +188,9 @@ class GenericComponentTypeController extends ApiController
             return $this->respondNotFound();
         }
 
-        if ($request->has('name_singular')) {
-            $type->name_singular = $request->input('name_singular');
-        }
-        if ($request->has('name_plural')) {
-            $type->name_plural = $request->input('name_plural');
-        }
-        if ($request->has('icon')) {
-            $type->icon = $request->input('icon');
-        }
+        $this->updateModelProperties($type, $request, [
+            'name_singular', 'name_plural', 'icon'
+        ]);
 
         /*
          * Keep existing, remove non existing and add new properties

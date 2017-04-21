@@ -20,6 +20,18 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <select name="physical_sensor">
+                                        <option></option>
+                                        @foreach ($physical_sensors as $ps)
+                                            <option value="{{ $ps->id }}" @if($preset['physical_sensor'] == $ps->id)selected="selected"@endif>{{ $ps->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="valves">@choice('components.physical_sensors', 1)</label>
+                                </div>
+                            </div>
+
                         </div>
 
                         <div class="card-action">

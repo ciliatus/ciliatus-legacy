@@ -141,7 +141,22 @@ class GenericComponent extends CiliatusModel
     {
         $type_name = preg_replace('/[^a-zA-Z0-9_]|[\s]/', '', $this->type->name_singular);
         $name = preg_replace('/[^a-zA-Z]|[\s]/', '', $this->name);
-        $config = "[generic_component_{$name}]\nid = {$this->id}\npin =\nname = {$this->name}\ntype = {$type_name}";
+        $config = "[generic_component_{$name}]\nid = {$this->id}\nname = {$this->name}\ntype = {$type_name}\n";
+
+        if ($this->property('ControlunitConnectivity', 'bus_type', true) == 'gpio') {
+            $config .= "pin = {$this->property('ControlunitConnectivity', 'gpio_pin', true)}\n";
+            if (!is_null($this->property('ControlunitConnectivity', 'gpio_default_high', true)) &&
+                $this->property('ControlunitConnectivity', 'gpio_default_high', true)) {
+                $config .= "default_high = True\n";
+            }
+        }
+        elseif ($this->property('ControlunitConnectivity', 'bus_type', true) == 'i2c') {
+            $config .= "i2c_address = {$this->property('ControlunitConnectivity', 'i2c_address', true)}\n";
+            if (!is_null($this->property('ControlunitConnectivity', 'i2c_multiplexer_address', true, true))) {
+                $config .= "i2c_multiplexer_address = {$this->property('ControlunitConnectivity', 'i2c_multiplexer_address', true)}\n";
+                $config .= "i2c_multiplexer_port = {$this->property('ControlunitConnectivity', 'i2c_multiplexer_port', true)}\n";
+            }
+        }
 
         return $config;
     }

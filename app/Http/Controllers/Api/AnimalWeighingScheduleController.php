@@ -210,8 +210,11 @@ class AnimalWeighingScheduleController extends ApiController
             return $this->respondNotFound();
         }
 
+        $this->updateModelProperties($aws, $request, [
+            'value' => 'interval_days'
+        ]);
+
         $aws->name = 'g';
-        $aws->value = $request->input('interval_days');
         $aws->save();
 
         broadcast(new AnimalWeighingScheduleUpdated($aws));

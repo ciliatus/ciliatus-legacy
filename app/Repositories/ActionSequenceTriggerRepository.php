@@ -12,7 +12,7 @@ class ActionSequenceTriggerRepository extends Repository {
 
     /**
      * ActionSequenceTriggerRepository constructor.
-     * @param null $scope
+     * @param ActionSequenceTrigger|null $scope
      */
     public function __construct(ActionSequenceTrigger $scope = null)
     {

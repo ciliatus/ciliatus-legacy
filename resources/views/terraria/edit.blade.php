@@ -12,7 +12,7 @@
             <div class="col s12 m12 l6">
                 <div class="card">
                     <form action="{{ url('api/v1/terraria/' . $terrarium->id) }}" data-method="PUT"
-                        data-redirect-success="{{ url('terraria/' . $terrarium->id) }}">
+                        >
                         <div class="card-content">
 
                             <span class="card-title activator truncate">
@@ -43,7 +43,9 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
+                                    <input name="valves" value="" hidden>
                                     <select multiple name="valves[]">
+                                        <option value="" disabled selected></option>
                                         @foreach ($valves as $v)
                                             <option value="{{ $v->id }}" @if($v->terrarium_id == $terrarium->id)selected="selected"@endif>{{ $v->name }}</option>
                                         @endforeach
@@ -54,10 +56,11 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
+                                    <input name="animals" value="" hidden>
                                     <select multiple="multiple" name="animals[]">
                                         @if ($terrarium->animals->count() < 1)
-                                        <option disabled="disabled"> </option>
                                         @endif
+                                        <option value="" disabled selected></option>
                                         @foreach ($animals as $a)
                                             <option value="{{ $a->id }}"
                                                     data-icon="{{ $a->background_image_path() }}" class="circle"
@@ -104,7 +107,7 @@
             <div class="col s12 m12 l6">
 
                 <form action="{{ url('api/v1/terraria/' . $terrarium->id) }}" data-method="PUT"
-                      data-redirect-success="{{ url('terraria/' . $terrarium->id) }}">
+                      >
                     <div class="card">
                         <div class="card-content teal lighten-1 white-text">
                             <span class="activator truncate">
@@ -133,9 +136,9 @@
 
                                     <div class="input-field col s12 m6">
                                         <input type="text" placeholder="@lang('labels.suggestions_threshold') @lang('labels.' . $type)"
-                                               name="suggestions[{{ $type }}][threshold]" value="{{ $terrarium->getSuggestionThreshold($type) }}">
+                                               name="suggestions[{{ $type }}][threshold]" @if($terrarium->getSuggestionThreshold($type)) value="{{ $terrarium->getSuggestionThreshold($type) }}" @else value="10" @endif>
                                         <label for="suggestions[{{ $type }}][threshold]">
-                                            @lang('labels.suggestions_unit') @lang('labels.' . $type)
+                                            @lang('labels.suggestions_unit')
                                             <a href="#" class="material-icons black-text tooltipped" data-position="top"
                                                data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.suggestions_unit')</div>">info_outline</a>
                                         </label>
@@ -148,12 +151,12 @@
                                     <div class="input-field col s12 m6">
                                         <select name="suggestions[{{ $type }}][timeframe_unit]">
                                             <option value="year" @if($terrarium->getSuggestionTimeframeUnit($type) == 'year') selected @endif>@choice('units.years', 1)</option>
-                                            <option value="month" @if($terrarium->getSuggestionTimeframeUnit($type) == 'month') selected @endif>@choice('units.months', 1)</option>
+                                            <option value="month" @if($terrarium->getSuggestionTimeframeUnit($type) == 'month' || !$terrarium->getSuggestionTimeframeUnit($type)) selected @endif>@choice('units.months', 1)</option>
                                             <option value="week" @if($terrarium->getSuggestionTimeframeUnit($type) == 'week') selected @endif>@choice('units.weeks', 1)</option>
                                         </select>
 
                                         <label for="suggestions[{{ $type }}][timeframe_unit]">
-                                            @lang('labels.suggestion_timeframe_unit') @lang('labels.' . $type)
+                                            @lang('labels.suggestion_timeframe_unit')
                                             <a href="#" class="material-icons black-text tooltipped" data-position="top"
                                                data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.suggestion_timeframe_unit')</div>">info_outline</a>
                                         </label>
@@ -161,9 +164,9 @@
 
                                     <div class="input-field col s12 m6">
                                         <input type="text" placeholder="@lang('labels.suggestions_timeframe') @lang('labels.' . $type)"
-                                               name="suggestions[{{ $type }}][timeframe_start]" value="{{ $terrarium->getSuggestionTimeframe($type) }}">
+                                               name="suggestions[{{ $type }}][timeframe_start]" @if($terrarium->getSuggestionTimeframe($type)) value="{{ $terrarium->getSuggestionTimeframe($type) }}" @else value="1" @endif>
                                         <label for="suggestions[{{ $type }}][timeframe_start]">
-                                            @lang('labels.suggestions_timeframe') @lang('labels.' . $type)
+                                            @lang('labels.suggestions_timeframe')
                                             <a href="#" class="material-icons black-text tooltipped" data-position="top"
                                                data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.suggestions_timeframe')</div>">info_outline</a>
                                         </label>

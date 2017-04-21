@@ -38,9 +38,11 @@
     <div id="tab_belongsTo" class="col s12">
         <div class="container">
             <div class="row">
+                @if(!is_null($physical_sensor->controlunit))
                 <controlunits-widget :refresh-timeout-seconds="60" controlunit-id="{{ $physical_sensor->controlunit_id }}"
                                      container-classes="col s12 m6 l4" wrapper-classes=""
-                                     :subscribe-add="false" :subscribe-delete="false"></controlunits-widget>
+                                     :subscribe-add="false" :subscribe-delete="false"></controlunits-widget>+
+                @endif
             </div>
         </div>
     </div>
@@ -49,6 +51,15 @@
         <div class="container">
             <logical_sensors-list-widget :refresh-timeout-seconds="60" source-filter="filter[physical_sensor_id]={{ $physical_sensor->id }}"
                                          :subscribe-add="false"></logical_sensors-list-widget>
+        </div>
+
+        <div class="fixed-action-btn">
+            <a class="btn-floating btn-large teal">
+                <i class="large material-icons">mode_edit</i>
+            </a>
+            <ul>
+                <li><a class="btn-floating green" href="/logical_sensors/create?preset[physical_sensor]={{ $physical_sensor->id }}"><i class="material-icons">add</i></a></li>
+            </ul>
         </div>
     </div>
 @stop

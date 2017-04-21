@@ -8,18 +8,19 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <!--Import materialize.css-->
         @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on' || (Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night()))
-            <link type="text/css" rel="stylesheet" href="/v1.4-beta/css/materialize_dark.min.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/v1.5-beta/css/materialize_dark.min.css"  media="screen,projection"/>
         @else
-            <link type="text/css" rel="stylesheet" href="/v1.4-beta/css/materialize.min.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/v1.5-beta/css/materialize.min.css"  media="screen,projection"/>
         @endif
-        <link type="text/css" rel="stylesheet" href="/v1.4-beta/css/timeline.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/v1.5-beta/css/timeline.css"  media="screen,projection"/>
 
 
-        <link type="text/css" rel="stylesheet" href="/v1.4-beta/css/materialize.clockpicker.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/v1.5-beta/css/materialize.clockpicker.css"  media="screen,projection"/>
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
         <!--Let browser know website is optimized for mobile-->
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
 
         <meta name="theme-color" content="#009688" />
 
@@ -65,9 +66,15 @@
                 <li>
                     <div class="userView" style="height: 250px;">
                         <div class="background" style="height: 250px; background-image: url('/images/logo_demo.jpg')">
-                            <div class="background" style="background-color: rgba(0, 0, 0, 0.3); margin-top: 150px; height: 100px; width: 300px">
-                                <a href="#!name"><span class="white-text name">{{ Auth::user()->name }}</span></a>
-                                <a href="#!email"><span class="white-text email">{{ Auth::user()->email }}</span></a>
+                            <div class="background"
+                                 style="background-color: rgba(0, 0, 0, 0.2); margin-top: 200px; height: 50px; width: 300px">
+                                 <ul>
+                                     <li>
+                                        <a href="#" class="waves-effect waves-teal white-text">
+                                            {{ Auth::user()->name }}
+                                        </a>
+                                     </li>
+                                 </ul>
                             </div>
                         </div>
                     </div>
@@ -76,7 +83,7 @@
                     </div>
                 </li>
 
-                <li style="height: 5px !important;"> </li>
+                <li class="teal darken-2" style="height: 3px !important;"> </li>
 
                 <li @if(Request::is('/')) class="active" @endif><a href="{{ url('/') }}" class="waves-effect waves-teal"><i class="material-icons">dashboard</i>@choice('menu.dashboard', 1)</a></li>
 
@@ -180,10 +187,14 @@
 
                 <li><a href="https://github.com/matthenning/ciliatus/issues" class="waves-effect waves-teal"><i class="material-icons">bug_report</i>@lang('labels.bugtracker')</a></li>
                 <li><a href="https://github.com/matthenning/ciliatus/wiki" class="waves-effect waves-teal"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
-                <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v1.4-beta" class="waves-effect waves-teal"><i class="material-icons">linear_scale</i>Version v1.4-beta</a></li>
+                <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v1.5-beta" class="waves-effect waves-teal"><i class="material-icons">linear_scale</i>Version v1.5-beta</a></li>
                 @endif
 
                 <li class="red lighten-5"><a @if(!App\ActionSequence::stopped())href="/action_sequences/stop_all" @else href="/action_sequences/resume_all" @endif class="waves-effect waves-red red-text"><i class="material-icons red-text">power_settings_new</i>@lang('buttons.emergency_stop')</a></li>
+
+                <li><div class="divider"></div></li>
+
+                <li><a href="#" onclick="$.post('/auth/logout'); setTimeout(function () { window.location.replace('/') }, 200);" class="waves-effect waves-teal"><i class="material-icons">exit_to_app</i>@lang('labels.logout')</a></li>
             </ul>
 
             <div style="width: 100%; margin: 0; height: 10px; position: relative; z-index: 1001">
@@ -203,17 +214,17 @@
         <!-- Google Charts -->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <!-- Materialize.js -->
-        <script src="{{ url('v1.4-beta/js/materialize.min.js') }}"></script>
+        <script src="{{ url('v1.5-beta/js/materialize.min.js') }}"></script>
         <!-- Materialize.clockpicker.js -->
-        <script src="{{ url('v1.4-beta/js/materialize.clockpicker.js') }}"></script>
+        <script src="{{ url('v1.5-beta/js/materialize.clockpicker.js') }}"></script>
         <!-- Masonry -->
-        <script src="{{ url('v1.4-beta/js/masonry.pkgd.min.js') }}"></script>
+        <script src="{{ url('v1.5-beta/js/masonry.pkgd.min.js') }}"></script>
         <!-- Laravel-Echo -->
-        <script src="{{ url('v1.4-beta/js/echo.min.js') }}"></script>
+        <script src="{{ url('v1.5-beta/js/echo.min.js') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('v1.4-beta/js/app.min.js') }}"></script>
+        <script src="{{ url('v1.5-beta/js/app.min.js') }}"></script>
         <!-- Vue -->
-        <script src="{{ url('v1.4-beta/js/vue.min.js') }}"></script>
+        <script src="{{ url('v1.5-beta/js/vue.min.js') }}"></script>
 
         @yield('scripts')
 

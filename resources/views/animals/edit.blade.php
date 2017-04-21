@@ -12,7 +12,7 @@
             <div class="col s12 m12 l6">
                 <div class="card">
                     <form action="{{ url('api/v1/animals/' . $animal->id) }}" data-method="PUT"
-                          data-redirect-success="{{ url('animals/' . $animal->id . '/edit') }}">
+                          >
                         <div class="card-content">
 
                             <span class="card-title activator truncate">
@@ -43,21 +43,25 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input type="text" placeholder="@lang('labels.latin_name')" name="latinname" value="{{ $animal->latin_name }}">
+                                    <input type="text" placeholder="@lang('labels.latin_name')" name="latinname" value="{{ $animal->lat_name }}">
                                     <label for="name">@lang('labels.latin_name')</label>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input type="date" class="datepicker" placeholder="@lang('labels.date_birth')" name="birthdate" value="{{ $animal->birth_date }}">
+                                    <input type="date" class="datepicker" placeholder="@lang('labels.date_birth')"
+                                           name="birthdate" id="birthdate"
+                                           @if ($animal->birth_date) value="{{ $animal->birth_date->format('Y-m-d') }}" @endif>
                                     <label for="name">@lang('labels.date_birth')</label>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input type="date" class="datepicker" placeholder="@lang('labels.date_death')" name="deathdate" value="{{ $animal->death_date }}">
+                                    <input type="date" class="datepicker" placeholder="@lang('labels.date_death')"
+                                           name="deathdate" id="deathdate"
+                                           @if ($animal->death_date) value="{{ $animal->death_date->format('Y-m-d') }}" @endif>
                                     <label for="name">@lang('labels.date_death')</label>
                                 </div>
                             </div>
@@ -104,6 +108,7 @@
             </div>
 
             <div class="col s12 m12 l6">
+
                 <div class="card">
 
                     <div class="card-content teal lighten-1 white-text">

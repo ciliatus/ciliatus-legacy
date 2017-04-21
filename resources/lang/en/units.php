@@ -18,5 +18,6 @@ return [
     'just_now'  =>  'just now',
     'lesser'    =>  '<',
     'greater'   =>  '>',
-    'equals'    =>  '='
+    'equals'    =>  '=',
+    'no_data'   =>  ''
 ];

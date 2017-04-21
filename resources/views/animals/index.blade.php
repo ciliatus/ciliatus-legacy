@@ -18,6 +18,7 @@
         <div id="tab_dashboard" class="col s12">
             <div class="container">
                 <animals-widget container-classes="row" wrapper-classes="col s12 m6 l4"
+                                container-id="animals-masonry-grid-alive"
                                 source-filter="filter[death_date]=null"
                                 :refresh-timeout-seconds="60"
                                 :subscribe-add="false"></animals-widget>
@@ -41,6 +42,7 @@
         <div id="tab_dashboard_deceased" class="col s12">
             <div class="container">
                 <animals-widget container-classes="row" wrapper-classes="col s12 m6 l4"
+                                container-id="animals-masonry-grid-deceased"
                                 source-filter="filter[death_date]=notnull"
                                 :refresh-timeout-seconds="180"
                                 :subscribe-add="false"></animals-widget>

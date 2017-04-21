@@ -3,7 +3,6 @@
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/spatie/image.svg?style=flat-square)](https://packagist.org/packages/spatie/image)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE.md)
 [![Build Status](https://img.shields.io/travis/spatie/image/master.svg?style=flat-square)](https://travis-ci.org/spatie/image)
-[![SensioLabsInsight](https://img.shields.io/sensiolabs/i/79c01462-4417-471d-8714-bc2835e56598.svg?style=flat-square)](https://insight.sensiolabs.com/projects/79c01462-4417-471d-8714-bc2835e56598)
 [![Quality Score](https://img.shields.io/scrutinizer/g/spatie/image.svg?style=flat-square)](https://scrutinizer-ci.com/g/spatie/image)
 [![StyleCI](https://styleci.io/repos/80513668/shield?branch=master)](https://styleci.io/repos/80513668)
 [![Total Downloads](https://img.shields.io/packagist/dt/spatie/image.svg?style=flat-square)](https://packagist.org/packages/spatie/image)
@@ -22,7 +21,7 @@ Image::load($pathToImage)
    ->greyscale()
    ->save();
    
-// make image darker an save it in low quality
+// make image darker and save it in low quality
 Image::load($pathToImage)
    ->brightness(-30)
    ->quality(25)
@@ -30,7 +29,7 @@ Image::load($pathToImage)
    
 // rotate the image and sharpen it
 Image::load($pathToImage)
-   ->rotate(90)
+   ->orientation(90)
    ->sharpen(15)
    ->save();
 ```
@@ -45,7 +44,7 @@ You're free to use this package (it's [MIT-licensed](LICENSE.md)), but if it mak
 
 Our address is: Spatie, Samberstraat 69D, 2060 Antwerp, Belgium.
 
-The best postcards will get published on the open source page on our website.
+All postcards are published [on our website](https://spatie.be/en/opensource/postcards).
 
 ## Installation
 

@@ -2,14 +2,14 @@ var Vue = require('vue');
 import Peity from 'vue-peity'
 
 /*
-import VueResource from 'vue-resource';
-Vue.use(VueResource);
-Vue.http.interceptors.push((request, next) => {
-    request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
+ import VueResource from 'vue-resource';
+ Vue.use(VueResource);
+ Vue.http.interceptors.push((request, next) => {
+ request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
 
-    next();
-});
-*/
+ next();
+ });
+ */
 
 $.ajaxPrefilter(function(options) {
     if (!options.beforeSend) {
@@ -64,6 +64,9 @@ Object.keys(locales).forEach(function (lang) {
 var TimeStringFormatter = Object;
 TimeStringFormatter.install = function(Vue, options) {
     Vue.prototype.$getMatchingTimeDiff = function(obj) {
+        if (obj == null) {
+            return {val: null, unit: 'no_data'}
+        }
         if (obj.years > 1) {
             return {val: obj.years, unit: 'years_ago'};
         }
@@ -126,6 +129,7 @@ import BiographyEntriesWidget from './vue/biography_entries-widget.vue'
 import CaresheetsWidget from './vue/caresheets-widget.vue'
 import LogsWidget from './vue/logs-widget.vue';
 import ComponentsListWidget from './vue/components-list-widget.vue';
+import BusTypeEditForm from './vue/bus_type_edit-form.vue';
 
 import GenericComponentTypeCreateForm from './vue/generic_component_type_create-form.vue';
 
@@ -204,8 +208,8 @@ window.bodyVue = new Vue({
         'caresheets-widget': CaresheetsWidget,
         'logs-widget': LogsWidget,
         'components-list-widget': ComponentsListWidget,
+        'bus-type-edit-form': BusTypeEditForm,
 
         'generic_component_type_create-form': GenericComponentTypeCreateForm
     }
-
 });

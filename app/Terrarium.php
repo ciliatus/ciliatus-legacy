@@ -201,44 +201,48 @@ class Terrarium extends CiliatusModel
 
     /**
      * Returns sensorreadings of a specific type
-     * while using caching to deliver optimal performance
+     * while using caching to deliver optimal performance.
+     * Caching will only be used if $history_to is null,
+     * meaning I want sensorreadings up to now. Custom
+     * timespans will not be cached.
      *
      * @param $type
      * @param $kill_cache = false
-     * @return array|mixed
+     * @param Carbon $history_to
+     * @param null $history_minutes
+     * @return Collection
      */
-    public function getSensorreadingsByType($type, $kill_cache = false)
+    public function getSensorreadingsByType($type, $kill_cache = false,
+                                            Carbon $history_to = null, $history_minutes = null)
     {
-        $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 120);
-        $cache_key = 'sensorreadingsByType_' . $this->id . '_' . $type . '_' . $history_minutes;
-        if (Cache::has($cache_key) && !$kill_cache) {
-            return Cache::get($cache_key);
+        $cachable = false;
+        if (is_null($history_to)) {
+            $history_to = Carbon::now();
+            $cachable = true;
         }
 
-        switch ($type) {
-            case 'humidity_percent':
-                $values = array_column($this->getSensorReadingsHumidity($history_minutes, Carbon::now())->toArray(), 'avg_rawvalue');
-                break;
-            case 'temperature_celsius':
-                $values = array_column($this->getSensorReadingsTemperature($history_minutes, Carbon::now())->toArray(), 'avg_rawvalue');
-                break;
-            default:
-                throw new \InvalidArgumentException("Type not found");
+        if (is_null($history_minutes)) {
+            $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180);
         }
 
-        $history = array_map(
-            function($val) {
-                return round($val, 1);
-            },
-            $values
-        );
+        if ($cachable) {
+            $cache_key = 'sensorreadingsByType_' . $this->id . '_' . $type . '_' . $history_minutes;
+            if (Cache::has($cache_key) && !$kill_cache) {
+                return Cache::get($cache_key);
+            }
+        }
 
-        Cache::put($cache_key, $history, env('TERRARIUM_DEFAULT_HISTORY_CACHE_MINUTES', 5));
+        $history = $this->fetchSensorreadings($type, $history_minutes, $history_to);
+
+        if ($cachable) {
+            Cache::put($cache_key, $history, env('TERRARIUM_DEFAULT_HISTORY_CACHE_MINUTES', 5));
+        }
 
         return $history;
     }
 
     /**
+     * @deprecated Use getSensorreadingsByType instead
      * @param int $minutes
      * @param Carbon $to
      * @return mixed
@@ -250,6 +254,7 @@ class Terrarium extends CiliatusModel
 
 
     /**
+     * @deprecated Use getSensorreadingsByType instead
      * @param int $minutes
      * @param Carbon $to
      * @return mixed
@@ -273,69 +278,66 @@ class Terrarium extends CiliatusModel
     /**
      * @param $type
      * @param int $days
-     * @param Carbon $to
-     * @param Carbon|null $time_from
      * @param Carbon|null $time_to
+     * @param Carbon|null $time_from
      * @return Collection
      */
-    public function getSensorreadingStats($type, $days, Carbon $to, Carbon $time_from = null, Carbon $time_to = null)
+    public function getSensorreadingStats($type, $days, Carbon $time_to, Carbon $time_from = null)
     {
-        return $this->fetchSensorreadings($type, $days*24*60, $to, $time_from, $time_to, true);
+        return $this->fetchSensorreadings($type, $days*24*60, $time_to, $time_from, true);
     }
 
     /**
      * @param int $days
-     * @param Carbon $to
-     * @param Carbon|null $time_from
      * @param Carbon|null $time_to
+     * @param Carbon|null $time_from
      * @return Collection
      */
-    public function getHumidityStats($days, Carbon $to = null, Carbon $time_from = null, Carbon $time_to = null)
+    public function getHumidityStats($days, Carbon $time_to = null, Carbon $time_from = null)
     {
-        if (is_null($to)) {
-            $to = Carbon::today();
+        if (is_null($time_to)) {
+            $time_to = Carbon::today();
         }
-        return $this->getSensorreadingStats('humidity_percent', $days, $to, $time_from, $time_to);
+        return $this->getSensorreadingStats('humidity_percent', $days, $time_to, $time_from);
     }
 
 
     /**
      * @param int $days
-     * @param Carbon $to
-     * @param Carbon|null $time_from
      * @param Carbon|null $time_to
+     * @param Carbon|null $time_from
      * @return Collection
      */
-    public function getTemperatureStats($days, Carbon $to = null, Carbon $time_from = null, Carbon $time_to = null)
+    public function getTemperatureStats($days, Carbon $time_to = null, Carbon $time_from = null)
     {
-        if (is_null($to)) {
-            $to = Carbon::today();
+        if (is_null($time_to)) {
+            $time_to = Carbon::today();
         }
-        return $this->getSensorreadingStats('temperature_celsius', $days, $to, $time_from, $time_to);
+        return $this->getSensorreadingStats('temperature_celsius', $days, $time_to, $time_from);
     }
 
     /**
      * @param $type
      * @param null $minutes
-     * @param Carbon|null $to
-     * @param Carbon|null $time_from
      * @param Carbon|null $time_to
+     * @param Carbon|null $time_from
      * @param bool $return_stats If true, a float with the average value will be returned
      * @return Collection
      */
-    private function fetchSensorreadings($type, $minutes = null, Carbon $to = null,
-                                         Carbon $time_from = null, Carbon $time_to = null,
+    private function fetchSensorreadings($type, $minutes,
+                                         Carbon $time_to,
+                                         Carbon $time_from = null,
                                          $return_stats = false)
     {
-        if (is_null($to)) {
-            $to = Carbon::now();
+        if (is_null($time_to)) {
+            $time_to = Carbon::now();
         }
 
         if (is_null($minutes)) {
             $minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 120);
         }
 
-        $from = clone $to;
+        $from = clone $time_to;
         $from->subMinutes($minutes);
 
         if (!is_array($type)) {
@@ -353,8 +355,8 @@ class Terrarium extends CiliatusModel
             }
         }
 
-        $query = DB::table('sensorreadings')->where('created_at', '<', $to)
-                                            ->where('created_at', '>', $from);
+        $query = DB::table('sensorreadings')->where('created_at', '<', $time_to)
+                                                 ->where('created_at', '>', $from);
 
         if ($return_stats) {
             return (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids, $time_from, $time_to, true)->get()->first();
@@ -421,6 +423,7 @@ class Terrarium extends CiliatusModel
         $reading_types = LogicalSensor::types();
         foreach (Terrarium::get() as $t) {
             foreach ($reading_types as $type) {
+                echo "Rebuilding $type of {$t->display_name}" . PHP_EOL;
                 $t->getSensorreadingsByType($type, true);
             }
         }
@@ -433,7 +436,7 @@ class Terrarium extends CiliatusModel
     {
         $files = $this->files()->with('properties')->get();
         foreach ($files as $f) {
-            if ($f->property('is_default_background') == true) {
+            if ($f->property('generic', 'is_default_background') == true) {
                 if (!is_null($f->thumb())) {
                     return $f->thumb()->path_external();
                 }
@@ -670,13 +673,19 @@ class Terrarium extends CiliatusModel
         }
     }
 
+    /**
+     *
+     */
     public function generateDefaultSuggestionSettings()
     {
-        foreach (['humidity_percent'] as $type) {
+        foreach (['humidity_percent', 'temperature_celsius'] as $type) {
             $this->setSuggestionSettings($type, 1, 'month', 10);
         }
     }
-    
+
+    /**
+     * @return array
+     */
     public function capabilities()
     {
         $capabilities = [];
@@ -739,6 +748,41 @@ class Terrarium extends CiliatusModel
         }
 
         return false;
+    }
+
+    /**
+     * Generate an Action Sequence for the desired template for this terrarium.
+     * Returns Action Sequence on success and
+     * false if no compatible components could be found.
+     *
+     * @param $template
+     * @param $duration_minutes
+     * @param bool $runonce
+     * @return bool|ActionSequence
+     */
+    public function generateActionSequenceByTemplate($template, $duration_minutes, $runonce = false)
+    {
+        if (!$this->hasComponentsForActionSequenceTemplate($template)) {
+            return false;
+        }
+
+        $action_sequence = ActionSequence::create([
+            'name' => trans('labels.' . $template) . ' ' . $this->display_name . ' ' . $duration_minutes . 'm',
+            'terrarium_id' => $this->id,
+            'duration_minutes' => $duration_minutes
+        ]);
+
+        $action_sequence->runonce = $runonce;
+        $action_sequence->duration_minutes = $duration_minutes;
+        $action_sequence->save();
+
+        if ($action_sequence->generateActionsByTemplate($template)) {
+            return $action_sequence;
+        }
+        else {
+            $action_sequence->delete();
+            return false;
+        }
     }
 
     /**

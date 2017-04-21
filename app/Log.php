@@ -44,20 +44,34 @@ class Log extends CiliatusModel
         }
 
         if (!is_null($new->source_type) && !is_null($new->source_type)) {
-            $new->source_name = $new->source->name;
+            if (!is_null($new->source)) {
+                $new->source_name = $new->source->name;
+            }
         }
 
         if (!is_null($new->target_type) && !is_null($new->target_id)) {
-            $new->target_name = $new->target->name;
+            if (!is_null($new->name)) {
+                $new->target_name = $new->target->name;
+            }
         }
 
         if (!is_null($new->associatedWith_type) && !is_null($new->associatedWith_id)) {
-            $new->associatedWith_name = $new->associated->name;
+            if (!is_null($new->associated)) {
+                $new->associatedWith_name = $new->associated->name;
+            }
         }
 
         $new->save();
 
         return $new;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'Log');
     }
 
     /**

@@ -13,7 +13,7 @@ class AnimalCaresheetRepository extends Repository {
 
     /**
      * AnimalCaresheetRepository constructor.
-     * @param Event $scope
+     * @param Event|null $scope
      */
     public function __construct(Event $scope = null)
     {

@@ -159,9 +159,15 @@ class ControlunitController extends ApiController
             return $this->setStatusCode(422)->respondWithError('Controlunit not found');
         }
 
-        if ($request->has('name')) {
-            $controlunit->name = $request->input('name');
-        }
+        $this->updateModelProperties($controlunit, $request, [
+            'name'
+        ]);
+
+        $this->updateExternalProperties($controlunit, $request, [
+            'ControlunitConnectivity' => [
+                'i2c_bus_num'
+            ]
+        ]);
 
         $controlunit->save();
 

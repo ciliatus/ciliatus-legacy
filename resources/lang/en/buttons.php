@@ -8,6 +8,7 @@ return [
     'upload'    =>  'Upload',
     'start_setup'=> 'Start Setup',
     'add'       =>  'Add',
+    'add_intention' =>'Add Intention',
     'add_property'=>'Add Property',
     'add_state' =>  'Add State',
     'create'    =>  'Add',
@@ -16,5 +17,10 @@ return [
     'download'  =>  'Download',
     'emergency_stop' => 'Emergency stop',
     'emergency_resume' => 'Remove emergency stop',
-    'revoke'    =>  'Revoke'
+    'revoke'    =>  'Revoke',
+    'irrigate'  =>  'Irrigate',
+    'ventilate' =>  'Ventilate',
+    'heat_up'   =>  'Heat up',
+    'cool_down' =>  'Cool down',
+    'start'     =>  'Start'
 ];

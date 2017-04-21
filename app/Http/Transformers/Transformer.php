@@ -8,6 +8,7 @@
 
 namespace App\Http\Transformers;
 
+use App\CiliatusModel;
 use Carbon\Carbon;
 use ReflectionException;
 
@@ -137,6 +138,27 @@ abstract class Transformer
         }
 
         return $item;
+    }
+
+
+    /**
+     * @param array $return
+     * @param array $item
+     * @return array
+     */
+    protected function addCiliatusSpecificFields(array $return, array $item)
+    {
+        if (isset($item['properties'])) {
+            $return['properties'] = (new PropertyTransformer())->transformCollection($item['properties']->toArray());
+        }
+        if (isset($item['icon'])) {
+            $return['icon'] = $item['icon'];
+        }
+        if (isset($item['url'])) {
+            $return['url'] = $item['url'];
+        }
+
+        return $return;
     }
 
 }

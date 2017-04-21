@@ -12,7 +12,7 @@
             <div class="col s12 m12 l6">
                 <div class="card">
                     <form action="{{ url('api/v1/logical_sensor_thresholds/' . $logical_sensor_threshold->id) }}" data-method="PUT"
-                          data-redirect-success="auto">
+                          >
                         <div class="card-content">
 
                             <span class="card-title activator truncate">

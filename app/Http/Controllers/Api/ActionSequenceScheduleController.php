@@ -177,14 +177,14 @@ class ActionSequenceScheduleController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         if (Gate::denies('api-write:action_sequence_schedule')) {
             return $this->respondUnauthorized();
         }
 
-        $action = ActionSequenceSchedule::find($request->input('id'));
+        $action = ActionSequenceSchedule::find($id);
         if (is_null($action)) {
             return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
         }
@@ -203,17 +203,9 @@ class ActionSequenceScheduleController extends ApiController
             }
         }
 
-        if ($request->has('name')) {
-            $action->name = $request->input('name');
-        }
-
-        if ($request->has('action_sequence')) {
-            $action->action_sequence_id = $request->input('action_sequence');
-        }
-
-        if ($request->has('starts_at')) {
-            $action->starts_at = $request->input('starts_at');
-        }
+        $this->updateModelProperties($action, $request, [
+            'name', 'action_sequence_id' => 'action_sequence', 'starts_at'
+        ]);
 
         $action->save();
 

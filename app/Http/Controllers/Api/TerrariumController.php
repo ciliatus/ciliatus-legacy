@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\ActionSequenceSchedule;
 use App\Animal;
 use App\Http\Transformers\GenericComponentTransformer;
 use App\Http\Transformers\PhysicalSensorTransformer;
@@ -53,8 +54,8 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $history_to = $request->has('history_to') ? $request->input('history_to') : Carbon::now();
-        $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 120);
+        $history_to = $request->has('history_to') ? $request->input('history_to') : null;
+        $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180);
 
         $terraria = Terrarium::with('action_sequences')
                              ->with('animals')
@@ -120,10 +121,7 @@ class TerrariumController extends ApiController
         }
 
         $history_to = $request->has('history_to') ? $request->input('history_to') : null;
-        $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : null;
-        if (is_null($history_minutes) && $request->has('default_history_minutes')) {
-            $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180);
-        }
+        $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180);
 
         return $this->setStatusCode(200)
                     ->respondWithData(
@@ -132,91 +130,6 @@ class TerrariumController extends ApiController
                                  (new TerrariumRepository($terrarium))->show($history_to, $history_minutes)
                                                                       ->toArray())
                     );
-    }
-
-    /**
-     * Returns an array of sensor readings
-     * filtered by type and grouped by
-     * sensor reading group
-     *
-     * @param $id
-     * @param $type
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function sensorreadingsByType($id, $type)
-    {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $terrarium = Terrarium::with('physical_sensors')->find($id);
-
-        if (!$terrarium) {
-            return $this->respondNotFound('Terrarium not found');
-        }
-
-        $data = $terrarium->getSensorreadingsByType($type);
-
-        return $this->respondWithData($data);
-
-    }
-
-    /**
-     * Returns sensor readings
-     * grouped by sensor reading group
-     *
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function sensorreadings(Request $request, $id)
-    {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $terrarium = Terrarium::find($id);
-
-        if (!$terrarium) {
-            return $this->respondNotFound('Terrarium not found');
-        }
-
-        $query = $this->filter($request, Sensorreading::query());
-
-        $sensor_types = ['humidity_percent', 'temperature_celsius'];
-        $data = [];
-
-        foreach ($sensor_types as $st) {
-            $logical_sensor_ids = [];
-            foreach ($terrarium->physical_sensors as $ps) {
-                foreach ($ps->logical_sensors()->where('type', $st)->get() as $ls) {
-                    $logical_sensor_ids[] = $ls->id;
-                }
-            }
-
-            $data[$st] = (new SensorreadingRepository())->getAvgByLogicalSensor(clone $query, $logical_sensor_ids)->get();
-
-        }
-
-        if ($request->has('csv')) {
-            $data_arr = [];
-            $csv_fields = [];
-            $csv_fields['created_at'] = trans('labels.created_at');
-            foreach ($data as $type=>$values) {
-                $csv_fields[$type] = trans('labels.' . $type);
-                foreach ($values as $reading) {
-                    $data_arr[$reading->sensorreadinggroup_id]['created_at'] = $reading->created_at;
-                    $data_arr[$reading->sensorreadinggroup_id][$type] = $reading->avg_rawvalue;
-                }
-            }
-
-            $data = $this->convert('csv', $csv_fields, $data_arr);
-
-        }
-
-        return $this->setStatusCode(200)->respondWithData($data);
     }
 
 
@@ -361,7 +274,7 @@ class TerrariumController extends ApiController
                 $a->save();
             }
         }
-        else {
+        elseif ($request->exists('valves')) {
             $valves = Valve::where('terrarium_id', $terrarium->id)->get();
             foreach ($valves as $a) {
                 $a->terrarium_id = null;
@@ -410,7 +323,7 @@ class TerrariumController extends ApiController
                 $a->save();
             }
         }
-        else {
+        elseif ($request->exists('animals')) {
             $animals = Animal::where('terrarium_id', $terrarium->id)->get();
             foreach ($animals as $a) {
                 $a->terrarium_id = null;
@@ -428,13 +341,9 @@ class TerrariumController extends ApiController
             }
         }
 
-        if ($request->has('name')) {
-            $terrarium->name = $request->input('name');
-        }
-
-        if ($request->has('display_name')) {
-            $terrarium->display_name = $request->input('display_name');
-        }
+        $this->updateModelProperties($terrarium, $request, [
+            'name', 'display_name'
+        ]);
 
         if ($request->has('notifications_enabled')) {
             $terrarium->notifications_enabled = $request->input('notifications_enabled') != 'off';
@@ -456,13 +365,57 @@ class TerrariumController extends ApiController
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function infrastructure(Request $request, $id)
+    public function generateActionSequence(Request $request, $id)
     {
         $terrarium = Terrarium::find($id);
         if (is_null($terrarium)) {
             return $this->respondNotFound('Terrarium not found');
         }
 
+        $runonce = false;
+        if ($request->has('runonce')) {
+            if ($request->input('runonce') == 'On') {
+                $runonce = true;
+            }
+        }
+
+        $action_sequence = $terrarium->generateActionSequenceByTemplate(
+            $request->input('template'),
+            $request->input('duration_minutes'),
+            $runonce
+        );
+
+        if (!$action_sequence) {
+            return $this->setSTatusCode(422)->respondWithError('Could not genereate action sequence');
+        }
+
+        if ($request->has('schedule_now')) {
+            if ($request->get('schedule_now') == 'On') {
+                $starts_at = Carbon::now()->addMinute(1);
+
+                ActionSequenceSchedule::create([
+                    'name' => $action_sequence->name . ' Schedule',
+                    'runonce' => $runonce,
+                    'starts_at' => $starts_at->hour . ':' . $starts_at->minute . ':00',
+                    'action_sequence_id' => $action_sequence->id
+                ]);
+            }
+        }
+
+        return $this->respondWithData([]);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function infrastructure(Request $request, $id)
+    {
+        $terrarium = Terrarium::find($id);
+        if (is_null($terrarium)) {
+            return $this->respondNotFound('Terrarium not found');
+        }
 
         $valves = $this->filter($request, $terrarium->valves()->getQuery())->get();
         foreach ($valves as &$v) {
@@ -485,6 +438,91 @@ class TerrariumController extends ApiController
         $generic_components = (new GenericComponentTransformer())->transformCollection($generic_components->toArray());
 
         return $this->respondWithData(array_merge($valves, $physical_sensors, $generic_components));
+    }
+
+    /**
+     * Returns an array of sensor readings
+     * filtered by type and grouped by
+     * sensor reading group
+     *
+     * @param $id
+     * @param $type
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sensorreadingsByType($id, $type)
+    {
+
+        if (Gate::denies('api-read')) {
+            return $this->respondUnauthorized();
+        }
+
+        $terrarium = Terrarium::with('physical_sensors')->find($id);
+
+        if (!$terrarium) {
+            return $this->respondNotFound('Terrarium not found');
+        }
+
+        $data = $terrarium->getSensorreadingsByType($type);
+
+        return $this->respondWithData($data);
+
+    }
+
+    /**
+     * Returns sensor readings
+     * grouped by sensor reading group
+     *
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function sensorreadings(Request $request, $id)
+    {
+
+        if (Gate::denies('api-read')) {
+            return $this->respondUnauthorized();
+        }
+
+        $terrarium = Terrarium::find($id);
+
+        if (!$terrarium) {
+            return $this->respondNotFound('Terrarium not found');
+        }
+
+        $query = $this->filter($request, Sensorreading::query());
+
+        $sensor_types = ['humidity_percent', 'temperature_celsius'];
+        $data = [];
+
+        foreach ($sensor_types as $st) {
+            $logical_sensor_ids = [];
+            foreach ($terrarium->physical_sensors as $ps) {
+                foreach ($ps->logical_sensors()->where('type', $st)->get() as $ls) {
+                    $logical_sensor_ids[] = $ls->id;
+                }
+            }
+
+            $data[$st] = (new SensorreadingRepository())->getAvgByLogicalSensor(clone $query, $logical_sensor_ids)->get();
+
+        }
+
+        if ($request->has('csv')) {
+            $data_arr = [];
+            $csv_fields = [];
+            $csv_fields['created_at'] = trans('labels.created_at');
+            foreach ($data as $type=>$values) {
+                $csv_fields[$type] = trans('labels.' . $type);
+                foreach ($values as $reading) {
+                    $data_arr[$reading->sensorreadinggroup_id]['created_at'] = $reading->created_at;
+                    $data_arr[$reading->sensorreadinggroup_id][$type] = $reading->avg_rawvalue;
+                }
+            }
+
+            $data = $this->convert('csv', $csv_fields, $data_arr);
+
+        }
+
+        return $this->setStatusCode(200)->respondWithData($data);
     }
 
 }

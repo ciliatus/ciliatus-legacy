@@ -12,7 +12,7 @@ class ActionSequenceIntentionRepository extends Repository {
 
     /**
      * ActionSequenceIntentionRepository constructor.
-     * @param null $scope
+     * @param ActionSequenceIntention|null $scope
      */
     public function __construct(ActionSequenceIntention $scope = null)
     {

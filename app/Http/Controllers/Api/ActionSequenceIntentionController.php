@@ -202,21 +202,10 @@ class ActionSequenceIntentionController extends ApiController
             }
         }
 
-        if ($request->has('name')) {
-            $intention->name = $request->input('name');
-        }
-
-        if ($request->has('action_sequence')) {
-            $intention->action_sequence_id = $request->input('action_sequence');
-        }
-
-        if ($request->has('type')) {
-            $intention->type = $request->input('type');
-        }
-
-        if ($request->has('intention')) {
-            $intention->intention = $request->input('intention');
-        }
+        $this->updateModelProperties($intention, $request, [
+            'name', 'action_sequence_id' => 'action_sequence', 'type',
+            'intention', 'minimum_timeout_minutes'
+        ]);
 
         if ($request->has('minimum_timeout_minutes')) {
             $intention->minimum_timeout_minutes = $request->input('minimum_timeout_minutes');

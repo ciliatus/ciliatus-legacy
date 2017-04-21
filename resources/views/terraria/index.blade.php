@@ -13,7 +13,7 @@
 
     <div id="tab_dashboard" class="col s12">
         <div class="container">
-            <terraria-widget :refresh-timeout-seconds="60" source-filter="history_minutes=0"
+            <terraria-widget :refresh-timeout-seconds="60" source-filter="default_history_minutes=true"
                              container-classes="row" wrapper-classes="col s12 m6 l4"></terraria-widget>
         </div>
     </div>

@@ -1,7 +1,14 @@
 <?php
 use Illuminate\Support\Facades\Broadcast;
 
-
+/*
+ * Analytics mode e.g. for Google Insight
+ */
+/*
+if (Request::exists('insight_login') && Auth::guest()) {
+    Auth::login(App\User::find('c4b9ebb0-25bc-11e7-aeff-11625e673cb4'));
+}
+*/
 
 /*
  * Web
@@ -242,6 +249,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1', 'middleware' => ['auth
      */
     Route::resource('terraria', 'TerrariumController');
     Route::get('terraria/{id}/infrastructure', 'TerrariumController@infrastructure');
+    Route::post('terraria/{id}/action_sequence', 'TerrariumController@generateActionSequence');
 
     // Sensorreadings
     Route::get('terraria/{id}/sensorreadings', 'TerrariumController@sensorreadings');

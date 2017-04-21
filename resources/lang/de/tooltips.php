@@ -40,5 +40,12 @@ return [
     'emergency_stop'    =>  'Hält sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.',
     'emergency_resume'  =>  'Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.',
     'leave_empty_for_auto'=>'Frei lassen für automatisch',
-    'intention_increase_decrease'=>'Definiert ob die Intention dieser Aktionssequenz das Erhöhen oder Senken des Sensorwerts ist.'
+    'intention_increase_decrease'=>'Definiert ob die Intention dieser Aktionssequenz das Erhöhen oder Senken des Sensorwerts ist.',
+    'suggestions_unit'  =>  'Mindestanzahl von Kritischen Zuständen innerhalb des Zeitrahmens, bevor ein Vorschlag generiert werden soll.',
+    'suggestion_timeframe_unit' => 'Zeitrahmen der zur Analyse herangezogen werden soll (Einheit)',
+    'suggestions_timeframe' => 'Zeitrahmen der zur Analyse herangezogen werden soll (Wert)',
+    'show_suggestions'  =>  'Vorschläge anzeigen',
+    'bus_type_edit_form'=>  'Ermöglicht Ciliatus das automatische Generieren von Kontroleinheitskonfigurationen.',
+    'gpio_default_high' =>  'GPIO Pin wird im Betrieb auf High gezogen. Zum aktivieren der Komponente auf Low.',
+    'adjust_rawvalue'   =>  'Beim Empfangen eines Werts durch diesen Sensor kann der Wert korrigiert werden.'
 ];
