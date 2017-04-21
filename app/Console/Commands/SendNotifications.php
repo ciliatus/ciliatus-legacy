@@ -75,6 +75,19 @@ class SendNotifications extends Command
                         $text .= PHP_EOL . $weighings_due;
                     }
 
+                    foreach ($u->tokens()->where('revoked', false)->get() as $token) {
+
+                        if (Carbon::now()->addDays(7)->gt($token->expires_at) &&
+                            Carbon::now()->lt($token->expires_at)) {
+
+                            $text .= trans('messages.own_token_expires', [
+                                'name' => $token->name, 'days' => Carbon::now()->diffInDays($token->expires_at)
+                            ], $u->locale);
+
+                        }
+
+                    }
+
                     $u->message($text);
                 }
 
