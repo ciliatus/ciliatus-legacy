@@ -30,16 +30,16 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('ciliatus:critical_states:evaluate')
-                 ->everyMinute();
-
-        $schedule->command('ciliatus:cache:rebuild')
-                 ->everyFiveMinutes();
+        $schedule->command('ciliatus:suggestions:generate')
+                 ->weekly();
 
         $schedule->command('ciliatus:notifications:send')
                  ->dailyAt(env('SCHEDULED_NOTIFICATION_SEND_TIME', '09:00:00'));
 
-        $schedule->command('ciliatus:suggestions:generate')
-                 ->weekly();
+        $schedule->command('ciliatus:critical_states:evaluate')
+                 ->everyMinute();
+
+        $schedule->command('ciliatus:cache:rebuild')
+                 ->everyMinute();
     }
 }
