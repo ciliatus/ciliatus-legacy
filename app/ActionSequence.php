@@ -27,6 +27,18 @@ class ActionSequence extends CiliatusModel
     public $incrementing = false;
 
     /**
+     * @var array
+     */
+    protected $fillable = ['name', 'terrarium_id', 'duration_minutes'];
+
+    /**
+     * @var array
+     */
+    protected $casts = [
+        'runonce' => 'boolean'
+    ];
+
+    /**
      *
      */
     public function delete()
@@ -45,6 +57,14 @@ class ActionSequence extends CiliatusModel
         }
 
         parent::delete();
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'ActionSequence');
     }
 
     /**
@@ -145,15 +165,16 @@ class ActionSequence extends CiliatusModel
      * E.g. the irrigation template activates associated valves and pumps.
      *
      * @param $template
+     * @return boolean
      */
-    public function generateActionByTemplate($template)
+    public function generateActionsByTemplate($template)
     {
         switch ($template) {
 
             case self::TEMPLATE_IRRIGATION:
 
-                if (!$this->valves->count() > 0)
-                    break;
+                if (!$this->terrarium->valves->count() > 0)
+                    return false;
 
                 foreach ($this->terrarium->valves as $valve) {
                     $action = $valve->generateActionForSequence($this->duration_minutes, 'running', $this);
@@ -165,7 +186,7 @@ class ActionSequence extends CiliatusModel
                     }
                 }
 
-                break;
+                return true;
 
             case self::TEMPLATE_VENTILATE:
 
@@ -175,9 +196,7 @@ class ActionSequence extends CiliatusModel
                     $this->terrarium->generic_components()->getQuery()
                 );
 
-                $this->generateActionsForComponentsAndAppend($generic_components);
-
-                break;
+                return $this->generateActionsForComponentsAndAppend($generic_components);
 
             case self::TEMPLATE_HEAT_UP:
 
@@ -187,9 +206,7 @@ class ActionSequence extends CiliatusModel
                     $this->terrarium->generic_components()->getQuery()
                 );
 
-                $this->generateActionsForComponentsAndAppend($generic_components);
-
-                break;
+                return $this->generateActionsForComponentsAndAppend($generic_components);
 
             case self::TEMPLATE_COOL_DOWN:
 
@@ -199,9 +216,11 @@ class ActionSequence extends CiliatusModel
                     $this->terrarium->generic_components()->getQuery()
                 );
 
-                $this->generateActionsForComponentsAndAppend($generic_components);
+                return $this->generateActionsForComponentsAndAppend($generic_components);
 
-                break;
+            default:
+
+                return false;
         }
     }
 
@@ -210,9 +229,14 @@ class ActionSequence extends CiliatusModel
      * and appends them to the sequence.
      *
      * @param $components
+     * @return boolean
      */
     public function generateActionsForComponentsAndAppend($components)
     {
+        if ($components->count() < 1) {
+            return false;
+        }
+
         foreach ($components as $component) {
             $this->appendAction(
                 $component->generateActionForSequence(
@@ -223,6 +247,8 @@ class ActionSequence extends CiliatusModel
                 false
             );
         }
+
+        return true;
     }
 
     /**

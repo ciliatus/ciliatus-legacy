@@ -199,6 +199,12 @@ class GenericComponentController extends ApiController
             $component_property->save();
         }
 
+        $this->updateExternalProperties($component, $request, [
+            'ControlunitConnectivity' => [
+                'bus_type', 'i2c_address', 'i2c_multiplexer_address', 'i2c_multiplexer_port', 'gpio_pin'
+            ]
+        ]);
+
         $component->save();
 
         return $this->setStatusCode(200)->respondWithData([], [

@@ -4,6 +4,7 @@ namespace App\Repositories;
 
 use App\ActionSequence;
 use App\Http\Transformers\ActionSequenceScheduleTransformer;
+use App\LogicalSensor;
 use App\Terrarium;
 use Cache;
 use Carbon\Carbon;
@@ -20,7 +21,7 @@ class TerrariumRepository extends Repository
 
     /**
      * TerrariumRepository constructor.
-     * @param null $scope
+     * @param Terrarium $scope
      */
     public function __construct(Terrarium $scope = null)
     {
@@ -30,46 +31,25 @@ class TerrariumRepository extends Repository
     }
 
     /**
-     * @param null $history_to
+     * @param Carbon $history_to
      * @param null $history_minutes
      * @return Terrarium
      */
-    public function show($history_to = null, $history_minutes = null)
+    public function show(Carbon $history_to = null, $history_minutes = null)
     {
         $terrarium = $this->scope;
 
-        if (is_null($history_to))
-            $history_to = Carbon::now();
-
-        if (is_null($history_minutes))
-            $history_minutes = 0;
-
         if ($history_minutes != 0) {
-            /*
-             * load temperature values and convert them to an array seperated by commata
-             */
-            $temperature_values = array_column($terrarium->getSensorReadingsTemperature($history_minutes, $history_to)->toArray(), 'avg_rawvalue');
-            $terrarium->temperature_history = implode(',',
-                array_map(
-                    function($val) {
-                        return round($val, 1);
-                    },
-                    $temperature_values
-                )
-            );
-
-            /*
-             * load humidity values and convert them to an array seperated by commata
-             */
-            $humidity_values = array_column($terrarium->getSensorReadingsHumidity($history_minutes, $history_to)->toArray(), 'avg_rawvalue');
-            $terrarium->humidity_history = implode(',',
-                array_map(
-                    function($val) {
-                        return round($val, 1);
-                    },
-                    $humidity_values
-                )
-            );
+            foreach (LogicalSensor::types() as $type) {
+                $field = $type . '_history';
+                $readings = $terrarium->getSensorreadingsByType($type, false, $history_to, $history_minutes);
+                if ($readings->count() > 0) {
+                    $terrarium->$field = array_column(
+                        $readings->toArray(),
+                        'avg_rawvalue'
+                    );
+                }
+            }
         }
 
         /*
@@ -78,7 +58,7 @@ class TerrariumRepository extends Repository
         $files = $terrarium->files()->with('properties')->get();
         $terrarium->default_background_filepath = null;
         foreach ($files as $f) {
-            if ($f->property('is_default_background') == true) {
+            if ($f->property('generic', 'is_default_background', true) == true) {
                 if (!is_null($f->thumb())) {
                     $terrarium->default_background_filepath = $f->thumb()->path_external();
                 }
@@ -93,7 +73,7 @@ class TerrariumRepository extends Repository
         if (is_null($terrarium->default_background_filepath)) {
             foreach ($terrarium->animals as $a) {
                 foreach ($a->files as $f) {
-                    if ($f->property('is_default_background') == true) {
+                    if ($f->property('generic', 'is_default_background', true) == true) {
                         if (!is_null($f->thumb())) {
                             $terrarium->default_background_filepath = $f->thumb()->path_external();
                         }

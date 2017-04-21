@@ -168,7 +168,7 @@ class FileController extends ApiController
 
 
         if ($request->has('use_as_background') && $request->input('use_as_background') == 'On') {
-            if (is_null($file->property('is_default_background'))) {
+            if (is_null($file->property('generic', 'is_default_background'))) {
                 $p = Property::create();
                 $p->belongsTo_type = 'File';
                 $p->belongsTo_id = $file->id;
@@ -203,14 +203,14 @@ class FileController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         if (Gate::denies('api-write:file')) {
             return $this->respondUnauthorized();
         }
 
-        $file = File::find($request->input('id'));
+        $file = File::find($id);
         if (is_null($file)) {
             return $this->respondNotFound('File not found');
         }
@@ -238,7 +238,7 @@ class FileController extends ApiController
         }
 
         if ($request->has('use_as_background')) {
-            if (is_null($file->property('is_default_background'))) {
+            if (is_null($file->property('generic', 'is_default_background'))) {
                 $p = Property::create();
                 $p->belongsTo_type = 'File';
                 $p->belongsTo_id = $file->id;

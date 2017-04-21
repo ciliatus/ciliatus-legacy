@@ -209,8 +209,10 @@ class AnimalFeedingScheduleController extends ApiController
             return $this->respondNotFound();
         }
 
-        $afs->name = $request->input('meal_type');
-        $afs->value = $request->input('interval_days');
+        $this->updateModelProperties($afs, $request,  [
+            'name' => 'meal_type', 'value' => 'interval_days'
+        ]);
+
         $afs->save();
 
         broadcast(new AnimalFeedingScheduleUpdated($afs));

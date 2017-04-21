@@ -46,6 +46,14 @@ class Action extends CiliatusModel
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'Action');
+    }
+
+    /**
      * @return null
      */
     public function target_object()

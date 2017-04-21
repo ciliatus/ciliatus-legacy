@@ -53,6 +53,8 @@ class LogicalSensorTransformer extends Transformer
             $return['current_threshold_id'] = $item['current_threshold_id'];
         }
 
+        $return = $this->addCiliatusSpecificFields($return, $item);
+
         return $return;
     }
 }

@@ -157,46 +157,38 @@ class PhysicalSensorController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         if (Gate::denies('api-write:physical_sensor')) {
             return $this->respondUnauthorized();
         }
 
-        $physical_sensor = PhysicalSensor::find($request->input('id'));
+        $physical_sensor = PhysicalSensor::find($id);
         if (is_null($physical_sensor)) {
             return $this->respondNotFound('PhysicalSensor not found');
         }
 
-        if ($request->has('controlunit') && strlen($request->input('controlunit')) > 0) {
+        if ($request->has('controlunit')) {
             $controlunit = Controlunit::find($request->input('controlunit'));
             if (is_null($controlunit)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');
             }
-            $controlunit_id = $controlunit->id;
-        }
-        else {
-            $controlunit_id = null;
         }
 
-        if ($request->has('name')) {
-            $physical_sensor->name = $request->input('name');
-        }
+        $this->updateModelProperties($physical_sensor, $request, [
+            'name', 'model', 'controlunit_id' => 'controlunit'
+        ]);
 
-        if ($request->has('model')) {
-            $physical_sensor->model = $request->input('model');
-        }
+        $this->updateExternalProperties($physical_sensor, $request, [
+            'ControlunitConnectivity' => [
+                'bus_type', 'i2c_address', 'i2c_multiplexer_address', 'i2c_multiplexer_port', 'gpio_pin'
+            ]
+        ]);
 
         if ($request->has('terrarium')) {
             $physical_sensor->belongsTo_type = 'terrarium';
         }
-
-        if ($request->has('controlunit')) {
-            $physical_sensor->controlunit_id = $controlunit_id;
-        }
-
-
 
         $physical_sensor = $this->addBelongsTo($request, $physical_sensor);
 

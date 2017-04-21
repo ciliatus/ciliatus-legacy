@@ -63,6 +63,14 @@ class Pump extends CiliatusModel
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'Pump');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function controlunit()
@@ -84,7 +92,22 @@ class Pump extends CiliatusModel
     public function generateConfig()
     {
         $name = preg_replace('/[^a-zA-Z0-9_]|[\s]/', '', $this->name);
-        $config = "[pump_{$name}]\nid = {$this->id}\npin =\nname = {$this->name}\n";
+        $config = "[pump_{$name}]\nid = {$this->id}\nname = {$this->name}\n";
+
+        if ($this->property('ControlunitConnectivity', 'bus_type', true) == 'gpio') {
+            $config .= "pin = {$this->property('ControlunitConnectivity', 'gpio_pin', true)}\n";
+            if (!is_null($this->property('ControlunitConnectivity', 'gpio_default_high', true)) &&
+                $this->property('ControlunitConnectivity', 'gpio_default_high', true)) {
+                $config .= "default_high = True\n";
+            }
+        }
+        elseif ($this->property('ControlunitConnectivity', 'bus_type', true) == 'i2c') {
+            $config .= "i2c_address = {$this->property('ControlunitConnectivity', 'i2c_address', true)}\n";
+            if (!is_null($this->property('ControlunitConnectivity', 'i2c_multiplexer_address', true, true))) {
+                $config .= "i2c_multiplexer_address = {$this->property('ControlunitConnectivity', 'i2c_multiplexer_address', true)}\n";
+                $config .= "i2c_multiplexer_port = {$this->property('ControlunitConnectivity', 'i2c_multiplexer_port', true)}\n";
+            }
+        }
 
         return $config;
     }

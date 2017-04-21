@@ -59,12 +59,18 @@ class TerrariumTransformer extends Transformer
             $return['action_sequences'] = $actionSequenceTransformer->transformCollection($item['action_sequences']);
         }
 
-        if (isset($item['temperature_history'])) {
-            $return['temperature_history'] = $item['temperature_history'];
+        if (isset($item['temperature_celsius_history'])) {
+            $return['temperature_history'] = $item['temperature_celsius_history'];
+        }
+        else {
+            $return['temperature_history'] = [];
         }
 
-        if (isset($item['humidity_history'])) {
-            $return['humidity_history'] = $item['humidity_history'];
+        if (isset($item['humidity_percent_history'])) {
+            $return['humidity_history'] = $item['humidity_percent_history'];
+        }
+        else {
+            $return['humidity_history'] = [];
         }
 
         if (isset($item['default_background_filepath'])) {

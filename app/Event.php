@@ -73,15 +73,6 @@ class Event extends CiliatusModel
     }
 
     /**
-     * @param $name
-     * @return Property|null
-     */
-    public function property($name)
-    {
-        return $this->properties()->where('name', $name)->limit(1)->get()->first();
-    }
-
-    /**
      * @param $type
      * @return mixed
      */

@@ -70,6 +70,14 @@ class ActionSequenceIntention extends CiliatusModel
     }
 
     /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'ActionSequenceIntention');
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function sequence()
@@ -306,6 +314,10 @@ class ActionSequenceIntention extends CiliatusModel
     {
         $ls = $cs->belongsTo_object();
         if (!is_a($ls, 'App\LogicalSensor')) {
+            return false;
+        }
+
+        if (is_null($ls->physical_sensor)) {
             return false;
         }
 

@@ -211,41 +211,24 @@ class ActionSequenceTriggerController extends ApiController
             }
         }
 
-        if ($request->has('name')) {
-            $trigger->name = $request->input('name');
-        }
-
-        if ($request->has('action_sequence')) {
-            $trigger->action_sequence_id = $request->input('action_sequence');
-        }
-
-
         if ($request->has('logical_sensor')) {
             $ls = LogicalSensor::find($request->input('logical_sensor'));
             if (is_null($ls)) {
                 return $this->setStatusCode(422)->respondWithError('LogicalSensor not found');
             }
-            $trigger->logical_sensor_id = $ls->id;
         }
 
         if ($request->has('reference_value_comparison_type')) {
             if (!in_array($request->input('reference_value_comparison_type'), ['equal', 'lesser', 'greater'])) {
                 return $this->setStatusCode(422)->respondWithError('Unknown reference value comparison type');
             }
-            $trigger->reference_value_comparison_type = $request->input('reference_value_comparison_type');
         }
 
-        if ($request->has('reference_value')) {
-            $trigger->reference_value = $request->input('reference_value');
-        }
-
-        if ($request->has('minimum_timeout_minutes')) {
-            $trigger->minimum_timeout_minutes = $request->input('minimum_timeout_minutes');
-        }
-
-        if ($request->has('reference_value_duration_threshold_minutes')) {
-            $trigger->reference_value_duration_threshold_minutes = $request->input('reference_value_duration_threshold_minutes');
-        }
+        $this->updateModelProperties($trigger, $request, [
+            'name', 'action_sequence_id' => 'action_sequence', 'logical_sensor_id' => 'logical_sensor',
+            'reference_value_comparison_type', 'reference_value', 'minimum_timeout_minutes',
+            'reference_value_duration_threshold_minutes'
+        ]);
 
         if ($request->has('timeframe_start')) {
             $trigger->timeframe_start = Carbon::parse($request->input('timeframe_start'))->format('H:i:s');

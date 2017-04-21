@@ -157,14 +157,14 @@ class ValveController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         if (Gate::denies('api-write:valve')) {
             return $this->respondUnauthorized();
         }
 
-        $valve = Valve::find($request->input('id'));
+        $valve = Valve::find($id);
         if (is_null($valve)) {
             return $this->respondNotFound('Valve not found');
         }
@@ -174,10 +174,6 @@ class ValveController extends ApiController
             if (is_null($pump)) {
                 return $this->setStatusCode(422)->respondWithError('Pump not found');
             }
-            $pump_id = $pump->id;
-        }
-        else {
-            $pump_id = null;
         }
 
         if ($request->has('terrarium') && strlen($request->input('terrarium')) > 0) {
@@ -185,10 +181,6 @@ class ValveController extends ApiController
             if (is_null($terrarium)) {
                 return $this->setStatusCode(422)->respondWithError('Terrarium not found');
             }
-            $terrarium_id = $terrarium->id;
-        }
-        else {
-            $terrarium_id = null;
         }
 
         if ($request->has('controlunit') && strlen($request->input('controlunit')) > 0) {
@@ -196,17 +188,17 @@ class ValveController extends ApiController
             if (is_null($controlunit)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');
             }
-            $controlunit_id = $controlunit->id;
-        }
-        else {
-            $controlunit_id = null;
         }
 
-        $valve->name = $request->input('name');
-        $valve->pump_id = $pump_id;
-        $valve->terrarium_id = $terrarium_id;
-        $valve->controlunit_id = $controlunit_id;
+        $this->updateModelProperties($valve, $request, [
+            'name', 'pump_id' => 'pump', 'terrarium_id' => 'terrarium', 'controlunit_id' => 'controlunit'
+        ]);
 
+        $this->updateExternalProperties($valve, $request, [
+            'ControlunitConnectivity' => [
+                'bus_type', 'i2c_address', 'i2c_multiplexer_address', 'i2c_multiplexer_port', 'gpio_pin', 'gpio_default_high'
+            ]
+        ]);
         $valve->save();
 
         return $this->setStatusCode(200)->respondWithData([], [

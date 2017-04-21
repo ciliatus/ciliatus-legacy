@@ -7,6 +7,8 @@ use App\Http\Transformers\LogicalSensorTransformer;
 use App\LogicalSensor;
 use App\LogicalSensorThreshold;
 use App\PhysicalSensor;
+use App\Repositories\GenericRepository;
+use App\Repositories\LogicalSensorRepository;
 use Cache;
 use Gate;
 use Illuminate\Http\Request;
@@ -55,9 +57,8 @@ class LogicalSensorController extends ApiController
          */
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
             $logical_sensors = $logical_sensors->get();
-
             foreach ($logical_sensors as &$ls) {
-                $ls->current_threshold_id = is_null($ls->current_threshold()) ? null : $ls->current_threshold()->id;
+                $ls = (new LogicalSensorRepository($ls))->show();
             }
 
             return $this->setStatusCode(200)->respondWithData(
@@ -71,7 +72,7 @@ class LogicalSensorController extends ApiController
         $logical_sensors = $logical_sensors->paginate(env('PAGINATION_PER_PAGE', 20));
 
         foreach ($logical_sensors->items() as &$ls) {
-            $ls->current_threshold_id = is_null($ls->current_threshold()) ? null : $ls->current_threshold()->id;
+            $ls = (new LogicalSensorRepository($ls))->show();
         }
 
         return $this->setStatusCode(200)->respondWithPagination(
@@ -101,6 +102,8 @@ class LogicalSensorController extends ApiController
         if (!$logical_sensor) {
             return $this->respondNotFound('LogicalSensor not found');
         }
+
+        $logical_sensor = (new LogicalSensorRepository($logical_sensor))->show();
 
         return $this->respondWithData(
             $this->logicalSensorTransformer->transform(
@@ -153,6 +156,13 @@ class LogicalSensorController extends ApiController
 
         $logical_sensor = LogicalSensor::create();
         $logical_sensor->name = $request->input('name');
+        if ($request->has('physical_sensor') && strlen($request->input('physical_sensor')) > 0) {
+            $physical_sensor = PhysicalSensor::find($request->input('physical_sensor'));
+            if (is_null($physical_sensor)) {
+                return $this->setStatusCode(422)->respondWithError('Controlunit not found');
+            }
+            $logical_sensor->physical_sensor_id = $physical_sensor->id;
+        }
         $logical_sensor->save();
 
         return $this->setStatusCode(200)->respondWithData(
@@ -172,44 +182,35 @@ class LogicalSensorController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         if (Gate::denies('api-write:logical_sensor')) {
             return $this->respondUnauthorized();
         }
 
-        $logical_sensor = LogicalSensor::find($request->input('id'));
+        $logical_sensor = LogicalSensor::find($id);
         if (is_null($logical_sensor)) {
             return $this->respondNotFound('LogicalSensor not found');
         }
 
-        if ($request->has('physical_sensor') && strlen($request->input('physical_sensor')) > 0) {
+        if ($request->has('physical_sensor')) {
             $physical_sensor = PhysicalSensor::find($request->input('physical_sensor'));
             if (is_null($physical_sensor)) {
-                return $this->setStatusCode(422)->respondWithError('Controlunit not found');
+                return $this->setStatusCode(422)->respondWithError('PhysicalSensor not found');
             }
-            $physical_sensor_id = $physical_sensor->id;
-        }
-        else {
-            $physical_sensor_id = null;
         }
 
-        if ($request->has('name')) {
-            $logical_sensor->name = $request->input('name');
-        }
+        $this->updateModelProperties($logical_sensor, $request, [
+            'physical_sensor_id' => 'physical_sensor', 'name', 'type',
+            'rawvalue_lowerlimit', 'rawvalue_upperlimit'
+        ]);
 
-        if ($request->has('lowerlimit')) {
-            $logical_sensor->rawvalue_lowerlimit = $request->input('lowerlimit');
-        }
-
-        if ($request->has('upperlimit')) {
-            $logical_sensor->rawvalue_upperlimit = $request->input('upperlimit');
-        }
-
-        if ($request->has('physical_sensor')) {
-            $logical_sensor->physical_sensor_id = $physical_sensor_id;
-        }
+        $this->updateExternalProperties($logical_sensor, $request, [
+            'LogicalSensorAccuracy' => [
+                'adjust_rawvalue'
+            ]
+        ]);
 
         $logical_sensor->save();
 

@@ -195,11 +195,14 @@ class BiographyEntryController extends ApiController
             return $this->setStatusCode(422)->respondWithError('Category not found');
         }
 
-        $e->name = $request->input('title');
-        $e->value = nl2br($request->input('text'));
+        $this->updateModelProperties($e, $request, [
+            'name' => 'title', 'value' => 'text'
+        ]);
         $e->save();
 
-        $cat->name = $request->input('category');
+        $this->updateModelProperties($cat, $request, [
+            'name' => 'category'
+        ]);
         $cat->save();
 
         broadcast(new BiographyEntryUpdated($e));

@@ -6,15 +6,15 @@ use App\CiliatusModel;
 
 
 /**
- * Class GenericRepository
+ * Class LogicalSensorRepository
  * @package App\Repositories
  */
-class GenericRepository extends Repository
+class LogicalSensorRepository extends Repository
 {
 
 
     /**
-     * GenericRepository constructor.
+     * LogicalSensorRepository constructor.
      * @param CiliatusModel|null $scope
      */
     public function __construct(CiliatusModel $scope = null)
@@ -33,6 +33,7 @@ class GenericRepository extends Repository
 
         if (!is_null($model)) {
             $this->addCiliatusSpecificFields();
+            $model->current_threshold_id = is_null($model->current_threshold()) ? null : $model->current_threshold()->id;
         }
 
         return $model;

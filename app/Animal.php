@@ -418,7 +418,7 @@ class Animal extends CiliatusModel
     {
         $files = $this->files()->with('properties')->get();
         foreach ($files as $f) {
-            if ($f->property('is_default_background') == true) {
+            if ($f->property('generic', 'is_default_background', true) == true) {
                 if (!is_null($f->thumb())) {
                     return $f->thumb()->path_external();
                 }

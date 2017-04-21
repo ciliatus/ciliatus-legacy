@@ -162,72 +162,51 @@ class AnimalController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         if (Gate::denies('api-write:animal')) {
             return $this->respondUnauthorized();
         }
 
-        $animal = Animal::find($request->input('id'));
+        $animal = Animal::find($id);
         if (is_null($animal)) {
             return $this->setStatusCode(404)->respondWithError('Animal not found');
         }
 
-        if ($request->has('terrarium') && strlen($request->input('terrarium')) > 0) {
+        $terrarium = null;
+        if ($request->has('terrarium')) {
             $terrarium = Terrarium::find($request->input('terrarium'));
             if (is_null($terrarium)) {
                 return $this->setStatusCode(422)->respondWithError('Terrarium not found');
             }
         }
-        else {
-            $terrarium = null;
-        }
 
-        $old_terrarium = $animal->terrarium;
-        if (!is_null($terrarium)) {
-            $animal->terrarium_id = $terrarium->id;
-        }
-        else {
-            $animal->terrarium_id = null;
-        }
-
-        $animal->display_name = $request->input('displayname');
-        $animal->common_name = $request->input('commonname');
-        $animal->lat_name = $request->input('latinname');
-        $animal->gender = $request->input('gender');
-
-
-        if ($request->has('birthdate') && strlen($request->input('birthdate')) > 0) {
+        if ($request->has('birthdate')) {
             try {
-                $animal->birth_date = Carbon::parse($request->input('birthdate'));
+                Carbon::parse($request->input('birthdate'));
             }
             catch (\Exception $ex) {
                 return $this->setStatusCode(422)->respondWithError('Cannot parse date of birth');
             }
         }
-        else {
-            $animal->birth_date = null;
-        }
 
-        if ($request->has('deathdate') && strlen($request->input('deathdate')) > 0) {
+        if ($request->has('deathdate')) {
             try {
-                $animal->death_date = Carbon::parse($request->input('deathdate'));
+                Carbon::parse($request->input('deathdate'));
             }
             catch (\Exception $ex) {
                 return $this->setStatusCode(422)->respondWithError('Cannot parse date of death');
             }
         }
-        else {
-            $animal->death_date = null;
-        }
+
+        $this->updateModelProperties($animal, $request, [
+            'display_name' => 'displayname', 'common_name' => 'commonname', 'lat_name' => 'latinname',
+            'gender', 'terrarium_id' => 'terrarium', 'birth_date' => 'birthdate', 'death_date' => 'deathdate'
+        ]);
 
         $animal->save();
 
-        // trigger TerrariumUpdated events
-        if (!is_null($old_terrarium)) {
-            $old_terrarium->save();
-        }
         if (!is_null($terrarium)) {
             $terrarium->save();
         }

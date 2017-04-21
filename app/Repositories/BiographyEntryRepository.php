@@ -29,8 +29,7 @@ class BiographyEntryRepository extends Repository {
     {
         $biography_entry = $this->scope;
 
-        $category = Property::where('belongsTo_type', 'Event')->where('belongsTo_id', $biography_entry->id)
-                            ->where('type', 'BiographyEntryCategory')->get()->first();
+        $category = $biography_entry->properties()->where('type', 'BiographyEntryCategory')->get()->first();
         if (!is_null($category)) {
             $type = Property::where('type', 'BiographyEntryCategoryType')->where('name', $category->name)->get()->first();
             if (!is_null($type)) {

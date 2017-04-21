@@ -169,8 +169,9 @@ class PropertyController extends ApiController
             return $this->respondNotFound('Property not found');
         }
 
-        $property->name = $request->input('property_name');
-
+        $this->updateModelProperties($property, $request, [
+            'name' => 'property_name'
+        ]);
         $property->save();
 
         return $this->setStatusCode(200)->respondWithData([], [

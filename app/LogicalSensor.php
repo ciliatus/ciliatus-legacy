@@ -28,6 +28,9 @@ class LogicalSensor extends CiliatusModel
      */
     public function delete()
     {
+        $this->thresholds()->delete();
+        $this->properties()->delete();
+
         broadcast(new LogicalSensorDeleted($this->id));
 
         parent::delete();
@@ -47,6 +50,14 @@ class LogicalSensor extends CiliatusModel
         }
 
         return $result;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'LogicalSensor');
     }
 
     /**
@@ -79,6 +90,20 @@ class LogicalSensor extends CiliatusModel
     public function thresholds()
     {
         return $this->hasMany('App\LogicalSensorThreshold');
+    }
+
+    /**
+     * Adjust rawvalue if LogicalSensorAccuracy::adjust_rawvalue property is set
+     *
+     * @param $value
+     */
+    public function setRawvalueAttribute($value)
+    {
+        $adjustment = $this->property('LogicalSensorAccuracy', 'adjust_rawvalue', true);
+        if (!is_null($adjustment)) {
+            $value = $value + (int)$adjustment;
+        }
+        $this->attributes['rawvalue'] = $value;
     }
 
     /**

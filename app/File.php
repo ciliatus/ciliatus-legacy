@@ -232,21 +232,6 @@ class File extends CiliatusModel
     }
 
     /**
-     * @param $name
-     * @return null
-     */
-    public function property($name)
-    {
-        foreach ($this->properties as $p) {
-            if ($p->name == $name) {
-                return $p->value;
-            }
-        }
-
-        return null;
-    }
-
-    /**
      * @return null
      */
     public function belongs_to()

@@ -166,25 +166,33 @@ class LogicalSensorThresholdController extends ApiController
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         if (Gate::denies('api-write:logical_sensor_threshold')) {
             return $this->respondUnauthorized();
         }
 
-        $logical_sensor_threshold = LogicalSensorThreshold::find($request->input('id'));
+        $logical_sensor_threshold = LogicalSensorThreshold::find($id);
         if (is_null($logical_sensor_threshold)) {
             return $this->respondNotFound('LogicalSensorThreshold not found');
         }
 
-        $logical_sensor_threshold->logical_sensor_id = $request->input('logical_sensor');
+        if ($request->has('logical_sensor')) {
+            $logical_sensor = LogicalSensor::find($request->input('logical_sensor'));
+            if (is_null($logical_sensor)) {
+                return $this->setStatusCode(422)->respondWithError('LogicalSensor not found');
+            }
+        }
+
+        $this->updateModelProperties($logical_sensor_threshold, $request, [
+            'logical_sensor_id' => 'logical_sensor',
+            'rawvalue_lowerlimit' => 'lowerlimit',
+            'rawvalue_upperlimit' => 'upperlimit'
+        ]);
         $logical_sensor_threshold = $this->addBelongsTo($request, $logical_sensor_threshold, false);
         $logical_sensor_threshold->starts_at = Carbon::parse($request->input('starts_at'));
-        $logical_sensor_threshold->rawvalue_lowerlimit = strlen($request->input('lowerlimit')) < 1 ? null : $request->input('lowerlimit');
-        $logical_sensor_threshold->rawvalue_upperlimit = strlen($request->input('upperlimit')) < 1 ? null: $request->input('upperlimit');
         $logical_sensor_threshold->active = true;
-
         $logical_sensor_threshold->save();
 
         return $this->setStatusCode(200)->respondWithData([],

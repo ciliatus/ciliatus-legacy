@@ -57,6 +57,14 @@ class Controlunit extends CiliatusModel
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'Controlunit');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
     public function physical_sensors()
     {
         return $this->hasMany('App\PhysicalSensor');
@@ -137,8 +145,11 @@ class Controlunit extends CiliatusModel
         $config.= "id = {$this->id}\n";
         $config.= "name = {$this->name}\n\n";
 
+        $config.= "[i2c]\n";
+        $config.= "bus = {$this->property('ControlunitConnectivity', 'i2c_bus_num', true)}\n\n";
+
         $config.= "[api]\n";
-        $config.= "uri = https://ciliatushost/api/v1\n";
+        $config.= "uri = " . env('APP_URL', 'PLEASE_DEFINE_APP_URL') . "/api/v1\n";
         $config.= "submit_sensorreadings_interval = 180\n";
         $config.= "fetch_desired_states_interval = 10\n";
         $config.= "auth_type = oauth2_personal_token\n\n";

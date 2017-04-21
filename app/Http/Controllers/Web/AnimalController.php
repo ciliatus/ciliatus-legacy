@@ -161,7 +161,7 @@ class AnimalController extends Controller
             return view('errors.404');
         }
 
-        if (!is_null($caresheet->property('terrarium_id'))) {
+        if (!is_null($caresheet->property('AnimalCaresheetProperty', 'terrarium_id'))) {
 
         }
 
@@ -172,7 +172,7 @@ class AnimalController extends Controller
         $feedings = new Collection();
         $i = 0;
         $max_entries = 20;
-        $ids = explode(',', $caresheet->property('feedings')->value);
+        $ids = explode(',', $caresheet->property('AnimalCaresheetProperty', 'feedings')->value);
         foreach ($ids as $f_id) {
             if ($i >= $max_entries) {
                 break;
@@ -191,7 +191,7 @@ class AnimalController extends Controller
         $weighings = new Collection();
         $i = 0;
         $max_entries = 8;
-        $ids = explode(',', $caresheet->property('weighings')->value);
+        $ids = explode(',', $caresheet->property('AnimalCaresheetProperty', 'weighings')->value);
         foreach ($ids as $w_id) {
             if ($i >= $max_entries) {
                 break;
@@ -207,7 +207,7 @@ class AnimalController extends Controller
          * Retrieve biography entries
          */
         $biography_entries = new Collection();
-        $ids = explode(',', $caresheet->property('biography_entries')->value);
+        $ids = explode(',', $caresheet->property('AnimalCaresheetProperty', 'biography_entries')->value);
         foreach ($ids as $e_id) {
             $weighing = $animal->biography_entries()->find($e_id);
             if (!is_null($weighing)) {
