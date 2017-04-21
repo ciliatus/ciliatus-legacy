@@ -80,7 +80,15 @@
                             </td>
 
                             <td class="hide-on-small-only">
-                                 {{ Math.round(logical_sensor.rawvalue, 2) }}
+                                <span>{{ Math.round(logical_sensor.rawvalue, 2) }}</span>
+                                <span v-if="get_accuracy_adjustment(logical_sensor) !== null">
+                                    <span v-if="get_accuracy_adjustment(logical_sensor) > 0">
+                                        <span class="green-text darken-2">(+{{ get_accuracy_adjustment(logical_sensor) }})</span>
+                                    </span>
+                                    <span v-else>
+                                        <span class="red darken-2">({{ get_accuracy_adjustment(logical_sensor) }})</span>
+                                    </span>
+                                </span>
                             </td>
 
                             <td>
@@ -108,8 +116,8 @@
                             </td>
                             <td class="hide-on-med-and-down">
                                 <span v-if="logical_sensor.physical_sensor.terrarium">
-                                    {{ $t('labels.temperature_celsius') }}: {{ logical_sensor.physical_sensor.terrarium.cooked_temperature_celsius }}°C<br />
-                                    {{ $t('labels.humidity_percent') }}: {{ logical_sensor.physical_sensor.terrarium.cooked_humidity_percent }}%
+                                    {{ $tc('components.terraria', 1) }} {{ $t('labels.temperature_celsius') }}: {{ logical_sensor.physical_sensor.terrarium.cooked_temperature_celsius }}°C<br />
+                                    {{ $tc('components.terraria', 1) }} {{ $t('labels.humidity_percent') }}: {{ logical_sensor.physical_sensor.terrarium.cooked_humidity_percent }}%
                                 </span>
                             </td>
                             <td> </td>
@@ -185,6 +193,21 @@ export default {
     },
 
     methods: {
+        get_accuracy_adjustment: function(ls) {
+            if (ls.properties === undefined) {
+                return null;
+            }
+
+            var adjustment = ls.properties.filter(function (el) {
+                return  el.type == 'LogicalSensorAccuracy' &&
+                        el.name == 'adjust_rawvalue' &&
+                        el.value.length > 0;
+            });
+            if (adjustment.length > 0) {
+                return adjustment[0].value;
+            }
+            return null;
+        },
         update: function(ls) {
             var item = null;
             this.logical_sensors.forEach(function(data, index) {
@@ -222,11 +245,14 @@ export default {
                 this.order.field = field;
             }
 
-            this.order_string = '&order[' + this.order.field + ']=' + this.order.direction;
+            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             this.load_data();
         },
         set_filter: function() {
             this.filter_string = '&';
+            if (this.sourceFilter !== '') {
+                this.filter_string += this.sourceFilter + '&';
+            }
             for (var prop in this.filter) {
                 if (this.filter.hasOwnProperty(prop)) {
                     if (this.filter[prop] !== null
@@ -244,10 +270,10 @@ export default {
         },
         load_data: function() {
             window.eventHubVue.processStarted();
-            this.order_string = '&order[' + this.order.field + ']=' + this.order.direction;
+            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/logical_sensors?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
+                url: '/api/v1/logical_sensors?page=' + that.page + that.filter_string + that.order_string,
                 method: 'GET',
                 success: function (data) {
                     that.meta = data.meta;
@@ -273,7 +299,7 @@ export default {
                 this.delete(e);
         });
 
-        this.load_data();
+        this.set_filter();
     }
 }
 </script>

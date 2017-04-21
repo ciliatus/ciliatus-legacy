@@ -88,28 +88,10 @@
                         <tr class="collapsible-body">
                             <td colspan="4">
                                 {{ $t('labels.last_heartbeat') }}:
-                                <!-- @TODO: there has to be a better way to do this -->
-                                <span v-show="physical_sensor.timestamps.last_heartbeat_diff.days > 0"
-                                      class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="physical_sensor.timestamps.last_heartbeat">
-                                        {{ $t('units.days_ago', {val: physical_sensor.timestamps.last_heartbeat_diff.days}) }}
-                                    </span>
-                                <span v-show="physical_sensor.timestamps.last_heartbeat_diff.days < 1 &&
-                                              physical_sensor.timestamps.last_heartbeat_diff.hours > 0"
-                                      class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="physical_sensor.timestamps.last_heartbeat">
-                                        {{ $t('units.hours_ago', {val: physical_sensor.timestamps.last_heartbeat_diff.hours}) }}
-                                    </span>
-                                <span v-show="physical_sensor.timestamps.last_heartbeat_diff.days < 1 &&
-                                              physical_sensor.timestamps.last_heartbeat_diff.hours < 1 &&
-                                              physical_sensor.timestamps.last_heartbeat_diff.minutes > 1"
-                                      class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="physical_sensor.timestamps.last_heartbeat">
-                                        {{ $t('units.minutes_ago', {val: physical_sensor.timestamps.last_heartbeat_diff.minutes}) }}
-                                    </span>
-                                <span v-show="physical_sensor.timestamps.last_heartbeat_diff.days < 1 &&
-                                              physical_sensor.timestamps.last_heartbeat_diff.hours < 1 &&
-                                              physical_sensor.timestamps.last_heartbeat_diff.minutes < 2"
-                                      class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="physical_sensor.timestamps.last_heartbeat">
-                                        {{ $t('units.just_now') }}
-                                    </span>
+                                {{ $t(
+                                    'units.' + $getMatchingTimeDiff(physical_sensor.timestamps.last_heartbeat_diff).unit,
+                                    {val: $getMatchingTimeDiff(physical_sensor.timestamps.last_heartbeat_diff).val}
+                                )}}
                                 <br />
                                 {{ $tc('components.logical_sensors', 2) }}:
                                 <span v-for="(logical_sensor, index) in physical_sensor.logical_sensors">
@@ -232,11 +214,14 @@ export default {
                 this.order.field = field;
             }
 
-            this.order_string = '&order[' + this.order.field + ']=' + this.order.direction;
+            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             this.load_data();
         },
         set_filter: function() {
             this.filter_string = '&';
+            if (this.sourceFilter !== '') {
+                this.filter_string += this.sourceFilter + '&';
+            }
             for (var prop in this.filter) {
                 if (this.filter.hasOwnProperty(prop)) {
                     if (this.filter[prop] !== null
@@ -254,7 +239,7 @@ export default {
         },
         load_data: function() {
             window.eventHubVue.processStarted();
-            this.order_string = '&order[' + this.order.field + ']=' + this.order.direction;
+            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
                 url: '/api/v1/physical_sensors?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
@@ -283,7 +268,7 @@ export default {
                 this.delete(e);
         });
 
-        this.load_data();
+        this.set_filter();
 
         var that = this;
         if (this.refreshTimeoutSeconds !== null) {
