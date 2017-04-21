@@ -12,7 +12,7 @@
             <div class="col s12 m12 l6">
                 <div class="card">
                     <form action="{{ url('api/v1/action_sequence_schedules/' . $action_sequence_schedule->id) }}" data-method="PUT"
-                          data-redirect-success="auto">
+                          >
                         <div class="card-content">
 
                             <span class="card-title activator truncate">
@@ -45,7 +45,8 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input class="timepicker" placeholder="@lang('labels.starts_at')" name="starts_at" value="{{ $action_sequence_schedule->starts_at }}" data-default="{{ $action_sequence_schedule->starts_at }}">
+                                    <input class="timepicker" placeholder="@lang('labels.starts_at')" name="starts_at"
+                                           value="{{ $action_sequence_schedule->starts_at }}" data-default="{{ $action_sequence_schedule->starts_at }}">
                                     <label for="starts_at">@lang('labels.starts_at')</label>
                                 </div>
                             </div>

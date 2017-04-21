@@ -374,10 +374,16 @@
                                 @foreach ($user->tokens()->where('revoked', false)->get() as $token)
                                     <tr>
                                         <td>{{ $token->name }}</td>
-                                        <td>{{ $token->expires_at }}</td>
+                                        <td>
+                                            {{ $token->expires_at }}
+                                            @if (\Carbon\Carbon::now()->addDays(7)->gt($token->expires_at) &&
+                                                 \Carbon\Carbon::now()->lt($token->expires_at))
+                                                <i class="material-icons red-text">warning</i>
+                                            @endif
+                                        </td>
                                         <td>
                                             <form action="/api/v1/users/{{ $user->id }}/personal_access_tokens/{{ $token->id }}" data-method="DELETE"
-                                                  data-redirect-success="auto">
+                                                  >
                                                 <button type="submit" class="btn btn-small red darken-2 white-text">@lang('buttons.revoke')</button>
                                             </form>
                                         </td>

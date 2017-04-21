@@ -44,5 +44,6 @@ return [
     'biography_entries' => 'Biografieeintrag|Biografieeinträge',
     'caresheets' =>   'Begleitblatt|Begleitblätter',
     'generic_components' => 'Generische Komponente|Generische Komponenten',
-    'generic_component_types' => 'Generischer Komponententyp|Generische Komponententypen'
+    'generic_component_types' => 'Generischer Komponententyp|Generische Komponententypen',
+    'suggestions'   =>  'Vorschlag|Vorschläge'
 ];

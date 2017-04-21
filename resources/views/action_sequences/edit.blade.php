@@ -12,7 +12,7 @@
             <div class="col s12 m12 l6">
                 <div class="card">
                     <form action="{{ url('api/v1/action_sequences/' . $action_sequence->id) }}" data-method="PUT"
-                          data-redirect-success="auto">
+                          >
                         <div class="card-content">
 
                             <span class="card-title activator truncate">

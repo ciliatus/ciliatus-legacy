@@ -12,7 +12,7 @@
         <div class="row">
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <form action="{{ url('api/v1/generic_components/' . $generic_component->id) }}" data-method="PUT" data-redirect-success="auto">
+                    <form action="{{ url('api/v1/generic_components/' . $generic_component->id) }}" data-method="PUT" >
 
                         <div class="card-content">
 
@@ -87,6 +87,18 @@
                         </div>
                     </form>
                 </div>
+            </div>
+
+            <div class="col s12 m6 l6">
+                <bus-type-edit-form form-uri="{{ url('api/v1/generic_components/' . $generic_component->id) }}"
+                                    physical-sensor-id="{{ $generic_component->id }}"
+                                    bus-type="{{ $generic_component->property('ControlunitConnectivity', 'bus_type', true) }}"
+                                    gpio-pin="{{ $generic_component->property('ControlunitConnectivity', 'gpio_pin', true) }}"
+                                    :gpio-default-high="{{ ($generic_component->property('ControlunitConnectivity', 'gpio_default_high', true) ? 'true' : 'false') }}"
+                                    i2c-address="{{ $generic_component->property('ControlunitConnectivity', 'i2c_address', true) }}"
+                                    i2c-multiplexer-address="{{ $generic_component->property('ControlunitConnectivity', 'i2c_multiplexer_address', true) }}"
+                                    i2c-multiplexer-port="{{ $generic_component->property('ControlunitConnectivity', 'i2c_multiplexer_port', true) }}">
+                </bus-type-edit-form>
             </div>
         </div>
     </div>

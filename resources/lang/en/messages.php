@@ -30,6 +30,8 @@ return [
         'weighings_due' =>  'Weighings due:'
     ],
 
+    'own_token_expires' => 'Token \':name\' expires in :days days.',
+
     'suggestions' => [
         'humidity_percent' => 'Daily irrigation action sequence at :hour o\'clock.'
     ]

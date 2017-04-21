@@ -18,5 +18,6 @@ return [
     'just_now'  =>  'gerade eben',
     'lesser'    =>  '<',
     'greater'   =>  '>',
-    'equals'    =>  '='
+    'equals'    =>  '=',
+    'no_data'   =>  ''
 ];

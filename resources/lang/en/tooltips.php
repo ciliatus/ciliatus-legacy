@@ -40,5 +40,12 @@ return [
     'emergency_stop'    =>  'Instantly stops all running action sequences and prohibits action sequences from starting.',
     'emergency_resume'  =>  'Revokes the emergency stop and allows action sequences to start.',
     'leave_empty_for_auto'=>'Leave empty for automatic',
-    'intention_increase_decrease'=>'Defines whether the intention of this action sequence is to increase or decrease the sensor\'s readings'
+    'intention_increase_decrease'=>'Defines whether the intention of this action sequence is to increase or decrease the sensor\'s readings',
+    'suggestions_unit'  =>  'Minimum number of critical states within the timeframe before a suggestion should be generated.',
+    'suggestion_timeframe_unit' => 'Timeframe used for analysis (Unit)',
+    'suggestions_timeframe' => 'Timeframe used for analysis (Value)',
+    'show_suggestions'  =>  'Show suggestions',
+    'bus_type_edit_form'=>  'Allows Ciliatus to automatically generate controlunit configurations.',
+    'gpio_default_high' =>  'GPIO Pin will be pulled to high. When activating a component to low.',
+    'adjust_rawvalue'   =>  'When receiving a reading from this sensor you can adjust the raw value.'
 ];

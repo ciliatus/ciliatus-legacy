@@ -11,7 +11,7 @@
         <div class="row">
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <form action="{{ url('api/v1/biography_entries/' . $entry->id) }}" data-method="PUT" data-redirect-success="auto">
+                    <form action="{{ url('api/v1/biography_entries/' . $entry->id) }}" data-method="PUT" >
                         <div class="card-content">
 
                             <div class="row">

@@ -30,6 +30,8 @@ return [
         'weighings_due' =>  'Fällige Wiegungen:'
     ],
 
+    'own_token_expires' => 'Token \':name\' läuft in :days Tagen ab.',
+
     'suggestions' => [
         'humidity_percent' => 'Tägliche Aktionssequenz zum Bewässern um :hour Uhr'
     ]

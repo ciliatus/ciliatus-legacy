@@ -12,7 +12,7 @@
             <div class="col s12 m12 l6">
                 <div class="card">
                     <form action="{{ url('api/v1/valves/' . $valve->id) }}" data-method="PUT"
-                          data-redirect-success="{{ url('valves/' . $valve->id) }}">
+                          >
                         <div class="card-content">
 
                             <span class="card-title activator truncate">
@@ -86,6 +86,18 @@
                         </div>
                     </form>
                 </div>
+            </div>
+
+            <div class="col s12 m6 l6">
+                <bus-type-edit-form form-uri="{{ url('api/v1/valves/' . $valve->id) }}"
+                                    physical-sensor-id="{{ $valve->id }}"
+                                    bus-type="{{ $valve->property('ControlunitConnectivity', 'bus_type', true) }}"
+                                    gpio-pin="{{ $valve->property('ControlunitConnectivity', 'gpio_pin', true) }}"
+                                    :gpio-default-high="{{ ($valve->property('ControlunitConnectivity', 'gpio_default_high', true) ? 'true' : 'false') }}"
+                                    i2c-address="{{ $valve->property('ControlunitConnectivity', 'i2c_address', true) }}"
+                                    i2c-multiplexer-address="{{ $valve->property('ControlunitConnectivity', 'i2c_multiplexer_address', true) }}"
+                                    i2c-multiplexer-port="{{ $valve->property('ControlunitConnectivity', 'i2c_multiplexer_port', true) }}">
+                </bus-type-edit-form>
             </div>
         </div>
     </div>

@@ -10,59 +10,71 @@
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l6">
-            <div class="card">
-                <form action="{{ url('api/v1/pumps/' . $pump->id) }}" data-method="PUT"
-                      data-redirect-success="{{ url('pumps/' . $pump->id) }}">
-                    <div class="card-content">
-
-                        <span class="card-title activator truncate">
-                            <span>{{ $pump->name }}</span>
-                        </span>
-
-                        <p>
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $pump->id }}">
-                                    <label for="id">ID</label>
+                <div class="card">
+                    <form action="{{ url('api/v1/pumps/' . $pump->id) }}" data-method="PUT"
+                          >
+                        <div class="card-content">
+    
+                            <span class="card-title activator truncate">
+                                <span>{{ $pump->name }}</span>
+                            </span>
+    
+                            <p>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $pump->id }}">
+                                        <label for="id">ID</label>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $pump->name }}">
-                                    <label for="name">@lang('labels.name')</label>
+    
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $pump->name }}">
+                                        <label for="name">@lang('labels.name')</label>
+                                    </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <select name="controlunit">
-                                        <option></option>
-                                        @foreach ($controlunits as $cu)
-                                            <option value="{{ $cu->id }}" @if($pump->controlunit_id == $cu->id)selected="selected"@endif>{{ $cu->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="valves">@choice('components.controlunits', 1)</label>
+    
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <select name="controlunit">
+                                            <option></option>
+                                            @foreach ($controlunits as $cu)
+                                                <option value="{{ $cu->id }}" @if($pump->controlunit_id == $cu->id)selected="selected"@endif>{{ $cu->name }}</option>
+                                            @endforeach
+                                        </select>
+                                        <label for="valves">@choice('components.controlunits', 1)</label>
+                                    </div>
                                 </div>
-                            </div>
-                        </p>
-
-                    </div>
-
-                    <div class="card-action">
-
-                        <div class="row">
-                            <div class="input-field col s12">
-                                <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                    <i class="material-icons right">save</i>
-                                </button>
-                            </div>
+                            </p>
+    
                         </div>
-
-                    </div>
-                </form>
+    
+                        <div class="card-action">
+    
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
+                                        <i class="material-icons right">save</i>
+                                    </button>
+                                </div>
+                            </div>
+    
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
+
+            <div class="col s12 m6 l6">
+                <bus-type-edit-form form-uri="{{ url('api/v1/pumps/' . $pump->id) }}"
+                                    physical-sensor-id="{{ $pump->id }}"
+                                    bus-type="{{ $pump->property('ControlunitConnectivity', 'bus_type', true) }}"
+                                    gpio-pin="{{ $pump->property('ControlunitConnectivity', 'gpio_pin', true) }}"
+                                    :gpio-default-high="{{ ($valve->property('ControlunitConnectivity', 'gpio_default_high', true) ? 'true' : 'false') }}"
+                                    i2c-address="{{ $pump->property('ControlunitConnectivity', 'i2c_address', true) }}"
+                                    i2c-multiplexer-address="{{ $pump->property('ControlunitConnectivity', 'i2c_multiplexer_address', true) }}"
+                                    i2c-multiplexer-port="{{ $pump->property('ControlunitConnectivity', 'i2c_multiplexer_port', true) }}">
+                </bus-type-edit-form>
+            </div>
         </div>
     </div>
     

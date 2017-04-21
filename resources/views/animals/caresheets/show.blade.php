@@ -42,7 +42,7 @@
 
         <div class="row">
             <div class="col s12">
-                <h5><i class="material-icons">video_label</i> @choice('components.terraria', 1) - <i>{{ $caresheet->property('sensor_history_days')->value }} @choice('units.days', $caresheet->property('sensor_history_days')->value)</i></h5>
+                <h5><i class="material-icons">video_label</i> @choice('components.terraria', 1) - <i>{{ $caresheet->property('AnimalCaresheetProperty', 'sensor_history_days')->value }} @choice('units.days', $caresheet->property('AnimalCaresheetProperty', 'sensor_history_days')->value)</i></h5>
 
                 <table>
                     <thead>
@@ -54,21 +54,21 @@
                     <tbody>
                         <tr>
                             <td><strong>@lang('labels.during_day')</strong></td>
-                            <td>{{ round($caresheet->property('terrarium_average_temperature_day')->value, 1) }}°C / {{ round($caresheet->property('terrarium_average_humidity_day')->value, 1) }}%</td>
-                            <td>{{ round($caresheet->property('terrarium_min_temperature_day')->value, 1) }}°C / {{ round($caresheet->property('terrarium_min_humidity_day')->value, 1) }}%</td>
-                            <td>{{ round($caresheet->property('terrarium_max_temperature_day')->value, 1) }}°C / {{ round($caresheet->property('terrarium_max_humidity_day')->value, 1) }}%</td>
+                            <td>{{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_average_temperature_day')->value, 1) }}°C / {{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_average_humidity_day')->value, 1) }}%</td>
+                            <td>{{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_min_temperature_day')->value, 1) }}°C / {{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_min_humidity_day')->value, 1) }}%</td>
+                            <td>{{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_max_temperature_day')->value, 1) }}°C / {{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_max_humidity_day')->value, 1) }}%</td>
                         </tr>
                         <tr>
                             <td><strong>@lang('labels.during_night')</strong></td>
-                            <td>{{ round($caresheet->property('terrarium_average_temperature_night')->value, 1) }}°C / {{ round($caresheet->property('terrarium_average_humidity_night')->value, 1) }}%</td>
-                            <td>{{ round($caresheet->property('terrarium_min_temperature_night')->value, 1) }}°C / {{ round($caresheet->property('terrarium_min_humidity_night')->value, 1) }}%</td>
-                            <td>{{ round($caresheet->property('terrarium_max_temperature_night')->value, 1) }}°C / {{ round($caresheet->property('terrarium_max_humidity_night')->value, 1) }}%</td>
+                            <td>{{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_average_temperature_night')->value, 1) }}°C / {{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_average_humidity_night')->value, 1) }}%</td>
+                            <td>{{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_min_temperature_night')->value, 1) }}°C / {{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_min_humidity_night')->value, 1) }}%</td>
+                            <td>{{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_max_temperature_night')->value, 1) }}°C / {{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_max_humidity_night')->value, 1) }}%</td>
                         </tr>
                         <tr>
                             <td><strong>@lang('labels.total')</strong></td>
-                            <td>{{ round($caresheet->property('terrarium_average_temperature')->value, 1) }}°C / {{ round($caresheet->property('terrarium_average_humidity')->value, 1) }}%</td>
-                            <td>{{ round($caresheet->property('terrarium_min_temperature')->value, 1) }}°C / {{ round($caresheet->property('terrarium_min_humidity')->value, 1) }}%</td>
-                            <td>{{ round($caresheet->property('terrarium_max_temperature')->value, 1) }}°C / {{ round($caresheet->property('terrarium_max_humidity')->value, 1) }}%</td>
+                            <td>{{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_average_temperature')->value, 1) }}°C / {{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_average_humidity')->value, 1) }}%</td>
+                            <td>{{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_min_temperature')->value, 1) }}°C / {{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_min_humidity')->value, 1) }}%</td>
+                            <td>{{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_max_temperature')->value, 1) }}°C / {{ round($caresheet->property('AnimalCaresheetProperty', 'terrarium_max_humidity')->value, 1) }}%</td>
                         </tr>
                     </tbody>
                 </table>
@@ -145,7 +145,7 @@
 
         <div class="row">
             <div class="col s12">
-                <h5><i class="material-icons">format_list_bulleted</i> @choice('components.biography_entries', 2) - <i>{{ $caresheet->property('data_history_days')->value }} @choice('units.days', $caresheet->property('data_history_days')->value)</i></h5>
+                <h5><i class="material-icons">format_list_bulleted</i> @choice('components.biography_entries', 2) - <i>{{ $caresheet->property('AnimalCaresheetProperty', 'data_history_days')->value }} @choice('units.days', $caresheet->property('AnimalCaresheetProperty', 'data_history_days')->value)</i></h5>
                 <br />
 
                 @if ($biography_entries->count() < 1)
