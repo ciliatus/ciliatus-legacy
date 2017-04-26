@@ -12,6 +12,8 @@ Ciliatus is an open source intelligent solution to automate your terrarium.
 * Responsive Material Design UI with automatic night theme to relieve eye strain
 * RESTful API
 
+# [Documentation](https://ciliatus.io/docs)
+
 # Demo
 
 **Be aware:** 
