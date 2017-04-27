@@ -3,12 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\TelegramMessage;
+use App\Traits\SendsApiAiRequests;
 use App\UserSetting;
 use Gate;
 use Illuminate\Http\Request;
 use GuzzleHttp\Client;
 use Mockery\CountValidator\Exception;
 use Telegram\Bot\HttpClients\GuzzleHttpClient;
+use ApiAi\Client as ApiAiClient;
 
 
 /**
@@ -17,6 +19,8 @@ use Telegram\Bot\HttpClients\GuzzleHttpClient;
  */
 class TelegramController extends PublicApiController
 {
+
+    use SendsApiAiRequests;
 
     /**
      * TelegramController constructor.
@@ -87,7 +91,13 @@ class TelegramController extends PublicApiController
                         }
                     }
                     else {
-                        $response_message->content = 'Nothing to do ...';
+                        $result = $this->sendApiAiRequest($request_arr['message']['text'], $user);
+                        if (!$result) {
+                            $response_message->content = "Something went wrong :(";
+                        }
+                        else {
+                            $response_message->content = $result['result']['fulfillment']['speech'];
+                        }
                         $response_message->send($chat_id);
                     }
             }
