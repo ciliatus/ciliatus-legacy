@@ -86,13 +86,10 @@ class DashboardController extends ApiController
         ];
 
         foreach (Animal::orderBy('display_name')->get() as $animal) {
-            foreach ($animal->feeding_schedules as $afs) {
-                $afs = (new AnimalFeedingScheduleRepository($afs))->show();
-                if ($afs->next_feeding_at_diff == 0) {
-                    $feeding_schedules['due'][] = (new AnimalFeedingScheduleTransformer())->transform($afs->toArray());
-                }
-                elseif ($afs->next_feeding_at_diff < 0) {
-                    $feeding_schedules['overdue'][] = (new AnimalFeedingScheduleTransformer())->transform($afs->toArray());
+            $feeding_schedules = $animal->getDueFeedingSchedules();
+            foreach ($feeding_schedules as $type=>$schedules) {
+                foreach ($schedules as $index=>$schedule) {
+                    $feeding_schedules[$type][$index] = (new AnimalFeedingScheduleTransformer())->transform($schedule->toArray());
                 }
             }
         }
@@ -104,16 +101,13 @@ class DashboardController extends ApiController
         ];
 
         foreach (Animal::orderBy('display_name')->get() as $animal) {
-            foreach ($animal->weighing_schedules as $afs) {
-                $afs = (new AnimalWeighingScheduleRepository($afs))->show();
-                if ($afs->next_weighing_at_diff == 0) {
-                    $weighing_schedules['due'][] = (new AnimalWeighingScheduleTransformer())->transform($afs->toArray());
-                } elseif ($afs->next_weighing_at_diff < 0) {
-                    $weighing_schedules['overdue'][] = (new AnimalWeighingScheduleTransformer())->transform($afs->toArray());
+            $weighing_schedules = $animal->getDueWeighingSchedules();
+            foreach ($weighing_schedules as $type=>$schedules) {
+                foreach ($schedules as $index=>$schedule) {
+                    $weighing_schedules[$type][$index] = (new AnimalWeighingScheduleTransformer())->transform($schedule->toArray());
                 }
             }
         }
-
 
 
         $action_sequence_schedules = [
