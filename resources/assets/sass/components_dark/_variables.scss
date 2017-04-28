@@ -33,14 +33,14 @@
 // 1. Colors
 // ==========================================================================
 
-$primary-color: color("teal", "lighten-1") !default;
+$primary-color: color("orange", "darken-4") !default;
 $primary-color-light: lighten($primary-color, 15%) !default;
 $primary-color-dark: darken($primary-color, 15%) !default;
 
-$secondary-color: color("teal", "base") !default;
+$secondary-color: color("orange", "accent-4") !default;
 $success-color: color("green", "base") !default;
 $error-color: color("red", "base") !default;
-$link-color: color("light-blue", "base") !default;
+$link-color: color("orange", "accent-4") !default;
 
 
 // 2. Badges
@@ -101,7 +101,7 @@ $button-floating-radius: 50% !default;
 
 $card-padding: 20px !default;
 $card-bg-color: color("grey", "darken-3") !default;
-$card-link-color: color("teal", "darken-1") !default;
+$card-link-color: color("orange", "darken-4") !default;
 $card-link-color-light: lighten($card-link-color, 10%) !default;
 
 

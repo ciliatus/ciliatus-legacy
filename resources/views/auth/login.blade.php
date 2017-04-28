@@ -1,15 +1,23 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!--Import Google Icon Font-->
+        <title>Ciliatus - Login</title>
+
+        <link rel="manifest" href="manifest.json">
+        <link rel="icon" href="/images/manifest/launcher-icon-0-75x.png" type="image/png">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <!--Import materialize.css-->
         <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.css"  media="screen,projection"/>
 
-        <!--Let browser know website is optimized for mobile-->
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script>
+            window.Laravel = {
+                csrfToken: "{{ csrf_token() }}"
+            };
+        </script>
 
-        <meta name="csrf-token" content="{{ csrf_token() }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta name="theme-color" content="#009688" />
+        <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
     </head>
 
     <body>

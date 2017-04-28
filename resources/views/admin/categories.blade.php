@@ -42,7 +42,7 @@
         </div>
 
         <div class="fixed-action-btn">
-            <a class="btn-floating btn-large teal">
+            <a class="btn-floating btn-large orange darken-4">
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
@@ -81,7 +81,7 @@
         </div>
 
         <div class="fixed-action-btn">
-            <a class="btn-floating btn-large teal">
+            <a class="btn-floating btn-large orange darken-4">
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
@@ -113,7 +113,7 @@
                             <td><i class="material-icons">{{ $type->icon }}</i></td>
                             <td>
                                 <a class="btn btn-small red darken-2 white-text" href="/generic_component_types/{{ $type->id }}/delete">@lang('buttons.delete')</a>
-                                <a class="btn btn-small teal white-text" href="/generic_component_types/{{ $type->id }}/edit">@lang('buttons.edit')</a>
+                                <a class="btn btn-small orange darken-4 white-text" href="/generic_component_types/{{ $type->id }}/edit">@lang('buttons.edit')</a>
                             </td>
                         </tr>
                     @endforeach
@@ -123,7 +123,7 @@
         </div>
 
         <div class="fixed-action-btn">
-            <a class="btn-floating btn-large teal">
+            <a class="btn-floating btn-large orange darken-4">
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>

@@ -89,7 +89,7 @@
 
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <span>@choice('components.logical_sensor_thresholds', 2)</span>
                     </div>
 
@@ -142,7 +142,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <span>@lang('labels.copy_thresholds')</span>
                     </div>
 
@@ -180,7 +180,7 @@
 
                 <div class="card">
                     <form action="{{ url('api/v1/logical_sensors/' . $logical_sensor->id) }}" data-method="PUT">
-                        <div class="card-content teal lighten-1 white-text">
+                        <div class="card-content orange darken-4 white-text">
                             <span class="activator truncate">
                                 <span>@lang('labels.properties')</span>
                             </span>
@@ -223,7 +223,7 @@
     
     <div class="fixed-action-btn">
 
-        <a class="btn-floating btn-large teal">
+        <a class="btn-floating btn-large orange darken-4">
             <i class="large material-icons">mode_edit</i>
         </a>
 

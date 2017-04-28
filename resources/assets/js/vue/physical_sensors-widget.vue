@@ -3,7 +3,7 @@
         <div v-for="physical_sensor in physical_sensors">
             <div :class="wrapperClasses">
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <i class="material-icons">memory</i>
                         {{ $tc("components.physical_sensors", 2) }}
                     </div>

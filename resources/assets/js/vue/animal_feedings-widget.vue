@@ -22,7 +22,7 @@
             </div>
 
             <div class="card">
-                <div class="card-content teal lighten-1 white-text">
+                <div class="card-content orange darken-4 white-text">
                     <i class="material-icons">local_dining</i>
                     {{ $tc("components.animal_feedings", 2) }}
                 </div>
