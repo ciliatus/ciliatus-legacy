@@ -16,12 +16,20 @@
         </script>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-        <meta name="theme-color" content="#009688" />
+        <!-- Chrome, Firefox OS and Opera -->
+        <meta name="theme-color" content="#e65100">
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#e65100">
+        <!-- iOS Safari -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="#e65100">
         <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
     </head>
 
     <body>
         <div class="container" style="padding-top: 100px">
+            <div class="row center-align">
+                <img src="/images/manifest/launcher-icon-4x.png" class="center-align" />
+            </div>
             <div class="row">
                 <div class="col s12 m6 offset-m3 l4 offset-l4">
                     <div class="card">
