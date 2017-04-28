@@ -16,13 +16,13 @@
                 <i v-show="!recording" v-on:click="record" class="material-icons">mic_none</i>
                 <i v-show="recording" v-on:click="record" class="material-icons">mic</i>
             </a>
-
-                <div class="preloader-wrapper small active" v-show="loading"
-                     style="margin-left: 18px; margin-right: 18px; top: 10px;">
-                    <div class="spinner-layer spinner-blue-only">
-                        <div class="circle-clipper left">
-                            <div class="circle"></div>
-                        </div><div class="gap-patch">
+            <div class="preloader-wrapper small active" v-show="loading"
+                 style="margin-left: 18px; margin-right: 18px; top: 10px;">
+                <div class="spinner-layer spinner-blue-only">
+                    <div class="circle-clipper left">
+                        <div class="circle"></div>
+                    </div>
+                    <div class="gap-patch">
                         <div class="circle"></div>
                     </div>
                         <div class="circle-clipper right">
