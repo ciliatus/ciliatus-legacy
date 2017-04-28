@@ -25,10 +25,10 @@
         <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
     </head>
 
-    <body>
+    <body class="orange darken-4">
         <div class="container" style="padding-top: 100px">
             <div class="row center-align">
-                <img src="/images/manifest/launcher-icon-4x.png" class="center-align" />
+                <img src="/images/menu_logo.png" class="center-align" />
             </div>
             <div class="row">
                 <div class="col s12 m6 offset-m3 l4 offset-l4">
@@ -36,8 +36,6 @@
                         <form method="POST" action="{{ url('auth/login') }}">
                             {!! csrf_field() !!}
                             <div class="card-content">
-                                <span class="card-title">Ciliatus</span>
-
                                 <div>
                                     <input type="text" class="form-control" placeholder="Username" required="" name="email" value="{{ old('email') }}" />
                                 </div>
@@ -47,6 +45,16 @@
                                 <div>
                                     <button class="btn btn-default submit" type="submit">Log in</button>
                                 </div>
+                                @if (env('DEMO_ENVIRONMENT', false) == true)
+                                <div>
+                                    <br />
+                                    Username: <strong>demo@ciliatus.io</strong><br />
+                                    Password: <strong>demo</strong><br />
+                                    <br />
+                                    Real-time updates are disabled.<br />
+                                    Data pulled from live environment daily.
+                                </div>
+                                @endif
                             </div>
                         </form>
                     </div>
