@@ -1,5 +1,4 @@
-# Ciliatus
-Ciliatus is an open source intelligent solution to automate your terrarium.
+![alt text](https://github.com/matthenning/ciliatus/blob/master/public/images/logo_horizontal.png "Ciliatus")
 
 # Features
 
