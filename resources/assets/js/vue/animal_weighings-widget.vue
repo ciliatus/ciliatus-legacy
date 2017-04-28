@@ -20,7 +20,7 @@
             </div>
 
             <div class="card">
-                <div class="card-content teal lighten-1 white-text">
+                <div class="card-content orange darken-4 white-text">
                     <i class="material-icons">vertical_align_bottom</i>
                     {{ $tc("components.animal_weighings", 2) }}
                 </div>

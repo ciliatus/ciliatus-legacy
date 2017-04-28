@@ -28,6 +28,11 @@ class ApiController extends Controller
     protected $errorCode;
 
     /**
+     * @var array
+     */
+    protected $debug_info = [];
+
+    /**
      * ApiController constructor.
      */
     public function __construct()
@@ -92,7 +97,7 @@ class ApiController extends Controller
 
     /**
      * @param $message
-     * @param null $errorCode
+     * @param null $entityId
      * @return \Illuminate\Http\JsonResponse
      */
     public function respondWithError($message, $entityId = null)
@@ -145,7 +150,21 @@ class ApiController extends Controller
      */
     public function respond($data, $headers = [])
     {
+        if (count($this->debug_info) > 0) {
+            $data['debug'] = $this->debug_info;
+        }
+
         return response()->json($data)->setStatusCode($this->getStatusCode());
+    }
+
+    /**
+     * Append debug info to the response
+     *
+     * @param $data
+     */
+    public function appendDebugInfo($data)
+    {
+        $this->debug_info[] = $data;
     }
 
     /**

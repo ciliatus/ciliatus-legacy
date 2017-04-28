@@ -86,10 +86,10 @@ class DashboardController extends ApiController
         ];
 
         foreach (Animal::orderBy('display_name')->get() as $animal) {
-            $feeding_schedules = $animal->getDueFeedingSchedules();
-            foreach ($feeding_schedules as $type=>$schedules) {
-                foreach ($schedules as $index=>$schedule) {
-                    $feeding_schedules[$type][$index] = (new AnimalFeedingScheduleTransformer())->transform($schedule->toArray());
+            $feeding_schedules_temp = $animal->getDueFeedingSchedules();
+            foreach ($feeding_schedules_temp as $type=>$schedules) {
+                foreach ($schedules as $schedule) {
+                    $feeding_schedules[$type][] = (new AnimalFeedingScheduleTransformer())->transform($schedule->toArray());
                 }
             }
         }
@@ -101,10 +101,10 @@ class DashboardController extends ApiController
         ];
 
         foreach (Animal::orderBy('display_name')->get() as $animal) {
-            $weighing_schedules = $animal->getDueWeighingSchedules();
-            foreach ($weighing_schedules as $type=>$schedules) {
+            $weighing_schedules_temp = $animal->getDueWeighingSchedules();
+            foreach ($weighing_schedules_temp as $type=>$schedules) {
                 foreach ($schedules as $index=>$schedule) {
-                    $weighing_schedules[$type][$index] = (new AnimalWeighingScheduleTransformer())->transform($schedule->toArray());
+                    $weighing_schedules[$type][] = (new AnimalWeighingScheduleTransformer())->transform($schedule->toArray());
                 }
             }
         }

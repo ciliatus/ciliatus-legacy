@@ -60,7 +60,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <span class="activator truncate">
                             <span><i class="material-icons">assignment</i> @choice('components.actions', 2)</span>
                         </span>
@@ -112,7 +112,7 @@
 
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <span class="activator truncate">
                             <span><i class="material-icons">schedule</i> @choice('components.action_sequence_schedules', 2)</span>
                         </span>
@@ -158,7 +158,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <span class="activator truncate">
                             <span><i class="material-icons">flare</i> @choice('components.action_sequence_triggers', 2)</span>
                         </span>
@@ -211,7 +211,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <span class="activator truncate">
                             <span><i class="material-icons">explore</i> @choice('components.action_sequence_intentions', 2)</span>
                         </span>
@@ -265,7 +265,7 @@
     </div>
 
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large teal">
+        <a class="btn-floating btn-large orange darken-4">
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>

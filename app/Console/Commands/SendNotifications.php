@@ -6,6 +6,7 @@ use App\Animal;
 use App\Repositories\AnimalFeedingScheduleRepository;
 use App\Repositories\AnimalWeighingScheduleRepository;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Console\Command;
 
 class SendNotifications extends Command

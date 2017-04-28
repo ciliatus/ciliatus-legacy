@@ -3,7 +3,7 @@
         <div v-for="generic_component in generic_components">
             <div :class="wrapperClasses">
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <i class="material-icons">{{ generic_component.type.icon }}</i>
                         {{ generic_component.type.name_singular }}
                     </div>

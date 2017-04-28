@@ -3,7 +3,7 @@
         <div :class="wrapperClasses" v-for="file in files">
             <div class="col s12 m12 l4">
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <i class="material-icons">attach_file</i>
                         {{ $tc("components.files", 1) }}
                     </div>

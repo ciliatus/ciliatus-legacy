@@ -24,7 +24,7 @@
         </div>
 
         <div class="fixed-action-btn">
-            <a class="btn-floating btn-large teal">
+            <a class="btn-floating btn-large orange darken-4">
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
@@ -54,7 +54,7 @@
         </div>
 
         <div class="fixed-action-btn">
-            <a class="btn-floating btn-large teal">
+            <a class="btn-floating btn-large orange darken-4">
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
