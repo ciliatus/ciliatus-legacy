@@ -3,10 +3,20 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\Repositories\AnimalFeedingScheduleRepository;
+use App\Traits\SendsApiAiRequests;
+use Auth;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
+/**
+ * Class ApiAiController
+ * @package App\Http\Controllers\Api
+ */
 class ApiAiController extends ApiController
 {
+
+    use SendsApiAiRequests;
 
     /**
      * @param Request $request
@@ -51,13 +61,41 @@ class ApiAiController extends ApiController
                 }
                 else {
                     foreach ($schedules_by_food as $type=>$animals) {
-                        $text .= $type . ' bekommen heute: ' . implode(',', $animals) . '. ';
+                        $text .= $type . ' bekommen heute: ' . implode(', ', $animals) . '. ';
                     }
                 }
 
                 return $this->respondToApiAi(
                     $text
                 );
+
+            case 'get_next_feeding':
+                $animalOrResponse = $this->getAnimalOrRespond($request);
+                if (!is_a($animalOrResponse, 'App\Animal')) {
+                    return $animalOrResponse;
+                }
+
+                $animal = $animalOrResponse;
+
+                $next = null;
+                foreach ($animal->feeding_schedules as $schedule) {
+                    $afs = (new AnimalFeedingScheduleRepository($schedule))->show();
+                    if ((is_null($next) || $afs->next_feeding_at_diff < $next->next_feeding_at_diff) &&
+                            $afs->next_feeding_at_diff >= 0) {
+                        $next = $afs;
+                    }
+                }
+
+                if (is_null($next)) {
+                    return $this->respondToApiAi(
+                        'Es stehen keine Fütterungen für ' . $animal->display_name . ' an.'
+                    );
+                }
+                else {
+                    return $this->respondToApiAi(
+                        $animal->display_name . ' bekommt in ' . $next->next_feeding_at_diff . ' Tagen ' . $next->name
+                    );
+                }
 
             case 'start_action_sequence':
                 $animalOrResponse = $this->getAnimalOrRespond($request);
@@ -78,6 +116,25 @@ class ApiAiController extends ApiController
             default:
                 return $this->respondToApiAi('Ciliatus hat deine Frage nicht verstanden.');
         }
+    }
+
+    /**
+     * Receive text and send it to API.ai
+     *
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function parseAndSendRequest(Request $request)
+    {
+        $this->appendDebugInfo($request->input('speech'));
+
+        $result = $this->sendApiAiRequest($request->input('speech'), Auth::user());
+        if (!$result) {
+            $result = 'Something went wrong';
+        }
+        return $this->respondWithData([
+            'api_result' => $result
+        ]);
     }
 
     /**

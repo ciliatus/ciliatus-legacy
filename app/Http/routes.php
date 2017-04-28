@@ -209,6 +209,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1', 'middleware' => ['loca
 Route::group(['namespace' => 'Api', 'prefix' => 'api/v1', 'middleware' => ['auth:api', 'localization']], function() {
 
     Route::post('apiai', 'ApiAiController@webhook');
+    Route::post('apiai/send_request', 'ApiAiController@parseAndSendRequest');
 
     Route::get('dashboard/system_status', 'DashboardController@system_status');
     Route::resource('dashboard', 'DashboardController');

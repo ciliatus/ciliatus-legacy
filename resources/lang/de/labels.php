@@ -161,5 +161,6 @@ return [
     'rawvalue'      =>  'Rohwert',
     'adjust_rawvalue'=> 'Rohwertkorrektur',
     'filter'        =>  'Filter',
-    'logout'        =>  'Ausloggen'
+    'logout'        =>  'Ausloggen',
+    'ask_me_something'=>'Frag mich etwas'
 ];

@@ -47,5 +47,6 @@ return [
     'show_suggestions'  =>  'Vorschläge anzeigen',
     'bus_type_edit_form'=>  'Ermöglicht Ciliatus das automatische Generieren von Kontroleinheitskonfigurationen.',
     'gpio_default_high' =>  'GPIO Pin wird im Betrieb auf High gezogen. Zum aktivieren der Komponente auf Low.',
-    'adjust_rawvalue'   =>  'Beim Empfangen eines Werts durch diesen Sensor kann der Wert korrigiert werden.'
+    'adjust_rawvalue'   =>  'Beim Empfangen eines Werts durch diesen Sensor kann der Wert korrigiert werden.',
+    'experimental_feature'=>'Dieses Feature ist experimentell.'
 ];

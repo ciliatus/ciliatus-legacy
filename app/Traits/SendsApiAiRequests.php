@@ -16,7 +16,7 @@ use Webpatser\Uuid\Uuid;
 trait SendsApiAiRequests
 {
 
-    public function sendApiAiRequest($query, $user = null, $sessionId = null) {
+    public function sendApiAiRequest($query, $user = null, $custom_sessionId = null) {
         $apiai_key = env('API_AI_ACCESS_TOKEN', null);
         $locale = env('LOCALE', 'en');
 
@@ -24,13 +24,17 @@ trait SendsApiAiRequests
             return;
         }
 
-        if (is_null($sessionId)) {
+        $sessionId = '';
+        if (is_null($custom_sessionId)) {
             if (is_null($user)) {
                 $sessionId = Uuid::generate();
             }
             else {
                 $sessionId = $user->id;
             }
+        }
+        else {
+            $sessionId = $custom_sessionId;
         }
 
         $client = new Client();

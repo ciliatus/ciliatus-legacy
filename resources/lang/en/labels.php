@@ -161,5 +161,6 @@ return [
     'rawvalue'      =>  'Raw value',
     'adjust_rawvalue'=> 'Raw value correction',
     'filter'        =>  'Filter',
-    'logout'        =>  'Log off'
+    'logout'        =>  'Log off',
+    'ask_me_something'=>'Ask me something'
 ];
