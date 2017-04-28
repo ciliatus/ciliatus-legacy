@@ -59,11 +59,13 @@ LiveData.prototype.stop = function () {
 };
 
 window.submit_form = function (e) {
+    var _callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
+
     e.preventDefault();
+
     var btns = $('button[type=submit]:enabled');
     btns.attr('disabled', 'disabled');
-    var callback = $(e.target).data('callback');
-    var callback_param = $(e.target).data('callback-param');
+    var callback = $(e.target).data('callback') || _callback;
     var redirect_success = $(e.target).data('redirect-success');
     /*
      * Fix for empty data when using
@@ -81,6 +83,7 @@ window.submit_form = function (e) {
         content_type = false;
     }
 
+    var form_id = $(e.target).prop('id');
     var form = this;
 
     return $.ajax({
@@ -101,10 +104,17 @@ window.submit_form = function (e) {
         },
         success: function success(data) {
             btns.removeAttr('disabled');
-            window.notification('<i class="material-icons">check</i>', 'teal darken-1 text-white');
 
+            if (!$(e.target).data('no-confirm')) {
+                window.notification('<i class="material-icons">check</i>', 'teal darken-1 text-white');
+            }
+
+            window.eventHubVue.$emit('FormSubmitReturnedSuccess', {
+                'source_id': form_id,
+                'data': data
+            });
             if (callback !== undefined) {
-                window[callback](data);
+                callback(data);
             }
 
             if (redirect_success !== undefined) {
