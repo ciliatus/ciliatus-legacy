@@ -171,7 +171,7 @@
                 <li><div class="divider"></div></li>
 
                 <li><a href="https://github.com/matthenning/ciliatus/issues" class="waves-effect waves-orange"><i class="material-icons">bug_report</i>@lang('labels.bugtracker')</a></li>
-                <li><a href="https://github.com/matthenning/ciliatus/wiki" class="waves-effect waves-orange"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
+                <li><a href="https://ciliatus.io/docs/v1.5-beta" class="waves-effect waves-orange"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
                 <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v1.5-beta" class="waves-effect waves-orange"><i class="material-icons">linear_scale</i>Version v1.6-beta dev</a></li>
                 @endif
 
