@@ -26,7 +26,7 @@
     </head>
 
     <body class="orange darken-4">
-        <div class="container" style="padding-top: 100px">
+        <div class="container" style="padding-top: 20px">
             <div class="row center-align">
                 <img src="/images/menu_logo.png" class="center-align" />
             </div>
