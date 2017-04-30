@@ -68,7 +68,7 @@
 
                             <ul class="right" style="position:relative; right: 0px;">
                                 <li>
-                                    @if(Auth::user()->locale != 'de')
+                                    @if(App\System::hasVoiceCapability())
                                     <span>API.AI is not available in your language yet.</span>
                                     @else
                                     <api-io-widget></api-io-widget>

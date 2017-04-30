@@ -17,8 +17,13 @@ trait SendsApiAiRequests
 {
 
     public function sendApiAiRequest($query, $user = null, $custom_sessionId = null) {
-        $apiai_key = env('API_AI_ACCESS_TOKEN', null);
-        $locale = env('LOCALE', 'en');
+        if (!is_null($user)) {
+            $locale = $user->locale;
+        }
+        else {
+            $locale = env('LOCALE', 'en');
+        }
+        $apiai_key = env('API_AI_ACCESS_TOKEN_' . $locale, null);
 
         if (is_null($apiai_key)) {
             return;

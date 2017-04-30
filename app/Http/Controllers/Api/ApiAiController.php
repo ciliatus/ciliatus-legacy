@@ -24,97 +24,20 @@ class ApiAiController extends ApiController
      */
     public function webhook(Request $request)
     {
-        \Log::debug($request->input('result'));
+        $this->setLanguage($request);
+
         switch ($request->input('result')['metadata']['intentName']) {
             case 'get_animal_health':
-                $animalOrResponse = $this->getAnimalOrRespond($request);
-                if (!is_a($animalOrResponse, 'App\Animal')) {
-                    return $animalOrResponse;
-                }
-
-                $animal = $animalOrResponse;
-
-                if (is_null($animal->terrarium)) {
-                    return $this->respondToApiAi($animal->display_name . 'scheint kein zu Hause zu haben.');
-                }
-
-                $temperature = $animal->terrarium->getCurrentTemperature();
-                $humidity = $animal->terrarium->getCurrentHumidity();
-                return $this->respondToApiAi(
-                    'Bei ' . $animal->display_name . ' hat es ' . $temperature . '°C und eine Luftfeuchtigkeit von ' . $humidity . '%',
-                    'Bei ' . $animal->display_name . ' hat es ' . $temperature . '°C und eine Luftfeuchtigkeit von ' . $humidity . '%'
-                );
+                return $this->respond_get_animal_health($request);
 
             case 'get_feedings_today':
-                $schedules_by_food = [];
-                foreach (Animal::get() as $animal) {
-                    foreach ($animal->getDueFeedingSchedules() as $type=>$schedules) {
-                        foreach ($schedules as $schedule) {
-                            $schedules_by_food[$schedule->name][] = $animal->display_name;
-                        }
-                    }
-                }
-
-                $text = '';
-                if (count($schedules_by_food) < 1) {
-                    $text .= 'Heute muss niemand gefüttert werden.';
-                }
-                else {
-                    foreach ($schedules_by_food as $type=>$animals) {
-                        $text .= $type . ' bekommen heute: ' . implode(', ', $animals) . '. ';
-                    }
-                }
-
-                return $this->respondToApiAi(
-                    $text
-                );
+                return $this->respond_get_feedings_today($request);
 
             case 'get_next_feeding':
-                $animalOrResponse = $this->getAnimalOrRespond($request);
-                if (!is_a($animalOrResponse, 'App\Animal')) {
-                    return $animalOrResponse;
-                }
-
-                $animal = $animalOrResponse;
-
-                $next = null;
-                foreach ($animal->feeding_schedules as $schedule) {
-                    $afs = (new AnimalFeedingScheduleRepository($schedule))->show();
-                    if ((is_null($next) || $afs->next_feeding_at_diff < $next->next_feeding_at_diff) &&
-                            $afs->next_feeding_at_diff >= 0) {
-                        $next = $afs;
-                    }
-                }
-
-                if (is_null($next)) {
-                    return $this->respondToApiAi(
-                        'Es stehen keine Fütterungen für ' . $animal->display_name . ' an.'
-                    );
-                }
-                else {
-                    return $this->respondToApiAi(
-                        $animal->display_name . ' bekommt in ' . $next->next_feeding_at_diff . ' Tagen ' . $next->name
-                    );
-                }
-
-            case 'start_action_sequence':
-                $animalOrResponse = $this->getAnimalOrRespond($request);
-                if (!is_a($animalOrResponse, 'App\Animal')) {
-                    return $animalOrResponse;
-                }
-
-                $animal = $animalOrResponse;
-
-                if (is_null($animal->terrarium)) {
-                    return $this->respondToApiAi($animal->display_name . 'scheint kein zu Hause zu haben.');
-                }
-
-                return $this->respondToApiAi(
-                    'Funktion noch nicht implementiert.'
-                );
+                return $this->respond_get_next_feeding($request);
 
             default:
-                return $this->respondToApiAi('Ciliatus hat deine Frage nicht verstanden.');
+                return $this->respondToApiAi(trans('apiai.errors.query_not_understood'));
         }
     }
 
@@ -130,7 +53,7 @@ class ApiAiController extends ApiController
 
         $result = $this->sendApiAiRequest($request->input('speech'), Auth::user());
         if (!$result) {
-            $result = 'Something went wrong';
+            $result = trans('apiai.errors.could_not_send_request');
         }
         return $this->respondWithData([
             'api_result' => $result
@@ -172,16 +95,128 @@ class ApiAiController extends ApiController
         }
         $animal = Animal::where('display_name', $animal_name)->get();
         if (is_null($animal->first())) {
-            return $this->respondToApiAi($animal_name . ' kenne ich nicht.');
+            return $this->respondToApiAi(trans('apiai.errors.animal_not_found', [
+                'display_name' => $animal_name
+            ]));
         }
 
         if ($animal->count() > 1) {
-            return $this->respondToApiAi($animal_name . ' heißen mehrere Tiere.');
+            return $this->respondToApiAi(trans('apiai.errors.animal_multiple_options', [
+                'display_name' => $animal_name
+            ]));
         }
 
         $animal = $animal->first();
 
         return $animal;
+    }
+
+    /**
+     * @param Request $request
+     */
+    private function setLanguage(Request $request)
+    {
+        app()->setLocale($request->input('result')['parameters']['lang']);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function respond_get_animal_health(Request $request)
+    {
+        $animalOrResponse = $this->getAnimalOrRespond($request);
+        if (!is_a($animalOrResponse, 'App\Animal')) {
+            return $animalOrResponse;
+        }
+
+        $animal = $animalOrResponse;
+
+        if (is_null($animal->terrarium)) {
+            return $this->respondToApiAi(trans('apiai.errors.animal_no_terrarium', [
+                'display_name' => $animal->display_name
+            ]));
+        }
+
+        $temperature = $animal->terrarium->getCurrentTemperature();
+        $humidity = $animal->terrarium->getCurrentHumidity();
+        return $this->respondToApiAi(trans('apiai.fulfillment.animal_health', [
+            'display_name'  => $animal->display_name,
+            'temperature'   => $temperature,
+            'humidity'      => $humidity
+        ]));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function respond_get_feedings_today(Request $request)
+    {
+        $schedules_by_food = [];
+        foreach (Animal::get() as $animal) {
+            foreach ($animal->getDueFeedingSchedules() as $type=>$schedules) {
+                foreach ($schedules as $schedule) {
+                    $schedules_by_food[$schedule->name][] = $animal->display_name;
+                }
+            }
+        }
+
+        $text = '';
+        if (count($schedules_by_food) < 1) {
+            $text .= trans('apiai.fulfillment.feedings_today_none');
+        }
+        else {
+            foreach ($schedules_by_food as $type=>$animals) {
+                $text .= trans('apiai.fulfillment.feedings_today_list', [
+                    'type'          => $type,
+                    'display_names' => implode(', ', $animals)
+                ]);
+            }
+        }
+
+        return $this->respondToApiAi(
+            $text
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function respond_get_next_feeding(Request $request)
+    {
+        $animalOrResponse = $this->getAnimalOrRespond($request);
+        if (!is_a($animalOrResponse, 'App\Animal')) {
+            return $animalOrResponse;
+        }
+
+        $animal = $animalOrResponse;
+
+        $next = null;
+        foreach ($animal->feeding_schedules as $schedule) {
+            $afs = (new AnimalFeedingScheduleRepository($schedule))->show();
+            if ((is_null($next) || $afs->next_feeding_at_diff < $next->next_feeding_at_diff)) {
+                $next = $afs;
+            }
+        }
+
+        if (is_null($next)) {
+            return $this->respondToApiAi(
+                trans('apiai.fulfillment.animal_next_feeding_none')
+            );
+        }
+        else {
+            return $this->respondToApiAi(
+                trans('apiai.fulfillment.feedings_today_list', [
+                    'display_name'  => $animal->display_name,
+                    'time'          => $next->next_feeding_at_diff < 1 ?
+                        trans('labels.today') :
+                        trans('units.days_in', ['val' => $next->next_feeding_at_diff ]),
+                    'type'          => $next->name
+                ])
+            );
+        }
     }
 
 }
