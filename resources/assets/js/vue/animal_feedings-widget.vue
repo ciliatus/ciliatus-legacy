@@ -1,16 +1,18 @@
 <template>
     <div>
         <div :class="wrapperClasses">
-            <div v-bind:id="'modal_add_feeding_' + animalId" class="modal" style="min-height: 400px">
+            <div v-bind:id="'modal_add_feeding_' + animalId" class="modal" style="min-height: 800px;">
                 <form v-bind:action="'/api/v1/animals/' + animalId + '/feedings'" data-method="POST" onsubmit="window.submit_form">
                     <div class="modal-content">
                         <h4>{{ $t("labels.just_fed") }}</h4>
-                        <p>
-                            <select name="meal_type" id="meal_type">
-                                <option v-for="ft in animal_feeding_types" v-bind:value="ft">{{ ft }}</option>
-                            </select>
-                            <label for="meal_type">{{ $t("labels.meal_type") }}</label>
-                        </p>
+
+                        <select name="meal_type" id="meal_type">
+                            <option v-for="ft in animal_feeding_types" v-bind:value="ft">{{ ft }}</option>
+                        </select>
+                        <label for="meal_type">{{ $t("labels.meal_type") }}</label>
+
+                        <input type="date" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
+                        <label>{{ $t('labels.date') }}</label>
                     </div>
 
                     <div class="modal-footer">
@@ -34,12 +36,13 @@
                     </span>
 
                     <div v-for="af in animal_feedings">
-                        <p>
+                        <div style="width: 100%">
                             <span v-if="af.timestamps.created_diff.days > 1">{{ $t('units.days_ago', {val: af.timestamps.created_diff.days}) }}</span>
                             <span v-if="af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours > 1">{{ $t('units.hours_ago', {val: af.timestamps.created_diff.hours}) }}</span>
                             <span v-if="af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours <= 1">{{ $t('units.just_now') }}</span>
                             <span> - {{ af.type }}</span>
-                        </p>
+                            <span class="right"><a class="btn btn-danger btn-tiny" :href="'/animals/' + animalId + '/feedings/' + af.id + '/delete'">x</a></span>
+                        </div>
                     </div>
                     <div v-if="animal_feedings.length < 1">
                         <p>{{ $t('labels.no_data') }}</p>

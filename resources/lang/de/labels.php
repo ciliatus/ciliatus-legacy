@@ -11,6 +11,7 @@ return [
     'gender'        =>  'Geschlecht',
     'gender_male'   =>  'Männlich',
     'gender_female' =>  'Weiblich',
+    'date'          =>  'Datum',
     'date_birth'    =>  'Geburtstag',
     'date_death'    =>  'Todestag',
     'model'         =>  'Modell',

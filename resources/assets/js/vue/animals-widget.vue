@@ -37,16 +37,18 @@
         <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
             <div :class="wrapperClasses" v-for="animal in animals">
                 <!-- Modals -->
-                <div v-bind:id="'modal_just_fed_' + animal.id" class="modal">
+                <div v-bind:id="'modal_just_fed_' + animal.id" class="modal" style="min-height: 800px;">
                     <form v-bind:action="'/api/v1/animals/' + animal.id + '/feedings'" data-method="POST" v-on:submit="submit">
-                        <div class="modal-content" style="min-height: 300px">
+                        <div class="modal-content">
                             <h4>{{ $t("labels.just_fed") }}</h4>
-                            <p>
-                                <select name="meal_type" id="meal_type">
-                                    <option v-for="ft in feeding_types" v-bind:value="ft.name">{{ ft.name }}</option>
-                                </select>
-                                <label for="meal_type">{{ $t("labels.meal_type") }}</label>
-                            </p>
+
+                            <select name="meal_type">
+                                <option v-for="ft in feeding_types" v-bind:value="ft.name">{{ ft.name }}</option>
+                            </select>
+                            <label>{{ $t("labels.meal_type") }}</label>
+
+                            <input type="date" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
+                            <label>{{ $t('labels.date') }}</label>
                         </div>
 
                         <div class="modal-footer">
@@ -57,14 +59,16 @@
                     </form>
                 </div>
 
-                <div v-bind:id="'modal_add_weight_' + animal.id" class="modal">
+                <div v-bind:id="'modal_add_weight_' + animal.id" class="modal" style="min-height: 800px;">
                     <form v-bind:action="'/api/v1/animals/' + animal.id + '/weighings'" data-method="POST" v-on:submit="submit">
                         <div class="modal-content">
                             <h4>{{ $t("labels.add_weight") }}</h4>
-                            <p>
-                                <input name="weight" id="weight" v-bind:placeholder="$t('labels.weight')+ '/g'">
-                                <label for="weight">{{ $t("labels.weight") }}/g</label>
-                            </p>
+
+                            <input name="weight" id="weight" v-bind:placeholder="$t('labels.weight')+ '/g'">
+                            <label for="weight">{{ $t("labels.weight") }}/g</label>
+
+                            <input type="date" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
+                            <label>{{ $t('labels.date') }}</label>
                         </div>
 
                         <div class="modal-footer">
@@ -416,6 +420,11 @@ export default {
             $('#' + this.containerId).masonry('reloadItems');
             $('#' + this.containerId).masonry('layout');
             $('.modal').modal();
+            $('.datepicker').pickadate({
+                selectMonths: true,
+                selectYears: 15,
+                format: 'yyyy-mm-dd',
+            });
         }
     },
 

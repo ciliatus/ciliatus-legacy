@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Animal;
 use App\Event;
+use App\Events\AnimalFeedingDeleted;
 use App\Events\AnimalUpdated;
+use App\Events\AnimalWeighingDeleted;
 use App\Events\AnimalWeighingUpdated;
 use App\Http\Transformers\AnimalWeighingTransformer;
 use App\Property;
@@ -194,11 +196,32 @@ class AnimalWeighingController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
+     * @param  int  $animal_id
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy($animal_id, $id)
     {
-        //
+        if (Gate::denies('api-write:animal_weighing')) {
+            return $this->respondUnauthorized();
+        }
+
+        $animal = Animal::find($animal_id);
+        if (is_null($animal)) {
+            return $this->respondNotFound('Animal not found');
+        }
+
+        $animal_weighing = $animal->weighings()->where('id', $id)->get()->first();
+        if (is_null($animal_weighing)) {
+            return $this->respondNotFound('Animal weighing not found');
+        }
+
+        $id = $animal_weighing->id;
+
+        $animal_weighing->delete();
+
+        broadcast(new AnimalWeighingDeleted($id));
+
+        return $this->respondWithData([]);
     }
 }

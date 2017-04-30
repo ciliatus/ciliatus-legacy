@@ -4,12 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\Animal;
 use App\Event;
+use App\Events\AnimalFeedingDeleted;
 use App\Events\AnimalFeedingScheduleDeleted;
 use App\Events\AnimalFeedingUpdated;
 use App\Events\AnimalUpdated;
 use App\Http\Transformers\AnimalFeedingTransformer;
 use App\Property;
 use App\Repositories\AnimalFeedingRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Gate;
 use App\Http\Requests;
@@ -125,6 +127,11 @@ class AnimalFeedingController extends ApiController
             'value' => $request->has('count') ? $request->input('count') : ''
         ]);
 
+        if ($request->has('created_at')) {
+            $e->created_at = Carbon::parse($request->input('created_at'));
+            $e->save();
+        }
+
         broadcast(new AnimalFeedingUpdated($e));
         broadcast(new AnimalUpdated($animal));
 
@@ -168,12 +175,33 @@ class AnimalFeedingController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
+     * @param  int  $animal_id
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
-    public function destroy($id)
+    public function destroy($animal_id, $id)
     {
-        //
+        if (Gate::denies('api-write:animal_feeding')) {
+            return $this->respondUnauthorized();
+        }
+
+        $animal = Animal::find($animal_id);
+        if (is_null($animal)) {
+            return $this->respondNotFound('Animal not found');
+        }
+
+        $animal_feeding = $animal->feedings()->where('id', $id)->get()->first();
+        if (is_null($animal_feeding)) {
+            return $this->respondNotFound('Animal feeding not found');
+        }
+
+        $id = $animal_feeding->id;
+
+        $animal_feeding->delete();
+
+        broadcast(new AnimalFeedingDeleted($id));
+
+        return $this->respondWithData([]);
     }
 
     /**

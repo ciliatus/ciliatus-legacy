@@ -41,6 +41,7 @@ Route::group(['namespace' => 'Web', 'middleware' => 'web'], function() {
     Route::get('animals/feedings/types/create', 'AnimalFeedingController@create_type');
 
     // Feedings
+    Route::get('animals/{animal_id}/feedings/{id}/delete', 'AnimalFeedingController@delete');
     Route::resource('animals/{animal_id}/feedings', 'AnimalFeedingController');
     Route::resource('animals/{animal_id}/feeding_schedules', 'AnimalFeedingScheduleController');
 
@@ -49,6 +50,7 @@ Route::group(['namespace' => 'Web', 'middleware' => 'web'], function() {
     Route::get('animal_feeding_schedules', 'AnimalFeedingScheduleController@index');
 
     // Weighings
+    Route::get('animals/{animal_id}/weighings/{id}/delete', 'AnimalWeighingController@delete');
     Route::resource('animals/{animal_id}/weighings', 'AnimalWeighingController');
     Route::resource('animals/{animal_id}/weighing_schedules', 'AnimalWeighingScheduleController');
 
