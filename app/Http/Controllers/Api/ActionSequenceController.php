@@ -208,7 +208,7 @@ class ActionSequenceController extends ApiController
             }
 
             if (!is_null($template_name)) {
-                $as->generateActionByTemplate($template_name);
+                $as->generateActionsByTemplate($template_name);
 
                 if ($request->input('generate_intentions') == 'On') {
                     $as->generateIntentionsByTemplate($template_name);

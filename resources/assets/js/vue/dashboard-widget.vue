@@ -217,7 +217,9 @@
                             {{ schedule.timestamps.starts }}: {{ schedule.sequence.name }}
                         </span>
 
-                        <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                        <a class="secondary-content white-text tooltipped" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post"
+                           data-delay="50" data-html="true"
+                           :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.action_sequence_schedules.skip') + '</div>'">
                             <i class="material-icons">update</i>
                         </a>
 
@@ -317,7 +319,9 @@
                             {{ schedule.timestamps.starts }}: {{ schedule.sequence.name }}
                         </span>
 
-                        <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                        <a class="secondary-content white-text tooltipped" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post"
+                           data-delay="50" data-html="true"
+                           :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.action_sequence_schedules.skip') + '</div>'">
                             <i class="material-icons">update</i>
                         </a>
 
@@ -1035,6 +1039,7 @@
                 });
                 $('#' + this.containerId).masonry('reloadItems');
                 $('#' + this.containerId).masonry('layout');
+                $('.tooltipped').tooltip({delay: 50});
             },
 
             submit: function(e) {

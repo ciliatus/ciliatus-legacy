@@ -344,6 +344,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1', 'middleware' => ['auth
      * Action sequence schedules
      */
     Route::resource('action_sequence_schedules', 'ActionSequenceScheduleController');
+    Route::post('action_sequence_schedules/{id}/skip', 'ActionSequenceScheduleController@skip');
 
     /*
      * Action sequence triggers

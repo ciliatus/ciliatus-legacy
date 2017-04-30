@@ -163,5 +163,8 @@ return [
     'adjust_rawvalue'=> 'Raw value correction',
     'filter'        =>  'Filter',
     'logout'        =>  'Log off',
-    'ask_me_something'=>'Ask me something'
+    'ask_me_something'=>'Ask me something',
+    'ventilate'     =>  'Ventilate',
+    'heat_up'       =>  'Heat',
+    'cool_down'     =>  'Cool',
 ];

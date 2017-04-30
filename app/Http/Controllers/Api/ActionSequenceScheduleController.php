@@ -184,8 +184,8 @@ class ActionSequenceScheduleController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action = ActionSequenceSchedule::find($id);
-        if (is_null($action)) {
+        $action_sequence_schedule = ActionSequenceSchedule::find($id);
+        if (is_null($action_sequence_schedule)) {
             return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
         }
 
@@ -203,11 +203,11 @@ class ActionSequenceScheduleController extends ApiController
             }
         }
 
-        $this->updateModelProperties($action, $request, [
+        $this->updateModelProperties($action_sequence_schedule, $request, [
             'name', 'action_sequence_id' => 'action_sequence', 'starts_at'
         ]);
 
-        $action->save();
+        $action_sequence_schedule->save();
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
@@ -217,4 +217,29 @@ class ActionSequenceScheduleController extends ApiController
         ]);
 
     }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function skip($id)
+    {
+        if (Gate::denies('api-write:action_sequence_schedule')) {
+            return $this->respondUnauthorized();
+        }
+
+        $action_sequence_schedule = ActionSequenceSchedule::find($id);
+        if (is_null($action_sequence_schedule)) {
+            return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
+        }
+
+        $action_sequence_schedule->next_start_not_before = Carbon::now()->addDays(1)->subMinute(1);
+        $action_sequence_schedule->save();
+
+        return $this->respondWithData([
+            'next_start_not_before' => $action_sequence_schedule->next_start_not_before
+        ]);
+
+    }
+
 }
