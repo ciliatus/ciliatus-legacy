@@ -1,0 +1,57 @@
+{
+  "id": "df67fdba-4e6a-4a9d-a824-5163c4f933ae",
+  "name": "animal",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "@sys.given-name:given-name",
+      "synonyms": [
+        "@sys.given-name:given-name"
+      ]
+    },
+    {
+      "value": "Asterix",
+      "synonyms": [
+        "Asterix"
+      ]
+    },
+    {
+      "value": "Felina",
+      "synonyms": [
+        "Felina"
+      ]
+    },
+    {
+      "value": "Bambi",
+      "synonyms": [
+        "Bambi"
+      ]
+    },
+    {
+      "value": "Feline",
+      "synonyms": [
+        "Feline"
+      ]
+    },
+    {
+      "value": "Auri",
+      "synonyms": [
+        "Auri"
+      ]
+    },
+    {
+      "value": "Blume",
+      "synonyms": [
+        "Blume"
+      ]
+    },
+    {
+      "value": "Klopfer",
+      "synonyms": [
+        "Klopfer"
+      ]
+    }
+  ],
+  "isEnum": true,
+  "automatedExpansion": false
+}

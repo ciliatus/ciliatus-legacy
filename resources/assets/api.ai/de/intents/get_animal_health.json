@@ -1,0 +1,194 @@
+{
+  "userSays": [
+    {
+      "id": "c1f40d84-1e0f-4697-9aa1-17bb70e25d38",
+      "data": [
+        {
+          "text": "Wie geht es "
+        },
+        {
+          "text": "Klopfer",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "755fc5dc-1268-47fa-95b9-b48117ffca45",
+      "data": [
+        {
+          "text": "Wie geht es?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "b1f6d760-4f39-4fbc-9aaf-3b4fb5fc8b7e",
+      "data": [
+        {
+          "text": "Wie geht\u0027s?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "9d5d3b50-c6a5-4f3e-ab8b-914fcecdaa06",
+      "data": [
+        {
+          "text": "Wie geht\u0027s "
+        },
+        {
+          "text": "Blume",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "e07b59bc-7a03-4651-ae38-09ebf8fab3f6",
+      "data": [
+        {
+          "text": "Wie geht es "
+        },
+        {
+          "text": "Asterix",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    },
+    {
+      "id": "a979ef7d-8f4c-47c1-bc2e-a8b9bcf3456f",
+      "data": [
+        {
+          "text": "Wie geht es "
+        },
+        {
+          "text": "Blume",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "1c9c6b75-567b-483d-996d-cf693f932123",
+      "data": [
+        {
+          "text": "Ciliatus, wie geht es "
+        },
+        {
+          "text": "Asterix",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "e772d7ad-8715-430e-9941-0a70244a7fda",
+      "data": [
+        {
+          "text": "Ciliatus, wie geht es "
+        },
+        {
+          "text": "Klopfer",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "be87cc55-f81c-48c2-b0e8-afe6b731aadb",
+      "data": [
+        {
+          "text": "Ciliatus, wie geht es "
+        },
+        {
+          "text": "Felina",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 1
+    }
+  ],
+  "id": "bcb783e5-dd05-4008-ad3d-7e1017276a4d",
+  "name": "get_animal_health",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@animal",
+          "name": "animal",
+          "value": "$animal",
+          "prompts": [
+            "Welches Tier?"
+          ],
+          "isList": false
+        },
+        {
+          "name": "lang",
+          "value": "de"
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Ich konnte Ciliatus leider nicht erreichen."
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": []
+}

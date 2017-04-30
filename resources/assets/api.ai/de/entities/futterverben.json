@@ -1,0 +1,32 @@
+{
+  "id": "e173772a-ffbb-4e80-81c5-1b0e0d89d221",
+  "name": "futterverben",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "futter",
+      "synonyms": [
+        "futter",
+        "füttern",
+        "essen",
+        "nahrung",
+        "gefüttert"
+      ]
+    },
+    {
+      "value": "hunger",
+      "synonyms": [
+        "hunger",
+        "hungrig"
+      ]
+    },
+    {
+      "value": "Fütterungen",
+      "synonyms": [
+        "Fütterungen"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

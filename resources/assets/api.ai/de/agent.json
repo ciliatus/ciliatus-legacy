@@ -1,0 +1,30 @@
+{
+  "description": "",
+  "language": "de",
+  "enabledDomainFeatures": [],
+  "googleAssistant": {
+    "googleAssistantCompatible": true,
+    "invocationName": "Ciliatus",
+    "project": "ciliatus-165913",
+    "welcomeIntentSignInRequired": false,
+    "startIntents": [],
+    "endIntentIds": [],
+    "oAuthLinking": {
+      "required": false,
+      "grantType": "AUTH_CODE_GRANT"
+    },
+    "voiceType": "FEMALE_1"
+  },
+  "defaultTimezone": "Europe/Berlin",
+  "webhook": {
+    "url": "https://dev-43256.ciliatus.io/api/v1/apiai",
+    "headers": {
+      "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImp0aSI6IjM1MmQzYjQxMDM4N2E0MDcwMTY0N2RlMjY2NDk5ZDZiNmIzZDc5MzY1MGM3OWNkYjBlNGYyMzQ2OTVlOTVkODQwNGI5Y2U0YzM5ZTczMjhjIn0.eyJhdWQiOiIxIiwianRpIjoiMzUyZDNiNDEwMzg3YTQwNzAxNjQ3ZGUyNjY0OTlkNmI2YjNkNzkzNjUwYzc5Y2RiMGU0ZjIzNDY5NWU5NWQ4NDA0YjljZTRjMzllNzMyOGMiLCJpYXQiOjE0OTMyOTY1NDQsIm5iZiI6MTQ5MzI5NjU0NCwiZXhwIjoxNTI0ODMyNTQ0LCJzdWIiOiI1YWM4M2MzMC0yYjQ0LTExZTctYTA2Yi02ZDU3MDY4YTY2ZmQiLCJzY29wZXMiOltdfQ.Miq1w9MD6zsHVQb8_Mx-bHVUa4s7zH2E60LrSZimGkF_nwoJ4AbIBy2K9y8OrXIs4cM0ba0hubWlciFZqlK0gK-45a8VDnn_f_xIJk-OTU-nI4QjVQXEi5A2S-F3UZjpwpvxpMNB-ozd1VxUxWLUrQpEq0qliEq1jonC0e-5zGhjth7Y4aoDPoZwVG3VlSp-yA3nJrHK-VCdd8F18_Szo0bP7RynfA_KkAu676ulMULM4OcXWsX4DpMrBzA8J02ZNIJbe4eUouEOMWdiESSiTdNW4bDxI_0NbTj5mjaSJyNo-XVOdbt6PBpceHArbkdB_tDFTrtQOVuBpMMBE5JK4UqMWjgea0q7MZpINF-6GnHzDxuBLvORDC4T1Ha5hVOaiMRr7B2GIj_e4HqIW3akHwiaiyXK65L-NekN8fvEudP6RoNXT1B_4ZEq4cgMWZdGMMiev_j3xaT1-pz1Vo1l6t90LFilPMktYHJBqM7QOZE5ScYuKzslRfHQZeer9Ph42TH7SpOUe00T7j5ygnjwIvur9in9STiAHGUG3anQgpjtelVepess5_ZkL03qmPJaGkSyqMZQwojNLtgMLOC4BmV7VEysdc8uyHlT1YzDVSA2_2DU8oJ4YgcjasZQz-bmusTsy-QYYVLYJyLa64agbt0t7VpazXNueo3Ue4P_7Kc"
+    },
+    "available": true,
+    "useForDomains": false
+  },
+  "isPrivate": false,
+  "customClassifierMode": "use.after",
+  "mlMinConfidence": 0.2
+}

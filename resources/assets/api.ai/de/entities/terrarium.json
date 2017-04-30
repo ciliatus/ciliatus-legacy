@@ -1,0 +1,45 @@
+{
+  "id": "57d9be6a-4d3b-4367-ad88-10affe78c8ca",
+  "name": "terrarium",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "Terrarium @sys.given-name:given-name",
+      "synonyms": [
+        "Terrarium @sys.given-name:given-name"
+      ]
+    },
+    {
+      "value": "Terrarium Felina",
+      "synonyms": [
+        "Terrarium Felina"
+      ]
+    },
+    {
+      "value": "Terrarium Klopfer",
+      "synonyms": [
+        "Terrarium Klopfer"
+      ]
+    },
+    {
+      "value": "Terrarium Blume",
+      "synonyms": [
+        "Terrarium Blume"
+      ]
+    },
+    {
+      "value": "Terrarium Bambi",
+      "synonyms": [
+        "Terrarium Bambi"
+      ]
+    },
+    {
+      "value": "Terrarium Asterix",
+      "synonyms": [
+        "Terrarium Asterix"
+      ]
+    }
+  ],
+  "isEnum": true,
+  "automatedExpansion": false
+}
