@@ -1,0 +1,23 @@
+{
+  "description": "",
+  "language": "en",
+  "googleAssistant": {
+    "googleAssistantCompatible": false,
+    "welcomeIntentSignInRequired": false,
+    "startIntents": [],
+    "endIntentIds": [],
+    "oAuthLinking": {
+      "required": false,
+      "grantType": "AUTH_CODE_GRANT"
+    },
+    "voiceType": "MALE_1"
+  },
+  "defaultTimezone": "Europe/Berlin",
+  "webhook": {
+    "available": false,
+    "useForDomains": false
+  },
+  "isPrivate": true,
+  "customClassifierMode": "use.after",
+  "mlMinConfidence": 0.2
+}

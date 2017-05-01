@@ -1,0 +1,79 @@
+{
+  "userSays": [
+    {
+      "id": "d5923d49-17ba-4ced-97b5-8e9a9f4c3b20",
+      "data": [
+        {
+          "text": "How is "
+        },
+        {
+          "text": "Felina",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": false
+        },
+        {
+          "text": " feeling?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "61a50ffd-92ca-4518-881d-7a30fc0e17c6",
+      "data": [
+        {
+          "text": "How is "
+        },
+        {
+          "text": "Klopfer",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "bcb783e5-dd05-4008-ad3d-7e1017276a4d",
+  "name": "get_animal_health",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "required": true,
+          "dataType": "@animal",
+          "name": "animal",
+          "value": "$animal",
+          "prompts": [
+            "Welches Tier?"
+          ],
+          "isList": false
+        },
+        {
+          "name": "lang",
+          "value": "en"
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Ich konnte Ciliatus leider nicht erreichen."
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": []
+}

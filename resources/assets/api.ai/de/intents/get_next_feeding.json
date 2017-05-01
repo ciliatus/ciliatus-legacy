@@ -1,0 +1,155 @@
+{
+  "userSays": [
+    {
+      "id": "7b1a0448-50b6-4a9c-a3d4-af7bb28650f6",
+      "data": [
+        {
+          "text": "Wann wird "
+        },
+        {
+          "text": "Blume",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "gefüttert",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "a755086f-3bd5-4f3c-ac82-a4ada7164d6d",
+      "data": [
+        {
+          "text": "Wann bekommt "
+        },
+        {
+          "text": "Felina",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "futter",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "0b52c94d-a12b-4e62-a8a3-22302211c33b",
+      "data": [
+        {
+          "text": "Wann muss ich "
+        },
+        {
+          "text": "Klopfer",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "füttern",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "962bb600-2cfe-4d71-945a-41779a7c89db",
+      "data": [
+        {
+          "text": "Wann wird "
+        },
+        {
+          "text": "Klopfer",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": false
+        },
+        {
+          "text": " das nächste mal "
+        },
+        {
+          "text": "gefüttert",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "f8489648-a276-480b-860a-67aab1bf363d",
+  "name": "get_next_feeding",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "@animal",
+          "name": "animal",
+          "value": "$animal",
+          "isList": false
+        },
+        {
+          "dataType": "@futterverben",
+          "name": "futterverben",
+          "value": "$futterverben",
+          "isList": false
+        },
+        {
+          "name": "lang",
+          "value": "de"
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Ich konnte Ciliatus leider nicht erreichen."
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": []
+}

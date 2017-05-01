@@ -1,0 +1,194 @@
+{
+  "userSays": [
+    {
+      "id": "ff1a3775-331b-420a-8b03-8996f703325d",
+      "data": [
+        {
+          "text": "Wer ist "
+        },
+        {
+          "text": "hungrig",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "e0480b8f-dda8-4bd6-b953-7f42ef3ffa68",
+      "data": [
+        {
+          "text": "Wer hat "
+        },
+        {
+          "text": "Hunger",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "0984d0e9-0226-4273-b0c2-408d02eac121",
+      "data": [
+        {
+          "text": "Wer muss "
+        },
+        {
+          "text": "gefüttert",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": true
+        },
+        {
+          "text": " werden?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "3e3fa971-c978-4118-b9ed-540716a5982d",
+      "data": [
+        {
+          "text": "Welche "
+        },
+        {
+          "text": "Fütterungen",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": true
+        },
+        {
+          "text": " stehen an?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "10a247bf-6d0d-487e-b39b-792252d70d08",
+      "data": [
+        {
+          "text": "Wer ist mit "
+        },
+        {
+          "text": "Füttern",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": true
+        },
+        {
+          "text": " dran?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "00e8c53a-1a64-48b4-96fe-fa8c06e42fa4",
+      "data": [
+        {
+          "text": "Wen muss ich "
+        },
+        {
+          "text": "heute",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "füttern",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": true
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "3dd216ae-061d-4036-ad9d-0a803ddeb673",
+      "data": [
+        {
+          "text": "Wer muss "
+        },
+        {
+          "text": "heute",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "gefüttert",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": true
+        },
+        {
+          "text": " werden?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "5b68dd9d-379a-449c-b058-b18e97d2d13f",
+  "name": "get_feedings_today",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "@sys.date",
+          "name": "date",
+          "value": "$date",
+          "isList": false
+        },
+        {
+          "dataType": "@futterverben",
+          "name": "futterverben",
+          "value": "$futterverben",
+          "isList": false
+        },
+        {
+          "name": "lang",
+          "value": "de"
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Ich konnte Ciliatus leider nicht erreichen."
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": []
+}

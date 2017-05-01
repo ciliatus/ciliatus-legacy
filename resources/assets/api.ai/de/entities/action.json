@@ -1,0 +1,36 @@
+{
+  "id": "ab6f180b-e320-479f-a48e-03c3e2dc4da1",
+  "name": "action",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "bewässern",
+      "synonyms": [
+        "bewässern",
+        "nass machen",
+        "beregnen",
+        "bewässern",
+        "beregnen",
+        "bewässern",
+        "befeuchten"
+      ]
+    },
+    {
+      "value": "heizen",
+      "synonyms": [
+        "heizen",
+        "erhitzen",
+        "aufheizen",
+        "erwärmen",
+        "wärmen",
+        "heizen",
+        "erhítze",
+        "erwärme",
+        "wärme",
+        "beheizen"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

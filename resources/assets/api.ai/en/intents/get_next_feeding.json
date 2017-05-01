@@ -1,0 +1,99 @@
+{
+  "userSays": [
+    {
+      "id": "98e872a1-f181-4655-bf09-8d6791a5d080",
+      "data": [
+        {
+          "text": "When do I need to "
+        },
+        {
+          "text": "feed",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "Klopfer",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "44dde238-0e56-466c-860f-9c6820bab44e",
+      "data": [
+        {
+          "text": "When is "
+        },
+        {
+          "text": "Blume",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": false
+        },
+        {
+          "text": " going to be "
+        },
+        {
+          "text": "fed",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "f8489648-a276-480b-860a-67aab1bf363d",
+  "name": "get_next_feeding",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "name": "lang",
+          "value": "en"
+        },
+        {
+          "dataType": "@animal",
+          "name": "animal",
+          "value": "$animal",
+          "isList": false
+        },
+        {
+          "dataType": "@futterverben",
+          "name": "futterverben",
+          "value": "$futterverben",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Ich konnte Ciliatus leider nicht erreichen."
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": []
+}

@@ -1,0 +1,20 @@
+{
+  "id": "4eecc34f-b6fd-4884-b6ae-9bcaf828bc85",
+  "name": "futterverben",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "feeding",
+      "synonyms": [
+        "feeding",
+        "feed",
+        "food",
+        "fed",
+        "feedings",
+        "hungry"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}
