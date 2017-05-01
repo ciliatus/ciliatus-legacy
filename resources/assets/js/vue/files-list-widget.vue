@@ -253,9 +253,13 @@ export default {
                 this.delete(e);
         });
 
+        var that = this;
+        setTimeout(function() {
+            that.set_filter();
+        }, 100);
+
         this.set_filter();
 
-        var that = this;
         if (this.refreshTimeoutSeconds !== null) {
             setInterval(function() {
                 that.load_data();

@@ -1134,9 +1134,11 @@
                 this.deleteSuggestion(e);
             });
 
-            this.load_data(true);
-
             var that = this;
+            setTimeout(function() {
+                that.load_data(true);
+            }, 100);
+
             if (this.refreshTimeoutSeconds !== null) {
                 setInterval(function() {
                     that.load_data();

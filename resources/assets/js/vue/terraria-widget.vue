@@ -474,9 +474,11 @@ export default {
                 this.delete(e);
             });
 
-        this.set_filter();
-
         var that = this;
+        setTimeout(function() {
+            that.set_filter();
+        }, 100);
+
         if (this.refreshTimeoutSeconds !== null) {
             setInterval(function() {
                 that.load_data();
