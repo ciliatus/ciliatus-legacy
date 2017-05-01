@@ -192,7 +192,7 @@ class ActionController extends ApiController
             }
         }
 
-        if ($$request->has('wait_for_started_action_id')) {
+        if ($request->has('wait_for_started_action_id')) {
             $a = Action::find($request->input('wait_for_started_action_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('Action not found');
@@ -206,8 +206,22 @@ class ActionController extends ApiController
             }
         }
 
+        if ($request->has('component')) {
+            list($component_type, $component_id) = explode('|', $request->input('component'));
+            if (!class_exists('App\\' . $component_type)) {
+                return $this->setStatusCode(422)->respondWithError('Component type not found');
+            }
+            $component = ('App\\' . $component_type)::find($component_id);
+            if (is_null($component)) {
+                return $this->setStatusCode(422)->respondWithError('Component not found');
+            }
+
+            $action->target_type = $component_type;
+            $action->target_id = $component_id;
+        }
+
         $this->updateModelProperties($action, $request, [
-            'action_sequence_id', 'target_type', 'target_id', 'desired_state',
+            'action_sequence_id', 'desired_state',
             'duration_minutes', 'wait_for_started_action_id', 'wait_for_finished_action_id'
         ]);
 

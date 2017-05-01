@@ -135,11 +135,49 @@ class ActionController extends Controller
             return view('errors.404');
         }
 
-        $sequences = ActionSequence::all();
+        $components = [
+            'Valves' => [
+                'display_name' => trans_choice('components.valves', 2),
+                'tech_name' => 'Valve',
+                'objects' => []
+            ],
+            'Pumps' => [
+                'display_name' => trans_choice('components.pumps', 2),
+                'tech_name' => 'Pump',
+                'objects' => []
+            ]
+        ];
+        foreach (Valve::get() as $v) {
+            $components['Valves']['objects'][] = [
+                'id' => $v->id,
+                'name' => $v->name,
+                'states' => $v->states()
+            ];
+        }
+        foreach (Pump::get() as $p) {
+            $components['Pumps']['objects'][] = [
+                'id' => $p->id,
+                'name' => $p->name,
+                'states' => $p->states()
+            ];
+        }
+        foreach (GenericComponentType::get() as $gct) {
+            $components['GenericComponent_' . $gct->id]['display_name'] = $gct->name_plural;
+            $components['GenericComponent_' . $gct->id]['tech_name'] = 'GenericComponent';
+            $components['GenericComponent_' . $gct->id]['objects'] = [];
+            foreach ($gct->components as $gc) {
+                $components['GenericComponent_' . $gct->id]['objects'][] = [
+                    'id' => $gc->id,
+                    'name' => $gc->name,
+                    'states' => array_column($gc->states->toArray(), 'name')
+                ];
+            }
+        }
 
         return view('actions.edit', [
-            'action'     => $action,
-            'sequences'  => $sequences
+            'action'        => $action,
+            'action_sequences' => ActionSequence::get(),
+            'components'    => $components
         ]);
     }
 
