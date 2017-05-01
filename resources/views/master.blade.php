@@ -8,12 +8,12 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,900" rel="stylesheet">
         @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on' || (Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night()))
-            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize_dark.min.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/materialize_dark.min.css"  media="screen,projection"/>
         @else
-            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.min.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/materialize.min.css"  media="screen,projection"/>
         @endif
-        <link type="text/css" rel="stylesheet" href="/css/vendors/timeline.css"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.clockpicker.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/timeline.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/materialize.clockpicker.css"  media="screen,projection"/>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script>
@@ -35,14 +35,14 @@
     <body data-lang="{{ Auth::user()->locale }}" style="height: 100%;">
 
         <div id="body">
-            <div id="api-io-widget-result-modal" class="modal black-text" style="z-index: 1003;">
+            <div id="api-io-widget-result-modal" class="modal" style="z-index: 1003;">
                 <div class="modal-content">
                     <h4>Ciliatus</h4>
                     <strong>@lang('tooltips.experimental_feature')</strong>
                     <p id="api-io-widget-result-modal-content"></p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class="modal-action modal-close waves-effect waves-green btn-flat">@lang('buttons.close')</a>
+                    <a href="#!" class="modal-action modal-close btn btn-flat orange darken-4">@lang('buttons.close')</a>
                 </div>
             </div>
             <script>
@@ -210,8 +210,8 @@
                     <li><div class="divider"></div></li>
 
                     <li><a href="https://github.com/matthenning/ciliatus/issues" class="waves-effect waves-orange"><i class="material-icons">bug_report</i>@lang('labels.bugtracker')</a></li>
-                    <li><a href="https://ciliatus.io/docs/v1.5-beta" class="waves-effect waves-orange"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
-                    <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v1.5-beta" class="waves-effect waves-orange"><i class="material-icons">linear_scale</i>Version v1.6-beta dev</a></li>
+                    <li><a href="https://ciliatus.io/docs/v1.6-beta" class="waves-effect waves-orange"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
+                    <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v1.6-beta" class="waves-effect waves-orange"><i class="material-icons">linear_scale</i>Version v1.6-beta</a></li>
                     @endif
 
                     <li class="red lighten-5"><a @if(!App\ActionSequence::stopped())href="/action_sequences/stop_all" @else href="/action_sequences/resume_all" @endif class="waves-effect waves-red red-text"><i class="material-icons red-text">power_settings_new</i>@lang('buttons.emergency_stop')</a></li>
@@ -241,17 +241,17 @@
         <!-- Google Charts -->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <!-- Materialize.js -->
-        <script src="{{ url('/js/vendors/materialize.min.js') }}"></script>
+        <script src="{{ url('/v1.6-beta/js/vendors/materialize.min.js') }}"></script>
         <!-- Materialize.clockpicker.js -->
-        <script src="{{ url('/js/vendors/materialize.clockpicker.js') }}"></script>
+        <script src="{{ url('/v1.6-beta/js/vendors/materialize.clockpicker.js') }}"></script>
         <!-- Masonry -->
-        <script src="{{ url('/js/vendors/masonry.pkgd.min.js') }}"></script>
+        <script src="{{ url('/v1.6-beta/js/vendors/masonry.pkgd.min.js') }}"></script>
         <!-- Laravel-Echo -->
-        <script src="{{ url('/js/vendors/echo.min.js') }}"></script>
+        <script src="{{ url('/v1.6-beta/js/vendors/echo.min.js') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('/js/app.min.js') }}"></script>
+        <script src="{{ url('/v1.6-beta/js/app.min.js') }}"></script>
         <!-- Vue -->
-        <script src="{{ url('/js/vendors/vue.min.js') }}"></script>
+        <script src="{{ url('/v1.6-beta/js/vendors/vue.js') }}"></script>
 
         @yield('scripts')
 

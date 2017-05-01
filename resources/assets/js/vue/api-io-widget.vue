@@ -108,7 +108,7 @@ export default {
             this.recognition = new webkitSpeechRecognition();
             this.recognition.continuous = true;
             this.recognition.interimResults = true;
-            this.recognition.lang = Vue.config.lang;
+            this.recognition.lang = $('body').data('lang');
 
             this.recognition.onstart = function() {
                 that.recording = true;
