@@ -438,7 +438,7 @@ export default {
 
         var that = this;
         setTimeout(function() {
-            that.load_data();
+            that.set_filter();
         }, 100);
 
         if (this.refreshTimeoutSeconds !== null) {
