@@ -36,7 +36,7 @@
         </div>
 
         <div class="fixed-action-btn">
-            <a class="btn-floating btn-large teal">
+            <a class="btn-floating btn-large orange darken-4">
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
@@ -71,7 +71,7 @@
 
                 <div class="col s12 m12 l8">
                     <div class="card">
-                        <div class="card-content teal lighten-1 white-text">
+                        <div class="card-content orange darken-4 white-text">
                             <span>@lang('labels.weighprogression')</span>
                         </div>
                         <div class="card-content">
@@ -100,7 +100,7 @@
 
                     <div class="col s12 m7 l8">
                         <div class="card">
-                            <div class="card-content teal lighten-1 white-text">
+                            <div class="card-content orange darken-4 white-text">
                                 @lang('labels.temp_and_hum_history')
                             </div>
                             <div class="card-content">
@@ -122,7 +122,7 @@
         </div>
 
         <div class="fixed-action-btn">
-            <a class="btn-floating btn-large teal">
+            <a class="btn-floating btn-large orange darken-4">
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
@@ -139,7 +139,7 @@
         </div>
 
         <div class="fixed-action-btn">
-            <a class="btn-floating btn-large teal">
+            <a class="btn-floating btn-large orange darken-4">
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
@@ -157,7 +157,7 @@
         </div>
 
         <div class="fixed-action-btn">
-            <a class="btn-floating btn-large teal">
+            <a class="btn-floating btn-large orange darken-4">
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>

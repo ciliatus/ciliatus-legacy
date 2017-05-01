@@ -3,7 +3,7 @@
         <div v-for="pump in pumps">
             <div :class="wrapperClasses">
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <i class="material-icons">rotate_right</i>
                         {{ $tc("components.pumps", 2) }}
                     </div>
@@ -167,9 +167,11 @@ export default {
                 this.delete(e);
         });
 
-        this.load_data();
-
         var that = this;
+        setTimeout(function() {
+            that.load_data();
+        }, 100);
+
         if (this.refreshTimeoutSeconds !== null) {
             setInterval(function() {
                 that.load_data();

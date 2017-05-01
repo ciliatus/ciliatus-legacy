@@ -33,9 +33,7 @@ class ActionSequenceController extends Controller
      */
     public function index()
     {
-        return view('action_sequences.index', [
-            'action_sequences' => ActionSequence::get()
-        ]);
+        return view('action_sequences.index');
     }
 
     /**

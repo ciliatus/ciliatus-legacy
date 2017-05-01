@@ -94,10 +94,24 @@ class AnimalWeighingController extends \App\Http\Controllers\Controller
     /**
      * @param $animal_id
      * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function delete($animal_id, $id)
     {
+        $animal = Animal::find($animal_id);
+        if (is_null($animal)) {
+            return view('errors.404');
+        }
 
+        $animal_weighing = $animal->weighings()->where('id', $id)->get()->first();
+        if (is_null($animal_weighing)) {
+            return view('errors.404');
+        }
+
+        return view('animals.weighings.delete', [
+            'animal' => $animal,
+            'animal_weighing' => $animal_weighing
+        ]);
     }
 
     /**

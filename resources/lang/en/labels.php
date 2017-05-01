@@ -11,6 +11,7 @@ return [
     'gender'        =>  'Gender',
     'gender_male'   =>  'Male',
     'gender_female' =>  'Female',
+    'date'          =>  'Date',
     'date_birth'    =>  'Day of birth',
     'date_death'    =>  'Day of death',
     'model'         =>  'Model',
@@ -127,7 +128,9 @@ return [
     'minimum_timeout_minutes' => 'Timeout (minutes)',
     'emergency_stop'=> 'Emergency stop',
     'increases'     => 'Increases',
+    'increase'     => 'Increases',
     'decreases'     => 'Decreases',
+    'decrease'     => 'Decreases',
     'personal_access_tokens' => 'Access Tokens',
     'expires'       => 'Expires',
     'security'      => 'Security',
@@ -161,5 +164,11 @@ return [
     'rawvalue'      =>  'Raw value',
     'adjust_rawvalue'=> 'Raw value correction',
     'filter'        =>  'Filter',
-    'logout'        =>  'Log off'
+    'logout'        =>  'Log off',
+    'ask_me_something'=>'Ask me something',
+    'ventilate'     =>  'Ventilate',
+    'heat_up'       =>  'Heat',
+    'cool_down'     =>  'Cool',
+    'between'       =>  'between',
+    'and'           =>  'and'
 ];

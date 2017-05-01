@@ -109,7 +109,7 @@
                 <form action="{{ url('api/v1/terraria/' . $terrarium->id) }}" data-method="PUT"
                       >
                     <div class="card">
-                        <div class="card-content teal lighten-1 white-text">
+                        <div class="card-content orange darken-4 white-text">
                             <span class="activator truncate">
                                 <span>@lang('labels.suggestions')</span>
                             </span>
@@ -195,7 +195,7 @@
     </div>
 
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large teal">
+        <a class="btn-floating btn-large orange darken-4">
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>

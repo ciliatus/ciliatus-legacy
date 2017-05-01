@@ -102,9 +102,11 @@ export default {
             uri = '/api/v1/action_sequence_schedules/' + this.assid;
         }
 
-        this.load_data();
-
         var that = this;
+        setTimeout(function() {
+            that.load_data();
+        }, 100);
+
         if (this.refreshTimeoutSeconds !== null) {
             setInterval(function() {
                 that.load_data();

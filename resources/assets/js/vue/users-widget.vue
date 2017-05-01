@@ -153,7 +153,10 @@ export default {
     },
 
     created: function() {
-        this.load_data();
+        var that = this;
+        setTimeout(function() {
+            that.load_data();
+        }, 100);
     }
 }
 </script>

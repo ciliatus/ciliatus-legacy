@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\LogicalSensor;
 use App\Sensorreading;
 use App\Http\Transformers\SensorreadingTransformer;
+use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -167,6 +168,20 @@ class SensorreadingController extends ApiController
         }
 
         $sensorreading = Sensorreading::create();
+
+        if ($request->has('created_at')) {
+            try {
+                Carbon::parse($request->input('created_at'));
+            }
+            catch (\Exception $ex) {
+                return $this->setStatusCode(422)
+                            ->setErrorCode(107)
+                            ->respondWithError('Field created_at could not be parsed: ' . $ex->getMessage());
+            }
+
+            $sensorreading->created_at = $request->input('created_at');
+        }
+
         $sensorreading->sensorreadinggroup_id = $request->input('group_id');
         $sensorreading->logical_sensor_id = $request->input('logical_sensor_id');
         $sensorreading->rawvalue = $logical_sensor->rawvalue; //this will contain the adjusted value

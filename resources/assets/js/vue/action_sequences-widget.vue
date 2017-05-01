@@ -1,7 +1,7 @@
 <template>
 
     <div class="card">
-        <div class="card-content teal lighten-1 white-text">
+        <div class="card-content orange darken-4 white-text">
             <i class="material-icons">playlist_play</i>
             {{ action_sequences.length }} {{ $tc("components.action_sequences", 2) }}
         </div>
@@ -155,10 +155,11 @@ export default {
                 this.delete(e);
             });
 
-
-        this.load_data();
-
         var that = this;
+        setTimeout(function() {
+            that.load_data();
+        }, 100);
+
         if (this.refreshTimeoutSeconds !== null) {
             setInterval(function() {
                 that.load_data();

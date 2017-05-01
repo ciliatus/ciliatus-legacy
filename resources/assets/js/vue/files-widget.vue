@@ -2,7 +2,7 @@
     <div :class="containerClasses">
         <div :class="wrapperClasses">
             <div class="card">
-                <div class="card-content teal lighten-1 white-text">
+                <div class="card-content orange darken-4 white-text">
                     <i class="material-icons">attach_file</i>
                     {{ files.length }} {{ $tc("components.files", 2) }}
                 </div>
@@ -145,10 +145,11 @@ export default {
                 this.delete(e);
             });
 
-
-        this.load_data();
-
         var that = this;
+        setTimeout(function() {
+            that.load_data();
+        }, 100);
+
         if (this.refreshTimeoutSeconds !== null) {
             setInterval(function() {
                 that.load_data();

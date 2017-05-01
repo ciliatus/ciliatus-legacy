@@ -132,6 +132,14 @@ header, main, footer {
   }
 }
 
+@media only screen and (min-width : 993px) {
+  .navbar-fixed nav {
+    width: inherit;
+    left: 300px; //calculated distance from left+side nav
+    right: 0;
+  }
+}
+
 
 .btn-icon-only {
   margin-left: 20px;
@@ -227,4 +235,35 @@ page[size="A5"][layout="portrait"] {
   page * {
     visibility: visible;
   }
+}
+
+#left-top-menu-logo-wrapper {
+  height: 215px;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.07), 0 1px 5px 0 rgba(0,0,0,.07), 0 3px 1px -2px rgba(0,0,0,.07);
+}
+
+#left-top-menu-logo {
+  z-index: 1001;
+  height: 200px;
+  background-image: url('/images/menu_logo_small.png');
+  background-repeat: no-repeat;
+}
+
+#left-top-menu-title {
+  font-weight: 900;
+  font-family: "Montserrat", "Adobe Blank", sans-serif;
+  font-style: normal;
+  font-size: 36pt;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.table-details-collapsible {
+  padding-top: 0;
+  padding-bottom: 0;
+  padding-left: 10px;
+}
+
+.table-details-collapsible ul {
+  margin: 5px;
 }

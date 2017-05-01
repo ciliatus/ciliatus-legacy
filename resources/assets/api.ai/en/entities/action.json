@@ -1,0 +1,26 @@
+{
+  "id": "39c76f3b-7ee0-4d80-b7ac-3a47163c8125",
+  "name": "action",
+  "isOverridable": true,
+  "entries": [
+    {
+      "value": "irrigate",
+      "synonyms": [
+        "irrigate",
+        "make wet",
+        "spray",
+        "mist"
+      ]
+    },
+    {
+      "value": "heat",
+      "synonyms": [
+        "heat",
+        "heat up",
+        "increase temperature"
+      ]
+    }
+  ],
+  "isEnum": false,
+  "automatedExpansion": false
+}

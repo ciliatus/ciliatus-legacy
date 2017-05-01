@@ -112,6 +112,7 @@ import ControlunitsListWidget from './vue/controlunits-list-widget.vue';
 import FilesWidget from './vue/files-widget.vue';
 import FilesListWidget from './vue/files-list-widget.vue';
 import FilesShowWidget from './vue/files-show-widget.vue';
+import ActionSequencesListWidget from './vue/action_sequences-list-widget.vue';
 import ActionSequencesWidget from './vue/action_sequences-widget.vue';
 import ActionSequenceScheduleWidget from './vue/action_sequence_schedule-widget.vue';
 import PumpsWidget from './vue/pumps-widget.vue';
@@ -129,23 +130,15 @@ import BiographyEntriesWidget from './vue/biography_entries-widget.vue'
 import CaresheetsWidget from './vue/caresheets-widget.vue'
 import LogsWidget from './vue/logs-widget.vue';
 import ComponentsListWidget from './vue/components-list-widget.vue';
+
+import ApiIoWidget from './vue/api-io-widget.vue';
+
 import BusTypeEditForm from './vue/bus_type_edit-form.vue';
-
 import GenericComponentTypeCreateForm from './vue/generic_component_type_create-form.vue';
-
-window.systemVue = new Vue({
-
-    el: '#system-indicator',
-
-    components: {
-        'system-indicator': SystemIndicator
-    }
-
-});
 
 window.bodyVue = new Vue({
 
-    el: '#content',
+    el: '#body',
 
     data: {
         terraria: [],
@@ -191,6 +184,7 @@ window.bodyVue = new Vue({
         'files-widget': FilesWidget,
         'files-list-widget': FilesListWidget,
         'files-show-widget': FilesShowWidget,
+        'action_sequences-list-widget': ActionSequencesListWidget,
         'action_sequences-widget': ActionSequencesWidget,
         'action_sequence_schedule-widget': ActionSequenceScheduleWidget,
         'pumps-widget': PumpsWidget,
@@ -208,8 +202,12 @@ window.bodyVue = new Vue({
         'caresheets-widget': CaresheetsWidget,
         'logs-widget': LogsWidget,
         'components-list-widget': ComponentsListWidget,
-        'bus-type-edit-form': BusTypeEditForm,
 
-        'generic_component_type_create-form': GenericComponentTypeCreateForm
+        'api-io-widget': ApiIoWidget,
+
+        'bus-type-edit-form': BusTypeEditForm,
+        'generic_component_type_create-form': GenericComponentTypeCreateForm,
+
+        'system-indicator': SystemIndicator
     }
 });

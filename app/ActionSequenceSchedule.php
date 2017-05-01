@@ -38,7 +38,7 @@ class ActionSequenceSchedule extends CiliatusModel
     /**
      * @var array
      */
-    protected $dates = ['created_at', 'updated_at', 'last_start_at', 'last_finished_at'];
+    protected $dates = ['created_at', 'updated_at', 'last_start_at', 'last_finished_at', 'next_start_not_before'];
 
     /**
      * @param array $attributes
@@ -248,7 +248,8 @@ class ActionSequenceSchedule extends CiliatusModel
                     )
                     || $this->startsToday()->gt(Carbon::now())
                 )
-                && !$this->running();
+                && !$this->running()
+                && (is_null($this->next_start_not_before) || $this->next_start_not_before->isToday());
     }
 
     /**
@@ -280,7 +281,8 @@ class ActionSequenceSchedule extends CiliatusModel
     public function shouldBeRunning()
     {
         return $this->startsToday()->lt(Carbon::now())
-            && (is_null($this->last_finished_at) || !$this->last_finished_at->isToday());
+            && (is_null($this->last_finished_at) || !$this->last_finished_at->isToday())
+            && (is_null($this->next_start_not_before) || $this->next_start_not_before->isToday());
     }
 
     /**
@@ -330,7 +332,10 @@ class ActionSequenceSchedule extends CiliatusModel
         $startsToday->minute = explode(':', $this->starts_at)[1];
         $startsToday->second = 0;
 
-        return !$this->running() && !$this->ranToday() && $startsToday->addMinutes($minutes)->lt(Carbon::now());
+        return !$this->running()
+            && !$this->ranToday()
+            && $startsToday->addMinutes($minutes)->lt(Carbon::now())
+            && (is_null($this->next_start_not_before) || $this->next_start_not_before->isToday());
     }
 
     /**

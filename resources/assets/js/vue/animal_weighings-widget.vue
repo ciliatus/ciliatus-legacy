@@ -1,13 +1,16 @@
 <template>
     <div>
         <div :class="wrapperClasses">
-            <div v-bind:id="'modal_add_weighing_' + animalId" class="modal">
+            <div v-bind:id="'modal_add_weighing_' + animalId" class="modal" style="min-height: 800px;">
                 <form v-bind:action="'/api/v1/animals/' + animalId + '/weighings'" data-method="POST" onsubmit="window.submit_form">
                     <div class="modal-content">
                         <h4>{{ $t("labels.add_weight") }}</h4>
                         <p>
                             <input type="text" name="weight" id="weight" :placeholder="$t('labels.weight')" value="">
                             <label for="weight">{{ $t("labels.weight") }}/g</label>
+
+                            <input type="date" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
+                            <label>{{ $t('labels.date') }}</label>
                         </p>
                     </div>
 
@@ -20,7 +23,7 @@
             </div>
 
             <div class="card">
-                <div class="card-content teal lighten-1 white-text">
+                <div class="card-content orange darken-4 white-text">
                     <i class="material-icons">vertical_align_bottom</i>
                     {{ $tc("components.animal_weighings", 2) }}
                 </div>
@@ -32,12 +35,13 @@
                     </span>
 
                     <div v-for="af in animal_weighings">
-                        <p>
+                        <div style="width: 100%;">
                             <span v-if="af.timestamps.created_diff.days > 1">{{ $t('units.days_ago', {val: af.timestamps.created_diff.days}) }}</span>
                             <span v-if="af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours > 1">{{ $t('units.hours_ago', {val: af.timestamps.created_diff.hours}) }}</span>
                             <span v-if="af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours <= 1">{{ $t('units.just_now') }}</span>
                             <span> - {{ af.amount }}g</span>
-                        </p>
+                            <span class="right"><a class="btn btn-danger btn-tiny" :href="'/animals/' + animalId + '/weighings/' + af.id + '/delete'">x</a></span>
+                        </div>
                     </div>
                     <div v-if="animal_weighings.length < 1">
                         <p>{{ $t('labels.no_data') }}</p>
@@ -149,9 +153,11 @@ export default {
                 this.delete(e);
             });
 
-        this.load_data();
-
         var that = this;
+        setTimeout(function() {
+            that.load_data();
+        }, 100);
+
         if (this.refreshTimeoutSeconds !== null) {
             setInterval(function() {
                 that.load_data();

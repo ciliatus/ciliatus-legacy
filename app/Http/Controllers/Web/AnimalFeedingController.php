@@ -94,10 +94,24 @@ class AnimalFeedingController extends \App\Http\Controllers\Controller
     /**
      * @param $animal_id
      * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
     public function delete($animal_id, $id)
     {
+        $animal = Animal::find($animal_id);
+        if (is_null($animal)) {
+            return view('errors.404');
+        }
 
+        $animal_feeding = $animal->feedings()->where('id', $id)->get()->first();
+        if (is_null($animal_feeding)) {
+            return view('errors.404');
+        }
+
+        return view('animals.feedings.delete', [
+            'animal' => $animal,
+            'animal_feeding' => $animal_feeding
+        ]);
     }
 
     /**

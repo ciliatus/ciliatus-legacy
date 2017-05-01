@@ -3,7 +3,7 @@
         <div v-for="logical_sensor in logical_sensors">
             <div :class="wrapperClasses">
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <i class="material-icons">memory</i>
                         {{ $tc("components.logical_sensors", 2) }}
                     </div>
@@ -190,10 +190,11 @@ export default {
                 this.delete(e);
         });
 
-
-        this.load_data();
-
         var that = this;
+        setTimeout(function() {
+            that.load_data();
+        }, 100);
+
         if (this.refreshTimeoutSeconds !== null) {
             setInterval(function() {
                 that.load_data();

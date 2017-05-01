@@ -22,5 +22,6 @@ return [
     'ventilate' =>  'Lüften',
     'heat_up'   =>  'Heizen',
     'cool_down' =>  'Kühlen',
-    'start'     =>  'Starten'
+    'start'     =>  'Starten',
+    'close'     =>  'Schließen'
 ];

@@ -1,8 +1,8 @@
 @extends('master')
 
 @section('content')
-    <script src="/js/vis/vis.js"></script>
-    <link href="/css/vis/vis-network.min.css" rel="stylesheet" type="text/css" />
+    <script src="/js/vendors/vis/vis.js"></script>
+    <link href="/css/vendors/vis/vis-network.min.css" rel="stylesheet" type="text/css" />
 
     <div id="ciliatus_map" style="width: 100%; height: 100%;"></div>
 

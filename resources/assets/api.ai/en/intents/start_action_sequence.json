@@ -1,0 +1,173 @@
+{
+  "userSays": [
+    {
+      "id": "d0b04ea5-0b9c-4ee4-999a-8a9c0d57364b",
+      "data": [
+        {
+          "text": "Blume",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": true
+        },
+        {
+          "text": " für "
+        },
+        {
+          "text": "1 Stunde",
+          "alias": "duration",
+          "meta": "@sys.duration",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "heizen",
+          "alias": "action",
+          "meta": "@action",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "b638b051-b949-4abd-a15c-3f0f577e1aea",
+      "data": [
+        {
+          "text": "Auri",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": true
+        },
+        {
+          "text": " für "
+        },
+        {
+          "text": "9 Minuten",
+          "alias": "duration",
+          "meta": "@sys.duration",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "befeuchten",
+          "alias": "action",
+          "meta": "@action",
+          "userDefined": false
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "590fbe0d-9c47-47c4-b0b4-ac92d050e4d2",
+      "data": [
+        {
+          "text": "Asterix",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": false
+        },
+        {
+          "text": " für "
+        },
+        {
+          "text": "10 Minuten",
+          "alias": "duration",
+          "meta": "@sys.duration",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "befeuchten",
+          "alias": "action",
+          "meta": "@action",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "2e3bf9b5-fcb4-41ef-8c09-bb7c52db3e3e",
+      "data": [
+        {
+          "text": "Feline",
+          "alias": "animal",
+          "meta": "@animal",
+          "userDefined": true
+        },
+        {
+          "text": " für "
+        },
+        {
+          "text": "5 Minuten",
+          "alias": "duration",
+          "meta": "@sys.duration",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "beheizen",
+          "alias": "action",
+          "meta": "@action",
+          "userDefined": true
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "f1293f59-2303-44f9-89ad-c70438d8681d",
+  "name": "start_action_sequence",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "dataType": "@sys.duration",
+          "name": "duration",
+          "value": "$duration",
+          "isList": false
+        },
+        {
+          "dataType": "@animal",
+          "name": "animal",
+          "value": "$animal",
+          "isList": false
+        },
+        {
+          "dataType": "@action",
+          "name": "action",
+          "value": "$action",
+          "isList": false
+        },
+        {
+          "name": "lang",
+          "value": "de"
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Ich konnte Ciliatus leider nicht erreichen."
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": []
+}

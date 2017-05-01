@@ -1,0 +1,109 @@
+{
+  "userSays": [
+    {
+      "id": "98a579aa-ead7-46ba-8f57-4126e7d847ba",
+      "data": [
+        {
+          "text": "Who need "
+        },
+        {
+          "text": "food",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "today",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "f34af871-a834-47a6-8058-f3a1b687dc3a",
+      "data": [
+        {
+          "text": "Who is going to be "
+        },
+        {
+          "text": "fed",
+          "alias": "futterverben",
+          "meta": "@futterverben",
+          "userDefined": false
+        },
+        {
+          "text": " "
+        },
+        {
+          "text": "today",
+          "alias": "date",
+          "meta": "@sys.date",
+          "userDefined": false
+        },
+        {
+          "text": "?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    },
+    {
+      "id": "a308e469-be04-4615-b819-e107b5022cd8",
+      "data": [
+        {
+          "text": "Who is hungry?"
+        }
+      ],
+      "isTemplate": false,
+      "count": 0
+    }
+  ],
+  "id": "5b68dd9d-379a-449c-b058-b18e97d2d13f",
+  "name": "get_feedings_today",
+  "auto": true,
+  "contexts": [],
+  "responses": [
+    {
+      "resetContexts": false,
+      "affectedContexts": [],
+      "parameters": [
+        {
+          "name": "lang",
+          "value": "en"
+        },
+        {
+          "dataType": "@futterverben",
+          "name": "futterverben",
+          "value": "$futterverben",
+          "isList": false
+        },
+        {
+          "dataType": "@sys.date",
+          "name": "date",
+          "value": "$date",
+          "isList": false
+        }
+      ],
+      "messages": [
+        {
+          "type": 0,
+          "speech": "Ich konnte Ciliatus leider nicht erreichen."
+        }
+      ]
+    }
+  ],
+  "priority": 500000,
+  "webhookUsed": true,
+  "webhookForSlotFilling": true,
+  "fallbackIntent": false,
+  "events": []
+}

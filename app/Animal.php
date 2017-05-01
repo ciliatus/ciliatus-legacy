@@ -4,7 +4,10 @@ namespace App;
 
 use App\Events\AnimalDeleted;
 use App\Events\AnimalUpdated;
+use App\Http\Transformers\AnimalFeedingScheduleTransformer;
+use App\Repositories\AnimalFeedingScheduleRepository;
 use App\Repositories\AnimalRepository;
+use App\Repositories\AnimalWeighingScheduleRepository;
 use Auth;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -115,6 +118,29 @@ class Animal extends CiliatusModel
     }
 
     /**
+     * @return array
+     */
+    public function getDueFeedingSchedules()
+    {
+        $feeding_schedules = [
+            'due' => [],
+            'overdue' => []
+        ];
+
+        foreach ($this->feeding_schedules as $afs) {
+            $afs = (new AnimalFeedingScheduleRepository($afs))->show();
+            if ($afs->next_feeding_at_diff == 0) {
+                $feeding_schedules['due'][] = $afs;
+            }
+            elseif ($afs->next_feeding_at_diff < 0) {
+                $feeding_schedules['overdue'][] = $afs;
+            }
+        }
+
+        return $feeding_schedules;
+    }
+
+    /**
      * @return mixed
      */
     public function weighings()
@@ -129,6 +155,29 @@ class Animal extends CiliatusModel
     public function weighing_schedules()
     {
         return $this->properties()->where('type', 'AnimalWeighingSchedule');
+    }
+
+    /**
+     * @return array
+     */
+    public function getDueWeighingSchedules()
+    {
+        $weighing_schedules = [
+            'due' => [],
+            'overdue' => []
+        ];
+
+        foreach ($this->weighing_schedules as $afs) {
+            $afs = (new AnimalWeighingScheduleRepository($afs))->show();
+            if ($afs->next_weighing_at_diff == 0) {
+                $weighing_schedules['due'][] = $afs;
+            }
+            elseif ($afs->next_weighing_at_diff < 0) {
+                $weighing_schedules['overdue'][] = $afs;
+            }
+        }
+
+        return $weighing_schedules;
     }
 
     /**

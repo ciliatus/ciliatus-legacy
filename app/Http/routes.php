@@ -41,6 +41,7 @@ Route::group(['namespace' => 'Web', 'middleware' => 'web'], function() {
     Route::get('animals/feedings/types/create', 'AnimalFeedingController@create_type');
 
     // Feedings
+    Route::get('animals/{animal_id}/feedings/{id}/delete', 'AnimalFeedingController@delete');
     Route::resource('animals/{animal_id}/feedings', 'AnimalFeedingController');
     Route::resource('animals/{animal_id}/feeding_schedules', 'AnimalFeedingScheduleController');
 
@@ -49,6 +50,7 @@ Route::group(['namespace' => 'Web', 'middleware' => 'web'], function() {
     Route::get('animal_feeding_schedules', 'AnimalFeedingScheduleController@index');
 
     // Weighings
+    Route::get('animals/{animal_id}/weighings/{id}/delete', 'AnimalWeighingController@delete');
     Route::resource('animals/{animal_id}/weighings', 'AnimalWeighingController');
     Route::resource('animals/{animal_id}/weighing_schedules', 'AnimalWeighingScheduleController');
 
@@ -208,6 +210,9 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1', 'middleware' => ['loca
 
 Route::group(['namespace' => 'Api', 'prefix' => 'api/v1', 'middleware' => ['auth:api', 'localization']], function() {
 
+    Route::post('apiai', 'ApiAiController@webhook');
+    Route::post('apiai/send_request', 'ApiAiController@parseAndSendRequest');
+
     Route::get('dashboard/system_status', 'DashboardController@system_status');
     Route::resource('dashboard', 'DashboardController');
 
@@ -339,6 +344,7 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1', 'middleware' => ['auth
      * Action sequence schedules
      */
     Route::resource('action_sequence_schedules', 'ActionSequenceScheduleController');
+    Route::post('action_sequence_schedules/{id}/skip', 'ActionSequenceScheduleController@skip');
 
     /*
      * Action sequence triggers

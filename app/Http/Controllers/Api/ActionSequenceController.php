@@ -155,8 +155,6 @@ class ActionSequenceController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $as = ActionSequence::create();
-
         if ($request->has('terrarium')) {
             $t = Terrarium::find($request->input('terrarium'));
             if (is_null($t)) {
@@ -166,6 +164,8 @@ class ActionSequenceController extends ApiController
         else {
             return $this->setStatusCode(422)->respondWithError('No Terrarium selected');
         }
+
+        $as = ActionSequence::create();
 
         if ($request->has('name')) {
             $name = $request->input('name');
@@ -208,7 +208,7 @@ class ActionSequenceController extends ApiController
             }
 
             if (!is_null($template_name)) {
-                $as->generateActionByTemplate($template_name);
+                $as->generateActionsByTemplate($template_name);
 
                 if ($request->input('generate_intentions') == 'On') {
                     $as->generateIntentionsByTemplate($template_name);

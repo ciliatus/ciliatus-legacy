@@ -3,7 +3,7 @@
         <div v-for="valve in valves">
             <div :class="wrapperClasses">
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <i class="material-icons">transform</i>
                         {{ $tc("components.valves", 2) }}
                     </div>
@@ -180,10 +180,11 @@ export default {
                 this.delete(e);
         });
 
-
-        this.load_data();
-
         var that = this;
+        setTimeout(function() {
+            that.load_data();
+        }, 100);
+
         if (this.refreshTimeoutSeconds !== null) {
             setInterval(function() {
                 that.load_data();

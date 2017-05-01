@@ -11,8 +11,7 @@
         <div class="row">
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <form action="{{ url('api/v1/action_sequences/' . $action_sequence->id) }}" data-method="PUT"
-                          >
+                    <form action="{{ url('api/v1/action_sequences/' . $action_sequence->id) }}" data-method="PUT">
                         <div class="card-content">
 
                             <span class="card-title activator truncate">
@@ -60,7 +59,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <span class="activator truncate">
                             <span><i class="material-icons">assignment</i> @choice('components.actions', 2)</span>
                         </span>
@@ -70,7 +69,7 @@
 
                         <div class="row">
                             @foreach($action_sequence->actions as $a)
-                                <div class="input-field col s12">
+                                <div class="input-field col s12" style="width: 100%">
                                     [{{ $a->sequence_sort_id }}]
                                     <i class="material-icons">{{ $a->target_object()->icon() }}</i> <a href="{{ $a->target_object()->url() }}">{{ $a->target_object()->name }}</a>
                                     <i class="material-icons">keyboard_arrow_right</i>
@@ -79,8 +78,8 @@
                                         @lang('labels.starts_after') [{{ $a->wait_for_started_action_object()->sequence_sort_id }}]
                                     @endif
 
-                                    <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-activates="dropdown-edit-actions_{{ $a->id }}">
-                                        <i class="material-icons">settings</i>
+                                    <a class="dropdown-button btn btn-small btn-icon-only right" href="#" data-activates="dropdown-edit-actions_{{ $a->id }}">
+                                        <i class="material-icons">edit</i>
                                     </a>
 
                                     <ul id="dropdown-edit-actions_{{ $a->id }}" class="dropdown-content">
@@ -112,7 +111,7 @@
 
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <span class="activator truncate">
                             <span><i class="material-icons">schedule</i> @choice('components.action_sequence_schedules', 2)</span>
                         </span>
@@ -158,7 +157,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <span class="activator truncate">
                             <span><i class="material-icons">flare</i> @choice('components.action_sequence_triggers', 2)</span>
                         </span>
@@ -211,7 +210,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-content teal lighten-1 white-text">
+                    <div class="card-content orange darken-4 white-text">
                         <span class="activator truncate">
                             <span><i class="material-icons">explore</i> @choice('components.action_sequence_intentions', 2)</span>
                         </span>
@@ -265,7 +264,7 @@
     </div>
 
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large teal">
+        <a class="btn-floating btn-large orange darken-4">
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
