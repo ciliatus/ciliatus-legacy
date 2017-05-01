@@ -1,11 +1,8 @@
 {
   "description": "",
-  "language": "de",
-  "enabledDomainFeatures": [],
+  "language": "en",
   "googleAssistant": {
-    "googleAssistantCompatible": true,
-    "invocationName": "Ciliatus",
-    "project": "ciliatus-YOUR_APP_ID",
+    "googleAssistantCompatible": false,
     "welcomeIntentSignInRequired": false,
     "startIntents": [],
     "endIntentIds": [],
@@ -13,18 +10,14 @@
       "required": false,
       "grantType": "AUTH_CODE_GRANT"
     },
-    "voiceType": "FEMALE_1"
+    "voiceType": "MALE_1"
   },
   "defaultTimezone": "Europe/Berlin",
   "webhook": {
-    "url": "YOUR_CILIATUS_HOST/api/v1/apiai",
-    "headers": {
-      "Authorization": "Bearer YOUR_BEARER_TOKEN"
-    },
-    "available": true,
+    "available": false,
     "useForDomains": false
   },
-  "isPrivate": false,
+  "isPrivate": true,
   "customClassifierMode": "use.after",
   "mlMinConfidence": 0.2
 }
