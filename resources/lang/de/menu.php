@@ -16,5 +16,7 @@ return [
     'users'         =>  'Benutzer',
     'animal_feeding_types' => 'Nahrungsarten',
     'logs'          =>  'Protokoll',
-    'categories'    =>  'Kategorien'
+    'categories'    =>  'Kategorien',
+    'monitoring'    =>  'Überwachung',
+    'automation'    =>  'Automatisierung'
 ];

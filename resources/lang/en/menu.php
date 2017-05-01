@@ -16,5 +16,7 @@ return [
     'users'         =>  'Users',
     'animal_feeding_types' => 'Food types',
     'logs'          =>  'Logs',
-    'categories'    =>  'Categories'
+    'categories'    =>  'Categories',
+    'monitoring'    =>  'Monitoring',
+    'automation'    =>  'Automation'
 ];

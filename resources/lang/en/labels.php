@@ -128,7 +128,9 @@ return [
     'minimum_timeout_minutes' => 'Timeout (minutes)',
     'emergency_stop'=> 'Emergency stop',
     'increases'     => 'Increases',
+    'increase'     => 'Increases',
     'decreases'     => 'Decreases',
+    'decrease'     => 'Decreases',
     'personal_access_tokens' => 'Access Tokens',
     'expires'       => 'Expires',
     'security'      => 'Security',
@@ -167,4 +169,6 @@ return [
     'ventilate'     =>  'Ventilate',
     'heat_up'       =>  'Heat',
     'cool_down'     =>  'Cool',
+    'between'       =>  'between',
+    'and'           =>  'and'
 ];

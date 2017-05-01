@@ -4,16 +4,16 @@
         <title>Ciliatus</title>
 
         <link rel="manifest" href="manifest.json">
-        <link rel="icon" href="/v1.6-beta/images/manifest/launcher-icon-0-75x.png" type="image/png">
+        <link rel="icon" href="/images/manifest/launcher-icon-0-75x.png" type="image/png">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,900" rel="stylesheet">
         @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on' || (Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night()))
-            <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/materialize_dark.min.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize_dark.min.css"  media="screen,projection"/>
         @else
-            <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/materialize.min.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.min.css"  media="screen,projection"/>
         @endif
-        <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/timeline.css"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/materialize.clockpicker.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/vendors/timeline.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.clockpicker.css"  media="screen,projection"/>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script>
@@ -99,37 +99,23 @@
 
                     <li @if(Request::is('animals', 'animals/*')) class="active" @endif><a href="{{ url('animals') }}" class="waves-effect waves-orange"><i class="material-icons">pets</i>@choice('components.animals', 2)</a></li>
                     <li @if(Request::is('terraria', 'terraria/*')) class="active" @endif><a href="{{ url('terraria') }}" class="waves-effect waves-orange"><i class="material-icons">video_label</i>@choice('components.terraria', 2)</a></li>
+                    <li @if(Request::is('controlunits', 'controlunits/*')) class="active" @endif><a href="{{ url('controlunits') }}" class="waves-effect waves-orange"><i class="material-icons">memory</i>@choice('components.controlunits', 2)</a></li>
 
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li>
-                                <a class="collapsible-header">@lang('menu.infrastructure')<i class="material-icons">device_hub</i></a>
+                                <a class="collapsible-header">@lang('menu.monitoring')<i class="material-icons">alarm_on</i></a>
                                 <div class="collapsible-body">
                                     <ul>
+                                        <!--
                                         <li @if(Request::is('map', 'map/*')) class="active" @endif>
                                             <a href="{{ url('map') }}" class="waves-effect waves-orange">
                                                 <i class="material-icons">map</i>
                                                 @lang('labels.relation_map')
                                             </a>
                                         </li>
-                                        <li @if(Request::is('controlunits', 'controlunits/*')) class="active" @endif>
-                                            <a href="{{ url('controlunits') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">developer_board</i>
-                                                @choice('components.controlunits', 2)
-                                            </a>
-                                        </li>
-                                        <li @if(Request::is('pumps', 'pumps/*')) class="active" @endif>
-                                            <a href="{{ url('pumps') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">rotate_right</i>
-                                                @choice('components.pumps', 2)
-                                            </a>
-                                        </li>
-                                        <li @if(Request::is('valves', 'valves/*')) class="active" @endif>
-                                            <a href="{{ url('valves') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">transform</i>
-                                                @choice('components.valves', 2)
-                                            </a>
-                                        </li>
+                                        -->
+
                                         <li @if(Request::is('physical_sensors', 'physical_sensors/*')) class="active" @endif>
                                             <a href="{{ url('physical_sensors') }}" class="waves-effect waves-orange">
                                                 <i class="material-icons">memory</i>
@@ -142,14 +128,44 @@
                                                 @choice('components.logical_sensors', 2)
                                             </a>
                                         </li>
-                                        @foreach(\App\GenericComponentType::get() as $gct)
-                                        <li @if(Request::is('generic_component_types/' . $gct->id, 'generic_component_types/' . $gct->id . '/*')) class="active" @endif>
-                                            <a href="{{ url('generic_component_types/' . $gct->id) }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">{{ $gct->icon }}</i>
-                                                {{ $gct->name_plural }}
+                                    </ul>
+                                </div>
+                            </li>
+                        </ul>
+                    </li>
+
+                    <li class="no-padding">
+                        <ul class="collapsible collapsible-accordion">
+                            <li>
+                                <a class="collapsible-header">@lang('menu.automation')<i class="material-icons">autorenew</i></a>
+                                <div class="collapsible-body">
+                                    <ul>
+                                        <li @if(Request::is('pumps', 'pumps/*')) class="active" @endif>
+                                            <a href="{{ url('pumps') }}" class="waves-effect waves-orange">
+                                                <i class="material-icons">rotate_right</i>
+                                                @choice('components.pumps', 2)
                                             </a>
                                         </li>
+                                        <li @if(Request::is('valves', 'valves/*')) class="active" @endif>
+                                            <a href="{{ url('valves') }}" class="waves-effect waves-orange">
+                                                <i class="material-icons">transform</i>
+                                                @choice('components.valves', 2)
+                                            </a>
+                                        </li>
+                                        @foreach(\App\GenericComponentType::get() as $gct)
+                                            <li @if(Request::is('generic_component_types/' . $gct->id, 'generic_component_types/' . $gct->id . '/*')) class="active" @endif>
+                                                <a href="{{ url('generic_component_types/' . $gct->id) }}" class="waves-effect waves-orange">
+                                                    <i class="material-icons">{{ $gct->icon }}</i>
+                                                    {{ $gct->name_plural }}
+                                                </a>
+                                            </li>
                                         @endforeach
+                                        <li @if(Request::is('action_sequences', 'action_sequences/*')) class="active" @endif>
+                                            <a href="{{ url('action_sequences') }}" class="waves-effect waves-orange">
+                                                <i class="material-icons">playlist_play</i>
+                                                @choice('components.action_sequences', 2)
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -225,17 +241,17 @@
         <!-- Google Charts -->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <!-- Materialize.js -->
-        <script src="{{ url('/v1.6-beta/js/vendors/materialize.min.js') }}"></script>
+        <script src="{{ url('/js/vendors/materialize.min.js') }}"></script>
         <!-- Materialize.clockpicker.js -->
-        <script src="{{ url('/v1.6-beta/js/vendors/materialize.clockpicker.js') }}"></script>
+        <script src="{{ url('/js/vendors/materialize.clockpicker.js') }}"></script>
         <!-- Masonry -->
-        <script src="{{ url('/v1.6-beta/js/vendors/masonry.pkgd.min.js') }}"></script>
+        <script src="{{ url('/js/vendors/masonry.pkgd.min.js') }}"></script>
         <!-- Laravel-Echo -->
-        <script src="{{ url('/v1.6-beta/js/vendors/echo.min.js') }}"></script>
+        <script src="{{ url('/js/vendors/echo.min.js') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('/v1.6-beta/js/app.min.js') }}"></script>
+        <script src="{{ url('/js/app.min.js') }}"></script>
         <!-- Vue -->
-        <script src="{{ url('/v1.6-beta/js/vendors/vue.min.js') }}"></script>
+        <script src="{{ url('/js/vendors/vue.min.js') }}"></script>
 
         @yield('scripts')
 
