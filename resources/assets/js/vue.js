@@ -112,6 +112,7 @@ import ControlunitsListWidget from './vue/controlunits-list-widget.vue';
 import FilesWidget from './vue/files-widget.vue';
 import FilesListWidget from './vue/files-list-widget.vue';
 import FilesShowWidget from './vue/files-show-widget.vue';
+import ActionSequencesListWidget from './vue/action_sequences-list-widget.vue';
 import ActionSequencesWidget from './vue/action_sequences-widget.vue';
 import ActionSequenceScheduleWidget from './vue/action_sequence_schedule-widget.vue';
 import PumpsWidget from './vue/pumps-widget.vue';
@@ -183,6 +184,7 @@ window.bodyVue = new Vue({
         'files-widget': FilesWidget,
         'files-list-widget': FilesListWidget,
         'files-show-widget': FilesShowWidget,
+        'action_sequences-list-widget': ActionSequencesListWidget,
         'action_sequences-widget': ActionSequencesWidget,
         'action_sequence_schedule-widget': ActionSequenceScheduleWidget,
         'pumps-widget': PumpsWidget,
