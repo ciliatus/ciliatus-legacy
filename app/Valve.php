@@ -25,6 +25,11 @@ class Valve extends CiliatusModel
     /**
      * @var array
      */
+    protected $fillable = ['name'];
+
+    /**
+     * @var array
+     */
     private static $states = [
         'Open',
         'Closed'

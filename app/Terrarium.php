@@ -227,7 +227,10 @@ class Terrarium extends CiliatusModel
 
         if ($cachable) {
             $cache_key = 'sensorreadingsByType_' . $this->id . '_' . $type . '_' . $history_minutes;
-            if (Cache::has($cache_key) && !$kill_cache) {
+            if (Cache::has($cache_key)
+                && is_a(Cache::get($cache_key), 'Illuminate\Support\Collection')
+                && Cache::get($cache_key)->count() > 0
+                && !$kill_cache) {
                 return Cache::get($cache_key);
             }
         }

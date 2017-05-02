@@ -29,6 +29,11 @@ class Controlunit extends CiliatusModel
     protected $dates = ['created_at', 'updated_at', 'heartbeat_at'];
 
     /**
+     * @var array
+     */
+    protected $fillable = ['name'];
+
+    /**
      *
      */
     public function delete()

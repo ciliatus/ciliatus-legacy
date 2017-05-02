@@ -81,6 +81,14 @@ class User extends CiliatusModel implements
             'action'        => 'delete'
         ]);
 
+        foreach ($this->abilities as $ability) {
+            $ability->delete();
+        }
+
+        foreach ($this->settings as $setting) {
+            $setting->delete();
+        }
+
         parent::delete();
     }
 

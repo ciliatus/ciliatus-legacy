@@ -25,6 +25,13 @@ class Pump extends CiliatusModel
     /**
      * @var array
      */
+    protected $fillable = [
+        'name'
+    ];
+
+    /**
+     * @var array
+     */
     private static $states = [
         'Running',
         'Stopped'
