@@ -12,6 +12,7 @@ before-script:
   - mysql -e 'create database ciliatus;'
   - chmod -R 777 ./storage/*
   - chmod -R 777 ./bootstrap/*
+  - composer update
   - php artisan key:generate
   - php artisan migrate
   - php artisan passport:install
