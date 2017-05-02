@@ -7,7 +7,7 @@ php:
 services:
   - mysql
 
-before-script:
+install:
   - mv .env.travis .env
   - mysql -e 'create database ciliatus;'
   - chmod -R 777 ./storage/*
