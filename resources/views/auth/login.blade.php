@@ -28,7 +28,10 @@
     <body class="orange darken-4">
         <div class="container" style="padding-top: 20px">
             <div class="row center-align">
-                <img src="/images/menu_logo.png" class="center-align" />
+                <img src="/svg/Ciliatus_Logo.svg" class="center-align" style="width: 300px; height: 300px" />
+                <div class="white-text" id="login-title">
+                    <span>Ciliatus</span>
+                </div>
             </div>
             <div class="row">
                 <div class="col s12 m6 offset-m3 l4 offset-l4">
