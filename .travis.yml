@@ -3,3 +3,15 @@ php:
   - '5.6'
   - '7.0'
   - '7.1'
+
+services:
+  - mysql
+
+before-script:
+  - mv .env.travis .env
+  - mysql -e 'create database ciliatus;'
+  - chmod -R 777 ./storage/*
+  - chmod -R 777 ./bootstrap/*
+  - php artisan key:generate
+  - php artisan migrate
+  - php artisan passport:install
