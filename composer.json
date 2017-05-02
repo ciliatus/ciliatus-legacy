@@ -7,7 +7,7 @@
     "type": "project",
     "minimum-stability": "stable",
     "require": {
-        "php": ">=5.6.4",
+        "php": "^7.0",
         "laravel/framework": "5.4.*",
 	    "barryvdh/laravel-ide-helper": "^2.2.1",
         "webpatser/laravel-uuid": "^2.0",
@@ -37,7 +37,9 @@
     },
     "autoload-dev": {
         "classmap": [
-            "tests/TestCase.php"
+            "tests/TestCase.php",
+            "tests/CiliatusCase.php",
+            "tests/CreatesApplication.php"
         ]
     },
     "scripts": {
