@@ -8,12 +8,12 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,900" rel="stylesheet">
         @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on' || (Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night()))
-            <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/materialize_dark.min.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize_dark.min.css"  media="screen,projection"/>
         @else
-            <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/materialize.min.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.min.css"  media="screen,projection"/>
         @endif
-        <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/timeline.css"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/materialize.clockpicker.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/vendors/timeline.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.clockpicker.css"  media="screen,projection"/>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script>
@@ -241,17 +241,17 @@
         <!-- Google Charts -->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <!-- Materialize.js -->
-        <script src="{{ url('/v1.6-beta/js/vendors/materialize.min.js') }}"></script>
+        <script src="{{ url('/js/vendors/materialize.min.js') }}"></script>
         <!-- Materialize.clockpicker.js -->
-        <script src="{{ url('/v1.6-beta/js/vendors/materialize.clockpicker.js') }}"></script>
+        <script src="{{ url('/js/vendors/materialize.clockpicker.js') }}"></script>
         <!-- Masonry -->
-        <script src="{{ url('/v1.6-beta/js/vendors/masonry.pkgd.min.js') }}"></script>
+        <script src="{{ url('/js/vendors/masonry.pkgd.min.js') }}"></script>
         <!-- Laravel-Echo -->
-        <script src="{{ url('/v1.6-beta/js/vendors/echo.min.js') }}"></script>
+        <script src="{{ url('/js/vendors/echo.min.js') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('/v1.6-beta/js/app.min.js') }}"></script>
+        <script src="{{ url('/js/app.min.js') }}"></script>
         <!-- Vue -->
-        <script src="{{ url('/v1.6-beta/js/vendors/vue.js') }}"></script>
+        <script src="{{ url('/js/vendors/vue.js') }}"></script>
 
         @yield('scripts')
 

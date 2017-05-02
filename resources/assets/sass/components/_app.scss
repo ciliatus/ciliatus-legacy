@@ -245,8 +245,10 @@ page[size="A5"][layout="portrait"] {
 #left-top-menu-logo {
   z-index: 1001;
   height: 200px;
-  background-image: url('/images/menu_logo_small.png');
+  background-image: url('/svg/Ciliatus_Logo.svg');
   background-repeat: no-repeat;
+  background-size: 150px 150px;
+  background-position: top center;
 }
 
 #left-top-menu-title {
