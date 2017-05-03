@@ -30,7 +30,7 @@ class ValveTest extends CiliatusCase
     /**
      *
      */
-    public function test_100_Index401()
+    public function test_100_IndexError()
     {
         $response = $this->json('GET', '/api/v1/valves');
         $response->assertStatus(401);
@@ -39,7 +39,7 @@ class ValveTest extends CiliatusCase
     /**
      *
      */
-    public function test_100_Store401()
+    public function test_100_StoreError()
     {
         $token = $this->createUserReadOnly(false);
 
@@ -56,7 +56,7 @@ class ValveTest extends CiliatusCase
     /**
      *
      */
-    public function test_200_Index200()
+    public function test_200_IndexOk()
     {
         $token = $this->createUserReadOnly(false);
 
@@ -74,7 +74,7 @@ class ValveTest extends CiliatusCase
     /**
      *
      */
-    public function test_200_Store200()
+    public function test_200_StoreOk()
     {
         $token = $this->createUserFullPermissions(false);
 
@@ -90,19 +90,34 @@ class ValveTest extends CiliatusCase
             ]
         ]);
 
+        $id = $response->decodeResponseJson()['data']['id'];
+
+        $response = $this->get('/api/v1/valves/' . $id, [
+            'HTTP_Authorization' => 'Bearer ' . $token
+        ]);
+        $response->assertStatus(200);
+        $response->assertJson([
+            'data' => [
+                'id' => $id,
+                'name' => 'TestValve01'
+            ]
+        ]);
+
         $this->cleanupUsers(false);
     }
 
     /**
      *
      */
-    public function test_300_Update401()
+    public function test_300_UpdateError()
     {
         $token = $this->createUserReadOnly(false);
 
-        $valve_id = Valve::first()->id;
+        $valve = Valve::create([
+            'name' => 'TestValve01'
+        ]);
 
-        $response = $this->put('/api/v1/valves/' . $valve_id, [
+        $response = $this->put('/api/v1/valves/' . $valve->id, [
             'name' => 'TestValve01_Updated'
         ], [
             'HTTP_Authorization' => 'Bearer ' . $token
@@ -110,13 +125,18 @@ class ValveTest extends CiliatusCase
         $response->assertStatus(401);
     }
 
-    public function test_400_Update422()
+    /**
+     *
+     */
+    public function test_400_UpdateError()
     {
         $token = $this->createUserFullPermissions(false);
 
-        $valve_id = Valve::first()->id;
-        
-        $response = $this->put('/api/v1/valves/' . $valve_id, [
+        $valve = Valve::create([
+            'name' => 'TestValve01'
+        ]);
+
+        $response = $this->put('/api/v1/valves/' . $valve->id, [
             'name' => 'TestValve01_Updated',
             'terrarium' => 'doesnotexist',
         ], [
@@ -124,7 +144,7 @@ class ValveTest extends CiliatusCase
         ]);
         $response->assertStatus(422);
 
-        $response = $this->put('/api/v1/valves/' . $valve_id, [
+        $response = $this->put('/api/v1/valves/' . $valve->id, [
             'name' => 'TestValve01_Updated',
             'pump' => 'doesnotexist',
         ], [
@@ -132,7 +152,7 @@ class ValveTest extends CiliatusCase
         ]);
         $response->assertStatus(422);
 
-        $response = $this->put('/api/v1/valves/' . $valve_id, [
+        $response = $this->put('/api/v1/valves/' . $valve->id, [
             'name' => 'TestValve01_Updated',
             'controlunit' => 'doesnotexist',
         ], [
@@ -144,11 +164,13 @@ class ValveTest extends CiliatusCase
     /**
      *
      */
-    public function test_400_Update200()
+    public function test_400_UpdateOk()
     {
         $token = $this->createUserFullPermissions(false);
 
-        $valve_id = Valve::first()->id;
+        $valve = Valve::create([
+            'name' => 'TestValve01'
+        ]);
 
         $terrarium = Terrarium::create([
             'name' => 'ValveTerrarium01',
@@ -161,7 +183,7 @@ class ValveTest extends CiliatusCase
             'name' => 'ValveControlunit01'
         ]);
 
-        $response = $this->put('/api/v1/valves/' . $valve_id, [
+        $response = $this->put('/api/v1/valves/' . $valve->id, [
             'name' => 'TestValve01_Updated',
             'pump' => $pump->id,
             'terrarium' => $terrarium->id,
@@ -171,13 +193,13 @@ class ValveTest extends CiliatusCase
         ]);
         $response->assertStatus(200);
 
-        $response = $this->get('/api/v1/valves/' . $valve_id, [
+        $response = $this->get('/api/v1/valves/' . $valve->id, [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([
             'data' => [
-                'id' => $valve_id,
+                'id' => $valve->id,
                 'name' => 'TestValve01_Updated',
                 'terrarium' => [
                     'id' => $terrarium->id
@@ -191,22 +213,43 @@ class ValveTest extends CiliatusCase
             ]
         ]);
 
-        $terrarium->delete();
-        $pump->delete();
-        $controlunit->delete();
-
     }
 
     /**
      *
      */
-    public function test_500_Delete401()
+    public function test_500_ShowOk()
     {
         $token = $this->createUserReadOnly(false);
 
-        $valve_id = Valve::first()->id;
+        $valve = Valve::create([
+            'name' => 'TestValve01'
+        ]);
 
-        $response = $this->delete('/api/v1/valves/' . $valve_id, [], [
+        $response = $this->get('/api/v1/valves/' . $valve->id, [
+            'HTTP_Authorization' => 'Bearer ' . $token
+        ]);
+        $response->assertStatus(200);
+        $response->assertJson([
+            'data' => [
+                'id' => $valve->id,
+                'name' => $valve->name
+            ]
+        ]);
+    }
+
+    /**
+     *
+     */
+    public function test_500_DeleteError()
+    {
+        $token = $this->createUserReadOnly(false);
+
+        $valve = Valve::create([
+            'name' => 'TestValve01'
+        ]);
+
+        $response = $this->delete('/api/v1/valves/' . $valve->id, [], [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
@@ -215,18 +258,20 @@ class ValveTest extends CiliatusCase
     /**
      *
      */
-    public function test_600_Delete200()
+    public function test_600_DeleteOk()
     {
         $token = $this->createUserFullPermissions(false);
 
-        $valve_id = Valve::first()->id;
+        $valve = Valve::create([
+            'name' => 'TestValve01'
+        ]);
 
-        $response = $this->delete('/api/v1/valves/' . $valve_id, [], [
+        $response = $this->delete('/api/v1/valves/' . $valve->id, [], [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
-        $response = $this->get('/api/v1/valves/' . $valve_id, [
+        $response = $this->get('/api/v1/valves/' . $valve->id, [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(404);
