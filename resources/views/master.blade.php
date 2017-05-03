@@ -211,7 +211,7 @@
 
                     <li><a href="https://github.com/matthenning/ciliatus/issues" class="waves-effect waves-orange"><i class="material-icons">bug_report</i>@lang('labels.bugtracker')</a></li>
                     <li><a href="https://ciliatus.io/docs/v1.6-beta" class="waves-effect waves-orange"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
-                    <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v1.6-beta" class="waves-effect waves-orange"><i class="material-icons">linear_scale</i>Version v1.6-beta</a></li>
+                    <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v1.6-beta" class="waves-effect waves-orange"><i class="material-icons">linear_scale</i>Version v1.7-beta dev</a></li>
                     @endif
 
                     <li class="red lighten-5"><a @if(!App\ActionSequence::stopped())href="/action_sequences/stop_all" @else href="/action_sequences/resume_all" @endif class="waves-effect waves-red red-text"><i class="material-icons red-text">power_settings_new</i>@lang('buttons.emergency_stop')</a></li>
