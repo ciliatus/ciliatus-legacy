@@ -6776,14 +6776,24 @@ div.select-wrapper.icons ul li span {
 #left-top-menu-logo {
   z-index: 1001;
   height: 200px;
-  background-image: url("/images/menu_logo_small.png");
-  background-repeat: no-repeat; }
+  background-image: url("/svg/Ciliatus_Logo.svg");
+  background-repeat: no-repeat;
+  background-size: 150px 150px;
+  background-position: top center; }
 
 #left-top-menu-title {
   font-weight: 900;
   font-family: "Montserrat", "Adobe Blank", sans-serif;
   font-style: normal;
   font-size: 36pt;
+  text-transform: uppercase;
+  text-align: center; }
+
+#login-title {
+  font-weight: 900;
+  font-family: "Montserrat", "Adobe Blank", sans-serif;
+  font-style: normal;
+  font-size: 48pt;
   text-transform: uppercase;
   text-align: center; }
 
