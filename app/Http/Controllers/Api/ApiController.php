@@ -102,6 +102,8 @@ class ApiController extends Controller
      */
     public function respondWithError($message, $entityId = null)
     {
+        \Log::info('Request terminated in error ' . $this->getStatusCode() . ' (' . $this->getErrorCode() . '): ' . $message);
+
         return $this->respond([
             'http_code' => $this->getStatusCode(),
             'error'     => [

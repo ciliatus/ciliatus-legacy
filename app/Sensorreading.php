@@ -20,6 +20,13 @@ class Sensorreading extends CiliatusModel
     public $incrementing = false;
 
     /**
+     * @var array
+     */
+    protected $fillable = [
+        'sensorreadinggroup_id', 'logical_sensor_id', 'rawvalue'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function properties()

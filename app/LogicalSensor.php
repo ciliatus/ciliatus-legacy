@@ -24,6 +24,11 @@ class LogicalSensor extends CiliatusModel
     public $incrementing = false;
 
     /**
+     * @var array
+     */
+    protected $fillable = ['name', 'physical_sensor_id'];
+
+    /**
      *
      */
     public function delete()
