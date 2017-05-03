@@ -28,6 +28,8 @@ class PropertyTransformer extends Transformer
             'type' => $item['type'],
             'name' => $item['name'],
             'value' => $item['value'],
+            'belongsTo_type' => $item['belongsTo_type'],
+            'belongsTo_id' => $item['belongsTo_id'],
             'timestamps' => $this->parseTimestamps($item),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''
