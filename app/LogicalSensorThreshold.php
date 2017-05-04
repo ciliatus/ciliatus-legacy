@@ -22,6 +22,20 @@ class LogicalSensorThreshold extends CiliatusModel
     public $incrementing = false;
 
     /**
+     * @var array
+     */
+    protected $casts = [
+        'active'    =>  'boolean'
+    ];
+
+    /**
+     * @var array
+     */
+    protected $fillable = [
+        'logical_sensor_id', 'starts_at', 'rawvalue_lowerlimit', 'rawvalue_upperlimit', 'active'
+    ];
+
+    /**
      * @param array $options
      * @return bool
      */

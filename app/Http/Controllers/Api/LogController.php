@@ -93,14 +93,13 @@ class LogController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $log = Log::with('source_object')
-                    ->with('target_object')
-                    ->with('associated')
-                    ->find($id);
+        $log = Log::find($id);
 
-        if (!$log) {
+        if (is_null($log)) {
             return $this->respondNotFound('Log not found');
         }
+
+        $log->addSourceTargetAssociated(true);
 
         return $this->setStatusCode(200)->respondWithData(
             $this->logTransformer->transform(
