@@ -209,11 +209,15 @@ class Terrarium extends CiliatusModel
      * @param $type
      * @param $kill_cache = false
      * @param Carbon $history_to
-     * @param null $history_minutes
+     * @param int $history_minutes
+     * @param boolean $ignore_anomalies
      * @return Collection
      */
-    public function getSensorreadingsByType($type, $kill_cache = false,
-                                            Carbon $history_to = null, $history_minutes = null)
+    public function getSensorreadingsByType($type,
+                                            $kill_cache = false,
+                                            Carbon $history_to = null,
+                                            $history_minutes = null,
+                                            $ignore_anomalies = false)
     {
         $cachable = false;
         if (is_null($history_to)) {
@@ -227,15 +231,24 @@ class Terrarium extends CiliatusModel
 
         if ($cachable) {
             $cache_key = 'sensorreadingsByType_' . $this->id . '_' . $type . '_' . $history_minutes;
-            if (Cache::has($cache_key)
+            if (Cache::has($cache_key) && !$kill_cache) {
+                /*
                 && is_a(Cache::get($cache_key), 'Illuminate\Support\Collection')
                 && Cache::get($cache_key)->count() > 0
-                && !$kill_cache) {
+               */
                 return Cache::get($cache_key);
             }
         }
 
-        $history = $this->fetchSensorreadings($type, $history_minutes, $history_to);
+        $history = $this->fetchSensorreadings(
+                $type,
+                $history_minutes,
+                $history_to,
+                null,
+                null,
+                false,
+                $ignore_anomalies
+        );
 
         if ($cachable) {
             Cache::put($cache_key, $history, env('TERRARIUM_DEFAULT_HISTORY_CACHE_MINUTES', 5));
@@ -244,108 +257,93 @@ class Terrarium extends CiliatusModel
         return $history;
     }
 
-    /**
-     * @deprecated Use getSensorreadingsByType instead
-     * @param int $minutes
-     * @param Carbon $to
-     * @return mixed
-     */
-    public function getSensorReadingsTemperature($minutes = 120, Carbon $to = null)
-    {
-        return $this->fetchSensorreadings('temperature_celsius', $minutes, $to);
-    }
-
-
-    /**
-     * @deprecated Use getSensorreadingsByType instead
-     * @param int $minutes
-     * @param Carbon $to
-     * @return mixed
-     */
-    public function getSensorReadingsHumidity($minutes = 120, Carbon $to = null)
-    {
-        return $this->fetchSensorreadings('humidity_percent', $minutes, $to);
-    }
-
-    /**
-     * @param int $minutes
-     * @param Carbon|null $to
-     * @return Collection
-     */
-    public function getSensorReadings($minutes = 120, Carbon $to = null)
-    {
-        return $this->fetchSensorreadings(LogicalSensor::types(), $minutes, $to);
-    }
-
 
     /**
      * @param $type
      * @param int $days
-     * @param Carbon|null $time_to
-     * @param Carbon|null $time_from
+     * @param Carbon $time_to
+     * @param Carbon $time_of_day_from
+     * @param Carbon $time_of_day_to
      * @return Collection
      */
-    public function getSensorreadingStats($type, $days, Carbon $time_to, Carbon $time_from = null)
+    public function getSensorreadingStats($type, $days, $time_to, Carbon $time_of_day_from, $time_of_day_to)
     {
-        return $this->fetchSensorreadings($type, $days*24*60, $time_to, $time_from, true);
+        return $this->fetchSensorreadings(
+                $type,
+                $days*24*60,
+                $time_to,
+                $time_of_day_from,
+                $time_of_day_to,
+                true,
+                true
+        );
     }
 
     /**
      * @param int $days
-     * @param Carbon|null $time_to
-     * @param Carbon|null $time_from
+     * @param Carbon|null $time_of_day_from
+     * @param Carbon|null $time_of_day_to
      * @return Collection
      */
-    public function getHumidityStats($days, Carbon $time_to = null, Carbon $time_from = null)
+    public function getHumidityStats($days, Carbon $time_of_day_from = null, Carbon $time_of_day_to = null)
     {
-        if (is_null($time_to)) {
-            $time_to = Carbon::today();
-        }
-        return $this->getSensorreadingStats('humidity_percent', $days, $time_to, $time_from);
+        $time_to = Carbon::today();
+        return $this->getSensorreadingStats(
+                'humidity_percent',
+                $days,
+                $time_to,
+                $time_of_day_from,
+                $time_of_day_to
+        );
     }
 
 
     /**
      * @param int $days
-     * @param Carbon|null $time_to
-     * @param Carbon|null $time_from
+     * @param Carbon $time_of_day_from
+     * @param Carbon $time_of_day_to
      * @return Collection
      */
-    public function getTemperatureStats($days, Carbon $time_to = null, Carbon $time_from = null)
+    public function getTemperatureStats($days, Carbon $time_of_day_from = null, Carbon $time_of_day_to = null)
     {
-        if (is_null($time_to)) {
-            $time_to = Carbon::today();
-        }
-        return $this->getSensorreadingStats('temperature_celsius', $days, $time_to, $time_from);
+        $time_to = Carbon::today();
+        return $this->getSensorreadingStats(
+                'temperature_celsius',
+                $days,
+                $time_to,
+                $time_of_day_from,
+                $time_of_day_to
+        );
     }
 
     /**
      * @param $type
      * @param null $minutes
-     * @param Carbon|null $time_to
-     * @param Carbon|null $time_from
+     * @param Carbon $time_to
+     * @param Carbon|null $time_of_day_from
+     * @param Carbon|null $time_of_day_to
      * @param bool $return_stats If true, a float with the average value will be returned
+     * @param boolean $ignore_anomalies = false
      * @return Collection
      */
-    private function fetchSensorreadings($type, $minutes,
+    private function fetchSensorreadings($type,
+                                         $minutes,
                                          Carbon $time_to,
-                                         Carbon $time_from = null,
-                                         $return_stats = false)
+                                         Carbon $time_of_day_from = null,
+                                         Carbon $time_of_day_to = null,
+                                         $return_stats = false,
+                                         $ignore_anomalies = false)
     {
-        if (is_null($time_to)) {
-            $time_to = Carbon::now();
-        }
-
         if (is_null($minutes)) {
             $minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 120);
         }
 
-        $from = clone $time_to;
-        $from->subMinutes($minutes);
-
         if (!is_array($type)) {
             $type = [$type];
         }
+
+        $time_from = clone $time_to;
+        $time_from->subMinute($minutes);
 
         /*
          * Fetch all logical sensors
@@ -358,14 +356,18 @@ class Terrarium extends CiliatusModel
             }
         }
 
-        $query = DB::table('sensorreadings')->where('created_at', '<', $time_to)
-                                                 ->where('created_at', '>', $from);
+        $query = DB::table('sensorreadings')->where('created_at', '>=', $time_from)
+                                            ->where('created_at', '<=', $time_to);
 
-        if ($return_stats) {
-            return (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids, $time_from, $time_to, true)->get()->first();
+        if ($ignore_anomalies) {
+            $query = $query->where('is_anomaly', false);
         }
 
-        return (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids, $time_from, $time_to)->get();
+        if ($return_stats) {
+            return (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids, $time_of_day_from, $time_of_day_to, true)->get()->first();
+        }
+
+        return (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids)->get();
     }
 
     /**

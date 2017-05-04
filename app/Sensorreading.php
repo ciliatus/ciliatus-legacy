@@ -27,6 +27,13 @@ class Sensorreading extends CiliatusModel
     ];
 
     /**
+     * @var array
+     */
+    protected $casts = [
+        'is_anomaly' => 'boolean'
+    ];
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function properties()

@@ -300,6 +300,9 @@ class ApiController extends Controller
                         if (isset($row[$f])) {
                             $row_arr[] = $row[$f];
                         }
+                        else {
+                            $row_arr[] = '';
+                        }
                     }
                     $csv .= PHP_EOL . implode(',', $row_arr);
                 }

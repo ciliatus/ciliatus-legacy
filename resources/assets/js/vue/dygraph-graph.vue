@@ -102,7 +102,8 @@ export default {
         build: function() {
             $('#dygraph_' + this.id + '_loading').show();
             var that = this;
-            var url = this.source + '?csv=true&filter[' + this.FilterColumn + ']=ge:' + this.get_filter_from_date() + ':and:le:' + this.get_filter_to_date();
+            var url = this.source + '?csv=true&filter[' + this.FilterColumn + ']=ge:' + this.get_filter_from_date() +
+                ':and:le:' + this.get_filter_to_date() + '&filter[is_anomaly]=0';
 
             $.ajax({
                 url: url,

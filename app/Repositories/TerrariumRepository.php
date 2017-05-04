@@ -42,7 +42,7 @@ class TerrariumRepository extends Repository
         if ($history_minutes != 0) {
             foreach (LogicalSensor::types() as $type) {
                 $field = $type . '_history';
-                $readings = $terrarium->getSensorreadingsByType($type, false, $history_to, $history_minutes);
+                $readings = $terrarium->getSensorreadingsByType($type, false, $history_to, $history_minutes, true);
                 if ($readings->count() > 0) {
                     $terrarium->$field = array_column(
                         $readings->toArray(),
