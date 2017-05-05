@@ -14,6 +14,7 @@
         @endif
         <link type="text/css" rel="stylesheet" href="/css/vendors/timeline.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.clockpicker.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/vendors/dygraph.min.css"  media="screen,projection"/>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script>
@@ -66,6 +67,12 @@
                                 @yield('breadcrumbs')
                             </span>
 
+                            <span class="right overlay-loader hide-on-med-and-up">
+                                <img src="https://dev-43256.ciliatus.io/svg/Ciliatus_Logo.svg"
+                                     class="main-loader loader-icon" id="loader-icon"
+                                     style="height: 44px; width: 44px; position: relative; top: 6px; right: 10px;">
+                            </span>
+
                             <ul class="right" style="position:relative; right: 0px;">
                                 <li>
                                     @if(App\System::hasVoiceCapability())
@@ -82,10 +89,13 @@
                 <ul id="nav-mobile" class="side-nav fixed">
                     <li>
                         <div class="userView orange darken-4" id="left-top-menu-logo-wrapper">
-                            <div class="background" id="left-top-menu-logo">
-                                <div style="margin-top: 150px;" class="white-text" id="left-top-menu-title">
-                                    <span>Ciliatus</span>
-                                </div>
+                            <div class="overlay-loader center">
+                                <img src="https://dev-43256.ciliatus.io/svg/Ciliatus_Logo.svg"
+                                     class="main-loader loader-icon" id="loader-icon"
+                                     style="width: 100px; width: 100px;">
+                            </div>
+                            <div class="center">
+                                <span class="white-text brand-title">Ciliatus</span>
                             </div>
                         </div>
                         <div class="no-padding" id="system-indicator">
@@ -221,17 +231,11 @@
                     <li><a href="#" onclick="$.post('/auth/logout'); setTimeout(function () { window.location.replace('/') }, 200);" class="waves-effect waves-orange"><i class="material-icons">exit_to_app</i>@lang('labels.logout')</a></li>
                 </ul>
 
-                <div style="width: 100%; margin: 0; height: 10px; position: relative; z-index: 1001">
-                    <div class="progress" id="global-loading-bar" style="display: none; width: 100%; margin: 0">
-                        <div class="indeterminate"></div>
-                    </div>
-                </div>
-
             </header>
 
             <main style="height: 100%;">
 
-                <div id="content" style="height: 100%; position: relative; top: -10px;">
+                <div id="content" style="height: 100%;">
                     @yield('content')
                 </div>
             </main>
@@ -252,6 +256,8 @@
         <script src="{{ url('/js/app.min.js') }}"></script>
         <!-- Vue -->
         <script src="{{ url('/js/vendors/vue.js') }}"></script>
+        <!-- Dygraph -->
+        <script src="{{ url('/js/vendors/dygraph.min.js') }}"></script>
 
         @yield('scripts')
 
@@ -264,8 +270,6 @@
                 });
             });
         </script>
-
-        <script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined.js"></script>
 
     </body>
 </html>

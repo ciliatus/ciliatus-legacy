@@ -18,17 +18,7 @@
             </div>
         </div>
         <div :id="'dygraph_' + id + '_loading'" class="center" style="display:none;">
-            <div class="preloader-wrapper small active">
-                <div class="spinner-layer spinner-green-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div><div class="gap-patch">
-                    <div class="circle"></div>
-                </div><div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-                </div>
-            </div>
+            <loading-indicator :size="100"></loading-indicator>
         </div>
         <div :id="'dygraph_' + id" style="width: 100%;"></div>
 
@@ -37,6 +27,7 @@
 </template>
 
 <script>
+import LoadingIndicator from './loading-indicator.vue';
 
 export default {
 
@@ -62,7 +53,7 @@ export default {
         },
         FilterFromDate: {
             type: String,
-            default: (new Date((new Date).setDate((new Date).getDate() - 7))).toYmd(),
+            default: (new Date((new Date).setDate((new Date).getDate() - 2))).toYmd(),
             required: false
         },
         FilterToDate: {
@@ -78,6 +69,10 @@ export default {
             options: {},
             data: null
         }
+    },
+
+    components: {
+        'loading-indicator': LoadingIndicator
     },
 
     methods: {
@@ -134,11 +129,11 @@ export default {
                 this.data,
                 {
                     'connectSeparatedPoints': true,
-                    rollPeriod: 10,
+                    rollPeriod: 4,
                     showRoller: true,
                     showRangeSelector: true,
                     legend: 'always',
-                    colors: ['#5555EE', '#CC5555'],
+                    colors: ['#2196f3', '#CC5555'],
                     axisLineColor: '#D4D4D4'
                 }
             );

@@ -41,10 +41,14 @@ window.eventHubVue = new Vue({
 
         checkLoadingBarState: function() {
             if (this.globalLoadingBarCount > 0) {
-                $('#global-loading-bar').show();
+                $('.main-loader').addClass('spinning-logo');
+                //$('#global-loading-bar').show();
             }
             else {
-                $('#global-loading-bar').hide();
+                $('.main-loader').one('animationiteration webkitAnimationIteration', function() {
+                    $(this).removeClass('spinning-logo');
+                });
+                //$('#global-loading-bar').hide();
             }
         }
     }
@@ -93,6 +97,7 @@ Vue.use(TimeStringFormatter);
 
 
 import SystemIndicator from './vue/system-indicator.vue';
+import LoadingIndicator from './vue/loading-indicator.vue';
 
 import DashboardWidget from './vue/dashboard-widget.vue';
 import GoogleGraph from './vue/google-graph.vue';
@@ -165,6 +170,9 @@ window.bodyVue = new Vue({
     },
 
     components: {
+        'system-indicator': SystemIndicator,
+        'loading-indicator': LoadingIndicator,
+
         'dashboard-widget': DashboardWidget,
         'peity': Peity,
         'google-graph': GoogleGraph,
@@ -206,8 +214,6 @@ window.bodyVue = new Vue({
         'api-io-widget': ApiIoWidget,
 
         'bus-type-edit-form': BusTypeEditForm,
-        'generic_component_type_create-form': GenericComponentTypeCreateForm,
-
-        'system-indicator': SystemIndicator
+        'generic_component_type_create-form': GenericComponentTypeCreateForm
     }
 });

@@ -16,20 +16,6 @@
                 <i v-show="!recording" class="material-icons">mic_none</i>
                 <i v-show="recording" class="material-icons">mic</i>
             </a>
-            <div class="preloader-wrapper small active" v-show="loading"
-                 style="margin-left: 18px; margin-right: 18px; top: 10px;">
-                <div class="spinner-layer spinner-blue-only">
-                    <div class="circle-clipper left">
-                        <div class="circle"></div>
-                    </div>
-                    <div class="gap-patch">
-                        <div class="circle"></div>
-                    </div>
-                        <div class="circle-clipper right">
-                        <div class="circle"></div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </template>
@@ -59,6 +45,7 @@ export default {
             }
 
             this.loading = true;
+            window.eventHubVue.processStarted();
         },
         parse_result: function(data) {
             if (data.source_id !== 'api-io-widget-form') {
@@ -67,7 +54,8 @@ export default {
 
             this.result = data.data;
             this.loading = false;
-            var result_text = ''
+            window.eventHubVue.processEnded();
+            var result_text = '';
 
             if (this.result.data.api_result.result !== undefined) {
                 result_text = this.result.data.api_result.result.fulfillment.speech;

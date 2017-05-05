@@ -160,16 +160,9 @@
                     <div class="card-action">
                         <a v-bind:href="'/terraria/' + terrarium.id">{{ $t("buttons.details") }}</a>
                         <a v-bind:href="'/terraria/' + terrarium.id + '/edit'">{{ $t("buttons.edit") }}</a>
-                        <div class="preloader-wrapper tiny active right" v-if="terrarium.loading_data">
-                            <div class="spinner-layer spinner-green-only">
-                                <div class="circle-clipper left">
-                                    <div class="circle"></div>
-                                </div><div class="gap-patch">
-                                <div class="circle"></div>
-                            </div><div class="circle-clipper right">
-                                <div class="circle"></div>
-                            </div>
-                            </div>
+
+                        <div class="tiny right" v-show="terrarium.loading_data">
+                            <loading-indicator :size="20" ></loading-indicator>
                         </div>
                     </div>
 
@@ -230,6 +223,7 @@
 
 
 <script>
+import LoadingIndicator from './loading-indicator.vue';
 import InlineGraph from './inline-graph.vue';
 
 export default {
@@ -298,7 +292,8 @@ export default {
     },
 
     components: {
-        'inline-graph': InlineGraph
+        'inline-graph': InlineGraph,
+        'loading-indicator': LoadingIndicator
     },
 
     methods: {
