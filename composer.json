@@ -7,7 +7,7 @@
     "type": "project",
     "minimum-stability": "stable",
     "require": {
-        "php": "^7.0",
+        "php": ">=5.6.4",
         "laravel/framework": "5.4.*",
 	    "barryvdh/laravel-ide-helper": "^2.2.1",
         "webpatser/laravel-uuid": "^2.0",
@@ -18,7 +18,9 @@
         "spatie/image": "^1.0",
         "laravel/passport": "^2.0",
         "laravel/tinker": "^1.0",
-        "matthenning/eloquent-api-filter": "^1.0"
+        "matthenning/eloquent-api-filter": "^1.0",
+        "iboldurev/api-ai-php": "^0.2.5",
+        "predis/predis": "^1.1"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
@@ -37,9 +39,7 @@
     },
     "autoload-dev": {
         "classmap": [
-            "tests/TestCase.php",
-            "tests/CiliatusCase.php",
-            "tests/CreatesApplication.php"
+            "tests/TestCase.php"
         ]
     },
     "scripts": {

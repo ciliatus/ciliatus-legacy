@@ -6,7 +6,7 @@ use App\Events\TerrariumUpdated;
 use App\Events\TerrariumDeleted;
 use App\Http\Transformers\TerrariumTransformer;
 use App\Repositories\SensorreadingRepository;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use DB;
@@ -15,7 +15,42 @@ use Illuminate\Support\Collection;
 
 /**
  * Class Terrarium
+ *
+ * @property mixed physical_sensors
+ * @property mixed logical_sensors
+ * @property mixed properties
  * @package App
+ * @property string $id
+ * @property string $name
+ * @property string $display_name
+ * @property bool $notifications_enabled
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property bool $humidity_critical
+ * @property bool $temperature_critical
+ * @property bool $heartbeat_critical
+ * @property float $cooked_humidity_percent
+ * @property float $cooked_temperature_celsius
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\ActionSequence[] $action_sequences
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Animal[] $animals
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\GenericComponent[] $generic_components
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\LogicalSensor[] $logical_sensors
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\PhysicalSensor[] $physical_sensors
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Valve[] $valves
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereCookedHumidityPercent($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereCookedTemperatureCelsius($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereDisplayName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereHeartbeatCritical($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereHumidityCritical($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereNotificationsEnabled($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereTemperatureCritical($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Terrarium extends CiliatusModel
 {
@@ -211,7 +246,7 @@ class Terrarium extends CiliatusModel
      * @param Carbon $history_to
      * @param int $history_minutes
      * @param boolean $ignore_anomalies
-     * @return Collection
+     * @return array
      */
     public function getSensorreadingsByType($type,
                                             $kill_cache = false,
@@ -219,27 +254,30 @@ class Terrarium extends CiliatusModel
                                             $history_minutes = null,
                                             $ignore_anomalies = false)
     {
+
+        // Evaluate if query can be cached
         $cachable = false;
         if (is_null($history_to)) {
             $history_to = Carbon::now();
             $cachable = true;
         }
 
+        // fill history
         if (is_null($history_minutes)) {
             $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180);
         }
 
+        // Read, decode and return cache if possible
+        $cache_key = 'sensorreadingsByType_' . $this->id . '_' . $type . '_' . $history_minutes;
         if ($cachable) {
-            $cache_key = 'sensorreadingsByType_' . $this->id . '_' . $type . '_' . $history_minutes;
             if (Cache::has($cache_key) && !$kill_cache) {
-                /*
-                && is_a(Cache::get($cache_key), 'Illuminate\Support\Collection')
-                && Cache::get($cache_key)->count() > 0
-               */
-                return Cache::get($cache_key);
+                $cache = Cache::get($cache_key);
+                $final_data = json_decode($cache);
+                return $final_data;
             }
         }
 
+        // No cache -> get from db
         $history = $this->fetchSensorreadings(
                 $type,
                 $history_minutes,
@@ -250,11 +288,16 @@ class Terrarium extends CiliatusModel
                 $ignore_anomalies
         );
 
+        $final_data = array_column($history->toArray(), 'avg_rawvalue');
+
+        // Encode data and put in cache
         if ($cachable) {
-            Cache::put($cache_key, $history, env('TERRARIUM_DEFAULT_HISTORY_CACHE_MINUTES', 5));
+            $encoded_data = json_encode($final_data);
+            $duration = env('TERRARIUM_DEFAULT_HISTORY_CACHE_MINUTES', 5);
+            Cache::put($cache_key, $encoded_data, $duration);
         }
 
-        return $history;
+        return $final_data;
     }
 
 
