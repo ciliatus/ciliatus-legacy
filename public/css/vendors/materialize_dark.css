@@ -6773,22 +6773,6 @@ div.select-wrapper.icons ul li span {
   height: 215px;
   box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.07), 0 1px 5px 0 rgba(0, 0, 0, 0.07), 0 3px 1px -2px rgba(0, 0, 0, 0.07); }
 
-#left-top-menu-logo {
-  z-index: 1001;
-  height: 200px;
-  background-image: url("/svg/Ciliatus_Logo.svg");
-  background-repeat: no-repeat;
-  background-size: 150px 150px;
-  background-position: top center; }
-
-#left-top-menu-title {
-  font-weight: 900;
-  font-family: "Montserrat", "Adobe Blank", sans-serif;
-  font-style: normal;
-  font-size: 36pt;
-  text-transform: uppercase;
-  text-align: center; }
-
 #login-title {
   font-weight: 900;
   font-family: "Montserrat", "Adobe Blank", sans-serif;
@@ -6797,6 +6781,29 @@ div.select-wrapper.icons ul li span {
   text-transform: uppercase;
   text-align: center; }
 
+.brand-title {
+  font-weight: 800;
+  font-family: "Montserrat", "Adobe Blank", sans-serif;
+  font-style: normal;
+  font-size: 28pt;
+  text-transform: uppercase;
+  text-align: center; }
+
+.progress-bar-top {
+  width: 100%;
+  margin: 0;
+  height: 10px;
+  position: relative;
+  z-index: 1001; }
+
+.progress-bar-top .progress {
+  display: none;
+  width: 100%;
+  margin: 0; }
+
+.no-progress-bar-spacer {
+  height: 10px; }
+
 .table-details-collapsible {
   padding-top: 0;
   padding-bottom: 0;
@@ -6804,5 +6811,42 @@ div.select-wrapper.icons ul li span {
 
 .table-details-collapsible ul {
   margin: 5px; }
+
+.dygraph-axis-label.dygraph-axis-label-x,
+.dygraph-axis-label.dygraph-axis-label-y {
+  font-family: Roboto,sans-serif;
+  color: #FFFFFF; }
+
+div.dygraph-legend {
+  background-color: #424242 !important; }
+
+input.dygraph-roller {
+  border: 0; }
+
+/*
+Loading animation
+ */
+.overlay-loader .loader-icon.spinning-logo {
+  -webkit-animation: spinning-logo 1.3s infinite ease;
+  animation: spinning-logo 1.3s infinite ease; }
+
+@-webkit-keyframes spinning-logo {
+  0% {
+    -webkit-transform: rotate(0deg); }
+  20% {
+    -webkit-transform: rotate(-45deg); }
+  100% {
+    -webkit-transform: rotate(360deg); } }
+
+@keyframes spinning-logo {
+  0% {
+    -webkit-transform: rotate(0deg);
+    transform: rotate(0deg); }
+  20% {
+    -webkit-transform: rotate(-45deg);
+    transform: rotate(-45deg); }
+  100% {
+    -webkit-transform: rotate(360deg);
+    transform: rotate(360deg); } }
 
 /*# sourceMappingURL=materialize_dark.css.map */
