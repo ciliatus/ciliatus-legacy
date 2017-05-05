@@ -12,7 +12,28 @@ use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 /**
  * Class CriticalState
+ *
  * @package App
+ * @property string $id
+ * @property string $name
+ * @property string $belongsTo_type
+ * @property string $belongsTo_id
+ * @property bool $is_soft_state
+ * @property \Carbon\Carbon $notifications_sent_at
+ * @property \Carbon\Carbon $recovered_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereBelongsToId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereBelongsToType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereIsSoftState($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereNotificationsSentAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereRecoveredAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class CriticalState extends CiliatusModel
 {

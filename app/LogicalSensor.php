@@ -9,7 +9,34 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class LogicalSensor
+ *
  * @package App
+ * @property string $id
+ * @property string $name
+ * @property string $physical_sensor_id
+ * @property string $type
+ * @property float $rawvalue
+ * @property float $rawvalue_lowerlimit
+ * @property float $rawvalue_upperlimit
+ * @property mixed $soft_state_duration_minutes
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\CriticalState[] $critical_states
+ * @property-read \App\PhysicalSensor $physical_sensor
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Sensorreading[] $sensorreadings
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\LogicalSensorThreshold[] $thresholds
+ * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor wherePhysicalSensorId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereRawvalue($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereRawvalueLowerlimit($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereRawvalueUpperlimit($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereSoftStateDurationMinutes($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class LogicalSensor extends CiliatusModel
 {

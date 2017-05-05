@@ -12,7 +12,31 @@ use InvalidArgumentException;
 
 /**
  * Class GenericComponent
+ *
  * @package App
+ * @property string $id
+ * @property string $belongsTo_type
+ * @property string $belongsTo_id
+ * @property string $controlunit_id
+ * @property string $name
+ * @property string $generic_component_type_id
+ * @property string $state
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \App\Controlunit $controlunit
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $states
+ * @property-read \App\GenericComponentType $type
+ * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereBelongsToId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereBelongsToType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereControlunitId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereGenericComponentTypeId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereState($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class GenericComponent extends CiliatusModel
 {
@@ -57,7 +81,7 @@ class GenericComponent extends CiliatusModel
     }
 
     /**
-     * @return mixed
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function states()
     {

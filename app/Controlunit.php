@@ -9,7 +9,27 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Controlunit
+ *
  * @package App
+ * @property string $id
+ * @property string $name
+ * @property \Carbon\Carbon $heartbeat_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $software_version
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\CriticalState[] $critical_states
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\GenericComponent[] $generic_components
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\PhysicalSensor[] $physical_sensors
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Pump[] $pumps
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Valve[] $valves
+ * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereHeartbeatAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereSoftwareVersion($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Controlunit extends CiliatusModel
 {

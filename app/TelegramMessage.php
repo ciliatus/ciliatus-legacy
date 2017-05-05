@@ -8,7 +8,31 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class TelegramMessage
+ *
  * @package App
+ * @property string $id
+ * @property string $user_id
+ * @property string $type
+ * @property string $state
+ * @property string $content
+ * @property string $response_to
+ * @property \Carbon\Carbon $send_after
+ * @property \Carbon\Carbon $sent_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Query\Builder|\App\TelegramMessage whereContent($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\TelegramMessage whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\TelegramMessage whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\TelegramMessage whereResponseTo($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\TelegramMessage whereSendAfter($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\TelegramMessage whereSentAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\TelegramMessage whereState($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\TelegramMessage whereType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\TelegramMessage whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\TelegramMessage whereUserId($value)
+ * @mixin \Eloquent
  */
 class TelegramMessage extends Message
 {

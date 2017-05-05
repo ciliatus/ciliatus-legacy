@@ -12,7 +12,36 @@ use Webpatser\Uuid\Uuid;
 
 /**
  * Class File
+ *
  * @package App
+ * @property string $id
+ * @property string $belongsTo_type
+ * @property string $belongsTo_id
+ * @property string $user_id
+ * @property string $state
+ * @property string $mimetype
+ * @property string $name
+ * @property string $parent_path
+ * @property string $display_name
+ * @property float $size
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $usage
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @method static \Illuminate\Database\Query\Builder|\App\File whereBelongsToId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\File whereBelongsToType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\File whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\File whereDisplayName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\File whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\File whereMimetype($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\File whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\File whereParentPath($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\File whereSize($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\File whereState($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\File whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\File whereUsage($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\File whereUserId($value)
+ * @mixin \Eloquent
  */
 class File extends CiliatusModel
 {

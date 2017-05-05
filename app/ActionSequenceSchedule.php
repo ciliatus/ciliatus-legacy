@@ -9,7 +9,33 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class ActionSequenceSchedule
+ *
  * @package App
+ * @property string $id
+ * @property string $name
+ * @property string $action_sequence_id
+ * @property string $starts_at
+ * @property \Carbon\Carbon $last_start_at
+ * @property \Carbon\Carbon $last_finished_at
+ * @property string $terrarium_id
+ * @property bool $runonce
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property \Carbon\Carbon $next_start_not_before
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @property-read \App\ActionSequence $sequence
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereActionSequenceId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereLastFinishedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereLastStartAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereNextStartNotBefore($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereRunonce($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereStartsAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereTerrariumId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class ActionSequenceSchedule extends CiliatusModel
 {

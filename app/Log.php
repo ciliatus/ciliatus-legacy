@@ -10,7 +10,40 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Class Log
+ *
  * @package App
+ * @property string $id
+ * @property string $source_type
+ * @property string $source_id
+ * @property string $target_type
+ * @property string $target_id
+ * @property string $associatedWith_type
+ * @property string $associatedWith_id
+ * @property string $action
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property string $description
+ * @property string $type
+ * @property string $source_name
+ * @property string $target_name
+ * @property string $associatedWith_name
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereAction($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereAssociatedWithId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereAssociatedWithName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereAssociatedWithType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereDescription($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereSourceId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereSourceName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereSourceType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereTargetId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereTargetName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereTargetType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Log whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Log extends CiliatusModel
 {
@@ -79,6 +112,9 @@ class Log extends CiliatusModel
      */
     public function source()
     {
+        if (is_null($this->source_type)) {
+            return null;
+        }
         return $this->belongsTo('App\\' . $this->source_type, 'source_id');
     }
 
@@ -87,7 +123,9 @@ class Log extends CiliatusModel
      */
     public function target()
     {
-
+        if (is_null($this->target_type)) {
+            return null;
+        }
         return $this->belongsTo('App\\' . $this->target_type, 'target_id');
     }
 
@@ -96,6 +134,9 @@ class Log extends CiliatusModel
      */
     public function associated()
     {
+        if (is_null($this->associatedWith_type)) {
+            return null;
+        }
         return $this->belongsTo('App\\' . $this->associatedWith_type, 'associatedWith_id');
     }
 
