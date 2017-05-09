@@ -17,7 +17,7 @@
 
                     <div class="modal-footer">
                         <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
-                            <i class="material-icons right">send</i>
+                            <i class="material-icons left">send</i>
                         </button>
                     </div>
                 </form>

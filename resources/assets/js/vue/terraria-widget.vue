@@ -120,8 +120,7 @@
                 <!-- Card -->
                 <div class="card">
                     <div class="card-image waves-effect waves-block waves-light terrarium-card-image"
-                         v-bind:class="terrarium.default_background_filepath ? '' : 'teal lighten-1'"
-                         v-bind:style="terrarium.default_background_filepath ? 'background-image: url(\'' + terrarium.default_background_filepath + '\');' : ''">
+                         v-bind:style="terrarium.default_background_filepath ? 'background-image: url(\'' + terrarium.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
                         <div>
                             <inline-graph :parentid="terrarium.id" graphtype="humidity_percent" type="line"
                                           :options="{'fill': null, 'strokeWidth': '3', 'stroke': '#2196f3', width: '100%', height:'140px', min: 1, max: 99}"
@@ -154,6 +153,32 @@
                                 <br />
                                 {{ $t("tooltips.heartbeat_critical") }}
                             </span>
+
+                            <!--
+                            <span class="red-text sensorreading-card-indicator">
+                                <span v-show="terrarium.cooked_temperature_celsius !== null">
+                                    {{ terrarium.cooked_temperature_celsius }}°C
+                                </span>
+                            </span>
+                            <span class="blue-text sensorreading-card-indicator right">
+                                <span v-show="terrarium.cooked_humidity_percent !== null">
+                                    {{ terrarium.cooked_humidity_percent }}%
+                                </span>
+                            </span>
+                            -->
+                            <!--
+                            <span v-show="terrarium.cooked_temperature_celsius !== null" v-bind:class="{ 'red-text': terrarium.temperature_critical, 'darken-3': terrarium.temperature_critical }">
+                                {{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C
+                                <br />
+                            </span>
+                            <span v-show="terrarium.cooked_humidity_percent !== null" v-bind:class="{ 'red-text': terrarium.humidity_critical, 'darken-3': terrarium.humidity_critical }">
+                                {{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%
+                            </span>
+                            <span v-show="terrarium.heartbeat_critical" class="red-text darken-3">
+                                <br />
+                                {{ $t("tooltips.heartbeat_critical") }}
+                            </span>
+                            -->
                         </p>
                     </div>
 

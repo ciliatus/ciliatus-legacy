@@ -49,7 +49,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light red" type="submit">@lang('buttons.delete')
-                                        <i class="material-icons right">delete</i>
+                                        <i class="material-icons left">delete</i>
                                     </button>
                                 </div>
                             </div>
