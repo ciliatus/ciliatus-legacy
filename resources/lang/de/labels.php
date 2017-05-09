@@ -38,6 +38,7 @@ return [
     'rawlimitlo'    =>  'Rohwert - unteres Limit',
     'rawlimithi'    =>  'Rohwert - oberes Limit',
     'file'          =>  'Datei',
+    'files'          =>  'Dateien',
     'size'          =>  'Größe',
     'current_value' =>  'Aktueller Wert',
     'created_at'    =>  'Erstellt',
@@ -80,8 +81,7 @@ return [
     'duration'      =>  'Dauer',
     'on'            =>  'An',
     'off'           =>  'Aus',
-    'just_fed'      =>  'Gerade gefüttert',
-    'just_irrigated'=>  'Gerade bewässert',
+    'just_fed'      =>  'Fütterung hinzufügen',
     'add_weight'    =>  'Gewicht hinzufügen',
     'active'        =>  'Aktiv',
     'copy_thresholds' =>  'Grenzwerte kopieren',
@@ -171,4 +171,7 @@ return [
     'cool_down'     =>  'Kühlen',
     'between'       =>  'zwischen',
     'and'           =>  'und',
+    'association'   =>  'Verknüpfung',
+    'choose_logfile'=>  'Log-Datei auswählen',
+    'no_image'      =>  'Kein Bild'
 ];

@@ -38,6 +38,7 @@ return [
     'rawlimitlo'    =>  'Raw value - lower limit',
     'rawlimithi'    =>  'Raw value - upper limit',
     'file'          =>  'File',
+    'files'         =>  'Files',
     'size'          =>  'Size',
     'current_value' =>  'Current value',
     'created_at'    =>  'Creation',
@@ -80,8 +81,7 @@ return [
     'duration'      =>  'Duration',
     'on'            =>  'On',
     'off'           =>  'Off',
-    'just_fed'      =>  'Just fed',
-    'just_irrigated'=>  'Just irrigated',
+    'just_fed'      =>  'Add feeding',
     'add_weight'    =>  'Add weight',
     'active'        =>  'Aktiv',
     'copy_thresholds' =>  'Copy thresholds',
@@ -170,5 +170,8 @@ return [
     'heat_up'       =>  'Heat',
     'cool_down'     =>  'Cool',
     'between'       =>  'between',
-    'and'           =>  'and'
+    'and'           =>  'and',
+    'association'   =>  'Association',
+    'choose_logfile'=>  'Choose a log file',
+    'no_image'      =>  'No image'
 ];

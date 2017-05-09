@@ -18,5 +18,7 @@ return [
     'logs'          =>  'Logs',
     'categories'    =>  'Categories',
     'monitoring'    =>  'Monitoring',
-    'automation'    =>  'Automation'
+    'automation'    =>  'Automation',
+    'ciliatus_logs' =>  'Ciliatus Logs',
+    'system_logs'   =>  'System Logs',
 ];
