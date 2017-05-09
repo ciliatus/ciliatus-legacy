@@ -100,7 +100,7 @@ class File extends CiliatusModel
             'user_id'   =>  $user_id
         ]);
 
-        $file->display_name = $request->file('file')->getClientOriginalName();
+        $file->display_name = str_replace('.', '_', $request->file('file')->getClientOriginalName());
         $file->mimetype = $request->file('file')->getClientMimeType();
         $file->size = $request->file('file')->getClientSize();
         $file->move($request);
@@ -280,6 +280,11 @@ class File extends CiliatusModel
         }
 
         return null;
+    }
+
+    public function biography_entry_event()
+    {
+        return $this->morphedByMany('App\BiographyEntryEvent','belongsTo', 'has_files', 'belongsTo_id');
     }
 
     /**

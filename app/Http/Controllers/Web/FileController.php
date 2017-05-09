@@ -155,4 +155,24 @@ class FileController extends Controller
 
         return response()->file($file->path_internal());
     }
+
+    /**
+     * @param $type
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function associate($type, $id)
+    {
+        $source_class = 'App\\' . $type;
+        $source = $source_class::find($id);
+        if (is_null($source)) {
+            return view('errors.404');
+        }
+
+        return view('files.associate', [
+            'type' => $type,
+            'source' => $source,
+            'target_type_url_name' => 'files'
+        ]);
+    }
 }
