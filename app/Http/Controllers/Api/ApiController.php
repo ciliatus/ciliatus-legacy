@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Matthenning\EloquentApiFilter\EloquentApiFilter;
+use Matthenning\EloquentApiFilter\Traits\FiltersEloquentApi;
 
 /**
  * Class ApiController
@@ -17,6 +18,9 @@ use Matthenning\EloquentApiFilter\EloquentApiFilter;
  */
 class ApiController extends Controller
 {
+
+    use FiltersEloquentApi;
+
     /**
      * @var
      */
@@ -265,7 +269,7 @@ class ApiController extends Controller
      */
     protected function filter(Request $request, Builder $query)
     {
-        return (new EloquentApiFilter($request, $query))->filter();
+        return $this->filterApiRequest($request, $query);
     }
 
     /**
