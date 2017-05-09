@@ -47,6 +47,9 @@ class AnimalRepository extends Repository
         if (!is_null($last_weighing)) {
             $animal->last_weighing = $last_weighing;
         }
+        if ($animal->weighings->count() > 1) {
+            $animal->last_weighing->trend = $animal->last_weighing()->trend(); #round(($animal->last_weighing->value - $animal->weighings->get(1)->value) / $animal->last_weighing->value * 100, 1);
+        }
 
         $files = $animal->files()->with('properties')->get();
         $animal->default_background_filepath = null;

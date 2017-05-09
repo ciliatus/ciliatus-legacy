@@ -55,7 +55,7 @@ class AnimalWeighingController extends ApiController
             return $this->respondNotFound("Animal not found");
         }
 
-        $weighings = $this->filter($request, $animal->weighings()->getQuery());
+        $weighings = $this->filter($request, $animal->weighings()->orderBy('created_at', 'DESC')->getQuery());
 
         /*
          * If raw is passed, pagination will be ignored

@@ -133,8 +133,7 @@ class Animal extends CiliatusModel
      */
     public function feedings()
     {
-        return $this->events()->where('type', 'AnimalFeeding')
-                              ->orderBy('created_at', 'desc');
+        return $this->hasMany('App\AnimalFeedingEvent', 'belongsTo_id');
     }
 
     /**
@@ -173,8 +172,7 @@ class Animal extends CiliatusModel
      */
     public function weighings()
     {
-        return $this->events()->where('type', 'AnimalWeighing')
-                              ->orderBy('created_at', 'desc');
+        return $this->hasMany('App\AnimalWeighingEvent', 'belongsTo_id');
     }
 
     /**
@@ -257,10 +255,10 @@ class Animal extends CiliatusModel
     public function last_feeding($type = null)
     {
         if (is_null($type)) {
-            return $this->feedings()->limit(1)->get()->first();
+            return $this->feedings()->orderBy('created_at', 'DESC')->limit(1)->get()->first();
         }
         else {
-            return $this->feedings()->where('name', $type)->limit(1)->get()->first();
+            return $this->feedings()->orderBy('created_at', 'DESC')->where('name', $type)->limit(1)->get()->first();
         }
     }
 
@@ -269,7 +267,7 @@ class Animal extends CiliatusModel
      */
     public function last_weighing()
     {
-        return $this->weighings()->limit(1)->get()->first();
+        return $this->weighings()->orderBy('created_at', 'DESC')->limit(1)->get()->first();
     }
 
     /**

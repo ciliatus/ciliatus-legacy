@@ -56,7 +56,7 @@ class AnimalFeedingController extends ApiController
             return $this->respondNotFound("Animal not found");
         }
 
-        $feedings = $this->filter($request, $animal->feedings()->getQuery());
+        $feedings = $this->filter($request, $animal->feedings()->orderBy('created_at', 'DESC')->getQuery());
 
         /*
          * If raw is passed, pagination will be ignored
