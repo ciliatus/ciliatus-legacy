@@ -202,7 +202,13 @@
                                         <li @if(Request::is('logs', 'logs/*')) class="active" @endif>
                                             <a href="{{ url('logs') }}" class="waves-effect waves-orange">
                                                 <i class="material-icons">history</i>
-                                                @lang('menu.logs')
+                                                @lang('menu.ciliatus_logs')
+                                            </a>
+                                        </li>
+                                        <li @if(Request::is('system_logs', 'system_logs/*')) class="active" @endif>
+                                            <a href="{{ url('system_logs') }}" class="waves-effect waves-orange">
+                                                <i class="material-icons">history</i>
+                                                @lang('menu.system_logs')
                                             </a>
                                         </li>
                                         <li @if(Request::is('categories')) class="active" @endif>
@@ -253,7 +259,7 @@
         <!-- Laravel-Echo -->
         <script src="{{ url('/js/vendors/echo.min.js') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('/js/app.min.js') }}"></script>
+        <script src="{{ url('/js/app.js') }}"></script>
         <!-- Vue -->
         <script src="{{ url('/js/vendors/vue.js') }}"></script>
         <!-- Dygraph -->

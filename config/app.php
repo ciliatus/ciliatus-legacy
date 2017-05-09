@@ -161,6 +161,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
 
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
+        Rap2hpoutre\LaravelLogViewer\LaravelLogViewerServiceProvider::class
 
     ],
 
