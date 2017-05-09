@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\BiographyEntryEvent;
 use App\Event;
 use App\Events\BiographyEntryDeleted;
 use App\Events\BiographyEntryUpdated;
@@ -61,7 +62,7 @@ class BiographyEntryController extends ApiController
             $entries = $belongsTo->entries();
         }
         else {
-            $entries = Event::where('type', 'BiographyEntry');
+            $entries = BiographyEntryEvent::with('files');
         }
 
         $entries = $this->filter($request, $entries);
@@ -125,7 +126,7 @@ class BiographyEntryController extends ApiController
 
         $belongsTo = $this->getBelongsTo($request);
 
-        $e = Event::create([
+        $e = BiographyEntryEvent::create([
             'belongsTo_type' => $belongsTo['belongsTo_type'],
             'belongsTo_id' => $belongsTo['belongsTo_id'],
             'type' => 'BiographyEntry',
@@ -144,7 +145,7 @@ class BiographyEntryController extends ApiController
 
         return $this->respondWithData([], [
             'redirect' => [
-                'uri' => $e->belongsTo_object->url() . '#tab_biography'
+                'uri' => url('biography_entries/' . $e->id . '/edit')
             ]
         ]);
     }
@@ -153,11 +154,27 @@ class BiographyEntryController extends ApiController
      * Display the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\JsonResponse
      */
     public function show($id)
     {
-        //
+        if (Gate::denies('api-read')) {
+            return $this->respondUnauthorized();
+        }
+
+        $entry = BiographyEntryEvent::with('files')->find($id);
+
+        if (!$entry) {
+            return $this->respondNotFound('Entry not found');
+        }
+
+        $entry = (new BiographyEntryRepository($entry))->show();
+
+        return $this->respondWithData(
+            $this->biographyEntryTransformer->transform(
+                $entry->toArray()
+            )
+        );
     }
 
     /**

@@ -31,6 +31,10 @@ class BiographyEntryTransformer extends Transformer
             $return['category'] = (new CategoryTransformer())->transform($item['category']);
         }
 
+        if (isset($item['files'])) {
+            $return['files'] = (new FileTransformer())->transformCollection((is_array($item['files']) ? $item['files'] : $item['files']->toArray()));
+        }
+
         return $return;
     }
 }

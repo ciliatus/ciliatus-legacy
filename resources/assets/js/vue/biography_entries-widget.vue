@@ -31,6 +31,13 @@
                         <h5>{{ entry.title }}</h5>
 
                         <p v-html="entry.text"> </p>
+
+                        <p v-show="entry.files.length > 0" style="margin-top: 15px;">
+                            <span v-for="file in entry.files" style="margin-right: 15px;">
+                                <i class="material-icons">{{ file.icon }}</i>
+                                <a :href="file.url">{{ file.display_name }}</a>
+                            </span>
+                        </p>
                     </div>
 
                     <div class="card-action">

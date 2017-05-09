@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\BiographyEntryEvent;
 use App\Event;
 use App\Property;
 use Gate;
@@ -78,7 +79,14 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
      */
     public function show($id)
     {
-        //
+        $entry = BiographyEntryEvent::find($id);
+        if (is_null($entry)) {
+            return view('errors.404');
+        }
+
+        return view('biographies.entries.show', [
+            'entry' => $entry
+        ]);
     }
 
     /**
@@ -93,7 +101,7 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
             return view('errors.401');
         }
 
-        $entry = Event::find($id);
+        $entry = BiographyEntryEvent::with('files')->find($id);
         if (is_null($entry)) {
             return view('errors.404');
         }
