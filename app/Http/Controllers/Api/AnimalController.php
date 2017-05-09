@@ -272,19 +272,23 @@ class AnimalController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $animal_id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function caresheets($animal_id)
+    public function caresheets(Request $request, $animal_id)
     {
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
             return view('errors.404');
         }
 
+        $query = $animal->caresheets()->getQuery();
+        $caresheets = $this->filter($request, $query)->get();
+
         return $this->respondWithData(
             (new AnimalCaresheetTransformer())->transformCollection(
-                $animal->caresheets->toArray()
+                $caresheets->toArray()
             )
         );
     }
