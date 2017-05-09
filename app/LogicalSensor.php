@@ -224,11 +224,15 @@ class LogicalSensor extends CiliatusModel
      */
     public function getCurrentCookedValue()
     {
+        if (is_null($this->rawvalue)) {
+            return null;
+        }
+
         switch ($this->type) {
             case 'temperature_celsius':
                 return round($this->rawvalue, 1);
             case 'humidity_percent':
-                return (int)$this->rawvalue;
+                return round($this->rawvalue, 1);
             default:
                 return $this->rawvalue;
         }

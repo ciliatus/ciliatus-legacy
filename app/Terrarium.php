@@ -118,6 +118,14 @@ class Terrarium extends CiliatusModel
         $this->heartbeat_critical = !$this->heartbeatOk();
         $this->cooked_humidity_percent = $this->getCurrentHumidity();
         $this->cooked_temperature_celsius = $this->getCurrentTemperature();
+
+        if (!is_null($this->cooked_humidity_percent)) {
+            $this->cooked_humidity_percent = round($this->cooked_humidity_percent, 1);
+        }
+
+        if (!is_null($this->cooked_temperature_celsius)) {
+            $this->cooked_temperature_celsius = round($this->cooked_temperature_celsius, 1);
+        }
     }
 
     /**
@@ -189,7 +197,7 @@ class Terrarium extends CiliatusModel
      */
     public function getCurrentTemperature()
     {
-        return round($this->fetchCurrentSensorreading('temperature_celsius'), 1);
+        return $this->fetchCurrentSensorreading('temperature_celsius');
     }
 
     /**
@@ -197,7 +205,7 @@ class Terrarium extends CiliatusModel
      */
     public function getCurrentHumidity()
     {
-        return (int)$this->fetchCurrentSensorreading('humidity_percent');
+        return $this->fetchCurrentSensorreading('humidity_percent');
     }
 
     /**
@@ -424,13 +432,17 @@ class Terrarium extends CiliatusModel
 
         foreach ($this->physical_sensors as $ps) {
             foreach ($ps->logical_sensors()->where('type', $type)->get() as $ls) {
-                $avg += $ls->getCurrentCookedValue();
-                $count++;
+                $reading = $ls->getCurrentCookedValue();
+                if (!is_null($reading)) {
+                    $avg += $reading;
+                    $count++;
+                }
             }
         }
 
-        if ($count > 0)
+        if ($count > 0) {
             return round($avg / $count, 1);
+        }
 
         return null;
     }
