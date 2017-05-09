@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="white-text">
-            <div class="input-field inline">
+            <div class="input-field inline" style="width: 150px">
                 <form action="/api/v1/apiai/send_request" data-method="POST" id="api-io-widget-form"
                       :data-no-confirm="true" v-on:submit="submit_interceptor">
                     <input name="speech" id="ask-me-something" type="text"
