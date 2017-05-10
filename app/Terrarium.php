@@ -254,13 +254,15 @@ class Terrarium extends CiliatusModel
      * @param Carbon $history_to
      * @param int $history_minutes
      * @param boolean $ignore_anomalies
-     * @return array
+     * @param boolean $return_array
+     * @return array|Collection
      */
     public function getSensorreadingsByType($type,
                                             $kill_cache = false,
                                             Carbon $history_to = null,
                                             $history_minutes = null,
-                                            $ignore_anomalies = false)
+                                            $ignore_anomalies = false,
+                                            $return_array = true)
     {
 
         // Evaluate if query can be cached
@@ -296,11 +298,17 @@ class Terrarium extends CiliatusModel
                 $ignore_anomalies
         );
 
-        $final_data = array_column($history->toArray(), 'avg_rawvalue');
+        if ($return_array) {
+            $final_data = array_column($history->toArray(), 'avg_rawvalue');
+            $encoded_data = json_encode($final_data);
+        }
+        else {
+            $final_data = $history;
+            $encoded_data = json_encode($final_data->toArray());
+        }
 
         // Encode data and put in cache
         if ($cachable) {
-            $encoded_data = json_encode($final_data);
             $duration = env('TERRARIUM_DEFAULT_HISTORY_CACHE_MINUTES', 5);
             Cache::put($cache_key, $encoded_data, $duration);
         }

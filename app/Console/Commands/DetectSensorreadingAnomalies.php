@@ -70,18 +70,27 @@ class DetectSensorreadingAnomalies extends Command
             foreach (['temperature_celsius', 'humidity_percent'] as $reading_type) {
                 echo $reading_type . PHP_EOL;
 
-                $readings_collection = $terrarium->getSensorreadingsByType($reading_type, true, Carbon::now(), $history_minutes, true);
-                $readings_clone = array_column((clone $readings_collection)->toArray(), 'avg_rawvalue');
-                $rolling_avg_readings = array_splice($readings_clone, 0, $rolling_avg_margin*2);
+                $readings = $terrarium->getSensorreadingsByType(
+                        $reading_type,
+                        true,
+                        Carbon::now(),
+                        $history_minutes,
+                        true,
+                        false
+                );
+
+                $readings_clone = clone $readings;
+                $readings_column = array_column($readings_clone->toArray(), 'avg_rawvalue');
+                $rolling_avg_readings = array_splice($readings_column, 0, $rolling_avg_margin*2);
 
                 $i = 0;
-                foreach ($readings_collection as $reading) {
+                foreach ($readings as $reading) {
                     if (empty($reading) || is_null($reading) || !$reading) {
                         continue;
                     }
 
                     $i++;
-                    if ($i <= $rolling_avg_margin || $i >= $readings_collection->count() - $rolling_avg_margin) {
+                    if ($i <= $rolling_avg_margin || $i >= $readings->count() - $rolling_avg_margin) {
                         continue;
                     }
 
@@ -89,12 +98,11 @@ class DetectSensorreadingAnomalies extends Command
                     $rolling_avg_readings[] = $reading->avg_rawvalue;
 
                     $rolling_avg = array_sum($rolling_avg_readings) / count($rolling_avg_readings);
-                    if ($rolling_avg > $reading->avg_rawvalue) {
-                        $deviation = 100 - $reading->avg_rawvalue / $rolling_avg * 100;
+                    if ($rolling_avg == 0) {
+                        continue;
                     }
-                    else {
-                        $deviation = 100 - $rolling_avg / $reading->avg_rawvalue * 100;
-                    }
+
+                    $deviation = abs(100 - $reading->avg_rawvalue / $rolling_avg * 100);
 
                     if ($deviation > $max_deviation_percent) {
                         $anomaly_count++;
@@ -120,6 +128,7 @@ class DetectSensorreadingAnomalies extends Command
             }
         }
 
+        \Log::info("$anomaly_count anomalies detected in the last " . $history_minutes/60 . " hours." . PHP_EOL);
         echo "$anomaly_count anomalies detected in the last " . $history_minutes/60 . " hours." . PHP_EOL;
 
         return true;
