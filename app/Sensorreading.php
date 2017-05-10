@@ -62,6 +62,15 @@ class Sensorreading extends CiliatusModel
             return false;
         }
 
+        if (is_null($this->logical_sensor) ||
+            is_null($this->logical_sensor->physical_sensor) ||
+            is_null($this->logical_sensor->physical_sensor->terrarium)) {
+
+            \Log::warning('Check configuration of Logical Sensor ' . $this->id . '. Link to Terrarium is broken');
+            return false;
+
+        }
+
         return $this->writeToInfluxDb(
             'logical_sensor_readings',
             $this->rawvalue,
