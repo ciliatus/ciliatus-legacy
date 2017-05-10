@@ -219,7 +219,10 @@ export default {
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             this.load_data();
         },
-        set_filter: function() {
+        set_filter: function(e) {
+            if (e) {
+                e.preventDefault();
+            }
             this.filter_string = '&';
             if (this.sourceFilter !== '') {
                 this.filter_string += this.sourceFilter + '&';

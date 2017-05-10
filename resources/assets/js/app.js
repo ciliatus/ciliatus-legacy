@@ -62,9 +62,12 @@ LiveData.prototype.stop = function()
 
 window.submit_form = function (e, _callback = undefined)
 {
+
+    console.log(e);
     e.preventDefault();
 
-    if ($(e.target).data('prevent-submit-on-enter') === true) {
+    if ($(e.target).data('prevent-submit-on-enter') === true
+        && e.keyCode === 13) {
         return false;
     }
 
