@@ -105,7 +105,7 @@ class LogicalSensor extends CiliatusModel
      */
     public function sensorreadings()
     {
-        return $this->hasMany('App\Sensorreading');
+        return $this->hasMany('App\Sensorreading', 'logical_sensor_id');
     }
 
     /**

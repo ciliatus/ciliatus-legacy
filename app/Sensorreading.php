@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Traits\Uuids;
+use App\Traits\WritesToInfluxDb;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -28,7 +30,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Sensorreading extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Uuids, WritesToInfluxDb;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -41,7 +43,7 @@ class Sensorreading extends CiliatusModel
      * @var array
      */
     protected $fillable = [
-        'sensorreadinggroup_id', 'logical_sensor_id', 'rawvalue'
+        'sensorreadinggroup_id', 'logical_sensor_id', 'rawvalue', 'created_at'
     ];
 
     /**
@@ -50,6 +52,27 @@ class Sensorreading extends CiliatusModel
     protected $casts = [
         'is_anomaly' => 'boolean'
     ];
+
+    /**
+     * Automatically writes relevant data to InfluxDb
+     */
+    public function autoWriteToInfluxDb()
+    {
+        if (is_null($this->logical_sensor)) {
+            return false;
+        }
+
+        return $this->writeToInfluxDb(
+            'logical_sensor_readings',
+            $this->rawvalue,
+            [
+                'logical_sensor_type'   => $this->logical_sensor->type,
+                'logical_sensor'        => $this->logical_sensor->name,
+                'physical_sensor'       => $this->logical_sensor->physical_sensor->name,
+                'terrarium'             => $this->logical_sensor->physical_sensor->terrarium->name
+            ]
+        );
+    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -64,7 +87,7 @@ class Sensorreading extends CiliatusModel
      */
     public function logical_sensor()
     {
-        return $this->belongsTo('App\LogicalSensor');
+        return $this->belongsTo('App\LogicalSensor', 'logical_sensor_id');
     }
 
     /**
