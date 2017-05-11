@@ -97,7 +97,6 @@ class GenericComponentController extends ApiController
 
         $component = GenericComponent::create([
             'name' => $request->input('name'),
-            'type' => $request->input('type'),
             'generic_component_type_id' => $request->input('type_id'),
             'controlunit_id' => $request->input('controlunit')
         ]);
