@@ -173,5 +173,6 @@ return [
     'and'           =>  'und',
     'association'   =>  'Verknüpfung',
     'choose_logfile'=>  'Log-Datei auswählen',
-    'no_image'      =>  'Kein Bild'
+    'no_image'      =>  'Kein Bild',
+    'features'      =>  'Features'
 ];

@@ -184,6 +184,7 @@ Route::group(['namespace' => 'Web', 'middleware' => 'web'], function() {
      */
     Route::resource('logs', 'LogController');
     Route::resource('system_logs', 'SystemLogController');
+    Route::get('system/status', 'SystemController@index');
 
 
     Route::get('map', 'DashboardController@map');

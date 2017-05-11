@@ -24,9 +24,15 @@ class SensorreadingRepository extends Repository {
 
     }
 
+    public function getByLogicalSensor($query, array $logical_sensor_ids,
+                                       Carbon $time_of_day_from = null, Carbon $time_of_day_to = null)
+    {
+
+    }
+
     /**
      * Select sensorreadings of the an array of logical sensors
-     * and calculate average raw value per sensorreadingroup.
+     * and calculate average raw value per sensor reading group.
      * In case $return_total_stats is true, the total average and min/max
      * will be calculated instead of each sensorreadings group's average
      *

@@ -173,5 +173,6 @@ return [
     'and'           =>  'and',
     'association'   =>  'Association',
     'choose_logfile'=>  'Choose a log file',
-    'no_image'      =>  'No image'
+    'no_image'      =>  'No image',
+    'features'      =>  'Features'
 ];

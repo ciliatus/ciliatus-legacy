@@ -32,7 +32,7 @@ trait SendsApiAiRequests
         $sessionId = '';
         if (is_null($custom_sessionId)) {
             if (is_null($user)) {
-                $sessionId = Uuid::generate();
+                $sessionId = Uuid::generate()->string;
             }
             else {
                 $sessionId = $user->id;

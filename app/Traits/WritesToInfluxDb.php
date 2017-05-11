@@ -50,15 +50,7 @@ trait WritesToInfluxDb
         }
 
         if (is_null($this->influx_client)) {
-            $this->influx_client = new InfluxDbClient(
-                    $this->config['host'],
-                    $this->config['port'],
-                    $this->config['user'],
-                    $this->config['pass'],
-                    true
-            );
-
-            $this->influx_database = $this->influx_client->selectDB($this->config['db']);
+            $this->connectInfluxDb();
         }
 
         if (is_null($time)) {
@@ -90,13 +82,56 @@ trait WritesToInfluxDb
      */
     protected function loadInfluxConfig()
     {
-        $this->config= [
+        $this->config = self::getInfluxConfig();
+    }
+
+    /**
+     *
+     */
+    protected function connectInfluxDb()
+    {
+        $this->influx_client = self::getInfluxClient($this->config);
+
+        $this->influx_database = self::getInfluxDatabase($this->influx_client, $this->config);
+    }
+
+    /**
+     * @return array
+     */
+    protected static function getInfluxConfig()
+    {
+        return [
             'host'  => env('INFLUX_HOST', null),
             'port'  => env('INFLUX_PORT', 8086),
             'db'    => env('INFLUX_DB', null),
             'user'  => env('INFLUX_USER', null),
             'pass'  => env('INFLUX_PASS', null)
         ];
+    }
+
+    /**
+     * @param array $config
+     * @return InfluxDbClient
+     */
+    protected static function getInfluxClient(array $config)
+    {
+        return new InfluxDbClient(
+            $config['host'],
+            $config['port'],
+            $config['user'],
+            $config['pass'],
+            true
+        );
+    }
+
+    /**
+     * @param InfluxDbClient $influx_client
+     * @param array $config
+     * @return Database
+     */
+    protected  static function getInfluxDatabase(InfluxDbClient $influx_client, array $config)
+    {
+        return $influx_client->selectDB($config['db']);
     }
 
 }
