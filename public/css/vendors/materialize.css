@@ -6982,6 +6982,10 @@ page[size="A5"][layout="portrait"] {
 input.dygraph-roller {
   border: 0; }
 
+.dygraph-legend-div {
+  margin-left: 50px;
+  margin-top: 20px; }
+
 /*
 Loading animation
  */

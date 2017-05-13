@@ -1,15 +1,349 @@
 (function e(t,n,r){function s(o,u){if(!n[o]){if(!t[o]){var a=typeof require=="function"&&require;if(!u&&a)return a(o,!0);if(i)return i(o,!0);var f=new Error("Cannot find module '"+o+"'");throw f.code="MODULE_NOT_FOUND",f}var l=n[o]={exports:{}};t[o][0].call(l.exports,function(e){var n=t[o][1][e];return s(n?n:e)},l,l.exports,e,t,n,r)}return n[o].exports}var i=typeof require=="function"&&require;for(var o=0;o<r.length;o++)s(r[o]);return s})({1:[function(require,module,exports){
 module.exports = { "default": require("core-js/library/fn/json/stringify"), __esModule: true };
-},{"core-js/library/fn/json/stringify":2}],2:[function(require,module,exports){
+},{"core-js/library/fn/json/stringify":3}],2:[function(require,module,exports){
+module.exports = { "default": require("core-js/library/fn/object/values"), __esModule: true };
+},{"core-js/library/fn/object/values":4}],3:[function(require,module,exports){
 var core  = require('../../modules/_core')
   , $JSON = core.JSON || (core.JSON = {stringify: JSON.stringify});
 module.exports = function stringify(it){ // eslint-disable-line no-unused-vars
   return $JSON.stringify.apply($JSON, arguments);
 };
-},{"../../modules/_core":3}],3:[function(require,module,exports){
+},{"../../modules/_core":9}],4:[function(require,module,exports){
+require('../../modules/es7.object.values');
+module.exports = require('../../modules/_core').Object.values;
+},{"../../modules/_core":9,"../../modules/es7.object.values":37}],5:[function(require,module,exports){
+module.exports = function(it){
+  if(typeof it != 'function')throw TypeError(it + ' is not a function!');
+  return it;
+};
+},{}],6:[function(require,module,exports){
+var isObject = require('./_is-object');
+module.exports = function(it){
+  if(!isObject(it))throw TypeError(it + ' is not an object!');
+  return it;
+};
+},{"./_is-object":22}],7:[function(require,module,exports){
+// false -> Array#indexOf
+// true  -> Array#includes
+var toIObject = require('./_to-iobject')
+  , toLength  = require('./_to-length')
+  , toIndex   = require('./_to-index');
+module.exports = function(IS_INCLUDES){
+  return function($this, el, fromIndex){
+    var O      = toIObject($this)
+      , length = toLength(O.length)
+      , index  = toIndex(fromIndex, length)
+      , value;
+    // Array#includes uses SameValueZero equality algorithm
+    if(IS_INCLUDES && el != el)while(length > index){
+      value = O[index++];
+      if(value != value)return true;
+    // Array#toIndex ignores holes, Array#includes - not
+    } else for(;length > index; index++)if(IS_INCLUDES || index in O){
+      if(O[index] === el)return IS_INCLUDES || index || 0;
+    } return !IS_INCLUDES && -1;
+  };
+};
+},{"./_to-index":31,"./_to-iobject":33,"./_to-length":34}],8:[function(require,module,exports){
+var toString = {}.toString;
+
+module.exports = function(it){
+  return toString.call(it).slice(8, -1);
+};
+},{}],9:[function(require,module,exports){
 var core = module.exports = {version: '2.4.0'};
 if(typeof __e == 'number')__e = core; // eslint-disable-line no-undef
-},{}],4:[function(require,module,exports){
+},{}],10:[function(require,module,exports){
+// optional / simple context binding
+var aFunction = require('./_a-function');
+module.exports = function(fn, that, length){
+  aFunction(fn);
+  if(that === undefined)return fn;
+  switch(length){
+    case 1: return function(a){
+      return fn.call(that, a);
+    };
+    case 2: return function(a, b){
+      return fn.call(that, a, b);
+    };
+    case 3: return function(a, b, c){
+      return fn.call(that, a, b, c);
+    };
+  }
+  return function(/* ...args */){
+    return fn.apply(that, arguments);
+  };
+};
+},{"./_a-function":5}],11:[function(require,module,exports){
+// 7.2.1 RequireObjectCoercible(argument)
+module.exports = function(it){
+  if(it == undefined)throw TypeError("Can't call method on  " + it);
+  return it;
+};
+},{}],12:[function(require,module,exports){
+// Thank's IE8 for his funny defineProperty
+module.exports = !require('./_fails')(function(){
+  return Object.defineProperty({}, 'a', {get: function(){ return 7; }}).a != 7;
+});
+},{"./_fails":16}],13:[function(require,module,exports){
+var isObject = require('./_is-object')
+  , document = require('./_global').document
+  // in old IE typeof document.createElement is 'object'
+  , is = isObject(document) && isObject(document.createElement);
+module.exports = function(it){
+  return is ? document.createElement(it) : {};
+};
+},{"./_global":17,"./_is-object":22}],14:[function(require,module,exports){
+// IE 8- don't enum bug keys
+module.exports = (
+  'constructor,hasOwnProperty,isPrototypeOf,propertyIsEnumerable,toLocaleString,toString,valueOf'
+).split(',');
+},{}],15:[function(require,module,exports){
+var global    = require('./_global')
+  , core      = require('./_core')
+  , ctx       = require('./_ctx')
+  , hide      = require('./_hide')
+  , PROTOTYPE = 'prototype';
+
+var $export = function(type, name, source){
+  var IS_FORCED = type & $export.F
+    , IS_GLOBAL = type & $export.G
+    , IS_STATIC = type & $export.S
+    , IS_PROTO  = type & $export.P
+    , IS_BIND   = type & $export.B
+    , IS_WRAP   = type & $export.W
+    , exports   = IS_GLOBAL ? core : core[name] || (core[name] = {})
+    , expProto  = exports[PROTOTYPE]
+    , target    = IS_GLOBAL ? global : IS_STATIC ? global[name] : (global[name] || {})[PROTOTYPE]
+    , key, own, out;
+  if(IS_GLOBAL)source = name;
+  for(key in source){
+    // contains in native
+    own = !IS_FORCED && target && target[key] !== undefined;
+    if(own && key in exports)continue;
+    // export native or passed
+    out = own ? target[key] : source[key];
+    // prevent global pollution for namespaces
+    exports[key] = IS_GLOBAL && typeof target[key] != 'function' ? source[key]
+    // bind timers to global for call from export context
+    : IS_BIND && own ? ctx(out, global)
+    // wrap global constructors for prevent change them in library
+    : IS_WRAP && target[key] == out ? (function(C){
+      var F = function(a, b, c){
+        if(this instanceof C){
+          switch(arguments.length){
+            case 0: return new C;
+            case 1: return new C(a);
+            case 2: return new C(a, b);
+          } return new C(a, b, c);
+        } return C.apply(this, arguments);
+      };
+      F[PROTOTYPE] = C[PROTOTYPE];
+      return F;
+    // make static versions for prototype methods
+    })(out) : IS_PROTO && typeof out == 'function' ? ctx(Function.call, out) : out;
+    // export proto methods to core.%CONSTRUCTOR%.methods.%NAME%
+    if(IS_PROTO){
+      (exports.virtual || (exports.virtual = {}))[key] = out;
+      // export proto methods to core.%CONSTRUCTOR%.prototype.%NAME%
+      if(type & $export.R && expProto && !expProto[key])hide(expProto, key, out);
+    }
+  }
+};
+// type bitmap
+$export.F = 1;   // forced
+$export.G = 2;   // global
+$export.S = 4;   // static
+$export.P = 8;   // proto
+$export.B = 16;  // bind
+$export.W = 32;  // wrap
+$export.U = 64;  // safe
+$export.R = 128; // real proto method for `library` 
+module.exports = $export;
+},{"./_core":9,"./_ctx":10,"./_global":17,"./_hide":19}],16:[function(require,module,exports){
+module.exports = function(exec){
+  try {
+    return !!exec();
+  } catch(e){
+    return true;
+  }
+};
+},{}],17:[function(require,module,exports){
+// https://github.com/zloirock/core-js/issues/86#issuecomment-115759028
+var global = module.exports = typeof window != 'undefined' && window.Math == Math
+  ? window : typeof self != 'undefined' && self.Math == Math ? self : Function('return this')();
+if(typeof __g == 'number')__g = global; // eslint-disable-line no-undef
+},{}],18:[function(require,module,exports){
+var hasOwnProperty = {}.hasOwnProperty;
+module.exports = function(it, key){
+  return hasOwnProperty.call(it, key);
+};
+},{}],19:[function(require,module,exports){
+var dP         = require('./_object-dp')
+  , createDesc = require('./_property-desc');
+module.exports = require('./_descriptors') ? function(object, key, value){
+  return dP.f(object, key, createDesc(1, value));
+} : function(object, key, value){
+  object[key] = value;
+  return object;
+};
+},{"./_descriptors":12,"./_object-dp":23,"./_property-desc":28}],20:[function(require,module,exports){
+module.exports = !require('./_descriptors') && !require('./_fails')(function(){
+  return Object.defineProperty(require('./_dom-create')('div'), 'a', {get: function(){ return 7; }}).a != 7;
+});
+},{"./_descriptors":12,"./_dom-create":13,"./_fails":16}],21:[function(require,module,exports){
+// fallback for non-array-like ES3 and non-enumerable old V8 strings
+var cof = require('./_cof');
+module.exports = Object('z').propertyIsEnumerable(0) ? Object : function(it){
+  return cof(it) == 'String' ? it.split('') : Object(it);
+};
+},{"./_cof":8}],22:[function(require,module,exports){
+module.exports = function(it){
+  return typeof it === 'object' ? it !== null : typeof it === 'function';
+};
+},{}],23:[function(require,module,exports){
+var anObject       = require('./_an-object')
+  , IE8_DOM_DEFINE = require('./_ie8-dom-define')
+  , toPrimitive    = require('./_to-primitive')
+  , dP             = Object.defineProperty;
+
+exports.f = require('./_descriptors') ? Object.defineProperty : function defineProperty(O, P, Attributes){
+  anObject(O);
+  P = toPrimitive(P, true);
+  anObject(Attributes);
+  if(IE8_DOM_DEFINE)try {
+    return dP(O, P, Attributes);
+  } catch(e){ /* empty */ }
+  if('get' in Attributes || 'set' in Attributes)throw TypeError('Accessors not supported!');
+  if('value' in Attributes)O[P] = Attributes.value;
+  return O;
+};
+},{"./_an-object":6,"./_descriptors":12,"./_ie8-dom-define":20,"./_to-primitive":35}],24:[function(require,module,exports){
+var has          = require('./_has')
+  , toIObject    = require('./_to-iobject')
+  , arrayIndexOf = require('./_array-includes')(false)
+  , IE_PROTO     = require('./_shared-key')('IE_PROTO');
+
+module.exports = function(object, names){
+  var O      = toIObject(object)
+    , i      = 0
+    , result = []
+    , key;
+  for(key in O)if(key != IE_PROTO)has(O, key) && result.push(key);
+  // Don't enum bug & hidden keys
+  while(names.length > i)if(has(O, key = names[i++])){
+    ~arrayIndexOf(result, key) || result.push(key);
+  }
+  return result;
+};
+},{"./_array-includes":7,"./_has":18,"./_shared-key":29,"./_to-iobject":33}],25:[function(require,module,exports){
+// 19.1.2.14 / 15.2.3.14 Object.keys(O)
+var $keys       = require('./_object-keys-internal')
+  , enumBugKeys = require('./_enum-bug-keys');
+
+module.exports = Object.keys || function keys(O){
+  return $keys(O, enumBugKeys);
+};
+},{"./_enum-bug-keys":14,"./_object-keys-internal":24}],26:[function(require,module,exports){
+exports.f = {}.propertyIsEnumerable;
+},{}],27:[function(require,module,exports){
+var getKeys   = require('./_object-keys')
+  , toIObject = require('./_to-iobject')
+  , isEnum    = require('./_object-pie').f;
+module.exports = function(isEntries){
+  return function(it){
+    var O      = toIObject(it)
+      , keys   = getKeys(O)
+      , length = keys.length
+      , i      = 0
+      , result = []
+      , key;
+    while(length > i)if(isEnum.call(O, key = keys[i++])){
+      result.push(isEntries ? [key, O[key]] : O[key]);
+    } return result;
+  };
+};
+},{"./_object-keys":25,"./_object-pie":26,"./_to-iobject":33}],28:[function(require,module,exports){
+module.exports = function(bitmap, value){
+  return {
+    enumerable  : !(bitmap & 1),
+    configurable: !(bitmap & 2),
+    writable    : !(bitmap & 4),
+    value       : value
+  };
+};
+},{}],29:[function(require,module,exports){
+var shared = require('./_shared')('keys')
+  , uid    = require('./_uid');
+module.exports = function(key){
+  return shared[key] || (shared[key] = uid(key));
+};
+},{"./_shared":30,"./_uid":36}],30:[function(require,module,exports){
+var global = require('./_global')
+  , SHARED = '__core-js_shared__'
+  , store  = global[SHARED] || (global[SHARED] = {});
+module.exports = function(key){
+  return store[key] || (store[key] = {});
+};
+},{"./_global":17}],31:[function(require,module,exports){
+var toInteger = require('./_to-integer')
+  , max       = Math.max
+  , min       = Math.min;
+module.exports = function(index, length){
+  index = toInteger(index);
+  return index < 0 ? max(index + length, 0) : min(index, length);
+};
+},{"./_to-integer":32}],32:[function(require,module,exports){
+// 7.1.4 ToInteger
+var ceil  = Math.ceil
+  , floor = Math.floor;
+module.exports = function(it){
+  return isNaN(it = +it) ? 0 : (it > 0 ? floor : ceil)(it);
+};
+},{}],33:[function(require,module,exports){
+// to indexed object, toObject with fallback for non-array-like ES3 strings
+var IObject = require('./_iobject')
+  , defined = require('./_defined');
+module.exports = function(it){
+  return IObject(defined(it));
+};
+},{"./_defined":11,"./_iobject":21}],34:[function(require,module,exports){
+// 7.1.15 ToLength
+var toInteger = require('./_to-integer')
+  , min       = Math.min;
+module.exports = function(it){
+  return it > 0 ? min(toInteger(it), 0x1fffffffffffff) : 0; // pow(2, 53) - 1 == 9007199254740991
+};
+},{"./_to-integer":32}],35:[function(require,module,exports){
+// 7.1.1 ToPrimitive(input [, PreferredType])
+var isObject = require('./_is-object');
+// instead of the ES6 spec version, we didn't implement @@toPrimitive case
+// and the second argument - flag - preferred type is a string
+module.exports = function(it, S){
+  if(!isObject(it))return it;
+  var fn, val;
+  if(S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it)))return val;
+  if(typeof (fn = it.valueOf) == 'function' && !isObject(val = fn.call(it)))return val;
+  if(!S && typeof (fn = it.toString) == 'function' && !isObject(val = fn.call(it)))return val;
+  throw TypeError("Can't convert object to primitive value");
+};
+},{"./_is-object":22}],36:[function(require,module,exports){
+var id = 0
+  , px = Math.random();
+module.exports = function(key){
+  return 'Symbol('.concat(key === undefined ? '' : key, ')_', (++id + px).toString(36));
+};
+},{}],37:[function(require,module,exports){
+// https://github.com/tc39/proposal-object-values-entries
+var $export = require('./_export')
+  , $values = require('./_object-to-array')(false);
+
+$export($export.S, 'Object', {
+  values: function values(it){
+    return $values(it);
+  }
+});
+},{"./_export":15,"./_object-to-array":27}],38:[function(require,module,exports){
 // shim for using process in browser
 var process = module.exports = {};
 
@@ -191,7 +525,7 @@ process.chdir = function (dir) {
 };
 process.umask = function() { return 0; };
 
-},{}],5:[function(require,module,exports){
+},{}],39:[function(require,module,exports){
 var Vue // late bind
 var map = window.__VUE_HOT_MAP__ = Object.create(null)
 var installed = false
@@ -317,7 +651,7 @@ exports.reload = tryWrap(function (id, options) {
   })
 })
 
-},{}],6:[function(require,module,exports){
+},{}],40:[function(require,module,exports){
 (function (process){
 /*!
  * vue-i18n v4.7.3
@@ -1317,14 +1651,14 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 module.exports = plugin;
 }).call(this,require('_process'))
-},{"_process":4}],7:[function(require,module,exports){
+},{"_process":38}],41:[function(require,module,exports){
 /*!
  * vue-peity v0.3.1
  * (c) 2016 Fangdun Cai <cfddream@gmail.com>
  * Released under the MIT License.
  */
 !function(t,e){"object"==typeof exports&&"object"==typeof module?module.exports=e():"function"==typeof define&&define.amd?define([],e):"object"==typeof exports?exports.VuePeity=e():t.VuePeity=e()}(this,function(){return function(t){function e(n){if(i[n])return i[n].exports;var r=i[n]={exports:{},id:n,loaded:!1};return t[n].call(r.exports,r,r.exports,e),r.loaded=!0,r.exports}var i={};return e.m=t,e.c=i,e.p="",e(0)}([function(t,e,i){var n,r;n=i(1);var s=i(6);r=n=n||{},"object"!=typeof n["default"]&&"function"!=typeof n["default"]||(r=n=n["default"]),"function"==typeof r&&(r=r.options),r.render=s.render,r.staticRenderFns=s.staticRenderFns,t.exports=n},function(t,e,i){"use strict";function n(t){return t&&t.__esModule?t:{"default":t}}Object.defineProperty(e,"__esModule",{value:!0});var r=i(4),s=n(r),a=["line","bar","pie","donut"];e["default"]={props:{type:{type:String,required:!0,validator:function(t){return a.indexOf(t)>-1}},data:{type:String,required:!0},options:{type:Object,"default":function(){return{}}}},data:function(){return{chart:null}},mounted:function(){this.chart=new s["default"](this.$el,this.type,this.data,this.options),this.chart.draw()},watch:{data:function(t){var e=this;this.$nextTick(function(){e.chart.raw=t,e.chart.draw()})}}}},function(t,e){"use strict";t.exports={options:{delimiter:",",fill:["#4D89F9"],height:16,min:0,padding:.1,width:32},draw:function(t){for(var e=this.values(),i=Math.max.apply(Math,void 0===t.max?e:e.concat(t.max)),n=Math.min.apply(Math,void 0===t.min?e:e.concat(t.min)),r=this.prepare(t.width,t.height),s=r.getBoundingClientRect(),a=s.width,o=s.height,h=i-n,u=t.padding,l=this.fill(),c=this.x=function(t){return t*a/e.length},f=this.y=function(t){return o-(h?(t-n)/h*o:1)},p=0;p<e.length;p++){var d,v=c(p+u),g=c(p+1-u)-v,m=e[p],y=f(m),w=y,x=y;h?m<0?w=f(Math.min(i,0)):x=f(Math.max(n,0)):d=1,d=x-w,0===d&&(d=1,i>0&&h&&w--),r.appendChild(this.svgElement("rect",{fill:l.call(this,m,p,e),x:v,y:w,width:g,height:d}))}}}},function(t,e){"use strict";t.exports={options:{delimiter:",",fill:"#c6d9fd",height:16,min:0,stroke:"#4d89f9",strokeWidth:1,width:32},draw:function(t){var e=this.values();1===e.length&&e.push(e[0]);for(var i=Math.max.apply(Math,void 0===t.max?e:e.concat(t.max)),n=Math.min.apply(Math,void 0===t.min?e:e.concat(t.min)),r=this.prepare(t.width,t.height),s=r.getBoundingClientRect(),a=t.strokeWidth,o=s.width,h=s.height-a,u=i-n,l=this.x=function(t){return t*(o/(e.length-1))},c=this.y=function(t){var e=h;return u&&(e-=(t-n)/u*h),e+a/2},f=c(Math.max(n,0)),p=[0,f],d=0;d<e.length;d++)p.push(l(d),c(e[d]));p.push(o,f),t.fill&&r.appendChild(this.svgElement("polygon",{fill:t.fill,points:p.join(" ")})),a&&r.appendChild(this.svgElement("polyline",{fill:"none",points:p.slice(2,p.length-2).join(" "),stroke:t.stroke,"stroke-width":a,"stroke-linecap":"square"}))}}},function(t,e,i){"use strict";function n(t,e){if(!(t instanceof e))throw new TypeError("Cannot call a class as a function")}var r=function(){function t(t,e){for(var i=0;i<e.length;i++){var n=e[i];n.enumerable=n.enumerable||!1,n.configurable=!0,"value"in n&&(n.writable=!0),Object.defineProperty(t,n.key,n)}}return function(e,i,n){return i&&t(e.prototype,i),n&&t(e,n),e}}(),s=i(2),a=i(3),o=i(5),h=function(t,e){var i=document.createElementNS("http://www.w3.org/2000/svg",t);for(var n in e)i.setAttribute(n,e[n]);return i},u=function(){function t(e,i,r,s){n(this,t),this.$el=e,this.type=i,this.raw=r,this.options=Object.assign({},t.defaults[this.type],s)}return r(t,[{key:"svgElement",value:function(){return h.apply(void 0,arguments)}},{key:"prepare",value:function(t,e){return this.$svg||(this.$el.style.display="none",this.$svg=h("svg",{"class":"peity"}),this.$el.parentNode.insertBefore(this.$svg,this.$el)),this.$svg.innerHTML="",this.$svg.setAttribute("width",t),this.$svg.setAttribute("height",e),this.$svg}},{key:"fill",value:function(){var t=this.options.fill;return"function"==typeof t?t:function(e,i){return t[i%t.length]}}},{key:"draw",value:function(){t.graphers[this.type].call(this,this.options)}},{key:"values",value:function(){return this.raw.split(this.options.delimiter).map(function(t){return parseFloat(t)})}}]),t}();u.defaults={},u.graphers={},u.register=function(t,e){u.defaults[t]=e.options,u.graphers[t]=e.draw},u.register("bar",s),u.register("donut",o),u.register("line",a),u.register("pie",o),t.exports=u},function(t,e){"use strict";t.exports={options:{fill:["#ff9900","#fff4dd","#ffc66e"],radius:8},draw:function(t){if(!t.delimiter){var e=this.raw.match(/[^0-9\.]/);t.delimiter=e?e[0]:","}var i=this.values().map(function(t){return t>0?t:0});if("/"===t.delimiter){var n=i[0],r=i[1];i=[n,Math.max(0,r-n)]}for(var s=0,a=i.length,o=0;s<a;s++)o+=i[s];o||(a=2,o=1,i=[0,1]);var h=2*t.radius,u=this.prepare(t.width||h,t.height||h),l=u.getBoundingClientRect(),c=l.width,f=l.height,p=c/2,d=f/2,v=Math.min(p,d),g=t.innerRadius;"donut"!==this.type||g||(g=.5*v);var m=Math.PI,y=this.fill(),w=this.scale=function(t,e){var i=t/o*m*2-m/2;return[e*Math.cos(i)+p,e*Math.sin(i)+d]},x=0;for(s=0;s<a;s++){var M,b=i[s],k=b/o;if(0!==k){if(1===k)if(g){var $=p-.01,j=d-v,E=d-g;M=this.svgElement("path",{d:["M",p,j,"A",v,v,0,1,1,$,j,"L",$,E,"A",g,g,0,1,0,p,E].join(" ")})}else M=this.svgElement("circle",{cx:p,cy:d,r:v});else{var A=x+b,C=["M"].concat(w(x,v),"A",v,v,0,k>.5?1:0,1,w(A,v),"L");g?C=C.concat(w(A,g),"A",g,g,0,k>.5?1:0,0,w(x,g)):C.push(p,d),x+=b,M=this.svgElement("path",{d:C.join(" ")})}M.setAttribute("fill",y.call(this,b,s,i)),u.appendChild(M)}}}}},function(module,exports){module.exports={render:function(){with(this)return _m(0)},staticRenderFns:[function(){with(this)return _h("span")}]}}])});
-},{}],8:[function(require,module,exports){
+},{}],42:[function(require,module,exports){
 (function (process){
 /*!
  * Vue.js v2.0.7
@@ -7067,7 +7401,7 @@ setTimeout(function () {
 module.exports = Vue$2;
 
 }).call(this,require('_process'))
-},{"_process":4}],9:[function(require,module,exports){
+},{"_process":38}],43:[function(require,module,exports){
 /*!
  * Vue.js v2.0.7
  * (c) 2014-2016 Evan You
@@ -14960,12 +15294,12 @@ return Vue$3;
 
 })));
 
-},{}],10:[function(require,module,exports){
+},{}],44:[function(require,module,exports){
 "use strict";
 
-module.exports = { "de": { "buttons": { "next": "Weiter", "save": "Speichern", "delete": "L\xF6schen", "delete_type": "{type} L\xF6schen", "delete_all_type": "Alle {type} l\xF6schen", "loadgraph": "Graph laden", "upload": "Hochladen", "start_setup": "Setup starten", "add": "Hinzuf\xFCgen", "add_intention": "Neue Intention", "add_property": "Neue Eigenschaft", "add_state": "Neuer Zustand", "create": "Hinzuf\xFCgen", "edit": "Bearbeiten", "details": "Details", "download": "Herunterladen", "emergency_stop": "Notaus", "emergency_resume": "Notus aufheben", "revoke": "Widerrufen", "irrigate": "Bew\xE4ssern", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "start": "Starten", "close": "Schlie\xDFen" }, "components": { "User": "Benutzer|Benutzer", "user": "Benutzer|Benutzer", "users": "Benutzer|Benutzer", "Terrarium": "Terrarium|Terraria", "terrarium": "Terrarium|Terraria", "terraria": "Terrarium|Terrarien", "Animal": "Tier|Tiere", "animal": "Tier|Tiere", "animals": "Tier|Tiere", "Controlunit": "Steuereinheit|Steuereinheiten", "controlunit": "Steuereinheit|Steuereinheiten", "controlunits": "Steuereinheit|Steuereinheiten", "Pump": "Pumpe|Pumpen", "pump": "Pumpe|Pumpen", "pumps": "Pumpe|Pumpen", "Valve": "Ventil|Ventile", "valve": "Ventil|Ventile", "valves": "Ventil|Ventile", "PhysicalSensor": "Physischer Sensor|Physische Sensoren", "physical_sensor": "Physischer Sensor|Physische Sensoren", "physical_sensors": "Physischer Sensor|Physische Sensoren", "LogicalSensor": "Logischer Sensor|Logische Sensoren", "logical_sensor": "Logischer Sensor|Logische Sensoren", "logical_sensors": "Logischer Sensor|Logische Sensoren", "LogicalSensorThreshold": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "logical_sensor_threshold": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "logical_sensor_thresholds": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "File": "Datei|Dateien", "file": "Datei|Dateien", "files": "Datei|Dateien", "Log": "Systemlog|Systemlogs", "log": "Systemlog|Systemlogs", "logs": "Systemlog|Systemlogs", "Action": "Aktion|Aktionen", "action": "Aktion|Aktionen", "actions": "Aktion|Aktionen", "ActionSequence": "Aktionssequenz|Aktionssequenzen", "action_sequence": "Aktionssequenz|Aktionssequenzen", "action_sequences": "Aktionssequenz|Aktionssequenzen", "ActionSequenceSchedule": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "action_sequence_schedule": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "action_sequence_schedules": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "ActionSequenceTrigger": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "action_sequence_trigger": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "action_sequence_triggers": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "ActionSequenceIntention": "Aktionssequenz Intention|Aktionssequenz Intentionen", "action_sequence_intention": "Aktionssequenz Intention|Aktionssequenz Intentionen", "action_sequence_intentions": "Aktionssequenz Intention|Aktionssequenz Intentionen", "Trigger": "Ausl\xF6ser|Ausl\xF6ser", "trigger": "Ausl\xF6ser|Ausl\xF6ser", "triggers": "Ausl\xF6ser|Ausl\xF6ser", "admin_panel": "Admin Panel", "admin_panels": "Admin Panel", "AnimalFeedings": "F\xFCtterung|F\xFCtterungen", "animal_feeding": "F\xFCtterung|F\xFCtterungen", "animal_feedings": "F\xFCtterung|F\xFCtterungen", "AnimalFeedingSchedule": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "animal_feeding_schedule": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "animal_feeding_schedules": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "AnimalWeighings": "Wiegung|Wiegungen", "animal_weighing": "Wiegung|Wiegungen", "animal_weighings": "Wiegung|Wiegungen", "AnimalWeighingSchedule": "Wiegeplan|Wiegepl\xE4ne", "animal_weighing_schedule": "Wiegeplan|Wiegepl\xE4ne", "animal_weighing_schedules": "Wiegeplan|Wiegepl\xE4ne", "BiographyEntryEvent": "Biografieeintrag|Biografieeintr\xE4ge", "biography_entry": "Biografieeintrag|Biografieeintr\xE4ge", "biography_entries": "Biografieeintrag|Biografieeintr\xE4ge", "CaresheetEvent": "Begleitblatt|Begleitbl\xE4tter", "caresheet": "Begleitblatt|Begleitbl\xE4tter", "caresheets": "Begleitblatt|Begleitbl\xE4tter", "GenericComponents": "Generische Komponente|Generische Komponenten", "generic_components": "Generische Komponente|Generische Komponenten", "GenericComponentTypes": "Generischer Komponententyp|Generische Komponententypen", "generic_component_type": "Generischer Komponententyp|Generische Komponententypen", "generic_component_types": "Generischer Komponententyp|Generische Komponententypen", "SuggestionEvent": "Vorschlag|Vorschl\xE4ge", "suggestion": "Vorschlag|Vorschl\xE4ge", "suggestions": "Vorschlag|Vorschl\xE4ge" }, "errors": { "retrievegraphdata": "Could not retrieve graph data." }, "labels": { "connecting": "Verbinde", "title": "Titel", "text": "Text", "tags": "Tags", "status": "Status", "health": "Gesundheit", "birth": "Geburt", "gender": "Geschlecht", "gender_male": "M\xE4nnlich", "gender_female": "Weiblich", "date": "Datum", "date_birth": "Geburtstag", "date_death": "Todestag", "model": "Modell", "type": "Typ", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Anzeigename", "common_name": "Gemeiner Name", "latin_name": "Lateinischer Name", "temperature": "Temperatur", "temperature_celsius": "Temperatur", "humidity": "Feuchtigkeit", "humidity_percent": "Feuchtigkeit", "heartbeat": "Puls", "last_heartbeat": "Letzter Puls", "noanimals": "Keine Tiere", "create": "Erstelle", "settings": "Einstellung|Einstellungen", "notifications": "Benachrichtigung|Benachrichtigungen", "notification_type": "Nachrichten Kanal", "details": "Details", "rawlimitlo": "Rohwert - unteres Limit", "rawlimithi": "Rohwert - oberes Limit", "file": "Datei", "files": "Dateien", "size": "Gr\xF6\xDFe", "current_value": "Aktueller Wert", "created_at": "Erstellt", "updated_at": "Letztes Update", "download": "Herunterladen", "properties": "Eigenschaften", "preview": "Vorschau", "source": "Quelle", "target": "Ziel", "associated_with": "Assoziiert mit", "log": "Log", "starts_at": "Beginnt um", "ends_at": "Endet um", "starts_after": "Startet nach", "thresholds": "Grenzwerte", "abilities": "F\xE4higkeit|F\xE4higkeiten", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto Nachtmodus", "permanent_nightmode": "Permanenter Nachtmodus", "language": "Sprache", "belongsTo_type": "Geh\xF6rt zu (Typ)", "belongsTo_id": "Geh\xF6rt zu (ID)", "belongsTo": "Geh\xF6rt zu", "doku": "Dokumentation", "step": "Schritt", "phone_number": "Telefonnummer", "template": "Vorlage", "timezone": "Zeitzone", "critical": "Kritisch", "ok": "OK", "running": "Laufend", "runs_since": "L\xE4uft seit", "queued": "Wartend", "criticalstates": "Kritische Zust\xE4nde", "since": "Seit", "state": "Zustand", "actions": "Aktionen", "irrigate": "Bew\xE4ssern", "duration": "Dauer", "on": "An", "off": "Aus", "just_fed": "F\xFCtterung hinzuf\xFCgen", "add_weight": "Gewicht hinzuf\xFCgen", "active": "Aktiv", "copy_thresholds": "Grenzwerte kopieren", "daily": "T\xE4glich", "last_feeding": "Letzte F\xFCtterung", "crickets": "Heimchen", "mixed_fruits": "Fruchtbrei", "beetle_jelly": "BeetleJelly", "due": "F\xE4llig", "overdue": "\xDCberf\xE4llig", "meal_type": "Nahrungsart", "interval_days": "Intervall in Tagen", "interval": "Intervall", "password": "Passwort", "action": "Aktion", "weight": "Gewicht", "no_data": "Keine Daten", "overview": "\xDCbersicht", "environment": "Umgebung", "now": "Jetzt", "scheduled": "Geplant", "sequence": "Sequenz", "weighprogression": "Gewichtsverlauf", "from": "Von", "tO": "Bis", "feedings": "F\xFCtterungen", "temp_and_hum_history": "Temperatur- und Feuchtigkeitsverlauf", "biography": "Biografie", "bio_categories": "Biografiekategorien", "icon": "Symbol", "average": "Durchschnitt", "min": "Minimum", "max": "Maximum", "during_day": "Tags", "during_night": "Nachts", "total": "Total", "infrastructure": "Infrastruktur", "timeframe_start": "Zeitrahmen ab", "timeframe_end": "Zeitrahmen bis", "reference_value": "Vergleichswert", "reference_value_duration_threshold_minutes": "Vergleichswert unter/\xFCberschritten seit (Minuten)", "for": "f\xFCr", "minimum_timeout_minutes": "Timeout (Minuten)", "emergency_stop": "Notaus", "increases": "Erh\xF6ht", "increase": "Erh\xF6ht", "decreases": "Senkt", "decrease": "Senkt", "personal_access_tokens": "Zugriffstoken", "expires": "L\xE4uft ab", "security": "Sicherheit", "general": "Allgemein", "component": "Komponente", "to": "Bis", "daily_reminders": "T\xE4gliche Erinnerungen", "yesterday": "Gestern", "tomorrow": "Morgen", "today": "Heute", "runonce": "Nur einmal ausf\xFChren", "intention": "Intention", "deceased": "Verstorben", "software_version": "Software Version", "use_as_background": "Als Hintergrund verwenden", "relation_map": "Beziehungskarte", "start_action_sequence": "Aktionssequenz starten", "suggestions": "Vorschl\xE4ge", "suggestions_unit": "Mind. Vorkommnisse", "suggestion_timeframe_unit": "Zeitrahmen (Einheit)", "suggestions_timeframe": "Zeitrahmen", "bus": "Bus", "i2c_address": "I2C Adresse", "i2c_multiplexer_address": "I2C Multiplexer Adresse", "i2c_multiplexer_port": "I2C Multiplexer Port", "gpio_pin": "GPIO Pin", "gpio_default_high": "GPIO Standard High", "configuration": "Konfiguration", "yes": "Ja", "no": "Nein", "rawvalue": "Rohwert", "adjust_rawvalue": "Rohwertkorrektur", "filter": "Filter", "logout": "Ausloggen", "ask_me_something": "Frag mich etwas", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "between": "zwischen", "and": "und", "association": "Verkn\xFCpfung", "choose_logfile": "Log-Datei ausw\xE4hlen" }, "languages": { "german": "Deutsch", "english": "Englisch" }, "menu": { "welcome": "Willkommen", "dashboard": "\xDCbersicht", "general": "Allgemein", "administration": "Administration", "create": "Erstellen", "edit": "Editieren", "delete": "L\xF6schen", "infrastructure": "Infrastruktur", "help": "Hilfe", "logout": "Abmelden", "animals": "Tiere", "terraria": "Terrarien", "users": "Benutzer", "animal_feeding_types": "Nahrungsarten", "logs": "Protokoll", "categories": "Kategorien", "monitoring": "\xDCberwachung", "automation": "Automatisierung", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "Alle preexistenten Grenzwerte des Zielsensors werden entfernt." }, "users": { "setup_telegram_ok": "Telegram ist eingerichtet.", "setup_telegram_err": "Telegram ist noch nicht eingerichtet.", "setup_telegram_description": "Bitte \xF6ffnen Sie Telegram in Ihrem <a href=\"https://web.telegram.org/#/im?p=@ciliatusbot\">Browser</a> oder auf ihrem Smartphone und kontaktieren Sie <b>@ciliatusbot</b> mit untenstehendem Aktivierungscode." }, "critical_state_generic": "Kritisch: {critical}_state", "critical_state_notification_logical_sensor": { "humidity_percent": "Kritisch: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "temperature_celsius": "Kritisch: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." }, "critical_state_recovery_notification_logical_sensor": { "humidity_percent": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "temperature_celsius": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." }, "critical_state_notification_controlunit": "Kritisch: Die Steuereinheit {controlunit} sendet keine Daten.", "critical_state_recovery_notification_controlunit": "OK: Die Steuereinheit {controlunit} sendet wieder Daten.", "daily": { "intro": "T\xE4gliche Erinnerungen", "feedings_due": "F\xE4llige F\xFCtterungen:", "weighings_due": "F\xE4llige Wiegungen:" }, "own_token_expires": "Token '{name}' l\xE4uft in {days} Tagen ab.", "suggestions": { "humidity_percent": "T\xE4gliche Aktionssequenz zum Bew\xE4ssern um {hour} Uhr" } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Willkommen zu Ciliatus", "create_user": "Erstelle Deinen Benutzer", "done": "Geschafft!", "what_now": "Was nun?", "login": "Einloggen", "tooltip_login": "Logge Dich mit Deinem soeben erstellten Nutzer bei Ciliatus an.", "add_terrarium": "Terrarium anlegen", "tooltip_add_terrarium": "Erstelle Dein erstes Terrarium in Ciliatus.", "add_animal": "Tier anlegen", "tooltip_add_animal": "Erstelle Dein erstes Tier und ordne es einem Terrarium zu.", "setup_telegram": "Telegram einrichten", "tooltip_setup_telegram": "Lerne, wie Du Telegram mit Ciliatus konfigurieren kannst.", "setup_controlunit": "Kontrolleinheit erstellen", "tooltip_setup_controlunit": "Lerne eine Kontrolleinheit und zugeordnete Sensoren anzulegen um damit zu beginnen Sensordaten zu Deinen Terrarien zu \xFCbermitteln.", "err_completed": "Das Setup wurde bereits durchgef\xFChrt." }, "tooltips": { "ctrltoselect": "Strg+Klick zum selektieren", "active": "Aktiv", "showondefaultdashboard": "Auf Default Dashboard anzeigen", "autoirrigation": "Automatische Bew\xE4sserung", "sendnotificationsfor": "Benachrichtigungen versenden f\xFCr", "loadandrendergraph": "Daten werden ermittelt und Graph wird gerendert", "disables_option": "Deaktiviert \"{option}\"", "phone_number": "Mobilnummer", "contact_bot": "Den Bot kontaktieren", "wait_confirmation": "Auf Best\xE4tigung warten", "set_state_to": "Zustand von <b>{target}</b> auf <b>{state}</b> \xE4ndern f\xFCr <b>{minutes} Minuten</b>", "start_after_started": "Startet wenn Schritt <b>{id}<\/b> gestartet wurde", "start_after_finished": "Startet wenn Schritt <b>{id}<\/b> beendet wurde", "sendnotifications": "Benachrichtigungen versenden", "no_schedules": "Keine Zeitpl\xE4ne", "runonce": "Einmalig", "heartbeat_critical": "Heartbeat ist kritisch!", "copy_thresholds_warning": "Alle existierenden Grenzwerte des Zielsensors werden entfernt.", "animal_feeding_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten F\xFCtterungspl\xE4ne. Die Zahl in einer Spalte stellt das Intervall dar.", "animal_weighing_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten Wiegepl\xE4ne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom n\xE4chsten F\xE4lligkeitsdatum dar.", "done": "Erledigt", "skip": "\xDCberspringen", "material_icons_list": "Die komplette Symbolliste ist unter <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> einsehbar.", "no_data": "Keine Daten.", "connecting_to_server": "Verbindung zum Ciliatus Server wird hergestellt. Sollte dies l\xE4nger als einige Sekunden dauern, \xFCberpr\xFCfen Sie bitte Ihre Internetverbindung.", "generic_components": { "about": "Generische Komponenten sind Komponenten eines benutzerdefinierten Typs.", "type_about": "Generische Komponententypen definieren Name, Eigenschaften und m\xF6gliche Zust\xE4nde f\xFCr generische Komponenten. Sie dienen als Vorlage beim Erstellen einer neuen generischen Komponente.", "property_templates": "Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszuf\xFCllen.", "state_templates": "Definiert m\xF6gliche Zust\xE4nde die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zust\xE4nden den gew\xFCnschten Zustand ausw\xE4hlen.<br /><br />Die Checkbox links definiert den standardm\xE4\xDFigen 'laufend'-Zustand.", "type_delete_warning": "Beim L\xF6schen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gel\xF6scht.", "intentions": "Intentionen von generischen Komponenten erm\xF6glichen deren automatisches Einbinden in Aktionssequenzen." }, "minimum_timeout_minutes": "Definiert die Dauer der minimalen Pause, bevor die Aktionssequenz durch diesen Ausl\xF6ser nach einem Durchlauf erneut gestartet werden kann.", "reference_value": "Der Wert, mit dem der Sensorwert verglichen werden soll.", "reference_value_duration_threshold_minutes": "Dauer in Minuten, die der Sensorwert den Grenzwert unter/\xFCberschritten haben muss, bevor die Aktionssequenz ausgel\xF6st wird.", "emergency_stop": "H\xE4lt sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.", "emergency_resume": "Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.", "leave_empty_for_auto": "Frei lassen f\xFCr automatisch", "intention_increase_decrease": "Definiert ob die Intention dieser Aktionssequenz das Erh\xF6hen oder Senken des Sensorwerts ist.", "suggestions_unit": "Mindestanzahl von Kritischen Zust\xE4nden innerhalb des Zeitrahmens, bevor ein Vorschlag generiert werden soll.", "suggestion_timeframe_unit": "Zeitrahmen der zur Analyse herangezogen werden soll (Einheit)", "suggestions_timeframe": "Zeitrahmen der zur Analyse herangezogen werden soll (Wert)", "show_suggestions": "Vorschl\xE4ge anzeigen", "bus_type_edit_form": "Erm\xF6glicht Ciliatus das automatische Generieren von Kontroleinheitskonfigurationen.", "gpio_default_high": "GPIO Pin wird im Betrieb auf High gezogen. Zum aktivieren der Komponente auf Low.", "adjust_rawvalue": "Beim Empfangen eines Werts durch diesen Sensor kann der Wert korrigiert werden.", "experimental_feature": "Dieses Feature ist experimentell.", "action_sequence_schedules": { "skip": "Heutigen Durchlauf \xFCberspringen." }, "associate_new": "Verkn\xFCpfe <i class=\"material-icons\">{source}_icon</i> {source}_type \"{source}_name\" mit <i class=\"material-icons\">{target}_icon</i> {target}_type" }, "units": { "years": "Jahr|Jahre", "months": "Monat|Monate", "days": "Tag|Tage", "hours": "Stunde|Stunden", "minutes": "Minute|Minuten", "seconds": "Sekunde|Sekunden", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "vor {val} Jahren", "months_ago": "vor {val} Monaten", "weeks_ago": "vor {val} Wochen", "days_ago": "vor {val} Tagen", "hours_ago": "vor {val} Stunden", "minutes_ago": "vor {val} Minuten", "years_in": "in {val} Jahren", "months_in": "in {val} Monaten", "weeks_in": "in {val} Wochen", "days_in": "in {val} Tagen", "hours_in": "in {val} Stunden", "minutes_in": "in {val} Minuten", "just_now": "gerade eben", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" } }, "en": { "buttons": { "next": "Next", "save": "Save", "delete": "Delete", "delete_type": "Delete {type}", "delete_all_type": "Delete all {type}", "loadgraph": "Load graph", "upload": "Upload", "start_setup": "Start Setup", "add": "Add", "add_intention": "Add Intention", "add_property": "Add Property", "add_state": "Add State", "create": "Add", "edit": "Edit", "details": "Details", "download": "Download", "emergency_stop": "Emergency stop", "emergency_resume": "Remove emergency stop", "revoke": "Revoke", "irrigate": "Irrigate", "ventilate": "Ventilate", "heat_up": "Heat up", "cool_down": "Cool down", "start": "Start", "close": "Close" }, "components": { "User": "User|Users", "user": "User|Users", "users": "User|Users", "Terrarium": "Terrarium|Terraria", "terrarium": "Terrarium|Terraria", "terraria": "Terrarium|Terraria", "Animal": "Animal|Animals", "animal": "Animal|Animals", "animals": "Animal|Animals", "Controlunit": "Control Unit|Control Units", "controlunit": "Control Unit|Control Units", "controlunits": "Control Unit|Control Units", "Pump": "Pump|Pumps", "pump": "Pump|Pumps", "pumps": "Pump|Pumps", "Valve": "Valve|Valves", "valve": "Valve|Valves", "valves": "Valve|Valves", "PhysicalSensor": "Physical Sensor|Physical Sensors", "physical_sensor": "Physical Sensor|Physical Sensors", "physical_sensors": "Physical Sensor|Physical Sensors", "LogicalSensor": "Logical Sensor|Logical Sensors", "logical_sensor": "Logical Sensor|Logical Sensors", "logical_sensors": "Logical Sensor|Logical Sensors", "LogicalSensorThreshold": "Logical Sensor Threshold|Logical Sensor Thresholds", "logical_sensor_threshold": "Logical Sensor Threshold|Logical Sensor Thresholds", "logical_sensor_thresholds": "Logical Sensor Threshold|Logical Sensor Thresholds", "File": "File|Files", "file": "File|Files", "files": "File|Files", "Log": "System log|System logs", "log": "System log|System logs", "logs": "System log|System logs", "Action": "Action|Actions", "action": "Action|Actions", "actions": "Action|Actions", "ActionSequence": "Action sequence|Action sequences", "action_sequence": "Action sequence|Action sequences", "action_sequences": "Action sequence|Action sequences", "ActionSequenceSchedule": "Action sequence schedule|Action sequence schedules", "action_sequence_schedule": "Action sequence schedule|Action sequence schedules", "action_sequence_schedules": "Action sequence schedule|Action sequence schedules", "ActionSequenceTrigger": "Action sequence trigger|Action sequence triggers", "action_sequence_trigger": "Action sequence trigger|Action sequence triggers", "action_sequence_triggers": "Action sequence trigger|Action sequence triggers", "ActionSequenceIntention": "Action sequence intention|Action sequence intentions", "action_sequence_intention": "Action sequence intention|Action sequence intentions", "action_sequence_intentions": "Action sequence intention|Action sequence intentions", "Trigger": "Trigger|Triggers", "trigger": "Trigger|Triggers", "triggers": "Trigger|Triggers", "admin_panel": "Admin panel", "admin_panels": "Admin panel", "AnimalFeeding": "Feeding|Feedings", "animal_feeding": "Feeding|Feedings", "animal_feedings": "Feeding|Feedings", "AnimalFeedingSchedule": "Feeding schedule|Feeding schedules", "animal_feeding_schedule": "Feeding schedule|Feeding schedules", "animal_feeding_schedules": "Feeding schedule|Feeding schedules", "AnimalWeighing": "Weighing|Weighings", "animal_weighing": "Weighing|Weighings", "animal_weighings": "Weighing|Weighings", "AnimalWeighingSchedule": "Weighing schedule|Weighing schedules", "animal_weighing_schedule": "Weighing schedule|Weighing schedules", "animal_weighing_schedules": "Weighing schedule|Weighing schedules", "BiographyEntryEvent": "Biography entry|Biography entries", "biography_entry": "Biography entry|Biography entries", "biography_entries": "Biography entry|Biography entries", "CaresheetEvent": "Care Sheet|Care Sheets", "caresheet": "Care Sheet|Care Sheets", "caresheets": "Care Sheet|Care Sheets", "GenericComponent": "Generic Component|Generic Components", "generic_component": "Generic Component|Generic Components", "generic_components": "Generic Component|Generic Components", "GenericComponentType": "Generic Component Type|Generic Component Types", "generic_component_type": "Generic Component Type|Generic Component Types", "generic_component_types": "Generic Component Type|Generic Component Types", "SuggestionEvent": "Suggestion|Suggestions", "suggestion": "Suggestion|Suggestions", "suggestions": "Suggestion|Suggestions" }, "errors": { "retrievegraphdata": "Graphdaten konnten nicht ermittelt werden." }, "labels": { "connecting": "Connecting", "title": "Title", "text": "Text", "tags": "Tags", "status": "Status", "health": "Health", "birth": "Birth", "gender": "Gender", "gender_male": "Male", "gender_female": "Female", "date": "Date", "date_birth": "Day of birth", "date_death": "Day of death", "model": "Model", "type": "Type", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Display Name", "common_name": "Common Name", "latin_name": "Latin Name", "temperature": "Temperature", "temperature_celsius": "Temperature", "humidity": "Humidity", "humidity_percent": "Humidity", "heartbeat": "Heartbeat", "last_heartbeat": "Last Heartbeat", "noanimals": "No Animals", "create": "Create", "settings": "Setting|Settings", "notifications": "Notification|Notifications", "notification_type": "Notification channel", "details": "Details", "rawlimitlo": "Raw value - lower limit", "rawlimithi": "Raw value - upper limit", "file": "File", "files": "Files", "size": "Size", "current_value": "Current value", "created_at": "Creation", "updated_at": "Last update", "download": "Download", "properties": "Properties", "preview": "Preview", "source": "Source", "target": "Target", "associated_with": "Associated with", "log": "Log", "starts_at": "Starts at", "ends_at": "Ends at", "starts_after": "Starts after", "thresholds": "Thresholds", "abilities": "Ability|Abilities", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto night mode", "permanent_nightmode": "Permanent night mode", "language": "Language", "belongsTo_type": "Belongs to (type)", "belongsTo_id": "Belongs to (ID)", "belongsTo": "Belongs to", "doku": "Documentation", "step": "Step", "phone_number": "Phone number", "template": "Template", "timezone": "Timezone", "critical": "Critical", "ok": "OK", "running": "Running", "runs_since": "Running since", "queued": "Queued", "criticalstates": "Critical States", "since": "Since", "state": "State", "actions": "Actions", "irrigate": "Irrigate", "duration": "Duration", "on": "On", "off": "Off", "just_fed": "Add feeding", "add_weight": "Add weight", "active": "Aktiv", "copy_thresholds": "Copy thresholds", "daily": "Daily", "last_feeding": "Last feeding", "crickets": "Crickets", "mixed_fruits": "Fruits", "beetle_jelly": "BeetleJelly", "due": "Due", "overdue": "Overdue", "meal_type": "Meal type", "interval_days": "Interval in days", "interval": "Interval", "password": "Password", "action": "Action", "weight": "Weight", "no_data": "No Data", "overview": "Overview", "environment": "Environment", "now": "Now", "scheduled": "Scheduled", "sequence": "Sequence", "weighprogression": "Weight progression", "from": "From", "tO": "To", "feedings": "Feedings", "temp_and_hum_history": "Temperature and Humidity History", "biography": "Biography", "bio_categories": "Biography categories", "icon": "Icon", "average": "Average", "min": "Minimum", "max": "Maximum", "during_day": "Daytime", "during_night": "Nighttime", "total": "Total", "infrastructure": "Infrastructure", "timeframe_start": "Timeframe from", "timeframe_end": "Timeframe to", "reference_value": "Reference value", "reference_value_duration_threshold_minutes": "Reference value undershot\/exceeded for (Minutes)", "for": "for", "minimum_timeout_minutes": "Timeout (minutes)", "emergency_stop": "Emergency stop", "increases": "Increases", "increase": "Increases", "decreases": "Decreases", "decrease": "Decreases", "personal_access_tokens": "Access Tokens", "expires": "Expires", "security": "Security", "general": "General", "component": "Component", "to": "To", "daily_reminders": "Daily Reminders", "yesterday": "Yesterday", "tomorrow": "Tomorrow", "today": "Today", "runonce": "Only run once", "intention": "Intention", "deceased": "Deceased", "software_version": "Software Version", "use_as_background": "Use as background image", "relation_map": "Relation map", "start_action_sequence": "Start Action Sequence", "suggestions": "Suggestions", "suggestions_unit": "Min. Occurences", "suggestion_timeframe_unit": "Timeframe (Unit)", "suggestions_timeframe": "Timeframe", "bus": "Bus", "i2c_address": "I2C address", "i2c_multiplexer_address": "I2C multiplexer address", "i2c_multiplexer_port": "I2C multiplexer port", "gpio_pin": "GPIO pin", "gpio_default_high": "GPIO Default High", "configuration": "Configuration", "yes": "Yes", "no": "No", "rawvalue": "Raw value", "adjust_rawvalue": "Raw value correction", "filter": "Filter", "logout": "Log off", "ask_me_something": "Ask me something", "ventilate": "Ventilate", "heat_up": "Heat", "cool_down": "Cool", "between": "between", "and": "and", "association": "Association", "choose_logfile": "Choose a log file" }, "languages": { "german": "German", "english": "English" }, "menu": { "welcome": "Welcome", "dashboard": "Dashboard", "general": "General", "administration": "Administration", "create": "Create", "edit": "Edit", "delete": "Delete", "infrastructure": "Infrastructure", "help": "Help", "logout": "Log out", "animals": "Animals", "terraria": "Terraria", "users": "Users", "animal_feeding_types": "Food types", "logs": "Logs", "categories": "Categories", "monitoring": "Monitoring", "automation": "Automation", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "All existing thresholds associated with the target sensor will be deleted." }, "users": { "setup_telegram_ok": "Telegram is set up.", "setup_telegram_err": "Telegram has not yet been set up.", "setup_telegram_description": "Please point your browser to <a href=\"https:\/\/web.telegram.org\/#\/im?p=@ciliatusbot\">Telegram Web<\/a> or use your smartphone to contact <b>@ciliatusbot<\/b> with your verification code below." }, "critical_state_generic": "Critical: {critical}_state", "critical_state_notification_logical_sensor": { "humidity_percent": "Critical: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "temperature_celsius": "Critical: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C." }, "critical_state_recovery_notification_logical_sensor": { "humidity_percent": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "temperature_celsius": "OK: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C." }, "critical_state_notification_controlunit": "Critical: The controlunit {controlunit} is not sending data.", "critical_state_recovery_notification_controlunit": "OK: The controlunit {controlunit} ist sending data again.", "daily": { "intro": "Daily reminders", "feedings_due": "Feedings due:", "weighings_due": "Weighings due:" }, "own_token_expires": "Token '{name}' expires in {days} days.", "suggestions": { "humidity_percent": "Daily irrigation action sequence at {hour} o'clock." } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Welcome to Ciliatus", "create_user": "Create your user", "done": "Done!", "what_now": "What now?", "login": "Log in", "tooltip_login": "Log in to Ciliatus with the user you just created.", "add_terrarium": "Create Terrarium", "tooltip_add_terrarium": "Create your first terrarium in Ciliatus.", "add_animal": "Create animal", "tooltip_add_animal": "Create your first animal and assign it to a terrarium.", "setup_telegram": "Setup Telegram", "tooltip_setup_telegram": "Learn how to configure Telegram with Ciliatus.", "setup_controlunit": "Create Controlunit", "tooltip_setup_controlunit": "Learn how to setup a controlunit to start feeding Ciliatus with sensor readings.", "err_completed": "Setup is already completed." }, "tooltips": { "ctrltoselect": "Ctrl-click to deselect", "active": "Active", "showondefaultdashboard": "Show on default dashboard", "autoirrigation": "Automatic irrigation (if available)", "sendnotificationsfor": "Send notifications for", "loadandrendergraph": "Collection data and rendering graph", "disables_option": "Disables \"{option}\"", "phone_number": "Mobile number", "contact_bot": "Contacting the bot", "wait_confirmation": "Waiting for confirmation", "set_state_to": "Set state of <b>{target}<\/b> to <b>{state}<\/b> for <b>{minutes} minutes<\/b>", "start_after_started": "Starts as soon as step <b>{id}<\/b> was started", "start_after_finished": "Starts as soon as step <b>{id}<\/b> finished", "sendnotifications": "Send notifications", "no_schedules": "No schedules", "runonce": "Run once", "heartbeat_critical": "Heartbeat is critical!", "copy_thresholds_warning": "All existing thresholds on the target sensor will be removed.", "animal_feeding_schedule_matrix": "This matrix contains all defined feeding schedules. A number in a column represents the schedule's interval in days.", "animal_weighing_schedule_matrix": "This matrix contains all defined weighing schedules. A number in a column represents the schedule's interval in days followed by the next due date.", "done": "Done", "skip": "Skip", "material_icons_list": "Visit <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> for a complete icon overview.", "no_data": "No data.", "connecting_to_server": "Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.", "generic_components": { "about": "Generic components are components of a user defined type.", "type_about": "Generic component types define name, properties and possible states of a generic component. They are used as a template when creating a new generic component.", "property_templates": "Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.", "state_templates": "Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.<br \/><br \/>The radio box on the left defines the default 'running' state.", "type_delete_warning": "When deleting a component type <strong>all components of this type<\/strong> will also be deleted.", "intentions": "Intentionen of generic components allows them to be automatically used within action sequences." }, "minimum_timeout_minutes": "Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.", "reference_value": "Reference value which will be compared to the sensor values.", "reference_value_duration_threshold_minutes": "Duration in minutes for which the sensor value has to be greater\/lower\/equal to the reference value before triggering the action sequence.", "emergency_stop": "Instantly stops all running action sequences and prohibits action sequences from starting.", "emergency_resume": "Revokes the emergency stop and allows action sequences to start.", "leave_empty_for_auto": "Leave empty for automatic", "intention_increase_decrease": "Defines whether the intention of this action sequence is to increase or decrease the sensor's readings", "suggestions_unit": "Minimum number of critical states within the timeframe before a suggestion should be generated.", "suggestion_timeframe_unit": "Timeframe used for analysis (Unit)", "suggestions_timeframe": "Timeframe used for analysis (Value)", "show_suggestions": "Show suggestions", "bus_type_edit_form": "Allows Ciliatus to automatically generate controlunit configurations.", "gpio_default_high": "GPIO Pin will be pulled to high. When activating a component to low.", "adjust_rawvalue": "When receiving a reading from this sensor you can adjust the raw value.", "experimental_feature": "This is an experimental feature.", "action_sequence_schedules": { "skip": "Skip today's run." }, "associate_new": "Associate <i class=\"material-icons\">{source}_icon<\/i> {source}_type \"{source}_name\" with <i class=\"material-icons\">{target}_icon<\/i> {target}_type" }, "units": { "years": "year|years", "months": "month|months", "days": "day|days", "hours": "hour|hours", "minutes": "minute|minutes", "seconds": "second|seconds", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "{val} years ago", "months_ago": "{val} months ago", "weeks_ago": "{val} weeks ago", "days_ago": "{val} days ago", "hours_ago": "{val} hours ago", "minutes_ago": "{val} minutes ago", "years_in": "in {val} years", "months_in": "in {val} months", "weeks_in": "in {val} weeks", "days_in": "in {val} days", "hours_in": "in {val} hours", "minutes_in": "in {val} minutes", "just_now": "just now", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" } } };
+module.exports = { "de": { "buttons": { "next": "Weiter", "save": "Speichern", "delete": "L\xF6schen", "delete_type": "{type} L\xF6schen", "delete_all_type": "Alle {type} l\xF6schen", "loadgraph": "Graph laden", "upload": "Hochladen", "start_setup": "Setup starten", "add": "Hinzuf\xFCgen", "add_intention": "Neue Intention", "add_property": "Neue Eigenschaft", "add_state": "Neuer Zustand", "create": "Hinzuf\xFCgen", "edit": "Bearbeiten", "details": "Details", "download": "Herunterladen", "emergency_stop": "Notaus", "emergency_resume": "Notus aufheben", "revoke": "Widerrufen", "irrigate": "Bew\xE4ssern", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "start": "Starten", "close": "Schlie\xDFen" }, "components": { "User": "Benutzer|Benutzer", "user": "Benutzer|Benutzer", "users": "Benutzer|Benutzer", "Terrarium": "Terrarium|Terraria", "terrarium": "Terrarium|Terraria", "terraria": "Terrarium|Terrarien", "Animal": "Tier|Tiere", "animal": "Tier|Tiere", "animals": "Tier|Tiere", "Controlunit": "Steuereinheit|Steuereinheiten", "controlunit": "Steuereinheit|Steuereinheiten", "controlunits": "Steuereinheit|Steuereinheiten", "Pump": "Pumpe|Pumpen", "pump": "Pumpe|Pumpen", "pumps": "Pumpe|Pumpen", "Valve": "Ventil|Ventile", "valve": "Ventil|Ventile", "valves": "Ventil|Ventile", "PhysicalSensor": "Physischer Sensor|Physische Sensoren", "physical_sensor": "Physischer Sensor|Physische Sensoren", "physical_sensors": "Physischer Sensor|Physische Sensoren", "LogicalSensor": "Logischer Sensor|Logische Sensoren", "logical_sensor": "Logischer Sensor|Logische Sensoren", "logical_sensors": "Logischer Sensor|Logische Sensoren", "LogicalSensorThreshold": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "logical_sensor_threshold": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "logical_sensor_thresholds": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "File": "Datei|Dateien", "file": "Datei|Dateien", "files": "Datei|Dateien", "Log": "Systemlog|Systemlogs", "log": "Systemlog|Systemlogs", "logs": "Systemlog|Systemlogs", "Action": "Aktion|Aktionen", "action": "Aktion|Aktionen", "actions": "Aktion|Aktionen", "ActionSequence": "Aktionssequenz|Aktionssequenzen", "action_sequence": "Aktionssequenz|Aktionssequenzen", "action_sequences": "Aktionssequenz|Aktionssequenzen", "ActionSequenceSchedule": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "action_sequence_schedule": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "action_sequence_schedules": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "ActionSequenceTrigger": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "action_sequence_trigger": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "action_sequence_triggers": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "ActionSequenceIntention": "Aktionssequenz Intention|Aktionssequenz Intentionen", "action_sequence_intention": "Aktionssequenz Intention|Aktionssequenz Intentionen", "action_sequence_intentions": "Aktionssequenz Intention|Aktionssequenz Intentionen", "Trigger": "Ausl\xF6ser|Ausl\xF6ser", "trigger": "Ausl\xF6ser|Ausl\xF6ser", "triggers": "Ausl\xF6ser|Ausl\xF6ser", "admin_panel": "Admin Panel", "admin_panels": "Admin Panel", "AnimalFeedings": "F\xFCtterung|F\xFCtterungen", "animal_feeding": "F\xFCtterung|F\xFCtterungen", "animal_feedings": "F\xFCtterung|F\xFCtterungen", "AnimalFeedingSchedule": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "animal_feeding_schedule": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "animal_feeding_schedules": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "AnimalWeighings": "Wiegung|Wiegungen", "animal_weighing": "Wiegung|Wiegungen", "animal_weighings": "Wiegung|Wiegungen", "AnimalWeighingSchedule": "Wiegeplan|Wiegepl\xE4ne", "animal_weighing_schedule": "Wiegeplan|Wiegepl\xE4ne", "animal_weighing_schedules": "Wiegeplan|Wiegepl\xE4ne", "BiographyEntryEvent": "Biografieeintrag|Biografieeintr\xE4ge", "biography_entry": "Biografieeintrag|Biografieeintr\xE4ge", "biography_entries": "Biografieeintrag|Biografieeintr\xE4ge", "CaresheetEvent": "Begleitblatt|Begleitbl\xE4tter", "caresheet": "Begleitblatt|Begleitbl\xE4tter", "caresheets": "Begleitblatt|Begleitbl\xE4tter", "GenericComponents": "Generische Komponente|Generische Komponenten", "generic_components": "Generische Komponente|Generische Komponenten", "GenericComponentTypes": "Generischer Komponententyp|Generische Komponententypen", "generic_component_type": "Generischer Komponententyp|Generische Komponententypen", "generic_component_types": "Generischer Komponententyp|Generische Komponententypen", "SuggestionEvent": "Vorschlag|Vorschl\xE4ge", "suggestion": "Vorschlag|Vorschl\xE4ge", "suggestions": "Vorschlag|Vorschl\xE4ge" }, "errors": { "retrievegraphdata": "Could not retrieve graph data." }, "labels": { "connecting": "Verbinde", "title": "Titel", "text": "Text", "tags": "Tags", "status": "Status", "health": "Gesundheit", "birth": "Geburt", "gender": "Geschlecht", "gender_male": "M\xE4nnlich", "gender_female": "Weiblich", "date": "Datum", "date_birth": "Geburtstag", "date_death": "Todestag", "model": "Modell", "type": "Typ", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Anzeigename", "common_name": "Gemeiner Name", "latin_name": "Lateinischer Name", "temperature": "Temperatur", "temperature_celsius": "Temperatur", "humidity": "Feuchtigkeit", "humidity_percent": "Feuchtigkeit", "heartbeat": "Puls", "last_heartbeat": "Letzter Puls", "noanimals": "Keine Tiere", "create": "Erstelle", "settings": "Einstellung|Einstellungen", "notifications": "Benachrichtigung|Benachrichtigungen", "notification_type": "Nachrichten Kanal", "details": "Details", "rawlimitlo": "Rohwert - unteres Limit", "rawlimithi": "Rohwert - oberes Limit", "file": "Datei", "files": "Dateien", "size": "Gr\xF6\xDFe", "current_value": "Aktueller Wert", "created_at": "Erstellt", "updated_at": "Letztes Update", "download": "Herunterladen", "properties": "Eigenschaften", "preview": "Vorschau", "source": "Quelle", "target": "Ziel", "associated_with": "Assoziiert mit", "log": "Log", "starts_at": "Beginnt um", "ends_at": "Endet um", "starts_after": "Startet nach", "thresholds": "Grenzwerte", "abilities": "F\xE4higkeit|F\xE4higkeiten", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto Nachtmodus", "permanent_nightmode": "Permanenter Nachtmodus", "language": "Sprache", "belongsTo_type": "Geh\xF6rt zu (Typ)", "belongsTo_id": "Geh\xF6rt zu (ID)", "belongsTo": "Geh\xF6rt zu", "doku": "Dokumentation", "step": "Schritt", "phone_number": "Telefonnummer", "template": "Vorlage", "timezone": "Zeitzone", "critical": "Kritisch", "ok": "OK", "running": "Laufend", "runs_since": "L\xE4uft seit", "queued": "Wartend", "criticalstates": "Kritische Zust\xE4nde", "since": "Seit", "state": "Zustand", "actions": "Aktionen", "irrigate": "Bew\xE4ssern", "duration": "Dauer", "on": "An", "off": "Aus", "just_fed": "F\xFCtterung hinzuf\xFCgen", "add_weight": "Gewicht hinzuf\xFCgen", "active": "Aktiv", "copy_thresholds": "Grenzwerte kopieren", "daily": "T\xE4glich", "last_feeding": "Letzte F\xFCtterung", "crickets": "Heimchen", "mixed_fruits": "Fruchtbrei", "beetle_jelly": "BeetleJelly", "due": "F\xE4llig", "overdue": "\xDCberf\xE4llig", "meal_type": "Nahrungsart", "interval_days": "Intervall in Tagen", "interval": "Intervall", "password": "Passwort", "action": "Aktion", "weight": "Gewicht", "no_data": "Keine Daten", "overview": "\xDCbersicht", "environment": "Umgebung", "now": "Jetzt", "scheduled": "Geplant", "sequence": "Sequenz", "weighprogression": "Gewichtsverlauf", "from": "Von", "tO": "Bis", "feedings": "F\xFCtterungen", "temp_and_hum_history": "Temperatur- und Feuchtigkeitsverlauf", "biography": "Biografie", "bio_categories": "Biografiekategorien", "icon": "Symbol", "average": "Durchschnitt", "min": "Minimum", "max": "Maximum", "during_day": "Tags", "during_night": "Nachts", "total": "Total", "infrastructure": "Infrastruktur", "timeframe_start": "Zeitrahmen ab", "timeframe_end": "Zeitrahmen bis", "reference_value": "Vergleichswert", "reference_value_duration_threshold_minutes": "Vergleichswert unter/\xFCberschritten seit (Minuten)", "for": "f\xFCr", "minimum_timeout_minutes": "Timeout (Minuten)", "emergency_stop": "Notaus", "increases": "Erh\xF6ht", "increase": "Erh\xF6ht", "decreases": "Senkt", "decrease": "Senkt", "personal_access_tokens": "Zugriffstoken", "expires": "L\xE4uft ab", "security": "Sicherheit", "general": "Allgemein", "component": "Komponente", "to": "Bis", "daily_reminders": "T\xE4gliche Erinnerungen", "yesterday": "Gestern", "tomorrow": "Morgen", "today": "Heute", "runonce": "Nur einmal ausf\xFChren", "intention": "Intention", "deceased": "Verstorben", "software_version": "Software Version", "use_as_background": "Als Hintergrund verwenden", "relation_map": "Beziehungskarte", "start_action_sequence": "Aktionssequenz starten", "suggestions": "Vorschl\xE4ge", "suggestions_unit": "Mind. Vorkommnisse", "suggestion_timeframe_unit": "Zeitrahmen (Einheit)", "suggestions_timeframe": "Zeitrahmen", "bus": "Bus", "i2c_address": "I2C Adresse", "i2c_multiplexer_address": "I2C Multiplexer Adresse", "i2c_multiplexer_port": "I2C Multiplexer Port", "gpio_pin": "GPIO Pin", "gpio_default_high": "GPIO Standard High", "configuration": "Konfiguration", "yes": "Ja", "no": "Nein", "rawvalue": "Rohwert", "adjust_rawvalue": "Rohwertkorrektur", "filter": "Filter", "logout": "Ausloggen", "ask_me_something": "Frag mich etwas", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "between": "zwischen", "and": "und", "association": "Verkn\xFCpfung", "choose_logfile": "Log-Datei ausw\xE4hlen", "no_image": "Kein Bild", "features": "Features", "rollperiod": "Rollperiode" }, "languages": { "german": "Deutsch", "english": "Englisch" }, "menu": { "welcome": "Willkommen", "dashboard": "\xDCbersicht", "general": "Allgemein", "administration": "Administration", "create": "Erstellen", "edit": "Editieren", "delete": "L\xF6schen", "infrastructure": "Infrastruktur", "help": "Hilfe", "logout": "Abmelden", "animals": "Tiere", "terraria": "Terrarien", "users": "Benutzer", "animal_feeding_types": "Nahrungsarten", "logs": "Protokoll", "categories": "Kategorien", "monitoring": "\xDCberwachung", "automation": "Automatisierung", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "Alle preexistenten Grenzwerte des Zielsensors werden entfernt." }, "users": { "setup_telegram_ok": "Telegram ist eingerichtet.", "setup_telegram_err": "Telegram ist noch nicht eingerichtet.", "setup_telegram_description": "Bitte \xF6ffnen Sie Telegram in Ihrem <a href=\"https://web.telegram.org/#/im?p=@ciliatusbot\">Browser</a> oder auf ihrem Smartphone und kontaktieren Sie <b>@ciliatusbot</b> mit untenstehendem Aktivierungscode." }, "critical_state_generic": "Kritisch: {critical}_state", "critical_state_notification_logical_sensor": { "humidity_percent": "Kritisch: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "temperature_celsius": "Kritisch: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." }, "critical_state_recovery_notification_logical_sensor": { "humidity_percent": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "temperature_celsius": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." }, "critical_state_notification_controlunit": "Kritisch: Die Steuereinheit {controlunit} sendet keine Daten.", "critical_state_recovery_notification_controlunit": "OK: Die Steuereinheit {controlunit} sendet wieder Daten.", "daily": { "intro": "T\xE4gliche Erinnerungen", "feedings_due": "F\xE4llige F\xFCtterungen:", "weighings_due": "F\xE4llige Wiegungen:" }, "own_token_expires": "Token '{name}' l\xE4uft in {days} Tagen ab.", "suggestions": { "humidity_percent": "T\xE4gliche Aktionssequenz zum Bew\xE4ssern um {hour} Uhr" } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Willkommen zu Ciliatus", "create_user": "Erstelle Deinen Benutzer", "done": "Geschafft!", "what_now": "Was nun?", "login": "Einloggen", "tooltip_login": "Logge Dich mit Deinem soeben erstellten Nutzer bei Ciliatus an.", "add_terrarium": "Terrarium anlegen", "tooltip_add_terrarium": "Erstelle Dein erstes Terrarium in Ciliatus.", "add_animal": "Tier anlegen", "tooltip_add_animal": "Erstelle Dein erstes Tier und ordne es einem Terrarium zu.", "setup_telegram": "Telegram einrichten", "tooltip_setup_telegram": "Lerne, wie Du Telegram mit Ciliatus konfigurieren kannst.", "setup_controlunit": "Kontrolleinheit erstellen", "tooltip_setup_controlunit": "Lerne eine Kontrolleinheit und zugeordnete Sensoren anzulegen um damit zu beginnen Sensordaten zu Deinen Terrarien zu \xFCbermitteln.", "err_completed": "Das Setup wurde bereits durchgef\xFChrt." }, "tooltips": { "ctrltoselect": "Strg+Klick zum selektieren", "active": "Aktiv", "showondefaultdashboard": "Auf Default Dashboard anzeigen", "autoirrigation": "Automatische Bew\xE4sserung", "sendnotificationsfor": "Benachrichtigungen versenden f\xFCr", "loadandrendergraph": "Daten werden ermittelt und Graph wird gerendert", "disables_option": "Deaktiviert \"{option}\"", "phone_number": "Mobilnummer", "contact_bot": "Den Bot kontaktieren", "wait_confirmation": "Auf Best\xE4tigung warten", "set_state_to": "Zustand von <b>{target}</b> auf <b>{state}</b> \xE4ndern f\xFCr <b>{minutes} Minuten</b>", "start_after_started": "Startet wenn Schritt <b>{id}<\/b> gestartet wurde", "start_after_finished": "Startet wenn Schritt <b>{id}<\/b> beendet wurde", "sendnotifications": "Benachrichtigungen versenden", "no_schedules": "Keine Zeitpl\xE4ne", "runonce": "Einmalig", "heartbeat_critical": "Heartbeat ist kritisch!", "copy_thresholds_warning": "Alle existierenden Grenzwerte des Zielsensors werden entfernt.", "animal_feeding_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten F\xFCtterungspl\xE4ne. Die Zahl in einer Spalte stellt das Intervall dar.", "animal_weighing_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten Wiegepl\xE4ne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom n\xE4chsten F\xE4lligkeitsdatum dar.", "done": "Erledigt", "skip": "\xDCberspringen", "material_icons_list": "Die komplette Symbolliste ist unter <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> einsehbar.", "no_data": "Keine Daten.", "connecting_to_server": "Verbindung zum Ciliatus Server wird hergestellt. Sollte dies l\xE4nger als einige Sekunden dauern, \xFCberpr\xFCfen Sie bitte Ihre Internetverbindung.", "generic_components": { "about": "Generische Komponenten sind Komponenten eines benutzerdefinierten Typs.", "type_about": "Generische Komponententypen definieren Name, Eigenschaften und m\xF6gliche Zust\xE4nde f\xFCr generische Komponenten. Sie dienen als Vorlage beim Erstellen einer neuen generischen Komponente.", "property_templates": "Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszuf\xFCllen.", "state_templates": "Definiert m\xF6gliche Zust\xE4nde die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zust\xE4nden den gew\xFCnschten Zustand ausw\xE4hlen.<br /><br />Die Checkbox links definiert den standardm\xE4\xDFigen 'laufend'-Zustand.", "type_delete_warning": "Beim L\xF6schen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gel\xF6scht.", "intentions": "Intentionen von generischen Komponenten erm\xF6glichen deren automatisches Einbinden in Aktionssequenzen." }, "minimum_timeout_minutes": "Definiert die Dauer der minimalen Pause, bevor die Aktionssequenz durch diesen Ausl\xF6ser nach einem Durchlauf erneut gestartet werden kann.", "reference_value": "Der Wert, mit dem der Sensorwert verglichen werden soll.", "reference_value_duration_threshold_minutes": "Dauer in Minuten, die der Sensorwert den Grenzwert unter/\xFCberschritten haben muss, bevor die Aktionssequenz ausgel\xF6st wird.", "emergency_stop": "H\xE4lt sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.", "emergency_resume": "Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.", "leave_empty_for_auto": "Frei lassen f\xFCr automatisch", "intention_increase_decrease": "Definiert ob die Intention dieser Aktionssequenz das Erh\xF6hen oder Senken des Sensorwerts ist.", "suggestions_unit": "Mindestanzahl von Kritischen Zust\xE4nden innerhalb des Zeitrahmens, bevor ein Vorschlag generiert werden soll.", "suggestion_timeframe_unit": "Zeitrahmen der zur Analyse herangezogen werden soll (Einheit)", "suggestions_timeframe": "Zeitrahmen der zur Analyse herangezogen werden soll (Wert)", "show_suggestions": "Vorschl\xE4ge anzeigen", "bus_type_edit_form": "Erm\xF6glicht Ciliatus das automatische Generieren von Kontroleinheitskonfigurationen.", "gpio_default_high": "GPIO Pin wird im Betrieb auf High gezogen. Zum aktivieren der Komponente auf Low.", "adjust_rawvalue": "Beim Empfangen eines Werts durch diesen Sensor kann der Wert korrigiert werden.", "experimental_feature": "Dieses Feature ist experimentell.", "action_sequence_schedules": { "skip": "Heutigen Durchlauf \xFCberspringen." }, "associate_new": "Verkn\xFCpfe <i class=\"material-icons\">{source}_icon</i> {source}_type \"{source}_name\" mit <i class=\"material-icons\">{target}_icon</i> {target}_type" }, "units": { "years": "Jahr|Jahre", "months": "Monat|Monate", "days": "Tag|Tage", "hours": "Stunde|Stunden", "minutes": "Minute|Minuten", "seconds": "Sekunde|Sekunden", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "vor {val} Jahren", "months_ago": "vor {val} Monaten", "weeks_ago": "vor {val} Wochen", "days_ago": "vor {val} Tagen", "hours_ago": "vor {val} Stunden", "minutes_ago": "vor {val} Minuten", "years_in": "in {val} Jahren", "months_in": "in {val} Monaten", "weeks_in": "in {val} Wochen", "days_in": "in {val} Tagen", "hours_in": "in {val} Stunden", "minutes_in": "in {val} Minuten", "just_now": "gerade eben", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" } }, "en": { "buttons": { "next": "Next", "save": "Save", "delete": "Delete", "delete_type": "Delete {type}", "delete_all_type": "Delete all {type}", "loadgraph": "Load graph", "upload": "Upload", "start_setup": "Start Setup", "add": "Add", "add_intention": "Add Intention", "add_property": "Add Property", "add_state": "Add State", "create": "Add", "edit": "Edit", "details": "Details", "download": "Download", "emergency_stop": "Emergency stop", "emergency_resume": "Remove emergency stop", "revoke": "Revoke", "irrigate": "Irrigate", "ventilate": "Ventilate", "heat_up": "Heat up", "cool_down": "Cool down", "start": "Start", "close": "Close" }, "components": { "User": "User|Users", "user": "User|Users", "users": "User|Users", "Terrarium": "Terrarium|Terraria", "terrarium": "Terrarium|Terraria", "terraria": "Terrarium|Terraria", "Animal": "Animal|Animals", "animal": "Animal|Animals", "animals": "Animal|Animals", "Controlunit": "Control Unit|Control Units", "controlunit": "Control Unit|Control Units", "controlunits": "Control Unit|Control Units", "Pump": "Pump|Pumps", "pump": "Pump|Pumps", "pumps": "Pump|Pumps", "Valve": "Valve|Valves", "valve": "Valve|Valves", "valves": "Valve|Valves", "PhysicalSensor": "Physical Sensor|Physical Sensors", "physical_sensor": "Physical Sensor|Physical Sensors", "physical_sensors": "Physical Sensor|Physical Sensors", "LogicalSensor": "Logical Sensor|Logical Sensors", "logical_sensor": "Logical Sensor|Logical Sensors", "logical_sensors": "Logical Sensor|Logical Sensors", "LogicalSensorThreshold": "Logical Sensor Threshold|Logical Sensor Thresholds", "logical_sensor_threshold": "Logical Sensor Threshold|Logical Sensor Thresholds", "logical_sensor_thresholds": "Logical Sensor Threshold|Logical Sensor Thresholds", "File": "File|Files", "file": "File|Files", "files": "File|Files", "Log": "System log|System logs", "log": "System log|System logs", "logs": "System log|System logs", "Action": "Action|Actions", "action": "Action|Actions", "actions": "Action|Actions", "ActionSequence": "Action sequence|Action sequences", "action_sequence": "Action sequence|Action sequences", "action_sequences": "Action sequence|Action sequences", "ActionSequenceSchedule": "Action sequence schedule|Action sequence schedules", "action_sequence_schedule": "Action sequence schedule|Action sequence schedules", "action_sequence_schedules": "Action sequence schedule|Action sequence schedules", "ActionSequenceTrigger": "Action sequence trigger|Action sequence triggers", "action_sequence_trigger": "Action sequence trigger|Action sequence triggers", "action_sequence_triggers": "Action sequence trigger|Action sequence triggers", "ActionSequenceIntention": "Action sequence intention|Action sequence intentions", "action_sequence_intention": "Action sequence intention|Action sequence intentions", "action_sequence_intentions": "Action sequence intention|Action sequence intentions", "Trigger": "Trigger|Triggers", "trigger": "Trigger|Triggers", "triggers": "Trigger|Triggers", "admin_panel": "Admin panel", "admin_panels": "Admin panel", "AnimalFeeding": "Feeding|Feedings", "animal_feeding": "Feeding|Feedings", "animal_feedings": "Feeding|Feedings", "AnimalFeedingSchedule": "Feeding schedule|Feeding schedules", "animal_feeding_schedule": "Feeding schedule|Feeding schedules", "animal_feeding_schedules": "Feeding schedule|Feeding schedules", "AnimalWeighing": "Weighing|Weighings", "animal_weighing": "Weighing|Weighings", "animal_weighings": "Weighing|Weighings", "AnimalWeighingSchedule": "Weighing schedule|Weighing schedules", "animal_weighing_schedule": "Weighing schedule|Weighing schedules", "animal_weighing_schedules": "Weighing schedule|Weighing schedules", "BiographyEntryEvent": "Biography entry|Biography entries", "biography_entry": "Biography entry|Biography entries", "biography_entries": "Biography entry|Biography entries", "CaresheetEvent": "Care Sheet|Care Sheets", "caresheet": "Care Sheet|Care Sheets", "caresheets": "Care Sheet|Care Sheets", "GenericComponent": "Generic Component|Generic Components", "generic_component": "Generic Component|Generic Components", "generic_components": "Generic Component|Generic Components", "GenericComponentType": "Generic Component Type|Generic Component Types", "generic_component_type": "Generic Component Type|Generic Component Types", "generic_component_types": "Generic Component Type|Generic Component Types", "SuggestionEvent": "Suggestion|Suggestions", "suggestion": "Suggestion|Suggestions", "suggestions": "Suggestion|Suggestions" }, "errors": { "retrievegraphdata": "Graphdaten konnten nicht ermittelt werden." }, "labels": { "connecting": "Connecting", "title": "Title", "text": "Text", "tags": "Tags", "status": "Status", "health": "Health", "birth": "Birth", "gender": "Gender", "gender_male": "Male", "gender_female": "Female", "date": "Date", "date_birth": "Day of birth", "date_death": "Day of death", "model": "Model", "type": "Type", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Display Name", "common_name": "Common Name", "latin_name": "Latin Name", "temperature": "Temperature", "temperature_celsius": "Temperature", "humidity": "Humidity", "humidity_percent": "Humidity", "heartbeat": "Heartbeat", "last_heartbeat": "Last Heartbeat", "noanimals": "No Animals", "create": "Create", "settings": "Setting|Settings", "notifications": "Notification|Notifications", "notification_type": "Notification channel", "details": "Details", "rawlimitlo": "Raw value - lower limit", "rawlimithi": "Raw value - upper limit", "file": "File", "files": "Files", "size": "Size", "current_value": "Current value", "created_at": "Creation", "updated_at": "Last update", "download": "Download", "properties": "Properties", "preview": "Preview", "source": "Source", "target": "Target", "associated_with": "Associated with", "log": "Log", "starts_at": "Starts at", "ends_at": "Ends at", "starts_after": "Starts after", "thresholds": "Thresholds", "abilities": "Ability|Abilities", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto night mode", "permanent_nightmode": "Permanent night mode", "language": "Language", "belongsTo_type": "Belongs to (type)", "belongsTo_id": "Belongs to (ID)", "belongsTo": "Belongs to", "doku": "Documentation", "step": "Step", "phone_number": "Phone number", "template": "Template", "timezone": "Timezone", "critical": "Critical", "ok": "OK", "running": "Running", "runs_since": "Running since", "queued": "Queued", "criticalstates": "Critical States", "since": "Since", "state": "State", "actions": "Actions", "irrigate": "Irrigate", "duration": "Duration", "on": "On", "off": "Off", "just_fed": "Add feeding", "add_weight": "Add weight", "active": "Aktiv", "copy_thresholds": "Copy thresholds", "daily": "Daily", "last_feeding": "Last feeding", "crickets": "Crickets", "mixed_fruits": "Fruits", "beetle_jelly": "BeetleJelly", "due": "Due", "overdue": "Overdue", "meal_type": "Meal type", "interval_days": "Interval in days", "interval": "Interval", "password": "Password", "action": "Action", "weight": "Weight", "no_data": "No Data", "overview": "Overview", "environment": "Environment", "now": "Now", "scheduled": "Scheduled", "sequence": "Sequence", "weighprogression": "Weight progression", "from": "From", "tO": "To", "feedings": "Feedings", "temp_and_hum_history": "Temperature and Humidity History", "biography": "Biography", "bio_categories": "Biography categories", "icon": "Icon", "average": "Average", "min": "Minimum", "max": "Maximum", "during_day": "Daytime", "during_night": "Nighttime", "total": "Total", "infrastructure": "Infrastructure", "timeframe_start": "Timeframe from", "timeframe_end": "Timeframe to", "reference_value": "Reference value", "reference_value_duration_threshold_minutes": "Reference value undershot\/exceeded for (Minutes)", "for": "for", "minimum_timeout_minutes": "Timeout (minutes)", "emergency_stop": "Emergency stop", "increases": "Increases", "increase": "Increases", "decreases": "Decreases", "decrease": "Decreases", "personal_access_tokens": "Access Tokens", "expires": "Expires", "security": "Security", "general": "General", "component": "Component", "to": "To", "daily_reminders": "Daily Reminders", "yesterday": "Yesterday", "tomorrow": "Tomorrow", "today": "Today", "runonce": "Only run once", "intention": "Intention", "deceased": "Deceased", "software_version": "Software Version", "use_as_background": "Use as background image", "relation_map": "Relation map", "start_action_sequence": "Start Action Sequence", "suggestions": "Suggestions", "suggestions_unit": "Min. Occurences", "suggestion_timeframe_unit": "Timeframe (Unit)", "suggestions_timeframe": "Timeframe", "bus": "Bus", "i2c_address": "I2C address", "i2c_multiplexer_address": "I2C multiplexer address", "i2c_multiplexer_port": "I2C multiplexer port", "gpio_pin": "GPIO pin", "gpio_default_high": "GPIO Default High", "configuration": "Configuration", "yes": "Yes", "no": "No", "rawvalue": "Raw value", "adjust_rawvalue": "Raw value correction", "filter": "Filter", "logout": "Log off", "ask_me_something": "Ask me something", "ventilate": "Ventilate", "heat_up": "Heat", "cool_down": "Cool", "between": "between", "and": "and", "association": "Association", "choose_logfile": "Choose a log file", "no_image": "No image", "features": "Features", "rollperiod": "Roll period" }, "languages": { "german": "German", "english": "English" }, "menu": { "welcome": "Welcome", "dashboard": "Dashboard", "general": "General", "administration": "Administration", "create": "Create", "edit": "Edit", "delete": "Delete", "infrastructure": "Infrastructure", "help": "Help", "logout": "Log out", "animals": "Animals", "terraria": "Terraria", "users": "Users", "animal_feeding_types": "Food types", "logs": "Logs", "categories": "Categories", "monitoring": "Monitoring", "automation": "Automation", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "All existing thresholds associated with the target sensor will be deleted." }, "users": { "setup_telegram_ok": "Telegram is set up.", "setup_telegram_err": "Telegram has not yet been set up.", "setup_telegram_description": "Please point your browser to <a href=\"https:\/\/web.telegram.org\/#\/im?p=@ciliatusbot\">Telegram Web<\/a> or use your smartphone to contact <b>@ciliatusbot<\/b> with your verification code below." }, "critical_state_generic": "Critical: {critical}_state", "critical_state_notification_logical_sensor": { "humidity_percent": "Critical: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "temperature_celsius": "Critical: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C." }, "critical_state_recovery_notification_logical_sensor": { "humidity_percent": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "temperature_celsius": "OK: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C." }, "critical_state_notification_controlunit": "Critical: The controlunit {controlunit} is not sending data.", "critical_state_recovery_notification_controlunit": "OK: The controlunit {controlunit} ist sending data again.", "daily": { "intro": "Daily reminders", "feedings_due": "Feedings due:", "weighings_due": "Weighings due:" }, "own_token_expires": "Token '{name}' expires in {days} days.", "suggestions": { "humidity_percent": "Daily irrigation action sequence at {hour} o'clock." } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Welcome to Ciliatus", "create_user": "Create your user", "done": "Done!", "what_now": "What now?", "login": "Log in", "tooltip_login": "Log in to Ciliatus with the user you just created.", "add_terrarium": "Create Terrarium", "tooltip_add_terrarium": "Create your first terrarium in Ciliatus.", "add_animal": "Create animal", "tooltip_add_animal": "Create your first animal and assign it to a terrarium.", "setup_telegram": "Setup Telegram", "tooltip_setup_telegram": "Learn how to configure Telegram with Ciliatus.", "setup_controlunit": "Create Controlunit", "tooltip_setup_controlunit": "Learn how to setup a controlunit to start feeding Ciliatus with sensor readings.", "err_completed": "Setup is already completed." }, "tooltips": { "ctrltoselect": "Ctrl-click to deselect", "active": "Active", "showondefaultdashboard": "Show on default dashboard", "autoirrigation": "Automatic irrigation (if available)", "sendnotificationsfor": "Send notifications for", "loadandrendergraph": "Collection data and rendering graph", "disables_option": "Disables \"{option}\"", "phone_number": "Mobile number", "contact_bot": "Contacting the bot", "wait_confirmation": "Waiting for confirmation", "set_state_to": "Set state of <b>{target}<\/b> to <b>{state}<\/b> for <b>{minutes} minutes<\/b>", "start_after_started": "Starts as soon as step <b>{id}<\/b> was started", "start_after_finished": "Starts as soon as step <b>{id}<\/b> finished", "sendnotifications": "Send notifications", "no_schedules": "No schedules", "runonce": "Run once", "heartbeat_critical": "Heartbeat is critical!", "copy_thresholds_warning": "All existing thresholds on the target sensor will be removed.", "animal_feeding_schedule_matrix": "This matrix contains all defined feeding schedules. A number in a column represents the schedule's interval in days.", "animal_weighing_schedule_matrix": "This matrix contains all defined weighing schedules. A number in a column represents the schedule's interval in days followed by the next due date.", "done": "Done", "skip": "Skip", "material_icons_list": "Visit <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> for a complete icon overview.", "no_data": "No data.", "connecting_to_server": "Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.", "generic_components": { "about": "Generic components are components of a user defined type.", "type_about": "Generic component types define name, properties and possible states of a generic component. They are used as a template when creating a new generic component.", "property_templates": "Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.", "state_templates": "Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.<br \/><br \/>The radio box on the left defines the default 'running' state.", "type_delete_warning": "When deleting a component type <strong>all components of this type<\/strong> will also be deleted.", "intentions": "Intentionen of generic components allows them to be automatically used within action sequences." }, "minimum_timeout_minutes": "Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.", "reference_value": "Reference value which will be compared to the sensor values.", "reference_value_duration_threshold_minutes": "Duration in minutes for which the sensor value has to be greater\/lower\/equal to the reference value before triggering the action sequence.", "emergency_stop": "Instantly stops all running action sequences and prohibits action sequences from starting.", "emergency_resume": "Revokes the emergency stop and allows action sequences to start.", "leave_empty_for_auto": "Leave empty for automatic", "intention_increase_decrease": "Defines whether the intention of this action sequence is to increase or decrease the sensor's readings", "suggestions_unit": "Minimum number of critical states within the timeframe before a suggestion should be generated.", "suggestion_timeframe_unit": "Timeframe used for analysis (Unit)", "suggestions_timeframe": "Timeframe used for analysis (Value)", "show_suggestions": "Show suggestions", "bus_type_edit_form": "Allows Ciliatus to automatically generate controlunit configurations.", "gpio_default_high": "GPIO Pin will be pulled to high. When activating a component to low.", "adjust_rawvalue": "When receiving a reading from this sensor you can adjust the raw value.", "experimental_feature": "This is an experimental feature.", "action_sequence_schedules": { "skip": "Skip today's run." }, "associate_new": "Associate <i class=\"material-icons\">{source}_icon<\/i> {source}_type \"{source}_name\" with <i class=\"material-icons\">{target}_icon<\/i> {target}_type" }, "units": { "years": "year|years", "months": "month|months", "days": "day|days", "hours": "hour|hours", "minutes": "minute|minutes", "seconds": "second|seconds", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "{val} years ago", "months_ago": "{val} months ago", "weeks_ago": "{val} weeks ago", "days_ago": "{val} days ago", "hours_ago": "{val} hours ago", "minutes_ago": "{val} minutes ago", "years_in": "in {val} years", "months_in": "in {val} months", "weeks_in": "in {val} weeks", "days_in": "in {val} days", "hours_in": "in {val} hours", "minutes_in": "in {val} minutes", "just_now": "just now", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" } } };
 
-},{}],11:[function(require,module,exports){
+},{}],45:[function(require,module,exports){
 'use strict';
 
 var _vuePeity = require('vue-peity');
@@ -14991,6 +15325,10 @@ var _googleGraph2 = _interopRequireDefault(_googleGraph);
 var _dygraphGraph = require('./vue/dygraph-graph.vue');
 
 var _dygraphGraph2 = _interopRequireDefault(_dygraphGraph);
+
+var _chartjsGraph = require('./vue/chartjs-graph.vue');
+
+var _chartjsGraph2 = _interopRequireDefault(_chartjsGraph);
 
 var _inlineGraph = require('./vue/inline-graph.vue');
 
@@ -15270,6 +15608,7 @@ window.bodyVue = new Vue({
         'peity': _vuePeity2.default,
         'google-graph': _googleGraph2.default,
         'dygraph-graph': _dygraphGraph2.default,
+        'chartjs-graph': _chartjsGraph2.default,
         'inline-graph': _inlineGraph2.default,
         'animals-widget': _animalsWidget2.default,
         'animal_feedings-widget': _animal_feedingsWidget2.default,
@@ -15311,7 +15650,7 @@ window.bodyVue = new Vue({
     }
 });
 
-},{"./lang.js":10,"./vue/action_sequence_schedule-widget.vue":12,"./vue/action_sequences-list-widget.vue":13,"./vue/action_sequences-widget.vue":14,"./vue/animal_feeding_schedules-matrix-widget.vue":15,"./vue/animal_feeding_schedules-widget.vue":16,"./vue/animal_feedings-widget.vue":17,"./vue/animal_weighing_schedules-matrix-widget.vue":18,"./vue/animal_weighing_schedules-widget.vue":19,"./vue/animal_weighings-widget.vue":20,"./vue/animals-widget.vue":21,"./vue/api-io-widget.vue":22,"./vue/biography_entries-widget.vue":23,"./vue/bus_type_edit-form.vue":24,"./vue/caresheets-widget.vue":25,"./vue/components-list-widget.vue":26,"./vue/controlunit-widget.vue":27,"./vue/controlunits-list-widget.vue":28,"./vue/dashboard-widget.vue":29,"./vue/dygraph-graph.vue":30,"./vue/files-list-widget.vue":31,"./vue/files-show-widget.vue":32,"./vue/files-widget.vue":33,"./vue/generic_component_type_create-form.vue":34,"./vue/generic_components-list-widget.vue":35,"./vue/generic_components-widget.vue":36,"./vue/google-graph.vue":37,"./vue/inline-graph.vue":38,"./vue/loading-indicator.vue":39,"./vue/logical_sensors-list-widget.vue":40,"./vue/logical_sensors-widget.vue":41,"./vue/logs-widget.vue":42,"./vue/physical_sensors-list-widget.vue":43,"./vue/physical_sensors-widget.vue":44,"./vue/pumps-list-widget.vue":45,"./vue/pumps-widget.vue":46,"./vue/system-indicator.vue":47,"./vue/terraria-overview-widget.vue":48,"./vue/terraria-widget.vue":49,"./vue/users-widget.vue":50,"./vue/valves-list-widget.vue":51,"./vue/valves-widget.vue":52,"vue-i18n":6,"vue-peity":7,"vue/dist/vue.js":9}],12:[function(require,module,exports){
+},{"./lang.js":44,"./vue/action_sequence_schedule-widget.vue":46,"./vue/action_sequences-list-widget.vue":47,"./vue/action_sequences-widget.vue":48,"./vue/animal_feeding_schedules-matrix-widget.vue":49,"./vue/animal_feeding_schedules-widget.vue":50,"./vue/animal_feedings-widget.vue":51,"./vue/animal_weighing_schedules-matrix-widget.vue":52,"./vue/animal_weighing_schedules-widget.vue":53,"./vue/animal_weighings-widget.vue":54,"./vue/animals-widget.vue":55,"./vue/api-io-widget.vue":56,"./vue/biography_entries-widget.vue":57,"./vue/bus_type_edit-form.vue":58,"./vue/caresheets-widget.vue":59,"./vue/chartjs-graph.vue":60,"./vue/components-list-widget.vue":61,"./vue/controlunit-widget.vue":62,"./vue/controlunits-list-widget.vue":63,"./vue/dashboard-widget.vue":64,"./vue/dygraph-graph.vue":65,"./vue/files-list-widget.vue":66,"./vue/files-show-widget.vue":67,"./vue/files-widget.vue":68,"./vue/generic_component_type_create-form.vue":69,"./vue/generic_components-list-widget.vue":70,"./vue/generic_components-widget.vue":71,"./vue/google-graph.vue":72,"./vue/inline-graph.vue":73,"./vue/loading-indicator.vue":74,"./vue/logical_sensors-list-widget.vue":75,"./vue/logical_sensors-widget.vue":76,"./vue/logs-widget.vue":77,"./vue/physical_sensors-list-widget.vue":78,"./vue/physical_sensors-widget.vue":79,"./vue/pumps-list-widget.vue":80,"./vue/pumps-widget.vue":81,"./vue/system-indicator.vue":82,"./vue/terraria-overview-widget.vue":83,"./vue/terraria-widget.vue":84,"./vue/users-widget.vue":85,"./vue/valves-list-widget.vue":86,"./vue/valves-widget.vue":87,"vue-i18n":40,"vue-peity":41,"vue/dist/vue.js":43}],46:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -15446,12 +15785,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-23", __vue__options__)
+    hotAPI.createRecord("data-v-24", __vue__options__)
   } else {
-    hotAPI.reload("data-v-23", __vue__options__)
+    hotAPI.reload("data-v-24", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],13:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],47:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -15629,12 +15968,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-21", __vue__options__)
+    hotAPI.createRecord("data-v-22", __vue__options__)
   } else {
-    hotAPI.reload("data-v-21", __vue__options__)
+    hotAPI.reload("data-v-22", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],14:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],48:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -15763,12 +16102,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-22", __vue__options__)
+    hotAPI.createRecord("data-v-23", __vue__options__)
   } else {
-    hotAPI.reload("data-v-22", __vue__options__)
+    hotAPI.reload("data-v-23", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],15:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],49:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -15885,12 +16224,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-10", __vue__options__)
+    hotAPI.createRecord("data-v-11", __vue__options__)
   } else {
-    hotAPI.reload("data-v-10", __vue__options__)
+    hotAPI.reload("data-v-11", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],16:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],50:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -16023,12 +16362,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-9", __vue__options__)
+    hotAPI.createRecord("data-v-10", __vue__options__)
   } else {
-    hotAPI.reload("data-v-9", __vue__options__)
+    hotAPI.reload("data-v-10", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],17:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],51:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -16171,12 +16510,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-8", __vue__options__)
+    hotAPI.createRecord("data-v-9", __vue__options__)
   } else {
-    hotAPI.reload("data-v-8", __vue__options__)
+    hotAPI.reload("data-v-9", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],18:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],52:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -16285,12 +16624,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-11", __vue__options__)
+    hotAPI.createRecord("data-v-12", __vue__options__)
   } else {
-    hotAPI.reload("data-v-11", __vue__options__)
+    hotAPI.reload("data-v-12", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],19:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],53:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -16422,12 +16761,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-13", __vue__options__)
+    hotAPI.createRecord("data-v-14", __vue__options__)
   } else {
-    hotAPI.reload("data-v-13", __vue__options__)
+    hotAPI.reload("data-v-14", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],20:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],54:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -16555,12 +16894,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-12", __vue__options__)
+    hotAPI.createRecord("data-v-13", __vue__options__)
   } else {
-    hotAPI.reload("data-v-12", __vue__options__)
+    hotAPI.reload("data-v-13", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],21:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],55:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -16854,12 +17193,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7", __vue__options__)
+    hotAPI.createRecord("data-v-8", __vue__options__)
   } else {
-    hotAPI.reload("data-v-7", __vue__options__)
+    hotAPI.reload("data-v-8", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],22:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],56:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -16978,12 +17317,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-39", __vue__options__)
+    hotAPI.createRecord("data-v-40", __vue__options__)
   } else {
-    hotAPI.reload("data-v-39", __vue__options__)
+    hotAPI.reload("data-v-40", __vue__options__)
   }
 })()}
-},{"vue":8,"vue-hot-reload-api":5}],23:[function(require,module,exports){
+},{"vue":42,"vue-hot-reload-api":39}],57:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17152,12 +17491,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-35", __vue__options__)
+    hotAPI.createRecord("data-v-36", __vue__options__)
   } else {
-    hotAPI.reload("data-v-35", __vue__options__)
+    hotAPI.reload("data-v-36", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],24:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],58:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17265,12 +17604,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-40", __vue__options__)
+    hotAPI.createRecord("data-v-41", __vue__options__)
   } else {
-    hotAPI.reload("data-v-40", __vue__options__)
+    hotAPI.reload("data-v-41", __vue__options__)
   }
 })()}
-},{"vue":8,"vue-hot-reload-api":5}],25:[function(require,module,exports){
+},{"vue":42,"vue-hot-reload-api":39}],59:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17439,12 +17778,182 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-36", __vue__options__)
+    hotAPI.createRecord("data-v-37", __vue__options__)
   } else {
-    hotAPI.reload("data-v-36", __vue__options__)
+    hotAPI.reload("data-v-37", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],26:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],60:[function(require,module,exports){
+;(function(){
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _stringify = require('babel-runtime/core-js/json/stringify');
+
+var _stringify2 = _interopRequireDefault(_stringify);
+
+var _loadingIndicator = require('./loading-indicator.vue');
+
+var _loadingIndicator2 = _interopRequireDefault(_loadingIndicator);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+
+    props: {
+        id: {
+            type: Number,
+            required: false,
+            default: Math.floor(Math.random() * 1000000)
+        },
+        source: {
+            type: String,
+            required: true
+        },
+        FilterColumn: {
+            type: String,
+            default: 'created_at',
+            required: false
+        },
+        ShowFilterForm: {
+            type: Boolean,
+            default: false,
+            required: false
+        },
+        FilterFromDate: {
+            type: String,
+            default: new Date(new Date().setDate(new Date().getDate() - 2)).toYmd(),
+            required: false
+        },
+        FilterToDate: {
+            type: String,
+            default: new Date().toYmd(),
+            required: false
+        }
+    },
+
+    data: function data() {
+        return {
+            chart: null,
+            options: {},
+            data: null
+        };
+    },
+
+
+    components: {
+        'loading-indicator': _loadingIndicator2.default
+    },
+
+    methods: {
+        get_filter_from_date: function get_filter_from_date() {
+            if ($('#filter_from_' + this.id).val() == undefined) {
+                return this.FilterFromDate;
+            }
+
+            return $('#filter_from_' + this.id).val();
+        },
+        get_filter_to_date: function get_filter_to_date() {
+            if ($('#filter_to_' + this.id).val() == undefined) {
+                return this.FilterToDate + " 23:59:59";
+            }
+
+            return $('#filter_to_' + this.id).val() + " 23:59:59";
+        },
+
+        init: function init() {
+            this.build();
+        },
+        build: function build() {
+            $('#chartjs_' + this.id + '_loading').show();
+            var that = this;
+            var url = this.source + '?filter[' + this.FilterColumn + ']=ge:' + this.get_filter_from_date() + ':and:le:' + this.get_filter_to_date() + '&filter[is_anomaly]=0';
+
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function success(data) {
+                    that.data = [];
+                    $.each(data.data, function (srg) {
+                        var group = data.data[srg];
+                        var group_data = group.map(function (sr) {
+                            return { y: sr.value, x: sr.created_at };
+                        });
+                        that.data.push({
+                            label: group[0].logical_sensor_name,
+                            data: group_data
+                        });
+                    });
+
+                    that.draw();
+                },
+                error: function error(_error) {
+                    $('#chartjs_' + that.id + '_loading').hide();
+                    console.log((0, _stringify2.default)(_error));
+                }
+            });
+        },
+        draw: function draw() {
+            if (this.data === null) {
+                return;
+            }
+
+            var that = this;
+            var c = new Chart(document.getElementById('chartjs_' + this.id), {
+                type: 'line',
+                data: {
+                    datasets: that.data
+                },
+                options: {
+                    scales: {
+                        xAxes: [{
+                            type: 'time'
+                        }]
+                    }
+                }
+            });
+
+            $('#chartjs_' + that.id + '_loading').hide();
+        }
+    },
+
+    created: function created() {
+        window.eventHubVue.processStarted();
+
+        window.eventHubVue.$on('ForceRerender', this.draw);
+
+        var that = this;
+        this.$nextTick(function () {
+            $('.datepicker').pickadate({
+                format: 'yyyy-mm-dd'
+            });
+
+            that.build();
+        });
+
+        window.eventHubVue.processEnded();
+    }
+};
+})()
+if (module.exports.__esModule) module.exports = module.exports.default
+var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
+if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[(_vm.ShowFilterForm === true)?_vm._h('div',[_vm._h('div',{staticClass:"row",staticStyle:{"margin-bottom":"0"}},[_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.from'),"name":"filter_from","id":'filter_from_' + _vm.id,"data-default":_vm.FilterFromDate},domProps:{"value":_vm.FilterFromDate}})," ",_vm._h('label',{attrs:{"for":'filter_from_' + _vm.id}},[_vm._s(_vm.$t('labels.from'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.to'),"name":"filter_to","id":'filter_to_' + _vm.id,"data-default":_vm.FilterToDate},domProps:{"value":_vm.FilterToDate}})," ",_vm._h('label',{attrs:{"for":'filter_to_' + _vm.id}},[_vm._s(_vm.$t('labels.to'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",on:{"click":_vm.build}},[_vm._s(_vm.$t('buttons.loadgraph'))])])])]):_vm._e()," ",_vm._h('div',{staticClass:"center",staticStyle:{"display":"none"},attrs:{"id":'chartjs_' + _vm.id + '_loading'}},[_vm._h('loading-indicator',{attrs:{"size":100}})])," ",_vm._h('canvas',{staticStyle:{"width":"100%"},attrs:{"id":'chartjs_' + _vm.id}})])}
+__vue__options__.staticRenderFns = []
+if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), true)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-6", __vue__options__)
+  } else {
+    hotAPI.reload("data-v-6", __vue__options__)
+  }
+})()}
+},{"./loading-indicator.vue":74,"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],61:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17649,12 +18158,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-38", __vue__options__)
+    hotAPI.createRecord("data-v-39", __vue__options__)
   } else {
-    hotAPI.reload("data-v-38", __vue__options__)
+    hotAPI.reload("data-v-39", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],27:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],62:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -17827,12 +18336,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-16", __vue__options__)
+    hotAPI.createRecord("data-v-18", __vue__options__)
   } else {
-    hotAPI.reload("data-v-16", __vue__options__)
+    hotAPI.reload("data-v-18", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],28:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],63:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18018,7 +18527,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-17", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],29:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],64:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18610,7 +19119,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-3", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],30:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],65:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18621,6 +19130,10 @@ Object.defineProperty(exports, "__esModule", {
 var _stringify = require('babel-runtime/core-js/json/stringify');
 
 var _stringify2 = _interopRequireDefault(_stringify);
+
+var _values = require('babel-runtime/core-js/object/values');
+
+var _values2 = _interopRequireDefault(_values);
 
 var _loadingIndicator = require('./loading-indicator.vue');
 
@@ -18659,6 +19172,24 @@ exports.default = {
             type: String,
             default: new Date().toYmd(),
             required: false
+        },
+        ColumnIdField: {
+            type: String,
+            required: true
+        },
+        ColumnNameField: {
+            type: String,
+            required: true
+        },
+        LabelsDivId: {
+            type: String,
+            default: null,
+            required: false
+        },
+        TimeAxisLabel: {
+            type: String,
+            default: 'created_at',
+            required: false
         }
     },
 
@@ -18666,7 +19197,11 @@ exports.default = {
         return {
             chart: null,
             options: {},
-            data: null
+            data: [],
+            columns: [],
+            colors: [],
+            graph: null,
+            debug: null
         };
     },
 
@@ -18676,6 +19211,9 @@ exports.default = {
     },
 
     methods: {
+        set_rollperiod: function set_rollperiod(e) {
+            this.graph.adjustRoll(parseInt($('#dygraph_' + this.id + '_rollperiodselector').val()));
+        },
         get_filter_from_date: function get_filter_from_date() {
             if ($('#filter_from_' + this.id).val() == undefined) {
                 return this.FilterFromDate;
@@ -18697,18 +19235,106 @@ exports.default = {
         build: function build() {
             $('#dygraph_' + this.id + '_loading').show();
             var that = this;
-            var url = this.source + '?csv=true&filter[' + this.FilterColumn + ']=ge:' + this.get_filter_from_date() + ':and:le:' + this.get_filter_to_date() + '&filter[is_anomaly]=0';
+            var url = this.source + '?filter[' + this.FilterColumn + ']=ge:' + this.get_filter_from_date() + ':and:le:' + this.get_filter_to_date() + '&filter[is_anomaly]=0';
 
             $.ajax({
                 url: url,
                 method: 'GET',
                 success: function success(data) {
-                    that.data = data.data;
-                    if (that.data.split(/\r\n|\r|\n/).length > 1) {
-                        that.draw();
-                    } else {
-                        $('#dygraph_' + that.id + '_loading').hide();
-                    }
+                    var groupBy = function groupBy(xs, key) {
+                        return xs.reduce(function (rv, x) {
+                            (rv[x[key]] = rv[x[key]] || []).push(x);
+                            return rv;
+                        }, {});
+                    };
+                    var _columns = (0, _values2.default)(groupBy(data.data, that.ColumnIdField));
+
+                    var color_repo = {
+                        'temperature_celsius': ['#f44336', '#c62828', '#b71c1c'],
+                        'humidity_percent': ['#2196f3', '#1565c0', '#0d47a1'],
+                        'default': ['#ff9800', '#009688', '#03a9f4', '#e91e63', '#9c27b0']
+                    };
+                    var color_repo_used = {
+                        'temperature_celsius': 0,
+                        'humidity_percent': 0,
+                        'default': 0
+                    };
+
+                    that.columns = ['created_at'];
+                    that.colors = [];
+                    _columns.forEach(function (c) {
+                        var repo_name = '';
+                        if (color_repo[c[0]['value_type']] !== undefined) {
+                            repo_name = c[0]['value_type'];
+                        } else {
+                            repo_name = 'default';
+                        }
+                        var color = '';
+                        var color_num = color_repo_used[repo_name];
+                        if (color_repo[repo_name].length <= color_num) {
+                            color_num = color_repo_used.default;
+                            console.log('Out of colors for ' + repo_name);
+                            repo_name = 'default';
+                            if (color_repo.default.length <= color_repo_used.default) {
+                                console.log('Default color is used up. Falling back to black');
+                                color = '#000000';
+                            } else {
+                                color = color_repo.default[color_num];
+                            }
+                        } else {
+                            color = color_repo[repo_name][color_num];
+                        }
+                        that.colors.push(color);
+                        color_repo_used[repo_name] += 1;
+
+                        that.columns.push(c[0][that.ColumnNameField]);
+                    });
+
+                    var rows = [];
+                    var i = 0;
+                    _columns.forEach(function (c) {
+                        c.forEach(function (d) {
+                            var series = [];
+                            series.push(new Date(d.created_at));
+                            for (var j = 0; j < _columns.length; j++) {
+                                if (i === j) {
+                                    series.push(d.value);
+                                } else {
+                                    series.push(null);
+                                }
+                            }
+                            rows.push(series);
+                        });
+
+                        i += 1;
+                    });
+
+                    rows.sort(function (a, b) {
+                        if (a[0] > b[0]) {
+                            return 1;
+                        }
+
+                        if (a[0] < b[0]) {
+                            return -1;
+                        }
+
+                        return 0;
+                    });
+
+                    rows.map(function (r, i) {
+                        r.map(function (c, j) {
+                            if (c === null) {
+                                if (i > 0) {
+                                    return rows[i - 1][j];
+                                }
+                            }
+                            return c;
+                        });
+                    });
+
+                    that.data = rows;
+
+                    that.draw();
                 },
                 error: function error(_error) {
                     $('#dygraph_' + that.id + '_loading').hide();
@@ -18721,17 +19347,63 @@ exports.default = {
                 return;
             }
 
-            var that = this;
-            var g = new Dygraph(document.getElementById('dygraph_' + this.id), this.data, {
-                'connectSeparatedPoints': true,
+            this.options = {
+                connectSeparatedPoints: true,
+                strokeWidth: 1.5,
                 rollPeriod: 4,
-                showRoller: true,
+                showRoller: false,
                 showRangeSelector: true,
+                rangeSelectorPlotFillGradientColor: '#ffcc80',
+                rangeSelectorPlotFillColor: '#ffcc80',
+                rangeSelectorPlotLineWidth: 1,
+                rangeSelectorPlotStrokeColor: '#ff6d00',
+                rangeSelectorBackgroundStrokeColor: '#757575',
+                rangeSelectorBackgroundStrokeWidth: 1,
                 legend: 'always',
-                colors: ['#2196f3', '#CC5555'],
-                axisLineColor: '#D4D4D4'
-            });
-            g.ready(function () {
+                colors: this.colors,
+                axisLineColor: '#D4D4D4',
+                labels: this.columns,
+                legendFormatter: function legendFormatter(data) {
+                    if (data.x == null) {
+                        return '<br>' + data.series.map(function (series) {
+                            return series.dashHTML + ' ' + series.labelHTML;
+                        }).join('<br>');
+                    }
+
+                    var html = that.TimeAxisLabel + ': ' + data.xHTML;
+                    data.series.forEach(function (series) {
+                        if (!series.isVisible) {
+                            return;
+                        }
+                        var yData = series.yHTML === undefined ? '' : series.yHTML;
+                        var labeledData = series.labelHTML + ': ' + yData;
+                        if (series.isHighlighted) {
+                            labeledData = '<b>' + labeledData + '</b>';
+                        }
+                        html += '<br>' + series.dashHTML + ' ' + labeledData;
+                    });
+                    return html;
+                },
+                axes: {
+                    x: {
+                        axisLabelFormatter: function axisLabelFormatter(d) {
+                            return d.toLocaleDateString();
+                        },
+                        valueFormatter: function valueFormatter(ms) {
+                            return new Date(ms).toLocaleString();
+                        }
+                    }
+                }
+            };
+
+            if (this.LabelsDivId !== null) {
+                this.options.labelsDiv = this.LabelsDivId;
+                this.options.labelsSeparateLines = true;
+            }
+
+            var that = this;
+            this.graph = new Dygraph(document.getElementById('dygraph_' + this.id), this.data, this.options);
+            this.graph.ready(function () {
                 $('#dygraph_' + that.id + '_loading').hide();
             });
         }
@@ -18758,8 +19430,8 @@ exports.default = {
 if (module.exports.__esModule) module.exports = module.exports.default
 var __vue__options__ = (typeof module.exports === "function"? module.exports.options: module.exports)
 if (__vue__options__.functional) {console.error("[vueify] functional components are not supported and should be defined in plain js files using render functions.")}
-__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[(_vm.ShowFilterForm === true)?_vm._h('div',[_vm._h('div',{staticClass:"row",staticStyle:{"margin-bottom":"0"}},[_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.from'),"name":"filter_from","id":'filter_from_' + _vm.id,"data-default":_vm.FilterFromDate},domProps:{"value":_vm.FilterFromDate}})," ",_vm._h('label',{attrs:{"for":'filter_from_' + _vm.id}},[_vm._s(_vm.$t('labels.from'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.to'),"name":"filter_to","id":'filter_to_' + _vm.id,"data-default":_vm.FilterToDate},domProps:{"value":_vm.FilterToDate}})," ",_vm._h('label',{attrs:{"for":'filter_to_' + _vm.id}},[_vm._s(_vm.$t('labels.to'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m4 l4"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",on:{"click":_vm.build}},[_vm._s(_vm.$t('buttons.loadgraph'))])])])]):_vm._e()," ",_vm._h('div',{staticClass:"center",staticStyle:{"display":"none"},attrs:{"id":'dygraph_' + _vm.id + '_loading'}},[_vm._h('loading-indicator',{attrs:{"size":100}})])," ",_vm._h('div',{staticStyle:{"width":"100%"},attrs:{"id":'dygraph_' + _vm.id}})])}
-__vue__options__.staticRenderFns = []
+__vue__options__.render = function render () {var _vm=this;return _vm._h('div',[(_vm.ShowFilterForm === true)?_vm._h('div',[_vm._h('div',{staticClass:"row",staticStyle:{"margin-bottom":"0"}},[_vm._h('div',{staticClass:"input-field col s12 m6 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.from'),"name":"filter_from","id":'filter_from_' + _vm.id,"data-default":_vm.FilterFromDate},domProps:{"value":_vm.FilterFromDate}})," ",_vm._h('label',{attrs:{"for":'filter_from_' + _vm.id}},[_vm._s(_vm.$t('labels.from'))])])," ",_vm._h('div',{staticClass:"input-field col s12 m6 l4"},[_vm._h('input',{staticClass:"datepicker",attrs:{"type":"date","placeholder":_vm.$t('labels.to'),"name":"filter_to","id":'filter_to_' + _vm.id,"data-default":_vm.FilterToDate},domProps:{"value":_vm.FilterToDate}})," ",_vm._h('label',{attrs:{"for":'filter_to_' + _vm.id}},[_vm._s(_vm.$t('labels.to'))])])," ",_vm._h('div',{staticClass:"input-field col s8 m8 l2"},[_vm._h('button',{staticClass:"btn waves-effect waves-light",on:{"click":_vm.build}},[_vm._m(0)])])," ",_vm._h('div',{staticClass:"input-field col s4 m4 l2"},[_vm._h('input',{attrs:{"type":"text","id":'dygraph_' + _vm.id + '_rollperiodselector',"placeholder":_vm.$t('labels.rollperiod')},domProps:{"value":4},on:{"keyup":function($event){if($event.keyCode!==13){ return; }_vm.set_rollperiod($event)}}})," ",_vm._h('label',[_vm._s(_vm.$t('labels.rollperiod'))])])])]):_vm._e()," ",_vm._h('div',{staticClass:"center",staticStyle:{"display":"none"},attrs:{"id":'dygraph_' + _vm.id + '_loading'}},[_vm._h('loading-indicator',{attrs:{"size":100}})])," ",_vm._h('div',{staticStyle:{"width":"100%"},attrs:{"id":'dygraph_' + _vm.id}})])}
+__vue__options__.staticRenderFns = [function render () {var _vm=this;return _vm._h('i',{staticClass:"material-icons"},["refresh"])}]
 if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   hotAPI.install(require("vue"), true)
   if (!hotAPI.compatible) return
@@ -18770,7 +19442,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-5", __vue__options__)
   }
 })()}
-},{"./loading-indicator.vue":39,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],31:[function(require,module,exports){
+},{"./loading-indicator.vue":74,"babel-runtime/core-js/json/stringify":1,"babel-runtime/core-js/object/values":2,"vue":42,"vue-hot-reload-api":39}],66:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -18869,7 +19541,10 @@ exports.default = {
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             this.load_data();
         },
-        set_filter: function set_filter() {
+        set_filter: function set_filter(e) {
+            if (e) {
+                e.preventDefault();
+            }
             this.filter_string = '&';
             if (this.sourceFilter !== '') {
                 this.filter_string += this.sourceFilter + '&';
@@ -18948,12 +19623,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-19", __vue__options__)
+    hotAPI.createRecord("data-v-20", __vue__options__)
   } else {
-    hotAPI.reload("data-v-19", __vue__options__)
+    hotAPI.reload("data-v-20", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],32:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],67:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19086,12 +19761,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-20", __vue__options__)
+    hotAPI.createRecord("data-v-21", __vue__options__)
   } else {
-    hotAPI.reload("data-v-20", __vue__options__)
+    hotAPI.reload("data-v-21", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],33:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],68:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19235,12 +19910,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-18", __vue__options__)
+    hotAPI.createRecord("data-v-19", __vue__options__)
   } else {
-    hotAPI.reload("data-v-18", __vue__options__)
+    hotAPI.reload("data-v-19", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],34:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],69:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19359,12 +20034,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-41", __vue__options__)
+    hotAPI.createRecord("data-v-42", __vue__options__)
   } else {
-    hotAPI.reload("data-v-41", __vue__options__)
+    hotAPI.reload("data-v-42", __vue__options__)
   }
 })()}
-},{"vue":8,"vue-hot-reload-api":5}],35:[function(require,module,exports){
+},{"vue":42,"vue-hot-reload-api":39}],70:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19538,12 +20213,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-33", __vue__options__)
+    hotAPI.createRecord("data-v-34", __vue__options__)
   } else {
-    hotAPI.reload("data-v-33", __vue__options__)
+    hotAPI.reload("data-v-34", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],36:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],71:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19714,12 +20389,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-32", __vue__options__)
+    hotAPI.createRecord("data-v-33", __vue__options__)
   } else {
-    hotAPI.reload("data-v-32", __vue__options__)
+    hotAPI.reload("data-v-33", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],37:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],72:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -19935,7 +20610,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-4", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],38:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],73:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -20031,12 +20706,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6", __vue__options__)
+    hotAPI.createRecord("data-v-7", __vue__options__)
   } else {
-    hotAPI.reload("data-v-6", __vue__options__)
+    hotAPI.reload("data-v-7", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5,"vue-peity":7}],39:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39,"vue-peity":41}],74:[function(require,module,exports){
 ;(function(){
 "use strict";
 
@@ -20077,7 +20752,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-2", __vue__options__)
   }
 })()}
-},{"vue":8,"vue-hot-reload-api":5}],40:[function(require,module,exports){
+},{"vue":42,"vue-hot-reload-api":39}],75:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -20246,12 +20921,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-31", __vue__options__)
+    hotAPI.createRecord("data-v-32", __vue__options__)
   } else {
-    hotAPI.reload("data-v-31", __vue__options__)
+    hotAPI.reload("data-v-32", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],41:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],76:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -20422,12 +21097,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-30", __vue__options__)
+    hotAPI.createRecord("data-v-31", __vue__options__)
   } else {
-    hotAPI.reload("data-v-30", __vue__options__)
+    hotAPI.reload("data-v-31", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],42:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],77:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -20538,12 +21213,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-37", __vue__options__)
+    hotAPI.createRecord("data-v-38", __vue__options__)
   } else {
-    hotAPI.reload("data-v-37", __vue__options__)
+    hotAPI.reload("data-v-38", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],43:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],78:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -20716,12 +21391,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-29", __vue__options__)
+    hotAPI.createRecord("data-v-30", __vue__options__)
   } else {
-    hotAPI.reload("data-v-29", __vue__options__)
+    hotAPI.reload("data-v-30", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],44:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],79:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -20892,12 +21567,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-28", __vue__options__)
+    hotAPI.createRecord("data-v-29", __vue__options__)
   } else {
-    hotAPI.reload("data-v-28", __vue__options__)
+    hotAPI.reload("data-v-29", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],45:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],80:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -21052,12 +21727,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-25", __vue__options__)
+    hotAPI.createRecord("data-v-26", __vue__options__)
   } else {
-    hotAPI.reload("data-v-25", __vue__options__)
+    hotAPI.reload("data-v-26", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],46:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],81:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -21228,12 +21903,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-24", __vue__options__)
+    hotAPI.createRecord("data-v-25", __vue__options__)
   } else {
-    hotAPI.reload("data-v-24", __vue__options__)
+    hotAPI.reload("data-v-25", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],47:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],82:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -21300,7 +21975,7 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
     hotAPI.reload("data-v-1", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],48:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],83:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -21438,12 +22113,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-15", __vue__options__)
+    hotAPI.createRecord("data-v-16", __vue__options__)
   } else {
-    hotAPI.reload("data-v-15", __vue__options__)
+    hotAPI.reload("data-v-16", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],49:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],84:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -21728,12 +22403,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-14", __vue__options__)
+    hotAPI.createRecord("data-v-15", __vue__options__)
   } else {
-    hotAPI.reload("data-v-14", __vue__options__)
+    hotAPI.reload("data-v-15", __vue__options__)
   }
 })()}
-},{"./inline-graph.vue":38,"./loading-indicator.vue":39,"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],50:[function(require,module,exports){
+},{"./inline-graph.vue":73,"./loading-indicator.vue":74,"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],85:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -21828,12 +22503,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-34", __vue__options__)
+    hotAPI.createRecord("data-v-35", __vue__options__)
   } else {
-    hotAPI.reload("data-v-34", __vue__options__)
+    hotAPI.reload("data-v-35", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],51:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],86:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -21989,12 +22664,12 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-27", __vue__options__)
+    hotAPI.createRecord("data-v-28", __vue__options__)
   } else {
-    hotAPI.reload("data-v-27", __vue__options__)
+    hotAPI.reload("data-v-28", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}],52:[function(require,module,exports){
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}],87:[function(require,module,exports){
 ;(function(){
 'use strict';
 
@@ -22165,11 +22840,11 @@ if (module.hot) {(function () {  var hotAPI = require("vue-hot-reload-api")
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-26", __vue__options__)
+    hotAPI.createRecord("data-v-27", __vue__options__)
   } else {
-    hotAPI.reload("data-v-26", __vue__options__)
+    hotAPI.reload("data-v-27", __vue__options__)
   }
 })()}
-},{"babel-runtime/core-js/json/stringify":1,"vue":8,"vue-hot-reload-api":5}]},{},[11]);
+},{"babel-runtime/core-js/json/stringify":1,"vue":42,"vue-hot-reload-api":39}]},{},[45]);
 
 //# sourceMappingURL=vue.js.map
