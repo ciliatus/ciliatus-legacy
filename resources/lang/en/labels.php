@@ -174,5 +174,6 @@ return [
     'association'   =>  'Association',
     'choose_logfile'=>  'Choose a log file',
     'no_image'      =>  'No image',
-    'features'      =>  'Features'
+    'features'      =>  'Features',
+    'rollperiod'    =>  'Roll period'
 ];

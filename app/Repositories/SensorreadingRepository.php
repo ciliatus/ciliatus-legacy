@@ -24,10 +24,15 @@ class SensorreadingRepository extends Repository {
 
     }
 
-    public function getByLogicalSensor($query, array $logical_sensor_ids,
-                                       Carbon $time_of_day_from = null, Carbon $time_of_day_to = null)
+    /**
+     * @param $query
+     * @param array $logical_sensor_ids
+     * @return mixed
+     */
+    public function getByLogicalSensor($query, array $logical_sensor_ids)
     {
-
+        return $query->with('logical_sensor')
+                     ->whereIn('logical_sensor_id', $logical_sensor_ids)->orderBy('created_at', 'desc');
     }
 
     /**

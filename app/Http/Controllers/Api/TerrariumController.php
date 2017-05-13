@@ -490,37 +490,28 @@ class TerrariumController extends ApiController
         }
 
         $query = $this->filter($request, Sensorreading::query());
+        $logical_sensor_ids = [];
 
-        $sensor_types = ['humidity_percent', 'temperature_celsius'];
-        $data = [];
-
-        foreach ($sensor_types as $st) {
-            $logical_sensor_ids = [];
-            foreach ($terrarium->physical_sensors as $ps) {
-                foreach ($ps->logical_sensors()->where('type', $st)->get() as $ls) {
-                    $logical_sensor_ids[] = $ls->id;
-                }
+        foreach ($terrarium->physical_sensors as $ps) {
+            foreach ($ps->logical_sensors as $ls) {
+                $logical_sensor_ids[] = $ls->id;
             }
-
-            $data[$st] = (new SensorreadingRepository())->getAvgByLogicalSensor(clone $query, $logical_sensor_ids)->get();
-
         }
 
-        if ($request->has('csv')) {
-            $data_arr = [];
-            $csv_fields = [];
-            $csv_fields['created_at'] = trans('labels.created_at');
-            foreach ($data as $type=>$values) {
-                $csv_fields[$type] = trans('labels.' . $type);
-                foreach ($values as $reading) {
-                    $data_arr[$reading->sensorreadinggroup_id]['created_at'] = $reading->created_at;
-                    $data_arr[$reading->sensorreadinggroup_id][$type] = $reading->avg_rawvalue;
-                }
-            }
+        $data = (new SensorreadingRepository())
+                    ->getByLogicalSensor($query, $logical_sensor_ids)
+                    ->get()
+                    ->toArray();
 
-            $data = $this->convert('csv', $csv_fields, $data_arr);
-
-        }
+        $data = array_map(function ($sr) {
+            return [
+                'value' => $sr['rawvalue'],
+                'created_at' => $sr['created_at'],
+                'logical_sensor_name' => $sr['logical_sensor']['name'],
+                'logical_sensor_id' => $sr['logical_sensor_id'],
+                'value_type' => $sr['logical_sensor']['type']
+            ];
+        }, $data);
 
         return $this->setStatusCode(200)->respondWithData($data);
     }

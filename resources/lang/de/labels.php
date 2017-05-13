@@ -174,5 +174,6 @@ return [
     'association'   =>  'Verknüpfung',
     'choose_logfile'=>  'Log-Datei auswählen',
     'no_image'      =>  'Kein Bild',
-    'features'      =>  'Features'
+    'features'      =>  'Features',
+    'rollperiod'    =>  'Rollperiode'
 ];
