@@ -72,13 +72,40 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons right">save</i>
+                                        <i class="material-icons left">save</i>
                                     </button>
                                 </div>
                             </div>
 
                         </div>
                     </form>
+                </div>
+            </div>
+
+            <div class="col s12 m12 l6">
+                <div class="card">
+                    <div class="card-content">
+                        <span class="card-title activator truncate">
+                            <span>@choice('components.files', 2)</span>
+                        </span>
+                    </div>
+                    <div class="card-content">
+                        @if(isset($entry->files))
+                        @foreach($entry->files as $file)
+                            <div style="width: 100%">
+                                <form action="{{ url('api/v1/files/associate/BiographyEntryEvent/' . $entry->id . '/' . $file->id) }}"
+                                      data-method="DELETE" data-redirect-success="/biography_entries/{{ $entry->id }}/edit">
+
+                                    <a href="{{ $file->url() }}">{{ $file->display_name }}</a>
+                                    <button class="btn btn-tiny waves-light right" type="submit">x</button>
+                                </form>
+                            </div>
+                        @endforeach
+                        @endif
+                    </div>
+                    <div class="card-action">
+                        <a href="/files/associate/BiographyEntryEvent/{{ $entry->id }}">@lang("buttons.add")</a>
+                    </div>
                 </div>
             </div>
         </div>
@@ -90,10 +117,6 @@
         </a>
         <ul>
             <li><a class="btn-floating red" href="/biography_entries/{{ $entry->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green" href="/biography_entries/create?preset[belongsTo_type]={{ $entry->belongsTo_type }}&preset[belongsTo_id]={{ $entry->belongsTo_id }}"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
-@stop
-
-@section('scripts')
 @stop

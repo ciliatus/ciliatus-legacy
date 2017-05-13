@@ -62,7 +62,14 @@ LiveData.prototype.stop = function()
 
 window.submit_form = function (e, _callback = undefined)
 {
+
+    console.log(e);
     e.preventDefault();
+
+    if ($(e.target).data('prevent-submit-on-enter') === true
+        && e.keyCode === 13) {
+        return false;
+    }
 
     var btns = $('button[type=submit]:enabled');
     btns.attr('disabled', 'disabled');
@@ -114,7 +121,12 @@ window.submit_form = function (e, _callback = undefined)
                 'data': data
             });
             if (callback !== undefined) {
-                callback(data);
+                if (typeof callback === 'string') {
+                    window[callback](data);
+                }
+                else {
+                    callback(data);
+                }
             }
 
             if (redirect_success !== undefined) {

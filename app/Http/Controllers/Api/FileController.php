@@ -153,13 +153,7 @@ class FileController extends ApiController
         /*
          * Create file model
          */
-        try {
-            $file = File::createFromRequest($request, Auth::user()->id);
-        }
-        Catch (ErrorException $ex) {
-            return $this->setStatusCode(500)
-                ->respondWithError('Directory could not be created.' . $ex->getMessage());
-        }
+        $file = File::createFromRequest($request, Auth::user()->id);
 
         /*
          * Look for optional inputs
@@ -262,6 +256,42 @@ class FileController extends ApiController
             ]
         ]);
 
+    }
+
+    public function associate(Request $request, $type, $id)
+    {
+        $source_class = 'App\\' . $type;
+        $source = $source_class::find($id);
+        if (is_null($source)) {
+            return $this->respondNotFound('Source not found');
+        }
+
+        $file = File::find($request->input('file'));
+        if (is_null($file)) {
+            return $this->respondNotFound('File not found');
+        }
+
+        $source->files()->save($file);
+
+        return $this->respondWithData([]);
+    }
+
+    public function associate_delete(Request $request, $type, $id, $file_id)
+    {
+        $source_class = 'App\\' . $type;
+        $source = $source_class::find($id);
+        if (is_null($source)) {
+            return $this->respondNotFound('Source not found');
+        }
+
+        $file = File::find($file_id);
+        if (is_null($file)) {
+            return $this->respondNotFound('File not found');
+        }
+
+        $source->files()->detach($file);
+
+        return $this->respondWithData([]);
     }
 
 }

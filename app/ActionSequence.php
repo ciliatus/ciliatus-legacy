@@ -7,7 +7,29 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class ActionSequence
+ *
  * @package App
+ * @property string $id
+ * @property string $name
+ * @property string $terrarium_id
+ * @property int $duration_minutes
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property bool $runonce
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Action[] $actions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\ActionSequenceIntention[] $intentions
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\ActionSequenceSchedule[] $schedules
+ * @property-read \App\Terrarium $terrarium
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\ActionSequenceTrigger[] $triggers
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereDurationMinutes($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereRunonce($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereTerrariumId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class ActionSequence extends CiliatusModel
 {

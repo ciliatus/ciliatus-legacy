@@ -10,6 +10,7 @@ use App\Terrarium;
 use Cache;
 use Gate;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 
 /**
@@ -131,6 +132,8 @@ class ValveController extends ApiController
      */
     public function store(Request $request)
     {
+
+        \Log::debug(Auth::user()->name);
 
         if (Gate::denies('api-write:valve')) {
             return $this->respondUnauthorized();

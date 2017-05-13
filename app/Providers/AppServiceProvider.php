@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use App\Observers\SensorreadingObserver;
+use App\Sensorreading;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        //
+        Sensorreading::observe(SensorreadingObserver::class);
     }
 
     /**

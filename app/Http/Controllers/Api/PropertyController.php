@@ -127,15 +127,22 @@ class PropertyController extends ApiController
             return $this->setStatusCode(422)->respondWithError("Missing fields. Required: " . implode(',', $required_fields));
         }
 
-        $belongs_to = ('App\\' . $request->input('belongsTo_type'))::find($request->input('belongsTo_id'));
+        $belongsTo_type = $request->input('belongsTo_type');
+        $belongsTo_id = $request->input('belongsTo_id');
+
+        $class_name = "App\\$belongsTo_type";
+        if (!class_exists($class_name)) {
+            return $this->setStatusCode(422)->respondWithError("Class not found: " . $class_name);
+        }
+
+        $belongs_to = $class_name::find($belongsTo_id);
         if (is_null($belongs_to)) {
-            return $this->setStatusCode(422)->respondWithError("Object " . $request->input('belongsTo_id') .
-                                                               " of type " . $request->input('belongsTo_type') . " not found.");
+            return $this->setStatusCode(422)->respondWithError("Object $belongsTo_id of type $belongsTo_type not found.");
         }
 
         $p = Property::create([
-            'belongsTo_type' => $request->input('belongsTo_type'),
-            'belongsTo_id' => $request->input('belongsTo_id'),
+            'belongsTo_type' => $belongsTo_type,
+            'belongsTo_id' => $belongs_to->id,
             'type' => $request->input('type'),
             'name' => $request->input('name')
         ]);
@@ -150,36 +157,51 @@ class PropertyController extends ApiController
             $belongs_to->save();
         }
 
-        return $this->respondWithData([]);
+        return $this->respondWithData([
+            'id' => $p->id
+        ]);
 
     }
 
     /**
      * @return \Illuminate\Http\JsonResponse
      */
-    public function update(Request $request)
+    public function update(Request $request, $id)
     {
 
         if (Gate::denies('api-write:property')) {
             return $this->respondUnauthorized();
         }
 
-        $property = Property::find($request->input('property_id'));
+        $property = Property::find($id);
         if (is_null($property)) {
             return $this->respondNotFound('Property not found');
         }
 
+        if ($request->has('belongsTo_type') && $request->has('belongsTo_id')) {
+            $belongsTo_type = $request->input('belongsTo_type');
+            $belongsTo_id = $request->input('belongsTo_id');
+
+            $class_name = "App\\$belongsTo_type";
+            if (!class_exists($class_name)) {
+                return $this->setStatusCode(422)->respondWithError("Class not found: " . $class_name);
+            }
+
+            $belongs_to = $class_name::find($belongsTo_id);
+            if (is_null($belongs_to)) {
+                return $this->setStatusCode(422)->respondWithError("Object $belongsTo_id of type $belongsTo_type not found.");
+            }
+
+            $property->belongsTo_type = $belongsTo_type;
+            $property->belongsTo_id = $belongs_to->id;
+        }
+
         $this->updateModelProperties($property, $request, [
-            'name' => 'property_name'
+            'name', 'value', 'type'
         ]);
         $property->save();
 
-        return $this->setStatusCode(200)->respondWithData([], [
-            'redirect' => [
-                'uri'   => url('propertys'),
-                'delay' => 1000
-            ]
-        ]);
+        return $this->setStatusCode(200)->respondWithData([]);
 
     }
 

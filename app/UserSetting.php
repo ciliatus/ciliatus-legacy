@@ -6,7 +6,23 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class UserSetting
+ *
  * @package App
+ * @property string $id
+ * @property string $user_id
+ * @property string $name
+ * @property string $value
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Query\Builder|\App\UserSetting whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\UserSetting whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\UserSetting whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\UserSetting whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\UserSetting whereUserId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\UserSetting whereValue($value)
+ * @mixin \Eloquent
  */
 class UserSetting extends CiliatusModel
 {

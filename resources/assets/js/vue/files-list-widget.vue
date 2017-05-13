@@ -4,12 +4,15 @@
             <table class="responsive highlight collapsible" data-collapsible="expandable">
                 <thead>
                 <tr>
+                    <th v-if="showOptionSelect" width="100">
+
+                    </th>
                     <th data-field="display_name">
                         <a href="#!" v-on:click="set_order('name')">{{ $t('labels.display_name') }}</a>
                         <i v-show="order.field == 'display_name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'display_name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
                         <div class="input-field inline">
-                            <input id="filter_display_name" type="text" v-model="filter.display_name" v-on:keyup.enter="set_filter">
+                            <input id="filter_display_name" type="text" v-model="filter.display_name" v-on:keydown.enter="set_filter">
                             <label for="filter_display_name">Filter</label>
                         </div>
                     </th>
@@ -19,7 +22,7 @@
                         <i v-show="order.field == 'mimetype' && order.direction == 'mimetype'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'mimetype' && order.direction == 'mimetype'" class="material-icons">arrow_drop_down</i>
                         <div class="input-field inline">
-                            <input id="filter_mimetype" type="text" v-model="filter.mimetype" v-on:keyup.enter="set_filter">
+                            <input id="filter_mimetype" type="text" v-model="filter.mimetype" v-on:keydown.enter="set_filter">
                             <label for="filter_mimetype">Filter</label>
                         </div>
                     </th>
@@ -29,7 +32,7 @@
                         <i v-show="order.field == 'size' && order.direction == 'size'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'size' && order.direction == 'size'" class="material-icons">arrow_drop_down</i>
                         <div class="input-field inline">
-                            <input id="filter_size" type="text" v-model="filter.size" v-on:keyup.enter="set_filter">
+                            <input id="filter_size" type="text" v-model="filter.size" v-on:keydown.enter="set_filter">
                             <label for="filter_size">Filter</label>
                         </div>
                     </th>
@@ -43,6 +46,13 @@
                 <template v-for="file in files">
                     <tbody>
                         <tr class="collapsible-header">
+
+                            <td v-if="showOptionSelect">
+                                <span>
+                                    <input name="file" type="radio" :id="file.id" :value="file.id">
+                                    <label :for="file.id"> </label>
+                                </span>
+                            </td>
 
                             <td>
                                 <span>
@@ -83,8 +93,10 @@
 
                         </tr>
                         <tr class="collapsible-body">
-                            <td colspan="3">
-                                
+                            <td v-if="showOptionSelect">
+                            </td>
+                            <td colspan="4">
+                                <img v-if="file.mimetype.startsWith('image') && file.thumb != undefined" :src="file.thumb.path_external">
                             </td>
                         </tr>
                     </tbody>
@@ -150,12 +162,17 @@ export default {
         },
         sourceFilter: {
             type: String,
-            default: '',
+            default: 'filter[usage]=notlike:thumb:or:null',
             required: false
         },
         refreshTimeoutSeconds: {
             type: Number,
             default: 60,
+            required: false
+        },
+        showOptionSelect: {
+            type: Boolean,
+            default: false,
             required: false
         }
     },
@@ -202,7 +219,10 @@ export default {
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             this.load_data();
         },
-        set_filter: function() {
+        set_filter: function(e) {
+            if (e) {
+                e.preventDefault();
+            }
             this.filter_string = '&';
             if (this.sourceFilter !== '') {
                 this.filter_string += this.sourceFilter + '&';
@@ -227,7 +247,7 @@ export default {
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/files?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
+                url: '/api/v1/files?page=' + that.page + that.filter_string + that.order_string,
                 method: 'GET',
                 success: function (data) {
                     that.meta = data.meta;

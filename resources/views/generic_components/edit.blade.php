@@ -79,7 +79,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons right">save</i>
+                                        <i class="material-icons left">save</i>
                                     </button>
                                 </div>
                             </div>

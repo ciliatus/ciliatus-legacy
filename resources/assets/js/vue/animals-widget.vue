@@ -53,7 +53,7 @@
 
                         <div class="modal-footer">
                             <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
-                                <i class="material-icons right">send</i>
+                                <i class="material-icons left">send</i>
                             </button>
                         </div>
                     </form>
@@ -73,7 +73,7 @@
 
                         <div class="modal-footer">
                             <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
-                                <i class="material-icons right">send</i>
+                                <i class="material-icons left">send</i>
                             </button>
                         </div>
                     </form>
@@ -82,8 +82,7 @@
                 <!-- Card -->
                 <div class="card">
                     <div class="card-image waves-effect waves-block waves-light terrarium-card-image"
-                         v-bind:class="animal.default_background_filepath ? '' : 'teal lighten-1'"
-                         v-bind:style="animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : ''">
+                         v-bind:style="animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
                     </div>
 
                     <div class="card-content">
@@ -98,21 +97,32 @@
 
                             <span v-if="animal.last_feeding && !animal.death_date">
                                 <br />
-                                <i class="material-icons tiny">local_dining</i>
-                                <span v-if="animal.last_feeding.timestamps.created_diff.days == 0">
-                                    <span v-if="animal.last_feeding.timestamps.created_diff.is_today">
-                                        {{ $t("labels.today") }}:
-                                    </span>
-                                    <span v-else>
-                                        {{ $t("labels.yesterday") }}:
-                                    </span>
-                                </span>
-                                <span v-else>
-                                    {{ $t('units.days_ago', {val: animal.last_feeding.timestamps.created_diff.days}) }}:
-                                </span>
+                                <i class="material-icons tiny">local_dining</i>BiographyEntryEvent.php
+                                {{ $t(
+                                    'units.' + $getMatchingTimeDiff(animal.last_feeding.timestamps.created_diff).unit,
+                                    {val: $getMatchingTimeDiff(animal.last_feeding.timestamps.created_diff).val}
+                                )}}
                                 {{ animal.last_feeding.name }}
                             </span>
-                            <br />
+
+                            <span v-if="animal.last_weighing && !animal.death_date">
+                                <br />
+                                <i class="material-icons tiny">file_download</i>
+                                {{ $t(
+                                    'units.' + $getMatchingTimeDiff(animal.last_weighing.timestamps.created_diff).unit,
+                                    {val: $getMatchingTimeDiff(animal.last_weighing.timestamps.created_diff).val}
+                                )}}
+                                {{ animal.last_weighing.value }}{{ animal.last_weighing.name }}
+                                <span v-if="animal.last_weighing.trend && animal.last_weighing.trend > 0" class="green-text">
+                                    (+ {{ animal.last_weighing.trend }}%)
+                                </span>
+                                <span v-if="animal.last_weighing.trend && animal.last_weighing.trend < 0" class="red-text">
+                                    ({{ animal.last_weighing.trend }}%)
+                                </span>
+                                <span v-if="animal.last_weighing.trend && animal.last_weighing.trend == 0">
+                                    (+/- 0%)
+                                </span>
+                            </span>
                         </p>
                     </div>
 

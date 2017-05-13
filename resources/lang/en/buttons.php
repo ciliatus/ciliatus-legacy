@@ -4,6 +4,8 @@ return [
     'next'      =>  'Next',
     'save'      =>  'Save',
     'delete'    =>  'Delete',
+    'delete_type'=> 'Delete :type',
+    'delete_all_type'=>  'Delete all :type',
     'loadgraph' =>  'Load graph',
     'upload'    =>  'Upload',
     'start_setup'=> 'Start Setup',

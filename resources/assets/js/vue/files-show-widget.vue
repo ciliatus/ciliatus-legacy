@@ -33,11 +33,13 @@
                 </div>
             </div>
 
-            <div class="col s12 m12 l8">
+            <div class="col s12 m12 l8" v-if="file.is_image && file.thumb !== undefiend">
                 <div class="card">
-                    <div v-if="file.is_image"
-                         class="card-image waves-effect waves-block waves-light file-card-image">
-                        <img :src="file.path_external" />
+                    <div class="card-content orange darken-4 white-text">
+                        <span>{{ $t('labels.preview') }}</span>
+                    </div>
+                    <div class="card-content">
+                        <img :src="file.thumb.path_external" />
                     </div>
                 </div>
             </div>

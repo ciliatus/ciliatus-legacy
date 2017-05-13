@@ -70,6 +70,18 @@ class AnimalTransformer extends Transformer
                 ];
         }
 
+        if (isset($item['last_weighing'])) {
+            $return['last_weighing'] = [
+                'name' => $item['last_weighing']['name'],
+                'value' => $item['last_weighing']['value'],
+                'timestamps' => $this->parseTimestamps($item['last_weighing'])
+            ];
+
+            if (isset($item['last_weighing']['trend'])) {
+                $return['last_weighing']['trend'] = $item['last_weighing']['trend'];
+            }
+        }
+
         if (isset($item['feedings'])) {
             $return['feedings'] = (new AnimalFeedingTransformer())->transformCollection($item['feedings']);
         }

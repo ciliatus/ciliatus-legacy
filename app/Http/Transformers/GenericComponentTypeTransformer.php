@@ -24,7 +24,8 @@ class GenericComponentTypeTransformer extends Transformer
     {
         $return = [
             'id'    => $item['id'],
-            'name' => $item['name'],
+            'name_singular' => $item['name_singular'],
+            'name_plural' => $item['name_plural'],
             'timestamps' => $this->parseTimestamps($item),
             'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
             'url'           =>  isset($item['url'])? $item['url'] : ''

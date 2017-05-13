@@ -18,5 +18,8 @@ return [
     'logs'          =>  'Protokoll',
     'categories'    =>  'Kategorien',
     'monitoring'    =>  'Überwachung',
-    'automation'    =>  'Automatisierung'
+    'automation'    =>  'Automatisierung',
+    'ciliatus_logs' =>  'Ciliatus Logs',
+    'system_logs'   =>  'System Logs',
+    'system_status' =>  'System Status'
 ];

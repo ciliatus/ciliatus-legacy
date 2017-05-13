@@ -50,6 +50,7 @@ Route::group(['namespace' => 'Web', 'middleware' => 'web'], function() {
     Route::get('animal_feeding_schedules', 'AnimalFeedingScheduleController@index');
 
     // Weighings
+    Route::get('animals/weighings', 'AnimalWeighingController@index');
     Route::get('animals/{animal_id}/weighings/{id}/delete', 'AnimalWeighingController@delete');
     Route::resource('animals/{animal_id}/weighings', 'AnimalWeighingController');
     Route::resource('animals/{animal_id}/weighing_schedules', 'AnimalWeighingScheduleController');
@@ -117,7 +118,8 @@ Route::group(['namespace' => 'Web', 'middleware' => 'web'], function() {
      */
     Route::resource('files', 'FileController');
     Route::get('files/{id}/delete', 'FileController@delete');
-    Route::get('files/{id}/download/{display_name?}', 'FileController@download');
+    Route::get('files/associate/{type}/{id}', 'FileController@associate');
+    Route::get('files/{id}/download/{display_name?}{ext?}', 'FileController@download');
 
     // file properties
     Route::resource('file_properties', 'PropertyController');
@@ -181,6 +183,8 @@ Route::group(['namespace' => 'Web', 'middleware' => 'web'], function() {
      * Logs
      */
     Route::resource('logs', 'LogController');
+    Route::resource('system_logs', 'SystemLogController');
+    Route::get('system/status', 'SystemController@index');
 
 
     Route::get('map', 'DashboardController@map');
@@ -307,6 +311,8 @@ Route::group(['namespace' => 'Api', 'prefix' => 'api/v1', 'middleware' => ['auth
      * Files
      */
     Route::resource('files', 'FileController');
+    Route::delete('files/associate/{source_type}/{source_id}/{file_id}', 'FileController@associate_delete');
+    Route::post('files/associate/{source_type}/{source_id}', 'FileController@associate');
 
     // File properties
     Route::resource('file_properties', 'PropertyController');

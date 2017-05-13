@@ -51,5 +51,6 @@ return [
     'experimental_feature'=>'This is an experimental feature.',
     'action_sequence_schedules' => [
         'skip'  => 'Skip today\'s run.'
-    ]
+    ],
+    'associate_new' => 'Associate <i class="material-icons">:source_icon</i> :source_type ":source_name" with <i class="material-icons">:target_icon</i> :target_type'
 ];

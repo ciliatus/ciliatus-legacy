@@ -10,6 +10,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Matthenning\EloquentApiFilter\EloquentApiFilter;
+use Matthenning\EloquentApiFilter\Traits\FiltersEloquentApi;
 
 /**
  * Class ApiController
@@ -17,6 +18,9 @@ use Matthenning\EloquentApiFilter\EloquentApiFilter;
  */
 class ApiController extends Controller
 {
+
+    use FiltersEloquentApi;
+
     /**
      * @var
      */
@@ -102,6 +106,8 @@ class ApiController extends Controller
      */
     public function respondWithError($message, $entityId = null)
     {
+        \Log::info('Request terminated in error ' . $this->getStatusCode() . ' (' . $this->getErrorCode() . '): ' . $message);
+
         return $this->respond([
             'http_code' => $this->getStatusCode(),
             'error'     => [
@@ -263,7 +269,7 @@ class ApiController extends Controller
      */
     protected function filter(Request $request, Builder $query)
     {
-        return (new EloquentApiFilter($request, $query))->filter();
+        return $this->filterApiRequest($request, $query);
     }
 
     /**
@@ -297,6 +303,9 @@ class ApiController extends Controller
                     foreach ($fields as $f=>$display_name) {
                         if (isset($row[$f])) {
                             $row_arr[] = $row[$f];
+                        }
+                        else {
+                            $row_arr[] = '';
                         }
                     }
                     $csv .= PHP_EOL . implode(',', $row_arr);

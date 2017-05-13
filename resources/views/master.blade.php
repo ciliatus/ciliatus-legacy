@@ -8,12 +8,13 @@
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <link href="https://fonts.googleapis.com/css?family=Montserrat:400,900" rel="stylesheet">
         @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on' || (Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night()))
-            <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/materialize_dark.min.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/v1.7-beta//css/vendors/materialize_dark.min.css"  media="screen,projection"/>
         @else
-            <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/materialize.min.css"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/v1.7-beta//css/vendors/materialize.min.css"  media="screen,projection"/>
         @endif
-        <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/timeline.css"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="/v1.6-beta/css/vendors/materialize.clockpicker.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/v1.7-beta//css/vendors/timeline.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/v1.7-beta//css/vendors/materialize.clockpicker.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/v1.7-beta//css/vendors/dygraph.min.css"  media="screen,projection"/>
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script>
@@ -66,6 +67,12 @@
                                 @yield('breadcrumbs')
                             </span>
 
+                            <span class="right overlay-loader hide-on-med-and-up">
+                                <img src="https://dev-43256.ciliatus.io/svg/Ciliatus_Logo.svg"
+                                     class="main-loader loader-icon" id="loader-icon"
+                                     style="height: 44px; width: 44px; position: relative; top: 6px; right: 10px;">
+                            </span>
+
                             <ul class="right" style="position:relative; right: 0px;">
                                 <li>
                                     @if(App\System::hasVoiceCapability())
@@ -82,10 +89,13 @@
                 <ul id="nav-mobile" class="side-nav fixed">
                     <li>
                         <div class="userView orange darken-4" id="left-top-menu-logo-wrapper">
-                            <div class="background" id="left-top-menu-logo">
-                                <div style="margin-top: 150px;" class="white-text" id="left-top-menu-title">
-                                    <span>Ciliatus</span>
-                                </div>
+                            <div class="overlay-loader center">
+                                <img src="https://dev-43256.ciliatus.io/svg/Ciliatus_Logo.svg"
+                                     class="main-loader loader-icon" id="loader-icon"
+                                     style="width: 100px; width: 100px;">
+                            </div>
+                            <div class="center">
+                                <span class="white-text brand-title">Ciliatus</span>
                             </div>
                         </div>
                         <div class="no-padding" id="system-indicator">
@@ -189,16 +199,28 @@
                                                 @lang('menu.users')
                                             </a>
                                         </li>
-                                        <li @if(Request::is('logs', 'logs/*')) class="active" @endif>
-                                            <a href="{{ url('logs') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">history</i>
-                                                @lang('menu.logs')
-                                            </a>
-                                        </li>
                                         <li @if(Request::is('categories')) class="active" @endif>
                                             <a href="{{ url('categories') }}" class="waves-effect waves-orange">
                                                 <i class="material-icons">layers</i>
                                                 @lang('menu.categories')
+                                            </a>
+                                        </li>
+                                        <li @if(Request::is('logs', 'logs/*')) class="active" @endif>
+                                            <a href="{{ url('logs') }}" class="waves-effect waves-orange">
+                                                <i class="material-icons">history</i>
+                                                @lang('menu.ciliatus_logs')
+                                            </a>
+                                        </li>
+                                        <li @if(Request::is('system_logs', 'system_logs/*')) class="active" @endif>
+                                            <a href="{{ url('system_logs') }}" class="waves-effect waves-orange">
+                                                <i class="material-icons">history</i>
+                                                @lang('menu.system_logs')
+                                            </a>
+                                        </li>
+                                        <li @if(Request::is('system', 'system/*')) class="active" @endif>
+                                            <a href="{{ url('system/status') }}" class="waves-effect waves-orange">
+                                                <i class="material-icons">public</i>
+                                                @lang('menu.system_status')
                                             </a>
                                         </li>
                                     </ul>
@@ -210,8 +232,8 @@
                     <li><div class="divider"></div></li>
 
                     <li><a href="https://github.com/matthenning/ciliatus/issues" class="waves-effect waves-orange"><i class="material-icons">bug_report</i>@lang('labels.bugtracker')</a></li>
-                    <li><a href="https://ciliatus.io/docs/v1.6-beta" class="waves-effect waves-orange"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
-                    <li><a href="https://github.com/matthenning/ciliatus/releases/tag/v1.6-beta" class="waves-effect waves-orange"><i class="material-icons">linear_scale</i>Version v1.6-beta</a></li>
+                    <li><a href="https://ciliatus.io/docs/{{ config('app.version') }}" class="waves-effect waves-orange"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
+                    <li><a href="https://github.com/matthenning/ciliatus/releases/tag/{{ config('app.version') }}" class="waves-effect waves-orange"><i class="material-icons">linear_scale</i>Version {{ config('app.version') }}</a></li>
                     @endif
 
                     <li class="red lighten-5"><a @if(!App\ActionSequence::stopped())href="/action_sequences/stop_all" @else href="/action_sequences/resume_all" @endif class="waves-effect waves-red red-text"><i class="material-icons red-text">power_settings_new</i>@lang('buttons.emergency_stop')</a></li>
@@ -221,17 +243,11 @@
                     <li><a href="#" onclick="$.post('/auth/logout'); setTimeout(function () { window.location.replace('/') }, 200);" class="waves-effect waves-orange"><i class="material-icons">exit_to_app</i>@lang('labels.logout')</a></li>
                 </ul>
 
-                <div style="width: 100%; margin: 0; height: 10px; position: relative; z-index: 1001">
-                    <div class="progress" id="global-loading-bar" style="display: none; width: 100%; margin: 0">
-                        <div class="indeterminate"></div>
-                    </div>
-                </div>
-
             </header>
 
             <main style="height: 100%;">
 
-                <div id="content" style="height: 100%; position: relative; top: -10px;">
+                <div id="content" style="height: 100%;">
                     @yield('content')
                 </div>
             </main>
@@ -241,17 +257,19 @@
         <!-- Google Charts -->
         <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
         <!-- Materialize.js -->
-        <script src="{{ url('/v1.6-beta/js/vendors/materialize.min.js') }}"></script>
+        <script src="{{ url('/v1.7-beta//js/vendors/materialize.min.js') }}"></script>
         <!-- Materialize.clockpicker.js -->
-        <script src="{{ url('/v1.6-beta/js/vendors/materialize.clockpicker.js') }}"></script>
+        <script src="{{ url('/v1.7-beta//js/vendors/materialize.clockpicker.js') }}"></script>
         <!-- Masonry -->
-        <script src="{{ url('/v1.6-beta/js/vendors/masonry.pkgd.min.js') }}"></script>
+        <script src="{{ url('/v1.7-beta//js/vendors/masonry.pkgd.min.js') }}"></script>
         <!-- Laravel-Echo -->
-        <script src="{{ url('/v1.6-beta/js/vendors/echo.min.js') }}"></script>
+        <script src="{{ url('/v1.7-beta//js/vendors/echo.min.js') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('/v1.6-beta/js/app.min.js') }}"></script>
+        <script src="{{ url('/v1.7-beta//js/app.js') }}"></script>
         <!-- Vue -->
-        <script src="{{ url('/v1.6-beta/js/vendors/vue.js') }}"></script>
+        <script src="{{ url('/v1.7-beta//js/vendors/vue.js') }}"></script>
+        <!-- Dygraph -->
+        <script src="{{ url('/v1.7-beta/js/vendors/dygraph.min.js') }}"></script>
 
         @yield('scripts')
 
@@ -264,8 +282,6 @@
                 });
             });
         </script>
-
-        <script src="//cdnjs.cloudflare.com/ajax/libs/dygraph/1.1.1/dygraph-combined.js"></script>
 
     </body>
 </html>

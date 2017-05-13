@@ -6,7 +6,7 @@ use App\Events\TerrariumUpdated;
 use App\Events\TerrariumDeleted;
 use App\Http\Transformers\TerrariumTransformer;
 use App\Repositories\SensorreadingRepository;
-use Cache;
+use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 use Carbon\CarbonInterval;
 use DB;
@@ -15,7 +15,42 @@ use Illuminate\Support\Collection;
 
 /**
  * Class Terrarium
+ *
+ * @property mixed physical_sensors
+ * @property mixed logical_sensors
+ * @property mixed properties
  * @package App
+ * @property string $id
+ * @property string $name
+ * @property string $display_name
+ * @property bool $notifications_enabled
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property bool $humidity_critical
+ * @property bool $temperature_critical
+ * @property bool $heartbeat_critical
+ * @property float $cooked_humidity_percent
+ * @property float $cooked_temperature_celsius
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\ActionSequence[] $action_sequences
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Animal[] $animals
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\GenericComponent[] $generic_components
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\LogicalSensor[] $logical_sensors
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\PhysicalSensor[] $physical_sensors
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Valve[] $valves
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereCookedHumidityPercent($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereCookedTemperatureCelsius($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereDisplayName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereHeartbeatCritical($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereHumidityCritical($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereNotificationsEnabled($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereTemperatureCritical($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Terrarium whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class Terrarium extends CiliatusModel
 {
@@ -83,6 +118,14 @@ class Terrarium extends CiliatusModel
         $this->heartbeat_critical = !$this->heartbeatOk();
         $this->cooked_humidity_percent = $this->getCurrentHumidity();
         $this->cooked_temperature_celsius = $this->getCurrentTemperature();
+
+        if (!is_null($this->cooked_humidity_percent)) {
+            $this->cooked_humidity_percent = round($this->cooked_humidity_percent, 1);
+        }
+
+        if (!is_null($this->cooked_temperature_celsius)) {
+            $this->cooked_temperature_celsius = round($this->cooked_temperature_celsius, 1);
+        }
     }
 
     /**
@@ -154,7 +197,7 @@ class Terrarium extends CiliatusModel
      */
     public function getCurrentTemperature()
     {
-        return round($this->fetchCurrentSensorreading('temperature_celsius'), 1);
+        return $this->fetchCurrentSensorreading('temperature_celsius');
     }
 
     /**
@@ -162,7 +205,7 @@ class Terrarium extends CiliatusModel
      */
     public function getCurrentHumidity()
     {
-        return (int)$this->fetchCurrentSensorreading('humidity_percent');
+        return $this->fetchCurrentSensorreading('humidity_percent');
     }
 
     /**
@@ -209,140 +252,157 @@ class Terrarium extends CiliatusModel
      * @param $type
      * @param $kill_cache = false
      * @param Carbon $history_to
-     * @param null $history_minutes
-     * @return Collection
+     * @param int $history_minutes
+     * @param boolean $ignore_anomalies
+     * @param boolean $return_array
+     * @return array|Collection
      */
-    public function getSensorreadingsByType($type, $kill_cache = false,
-                                            Carbon $history_to = null, $history_minutes = null)
+    public function getSensorreadingsByType($type,
+                                            $kill_cache = false,
+                                            Carbon $history_to = null,
+                                            $history_minutes = null,
+                                            $ignore_anomalies = false,
+                                            $return_array = true)
     {
+
+        // Evaluate if query can be cached
         $cachable = false;
         if (is_null($history_to)) {
             $history_to = Carbon::now();
             $cachable = true;
         }
 
+        // fill history
         if (is_null($history_minutes)) {
             $history_minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180);
         }
 
+        // Read, decode and return cache if possible
+        $cache_key = 'sensorreadingsByType_' . $this->id . '_' . $type . '_' . $history_minutes;
         if ($cachable) {
-            $cache_key = 'sensorreadingsByType_' . $this->id . '_' . $type . '_' . $history_minutes;
             if (Cache::has($cache_key) && !$kill_cache) {
-                return Cache::get($cache_key);
+                $cache = Cache::get($cache_key);
+                $final_data = json_decode($cache);
+                return $final_data;
             }
         }
 
-        $history = $this->fetchSensorreadings($type, $history_minutes, $history_to);
+        // No cache -> get from db
+        $history = $this->fetchSensorreadings(
+                $type,
+                $history_minutes,
+                $history_to,
+                null,
+                null,
+                false,
+                $ignore_anomalies
+        );
 
-        if ($cachable) {
-            Cache::put($cache_key, $history, env('TERRARIUM_DEFAULT_HISTORY_CACHE_MINUTES', 5));
+        if ($return_array) {
+            $final_data = array_column($history->toArray(), 'avg_rawvalue');
+            $encoded_data = json_encode($final_data);
+        }
+        else {
+            $final_data = $history;
+            $encoded_data = json_encode($final_data->toArray());
         }
 
-        return $history;
-    }
+        // Encode data and put in cache
+        if ($cachable) {
+            $duration = env('TERRARIUM_DEFAULT_HISTORY_CACHE_MINUTES', 5);
+            Cache::put($cache_key, $encoded_data, $duration);
+        }
 
-    /**
-     * @deprecated Use getSensorreadingsByType instead
-     * @param int $minutes
-     * @param Carbon $to
-     * @return mixed
-     */
-    public function getSensorReadingsTemperature($minutes = 120, Carbon $to = null)
-    {
-        return $this->fetchSensorreadings('temperature_celsius', $minutes, $to);
-    }
-
-
-    /**
-     * @deprecated Use getSensorreadingsByType instead
-     * @param int $minutes
-     * @param Carbon $to
-     * @return mixed
-     */
-    public function getSensorReadingsHumidity($minutes = 120, Carbon $to = null)
-    {
-        return $this->fetchSensorreadings('humidity_percent', $minutes, $to);
-    }
-
-    /**
-     * @param int $minutes
-     * @param Carbon|null $to
-     * @return Collection
-     */
-    public function getSensorReadings($minutes = 120, Carbon $to = null)
-    {
-        return $this->fetchSensorreadings(LogicalSensor::types(), $minutes, $to);
+        return $final_data;
     }
 
 
     /**
      * @param $type
      * @param int $days
-     * @param Carbon|null $time_to
-     * @param Carbon|null $time_from
+     * @param Carbon $time_to
+     * @param Carbon $time_of_day_from
+     * @param Carbon $time_of_day_to
      * @return Collection
      */
-    public function getSensorreadingStats($type, $days, Carbon $time_to, Carbon $time_from = null)
+    public function getSensorreadingStats($type, $days, $time_to, Carbon $time_of_day_from, $time_of_day_to)
     {
-        return $this->fetchSensorreadings($type, $days*24*60, $time_to, $time_from, true);
+        return $this->fetchSensorreadings(
+                $type,
+                $days*24*60,
+                $time_to,
+                $time_of_day_from,
+                $time_of_day_to,
+                true,
+                true
+        );
     }
 
     /**
      * @param int $days
-     * @param Carbon|null $time_to
-     * @param Carbon|null $time_from
+     * @param Carbon|null $time_of_day_from
+     * @param Carbon|null $time_of_day_to
      * @return Collection
      */
-    public function getHumidityStats($days, Carbon $time_to = null, Carbon $time_from = null)
+    public function getHumidityStats($days, Carbon $time_of_day_from = null, Carbon $time_of_day_to = null)
     {
-        if (is_null($time_to)) {
-            $time_to = Carbon::today();
-        }
-        return $this->getSensorreadingStats('humidity_percent', $days, $time_to, $time_from);
+        $time_to = Carbon::today();
+        return $this->getSensorreadingStats(
+                'humidity_percent',
+                $days,
+                $time_to,
+                $time_of_day_from,
+                $time_of_day_to
+        );
     }
 
 
     /**
      * @param int $days
-     * @param Carbon|null $time_to
-     * @param Carbon|null $time_from
+     * @param Carbon $time_of_day_from
+     * @param Carbon $time_of_day_to
      * @return Collection
      */
-    public function getTemperatureStats($days, Carbon $time_to = null, Carbon $time_from = null)
+    public function getTemperatureStats($days, Carbon $time_of_day_from = null, Carbon $time_of_day_to = null)
     {
-        if (is_null($time_to)) {
-            $time_to = Carbon::today();
-        }
-        return $this->getSensorreadingStats('temperature_celsius', $days, $time_to, $time_from);
+        $time_to = Carbon::today();
+        return $this->getSensorreadingStats(
+                'temperature_celsius',
+                $days,
+                $time_to,
+                $time_of_day_from,
+                $time_of_day_to
+        );
     }
 
     /**
      * @param $type
      * @param null $minutes
-     * @param Carbon|null $time_to
-     * @param Carbon|null $time_from
+     * @param Carbon $time_to
+     * @param Carbon|null $time_of_day_from
+     * @param Carbon|null $time_of_day_to
      * @param bool $return_stats If true, a float with the average value will be returned
+     * @param boolean $ignore_anomalies = false
      * @return Collection
      */
-    private function fetchSensorreadings($type, $minutes,
+    private function fetchSensorreadings($type,
+                                         $minutes,
                                          Carbon $time_to,
-                                         Carbon $time_from = null,
-                                         $return_stats = false)
+                                         Carbon $time_of_day_from = null,
+                                         Carbon $time_of_day_to = null,
+                                         $return_stats = false,
+                                         $ignore_anomalies = false)
     {
-        if (is_null($time_to)) {
-            $time_to = Carbon::now();
-        }
-
         if (is_null($minutes)) {
             $minutes = env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 120);
         }
 
-        $from = clone $time_to;
-        $from->subMinutes($minutes);
-
         if (!is_array($type)) {
             $type = [$type];
         }
+
+        $time_from = clone $time_to;
+        $time_from->subMinute($minutes);
 
         /*
          * Fetch all logical sensors
@@ -355,14 +415,18 @@ class Terrarium extends CiliatusModel
             }
         }
 
-        $query = DB::table('sensorreadings')->where('created_at', '<', $time_to)
-                                                 ->where('created_at', '>', $from);
+        $query = DB::table('sensorreadings')->where('created_at', '>=', $time_from)
+                                            ->where('created_at', '<=', $time_to);
 
-        if ($return_stats) {
-            return (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids, $time_from, $time_to, true)->get()->first();
+        if ($ignore_anomalies) {
+            $query = $query->where('is_anomaly', false);
         }
 
-        return (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids, $time_from, $time_to)->get();
+        if ($return_stats) {
+            return (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids, $time_of_day_from, $time_of_day_to, true)->get()->first();
+        }
+
+        return (new SensorreadingRepository())->getAvgByLogicalSensor($query, $logical_sensor_ids)->get();
     }
 
     /**
@@ -376,13 +440,17 @@ class Terrarium extends CiliatusModel
 
         foreach ($this->physical_sensors as $ps) {
             foreach ($ps->logical_sensors()->where('type', $type)->get() as $ls) {
-                $avg += $ls->getCurrentCookedValue();
-                $count++;
+                $reading = $ls->getCurrentCookedValue();
+                if (!is_null($reading)) {
+                    $avg += $reading;
+                    $count++;
+                }
             }
         }
 
-        if ($count > 0)
+        if ($count > 0) {
             return round($avg / $count, 1);
+        }
 
         return null;
     }

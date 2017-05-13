@@ -22,14 +22,7 @@ class LogicalSensorThresholdController extends ApiController
     /**
      * @var LogicalSensorThresholdTransformer
      */
-    protected $logicalSensorTransformer;
-
-    /**
-     * @var array
-     */
-    protected $casts = [
-        'active'    =>  'boolean'
-    ];
+    protected $logicalSensorThresholdTransformer;
 
     /**
      * LogicalSensorThresholdController constructor.
@@ -38,7 +31,7 @@ class LogicalSensorThresholdController extends ApiController
     public function __construct(LogicalSensorThresholdTransformer $_logicalSensorTransformer)
     {
         parent::__construct();
-        $this->logicalSensorTransformer = $_logicalSensorTransformer;
+        $this->logicalSensorThresholdTransformer = $_logicalSensorTransformer;
     }
 
     /**
@@ -50,9 +43,9 @@ class LogicalSensorThresholdController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $logical_sensors = LogicalSensor::with('logical_sensor');
+        $logical_sensor_thresholds = LogicalSensorThreshold::with('logical_sensor');
 
-        $logical_sensors = $this->filter($request, $logical_sensors);
+        $logical_sensor_thresholds = $this->filter($request, $logical_sensor_thresholds);
 
         /*
          * If raw is passed, pagination will be ignored
@@ -61,19 +54,19 @@ class LogicalSensorThresholdController extends ApiController
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
 
             return $this->setStatusCode(200)->respondWithData(
-                $this->logical_sensorTransformer->transformCollection(
-                    $logical_sensors->get()->toArray()
+                $this->logicalSensorThresholdTransformer->transformCollection(
+                    $logical_sensor_thresholds->get()->toArray()
                 )
             );
         }
 
-        $logical_sensors = $logical_sensors->paginate(env('PAGINATION_PER_PAGE', 100));
+        $logical_sensor_thresholds = $logical_sensor_thresholds->paginate(env('PAGINATION_PER_PAGE', 100));
 
         return $this->setStatusCode(200)->respondWithPagination(
-            $this->logical_sensorTransformer->transformCollection(
-                $logical_sensors->toArray()['data']
+            $this->logicalSensorThresholdTransformer->transformCollection(
+                $logical_sensor_thresholds->toArray()['data']
             ),
-            $logical_sensors
+            $logical_sensor_thresholds
         );
     }
 
@@ -88,14 +81,14 @@ class LogicalSensorThresholdController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $logical_sensor_threshold = LogicalSensorThreshold::with('logical_sensor_threshold')->find($id);
+        $logical_sensor_threshold = LogicalSensorThreshold::with('logical_sensor')->find($id);
 
         if (!$logical_sensor_threshold) {
             return $this->respondNotFound('LogicalSensorThreshold not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
-            $this->logicalSensorTransformer->transform(
+            $this->logicalSensorThresholdTransformer->transform(
                 $logical_sensor_threshold->toArray()
             )
         );
@@ -140,8 +133,16 @@ class LogicalSensorThresholdController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        $ls = null;
+        if ($request->has('logical_sensor')) {
+            $ls = LogicalSensor::find($request->input('logical_sensor'));
+            if (is_null($ls)) {
+                return $this->setStatusCode(422)->respondWithError('Logical sensor not found');
+            }
+        }
+
         $logical_sensor_threshold = LogicalSensorThreshold::create();
-        $logical_sensor_threshold->logical_sensor_id = $request->input('logical_sensor');
+        $logical_sensor_threshold->logical_sensor_id = is_null($ls) ? null : $ls->id;
         $logical_sensor_threshold = $this->addBelongsTo($request, $logical_sensor_threshold, false);
         $logical_sensor_threshold->starts_at = Carbon::parse($request->input('starts_at'));
         $logical_sensor_threshold->rawvalue_lowerlimit = strlen($request->input('lowerlimit')) < 1 ? null : $request->input('lowerlimit');

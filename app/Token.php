@@ -7,7 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Model
+ *
  * @package App
+ * @mixin \Eloquent
  */
 class Token extends Model
 {

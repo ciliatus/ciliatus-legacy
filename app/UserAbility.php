@@ -6,7 +6,21 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class UserAbility
+ *
  * @package App
+ * @property string $id
+ * @property string $user_id
+ * @property string $name
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @property-read \App\User $user
+ * @method static \Illuminate\Database\Query\Builder|\App\UserAbility whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\UserAbility whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\UserAbility whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\UserAbility whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\UserAbility whereUserId($value)
+ * @mixin \Eloquent
  */
 class UserAbility extends CiliatusModel
 {

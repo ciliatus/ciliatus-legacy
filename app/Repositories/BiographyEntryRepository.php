@@ -29,6 +29,10 @@ class BiographyEntryRepository extends Repository {
     {
         $biography_entry = $this->scope;
 
+        foreach ($biography_entry->files as &$file) {
+            $file = (new FileRepository($file))->show();
+        }
+
         $category = $biography_entry->properties()->where('type', 'BiographyEntryCategory')->get()->first();
         if (!is_null($category)) {
             $type = Property::where('type', 'BiographyEntryCategoryType')->where('name', $category->name)->get()->first();

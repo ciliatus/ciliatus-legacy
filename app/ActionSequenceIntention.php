@@ -9,7 +9,35 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class ActionSequenceIntention
+ *
  * @package App
+ * @property string $id
+ * @property string $name
+ * @property string $action_sequence_id
+ * @property string $type
+ * @property string $intention
+ * @property int $minimum_timeout_minutes
+ * @property string $timeframe_start
+ * @property string $timeframe_end
+ * @property \Carbon\Carbon $last_start_at
+ * @property \Carbon\Carbon $last_finished_at
+ * @property \Carbon\Carbon $created_at
+ * @property \Carbon\Carbon $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @property-read \App\ActionSequence $sequence
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereActionSequenceId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereCreatedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereIntention($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereLastFinishedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereLastStartAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereMinimumTimeoutMinutes($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereName($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereTimeframeEnd($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereTimeframeStart($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereType($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereUpdatedAt($value)
+ * @mixin \Eloquent
  */
 class ActionSequenceIntention extends CiliatusModel
 {

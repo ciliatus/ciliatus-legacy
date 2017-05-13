@@ -11,8 +11,7 @@
         <div class="row">
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <form action="{{ url('api/v1/files/' . $file->id) }}" data-method="PUT"
-                          >
+                    <form action="{{ url('api/v1/files/' . $file->id) }}" data-method="PUT">
                         <div class="card-content">
 
                             <span class="card-title activator truncate">
@@ -54,7 +53,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons right">save</i>
+                                        <i class="material-icons left">save</i>
                                     </button>
                                 </div>
                             </div>

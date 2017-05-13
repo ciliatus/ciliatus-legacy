@@ -12,6 +12,8 @@ abstract class CiliatusModel extends Model
 {
 
     /**
+     * Returns a property belonging to the model matching the criteria
+     *
      * @param $type
      * @param $name
      * @param $return_value_only bool: If true the value will be returned instead of the Property object
@@ -33,6 +35,27 @@ abstract class CiliatusModel extends Model
             return $property->value;
         }
         return $property;
+    }
+
+    /**
+     * Creates a new property belonging to this object
+     *
+     * @param $type
+     * @param $name
+     * @param $value
+     * @return mixed
+     */
+    public function setProperty($type, $name, $value)
+    {
+        $p = Property::create([
+            'belongsTo_type' => explode("\\",__CLASS__)[1],
+            'belongsTo_id' => $this->id,
+            'type' => $type,
+            'name' => $name,
+            'value' => $value
+        ]);
+
+        return $p;
     }
 
     /**

@@ -1,0 +1,18 @@
+language: php
+php:
+  - '7.0'
+  - '7.1'
+
+services:
+  - mysql
+
+install:
+  - mv .env.travis .env
+  - mysql -e 'create database ciliatus;'
+  - chmod -R 777 ./storage/*
+  - chmod -R 777 ./bootstrap/*
+  - composer update
+  - php artisan key:generate
+  - php artisan migrate
+  - php artisan passport:install
+  - composer dump-autoload

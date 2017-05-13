@@ -4,6 +4,8 @@ return [
     'next'      =>  'Weiter',
     'save'      =>  'Speichern',
     'delete'    =>  'Löschen',
+    'delete_type'=> ':type Löschen',
+    'delete_all_type'=>  'Alle :type löschen',
     'loadgraph' =>  'Graph laden',
     'upload'    =>  'Hochladen',
     'start_setup'=> 'Setup starten',
