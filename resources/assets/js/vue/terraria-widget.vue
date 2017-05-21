@@ -442,7 +442,7 @@ export default {
                 source_url = '/api/v1/terraria/' + this.terrariumId
             }
             else {
-                source_url = '/api/v1/terraria/?page=' + this.page + this.filter_string + this.order_string;
+                source_url = '/api/v1/terraria/?pagination[per_page]=6&page=' + this.page + this.filter_string + this.order_string;
             }
 
             window.eventHubVue.processStarted();

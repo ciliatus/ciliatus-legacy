@@ -375,7 +375,7 @@ export default {
                 source_url = '/api/v1/animals/' + this.animalId
             }
             else {
-                source_url = '/api/v1/animals/?page=' + this.page + this.filter_string + this.order_string;
+                source_url = '/api/v1/animals/?pagination[per_page]=6&page=' + this.page + this.filter_string + this.order_string;
             }
 
             window.eventHubVue.processStarted();
