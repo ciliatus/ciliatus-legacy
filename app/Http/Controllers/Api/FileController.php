@@ -44,39 +44,13 @@ class FileController extends ApiController
         }
 
         $files = File::query();
-
         $files = $this->filter($request, $files);
 
-
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-            $files = $files->get();
-            foreach ($files as &$file) {
-                $file = (new FileRepository($file))->show();
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->fileTransformer->transformCollection(
-                    $files->toArray()
-                )
-            );
-
-        }
-
-        $files = $files->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        foreach ($files->items() as &$file) {
-            $file = (new FileRepository($file))->show();
-        }
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->fileTransformer->transformCollection(
-                $files->toArray()['data']
-            ),
-            $files
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $files,
+            $this->fileTransformer,
+            'FileRepository'
         );
 
     }

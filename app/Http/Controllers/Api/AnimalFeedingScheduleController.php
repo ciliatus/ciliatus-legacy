@@ -67,35 +67,11 @@ class AnimalFeedingScheduleController extends ApiController
             $feeding_schedules = $this->filter($request, $animal->feeding_schedules()->getQuery());
         }
 
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-            $feeding_schedules = $feeding_schedules->get();
-            foreach ($feeding_schedules as &$fs) {
-                $fs = (new AnimalFeedingScheduleRepository($fs))->show();
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->animalFeedingScheduleTransformer->transformCollection(
-                    $feeding_schedules->toArray()
-                )
-            );
-
-        }
-
-        $feeding_schedules = $feeding_schedules->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        foreach ($feeding_schedules->items() as &$fs) {
-            $fs = (new AnimalFeedingScheduleRepository($fs))->show();
-        }
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->animalFeedingScheduleTransformer->transformCollection(
-                $feeding_schedules->toArray()['data']
-            ),
-            $feeding_schedules
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $feeding_schedules,
+            $this->animalFeedingScheduleTransformer,
+            'AnimalFeedingScheduleRepository'
         );
 
     }

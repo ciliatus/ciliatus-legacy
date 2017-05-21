@@ -45,41 +45,14 @@ class ActionSequenceScheduleController extends ApiController
             return $this->respondUnauthorized();
         }
 
-
         $action_sequence_schedules = ActionSequenceSchedule::with('sequence');
-
         $action_sequence_schedules = $this->filter($request, $action_sequence_schedules);
 
-
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-            $action_sequence_schedules = $action_sequence_schedules->get();
-            foreach ($action_sequence_schedules as &$t) {
-                $t = (new ActionSequenceScheduleRepository($t))->show();
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->actionSequenceScheduleTransformer->transformCollection(
-                    $action_sequence_schedules->toArray()
-                )
-            );
-
-        }
-
-        $action_sequence_schedules = $action_sequence_schedules->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        foreach ($action_sequence_schedules->items() as &$t) {
-            $t = (new ActionSequenceScheduleRepository($t))->show();
-        }
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->actionSequenceScheduleTransformer->transformCollection(
-                $action_sequence_schedules->toArray()['data']
-            ),
-            $action_sequence_schedules
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $action_sequence_schedules,
+            $this->actionSequenceScheduleTransformer,
+            'ActionSequenceSchedule'
         );
 
     }

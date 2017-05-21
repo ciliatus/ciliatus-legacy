@@ -50,36 +50,11 @@ class LogicalSensorController extends ApiController
 
         $logical_sensors = $this->filter($request, $logical_sensors);
 
-
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-            $logical_sensors = $logical_sensors->get();
-            foreach ($logical_sensors as &$ls) {
-                $ls = (new LogicalSensorRepository($ls))->show();
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->logicalSensorTransformer->transformCollection(
-                    $logical_sensors->toArray()
-                )
-            );
-
-        }
-
-        $logical_sensors = $logical_sensors->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        foreach ($logical_sensors->items() as &$ls) {
-            $ls = (new LogicalSensorRepository($ls))->show();
-        }
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->logicalSensorTransformer->transformCollection(
-                $logical_sensors->toArray()['data']
-            ),
-            $logical_sensors
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $logical_sensors,
+            $this->logicalSensorTransformer,
+            'LogicalSensorRepository'
         );
 
     }

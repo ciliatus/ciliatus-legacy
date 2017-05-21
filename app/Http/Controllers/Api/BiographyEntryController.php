@@ -67,35 +67,11 @@ class BiographyEntryController extends ApiController
 
         $entries = $this->filter($request, $entries);
 
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-            $entries = $entries->get();
-            foreach ($entries as &$f) {
-                $f = (new BiographyEntryRepository($f))->show()->toArray();
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->biographyEntryTransformer->transformCollection(
-                    $entries->toArray()
-                )
-            );
-
-        }
-
-        $entries = $entries->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        foreach ($entries->items() as &$f) {
-            $f = (new BiographyEntryRepository($f))->show()->toArray();
-        }
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->biographyEntryTransformer->transformCollection(
-                $entries->toArray()['data']
-            ),
-            $entries
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $entries,
+            $this->biographyEntryTransformer,
+            'BiographyEntryRepository'
         );
 
     }
@@ -143,7 +119,9 @@ class BiographyEntryController extends ApiController
 
         broadcast(new BiographyEntryUpdated($e));
 
-        return $this->respondWithData([], [
+        return $this->respondWithData([
+            'id' => $e->id
+        ], [
             'redirect' => [
                 'uri' => url('biography_entries/' . $e->id . '/edit')
             ]
@@ -197,6 +175,8 @@ class BiographyEntryController extends ApiController
      */
     public function update(Request $request, $id)
     {
+
+        \Log::debug('Using user ' . \Auth::user()->name);
         if (Gate::denies('api-write:property')) {
             return $this->respondUnauthorized();
         }
@@ -206,10 +186,25 @@ class BiographyEntryController extends ApiController
             return $this->respondNotFound();
         }
 
-        $cat = Property::where('belongsTo_type', 'Event')->where('belongsTo_id', $e->id)
-                        ->where('type', 'BiographyEntryCategory')->get()->first();
-        if (is_null($cat)) {
-            return $this->setStatusCode(422)->respondWithError('Category not found');
+        if ($request->has('category')) {
+            $cat = Property::where('belongsTo_type', 'Event')->where('belongsTo_id', $e->id)
+                           ->where('type', 'BiographyEntryCategory')->get()->first();
+            if (is_null($cat)) {
+                return $this->setStatusCode(422)->respondWithError('Category property not found');
+            }
+
+            $cat_type = Property::where('belongsTo_type', 'System')
+                                ->where('type', 'BiographyEntryCategoryType')
+                                ->where('name', $request->input('category'))
+                                ->get()->first();
+            if (is_null($cat_type)) {
+                return $this->setStatusCode(422)->respondWithError('Category not found');
+            }
+
+            $this->updateModelProperties($cat, $request, [
+                'name' => 'category'
+            ]);
+            $cat->save();
         }
 
         $this->updateModelProperties($e, $request, [
@@ -217,14 +212,11 @@ class BiographyEntryController extends ApiController
         ]);
         $e->save();
 
-        $this->updateModelProperties($cat, $request, [
-            'name' => 'category'
-        ]);
-        $cat->save();
-
         broadcast(new BiographyEntryUpdated($e));
 
-        return $this->respondWithData([], [
+        return $this->respondWithData([
+            'id' => $e->id
+        ], [
             'redirect' => [
                 'uri' => $e->belongsTo_object->url() . '#tab_biography'
             ]

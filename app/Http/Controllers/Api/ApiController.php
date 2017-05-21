@@ -4,11 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use App\CiliatusModel;
 use App\Http\Controllers\Controller;
+use App\Http\Transformers\Transformer;
 use App\Property;
 use Carbon\Carbon;
+use Gate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Matthenning\EloquentApiFilter\EloquentApiFilter;
 use Matthenning\EloquentApiFilter\Traits\FiltersEloquentApi;
 
@@ -174,6 +177,111 @@ class ApiController extends Controller
     }
 
     /**
+     * @param Request $request
+     * @param Builder $query
+     * @param Transformer $transformer
+     * @param string|null $repository_name
+     * @param array $repository_parameters
+     * @param string $repository_method
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondTransformedAndPaginated(Request $request,
+                                                   Builder $query,
+                                                   Transformer $transformer,
+                                                   string $repository_name = null,
+                                                   array $repository_parameters = [],
+                                                   string $repository_method = 'show')
+    {
+        /*
+         * If raw is passed, pagination will be ignored
+         * Permission api-list:raw is required
+         */
+        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+            $objects = $query->get()->toArray();
+
+
+            if (!is_null($repository_name)) {
+                $this->applyRepository(
+                    $repository_name,
+                    $objects,
+                    $repository_parameters,
+                    $repository_method
+                );
+            }
+
+            return $this->setStatusCode(200)->respondWithData(
+                $transformer->transformCollection(
+                    $objects
+                )
+            );
+
+        }
+
+        /*
+         * If pagination is requested, apply paginator
+         */
+
+        $objects = $this->paginate($request, $query);
+
+        if (!is_null($repository_name)) {
+            $this->applyRepository(
+                $repository_name,
+                $objects->items(),
+                $repository_parameters,
+                $repository_method
+            );
+        }
+
+        return $this->setStatusCode(200)->respondWithPagination(
+            $transformer->transformCollection(
+                $objects->toArray()['data']
+            ),
+            $objects
+        );
+    }
+
+    /**
+     * Retrieves additional data for each object from a repository
+     *
+     * @param string $repository_name
+     * @param array $objects
+     * @param array $repository_parameters
+     * @param string $repository_method
+     */
+    protected function applyRepository(string $repository_name,
+                                       array $objects,
+                                       array $repository_parameters = [],
+                                       string $repository_method = 'show')
+    {
+        $fully_qualified_repository_name = "App\\Repositories\\$repository_name";
+        foreach ($objects as &$o) {
+            $repository = new $fully_qualified_repository_name($o);
+            foreach ($repository_parameters as $n=>$v) {
+                $repository->addShowParameter($n, $v);
+            }
+            $o = $repository->$repository_method();
+        }
+    }
+
+    /**
+     * Paginates a Builder using the default pagination value
+     * or the value from request field "pagination_perpage"
+     *
+     * @param Request $request
+     * @param Builder $query
+     * @return \Illuminate\Contracts\Pagination\LengthAwarePaginator
+     */
+    public function paginate(Request $request, Builder $query)
+    {
+        $per_page = env('PAGINATION_PER_PAGE', 20);
+        if ($request->has('pagination') && isset($request->input('pagination')['per_page'])) {
+            $per_page = $request->input('pagination')['per_page'];
+        }
+
+        return $query->paginate($per_page);
+    }
+
+    /**
      * @param $required_fields
      * @param Request $request
      * @return bool
@@ -241,25 +349,32 @@ class ApiController extends Controller
             $belongsTo_type = explode("|", $request->input('belongsTo'))[0];
             $belongsTo_id = explode("|", $request->input('belongsTo'))[1];
             $class_name = 'App\\' . $belongsTo_type;
-            if (class_exists($class_name)) {
-                $belongs = $class_name::find($belongsTo_id);
-                if (is_null($belongs)) {
-                    return $this->setStatusCode(422)
-                        ->respondWithError('Model not found');
-                }
-            }
-            else {
-                return $this->setStatusCode(422)
-                    ->respondWithError('Class not found');
-            }
-
-            return [
-                'belongsTo_type' => $belongsTo_type,
-                'belongsTo_id' => $belongsTo_id
-            ];
+        }
+        elseif ($request->has('belongsTo_type') && $request->has('belongsTo_id')) {
+            $belongsTo_type = $request->input('belongsTo_type');
+            $belongsTo_id = $request->input('belongsTo_id');
+            $class_name = 'App\\' . $belongsTo_type;
+        }
+        else {
+            return null;
         }
 
-        return null;
+        if (class_exists($class_name)) {
+            $belongs = $class_name::find($belongsTo_id);
+            if (is_null($belongs)) {
+                return $this->setStatusCode(422)
+                    ->respondWithError('Model not found');
+            }
+        }
+        else {
+            return $this->setStatusCode(422)
+                ->respondWithError('Class not found');
+        }
+
+        return [
+            'belongsTo_type' => $belongsTo_type,
+            'belongsTo_id' => $belongsTo_id
+        ];
     }
 
     /**

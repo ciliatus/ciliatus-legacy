@@ -47,29 +47,12 @@ class UserController extends ApiController
         }
 
         $users = User::with('settings');
-
         $users = $this->filter($request, $users);
 
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->userTransformer->transformCollection(
-                    $users->get()->toArray()
-                )
-            );
-        }
-
-        $users = $users->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->userTransformer->transformCollection(
-                $users->toArray()['data']
-            ),
-            $users
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $users,
+            $this->userTransformer
         );
     }
 
