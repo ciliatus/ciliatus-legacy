@@ -53,6 +53,7 @@ class CriticalState extends CiliatusModel
     protected $fillable = [
         'belongsTo_type',
         'belongsTo_id',
+        'is_soft_state'
     ];
 
     /**
@@ -83,9 +84,6 @@ class CriticalState extends CiliatusModel
             'associatedWith_id' => $new->belongsTo_id,
             'action'        => 'create'
         ]);
-
-        $new->is_soft_state = true;
-        $new->save();
 
         broadcast(new CriticalStateCreated($new));
 

@@ -55,7 +55,7 @@ class PhysicalSensor extends CiliatusModel
     /**
      * @var array
      */
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'belongsTo_type', 'belongsTo_id', 'controlunit_id'];
 
     /**
      *

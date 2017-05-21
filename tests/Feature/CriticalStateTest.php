@@ -2,20 +2,48 @@
 
 namespace Tests\Feature;
 
+use App\CriticalState;
+use Tests\CiliatusCase;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
 
-class CriticalStateTest extends TestCase
+class CriticalStateTest extends CiliatusCase
 {
     /**
-     * A basic test example.
-     *
-     * @return void
+     * Test unauthorized
      */
-    public function testExample()
+    public function test_000_Unauthenticated()
     {
-        $this->assertTrue(true);
+        $response = $this->json('GET', '/api/v1/critical_states');
+        $response->assertStatus(401);
+    }
+
+    /**
+     *
+     */
+    public function test_100_IndexError()
+    {
+        $response = $this->json('GET', '/api/v1/critical_states');
+        $response->assertStatus(401);
+    }
+
+    /**
+     *
+     */
+    public function test_200_IndexOk()
+    {
+        $token = $this->createUserReadOnly(false);
+
+        $response = $this->json('GET', '/api/v1/critical_states', [], [
+            'HTTP_Authorization' => 'Bearer ' . $token
+        ]);
+        $response->assertStatus(200);
+        $response->assertJson([
+            'data' => []
+        ]);
+
+        $this->cleanupUsers(false);
     }
 }

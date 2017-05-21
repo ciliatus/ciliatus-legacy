@@ -29,7 +29,14 @@ class System extends Model
 
     public static function hasVoiceCapability()
     {
-        return !is_null(env('API_AI_ACCESS_TOKEN_' . Auth::user()->lang, null));
+        return !empty(env('API_AI_ACCESS_TOKEN_' . Auth::user()->lang, ''));
+    }
+
+    public static function hasInfluxDbCapability()
+    {
+        return !empty(env('INFLUX_DB', '')) &&
+               !empty(env('INFLUX_HOST', '')) &&
+               !empty(env('INFLUX_USER', ''));
     }
 
     public static function apiAiConfigurationStatus()

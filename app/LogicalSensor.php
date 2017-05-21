@@ -53,7 +53,7 @@ class LogicalSensor extends CiliatusModel
     /**
      * @var array
      */
-    protected $fillable = ['name', 'physical_sensor_id'];
+    protected $fillable = ['name', 'physical_sensor_id', 'type'];
 
     /**
      *
