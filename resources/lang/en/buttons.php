@@ -25,5 +25,8 @@ return [
     'heat_up'   =>  'Heat up',
     'cool_down' =>  'Cool down',
     'start'     =>  'Start',
-    'close'     =>  'Close'
+    'close'     =>  'Close',
+    'select_all_read' => 'Read all',
+    'select_all_list' => 'List all',
+    'select_all_write' => 'Write all'
 ];

@@ -327,13 +327,38 @@
                                 </span>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <select name="abilities[]" multiple>
+                                        <select name="abilities[]" multiple id="user-abilities-select">
                                             <option disabled @if(is_null(\App\UserAbility::abilities())) selected @endif></option>
                                             @foreach (\App\UserAbility::abilities() as $a)
                                                 <option value="{{ $a }}" @if($user->ability($a) == true)selected="selected"@endif>{{ $a }}</option>
                                             @endforeach
                                         </select>
                                         <label for="abilities[]">@choice('labels.abilities', 2)</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <script>
+                                        function select_abilities(filter) {
+                                            $('#user-abilities-select').find('option').each(function() {
+                                                if ($(this).val().indexOf(filter) >= 0) {
+                                                    $(this).attr('selected', true);
+                                                }
+                                            });
+                                            $('#user-abilities-select').material_select();
+                                        }
+                                    </script>
+                                    <div class="col s12">
+                                        <strong>@lang('labels.add_preset')</strong>
+                                    </div>
+                                    <div class="input-field col s12 m4 l4">
+                                        <a href="#" onclick="select_abilities('grant_api-write')">@lang('buttons.select_all_write')</a>
+                                    </div>
+                                    <div class="input-field col s12 m4 l4">
+                                        <a href="#" onclick="select_abilities('grant_api-read')">@lang('buttons.select_all_read')</a>
+                                    </div>
+                                    <div class="input-field col s12 m4 l4">
+                                        <a href="#" onclick="select_abilities('grant_api-list')">@lang('buttons.select_all_list')</a>
                                     </div>
                                 </div>
                             </div>

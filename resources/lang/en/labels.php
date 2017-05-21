@@ -175,5 +175,6 @@ return [
     'choose_logfile'=>  'Choose a log file',
     'no_image'      =>  'No image',
     'features'      =>  'Features',
-    'rollperiod'    =>  'Roll period'
+    'rollperiod'    =>  'Roll period',
+    'add_preset'    =>  'Add preset'
 ];

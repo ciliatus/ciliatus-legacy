@@ -175,5 +175,6 @@ return [
     'choose_logfile'=>  'Log-Datei auswählen',
     'no_image'      =>  'Kein Bild',
     'features'      =>  'Features',
-    'rollperiod'    =>  'Rollperiode'
+    'rollperiod'    =>  'Rollperiode',
+    'add_preset'    =>  'Voreinstellung hinzufügen'
 ];
