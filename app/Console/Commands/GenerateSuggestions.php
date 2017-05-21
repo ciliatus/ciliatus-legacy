@@ -33,9 +33,12 @@ class GenerateSuggestions extends Command
      */
     public function handle()
     {
+        $total = 0;
         foreach (Terrarium::get() as $t) {
 
             $suggestions = $t->getSuggestions()['critical_states'];
+
+            $total += count($suggestions);
 
             foreach ($suggestions as $type=>$suggestion) {
                 Event::create([
@@ -47,6 +50,8 @@ class GenerateSuggestions extends Command
                 ]);
             }
         }
+        \Log::info('Generated ' . $total . ' suggestions');
+
         return true;
     }
 }
