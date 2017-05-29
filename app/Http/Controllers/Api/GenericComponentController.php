@@ -179,13 +179,15 @@ class GenericComponentController extends ApiController
             $component->controlunit_id = $request->input('controlunit');
         }
 
-        foreach($request->input('properties') as $id=>$value) {
-            $component_property = $component->properties()->where('id', $id)->get()->first();
-            if (is_null($component_property)) {
-                return $this->setStatusCode(422)->respondWithError("Generic Component is corrupted. Call resync methods.");
+        if ($request->has('properties')) {
+            foreach($request->input('properties') as $id=>$value) {
+                $component_property = $component->properties()->where('id', $id)->get()->first();
+                if (is_null($component_property)) {
+                    return $this->setStatusCode(422)->respondWithError("Generic Component is corrupted. Call resync methods.");
+                }
+                $component_property->value = $value;
+                $component_property->save();
             }
-            $component_property->value = $value;
-            $component_property->save();
         }
 
         $this->updateExternalProperties($component, $request, [
