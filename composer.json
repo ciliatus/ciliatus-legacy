@@ -42,7 +42,7 @@
     "autoload-dev": {
         "classmap": [
             "tests/TestCase.php",
-            "tests/CiliatusCase.php",
+            "tests/TestHelperTrait.php",
             "tests/CreatesApplication.php"
         ]
     },
