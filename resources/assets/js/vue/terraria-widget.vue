@@ -119,26 +119,30 @@
 
                 <!-- Card -->
                 <div class="card">
-                    <div class="card-image waves-effect waves-block waves-light terrarium-card-image"
+                    <div class="card-image terrarium-card-image"
                          v-bind:style="terrarium.default_background_filepath ? 'background-image: url(\'' + terrarium.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
                         <div>
                             <inline-graph :parentid="terrarium.id" graphtype="humidity_percent" type="line"
-                                          :options="{'fill': null, 'strokeWidth': '3', 'stroke': '#2196f3', width: '100%', height:'140px', min: 1, max: 99}"
+                                          :options="{'fill': null, 'strokeWidth': '2', 'stroke': '#2196f3', width: '100%', height:'140px', min: 1, max: 99}"
                                           :source="'/api/v1/terraria/'+terrarium.id+'/sensorreadingsByType/humidity_percent'"
                                           :data-prefill="terrarium.humidity_history"></inline-graph>
                         </div>
 
                         <div style="position: relative; top: -145px">
                             <inline-graph :parentid="terrarium.id" graphtype="temperature_celsius" type="line"
-                                          :options="{'fill': null, 'strokeWidth': '3', 'stroke': '#b71c1c', width: '100%', height:'140px', min: 1, max: 99}"
+                                          :options="{'fill': null, 'strokeWidth': '2', 'stroke': '#b71c1c', width: '100%', height:'140px', min: 1, max: 99}"
                                           :source="'/api/v1/terraria/'+terrarium.id+'/sensorreadingsByType/temperature_celsius'"
                                           :data-prefill="terrarium.temperature_history"></inline-graph>
 
                         </div>
+
+                        <div class="tiny right" style="position: relative; top: -173px" v-show="terrarium.loading_data">
+                            <loading-indicator :size="20" ></loading-indicator>
+                        </div>
                     </div>
                     <div class="card-content">
                         <span class="card-title activator truncate">
-                            <span>{{ terrarium.display_name }}</span>
+                            <span><a :href="'/terraria/' + terrarium.id">{{ terrarium.display_name }}</a></span>
                             <i class="material-icons right">more_vert</i>
                         </span>
                         <p>
@@ -182,6 +186,7 @@
                         </p>
                     </div>
 
+                    <!--
                     <div class="card-action">
                         <a v-bind:href="'/terraria/' + terrarium.id">{{ $t("buttons.details") }}</a>
                         <a v-bind:href="'/terraria/' + terrarium.id + '/edit'">{{ $t("buttons.edit") }}</a>
@@ -190,6 +195,7 @@
                             <loading-indicator :size="20" ></loading-indicator>
                         </div>
                     </div>
+                    -->
 
                     <div class="card-reveal">
                         <span class="card-title">{{ $tc("components.animals", 2) }}<i class="material-icons right">close</i></span>

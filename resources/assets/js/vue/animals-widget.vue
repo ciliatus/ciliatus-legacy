@@ -81,13 +81,17 @@
 
                 <!-- Card -->
                 <div class="card">
-                    <div class="card-image waves-effect waves-block waves-light terrarium-card-image"
+                    <div class="card-image terrarium-card-image"
                          v-bind:style="animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
+
+                        <div class="tiny right" style="position: relative; top: 120px;" v-show="animal.loading_data">
+                            <loading-indicator :size="20" ></loading-indicator>
+                        </div>
                     </div>
 
                     <div class="card-content">
                         <span class="card-title activator truncate">
-                            <span>{{ animal.display_name }} </span>
+                            <span><a :href="'/animals/' + animal.id">{{ animal.display_name }}</a></span>
                             <i class="material-icons right" v-if="!animal.death_date">more_vert</i>
                         </span>
                         <p>
@@ -97,7 +101,7 @@
 
                             <span v-if="animal.last_feeding && !animal.death_date">
                                 <br />
-                                <i class="material-icons tiny">local_dining</i>BiographyEntryEvent.php
+                                <i class="material-icons tiny">local_dining</i>
                                 {{ $t(
                                     'units.' + $getMatchingTimeDiff(animal.last_feeding.timestamps.created_diff).unit,
                                     {val: $getMatchingTimeDiff(animal.last_feeding.timestamps.created_diff).val}
@@ -126,6 +130,7 @@
                         </p>
                     </div>
 
+                    <!--
                     <div class="card-action">
                         <a v-bind:href="'/animals/' + animal.id">{{ $t("buttons.details") }}</a>
                         <a v-bind:href="'/animals/' + animal.id + '/edit'">{{ $t("buttons.edit") }}</a>
@@ -141,6 +146,7 @@
                             </div>
                         </div>
                     </div>
+                    -->
 
                     <div class="card-reveal" v-if="!animal.death_date">
                         <span class="card-title">{{ $tc("components.terraria", 1) }}<i class="material-icons right">close</i></span>
@@ -192,6 +198,8 @@
 </template>
 
 <script>
+import LoadingIndicator from './loading-indicator.vue';
+
 export default {
     data () {
         return {
@@ -256,6 +264,10 @@ export default {
             default: false,
             required: false
         }
+    },
+
+    components: {
+        'loading-indicator': LoadingIndicator
     },
 
     methods: {
