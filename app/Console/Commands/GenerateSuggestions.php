@@ -17,7 +17,8 @@ class GenerateSuggestions extends Command
      *
      * @var string
      */
-    protected $signature = 'ciliatus:suggestions:generate';
+    protected $signature = 'ciliatus:suggestions:generate
+                            {--terrarium_id= : Define if you only want to generate suggestions for a certain Terrarium} ';
 
     /**
      * The console command description.
@@ -34,7 +35,20 @@ class GenerateSuggestions extends Command
     public function handle()
     {
         $total = 0;
-        foreach (Terrarium::get() as $t) {
+
+        $terraria = [];
+        if (is_null($this->option('terrarium_id'))) {
+            $terraria = Terrarium::get();
+        }
+        else {
+            $terraria[] = Terrarium::find($this->option('terrarium_id'));
+            if (is_null($terraria[0])) {
+                echo 'Terrarium not found';
+                return false;
+            }
+        }
+
+        foreach ($terraria as $t) {
 
             $suggestions = $t->getSuggestions()['critical_states'];
 
