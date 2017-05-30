@@ -323,7 +323,8 @@ class CriticalState extends CiliatusModel
                 if ($existing_cs->count() < 1) {
                     CriticalState::create([
                         'belongsTo_type' => 'LogicalSensor',
-                        'belongsTo_id'   => $ls->id
+                        'belongsTo_id'   => $ls->id,
+                        'is_soft_state'  => true
                     ]);
 
                     $result['created']++;
