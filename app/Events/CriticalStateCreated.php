@@ -25,6 +25,7 @@ class CriticalStateCreated implements ShouldBroadcast
      */
     public function __construct(CriticalState $critical_state)
     {
+        $critical_state = clone $critical_state;
         $critical_state->belongsTo_object = $critical_state->belongsTo_object();
         $critical_state->belongsTo_object->icon = $critical_state->belongsTo_object->icon();
         $critical_state->belongsTo_object->url = $critical_state->belongsTo_object->url();
