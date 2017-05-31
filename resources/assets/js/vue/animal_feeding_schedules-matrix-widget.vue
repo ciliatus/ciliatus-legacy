@@ -23,6 +23,7 @@
                     <td v-for="type in feeding_types">
                         <span v-for="schedule in get_animal_feeding_schedules_of_type(animal.id, type.name)">
                             <a v-bind:href="'/animals/' + animal.id + '/feeding_schedules/' + schedule.id + '/edit'">{{ schedule.interval_days }}</a>
+                            <i>({{ schedule.due_days }} {{ $tc('units.days', schedule.due_days) }})</i>
                         </span>
                     </td>
                 </tr>
