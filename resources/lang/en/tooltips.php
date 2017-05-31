@@ -52,5 +52,10 @@ return [
     'action_sequence_schedules' => [
         'skip'  => 'Skip today\'s run.'
     ],
-    'associate_new' => 'Associate <i class="material-icons">:source_icon</i> :source_type ":source_name" with <i class="material-icons">:target_icon</i> :target_type'
+    'associate_new' => 'Associate <i class="material-icons">:source_icon</i> :source_type ":source_name" with <i class="material-icons">:target_icon</i> :target_type',
+    'floating' => [
+        'add' => 'New',
+        'edit' => 'Edit',
+        'delete' => 'Delete'
+    ]
 ];

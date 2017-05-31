@@ -52,5 +52,10 @@ return [
     'action_sequence_schedules' => [
         'skip'  => 'Heutigen Durchlauf überspringen.'
     ],
-    'associate_new' => 'Verknüpfe <i class="material-icons">:source_icon</i> :source_type ":source_name" mit <i class="material-icons">:target_icon</i> :target_type'
+    'associate_new' => 'Verknüpfe <i class="material-icons">:source_icon</i> :source_type ":source_name" mit <i class="material-icons">:target_icon</i> :target_type',
+    'floating' => [
+        'add' => 'Neu',
+        'edit' => 'Bearbeiten',
+        'delete' => 'Löschen'
+    ]
 ];
