@@ -46,7 +46,7 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating green" href="/animals/feedings/types/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/animals/feedings/types/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
@@ -85,7 +85,7 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating green" href="/biography_entries/categories/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/biography_entries/categories/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
@@ -127,7 +127,7 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating green" href="/generic_component_types/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/generic_component_types/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>

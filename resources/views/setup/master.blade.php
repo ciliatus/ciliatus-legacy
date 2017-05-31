@@ -1,46 +1,59 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <!--Import Google Icon Font-->
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-    <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="/css/materialize.css"  media="screen,projection"/>
+    <head>
+        <title>Ciliatus Setup</title>
 
-    <link type="text/css" rel="stylesheet" href="/css/materialize.clockpicker.css"  media="screen,projection"/>
-    <link type="text/css" rel="stylesheet" href="/css/app.css"  media="screen,projection"/>
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <link rel="manifest" href="manifest.json">
+        <link rel="icon" href="/images/manifest/launcher-icon-0-75x.png" type="image/png">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,900" rel="stylesheet">
+        <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.min.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/vendors/timeline.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.clockpicker.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/vendors/dygraph.min.css"  media="screen,projection"/>
 
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script>
+            window.Laravel = {
+                csrfToken: "{{ csrf_token() }}"
+            };
+        </script>
 
-    <meta name="theme-color" content="#009688" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <!-- Chrome, Firefox OS and Opera -->
+        <meta name="theme-color" content="#e65100">
+        <!-- Windows Phone -->
+        <meta name="msapplication-navbutton-color" content="#e65100">
+        <!-- iOS Safari -->
+        <meta name="apple-mobile-web-app-status-bar-style" content="#e65100">
+        <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
+    </head>
 
-    <meta name="csrf-token" content="{{ csrf_token() }}">
-</head>
+    <body data-lang="en">
 
-<body data-lang="en">
+        <script>
+            var domCallbacks = [];
+        </script>
 
-    <script>
-        var domCallbacks = [];
-    </script>
+        <div id="body" style="padding-top: 100px;">
+            @yield('content')
+        </div>
 
-    <div id="content" style="padding-top: 100px;">
-        @yield('content')
-    </div>
-
-<!-- Materialize.css -->
-<script src="{{ url('js/materialize.min.js') }}"></script>
-<!-- Materialize.clockpicker.css -->
-<script src="{{ url('js/materialize.clockpicker.js') }}"></script>
-<!-- ciliatus -->
-<script src="{{ url('js/app.js') }}"></script>
+        <!-- Materialize.css -->
+        <script src="{{ url('js/vendors/materialize.min.js') }}"></script>
+        <!-- Materialize.clockpicker.css -->
+        <script src="{{ url('js/vendors/materialize.clockpicker.js') }}"></script>
+        <!-- ciliatus -->
+        <script src="{{ url('js/app.js') }}"></script>
+        <!-- Vue -->
+        <script src="{{ url('/js/vendors/vue.js') }}"></script>
 
 
-<script>
-    $(document).ready(function() {
-        window.runPage();
-    });
-</script>
+        <script>
+            $(document).ready(function() {
+                window.runPage();
+            });
+        </script>
 
-</body>
+    </body>
 </html>

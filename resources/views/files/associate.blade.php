@@ -46,7 +46,7 @@
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
-            <li><a class="btn-floating green" href="/files/create"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/files/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
 @stop

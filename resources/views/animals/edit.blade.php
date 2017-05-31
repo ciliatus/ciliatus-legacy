@@ -226,8 +226,8 @@
         </a>
         <ul>
             <li><a class="btn-floating teal" href="/animals/{{ $animal->id }}"><i class="material-icons">info</i></a></li>
-            <li><a class="btn-floating red" href="/animals/{{ $animal->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green" href="/animals/create"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/animals/{{ $animal->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/animals/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
 @stop

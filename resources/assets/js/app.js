@@ -174,6 +174,8 @@ window.runPage = function() {
 
     $('.button-collapse').sideNav();
 
+    $('.tooltipped').tooltip({delay: 50});
+
     // SideNav collapse active
     var active_headers = $('.collapsible-body ul li.active').parent().parent().parent();
     active_headers.addClass('active');

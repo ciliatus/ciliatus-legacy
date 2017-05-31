@@ -102,8 +102,8 @@
         </a>
         <ul>
             <li><a class="btn-floating teal" href="/logical_sensor_thresholds/{{ $logical_sensor_threshold->id }}"><i class="material-icons">info</i></a></li>
-            <li><a class="btn-floating red" href="/logical_sensor_thresholds/{{ $logical_sensor_threshold->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green" href="/logical_sensor_thresholds/create"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/logical_sensor_thresholds/{{ $logical_sensor_threshold->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/logical_sensor_thresholds/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
 @stop
