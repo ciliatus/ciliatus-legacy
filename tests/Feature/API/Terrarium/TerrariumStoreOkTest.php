@@ -25,7 +25,7 @@ class TerrariumStoreOkTest extends TestCase
         $token = $this->createUserFullPermissions();
 
         $response = $this->post('/api/v1/terraria', [
-            'display_name' => 'TestTerrarium01'
+            'name' => 'TestTerrarium01', 'display_name' => 'TestTerrarium01'
         ], [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
@@ -45,7 +45,7 @@ class TerrariumStoreOkTest extends TestCase
         $response->assertJson([
             'data' => [
                 'id' => $id,
-                'display_name' => 'TestTerrarium01'
+                'name' => 'TestTerrarium01', 'display_name' => 'TestTerrarium01'
             ]
         ]);
 

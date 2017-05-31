@@ -28,7 +28,7 @@ class SuggestionTest extends TestCase
     {
 
         $terrarium = Terrarium::create([
-            'display_name' => 'TestTerrarium01'
+            'name' => 'TestTerrarium01', 'display_name' => 'TestTerrarium01'
         ]);
 
         $terrarium->generateDefaultSuggestionSettings();

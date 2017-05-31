@@ -25,7 +25,7 @@ class ActionSequenceUpdateUnauthorizedTest extends TestCase
         $token = $this->createUserFullPermissions();
 
         $terrarium = Terrarium::create([
-            'display_name' => 'TestTerrarium01'
+            'name' => 'TestTerrarium01', 'display_name' => 'TestTerrarium01'
         ]);
 
         $response = $this->json('POST', '/api/v1/action_sequences', [

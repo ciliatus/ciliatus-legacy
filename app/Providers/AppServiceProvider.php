@@ -2,9 +2,8 @@
 
 namespace App\Providers;
 
-use App\Observers\SensorreadingObserver;
-use App\Sensorreading;
 use Illuminate\Support\ServiceProvider;
+use App\Sensorreading;
 
 class AppServiceProvider extends ServiceProvider
 {

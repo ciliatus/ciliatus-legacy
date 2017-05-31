@@ -31,7 +31,7 @@ class CriticalStateTest extends TestCase
     {
 
         $terrarium = Terrarium::create([
-            'display_name' => 'TestTerrarium01'
+            'name' => 'TestTerrarium01', 'display_name' => 'TestTerrarium01'
         ]);
 
         $physical_sensor = PhysicalSensor::create([

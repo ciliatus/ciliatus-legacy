@@ -27,7 +27,7 @@ class ActionSequenceDeleteUnauthorizedTest extends TestCase
         $token = $this->createUserReadOnly();
 
         $terrarium = Terrarium::create([
-            'display_name' => 'TestTerrarium01'
+            'name' => 'TestTerrarium01', 'display_name' => 'TestTerrarium01'
         ]);
 
         $as = ActionSequence::create([

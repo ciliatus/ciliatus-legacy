@@ -32,6 +32,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
+
         $schedule->command('ciliatus:suggestions:generate')
                  ->weekly();
 
@@ -46,5 +47,15 @@ class Kernel extends ConsoleKernel
 
         $schedule->command('ciliatus:cache:rebuild')
                  ->everyMinute();
+    }
+
+    /**
+     * Register the Closure based commands for the application.
+     *
+     * @return void
+     */
+    protected function commands()
+    {
+        require base_path('routes/console.php');
     }
 }

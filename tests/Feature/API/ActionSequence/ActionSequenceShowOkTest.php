@@ -31,7 +31,7 @@ class ActionSequenceShowOkTest extends TestCase
         $token_write = $this->createUserFullPermissions();
 
         $terrarium = Terrarium::create([
-            'display_name' => 'TestTerrarium01'
+            'name' => 'TestTerrarium01', 'display_name' => 'TestTerrarium01'
         ]);
 
         $controlunit = Controlunit::create([
@@ -89,7 +89,7 @@ class ActionSequenceShowOkTest extends TestCase
                 ],
                 'terrarium' => [
                     'id' => $terrarium->id,
-                    'display_name' => 'TestTerrarium01'
+                    'name' => 'TestTerrarium01', 'display_name' => 'TestTerrarium01'
                 ]
             ]
         ]);

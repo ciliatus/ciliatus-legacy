@@ -24,7 +24,7 @@ class TerrariumUpdateUnprocessableEntityTest extends TestCase
         $token = $this->createUserFullPermissions();
 
         $terrarium = Terrarium::create([
-            'display_name' => 'TestTerrarium01'
+            'name' => 'TestTerrarium01', 'display_name' => 'TestTerrarium01'
         ]);
 
         $response = $this->put('/api/v1/terraria/' . $terrarium->id, [

@@ -180,6 +180,7 @@ class TerrariumController extends ApiController
         }
 
         $terrarium = Terrarium::create([
+            'name' => $request->input('display_name'),
             'display_name' => $request->input('display_name')
         ]);
 
