@@ -79,7 +79,8 @@ class GenericComponentType extends CiliatusModel
      */
     public function properties()
     {
-        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'GenericComponentType')
+        return $this->hasMany('App\Property', 'belongsTo_id')
+            ->where('belongsTo_type', 'GenericComponentType')
             ->where('type', 'GenericComponentTypeProperty');
     }
 
@@ -88,8 +89,9 @@ class GenericComponentType extends CiliatusModel
      */
     public function states()
     {
-        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'GenericComponentType')
-                                                             ->where('type', 'GenericComponentTypeState');
+        return $this->hasMany('App\Property', 'belongsTo_id')
+            ->where('belongsTo_type', 'GenericComponentType')
+            ->where('type', 'GenericComponentTypeState');
     }
 
     /**
@@ -97,7 +99,8 @@ class GenericComponentType extends CiliatusModel
      */
     public function intentions()
     {
-        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'GenericComponentType')
+        return $this->hasMany('App\Property', 'belongsTo_id')
+            ->where('belongsTo_type', 'GenericComponentType')
             ->where('type', 'GenericComponentTypeIntention');
     }
 

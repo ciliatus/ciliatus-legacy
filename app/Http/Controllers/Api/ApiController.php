@@ -6,18 +6,15 @@ use App\CiliatusModel;
 use App\Http\Controllers\Controller;
 use App\Http\Transformers\Transformer;
 use App\Property;
-use Carbon\Carbon;
 use Gate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
-use Matthenning\EloquentApiFilter\EloquentApiFilter;
 use Matthenning\EloquentApiFilter\Traits\FiltersEloquentApi;
 
 /**
  * Class ApiController
- * @package App\Http\Controllers
+ * @package App\Http\Controllers\Api
  */
 class ApiController extends Controller
 {
