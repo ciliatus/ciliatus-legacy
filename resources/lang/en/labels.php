@@ -165,6 +165,7 @@ return [
     'adjust_rawvalue'=> 'Raw value correction',
     'filter'        =>  'Filter',
     'logout'        =>  'Log off',
+    'login'         =>  'Log in',
     'ask_me_something'=>'Ask me something',
     'ventilate'     =>  'Ventilate',
     'heat_up'       =>  'Heat',

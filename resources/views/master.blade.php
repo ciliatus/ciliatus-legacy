@@ -18,6 +18,11 @@
 
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
         <script>
+            $.ajaxSetup({
+                headers: {
+                    'X-CSRF-TOKEN': '{{ csrf_token() }}'
+                }
+            });
             window.Laravel = {
                 csrfToken: "{{ csrf_token() }}"
             };
@@ -35,6 +40,10 @@
 
     <body data-lang="{{ Auth::user()->locale }}" style="height: 100%;">
 
+        <script>
+            var domCallbacks = [];
+        </script>
+
         <div id="body">
             <div id="api-io-widget-result-modal" class="modal" style="z-index: 1003;">
                 <div class="modal-content">
@@ -46,9 +55,6 @@
                     <a href="#!" class="modal-action modal-close btn btn-flat orange darken-4">@lang('buttons.close')</a>
                 </div>
             </div>
-            <script>
-                var domCallbacks = [];
-            </script>
             <header>
                 <div class="navbar-fixed">
                     <nav>
@@ -269,17 +275,13 @@
         <!-- Vue -->
         <script src="{{ url('/js/vendors/vue.js') }}"></script>
         <!-- Dygraph -->
-        <script src="{{ url('/v1.7-beta/js/vendors/dygraph.min.js') }}"></script>
+        <script src="{{ url('/js/vendors/dygraph.min.js') }}"></script>
 
         @yield('scripts')
 
         <script>
             $(document).ready(function() {
                 window.runPage();
-                $.ajaxSetup({
-                    headers:
-                        { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content') }
-                });
             });
         </script>
 

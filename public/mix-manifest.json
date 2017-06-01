@@ -1,0 +1,14 @@
+{
+  "/js/vendors/vue.js": "/js/vendors/vue.js",
+  "/js/app.js": "/js/app.js",
+  "/css/vendors/materialize.css": "/css/vendors/materialize.css",
+  "/css/vendors/materialize_dark.css": "/css/vendors/materialize_dark.css",
+  "/css/vendors/timeline.css": "/css/vendors/timeline.css",
+  "/js/vendors/echo.js": "/js/vendors/echo.js",
+  "/js/vendors/vue.min.js": "/js/vendors/vue.min.js",
+  "/js/app.min.js": "/js/app.min.js",
+  "/css/vendors/materialize.min.css": "/css/vendors/materialize.min.css",
+  "/css/vendors/materialize_dark.min.css": "/css/vendors/materialize_dark.min.css",
+  "/css/vendors/timeline.min.css": "/css/vendors/timeline.min.css",
+  "/js/vendors/echo.min.js": "/js/vendors/echo.min.js"
+}

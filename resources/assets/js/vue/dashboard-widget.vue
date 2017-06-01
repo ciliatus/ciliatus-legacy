@@ -472,6 +472,12 @@
                     terraria: {
                         ok: [],
                         critical: []
+                    },
+                    controlunits: {
+                        critical: []
+                    },
+                    physical_sensors: {
+                        critical: []
                     }
                 }
             }

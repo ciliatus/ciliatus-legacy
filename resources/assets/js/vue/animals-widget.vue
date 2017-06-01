@@ -130,24 +130,6 @@
                         </p>
                     </div>
 
-                    <!--
-                    <div class="card-action">
-                        <a v-bind:href="'/animals/' + animal.id">{{ $t("buttons.details") }}</a>
-                        <a v-bind:href="'/animals/' + animal.id + '/edit'">{{ $t("buttons.edit") }}</a>
-                        <div class="preloader-wrapper tiny active right" v-if="animal.loading_data">
-                            <div class="spinner-layer spinner-green-only">
-                                <div class="circle-clipper left">
-                                    <div class="circle"></div>
-                                </div><div class="gap-patch">
-                                <div class="circle"></div>
-                            </div><div class="circle-clipper right">
-                                <div class="circle"></div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-                    -->
-
                     <div class="card-reveal" v-if="!animal.death_date">
                         <span class="card-title">{{ $tc("components.terraria", 1) }}<i class="material-icons right">close</i></span>
 
