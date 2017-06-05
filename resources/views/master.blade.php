@@ -246,7 +246,7 @@
 
                     <li><div class="divider"></div></li>
 
-                    <li><a href="#" onclick="$.post('/auth/logout'); setTimeout(function () { window.location.replace('/') }, 200);" class="waves-effect waves-orange"><i class="material-icons">exit_to_app</i>@lang('labels.logout')</a></li>
+                    <li><a href="{{ url('auth/logout') }}" class="waves-effect waves-orange"><i class="material-icons">exit_to_app</i>@lang('labels.logout')</a></li>
                 </ul>
 
             </header>
@@ -280,6 +280,7 @@
         @yield('scripts')
 
         <script>
+
             $(document).ready(function() {
                 window.runPage();
             });
