@@ -179,6 +179,16 @@ window.runPage = function() {
 
     $('.tooltipped').tooltip({delay: 50});
 
+    $.ajaxSetup({
+        statusCode: {
+            401: function(err){
+                if (err.responseJSON.error.indexOf('Unauthenticated') !== -1) {
+                    location.reload();
+                }
+            }
+        }
+    });
+
     // SideNav collapse active
     var active_headers = $('.collapsible-body ul li.active').parent().parent().parent();
     active_headers.addClass('active');
