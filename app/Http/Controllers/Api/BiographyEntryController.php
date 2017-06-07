@@ -95,7 +95,7 @@ class BiographyEntryController extends ApiController
      */
     public function store(Request $request)
     {
-        if (Gate::denies('api-write:property')) {
+        if (Gate::denies('api-write:biography_entry')) {
             return $this->respondUnauthorized();
         }
 
@@ -177,7 +177,7 @@ class BiographyEntryController extends ApiController
     {
 
         \Log::debug('Using user ' . \Auth::user()->name);
-        if (Gate::denies('api-write:property')) {
+        if (Gate::denies('api-write:biography_entry')) {
             return $this->respondUnauthorized();
         }
 
@@ -231,7 +231,7 @@ class BiographyEntryController extends ApiController
      */
     public function destroy($id)
     {
-        if (Gate::denies('api-write:property')) {
+        if (Gate::denies('api-write:biography_entry')) {
             return $this->respondUnauthorized();
         }
 
