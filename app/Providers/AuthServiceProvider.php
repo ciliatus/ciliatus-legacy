@@ -166,6 +166,14 @@ class AuthServiceProvider extends ServiceProvider
             return $user->hasAbility('grant_api-write:property');
         });
 
+        Gate::define('api-write:biography_entry', function ($user) {
+            return $user->hasAbility('grant_api-write:biography_entry');
+        });
+
+        Gate::define('api-write:reminder', function ($user) {
+            return $user->hasAbility('grant_api-write:reminder');
+        });
+
         Gate::define('api-fetch:desired_states', function ($user) {
             return $user->hasAbility('grant_api-fetch:desired_states');
         });

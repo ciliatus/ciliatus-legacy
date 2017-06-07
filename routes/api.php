@@ -183,6 +183,11 @@ Route::post('biography_entries/categories', 'BiographyEntryController@store_type
 Route::delete('biography_entries/categories/{id}', 'BiographyEntryController@delete_type');
 
 /*
+ * Reminders
+ */
+Route::resource('reminders', 'ReminderController');
+
+/*
  * Logs
  */
 Route::resource('logs', 'LogController');
