@@ -7459,7 +7459,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             component_properties: [],
             component_states: [],
             component_intentions: [],
-            generic_component_type: null
+            generic_component_type: {
+                name_singular: '',
+                name_plural: '',
+                icon: '3d_rotation'
+            }
         };
     },
 
@@ -7529,7 +7533,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var that = this;
         this.$nextTick(function () {
-            if (that.genericComponentType !== null) {
+            if (that.genericComponentType !== null && that.genericComponentType.length < 1) {
                 that.generic_component_type = that.genericComponentType;
                 $('#' + that.generic_component_type.id).attr('data-method', 'PUT');
 
@@ -7831,6 +7835,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
 //
 //
 //
@@ -15595,7 +15601,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])]), _vm._v(" "), _c('div', {
       staticClass: "card-reveal"
-    }, [_c('span', {
+    }, [(generic_component.controlunit !== undefined) ? _c('div', [_c('span', {
       staticClass: "card-title grey-text text-darken-4"
     }, [_vm._v(_vm._s(_vm.$tc('components.controlunits', 1))), _c('i', {
       staticClass: "material-icons right"
@@ -15609,7 +15615,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": generic_component.belongsTo.url
       }
-    }, [_vm._v(_vm._s(generic_component.belongsTo.name))]) : _vm._e()])])])])])
+    }, [_vm._v(_vm._s(generic_component.belongsTo.name))]) : _vm._e()])]) : _vm._e()])])])])
   }))
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -15726,9 +15732,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card"
   }, [_c('form', {
     attrs: {
-      "action": '/api/v1/generic_component_types/' + (_vm.generic_component_type === null ? '' : _vm.generic_component_type.id),
-      "data-method": _vm.generic_component_type === null ? 'POST' : 'PUT',
-      "id": _vm.generic_component_type.id,
+      "action": '/api/v1/generic_component_types/' + (_vm.generic_component_type.id === undefined ? '' : _vm.generic_component_type.id),
+      "data-method": _vm.generic_component_type.id === undefined ? 'POST' : 'PUT',
+      "id": _vm.generic_component_type,
       "data-redirect-success": "/categories#tab_generic_components_types"
     }
   }, [_c('div', {

@@ -191,7 +191,8 @@ class LogicalSensor extends CiliatusModel
      */
     public static function types()
     {
-        return array_column(LogicalSensor::groupBy('type')->get()->toArray(), 'type');
+        $reading_types = array_column(LogicalSensor::groupBy('type')->get()->toArray(), 'type');
+        return array_merge($reading_types, ['humidity_percent', 'temperature_celsius']);
     }
 
     /**

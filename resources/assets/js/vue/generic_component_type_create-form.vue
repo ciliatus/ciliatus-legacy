@@ -2,9 +2,9 @@
     <div :class="containerClasses">
         <div :class="wrapperClasses">
             <div class="card">
-                <form :action="'/api/v1/generic_component_types/' + (generic_component_type === null ? '' : generic_component_type.id)"
-                      :data-method="generic_component_type === null ? 'POST' : 'PUT'"
-                      :id="generic_component_type.id"
+                <form :action="'/api/v1/generic_component_types/' + (generic_component_type.id === undefined ? '' : generic_component_type.id)"
+                      :data-method="generic_component_type.id === undefined ? 'POST' : 'PUT'"
+                      :id="generic_component_type"
                       data-redirect-success="/categories#tab_generic_components_types">
                     <div class="card-content">
 
@@ -1123,7 +1123,11 @@ export default {
             component_properties: [],
             component_states: [],
             component_intentions: [],
-            generic_component_type: null
+            generic_component_type: {
+                name_singular: '',
+                name_plural: '',
+                icon: '3d_rotation'
+            }
         }
     },
 
@@ -1192,7 +1196,7 @@ export default {
     created: function() {
         var that = this;
         this.$nextTick(function() {
-            if (that.genericComponentType !== null) {
+            if (that.genericComponentType !== null && that.genericComponentType.length < 1) {
                 that.generic_component_type = that.genericComponentType;
                 $('#' + that.generic_component_type.id).attr('data-method', 'PUT');
 

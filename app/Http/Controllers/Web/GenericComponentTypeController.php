@@ -34,7 +34,7 @@ class GenericComponentTypeController extends Controller
         }
 
         return view('generic_components.types.create', [
-            'sensorreading_types' => LogicalSensor::types()
+            'sensorreading_types' => json_encode(LogicalSensor::types())
         ]);
     }
 

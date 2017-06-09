@@ -12,7 +12,7 @@
             <div class="col s12 m12 l6">
                 <div class="card">
                     <form action="{{ url('api/v1/generic_component_types/' . $generic_component_type->id) }}"
-                          data-method="DELETE" data-redirect-success="{{ url('generic_component_types') }}">
+                          data-method="DELETE" data-redirect-success="{{ url('categories#tab_generic_components_types') }}">
                         <div class="card-content">
 
                             <span class="card-title activator truncate">

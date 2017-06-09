@@ -73,7 +73,7 @@ class GenericComponentController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if (is_null(Controlunit::find($request->input('controlunit')))) {
+        if ($request->has('controlunit') && is_null(Controlunit::find($request->input('controlunit')))) {
             return $this->setStatusCode(422)->respondWithError("Controlunit not found.");
         }
 
@@ -84,7 +84,7 @@ class GenericComponentController extends ApiController
         $component = GenericComponent::create([
             'name' => $request->input('name'),
             'generic_component_type_id' => $request->input('type_id'),
-            'controlunit_id' => $request->input('controlunit')
+            'controlunit_id' => $request->has('controlunit') ? $request->input('controlunit') : null
         ]);
 
         $component = $this->addBelongsTo($request, $component);
