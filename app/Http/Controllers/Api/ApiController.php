@@ -10,6 +10,7 @@ use Gate;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Matthenning\EloquentApiFilter\Traits\FiltersEloquentApi;
 
 /**
@@ -194,7 +195,7 @@ class ApiController extends Controller
          * Permission api-list:raw is required
          */
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
-            $objects = $query->get()->toArray();
+            $objects = $query->get();
 
 
             if (!is_null($repository_name)) {
@@ -208,7 +209,7 @@ class ApiController extends Controller
 
             return $this->setStatusCode(200)->respondWithData(
                 $transformer->transformCollection(
-                    $objects
+                    $objects->toArray()
                 )
             );
 
@@ -220,10 +221,11 @@ class ApiController extends Controller
 
         $objects = $this->paginate($request, $query);
 
+
         if (!is_null($repository_name)) {
             $this->applyRepository(
                 $repository_name,
-                $objects->items(),
+                Collection::make($objects->items()),
                 $repository_parameters,
                 $repository_method
             );
@@ -241,12 +243,12 @@ class ApiController extends Controller
      * Retrieves additional data for each object from a repository
      *
      * @param string $repository_name
-     * @param array $objects
+     * @param Collection $objects
      * @param array $repository_parameters
      * @param string $repository_method
      */
     protected function applyRepository(string $repository_name,
-                                       array $objects,
+                                       Collection $objects,
                                        array $repository_parameters = [],
                                        string $repository_method = 'show')
     {
