@@ -63,7 +63,7 @@
 
                             <td>
                                 <span>
-                                    <a class="waves-effect waves-light btn-small" v-bind:href="'/generic_components/' + generic_component.id + '/edit'">
+                                    <a v-bind:href="'/generic_components/' + generic_component.id + '/edit'">
                                         <i class="material-icons">edit</i>
                                     </a>
                                 </span>

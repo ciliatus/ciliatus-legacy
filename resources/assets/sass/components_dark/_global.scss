@@ -11,16 +11,10 @@ body {
   // display: flex;
   // min-height: 100vh;
   // flex-direction: column;
-  background-color: #303030;
-}
-
-header {
-  background-color: #303030;
 }
 
 main {
   // flex: 1 0 auto;
-  background-color: #303030;
 }
 
 ul {
@@ -47,10 +41,6 @@ a {
 .valign-wrapper {
   display: flex;
   align-items: center;
-
-  .valign {
-    display: block;
-  }
 }
 
 
@@ -157,7 +147,7 @@ video.responsive-video {
     height: 30px;
 
     a {
-      color: #999;
+      color: #444;
       display: inline-block;
       font-size: 1.2rem;
       padding: 0 10px;
@@ -170,7 +160,7 @@ video.responsive-video {
 
     &.disabled a {
       cursor: default;
-      color: #444;
+      color: #999;
     }
 
     i {
@@ -203,8 +193,8 @@ video.responsive-video {
 
 // Breadcrumbs
 .breadcrumb {
-  //font-size: 18px;
-  //color: rgba(255,255,255, .7);
+  font-size: 18px;
+  color: rgba(255,255,255, .7);
 
   i,
   [class^="mdi-"], [class*="mdi-"],
@@ -583,66 +573,6 @@ td, th{
     }
     .collection-item.avatar {
       padding-left: 72px;
-    }
-  }
-
-  &.info {
-    @extend .white-text;
-    border: 1px solid color('blue', 'lighten-1');
-
-    .collection-header {
-      background-color: color('blue', 'lighten-1');
-      border-bottom: 1px solid color('blue', 'lighten-1');
-    }
-
-    .collection-item {
-      background-color: color('blue', 'lighten-2');
-      border-bottom: 1px solid color('blue', 'lighten-2');
-    }
-  }
-
-  &.ok {
-    @extend .white-text;
-    border: 1px solid color('teal', 'base');
-
-    .collection-header {
-      background-color: color('teal', 'base');
-      border-bottom: 1px solid color('teal', 'base');
-    }
-
-    .collection-item {
-      background-color: color('teal', 'lighten-1');
-      border-bottom: 1px solid color('teal', 'base');
-    }
-  }
-
-  &.warning {
-    @extend .white-text;
-    border: 1px solid color('orange', 'darken-3');
-
-    .collection-header {
-      background-color: color('orange', 'darken-3');
-      border-bottom: 1px solid color('orange', 'darken-3');
-    }
-
-    .collection-item {
-      background-color: color('orange', 'darken-2');
-      border-bottom: 1px solid color('orange', 'darken-3');
-    }
-  }
-
-  &.critical {
-    @extend .white-text;
-    border: 1px solid color('red', 'darken-4');
-
-    .collection-header {
-      background-color: color('red', 'darken-4');
-      border-bottom: 1px solid color('red', 'darken-4');
-    }
-
-    .collection-item {
-      background-color: color('red', 'darken-2');
-      border-bottom: 1px solid color('red', 'darken-4');
     }
   }
 

@@ -71,7 +71,7 @@
 
                 <div class="col s12 m12 l8">
                     <div class="card">
-                        <div class="card-content orange darken-4 white-text">
+                        <div class="card-header">
                             <span>@lang('labels.weighprogression')</span>
                         </div>
                         <div class="card-content">
@@ -100,7 +100,7 @@
 
                     <div class="col s12 m7 l8">
                         <div class="card">
-                            <div class="card-content orange darken-4 white-text">
+                            <div class="card-header">
                                 @lang('labels.temp_and_hum_history')
                             </div>
                             <div class="card-content">

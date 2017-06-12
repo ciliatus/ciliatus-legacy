@@ -14079,7 +14079,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "card"
   }, [_c('div', {
-    staticClass: "card-content orange darken-4 white-text"
+    staticClass: "card-header"
   }, [_c('i', {
     staticClass: "material-icons"
   }, [_vm._v("playlist_play")]), _vm._v("\n        " + _vm._s(_vm.action_sequences.length) + " " + _vm._s(_vm.$tc("components.action_sequences", 2)) + "\n    ")]), _vm._v(" "), _c('div', {
@@ -14852,7 +14852,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         val: _vm.$getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).val
       }
     )) + "\n                        ")]), _vm._v(" "), _c('td', [_c('span', [_c('a', {
-      staticClass: "waves-effect waves-light btn-small",
       attrs: {
         "href": '/controlunits/' + controlunit.id + '/edit'
       }
@@ -15057,7 +15056,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "card"
     }, [_c('div', {
-      staticClass: "card-content orange darken-4 white-text"
+      staticClass: "card-header"
     }, [_c('i', {
       staticClass: "material-icons"
     }, [_vm._v("memory")]), _vm._v("\n                    " + _vm._s(_vm.$tc("components.physical_sensors", 2)) + "\n                ")]), _vm._v(" "), _c('div', {
@@ -15391,7 +15390,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/terraria/' + physical_sensor.terrarium.id
       }
     }, [_vm._v(_vm._s(physical_sensor.terrarium.display_name))])]) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', [_c('a', {
-      staticClass: "waves-effect waves-light btn-small",
       attrs: {
         "href": '/physical_sensors/' + physical_sensor.id + '/edit'
       }
@@ -15578,7 +15576,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "card"
     }, [_c('div', {
-      staticClass: "card-content orange darken-4 white-text"
+      staticClass: "card-header"
     }, [_c('i', {
       staticClass: "material-icons"
     }, [_vm._v(_vm._s(generic_component.type.icon))]), _vm._v("\n                    " + _vm._s(generic_component.type.name_singular) + "\n                ")]), _vm._v(" "), _c('div', {
@@ -15642,7 +15640,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "card"
     }, [_c('div', {
-      staticClass: "card-content orange darken-4 white-text"
+      staticClass: "card-header"
     }, [_c('i', {
       staticClass: "material-icons"
     }, [_vm._v("memory")]), _vm._v("\n                    " + _vm._s(_vm.$tc("components.logical_sensors", 2)) + "\n                ")]), _vm._v(" "), _c('div', {
@@ -19867,7 +19865,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "data-method": "PUT"
     }
   }, [_c('div', {
-    staticClass: "card-content orange darken-4 white-text"
+    staticClass: "card-header"
   }, [_c('span', {
     staticClass: "activator truncate"
   }, [_c('span', [_vm._v(_vm._s(_vm.$t('labels.properties')))])])]), _vm._v(" "), _c('div', {
@@ -20442,7 +20440,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("(+" + _vm._s(_vm.get_accuracy_adjustment(logical_sensor)) + ")")])]) : _c('span', [_c('span', {
       staticClass: "red darken-2"
     }, [_vm._v("(" + _vm._s(_vm.get_accuracy_adjustment(logical_sensor)) + ")")])])]) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', [_c('a', {
-      staticClass: "waves-effect waves-light btn-small",
       attrs: {
         "href": '/logical_sensors/' + logical_sensor.id + '/edit'
       }
@@ -20803,7 +20800,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/controlunits/' + pump.controlunit.id
       }
     }, [_vm._v(_vm._s(pump.controlunit.name))])]) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', [_c('a', {
-      staticClass: "waves-effect waves-light btn-small",
       attrs: {
         "href": '/pumps/' + pump.id + '/edit'
       }
@@ -21066,7 +21062,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "card"
     }, [_c('div', {
-      staticClass: "card-content orange darken-4 white-text"
+      staticClass: "card-header"
     }, [_c('i', {
       staticClass: "material-icons"
     }, [_vm._v("developer_board")]), _vm._v("\n                    " + _vm._s(_vm.$tc("components.controlunits", 2)) + "\n                ")]), _vm._v(" "), _c('div', {
@@ -21893,7 +21889,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "card"
     }, [_c('div', {
-      staticClass: "card-content orange darken-4 white-text"
+      staticClass: "card-header"
     }, [_c('i', {
       staticClass: "material-icons"
     }, [_vm._v("transform")]), _vm._v("\n                    " + _vm._s(_vm.$tc("components.valves", 2)) + "\n                ")]), _vm._v(" "), _c('div', {
@@ -21955,7 +21951,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card"
   }, [_c('div', {
-    staticClass: "card-content orange darken-4 white-text"
+    staticClass: "card-header"
   }, [_c('i', {
     staticClass: "material-icons"
   }, [_vm._v("schedule")]), _vm._v("\n                " + _vm._s(_vm.$tc("components.animal_weighing_schedules", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
@@ -22511,7 +22507,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/terraria/' + valve.terrarium.id
       }
     }, [_vm._v(_vm._s(valve.terrarium.display_name))])]) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', [_c('a', {
-      staticClass: "waves-effect waves-light btn-small",
       attrs: {
         "href": '/valves/' + valve.id + '/edit'
       }
@@ -22686,7 +22681,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card"
   }, [_c('div', {
-    staticClass: "card-content orange darken-4 white-text"
+    staticClass: "card-header"
   }, [_c('i', {
     staticClass: "material-icons"
   }, [_vm._v("attach_file")]), _vm._v("\n                " + _vm._s(_vm.files.length) + " " + _vm._s(_vm.$tc("components.files", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
@@ -23000,7 +22995,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/terraria/' + action_sequence.terrarium.id
       }
     }, [_vm._v(_vm._s(action_sequence.terrarium.name))])])]), _vm._v(" "), _c('td', [_c('span', [_c('a', {
-      staticClass: "waves-effect waves-light btn-small",
       attrs: {
         "href": '/action_sequences/' + action_sequence.id + '/edit'
       }
@@ -23245,7 +23239,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("send")])])])])]), _vm._v(" "), _c('div', {
     staticClass: "card"
   }, [_c('div', {
-    staticClass: "card-content orange darken-4 white-text"
+    staticClass: "card-header"
   }, [_c('i', {
     staticClass: "material-icons"
   }, [_vm._v("vertical_align_bottom")]), _vm._v("\n                " + _vm._s(_vm.$tc("components.animal_weighings", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
@@ -23256,6 +23250,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "material-icons right"
   }, [_vm._v("more_vert")])]), _vm._v(" "), _vm._l((_vm.animal_weighings), function(af) {
     return _c('div', [_c('div', {
+      staticClass: "row row-no-margin",
       staticStyle: {
         "width": "100%"
       }
@@ -23266,11 +23261,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })))]) : _vm._e(), _vm._v(" "), (af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours <= 1) ? _c('span', [_vm._v(_vm._s(_vm.$t('units.just_now')))]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(" - " + _vm._s(af.amount) + "g")]), _vm._v(" "), _c('span', {
       staticClass: "right"
     }, [_c('a', {
-      staticClass: "btn btn-danger btn-tiny",
+      staticClass: "red-text",
       attrs: {
         "href": '/animals/' + _vm.animalId + '/weighings/' + af.id + '/delete'
       }
-    }, [_vm._v("x")])])])])
+    }, [_c('i', {
+      staticClass: "material-icons"
+    }, [_vm._v("delete")])])])])])
   }), _vm._v(" "), (_vm.animal_weighings.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card-action"
   }, [_c('a', {
@@ -23306,7 +23303,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card"
   }, [_c('div', {
-    staticClass: "card-content orange darken-4 white-text"
+    staticClass: "card-header"
   }, [_c('i', {
     staticClass: "material-icons"
   }, [_vm._v("schedule")]), _vm._v("\n                " + _vm._s(_vm.$tc("components.animal_feeding_schedules", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
@@ -23789,7 +23786,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/controlunits/' + generic_component.controlunit.id
       }
     }, [_vm._v(_vm._s(generic_component.controlunit.name))])]) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', [_c('a', {
-      staticClass: "waves-effect waves-light btn-small",
       attrs: {
         "href": '/generic_components/' + generic_component.id + '/edit'
       }
@@ -24172,7 +24168,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         val: _vm.$getMatchingTimeDiff(file.timestamps.created_diff).val
       }
     )) + "\n                        ")]), _vm._v(" "), _c('td', [_c('span', [_c('a', {
-      staticClass: "waves-effect waves-light btn-small",
       attrs: {
         "href": '/files/' + file.id + '/edit'
       }
@@ -24348,7 +24343,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "card"
     }, [_c('div', {
-      staticClass: "card-content orange darken-4 white-text"
+      staticClass: "card-header"
     }, [_c('i', {
       staticClass: "material-icons"
     }, [_vm._v("attach_file")]), _vm._v("\n                    " + _vm._s(_vm.$tc("components.files", 1)) + "\n                ")]), _vm._v(" "), _c('div', {
@@ -24372,7 +24367,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "card"
     }, [_c('div', {
-      staticClass: "card-content orange darken-4 white-text"
+      staticClass: "card-header"
     }, [_c('span', [_vm._v(_vm._s(_vm.$t('labels.preview')))])]), _vm._v(" "), _c('div', {
       staticClass: "card-content"
     }, [_c('img', {
@@ -24414,7 +24409,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_c('div', {
       staticClass: "card"
     }, [_c('div', {
-      staticClass: "card-content orange darken-4 white-text"
+      staticClass: "card-header"
     }, [_c('i', {
       staticClass: "material-icons"
     }, [_vm._v("rotate_right")]), _vm._v("\n                    " + _vm._s(_vm.$tc("components.pumps", 2)) + "\n                ")]), _vm._v(" "), _c('div', {
@@ -24509,7 +24504,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("send")])])])])]), _vm._v(" "), _c('div', {
     staticClass: "card"
   }, [_c('div', {
-    staticClass: "card-content orange darken-4 white-text"
+    staticClass: "card-header"
   }, [_c('i', {
     staticClass: "material-icons"
   }, [_vm._v("local_dining")]), _vm._v("\n                " + _vm._s(_vm.$tc("components.animal_feedings", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
@@ -24520,8 +24515,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "material-icons right"
   }, [_vm._v("more_vert")])]), _vm._v(" "), _vm._l((_vm.animal_feedings), function(af) {
     return _c('div', [_c('div', {
+      staticClass: "row row-no-margin",
       staticStyle: {
-        "width": "100%"
+        "width": "100px"
       }
     }, [(af.timestamps.created_diff.days > 1) ? _c('span', [_vm._v(_vm._s(_vm.$t('units.days_ago', {
       val: af.timestamps.created_diff.days
@@ -24530,11 +24526,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })))]) : _vm._e(), _vm._v(" "), (af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours <= 1) ? _c('span', [_vm._v(_vm._s(_vm.$t('units.just_now')))]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(" - " + _vm._s(af.type))]), _vm._v(" "), _c('span', {
       staticClass: "right"
     }, [_c('a', {
-      staticClass: "btn btn-danger btn-tiny",
+      staticClass: "red-text",
       attrs: {
         "href": '/animals/' + _vm.animalId + '/feedings/' + af.id + '/delete'
       }
-    }, [_vm._v("x")])])])])
+    }, [_c('i', {
+      staticClass: "material-icons"
+    }, [_vm._v("delete")])])])])])
   }), _vm._v(" "), (_vm.animal_feedings.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card-action"
   }, [_c('a', {
@@ -25196,7 +25194,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/controlunits/' + component.controlunit.id
       }
     }, [_vm._v(_vm._s(component.controlunit.name))])]) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', [_c('a', {
-      staticClass: "waves-effect waves-light btn-small",
       attrs: {
         "href": component.url + '/edit'
       }

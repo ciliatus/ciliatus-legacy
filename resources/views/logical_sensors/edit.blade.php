@@ -89,7 +89,7 @@
 
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         <span>@choice('components.logical_sensor_thresholds', 2)</span>
                     </div>
 
@@ -111,7 +111,7 @@
                                             @endif
                                         </strong>
 
-                                        <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-activates="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}">
+                                        <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-beloworigin="true" data-activates="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}">
                                             <i class="material-icons">settings</i>
                                         </a>
 
@@ -142,7 +142,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         <span>@lang('labels.copy_thresholds')</span>
                     </div>
 
@@ -180,7 +180,7 @@
 
                 <div class="card">
                     <form action="{{ url('api/v1/logical_sensors/' . $logical_sensor->id) }}" data-method="PUT">
-                        <div class="card-content orange darken-4 white-text">
+                        <div class="card-header">
                             <span class="activator truncate">
                                 <span>@lang('labels.properties')</span>
                             </span>

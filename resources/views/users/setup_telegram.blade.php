@@ -57,7 +57,7 @@
                         <div class="card-action">
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <a href="{{ url('users/' . $user->id . '/edit') }}" class="btn waves-effect waves-light teal" disabled id="next-button">@lang('buttons.save')</a>
+                                    <a href="{{ url('users/' . $user->id . '/edit') }}" class="btn waves-effect waves-light" disabled id="next-button">@lang('buttons.save')</a>
                                 </div>
                             </div>
                         </div>

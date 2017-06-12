@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col s12 m6 l6">
                 <div class="card">
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         @lang('labels.features')
                     </div>
 

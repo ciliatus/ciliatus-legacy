@@ -111,7 +111,7 @@
 
                 <div class="card">
 
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         <span class="card-title activator truncate">
                             <span>@choice('components.animal_feeding_schedules', 2)</span>
                         </span>
@@ -126,7 +126,7 @@
 
                                     {{ $afs->name }} - {{ $afs->value }} @choice('units.days', $afs->value) @lang('labels.interval')
 
-                                    <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-activates="dropdown-edit-animal_feeding_schedules_{{ $afs->id }}">
+                                    <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-beloworigin="true" data-activates="dropdown-edit-animal_feeding_schedules_{{ $afs->id }}">
                                         <i class="material-icons">settings</i>
                                     </a>
 
@@ -159,7 +159,7 @@
 
                 <div class="card">
 
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         <span class="card-title activator truncate">
                             <span>@choice('components.animal_weighing_schedules', 2)</span>
                         </span>
@@ -174,7 +174,7 @@
 
                                     {{ $afs->name }} - {{ $afs->value }} @choice('units.days', $afs->value) @lang('labels.interval')
 
-                                    <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-activates="dropdown-edit-animal_weighing_schedules_{{ $afs->id }}">
+                                    <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-beloworigin="true" data-activates="dropdown-edit-animal_weighing_schedules_{{ $afs->id }}">
                                         <i class="material-icons">settings</i>
                                     </a>
 

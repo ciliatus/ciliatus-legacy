@@ -54,7 +54,7 @@
             <div class="col s12 m6 l6">
                 <div class="card">
                     <form action="{{ url('api/v1/controlunits/' . $controlunit->id) }}" data-method="PUT">
-                        <div class="card-content orange darken-4 white-text">
+                        <div class="card-header">
                             <span class="activator truncate">
                                 <span>@lang('labels.properties')</span>
                             </span>

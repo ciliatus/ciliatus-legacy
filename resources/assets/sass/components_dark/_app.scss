@@ -43,6 +43,12 @@ table.collapsible {
   height: 140px;
 }
 
+.card .card-header {
+  background-color: $primary-color;
+  color: #FFFFFF;
+  padding: 10px;
+}
+
 .side-nav .userView {
   margin-bottom: 0;
 }
@@ -183,6 +189,9 @@ text {
   direction: ltr;
   -webkit-font-feature-settings: 'liga';
   -webkit-font-smoothing: antialiased;
+  vertical-align: middle;
+  top: -1px;
+  position: relative;
 }
 
 
@@ -318,4 +327,158 @@ img.desaturate {
 img.tiny {
   height: 32px;
   width: 32px;
+}
+
+
+/*
+ * Extending Materializecss
+ */
+
+.collection {
+  &.info {
+    @extend .white-text;
+    border: 1px solid color('blue', 'lighten-1');
+
+    .collection-header {
+      background-color: color('blue', 'lighten-1');
+      border-bottom: 1px solid color('blue', 'lighten-1');
+    }
+
+    .collection-item {
+      background-color: color('blue', 'lighten-2');
+      border-bottom: 1px solid color('blue', 'lighten-2');
+    }
+  }
+
+  &.ok {
+    @extend .white-text;
+    border: 1px solid color('teal', 'base');
+
+    .collection-header {
+      background-color: color('teal', 'base');
+      border-bottom: 1px solid color('teal', 'base');
+    }
+
+    .collection-item {
+      background-color: color('teal', 'lighten-1');
+      border-bottom: 1px solid color('teal', 'base');
+    }
+  }
+
+  &.warning {
+    @extend .white-text;
+    border: 1px solid color('orange', 'darken-3');
+
+    .collection-header {
+      background-color: color('orange', 'darken-3');
+      border-bottom: 1px solid color('orange', 'darken-3');
+    }
+
+    .collection-item {
+      background-color: color('orange', 'darken-2');
+      border-bottom: 1px solid color('orange', 'darken-3');
+    }
+  }
+
+  &.critical {
+    @extend .white-text;
+    border: 1px solid color('red', 'darken-4');
+
+    .collection-header {
+      background-color: color('red', 'darken-4');
+      border-bottom: 1px solid color('red', 'darken-4');
+    }
+
+    .collection-item {
+      background-color: color('red', 'darken-2');
+      border-bottom: 1px solid color('red', 'darken-4');
+    }
+  }
+
+}
+
+.side-nav.fixed {
+
+  .collapsible-header {
+    padding: 0 0 0 ($sidenav-padding * 2);
+  }
+
+}
+
+
+// Tiny buttons
+$button-tiny-icon-font-size: 0.6rem !default;
+$button-tiny-height: $button-height * 0.4 !default;
+
+// Small buttons
+$button-small-icon-font-size: 1.0rem !default;
+$button-small-height: $button-height * 0.6 !default;
+
+.btn-tiny,
+.btn-small {
+  font-size: $button-font-size;
+  outline: 0;
+
+  i {
+    font-size: $button-icon-font-size;
+    line-height: inherit;
+  }
+}
+
+// Small button
+.btn-small {
+  @extend .btn;
+  height: $button-small-height;
+  line-height: $button-small-height;
+  padding-left: 10px;
+  padding-right: 10px;
+
+  i {
+    font-size: $button-small-icon-font-size !important;
+  }
+}
+
+// Small button
+.btn-tiny {
+  @extend .btn;
+  height: $button-tiny-height;
+  line-height: $button-tiny-height;
+  padding-left: 6px;
+  padding-right: 6px;
+
+  i {
+    font-size: $button-tiny-icon-font-size !important;
+  }
+}
+
+.btn {
+  &.btn-info {
+    background-color: color('blue', 'lighten-1');
+  }
+
+  &.btn-ok {
+    background-color: color('teal', 'base');
+  }
+
+  &.btn-warning {
+    background-color: color('orange', 'darken-3');
+  }
+
+  &.btn-critical, &.btn-danger {
+    background-color: color('red', 'darken-4');
+  }
+}
+
+.row {
+  &.row-no-margin {
+    margin: inherit;
+  }
+}
+
+.dropdown-content {
+  overflow: visible !important;
+}
+
+.breadcrumb {
+  font-size: inherit;
 }

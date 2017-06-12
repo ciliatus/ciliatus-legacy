@@ -3,7 +3,7 @@
         <div :class="wrapperClasses">
             <div class="card">
                 <form :action="formUri" data-method="PUT">
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         <span class="activator truncate">
                             <span>{{ $t('labels.properties') }}</span>
                         </span>

@@ -33,7 +33,7 @@
 
                 <div class="col s12 m7 l8">
                     <div class="card">
-                        <div class="card-content orange darken-4 white-text">
+                        <div class="card-header">
                             @lang('labels.temp_and_hum_history')
                         </div>
                         <div class="card-content">

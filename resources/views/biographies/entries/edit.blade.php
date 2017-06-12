@@ -97,7 +97,7 @@
                                       data-method="DELETE" data-redirect-success="/biography_entries/{{ $entry->id }}/edit">
 
                                     <a href="{{ $file->url() }}">{{ $file->display_name }}</a>
-                                    <button class="btn btn-tiny waves-light right" type="submit">x</button>
+                                    <button class="btn btn-tiny waves-light right" type="submit"><i class="material-icons">delete</i></button>
                                 </form>
                             </div>
                         @endforeach

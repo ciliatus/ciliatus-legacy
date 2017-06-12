@@ -47,7 +47,7 @@
 
                             <td>
                                 <span>
-                                    <a class="waves-effect waves-light btn-small" v-bind:href="'/pumps/' + pump.id + '/edit'">
+                                    <a v-bind:href="'/pumps/' + pump.id + '/edit'">
                                         <i class="material-icons">edit</i>
                                     </a>
                                 </span>

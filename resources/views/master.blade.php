@@ -94,7 +94,7 @@
 
                 <ul id="nav-mobile" class="side-nav fixed">
                     <li>
-                        <div class="userView orange darken-4" id="left-top-menu-logo-wrapper">
+                        <div class="userView deep-orange darken-3" id="left-top-menu-logo-wrapper">
                             <div class="overlay-loader center">
                                 <img src="https://dev-43256.ciliatus.io/svg/Ciliatus_Logo.svg"
                                      class="main-loader loader-icon" id="loader-icon"
