@@ -24877,14 +24877,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(animal.terrarium.display_name))]) : _vm._e()]), _vm._v(" "), _c('span', {
       staticClass: "card-title"
     }, [_vm._v(_vm._s(_vm.$t("labels.just_fed")))]), _vm._v(" "), _c('p', [_c('a', {
-      staticClass: "waves-effect waves-teal btn",
       attrs: {
+        "href": "#",
         "href": '#modal_just_fed_' + animal.id,
         "onclick": '$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'
       }
     }, [_vm._v(_vm._s(_vm.$t("labels.just_fed")))])]), _vm._v(" "), _c('p', [_c('a', {
-      staticClass: "waves-effect waves-teal btn",
       attrs: {
+        "href": "#",
         "href": '#modal_add_weight_' + animal.id,
         "onclick": '$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'
       }

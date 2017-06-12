@@ -496,6 +496,29 @@ body {
   color: #EEE;
 }
 
+.modal, .modal .modal-footer {
+  background-color: color("blue-grey", "darken-4");
+  color: #EEE;
+}
+
+.picker__select--month.browser-default {
+  background-color: color("blue-grey", "darken-4");
+  color: #EEE;
+}
+
+.picker__day.picker__day--infocus {
+  color: #EEE;
+}
+
+.picker__select--year.browser-default {
+  background-color: color("blue-grey", "darken-4");
+  color: #EEE;
+}
+
+select {
+  border: 1px color("blue-grey", "darken-3") solid;
+}
+
 .side-nav li>a, .side-nav li>a>i, .side-nav li>a>i.material-icons {
   color: #EEE;
 }
@@ -556,4 +579,26 @@ select:disabled {
       color: $tabs-text-color;
     }
   }
+}
+
+// Clockpicker
+.picker__box {
+  background-color: color("blue-grey", "darken-4") !important;
+}
+
+.clockpicker-plate {
+  background-color: color("blue-grey", "darken-3") !important;
+  color: #EEE !important;
+}
+
+.clockpicker-tick {
+  color: #EEE !important;;
+}
+
+.picker__footer .clockpicker-button {
+  color: #EEE !important;;
+}
+
+.picker__date-display {
+  background-color: $primary-color;
 }
