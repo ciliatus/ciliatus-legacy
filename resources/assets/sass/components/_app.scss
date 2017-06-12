@@ -524,3 +524,7 @@ $button-small-height: $button-height * 0.6 !default;
 .primary-background-color {
   background-color: $primary-color;
 }
+
+.card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-tiny):not(.btn-large):not(.btn-floating) {
+  color: $primary-color-light;
+}
