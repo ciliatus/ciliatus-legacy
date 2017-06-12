@@ -112,8 +112,8 @@
                             <td><a href="/generic_component_types/{{ $type->id }}">{{ $type->name_singular }}</a></td>
                             <td><i class="material-icons">{{ $type->icon }}</i></td>
                             <td>
-                                <a class="btn btn-small red darken-2 white-text" href="/generic_component_types/{{ $type->id }}/delete">@lang('buttons.delete')</a>
-                                <a class="btn btn-small orange darken-4 white-text" href="/generic_component_types/{{ $type->id }}/edit">@lang('buttons.edit')</a>
+                                <a href="/generic_component_types/{{ $type->id }}/edit"><i class="material-icons">edit</i></a>
+                                <a class="red-text text-lighten-1" href="/generic_component_types/{{ $type->id }}/delete"><i class="material-icons">delete</i></a>
                             </td>
                         </tr>
                     @endforeach
