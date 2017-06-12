@@ -520,3 +520,7 @@ $button-small-height: $button-height * 0.6 !default;
 .breadcrumb {
   font-size: inherit;
 }
+
+.primary-background-color {
+  background-color: $primary-color;
+}

@@ -482,3 +482,78 @@ $button-small-height: $button-height * 0.6 !default;
 .breadcrumb {
   font-size: inherit;
 }
+
+.primary-background-color {
+  background-color: $primary-color;
+}
+
+/*
+ * Materialize Night Mode
+ */
+
+body {
+  background-color: color("blue-grey", "darken-4");
+  color: #EEE;
+}
+
+.side-nav li>a, .side-nav li>a>i, .side-nav li>a>i.material-icons {
+  color: #EEE;
+}
+
+
+.side-nav .collapsible-body, .side-nav.fixed .collapsible-body {
+  background-color: color("blue-grey", "darken-4");
+}
+
+// Disabled styles
+select:disabled {
+  color: rgba(0,0,0,.3);
+}
+
+.select-wrapper input.select-dropdown:disabled {
+  color: rgba(255,255,255,.5);
+  border-bottom: 1px solid rgba(255,255,255,.3);
+}
+
+// Optgroup styles
+.select-dropdown li.optgroup {
+  &.selected > span {
+    color: rgba(255, 255, 255, .9);
+  }
+
+  & > span {
+    color: rgba(255, 255, 255, .7);
+  }
+}
+
+// Pagination
+.pagination {
+
+  li {
+    a {
+      color: #BBB;
+    }
+  }
+
+}
+
+// Tabs
+.tabs {
+  background-color: $tabs-bg-color;
+
+  .tab {
+    a {
+      &:hover,
+      &.active {
+        color: $tabs-text-color;
+      }
+
+      color: $tabs-text-color;
+    }
+
+    &.disabled a,
+    &.disabled a:hover {
+      color: $tabs-text-color;
+    }
+  }
+}
