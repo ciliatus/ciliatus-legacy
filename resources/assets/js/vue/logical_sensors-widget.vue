@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">{{ $tc("components.physical_sensors", 1) }}<i class="material-icons right">close</i></span>
+                        <span class="card-title">{{ $tc("components.physical_sensors", 1) }}<i class="material-icons right">close</i></span>
 
                         <p>
                             <span v-if="logical_sensor.physical_sensor">
@@ -34,7 +34,7 @@
                             </span>
                         </p>
 
-                        <span class="card-title grey-text text-darken-4">{{ $tc("components.logical_sensor_thresholds", 2) }}</span>
+                        <span class="card-title">{{ $tc("components.logical_sensor_thresholds", 2) }}</span>
 
                         <p v-for="lst in logical_sensor.thresholds">
                             {{ $t("labels.starts_at") }} {{ lst.timestamps.starts }}:

@@ -14160,7 +14160,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "card-reveal"
   }, [_c('span', {
-    staticClass: "card-title grey-text text-darken-4"
+    staticClass: "card-title"
   }, [_c('i', {
     staticClass: "material-icons right"
   }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
@@ -15078,7 +15078,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])]), _vm._v(" "), _c('div', {
       staticClass: "card-reveal"
     }, [_c('span', {
-      staticClass: "card-title grey-text text-darken-4"
+      staticClass: "card-title"
     }, [_vm._v(_vm._s(_vm.$tc("components.logical_sensors", 2)) + " "), _c('i', {
       staticClass: "material-icons right"
     }, [_vm._v("close")])]), _vm._v(" "), _vm._l((physical_sensor.logical_sensors), function(logical_sensor) {
@@ -15600,7 +15600,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])]), _vm._v(" "), _c('div', {
       staticClass: "card-reveal"
     }, [(generic_component.controlunit !== undefined) ? _c('div', [_c('span', {
-      staticClass: "card-title grey-text text-darken-4"
+      staticClass: "card-title"
     }, [_vm._v(_vm._s(_vm.$tc('components.controlunits', 1))), _c('i', {
       staticClass: "material-icons right"
     }, [_vm._v("close")])]), _vm._v(" "), _c('p', [_c('a', {
@@ -15608,7 +15608,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/controlunits/' + generic_component.controlunit.id
       }
     }, [_vm._v(_vm._s(generic_component.controlunit.name))])]), _vm._v(" "), _c('span', {
-      staticClass: "card-title grey-text text-darken-4"
+      staticClass: "card-title"
     }, [_vm._v(_vm._s(generic_component.belongsTo_type))]), _vm._v(" "), _c('p', [(generic_component.belongsTo) ? _c('a', {
       attrs: {
         "href": generic_component.belongsTo.url
@@ -15662,7 +15662,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])]), _vm._v(" "), _c('div', {
       staticClass: "card-reveal"
     }, [_c('span', {
-      staticClass: "card-title grey-text text-darken-4"
+      staticClass: "card-title"
     }, [_vm._v(_vm._s(_vm.$tc("components.physical_sensors", 1))), _c('i', {
       staticClass: "material-icons right"
     }, [_vm._v("close")])]), _vm._v(" "), _c('p', [(logical_sensor.physical_sensor) ? _c('span', [_vm._v("\n                            " + _vm._s(_vm.$tc("components.physical_sensor", 1)) + ":\n                            "), _c('a', {
@@ -15670,7 +15670,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/physical_sensors/' + logical_sensor.physical_sensor.id
       }
     }, [_vm._v(_vm._s(logical_sensor.physical_sensor.name))])]) : _vm._e()]), _vm._v(" "), _c('span', {
-      staticClass: "card-title grey-text text-darken-4"
+      staticClass: "card-title"
     }, [_vm._v(_vm._s(_vm.$tc("components.logical_sensor_thresholds", 2)))]), _vm._v(" "), _vm._l((logical_sensor.thresholds), function(lst) {
       return _c('p', [_vm._v("\n                        " + _vm._s(_vm.$t("labels.starts_at")) + " " + _vm._s(lst.timestamps.starts) + ":\n                        "), _c('strong', [_c('span', {
         directives: [{
@@ -21911,7 +21911,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])]), _vm._v(" "), _c('div', {
       staticClass: "card-reveal"
     }, [_c('span', {
-      staticClass: "card-title grey-text text-darken-4"
+      staticClass: "card-title"
     }, [_vm._v(_vm._s(_vm.$tc("components.pumps", 1))), _c('i', {
       staticClass: "material-icons right"
     }, [_vm._v("close")])]), _vm._v(" "), (valve.pump) ? _c('p', [_c('a', {
@@ -21919,13 +21919,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/pumps/' + valve.pump.id
       }
     }, [_vm._v(_vm._s(valve.pump.name))])]) : _vm._e(), _vm._v(" "), _c('span', {
-      staticClass: "card-title grey-text text-darken-4"
+      staticClass: "card-title"
     }, [_vm._v(_vm._s(_vm.$tc("components.terraria", 1)))]), _vm._v(" "), (valve.terrarium) ? _c('p', [_c('a', {
       attrs: {
         "href": '/terraria/' + valve.terrarium.id
       }
     }, [_vm._v(_vm._s(valve.terrarium.name))])]) : _vm._e(), _vm._v(" "), _c('span', {
-      staticClass: "card-title grey-text text-darken-4"
+      staticClass: "card-title"
     }, [_vm._v(_vm._s(_vm.$tc("components.controlunits", 1)))]), _vm._v(" "), (valve.controlunit) ? _c('p', [_c('a', {
       attrs: {
         "href": '/controlunits/' + valve.controlunit.id
@@ -22013,7 +22013,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "card-reveal"
   }, [_c('span', {
-    staticClass: "card-title grey-text text-darken-4"
+    staticClass: "card-title"
   }, [_c('i', {
     staticClass: "material-icons right"
   }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
@@ -22715,7 +22715,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "card-reveal"
   }, [_c('span', {
-    staticClass: "card-title grey-text text-darken-4"
+    staticClass: "card-title"
   }, [_c('i', {
     staticClass: "material-icons right"
   }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
@@ -23280,7 +23280,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "card-reveal"
   }, [_c('span', {
-    staticClass: "card-title grey-text text-darken-4"
+    staticClass: "card-title"
   }, [_c('i', {
     staticClass: "material-icons right"
   }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
@@ -23351,7 +23351,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "card-reveal"
   }, [_c('span', {
-    staticClass: "card-title grey-text text-darken-4"
+    staticClass: "card-title"
   }, [_c('i', {
     staticClass: "material-icons right"
   }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
@@ -24380,7 +24380,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "card-reveal"
   }, [_c('span', {
-    staticClass: "card-title grey-text text-darken-4"
+    staticClass: "card-title"
   }, [_c('i', {
     staticClass: "material-icons right"
   }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
@@ -24434,7 +24434,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "card-reveal"
   }, [_c('span', {
-    staticClass: "card-title grey-text text-darken-4"
+    staticClass: "card-title"
   }, [_c('i', {
     staticClass: "material-icons right"
   }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
@@ -24545,7 +24545,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "card-reveal"
   }, [_c('span', {
-    staticClass: "card-title grey-text text-darken-4"
+    staticClass: "card-title"
   }, [_c('i', {
     staticClass: "material-icons right"
   }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
