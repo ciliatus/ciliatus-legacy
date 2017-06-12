@@ -3,7 +3,7 @@
         <div v-for="pump in pumps">
             <div :class="wrapperClasses">
                 <div class="card">
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         <i class="material-icons">rotate_right</i>
                         {{ $tc("components.pumps", 2) }}
                     </div>

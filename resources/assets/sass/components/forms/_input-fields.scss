@@ -115,8 +115,7 @@ textarea.materialize-textarea {
     display: block;
     content: "";
     position: absolute;
-    bottom: 0;
-    transform: translateY(75%);
+    top: 60px;
     opacity: 0;
     transition: .2s opacity ease-out, .2s color ease-out;
   }
@@ -156,14 +155,14 @@ textarea.materialize-textarea {
     position: absolute;
     top: 0.8rem;
     left: 0;
-    //height: 100%;
     font-size: 1rem;
     cursor: text;
     transition: .2s ease-out;
+    text-align: initial;
 
     &:not(.label-icon).active {
       font-size: $label-font-size;
-      transform: translateY(-22px);
+      transform: translateY(-140%);
     }
   }
 
@@ -266,12 +265,16 @@ textarea {
   word-wrap: break-word;
   overflow-wrap: break-word; /* future version of deprecated 'word-wrap' */
   padding-top: 1.2rem; /* prevents text jump on Enter keypress */
+
+  // Reduces repaints
+  position: absolute;
+  top: 0;
 }
 
 
 /* Autocomplete */
 .autocomplete-content {
-  margin-top: -15px;
+  margin-top: -1 * $input-margin-bottom;
   display: block;
   opacity: 1;
   position: static;

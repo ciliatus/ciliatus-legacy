@@ -93,7 +93,7 @@
 
                             <td>
                                 <span>
-                                    <a class="waves-effect waves-light btn-small" v-bind:href="'/logical_sensors/' + logical_sensor.id + '/edit'">
+                                    <a v-bind:href="'/logical_sensors/' + logical_sensor.id + '/edit'">
                                         <i class="material-icons">edit</i>
                                     </a>
                                 </span>

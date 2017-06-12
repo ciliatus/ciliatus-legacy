@@ -94,7 +94,7 @@
 
                 <ul id="nav-mobile" class="side-nav fixed">
                     <li>
-                        <div class="userView orange darken-4" id="left-top-menu-logo-wrapper">
+                        <div class="userView primary-background-color" id="left-top-menu-logo-wrapper">
                             <div class="overlay-loader center">
                                 <img src="https://dev-43256.ciliatus.io/svg/Ciliatus_Logo.svg"
                                      class="main-loader loader-icon" id="loader-icon"
@@ -242,7 +242,7 @@
                     <li><a href="https://github.com/matthenning/ciliatus/releases/tag/{{ config('app.version') }}" class="waves-effect waves-orange"><i class="material-icons">linear_scale</i>Version {{ config('app.version') }}</a></li>
                     @endif
 
-                    <li class="red lighten-5"><a @if(!App\ActionSequence::stopped())href="/action_sequences/stop_all" @else href="/action_sequences/resume_all" @endif class="waves-effect waves-red red-text"><i class="material-icons red-text">power_settings_new</i>@lang('buttons.emergency_stop')</a></li>
+                    <li><a @if(!App\ActionSequence::stopped())href="/action_sequences/stop_all" @else href="/action_sequences/resume_all" @endif class="waves-effect waves-red red-text"><i class="material-icons red-text">power_settings_new</i>@lang('buttons.emergency_stop')</a></li>
 
                     <li><div class="divider"></div></li>
 

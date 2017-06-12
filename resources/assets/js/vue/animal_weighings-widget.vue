@@ -23,7 +23,7 @@
             </div>
 
             <div class="card">
-                <div class="card-content orange darken-4 white-text">
+                <div class="card-header">
                     <i class="material-icons">vertical_align_bottom</i>
                     {{ $tc("components.animal_weighings", 2) }}
                 </div>
@@ -35,12 +35,12 @@
                     </span>
 
                     <div v-for="af in animal_weighings">
-                        <div style="width: 100%;">
+                        <div style="width: 100%;" class="row row-no-margin">
                             <span v-if="af.timestamps.created_diff.days > 1">{{ $t('units.days_ago', {val: af.timestamps.created_diff.days}) }}</span>
                             <span v-if="af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours > 1">{{ $t('units.hours_ago', {val: af.timestamps.created_diff.hours}) }}</span>
                             <span v-if="af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours <= 1">{{ $t('units.just_now') }}</span>
                             <span> - {{ af.amount }}g</span>
-                            <span class="right"><a class="btn btn-danger btn-tiny" :href="'/animals/' + animalId + '/weighings/' + af.id + '/delete'">x</a></span>
+                            <span class="right"><a class="red-text" :href="'/animals/' + animalId + '/weighings/' + af.id + '/delete'"><i class="material-icons">delete</i></a></span>
                         </div>
                     </div>
                     <div v-if="animal_weighings.length < 1">

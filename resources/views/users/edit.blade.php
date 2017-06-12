@@ -550,7 +550,7 @@
                                             <i class="material-icons left">delete</i>
                                         </button>
                                         @else
-                                            <a href="{{ url('users/setup/telegram') }}" class="btn waves-effect waves-light teal">@lang('buttons.start_setup')</a>
+                                            <a href="{{ url('users/setup/telegram') }}" class="btn waves-effect waves-light">@lang('buttons.start_setup')</a>
                                         @endif
                                     </div>
                                 </div>

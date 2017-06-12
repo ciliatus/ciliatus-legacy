@@ -13,11 +13,13 @@
 
 // components
 @import "components_dark/global";
+@import "components_dark/badges";
 @import "components_dark/icons-material-design";
 @import "components_dark/grid";
 @import "components_dark/navbar";
 @import "components_dark/roboto";
 @import "components_dark/typography";
+@import "components_dark/transitions";
 @import "components_dark/cards";
 @import "components_dark/toast";
 @import "components_dark/tabs";
@@ -35,7 +37,8 @@
 @import "components_dark/preloader";
 @import "components_dark/slider";
 @import "components_dark/carousel";
-@import "components/pulse";
+@import "components_dark/tapTarget";
+@import "components_dark/pulse";
 @import "components_dark/date_picker/default";
 @import "components_dark/date_picker/default.date";
 @import "components_dark/date_picker/default.time";

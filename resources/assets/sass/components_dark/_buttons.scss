@@ -24,8 +24,6 @@
 .btn-flat:disabled,
 .btn[disabled],
 .btn-floating[disabled],
-.btn-tiny[disabled],
-.btn-small[disabled],
 .btn-large[disabled],
 .btn-flat[disabled] {
   pointer-events: none;
@@ -43,15 +41,13 @@
 // Shared icon styles
 .btn,
 .btn-floating,
-.btn-tiny,
-.btn-small,
 .btn-large,
 .btn-flat {
-
+  font-size: $button-font-size;
   outline: 0;
 
   i {
-    font-size: $button-font-size;
+    font-size: $button-icon-font-size;
     line-height: inherit;
   }
 }
@@ -93,6 +89,10 @@
   }
 
   &.btn-large {
+    &.halfway-fab {
+      bottom: -$button-floating-large-size / 2;
+    }
+
     width: $button-floating-large-size;
     height: $button-floating-large-size;
     i {
@@ -108,8 +108,7 @@
 
     position: absolute;
     right: 24px;
-    bottom: 0;
-    transform: translateY(50%);
+    bottom: -$button-floating-size / 2;
   }
 
   display: inline-block;
@@ -287,33 +286,7 @@ button.btn-floating {
   line-height: $button-large-height;
 
   i {
-    font-size: $button-large-icon-font-size !important;
-  }
-}
-
-// Small button
-.btn-small {
-  @extend .btn;
-  height: $button-small-height;
-  line-height: $button-small-height;
-  padding-left: 10px;
-  padding-right: 10px;
-  
-  i {
-    font-size: $button-small-icon-font-size !important;
-  }
-}
-
-// Small button
-.btn-tiny {
-  @extend .btn;
-  height: $button-tiny-height;
-  line-height: $button-tiny-icon-font-size !important;
-  padding-left: 6px;
-  padding-right: 6px;
-
-  i {
-    font-size: $button-tiny-height;
+    font-size: $button-large-icon-font-size;
   }
 }
 

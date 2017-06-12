@@ -282,7 +282,12 @@ window.notification = function (text, cssClass, length) {
 window.runPage = function () {
     $('select').material_select();
 
-    $('.dropdown-button').dropdown();
+    $('.dropdown-button').dropdown({
+        constrain_width: false, // Does not change width of dropdown to that of the activator
+        hover: true, // Activate on hover
+        belowOrigin: true, // Displays dropdown below the button
+        alignment: 'left' // Displays dropdown with edge aligned to the left of button
+    });
 
     $('.button-collapse').sideNav();
 
