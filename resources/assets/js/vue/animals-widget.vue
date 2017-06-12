@@ -140,10 +140,10 @@
                         <span class="card-title">{{ $t("labels.just_fed") }}</span>
 
                         <p>
-                            <a class="waves-effect waves-teal btn" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
+                            <a href="#" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
                         </p>
                         <p>
-                            <a class="waves-effect waves-teal btn" v-bind:href="'#modal_add_weight_' + animal.id" v-bind:onclick="'$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.add_weight") }}</a>
+                            <a href="#" v-bind:href="'#modal_add_weight_' + animal.id" v-bind:onclick="'$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.add_weight") }}</a>
                         </p>
                     </div>
                 </div>
