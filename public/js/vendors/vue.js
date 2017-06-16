@@ -24515,10 +24515,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "material-icons right"
   }, [_vm._v("more_vert")])]), _vm._v(" "), _vm._l((_vm.animal_feedings), function(af) {
     return _c('div', [_c('div', {
-      staticClass: "row row-no-margin",
-      staticStyle: {
-        "width": "100px"
-      }
+      staticClass: "row row-no-margin"
     }, [(af.timestamps.created_diff.days > 1) ? _c('span', [_vm._v(_vm._s(_vm.$t('units.days_ago', {
       val: af.timestamps.created_diff.days
     })))]) : _vm._e(), _vm._v(" "), (af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours > 1) ? _c('span', [_vm._v(_vm._s(_vm.$t('units.hours_ago', {
