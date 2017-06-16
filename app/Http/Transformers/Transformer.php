@@ -125,6 +125,10 @@ abstract class Transformer
                 return $item;
             }
 
+            if (is_null($object)) {
+                return $item;
+            }
+
             if (class_exists($repo_name)) {
                 $object = (new $repo_name($object))->show();
             }
