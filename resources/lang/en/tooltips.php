@@ -57,5 +57,7 @@ return [
         'add' => 'New',
         'edit' => 'Edit',
         'delete' => 'Delete'
-    ]
+    ],
+    'ciliatus_up_to_date' => 'Up to date',
+    'ciliatus_not_up_to_date' => 'Update available: <a href=":url">GitHub</a>'
 ];

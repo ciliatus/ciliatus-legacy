@@ -120,7 +120,11 @@
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li>
-                                <a class="collapsible-header">@lang('menu.monitoring')<i class="material-icons">alarm_on</i></a>
+                                <a class="collapsible-header">
+                                    @lang('menu.monitoring')
+                                    <i class="material-icons">alarm_on</i>
+                                    <i class="material-icons right" style="margin-right: 10px;">keyboard_arrow_down</i>
+                                </a>
                                 <div class="collapsible-body">
                                     <ul>
                                         <!--
@@ -153,7 +157,11 @@
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li>
-                                <a class="collapsible-header">@lang('menu.automation')<i class="material-icons">autorenew</i></a>
+                                <a class="collapsible-header">
+                                    @lang('menu.automation')
+                                    <i class="material-icons">autorenew</i>
+                                    <i class="material-icons right" style="margin-right: 10px;">keyboard_arrow_down</i>
+                                </a>
                                 <div class="collapsible-body">
                                     <ul>
                                         <li @if(Request::is('pumps', 'pumps/*')) class="active" @endif>
@@ -196,7 +204,11 @@
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li>
-                                <a class="collapsible-header">@lang('menu.administration')<i class="material-icons">build</i></a>
+                                <a class="collapsible-header">
+                                    @lang('menu.administration')
+                                    <i class="material-icons">build</i>
+                                    <i class="material-icons right" style="margin-right: 10px;">keyboard_arrow_down</i>
+                                </a>
                                 <div class="collapsible-body">
                                     <ul>
                                         <li @if(Request::is('users', 'users/*')) class="active" @endif>
@@ -229,6 +241,12 @@
                                                 @lang('menu.system_status')
                                             </a>
                                         </li>
+                                        <li>
+                                            <a href="https://github.com/matthenning/ciliatus/issues" class="waves-effect waves-orange">
+                                                <i class="material-icons">bug_report</i>
+                                                @lang('labels.bugtracker')</a>
+                                            </a>
+                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -237,9 +255,7 @@
 
                     <li><div class="divider"></div></li>
 
-                    <li><a href="https://github.com/matthenning/ciliatus/issues" class="waves-effect waves-orange"><i class="material-icons">bug_report</i>@lang('labels.bugtracker')</a></li>
                     <li><a href="https://ciliatus.io/docs/{{ config('app.version') }}" class="waves-effect waves-orange"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
-                    <li><a href="https://github.com/matthenning/ciliatus/releases/tag/{{ config('app.version') }}" class="waves-effect waves-orange"><i class="material-icons">linear_scale</i>Version {{ config('app.version') }}</a></li>
                     @endif
 
                     <li><a @if(!App\ActionSequence::stopped())href="/action_sequences/stop_all" @else href="/action_sequences/resume_all" @endif class="waves-effect waves-red red-text"><i class="material-icons red-text">power_settings_new</i>@lang('buttons.emergency_stop')</a></li>
