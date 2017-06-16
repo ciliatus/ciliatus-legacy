@@ -128,7 +128,8 @@ class AnimalFeedingScheduleController extends \App\Http\Controllers\Controller
 
         return view('animals.feeding_schedules.delete', [
             'animal' => $animal,
-            'afs' => $afs
+            'afs' => $afs,
+            'feeding_types' => Property::where('type', 'AnimalFeedingType')->orderBy('name')->get()
         ]);
     }
 
