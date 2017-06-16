@@ -43,7 +43,7 @@ class Pump extends CiliatusModel
      * @var array
      */
     protected $fillable = [
-        'name'
+        'name', 'controlunit_id'
     ];
 
     /**

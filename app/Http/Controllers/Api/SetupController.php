@@ -53,7 +53,8 @@ class SetupController extends ApiController
         Property::create([
             'belongsTo_type' => 'System',
             'belongsTo_id' => '00000000-0000-0000-0000-000000000000',
-            'type' => 'SetupCompleted'
+            'type' => 'SetupCompleted',
+            'name' => 'Step0'
         ]);
 
         Property::create([

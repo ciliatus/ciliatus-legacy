@@ -2,7 +2,7 @@
     <div>
         <div :class="wrapperClasses">
             <div class="card">
-                <div class="card-content orange darken-4 white-text">
+                <div class="card-header">
                     <i class="material-icons">schedule</i>
                     {{ $tc("components.animal_feeding_schedules", 2) }}
                 </div>
@@ -35,7 +35,7 @@
                 </div>
 
                 <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                    <span class="card-title"><i class="material-icons right">close</i></span>
 
                     <p>
                     </p>

@@ -1,0 +1,34 @@
+<?php
+
+namespace Tests\Feature\BiographyEntry;
+
+use Illuminate\Foundation\Testing\WithoutMiddleware;
+use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Tests\TestCase;
+use Tests\TestHelperTrait;
+
+/**
+ * Class BiographyEntryIndexUnauthorizedTest
+ * @package Tests\Feature
+ */
+class BiographyEntryIndexUnauthorizedTest extends TestCase
+{
+
+    use TestHelperTrait;
+
+    public function test()
+    {
+
+        $token = $this->createUserNothing();
+
+        $response = $this->json('GET', '/api/v1/biography_entries', [], [
+            'HTTP_Authorization' => 'Bearer ' . $token
+        ]);
+        $response->assertStatus(401);
+
+        $this->cleanupUsers();
+
+    }
+
+}

@@ -25,5 +25,8 @@ return [
     'heat_up'   =>  'Heizen',
     'cool_down' =>  'Kühlen',
     'start'     =>  'Starten',
-    'close'     =>  'Schließen'
+    'close'     =>  'Schließen',
+    'select_all_read' => 'Alles lesen',
+    'select_all_list' => 'Alles auflisten',
+    'select_all_write' => 'Alles schreiben'
 ];

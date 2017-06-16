@@ -10,7 +10,7 @@
         <div class="card">
             <form action="{{ url('api/v1/files/associate/' . $type . '/' . $source->id) }}" data-method="POST"
                   data-redirect-success="{{ $source->url() }}" data-prevent-submit-on-enter="true">
-                <div class="card-content orange darken-4 white-text">@lang('labels.association')</div>
+                <div class="card-header">@lang('labels.association')</div>
 
                 <div class="card-content">
                     <h5><span>@lang('tooltips.associate_new', [
@@ -46,7 +46,7 @@
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
-            <li><a class="btn-floating green" href="/files/create"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/files/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
 @stop

@@ -7,15 +7,6 @@
   border-radius: 2px;
   @extend .z-depth-1;
   background-color: $card-bg-color;
-
-  
-  .card-title {
-    font-size: 24px;
-    font-weight: 300;
-    &.activator {
-      cursor: pointer;
-    }
-  }
 }
 
 .card {
@@ -167,6 +158,9 @@
   }
 
   .card-action {
+    &:last-child {
+      border-radius: 0 0 2px 2px;
+    }
     position: relative;
     background-color: inherit;
     border-top: 1px solid rgba(160,160,160,.2);

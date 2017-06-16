@@ -3,7 +3,7 @@
         <div v-for="physical_sensor in physical_sensors">
             <div :class="wrapperClasses">
                 <div class="card">
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         <i class="material-icons">memory</i>
                         {{ $tc("components.physical_sensors", 2) }}
                     </div>
@@ -23,7 +23,7 @@
                     </div>
 
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">{{ $tc("components.logical_sensors", 2) }} <i class="material-icons right">close</i></span>
+                        <span class="card-title">{{ $tc("components.logical_sensors", 2) }} <i class="material-icons right">close</i></span>
 
                         <p v-for="logical_sensor in physical_sensor.logical_sensors">
                             <a v-bind:href="'/logical_sensors/' + logical_sensor.id">{{ logical_sensor.name }}</a>

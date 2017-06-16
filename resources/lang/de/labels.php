@@ -165,6 +165,7 @@ return [
     'adjust_rawvalue'=> 'Rohwertkorrektur',
     'filter'        =>  'Filter',
     'logout'        =>  'Ausloggen',
+    'login'         =>  'Einloggen',
     'ask_me_something'=>'Frag mich etwas',
     'ventilate'     =>  'Lüften',
     'heat_up'       =>  'Heizen',
@@ -175,5 +176,6 @@ return [
     'choose_logfile'=>  'Log-Datei auswählen',
     'no_image'      =>  'Kein Bild',
     'features'      =>  'Features',
-    'rollperiod'    =>  'Rollperiode'
+    'rollperiod'    =>  'Rollperiode',
+    'add_preset'    =>  'Voreinstellung hinzufügen'
 ];

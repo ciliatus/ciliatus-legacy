@@ -89,7 +89,7 @@
 
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         <span>@choice('components.logical_sensor_thresholds', 2)</span>
                     </div>
 
@@ -111,7 +111,7 @@
                                             @endif
                                         </strong>
 
-                                        <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-activates="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}">
+                                        <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-beloworigin="true" data-activates="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}">
                                             <i class="material-icons">settings</i>
                                         </a>
 
@@ -142,7 +142,7 @@
                 </div>
 
                 <div class="card">
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         <span>@lang('labels.copy_thresholds')</span>
                     </div>
 
@@ -180,7 +180,7 @@
 
                 <div class="card">
                     <form action="{{ url('api/v1/logical_sensors/' . $logical_sensor->id) }}" data-method="PUT">
-                        <div class="card-content orange darken-4 white-text">
+                        <div class="card-header">
                             <span class="activator truncate">
                                 <span>@lang('labels.properties')</span>
                             </span>
@@ -229,8 +229,8 @@
 
         <ul>
             <li><a class="btn-floating teal" href="/logical_sensors/{{ $logical_sensor->id }}"><i class="material-icons">info</i></a></li>
-            <li><a class="btn-floating red" href="/logical_sensors/{{ $logical_sensor->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green" href="/logical_sensors/create"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/logical_sensors/{{ $logical_sensor->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/logical_sensors/create"><i class="material-icons">add</i></a></li>
         </ul>
 
     </div>

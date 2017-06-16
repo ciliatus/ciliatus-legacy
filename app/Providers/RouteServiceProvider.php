@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use Illuminate\Routing\Router;
+use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -19,7 +19,6 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define your route model bindings, pattern filters, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
     public function boot()
@@ -32,14 +31,19 @@ class RouteServiceProvider extends ServiceProvider
     /**
      * Define the routes for the application.
      *
-     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    public function map(Router $router)
+    public function map()
     {
-        $this->mapWebRoutes($router);
+        $this->mapSetupRoutes();
 
-        //
+        $this->mapApiRoutes();
+
+        $this->mapWebRoutes();
+
+        $this->mapAuthRoutes();
+
+        $this->mapTelegramRoutes();
     }
 
     /**
@@ -47,15 +51,43 @@ class RouteServiceProvider extends ServiceProvider
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-     * @param  \Illuminate\Routing\Router  $router
      * @return void
      */
-    protected function mapWebRoutes(Router $router)
+    protected function mapWebRoutes()
     {
-        $router->group([
-            'namespace' => $this->namespace,
-        ], function ($router) {
-            require app_path('Http/routes.php');
-        });
+        Route::middleware('web')
+             ->namespace('App\\Http\\Controllers\\Web')
+             ->group(base_path('routes/web.php'));
+    }
+
+    protected function mapApiRoutes()
+    {
+        Route::prefix('api/v1')
+             ->middleware('auth:api', 'localization')
+             ->namespace('App\\Http\\Controllers\\Api')
+             ->group(base_path('routes/api.php'));
+    }
+
+    protected function mapAuthRoutes()
+    {
+        Route::prefix('auth')
+            ->middleware('web')
+            ->namespace('App\\Http\\Controllers')
+            ->group(base_path('routes/auth.php'));
+    }
+
+    protected function mapSetupRoutes()
+    {
+        Route::prefix('api/v1/setup')
+            ->middleware('localization')
+            ->namespace('App\\Http\\Controllers\\Api')
+            ->group(base_path('routes/setup.php'));
+    }
+
+    protected function mapTelegramRoutes()
+    {
+        Route::prefix('api/v1')
+            ->namespace('App\\Http\\Controllers\\Api')
+            ->group(base_path('routes/telegram.php'));
     }
 }

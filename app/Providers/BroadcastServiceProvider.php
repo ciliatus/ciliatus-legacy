@@ -2,7 +2,6 @@
 
 namespace App\Providers;
 
-use Illuminate\Http\Request;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Broadcast;
 
@@ -15,8 +14,8 @@ class BroadcastServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Broadcast::channel('dashboard-updates', function ($user) {
-            return true;
-        });
+        Broadcast::routes();
+
+        require base_path('routes/channels.php');
     }
 }

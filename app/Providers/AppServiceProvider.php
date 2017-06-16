@@ -2,9 +2,9 @@
 
 namespace App\Providers;
 
-use App\Observers\SensorreadingObserver;
-use App\Sensorreading;
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
+use App\Sensorreading;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -15,6 +15,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Schema::defaultStringLength(191);
         Sensorreading::observe(SensorreadingObserver::class);
     }
 

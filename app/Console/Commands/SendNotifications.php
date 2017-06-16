@@ -72,6 +72,9 @@ class SendNotifications extends Command
                     }
 
                     if ($is_weighings_due) {
+                        if ($is_feedings_due) {
+                            $text .= PHP_EOL . PHP_EOL;
+                        }
                         $text .= trans('messages.daily.weighings_due', [], $u->locale);
                         $text .= PHP_EOL . $weighings_due;
                     }

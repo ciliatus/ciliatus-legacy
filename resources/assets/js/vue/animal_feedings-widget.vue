@@ -24,7 +24,7 @@
             </div>
 
             <div class="card">
-                <div class="card-content orange darken-4 white-text">
+                <div class="card-header">
                     <i class="material-icons">local_dining</i>
                     {{ $tc("components.animal_feedings", 2) }}
                 </div>
@@ -36,12 +36,12 @@
                     </span>
 
                     <div v-for="af in animal_feedings">
-                        <div style="width: 100%">
+                        <div class="row row-no-margin">
                             <span v-if="af.timestamps.created_diff.days > 1">{{ $t('units.days_ago', {val: af.timestamps.created_diff.days}) }}</span>
                             <span v-if="af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours > 1">{{ $t('units.hours_ago', {val: af.timestamps.created_diff.hours}) }}</span>
                             <span v-if="af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours <= 1">{{ $t('units.just_now') }}</span>
                             <span> - {{ af.type }}</span>
-                            <span class="right"><a class="btn btn-danger btn-tiny" :href="'/animals/' + animalId + '/feedings/' + af.id + '/delete'">x</a></span>
+                            <span class="right"><a class="red-text" :href="'/animals/' + animalId + '/feedings/' + af.id + '/delete'"><i class="material-icons">delete</i></a></span>
                         </div>
                     </div>
                     <div v-if="animal_feedings.length < 1">
@@ -54,7 +54,7 @@
                 </div>
 
                 <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                    <span class="card-title"><i class="material-icons right">close</i></span>
 
                     <p>
                     </p>

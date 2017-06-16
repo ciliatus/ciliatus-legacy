@@ -3,7 +3,7 @@
         <div v-for="valve in valves">
             <div :class="wrapperClasses">
                 <div class="card">
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         <i class="material-icons">transform</i>
                         {{ $tc("components.valves", 2) }}
                     </div>
@@ -21,19 +21,19 @@
                     </div>
 
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">{{ $tc("components.pumps", 1) }}<i class="material-icons right">close</i></span>
+                        <span class="card-title">{{ $tc("components.pumps", 1) }}<i class="material-icons right">close</i></span>
 
                         <p v-if="valve.pump">
                             <a v-bind:href="'/pumps/' + valve.pump.id">{{ valve.pump.name }}</a>
                         </p>
 
-                        <span class="card-title grey-text text-darken-4">{{ $tc("components.terraria", 1) }}</span>
+                        <span class="card-title">{{ $tc("components.terraria", 1) }}</span>
 
                         <p v-if="valve.terrarium">
                             <a v-bind:href="'/terraria/' + valve.terrarium.id">{{ valve.terrarium.name }}</a>
                         </p>
 
-                        <span class="card-title grey-text text-darken-4">{{ $tc("components.controlunits", 1) }}</span>
+                        <span class="card-title">{{ $tc("components.controlunits", 1) }}</span>
 
                         <p v-if="valve.controlunit">
                             <a v-bind:href="'/controlunits/' + valve.controlunit.id">{{ valve.controlunit.name }}</a>

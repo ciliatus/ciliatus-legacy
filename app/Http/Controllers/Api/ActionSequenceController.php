@@ -56,35 +56,11 @@ class ActionSequenceController extends ApiController
 
         $action_sequences = $this->filter($request, $action_sequences);
 
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-            $action_sequences = $action_sequences->get();
-
-            foreach ($action_sequences as &$as) {
-                $as = (new ActionSequenceRepository($as))->show();
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->actionSequenceTransformer->transformCollection(
-                    $action_sequences->toArray()
-                )
-            );
-        }
-
-        $action_sequences = $action_sequences->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        foreach ($action_sequences->items() as &$as) {
-            $as = (new ActionSequenceRepository($as))->show();
-        }
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->actionSequenceTransformer->transformCollection(
-                $action_sequences->toArray()['data']
-            ),
-            $action_sequences
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $action_sequences,
+            $this->actionSequenceTransformer,
+            'ActionSequenceRepository'
         );
     }
 
@@ -103,6 +79,7 @@ class ActionSequenceController extends ApiController
                                 ->with('triggers')
                                 ->with('intentions')
                                 ->with('terrarium')
+                                ->with('actions')
                                 ->find($id);
 
         if (!$action) {

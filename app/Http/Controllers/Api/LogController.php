@@ -45,39 +45,13 @@ class LogController extends ApiController
         }
 
         $logs = Log::query();
-
         $logs = $this->filter($request, $logs);
 
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-            $logs = $logs->get();
-
-            foreach ($logs as &$l) {
-                $l->addSourceTargetAssociated(true);
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->logTransformer->transformCollection(
-                    $logs->toArray()
-                )
-            );
-
-        }
-
-        $logs = $logs->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        foreach ($logs->items() as &$l) {
-            $l->addSourceTargetAssociated(true);
-        }
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->logTransformer->transformCollection(
-                $logs->toArray()['data']
-            ),
-            $logs
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $logs,
+            $this->logTransformer,
+            'LogRepository'
         );
 
     }

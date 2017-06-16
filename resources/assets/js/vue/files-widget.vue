@@ -2,7 +2,7 @@
     <div :class="containerClasses">
         <div :class="wrapperClasses">
             <div class="card">
-                <div class="card-content orange darken-4 white-text">
+                <div class="card-header">
                     <i class="material-icons">attach_file</i>
                     {{ files.length }} {{ $tc("components.files", 2) }}
                 </div>
@@ -26,7 +26,7 @@
                 </div>
 
                 <div class="card-reveal">
-                    <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                    <span class="card-title"><i class="material-icons right">close</i></span>
                     <p>
 
                     </p>

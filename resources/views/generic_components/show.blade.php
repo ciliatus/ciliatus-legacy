@@ -20,8 +20,8 @@
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
-            <li><a class="btn-floating orange" href="/generic_components/{{ $generic_component->id }}/edit"><i class="material-icons">edit</i></a></li>
-            <li><a class="btn-floating red" href="/generic_components/{{ $generic_component->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating orange tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.edit')"href="/generic_components/{{ $generic_component->id }}/edit"><i class="material-icons">edit</i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/generic_components/{{ $generic_component->id }}/delete"><i class="material-icons">delete</i></a></li>
         </ul>
     </div>
 @stop

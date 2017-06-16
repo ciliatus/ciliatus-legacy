@@ -11,6 +11,7 @@ use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Log;
+use Tests\Feature\CriticalStateTest;
 
 class CriticalStateCreated implements ShouldBroadcast
 {
@@ -21,10 +22,11 @@ class CriticalStateCreated implements ShouldBroadcast
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param CriticalState $critical_state
      */
     public function __construct(CriticalState $critical_state)
     {
+        $critical_state = CriticalState::find($critical_state->id);
         $critical_state->belongsTo_object = $critical_state->belongsTo_object();
         $critical_state->belongsTo_object->icon = $critical_state->belongsTo_object->icon();
         $critical_state->belongsTo_object->url = $critical_state->belongsTo_object->url();

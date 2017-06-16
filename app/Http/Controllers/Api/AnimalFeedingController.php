@@ -58,35 +58,11 @@ class AnimalFeedingController extends ApiController
 
         $feedings = $this->filter($request, $animal->feedings()->orderBy('created_at', 'DESC')->getQuery());
 
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-            $feedings = $feedings->get();
-            foreach ($feedings as &$f) {
-                $f = (new AnimalFeedingRepository($f))->show()->toArray();
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->animalFeedingTransformer->transformCollection(
-                    $feedings->toArray()
-                )
-            );
-
-        }
-
-        $feedings = $feedings->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        foreach ($feedings->items() as &$f) {
-            $f = (new AnimalFeedingRepository($f))->show()->toArray();
-        }
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->animalFeedingTransformer->transformCollection(
-                $feedings->toArray()['data']
-            ),
-            $feedings
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $feedings,
+            $this->animalFeedingTransformer,
+            'AnimalFeedingRepository'
         );
 
     }

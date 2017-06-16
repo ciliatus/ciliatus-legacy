@@ -54,7 +54,7 @@
             <div class="col s12 m6 l6">
                 <div class="card">
                     <form action="{{ url('api/v1/controlunits/' . $controlunit->id) }}" data-method="PUT">
-                        <div class="card-content orange darken-4 white-text">
+                        <div class="card-header">
                             <span class="activator truncate">
                                 <span>@lang('labels.properties')</span>
                             </span>
@@ -97,8 +97,8 @@
         </a>
         <ul>
             <li><a class="btn-floating teal" href="/controlunits/{{ $controlunit->id }}"><i class="material-icons">info</i></a></li>
-            <li><a class="btn-floating red" href="/controlunits/{{ $controlunit->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green" href="/controlunits/create"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/controlunits/{{ $controlunit->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/controlunits/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
 @stop

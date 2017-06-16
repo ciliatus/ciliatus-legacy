@@ -43,29 +43,12 @@ class SensorreadingController extends ApiController
         }
 
         $sensorreadings = Sensorreading::with('logical_sensor');
-
         $sensorreadings = $this->filter($request, $sensorreadings);
 
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->sensorreadingTransformer->transformCollection(
-                    $sensorreadings->get()->toArray()
-                )
-            );
-        }
-
-        $sensorreadings = $sensorreadings->paginate(env('PAGINATION_PER_PAGE', 100));
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->sensorreadingTransformer->transformCollection(
-                $sensorreadings->toArray()['data']
-            ),
-            $sensorreadings
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $sensorreadings,
+            $this->sensorreadingTransformer
         );
 
     }

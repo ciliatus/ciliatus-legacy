@@ -81,13 +81,17 @@
 
                 <!-- Card -->
                 <div class="card">
-                    <div class="card-image waves-effect waves-block waves-light terrarium-card-image"
+                    <div class="card-image terrarium-card-image"
                          v-bind:style="animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
+
+                        <div class="tiny right" style="position: relative; top: 120px;" v-show="animal.loading_data">
+                            <loading-indicator :size="20" ></loading-indicator>
+                        </div>
                     </div>
 
                     <div class="card-content">
                         <span class="card-title activator truncate">
-                            <span>{{ animal.display_name }} </span>
+                            <span><a :href="'/animals/' + animal.id">{{ animal.display_name }}</a></span>
                             <i class="material-icons right" v-if="!animal.death_date">more_vert</i>
                         </span>
                         <p>
@@ -97,7 +101,7 @@
 
                             <span v-if="animal.last_feeding && !animal.death_date">
                                 <br />
-                                <i class="material-icons tiny">local_dining</i>BiographyEntryEvent.php
+                                <i class="material-icons tiny">local_dining</i>
                                 {{ $t(
                                     'units.' + $getMatchingTimeDiff(animal.last_feeding.timestamps.created_diff).unit,
                                     {val: $getMatchingTimeDiff(animal.last_feeding.timestamps.created_diff).val}
@@ -126,22 +130,6 @@
                         </p>
                     </div>
 
-                    <div class="card-action">
-                        <a v-bind:href="'/animals/' + animal.id">{{ $t("buttons.details") }}</a>
-                        <a v-bind:href="'/animals/' + animal.id + '/edit'">{{ $t("buttons.edit") }}</a>
-                        <div class="preloader-wrapper tiny active right" v-if="animal.loading_data">
-                            <div class="spinner-layer spinner-green-only">
-                                <div class="circle-clipper left">
-                                    <div class="circle"></div>
-                                </div><div class="gap-patch">
-                                <div class="circle"></div>
-                            </div><div class="circle-clipper right">
-                                <div class="circle"></div>
-                            </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <div class="card-reveal" v-if="!animal.death_date">
                         <span class="card-title">{{ $tc("components.terraria", 1) }}<i class="material-icons right">close</i></span>
 
@@ -152,10 +140,10 @@
                         <span class="card-title">{{ $t("labels.just_fed") }}</span>
 
                         <p>
-                            <a class="waves-effect waves-teal btn" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
+                            <a href="#" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
                         </p>
                         <p>
-                            <a class="waves-effect waves-teal btn" v-bind:href="'#modal_add_weight_' + animal.id" v-bind:onclick="'$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.add_weight") }}</a>
+                            <a href="#" v-bind:href="'#modal_add_weight_' + animal.id" v-bind:onclick="'$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.add_weight") }}</a>
                         </p>
                     </div>
                 </div>
@@ -192,6 +180,8 @@
 </template>
 
 <script>
+import LoadingIndicator from './loading-indicator.vue';
+
 export default {
     data () {
         return {
@@ -256,6 +246,10 @@ export default {
             default: false,
             required: false
         }
+    },
+
+    components: {
+        'loading-indicator': LoadingIndicator
     },
 
     methods: {
@@ -375,7 +369,7 @@ export default {
                 source_url = '/api/v1/animals/' + this.animalId
             }
             else {
-                source_url = '/api/v1/animals/?page=' + this.page + this.filter_string + this.order_string;
+                source_url = '/api/v1/animals/?pagination[per_page]=6&page=' + this.page + this.filter_string + this.order_string;
             }
 
             window.eventHubVue.processStarted();

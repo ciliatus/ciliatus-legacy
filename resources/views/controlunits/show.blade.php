@@ -28,9 +28,9 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating orange" href="/controlunits/{{ $controlunit->id }}/edit"><i class="material-icons">edit</i></a></li>
-                <li><a class="btn-floating red" href="/controlunits/{{ $controlunit->id }}/delete"><i class="material-icons">delete</i></a></li>
-                <li><a class="btn-floating green" href="/controlunits/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating orange tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.edit')"href="/controlunits/{{ $controlunit->id }}/edit"><i class="material-icons">edit</i></a></li>
+                <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/controlunits/{{ $controlunit->id }}/delete"><i class="material-icons">delete</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/controlunits/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
@@ -47,7 +47,7 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating green" href="/physical_sensors/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/physical_sensors/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
@@ -64,7 +64,7 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating green" href="/pumps/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/pumps/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
@@ -81,7 +81,7 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating green" href="/valves/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/valves/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
@@ -100,7 +100,7 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating green" href="/configuration/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/configuration/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>

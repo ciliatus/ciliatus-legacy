@@ -40,9 +40,9 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating orange" href="/animals/{{ $animal->id }}/edit"><i class="material-icons">edit</i></a></li>
-                <li><a class="btn-floating red" href="/animals/{{ $animal->id }}/delete"><i class="material-icons">delete</i></a></li>
-                <li><a class="btn-floating green" href="/animals/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating orange tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.edit')"href="/animals/{{ $animal->id }}/edit"><i class="material-icons">edit</i></a></li>
+                <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/animals/{{ $animal->id }}/delete"><i class="material-icons">delete</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/animals/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
@@ -71,7 +71,7 @@
 
                 <div class="col s12 m12 l8">
                     <div class="card">
-                        <div class="card-content orange darken-4 white-text">
+                        <div class="card-header">
                             <span>@lang('labels.weighprogression')</span>
                         </div>
                         <div class="card-content">
@@ -100,7 +100,7 @@
 
                     <div class="col s12 m7 l8">
                         <div class="card">
-                            <div class="card-content orange darken-4 white-text">
+                            <div class="card-header">
                                 @lang('labels.temp_and_hum_history')
                             </div>
                             <div class="card-content">
@@ -126,7 +126,7 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating green" href="/biography_entries/create?preset[belongsTo_type]=Animal&preset[belongsTo_id]={{ $animal->id }}"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/biography_entries/create?preset[belongsTo_type]=Animal&preset[belongsTo_id]={{ $animal->id }}"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
@@ -143,7 +143,7 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating green" href="/animals/caresheets/create?preset[belongsTo_type]=Animal&preset[belongsTo_id]={{ $animal->id }}"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/animals/caresheets/create?preset[belongsTo_type]=Animal&preset[belongsTo_id]={{ $animal->id }}"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
@@ -161,7 +161,7 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating green" href="/files/create?preset[belongsTo_type]=Animal&preset[belongsTo_id]={{ $animal->id }}"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/files/create?preset[belongsTo_type]=Animal&preset[belongsTo_id]={{ $animal->id }}"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>

@@ -3,7 +3,7 @@
         <div v-for="generic_component in generic_components">
             <div :class="wrapperClasses">
                 <div class="card">
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         <i class="material-icons">{{ generic_component.type.icon }}</i>
                         {{ generic_component.type.name_singular }}
                     </div>
@@ -24,14 +24,16 @@
                     </div>
 
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4">{{ $tc('components.controlunits', 1) }}<i class="material-icons right">close</i></span>
-                        <p>
-                            <a :href="'/controlunits/' + generic_component.controlunit.id">{{ generic_component.controlunit.name }}</a>
-                        </p>
-                        <span class="card-title grey-text text-darken-4">{{ generic_component.belongsTo_type }}</span>
-                        <p>
-                            <a v-if="generic_component.belongsTo" :href="generic_component.belongsTo.url">{{ generic_component.belongsTo.name }}</a>
-                        </p>
+                        <div v-if="generic_component.controlunit !== undefined">
+                            <span class="card-title">{{ $tc('components.controlunits', 1) }}<i class="material-icons right">close</i></span>
+                            <p>
+                                <a :href="'/controlunits/' + generic_component.controlunit.id">{{ generic_component.controlunit.name }}</a>
+                            </p>
+                            <span class="card-title">{{ generic_component.belongsTo_type }}</span>
+                            <p>
+                                <a v-if="generic_component.belongsTo" :href="generic_component.belongsTo.url">{{ generic_component.belongsTo.name }}</a>
+                            </p>
+                        </div>
                     </div>
                 </div>
             </div>

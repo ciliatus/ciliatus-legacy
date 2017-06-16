@@ -35,18 +35,39 @@
             </div>
             <div class="row">
                 <div class="col s12 m6 offset-m3 l4 offset-l4">
+                    @if (count($errors) > 0)
+                    <div class="card-panel">
+                        @foreach ($errors->all() as $error)
+                            <i class="material-icons red-text">close</i>
+                            <strong>@lang('errors.' . $error)</strong><br />
+                        @endforeach
+                    </div>
+                    @endif
                     <div class="card">
                         <form method="POST" action="{{ url('auth/login') }}">
                             {!! csrf_field() !!}
                             <div class="card-content">
-                                <div>
-                                    <input type="text" class="form-control" placeholder="Username" required="" name="email" value="{{ old('email') }}" />
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="text" class="validate" required=""
+                                               name="email" id="email" placeholder="@lang('labels.email')"
+                                               value="{{ old('email') }}" />
+                                        <label for="email">@lang('labels.email')</label>
+                                    </div>
                                 </div>
-                                <div>
-                                    <input type="password" class="form-control" placeholder="Password" required="" name="password" id="password" />
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="password" class="form-control" required=""
+                                               name="password" id="password" placeholder="@lang('labels.password')" />
+                                        <label for="password">@lang('labels.password')</label>
+                                    </div>
                                 </div>
-                                <div>
-                                    <button class="btn btn-default submit" type="submit">Log in</button>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <button class="btn btn-default submit" type="submit">Log in</button>
+                                    </div>
                                 </div>
                                 @if (env('DEMO_ENVIRONMENT', false) == true)
                                 <div>
@@ -64,5 +85,11 @@
                 </div>
             </div>
         </div>
+
+        <!-- Materialize.js -->
+        <script src="{{ url('/js/vendors/materialize.min.js') }}"></script>
+        <!-- Materialize.clockpicker.js -->
+        <script src="{{ url('/js/vendors/materialize.clockpicker.js') }}"></script>
+
     </body>
 </html>

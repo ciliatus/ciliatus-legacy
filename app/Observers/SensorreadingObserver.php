@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\System;
 use App\Sensorreading;
 
 class SensorreadingObserver
@@ -14,7 +15,10 @@ class SensorreadingObserver
      */
     public function created(Sensorreading $sensorreading)
     {
-        $sensorreading->autoWriteToInfluxDb();
+        if (System::hasInfluxDbCapability()) {
+            $sensorreading->autoWriteToInfluxDb();
+        }
+
     }
 
     /**

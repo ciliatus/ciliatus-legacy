@@ -46,41 +46,14 @@ class ActionSequenceIntentionController extends ApiController
             return $this->respondUnauthorized();
         }
 
-
         $action_sequence_intentions = ActionSequenceIntention::with('sequence');
-
         $action_sequence_intentions = $this->filter($request, $action_sequence_intentions);
 
-
-        /*
-         * If raw is pasied, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-            $action_sequence_intentions = $action_sequence_intentions->get();
-            foreach ($action_sequence_intentions as &$t) {
-                $t = (new ActionSequenceIntentionRepository($t))->show();
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->actionSequenceIntentionTransformer->transformCollection(
-                    $action_sequence_intentions->toArray()
-                )
-            );
-
-        }
-
-        $action_sequence_intentions = $action_sequence_intentions->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        foreach ($action_sequence_intentions->items() as &$t) {
-            $t = (new ActionSequenceIntentionRepository($t))->show();
-        }
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->actionSequenceIntentionTransformer->transformCollection(
-                $action_sequence_intentions->toArray()['data']
-            ),
-            $action_sequence_intentions
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $action_sequence_intentions,
+            $this->actionSequenceIntentionTransformer,
+            'ActionSequenceIntention'
         );
 
     }

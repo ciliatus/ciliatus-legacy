@@ -31,11 +31,6 @@
   border-bottom: 1px solid $collapsible-border-color;
   box-sizing: border-box;
   padding: 2rem;
-
-  p {
-    margin: 0;
-    padding: 2rem;
-  }
 }
 
 // sideNav collapsible styling
@@ -54,15 +49,10 @@
     border: none;
     line-height: inherit;
     height: inherit;
-    width: 100%;
-    padding: 0 0 0 ($sidenav-padding * 2);
+    padding: 0 $sidenav-padding;
 
     &:hover { background-color: rgba(0,0,0,.05); }
     i { line-height: inherit; }
-
-    .collapsible-header-icon {
-      float: right;
-    }
   }
 
   .collapsible-body {

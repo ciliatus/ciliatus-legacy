@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Controlunit;
 use App\GenericComponent;
+use App\GenericComponentType;
 use App\Http\Transformers\GenericComponentTransformer;
 use App\Property;
 use Gate;
@@ -41,31 +42,12 @@ class GenericComponentController extends ApiController
         }
 
         $gc = GenericComponent::with('properties', 'states', 'type', 'controlunit');
-
         $gc = $this->filter($request, $gc);
 
-
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->genericComponentTransformer->transformCollection(
-                    $gc->get()->toArray()
-                )
-            );
-
-        }
-
-        $gc = $gc->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->genericComponentTransformer->transformCollection(
-                $gc->toArray()['data']
-            ),
-            $gc
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $gc,
+            $this->genericComponentTransformer
         );
     }
 
@@ -91,38 +73,46 @@ class GenericComponentController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if (is_null(Controlunit::find($request->input('controlunit')))) {
+        if ($request->has('controlunit') && is_null(Controlunit::find($request->input('controlunit')))) {
             return $this->setStatusCode(422)->respondWithError("Controlunit not found.");
+        }
+
+        if (is_null(GenericComponentType::find($request->input('type_id')))) {
+            return $this->setStatusCode(422)->respondWithError("GenericComponentType not found.");
         }
 
         $component = GenericComponent::create([
             'name' => $request->input('name'),
             'generic_component_type_id' => $request->input('type_id'),
-            'controlunit_id' => $request->input('controlunit')
+            'controlunit_id' => $request->has('controlunit') ? $request->input('controlunit') : null
         ]);
 
         $component = $this->addBelongsTo($request, $component);
 
-        foreach($request->input('properties') as $id=>$prop) {
-            $prop_template = Property::find($id);
-            if (is_null($prop_template)) {
-                return $this->setStatusCode(422)->respondWithError('Property type not found');
-            }
+        if ($request->has('properties')) {
+            foreach($request->input('properties') as $id=>$prop) {
+                $prop_template = Property::find($id);
+                if (is_null($prop_template)) {
+                    return $this->setStatusCode(422)->respondWithError('Property type not found');
+                }
 
-            Property::create([
-                'belongsTo_type' => 'GenericComponent',
-                'belongsTo_id' => $component->id,
-                'type' => 'GenericComponentProperty',
-                'name' => $prop_template->name,
-                'value' => $prop
-            ]);
+                Property::create([
+                    'belongsTo_type' => 'GenericComponent',
+                    'belongsTo_id' => $component->id,
+                    'type' => 'GenericComponentProperty',
+                    'name' => $prop_template->name,
+                    'value' => $prop
+                ]);
+            }
         }
 
         $component->save();
 
         $component->resync_states();
 
-        return $this->setStatusCode(200)->respondWithData([], [
+        return $this->setStatusCode(200)->respondWithData([
+            'id' => $component->id
+        ], [
             'redirect' => [
                 'uri'   => url('generic_components/' . $component->id),
                 'delay' => 1000
@@ -189,13 +179,15 @@ class GenericComponentController extends ApiController
             $component->controlunit_id = $request->input('controlunit');
         }
 
-        foreach($request->input('properties') as $id=>$value) {
-            $component_property = $component->properties()->where('id', $id)->get()->first();
-            if (is_null($component_property)) {
-                return $this->setStatusCode(422)->respondWithError("Generic Component is corrupted. Call resync methods.");
+        if ($request->has('properties')) {
+            foreach($request->input('properties') as $id=>$value) {
+                $component_property = $component->properties()->where('id', $id)->get()->first();
+                if (is_null($component_property)) {
+                    return $this->setStatusCode(422)->respondWithError("Generic Component is corrupted. Call resync methods.");
+                }
+                $component_property->value = $value;
+                $component_property->save();
             }
-            $component_property->value = $value;
-            $component_property->save();
         }
 
         $this->updateExternalProperties($component, $request, [

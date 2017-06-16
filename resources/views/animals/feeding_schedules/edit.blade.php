@@ -64,8 +64,8 @@
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
-            <li><a class="btn-floating red" href="/animals/{{ $animal->id }}/feeding_schedules/{{ $afs->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green" href="/animals/{{ $animal->id }}/feeding_schedules/create"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/animals/{{ $animal->id }}/feeding_schedules/{{ $afs->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/animals/{{ $animal->id }}/feeding_schedules/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
 @stop

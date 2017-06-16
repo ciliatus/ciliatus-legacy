@@ -47,26 +47,10 @@ class PumpController extends ApiController
 
         $pumps = $this->filter($request, $pumps);
 
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->pumpTransformer->transformCollection(
-                    $pumps->get()->toArray()
-                )
-            );
-        }
-
-        $pumps = $pumps->paginate(env('PAGINATION_PER_PAGE', 100));
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->pumpTransformer->transformCollection(
-                $pumps->toArray()['data']
-            ),
-            $pumps
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $pumps,
+            $this->pumpTransformer
         );
     }
 

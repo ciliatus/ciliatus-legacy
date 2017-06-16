@@ -568,6 +568,7 @@ class Terrarium extends CiliatusModel
                                             ->where('created_at', '>=', $this->getSuggestionTimeframe($type, true))
                                             ->get();
 
+
             $first = CriticalState::getFirstTimeUnitViolatingThreshold(
                 $critical_states,
                 $this->getSuggestionThreshold($type)
@@ -683,8 +684,9 @@ class Terrarium extends CiliatusModel
      * @param $timeframe_option
      * @param $timeframe_unit_option
      * @param $threshold_option
+     * @param boolean $on Turn suggestions of this type on or off
      */
-    public function setSuggestionSettings($type, $timeframe_option, $timeframe_unit_option, $threshold_option)
+    public function setSuggestionSettings($type, $timeframe_option, $timeframe_unit_option, $threshold_option, $on = true)
     {
         $by = $this->properties()->where('type', 'SuggestionsCriticalStateTimeframeUnit')
                                  ->where('name', $type)
@@ -695,6 +697,7 @@ class Terrarium extends CiliatusModel
             $by->save();
         }
         else {
+            $this->properties()->where('type', 'SuggestionsCriticalStateTimeframeUnit')->where('name', $type)->delete();
             Property::create([
                 'belongsTo_type' => 'Terrarium',
                 'belongsTo_id' => $this->id,
@@ -713,6 +716,7 @@ class Terrarium extends CiliatusModel
             $threshold->save();
         }
         else {
+            $this->properties()->where('type', 'SuggestionsCriticalStateAmountPerHourThreshold')->where('name', $type)->delete();
             Property::create([
                 'belongsTo_type' => 'Terrarium',
                 'belongsTo_id' => $this->id,
@@ -731,6 +735,7 @@ class Terrarium extends CiliatusModel
             $timeframe->save();
         }
         else {
+            $this->properties()->where('type', 'SuggestionsCriticalStateTimeframe')->where('name', $type)->delete();
             Property::create([
                 'belongsTo_type' => 'Terrarium',
                 'belongsTo_id' => $this->id,
@@ -738,6 +743,19 @@ class Terrarium extends CiliatusModel
                 'name' => $type,
                 'value' => $timeframe_option
             ]);
+        }
+
+        if ($on) {
+            Property::create([
+                'belongsTo_type' => 'Terrarium',
+                'belongsTo_id' => $this->id,
+                'type' => 'SuggestionsCriticalStateEnabled',
+                'name' => $type,
+                'value' => 'On'
+            ]);
+        }
+        else {
+            $this->properties()->where('type', 'SuggestionsCriticalStateEnabled')->where('name', $type)->delete();
         }
     }
 

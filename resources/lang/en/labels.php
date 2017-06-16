@@ -165,6 +165,7 @@ return [
     'adjust_rawvalue'=> 'Raw value correction',
     'filter'        =>  'Filter',
     'logout'        =>  'Log off',
+    'login'         =>  'Log in',
     'ask_me_something'=>'Ask me something',
     'ventilate'     =>  'Ventilate',
     'heat_up'       =>  'Heat',
@@ -175,5 +176,6 @@ return [
     'choose_logfile'=>  'Choose a log file',
     'no_image'      =>  'No image',
     'features'      =>  'Features',
-    'rollperiod'    =>  'Roll period'
+    'rollperiod'    =>  'Roll period',
+    'add_preset'    =>  'Add preset'
 ];

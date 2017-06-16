@@ -97,7 +97,7 @@
                                       data-method="DELETE" data-redirect-success="/biography_entries/{{ $entry->id }}/edit">
 
                                     <a href="{{ $file->url() }}">{{ $file->display_name }}</a>
-                                    <button class="btn btn-tiny waves-light right" type="submit">x</button>
+                                    <button class="btn btn-tiny waves-light right" type="submit"><i class="material-icons">delete</i></button>
                                 </form>
                             </div>
                         @endforeach
@@ -116,7 +116,7 @@
             <i class="large material-icons">mode_edit</i>
         </a>
         <ul>
-            <li><a class="btn-floating red" href="/biography_entries/{{ $entry->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/biography_entries/{{ $entry->id }}/delete"><i class="material-icons">delete</i></a></li>
         </ul>
     </div>
 @stop

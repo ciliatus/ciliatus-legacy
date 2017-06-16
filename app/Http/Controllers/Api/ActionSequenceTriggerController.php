@@ -46,41 +46,14 @@ class ActionSequenceTriggerController extends ApiController
             return $this->respondUnauthorized();
         }
 
-
         $action_sequence_triggers = ActionSequenceTrigger::with('sequence');
-
         $action_sequence_triggers = $this->filter($request, $action_sequence_triggers);
 
-
-        /*
-         * If raw is pasted, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-            $action_sequence_triggers = $action_sequence_triggers->get();
-            foreach ($action_sequence_triggers as &$t) {
-                $t = (new ActionSequenceTriggerRepository($t))->show();
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->actionSequenceTriggerTransformer->transformCollection(
-                    $action_sequence_triggers->toArray()
-                )
-            );
-
-        }
-
-        $action_sequence_triggers = $action_sequence_triggers->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        foreach ($action_sequence_triggers->items() as &$t) {
-            $t = (new ActionSequenceTriggerRepository($t))->show();
-        }
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->actionSequenceTriggerTransformer->transformCollection(
-                $action_sequence_triggers->toArray()['data']
-            ),
-            $action_sequence_triggers
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $action_sequence_triggers,
+            $this->actionSequenceTriggerTransformer,
+            'ActionSequenceTrigger'
         );
 
     }

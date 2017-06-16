@@ -37,31 +37,15 @@ class ActionController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action = Action::with('schedules')
-            ->with('terrarium');
+        $actions = Action::with('schedules')
+                        ->with('terrarium');
 
-        $action = $this->filter($request, $action);
+        $actions = $this->filter($request, $action);
 
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->actionTransformer->transformCollection(
-                    $action->get()->toArray()
-                )
-            );
-        }
-
-        $action = $action->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->actionTransformer->transformCollection(
-                $action->toArray()['data']
-            ),
-            $action
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $actions,
+            $this->actionTransformer
         );
 
     }

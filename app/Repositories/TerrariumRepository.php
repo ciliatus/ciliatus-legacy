@@ -39,6 +39,14 @@ class TerrariumRepository extends Repository
     {
         $terrarium = $this->scope;
 
+        if (is_null($history_to) && isset($this->show_parameters['history_to'])) {
+            $history_to = $this->show_parameters['history_to'];
+        }
+
+        if (is_null($history_minutes) && isset($this->show_parameters['history_minutes'])) {
+            $history_minutes = $this->show_parameters['history_minutes'];
+        }
+
         if ($history_minutes != 0) {
             foreach (LogicalSensor::types() as $type) {
                 $field = $type . '_history';

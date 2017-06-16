@@ -1,20 +1,11 @@
 var Vue = require('vue');
 import Peity from 'vue-peity'
-
-/*
- import VueResource from 'vue-resource';
- Vue.use(VueResource);
- Vue.http.interceptors.push((request, next) => {
- request.headers['X-CSRF-TOKEN'] = Laravel.csrfToken;
-
- next();
- });
- */
+import VueI18n from 'vue-i18n'
 
 $.ajaxPrefilter(function(options) {
     if (!options.beforeSend) {
         options.beforeSend = function (xhr) {
-            xhr.setRequestHeader('X-CSRF-TOKEN', Laravel.csrfToken);
+            xhr.setRequestHeader('X-CSRF-TOKEN', window.Laravel.csrfToken);
         }
     }
 });
@@ -54,15 +45,17 @@ window.eventHubVue = new Vue({
     }
 });
 
-var VueI18n = require('vue-i18n');
-var locales = require("./lang.js");
-
 Vue.use(VueI18n);
 
-Vue.config.lang = $('body').data('lang');
-
+var locales = require("./lang.js");
+var lang = $('body').data('lang');
+var locales_array = [];
 Object.keys(locales).forEach(function (lang) {
-    Vue.locale(lang, locales[lang])
+    locales_array[lang] = locales[lang]
+});
+var i18n = new VueI18n({
+    locale: lang,
+    messages: locales_array
 });
 
 var TimeStringFormatter = Object;
@@ -145,6 +138,8 @@ import GenericComponentTypeCreateForm from './vue/generic_component_type_create-
 window.bodyVue = new Vue({
 
     el: '#body',
+
+    i18n: i18n,
 
     data: {
         terraria: [],

@@ -54,9 +54,6 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $history_to = $request->has('history_to') ? $request->input('history_to') : null;
-        $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180);
-
         $terraria = Terrarium::with('action_sequences')
                              ->with('animals')
                              ->with('files')
@@ -65,36 +62,21 @@ class TerrariumController extends ApiController
 
         $terraria = $this->filter($request, $terraria);
 
+        $repository_parameters = [
+            'history_to'        => $request->has('history_to') ?
+                $request->input('history_to') :
+                null,
+            'history_minutes'   => $request->has('history_minutes') ?
+                $request->input('history_minutes') :
+                env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180)
+        ];
 
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
-            $terraria = $terraria->get();
-            foreach ($terraria as &$t) {
-                $t = (new TerrariumRepository($t))->show($history_to, $history_minutes);
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                $this->terrariumTransformer->transformCollection(
-                    $terraria->toArray()
-                )
-            );
-
-        }
-
-        $terraria = $terraria->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        foreach ($terraria->items() as &$t) {
-            $t = (new TerrariumRepository($t))->show($history_to, $history_minutes);
-        }
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            $this->terrariumTransformer->transformCollection(
-                $terraria->toArray()['data']
-            ),
-            $terraria
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $terraria,
+            $this->terrariumTransformer,
+            'TerrariumRepository',
+            $repository_parameters
         );
 
     }
@@ -198,6 +180,7 @@ class TerrariumController extends ApiController
         }
 
         $terrarium = Terrarium::create([
+            'name' => $request->input('display_name'),
             'display_name' => $request->input('display_name')
         ]);
 

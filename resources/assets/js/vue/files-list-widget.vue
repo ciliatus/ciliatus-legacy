@@ -85,7 +85,7 @@
 
                             <td>
                                 <span>
-                                    <a class="waves-effect waves-light btn-small" v-bind:href="'/files/' + file.id + '/edit'">
+                                    <a v-bind:href="'/files/' + file.id + '/edit'">
                                         <i class="material-icons">edit</i>
                                     </a>
                                 </span>

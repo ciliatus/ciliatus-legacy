@@ -327,13 +327,38 @@
                                 </span>
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <select name="abilities[]" multiple>
+                                        <select name="abilities[]" multiple id="user-abilities-select">
                                             <option disabled @if(is_null(\App\UserAbility::abilities())) selected @endif></option>
                                             @foreach (\App\UserAbility::abilities() as $a)
                                                 <option value="{{ $a }}" @if($user->ability($a) == true)selected="selected"@endif>{{ $a }}</option>
                                             @endforeach
                                         </select>
                                         <label for="abilities[]">@choice('labels.abilities', 2)</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <script>
+                                        function select_abilities(filter) {
+                                            $('#user-abilities-select').find('option').each(function() {
+                                                if ($(this).val().indexOf(filter) >= 0) {
+                                                    $(this).attr('selected', true);
+                                                }
+                                            });
+                                            $('#user-abilities-select').material_select();
+                                        }
+                                    </script>
+                                    <div class="col s12">
+                                        <strong>@lang('labels.add_preset')</strong>
+                                    </div>
+                                    <div class="input-field col s12 m4 l4">
+                                        <a href="#" onclick="select_abilities('grant_api-write')">@lang('buttons.select_all_write')</a>
+                                    </div>
+                                    <div class="input-field col s12 m4 l4">
+                                        <a href="#" onclick="select_abilities('grant_api-read')">@lang('buttons.select_all_read')</a>
+                                    </div>
+                                    <div class="input-field col s12 m4 l4">
+                                        <a href="#" onclick="select_abilities('grant_api-list')">@lang('buttons.select_all_list')</a>
                                     </div>
                                 </div>
                             </div>
@@ -525,7 +550,7 @@
                                             <i class="material-icons left">delete</i>
                                         </button>
                                         @else
-                                            <a href="{{ url('users/setup/telegram') }}" class="btn waves-effect waves-light teal">@lang('buttons.start_setup')</a>
+                                            <a href="{{ url('users/setup/telegram') }}" class="btn waves-effect waves-light">@lang('buttons.start_setup')</a>
                                         @endif
                                     </div>
                                 </div>
@@ -551,8 +576,8 @@
         </a>
         <ul>
             <li><a class="btn-floating teal" href="/users/{{ $user->id }}"><i class="material-icons">info</i></a></li>
-            <li><a class="btn-floating red" href="/users/{{ $user->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green" href="/users/create"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/users/{{ $user->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/users/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
 @stop

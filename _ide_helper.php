@@ -1,7 +1,7 @@
 <?php
 /**
  * A helper file for Laravel 5, to provide autocomplete information to your IDE
- * Generated for Laravel 5.4.19 on 2017-05-05.
+ * Generated for Laravel 5.4.24 on 2017-06-01.
  *
  * @author Barry vd. Heuvel <barryvdh@gmail.com>
  * @see https://github.com/barryvdh/laravel-ide-helper
@@ -423,6 +423,21 @@ namespace Illuminate\Support\Facades {
         public static function registerDeferredProvider($provider, $service = null)
         {
             \Illuminate\Foundation\Application::registerDeferredProvider($provider, $service);
+        }
+        
+        /**
+         * Resolve the given type from the container.
+         * 
+         * (Overriding Container::makeWith)
+         *
+         * @param string $abstract
+         * @param array $parameters
+         * @return mixed 
+         * @static 
+         */
+        public static function makeWith($abstract, $parameters)
+        {
+            return \Illuminate\Foundation\Application::makeWith($abstract, $parameters);
         }
         
         /**
@@ -1091,20 +1106,6 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Resolve the given type with the given parameter overrides.
-         *
-         * @param string $abstract
-         * @param array $parameters
-         * @return mixed 
-         * @static 
-         */
-        public static function makeWith($abstract, $parameters)
-        {
-            //Method inherited from \Illuminate\Container\Container            
-            return \Illuminate\Foundation\Application::makeWith($abstract, $parameters);
-        }
-        
-        /**
          * Instantiate a concrete instance of the given type.
          *
          * @param string $concrete
@@ -1170,6 +1171,19 @@ namespace Illuminate\Support\Facades {
         {
             //Method inherited from \Illuminate\Container\Container            
             return \Illuminate\Foundation\Application::getAlias($abstract);
+        }
+        
+        /**
+         * Remove all of the extender callbacks for a given type.
+         *
+         * @param string $abstract
+         * @return void 
+         * @static 
+         */
+        public static function forgetExtenders($abstract)
+        {
+            //Method inherited from \Illuminate\Container\Container            
+            \Illuminate\Foundation\Application::forgetExtenders($abstract);
         }
         
         /**
@@ -1354,13 +1368,13 @@ namespace Illuminate\Support\Facades {
          *
          * @param string $command
          * @param array $parameters
-         * @return void 
+         * @return \Illuminate\Foundation\Bus\PendingDispatch 
          * @static 
          */
         public static function queue($command, $parameters = array())
         {
             //Method inherited from \Illuminate\Foundation\Console\Kernel            
-            \App\Console\Kernel::queue($command, $parameters);
+            return \App\Console\Kernel::queue($command, $parameters);
         }
         
         /**
@@ -2102,6 +2116,208 @@ namespace Illuminate\Support\Facades {
         
     }         
 
+    class Broadcast {
+        
+        /**
+         * Register the routes for handling broadcast authentication and sockets.
+         *
+         * @param array|null $attributes
+         * @return void 
+         * @static 
+         */
+        public static function routes($attributes = null)
+        {
+            \Illuminate\Broadcasting\BroadcastManager::routes($attributes);
+        }
+        
+        /**
+         * Get the socket ID for the given request.
+         *
+         * @param \Illuminate\Http\Request|null $request
+         * @return string|null 
+         * @static 
+         */
+        public static function socket($request = null)
+        {
+            return \Illuminate\Broadcasting\BroadcastManager::socket($request);
+        }
+        
+        /**
+         * Begin broadcasting an event.
+         *
+         * @param mixed|null $event
+         * @return \Illuminate\Broadcasting\PendingBroadcast|void 
+         * @static 
+         */
+        public static function event($event = null)
+        {
+            return \Illuminate\Broadcasting\BroadcastManager::event($event);
+        }
+        
+        /**
+         * Queue the given event for broadcast.
+         *
+         * @param mixed $event
+         * @return void 
+         * @static 
+         */
+        public static function queue($event)
+        {
+            \Illuminate\Broadcasting\BroadcastManager::queue($event);
+        }
+        
+        /**
+         * Get a driver instance.
+         *
+         * @param string $driver
+         * @return mixed 
+         * @static 
+         */
+        public static function connection($driver = null)
+        {
+            return \Illuminate\Broadcasting\BroadcastManager::connection($driver);
+        }
+        
+        /**
+         * Get a driver instance.
+         *
+         * @param string $name
+         * @return mixed 
+         * @static 
+         */
+        public static function driver($name = null)
+        {
+            return \Illuminate\Broadcasting\BroadcastManager::driver($name);
+        }
+        
+        /**
+         * Get the default driver name.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getDefaultDriver()
+        {
+            return \Illuminate\Broadcasting\BroadcastManager::getDefaultDriver();
+        }
+        
+        /**
+         * Set the default driver name.
+         *
+         * @param string $name
+         * @return void 
+         * @static 
+         */
+        public static function setDefaultDriver($name)
+        {
+            \Illuminate\Broadcasting\BroadcastManager::setDefaultDriver($name);
+        }
+        
+        /**
+         * Register a custom driver creator Closure.
+         *
+         * @param string $driver
+         * @param \Closure $callback
+         * @return $this 
+         * @static 
+         */
+        public static function extend($driver, $callback)
+        {
+            return \Illuminate\Broadcasting\BroadcastManager::extend($driver, $callback);
+        }
+        
+    }         
+
+    class Bus {
+        
+        /**
+         * Dispatch a command to its appropriate handler.
+         *
+         * @param mixed $command
+         * @return mixed 
+         * @static 
+         */
+        public static function dispatch($command)
+        {
+            return \Illuminate\Bus\Dispatcher::dispatch($command);
+        }
+        
+        /**
+         * Dispatch a command to its appropriate handler in the current process.
+         *
+         * @param mixed $command
+         * @param mixed $handler
+         * @return mixed 
+         * @static 
+         */
+        public static function dispatchNow($command, $handler = null)
+        {
+            return \Illuminate\Bus\Dispatcher::dispatchNow($command, $handler);
+        }
+        
+        /**
+         * Determine if the given command has a handler.
+         *
+         * @param mixed $command
+         * @return bool 
+         * @static 
+         */
+        public static function hasCommandHandler($command)
+        {
+            return \Illuminate\Bus\Dispatcher::hasCommandHandler($command);
+        }
+        
+        /**
+         * Retrieve the handler for a command.
+         *
+         * @param mixed $command
+         * @return bool|mixed 
+         * @static 
+         */
+        public static function getCommandHandler($command)
+        {
+            return \Illuminate\Bus\Dispatcher::getCommandHandler($command);
+        }
+        
+        /**
+         * Dispatch a command to its appropriate handler behind a queue.
+         *
+         * @param mixed $command
+         * @return mixed 
+         * @throws \RuntimeException
+         * @static 
+         */
+        public static function dispatchToQueue($command)
+        {
+            return \Illuminate\Bus\Dispatcher::dispatchToQueue($command);
+        }
+        
+        /**
+         * Set the pipes through which commands should be piped before dispatching.
+         *
+         * @param array $pipes
+         * @return $this 
+         * @static 
+         */
+        public static function pipeThrough($pipes)
+        {
+            return \Illuminate\Bus\Dispatcher::pipeThrough($pipes);
+        }
+        
+        /**
+         * Map a command to a handler.
+         *
+         * @param array $map
+         * @return $this 
+         * @static 
+         */
+        public static function map($map)
+        {
+            return \Illuminate\Bus\Dispatcher::map($map);
+        }
+        
+    }         
+
     class Cache {
         
         /**
@@ -2515,41 +2731,29 @@ namespace Illuminate\Support\Facades {
          */
         public static function flush()
         {
-            return \Illuminate\Cache\RedisStore::flush();
+            return \Illuminate\Cache\FileStore::flush();
         }
         
         /**
-         * Get the Redis connection instance.
+         * Get the Filesystem instance.
          *
-         * @return \Predis\ClientInterface 
+         * @return \Illuminate\Filesystem\Filesystem 
          * @static 
          */
-        public static function connection()
+        public static function getFilesystem()
         {
-            return \Illuminate\Cache\RedisStore::connection();
+            return \Illuminate\Cache\FileStore::getFilesystem();
         }
         
         /**
-         * Set the connection name to be used.
+         * Get the working directory of the cache.
          *
-         * @param string $connection
-         * @return void 
+         * @return string 
          * @static 
          */
-        public static function setConnection($connection)
+        public static function getDirectory()
         {
-            \Illuminate\Cache\RedisStore::setConnection($connection);
-        }
-        
-        /**
-         * Get the Redis database instance.
-         *
-         * @return \Illuminate\Contracts\Redis\Factory 
-         * @static 
-         */
-        public static function getRedis()
-        {
-            return \Illuminate\Cache\RedisStore::getRedis();
+            return \Illuminate\Cache\FileStore::getDirectory();
         }
         
         /**
@@ -2560,19 +2764,7 @@ namespace Illuminate\Support\Facades {
          */
         public static function getPrefix()
         {
-            return \Illuminate\Cache\RedisStore::getPrefix();
-        }
-        
-        /**
-         * Set the cache key prefix.
-         *
-         * @param string $prefix
-         * @return void 
-         * @static 
-         */
-        public static function setPrefix($prefix)
-        {
-            \Illuminate\Cache\RedisStore::setPrefix($prefix);
+            return \Illuminate\Cache\FileStore::getPrefix();
         }
         
     }         
@@ -3926,7 +4118,7 @@ namespace Illuminate\Support\Facades {
          *
          * @param string|\Closure $listener
          * @param bool $wildcard
-         * @return mixed 
+         * @return \Closure 
          * @static 
          */
         public static function makeListener($listener, $wildcard = false)
@@ -4047,6 +4239,18 @@ namespace Illuminate\Support\Facades {
         public static function requireOnce($file)
         {
             return \Illuminate\Filesystem\Filesystem::requireOnce($file);
+        }
+        
+        /**
+         * Get the MD5 hash of the file at the given path.
+         *
+         * @param string $path
+         * @return string 
+         * @static 
+         */
+        public static function hash($path)
+        {
+            return \Illuminate\Filesystem\Filesystem::hash($path);
         }
         
         /**
@@ -4473,6 +4677,20 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Define abilities for a resource.
+         *
+         * @param string $name
+         * @param string $class
+         * @param array $abilities
+         * @return $this 
+         * @static 
+         */
+        public static function resource($name, $class, $abilities = null)
+        {
+            return \Illuminate\Auth\Access\Gate::resource($name, $class, $abilities);
+        }
+        
+        /**
          * Define a policy class for a given class type.
          *
          * @param string $class
@@ -4596,6 +4814,17 @@ namespace Illuminate\Support\Facades {
         public static function forUser($user)
         {
             return \Illuminate\Auth\Access\Gate::forUser($user);
+        }
+        
+        /**
+         * Get all of the defined abilities.
+         *
+         * @return array 
+         * @static 
+         */
+        public static function abilities()
+        {
+            return \Illuminate\Auth\Access\Gate::abilities();
         }
         
     }         
@@ -5450,6 +5679,122 @@ namespace Illuminate\Support\Facades {
         
     }         
 
+    class Notification {
+        
+        /**
+         * Send the given notification to the given notifiable entities.
+         *
+         * @param \Illuminate\Support\Collection|array|mixed $notifiables
+         * @param mixed $notification
+         * @return void 
+         * @static 
+         */
+        public static function send($notifiables, $notification)
+        {
+            \Illuminate\Notifications\ChannelManager::send($notifiables, $notification);
+        }
+        
+        /**
+         * Send the given notification immediately.
+         *
+         * @param \Illuminate\Support\Collection|array|mixed $notifiables
+         * @param mixed $notification
+         * @param array|null $channels
+         * @return void 
+         * @static 
+         */
+        public static function sendNow($notifiables, $notification, $channels = null)
+        {
+            \Illuminate\Notifications\ChannelManager::sendNow($notifiables, $notification, $channels);
+        }
+        
+        /**
+         * Get a channel instance.
+         *
+         * @param string|null $name
+         * @return mixed 
+         * @static 
+         */
+        public static function channel($name = null)
+        {
+            return \Illuminate\Notifications\ChannelManager::channel($name);
+        }
+        
+        /**
+         * Get the default channel driver name.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function getDefaultDriver()
+        {
+            return \Illuminate\Notifications\ChannelManager::getDefaultDriver();
+        }
+        
+        /**
+         * Get the default channel driver name.
+         *
+         * @return string 
+         * @static 
+         */
+        public static function deliversVia()
+        {
+            return \Illuminate\Notifications\ChannelManager::deliversVia();
+        }
+        
+        /**
+         * Set the default channel driver name.
+         *
+         * @param string $channel
+         * @return void 
+         * @static 
+         */
+        public static function deliverVia($channel)
+        {
+            \Illuminate\Notifications\ChannelManager::deliverVia($channel);
+        }
+        
+        /**
+         * Get a driver instance.
+         *
+         * @param string $driver
+         * @return mixed 
+         * @static 
+         */
+        public static function driver($driver = null)
+        {
+            //Method inherited from \Illuminate\Support\Manager            
+            return \Illuminate\Notifications\ChannelManager::driver($driver);
+        }
+        
+        /**
+         * Register a custom driver creator Closure.
+         *
+         * @param string $driver
+         * @param \Closure $callback
+         * @return $this 
+         * @static 
+         */
+        public static function extend($driver, $callback)
+        {
+            //Method inherited from \Illuminate\Support\Manager            
+            return \Illuminate\Notifications\ChannelManager::extend($driver, $callback);
+        }
+        
+        /**
+         * Get all of the created "drivers".
+         *
+         * @return array 
+         * @static 
+         */
+        public static function getDrivers()
+        {
+            //Method inherited from \Illuminate\Support\Manager            
+            return \Illuminate\Notifications\ChannelManager::getDrivers();
+        }
+        
+    }         
+
     class Password {
         
         /**
@@ -5996,6 +6341,19 @@ namespace Illuminate\Support\Facades {
             return \Illuminate\Redis\RedisManager::connection($name);
         }
         
+        /**
+         * Resolve the given connection by name.
+         *
+         * @param string|null $name
+         * @return \Illuminate\Redis\Connections\Connection 
+         * @throws \InvalidArgumentException
+         * @static 
+         */
+        public static function resolve($name = null)
+        {
+            return \Illuminate\Redis\RedisManager::resolve($name);
+        }
+        
     }         
 
     class Request {
@@ -6133,6 +6491,18 @@ namespace Illuminate\Support\Facades {
         public static function is()
         {
             return \Illuminate\Http\Request::is();
+        }
+        
+        /**
+         * Check if the route name matches the given string.
+         *
+         * @param string $name
+         * @return bool 
+         * @static 
+         */
+        public static function routeIs($name)
+        {
+            return \Illuminate\Http\Request::routeIs($name);
         }
         
         /**
@@ -6535,6 +6905,8 @@ namespace Illuminate\Support\Facades {
          * You should only list the reverse proxies that you manage directly.
          *
          * @param array $proxies A list of trusted proxies
+         * @param int $trustedHeaderSet A bit field of Request::HEADER_*, usually either Request::HEADER_FORWARDED or Request::HEADER_X_FORWARDED_ALL, to set which headers to trust from your proxies
+         * @throws \InvalidArgumentException When $trustedHeaderSet is invalid
          * @static 
          */
         public static function setTrustedProxies($proxies)
@@ -6553,6 +6925,18 @@ namespace Illuminate\Support\Facades {
         {
             //Method inherited from \Symfony\Component\HttpFoundation\Request            
             return \Illuminate\Http\Request::getTrustedProxies();
+        }
+        
+        /**
+         * Gets the set of trusted headers from trusted proxies.
+         *
+         * @return int A bit field of Request::HEADER_* that defines which headers are trusted from your proxies
+         * @static 
+         */
+        public static function getTrustedHeaderSet()
+        {
+            //Method inherited from \Symfony\Component\HttpFoundation\Request            
+            return \Illuminate\Http\Request::getTrustedHeaderSet();
         }
         
         /**
@@ -6597,6 +6981,7 @@ namespace Illuminate\Support\Facades {
          * @param string $key The header key
          * @param string $value The header name
          * @throws \InvalidArgumentException
+         * @deprecated since version 3.3, to be removed in 4.0. Use "X-Forwarded-*" headers or the "Forwarded" header defined in RFC7239, and the $trustedHeaderSet argument of the Request::setTrustedProxies() method instead.
          * @static 
          */
         public static function setTrustedHeaderName($key, $value)
@@ -6611,6 +6996,7 @@ namespace Illuminate\Support\Facades {
          * @param string $key The header key
          * @return string The header name
          * @throws \InvalidArgumentException
+         * @deprecated since version 3.3, to be removed in 4.0. Use the Request::getTrustedHeaderSet() method instead.
          * @static 
          */
         public static function getTrustedHeaderName($key)
@@ -6771,7 +7157,7 @@ namespace Illuminate\Support\Facades {
          * ("Client-Ip" for instance), configure it via "setTrustedHeaderName()" with
          * the "client-ip" key.
          *
-         * @return string The client IP address
+         * @return string|null The client IP address
          * @see getClientIps()
          * @see http://en.wikipedia.org/wiki/X-Forwarded-For
          * @static 
@@ -6874,7 +7260,7 @@ namespace Illuminate\Support\Facades {
          * If your reverse proxy uses a different header name than "X-Forwarded-Port",
          * configure it via "setTrustedHeaderName()" with the "client-port" key.
          *
-         * @return string 
+         * @return int|string can be a string if fetched from the server bag
          * @static 
          */
         public static function getPort()
@@ -7059,7 +7445,7 @@ namespace Illuminate\Support\Facades {
          * configure it via "setTrustedHeaderName()" with the "client-host" key.
          *
          * @return string 
-         * @throws \UnexpectedValueException when the host name is invalid
+         * @throws SuspiciousOperationException when the host name is invalid or not trusted
          * @static 
          */
         public static function getHost()
@@ -8173,6 +8559,20 @@ namespace Illuminate\Support\Facades {
         public static function resource($name, $controller, $options = array())
         {
             \Illuminate\Routing\Router::resource($name, $controller, $options);
+        }
+        
+        /**
+         * Route an api resource to a controller.
+         *
+         * @param string $name
+         * @param string $controller
+         * @param array $options
+         * @return void 
+         * @static 
+         */
+        public static function apiResource($name, $controller, $options = array())
+        {
+            \Illuminate\Routing\Router::apiResource($name, $controller, $options);
         }
         
         /**
@@ -9698,7 +10098,7 @@ namespace Illuminate\Support\Facades {
          * Store the uploaded file on the disk.
          *
          * @param string $path
-         * @param \Illuminate\Http\UploadedFile $file
+         * @param \Illuminate\Http\File|\Illuminate\Http\UploadedFile $file
          * @param array $options
          * @return string|false 
          * @static 
@@ -10362,7 +10762,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Register a custom implicit validator extension.
+         * Register a custom dependent validator extension.
          *
          * @param string $rule
          * @param \Closure|string $extension
@@ -10376,7 +10776,7 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
-         * Register a custom implicit validator message replacer.
+         * Register a custom validator message replacer.
          *
          * @param string $rule
          * @param \Closure|string $replacer
@@ -10990,6 +11390,19 @@ namespace Illuminate\Support\Facades {
         }
         
         /**
+         * Get the contents of a section.
+         *
+         * @param string $name
+         * @param string $default
+         * @return mixed 
+         * @static 
+         */
+        public static function getSection($name, $default = null)
+        {
+            return \Illuminate\View\Factory::getSection($name, $default);
+        }
+        
+        /**
          * Get the entire array of sections.
          *
          * @return array 
@@ -11185,6 +11598,10 @@ namespace {
     
     class Blade extends \Illuminate\Support\Facades\Blade {}
     
+    class Broadcast extends \Illuminate\Support\Facades\Broadcast {}
+    
+    class Bus extends \Illuminate\Support\Facades\Bus {}
+    
     class Cache extends \Illuminate\Support\Facades\Cache {}
     
     class Config extends \Illuminate\Support\Facades\Config {}
@@ -11208,6 +11625,8 @@ namespace {
     class Log extends \Illuminate\Support\Facades\Log {}
     
     class Mail extends \Illuminate\Support\Facades\Mail {}
+    
+    class Notification extends \Illuminate\Support\Facades\Notification {}
     
     class Password extends \Illuminate\Support\Facades\Password {}
     
@@ -11236,6 +11655,18 @@ namespace {
     class View extends \Illuminate\Support\Facades\View {}
     
     class Eloquent extends \Illuminate\Database\Eloquent\Model {    
+        /**
+         * Create and return an un-saved model instance.
+         *
+         * @param array $attributes
+         * @return \Illuminate\Database\Eloquent\Model 
+         * @static 
+         */
+        public static function make($attributes = array())
+        {
+            return \Illuminate\Database\Eloquent\Builder::make($attributes);
+        }
+        
         /**
          * Register a new global scope.
          *
@@ -11299,7 +11730,7 @@ namespace {
         /**
          * Add a basic where clause to the query.
          *
-         * @param string|\Closure $column
+         * @param string|array|\Closure $column
          * @param string $operator
          * @param mixed $value
          * @param string $boolean
@@ -11803,8 +12234,8 @@ namespace {
          * Apply the callback's query changes if the given "value" is true.
          *
          * @param mixed $value
-         * @param \Closure $callback
-         * @param \Closure $default
+         * @param callable $callback
+         * @param callable $default
          * @return mixed 
          * @static 
          */

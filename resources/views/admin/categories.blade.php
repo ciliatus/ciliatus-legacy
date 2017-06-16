@@ -31,7 +31,9 @@
                             <td>{{ $type->name }}</td>
                             <td>
                                 <form action="/api/v1/animals/feedings/types/{{ $type->id }}" data-method="DELETE" data-redirect-success="/categories#tab_feeding_types">
-                                    <button type="submit" class="btn btn-small red darken-2 white-text">@lang('buttons.delete')</button>
+                                    <a class="red-text text-lighten-1" href="#" onclick="$(this).closest('form').submit();">
+                                        <i class="material-icons">delete</i>
+                                    </a>
                                 </form>
                             </td>
                         </tr>
@@ -46,7 +48,7 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating green" href="/animals/feedings/types/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/animals/feedings/types/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
@@ -70,7 +72,9 @@
                             <td><i class="material-icons">{{ $type->value }}</i></td>
                             <td>
                                 <form action="/api/v1/biography_entries/categories/{{ $type->id }}" data-method="DELETE" data-redirect-success="/categories#tab_bio_categories">
-                                    <button type="submit" class="btn btn-small red darken-2 white-text">@lang('buttons.delete')</button>
+                                    <a class="red-text text-lighten-1" href="#" onclick="$(this).closest('form').submit();">
+                                        <i class="material-icons">delete</i>
+                                    </a>
                                 </form>
                             </td>
                         </tr>
@@ -85,7 +89,7 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating green" href="/biography_entries/categories/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/biography_entries/categories/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
@@ -112,8 +116,8 @@
                             <td><a href="/generic_component_types/{{ $type->id }}">{{ $type->name_singular }}</a></td>
                             <td><i class="material-icons">{{ $type->icon }}</i></td>
                             <td>
-                                <a class="btn btn-small red darken-2 white-text" href="/generic_component_types/{{ $type->id }}/delete">@lang('buttons.delete')</a>
-                                <a class="btn btn-small orange darken-4 white-text" href="/generic_component_types/{{ $type->id }}/edit">@lang('buttons.edit')</a>
+                                <a href="/generic_component_types/{{ $type->id }}/edit"><i class="material-icons">edit</i></a>
+                                <a class="red-text text-lighten-1" href="/generic_component_types/{{ $type->id }}/delete"><i class="material-icons">delete</i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -127,16 +131,8 @@
                 <i class="large material-icons">mode_edit</i>
             </a>
             <ul>
-                <li><a class="btn-floating green" href="/generic_component_types/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/generic_component_types/create"><i class="material-icons">add</i></a></li>
             </ul>
         </div>
     </div>
-
-    <script>
-        ($(function() {
-            $(document).ready(function(){
-                $('ul.tabs').tabs();
-            });
-        }));
-    </script>
 @stop

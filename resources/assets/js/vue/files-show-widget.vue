@@ -3,7 +3,7 @@
         <div :class="wrapperClasses" v-for="file in files">
             <div class="col s12 m12 l4">
                 <div class="card">
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         <i class="material-icons">attach_file</i>
                         {{ $tc("components.files", 1) }}
                     </div>
@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="card-reveal">
-                        <span class="card-title grey-text text-darken-4"><i class="material-icons right">close</i></span>
+                        <span class="card-title"><i class="material-icons right">close</i></span>
                         <p>
 
                         </p>
@@ -35,7 +35,7 @@
 
             <div class="col s12 m12 l8" v-if="file.is_image && file.thumb !== undefiend">
                 <div class="card">
-                    <div class="card-content orange darken-4 white-text">
+                    <div class="card-header">
                         <span>{{ $t('labels.preview') }}</span>
                     </div>
                     <div class="card-content">

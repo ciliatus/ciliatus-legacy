@@ -1,6 +1,12 @@
 /node_modules
+/public/hot
 /public/storage
-Homestead.yaml
+/storage/*.key
+/vendor
+/vendor/autoload.php
+/.idea
+/.vagrant
 Homestead.json
+Homestead.yaml
+npm-debug.log
 .env
-.idea
