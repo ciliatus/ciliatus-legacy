@@ -31,7 +31,9 @@
                             <td>{{ $type->name }}</td>
                             <td>
                                 <form action="/api/v1/animals/feedings/types/{{ $type->id }}" data-method="DELETE" data-redirect-success="/categories#tab_feeding_types">
-                                    <button type="submit" class="btn btn-small red darken-2 white-text">@lang('buttons.delete')</button>
+                                    <a class="red-text text-lighten-1" href="#" onclick="$(this).closest('form').submit();">
+                                        <i class="material-icons">delete</i>
+                                    </a>
                                 </form>
                             </td>
                         </tr>
@@ -70,7 +72,9 @@
                             <td><i class="material-icons">{{ $type->value }}</i></td>
                             <td>
                                 <form action="/api/v1/biography_entries/categories/{{ $type->id }}" data-method="DELETE" data-redirect-success="/categories#tab_bio_categories">
-                                    <button type="submit" class="btn btn-small red darken-2 white-text">@lang('buttons.delete')</button>
+                                    <a class="red-text text-lighten-1" href="#" onclick="$(this).closest('form').submit();">
+                                        <i class="material-icons">delete</i>
+                                    </a>
                                 </form>
                             </td>
                         </tr>
@@ -131,12 +135,4 @@
             </ul>
         </div>
     </div>
-
-    <script>
-        ($(function() {
-            $(document).ready(function(){
-                $('ul.tabs').tabs();
-            });
-        }));
-    </script>
 @stop
