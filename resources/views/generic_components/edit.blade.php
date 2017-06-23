@@ -49,7 +49,7 @@
                                     <select name="controlunit">
                                         <option></option>
                                         @foreach ($controlunits as $cu)
-                                            <option value="{{ $cu->id }}" @if($cu->id == $generic_component->controlunit->id) selected @endif>{{ $cu->name }}</option>
+                                            <option value="{{ $cu->id }}" @if(!is_null($generic_component->controlunit) && $cu->id == $generic_component->controlunit->id) selected @endif>{{ $cu->name }}</option>
                                         @endforeach
                                     </select>
                                     <label for="controlunit">@choice('components.controlunit', 1)</label>
