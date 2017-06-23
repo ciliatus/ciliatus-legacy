@@ -79,7 +79,7 @@
                                           vertical-axis-title="@lang('labels.weight')" horizontal-axis-title="@lang('labels.date')"
                                           source="{{ url('api/v1/animals/' . $animal->id .'/weighings?graph=true') }}"
                                           :show-filter-form="true" filter-column="created_at"
-                                          filter-from-date="{{ Carbon\Carbon::now()->subMonths(3)->toDateString() }}"
+                                          filter-from-date="{{ Carbon\Carbon::now()->subMonths(env('ANIMAL_DEFAULT_WEIGHT_HISTORY_MONTHS', 12))->toDateString() }}"
                                           :height="400"></google-graph>
                         </div>
                     </div>
