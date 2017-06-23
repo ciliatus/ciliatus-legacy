@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\GenericComponentDeleted;
 use App\Property;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\MassAssignmentException;
