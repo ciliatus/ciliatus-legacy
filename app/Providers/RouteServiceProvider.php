@@ -43,6 +43,8 @@ class RouteServiceProvider extends ServiceProvider
 
         $this->mapAuthRoutes();
 
+        $this->mapApiAiRoutes();
+
         $this->mapTelegramRoutes();
     }
 
@@ -82,6 +84,13 @@ class RouteServiceProvider extends ServiceProvider
             ->middleware('localization')
             ->namespace('App\\Http\\Controllers\\Api')
             ->group(base_path('routes/setup.php'));
+    }
+
+    protected function mapApiAiRoutes()
+    {
+        Route::prefix('api/v1')
+            ->namespace('App\\Http\\Controllers\\Api')
+            ->group(base_path('routes/apiai.php'));
     }
 
     protected function mapTelegramRoutes()

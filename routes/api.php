@@ -13,9 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::post('apiai', 'ApiAiController@webhook');
-Route::post('apiai/send_request', 'ApiAiController@parseAndSendRequest');
-
 Route::get('dashboard/system_status', 'DashboardController@system_status');
 Route::resource('dashboard', 'DashboardController');
 
