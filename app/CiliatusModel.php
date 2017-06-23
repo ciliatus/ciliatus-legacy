@@ -3,9 +3,11 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Schema;
 
 /**
- * Class Animal
+ * Class CiliatusModel
  * @package App
  */
 abstract class CiliatusModel extends Model
@@ -48,7 +50,7 @@ abstract class CiliatusModel extends Model
     public function setProperty($type, $name, $value)
     {
         $p = Property::create([
-            'belongsTo_type' => explode("\\",__CLASS__)[1],
+            'belongsTo_type' => end(explode("\\",__CLASS__)),
             'belongsTo_id' => $this->id,
             'type' => $type,
             'name' => $name,
@@ -56,6 +58,44 @@ abstract class CiliatusModel extends Model
         ]);
 
         return $p;
+    }
+
+    /**
+     * Sets belongsTo_type and belongsTo_id fields of this model to the appropriate values
+     * for $model. If $model is null or empty the fields will be set to null.
+     * If this model does not have belongsTo_* fields, the method returns.
+     *
+     * @param CiliatusModel|null $model
+     * @param boolean $save Changes will be saved if true
+     */
+    public function setBelongsTo(CiliatusModel $model = null, $save = true)
+    {
+        if (!Schema::hasColumn($this->getTable(), 'belongsTo_type') &&
+            !Schema::hasColumn($this->getTable(), 'belongsTo_id')) {
+            return;
+        }
+
+        if (is_null($model)) {
+            $this->belongsTo_type = null;
+            $this->belongsTo_id = null;
+        }
+        else {
+            $this->belongsTo_type = end(explode("\\",get_class($model)));
+            $this->belongsTo_id = $model->id;
+        }
+
+        if ($save) {
+            $this->save();
+        }
+    }
+
+    /**
+     * @return bool|null
+     */
+    public function delete()
+    {
+        $this->properties()->delete();
+        return parent::delete();
     }
 
     /**

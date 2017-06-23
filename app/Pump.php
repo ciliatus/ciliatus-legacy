@@ -69,6 +69,11 @@ class Pump extends CiliatusModel
     {
         broadcast(new PumpDeleted($this->id));
 
+        foreach ($this->valves as $v) {
+            $v->pump_id = null;
+            $v->save();
+        }
+
         parent::delete();
     }
 

@@ -105,9 +105,7 @@ class Terrarium extends CiliatusModel
     {
         broadcast(new TerrariumDeleted($this->id));
 
-        foreach ($this->action_sequences as $as) {
-            $as->delete();
-        }
+        $this->action_sequences()->delete();
 
         foreach ($this->animals as $a) {
             $a->terrarium_id = null;
@@ -120,19 +118,11 @@ class Terrarium extends CiliatusModel
         }
 
         foreach ($this->physical_sensors as $ps) {
-            $ps->belongsTo_type = null;
-            $ps->belongsTo_id = null;
-            $ps->save();
+            $ps->setBelongsTo();
         }
 
         foreach ($this->generic_components as $gc) {
-            $gc->belongsTo_type = null;
-            $gc->belongsTo_id = null;
-            $gc->save();
-        }
-
-        foreach ($this->properties as $p) {
-            $p->delete();
+            $gc->setBelongsTo();
         }
 
         parent::delete();

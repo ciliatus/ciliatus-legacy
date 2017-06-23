@@ -60,10 +60,9 @@ class LogicalSensor extends CiliatusModel
      */
     public function delete()
     {
-        $this->thresholds()->delete();
-        $this->properties()->delete();
-
         broadcast(new LogicalSensorDeleted($this->id));
+
+        $this->thresholds()->delete();
 
         parent::delete();
     }

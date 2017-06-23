@@ -60,6 +60,30 @@ class Controlunit extends CiliatusModel
     {
         broadcast(new ControlunitDeleted($this->id));
 
+        foreach ($this->physical_sensors as $ps) {
+            $ps->controlunit_id = null;
+            $ps->save();
+        }
+
+        foreach ($this->pumps as $p) {
+            $p->controlunit_id = null;
+            $p->save();
+        }
+
+        foreach ($this->valves as $v) {
+            $v->controlunit_id = null;
+            $v->save();
+        }
+
+        foreach ($this->generic_components as $gc) {
+            $gc->controlunit_id = null;
+            $gc->save();
+        }
+
+        foreach ($this->critical_states as $cs) {
+            $cs->setBelongsTo();
+        }
+
         parent::delete();
     }
 

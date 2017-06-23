@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Events\GenericComponentDeleted;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
@@ -55,21 +56,9 @@ class GenericComponentType extends CiliatusModel
      */
     public function delete()
     {
-        foreach ($this->properties as $p) {
-            $p->delete();
-        }
-
-        foreach ($this->components as $c) {
-            $c->delete();
-        }
-
-        foreach ($this->states as $s) {
-            $s->delete();
-        }
-
-        foreach ($this->intentions as $i) {
-            $i->delete();
-        }
+        $this->components()->delete();
+        $this->states()->delete();
+        $this->intentions()->delete();
 
         return parent::delete();
     }

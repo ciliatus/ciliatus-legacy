@@ -79,6 +79,16 @@ class Animal extends CiliatusModel
     {
         broadcast(new AnimalDeleted($this->id));
 
+        foreach ($this->files as $f) {
+            $f->setBelongsTo();
+        }
+
+        $this->feeding_schedules()->delete();
+        $this->weighing_schedules()->delete();
+        $this->feedings()->delete();
+        $this->weighings()->delete();
+        $this->biography_entries()->delete();
+
         parent::delete();
     }
 

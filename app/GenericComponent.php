@@ -61,13 +61,10 @@ class GenericComponent extends CiliatusModel
      */
     public function delete()
     {
-        foreach ($this->properties as $p) {
-            $p->delete();
-        }
+        broadcast(new GenericComponentDeleted($this->id));
 
-        foreach ($this->states as $s) {
-            $s->delete();
-        }
+        $this->states()->delete();
+        $this->intentions()->delete();
 
         return parent::delete();
     }
@@ -113,7 +110,7 @@ class GenericComponent extends CiliatusModel
     }
 
     /**
-     * Removes/Adds component's properties with it's type
+     * Removes/Adds component's properties to sync with it's type
      */
     public function resync_properties()
     {
@@ -136,7 +133,7 @@ class GenericComponent extends CiliatusModel
     }
 
     /**
-     * Removes/Adds component's states with it's type
+     * Removes/Adds component's states to sync with it's type
      */
     public function resync_states()
     {

@@ -120,16 +120,15 @@ class File extends CiliatusModel
     public function delete()
     {
 
-        foreach ($this->properties() as $prop) {
-            $prop->delete();
-        }
+        $this->properties()->delete();
 
         if (!is_null($this->thumb())) {
             $this->thumb()->delete();
         }
 
-        if (file_exists($this->path_internal()))
+        if (file_exists($this->path_internal())) {
             unlink($this->path_internal());
+        }
 
         parent::delete();
     }
