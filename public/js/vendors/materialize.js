@@ -1,6 +1,6 @@
 /*!
- * Materialize v0.98.0 (http://materializecss.com)
- * Copyright 2014-2015 Materialize
+ * Materialize v0.99.0 (http://materializecss.com)
+ * Copyright 2014-2017 Materialize
  * MIT License (https://raw.githubusercontent.com/Dogfalo/materialize/master/LICENSE)
  */
 // Check for jQuery.
@@ -15,210 +15,171 @@ if (typeof(jQuery) === 'undefined') {
   }
 }
 ;/*
- * jQuery Easing v1.3 - http://gsgd.co.uk/sandbox/jquery/easing/
- *
- * Uses the built in easing capabilities added In jQuery 1.1
- * to offer multiple easing options
- *
- * TERMS OF USE - jQuery Easing
- *
+ * jQuery Easing v1.4.0 - http://gsgd.co.uk/sandbox/jquery/easing/
  * Open source under the BSD License.
- *
  * Copyright © 2008 George McGinley Smith
  * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list of
- * conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list
- * of conditions and the following disclaimer in the documentation and/or other materials
- * provided with the distribution.
- *
- * Neither the name of the author nor the names of contributors may be used to endorse
- * or promote products derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- *  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- *  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
- *  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
- * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- *  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
- * OF THE POSSIBILITY OF SUCH DAMAGE.
- *
+ * https://raw.github.com/gdsmith/jquery-easing/master/LICENSE
 */
 
-// t: current time, b: begInnIng value, c: change In value, d: duration
-jQuery.easing['jswing'] = jQuery.easing['swing'];
+(function (factory) {
+	if (typeof define === "function" && define.amd) {
+		define(['jquery'], function ($) {
+			return factory($);
+		});
+	} else if (typeof module === "object" && typeof module.exports === "object") {
+		exports = factory(require('jquery'));
+	} else {
+		factory(jQuery);
+	}
+})(function($){
 
-jQuery.extend( jQuery.easing,
+// Preserve the original jQuery "swing" easing as "jswing"
+$.easing['jswing'] = $.easing['swing'];
+
+var pow = Math.pow,
+	sqrt = Math.sqrt,
+	sin = Math.sin,
+	cos = Math.cos,
+	PI = Math.PI,
+	c1 = 1.70158,
+	c2 = c1 * 1.525,
+	c3 = c1 + 1,
+	c4 = ( 2 * PI ) / 3,
+	c5 = ( 2 * PI ) / 4.5;
+
+// x is the fraction of animation progress, in the range 0..1
+function bounceOut(x) {
+	var n1 = 7.5625,
+		d1 = 2.75;
+	if ( x < 1/d1 ) {
+		return n1*x*x;
+	} else if ( x < 2/d1 ) {
+		return n1*(x-=(1.5/d1))*x + .75;
+	} else if ( x < 2.5/d1 ) {
+		return n1*(x-=(2.25/d1))*x + .9375;
+	} else {
+		return n1*(x-=(2.625/d1))*x + .984375;
+	}
+}
+
+$.extend( $.easing,
 {
 	def: 'easeOutQuad',
-	swing: function (x, t, b, c, d) {
-		//alert(jQuery.easing.default);
-		return jQuery.easing[jQuery.easing.def](x, t, b, c, d);
+	swing: function (x) {
+		return $.easing[$.easing.def](x);
 	},
-	easeInQuad: function (x, t, b, c, d) {
-		return c*(t/=d)*t + b;
+	easeInQuad: function (x) {
+		return x * x;
 	},
-	easeOutQuad: function (x, t, b, c, d) {
-		return -c *(t/=d)*(t-2) + b;
+	easeOutQuad: function (x) {
+		return 1 - ( 1 - x ) * ( 1 - x );
 	},
-	easeInOutQuad: function (x, t, b, c, d) {
-		if ((t/=d/2) < 1) return c/2*t*t + b;
-		return -c/2 * ((--t)*(t-2) - 1) + b;
+	easeInOutQuad: function (x) {
+		return x < 0.5 ?
+			2 * x * x :
+			1 - pow( -2 * x + 2, 2 ) / 2;
 	},
-	easeInCubic: function (x, t, b, c, d) {
-		return c*(t/=d)*t*t + b;
+	easeInCubic: function (x) {
+		return x * x * x;
 	},
-	easeOutCubic: function (x, t, b, c, d) {
-		return c*((t=t/d-1)*t*t + 1) + b;
+	easeOutCubic: function (x) {
+		return 1 - pow( 1 - x, 3 );
 	},
-	easeInOutCubic: function (x, t, b, c, d) {
-		if ((t/=d/2) < 1) return c/2*t*t*t + b;
-		return c/2*((t-=2)*t*t + 2) + b;
+	easeInOutCubic: function (x) {
+		return x < 0.5 ?
+			4 * x * x * x :
+			1 - pow( -2 * x + 2, 3 ) / 2;
 	},
-	easeInQuart: function (x, t, b, c, d) {
-		return c*(t/=d)*t*t*t + b;
+	easeInQuart: function (x) {
+		return x * x * x * x;
 	},
-	easeOutQuart: function (x, t, b, c, d) {
-		return -c * ((t=t/d-1)*t*t*t - 1) + b;
+	easeOutQuart: function (x) {
+		return 1 - pow( 1 - x, 4 );
 	},
-	easeInOutQuart: function (x, t, b, c, d) {
-		if ((t/=d/2) < 1) return c/2*t*t*t*t + b;
-		return -c/2 * ((t-=2)*t*t*t - 2) + b;
+	easeInOutQuart: function (x) {
+		return x < 0.5 ?
+			8 * x * x * x * x :
+			1 - pow( -2 * x + 2, 4 ) / 2;
 	},
-	easeInQuint: function (x, t, b, c, d) {
-		return c*(t/=d)*t*t*t*t + b;
+	easeInQuint: function (x) {
+		return x * x * x * x * x;
 	},
-	easeOutQuint: function (x, t, b, c, d) {
-		return c*((t=t/d-1)*t*t*t*t + 1) + b;
+	easeOutQuint: function (x) {
+		return 1 - pow( 1 - x, 5 );
 	},
-	easeInOutQuint: function (x, t, b, c, d) {
-		if ((t/=d/2) < 1) return c/2*t*t*t*t*t + b;
-		return c/2*((t-=2)*t*t*t*t + 2) + b;
+	easeInOutQuint: function (x) {
+		return x < 0.5 ?
+			16 * x * x * x * x * x :
+			1 - pow( -2 * x + 2, 5 ) / 2;
 	},
-	easeInSine: function (x, t, b, c, d) {
-		return -c * Math.cos(t/d * (Math.PI/2)) + c + b;
+	easeInSine: function (x) {
+		return 1 - cos( x * PI/2 );
 	},
-	easeOutSine: function (x, t, b, c, d) {
-		return c * Math.sin(t/d * (Math.PI/2)) + b;
+	easeOutSine: function (x) {
+		return sin( x * PI/2 );
 	},
-	easeInOutSine: function (x, t, b, c, d) {
-		return -c/2 * (Math.cos(Math.PI*t/d) - 1) + b;
+	easeInOutSine: function (x) {
+		return -( cos( PI * x ) - 1 ) / 2;
 	},
-	easeInExpo: function (x, t, b, c, d) {
-		return (t==0) ? b : c * Math.pow(2, 10 * (t/d - 1)) + b;
+	easeInExpo: function (x) {
+		return x === 0 ? 0 : pow( 2, 10 * x - 10 );
 	},
-	easeOutExpo: function (x, t, b, c, d) {
-		return (t==d) ? b+c : c * (-Math.pow(2, -10 * t/d) + 1) + b;
+	easeOutExpo: function (x) {
+		return x === 1 ? 1 : 1 - pow( 2, -10 * x );
 	},
-	easeInOutExpo: function (x, t, b, c, d) {
-		if (t==0) return b;
-		if (t==d) return b+c;
-		if ((t/=d/2) < 1) return c/2 * Math.pow(2, 10 * (t - 1)) + b;
-		return c/2 * (-Math.pow(2, -10 * --t) + 2) + b;
+	easeInOutExpo: function (x) {
+		return x === 0 ? 0 : x === 1 ? 1 : x < 0.5 ?
+			pow( 2, 20 * x - 10 ) / 2 :
+			( 2 - pow( 2, -20 * x + 10 ) ) / 2;
 	},
-	easeInCirc: function (x, t, b, c, d) {
-		return -c * (Math.sqrt(1 - (t/=d)*t) - 1) + b;
+	easeInCirc: function (x) {
+		return 1 - sqrt( 1 - pow( x, 2 ) );
 	},
-	easeOutCirc: function (x, t, b, c, d) {
-		return c * Math.sqrt(1 - (t=t/d-1)*t) + b;
+	easeOutCirc: function (x) {
+		return sqrt( 1 - pow( x - 1, 2 ) );
 	},
-	easeInOutCirc: function (x, t, b, c, d) {
-		if ((t/=d/2) < 1) return -c/2 * (Math.sqrt(1 - t*t) - 1) + b;
-		return c/2 * (Math.sqrt(1 - (t-=2)*t) + 1) + b;
+	easeInOutCirc: function (x) {
+		return x < 0.5 ?
+			( 1 - sqrt( 1 - pow( 2 * x, 2 ) ) ) / 2 :
+			( sqrt( 1 - pow( -2 * x + 2, 2 ) ) + 1 ) / 2;
 	},
-	easeInElastic: function (x, t, b, c, d) {
-		var s=1.70158;var p=0;var a=c;
-		if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
-		if (a < Math.abs(c)) { a=c; var s=p/4; }
-		else var s = p/(2*Math.PI) * Math.asin (c/a);
-		return -(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
+	easeInElastic: function (x) {
+		return x === 0 ? 0 : x === 1 ? 1 :
+			-pow( 2, 10 * x - 10 ) * sin( ( x * 10 - 10.75 ) * c4 );
 	},
-	easeOutElastic: function (x, t, b, c, d) {
-		var s=1.70158;var p=0;var a=c;
-		if (t==0) return b;  if ((t/=d)==1) return b+c;  if (!p) p=d*.3;
-		if (a < Math.abs(c)) { a=c; var s=p/4; }
-		else var s = p/(2*Math.PI) * Math.asin (c/a);
-		return a*Math.pow(2,-10*t) * Math.sin( (t*d-s)*(2*Math.PI)/p ) + c + b;
+	easeOutElastic: function (x) {
+		return x === 0 ? 0 : x === 1 ? 1 :
+			pow( 2, -10 * x ) * sin( ( x * 10 - 0.75 ) * c4 ) + 1;
 	},
-	easeInOutElastic: function (x, t, b, c, d) {
-		var s=1.70158;var p=0;var a=c;
-		if (t==0) return b;  if ((t/=d/2)==2) return b+c;  if (!p) p=d*(.3*1.5);
-		if (a < Math.abs(c)) { a=c; var s=p/4; }
-		else var s = p/(2*Math.PI) * Math.asin (c/a);
-		if (t < 1) return -.5*(a*Math.pow(2,10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )) + b;
-		return a*Math.pow(2,-10*(t-=1)) * Math.sin( (t*d-s)*(2*Math.PI)/p )*.5 + c + b;
+	easeInOutElastic: function (x) {
+		return x === 0 ? 0 : x === 1 ? 1 : x < 0.5 ?
+			-( pow( 2, 20 * x - 10 ) * sin( ( 20 * x - 11.125 ) * c5 )) / 2 :
+			pow( 2, -20 * x + 10 ) * sin( ( 20 * x - 11.125 ) * c5 ) / 2 + 1;
 	},
-	easeInBack: function (x, t, b, c, d, s) {
-		if (s == undefined) s = 1.70158;
-		return c*(t/=d)*t*((s+1)*t - s) + b;
+	easeInBack: function (x) {
+		return c3 * x * x * x - c1 * x * x;
 	},
-	easeOutBack: function (x, t, b, c, d, s) {
-		if (s == undefined) s = 1.70158;
-		return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
+	easeOutBack: function (x) {
+		return 1 + c3 * pow( x - 1, 3 ) + c1 * pow( x - 1, 2 );
 	},
-	easeInOutBack: function (x, t, b, c, d, s) {
-		if (s == undefined) s = 1.70158;
-		if ((t/=d/2) < 1) return c/2*(t*t*(((s*=(1.525))+1)*t - s)) + b;
-		return c/2*((t-=2)*t*(((s*=(1.525))+1)*t + s) + 2) + b;
+	easeInOutBack: function (x) {
+		return x < 0.5 ?
+			( pow( 2 * x, 2 ) * ( ( c2 + 1 ) * 2 * x - c2 ) ) / 2 :
+			( pow( 2 * x - 2, 2 ) *( ( c2 + 1 ) * ( x * 2 - 2 ) + c2 ) + 2 ) / 2;
 	},
-	easeInBounce: function (x, t, b, c, d) {
-		return c - jQuery.easing.easeOutBounce (x, d-t, 0, c, d) + b;
+	easeInBounce: function (x) {
+		return 1 - bounceOut( 1 - x );
 	},
-	easeOutBounce: function (x, t, b, c, d) {
-		if ((t/=d) < (1/2.75)) {
-			return c*(7.5625*t*t) + b;
-		} else if (t < (2/2.75)) {
-			return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
-		} else if (t < (2.5/2.75)) {
-			return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
-		} else {
-			return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
-		}
-	},
-	easeInOutBounce: function (x, t, b, c, d) {
-		if (t < d/2) return jQuery.easing.easeInBounce (x, t*2, 0, c, d) * .5 + b;
-		return jQuery.easing.easeOutBounce (x, t*2-d, 0, c, d) * .5 + c*.5 + b;
+	easeOutBounce: bounceOut,
+	easeInOutBounce: function (x) {
+		return x < 0.5 ?
+			( 1 - bounceOut( 1 - 2 * x ) ) / 2 :
+			( 1 + bounceOut( 2 * x - 1 ) ) / 2;
 	}
 });
 
-/*
- *
- * TERMS OF USE - EASING EQUATIONS
- *
- * Open source under the BSD License.
- *
- * Copyright © 2001 Robert Penner
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without modification,
- * are permitted provided that the following conditions are met:
- *
- * Redistributions of source code must retain the above copyright notice, this list of
- * conditions and the following disclaimer.
- * Redistributions in binary form must reproduce the above copyright notice, this list
- * of conditions and the following disclaimer in the documentation and/or other materials
- * provided with the distribution.
- *
- * Neither the name of the author nor the names of contributors may be used to endorse
- * or promote products derived from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND ANY
- * EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES OF
- * MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE
- *  COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- *  EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE
- *  GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED
- * AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
- *  NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED
- * OF THE POSSIBILITY OF SUCH DAMAGE.
- *
- */;// Custom Easing
+});;// Custom Easing
 jQuery.extend( jQuery.easing,
 {
   easeInOutMaterial: function (x, t, b, c, d) {
@@ -316,7 +277,20 @@ m.isFunction(t)&&t(null,!0)}),f.queue(a,m.isString(v)?v:"",[])),"stop"===y?(i(a)
 }(window));
 
 
-// Unique ID
+/**
+ * Generate approximated selector string for a jQuery object
+ * @param {jQuery} obj  jQuery object to be parsed
+ * @returns {string}
+ */
+Materialize.objectSelectorString = function(obj) {
+  var tagStr = obj.prop('tagName') || '';
+  var idStr = obj.attr('id') || '';
+  var classStr = obj.attr('class') || '';
+  return (tagStr + idStr + classStr).replace(/\s/g,'');
+};
+
+
+// Unique Random ID
 Materialize.guid = (function() {
   function s4() {
     return Math.floor((1 + Math.random()) * 0x10000)
@@ -417,13 +391,14 @@ if (jQuery) {
   Vel = Velocity;
 }
 ;(function ($) {
-  $.fn.collapsible = function(options) {
+  $.fn.collapsible = function(options, methodParam) {
     var defaults = {
       accordion: undefined,
       onOpen: undefined,
       onClose: undefined
     };
 
+    var methodName = options;
     options = $.extend(defaults, options);
 
 
@@ -434,11 +409,6 @@ if (jQuery) {
       var $panel_headers = $(this).find('> li > .collapsible-header');
 
       var collapsible_type = $this.data("collapsible");
-
-      // Turn off any existing event handlers
-      $this.off('click.collapse', '> li > .collapsible-header');
-      $panel_headers.off('click.collapse');
-
 
       /****************
       Helper Functions
@@ -496,7 +466,11 @@ if (jQuery) {
       }
 
       // Open collapsible. object: .collapsible-header
-      function collapsibleOpen(object) {
+      function collapsibleOpen(object, noToggle) {
+        if (!noToggle) {
+          object.toggleClass('active');
+        }
+
         if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) { // Handle Accordion
           accordionOpen(object);
         } else { // Handle Expandables
@@ -541,8 +515,33 @@ if (jQuery) {
         return object.closest('li > .collapsible-header');
       }
 
+
+      // Turn off any existing event handlers
+      function removeEventHandlers() {
+        $this.off('click.collapse', '> li > .collapsible-header');
+      }
+
       /*****  End Helper Functions  *****/
 
+
+      // Methods
+      if (methodName === 'destroy') {
+        removeEventHandlers();
+        return;
+      } else if (methodParam >= 0 &&
+          methodParam < $panel_headers.length) {
+        var $curr_header = $panel_headers.eq(methodParam);
+        if ($curr_header.length &&
+            (methodName === 'open' ||
+            (methodName === 'close' &&
+            $curr_header.hasClass('active')))) {
+          collapsibleOpen($curr_header);
+        }
+        return;
+      }
+
+
+      removeEventHandlers();
 
 
       // Add click handler to only direct collapsible header children
@@ -553,19 +552,17 @@ if (jQuery) {
           element = getPanelHeader(element);
         }
 
-        element.toggleClass('active');
-
         collapsibleOpen(element);
       });
 
 
       // Open first active
       if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) { // Handle Accordion
-        collapsibleOpen($panel_headers.filter('.active').first());
+        collapsibleOpen($panel_headers.filter('.active').first(), true);
 
       } else { // Handle Expandables
         $panel_headers.filter('.active').each(function() {
-          collapsibleOpen($(this));
+          collapsibleOpen($(this), true);
         });
       }
 
@@ -575,166 +572,6 @@ if (jQuery) {
   $(document).ready(function(){
     $('.collapsible').collapsible();
   });
-
-
-    $.fn.collapsibletable = function(options) {
-        var defaults = {
-            accordion: undefined,
-            onOpen: undefined,
-            onClose: undefined
-        };
-
-        options = $.extend(defaults, options);
-
-
-        return this.each(function() {
-
-            var $this = $(this);
-
-            var $panel_headers = $(this).find('> tbody > .collapsible-header');
-
-            var collapsible_type = $this.data("collapsible");
-
-            // Turn off any existing event handlers
-            $this.off('click.collapse', '> tbody > .collapsible-header');
-            $panel_headers.off('click.collapse');
-
-
-            /****************
-             Helper Functions
-             ****************/
-
-            // Accordion Open
-            function accordionOpen(object) {
-                $panel_headers = $this.find('> tbody > .collapsible-header');
-                if (object.hasClass('active')) {
-                    object.parent().addClass('active');
-                }
-                else {
-                    object.parent().removeClass('active');
-                }
-                if (object.parent().hasClass('active')){
-                    object.siblings('.collapsible-body').stop(true,false).slideDown({ duration: 1, easing: "easeOutQuart", queue: false, complete: function() {$(this).css('height', '');}});
-                }
-                else{
-                    object.siblings('.collapsible-body').stop(true,false).slideUp({ duration: 1, easing: "easeOutQuart", queue: false, complete: function() {$(this).css('height', '');}});
-                }
-
-                $panel_headers.not(object).removeClass('active').parent().removeClass('active');
-
-                // Close previously open accordion elements.
-                $panel_headers.not(object).parent().children('.collapsible-body').stop(true,false).each(function() {
-                    if ($(this).is(':visible')) {
-                        $(this).slideUp({
-                            duration: 350,
-                            easing: "easeOutQuart",
-                            queue: false,
-                            complete:
-                                function() {
-                                    $(this).css('height', '');
-                                    execCallbacks($(this).siblings('.collapsible-header'));
-                                }
-                        });
-                    }
-                });
-            }
-
-            // Expandable Open
-            function expandableOpen(object) {
-                if (object.hasClass('active')) {
-                    object.parent().addClass('active');
-                }
-                else {
-                    object.parent().removeClass('active');
-                }
-                if (object.parent().hasClass('active')){
-                    object.siblings('.collapsible-body').stop(true,false).slideDown({ duration: 1, easing: "easeOutQuart", queue: false, complete: function() {$(this).css('height', '');}});
-                }
-                else {
-                    object.siblings('.collapsible-body').stop(true,false).slideUp({ duration: 1, easing: "easeOutQuart", queue: false, complete: function() {$(this).css('height', '');}});
-                }
-            }
-
-            // Open collapsible. object: .collapsible-header
-            function collapsibleOpen(object) {
-                if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) { // Handle Accordion
-                    accordionOpen(object);
-                } else { // Handle Expandables
-                    expandableOpen(object);
-                }
-
-                execCallbacks(object);
-            }
-
-            // Handle callbacks
-            function execCallbacks(object) {
-                if (object.hasClass('active')) {
-                    if (typeof(options.onOpen) === "function") {
-                        options.onOpen.call(this, object.parent());
-                    }
-                } else {
-                    if (typeof(options.onClose) === "function") {
-                        options.onClose.call(this, object.parent());
-                    }
-                }
-            }
-
-            /**
-             * Check if object is children of panel header
-             * @param  {Object}  object Jquery object
-             * @return {Boolean} true if it is children
-             */
-            function isChildrenOfPanelHeader(object) {
-
-                var panelHeader = getPanelHeader(object);
-
-                return panelHeader.length > 0;
-            }
-
-            /**
-             * Get panel header from a children element
-             * @param  {Object} object Jquery object
-             * @return {Object} panel header object
-             */
-            function getPanelHeader(object) {
-
-                return object.closest('tbody > tr.collapsible-header');
-            }
-
-            /*****  End Helper Functions  *****/
-
-
-
-            // Add click handler to only direct collapsible header children
-            $this.on('click.collapse', '> tbody > .collapsible-header', function(e) {
-                var element = $(e.target);
-
-                if (isChildrenOfPanelHeader(element)) {
-                    element = getPanelHeader(element);
-                }
-
-                element.toggleClass('active');
-
-                collapsibleOpen(element);
-            });
-
-
-            // Open first active
-            if (options.accordion || collapsible_type === "accordion" || collapsible_type === undefined) { // Handle Accordion
-                collapsibleOpen($panel_headers.filter('.active').first());
-
-            } else { // Handle Expandables
-                $panel_headers.filter('.active').each(function() {
-                    collapsibleOpen($(this));
-                });
-            }
-
-        });
-    };
-
-    $(document).ready(function(){
-        $('table.collapsible').collapsibletable();
-    });
 }( jQuery ));;(function ($) {
 
   // Add posibility to scroll to selected option
@@ -887,6 +724,14 @@ if (jQuery) {
           leftPosition = origin.position().left + gutterSpacing;
         }
         else if (currAlignment === 'right') {
+          // Material icons fix
+          activates
+            .stop(true, true)
+            .css({
+              opacity: 0,
+              left: 0
+            })
+
           var offsetRight = origin.position().left + origin.outerWidth() - activates.outerWidth();
           gutterSpacing = -curr_options.gutter;
           leftPosition =  offsetRight + gutterSpacing;
@@ -899,9 +744,8 @@ if (jQuery) {
           left: leftPosition + scrollXOffset
         });
 
-
         // Show dropdown
-        activates.stop(true, true).css('opacity', 0)
+        activates
           .slideDown({
             queue: false,
             duration: curr_options.inDuration,
@@ -913,12 +757,12 @@ if (jQuery) {
           .animate( {opacity: 1}, {queue: false, duration: curr_options.inDuration, easing: 'easeOutSine'});
 
         // Add click close handler to document
-        $(document).bind('click.'+ activates.attr('id') + ' touchstart.' + activates.attr('id'), function (e) {
-          if (!activates.is(e.target) && !origin.is(e.target) && (!origin.find(e.target).length) ) {
+        setTimeout(function() {
+          $(document).on('click.'+ activates.attr('id'), function (e) {
             hideDropdown();
-            $(document).unbind('click.'+ activates.attr('id') + ' touchstart.' + activates.attr('id'));
-          }
-        });
+            $(document).off('click.'+ activates.attr('id'));
+          });
+        }, 0);
       }
 
       function hideDropdown() {
@@ -927,14 +771,14 @@ if (jQuery) {
         activates.fadeOut(curr_options.outDuration);
         activates.removeClass('active');
         origin.removeClass('active');
-        $(document).unbind('click.'+ activates.attr('id') + ' touchstart.' + activates.attr('id'));
+        $(document).off('click.'+ activates.attr('id'));
         setTimeout(function() { activates.css('max-height', ''); }, curr_options.outDuration);
       }
 
       // Hover
       if (curr_options.hover) {
         var open = false;
-        origin.unbind('click.' + origin.attr('id'));
+        origin.off('click.' + origin.attr('id'));
         // Hover handler to show dropdown
         origin.on('mouseenter', function(e){ // Mouse over
           if (open === false) {
@@ -964,8 +808,8 @@ if (jQuery) {
         // Click
       } else {
         // Click handler to show dropdown
-        origin.unbind('click.' + origin.attr('id'));
-        origin.bind('click.'+origin.attr('id'), function(e){
+        origin.off('click.' + origin.attr('id'));
+        origin.on('click.'+origin.attr('id'), function(e){
           if (!isFocused) {
             if ( origin[0] == e.currentTarget &&
                  !origin.hasClass('active') &&
@@ -979,7 +823,7 @@ if (jQuery) {
             // If origin is clicked and menu is open, close menu
             else if (origin.hasClass('active')) {
               hideDropdown();
-              $(document).unbind('click.'+ activates.attr('id') + ' touchstart.' + activates.attr('id'));
+              $(document).off('click.'+ activates.attr('id'));
             }
           }
         });
@@ -1085,7 +929,7 @@ if (jQuery) {
 
           var overlayID = _generateID();
           var $overlay = $('<div class="modal-overlay"></div>');
-          lStack = (++_stack);
+          var lStack = (++_stack);
 
           // Store a reference of the overlay
           $overlay.attr('id', overlayID).css('z-index', 1000 + lStack * 2);
@@ -1166,6 +1010,7 @@ if (jQuery) {
       }); // done return
     },
     open : function() {
+      methods.init.apply( this, arguments );
       $(this).trigger('openModal');
     },
     close : function() {
@@ -1206,10 +1051,12 @@ if (jQuery) {
       var originalHeight = 0;
       var ancestorsChanged;
       var ancestor;
+      var originInlineStyles = origin.attr('style');
       origin.wrap(placeholder);
 
 
-      origin.on('click', function(){
+      // Start click handler
+      origin.on('click', function() {
         var placeholder = origin.parent('.material-placeholder');
         var windowWidth = window.innerWidth;
         var windowHeight = window.innerHeight;
@@ -1363,25 +1210,29 @@ if (jQuery) {
             ); // End Velocity
         }
 
-      }); // End origin on click
-
-
-      // Return on scroll
-      $(window).scroll(function() {
-        if (overlayActive) {
-          returnToOriginal();
-        }
-      });
-
-      // Return on ESC
-      $(document).keyup(function(e) {
-
-        if (e.keyCode === 27 && doneAnimating === true) {   // ESC key
+        // Handle Exit triggers
+        $(window).on('scroll.materialbox', function() {
           if (overlayActive) {
             returnToOriginal();
           }
-        }
-      });
+        });
+
+        $(window).on('resize.materialbox', function() {
+          if (overlayActive) {
+            returnToOriginal();
+          }
+        });
+
+        $(document).on('keyup.materialbox', function(e) {
+          // ESC key
+          if (e.keyCode === 27 &&
+              doneAnimating === true &&
+              overlayActive) {
+            returnToOriginal();
+          }
+        });
+
+      }); // End click handler
 
 
       // This function returns the modaled image to the original spot
@@ -1399,6 +1250,10 @@ if (jQuery) {
         $('#materialbox-overlay').velocity("stop", true);
         $('.materialbox-caption').velocity("stop", true);
 
+        // disable exit handlers
+        $(window).off('scroll.materialbox');
+        $(document).off('keyup.materialbox');
+        $(window).off('resize.materialbox');
 
         $('#materialbox-overlay').velocity({opacity: 0}, {
           duration: outDuration, // Delay prevents animation overlapping
@@ -1420,7 +1275,28 @@ if (jQuery) {
           },
           {
             duration: outDuration,
-            queue: false, easing: 'easeOutQuad'
+            queue: false, easing: 'easeOutQuad',
+            complete: function() {
+              placeholder.css({
+                height: '',
+                width: '',
+                position: '',
+                top: '',
+                left: ''
+              });
+
+              origin.removeAttr('style');
+              origin.attr('style', originInlineStyles);
+
+              // Remove class
+              origin.removeClass('active');
+              doneAnimating = true;
+
+              // Remove overflow overrides on ancestors
+              if (ancestorsChanged) {
+                ancestorsChanged.css('overflow', '');
+              }
+            }
           }
         );
 
@@ -1429,34 +1305,7 @@ if (jQuery) {
           duration: outDuration, // Delay prevents animation overlapping
           queue: false, easing: 'easeOutQuad',
           complete: function(){
-            placeholder.css({
-              height: '',
-              width: '',
-              position: '',
-              top: '',
-              left: ''
-            });
-
-            origin.css({
-              height: '',
-              top: '',
-              left: '',
-              width: '',
-              'max-width': '',
-              position: '',
-              'z-index': '',
-              'will-change': ''
-            });
-
-            // Remove class
-            origin.removeClass('active');
-            doneAnimating = true;
             $(this).remove();
-
-            // Remove overflow overrides on ancestors
-            if (ancestorsChanged) {
-              ancestorsChanged.css('overflow', '');
-            }
           }
         });
 
@@ -1537,8 +1386,11 @@ if (jQuery) {
         responsiveThreshold: Infinity, // breakpoint for swipeable
       };
       options = $.extend(defaults, options);
+      var namespace = Materialize.objectSelectorString($(this));
 
-      return this.each(function() {
+      return this.each(function(i) {
+
+      var uniqueNamespace = namespace+i;
 
       // For each set of tabs, we want to keep track of
       // which tab is active and its associated content
@@ -1560,13 +1412,13 @@ if (jQuery) {
       // Finds right attribute for indicator based on active tab.
       // el: jQuery Object
       var calcRightPos = function(el) {
-        return $tabs_width - el.position().left - el.outerWidth() - $this.scrollLeft();
+        return Math.ceil($tabs_width - el.position().left - el.outerWidth() - $this.scrollLeft());
       };
 
       // Finds left attribute for indicator based on active tab.
       // el: jQuery Object
       var calcLeftPos = function(el) {
-        return el.position().left + $this.scrollLeft();
+        return Math.floor(el.position().left + $this.scrollLeft());
       };
 
       // Animates Indicator to active tab.
@@ -1614,7 +1466,7 @@ if (jQuery) {
 
       // append indicator then set indicator width to tab width
       if (!$this.find('.indicator').length) {
-        $this.append('<div class="indicator"></div>');
+        $this.append('<li class="indicator"></li>');
       }
       $indicator = $this.find('.indicator');
 
@@ -1629,7 +1481,7 @@ if (jQuery) {
           $indicator.css({"left": calcLeftPos($active) });
         }, 0);
       }
-      $(window).resize(function () {
+      $(window).off('resize.tabs-'+uniqueNamespace).on('resize.tabs-'+uniqueNamespace, function () {
         $tabs_width = $this.width();
         $tab_width = Math.max($tabs_width, $this[0].scrollWidth) / $links.length;
         if (index < 0) {
@@ -1660,6 +1512,9 @@ if (jQuery) {
               index = $tabs_wrapper.index(item);
               $active = $links.eq(index);
               animateIndicator(prev_index);
+              if (typeof(options.onShow) === "function") {
+                options.onShow.call($this[0], $content);
+              }
             }
           },
         });
@@ -1672,7 +1527,7 @@ if (jQuery) {
 
 
       // Bind the click event handler
-      $this.on('click', 'a', function(e) {
+      $this.off('click.tabs').on('click.tabs', 'a', function(e) {
         if ($(this).parent().hasClass('disabled')) {
           e.preventDefault();
           return;
@@ -1710,7 +1565,11 @@ if (jQuery) {
         // Swap content
         if (options.swipeable) {
           if ($tabs_content.length) {
-            $tabs_content.carousel('set', index);
+            $tabs_content.carousel('set', index, function() {
+              if (typeof(options.onShow) === "function") {
+                options.onShow.call($this[0], $content);
+              }
+            });
           }
         } else {
           if ($content !== undefined) {
@@ -2262,7 +2121,7 @@ if (jQuery) {
             if (!(target instanceof SVGElement) && target.className.indexOf('waves-effect') !== -1) {
                 element = target;
                 break;
-            } else if (target.classList.contains('waves-effect')) {
+            } else if (target.className.indexOf('waves-effect') !== -1) {
                 element = target;
                 break;
             }
@@ -2480,7 +2339,9 @@ if (jQuery) {
         menuWidth: 300,
         edge: 'left',
         closeOnClick: false,
-        draggable: true
+        draggable: true,
+        onOpen: null,
+        onClose: null
       };
       options = $.extend(defaults, options);
 
@@ -2554,7 +2415,9 @@ if (jQuery) {
         // if closeOnClick, then add close event for all a tags in side sideNav
         if (options.closeOnClick === true) {
           menu.on("click.itemclick", "a:not(.collapsible-header)", function(){
-            removeMenu();
+            if (!(window.innerWidth > 992 && menu.hasClass('fixed'))){
+              removeMenu();
+            }
           });
         }
 
@@ -2607,7 +2470,12 @@ if (jQuery) {
                 }
               });
           }
-        };
+
+          // Callback
+          if (typeof(options.onClose) === 'function') {
+            options.onClose.call(this, menu);
+          }
+        }
 
 
 
@@ -2624,7 +2492,7 @@ if (jQuery) {
 
           $dragTarget.hammer({
             prevent_default: false
-          }).bind('pan', function(e) {
+          }).on('pan', function(e) {
 
             if (e.gesture.pointerType == "touch") {
 
@@ -2632,6 +2500,11 @@ if (jQuery) {
               var x = e.gesture.center.x;
               var y = e.gesture.center.y;
               var velocityX = e.gesture.velocityX;
+
+              // Vertical scroll bugfix
+              if (x === 0 && y === 0) {
+                return;
+              }
 
               // Disable Scrolling
               var $body = $('body');
@@ -2646,6 +2519,12 @@ if (jQuery) {
                 $overlay.css('opacity', 0).click( function(){
                   removeMenu();
                 });
+                
+                // Run 'onOpen' when sidenav is opened via touch/swipe if applicable
+                if (typeof(options.onOpen) === 'function') {
+                  options.onOpen.call(this, menu);
+                }
+                
                 $('body').append($overlay);
               }
 
@@ -2692,10 +2571,10 @@ if (jQuery) {
               }
             }
 
-          }).bind('panend', function(e) {
+          }).on('panend', function(e) {
 
             if (e.gesture.pointerType == "touch") {
-              var $overlay = $('<div id="sidenav-overlay"></div>');
+              var $overlay = $('#sidenav-overlay');
               var velocityX = e.gesture.velocityX;
               var x = e.gesture.center.x;
               var leftPos = x - options.menuWidth;
@@ -2730,6 +2609,11 @@ if (jQuery) {
                   menu.velocity({'translateX': [-1 * options.menuWidth - 10, leftPos]}, {duration: 200, queue: false, easing: 'easeOutQuad'});
                   $overlay.velocity({opacity: 0 }, {duration: 200, queue: false, easing: 'easeOutQuad',
                     complete: function () {
+                      // Run 'onClose' when sidenav is closed via touch/swipe if applicable
+                      if (typeof(options.onClose) === 'function') {
+                        options.onClose.call(this, menu);
+                      }
+                      
                       $(this).remove();
                     }});
                   $dragTarget.css({width: '10px', right: '', left: 0});
@@ -2804,14 +2688,19 @@ if (jQuery) {
                   $(this).remove();
                 } });
 
-            });
-            $('body').append($overlay);
-            $overlay.velocity({opacity: 1}, {duration: 300, queue: false, easing: 'easeOutQuad',
-              complete: function () {
-                menuOut = true;
-                panning = false;
-              }
-            });
+              });
+              $('body').append($overlay);
+              $overlay.velocity({opacity: 1}, {duration: 300, queue: false, easing: 'easeOutQuad',
+                complete: function () {
+                  menuOut = true;
+                  panning = false;
+                }
+              });
+
+            // Callback
+            if (typeof(options.onOpen) === 'function') {
+              options.onOpen.call(this, menu);
+            }
           }
 
           return false;
@@ -2965,12 +2854,17 @@ if (jQuery) {
         offsetRight : number -> offset from right. Default: 0
         offsetBottom : number -> offset from bottom. Default: 0
         offsetLeft : number -> offset from left. Default: 0
+				activeClass : string -> Class name to be added to the active link. Default: active
 	 * @returns {jQuery}
 	 */
 	$.scrollSpy = function(selector, options) {
 	  var defaults = {
 			throttle: 100,
-			scrollOffset: 200 // offset - 200 allows elements near bottom of page to scroll
+			scrollOffset: 200, // offset - 200 allows elements near bottom of page to scroll
+			activeClass: 'active',
+			getActiveElement: function(id) {
+				return 'a[href="#' + id + '"]';
+			}
     };
     options = $.extend(defaults, options);
 
@@ -3017,7 +2911,7 @@ if (jQuery) {
 			var $this = $(this);
 
 			if (visible[0]) {
-				$('a[href="#' + visible[0].attr('id') + '"]').removeClass('active');
+				$(options.getActiveElement(visible[0].attr('id'))).removeClass(options.activeClass);
 				if ($this.data('scrollSpy:id') < visible[0].data('scrollSpy:id')) {
 					visible.unshift($(this));
 				}
@@ -3030,7 +2924,7 @@ if (jQuery) {
 			}
 
 
-			$('a[href="#' + visible[0].attr('id') + '"]').addClass('active');
+			$(options.getActiveElement(visible[0].attr('id'))).addClass(options.activeClass);
 		});
 		selector.on('scrollSpy:exit', function() {
 			visible = $.grep(visible, function(value) {
@@ -3038,13 +2932,13 @@ if (jQuery) {
 	    });
 
 			if (visible[0]) {
-				$('a[href="#' + visible[0].attr('id') + '"]').removeClass('active');
+				$(options.getActiveElement(visible[0].attr('id'))).removeClass(options.activeClass);
 				var $this = $(this);
 				visible = $.grep(visible, function(value) {
 	        return value.attr('id') != $this.attr('id');
 	      });
 	      if (visible[0]) { // Check if empty
-					$('a[href="#' + visible[0].attr('id') + '"]').addClass('active');
+					$(options.getActiveElement(visible[0].attr('id'))).addClass(options.activeClass);
 	      }
 			}
 		});
@@ -3089,7 +2983,7 @@ if (jQuery) {
       var input_selector = 'input[type=text], input[type=password], input[type=email], input[type=url], input[type=tel], input[type=number], input[type=search], textarea';
       $(input_selector).each(function(index, element) {
         var $this = $(this);
-        if ($(element).val().length > 0 || element.autofocus || $this.attr('placeholder') !== undefined) {
+        if ($(element).val().length > 0 || $(element).is(':focus') || element.autofocus || $this.attr('placeholder') !== undefined) {
           $this.siblings('label').addClass('active');
         } else if ($(element)[0].validity) {
           $this.siblings('label').toggleClass('active', $(element)[0].validity.badInput === true);
@@ -3212,9 +3106,14 @@ if (jQuery) {
       if (fontFamily) { hiddenDiv.css('font-family', fontFamily); }
       if (lineHeight) { hiddenDiv.css('line-height', lineHeight); }
 
-      if ($textarea.attr('wrap') === "off") {
-        hiddenDiv.css('overflow-wrap', "normal")
-                 .css('white-space', "pre");
+      // Set original-height, if none
+      if (!$textarea.data('original-height')) {
+        $textarea.data('original-height', $textarea.height());
+      }
+
+      if ($textarea.attr('wrap') === 'off') {
+        hiddenDiv.css('overflow-wrap', 'normal')
+                 .css('white-space', 'pre');
       }
 
       hiddenDiv.text($textarea.val() + '\n');
@@ -3232,14 +3131,32 @@ if (jQuery) {
         hiddenDiv.css('width', $(window).width()/2);
       }
 
-      $textarea.css('height', hiddenDiv.height());
+
+      /**
+       * Resize if the new height is greater than the
+       * original height of the textarea
+       */
+      if ($textarea.data('original-height') <= hiddenDiv.height()) {
+        $textarea.css('height', hiddenDiv.height());
+      } else if ($textarea.val().length < $textarea.data('previous-length')) {
+        /**
+         * In case the new height is less than original height, it
+         * means the textarea has less text than before
+         * So we set the height to the original one
+         */
+        $textarea.css('height', $textarea.data('original-height'));
+      }
+      $textarea.data('previous-length', $textarea.val().length);
     }
 
     $(text_area_selector).each(function () {
       var $textarea = $(this);
-      if ($textarea.val().length) {
-        textareaAutoResize($textarea);
-      }
+      /**
+       * Instead of resizing textarea on document load,
+       * store the original height and the original length
+       */
+      $textarea.data('original-height', $textarea.height());
+      $textarea.data('previous-length', $textarea.val().length);
     });
 
     $('body').on('keyup keydown autoresize', text_area_selector, function () {
@@ -3272,15 +3189,35 @@ if (jQuery) {
       $(this).after(thumb);
     });
 
+    var showRangeBubble = function(thumb) {
+      var paddingLeft = parseInt(thumb.parent().css('padding-left'));
+      var marginLeft = (-7 + paddingLeft) + 'px';
+      thumb.velocity({ height: "30px", width: "30px", top: "-30px", marginLeft: marginLeft}, { duration: 300, easing: 'easeOutExpo' });
+    };
+
+    var calcRangeOffset = function(range) {
+      var width = range.width() - 15;
+      var max = parseFloat(range.attr('max'));
+      var min = parseFloat(range.attr('min'));
+      var percent = (parseFloat(range.val()) - min) / (max - min);
+      return percent * width;
+    }
+
     var range_wrapper = '.range-field';
     $(document).on('change', range_type, function(e) {
       var thumb = $(this).siblings('.thumb');
       thumb.find('.value').html($(this).val());
+
+      if (!thumb.hasClass('active')) {
+        showRangeBubble(thumb);
+      }
+
+      var offsetLeft = calcRangeOffset($(this));
+      thumb.addClass('active').css('left', offsetLeft);
     });
 
-    $(document).on('input mousedown touchstart', range_type, function(e) {
+    $(document).on('mousedown touchstart', range_type, function(e) {
       var thumb = $(this).siblings('.thumb');
-      var width = $(this).outerWidth();
 
       // If thumb indicator does not exist yet, create it
       if (thumb.length <= 0) {
@@ -3295,26 +3232,13 @@ if (jQuery) {
       $(this).addClass('active');
 
       if (!thumb.hasClass('active')) {
-        thumb.velocity({ height: "30px", width: "30px", top: "-20px", marginLeft: "-15px"}, { duration: 300, easing: 'easeOutExpo' });
+        showRangeBubble(thumb);
       }
 
       if (e.type !== 'input') {
-        if(e.pageX === undefined || e.pageX === null){//mobile
-           left = e.originalEvent.touches[0].pageX - $(this).offset().left;
-        }
-        else{ // desktop
-           left = e.pageX - $(this).offset().left;
-        }
-        if (left < 0) {
-          left = 0;
-        }
-        else if (left > width) {
-          left = width;
-        }
-        thumb.addClass('active').css('left', left);
+        var offsetLeft = calcRangeOffset($(this));
+        thumb.addClass('active').css('left', offsetLeft);
       }
-
-      thumb.find('.value').html($(this).val());
     });
 
     $(document).on('mouseup touchend', range_wrapper, function() {
@@ -3322,28 +3246,18 @@ if (jQuery) {
       $(this).removeClass('active');
     });
 
-    $(document).on('mousemove touchmove', range_wrapper, function(e) {
+    $(document).on('input mousemove touchmove', range_wrapper, function(e) {
       var thumb = $(this).children('.thumb');
       var left;
+      var input = $(this).find(range_type);
+
       if (range_mousedown) {
         if (!thumb.hasClass('active')) {
-          thumb.velocity({ height: '30px', width: '30px', top: '-20px', marginLeft: '-15px'}, { duration: 300, easing: 'easeOutExpo' });
+          showRangeBubble(thumb);
         }
-        if (e.pageX === undefined || e.pageX === null) { //mobile
-          left = e.originalEvent.touches[0].pageX - $(this).offset().left;
-        }
-        else{ // desktop
-          left = e.pageX - $(this).offset().left;
-        }
-        var width = $(this).outerWidth();
 
-        if (left < 0) {
-          left = 0;
-        }
-        else if (left > width) {
-          left = width;
-        }
-        thumb.addClass('active').css('left', left);
+        var offsetLeft = calcRangeOffset(input);
+        thumb.addClass('active').css('left', offsetLeft);
         thumb.find('.value').html(thumb.siblings(range_type).val());
       }
     });
@@ -3352,9 +3266,11 @@ if (jQuery) {
       if (!range_mousedown) {
 
         var thumb = $(this).children('.thumb');
+        var paddingLeft = parseInt($(this).css('padding-left'));
+        var marginLeft = (7 + paddingLeft) + 'px';
 
         if (thumb.hasClass('active')) {
-          thumb.velocity({ height: '0', width: '0', top: '10px', marginLeft: '-6px'}, { duration: 100 });
+          thumb.velocity({ height: '0', width: '0', top: '10px', marginLeft: marginLeft}, { duration: 100 });
         }
         thumb.removeClass('active');
       }
@@ -3368,7 +3284,8 @@ if (jQuery) {
       var defaults = {
         data: {},
         limit: Infinity,
-        onAutocomplete: null
+        onAutocomplete: null,
+        minLength: 1
       };
 
       options = $.extend(defaults, options);
@@ -3377,7 +3294,7 @@ if (jQuery) {
         var $input = $(this);
         var data = options.data,
             count = 0,
-            activeIndex = 0,
+            activeIndex = -1,
             oldVal,
             $inputDiv = $input.closest('.input-field'); // Div to append on
 
@@ -3419,14 +3336,26 @@ if (jQuery) {
 
           // Reset current element position
           var resetCurrentElement = function() {
-            activeIndex = 0;
+            activeIndex = -1;
             $autocomplete.find('.active').removeClass('active');
           }
 
+          // Remove autocomplete elements
+          var removeAutocomplete = function() {
+            $autocomplete.empty();
+            resetCurrentElement();
+            oldVal = undefined;
+          };
+
+          $input.off('blur.autocomplete').on('blur.autocomplete', function() {
+            removeAutocomplete();
+          });
+
           // Perform search
-          $input.off('keyup.autocomplete').on('keyup.autocomplete', function (e) {
+          $input.off('keyup.autocomplete focus.autocomplete').on('keyup.autocomplete focus.autocomplete', function (e) {
             // Reset count.
             count = 0;
+            var val = $input.val().toLowerCase();
 
             // Don't capture enter or arrow key usage.
             if (e.which === 13 ||
@@ -3435,14 +3364,12 @@ if (jQuery) {
               return;
             }
 
-            var val = $input.val().toLowerCase();
 
             // Check if the input isn't empty
             if (oldVal !== val) {
-              $autocomplete.empty();
-              resetCurrentElement();
+              removeAutocomplete();
 
-              if (val !== '') {
+              if (val.length >= options.minLength) {
                 for(var key in data) {
                   if (data.hasOwnProperty(key) &&
                       key.toLowerCase().indexOf(val) !== -1 &&
@@ -3479,10 +3406,10 @@ if (jQuery) {
                 $active = $autocomplete.children('.active').first();
 
             // select element on Enter
-            if (keyCode === 13) {
+            if (keyCode === 13 && activeIndex >= 0) {
               liElement = $autocomplete.children('li').eq(activeIndex);
               if (liElement.length) {
-                liElement.click();
+                liElement.trigger('mousedown.autocomplete');
                 e.preventDefault();
               }
               return;
@@ -3498,23 +3425,23 @@ if (jQuery) {
               }
 
               if (keyCode === 40 &&
-                  activeIndex < (numItems - 1) &&
-                  $active.length) {
+                  activeIndex < (numItems - 1)) {
                 activeIndex++;
               }
 
               $active.removeClass('active');
-              $autocomplete.children('li').eq(activeIndex).addClass('active');
+              if (activeIndex >= 0) {
+                $autocomplete.children('li').eq(activeIndex).addClass('active');
+              }
             }
           });
 
           // Set input value
-          $autocomplete.on('click', 'li', function () {
+          $autocomplete.on('mousedown.autocomplete touchstart.autocomplete', 'li', function () {
             var text = $(this).text().trim();
             $input.val(text);
             $input.trigger('change');
-            $autocomplete.empty();
-            resetCurrentElement();
+            removeAutocomplete();
 
             // Handle onAutocomplete callback.
             if (typeof(options.onAutocomplete) === "function") {
@@ -3572,6 +3499,7 @@ if (jQuery) {
         // Add disabled attr if disabled
         var disabledClass = (option.is(':disabled')) ? 'disabled ' : '';
         var optgroupClass = (type === 'optgroup-option') ? 'optgroup-option ' : '';
+        var multipleCheckbox = multiple ? '<input type="checkbox"' + disabledClass + '/><label></label>' : '';
 
         // add icons
         var icon_url = option.data('icon');
@@ -3581,20 +3509,12 @@ if (jQuery) {
           if (!!classes) classString = ' class="' + classes + '"';
 
           // Check for multiple type.
-          if (type === 'multiple') {
-            options.append($('<li class="' + disabledClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span><input type="checkbox"' + disabledClass + '/><label></label>' + option.html() + '</span></li>'));
-          } else {
-            options.append($('<li class="' + disabledClass + optgroupClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span>' + option.html() + '</span></li>'));
-          }
+          options.append($('<li class="' + disabledClass + optgroupClass + '"><img alt="" src="' + icon_url + '"' + classString + '><span>' + multipleCheckbox + option.html() + '</span></li>'));
           return true;
         }
 
         // Check for multiple type.
-        if (type === 'multiple') {
-          options.append($('<li class="' + disabledClass + '"><span><input type="checkbox"' + disabledClass + '/><label></label>' + option.html() + '</span></li>'));
-        } else {
-          options.append($('<li class="' + disabledClass + optgroupClass + '"><span>' + option.html() + '</span></li>'));
-        }
+        options.append($('<li class="' + disabledClass + optgroupClass + '"><span>' + multipleCheckbox + option.html() + '</span></li>'));
       };
 
       /* Create dropdown structure. */
@@ -3628,7 +3548,7 @@ if (jQuery) {
 
             if (multiple) {
               $('input[type="checkbox"]', this).prop('checked', function(i, v) { return !v; });
-              selected = toggleEntryFromArray(valuesSelected, $(this).index(), $select);
+              selected = toggleEntryFromArray(valuesSelected, i, $select);
               $newSelect.trigger('focus');
             } else {
               options.find('li').removeClass('active');
@@ -3664,7 +3584,7 @@ if (jQuery) {
       $newSelect.after(options);
       // Check if section element is disabled
       if (!$select.is(':disabled')) {
-        $newSelect.dropdown({'hover': false, 'closeOnClick': false});
+        $newSelect.dropdown({'hover': false});
       }
 
       // Copy tabindex
@@ -3832,7 +3752,7 @@ if (jQuery) {
         entriesArray.splice(index, 1);
       }
 
-      select.siblings('ul.dropdown-content').find('li').eq(entryIndex).toggleClass('active');
+      select.siblings('ul.dropdown-content').find('li:not(.optgroup)').eq(entryIndex).toggleClass('active');
 
       // use notAdded instead of true (to detect if the option is selected or not)
       select.find('option').eq(entryIndex).prop('selected', notAdded);
@@ -3957,7 +3877,7 @@ if (jQuery) {
         $slides.find('img').each(function () {
           var placeholderBase64 = 'data:image/gif;base64,R0lGODlhAQABAIABAP///wAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==';
           if ($(this).attr('src') !== placeholderBase64) {
-            $(this).css('background-image', 'url(' + $(this).attr('src') + ')' );
+            $(this).css('background-image', 'url("' + $(this).attr('src') + '")' );
             $(this).attr('src', placeholderBase64);
           }
         });
@@ -4032,7 +3952,7 @@ if (jQuery) {
 
         $this.hammer({
             prevent_default: false
-        }).bind('pan', function(e) {
+        }).on('pan', function(e) {
           if (e.gesture.pointerType === "touch") {
 
             // reset interval
@@ -4080,7 +4000,7 @@ if (jQuery) {
 
           }
 
-        }).bind('panend', function(e) {
+        }).on('panend', function(e) {
           if (e.gesture.pointerType === "touch") {
 
             $curr_slide = $slider.find('.active');
@@ -4188,6 +4108,13 @@ if (jQuery) {
 
     $(document).on('click.card', '.card', function (e) {
       if ($(this).find('> .card-reveal').length) {
+        var $card = $(e.target).closest('.card');
+        if ($card.data('initialOverflow') === undefined) {
+          $card.data(
+            'initialOverflow',
+            $card.css('overflow') === undefined ? '' : $card.css('overflow')
+          );
+        }
         if ($(e.target).is($('.card-reveal .card-title')) || $(e.target).is($('.card-reveal .card-title i'))) {
           // Make Reveal animate down and display none
           $(this).find('.card-reveal').velocity(
@@ -4195,26 +4122,29 @@ if (jQuery) {
               duration: 225,
               queue: false,
               easing: 'easeInOutQuad',
-              complete: function() { $(this).css({ display: 'none'}); }
+              complete: function() {
+                $(this).css({ display: 'none'});
+                $card.css('overflow', $card.data('initialOverflow'));
+              }
             }
           );
         }
         else if ($(e.target).is($('.card .activator')) ||
                  $(e.target).is($('.card .activator i')) ) {
-          $(e.target).closest('.card').css('overflow', 'hidden');
+          $card.css('overflow', 'hidden');
           $(this).find('.card-reveal').css({ display: 'block'}).velocity("stop", false).velocity({translateY: '-100%'}, {duration: 300, queue: false, easing: 'easeInOutQuad'});
         }
       }
     });
 
   });
-}( jQuery ));;(function ($) {
+}( jQuery ));
+;(function ($) {
   var materialChipsDefaults = {
     data: [],
     placeholder: '',
     secondaryPlaceholder: '',
-    autocompleteData: {},
-    autocompleteLimit: Infinity,
+    autocompleteOptions: {},
   };
 
   $(document).ready(function() {
@@ -4245,7 +4175,7 @@ if (jQuery) {
     }
 
     var curr_options = $.extend({}, materialChipsDefaults, options);
-    self.hasAutocomplete = !$.isEmptyObject(curr_options.autocompleteData);
+    self.hasAutocomplete = !$.isEmptyObject(curr_options.autocompleteOptions.data);
 
     // Initialize
     this.init = function() {
@@ -4360,7 +4290,7 @@ if (jQuery) {
         $currChips.removeClass('focus');
 
         // Remove active if empty
-        if (!$currChips.data('chips').length) {
+        if ($currChips.data('chips') === undefined || !$currChips.data('chips').length) {
           $currChips.siblings('label').removeClass('active');
         }
         $currChips.siblings('.prefix').removeClass('active');
@@ -4407,12 +4337,11 @@ if (jQuery) {
     };
 
     this.chips = function($chips, chipId) {
-      var html = '';
+      $chips.empty();
       $chips.data('chips').forEach(function(elem){
-        html += self.renderChip(elem);
+        $chips.append(self.renderChip(elem));
       });
-      html += '<input id="' + chipId +'" class="input" placeholder="">';
-      $chips.html(html);
+      $chips.append($('<input id="' + chipId +'" class="input" placeholder="">'));
       self.setPlaceholder($chips);
 
       // Set for attribute for label
@@ -4420,7 +4349,7 @@ if (jQuery) {
       if (label.length) {
         label.attr('for', chipId);
 
-        if ($chips.data('chips').length) {
+        if ($chips.data('chips')!== undefined && $chips.data('chips').length) {
           label.addClass('active');
         }
       }
@@ -4428,35 +4357,37 @@ if (jQuery) {
       // Setup autocomplete if needed.
       var input = $('#' + chipId);
       if (self.hasAutocomplete) {
-        input.autocomplete({
-          data: curr_options.autocompleteData,
-          limit: curr_options.autocompleteLimit,
-          onAutocomplete: function(val) {
-            self.addChip({tag: val}, $chips);
-            input.val('');
-            input.focus();
-          },
-        })
+        curr_options.autocompleteOptions.onAutocomplete = function(val) {
+          self.addChip({tag: val}, $chips);
+          input.val('');
+          input.focus();
+        }
+        input.autocomplete(curr_options.autocompleteOptions);
       }
     };
 
+    /**
+     * Render chip jQuery element.
+     * @param {Object} elem
+     * @return {jQuery}
+     */
     this.renderChip = function(elem) {
       if (!elem.tag) return;
 
-      var html = '<div class="chip">' + elem.tag;
+      var $renderedChip = $('<div class="chip"></div>');
+      $renderedChip.text(elem.tag);
       if (elem.image) {
-        html += ' <img src="' + elem.image + '"> ';
+        $renderedChip.prepend($('<img />').attr('src', elem.image))
       }
-      html += '<i class="material-icons close">close</i>';
-      html += '</div>';
-      return html;
+      $renderedChip.append($('<i class="material-icons close">close</i>'));
+      return $renderedChip;
     };
 
     this.setPlaceholder = function($chips) {
-      if ($chips.data('chips').length && curr_options.placeholder) {
+      if ($chips.data('chips') !== undefined && $chips.data('chips').length && curr_options.placeholder) {
         $chips.find('input').prop('placeholder', curr_options.placeholder);
 
-      } else if (!$chips.data('chips').length && curr_options.secondaryPlaceholder) {
+      } else if (($chips.data('chips') === undefined || !$chips.data('chips').length) && curr_options.secondaryPlaceholder) {
         $chips.find('input').prop('placeholder', curr_options.secondaryPlaceholder);
       }
     };
@@ -4477,7 +4408,7 @@ if (jQuery) {
       if (!self.isValid($chips, elem)) {
         return;
       }
-      var chipHtml = self.renderChip(elem);
+      var $renderedChip = self.renderChip(elem);
       var newData = [];
       var oldData = $chips.data('chips');
       for (var i = 0; i < oldData.length; i++) {
@@ -4486,7 +4417,7 @@ if (jQuery) {
       newData.push(elem);
 
       $chips.data('chips', newData);
-      $(chipHtml).insertBefore($chips.find('input'));
+      $renderedChip.insertBefore($chips.find('input'));
       $chips.trigger('chip.add', elem);
       self.setPlaceholder($chips);
     };
@@ -4951,7 +4882,7 @@ if (jQuery) {
     $('.dismissable').each(function() {
       $(this).hammer({
         prevent_default: false
-      }).bind('pan', function(e) {
+      }).on('pan', function(e) {
         if (e.gesture.pointerType === "touch") {
           var $this = $(this);
           var direction = e.gesture.direction;
@@ -4971,7 +4902,7 @@ if (jQuery) {
             swipeRight = true;
           }
         }
-      }).bind('panend', function(e) {
+      }).on('panend', function(e) {
         // Reset if collection is moved back into original position
         if (Math.abs(e.gesture.deltaX) < ($(this).innerWidth() / 2)) {
           swipeRight = false;
@@ -6205,7 +6136,6 @@ return PickerConstructor
 
 }));
 
-
 ;/*!
  * Date picker for pickadate.js v3.5.0
  * http://amsul.github.io/pickadate.js/date.htm
@@ -6232,7 +6162,7 @@ return PickerConstructor
  */
 var DAYS_IN_WEEK = 7,
     WEEKS_IN_CALENDAR = 6,
-    _ = Picker._
+    _ = Picker._;
 
 
 
@@ -7297,8 +7227,8 @@ DatePicker.prototype.nodes = function( isOpen ) {
             // Materialize modified
             if (override == "short_months")
                 if (selectedObject != null)
-                return _.node( 'div', monthsCollection[ selectedObject.month ] );
-                else return _.node( 'div', monthsCollection[ viewsetObject.month ] );
+                return monthsCollection[ selectedObject.month ];
+                else return monthsCollection[ viewsetObject.month ];
 
             // If there's a need for a month selector
             return _.node( 'div', monthsCollection[ viewsetObject.month ], settings.klass.month )
@@ -7380,8 +7310,8 @@ DatePicker.prototype.nodes = function( isOpen ) {
         // Materialize modified
         createDayLabel = function() {
                 if (selectedObject != null)
-                    return _.node( 'div', selectedObject.date)
-                else return _.node( 'div', nowObject.date)
+                    return selectedObject.date
+                else return nowObject.date
             }
         createWeekdayLabel = function() {
             var display_day;
@@ -7390,155 +7320,158 @@ DatePicker.prototype.nodes = function( isOpen ) {
                 display_day = selectedObject.day;
             else
                 display_day = nowObject.day;
-            var weekday = settings.weekdaysFull[ display_day ]
+            var weekday = settings.weekdaysShort[ display_day ];
             return weekday
         }
 
 
-    // Create and return the entire calendar.
+  // Create and return the entire calendar.
+
 return _.node(
         // Date presentation View
         'div',
-            _.node(
-                'div',
-                createWeekdayLabel(),
-                "picker__weekday-display"
-            )+
-            _.node(
-                // Div for short Month
-                'div',
-                createMonthLabel("short_months"),
-                settings.klass.month_display
-            )+
-            _.node(
-                // Div for Day
-                'div',
-                createDayLabel() ,
-                settings.klass.day_display
-            )+
             _.node(
                 // Div for Year
                 'div',
                 createYearLabel("raw") ,
                 settings.klass.year_display
+            )+
+            _.node(
+                'span',
+                createWeekdayLabel() + ', ',
+                "picker__weekday-display"
+            )+
+            _.node(
+                // Div for short Month
+                'span',
+                createMonthLabel("short_months") + ' ',
+                settings.klass.month_display
+            )+
+            _.node(
+              // Div for Day
+              'span',
+              createDayLabel() ,
+              settings.klass.day_display
             ),
         settings.klass.date_display
     )+
     // Calendar container
     _.node('div',
-        _.node('div',
-        ( settings.selectYears ?  createMonthLabel() + createYearLabel() : createMonthLabel() + createYearLabel() ) +
-        createMonthNav() + createMonthNav( 1 ),
-        settings.klass.header
-    ) + _.node(
-        'table',
-        tableHead +
-        _.node(
-            'tbody',
-            _.group({
-                min: 0,
-                max: WEEKS_IN_CALENDAR - 1,
-                i: 1,
-                node: 'tr',
-                item: function( rowCounter ) {
+	    _.node('div',
+		_.node('div',
+		( settings.selectYears ?  createMonthLabel() + createYearLabel() : createMonthLabel() + createYearLabel() ) +
+		createMonthNav() + createMonthNav( 1 ),
+		settings.klass.header
+	    ) + _.node(
+		'table',
+		tableHead +
+		_.node(
+		    'tbody',
+		    _.group({
+		        min: 0,
+		        max: WEEKS_IN_CALENDAR - 1,
+		        i: 1,
+		        node: 'tr',
+		        item: function( rowCounter ) {
 
-                    // If Monday is the first day and the month starts on Sunday, shift the date back a week.
-                    var shiftDateBy = settings.firstDay && calendar.create([ viewsetObject.year, viewsetObject.month, 1 ]).day === 0 ? -7 : 0
+		            // If Monday is the first day and the month starts on Sunday, shift the date back a week.
+		            var shiftDateBy = settings.firstDay && calendar.create([ viewsetObject.year, viewsetObject.month, 1 ]).day === 0 ? -7 : 0
 
-                    return [
-                        _.group({
-                            min: DAYS_IN_WEEK * rowCounter - viewsetObject.day + shiftDateBy + 1, // Add 1 for weekday 0index
-                            max: function() {
-                                return this.min + DAYS_IN_WEEK - 1
-                            },
-                            i: 1,
-                            node: 'td',
-                            item: function( targetDate ) {
+		            return [
+		                _.group({
+		                    min: DAYS_IN_WEEK * rowCounter - viewsetObject.day + shiftDateBy + 1, // Add 1 for weekday 0index
+		                    max: function() {
+		                        return this.min + DAYS_IN_WEEK - 1
+		                    },
+		                    i: 1,
+		                    node: 'td',
+		                    item: function( targetDate ) {
 
-                                // Convert the time date from a relative date to a target date.
-                                targetDate = calendar.create([ viewsetObject.year, viewsetObject.month, targetDate + ( settings.firstDay ? 1 : 0 ) ])
+		                        // Convert the time date from a relative date to a target date.
+		                        targetDate = calendar.create([ viewsetObject.year, viewsetObject.month, targetDate + ( settings.firstDay ? 1 : 0 ) ])
 
-                                var isSelected = selectedObject && selectedObject.pick == targetDate.pick,
-                                    isHighlighted = highlightedObject && highlightedObject.pick == targetDate.pick,
-                                    isDisabled = disabledCollection && calendar.disabled( targetDate ) || targetDate.pick < minLimitObject.pick || targetDate.pick > maxLimitObject.pick,
-                                    formattedDate = _.trigger( calendar.formats.toString, calendar, [ settings.format, targetDate ] )
+		                        var isSelected = selectedObject && selectedObject.pick == targetDate.pick,
+		                            isHighlighted = highlightedObject && highlightedObject.pick == targetDate.pick,
+		                            isDisabled = disabledCollection && calendar.disabled( targetDate ) || targetDate.pick < minLimitObject.pick || targetDate.pick > maxLimitObject.pick,
+		                            formattedDate = _.trigger( calendar.formats.toString, calendar, [ settings.format, targetDate ] )
 
-                                return [
-                                    _.node(
-                                        'div',
-                                        targetDate.date,
-                                        (function( klasses ) {
+		                        return [
+		                            _.node(
+		                                'div',
+		                                targetDate.date,
+		                                (function( klasses ) {
 
-                                            // Add the `infocus` or `outfocus` classes based on month in view.
-                                            klasses.push( viewsetObject.month == targetDate.month ? settings.klass.infocus : settings.klass.outfocus )
+		                                    // Add the `infocus` or `outfocus` classes based on month in view.
+		                                    klasses.push( viewsetObject.month == targetDate.month ? settings.klass.infocus : settings.klass.outfocus )
 
-                                            // Add the `today` class if needed.
-                                            if ( nowObject.pick == targetDate.pick ) {
-                                                klasses.push( settings.klass.now )
-                                            }
+		                                    // Add the `today` class if needed.
+		                                    if ( nowObject.pick == targetDate.pick ) {
+		                                        klasses.push( settings.klass.now )
+		                                    }
 
-                                            // Add the `selected` class if something's selected and the time matches.
-                                            if ( isSelected ) {
-                                                klasses.push( settings.klass.selected )
-                                            }
+		                                    // Add the `selected` class if something's selected and the time matches.
+		                                    if ( isSelected ) {
+		                                        klasses.push( settings.klass.selected )
+		                                    }
 
-                                            // Add the `highlighted` class if something's highlighted and the time matches.
-                                            if ( isHighlighted ) {
-                                                klasses.push( settings.klass.highlighted )
-                                            }
+		                                    // Add the `highlighted` class if something's highlighted and the time matches.
+		                                    if ( isHighlighted ) {
+		                                        klasses.push( settings.klass.highlighted )
+		                                    }
 
-                                            // Add the `disabled` class if something's disabled and the object matches.
-                                            if ( isDisabled ) {
-                                                klasses.push( settings.klass.disabled )
-                                            }
+		                                    // Add the `disabled` class if something's disabled and the object matches.
+		                                    if ( isDisabled ) {
+		                                        klasses.push( settings.klass.disabled )
+		                                    }
 
-                                            return klasses.join( ' ' )
-                                        })([ settings.klass.day ]),
-                                        'data-pick=' + targetDate.pick + ' ' + _.ariaAttr({
-                                            role: 'gridcell',
-                                            label: formattedDate,
-                                            selected: isSelected && calendar.$node.val() === formattedDate ? true : null,
-                                            activedescendant: isHighlighted ? true : null,
-                                            disabled: isDisabled ? true : null
-                                        })
-                                    ),
-                                    '',
-                                    _.ariaAttr({ role: 'presentation' })
-                                ] //endreturn
-                            }
-                        })
-                    ] //endreturn
-                }
-            })
-        ),
-        settings.klass.table,
-        'id="' + calendar.$node[0].id + '_table' + '" ' + _.ariaAttr({
-            role: 'grid',
-            controls: calendar.$node[0].id,
-            readonly: true
-        })
-    )
-    , settings.klass.calendar_container) // end calendar
+		                                    return klasses.join( ' ' )
+		                                })([ settings.klass.day ]),
+		                                'data-pick=' + targetDate.pick + ' ' + _.ariaAttr({
+		                                    role: 'gridcell',
+		                                    label: formattedDate,
+		                                    selected: isSelected && calendar.$node.val() === formattedDate ? true : null,
+		                                    activedescendant: isHighlighted ? true : null,
+		                                    disabled: isDisabled ? true : null
+		                                })
+		                            ),
+		                            '',
+		                            _.ariaAttr({ role: 'presentation' })
+		                        ] //endreturn
+		                    }
+		                })
+		            ] //endreturn
+		        }
+		    })
+		),
+		settings.klass.table,
+		'id="' + calendar.$node[0].id + '_table' + '" ' + _.ariaAttr({
+		    role: 'grid',
+		    controls: calendar.$node[0].id,
+		    readonly: true
+		})
+	    )
+	    , settings.klass.calendar_container) // end calendar
 
-     +
+	     +
 
-    // * For Firefox forms to submit, make sure to set the buttons’ `type` attributes as “button”.
-    _.node(
-        'div',
-        _.node( 'button', settings.today, "btn-flat picker__today",
-            'type=button data-pick=' + nowObject.pick +
-            ( isOpen && !calendar.disabled(nowObject) ? '' : ' disabled' ) + ' ' +
-            _.ariaAttr({ controls: calendar.$node[0].id }) ) +
-        _.node( 'button', settings.clear, "btn-flat picker__clear",
-            'type=button data-clear=1' +
-            ( isOpen ? '' : ' disabled' ) + ' ' +
-            _.ariaAttr({ controls: calendar.$node[0].id }) ) +
-        _.node('button', settings.close, "btn-flat picker__close",
-            'type=button data-close=true ' +
-            ( isOpen ? '' : ' disabled' ) + ' ' +
-            _.ariaAttr({ controls: calendar.$node[0].id }) ),
-        settings.klass.footer
-    ) //endreturn
+	    // * For Firefox forms to submit, make sure to set the buttons’ `type` attributes as “button”.
+	    _.node(
+		'div',
+		_.node( 'button', settings.today, "btn-flat picker__today waves-effect",
+		    'type=button data-pick=' + nowObject.pick +
+		    ( isOpen && !calendar.disabled(nowObject) ? '' : ' disabled' ) + ' ' +
+		    _.ariaAttr({ controls: calendar.$node[0].id }) ) +
+		_.node( 'button', settings.clear, "btn-flat picker__clear waves-effect",
+		    'type=button data-clear=1' +
+		    ( isOpen ? '' : ' disabled' ) + ' ' +
+		    _.ariaAttr({ controls: calendar.$node[0].id }) ) +
+		_.node('button', settings.close, "btn-flat picker__close waves-effect",
+		    'type=button data-close=true ' +
+		    ( isOpen ? '' : ' disabled' ) + ' ' +
+		    _.ariaAttr({ controls: calendar.$node[0].id }) ),
+		settings.klass.footer
+	    ), 'picker__container__wrapper'
+	) //endreturn
 } //DatePicker.prototype.nodes
 
 
@@ -7571,7 +7504,7 @@ DatePicker.defaults = (function( prefix ) {
         // Today and clear
         today: 'Today',
         clear: 'Clear',
-        close: 'Close',
+        close: 'Ok',
 
         // The format to show on the `input` element
         format: 'd mmmm, yyyy',
@@ -7634,8 +7567,692 @@ Picker.extend( 'pickadate', DatePicker )
 
 
 }));
+;/*!
+ * ClockPicker v0.0.7 (http://weareoutman.github.io/clockpicker/)
+ * Copyright 2014 Wang Shenwei.
+ * Licensed under MIT (https://github.com/weareoutman/clockpicker/blob/gh-pages/LICENSE)
+ *
+ * Further modified
+ * Copyright 2015 Ching Yaw Hao.
+ */
 
+;(function(){
+	var $ = window.jQuery,
+			$win = $(window),
+			$doc = $(document);
 
+	// Can I use inline svg ?
+	var svgNS = 'http://www.w3.org/2000/svg',
+		  svgSupported = 'SVGAngle' in window && (function() {
+			  var supported,
+				el = document.createElement('div');
+				el.innerHTML = '<svg/>';
+				supported = (el.firstChild && el.firstChild.namespaceURI) == svgNS;
+				el.innerHTML = '';
+				return supported;
+			})();
+
+	// Can I use transition ?
+	var transitionSupported = (function() {
+		var style = document.createElement('div').style;
+		return 'transition' in style ||
+					 'WebkitTransition' in style ||
+				   'MozTransition' in style ||
+					 'msTransition' in style ||
+					 'OTransition' in style;
+	})();
+
+	// Listen touch events in touch screen device, instead of mouse events in desktop.
+	var touchSupported = 'ontouchstart' in window,
+			mousedownEvent = 'mousedown' + ( touchSupported ? ' touchstart' : ''),
+			mousemoveEvent = 'mousemove.clockpicker' + ( touchSupported ? ' touchmove.clockpicker' : ''),
+			mouseupEvent = 'mouseup.clockpicker' + ( touchSupported ? ' touchend.clockpicker' : '');
+
+	// Vibrate the device if supported
+	var vibrate = navigator.vibrate ? 'vibrate' : navigator.webkitVibrate ? 'webkitVibrate' : null;
+
+	function createSvgElement(name) {
+		return document.createElementNS(svgNS, name);
+	}
+
+	function leadingZero(num) {
+		return (num < 10 ? '0' : '') + num;
+	}
+
+	// Get a unique id
+	var idCounter = 0;
+	function uniqueId(prefix) {
+		var id = ++idCounter + '';
+		return prefix ? prefix + id : id;
+	}
+
+	// Clock size
+	var dialRadius = 135,
+			outerRadius = 105,
+			// innerRadius = 80 on 12 hour clock
+			innerRadius = 80,
+			tickRadius = 20,
+			diameter = dialRadius * 2,
+			duration = transitionSupported ? 350 : 1;
+
+	// Popover template
+	var tpl = [
+		'<div class="clockpicker picker">',
+			'<div class="picker__holder">',
+				'<div class="picker__frame">',
+					'<div class="picker__wrap">',
+						'<div class="picker__box">',
+							'<div class="picker__date-display">',
+								'<div class="clockpicker-display">',
+									'<div class="clockpicker-display-column">',
+										'<span class="clockpicker-span-hours text-primary"></span>',
+										':',
+										'<span class="clockpicker-span-minutes"></span>',
+									'</div>',
+									'<div class="clockpicker-display-column clockpicker-display-am-pm">',
+										'<div class="clockpicker-span-am-pm"></div>',
+									'</div>',
+								'</div>',
+							'</div>',
+							'<div class="picker__container__wrapper">',
+								'<div class="picker__calendar-container">',
+									'<div class="clockpicker-plate">',
+										'<div class="clockpicker-canvas"></div>',
+										'<div class="clockpicker-dial clockpicker-hours"></div>',
+										'<div class="clockpicker-dial clockpicker-minutes clockpicker-dial-out"></div>',
+									'</div>',
+									'<div class="clockpicker-am-pm-block">',
+									'</div>',
+								'</div>',
+								'<div class="picker__footer">',
+								'</div>',
+							'</div>',
+						'</div>',
+					'</div>',
+				'</div>',
+			'</div>',
+		'</div>'
+	].join('');
+
+	// ClockPicker
+	function ClockPicker(element, options) {
+		var popover = $(tpl),
+				plate = popover.find('.clockpicker-plate'),
+				holder = popover.find('.picker__holder'),
+				hoursView = popover.find('.clockpicker-hours'),
+				minutesView = popover.find('.clockpicker-minutes'),
+				amPmBlock = popover.find('.clockpicker-am-pm-block'),
+				isInput = element.prop('tagName') === 'INPUT',
+				input = isInput ? element : element.find('input'),
+				label = $("label[for=" + input.attr("id") + "]"),
+				self = this;
+
+		this.id = uniqueId('cp');
+		this.element = element;
+		this.holder = holder;
+		this.options = options;
+		this.isAppended = false;
+		this.isShown = false;
+		this.currentView = 'hours';
+		this.isInput = isInput;
+		this.input = input;
+		this.label = label;
+		this.popover = popover;
+		this.plate = plate;
+		this.hoursView = hoursView;
+		this.minutesView = minutesView;
+		this.amPmBlock = amPmBlock;
+		this.spanHours = popover.find('.clockpicker-span-hours');
+		this.spanMinutes = popover.find('.clockpicker-span-minutes');
+		this.spanAmPm = popover.find('.clockpicker-span-am-pm');
+		this.footer = popover.find('.picker__footer');
+		this.amOrPm = "PM";
+
+		// Setup for for 12 hour clock if option is selected
+		if (options.twelvehour) {
+			if (!options.ampmclickable) {
+				this.spanAmPm.empty();
+				$('<div id="click-am">AM</div>').appendTo(this.spanAmPm);
+				$('<div id="click-pm">PM</div>').appendTo(this.spanAmPm);
+			}
+			else {
+				this.spanAmPm.empty();
+				$('<div id="click-am">AM</div>').on("click", function() {
+					self.spanAmPm.children('#click-am').addClass("text-primary");
+					self.spanAmPm.children('#click-pm').removeClass("text-primary");
+					self.amOrPm = "AM";
+				}).appendTo(this.spanAmPm);
+				$('<div id="click-pm">PM</div>').on("click", function() {
+					self.spanAmPm.children('#click-pm').addClass("text-primary");
+					self.spanAmPm.children('#click-am').removeClass("text-primary");
+					self.amOrPm = 'PM';
+				}).appendTo(this.spanAmPm);
+			}
+		}
+
+		// Add buttons to footer
+		$('<button type="button" class="btn-flat picker__clear" tabindex="' + (options.twelvehour? '3' : '1') + '">' + options.cleartext + '</button>').click($.proxy(this.clear, this)).appendTo(this.footer);
+		$('<button type="button" class="btn-flat picker__close" tabindex="' + (options.twelvehour? '3' : '1') + '">' + options.canceltext + '</button>').click($.proxy(this.hide, this)).appendTo(this.footer);
+		$('<button type="button" class="btn-flat picker__close" tabindex="' + (options.twelvehour? '3' : '1') + '">' + options.donetext + '</button>').click($.proxy(this.done, this)).appendTo(this.footer);
+
+		this.spanHours.click($.proxy(this.toggleView, this, 'hours'));
+		this.spanMinutes.click($.proxy(this.toggleView, this, 'minutes'));
+
+		// Show or toggle
+		input.on('focus.clockpicker click.clockpicker', $.proxy(this.show, this));
+
+		// Build ticks
+		var tickTpl = $('<div class="clockpicker-tick"></div>'),
+				i, tick, radian, radius;
+
+		// Hours view
+		if (options.twelvehour) {
+			for (i = 1; i < 13; i += 1) {
+				tick = tickTpl.clone();
+				radian = i / 6 * Math.PI;
+				radius = outerRadius;
+				tick.css({
+					left: dialRadius + Math.sin(radian) * radius - tickRadius,
+					top: dialRadius - Math.cos(radian) * radius - tickRadius
+				});
+				tick.html(i === 0 ? '00' : i);
+				hoursView.append(tick);
+				tick.on(mousedownEvent, mousedown);
+			}
+		} else {
+			for (i = 0; i < 24; i += 1) {
+				tick = tickTpl.clone();
+				radian = i / 6 * Math.PI;
+				var inner = i > 0 && i < 13;
+				radius = inner ? innerRadius : outerRadius;
+				tick.css({
+					left: dialRadius + Math.sin(radian) * radius - tickRadius,
+					top: dialRadius - Math.cos(radian) * radius - tickRadius
+				});
+				tick.html(i === 0 ? '00' : i);
+				hoursView.append(tick);
+				tick.on(mousedownEvent, mousedown);
+			}
+		}
+
+		// Minutes view
+		for (i = 0; i < 60; i += 5) {
+			tick = tickTpl.clone();
+			radian = i / 30 * Math.PI;
+			tick.css({
+				left: dialRadius + Math.sin(radian) * outerRadius - tickRadius,
+				top: dialRadius - Math.cos(radian) * outerRadius - tickRadius
+			});
+			tick.html(leadingZero(i));
+			minutesView.append(tick);
+			tick.on(mousedownEvent, mousedown);
+		}
+
+		// Clicking on minutes view space
+		plate.on(mousedownEvent, function(e) {
+			if ($(e.target).closest('.clockpicker-tick').length === 0) {
+				mousedown(e, true);
+      }
+		});
+
+		// Mousedown or touchstart
+		function mousedown(e, space) {
+			var offset = plate.offset(),
+					isTouch = /^touch/.test(e.type),
+					x0 = offset.left + dialRadius,
+					y0 = offset.top + dialRadius,
+					dx = (isTouch ? e.originalEvent.touches[0] : e).pageX - x0,
+					dy = (isTouch ? e.originalEvent.touches[0] : e).pageY - y0,
+					z = Math.sqrt(dx * dx + dy * dy),
+					moved = false;
+
+			// When clicking on minutes view space, check the mouse position
+			if (space && (z < outerRadius - tickRadius || z > outerRadius + tickRadius)) {
+				return;
+      }
+			e.preventDefault();
+
+			// Set cursor style of body after 200ms
+			var movingTimer = setTimeout(function(){
+				self.popover.addClass('clockpicker-moving');
+			}, 200);
+
+			// Clock
+			self.setHand(dx, dy, !space, true);
+
+			// Mousemove on document
+			$doc.off(mousemoveEvent).on(mousemoveEvent, function(e){
+				e.preventDefault();
+				var isTouch = /^touch/.test(e.type),
+						x = (isTouch ? e.originalEvent.touches[0] : e).pageX - x0,
+						y = (isTouch ? e.originalEvent.touches[0] : e).pageY - y0;
+				if (! moved && x === dx && y === dy) {
+					// Clicking in chrome on windows will trigger a mousemove event
+					return;
+        }
+				moved = true;
+				self.setHand(x, y, false, true);
+			});
+
+			// Mouseup on document
+			$doc.off(mouseupEvent).on(mouseupEvent, function(e) {
+				$doc.off(mouseupEvent);
+				e.preventDefault();
+				var isTouch = /^touch/.test(e.type),
+						x = (isTouch ? e.originalEvent.changedTouches[0] : e).pageX - x0,
+						y = (isTouch ? e.originalEvent.changedTouches[0] : e).pageY - y0;
+				if ((space || moved) && x === dx && y === dy) {
+					self.setHand(x, y);
+        }
+
+				if (self.currentView === 'hours') {
+					self.toggleView('minutes', duration / 2);
+        } else if (options.autoclose) {
+					self.minutesView.addClass('clockpicker-dial-out');
+					setTimeout(function(){
+						self.done();
+					}, duration / 2);
+        }
+				plate.prepend(canvas);
+
+				// Reset cursor style of body
+				clearTimeout(movingTimer);
+				self.popover.removeClass('clockpicker-moving');
+
+				// Unbind mousemove event
+				$doc.off(mousemoveEvent);
+			});
+		}
+
+		if (svgSupported) {
+			// Draw clock hands and others
+			var canvas = popover.find('.clockpicker-canvas'),
+					svg = createSvgElement('svg');
+			svg.setAttribute('class', 'clockpicker-svg');
+			svg.setAttribute('width', diameter);
+			svg.setAttribute('height', diameter);
+			var g = createSvgElement('g');
+			g.setAttribute('transform', 'translate(' + dialRadius + ',' + dialRadius + ')');
+			var bearing = createSvgElement('circle');
+			bearing.setAttribute('class', 'clockpicker-canvas-bearing');
+			bearing.setAttribute('cx', 0);
+			bearing.setAttribute('cy', 0);
+			bearing.setAttribute('r', 4);
+			var hand = createSvgElement('line');
+			hand.setAttribute('x1', 0);
+			hand.setAttribute('y1', 0);
+			var bg = createSvgElement('circle');
+			bg.setAttribute('class', 'clockpicker-canvas-bg');
+			bg.setAttribute('r', tickRadius);
+			g.appendChild(hand);
+			g.appendChild(bg);
+			g.appendChild(bearing);
+			svg.appendChild(g);
+			canvas.append(svg);
+
+			this.hand = hand;
+			this.bg = bg;
+			this.bearing = bearing;
+			this.g = g;
+			this.canvas = canvas;
+		}
+
+		raiseCallback(this.options.init);
+	}
+
+	function raiseCallback(callbackFunction) {
+		if (callbackFunction && typeof callbackFunction === "function")
+			callbackFunction();
+	}
+
+	// Default options
+	ClockPicker.DEFAULTS = {
+		'default': '',         // default time, 'now' or '13:14' e.g.
+		fromnow: 0,            // set default time to * milliseconds from now (using with default = 'now')
+		donetext: 'Ok',      // done button text
+		cleartext: 'Clear',
+		canceltext: 'Cancel',
+		autoclose: false,      // auto close when minute is selected
+		ampmclickable: true,  // set am/pm button on itself
+		darktheme: false,			 // set to dark theme
+		twelvehour: true,      // change to 12 hour AM/PM clock from 24 hour
+		vibrate: true          // vibrate the device when dragging clock hand
+	};
+
+	// Show or hide popover
+	ClockPicker.prototype.toggle = function() {
+		this[this.isShown ? 'hide' : 'show']();
+	};
+
+	// Set popover position
+	ClockPicker.prototype.locate = function() {
+		var element = this.element,
+				popover = this.popover,
+				offset = element.offset(),
+				width = element.outerWidth(),
+				height = element.outerHeight(),
+				align = this.options.align,
+				self = this;
+
+		popover.show();
+	};
+
+	// Show popover
+	ClockPicker.prototype.show = function(e){
+		// Not show again
+		if (this.isShown) {
+			return;
+		}
+		raiseCallback(this.options.beforeShow);
+		$(':input').each(function() {
+			$(this).attr('tabindex', -1);
+		})
+		var self = this;
+		// Initialize
+		this.input.blur();
+		this.popover.addClass('picker--opened');
+		this.input.addClass('picker__input picker__input--active');
+		$(document.body).css('overflow', 'hidden');
+		// Get the time
+		var value = ((this.input.prop('value') || this.options['default'] || '') + '').split(':');
+		if (this.options.twelvehour && !(typeof value[1] === 'undefined')) {
+			if (value[1].indexOf("AM") > 0){
+				this.amOrPm = 'AM';
+			} else {
+				this.amOrPm = 'PM';
+			}
+			value[1] = value[1].replace("AM", "").replace("PM", "");
+		}
+		if (value[0] === 'now') {
+			var now = new Date(+ new Date() + this.options.fromnow);
+			value = [
+				now.getHours(),
+				now.getMinutes()
+			];
+		}
+		this.hours = + value[0] || 0;
+		this.minutes = + value[1] || 0;
+		this.spanHours.html(this.hours);
+		this.spanMinutes.html(leadingZero(this.minutes));
+		if (!this.isAppended) {
+			// Append popover to body
+			this.popover.insertAfter(this.input);
+			if (this.options.twelvehour) {
+				if (this.amOrPm === 'PM'){
+					this.spanAmPm.children('#click-pm').addClass("text-primary");
+					this.spanAmPm.children('#click-am').removeClass("text-primary");
+				} else {
+					this.spanAmPm.children('#click-am').addClass("text-primary");
+					this.spanAmPm.children('#click-pm').removeClass("text-primary");
+				}
+			}
+			// Reset position when resize
+			$win.on('resize.clockpicker' + this.id, function() {
+				if (self.isShown) {
+					self.locate();
+				}
+			});
+			this.isAppended = true;
+		}
+		// Toggle to hours view
+		this.toggleView('hours');
+		// Set position
+		this.locate();
+		this.isShown = true;
+		// Hide when clicking or tabbing on any element except the clock and input
+		$doc.on('click.clockpicker.' + this.id + ' focusin.clockpicker.' + this.id, function(e) {
+			var target = $(e.target);
+			if (target.closest(self.popover.find('.picker__wrap')).length === 0 && target.closest(self.input).length === 0) {
+				self.hide();
+      }
+		});
+		// Hide when ESC is pressed
+		$doc.on('keyup.clockpicker.' + this.id, function(e){
+			if (e.keyCode === 27) {
+				self.hide();
+      }
+		});
+		raiseCallback(this.options.afterShow);
+	};
+	// Hide popover
+	ClockPicker.prototype.hide = function() {
+		raiseCallback(this.options.beforeHide);
+		this.input.removeClass('picker__input picker__input--active');
+		this.popover.removeClass('picker--opened');
+		$(document.body).css('overflow', 'visible');
+		this.isShown = false;
+		$(':input').each(function(index) {
+			$(this).attr('tabindex', index + 1);
+		});
+		// Unbinding events on document
+		$doc.off('click.clockpicker.' + this.id + ' focusin.clockpicker.' + this.id);
+		$doc.off('keyup.clockpicker.' + this.id);
+		this.popover.hide();
+		raiseCallback(this.options.afterHide);
+	};
+	// Toggle to hours or minutes view
+	ClockPicker.prototype.toggleView = function(view, delay) {
+		var raiseAfterHourSelect = false;
+		if (view === 'minutes' && $(this.hoursView).css("visibility") === "visible") {
+			raiseCallback(this.options.beforeHourSelect);
+			raiseAfterHourSelect = true;
+		}
+		var isHours = view === 'hours',
+				nextView = isHours ? this.hoursView : this.minutesView,
+				hideView = isHours ? this.minutesView : this.hoursView;
+		this.currentView = view;
+
+		this.spanHours.toggleClass('text-primary', isHours);
+		this.spanMinutes.toggleClass('text-primary', ! isHours);
+
+		// Let's make transitions
+		hideView.addClass('clockpicker-dial-out');
+		nextView.css('visibility', 'visible').removeClass('clockpicker-dial-out');
+
+		// Reset clock hand
+		this.resetClock(delay);
+
+		// After transitions ended
+		clearTimeout(this.toggleViewTimer);
+		this.toggleViewTimer = setTimeout(function() {
+			hideView.css('visibility', 'hidden');
+		}, duration);
+
+		if (raiseAfterHourSelect) {
+			raiseCallback(this.options.afterHourSelect);
+    }
+	};
+
+	// Reset clock hand
+	ClockPicker.prototype.resetClock = function(delay) {
+		var view = this.currentView,
+				value = this[view],
+				isHours = view === 'hours',
+				unit = Math.PI / (isHours ? 6 : 30),
+				radian = value * unit,
+				radius = isHours && value > 0 && value < 13 ? innerRadius : outerRadius,
+				x = Math.sin(radian) * radius,
+				y = - Math.cos(radian) * radius,
+				self = this;
+
+		if (svgSupported && delay) {
+			self.canvas.addClass('clockpicker-canvas-out');
+			setTimeout(function(){
+				self.canvas.removeClass('clockpicker-canvas-out');
+				self.setHand(x, y);
+			}, delay);
+		} else
+			this.setHand(x, y);
+	};
+
+	// Set clock hand to (x, y)
+	ClockPicker.prototype.setHand = function(x, y, roundBy5, dragging) {
+		var radian = Math.atan2(x, - y),
+				isHours = this.currentView === 'hours',
+				unit = Math.PI / (isHours || roundBy5? 6 : 30),
+				z = Math.sqrt(x * x + y * y),
+				options = this.options,
+				inner = isHours && z < (outerRadius + innerRadius) / 2,
+				radius = inner ? innerRadius : outerRadius,
+				value;
+
+		if (options.twelvehour) {
+			radius = outerRadius;
+    }
+
+		// Radian should in range [0, 2PI]
+		if (radian < 0) {
+			radian = Math.PI * 2 + radian;
+    }
+
+		// Get the round value
+		value = Math.round(radian / unit);
+
+		// Get the round radian
+		radian = value * unit;
+
+		// Correct the hours or minutes
+		if (options.twelvehour) {
+			if (isHours) {
+				if (value === 0)
+					value = 12;
+			} else {
+				if (roundBy5)
+					value *= 5;
+				if (value === 60)
+					value = 0;
+			}
+		} else {
+			if (isHours) {
+				if (value === 12)
+					value = 0;
+				value = inner ? (value === 0 ? 12 : value) : value === 0 ? 0 : value + 12;
+			} else {
+				if (roundBy5)
+					value *= 5;
+				if (value === 60)
+					value = 0;
+			}
+		}
+
+		// Once hours or minutes changed, vibrate the device
+		if (this[this.currentView] !== value) {
+			if (vibrate && this.options.vibrate) {
+				// Do not vibrate too frequently
+				if (!this.vibrateTimer) {
+					navigator[vibrate](10);
+					this.vibrateTimer = setTimeout($.proxy(function(){
+						this.vibrateTimer = null;
+					}, this), 100);
+				}
+      }
+    }
+
+		this[this.currentView] = value;
+    if (isHours) {
+      this['spanHours'].html(value);
+    } else {
+      this['spanMinutes'].html(leadingZero(value));
+    }
+
+		// If svg is not supported, just add an active class to the tick
+		if (!svgSupported) {
+			this[isHours ? 'hoursView' : 'minutesView'].find('.clockpicker-tick').each(function(){
+				var tick = $(this);
+				tick.toggleClass('active', value === + tick.html());
+			});
+			return;
+		}
+
+		// Set clock hand and others' position
+		var cx1 = Math.sin(radian) * (radius - tickRadius),
+			  cy1 = - Math.cos(radian) * (radius - tickRadius),
+		    cx2 = Math.sin(radian) * radius,
+			  cy2 = - Math.cos(radian) * radius;
+		this.hand.setAttribute('x2', cx1);
+		this.hand.setAttribute('y2', cy1);
+		this.bg.setAttribute('cx', cx2);
+		this.bg.setAttribute('cy', cy2);
+	};
+
+	// Hours and minutes are selected
+	ClockPicker.prototype.done = function() {
+		raiseCallback(this.options.beforeDone);
+		this.hide();
+		this.label.addClass('active');
+
+		var last = this.input.prop('value'),
+				value = leadingZero(this.hours) + ':' + leadingZero(this.minutes);
+		if (this.options.twelvehour) {
+			value = value + this.amOrPm;
+    }
+
+		this.input.prop('value', value);
+		if (value !== last) {
+			this.input.triggerHandler('change');
+			if (!this.isInput) {
+				this.element.trigger('change');
+      }
+		}
+
+		if (this.options.autoclose)
+			this.input.trigger('blur');
+
+		raiseCallback(this.options.afterDone);
+	};
+
+	// Clear input field
+	ClockPicker.prototype.clear = function() {
+		this.hide();
+		this.label.removeClass('active');
+
+		var last = this.input.prop('value'),
+			  value = '';
+
+		this.input.prop('value', value);
+		if (value !== last) {
+			this.input.triggerHandler('change');
+			if (! this.isInput) {
+				this.element.trigger('change');
+			}
+		}
+
+		if (this.options.autoclose) {
+			this.input.trigger('blur');
+		}
+	};
+
+	// Remove clockpicker from input
+	ClockPicker.prototype.remove = function() {
+		this.element.removeData('clockpicker');
+		this.input.off('focus.clockpicker click.clockpicker');
+		if (this.isShown) {
+			this.hide();
+    }
+		if (this.isAppended) {
+			$win.off('resize.clockpicker' + this.id);
+			this.popover.remove();
+		}
+	};
+
+	// Extends $.fn.clockpicker
+	$.fn.pickatime = function(option){
+		var args = Array.prototype.slice.call(arguments, 1);
+		return this.each(function(){
+			var $this = $(this),
+					data = $this.data('clockpicker');
+			if (!data) {
+				var options = $.extend({}, ClockPicker.DEFAULTS, $this.data(), typeof option == 'object' && option);
+				$this.data('clockpicker', new ClockPicker($this, options));
+			} else {
+				// Manual operatsions. show, hide, remove, e.g.
+				if (typeof data[option] === 'function') {
+					data[option].apply(data, args);
+        }
+			}
+		});
+	};
+}());
 ;(function ($) {
 
   $.fn.characterCounter = function(){
@@ -7724,44 +8341,60 @@ Picker.extend( 'pickadate', DatePicker )
         onCycleTo: null // Callback for when a new slide is cycled to.
       };
       options = $.extend(defaults, options);
+      var namespace = Materialize.objectSelectorString($(this));
 
-      return this.each(function() {
+      return this.each(function(i) {
 
+        var uniqueNamespace = namespace+i;
         var images, item_width, item_height, offset, center, pressed, dim, count,
-            reference, referenceY, amplitude, target, velocity,
+            reference, referenceY, amplitude, target, velocity, scrolling,
             xform, frame, timestamp, ticker, dragged, vertical_dragged;
         var $indicators = $('<ul class="indicators"></ul>');
+        var scrollingTimeout = null;
+        var oneTimeCallback = null;
 
 
         // Initialize
         var view = $(this);
         var showIndicators = view.attr('data-indicators') || options.indicators;
 
-        // Don't double initialize.
-        if (view.hasClass('initialized')) {
-          // Redraw carousel.
-          $(this).trigger('carouselNext', [0.000001]);
-          return true;
-        }
-
 
         // Options
-        if (options.fullWidth) {
-          options.dist = 0;
+        var setCarouselHeight = function() {
           var firstImage = view.find('.carousel-item img').first();
           if (firstImage.length) {
-            imageHeight = firstImage.on('load', function(){
-              view.css('height', $(this).height());
-            });
+            if (firstImage.prop('complete')) {
+              view.css('height', firstImage.height());
+            } else {
+              firstImage.on('load', function(){
+                view.css('height', $(this).height());
+              });
+            }
           } else {
-            imageHeight = view.find('.carousel-item').first().height();
+            var imageHeight = view.find('.carousel-item').first().height();
             view.css('height', imageHeight);
           }
+        };
+
+        if (options.fullWidth) {
+          options.dist = 0;
+          setCarouselHeight();
 
           // Offset fixed items when indicators.
           if (showIndicators) {
             view.find('.carousel-fixed-item').addClass('with-indicators');
           }
+        }
+
+
+        // Don't double initialize.
+        if (view.hasClass('initialized')) {
+          // Recalculate variables
+          $(window).trigger('resize');
+
+          // Redraw carousel.
+          $(this).trigger('carouselNext', [0.000001]);
+          return true;
         }
 
 
@@ -7838,6 +8471,20 @@ Picker.extend( 'pickadate', DatePicker )
         }
 
         function scroll(x) {
+          // Track scrolling state
+          scrolling = true;
+          if (!view.hasClass('scrolling')) {
+            view.addClass('scrolling');
+          }
+          if (scrollingTimeout != null) {
+            window.clearTimeout(scrollingTimeout);
+          }
+          scrollingTimeout = window.setTimeout(function() {
+            scrolling = false;
+            view.removeClass('scrolling');
+          }, options.duration);
+
+          // Start actual scroll
           var i, half, delta, dir, tween, el, alignment, xTranslation;
           var lastCenter = center;
 
@@ -7948,6 +8595,12 @@ Picker.extend( 'pickadate', DatePicker )
             var $curr_item = view.find('.carousel-item').eq(wrap(center));
             options.onCycleTo.call(this, $curr_item, dragged);
           }
+
+          // One time callback
+          if (typeof(oneTimeCallback) === "function") {
+            oneTimeCallback.call(this, $curr_item, dragged);
+            oneTimeCallback = null;
+          }
         }
 
         function track() {
@@ -7987,7 +8640,7 @@ Picker.extend( 'pickadate', DatePicker )
 
           } else if (!options.fullWidth) {
             var clickedIndex = $(e.target).closest('.carousel-item').index();
-            var diff = (center % count) - clickedIndex;
+            var diff = wrap(center) - clickedIndex;
 
             // Disable clicks if carousel was shifted by click
             if (diff !== 0) {
@@ -8021,6 +8674,9 @@ Picker.extend( 'pickadate', DatePicker )
         }
 
         function tap(e) {
+          if (e.type === 'mousedown') {
+            e.preventDefault();
+          }
           pressed = true;
           dragged = false;
           vertical_dragged = false;
@@ -8032,7 +8688,6 @@ Picker.extend( 'pickadate', DatePicker )
           timestamp = Date.now();
           clearInterval(ticker);
           ticker = setInterval(track, 100);
-
         }
 
         function drag(e) {
@@ -8115,7 +8770,7 @@ Picker.extend( 'pickadate', DatePicker )
         });
 
 
-        $(window).on('resize.carousel', function() {
+        $(window).off('resize.carousel-'+uniqueNamespace).on('resize.carousel-'+uniqueNamespace, function() {
           if (options.fullWidth) {
             item_width = view.find('.carousel-item').first().innerWidth();
             item_height = view.find('.carousel-item').first().innerHeight();
@@ -8130,10 +8785,14 @@ Picker.extend( 'pickadate', DatePicker )
         setupEvents();
         scroll(offset);
 
-        $(this).on('carouselNext', function(e, n) {
+        $(this).on('carouselNext', function(e, n, callback) {
           if (n === undefined) {
             n = 1;
           }
+          if (typeof(callback) === "function") {
+            oneTimeCallback = callback;
+          }
+
           target = (dim * Math.round(offset / dim)) + (dim * n);
           if (offset !== target) {
             amplitude = target - offset;
@@ -8142,10 +8801,14 @@ Picker.extend( 'pickadate', DatePicker )
           }
         });
 
-        $(this).on('carouselPrev', function(e, n) {
+        $(this).on('carouselPrev', function(e, n, callback) {
           if (n === undefined) {
             n = 1;
           }
+          if (typeof(callback) === "function") {
+            oneTimeCallback = callback;
+          }
+
           target = (dim * Math.round(offset / dim)) - (dim * n);
           if (offset !== target) {
             amplitude = target - offset;
@@ -8154,10 +8817,14 @@ Picker.extend( 'pickadate', DatePicker )
           }
         });
 
-        $(this).on('carouselSet', function(e, n) {
+        $(this).on('carouselSet', function(e, n, callback) {
           if (n === undefined) {
             n = 0;
           }
+          if (typeof(callback) === "function") {
+            oneTimeCallback = callback;
+          }
+
           cycleTo(n);
         });
 
@@ -8166,14 +8833,14 @@ Picker.extend( 'pickadate', DatePicker )
 
 
     },
-    next : function(n) {
-      $(this).trigger('carouselNext', [n]);
+    next : function(n, callback) {
+      $(this).trigger('carouselNext', [n, callback]);
     },
-    prev : function(n) {
-      $(this).trigger('carouselPrev', [n]);
+    prev : function(n, callback) {
+      $(this).trigger('carouselPrev', [n, callback]);
     },
-    set : function(n) {
-      $(this).trigger('carouselSet', [n]);
+    set : function(n, callback) {
+      $(this).trigger('carouselSet', [n, callback]);
     }
   };
 
@@ -8188,4 +8855,191 @@ Picker.extend( 'pickadate', DatePicker )
         $.error( 'Method ' +  methodOrOptions + ' does not exist on jQuery.carousel' );
       }
     }; // Plugin end
+}( jQuery ));
+;(function ($) {
+
+  var methods = {
+  init: function (options) {
+    return this.each(function() {
+    var origin = $('#'+$(this).attr('data-activates'));
+    var screen = $('body');
+
+    // Creating tap target
+    var tapTargetEl = $(this);
+    var tapTargetWrapper = tapTargetEl.parent('.tap-target-wrapper');
+    var tapTargetWave = tapTargetWrapper.find('.tap-target-wave');
+    var tapTargetOriginEl = tapTargetWrapper.find('.tap-target-origin');
+    var tapTargetContentEl = tapTargetEl.find('.tap-target-content');
+
+    // Creating wrapper
+    if (!tapTargetWrapper.length) {
+      tapTargetWrapper = tapTargetEl.wrap($('<div class="tap-target-wrapper"></div>')).parent();
+    }
+
+    // Creating content
+    if (!tapTargetContentEl.length) {
+      tapTargetContentEl = $('<div class="tap-target-content"></div>');
+      tapTargetEl.append(tapTargetContentEl);
+    }
+
+    // Creating foreground wave
+    if (!tapTargetWave.length) {
+      tapTargetWave = $('<div class="tap-target-wave"></div>');
+
+      // Creating origin
+      if (!tapTargetOriginEl.length) {
+        tapTargetOriginEl = origin.clone(true, true);
+        tapTargetOriginEl.addClass('tap-target-origin');
+        tapTargetOriginEl.removeAttr('id');
+        tapTargetOriginEl.removeAttr('style');
+        tapTargetWave.append(tapTargetOriginEl);
+      }
+
+      tapTargetWrapper.append(tapTargetWave);
+    }
+
+    // Open
+    var openTapTarget = function() {
+      if (tapTargetWrapper.is('.open')) {
+        return;
+      }
+
+      // Adding open class
+      tapTargetWrapper.addClass('open');
+
+      setTimeout(function() {
+        tapTargetOriginEl.off('click.tapTarget').on('click.tapTarget', function(e) {
+          closeTapTarget();
+          tapTargetOriginEl.off('click.tapTarget');
+        });
+
+        $(document).off('click.tapTarget').on('click.tapTarget', function(e) {
+          closeTapTarget();
+          $(document).off('click.tapTarget');
+        });
+
+        var throttledCalc = Materialize.throttle(function() {
+          calculateTapTarget();
+        }, 200);
+        $(window).off('resize.tapTarget').on('resize.tapTarget', throttledCalc);
+      }, 0);
+    };
+
+    // Close
+    var closeTapTarget = function(){
+      if (!tapTargetWrapper.is('.open')) {
+        return;
+      }
+
+      tapTargetWrapper.removeClass('open');
+      tapTargetOriginEl.off('click.tapTarget')
+      $(document).off('click.tapTarget');
+      $(window).off('resize.tapTarget');
+    };
+
+    // Pre calculate
+    var calculateTapTarget = function() {
+      // Element or parent is fixed position?
+      var isFixed = origin.css('position') === 'fixed';
+      if (!isFixed) {
+        var parents = origin.parents();
+        for(var i = 0; i < parents.length; i++) {
+          isFixed = $(parents[i]).css('position') == 'fixed';
+          if (isFixed) {
+            break;
+          }
+        }
+      }
+
+      // Calculating origin
+      var originWidth = origin.outerWidth();
+      var originHeight = origin.outerHeight();
+      var originTop = isFixed ? origin.offset().top - $(document).scrollTop() : origin.offset().top;
+      var originLeft = isFixed ? origin.offset().left - $(document).scrollLeft() : origin.offset().left;
+
+      // Calculating screen
+      var windowWidth = $(window).width();
+      var windowHeight = $(window).height();
+      var centerX = windowWidth / 2;
+      var centerY = windowHeight / 2;
+      var isLeft = originLeft <= centerX;
+      var isRight = originLeft > centerX;
+      var isTop = originTop <= centerY;
+      var isBottom = originTop > centerY;
+      var isCenterX = originLeft >= windowWidth*0.25 && originLeft <= windowWidth*0.75;
+      var isCenterY = originTop >= windowHeight*0.25 && originTop <= windowHeight*0.75;
+
+      // Calculating tap target
+      var tapTargetWidth = tapTargetEl.outerWidth();
+      var tapTargetHeight = tapTargetEl.outerHeight();
+      var tapTargetTop = originTop + originHeight/2 - tapTargetHeight/2;
+      var tapTargetLeft = originLeft + originWidth/2 - tapTargetWidth/2;
+      var tapTargetPosition = isFixed ? 'fixed' : 'absolute';
+
+      // Calculating content
+      var tapTargetTextWidth = isCenterX ? tapTargetWidth : tapTargetWidth/2 + originWidth;
+      var tapTargetTextHeight = tapTargetHeight/2;
+      var tapTargetTextTop = isTop ? tapTargetHeight/2 : 0;
+      var tapTargetTextBottom = 0;
+      var tapTargetTextLeft = isLeft && !isCenterX ? tapTargetWidth/2 - originWidth : 0;
+      var tapTargetTextRight = 0;
+      var tapTargetTextPadding = originWidth;
+      var tapTargetTextAlign = isBottom ? 'bottom' : 'top';
+
+      // Calculating wave
+      var tapTargetWaveWidth = originWidth > originHeight ? originWidth*2 : originWidth*2;
+      var tapTargetWaveHeight = tapTargetWaveWidth;
+      var tapTargetWaveTop = tapTargetHeight/2 - tapTargetWaveHeight/2;
+      var tapTargetWaveLeft = tapTargetWidth/2 - tapTargetWaveWidth/2;
+
+      // Setting tap target
+      var tapTargetWrapperCssObj = {};
+      tapTargetWrapperCssObj.top = isTop ? tapTargetTop : '';
+      tapTargetWrapperCssObj.right = isRight ? windowWidth - tapTargetLeft - tapTargetWidth : '';
+      tapTargetWrapperCssObj.bottom = isBottom ? windowHeight - tapTargetTop - tapTargetHeight : '';
+      tapTargetWrapperCssObj.left = isLeft ? tapTargetLeft : '';
+      tapTargetWrapperCssObj.position = tapTargetPosition;
+      tapTargetWrapper.css(tapTargetWrapperCssObj);
+
+      // Setting content
+      tapTargetContentEl.css({
+        width: tapTargetTextWidth,
+        height: tapTargetTextHeight,
+        top: tapTargetTextTop,
+        right: tapTargetTextRight,
+        bottom: tapTargetTextBottom,
+        left: tapTargetTextLeft,
+        padding: tapTargetTextPadding,
+        verticalAlign: tapTargetTextAlign
+      });
+
+      // Setting wave
+      tapTargetWave.css({
+        top: tapTargetWaveTop,
+        left: tapTargetWaveLeft,
+        width: tapTargetWaveWidth,
+        height: tapTargetWaveHeight
+      });
+    }
+
+    if (options == 'open') {
+      calculateTapTarget();
+      openTapTarget();
+    }
+
+    if (options == 'close')
+      closeTapTarget();
+    });
+  },
+  open: function() {},
+  close: function() {}
+  };
+
+  $.fn.tapTarget = function(methodOrOptions) {
+  if (methods[methodOrOptions] || typeof methodOrOptions === 'object')
+    return methods.init.apply( this, arguments );
+
+  $.error( 'Method ' +  methodOrOptions + ' does not exist on jQuery.tap-target' );
+  };
+
 }( jQuery ));
