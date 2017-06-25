@@ -171,7 +171,7 @@ class DashboardController extends ApiController
 
                 $belongsTo = $suggestion->belongsTo_object()->get()->first();
                 $belongsTo = (new GenericRepository($belongsTo))->show();
-                $suggestion->belongsTo_object = $belongsTo->toArray();
+                $suggestion->belongsTo_object = is_null($belongsTo) ? null : $belongsTo->toArray();
                 $suggestions[] = (new EventTransformer())->transform($suggestion->toArray());
 
             }
