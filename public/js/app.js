@@ -293,6 +293,8 @@ window.runPage = function () {
 
     $('.tooltipped').tooltip({ delay: 50 });
 
+    $('.collapsible').collapsible();
+
     $.ajaxSetup({
         statusCode: {
             401: function _(err) {

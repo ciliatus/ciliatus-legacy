@@ -406,7 +406,7 @@ if (jQuery) {
 
       var $this = $(this);
 
-      var $panel_headers = $(this).find('> li > .collapsible-header');
+      var $panel_headers = $(this).find('.collapsible-header');
 
       var collapsible_type = $this.data("collapsible");
 
@@ -416,7 +416,7 @@ if (jQuery) {
 
       // Accordion Open
       function accordionOpen(object) {
-        $panel_headers = $this.find('> li > .collapsible-header');
+        $panel_headers = $this.find('.collapsible-header');
         if (object.hasClass('active')) {
           object.parent().addClass('active');
         }
@@ -512,13 +512,13 @@ if (jQuery) {
        */
       function getPanelHeader(object) {
 
-        return object.closest('li > .collapsible-header');
+        return object.closest('.collapsible-header');
       }
 
 
       // Turn off any existing event handlers
       function removeEventHandlers() {
-        $this.off('click.collapse', '> li > .collapsible-header');
+        $this.off('click.collapse', '.collapsible-header');
       }
 
       /*****  End Helper Functions  *****/
@@ -545,7 +545,7 @@ if (jQuery) {
 
 
       // Add click handler to only direct collapsible header children
-      $this.on('click.collapse', '> li > .collapsible-header', function(e) {
+      $this.on('click.collapse', '.collapsible-header', function(e) {
         var element = $(e.target);
 
         if (isChildrenOfPanelHeader(element)) {
