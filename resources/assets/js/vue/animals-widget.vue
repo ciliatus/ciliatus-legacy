@@ -42,9 +42,13 @@
                         <div class="modal-content">
                             <h4>{{ $t("labels.just_fed") }}</h4>
 
-                            <select name="meal_type">
+
+                            <select name="meal_type" v-if="feeding_types.length > 0">
                                 <option v-for="ft in feeding_types" v-bind:value="ft.name">{{ ft.name }}</option>
                             </select>
+                            <span v-else>
+                                <strong>{{ $t('tooltips.no_feeding_types') }}</strong>
+                            </span>
                             <label>{{ $t("labels.meal_type") }}</label>
 
                             <input type="date" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
@@ -52,7 +56,7 @@
                         </div>
 
                         <div class="modal-footer">
-                            <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
+                            <button v-if="feeding_types.length > 0" class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
                                 <i class="material-icons left">send</i>
                             </button>
                         </div>

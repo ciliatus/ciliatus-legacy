@@ -59,5 +59,6 @@ return [
         'delete' => 'Löschen'
     ],
     'ciliatus_up_to_date' => 'Aktuell',
-    'ciliatus_not_up_to_date' => 'Update verfügbar: <a href=":url">GitHub</a>'
+    'ciliatus_not_up_to_date' => 'Update verfügbar: <a href=":url">GitHub</a>',
+    'no_feeding_types' => 'Es wurden noch keine Futtertypen definiert.'
 ];
