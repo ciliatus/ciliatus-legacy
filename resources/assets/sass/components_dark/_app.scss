@@ -606,3 +606,10 @@ select:disabled {
 .picker__date-display {
   background-color: $primary-color;
 }
+
+.preloader-wrapper {
+  &.tiny {
+    width: 24px;
+    height: 24px;
+  }
+}

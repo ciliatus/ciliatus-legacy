@@ -528,3 +528,10 @@ $button-small-height: $button-height * 0.6 !default;
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-tiny):not(.btn-large):not(.btn-floating) {
   color: $primary-color-light;
 }
+
+.preloader-wrapper {
+  &.tiny {
+    width: 24px;
+    height: 24px;
+  }
+}
