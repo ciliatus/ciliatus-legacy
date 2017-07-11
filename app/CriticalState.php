@@ -290,8 +290,16 @@ class CriticalState extends CiliatusModel
     public function belongsTo_object()
     {
         if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
-            $obj = ('App\\' . ucfirst($this->belongsTo_type))::find($this->belongsTo_id);
-            return $obj;
+            $class_name = 'App\\' . ucfirst($this->belongsTo_type);
+            if (!class_exists($class_name)) {
+                \Log::warning(__CLASS__ . ' "' . $this->name . '" (' . $this->id . ') belongs to object of ' .
+                    'unknown class "' . $class_name . '" (' . $this->belongsTo_id . '). Maybe belongsTo is empty but ' .
+                    'not null?');
+                return null;
+            }
+
+            $object = $class_name::find($this->belongsTo_id);
+            return $object;
         }
 
         return null;
