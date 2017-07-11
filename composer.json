@@ -16,7 +16,7 @@
         "pusher/pusher-php-server": "^2.6",
         "doctrine/dbal": "^2.5",
         "spatie/image": "^1.0",
-        "laravel/passport": "^2.0",
+        "laravel/passport": "^3.0",
         "laravel/tinker": "^1.0",
         "matthenning/eloquent-api-filter": "^1.1.2",
         "iboldurev/api-ai-php": "^0.2.5",
