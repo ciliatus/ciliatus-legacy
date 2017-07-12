@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Valve;
+namespace Tests\Feature\Pump;
 
 use App\Pump;
 use Illuminate\Foundation\Testing\WithoutMiddleware;

@@ -1,8 +1,7 @@
 <?php
 
-namespace Tests\Feature\Valve;
+namespace Tests\Feature\PhysicalSensor;
 
-use App\PhysicalSensor;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -10,10 +9,10 @@ use Tests\TestCase;
 use Tests\TestHelperTrait;
 
 /**
- * class PhysicalSensorShowOkTest
+ * class PhysicalSensorIndexOkTest
  * @package Tests\Feature
  */
-class PhysicalSensorShowOkTest extends TestCase
+class PhysicalSensorIndexOkTest extends TestCase
 {
 
     use TestHelperTrait;
@@ -23,22 +22,13 @@ class PhysicalSensorShowOkTest extends TestCase
 
         $token = $this->createUserReadOnly();
 
-        $physical_sensor = PhysicalSensor::create([
-            'name' => 'TestPhysicalSensor01'
-        ]);
-
-        $response = $this->get('/api/v1/physical_sensors/' . $physical_sensor->id, [
+        $response = $this->json('GET', '/api/v1/physical_sensors', [], [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([
-            'data' => [
-                'id' => $physical_sensor->id,
-                'name' => $physical_sensor->name
-            ]
+            'data' => []
         ]);
-
-        $physical_sensor->delete();
 
         $this->cleanupUsers();
 

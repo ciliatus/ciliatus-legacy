@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Valve;
+namespace Tests\Feature\PhysicalSensor;
 
 use App\PhysicalSensor;
 use App\Valve;

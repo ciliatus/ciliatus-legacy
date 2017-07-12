@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Valve;
+namespace Tests\Feature\PhysicalSensor;
 
 use App\Animal;
 use App\Controlunit;
@@ -42,7 +42,7 @@ class PhysicalSensorUpdateOkTest extends TestCase
         ]);
         $response->assertStatus(200);
 
-        $response = $this->get('/api/v1/physical_sensors/' . $physical_sensor->id, [
+        $response = $this->get('/api/v1/physical_sensors/' . $physical_sensor->id . '/?with[]=controlunit', [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);

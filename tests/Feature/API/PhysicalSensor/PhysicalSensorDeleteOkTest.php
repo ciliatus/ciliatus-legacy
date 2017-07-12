@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Valve;
+namespace Tests\Feature\PhysicalSensor;
 
 use App\PhysicalSensor;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -10,10 +10,10 @@ use Tests\TestCase;
 use Tests\TestHelperTrait;
 
 /**
- * class PhysicalSensorDeleteUnauthorizedTest
+ * class PhysicalSensorDeleteOkTest
  * @package Tests\Feature
  */
-class PhysicalSensorDeleteUnauthorizedTest extends TestCase
+class PhysicalSensorDeleteOkTest extends TestCase
 {
 
     use TestHelperTrait;
@@ -21,7 +21,7 @@ class PhysicalSensorDeleteUnauthorizedTest extends TestCase
     public function test()
     {
 
-        $token = $this->createUserReadOnly();
+        $token = $this->createUserFullPermissions();
 
         $physical_sensor = PhysicalSensor::create([
             'name' => 'TestPhysicalSensor01'
@@ -30,9 +30,12 @@ class PhysicalSensorDeleteUnauthorizedTest extends TestCase
         $response = $this->delete('/api/v1/physical_sensors/' . $physical_sensor->id, [], [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
-        $response->assertStatus(401);
+        $response->assertStatus(200);
 
-        $physical_sensor->delete();
+        $response = $this->get('/api/v1/physical_sensors/' . $physical_sensor->id, [
+            'HTTP_Authorization' => 'Bearer ' . $token
+        ]);
+        $response->assertStatus(404);
 
         $this->cleanupUsers();
 

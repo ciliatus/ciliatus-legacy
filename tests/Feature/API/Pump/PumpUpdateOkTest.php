@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Valve;
+namespace Tests\Feature\Pump;
 
 use App\Controlunit;
 use App\Pump;
@@ -40,7 +40,7 @@ class PumpUpdateOkTest extends TestCase
         ]);
         $response->assertStatus(200);
 
-        $response = $this->get('/api/v1/pumps/' . $pump->id, [
+        $response = $this->get('/api/v1/pumps/' . $pump->id . '/?with[]=controlunit', [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);

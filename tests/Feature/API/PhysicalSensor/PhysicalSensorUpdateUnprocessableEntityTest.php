@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Valve;
+namespace Tests\Feature\PhysicalSensor;
 
 use App\PhysicalSensor;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
@@ -10,10 +10,10 @@ use Tests\TestCase;
 use Tests\TestHelperTrait;
 
 /**
- * class PhysicalSensorDeleteOkTest
+ * class PhysicalSensorUpdateUnprocessableEntityTest
  * @package Tests\Feature
  */
-class PhysicalSensorDeleteOkTest extends TestCase
+class PhysicalSensorUpdateUnprocessableEntityTest extends TestCase
 {
 
     use TestHelperTrait;
@@ -27,15 +27,13 @@ class PhysicalSensorDeleteOkTest extends TestCase
             'name' => 'TestPhysicalSensor01'
         ]);
 
-        $response = $this->delete('/api/v1/physical_sensors/' . $physical_sensor->id, [], [
+        $response = $this->put('/api/v1/physical_sensors/' . $physical_sensor->id, [
+            'name' => 'TestPhysicalSensor01_Updated',
+            'controlunit' => 'doesnotexist',
+        ], [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
-        $response->assertStatus(200);
-
-        $response = $this->get('/api/v1/physical_sensors/' . $physical_sensor->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
-        ]);
-        $response->assertStatus(404);
+        $response->assertStatus(422);
 
         $this->cleanupUsers();
 

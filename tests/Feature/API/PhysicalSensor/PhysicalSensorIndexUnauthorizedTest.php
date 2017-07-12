@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Valve;
+namespace Tests\Feature\PhysicalSensor;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -9,10 +9,10 @@ use Tests\TestCase;
 use Tests\TestHelperTrait;
 
 /**
- * class PhysicalSensorStoreUnauthorizedTest
+ * class PhysicalSensorIndexUnauthorizedTest
  * @package Tests\Feature
  */
-class PhysicalSensorStoreUnauthorizedTest extends TestCase
+class PhysicalSensorIndexUnauthorizedTest extends TestCase
 {
 
     use TestHelperTrait;
@@ -20,11 +20,9 @@ class PhysicalSensorStoreUnauthorizedTest extends TestCase
     public function test()
     {
 
-        $token = $this->createUserReadOnly();
+        $token = $this->createUserNothing();
 
-        $response = $this->json('POST', '/api/v1/physical_sensors', [
-            'name' => 'TestPhysicalSensor01'
-        ], [
+        $response = $this->json('GET', '/api/v1/physical_sensors', [], [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
