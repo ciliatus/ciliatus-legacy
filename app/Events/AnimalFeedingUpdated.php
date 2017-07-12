@@ -39,8 +39,10 @@ class AnimalFeedingUpdated implements ShouldBroadcast
     {
         $transformer = new AnimalFeedingTransformer();
 
-        foreach ($e->belongsTo_object->feeding_schedules as $fs) {
-            broadcast(new AnimalFeedingScheduleUpdated($fs));
+        if (!is_null($e->belongsTo_object())) {
+            foreach ($e->belongsTo_object()->feeding_schedules as $fs) {
+                broadcast(new AnimalFeedingScheduleUpdated($fs));
+            }
         }
 
         $this->animal_feeding = $transformer->transform(

@@ -39,8 +39,10 @@ class AnimalWeighingUpdated implements ShouldBroadcast
     {
         $transformer = new AnimalWeighingTransformer();
 
-        foreach ($e->belongsTo_object->weighing_schedules as $fs) {
-            broadcast(new AnimalWeighingScheduleUpdated($fs));
+        if (!is_null($e->belongsTo_object())) {
+            foreach ($e->belongsTo_object()->weighing_schedules as $fs) {
+                broadcast(new AnimalWeighingScheduleUpdated($fs));
+            }
         }
 
         $this->animal_weighing = $transformer->transform(
