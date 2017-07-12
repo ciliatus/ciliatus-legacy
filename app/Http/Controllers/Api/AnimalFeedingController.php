@@ -108,7 +108,7 @@ class AnimalFeedingController extends ApiController
             $e->save();
         }
 
-        broadcast(new AnimalFeedingUpdated($e));
+        broadcast(new AnimalFeedingUpdated($e->fresh()));
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);

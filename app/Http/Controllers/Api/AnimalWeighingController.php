@@ -11,6 +11,7 @@ use App\Events\AnimalWeighingUpdated;
 use App\Http\Transformers\AnimalWeighingTransformer;
 use App\Property;
 use App\Repositories\AnimalWeighingRepository;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Gate;
 use App\Http\Requests;
@@ -153,7 +154,12 @@ class AnimalWeighingController extends ApiController
             'value' => $request->input('weight')
         ]);
 
-        broadcast(new AnimalWeighingUpdated($e));
+        if ($request->has('created_at')) {
+            $e->created_at = Carbon::parse($request->input('created_at'));
+            $e->save();
+        }
+
+        broadcast(new AnimalWeighingUpdated($e->fresh()));
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
