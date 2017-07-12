@@ -46,13 +46,17 @@ class AnimalWeighingEvent extends Event
         /*
          * Find first feeding before and after $from
          */
-        $first_before = $this->belongsTo_object
+        if (is_null($this->belongsTo_object())) {
+            return;
+        }
+
+        $first_before = $this->belongsTo_object()
                              ->weighings()
                              ->whereDate('created_at', '<', $from)
                              ->orderBy('created_at', 'DESC')
                              ->limit(1)
                              ->get()->first();
-        $first_after = $this->belongsTo_object
+        $first_after = $this->belongsTo_object()
                             ->weighings()
                             ->whereDate('created_at', '>', $from)
                             ->orderBy('created_at')

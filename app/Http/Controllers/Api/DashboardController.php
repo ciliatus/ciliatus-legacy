@@ -85,7 +85,7 @@ class DashboardController extends ApiController
             'overdue' => []
         ];
 
-        foreach (Animal::orderBy('display_name')->get() as $animal) {
+        foreach (Animal::whereNull('death_date')->orderBy('display_name')->get() as $animal) {
             $feeding_schedules_temp = $animal->getDueFeedingSchedules();
             foreach ($feeding_schedules_temp as $type=>$schedules) {
                 foreach ($schedules as $schedule) {
@@ -100,7 +100,7 @@ class DashboardController extends ApiController
             'overdue' => []
         ];
 
-        foreach (Animal::orderBy('display_name')->get() as $animal) {
+        foreach (Animal::whereNull('death_date')->orderBy('display_name')->get() as $animal) {
             $weighing_schedules_temp = $animal->getDueWeighingSchedules();
             foreach ($weighing_schedules_temp as $type=>$schedules) {
                 foreach ($schedules as $index=>$schedule) {
@@ -169,7 +169,7 @@ class DashboardController extends ApiController
                                 ->where('type', 'ReadFlag')
                                 ->get()->first())) {
 
-                $belongsTo = $suggestion->belongsTo_object()->get()->first();
+                $belongsTo = $suggestion->belongsTo_object();
                 $belongsTo = (new GenericRepository($belongsTo))->show();
                 $suggestion->belongsTo_object = is_null($belongsTo) ? null : $belongsTo->toArray();
                 $suggestions[] = (new EventTransformer())->transform($suggestion->toArray());

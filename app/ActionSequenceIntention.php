@@ -341,6 +341,10 @@ class ActionSequenceIntention extends CiliatusModel
     private function matchCondition(CriticalState $cs)
     {
         $ls = $cs->belongsTo_object();
+        if (is_null($ls)) {
+            return false;
+        }
+
         if (!is_a($ls, 'App\LogicalSensor')) {
             return false;
         }
@@ -349,7 +353,8 @@ class ActionSequenceIntention extends CiliatusModel
             return false;
         }
 
-        if ($ls->physical_sensor->belongsTo_object()->id == $this->sequence->terrarium_id) {
+        if (!is_null($ls->physical_sensor->belongsTo_object()) &&
+            $ls->physical_sensor->belongsTo_object()->id == $this->sequence->terrarium_id) {
             if ($ls->type == $this->type) {
                 switch ($this->intention) {
                     case 'increase':

@@ -31,9 +31,9 @@ class AnimalWeighingScheduleRepository extends Repository {
     public function show()
     {
         $ws = $this->scope;
-        $animal = $ws->belongsTo_object()->get()->first();
-        $ws->animal = $animal->toArray();
-        $last_weighing_of_type = $animal->last_weighing();
+        $belongsTo_object = $ws->belongsTo_object();
+        $ws->animal = is_null($belongsTo_object) ? null : $ws->belongsTo_object()->toArray();
+        $last_weighing_of_type = $belongsTo_object->last_weighing();
         $starts_at = $ws->properties()->where('type', 'AnimalWeighingScheduleStartDate')
                                       ->orderBy('created_at', 'desc')
                                       ->get()->first();

@@ -28,7 +28,7 @@ class AnimalFeedingRepository extends Repository {
     {
         $animal_feeding = $this->scope;
 
-        $animal_feeding->animal = $animal_feeding->belongsTo_object()->get()->first()->toArray();
+        $animal_feeding->animal = is_null($animal_feeding->belongsTo_object()) ? null : $animal_feeding->belongsTo_object()->toArray();
 
         return $animal_feeding;
     }

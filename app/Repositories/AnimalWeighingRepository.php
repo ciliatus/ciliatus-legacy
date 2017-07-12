@@ -28,7 +28,7 @@ class AnimalWeighingRepository extends Repository {
     {
         $animal_weighing = $this->scope;
 
-        $animal_weighing->animal = $animal_weighing->belongsTo_object()->get()->first()->toArray();
+        $animal_weighing->animal = is_null($animal_weighing->belongsTo_object()) ? null : $animal_weighing->belongsTo_object()->toArray();
 
         return $animal_weighing;
     }
