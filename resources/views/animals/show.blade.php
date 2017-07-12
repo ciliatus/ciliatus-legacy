@@ -105,6 +105,8 @@
                             </div>
                             <div class="card-content">
                                 <dygraph-graph show-filter-field="created_at" :show-filter-form="true"
+                                               labels-div-id="sensorreadings-labels" time-axis-label="@lang('labels.created_at')"
+                                               column-id-field="logical_sensor_id" column-name-field="logical_sensor_name"
                                                source="{{ url('api/v1/terraria/' . $animal->terrarium->id . '/sensorreadings') }}"></dygraph-graph>
                             </div>
                         </div>
