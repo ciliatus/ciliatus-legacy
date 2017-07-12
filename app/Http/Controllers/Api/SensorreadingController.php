@@ -54,25 +54,28 @@ class SensorreadingController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $sensorreading = Sensorreading::find($id);
+        $sr = Sensorreading::query();
+        $sr = $this->filter($request, $sr);
+        $sr = $sr->find($id);
 
-        if (!$sensorreading) {
+        if (!$sr) {
             return $this->respondNotFound('Sensorreading not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
             $this->sensorreadingTransformer->transform(
-                $sensorreading->toArray()
+                $sr->toArray()
             )
         );
     }

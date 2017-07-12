@@ -53,25 +53,28 @@ class PhysicalSensorController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $physical_sensor = PhysicalSensor::find($id);
+        $ps = PhysicalSensor::query();
+        $ps = $this->filter($request, $ps);
+        $ps = $ps->find($id);
 
-        if (!$physical_sensor) {
+        if (!$ps) {
             return $this->respondNotFound('PhysicalSensor not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
             $this->physicalSensorTransformer->transform(
-                $physical_sensor->toArray()
+                $ps->toArray()
             )
         );
     }

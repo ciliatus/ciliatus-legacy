@@ -54,25 +54,28 @@ class LogicalSensorThresholdController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $logical_sensor_threshold = LogicalSensorThreshold::find($id);
+        $lst = LogicalSensorThreshold::query();
+        $lst = $this->filter($request, $lst);
+        $lst = $lst->find($id);
 
-        if (!$logical_sensor_threshold) {
+        if (!$lst) {
             return $this->respondNotFound('LogicalSensorThreshold not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
             $this->logicalSensorThresholdTransformer->transform(
-                $logical_sensor_threshold->toArray()
+                $lst->toArray()
             )
         );
     }

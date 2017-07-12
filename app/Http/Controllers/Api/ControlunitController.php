@@ -49,25 +49,28 @@ class ControlunitController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $controlunit = Controlunit::find($id);
+        $cu = Controlunit::query();
+        $cu = $this->filter($request, $cu);
+        $cu = $cu->find($id);
 
-        if (!$controlunit) {
+        if (!$cu) {
             return $this->respondNotFound('Controlunit not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
             $this->controlunitTransformer->transform(
-                $controlunit->toArray()
+                $cu->toArray()
             )
         );
     }

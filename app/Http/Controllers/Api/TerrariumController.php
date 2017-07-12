@@ -77,17 +77,22 @@ class TerrariumController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request, $id)
     {
+
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $terrarium = Terrarium::find($id);
-        if (!$terrarium) {
+        $t = Terrarium::query();
+        $t = $this->filter($request, $t);
+        $t = $t->find($id);
+
+        if (!$t) {
             return $this->respondNotFound('Terrarium not found');
         }
 
@@ -97,7 +102,7 @@ class TerrariumController extends ApiController
         return $this->setStatusCode(200)
                     ->respondWithData(
                         $this->terrariumTransformer
-                             ->transform((new TerrariumRepository($terrarium))
+                             ->transform((new TerrariumRepository($t))
                                          ->show($history_to, $history_minutes)
                                          ->toArray())
                     );

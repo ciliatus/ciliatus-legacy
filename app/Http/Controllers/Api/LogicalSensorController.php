@@ -58,29 +58,30 @@ class LogicalSensorController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $logical_sensor = LogicalSensor::with('thresholds')
-                                        ->with('physical_sensor')
-                                        ->find($id);
+        $ls = LogicalSensor::query();
+        $ls = $this->filter($request, $ls);
+        $ls = $ls->find($id);
 
-        if (!$logical_sensor) {
+        if (!$ls) {
             return $this->respondNotFound('LogicalSensor not found');
         }
 
-        $logical_sensor = (new LogicalSensorRepository($logical_sensor))->show();
+        $ls = (new LogicalSensorRepository($ls))->show();
 
         return $this->respondWithData(
             $this->logicalSensorTransformer->transform(
-                $logical_sensor->toArray()
+                $ls->toArray()
             )
         );
     }

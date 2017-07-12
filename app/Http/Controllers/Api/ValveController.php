@@ -44,7 +44,6 @@ class ValveController extends ApiController
         }
 
         $valves = Valve::query();
-
         $valves = $this->filter($request, $valves);
 
         return $this->respondTransformedAndPaginated(
@@ -59,14 +58,16 @@ class ValveController extends ApiController
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $valve = Valve::find($id);
+        $valve = Valve::query();
+        $valve = $this->filter($request, $valve);
+        $valve = $valve->find($id);
 
         if (!$valve) {
             return $this->respondNotFound('Valve not found');

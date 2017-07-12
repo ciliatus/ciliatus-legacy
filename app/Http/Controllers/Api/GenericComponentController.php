@@ -121,16 +121,23 @@ class GenericComponentController extends ApiController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $gc = GenericComponent::find($id);
+
+        if (Gate::denies('api-read')) {
+            return $this->respondUnauthorized();
+        }
+
+        $gc = GenericComponent::query();
+        $gc = $this->filter($request, $gc);
+        $gc = $gc->find($id);
+
         if (is_null($gc)) {
-            return $this->respondNotFound();
+            return $this->respondNotFound("Generic Component not found");
         }
 
         return $this->respondWithData(

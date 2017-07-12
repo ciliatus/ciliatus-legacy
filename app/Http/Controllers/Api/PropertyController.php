@@ -52,25 +52,28 @@ class PropertyController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $property = Property::find($id);
+        $p = Property::query();
+        $p = $this->filter($request, $p);
+        $p = $p->find($id);
 
-        if (!$property) {
+        if (!$p) {
             return $this->respondNotFound('Property not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
             $this->propertyTransformer->transform(
-                $property->toArray()
+                $p->toArray()
             )
         );
     }

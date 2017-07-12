@@ -57,26 +57,30 @@ class ActionSequenceScheduleController extends ApiController
 
     }
 
+
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $action = ActionSequenceSchedule::find($id);
+        $ass = ActionSequenceSchedule::query();
+        $ass = $this->filter($request, $ass);
+        $ass = $ass->find($id);
 
-        if (!$action) {
+        if (!$ass) {
             return $this->respondNotFound('ActionSequenceSchedule not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
             $this->actionSequenceScheduleTransformer->transform(
-                $action->toArray()
+                $ass->toArray()
             )
         );
     }

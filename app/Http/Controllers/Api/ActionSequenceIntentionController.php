@@ -58,26 +58,30 @@ class ActionSequenceIntentionController extends ApiController
 
     }
 
+
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $action = ActionSequenceIntention::find($id);
+        $asi = ActionSequence::query();
+        $asi = $this->filter($request, $asi);
+        $asi = $asi->find($id);
 
-        if (!$action) {
+        if (!$asi) {
             return $this->respondNotFound('ActionSequenceIntention not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
             $this->actionSequenceIntentionTransformer->transform(
-                $action->toArray()
+                $asi->toArray()
             )
         );
     }

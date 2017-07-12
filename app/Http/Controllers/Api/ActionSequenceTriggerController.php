@@ -58,26 +58,30 @@ class ActionSequenceTriggerController extends ApiController
 
     }
 
+
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $action = ActionSequenceTrigger::find($id);
+        $ast = ActionSequenceTrigger::query();
+        $ast = $this->filter($request, $ast);
+        $ast = $ast->find($id);
 
-        if (!$action) {
+        if (!$ast) {
             return $this->respondNotFound('ActionSequenceTrigger not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
             $this->actionSequenceTriggerTransformer->transform(
-                $action->toArray()
+                $ast->toArray()
             )
         );
     }

@@ -10,6 +10,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+/**
+ * Class ActionController
+ * @package App\Http\Controllers\Api
+ */
 class ActionController extends ApiController
 {
     /**
@@ -48,18 +52,22 @@ class ActionController extends ApiController
 
     }
 
+
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $action = Action::find($id);
+        $action = Action::query();
+        $action = $this->filter($request, $action);
+        $action = $action->find($id);
 
         if (!$action) {
             return $this->respondNotFound('Action not found');

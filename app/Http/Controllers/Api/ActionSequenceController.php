@@ -60,26 +60,30 @@ class ActionSequenceController extends ApiController
         );
     }
 
+
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $action = ActionSequence::find($id);
+        $as = ActionSequence::query();
+        $as = $this->filter($request, $as);
+        $as = $as->find($id);
 
-        if (!$action) {
+        if (!$as) {
             return $this->respondNotFound('ActionSequence not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
             $this->actionSequenceTransformer->transform(
-                $action->toArray()
+                $as->toArray()
             )
         );
     }

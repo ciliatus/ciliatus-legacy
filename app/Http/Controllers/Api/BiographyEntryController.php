@@ -129,28 +129,30 @@ class BiographyEntryController extends ApiController
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $entry = BiographyEntryEvent::with('files')->find($id);
+        $bee = BiographyEntryEvent::query();
+        $bee = $this->filter($request, $bee);
+        $bee = $bee->find($id);
 
-        if (!$entry) {
+        if (!$bee) {
             return $this->respondNotFound('Entry not found');
         }
 
-        $entry = (new BiographyEntryRepository($entry))->show();
+        $bee = (new BiographyEntryRepository($bee))->show();
 
         return $this->respondWithData(
             $this->biographyEntryTransformer->transform(
-                $entry->toArray()
+                $bee->toArray()
             )
         );
     }
@@ -214,11 +216,16 @@ class BiographyEntryController extends ApiController
 
         broadcast(new BiographyEntryUpdated($e));
 
+        $belongsTo_object = $e->belongsTo_object();
+        if (!is_null($belongsTo_object)) {
+            $url = $belongsTo_object->url() . '#tab_biography';
+        }
+
         return $this->respondWithData([
             'id' => $e->id
         ], [
             'redirect' => [
-                'uri' => $e->belongsTo_object->url() . '#tab_biography'
+                'uri' => $url
             ]
         ]);
     }
@@ -245,7 +252,10 @@ class BiographyEntryController extends ApiController
             $cat->delete();
         }
 
-        $url = $e->belongsTo_object->url() . '#tab_biography';
+        $belongsTo_object = $e->belongsTo_object();
+        if (!is_null($belongsTo_object)) {
+            $url = $belongsTo_object->url() . '#tab_biography';
+        }
 
         broadcast(new BiographyEntryDeleted($e));
 

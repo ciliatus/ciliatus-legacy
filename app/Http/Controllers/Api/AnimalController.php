@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\AnimalFeedingEvent;
 use App\Event;
 use App\Http\Transformers\AnimalCaresheetTransformer;
 use App\Http\Transformers\AnimalTransformer;
@@ -56,17 +57,22 @@ class AnimalController extends ApiController
 
     }
 
+
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
+
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $animal = Animal::find($id);
+        $animal = Animal::query();
+        $animal = $this->filter($request, $animal);
+        $animal = $animal->find($id);
 
         if (is_null($animal)) {
             return $this->respondNotFound("Animal not found");
