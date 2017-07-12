@@ -165,10 +165,4 @@
             </ul>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function(){
-            $('ul.tabs').tabs();
-        });
-    </script>
 @stop
