@@ -134,7 +134,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/users?page=' + this.page + '&' + this.filter_string,
+                url: '/api/v1/users?with[]=settings&page=' + this.page + '&' + this.filter_string,
                 method: 'GET',
                 success: function (data) {
                     that.meta = data.meta;

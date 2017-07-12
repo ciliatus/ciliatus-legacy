@@ -41,7 +41,7 @@ class GenericComponentController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $gc = GenericComponent::with('properties', 'states', 'type', 'controlunit');
+        $gc = GenericComponent::query();
         $gc = $this->filter($request, $gc);
 
         return $this->respondTransformedAndPaginated(
@@ -128,7 +128,7 @@ class GenericComponentController extends ApiController
      */
     public function show($id)
     {
-        $gc = GenericComponent::with('properties', 'states', 'type', 'controlunit')->find($id);
+        $gc = GenericComponent::find($id);
         if (is_null($gc)) {
             return $this->respondNotFound();
         }

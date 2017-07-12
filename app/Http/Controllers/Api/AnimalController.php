@@ -67,8 +67,9 @@ class AnimalController extends ApiController
         }
 
         $animal = Animal::find($id);
+
         if (is_null($animal)) {
-            return $this->respondNotFound();
+            return $this->respondNotFound("Animal not found");
         }
 
         $animal = (new AnimalRepository($animal))->show();

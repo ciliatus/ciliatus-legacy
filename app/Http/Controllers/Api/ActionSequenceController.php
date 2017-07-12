@@ -49,11 +49,7 @@ class ActionSequenceController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action_sequences = ActionSequence::with('schedules')
-                                          ->with('triggers')
-                                          ->with('intentions')
-                                          ->with('terrarium');
-
+        $action_sequences = ActionSequence::query();
         $action_sequences = $this->filter($request, $action_sequences);
 
         return $this->respondTransformedAndPaginated(
@@ -75,12 +71,7 @@ class ActionSequenceController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action = ActionSequence::with('schedules')
-                                ->with('triggers')
-                                ->with('intentions')
-                                ->with('terrarium')
-                                ->with('actions')
-                                ->find($id);
+        $action = ActionSequence::find($id);
 
         if (!$action) {
             return $this->respondNotFound('ActionSequence not found');

@@ -52,7 +52,7 @@ class BiographyEntryController extends ApiController
         }
 
 
-        if (!is_null($belongsTo_type) && !is_null($belongsTo_id)) {
+        if (!is_null($belongsTo_type) && !empty($belongsTo_type) && !is_null($belongsTo_id)) {
             $belongsTo = ('App\\' . $belongsTo_type)::find($belongsTo_id);
 
             if (is_null($belongsTo)) {

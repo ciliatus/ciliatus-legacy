@@ -136,7 +136,8 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw=true&' + that.sourceFilter,
+                url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?with[]=controlunit&with[]=logical_sensors' +
+                     '&with[]=terrarium&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.physical_sensorId !== '') {

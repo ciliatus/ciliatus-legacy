@@ -132,7 +132,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/pumps/' + that.pumpId + '?raw=true&' + that.sourceFilter,
+                url: '/api/v1/pumps/' + that.pumpId + '?with[]=valves&with[]=controlunit&with&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.pumpId !== '') {

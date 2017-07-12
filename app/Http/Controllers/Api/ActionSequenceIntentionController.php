@@ -46,7 +46,7 @@ class ActionSequenceIntentionController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action_sequence_intentions = ActionSequenceIntention::with('sequence');
+        $action_sequence_intentions = ActionSequenceIntention::query();
         $action_sequence_intentions = $this->filter($request, $action_sequence_intentions);
 
         return $this->respondTransformedAndPaginated(
@@ -69,8 +69,7 @@ class ActionSequenceIntentionController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action = ActionSequenceIntention::with('sequence')
-                                        ->find($id);
+        $action = ActionSequenceIntention::find($id);
 
         if (!$action) {
             return $this->respondNotFound('ActionSequenceIntention not found');

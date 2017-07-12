@@ -145,7 +145,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/valves/' + that.valveId + '?raw=true&' + that.sourceFilter,
+                url: '/api/v1/valves/' + that.valveId + '?with[]=pump&with[]=terrarium&with[]=controlunit&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.valveId !== '') {

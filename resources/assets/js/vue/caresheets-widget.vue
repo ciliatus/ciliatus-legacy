@@ -73,6 +73,11 @@ export default {
             default: null,
             required: false
         },
+        containerId: {
+            type: String,
+            default: 'caresheet-list',
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',

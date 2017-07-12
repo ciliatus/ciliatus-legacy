@@ -54,21 +54,16 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $terraria = Terrarium::with('action_sequences')
-                             ->with('animals')
-                             ->with('files')
-                             ->with('physical_sensors')
-                             ->with('valves');
-
+        $terraria = Terrarium::query();
         $terraria = $this->filter($request, $terraria);
 
         $repository_parameters = [
             'history_to'        => $request->has('history_to') ?
-                $request->input('history_to') :
-                null,
+                                    $request->input('history_to') :
+                                    null,
             'history_minutes'   => $request->has('history_minutes') ?
-                $request->input('history_minutes') :
-                env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180)
+                                    $request->input('history_minutes') :
+                                    env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180)
         ];
 
         return $this->respondTransformedAndPaginated(
@@ -91,13 +86,7 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $terrarium = Terrarium::with('action_sequences')
-                                ->with('animals')
-                                ->with('files')
-                                ->with('physical_sensors')
-                                ->with('valves')
-                                ->find($id);
-
+        $terrarium = Terrarium::find($id);
         if (!$terrarium) {
             return $this->respondNotFound('Terrarium not found');
         }
@@ -108,9 +97,9 @@ class TerrariumController extends ApiController
         return $this->setStatusCode(200)
                     ->respondWithData(
                         $this->terrariumTransformer
-                             ->transform(
-                                 (new TerrariumRepository($terrarium))->show($history_to, $history_minutes)
-                                                                      ->toArray())
+                             ->transform((new TerrariumRepository($terrarium))
+                                         ->show($history_to, $history_minutes)
+                                         ->toArray())
                     );
     }
 

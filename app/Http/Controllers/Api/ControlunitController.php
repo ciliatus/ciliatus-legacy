@@ -37,8 +37,7 @@ class ControlunitController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $controlunits = Controlunit::with('physical_sensors', 'valves', 'pumps', 'generic_components');
-
+        $controlunits = Controlunit::query();
         $controlunits = $this->filter($request, $controlunits);
 
         return $this->respondTransformedAndPaginated(
@@ -60,7 +59,7 @@ class ControlunitController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $controlunit = Controlunit::with('physical_sensors', 'valves', 'pumps', 'generic_components')->find($id);
+        $controlunit = Controlunit::find($id);
 
         if (!$controlunit) {
             return $this->respondNotFound('Controlunit not found');

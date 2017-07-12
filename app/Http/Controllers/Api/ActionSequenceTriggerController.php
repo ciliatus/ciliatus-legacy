@@ -46,7 +46,7 @@ class ActionSequenceTriggerController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action_sequence_triggers = ActionSequenceTrigger::with('sequence');
+        $action_sequence_triggers = ActionSequenceTrigger::query();
         $action_sequence_triggers = $this->filter($request, $action_sequence_triggers);
 
         return $this->respondTransformedAndPaginated(
@@ -69,8 +69,7 @@ class ActionSequenceTriggerController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action = ActionSequenceTrigger::with('sequence')
-                                        ->find($id);
+        $action = ActionSequenceTrigger::find($id);
 
         if (!$action) {
             return $this->respondNotFound('ActionSequenceTrigger not found');

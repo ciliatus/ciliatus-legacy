@@ -43,9 +43,7 @@ class ValveController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $valves = Valve::with('pump')
-                        ->with('terrarium')
-                        ->with('controlunit');
+        $valves = Valve::query();
 
         $valves = $this->filter($request, $valves);
 
@@ -68,10 +66,7 @@ class ValveController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $valve = Valve::with('pump')
-                        ->with('terrarium')
-                        ->with('controlunit')
-                        ->find($id);
+        $valve = Valve::find($id);
 
         if (!$valve) {
             return $this->respondNotFound('Valve not found');

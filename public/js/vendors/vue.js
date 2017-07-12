@@ -574,7 +574,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
         sourceFilter: {
             type: String,
-            default: 'filter[last_finished_at]=nottoday',
+            default: 'with[]=sequence&filter[last_finished_at]=nottoday',
             required: false
         },
         wrapperClasses: {
@@ -912,15 +912,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/action_sequences?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
+                url: '/api/v1/action_sequences?with[]=schedules&with[]=triggers&with[]=intentions&with[]=terrarium&page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     that.meta = data.meta;
                     that.action_sequences = data.data;
-                    that.$nextTick(function () {
-                        $('table.collapsible').collapsibletable();
-                        window.eventHubVue.processEnded();
-                    });
+                    window.eventHubVue.processEnded();
                 },
                 error: function error(_error2) {
                     console.log(JSON.stringify(_error2));
@@ -1086,7 +1083,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/action_sequences/' + that.action_sequenceId + '?raw=true&' + that.sourceFilter,
+                url: '/api/v1/action_sequences/' + that.action_sequenceId + '?with[]=schedules&with[]=triggers&' + 'with[]=intentions&with[]=terrarium&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.action_sequenceId !== '') {
@@ -2506,9 +2503,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var source_url = '';
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             if (this.animalId !== null) {
-                source_url = '/api/v1/animals/' + this.animalId;
+                source_url = '/api/v1/animals/' + this.animalId + '/?with[]=terrarium';
             } else {
-                source_url = '/api/v1/animals/?pagination[per_page]=6&page=' + this.page + this.filter_string + this.order_string;
+                source_url = '/api/v1/animals/?with[]=terrarium&pagination[per_page]=6&page=' + this.page + this.filter_string + this.order_string;
             }
 
             window.eventHubVue.processStarted();
@@ -2818,6 +2815,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             default: null,
             required: false
         },
+        containerId: {
+            type: String,
+            default: 'biography-entries-widget',
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -2875,9 +2877,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             var source_url = '';
             if (this.entryId !== null) {
-                source_url = '/api/v1/biography_entries/' + this.entryId;
+                source_url = '/api/v1/biography_entries/' + this.entryId + '?with[]=files';
             } else {
-                source_url = '/api/v1/biography_entries/?order[created_at]=desc&filter[belongsTo_type]=' + this.belongsToType + '&filter[belongsTo_id]=' + this.belongsToId + '&raw=true';
+                source_url = '/api/v1/biography_entries/?with[]=files&order[created_at]=desc&filter[belongsTo_type]=' + this.belongsToType + '&filter[belongsTo_id]=' + this.belongsToId + '&raw=true';
             }
 
             window.eventHubVue.processStarted();
@@ -3199,6 +3201,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         caresheetId: {
             type: String,
             default: null,
+            required: false
+        },
+        containerId: {
+            type: String,
+            default: 'caresheet-list',
             required: false
         },
         wrapperClasses: {
@@ -3694,9 +3701,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 success: function success(data) {
                     that.meta = data.meta;
                     that.components = data.data;
-                    that.$nextTick(function () {
-                        $('table.collapsible').collapsibletable();
-                    });
                     window.eventHubVue.processEnded();
                 },
                 error: function error(_error) {
@@ -3909,7 +3913,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/controlunits/' + that.controlunitId + '?raw=true',
+                url: '/api/v1/controlunits/?with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=generic_components&' + that.controlunitId + '?raw=true',
                 method: 'GET',
                 success: function success(data) {
                     if (that.controlunitId !== '') {
@@ -4206,14 +4210,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/controlunits?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
+                url: '/api/v1/controlunits?with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=generic_components' + '&page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     that.meta = data.meta;
                     that.controlunits = data.data;
-                    that.$nextTick(function () {
-                        $('table.collapsible').collapsibletable();
-                    });
                     window.eventHubVue.processEnded();
                 },
                 error: function error(_error2) {
@@ -5621,7 +5622,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             });
         },
         draw: function draw() {
-            if (this.data === null) {
+            if (this.data === null || this.data.length < 1) {
+                $('#dygraph_' + this.id + '_loading').hide();
                 return;
             }
 
@@ -5682,10 +5684,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             }
 
             var that = this;
-            this.graph = new Dygraph(document.getElementById('dygraph_' + this.id), this.data, this.options);
-            this.graph.ready(function () {
+
+            try {
+                this.graph = new Dygraph(document.getElementById('dygraph_' + this.id), this.data, this.options);
+
+                this.graph.ready(function () {
+                    $('#dygraph_' + that.id + '_loading').hide();
+                });
+            } catch (ex) {
                 $('#dygraph_' + that.id + '_loading').hide();
-            });
+                console.log(ex);
+            }
         }
     },
 
@@ -5960,14 +5969,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/files?page=' + that.page + that.filter_string + that.order_string,
+                url: '/api/v1/files?with[]=properties&page=' + that.page + that.filter_string + that.order_string,
                 method: 'GET',
                 success: function success(data) {
                     that.meta = data.meta;
                     that.files = data.data;
-                    that.$nextTick(function () {
-                        $('table.collapsible').collapsibletable();
-                    });
                     window.eventHubVue.processEnded();
                 },
                 error: function error(_error) {
@@ -6126,7 +6132,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/files/' + that.fileId + that.sourceFilter,
+                url: '/api/v1/files/?with[]=properties&' + that.fileId + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.fileId !== '') {
@@ -6290,7 +6296,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/files/' + that.fileId + '?' + that.sourceFilter,
+                url: '/api/v1/files/' + that.fileId + '?with[]=properties&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.fileId !== '') {
@@ -7791,14 +7797,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/generic_components?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
+                url: '/api/v1/generic_components?with[]=properties&with[]=states&with[]=type&with[]=controlunit&page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     that.meta = data.meta;
                     that.generic_components = data.data;
-                    that.$nextTick(function () {
-                        $('table.collapsible').collapsibletable();
-                    });
                     window.eventHubVue.processEnded();
                 },
                 error: function error(_error) {
@@ -7982,7 +7985,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/generic_components/' + that.genericComponentId + '?raw=true&' + that.sourceFilter,
+                url: '/api/v1/generic_components/' + that.genericComponentId + '?with[]=properties&with[]=states&' + 'with[]=type&with[]=controlunit&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.genericComponentId !== '') {
@@ -8661,14 +8664,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/logical_sensors?page=' + that.page + that.filter_string + that.order_string,
+                url: '/api/v1/logical_sensors?with[]=physical_sensor&with[]=thresholds&page=' + that.page + that.filter_string + that.order_string,
                 method: 'GET',
                 success: function success(data) {
                     that.meta = data.meta;
                     that.logical_sensors = data.data;
-                    that.$nextTick(function () {
-                        $('table.collapsible').collapsibletable();
-                    });
                     window.eventHubVue.processEnded();
                 },
                 error: function error(_error) {
@@ -8858,7 +8858,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?raw=true&' + that.sourceFilter,
+                url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?with[]=physical_sensor&with[]=thresholds&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.logical_sensorId !== '') {
@@ -9379,14 +9379,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/physical_sensors?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
+                url: '/api/v1/physical_sensors?with[]=controlunit&with[]=logical_sensors&with[]=terrarium&page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     that.meta = data.meta;
                     that.physical_sensors = data.data;
-                    that.$nextTick(function () {
-                        $('table.collapsible').collapsibletable();
-                    });
                     window.eventHubVue.processEnded();
                 },
                 error: function error(_error) {
@@ -9565,7 +9562,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?raw=true&' + that.sourceFilter,
+                url: '/api/v1/physical_sensors/' + that.physical_sensorId + '?with[]=controlunit&with[]=logical_sensors' + '&with[]=terrarium&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.physical_sensorId !== '') {
@@ -9816,14 +9813,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/pumps?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
+                url: '/api/v1/pumps?with[]=valves&with[]=controlunit&page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     that.meta = data.meta;
                     that.pumps = data.data;
-                    that.$nextTick(function () {
-                        $('table.collapsible').collapsibletable();
-                    });
                     window.eventHubVue.processEnded();
                 },
                 error: function error(_error) {
@@ -9990,7 +9984,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/pumps/' + that.pumpId + '?raw=true&' + that.sourceFilter,
+                url: '/api/v1/pumps/' + that.pumpId + '?with[]=valves&with[]=controlunit&with&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.pumpId !== '') {
@@ -10809,9 +10803,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var source_url = '';
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             if (this.terrariumId !== null) {
-                source_url = '/api/v1/terraria/' + this.terrariumId;
+                source_url = '/api/v1/terraria/' + this.terrariumId + '?with[]=action_sequences&with[]=animals&' + 'with[]=files&with[]=physical_sensors&with[]=valves';
             } else {
-                source_url = '/api/v1/terraria/?pagination[per_page]=6&page=' + this.page + this.filter_string + this.order_string;
+                source_url = '/api/v1/terraria/?with[]=action_sequences&with[]=animals&with[]=files&' + 'with[]=physical_sensors&with[]=valves&pagination[per_page]=6&page=' + this.page + this.filter_string + this.order_string;
             }
 
             window.eventHubVue.processStarted();
@@ -11019,7 +11013,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/users?page=' + this.page + '&' + this.filter_string,
+                url: '/api/v1/users?with[]=settings&page=' + this.page + '&' + this.filter_string,
                 method: 'GET',
                 success: function success(data) {
                     that.meta = data.meta;
@@ -11278,14 +11272,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/valves?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
+                url: '/api/v1/valves?with[]=pump&with[]=terrarium&with[]=controlunit&page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     that.meta = data.meta;
                     that.valves = data.data;
-                    that.$nextTick(function () {
-                        $('table.collapsible').collapsibletable();
-                    });
                     window.eventHubVue.processEnded();
                 },
                 error: function error(_error) {
@@ -11465,7 +11456,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/valves/' + that.valveId + '?raw=true&' + that.sourceFilter,
+                url: '/api/v1/valves/' + that.valveId + '?with[]=pump&with[]=terrarium&with[]=controlunit&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.valveId !== '') {

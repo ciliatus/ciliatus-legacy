@@ -23,7 +23,7 @@ export default {
         },
         sourceFilter: {
             type: String,
-            default: 'filter[last_finished_at]=nottoday',
+            default: 'with[]=sequence&filter[last_finished_at]=nottoday',
             required: false
         },
         wrapperClasses: {

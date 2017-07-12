@@ -39,7 +39,7 @@ class GenericComponentTypeController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $types = GenericComponentType::with('properties');
+        $types = GenericComponentType::query();
         $types = $this->filter($request, $types);
 
         return $this->respondTransformedAndPaginated(

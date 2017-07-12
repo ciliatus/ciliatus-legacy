@@ -126,7 +126,8 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/action_sequences/' + that.action_sequenceId + '?raw=true&' + that.sourceFilter,
+                url: '/api/v1/action_sequences/' + that.action_sequenceId + '?with[]=schedules&with[]=triggers&' +
+                     'with[]=intentions&with[]=terrarium&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.action_sequenceId !== '') {

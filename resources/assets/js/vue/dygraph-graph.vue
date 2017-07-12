@@ -240,7 +240,8 @@ export default {
             });
         },
         draw: function() {
-            if (this.data === null) {
+            if (this.data === null || this.data.length < 1) {
+                $('#dygraph_' + this.id + '_loading').hide();
                 return;
             }
 
@@ -301,14 +302,23 @@ export default {
             }
 
             var that = this;
-            this.graph = new Dygraph(
-                document.getElementById('dygraph_' + this.id),
-                this.data,
-                this.options
-            );
-            this.graph.ready(function() {
+
+            try {
+                this.graph = new Dygraph(
+                    document.getElementById('dygraph_' + this.id),
+                    this.data,
+                    this.options
+                );
+
+                this.graph.ready(function() {
+                    $('#dygraph_' + that.id + '_loading').hide();
+                });
+            }
+            catch (ex) {
                 $('#dygraph_' + that.id + '_loading').hide();
-            });
+                console.log(ex);
+            }
+
         }
     },
 

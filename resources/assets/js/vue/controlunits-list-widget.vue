@@ -242,14 +242,12 @@ export default {
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/controlunits?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
+                url: '/api/v1/controlunits?with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=generic_components' +
+                     '&page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     that.meta = data.meta;
                     that.controlunits = data.data;
-                    that.$nextTick(function() {
-                        $('table.collapsible').collapsibletable();
-                    });
                     window.eventHubVue.processEnded();
                 },
                 error: function (error) {

@@ -45,7 +45,7 @@ class ActionSequenceScheduleController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action_sequence_schedules = ActionSequenceSchedule::with('sequence');
+        $action_sequence_schedules = ActionSequenceSchedule::query();
         $action_sequence_schedules = $this->filter($request, $action_sequence_schedules);
 
         return $this->respondTransformedAndPaginated(
@@ -68,8 +68,7 @@ class ActionSequenceScheduleController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action = ActionSequenceSchedule::with('sequence')
-                                        ->find($id);
+        $action = ActionSequenceSchedule::find($id);
 
         if (!$action) {
             return $this->respondNotFound('ActionSequenceSchedule not found');

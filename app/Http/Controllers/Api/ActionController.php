@@ -37,10 +37,8 @@ class ActionController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $actions = Action::with('schedules')
-                        ->with('terrarium');
-
-        $actions = $this->filter($request, $action);
+        $actions = Action::query();
+        $actions = $this->filter($request, $actions);
 
         return $this->respondTransformedAndPaginated(
             $request,
@@ -66,10 +64,6 @@ class ActionController extends ApiController
         if (!$action) {
             return $this->respondNotFound('Action not found');
         }
-
-        $action->action_object = $action->action_object();
-        $action->wait_for_started_action_object = $action->wait_for_started_action_object();
-        $action->wait_for_finished_action_object = $action->wait_for_finished_action_object();
 
         return $this->setStatusCode(200)->respondWithData(
             $this->actionTransformer->transform(

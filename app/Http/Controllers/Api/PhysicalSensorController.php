@@ -42,7 +42,7 @@ class PhysicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $physical_sensors = PhysicalSensor::with('controlunit', 'logical_sensors', 'terrarium');
+        $physical_sensors = PhysicalSensor::query();
         $physical_sensors = $this->filter($request, $physical_sensors);
 
         return $this->respondTransformedAndPaginated(
@@ -63,7 +63,7 @@ class PhysicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $physical_sensor = PhysicalSensor::with('controlunit', 'logical_sensors', 'terrarium')->find($id);
+        $physical_sensor = PhysicalSensor::find($id);
 
         if (!$physical_sensor) {
             return $this->respondNotFound('PhysicalSensor not found');

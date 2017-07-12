@@ -38,8 +38,8 @@ class AnimalTransformer extends Transformer
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
 
-        if (isset($item['terrarium_object'])) {
-            $return['terrarium'] = $item['terrarium_object'];
+        if (isset($item['terrarium'])) {
+            $return['terrarium'] = $item['terrarium'];
         }
 
         if (isset($item['age'])) {

@@ -43,7 +43,7 @@ class LogicalSensorThresholdController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $logical_sensor_thresholds = LogicalSensorThreshold::with('logical_sensor');
+        $logical_sensor_thresholds = LogicalSensorThreshold::query();
         $logical_sensor_thresholds = $this->filter($request, $logical_sensor_thresholds);
 
         return $this->respondTransformedAndPaginated(
@@ -64,7 +64,7 @@ class LogicalSensorThresholdController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $logical_sensor_threshold = LogicalSensorThreshold::with('logical_sensor')->find($id);
+        $logical_sensor_threshold = LogicalSensorThreshold::find($id);
 
         if (!$logical_sensor_threshold) {
             return $this->respondNotFound('LogicalSensorThreshold not found');

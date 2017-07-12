@@ -46,7 +46,7 @@ class UserController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $users = User::with('settings');
+        $users = User::query();
         $users = $this->filter($request, $users);
 
         return $this->respondTransformedAndPaginated(

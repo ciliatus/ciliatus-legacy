@@ -49,7 +49,6 @@ class CriticalStateController extends ApiController
         }
 
         $critical_states = CriticalState::query();
-
         $critical_states = $this->filter($request, $critical_states);
 
         return $this->respondTransformedAndPaginated(

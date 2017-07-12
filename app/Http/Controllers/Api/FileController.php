@@ -66,7 +66,7 @@ class FileController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $file = File::with('properties')->find($id);
+        $file = File::find($id);
 
         if (!$file) {
             return $this->respondNotFound('File not found');

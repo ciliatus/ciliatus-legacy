@@ -45,9 +45,7 @@ class LogicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $logical_sensors = LogicalSensor::with('thresholds')
-                                        ->with('physical_sensor');
-
+        $logical_sensors = LogicalSensor::query();
         $logical_sensors = $this->filter($request, $logical_sensors);
 
         return $this->respondTransformedAndPaginated(

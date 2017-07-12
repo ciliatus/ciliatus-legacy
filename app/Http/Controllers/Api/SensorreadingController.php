@@ -42,7 +42,7 @@ class SensorreadingController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $sensorreadings = Sensorreading::with('logical_sensor');
+        $sensorreadings = Sensorreading::query();
         $sensorreadings = $this->filter($request, $sensorreadings);
 
         return $this->respondTransformedAndPaginated(

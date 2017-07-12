@@ -62,7 +62,7 @@ class PropertyController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $property = Property::with('properties')->find($id);
+        $property = Property::find($id);
 
         if (!$property) {
             return $this->respondNotFound('Property not found');

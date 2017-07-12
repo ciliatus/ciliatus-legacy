@@ -32,17 +32,16 @@ class AnimalRepository extends Repository
     {
         $animal = $this->scope;
 
-        if (!is_null($animal->terrarium_id))
-            $animal->terrarium_object = $animal->terrarium;
-
         $age = $animal->getAge();
         $animal->age_value = $age[0];
         $animal->age_unit = $age[1];
         $animal->gender_icon = $animal->gender_icon();
+
         $last_feeding = $animal->last_feeding();
         if (!is_null($last_feeding)) {
             $animal->last_feeding = $last_feeding;
         }
+
         $last_weighing = $animal->last_weighing();
         if (!is_null($last_weighing)) {
             $animal->last_weighing = $last_weighing;

@@ -117,7 +117,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/files/' + that.fileId + that.sourceFilter,
+                url: '/api/v1/files/?with[]=properties&' + that.fileId + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.fileId !== '') {

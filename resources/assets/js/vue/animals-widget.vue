@@ -370,10 +370,11 @@ export default {
             var source_url = '';
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             if (this.animalId !== null) {
-                source_url = '/api/v1/animals/' + this.animalId
+                source_url = '/api/v1/animals/' + this.animalId + '/?with[]=terrarium'
             }
             else {
-                source_url = '/api/v1/animals/?pagination[per_page]=6&page=' + this.page + this.filter_string + this.order_string;
+                source_url = '/api/v1/animals/?with[]=terrarium&pagination[per_page]=6&page=' +
+                             this.page + this.filter_string + this.order_string;
             }
 
             window.eventHubVue.processStarted();

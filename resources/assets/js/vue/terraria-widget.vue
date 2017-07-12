@@ -445,10 +445,13 @@ export default {
             var source_url = '';
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             if (this.terrariumId !== null) {
-                source_url = '/api/v1/terraria/' + this.terrariumId
+                source_url = '/api/v1/terraria/' + this.terrariumId + '?with[]=action_sequences&with[]=animals&' +
+                             'with[]=files&with[]=physical_sensors&with[]=valves';
             }
             else {
-                source_url = '/api/v1/terraria/?pagination[per_page]=6&page=' + this.page + this.filter_string + this.order_string;
+                source_url = '/api/v1/terraria/?with[]=action_sequences&with[]=animals&with[]=files&' +
+                             'with[]=physical_sensors&with[]=valves&pagination[per_page]=6&page=' +
+                             this.page + this.filter_string + this.order_string;
             }
 
             window.eventHubVue.processStarted();

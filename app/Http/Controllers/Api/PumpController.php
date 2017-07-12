@@ -42,8 +42,7 @@ class PumpController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $pumps = Pump::with('valves')
-                     ->with('controlunit');
+        $pumps = Pump::query();
 
         $pumps = $this->filter($request, $pumps);
 
@@ -65,9 +64,7 @@ class PumpController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $pump = Pump::with('valves')
-                    ->with('controlunit')
-                    ->find($id);
+        $pump = Pump::find($id);
 
         if (!$pump) {
             return $this->respondNotFound('Pump not found');
