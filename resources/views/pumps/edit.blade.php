@@ -42,7 +42,7 @@
                                                 <option value="{{ $cu->id }}" @if($pump->controlunit_id == $cu->id)selected="selected"@endif>{{ $cu->name }}</option>
                                             @endforeach
                                         </select>
-                                        <label for="valves">@choice('components.controlunits', 1)</label>
+                                        <label for="controlunit">@choice('components.controlunits', 1)</label>
                                     </div>
                                 </div>
                             </p>
@@ -69,7 +69,7 @@
                                     physical-sensor-id="{{ $pump->id }}"
                                     bus-type="{{ $pump->property('ControlunitConnectivity', 'bus_type', true) }}"
                                     gpio-pin="{{ $pump->property('ControlunitConnectivity', 'gpio_pin', true) }}"
-                                    :gpio-default-high="{{ ($valve->property('ControlunitConnectivity', 'gpio_default_high', true) ? 'true' : 'false') }}"
+                                    :gpio-default-high="{{ ($pump->property('ControlunitConnectivity', 'gpio_default_high', true) ? 'true' : 'false') }}"
                                     i2c-address="{{ $pump->property('ControlunitConnectivity', 'i2c_address', true) }}"
                                     i2c-multiplexer-address="{{ $pump->property('ControlunitConnectivity', 'i2c_multiplexer_address', true) }}"
                                     i2c-multiplexer-port="{{ $pump->property('ControlunitConnectivity', 'i2c_multiplexer_port', true) }}">
