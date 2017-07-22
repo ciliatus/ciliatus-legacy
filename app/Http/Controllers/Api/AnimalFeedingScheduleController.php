@@ -44,18 +44,18 @@ class AnimalFeedingScheduleController extends ApiController
 
     /**
      * @param Request $request
-     * @param null $id
+     * @param null $animal_id
      * @return \Illuminate\Http\JsonResponse
      * @internal param $animal_id
      */
-    public function index(Request $request, $id = null)
+    public function index(Request $request, $animal_id = null)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        if (is_null($id)) {
-            $animal = Animal::find($id);
+        if (!is_null($animal_id)) {
+            $animal = Animal::find($animal_id);
             if (is_null($animal)) {
                 return $this->respondNotFound("Animal not found");
             }
