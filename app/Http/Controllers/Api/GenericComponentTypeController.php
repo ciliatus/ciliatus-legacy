@@ -3,29 +3,16 @@
 namespace App\Http\Controllers\Api;
 
 use App\GenericComponentType;
-use App\Http\Transformers\GenericComponentTypeTransformer;
 use App\Property;
 use Gate;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 class GenericComponentTypeController extends ApiController
 {
-    /**
-     * @var GenericComponentTypeTransformer
-     */
-    protected $genericComponentTypeTransformer;
 
-
-    /**
-     * GenericComponentTypeController constructor.
-     * @param GenericComponentTypeTransformer $_genericComponentTypeTransformer
-     */
-    public function __construct(GenericComponentTypeTransformer $_genericComponentTypeTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->genericComponentTypeTransformer = $_genericComponentTypeTransformer;
     }
 
     /**

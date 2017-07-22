@@ -8,48 +8,45 @@ use App\Events\AnimalFeedingDeleted;
 use App\Events\AnimalFeedingScheduleDeleted;
 use App\Events\AnimalFeedingUpdated;
 use App\Events\AnimalUpdated;
-use App\Http\Transformers\AnimalFeedingTransformer;
 use App\Property;
-use App\Repositories\AnimalFeedingRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Gate;
-use App\Http\Requests;
-use Illuminate\Support\Facades\DB;
 
 /**
- * Class AnimalFeedingController
+ * Class AnimalFeedingEventController
  * @package App\Http\Controllers\Api
  */
-class AnimalFeedingController extends ApiController
+class AnimalFeedingEventController extends ApiController
 {
 
-    /**
-     * @var AnimalFeedingTransformer
-     */
-    protected $animalFeedingTransformer;
-
-
-    /**
-     * AnimalFeedingController constructor.
-     * @param AnimalFeedingTransformer $_animalFeedingTransformer
-     */
-    public function __construct(AnimalFeedingTransformer $_animalFeedingTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->animalFeedingTransformer = $_animalFeedingTransformer;
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request)
+    public function index(Request $request, $animal_id)
     {
-        return parent::default_index($request);
+        if (Gate::denies('api-list')) {
+            return $this->respondUnauthorized();
+        }
+        $animal = Animal::find($animal_id);
+        if (is_null($animal)) {
+            return $this->respondNotFound("Animal not found");
+        }
+        $feedings = $this->filter($request, $animal->feedings()->orderBy('created_at', 'DESC')->getQuery());
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $feedings
+        );
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */

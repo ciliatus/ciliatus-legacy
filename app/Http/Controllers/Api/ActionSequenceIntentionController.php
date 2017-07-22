@@ -2,19 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Action;
 use App\ActionSequence;
 use App\ActionSequenceIntention;
-use App\Http\Transformers\ActionSequenceIntentionTransformer;
-use App\LogicalSensor;
-use App\Repositories\ActionSequenceIntentionRepository;
-use App\Terrarium;
 use Carbon\Carbon;
-use DB;
 use Gate;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 /**
  * Clasi ActionSequenceIntentionController
@@ -22,19 +14,10 @@ use App\Http\Requests;
  */
 class ActionSequenceIntentionController extends ApiController
 {
-    /**
-     * @var ActionSequenceIntentionTransformer
-     */
-    protected $actionSequenceIntentionTransformer;
 
-    /**
-     * ActionSequenceIntentionController constructor.
-     * @param ActionSequenceIntentionTransformer $_actionSequenceIntentionTransformer
-     */
-    public function __construct(ActionSequenceIntentionTransformer $_actionSequenceIntentionTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->actionSequenceIntentionTransformer = $_actionSequenceIntentionTransformer;
     }
 
     /**

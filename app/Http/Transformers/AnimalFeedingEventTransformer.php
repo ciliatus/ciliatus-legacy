@@ -5,10 +5,10 @@ namespace App\Http\Transformers;
 use Carbon\Carbon;
 
 /**
- * Class AnimalFeedingTransformer
+ * Class AnimalFeedingEventTransformer
  * @package App\Http\Transformers
  */
-class AnimalFeedingTransformer extends Transformer
+class AnimalFeedingEventTransformer extends Transformer
 {
 
 

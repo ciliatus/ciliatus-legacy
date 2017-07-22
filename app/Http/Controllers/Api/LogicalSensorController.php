@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Controlunit;
-use App\Http\Transformers\LogicalSensorTransformer;
 use App\LogicalSensor;
 use App\LogicalSensorThreshold;
 use App\PhysicalSensor;
-use App\Repositories\GenericRepository;
-use App\Repositories\LogicalSensorRepository;
-use Cache;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -20,20 +15,10 @@ use Illuminate\Http\Request;
  */
 class LogicalSensorController extends ApiController
 {
-    /**
-     * @var LogicalSensorTransformer
-     */
-    protected $logicalSensorTransformer;
 
-
-    /**
-     * LogicalSensorController constructor.
-     * @param LogicalSensorTransformer $_logicalSensorTransformer
-     */
-    public function __construct(LogicalSensorTransformer $_logicalSensorTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->logicalSensorTransformer = $_logicalSensorTransformer;
     }
 
     /**

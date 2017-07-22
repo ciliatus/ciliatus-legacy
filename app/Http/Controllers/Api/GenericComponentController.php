@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Controlunit;
 use App\GenericComponent;
 use App\GenericComponentType;
-use App\Http\Transformers\GenericComponentTransformer;
 use App\Property;
 use Gate;
 use Illuminate\Http\Request;
@@ -14,20 +13,10 @@ use App\Http\Requests;
 
 class GenericComponentController extends ApiController
 {
-    /**
-    * @var GenericComponentTransformer
-    */
-    protected $genericComponentTransformer;
 
-
-    /**
-     * GenericComponentController constructor.
-     * @param GenericComponentTransformer $_genericComponentTransformer
-     */
-    public function __construct(GenericComponentTransformer $_genericComponentTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->genericComponentTransformer = $_genericComponentTransformer;
     }
 
     /**

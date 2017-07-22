@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
-use App\Repositories\AnimalFeedingScheduleRepository;
 use App\Traits\SendsApiAiRequests;
 use Auth;
-use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 /**

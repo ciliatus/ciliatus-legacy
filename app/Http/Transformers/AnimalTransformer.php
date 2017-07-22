@@ -83,7 +83,7 @@ class AnimalTransformer extends Transformer
         }
 
         if (isset($item['feedings'])) {
-            $return['feedings'] = (new AnimalFeedingTransformer())->transformCollection($item['feedings']);
+            $return['feedings'] = (new AnimalFeedingEventTransformer())->transformCollection($item['feedings']);
         }
 
         if (isset($item['feeding_schedules'])) {
@@ -91,7 +91,7 @@ class AnimalTransformer extends Transformer
         }
 
         if (isset($item['weighings'])) {
-            $return['weighings'] = (new AnimalWeighingTransformer())->transformCollection($item['weighings']);
+            $return['weighings'] = (new AnimalWeighingEventTransformer())->transformCollection($item['weighings']);
         }
 
         if (isset($item['weighing_schedules'])) {

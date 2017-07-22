@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Controlunit;
 use App\Http\Transformers\UserSettingTransformer;
-use App\Pump;
-use App\Http\Transformers\UserTransformer;
 use App\User;
-use App\Terrarium;
 use App\UserAbility;
 use App\UserSetting;
 use Auth;
@@ -22,19 +18,10 @@ use Laravel\Passport\Token;
  */
 class UserController extends ApiController
 {
-    /**
-     * @var UserTransformer
-     */
-    protected $userTransformer;
 
-    /**
-     * UserController constructor.
-     * @param UserTransformer $_userTransformer
-     */
-    public function __construct(UserTransformer $_userTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->userTransformer = $_userTransformer;
     }
 
 

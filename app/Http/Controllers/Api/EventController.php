@@ -4,10 +4,14 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
 
 class EventController extends ApiController
 {
+
+    public function __construct()
+    {
+        parent::__construct();
+    }
 
 
     /**

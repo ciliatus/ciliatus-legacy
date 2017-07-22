@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Controlunit;
 use App\Pump;
-use App\Http\Transformers\ValveTransformer;
 use App\Valve;
 use App\Terrarium;
-use Cache;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,19 +17,10 @@ use Illuminate\Support\Facades\Auth;
  */
 class ValveController extends ApiController
 {
-    /**
-     * @var ValveTransformer
-     */
-    protected $valveTransformer;
 
-    /**
-     * ValveController constructor.
-     * @param ValveTransformer $_valveTransformer
-     */
-    public function __construct(ValveTransformer $_valveTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->valveTransformer = $_valveTransformer;
     }
 
     /**

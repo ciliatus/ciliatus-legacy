@@ -8,38 +8,22 @@ use App\Events\AnimalUpdated;
 use App\Events\AnimalWeighingScheduleDeleted;
 use App\Events\AnimalWeighingScheduleUpdated;
 use App\Events\AnimalWeighingUpdated;
-use App\Http\Transformers\AnimalWeighingSchedulePropertyTransformer;
 use App\Property;
-use App\Repositories\AnimalWeighingRepository;
-use App\Repositories\AnimalWeighingScheduleRepository;
 use Carbon\Carbon;
 use Event;
 use Illuminate\Http\Request;
 use Gate;
-use App\Http\Requests;
 
 /**
  * Class AnimalWeighingController
  * @package App\Http\Controllers\Api
  */
-class AnimalWeighingScheduleController extends ApiController
+class AnimalWeighingSchedulePropertyController extends ApiController
 {
 
-
-    /**
-     * @var AnimalWeighingSchedulePropertyTransformer
-     */
-    protected $animalWeighingScheduleTransformer;
-
-
-    /**
-     * AnimalWeighingScheduleController constructor.
-     * @param AnimalWeighingSchedulePropertyTransformer $_animalWeighingScheduleTransformer
-     */
-    public function __construct(AnimalWeighingSchedulePropertyTransformer $_animalWeighingScheduleTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->animalWeighingScheduleTransformer = $_animalWeighingScheduleTransformer;
     }
 
 

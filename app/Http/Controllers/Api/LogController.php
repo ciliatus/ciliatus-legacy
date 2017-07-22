@@ -2,14 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Transformers\GenericTransformer;
 use App\Log;
-use App\Property;
-use App\Http\Transformers\LogTransformer;
-use App\Repositories\GenericRepository;
-use Auth;
-use Carbon\Carbon;
-use ErrorException;
 use Gate;
 use \Illuminate\Http\Request;
 
@@ -20,19 +13,10 @@ use \Illuminate\Http\Request;
  */
 class LogController extends ApiController
 {
-    /**
-     * @var LogTransformer
-     */
-    protected $logTransformer;
 
-    /**
-     * LogController constructor.
-     * @param LogTransformer $_logTransformer
-     */
-    public function __construct(LogTransformer $_logTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->logTransformer = $_logTransformer;
     }
 
     /**

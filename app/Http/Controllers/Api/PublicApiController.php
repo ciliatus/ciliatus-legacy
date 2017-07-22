@@ -23,13 +23,6 @@ class PublicApiController extends \App\Http\Controllers\Controller
     protected $errorCode;
 
     /**
-     * ApiController constructor.
-     */
-    public function __construct()
-    {
-    }
-
-    /**
      * @return mixed
      */
     public function getStatusCode()

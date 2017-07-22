@@ -2,18 +2,13 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Animal;
 use App\BiographyEntryEvent;
 use App\Event;
 use App\Events\BiographyEntryDeleted;
 use App\Events\BiographyEntryUpdated;
-use App\Http\Transformers\BiographyEntryEventTransformer;
 use App\Property;
-use App\Repositories\BiographyEntryEventRepository;
 use Illuminate\Http\Request;
 use Gate;
-use App\Http\Requests;
-use Illuminate\Support\Facades\DB;
 
 /**
  * Class BiographyEntryController
@@ -22,20 +17,9 @@ use Illuminate\Support\Facades\DB;
 class BiographyEntryEventController extends ApiController
 {
 
-    /**
-     * @var BiographyEntryEventTransformer
-     */
-    protected $biographyEntryTransformer;
-
-
-    /**
-     * BiographyEntryController constructor.
-     * @param BiographyEntryEventTransformer $_biographyEntryTransformer
-     */
-    public function __construct(BiographyEntryEventTransformer $_biographyEntryTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->biographyEntryTransformer = $_biographyEntryTransformer;
     }
 
 

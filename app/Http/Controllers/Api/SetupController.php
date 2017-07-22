@@ -6,8 +6,6 @@ use App\Property;
 use App\User;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 /**
  * Class SetupController
  * @package App\Http\Controllers\Api

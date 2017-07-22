@@ -5,8 +5,10 @@ namespace App;
 use App\Events\AnimalDeleted;
 use App\Events\AnimalUpdated;
 use App\Http\Transformers\AnimalFeedingSchedulePropertyTransformer;
+use App\Repositories\AnimalFeedingSchedulePropertyRepository;
 use App\Repositories\AnimalFeedingScheduleRepository;
 use App\Repositories\AnimalRepository;
+use App\Repositories\AnimalWeighingSchedulePropertyRepository;
 use App\Repositories\AnimalWeighingScheduleRepository;
 use Auth;
 use Carbon\Carbon;
@@ -151,7 +153,7 @@ class Animal extends CiliatusModel
      */
     public function feeding_schedules()
     {
-        return $this->properties()->where('type', 'AnimalFeedingSchedule');
+        return $this->hasMany('App\AnimalFeedingScheduleProperty', 'belongsTo_id');
     }
 
     /**
@@ -165,7 +167,7 @@ class Animal extends CiliatusModel
         ];
 
         foreach ($this->feeding_schedules as $afs) {
-            $afs = (new AnimalFeedingScheduleRepository($afs))->show();
+            $afs = (new AnimalFeedingSchedulePropertyRepository($afs))->show();
             if ($afs->next_feeding_at_diff == 0) {
                 $feeding_schedules['due'][] = $afs;
             }
@@ -190,7 +192,7 @@ class Animal extends CiliatusModel
      */
     public function weighing_schedules()
     {
-        return $this->properties()->where('type', 'AnimalWeighingSchedule');
+        return $this->hasMany('App\AnimalWeighingScheduleProperty', 'belongsTo_id');
     }
 
     /**
@@ -204,7 +206,7 @@ class Animal extends CiliatusModel
         ];
 
         foreach ($this->weighing_schedules as $afs) {
-            $afs = (new AnimalWeighingScheduleRepository($afs))->show();
+            $afs = (new AnimalWeighingSchedulePropertyRepository($afs))->show();
             if ($afs->next_weighing_at_diff == 0) {
                 $weighing_schedules['due'][] = $afs;
             }

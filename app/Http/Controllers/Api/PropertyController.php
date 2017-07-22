@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\ReadFlagSet;
 use App\Property;
-use App\Http\Transformers\PropertyTransformer;
-use Cache;
 use Gate;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -17,19 +15,10 @@ use Illuminate\Http\Request;
  */
 class PropertyController extends ApiController
 {
-    /**
-     * @var PropertyTransformer
-     */
-    protected $propertyTransformer;
 
-    /**
-     * PropertyController constructor.
-     * @param PropertyTransformer $_propertyTransformer
-     */
-    public function __construct(PropertyTransformer $_propertyTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->propertyTransformer = $_propertyTransformer;
     }
 
     /**

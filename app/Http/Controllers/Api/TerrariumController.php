@@ -14,12 +14,8 @@ use App\Repositories\TerrariumRepository;
 use App\Sensorreading;
 use App\Terrarium;
 use App\Valve;
-use Cache;
 use Carbon\Carbon;
-use DB;
 use Gate;
-use Illuminate\Database\Eloquent\Collection;
-use Log;
 use Illuminate\Http\Request;
 
 
@@ -29,19 +25,10 @@ use Illuminate\Http\Request;
  */
 class TerrariumController extends ApiController
 {
-    /**
-     * @var TerrariumTransformer
-     */
-    protected $terrariumTransformer;
 
-    /**
-     * TerrariumController constructor.
-     * @param TerrariumTransformer $_terrariumTransformer
-     */
-    public function __construct(TerrariumTransformer $_terrariumTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->terrariumTransformer = $_terrariumTransformer;
     }
 
     /**
@@ -99,7 +86,7 @@ class TerrariumController extends ApiController
 
         return $this->setStatusCode(200)
                     ->respondWithData(
-                        $this->terrariumTransformer
+                        (new TerrariumTransformer())
                              ->transform((new TerrariumRepository($t))
                                          ->show($history_to, $history_minutes)
                                          ->toArray())

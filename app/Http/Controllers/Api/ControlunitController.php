@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Controlunit;
-use App\Http\Transformers\ControlunitTransformer;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -13,19 +12,10 @@ use Illuminate\Http\Request;
  */
 class ControlunitController extends ApiController
 {
-    /**
-     * @var ControlunitTransformer
-     */
-    protected $controlunitTransformer;
 
-    /**
-     * ControlunitController constructor.
-     * @param ControlunitTransformer $_controlunitTransformer
-     */
-    public function __construct(ControlunitTransformer $_controlunitTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->controlunitTransformer = $_controlunitTransformer;
     }
 
     /**

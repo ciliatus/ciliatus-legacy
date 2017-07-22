@@ -42,7 +42,7 @@ class TransformerFactory extends Factory
             return new $transformer_name($object);
         }
 
-        \Log::debug('Returning generic for class ' . $class_name);
+        \Log::debug('Returning generic transformer for class ' . $class_name);
         return new GenericTransformer($object);
     }
 

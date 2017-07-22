@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Action;
 use App\ActionSequence;
 use App\ActionSequenceSchedule;
-use App\Http\Transformers\ActionSequenceScheduleTransformer;
-use App\Repositories\ActionSequenceScheduleRepository;
 use App\Terrarium;
 use Carbon\Carbon;
-use DB;
 use Gate;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 /**
  * Class ActionSequenceScheduleController
@@ -21,19 +15,10 @@ use App\Http\Requests;
  */
 class ActionSequenceScheduleController extends ApiController
 {
-    /**
-     * @var ActionSequenceScheduleTransformer
-     */
-    protected $actionSequenceScheduleTransformer;
 
-    /**
-     * ActionSequenceScheduleController constructor.
-     * @param ActionSequenceScheduleTransformer $_actionSequenceScheduleTransformer
-     */
-    public function __construct(ActionSequenceScheduleTransformer $_actionSequenceScheduleTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->actionSequenceScheduleTransformer = $_actionSequenceScheduleTransformer;
     }
 
     /**

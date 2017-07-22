@@ -2,13 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\AnimalFeedingEvent;
-use App\Event;
 use App\Http\Transformers\AnimalCaresheetTransformer;
-use App\Http\Transformers\AnimalTransformer;
 use App\Animal;
-use App\Property;
-use App\Repositories\AnimalRepository;
 use App\Terrarium;
 use Carbon\Carbon;
 use Gate;
@@ -21,19 +16,10 @@ use Illuminate\Http\Request;
  */
 class AnimalController extends ApiController
 {
-    /**
-     * @var AnimalTransformer
-     */
-    protected $animalTransformer;
 
-    /**
-     * AnimalController constructor.
-     * @param AnimalTransformer $_animalTransformer
-     */
-    public function __construct(AnimalTransformer $_animalTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->animalTransformer = $_animalTransformer;
     }
 
     /**

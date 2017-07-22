@@ -27,27 +27,27 @@ Route::get('animals/{animal_id}/caresheets', 'AnimalController@caresheets');
 Route::delete('animals/{animal_id}/caresheets/{id}', 'AnimalController@delete_caresheet');
 
 // Animal feeding types
-Route::get('animals/feedings/types', 'AnimalFeedingController@types');
-Route::post('animals/feedings/types', 'AnimalFeedingController@store_type');
-Route::delete('animals/feedings/types/{id}', 'AnimalFeedingController@delete_type');
+Route::get('animals/feedings/types', 'AnimalFeedingEventController@types');
+Route::post('animals/feedings/types', 'AnimalFeedingEventController@store_type');
+Route::delete('animals/feedings/types/{id}', 'AnimalFeedingEventController@delete_type');
 
 // Animal feedings
-Route::resource('animals/{animal_id}/feedings', 'AnimalFeedingController');
-Route::resource('animals/{animal_id}/feeding_schedules', 'AnimalFeedingScheduleController');
+Route::resource('animals/{animal_id}/feedings', 'AnimalFeedingEventController');
+Route::resource('animals/{animal_id}/feeding_schedules', 'AnimalFeedingSchedulePropertyController');
 
 // Animal feeding schedules
-Route::post('animals/{animal_id}/feeding_schedules/{id}/done', 'AnimalFeedingScheduleController@done');
-Route::post('animals/{animal_id}/feeding_schedules/{id}/skip', 'AnimalFeedingScheduleController@skip');
+Route::post('animals/{animal_id}/feeding_schedules/{id}/done', 'AnimalFeedingSchedulePropertyController@done');
+Route::post('animals/{animal_id}/feeding_schedules/{id}/skip', 'AnimalFeedingSchedulePropertyController@skip');
 
 // Animal weighings
-Route::resource('animals/{animal_id}/weighings', 'AnimalWeighingController');
-Route::resource('animals/{animal_id}/weighing_schedules', 'AnimalWeighingScheduleController');
+Route::resource('animals/{animal_id}/weighings', 'AnimalWeighingEventController');
+Route::resource('animals/{animal_id}/weighing_schedules', 'AnimalWeighingSchedulePropertyController');
 
 // Animal weighing schedules
-Route::post('animals/{animal_id}/weighing_schedules/{id}/done', 'AnimalWeighingScheduleController@done');
-Route::post('animals/{animal_id}/weighing_schedules/{id}/skip', 'AnimalWeighingScheduleController@skip');
-Route::get('animal_feeding_schedules', 'AnimalFeedingScheduleController@index');
-Route::get('animal_weighing_schedules', 'AnimalWeighingScheduleController@index');
+Route::post('animals/{animal_id}/weighing_schedules/{id}/done', 'AnimalWeighingSchedulePropertyController@done');
+Route::post('animals/{animal_id}/weighing_schedules/{id}/skip', 'AnimalWeighingSchedulePropertyController@skip');
+Route::get('animal_feeding_schedules', 'AnimalFeedingSchedulePropertyController@index');
+Route::get('animal_weighing_schedules', 'AnimalWeighingSchedulePropertyController@index');
 
 /*
  * Terraria

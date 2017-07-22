@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Web;
 
 use App\Animal;
 use App\Property;
+use Gate;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
 /**
- * Class AnimalFeedingScheduleController
+ * Class AnimalWeighingEventController
  * @package App\Http\Controllers
  */
-class AnimalFeedingScheduleController extends \App\Http\Controllers\Controller
+class AnimalWeighingEventController extends \App\Http\Controllers\Controller
 {
 
     /**
@@ -28,11 +29,9 @@ class AnimalFeedingScheduleController extends \App\Http\Controllers\Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($animal_id = null)
+    public function index($animal_id)
     {
-        return view('animals.feeding_schedules.index', [
-            'animal_id' => $animal_id
-        ]);
+        //
     }
 
 
@@ -44,15 +43,7 @@ class AnimalFeedingScheduleController extends \App\Http\Controllers\Controller
      */
     public function create($animal_id)
     {
-        $animal = Animal::find($animal_id);
-        if (is_null($animal)) {
-            return view('error.404');
-        }
 
-        return view('animals.feeding_schedules.create', [
-            'animal' => $animal,
-            'feeding_types' => Property::where('type', 'AnimalFeedingType')->orderBy('name')->get()
-        ]);
     }
 
     /**
@@ -85,21 +76,7 @@ class AnimalFeedingScheduleController extends \App\Http\Controllers\Controller
      */
     public function edit($animal_id, $id)
     {
-        $animal = Animal::find($animal_id);
-        if (is_null($animal)) {
-            return view('error.404');
-        }
 
-        $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
-        if (is_null($afs)) {
-            return view('error.404');
-        }
-
-        return view('animals.feeding_schedules.edit', [
-            'animal' => $animal,
-            'afs' => $afs,
-            'feeding_types' => Property::where('type', 'AnimalFeedingType')->orderBy('name')->get()
-        ]);
     }
 
     /**
@@ -114,22 +91,26 @@ class AnimalFeedingScheduleController extends \App\Http\Controllers\Controller
         //
     }
 
+    /**
+     * @param $animal_id
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function delete($animal_id, $id)
     {
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return view('error.404');
+            return view('errors.404');
         }
 
-        $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
-        if (is_null($afs)) {
-            return view('error.404');
+        $animal_weighing = $animal->weighings()->where('id', $id)->get()->first();
+        if (is_null($animal_weighing)) {
+            return view('errors.404');
         }
 
-        return view('animals.feeding_schedules.delete', [
+        return view('animals.weighings.delete', [
             'animal' => $animal,
-            'afs' => $afs,
-            'feeding_types' => Property::where('type', 'AnimalFeedingType')->orderBy('name')->get()
+            'animal_weighing' => $animal_weighing
         ]);
     }
 
@@ -142,5 +123,33 @@ class AnimalFeedingScheduleController extends \App\Http\Controllers\Controller
     public function destroy($animal_id, $id)
     {
         //
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit_types()
+    {
+        if (Gate::denies('admin')) {
+            return view('errors.401');
+        }
+
+        $types = Property::where('type', 'AnimalWeighingType')->get();
+
+        return view('animals.weighings.edit_types', [
+            'types' => $types
+        ]);
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create_type()
+    {
+        if (Gate::denies('admin')) {
+            return view('errors.401');
+        }
+
+        return view('animals.weighings.create_type');
     }
 }

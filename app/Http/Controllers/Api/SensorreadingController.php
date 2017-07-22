@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\LogicalSensor;
 use App\Sensorreading;
-use App\Http\Transformers\SensorreadingTransformer;
 use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
@@ -18,19 +17,10 @@ use Illuminate\Http\Request;
  */
 class SensorreadingController extends ApiController
 {
-    /**
-     * @var
-     */
-    protected $sensorreadingTransformer;
 
-    /**
-     * SensorreadingController constructor.
-     * @param SensorreadingTransformer $_sensorreadingTransformer
-     */
-    public function __construct(SensorreadingTransformer $_sensorreadingTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->sensorreadingTransformer = $_sensorreadingTransformer;
     }
 
     /**

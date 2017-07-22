@@ -8,40 +8,23 @@ use App\Events\AnimalFeedingScheduleDeleted;
 use App\Events\AnimalFeedingScheduleUpdated;
 use App\Events\AnimalFeedingUpdated;
 use App\Events\AnimalUpdated;
-use App\Http\Transformers\AnimalFeedingSchedulePropertyTransformer;
 use App\Property;
-use App\Repositories\AnimalFeedingRepository;
-use App\Repositories\AnimalFeedingScheduleRepository;
 use Carbon\Carbon;
 use App\Event;
 use Illuminate\Http\Request;
 use Gate;
-use App\Http\Requests;
 
 /**
- * Class AnimalFeedingController
+ * Class AnimalFeedingSchedulePropertyController
  * @package App\Http\Controllers\Api
  */
-class AnimalFeedingScheduleController extends ApiController
+class AnimalFeedingSchedulePropertyController extends ApiController
 {
 
-
-    /**
-     * @var AnimalFeedingSchedulePropertyTransformer
-     */
-    protected $animalFeedingScheduleTransformer;
-
-
-    /**
-     * AnimalFeedingScheduleController constructor.
-     * @param AnimalFeedingSchedulePropertyTransformer $_animalFeedingScheduleTransformer
-     */
-    public function __construct(AnimalFeedingSchedulePropertyTransformer $_animalFeedingScheduleTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->animalFeedingScheduleTransformer = $_animalFeedingScheduleTransformer;
     }
-
 
     /**
      * @param Request $request

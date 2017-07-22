@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Controlunit;
-use App\Http\Transformers\LogicalSensorThresholdTransformer;
 use App\LogicalSensor;
 use App\LogicalSensorThreshold;
-use App\PhysicalSensor;
-use Cache;
 use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
@@ -19,19 +15,10 @@ use Illuminate\Http\Request;
  */
 class LogicalSensorThresholdController extends ApiController
 {
-    /**
-     * @var LogicalSensorThresholdTransformer
-     */
-    protected $logicalSensorThresholdTransformer;
 
-    /**
-     * LogicalSensorThresholdController constructor.
-     * @param LogicalSensorThresholdTransformer $_logicalSensorTransformer
-     */
-    public function __construct(LogicalSensorThresholdTransformer $_logicalSensorTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->logicalSensorThresholdTransformer = $_logicalSensorTransformer;
     }
 
     /**

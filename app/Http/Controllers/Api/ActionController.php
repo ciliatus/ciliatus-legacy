@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Action;
 use App\ActionSequence;
-use App\Http\Transformers\ActionTransformer;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -16,19 +15,10 @@ use App\Http\Requests;
  */
 class ActionController extends ApiController
 {
-    /**
-     * @var ActionTransformer
-     */
-    protected $actionTransformer;
 
-    /**
-     * ActionController constructor.
-     * @param ActionTransformer $_actionTransformer
-     */
-    public function __construct(ActionTransformer $_actionTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->actionTransformer = $_actionTransformer;
     }
 
     /**

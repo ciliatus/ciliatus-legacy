@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\File;
 use App\Property;
-use App\Http\Transformers\FileTransformer;
-use App\Repositories\FileRepository;
 use Auth;
-use Carbon\Carbon;
-use ErrorException;
 use Gate;
 use \Illuminate\Http\Request;
 
@@ -19,19 +15,10 @@ use \Illuminate\Http\Request;
  */
 class FileController extends ApiController
 {
-    /**
-     * @var FileTransformer
-     */
-    protected $fileTransformer;
 
-    /**
-     * FileController constructor.
-     * @param FileTransformer $_fileTransformer
-     */
-    public function __construct(FileTransformer $_fileTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->fileTransformer = $_fileTransformer;
     }
 
     /**

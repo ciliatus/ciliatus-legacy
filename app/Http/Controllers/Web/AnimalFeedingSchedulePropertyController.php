@@ -9,10 +9,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 /**
- * Class AnimalWeighingScheduleController
+ * Class AnimalFeedingSchedulePropertyController
  * @package App\Http\Controllers
  */
-class AnimalWeighingScheduleController extends \App\Http\Controllers\Controller
+class AnimalFeedingSchedulePropertyController extends \App\Http\Controllers\Controller
 {
 
     /**
@@ -28,9 +28,11 @@ class AnimalWeighingScheduleController extends \App\Http\Controllers\Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($animal_id)
+    public function index($animal_id = null)
     {
-        //
+        return view('animals.feeding_schedules.index', [
+            'animal_id' => $animal_id
+        ]);
     }
 
 
@@ -47,8 +49,9 @@ class AnimalWeighingScheduleController extends \App\Http\Controllers\Controller
             return view('error.404');
         }
 
-        return view('animals.weighing_schedules.create', [
-            'animal' => $animal
+        return view('animals.feeding_schedules.create', [
+            'animal' => $animal,
+            'feeding_types' => Property::where('type', 'AnimalFeedingType')->orderBy('name')->get()
         ]);
     }
 
@@ -87,14 +90,15 @@ class AnimalWeighingScheduleController extends \App\Http\Controllers\Controller
             return view('error.404');
         }
 
-        $aws = $animal->weighing_schedules()->where('id', $id)->get()->first();
-        if (is_null($aws)) {
+        $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
+        if (is_null($afs)) {
             return view('error.404');
         }
 
-        return view('animals.weighing_schedules.edit', [
+        return view('animals.feeding_schedules.edit', [
             'animal' => $animal,
-            'aws' => $aws
+            'afs' => $afs,
+            'feeding_types' => Property::where('type', 'AnimalFeedingType')->orderBy('name')->get()
         ]);
     }
 
@@ -117,14 +121,15 @@ class AnimalWeighingScheduleController extends \App\Http\Controllers\Controller
             return view('error.404');
         }
 
-        $aws = $animal->weighing_schedules()->where('id', $id)->get()->first();
-        if (is_null($aws)) {
+        $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
+        if (is_null($afs)) {
             return view('error.404');
         }
 
-        return view('animals.weighing_schedules.delete', [
+        return view('animals.feeding_schedules.delete', [
             'animal' => $animal,
-            'aws' => $aws
+            'afs' => $afs,
+            'feeding_types' => Property::where('type', 'AnimalFeedingType')->orderBy('name')->get()
         ]);
     }
 

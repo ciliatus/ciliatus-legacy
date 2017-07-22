@@ -5,10 +5,10 @@ namespace App\Repositories;
 use App\Event;
 
 /**
- * Class AnimalWeighingRepository
+ * Class AnimalWeighingEventRepository
  * @package App\Repositories
  */
-class AnimalWeighingRepository extends Repository {
+class AnimalWeighingEventRepository extends Repository {
 
     /**
      * AnimalWeighingRepository constructor.

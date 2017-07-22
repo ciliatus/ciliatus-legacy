@@ -2,22 +2,16 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Action;
 use App\ActionSequence;
 use App\ActionSequenceIntention;
 use App\ActionSequenceSchedule;
 use App\ActionSequenceTrigger;
 use App\Events\SystemStatusUpdated;
-use App\Http\Transformers\ActionSequenceTransformer;
 use App\Property;
-use App\Repositories\ActionSequenceRepository;
 use App\RunningAction;
 use App\Terrarium;
-use Auth;
 use Gate;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 /**
  * Class ActionSequenceController
@@ -25,19 +19,10 @@ use App\Http\Requests;
  */
 class ActionSequenceController extends ApiController
 {
-    /**
-     * @var ActionSequenceTransformer
-     */
-    protected $actionSequenceTransformer;
 
-    /**
-     * ActionSequenceController constructor.
-     * @param ActionSequenceTransformer $_actionSequenceTransformer
-     */
-    public function __construct(ActionSequenceTransformer $_actionSequenceTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->actionSequenceTransformer = $_actionSequenceTransformer;
     }
 
     /**

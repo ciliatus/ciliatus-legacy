@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Controlunit;
-use App\Http\Transformers\PhysicalSensorTransformer;
 use App\LogicalSensor;
 use App\PhysicalSensor;
-use Cache;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -17,20 +15,10 @@ use Illuminate\Http\Request;
  */
 class PhysicalSensorController extends ApiController
 {
-    /**
-     * @var PhysicalSensorTransformer
-     */
-    protected $physicalSensorTransformer;
 
-
-    /**
-     * PhysicalSensorController constructor.
-     * @param PhysicalSensorTransformer $_physicalSensorTransformer
-     */
-    public function __construct(PhysicalSensorTransformer $_physicalSensorTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->physicalSensorTransformer = $_physicalSensorTransformer;
     }
 
     /**

@@ -3,12 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Controlunit;
-use App\Http\Transformers\PumpTransformer;
 use App\Pump;
-use App\Terrarium;
-use App\Valve;
 use Gate;
-use Illuminate\Support\Facades\Cache;
 use Illuminate\Http\Request;
 
 
@@ -18,19 +14,10 @@ use Illuminate\Http\Request;
  */
 class PumpController extends ApiController
 {
-    /**
-     * @var PumpTransformer
-     */
-    protected $pumpTransformer;
 
-    /**
-     * PumpController constructor.
-     * @param PumpTransformer $_pumpTransformer
-     */
-    public function __construct(PumpTransformer $_pumpTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->pumpTransformer = $_pumpTransformer;
     }
 
     /**

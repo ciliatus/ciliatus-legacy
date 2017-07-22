@@ -7,10 +7,10 @@ use App\Property;
 use Carbon\Carbon;
 
 /**
- * Class AnimalWeighingScheduleRepository
+ * Class AnimalWeighingSchedulePropertyRepository
  * @package App\Repositories
  */
-class AnimalWeighingScheduleRepository extends Repository {
+class AnimalWeighingSchedulePropertyRepository extends Repository {
 
     protected $scope;
 

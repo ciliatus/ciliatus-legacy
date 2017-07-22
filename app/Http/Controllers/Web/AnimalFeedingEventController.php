@@ -10,10 +10,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 /**
- * Class AnimalFeedingController
+ * Class AnimalFeedingEventController
  * @package App\Http\Controllers
  */
-class AnimalFeedingController extends \App\Http\Controllers\Controller
+class AnimalFeedingEventController extends \App\Http\Controllers\Controller
 {
 
     /**

@@ -4,11 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\User;
 use App\UserSetting;
-use App\Http\Transformers\UserSettingTransformer;
 use Auth;
 use Gate;
 use Illuminate\Http\Request;
-use Log;
 
 /**
  * Class UserSettingController
@@ -16,19 +14,10 @@ use Log;
  */
 class UserSettingController extends ApiController
 {
-    /**
-     * @var UserSettingTransformer
-     */
-    protected $user_settingTransformer;
 
-    /**
-     * UserSettingController constructor.
-     * @param UserSettingTransformer $_user_settingTransformer
-     */
-    public function __construct(UserSettingTransformer $_user_settingTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->user_settingTransformer = $_user_settingTransformer;
     }
 
     /**

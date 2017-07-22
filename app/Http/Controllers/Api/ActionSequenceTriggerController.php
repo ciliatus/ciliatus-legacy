@@ -2,39 +2,23 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Action;
 use App\ActionSequence;
 use App\ActionSequenceTrigger;
-use App\Http\Transformers\ActionSequenceTriggerTransformer;
 use App\LogicalSensor;
-use App\Repositories\ActionSequenceTriggerRepository;
-use App\Terrarium;
 use Carbon\Carbon;
-use DB;
 use Gate;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 /**
- * Clast ActionSequenceTriggerController
+ * Class ActionSequenceTriggerController
  * @package App\Http\Controllers
  */
 class ActionSequenceTriggerController extends ApiController
 {
-    /**
-     * @var ActionSequenceTriggerTransformer
-     */
-    protected $actionSequenceTriggerTransformer;
 
-    /**
-     * ActionSequenceTriggerController constructor.
-     * @param ActionSequenceTriggerTransformer $_actionSequenceTriggerTransformer
-     */
-    public function __construct(ActionSequenceTriggerTransformer $_actionSequenceTriggerTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->actionSequenceTriggerTransformer = $_actionSequenceTriggerTransformer;
     }
 
     /**

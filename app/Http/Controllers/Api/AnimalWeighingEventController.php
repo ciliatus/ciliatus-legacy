@@ -5,40 +5,25 @@ namespace App\Http\Controllers\Api;
 use App\Animal;
 use App\AnimalWeighingEvent;
 use App\Event;
-use App\Events\AnimalFeedingDeleted;
 use App\Events\AnimalUpdated;
 use App\Events\AnimalWeighingDeleted;
 use App\Events\AnimalWeighingUpdated;
-use App\Http\Transformers\AnimalWeighingTransformer;
-use App\Property;
-use App\Repositories\AnimalWeighingRepository;
+use App\Http\Transformers\AnimalWeighingEventTransformer;
+use App\Repositories\AnimalWeighingEventRepository;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Gate;
-use App\Http\Requests;
-use Illuminate\Support\Facades\DB;
 
 /**
- * Class AnimalWeighingController
+ * Class AnimalWeighingEventController
  * @package App\Http\Controllers\Api
  */
-class AnimalWeighingController extends ApiController
+class AnimalWeighingEventController extends ApiController
 {
 
-    /**
-     * @var AnimalWeighingTransformer
-     */
-    protected $animalWeighingTransformer;
-
-
-    /**
-     * AnimalWeighingController constructor.
-     * @param AnimalWeighingTransformer $_animalWeighingTransformer
-     */
-    public function __construct(AnimalWeighingTransformer $_animalWeighingTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->animalWeighingTransformer = $_animalWeighingTransformer;
     }
 
 
@@ -73,11 +58,11 @@ class AnimalWeighingController extends ApiController
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
             $weighings = $weighings->get();
             foreach ($weighings as &$f) {
-                $f = (new AnimalWeighingRepository($f))->show()->toArray();
+                $f = (new AnimalWeighingEventRepository($f))->show()->toArray();
             }
 
             return $this->setStatusCode(200)->respondWithData(
-                $this->animalWeighingTransformer->transformCollection(
+                (new AnimalWeighingEventTransformer())->transformCollection(
                     $weighings->toArray()
                 )
             );
@@ -114,11 +99,11 @@ class AnimalWeighingController extends ApiController
         $weighings = $weighings->paginate(env('PAGINATION_PER_PAGE', 20));
 
         foreach ($weighings->items() as &$f) {
-            $f = (new AnimalWeighingRepository($f))->show()->toArray();
+            $f = (new AnimalWeighingEventRepository($f))->show()->toArray();
         }
 
         return $this->setStatusCode(200)->respondWithPagination(
-            $this->animalWeighingTransformer->transformCollection(
+            (new AnimalWeighingEventTransformer())->transformCollection(
                 $weighings->toArray()['data']
             ),
             $weighings
