@@ -39,8 +39,8 @@ class AnimalWeighingEvent extends Event
          * If an animal feeding exactly $days prior is found -> compare and return
          */
         $exact_match = AnimalFeedingEvent::whereDate('created_at', $from)->get()->first();
-        if (!is_null($exact_match)) {
-            return round(($this->value - $exact_match->value) / $this->value * 100, 1);
+        if (!is_null($exact_match) && $exact_match->value) {
+            return round(((int)$this->value - (int)$exact_match->value) / (int)$this->value * 100, 1);
         }
 
         /*
