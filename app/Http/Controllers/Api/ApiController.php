@@ -255,7 +255,7 @@ class ApiController extends Controller
     public function respondTransformedAndPaginated(Request $request,
                                                    Builder $query,
                                                    array $repository_parameters = [],
-                                                   string $repository_method = 'show')
+                                                   $repository_method = 'show')
     {
 
         if ($request->has('raw') && Gate::allows('api-list:raw')) {
@@ -312,7 +312,7 @@ class ApiController extends Controller
      */
     protected function applyRepository($objects,
                                        array $repository_parameters = [],
-                                       string $repository_method = 'show')
+                                       $repository_method = 'show')
     {
         if (is_a($objects, 'Illuminate\Support\Collection') || is_array($objects)) {
             foreach ($objects as &$o) {
