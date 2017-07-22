@@ -24,6 +24,24 @@ class UserController extends ApiController
         parent::__construct();
     }
 
+    /**
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function index(Request $request)
+    {
+        if (Gate::denies('api-list_admin')) {
+            return $this->respondUnauthorized();
+        }
+
+        $users = User::query();
+        $users = $this->filter($request, $users);
+
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $users
+        );
+    }
+
 
     /**
      * @return \Illuminate\Http\JsonResponse
