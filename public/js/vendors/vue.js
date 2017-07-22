@@ -3913,7 +3913,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/controlunits/?with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=generic_components&' + that.controlunitId + '?raw=true',
+                url: '/api/v1/controlunits/' + that.controlunitId + '?with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=generic_components&',
                 method: 'GET',
                 success: function success(data) {
                     if (that.controlunitId !== '') {
@@ -15644,7 +15644,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "card-title activator truncate"
     }, [_c('span', [_vm._v(_vm._s(logical_sensor.name))]), _vm._v(" "), _c('i', {
       staticClass: "material-icons right"
-    }, [_vm._v("more_vert")])]), _vm._v(" "), _c('p', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(_vm.$t("labels." + logical_sensor.type)))])])]), _vm._v(" "), _c('div', {
+    }, [_vm._v("more_vert")])]), _vm._v(" "), (logical_sensor.type.length > 0) ? _c('p', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(_vm.$t("labels." + logical_sensor.type)))])]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "card-action"
     }, [_c('a', {
       attrs: {

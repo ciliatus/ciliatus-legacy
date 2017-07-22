@@ -41,7 +41,7 @@
                 @if(!is_null($physical_sensor->controlunit))
                 <controlunits-widget :refresh-timeout-seconds="60" controlunit-id="{{ $physical_sensor->controlunit_id }}"
                                      container-classes="col s12 m6 l4" wrapper-classes=""
-                                     :subscribe-add="false" :subscribe-delete="false"></controlunits-widget>+
+                                     :subscribe-add="false" :subscribe-delete="false"></controlunits-widget>
                 @endif
             </div>
         </div>

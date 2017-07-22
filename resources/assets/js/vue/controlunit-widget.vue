@@ -156,8 +156,8 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/controlunits/?with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=generic_components&' +
-                     that.controlunitId + '?raw=true',
+                url: '/api/v1/controlunits/' + that.controlunitId +
+                     '?with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=generic_components&',
                 method: 'GET',
                 success: function (data) {
                     if (that.controlunitId !== '') {

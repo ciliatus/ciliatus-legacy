@@ -14,7 +14,7 @@
                             <i class="material-icons right">more_vert</i>
                         </span>
 
-                        <p>
+                        <p v-if="logical_sensor.type.length">
                             <span>{{ $t("labels.type") }}: {{ $t("labels." + logical_sensor.type) }}</span>
                         </p>
                     </div>
