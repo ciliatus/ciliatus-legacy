@@ -172,12 +172,12 @@ Route::resource('properties', 'PropertyController');
 /*
  * Biography entries
  */
-Route::resource('biography_entries', 'BiographyEntryController');
+Route::resource('biography_entries', 'BiographyEntryEventController');
 
 // Biography entry categories
-Route::get('biography_entries/categories', 'BiographyEntryController@types');
-Route::post('biography_entries/categories', 'BiographyEntryController@store_type');
-Route::delete('biography_entries/categories/{id}', 'BiographyEntryController@delete_type');
+Route::get('biography_entries/categories', 'BiographyEntryEventController@types');
+Route::post('biography_entries/categories', 'BiographyEntryEventController@store_type');
+Route::delete('biography_entries/categories/{id}', 'BiographyEntryEventController@delete_type');
 
 /*
  * Reminders

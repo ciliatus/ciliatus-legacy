@@ -35,23 +35,12 @@ class ValveController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $valves = Valve::query();
-        $valves = $this->filter($request, $valves);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $valves,
-            $this->valveTransformer
-        );
-
+        return parent::default_index($request);
     }
 
     /**
@@ -60,23 +49,7 @@ class ValveController extends ApiController
      */
     public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $valve = Valve::query();
-        $valve = $this->filter($request, $valve);
-        $valve = $valve->find($id);
-
-        if (!$valve) {
-            return $this->respondNotFound('Valve not found');
-        }
-        return $this->setStatusCode(200)->respondWithData(
-            $this->valveTransformer->transform(
-                $valve->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 

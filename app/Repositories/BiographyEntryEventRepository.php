@@ -6,10 +6,10 @@ use App\Event;
 use App\Property;
 
 /**
- * Class BiographyEntryRepository
+ * Class BiographyEntryEventRepository
  * @package App\Repositories
  */
-class BiographyEntryRepository extends Repository {
+class BiographyEntryEventRepository extends Repository {
 
     /**
      * BiographyEntryRepository constructor.

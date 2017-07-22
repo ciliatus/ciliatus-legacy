@@ -33,49 +33,21 @@ class PropertyController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $properties = Property::query();
-        $properties = $this->filter($request, $properties);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $properties,
-            $this->propertyTransformer
-        );
+        return parent::default_index($request);
     }
 
     /**
-     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $p = Property::query();
-        $p = $this->filter($request, $p);
-        $p = $p->find($id);
-
-        if (!$p) {
-            return $this->respondNotFound('Property not found');
-        }
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->propertyTransformer->transform(
-                $p->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 

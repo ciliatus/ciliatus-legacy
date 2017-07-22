@@ -32,17 +32,10 @@ class UserSettingController extends ApiController
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index()
-    {
-    }
-
-    /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         $us = UserSetting::find($id);
         if (is_null($us)) {

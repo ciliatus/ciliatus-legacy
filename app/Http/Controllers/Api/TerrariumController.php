@@ -69,8 +69,6 @@ class TerrariumController extends ApiController
         return $this->respondTransformedAndPaginated(
             $request,
             $terraria,
-            $this->terrariumTransformer,
-            'TerrariumRepository',
             $repository_parameters
         );
 

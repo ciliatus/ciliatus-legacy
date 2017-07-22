@@ -27,26 +27,14 @@ class GenericComponentTypeController extends ApiController
         parent::__construct();
         $this->genericComponentTypeTransformer = $_genericComponentTypeTransformer;
     }
-    
+
     /**
-     * Display a listing of the resource.
-     *
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $types = GenericComponentType::query();
-        $types = $this->filter($request, $types);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $types,
-            $this->genericComponentTypeTransformer
-        );
+        return parent::default_index($request);
     }
 
     /**
@@ -135,7 +123,7 @@ class GenericComponentTypeController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         //
     }

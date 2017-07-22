@@ -29,50 +29,21 @@ class ControlunitController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $controlunits = Controlunit::query();
-        $controlunits = $this->filter($request, $controlunits);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $controlunits,
-            $this->controlunitTransformer
-        );
-        
+        return parent::default_index($request);
     }
 
     /**
-     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $cu = Controlunit::query();
-        $cu = $this->filter($request, $cu);
-        $cu = $cu->find($id);
-
-        if (!$cu) {
-            return $this->respondNotFound('Controlunit not found');
-        }
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->controlunitTransformer->transform(
-                $cu->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 

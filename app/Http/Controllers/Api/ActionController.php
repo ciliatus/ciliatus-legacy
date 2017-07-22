@@ -32,54 +32,22 @@ class ActionController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $actions = Action::query();
-        $actions = $this->filter($request, $actions);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $actions,
-            $this->actionTransformer
-        );
-
+        return parent::default_index($request);
     }
 
-
     /**
-     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $action = Action::query();
-        $action = $this->filter($request, $action);
-        $action = $action->find($id);
-
-        if (!$action) {
-            return $this->respondNotFound('Action not found');
-        }
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->actionTransformer->transform(
-                $action->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
-
 
     /**
      * @return \Illuminate\Http\JsonResponse

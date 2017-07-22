@@ -34,50 +34,21 @@ class PumpController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $pumps = Pump::query();
-
-        $pumps = $this->filter($request, $pumps);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $pumps,
-            $this->pumpTransformer
-        );
+        return parent::default_index($request);
     }
 
     /**
-     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $p = Pump::query();
-        $p = $this->filter($request, $p);
-        $p = $p->find($id);
-
-        if (!$p) {
-            return $this->respondNotFound('Pump not found');
-        }
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->pumpTransformer->transform(
-                $p->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 

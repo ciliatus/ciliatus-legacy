@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\AnimalWeighingEvent;
 use App\Event;
 use App\Events\AnimalFeedingDeleted;
 use App\Events\AnimalUpdated;
@@ -42,21 +43,28 @@ class AnimalWeighingController extends ApiController
 
 
     /**
-     * @param $animal_id
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request, $animal_id)
+    public function index(Request $request, $id = null)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        $animal = Animal::find($animal_id);
-        if (is_null($animal)) {
-            return $this->respondNotFound("Animal not found");
+        if (is_null($id)) {
+            $weighings = $this->filter($request, AnimalWeighingEvent::orderBy('created_at', 'DESC')->getQuery());
+        }
+        else {
+            $animal = Animal::find($id);
+            if (is_null($animal)) {
+                return $this->respondNotFound("Animal not found");
+            }
+
+            $weighings = $this->filter($request, $animal->weighings()->orderBy('created_at', 'DESC')->getQuery());
         }
 
-        $weighings = $this->filter($request, $animal->weighings()->orderBy('created_at', 'DESC')->getQuery());
 
         /*
          * If raw is passed, pagination will be ignored
@@ -163,17 +171,6 @@ class AnimalWeighingController extends ApiController
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

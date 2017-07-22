@@ -44,19 +44,16 @@ class CriticalStateController extends ApiController
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
+        return parent::default_index($request);
+    }
 
-        $critical_states = CriticalState::query();
-        $critical_states = $this->filter($request, $critical_states);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $critical_states,
-            $this->critical_stateTransformer
-        );
-
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(Request $request, $id)
+    {
+        return parent::default_show($request, $id);
     }
     
     /**

@@ -37,52 +37,21 @@ class ActionSequenceScheduleController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $action_sequence_schedules = ActionSequenceSchedule::query();
-        $action_sequence_schedules = $this->filter($request, $action_sequence_schedules);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $action_sequence_schedules,
-            $this->actionSequenceScheduleTransformer,
-            'ActionSequenceSchedule'
-        );
-
+        return parent::default_index($request);
     }
 
-
     /**
-     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $ass = ActionSequenceSchedule::query();
-        $ass = $this->filter($request, $ass);
-        $ass = $ass->find($id);
-
-        if (!$ass) {
-            return $this->respondNotFound('ActionSequenceSchedule not found');
-        }
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->actionSequenceScheduleTransformer->transform(
-                $ass->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 

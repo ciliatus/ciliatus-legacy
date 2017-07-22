@@ -2,9 +2,9 @@
 
 namespace App\Events;
 
-use App\Http\Transformers\BiographyEntryTransformer;
+use App\Http\Transformers\BiographyEntryEventTransformer;
 use App\Event;
-use App\Repositories\BiographyEntryRepository;
+use App\Repositories\BiographyEntryEventRepository;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -26,10 +26,10 @@ class BiographyEntryUpdated implements ShouldBroadcast
      */
     public function __construct(Event $be)
     {
-        $transformer = new BiographyEntryTransformer();
+        $transformer = new BiographyEntryEventTransformer();
 
         $this->biography_entry = $transformer->transform(
-            (new BiographyEntryRepository($be))->show()->toArray()
+            (new BiographyEntryEventRepository($be))->show()->toArray()
         );
     }
 

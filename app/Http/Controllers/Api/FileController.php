@@ -35,53 +35,21 @@ class FileController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $files = File::query();
-        $files = $this->filter($request, $files);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $files,
-            $this->fileTransformer,
-            'FileRepository'
-        );
-
+        return parent::default_index($request);
     }
 
     /**
-     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $f = File::query();
-        $f = $this->filter($request, $f);
-        $f = $f->find($id);
-
-        if (!$f) {
-            return $this->respondNotFound('File not found');
-        }
-
-        $file = (new FileRepository($f))->show();
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->fileTransformer->transform(
-                $f->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 

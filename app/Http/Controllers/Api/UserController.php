@@ -37,48 +37,6 @@ class UserController extends ApiController
         $this->userTransformer = $_userTransformer;
     }
 
-    /**
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function index(Request $request)
-    {
-        if (Gate::denies('api-list_admin')) {
-            return $this->respondUnauthorized();
-        }
-
-        $users = User::query();
-        $users = $this->filter($request, $users);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $users,
-            $this->userTransformer
-        );
-    }
-
-    /**
-     * @param $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show($id)
-    {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $user = User::find($id);
-
-        if (!$user) {
-            return $this->respondNotFound('User not found');
-        }
-        return $this->setStatusCode(200)->respondWithData(
-            $this->userTransformer->transform(
-                $user->toArray()
-            )
-        );
-    }
-
 
     /**
      * @return \Illuminate\Http\JsonResponse

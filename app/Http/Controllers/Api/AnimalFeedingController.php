@@ -40,31 +40,22 @@ class AnimalFeedingController extends ApiController
         $this->animalFeedingTransformer = $_animalFeedingTransformer;
     }
 
-
     /**
-     * @param $animal_id
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index(Request $request, $animal_id)
+    public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
+        return parent::default_index($request);
+    }
 
-        $animal = Animal::find($animal_id);
-        if (is_null($animal)) {
-            return $this->respondNotFound("Animal not found");
-        }
-
-        $feedings = $this->filter($request, $animal->feedings()->orderBy('created_at', 'DESC')->getQuery());
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $feedings,
-            $this->animalFeedingTransformer,
-            'AnimalFeedingRepository'
-        );
-
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(Request $request, $id)
+    {
+        return parent::default_show($request, $id);
     }
 
     /**
@@ -112,17 +103,6 @@ class AnimalFeedingController extends ApiController
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

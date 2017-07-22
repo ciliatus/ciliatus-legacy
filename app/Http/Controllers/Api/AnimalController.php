@@ -37,54 +37,21 @@ class AnimalController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $animals = Animal::query();
-        $animals = $this->filter($request, $animals);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $animals,
-            $this->animalTransformer,
-            'AnimalRepository'
-        );
-
+        return parent::default_index($request);
     }
 
-
     /**
-     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $animal = Animal::query();
-        $animal = $this->filter($request, $animal);
-        $animal = $animal->find($id);
-
-        if (is_null($animal)) {
-            return $this->respondNotFound("Animal not found");
-        }
-
-        $animal = (new AnimalRepository($animal))->show();
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->animalTransformer->transform(
-                $animal->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 

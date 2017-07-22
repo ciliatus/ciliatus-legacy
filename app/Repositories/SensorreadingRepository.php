@@ -100,4 +100,15 @@ class SensorreadingRepository extends Repository {
         return $sensor_readings;
     }
 
+
+    /**
+     * @return Sensorreading
+     */
+    public function show()
+    {
+        $sr = $this->scope;
+
+        return $sr;
+    }
+
 }

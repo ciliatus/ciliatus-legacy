@@ -47,8 +47,7 @@ class SensorreadingController extends ApiController
 
         return $this->respondTransformedAndPaginated(
             $request,
-            $sensorreadings,
-            $this->sensorreadingTransformer
+            $sensorreadings
         );
 
     }

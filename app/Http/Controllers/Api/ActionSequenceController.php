@@ -41,51 +41,21 @@ class ActionSequenceController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $action_sequences = ActionSequence::query();
-        $action_sequences = $this->filter($request, $action_sequences);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $action_sequences,
-            $this->actionSequenceTransformer,
-            'ActionSequenceRepository'
-        );
+        return parent::default_index($request);
     }
 
-
     /**
-     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $as = ActionSequence::query();
-        $as = $this->filter($request, $as);
-        $as = $as->find($id);
-
-        if (!$as) {
-            return $this->respondNotFound('ActionSequence not found');
-        }
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->actionSequenceTransformer->transform(
-                $as->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 

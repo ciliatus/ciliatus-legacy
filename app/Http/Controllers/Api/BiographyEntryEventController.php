@@ -7,9 +7,9 @@ use App\BiographyEntryEvent;
 use App\Event;
 use App\Events\BiographyEntryDeleted;
 use App\Events\BiographyEntryUpdated;
-use App\Http\Transformers\BiographyEntryTransformer;
+use App\Http\Transformers\BiographyEntryEventTransformer;
 use App\Property;
-use App\Repositories\BiographyEntryRepository;
+use App\Repositories\BiographyEntryEventRepository;
 use Illuminate\Http\Request;
 use Gate;
 use App\Http\Requests;
@@ -19,20 +19,20 @@ use Illuminate\Support\Facades\DB;
  * Class BiographyEntryController
  * @package App\Http\Controllers\Api
  */
-class BiographyEntryController extends ApiController
+class BiographyEntryEventController extends ApiController
 {
 
     /**
-     * @var BiographyEntryTransformer
+     * @var BiographyEntryEventTransformer
      */
     protected $biographyEntryTransformer;
 
 
     /**
      * BiographyEntryController constructor.
-     * @param BiographyEntryTransformer $_biographyEntryTransformer
+     * @param BiographyEntryEventTransformer $_biographyEntryTransformer
      */
-    public function __construct(BiographyEntryTransformer $_biographyEntryTransformer)
+    public function __construct(BiographyEntryEventTransformer $_biographyEntryTransformer)
     {
         parent::__construct();
         $this->biographyEntryTransformer = $_biographyEntryTransformer;
@@ -69,11 +69,18 @@ class BiographyEntryController extends ApiController
 
         return $this->respondTransformedAndPaginated(
             $request,
-            $entries,
-            $this->biographyEntryTransformer,
-            'BiographyEntryRepository'
+            $entries
         );
 
+    }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(Request $request, $id)
+    {
+        return parent::default_show($request, $id);
     }
 
     /**
@@ -126,35 +133,6 @@ class BiographyEntryController extends ApiController
                 'uri' => url('biography_entries/' . $e->id . '/edit')
             ]
         ]);
-    }
-
-    /**
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show(Request $request, $id)
-    {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $bee = BiographyEntryEvent::query();
-        $bee = $this->filter($request, $bee);
-        $bee = $bee->find($id);
-
-        if (!$bee) {
-            return $this->respondNotFound('Entry not found');
-        }
-
-        $bee = (new BiographyEntryRepository($bee))->show();
-
-        return $this->respondWithData(
-            $this->biographyEntryTransformer->transform(
-                $bee->toArray()
-            )
-        );
     }
 
     /**

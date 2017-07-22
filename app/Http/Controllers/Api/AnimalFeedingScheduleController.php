@@ -43,35 +43,35 @@ class AnimalFeedingScheduleController extends ApiController
 
 
     /**
-     * @param $animal_id
+     * @param Request $request
+     * @param null $id
      * @return \Illuminate\Http\JsonResponse
+     * @internal param $animal_id
      */
-    public function index(Request $request, $animal_id = false)
+    public function index(Request $request, $id = null)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        if ($animal_id == false) {
+        if (is_null($id)) {
+            $animal = Animal::find($id);
+            if (is_null($animal)) {
+                return $this->respondNotFound("Animal not found");
+            }
+            $feeding_schedules = $this->filter($request, $animal->feeding_schedules()->getQuery());
+        }
+        else {
             $feeding_schedules = $this->filter(
                 $request,
                 Property::where('type', 'AnimalFeedingSchedule')
             );
-        }
-        else {
-            $animal = Animal::find($animal_id);
-            if (is_null($animal)) {
-                return $this->respondNotFound("Animal not found");
-            }
 
-            $feeding_schedules = $this->filter($request, $animal->feeding_schedules()->getQuery());
         }
 
         return $this->respondTransformedAndPaginated(
             $request,
-            $feeding_schedules,
-            $this->animalFeedingScheduleTransformer,
-            'AnimalFeedingScheduleRepository'
+            $feeding_schedules
         );
 
     }
@@ -137,17 +137,6 @@ class AnimalFeedingScheduleController extends ApiController
                 ]
             ]
         );
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

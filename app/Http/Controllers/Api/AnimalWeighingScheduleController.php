@@ -43,35 +43,35 @@ class AnimalWeighingScheduleController extends ApiController
 
 
     /**
-     * @param $animal_id
+     * @param Request $request
+     * @param null $id
      * @return \Illuminate\Http\JsonResponse
+     * @internal param $animal_id
      */
-    public function index(Request $request, $animal_id = false)
+    public function index(Request $request, $id = null)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
 
-        if ($animal_id == false) {
-            $weighing_schedules = $this->filter(
-                $request,
-                Property::where('type', 'AnimalWeighingSchedule')
-            );
-        }
-        else {
-            $animal = Animal::find($animal_id);
+        if (is_null($id)) {
+            $animal = Animal::find($id);
             if (is_null($animal)) {
                 return $this->respondNotFound("Animal not found");
             }
 
             $weighing_schedules = $this->filter($request, $animal->weighing_schedules()->getQuery());
         }
+        else {
+            $weighing_schedules = $this->filter(
+                $request,
+                Property::where('type', 'AnimalWeighingSchedule')
+            );
+        }
 
         return $this->respondTransformedAndPaginated(
             $request,
-            $weighing_schedules,
-            $this->animalWeighingScheduleTransformer,
-            'AnimalWeighingScheduleRepository'
+            $weighing_schedules
         );
 
     }
@@ -137,17 +137,6 @@ class AnimalWeighingScheduleController extends ApiController
                 ]
             ]
         );
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        //
     }
 
     /**

@@ -7,7 +7,7 @@
  */
 
 namespace App\Http\Transformers;
-use App\Http\Controllers\Api\BiographyEntryController;
+use App\Http\Controllers\Api\BiographyEntryEventController;
 use Carbon\Carbon;
 
 /**
@@ -99,7 +99,7 @@ class AnimalTransformer extends Transformer
         }
 
         if (isset($item['biography_entries'])) {
-            $return['biography_entries'] = (new BiographyEntryTransformer())->transformCollection($item['biography_entries']);
+            $return['biography_entries'] = (new BiographyEntryEventTransformer())->transformCollection($item['biography_entries']);
         }
 
         return $return;

@@ -31,24 +31,21 @@ class GenericComponentController extends ApiController
     }
 
     /**
-     * Display a listing of the resource.
-     *
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
+        return parent::default_index($request);
+    }
 
-        $gc = GenericComponent::query();
-        $gc = $this->filter($request, $gc);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $gc,
-            $this->genericComponentTransformer
-        );
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(Request $request, $id)
+    {
+        return parent::default_show($request, $id);
     }
 
     /**
@@ -118,31 +115,6 @@ class GenericComponentController extends ApiController
                 'delay' => 1000
             ]
         ]);
-    }
-
-    /**
-     * @param Request $request
-     * @param $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show(Request $request, $id)
-    {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $gc = GenericComponent::query();
-        $gc = $this->filter($request, $gc);
-        $gc = $gc->find($id);
-
-        if (is_null($gc)) {
-            return $this->respondNotFound("Generic Component not found");
-        }
-
-        return $this->respondWithData(
-            $this->genericComponentTransformer->transform($gc->toArray())
-        );
     }
 
     /**
