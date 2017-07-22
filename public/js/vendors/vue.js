@@ -5498,14 +5498,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return this.FilterFromDate;
             }
 
-            return $('#filter_from_' + this.id).val();
+            return "{{b64(" + $('#filter_from_' + this.id).val().base64encode() + ")}}";
         },
         get_filter_to_date: function get_filter_to_date() {
             if ($('#filter_to_' + this.id).val() == undefined) {
                 return this.FilterToDate + " 23:59:59";
             }
 
-            return $('#filter_to_' + this.id).val() + " 23:59:59";
+            return "{{b64(" + ($('#filter_to_' + this.id).val() + " 23:59:59").base64encode() + ")}}";
         },
 
         init: function init() {
