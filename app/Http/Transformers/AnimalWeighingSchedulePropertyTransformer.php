@@ -8,7 +8,7 @@ use Carbon\Carbon;
  * Class AnimalWeighingScheduleTransformer
  * @package App\Http\Transformers
  */
-class AnimalWeighingScheduleTransformer extends Transformer
+class AnimalWeighingSchedulePropertyTransformer extends Transformer
 {
 
 

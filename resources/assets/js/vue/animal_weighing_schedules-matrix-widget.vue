@@ -85,7 +85,7 @@ export default {
                      * Load weighing schedules
                      */
                     $.ajax({
-                        url: '/api/v1/animal_weighing_schedules?raw=true',
+                        url: '/api/v1/animal_weighing_schedules?with[]=animal&raw=true',
                         method: 'GET',
                         success: function (data) {
                             that.schedules = data.data;

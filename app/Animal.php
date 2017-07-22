@@ -4,7 +4,7 @@ namespace App;
 
 use App\Events\AnimalDeleted;
 use App\Events\AnimalUpdated;
-use App\Http\Transformers\AnimalFeedingScheduleTransformer;
+use App\Http\Transformers\AnimalFeedingSchedulePropertyTransformer;
 use App\Repositories\AnimalFeedingScheduleRepository;
 use App\Repositories\AnimalRepository;
 use App\Repositories\AnimalWeighingScheduleRepository;

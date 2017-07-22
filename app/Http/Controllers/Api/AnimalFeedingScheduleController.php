@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\AnimalFeedingScheduleProperty;
 use App\Events\AnimalFeedingScheduleDeleted;
 use App\Events\AnimalFeedingScheduleUpdated;
 use App\Events\AnimalFeedingUpdated;
 use App\Events\AnimalUpdated;
-use App\Http\Transformers\AnimalFeedingScheduleTransformer;
+use App\Http\Transformers\AnimalFeedingSchedulePropertyTransformer;
 use App\Property;
 use App\Repositories\AnimalFeedingRepository;
 use App\Repositories\AnimalFeedingScheduleRepository;
@@ -26,16 +27,16 @@ class AnimalFeedingScheduleController extends ApiController
 
 
     /**
-     * @var AnimalFeedingScheduleTransformer
+     * @var AnimalFeedingSchedulePropertyTransformer
      */
     protected $animalFeedingScheduleTransformer;
 
 
     /**
      * AnimalFeedingScheduleController constructor.
-     * @param AnimalFeedingScheduleTransformer $_animalFeedingScheduleTransformer
+     * @param AnimalFeedingSchedulePropertyTransformer $_animalFeedingScheduleTransformer
      */
-    public function __construct(AnimalFeedingScheduleTransformer $_animalFeedingScheduleTransformer)
+    public function __construct(AnimalFeedingSchedulePropertyTransformer $_animalFeedingScheduleTransformer)
     {
         parent::__construct();
         $this->animalFeedingScheduleTransformer = $_animalFeedingScheduleTransformer;
@@ -64,7 +65,7 @@ class AnimalFeedingScheduleController extends ApiController
         else {
             $feeding_schedules = $this->filter(
                 $request,
-                Property::where('type', 'AnimalFeedingSchedule')
+                AnimalFeedingScheduleProperty::query()
             );
 
         }

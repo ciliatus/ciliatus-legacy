@@ -3,11 +3,12 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\AnimalWeighingScheduleProperty;
 use App\Events\AnimalUpdated;
 use App\Events\AnimalWeighingScheduleDeleted;
 use App\Events\AnimalWeighingScheduleUpdated;
 use App\Events\AnimalWeighingUpdated;
-use App\Http\Transformers\AnimalWeighingScheduleTransformer;
+use App\Http\Transformers\AnimalWeighingSchedulePropertyTransformer;
 use App\Property;
 use App\Repositories\AnimalWeighingRepository;
 use App\Repositories\AnimalWeighingScheduleRepository;
@@ -26,16 +27,16 @@ class AnimalWeighingScheduleController extends ApiController
 
 
     /**
-     * @var AnimalWeighingScheduleTransformer
+     * @var AnimalWeighingSchedulePropertyTransformer
      */
     protected $animalWeighingScheduleTransformer;
 
 
     /**
      * AnimalWeighingScheduleController constructor.
-     * @param AnimalWeighingScheduleTransformer $_animalWeighingScheduleTransformer
+     * @param AnimalWeighingSchedulePropertyTransformer $_animalWeighingScheduleTransformer
      */
-    public function __construct(AnimalWeighingScheduleTransformer $_animalWeighingScheduleTransformer)
+    public function __construct(AnimalWeighingSchedulePropertyTransformer $_animalWeighingScheduleTransformer)
     {
         parent::__construct();
         $this->animalWeighingScheduleTransformer = $_animalWeighingScheduleTransformer;
@@ -65,7 +66,7 @@ class AnimalWeighingScheduleController extends ApiController
         else {
             $weighing_schedules = $this->filter(
                 $request,
-                Property::where('type', 'AnimalWeighingSchedule')
+                AnimalWeighingScheduleProperty::query()
             );
         }
 

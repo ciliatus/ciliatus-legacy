@@ -3,7 +3,7 @@
 namespace App\Events;
 
 
-use App\Http\Transformers\AnimalFeedingScheduleTransformer;
+use App\Http\Transformers\AnimalFeedingSchedulePropertyTransformer;
 use App\Http\Transformers\AnimalFeedingTransformer;
 use App\Property;
 use App\Repositories\AnimalFeedingScheduleRepository;
@@ -37,7 +37,7 @@ class AnimalFeedingScheduleUpdated implements ShouldBroadcast
      */
     public function __construct(Property $p)
     {
-        $transformer = new AnimalFeedingScheduleTransformer();
+        $transformer = new AnimalFeedingSchedulePropertyTransformer();
 
         $this->animal_feeding_schedule = $transformer->transform(
             (new AnimalFeedingScheduleRepository($p))->show()->toArray()

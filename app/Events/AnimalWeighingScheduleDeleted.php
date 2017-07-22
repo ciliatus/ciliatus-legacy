@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Http\Transformers\AnimalWeighingScheduleTransformer;
+use App\Http\Transformers\AnimalWeighingSchedulePropertyTransformer;
 use App\AnimalWeighingSchedule;
 use App\Property;
 use App\Repositories\AnimalWeighingScheduleRepository;

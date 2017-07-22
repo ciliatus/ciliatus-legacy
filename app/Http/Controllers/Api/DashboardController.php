@@ -8,8 +8,8 @@ use App\Event;
 use App\Http\Transformers\ActionSequenceIntentionTransformer;
 use App\Http\Transformers\ActionSequenceScheduleTransformer;
 use App\Http\Transformers\ActionSequenceTriggerTransformer;
-use App\Http\Transformers\AnimalFeedingScheduleTransformer;
-use App\Http\Transformers\AnimalWeighingScheduleTransformer;
+use App\Http\Transformers\AnimalFeedingSchedulePropertyTransformer;
+use App\Http\Transformers\AnimalWeighingSchedulePropertyTransformer;
 use App\Http\Transformers\ControlunitTransformer;
 use App\Http\Transformers\EventTransformer;
 use App\Http\Transformers\PhysicalSensorTransformer;
@@ -89,7 +89,7 @@ class DashboardController extends ApiController
             $feeding_schedules_temp = $animal->getDueFeedingSchedules();
             foreach ($feeding_schedules_temp as $type=>$schedules) {
                 foreach ($schedules as $schedule) {
-                    $feeding_schedules[$type][] = (new AnimalFeedingScheduleTransformer())->transform($schedule->toArray());
+                    $feeding_schedules[$type][] = (new AnimalFeedingSchedulePropertyTransformer())->transform($schedule->toArray());
                 }
             }
         }
@@ -104,7 +104,7 @@ class DashboardController extends ApiController
             $weighing_schedules_temp = $animal->getDueWeighingSchedules();
             foreach ($weighing_schedules_temp as $type=>$schedules) {
                 foreach ($schedules as $index=>$schedule) {
-                    $weighing_schedules[$type][] = (new AnimalWeighingScheduleTransformer())->transform($schedule->toArray());
+                    $weighing_schedules[$type][] = (new AnimalWeighingSchedulePropertyTransformer())->transform($schedule->toArray());
                 }
             }
         }

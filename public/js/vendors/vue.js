@@ -1230,7 +1230,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                              * Load feeding schedules
                              */
                             $.ajax({
-                                url: '/api/v1/animal_feeding_schedules?raw',
+                                url: '/api/v1/animal_feeding_schedules?with[]=animal&raw',
                                 method: 'GET',
                                 success: function success(data) {
                                     that.schedules = data.data;
@@ -1738,7 +1738,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                      * Load weighing schedules
                      */
                     $.ajax({
-                        url: '/api/v1/animal_weighing_schedules?raw=true',
+                        url: '/api/v1/animal_weighing_schedules?with[]=animal&raw=true',
                         method: 'GET',
                         success: function success(data) {
                             that.schedules = data.data;
@@ -15644,7 +15644,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "card-title activator truncate"
     }, [_c('span', [_vm._v(_vm._s(logical_sensor.name))]), _vm._v(" "), _c('i', {
       staticClass: "material-icons right"
-    }, [_vm._v("more_vert")])]), _vm._v(" "), (logical_sensor.type.length > 0) ? _c('p', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(_vm.$t("labels." + logical_sensor.type)))])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    }, [_vm._v("more_vert")])]), _vm._v(" "), (logical_sensor.type.length) ? _c('p', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(_vm.$t("labels." + logical_sensor.type)))])]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "card-action"
     }, [_c('a', {
       attrs: {

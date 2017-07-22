@@ -2,7 +2,7 @@
 
 namespace App\Events;
 
-use App\Http\Transformers\AnimalFeedingScheduleTransformer;
+use App\Http\Transformers\AnimalFeedingSchedulePropertyTransformer;
 use App\AnimalFeedingSchedule;
 use App\Property;
 use App\Repositories\AnimalFeedingScheduleRepository;
