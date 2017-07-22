@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Transformers\LogTransformer;
 use App\Log;
 use Gate;
 use \Illuminate\Http\Request;
@@ -48,7 +49,7 @@ class LogController extends ApiController
         $log->addSourceTargetAssociated(true);
 
         return $this->setStatusCode(200)->respondWithData(
-            $this->logTransformer->transform(
+            (new LogTransformer())->transform(
                 $log->toArray()
             )
         );

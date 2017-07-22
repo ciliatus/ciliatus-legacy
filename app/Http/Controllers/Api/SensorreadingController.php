@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Transformers\SensorreadingTransformer;
 use App\LogicalSensor;
 use App\Sensorreading;
 use Carbon\Carbon;
@@ -63,7 +64,7 @@ class SensorreadingController extends ApiController
         }
 
         return $this->setStatusCode(200)->respondWithData(
-            $this->sensorreadingTransformer->transform(
+            (new SensorreadingTransformer())->transform(
                 $sr->toArray()
             )
         );
