@@ -37,51 +37,11 @@
         <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
             <div :class="wrapperClasses" v-for="animal in animals">
                 <!-- Modals -->
-                <div v-bind:id="'modal_just_fed_' + animal.id" class="modal" style="min-height: 800px;">
-                    <form v-bind:action="'/api/v1/animals/' + animal.id + '/feedings'" data-method="POST" v-on:submit="submit">
-                        <div class="modal-content">
-                            <h4>{{ $t("labels.just_fed") }}</h4>
+                <animal-add-feeding-modal :animalId="animal.id" :feedingTypes="feeding_types"
+                                         :containerId="'modal_add_weight_' + animal.id"></animal-add-feeding-modal>
 
-
-                            <select name="meal_type" v-if="feeding_types.length > 0">
-                                <option v-for="ft in feeding_types" v-bind:value="ft.name">{{ ft.name }}</option>
-                            </select>
-                            <span v-else>
-                                <strong>{{ $t('tooltips.no_feeding_types') }}</strong>
-                            </span>
-                            <label>{{ $t("labels.meal_type") }}</label>
-
-                            <input type="date" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
-                            <label>{{ $t('labels.date') }}</label>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button v-if="feeding_types.length > 0" class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
-                                <i class="material-icons left">send</i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
-
-                <div v-bind:id="'modal_add_weight_' + animal.id" class="modal" style="min-height: 800px;">
-                    <form v-bind:action="'/api/v1/animals/' + animal.id + '/weighings'" data-method="POST" v-on:submit="submit">
-                        <div class="modal-content">
-                            <h4>{{ $t("labels.add_weight") }}</h4>
-
-                            <input name="weight" id="weight" v-bind:placeholder="$t('labels.weight')+ '/g'">
-                            <label for="weight">{{ $t("labels.weight") }}/g</label>
-
-                            <input type="date" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
-                            <label>{{ $t('labels.date') }}</label>
-                        </div>
-
-                        <div class="modal-footer">
-                            <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
-                                <i class="material-icons left">send</i>
-                            </button>
-                        </div>
-                    </form>
-                </div>
+                <animal-add-weight-modal :animalId="animal.id"
+                                         :containerId="'modal_add_weight_' + animal.id"></animal-add-weight-modal>
 
                 <!-- Card -->
                 <div class="card">
@@ -185,6 +145,8 @@
 
 <script>
 import LoadingIndicator from './loading-indicator.vue';
+import AnimalAddFeedingModal from './animal_add_feeding-modal.vue';
+import AnimalAddWeightModal from './animal_add_weight-modal.vue';
 
 export default {
     data () {
@@ -253,7 +215,9 @@ export default {
     },
 
     components: {
-        'loading-indicator': LoadingIndicator
+        'loading-indicator': LoadingIndicator,
+        'animal-add-feeding-modal': AnimalAddFeedingModal,
+        'animal-add-weight-modal': AnimalAddWeightModal
     },
 
     methods: {
