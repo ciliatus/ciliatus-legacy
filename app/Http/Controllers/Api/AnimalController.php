@@ -136,6 +136,15 @@ class AnimalController extends ApiController
             }
         }
 
+        if ($request->has('active')) {
+            if ($request->input('active') == 'on' && !$animal->active()) {
+                $animal->enable();
+            }
+            else if ($request->input('active') == 'off' && $animal->active()) {
+                $animal->disable();
+            }
+        }
+
         $this->updateModelProperties($animal, $request, [
             'display_name' => 'displayname', 'common_name' => 'commonname', 'lat_name' => 'latinname',
             'gender', 'terrarium_id' => 'terrarium', 'birth_date' => 'birthdate', 'death_date' => 'deathdate'
