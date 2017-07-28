@@ -28,7 +28,7 @@ class TransformerFactory extends Factory
     {
         if (is_null($object)) {
             \Log::warning('Received null-model, returning GenericTransformer', debug_backtrace());
-            return new GenericTransformer($object);
+            return new GenericTransformer();
         }
 
         $class_name_arr = explode('\\', get_class($object));
@@ -39,10 +39,10 @@ class TransformerFactory extends Factory
         );
 
         if (class_exists($transformer_name)) {
-            return new $transformer_name($object);
+            return new $transformer_name();
         }
 
-        return new GenericTransformer($object);
+        return new GenericTransformer();
     }
 
 }
