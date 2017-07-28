@@ -23,6 +23,14 @@
                             <span v-show="aws.due_days < 0">
                                 <span class="new badge red" v-bind:data-badge-caption="$t('labels.overdue')"> </span>
                             </span>
+                            <span class="right">
+                                <a :href="'/animals/' + animalId + '/weighing_schedules/' + aws.id + '/edit'">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                                <a class="red-text" :href="'/animals/' + animalId + '/weighing_schedules/' + aws.id + '/delete'">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </span>
                         </p>
                     </div>
                     <div v-if="animal_weighing_schedules.length < 1">
@@ -32,7 +40,6 @@
 
                 <div class="card-action">
                     <a v-bind:href="'/animals/' + animalId + '/weighing_schedules/create'">{{ $t("buttons.add") }}</a>
-                    <a v-bind:href="'/animals/' + animalId + '/edit'">{{ $t("buttons.edit") }}</a>
                 </div>
 
                 <div class="card-reveal">
