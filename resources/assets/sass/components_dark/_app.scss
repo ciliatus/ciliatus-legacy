@@ -613,3 +613,10 @@ select:disabled {
     height: 24px;
   }
 }
+
+/*
+Make sure drop downs, time/date pickers and such are visible in small modals
+ */
+.modal, .picker__holder {
+  overflow: visible;
+}

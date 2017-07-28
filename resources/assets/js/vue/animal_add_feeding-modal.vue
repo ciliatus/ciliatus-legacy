@@ -1,6 +1,6 @@
 <template>
 
-    <div v-bind:id="'modal_just_fed_' + animalId" class="modal" style="min-height: 800px;">
+    <div v-bind:id="'modal_just_fed_' + animalId" class="modal">
         <form v-bind:action="'/api/v1/animals/' + animalId + '/feedings'" data-method="POST" v-on:submit="submit">
             <div class="modal-content">
                 <h4>{{ $t("labels.just_fed") }}</h4>

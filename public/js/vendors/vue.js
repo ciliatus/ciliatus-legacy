@@ -23762,9 +23762,6 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal",
-    staticStyle: {
-      "min-height": "800px"
-    },
     attrs: {
       "id": 'modal_just_fed_' + _vm.animalId
     }
