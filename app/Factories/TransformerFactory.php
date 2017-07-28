@@ -26,10 +26,10 @@ class TransformerFactory extends Factory
      * @return Transformer
      * @throws ErrorException
      */
-    public static function get(CiliatusModel $object)
+    public static function get(CiliatusModel $object = null)
     {
         if (is_null($object)) {
-            throw new ErrorException('Received null-model');
+            return new GenericTransformer();
         }
 
         $class_name_arr = explode('\\', get_class($object));
