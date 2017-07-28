@@ -44,12 +44,5 @@ trait Components
         return $action;
     }
 
-    /**
-     * @return Illuminate\Database\Eloquent\Relations\HasMany
-     */
-    public function reminders()
-    {
-        return $this->hasMany('App\ReminderEvent', 'belongsTo_id');
-    }
 
 }

@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Animal;
 use App\Event;
-use App\Events\AnimalFeedingDeleted;
-use App\Events\AnimalFeedingScheduleDeleted;
-use App\Events\AnimalFeedingUpdated;
+use App\Events\AnimalFeedingEventDeleted;
+use App\Events\AnimalFeedingSchedulePropertyDeleted;
+use App\Events\AnimalFeedingEventUpdated;
 use App\Events\AnimalUpdated;
 use App\Property;
 use Carbon\Carbon;
@@ -96,7 +96,7 @@ class AnimalFeedingEventController extends ApiController
             $e->save();
         }
 
-        broadcast(new AnimalFeedingUpdated($e->fresh()));
+        broadcast(new AnimalFeedingEventUpdated($e->fresh()));
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
@@ -152,7 +152,7 @@ class AnimalFeedingEventController extends ApiController
 
         $animal_feeding->delete();
 
-        broadcast(new AnimalFeedingDeleted($id));
+        broadcast(new AnimalFeedingEventDeleted($id));
 
         return $this->respondWithData([]);
     }
@@ -222,7 +222,7 @@ class AnimalFeedingEventController extends ApiController
         $schedules = Property::where('type', 'AnimalFeedingSchedule')->where('name', $type->name)->get();
 
         foreach ($schedules as $s) {
-            broadcast(new AnimalFeedingScheduleDeleted($s->id));
+            broadcast(new AnimalFeedingSchedulePropertyDeleted($s->id));
             $s->delete();
         }
         $type->delete();

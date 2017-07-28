@@ -2,41 +2,34 @@
 
 namespace App\Events;
 
-
-use App\Http\Transformers\AnimalFeedingTransformer;
-use App\Property;
-use App\Repositories\AnimalFeedingRepository;
+use App\BiographyEntryEvent;
+use App\Http\Transformers\BiographyEntryEventTransformer;
+use App\Repositories\BiographyEntryEventRepository;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Log;
 
-/**
- * Class AnimalFeedingDeleted
- * @package App\Events
- */
-class AnimalFeedingDeleted implements ShouldBroadcast
+class BiographyEntryEventUpdated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    /**
-     * @var array
-     */
-    public $animal_feeding_id;
-
+    public $biography_entry;
 
     /**
      * Create a new event instance.
      *
-     * AnimalFeedingDeleted constructor.
-     * @param String $animal_feeding_id
+     * @param BiographyEntryEvent $be
      */
-    public function __construct($animal_feeding_id)
+    public function __construct(BiographyEntryEvent $be)
     {
-        $this->animal_feeding_id = $animal_feeding_id;
+        $transformer = new BiographyEntryEventTransformer();
+
+        $this->biography_entry = $transformer->transform(
+            (new BiographyEntryEventRepository($be))->show()->toArray()
+        );
     }
 
     /**

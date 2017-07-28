@@ -6,8 +6,8 @@ use App\Animal;
 use App\AnimalWeighingEvent;
 use App\Event;
 use App\Events\AnimalUpdated;
-use App\Events\AnimalWeighingDeleted;
-use App\Events\AnimalWeighingUpdated;
+use App\Events\AnimalWeighingEventDeleted;
+use App\Events\AnimalWeighingEventUpdated;
 use App\Http\Transformers\AnimalWeighingEventTransformer;
 use App\Repositories\AnimalWeighingEventRepository;
 use Carbon\Carbon;
@@ -152,7 +152,7 @@ class AnimalWeighingEventController extends ApiController
             $e->save();
         }
 
-        broadcast(new AnimalWeighingUpdated($e->fresh()));
+        broadcast(new AnimalWeighingEventUpdated($e->fresh()));
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
@@ -208,7 +208,7 @@ class AnimalWeighingEventController extends ApiController
 
         $animal_weighing->delete();
 
-        broadcast(new AnimalWeighingDeleted($id));
+        broadcast(new AnimalWeighingEventDeleted($id));
 
         return $this->respondWithData([]);
     }

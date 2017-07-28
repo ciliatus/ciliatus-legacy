@@ -3,20 +3,18 @@
 namespace App\Events;
 
 
-use App\Property;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Log;
 
 /**
- * Class BiographyEntryDeleted
+ * Class BiographyEntryEventDeleted
  * @package App\Events
  */
-class BiographyEntryDeleted implements ShouldBroadcast
+class BiographyEntryEventDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 

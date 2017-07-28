@@ -4,8 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\BiographyEntryEvent;
 use App\Event;
-use App\Events\BiographyEntryDeleted;
-use App\Events\BiographyEntryUpdated;
+use App\Events\BiographyEntryEventDeleted;
+use App\Events\BiographyEntryEventUpdated;
 use App\Property;
 use Illuminate\Http\Request;
 use Gate;
@@ -108,7 +108,7 @@ class BiographyEntryEventController extends ApiController
             'name' => $request->input('category')
         ]);
 
-        broadcast(new BiographyEntryUpdated($e));
+        broadcast(new BiographyEntryEventUpdated($e));
 
         return $this->respondWithData([
             'id' => $e->id
@@ -176,7 +176,7 @@ class BiographyEntryEventController extends ApiController
         ]);
         $e->save();
 
-        broadcast(new BiographyEntryUpdated($e));
+        broadcast(new BiographyEntryEventUpdated($e));
 
         $belongsTo_object = $e->belongsTo_object();
         if (!is_null($belongsTo_object)) {
@@ -219,7 +219,7 @@ class BiographyEntryEventController extends ApiController
             $url = $belongsTo_object->url() . '#tab_biography';
         }
 
-        broadcast(new BiographyEntryDeleted($e));
+        broadcast(new BiographyEntryEventDeleted($e));
 
         $e->delete();
 

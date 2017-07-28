@@ -45,6 +45,10 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Animal whereTerrariumId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Animal whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\AnimalFeedingScheduleProperty[] $feeding_schedules
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\AnimalFeedingEvent[] $feedings
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\AnimalWeighingScheduleProperty[] $weighing_schedules
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\AnimalWeighingEvent[] $weighings
  */
 class Animal extends CiliatusModel
 {

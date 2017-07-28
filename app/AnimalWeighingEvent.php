@@ -7,6 +7,26 @@ use Illuminate\Database\Eloquent\Builder;
 /**
  * Class AnimalWeighingEvent
  *
+ * @property string $id
+ * @property string $belongsTo_type
+ * @property string $belongsTo_id
+ * @property string $type
+ * @property string $name
+ * @property string $value
+ * @property string $value_json
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereBelongsToId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereBelongsToType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereValueJson($value)
+ * @mixin \Eloquent
  */
 class AnimalWeighingEvent extends Event
 {

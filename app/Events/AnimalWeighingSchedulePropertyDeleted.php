@@ -2,35 +2,34 @@
 
 namespace App\Events;
 
-use App\Http\Transformers\BiographyEntryEventTransformer;
-use App\Event;
-use App\Repositories\BiographyEntryEventRepository;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Log;
 
-class BiographyEntryUpdated implements ShouldBroadcast
+/**
+ * Class AnimalWeighingScheduleEventDeleted
+ * @package App\Events
+ */
+class AnimalWeighingSchedulePropertyDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $biography_entry;
+    /**
+     * @var
+     */
+    public $animal_weighing_schedule_id;
+
 
     /**
-     * Create a new event instance.
-     *
-     * @param Event $be
+     * AnimalWeighingScheduleDeleted constructor.
+     * @param String $animal_weighing_schedule_id
      */
-    public function __construct(Event $be)
+    public function __construct($animal_weighing_schedule_id)
     {
-        $transformer = new BiographyEntryEventTransformer();
-
-        $this->biography_entry = $transformer->transform(
-            (new BiographyEntryEventRepository($be))->show()->toArray()
-        );
+        $this->animal_weighing_schedule_id = $animal_weighing_schedule_id;
     }
 
     /**

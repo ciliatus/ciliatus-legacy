@@ -3,51 +3,49 @@
 namespace App\Events;
 
 
-use App\Http\Transformers\AnimalFeedingTransformer;
-use App\Property;
-use App\Event;
-use App\Repositories\AnimalFeedingRepository;
+use App\AnimalWeighingEvent;
+use App\Http\Transformers\AnimalWeighingEventTransformer;
+use App\Repositories\AnimalWeighingEventRepository;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Log;
 
 /**
- * Class AnimalFeedingUpdated
+ * Class AnimalWeighingEventUpdated
  * @package App\Events
  */
-class AnimalFeedingUpdated implements ShouldBroadcast
+class AnimalWeighingEventUpdated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
     /**
      * @var array
      */
-    public $animal_feeding;
-
+    public $animal_weighing;
 
     /**
      * Create a new event instance.
      *
-     * AnimalFeedingUpdated constructor.
-     * @param Event $e
+     * AnimalWeighingUpdated constructor.
+     * @param AnimalWeighingEvent $e
      */
-    public function __construct(Event $e)
+    public function __construct(AnimalWeighingEvent $e)
     {
-        $transformer = new AnimalFeedingTransformer();
+        $transformer = new AnimalWeighingEventTransformer();
 
         if (!is_null($e->belongsTo_object())) {
-            foreach ($e->belongsTo_object()->feeding_schedules as $fs) {
-                broadcast(new AnimalFeedingScheduleUpdated($fs));
+            foreach ($e->belongsTo_object()->weighing_schedules as $fs) {
+                broadcast(new AnimalWeighingSchedulePropertyUpdated($fs));
             }
         }
 
-        $this->animal_feeding = $transformer->transform(
-            (new AnimalFeedingRepository($e))->show()->toArray()
+        $this->animal_weighing = $transformer->transform(
+            (new AnimalWeighingEventRepository($e))->show()->toArray()
         );
+        $this->e = $e;
     }
 
     /**

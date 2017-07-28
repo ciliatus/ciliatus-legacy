@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Api;
 
 use App\Animal;
 use App\AnimalFeedingScheduleProperty;
-use App\Events\AnimalFeedingScheduleDeleted;
-use App\Events\AnimalFeedingScheduleUpdated;
-use App\Events\AnimalFeedingUpdated;
+use App\Events\AnimalFeedingSchedulePropertyDeleted;
+use App\Events\AnimalFeedingSchedulePropertyUpdated;
+use App\Events\AnimalFeedingEventUpdated;
 use App\Events\AnimalUpdated;
 use App\Property;
 use Carbon\Carbon;
@@ -107,7 +107,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             ]);
         }
 
-        broadcast(new AnimalFeedingScheduleUpdated($p));
+        broadcast(new AnimalFeedingSchedulePropertyUpdated($p));
         broadcast(new AnimalUpdated($animal));
 
         return $this->setStatusCode(200)->respondWithData(
@@ -164,7 +164,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
 
         $afs->save();
 
-        broadcast(new AnimalFeedingScheduleUpdated($afs));
+        broadcast(new AnimalFeedingSchedulePropertyUpdated($afs));
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([], [
@@ -202,7 +202,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             $p->delete();
         }
 
-        broadcast(new AnimalFeedingScheduleDeleted($afs->id));
+        broadcast(new AnimalFeedingSchedulePropertyDeleted($afs->id));
         broadcast(new AnimalUpdated($animal));
 
         $afs->delete();
@@ -244,8 +244,8 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             'value' => 1
         ]);
 
-        broadcast(new AnimalFeedingUpdated($e));
-        broadcast(new AnimalFeedingScheduleUpdated($afs));
+        broadcast(new AnimalFeedingEventUpdated($e));
+        broadcast(new AnimalFeedingSchedulePropertyUpdated($afs));
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
@@ -280,7 +280,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             'value' => Carbon::today()->addDays((int)$afs->value)->format('Y-m-d')
         ]);
 
-        broadcast(new AnimalFeedingScheduleUpdated($afs));
+        broadcast(new AnimalFeedingSchedulePropertyUpdated($afs));
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);

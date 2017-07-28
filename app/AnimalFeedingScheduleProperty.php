@@ -7,6 +7,25 @@ use Illuminate\Database\Eloquent\Builder;
 /**
  * Class AnimalFeedingScheduleProperty
  *
+ * @property string $id
+ * @property string $belongsTo_type
+ * @property string $belongsTo_id
+ * @property string $type
+ * @property string $name
+ * @property bool $value
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \App\Animal $animal
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereBelongsToId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereBelongsToType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereValue($value)
+ * @mixin \Eloquent
  */
 class AnimalFeedingScheduleProperty extends Property
 {

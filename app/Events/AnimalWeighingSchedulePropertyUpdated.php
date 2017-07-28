@@ -3,23 +3,21 @@
 namespace App\Events;
 
 
+use App\AnimalWeighingScheduleProperty;
 use App\Http\Transformers\AnimalWeighingSchedulePropertyTransformer;
-use App\Http\Transformers\AnimalWeighingTransformer;
-use App\Property;
-use App\Repositories\AnimalWeighingScheduleRepository;
+use App\Repositories\AnimalWeighingSchedulePropertyRepository;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Log;
 
 /**
- * Class AnimalWeighingScheduleUpdated
+ * Class AnimalWeighingSchedulePropertyUpdated
  * @package App\Events
  */
-class AnimalWeighingScheduleUpdated implements ShouldBroadcast
+class AnimalWeighingSchedulePropertyUpdated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
@@ -33,14 +31,14 @@ class AnimalWeighingScheduleUpdated implements ShouldBroadcast
      * Create a new event instance.
      *
      * AnimalWeighingScheduleUpdated constructor.
-     * @param Property $p
+     * @param AnimalWeighingScheduleProperty $p
      */
-    public function __construct(Property $p)
+    public function __construct(AnimalWeighingScheduleProperty $p)
     {
         $transformer = new AnimalWeighingSchedulePropertyTransformer();
 
         $this->animal_weighing_schedule = $transformer->transform(
-            (new AnimalWeighingScheduleRepository($p))->show()->toArray()
+            (new AnimalWeighingSchedulePropertyRepository($p))->show()->toArray()
         );
     }
 

@@ -38,7 +38,6 @@ class RepositoryFactory extends Factory
             return new $repo_name($object);
         }
 
-        \Log::debug('Returning generic repository for class ' . $class_name);
         return new GenericRepository($object);
     }
 

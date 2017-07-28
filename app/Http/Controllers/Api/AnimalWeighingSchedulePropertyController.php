@@ -5,9 +5,9 @@ namespace App\Http\Controllers\Api;
 use App\Animal;
 use App\AnimalWeighingScheduleProperty;
 use App\Events\AnimalUpdated;
-use App\Events\AnimalWeighingScheduleDeleted;
-use App\Events\AnimalWeighingScheduleUpdated;
-use App\Events\AnimalWeighingUpdated;
+use App\Events\AnimalWeighingSchedulePropertyDeleted;
+use App\Events\AnimalWeighingSchedulePropertyUpdated;
+use App\Events\AnimalWeighingEventUpdated;
 use App\Property;
 use Carbon\Carbon;
 use Event;
@@ -108,7 +108,7 @@ class AnimalWeighingSchedulePropertyController extends ApiController
             ]);
         }
 
-        broadcast(new AnimalWeighingScheduleUpdated($p));
+        broadcast(new AnimalWeighingSchedulePropertyUpdated($p));
         broadcast(new AnimalUpdated($animal));
 
         return $this->setStatusCode(200)->respondWithData(
@@ -166,7 +166,7 @@ class AnimalWeighingSchedulePropertyController extends ApiController
         $aws->name = 'g';
         $aws->save();
 
-        broadcast(new AnimalWeighingScheduleUpdated($aws));
+        broadcast(new AnimalWeighingSchedulePropertyUpdated($aws));
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([], [
@@ -199,7 +199,7 @@ class AnimalWeighingSchedulePropertyController extends ApiController
             return $this->respondNotFound();
         }
 
-        broadcast(new AnimalWeighingScheduleDeleted($aws->id));
+        broadcast(new AnimalWeighingSchedulePropertyDeleted($aws->id));
         broadcast(new AnimalUpdated($animal));
 
         $aws->delete();
@@ -240,8 +240,8 @@ class AnimalWeighingSchedulePropertyController extends ApiController
             'name' => $afs->name
         ]);
 
-        broadcast(new AnimalWeighingUpdated($e));
-        broadcast(new AnimalWeighingScheduleUpdated($afs));
+        broadcast(new AnimalWeighingEventUpdated($e));
+        broadcast(new AnimalWeighingSchedulePropertyUpdated($afs));
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
@@ -276,7 +276,7 @@ class AnimalWeighingSchedulePropertyController extends ApiController
             'value' => Carbon::today()->addDays((int)$afs->value)->format('Y-m-d')
         ]);
 
-        broadcast(new AnimalWeighingScheduleUpdated($afs));
+        broadcast(new AnimalWeighingSchedulePropertyUpdated($afs));
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);

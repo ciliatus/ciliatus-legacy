@@ -3,40 +3,34 @@
 namespace App\Events;
 
 
-use App\Http\Transformers\AnimalWeighingTransformer;
-use App\Property;
-use App\Repositories\AnimalWeighingRepository;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Log;
 
 /**
- * Class AnimalWeighingDeleted
+ * Class AnimalFeedingSchedulePropertyDeleted
  * @package App\Events
  */
-class AnimalWeighingDeleted implements ShouldBroadcast
+class AnimalFeedingSchedulePropertyDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var
      */
-    public $animal_weighing_id;
+    public $animal_feeding_schedule_id;
 
 
     /**
-     * Create a new event instance.
-     *
-     * AnimalWeighingDeleted constructor.
-     * @param String $animal_weighing_id
+     * AnimalFeedingScheduleDeleted constructor.
+     * @param String $animal_feeding_schedule_id
      */
-    public function __construct($animal_weighing_id)
+    public function __construct($animal_feeding_schedule_id)
     {
-        $this->animal_weighing_id = $animal_weighing_id;
+        $this->animal_feeding_schedule_id = $animal_feeding_schedule_id;
     }
 
     /**

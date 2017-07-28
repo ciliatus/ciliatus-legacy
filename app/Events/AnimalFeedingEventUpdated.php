@@ -3,50 +3,48 @@
 namespace App\Events;
 
 
-use App\Http\Transformers\AnimalWeighingTransformer;
-use App\Property;
-use App\Event;
-use App\Repositories\AnimalWeighingRepository;
+use App\AnimalFeedingEvent;
+use App\Http\Transformers\AnimalFeedingEventTransformer;
+use App\Repositories\AnimalFeedingEventRepository;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Log;
 
 /**
- * Class AnimalWeighingUpdated
+ * Class AnimalFeedingEventUpdated
  * @package App\Events
  */
-class AnimalWeighingUpdated implements ShouldBroadcast
+class AnimalFeedingEventUpdated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
     /**
      * @var array
      */
-    public $animal_weighing;
+    public $animal_feeding;
 
 
     /**
      * Create a new event instance.
      *
-     * AnimalWeighingUpdated constructor.
-     * @param Event $e
+     * AnimalFeedingUpdated constructor.
+     * @param AnimalFeedingEvent $e
      */
-    public function __construct(Event $e)
+    public function __construct(AnimalFeedingEvent $e)
     {
-        $transformer = new AnimalWeighingTransformer();
+        $transformer = new AnimalFeedingEventTransformer();
 
         if (!is_null($e->belongsTo_object())) {
-            foreach ($e->belongsTo_object()->weighing_schedules as $fs) {
-                broadcast(new AnimalWeighingScheduleUpdated($fs));
+            foreach ($e->belongsTo_object()->feeding_schedules as $fs) {
+                broadcast(new AnimalFeedingSchedulePropertyUpdated($fs));
             }
         }
 
-        $this->animal_weighing = $transformer->transform(
-            (new AnimalWeighingRepository($e))->show()->toArray()
+        $this->animal_feeding = $transformer->transform(
+            (new AnimalFeedingEventRepository($e))->show()->toArray()
         );
     }
 
