@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\BiographyEntryEvent;
-use App\Event;
 use App\Events\BiographyEntryEventDeleted;
 use App\Events\BiographyEntryEventUpdated;
 use App\Property;
@@ -140,12 +139,11 @@ class BiographyEntryEventController extends ApiController
     public function update(Request $request, $id)
     {
 
-        \Log::debug('Using user ' . \Auth::user()->name);
         if (Gate::denies('api-write:biography_entry')) {
             return $this->respondUnauthorized();
         }
 
-        $e = Event::find($id);
+        $e = BiographyEntryEvent::find($id);
         if (is_null($e)) {
             return $this->respondNotFound();
         }
@@ -204,7 +202,7 @@ class BiographyEntryEventController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $e = Event::find($id);
+        $e = BiographyEntryEvent::find($id);
         if (is_null($e)) {
             return $this->respondNotFound();
         }
