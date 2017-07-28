@@ -1,440 +1,451 @@
 <template>
-    <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
-        
+    <div>
         <!--
-            Active suggestions
-        -->
-        <div :class="wrapperClasses" v-if="dashboard.suggestions.length > 0">
+            Modals
+         -->
+        <div v-for="schedule in dashboard.animal_weighing_schedules.overdue.concat(dashboard.animal_weighing_schedules.due)">
+            <animal-add-weight-modal :animalId="schedule.animal.id"
+                                     :containerId="'modal_add_weight_' + schedule.id"></animal-add-weight-modal>
+        </div>
 
-            <ul class="collection info with-header">
-                <li class="collection-header">
-                    <i class="material-icons">lightbulb_outline</i>
-                    {{ dashboard.suggestions.length }} {{ $tc("components.suggestions", dashboard.suggestions.length) }}
-                </li>
+        <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
+            <!--
+                Active suggestions
+            -->
+            <div :class="wrapperClasses" v-if="dashboard.suggestions.length > 0">
 
-                <li class="collection-item" v-for="suggestion in dashboard.suggestions">
+                <ul class="collection info with-header">
+                    <li class="collection-header">
+                        <i class="material-icons">lightbulb_outline</i>
+                        {{ dashboard.suggestions.length }} {{ $tc("components.suggestions", dashboard.suggestions.length) }}
+                    </li>
 
-                    <div class="white-text">
+                    <li class="collection-item" v-for="suggestion in dashboard.suggestions">
 
-                        <span style="display: inline-block; width: calc(100% - 60px);">
-                            <a class="white-text" v-bind:href="suggestion.belongsTo_object.url">
-                                {{ suggestion.belongsTo_object.display_name || suggestion.belongsTo_object.name }}:
+                        <div class="white-text">
+
+                            <span style="display: inline-block; width: calc(100% - 60px);">
+                                <a class="white-text" v-bind:href="suggestion.belongsTo_object.url">
+                                    {{ suggestion.belongsTo_object.display_name || suggestion.belongsTo_object.name }}:
+                                </a>
+                                {{ $t('messages.suggestions.' + suggestion.name, {
+                                hour: suggestion.value,
+                                name: suggestion
+                            }) }}
+                            </span>
+
+
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/properties/read/Event/' + suggestion.id" v-on:click="link_post">
+                                <i class="material-icons">done</i>
                             </a>
-                            {{ $t('messages.suggestions.' + suggestion.name, {
-                            hour: suggestion.value,
-                            name: suggestion
-                        }) }}
-                        </span>
 
+                        </div>
 
-                        <a class="secondary-content white-text" v-bind:href="'/api/v1/properties/read/Event/' + suggestion.id" v-on:click="link_post">
-                            <i class="material-icons">done</i>
-                        </a>
+                    </li>
 
-                    </div>
+                </ul>
 
-                </li>
 
-            </ul>
+            </div>
 
 
-        </div>
+            <!--
+                Controlunits critical
+            -->
+            <div :class="wrapperClasses" v-if="dashboard.controlunits.critical.length > 0">
 
+                <ul class="collection critical with-header">
+                    <li class="collection-header">
+                        <i class="material-icons">developer_board</i>
+                        {{ dashboard.controlunits.critical.length }} {{ $tc("components.controlunits", dashboard.controlunits.critical.length) }} {{ $t("labels.critical") }}
+                    </li>
 
-        <!--
-            Controlunits critical
-        -->
-        <div :class="wrapperClasses" v-if="dashboard.controlunits.critical.length > 0">
+                    <li class="collection-item" v-for="controlunit in dashboard.controlunits.critical">
 
-            <ul class="collection critical with-header">
-                <li class="collection-header">
-                    <i class="material-icons">developer_board</i>
-                    {{ dashboard.controlunits.critical.length }} {{ $tc("components.controlunits", dashboard.controlunits.critical.length) }} {{ $t("labels.critical") }}
-                </li>
+                        <div>
+                            <a v-bind:href="'/controlunits/' + controlunit.id" class="white-text">{{ controlunit.name }}</a>
 
-                <li class="collection-item" v-for="controlunit in dashboard.controlunits.critical">
+                            <span>({{ $t("labels.last_heartbeat") }}: {{ $t(
+                                'units.' + $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).unit,
+                                {val: $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).val}
+                            )}})</span>
+                        </div>
 
-                    <div>
-                        <a v-bind:href="'/controlunits/' + controlunit.id" class="white-text">{{ controlunit.name }}</a>
+                    </li>
 
-                        <span>({{ $t("labels.last_heartbeat") }}: {{ $t(
-                            'units.' + $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).unit,
-                            {val: $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).val}
-                        )}})</span>
-                    </div>
+                </ul>
 
-                </li>
+            </div>
 
-            </ul>
 
-        </div>
+            <!--
+                Terraria critical
+            -->
+            <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length > 0">
 
+                <ul class="collection critical with-header">
+                    <li class="collection-header">
+                        <i class="material-icons">video_label</i>
+                        {{ dashboard.terraria.critical.length }} {{ $tc("components.terraria", dashboard.terraria.critical.length) }} {{ $t("labels.critical") }}
+                    </li>
 
-        <!--
-            Terraria critical
-        -->
-        <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length > 0">
+                    <li class="collection-item" v-for="terrarium in dashboard.terraria.critical">
 
-            <ul class="collection critical with-header">
-                <li class="collection-header">
-                    <i class="material-icons">video_label</i>
-                    {{ dashboard.terraria.critical.length }} {{ $tc("components.terraria", dashboard.terraria.critical.length) }} {{ $t("labels.critical") }}
-                </li>
+                        <div>
+                            <a v-bind:href="'/terraria/' + terrarium.id" class="white-text">{{ terrarium.display_name }}</a>
 
-                <li class="collection-item" v-for="terrarium in dashboard.terraria.critical">
+                            <span v-show="terrarium.humidity_critical === true && terrarium.temperature_critical !== true">({{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%)</span>
+                            <span v-show="terrarium.humidity_critical === true && terrarium.temperature_critical === true">({{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%, {{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C)</span>
+                            <span v-show="terrarium.humidity_critical !== true && terrarium.temperature_critical === true">({{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C)</span>
+                        </div>
 
-                    <div>
-                        <a v-bind:href="'/terraria/' + terrarium.id" class="white-text">{{ terrarium.display_name }}</a>
+                    </li>
 
-                        <span v-show="terrarium.humidity_critical === true && terrarium.temperature_critical !== true">({{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%)</span>
-                        <span v-show="terrarium.humidity_critical === true && terrarium.temperature_critical === true">({{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%, {{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C)</span>
-                        <span v-show="terrarium.humidity_critical !== true && terrarium.temperature_critical === true">({{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C)</span>
-                    </div>
+                </ul>
 
-                </li>
+            </div>
 
-            </ul>
+            <!--
+                Physical Sensors critical
+            -->
+            <div :class="wrapperClasses" v-if="dashboard.physical_sensors.critical.length > 0">
 
-        </div>
+                <ul class="collection critical with-header">
+                    <li class="collection-header">
+                        <i class="material-icons">memory</i>
+                        {{ dashboard.physical_sensors.critical.length }} {{ $tc("components.physical_sensors", dashboard.physical_sensors.critical.length) }} {{ $t("labels.critical") }}
+                    </li>
 
-        <!--
-            Physical Sensors critical
-        -->
-        <div :class="wrapperClasses" v-if="dashboard.physical_sensors.critical.length > 0">
+                    <li class="collection-item" v-for="physical_sensor in dashboard.physical_sensors.critical">
 
-            <ul class="collection critical with-header">
-                <li class="collection-header">
-                    <i class="material-icons">memory</i>
-                    {{ dashboard.physical_sensors.critical.length }} {{ $tc("components.physical_sensors", dashboard.physical_sensors.critical.length) }} {{ $t("labels.critical") }}
-                </li>
+                        <div>
+                            <a v-bind:href="'/physical_sensors/' + physical_sensor.id" class="white-text">{{ physical_sensor.name }}</a>
 
-                <li class="collection-item" v-for="physical_sensor in dashboard.physical_sensors.critical">
+                            <span>({{ $t("labels.last_heartbeat") }}:
+                            {{ $t(
+                                'units.' + $getMatchingTimeDiff(physical_sensor.timestamps.last_heartbeat_diff).unit,
+                                {val: $getMatchingTimeDiff(physical_sensor.timestamps.last_heartbeat_diff).val}
+                            )}})</span>
+                        </div>
 
-                    <div>
-                        <a v-bind:href="'/physical_sensors/' + physical_sensor.id" class="white-text">{{ physical_sensor.name }}</a>
+                    </li>
 
-                        <span>({{ $t("labels.last_heartbeat") }}:
-                        {{ $t(
-                            'units.' + $getMatchingTimeDiff(physical_sensor.timestamps.last_heartbeat_diff).unit,
-                            {val: $getMatchingTimeDiff(physical_sensor.timestamps.last_heartbeat_diff).val}
-                        )}})</span>
-                    </div>
+                </ul>
 
-                </li>
+            </div>
 
-            </ul>
+            <!--
+                Animal Feeding Schedules overdue
+            -->
+            <div :class="wrapperClasses" v-if="dashboard.animal_feeding_schedules.overdue.length > 0">
 
-        </div>
-        
-        <!--
-            Animal Feeding Schedules overdue
-        -->
-        <div :class="wrapperClasses" v-if="dashboard.animal_feeding_schedules.overdue.length > 0">
+                <ul class="collection warning with-header">
+                    <li class="collection-header">
+                        <i class="material-icons">local_dining</i>
+                        {{ dashboard.animal_feeding_schedules.overdue.length }} {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.overdue") }}
+                    </li>
 
-            <ul class="collection warning with-header">
-                <li class="collection-header">
-                    <i class="material-icons">local_dining</i>
-                    {{ dashboard.animal_feeding_schedules.overdue.length }} {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.overdue") }}
-                </li>
+                    <li class="collection-item" v-for="schedule in dashboard.animal_feeding_schedules.overdue">
 
-                <li class="collection-item" v-for="schedule in dashboard.animal_feeding_schedules.overdue">
+                        <div class="white-text">
 
-                    <div class="white-text">
+                            <span style="display: inline-block; width: calc(100% - 60px);">
+                                {{ schedule.animal.display_name }}: {{ schedule.type }} ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
+                            </span>
 
-                        <span style="display: inline-block; width: calc(100% - 60px);">
-                            {{ schedule.animal.display_name }}: {{ schedule.type }} ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
-                        </span>
 
-
-                        <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
-                            <i class="material-icons">update</i>
-                        </a>
-                        <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'" v-on:click="link_post">
-                            <i class="material-icons">done</i>
-                        </a>
-
-                    </div>
-
-                </li>
-
-            </ul>
-
-
-        </div>
-
-        <!--
-            Animal Weighing Schedules overdue
-        -->
-        <div :class="wrapperClasses" v-if="dashboard.animal_weighing_schedules.overdue.length > 0">
-
-            <ul class="collection warning with-header">
-                <li class="collection-header">
-                    <i class="material-icons">vertical_align_bottom</i>
-                    {{ dashboard.animal_weighing_schedules.overdue.length }} {{ $tc("components.animal_weighings", 2) }} {{ $t("labels.overdue") }}
-                </li>
-
-                <li class="collection-item" v-for="schedule in dashboard.animal_weighing_schedules.overdue">
-
-                    <div class="white-text">
-
-                        <span style="display: inline-block; width: calc(100% - 60px);">
-                            {{ schedule.animal.display_name }} ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
-                        </span>
-
-
-                        <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
-                            <i class="material-icons">update</i>
-                        </a>
-                        <!-- @TODO: Toggle Modal -->
-                        <a class="secondary-content white-text">
-                            <i class="material-icons">done</i>
-                        </a>
-
-                    </div>
-
-                </li>
-
-            </ul>
-
-        </div>
-
-        <!--
-            Action Sequence Schedules overdue
-        -->
-        <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.overdue.length > 0">
-
-            <ul class="collection warning with-header">
-                <li class="collection-header">
-                    <i class="material-icons">playlist_play</i>
-                    {{ dashboard.action_sequence_schedules.overdue.length }} {{ $tc("components.action_sequences", 2) }} {{ $t("labels.overdue") }}
-                </li>
-
-                <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.overdue">
-
-                    <div class="white-text">
-
-                        <span style="display: inline-block; width: calc(100% - 30px);">
-                            {{ schedule.timestamps.starts }}: {{ schedule.sequence.name }}
-                        </span>
-
-                        <a class="secondary-content white-text tooltipped" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post"
-                           data-delay="50" data-html="true"
-                           :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.action_sequence_schedules.skip') + '</div>'">
-                            <i class="material-icons">update</i>
-                        </a>
-
-                    </div>
-
-                </li>
-
-            </ul>
-
-        </div>
-
-        <!--
-            Animal Feeding Schedules due
-        -->
-        <div :class="wrapperClasses" v-if="dashboard.animal_feeding_schedules.due.length > 0">
-
-            <ul class="collection ok with-header">
-                <li class="collection-header">
-                    <i class="material-icons">local_dining</i>
-                    {{ dashboard.animal_feeding_schedules.due.length }} {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.due") }}
-                </li>
-
-                <li class="collection-item" v-for="schedule in dashboard.animal_feeding_schedules.due">
-
-                    <div class="white-text">
-
-                        <span style="display: inline-block; width: calc(100% - 60px);">
-                            {{ schedule.animal.display_name }}: {{ schedule.type }}
-                        </span>
-
-                        <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
-                            <i class="material-icons">update</i>
-                        </a>
-                        <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'" v-on:click="link_post">
-                            <i class="material-icons">done</i>
-                        </a>
-
-                    </div>
-
-                </li>
-
-            </ul>
-
-        </div>
-
-        <!--
-            Animal Weighing Schedules due
-        -->
-        <div :class="wrapperClasses" v-if="dashboard.animal_weighing_schedules.due.length > 0">
-
-            <ul class="collection ok with-header">
-                <li class="collection-header">
-                    <i class="material-icons">vertical_align_bottom</i>
-                    {{ dashboard.animal_weighing_schedules.due.length }} {{ $tc("components.animal_weighings", 2) }} {{ $t("labels.due") }}
-                </li>
-
-                <li class="collection-item" v-for="schedule in dashboard.animal_weighing_schedules.due">
-
-                    <div class="white-text">
-
-                        <span style="display: inline-block; width: calc(100% - 60px);">
-                            {{ schedule.animal.display_name }} {{ $t('labels.today') }}
-                        </span>
-
-                        <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
-                            <i class="material-icons">update</i>
-                        </a>
-                        <!-- @TODO: Toggle Modal -->
-                        <a class="secondary-content white-text">
-                            <i class="material-icons">done</i>
-                        </a>
-
-                    </div>
-
-                </li>
-
-            </ul>
-
-        </div>
-
-        <!--
-            Action Sequence Schedules due
-        -->
-        <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.due.length > 0">
-
-            <ul class="collection ok with-header">
-                <li class="collection-header">
-                    <i class="material-icons">playlist_play</i>
-                    {{ dashboard.action_sequence_schedules.due.length }} {{ $tc("components.action_sequences", 2) }} {{ $t("labels.due") }}
-                </li>
-
-                <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.due">
-
-                    <div class="white-text">
-
-                        <span style="display: inline-block; width: calc(100% - 30px);">
-                            {{ schedule.timestamps.starts }}: {{ schedule.sequence.name }}
-                        </span>
-
-                        <a class="secondary-content white-text tooltipped" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post"
-                           data-delay="50" data-html="true"
-                           :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.action_sequence_schedules.skip') + '</div>'">
-                            <i class="material-icons">update</i>
-                        </a>
-
-                    </div>
-
-                </li>
-
-            </ul>
-
-        </div>
-
-
-        <!--
-            Action Sequence schedules/triggers/intentions running
-        -->
-        <div :class="wrapperClasses"
-             v-if="dashboard.action_sequence_schedules.running.length > 0
-                || dashboard.action_sequence_triggers.running.length > 0
-                || dashboard.action_sequence_intentions.running.length > 0">
-
-            <ul class="collection ok with-header">
-                <li class="collection-header">
-                    <i class="material-icons">playlist_play</i>
-                    {{ (dashboard.action_sequence_schedules.running.length + dashboard.action_sequence_triggers.running.length + dashboard.action_sequence_intentions.running.length) }}
-                    {{ $tc("components.action_sequences", 2) }} {{ $t("labels.running") }}
-                </li>
-
-                <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.running">
-
-                    <div class="white-text">
-
-                        <span style="display: inline-block; width: calc(100% - 30px);">
-                            <i class="material-icons">schedule</i>
-                            <a v-if="schedule.timestamps.last_start !== null" class="white-text">{{ schedule.timestamps.last_start.split(" ")[1] }}</a>
-                            <a v-bind:href="'/action_sequences/' + schedule.sequence.id + '/edit'" class="white-text">
-                                {{ schedule.sequence.name }}
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                                <i class="material-icons">update</i>
                             </a>
-                        </span>
 
-                        <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
-                            <i class="material-icons">update</i>
-                        </a>
-
-                    </div>
-
-                </li>
-
-                <li class="collection-item" v-for="trigger in dashboard.action_sequence_triggers.running">
-
-                    <div class="white-text">
-
-                        <span style="display: inline-block; width: calc(100% - 30px);">
-                            <i class="material-icons">flare</i>
-                            <a v-if="trigger.timestamps.last_start !== null" class="white-text">{{ trigger.timestamps.last_start.split(" ")[1] }}</a>
-                            <a v-bind:href="'/action_sequences/' + trigger.sequence.id + '/edit'" class="white-text">
-                                {{ trigger.sequence.name }}
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'" v-on:click="link_post">
+                                <i class="material-icons">done</i>
                             </a>
-                        </span>
 
-                        <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_triggers/' + trigger.id + '/skip'" v-on:click="link_post">
-                            <i class="material-icons">update</i>
-                        </a>
+                        </div>
 
-                    </div>
+                    </li>
 
-                </li>
+                </ul>
 
-                <li class="collection-item" v-for="intention in dashboard.action_sequence_intentions.running">
 
-                    <div class="white-text">
+            </div>
 
-                        <span style="display: inline-block; width: calc(100% - 30px);">
-                            <i class="material-icons">explore</i>
-                            <a v-if="intention.timestamps.last_start !== null" class="white-text">{{ intention.timestamps.last_start.split(" ")[1] }}</a>
-                            <a v-bind:href="'/action_sequences/' + intention.sequence.id + '/edit'" class="white-text">
-                                {{ intention.sequence.name }}
+            <!--
+                Animal Weighing Schedules overdue
+            -->
+            <div :class="wrapperClasses" v-if="dashboard.animal_weighing_schedules.overdue.length > 0">
+
+                <ul class="collection warning with-header">
+                    <li class="collection-header">
+                        <i class="material-icons">vertical_align_bottom</i>
+                        {{ dashboard.animal_weighing_schedules.overdue.length }} {{ $tc("components.animal_weighings", 2) }} {{ $t("labels.overdue") }}
+                    </li>
+
+                    <li class="collection-item" v-for="schedule in dashboard.animal_weighing_schedules.overdue">
+
+                        <div class="white-text">
+
+                            <span style="display: inline-block; width: calc(100% - 60px);">
+                                {{ schedule.animal.display_name }} ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
+                            </span>
+
+
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                                <i class="material-icons">update</i>
                             </a>
-                        </span>
 
-                        <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_intentions/' + intention.id + '/skip'" v-on:click="link_post">
-                            <i class="material-icons">update</i>
-                        </a>
+                            <a class="secondary-content white-text" v-bind:href="'#modal_add_weight_' + schedule.id" v-bind:onclick="'$(\'#modal_add_weight_' + schedule.id + '\').modal(); $(\'#modal_add_weight_' + schedule.id + '\').modal(\'open\');'">
+                                <i class="material-icons">done</i>
+                            </a>
 
-                    </div>
+                        </div>
 
-                </li>
+                    </li>
 
-            </ul>
+                </ul>
 
-        </div>
+            </div>
 
-        <!--
-            Terraria ok
-        -->
-        <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length < 1">
+            <!--
+                Action Sequence Schedules overdue
+            -->
+            <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.overdue.length > 0">
 
-            <ul class="collection ok with-header">
-                <li class="collection-header">
-                    <i class="material-icons">video_label</i>
-                    {{ dashboard.terraria.ok.length }} {{ $tc("components.terraria", 2) }}
-                </li>
+                <ul class="collection warning with-header">
+                    <li class="collection-header">
+                        <i class="material-icons">playlist_play</i>
+                        {{ dashboard.action_sequence_schedules.overdue.length }} {{ $tc("components.action_sequences", 2) }} {{ $t("labels.overdue") }}
+                    </li>
 
-                <li class="collection-item">
+                    <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.overdue">
 
-                    <div class="white-text">
+                        <div class="white-text">
 
-                        {{ dashboard.terraria.ok.length }} {{ $tc("components.terraria", dashboard.terraria.ok.length) }} {{ $t("labels.ok") }}
+                            <span style="display: inline-block; width: calc(100% - 30px);">
+                                {{ schedule.timestamps.starts }}: {{ schedule.sequence.name }}
+                            </span>
 
-                    </div>
+                            <a class="secondary-content white-text tooltipped" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post"
+                               data-delay="50" data-html="true"
+                               :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.action_sequence_schedules.skip') + '</div>'">
+                                <i class="material-icons">update</i>
+                            </a>
 
-                </li>
+                        </div>
 
-            </ul>
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!--
+                Animal Feeding Schedules due
+            -->
+            <div :class="wrapperClasses" v-if="dashboard.animal_feeding_schedules.due.length > 0">
+
+                <ul class="collection ok with-header">
+                    <li class="collection-header">
+                        <i class="material-icons">local_dining</i>
+                        {{ dashboard.animal_feeding_schedules.due.length }} {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.due") }}
+                    </li>
+
+                    <li class="collection-item" v-for="schedule in dashboard.animal_feeding_schedules.due">
+
+                        <div class="white-text">
+
+                            <span style="display: inline-block; width: calc(100% - 60px);">
+                                {{ schedule.animal.display_name }}: {{ schedule.type }}
+                            </span>
+
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                                <i class="material-icons">update</i>
+                            </a>
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'" v-on:click="link_post">
+                                <i class="material-icons">done</i>
+                            </a>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!--
+                Animal Weighing Schedules due
+            -->
+            <div :class="wrapperClasses" v-if="dashboard.animal_weighing_schedules.due.length > 0">
+
+                <ul class="collection ok with-header">
+                    <li class="collection-header">
+                        <i class="material-icons">vertical_align_bottom</i>
+                        {{ dashboard.animal_weighing_schedules.due.length }} {{ $tc("components.animal_weighings", 2) }} {{ $t("labels.due") }}
+                    </li>
+
+                    <li class="collection-item" v-for="schedule in dashboard.animal_weighing_schedules.due">
+
+                        <div class="white-text">
+
+                            <span style="display: inline-block; width: calc(100% - 60px);">
+                                {{ schedule.animal.display_name }} {{ $t('labels.today') }}
+                            </span>
+
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                                <i class="material-icons">update</i>
+                            </a>
+
+                            <a class="secondary-content white-text" v-bind:href="'#modal_add_weight_' + schedule.id" v-bind:onclick="'$(\'#modal_add_weight_' + schedule.id + '\').modal(); $(\'#modal_add_weight_' + schedule.id + '\').modal(\'open\');'">
+                                <i class="material-icons">done</i>
+                            </a>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!--
+                Action Sequence Schedules due
+            -->
+            <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.due.length > 0">
+
+                <ul class="collection ok with-header">
+                    <li class="collection-header">
+                        <i class="material-icons">playlist_play</i>
+                        {{ dashboard.action_sequence_schedules.due.length }} {{ $tc("components.action_sequences", 2) }} {{ $t("labels.due") }}
+                    </li>
+
+                    <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.due">
+
+                        <div class="white-text">
+
+                            <span style="display: inline-block; width: calc(100% - 30px);">
+                                {{ schedule.timestamps.starts }}: {{ schedule.sequence.name }}
+                            </span>
+
+                            <a class="secondary-content white-text tooltipped" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post"
+                               data-delay="50" data-html="true"
+                               :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.action_sequence_schedules.skip') + '</div>'">
+                                <i class="material-icons">update</i>
+                            </a>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+
+            <!--
+                Action Sequence schedules/triggers/intentions running
+            -->
+            <div :class="wrapperClasses"
+                 v-if="dashboard.action_sequence_schedules.running.length > 0
+                    || dashboard.action_sequence_triggers.running.length > 0
+                    || dashboard.action_sequence_intentions.running.length > 0">
+
+                <ul class="collection ok with-header">
+                    <li class="collection-header">
+                        <i class="material-icons">playlist_play</i>
+                        {{ (dashboard.action_sequence_schedules.running.length + dashboard.action_sequence_triggers.running.length + dashboard.action_sequence_intentions.running.length) }}
+                        {{ $tc("components.action_sequences", 2) }} {{ $t("labels.running") }}
+                    </li>
+
+                    <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.running">
+
+                        <div class="white-text">
+
+                            <span style="display: inline-block; width: calc(100% - 30px);">
+                                <i class="material-icons">schedule</i>
+                                <a v-if="schedule.timestamps.last_start !== null" class="white-text">{{ schedule.timestamps.last_start.split(" ")[1] }}</a>
+                                <a v-bind:href="'/action_sequences/' + schedule.sequence.id + '/edit'" class="white-text">
+                                    {{ schedule.sequence.name }}
+                                </a>
+                            </span>
+
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                                <i class="material-icons">update</i>
+                            </a>
+
+                        </div>
+
+                    </li>
+
+                    <li class="collection-item" v-for="trigger in dashboard.action_sequence_triggers.running">
+
+                        <div class="white-text">
+
+                            <span style="display: inline-block; width: calc(100% - 30px);">
+                                <i class="material-icons">flare</i>
+                                <a v-if="trigger.timestamps.last_start !== null" class="white-text">{{ trigger.timestamps.last_start.split(" ")[1] }}</a>
+                                <a v-bind:href="'/action_sequences/' + trigger.sequence.id + '/edit'" class="white-text">
+                                    {{ trigger.sequence.name }}
+                                </a>
+                            </span>
+
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_triggers/' + trigger.id + '/skip'" v-on:click="link_post">
+                                <i class="material-icons">update</i>
+                            </a>
+
+                        </div>
+
+                    </li>
+
+                    <li class="collection-item" v-for="intention in dashboard.action_sequence_intentions.running">
+
+                        <div class="white-text">
+
+                            <span style="display: inline-block; width: calc(100% - 30px);">
+                                <i class="material-icons">explore</i>
+                                <a v-if="intention.timestamps.last_start !== null" class="white-text">{{ intention.timestamps.last_start.split(" ")[1] }}</a>
+                                <a v-bind:href="'/action_sequences/' + intention.sequence.id + '/edit'" class="white-text">
+                                    {{ intention.sequence.name }}
+                                </a>
+                            </span>
+
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_intentions/' + intention.id + '/skip'" v-on:click="link_post">
+                                <i class="material-icons">update</i>
+                            </a>
+
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
+
+            <!--
+                Terraria ok
+            -->
+            <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length < 1">
+
+                <ul class="collection ok with-header">
+                    <li class="collection-header">
+                        <i class="material-icons">video_label</i>
+                        {{ dashboard.terraria.ok.length }} {{ $tc("components.terraria", 2) }}
+                    </li>
+
+                    <li class="collection-item">
+
+                        <div class="white-text">
+
+                            {{ dashboard.terraria.ok.length }} {{ $tc("components.terraria", dashboard.terraria.ok.length) }} {{ $t("labels.ok") }}
+
+                        </div>
+
+                    </li>
+
+                </ul>
+
+            </div>
 
         </div>
 
@@ -442,6 +453,9 @@
 </template>
 
 <script>
+
+    import AnimalAddWeightModal from './animal_add_weight-modal.vue';
+
     export default {
 
         data () {
@@ -504,6 +518,10 @@
                 default: 'dashboard-masonry-grid',
                 required: false
             }
+        },
+
+        components: {
+            'animal-add-weight-modal': AnimalAddWeightModal
         },
 
         methods: {
@@ -1043,9 +1061,15 @@
                 $('.dropdown-button').dropdown({
                     constrain_width: false
                 });
+                $('.modal').modal();
                 $('#' + this.containerId).masonry('reloadItems');
                 $('#' + this.containerId).masonry('layout');
                 $('.tooltipped').tooltip({delay: 50});
+                $('.datepicker').pickadate({
+                    selectMonths: true,
+                    selectYears: 15,
+                    format: 'yyyy-mm-dd',
+                });
             },
 
             submit: function(e) {
