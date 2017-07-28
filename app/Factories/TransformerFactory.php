@@ -12,6 +12,7 @@ namespace App\Factories;
 use App\CiliatusModel;
 use App\Http\Transformers\GenericTransformer;
 use App\Http\Transformers\Transformer;
+use ErrorException;
 
 /**
  * Class TransformerFactory
@@ -23,12 +24,12 @@ class TransformerFactory extends Factory
     /**
      * @param CiliatusModel|null $object
      * @return Transformer
+     * @throws ErrorException
      */
-    public static function get(CiliatusModel $object = null)
+    public static function get(CiliatusModel $object)
     {
         if (is_null($object)) {
-            \Log::warning('Received null-model, returning GenericTransformer', debug_backtrace());
-            return new GenericTransformer();
+            throw new ErrorException('Received null-model');
         }
 
         $class_name_arr = explode('\\', get_class($object));
