@@ -80,7 +80,8 @@ abstract class CiliatusModel extends Model
             $this->belongsTo_id = null;
         }
         else {
-            $this->belongsTo_type = end(explode("\\",get_class($model)));
+            $class_split = explode("\\",get_class($model));
+            $this->belongsTo_type = end($class_split);
             $this->belongsTo_id = $model->id;
         }
 
@@ -99,10 +100,41 @@ abstract class CiliatusModel extends Model
     }
 
     /**
+     * Returns true, if no ModelNotActive property for this model was found
+     *
+     * @return bool
+     */
+    public function active()
+    {
+        return $this->properties()->where('type', 'ModelNotActive')->count() < 1;
+    }
+
+    /**
+     *
+     */
+    public function enable()
+    {
+        $this->properties()->where('type', 'ModelNotActive')->delete();
+    }
+
+    /**
+     *
+     */
+    public function disable()
+    {
+        $class_split = explode("\\",get_class($this));
+        Property::create([
+            'belongsTo_type' => end($class_split),
+            'belongsTo_id' => $this->id,
+            'type' => 'ModelNotActive',
+            'name' => 'ModelNotActive'
+        ]);
+    }
+
+    /**
      * @return mixed
      */
     abstract public function properties();
-
     /**
      * @return string
      */
