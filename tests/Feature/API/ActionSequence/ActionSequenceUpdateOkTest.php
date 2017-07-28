@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\ActionSequence;
+namespace Tests\Feature\API\ActionSequence;
 
 use App\Controlunit;
 use App\LogicalSensor;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\LogicalSensor;
+namespace Tests\Feature\API\LogicalSensor;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

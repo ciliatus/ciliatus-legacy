@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Valve;
+namespace Tests\Feature\API\Log;
 
 use App\Controlunit;
 use App\Log;

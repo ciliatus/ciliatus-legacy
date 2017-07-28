@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Pump;
+namespace Tests\Feature\API\Pump;
 
 use App\Pump;
 use App\Valve;

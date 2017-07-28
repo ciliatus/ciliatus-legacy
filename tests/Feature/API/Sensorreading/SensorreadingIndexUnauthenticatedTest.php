@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Valve;
+namespace Tests\Feature\API\Sensorreading;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

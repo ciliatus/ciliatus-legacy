@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\PhysicalSensor;
+namespace Tests\Feature\API\PhysicalSensor;
 
 use App\PhysicalSensor;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
