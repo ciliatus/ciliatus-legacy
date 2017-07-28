@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
-use App\Event;
+use App\AnimalFeedingEvent;
 use App\Events\AnimalFeedingEventDeleted;
 use App\Events\AnimalFeedingSchedulePropertyDeleted;
 use App\Events\AnimalFeedingEventUpdated;
@@ -83,7 +83,7 @@ class AnimalFeedingEventController extends ApiController
             return $this->setStatusCode(404)->respondWithError('Animal not found');
         }
 
-        $e = Event::create([
+        $e = AnimalFeedingEvent::create([
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal->id,
             'type' => 'AnimalFeeding',

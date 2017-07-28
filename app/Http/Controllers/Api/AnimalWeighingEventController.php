@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Animal;
 use App\AnimalWeighingEvent;
-use App\Event;
 use App\Events\AnimalUpdated;
 use App\Events\AnimalWeighingEventDeleted;
 use App\Events\AnimalWeighingEventUpdated;
@@ -139,7 +138,7 @@ class AnimalWeighingEventController extends ApiController
             return $this->setStatusCode(404)->respondWithError('Animal not found');
         }
 
-        $e = Event::create([
+        $e = AnimalWeighingEvent::create([
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal->id,
             'type' => 'AnimalWeighing',

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\AnimalWeighingEvent;
 use App\AnimalWeighingScheduleProperty;
 use App\Events\AnimalUpdated;
 use App\Events\AnimalWeighingSchedulePropertyDeleted;
@@ -10,7 +11,6 @@ use App\Events\AnimalWeighingSchedulePropertyUpdated;
 use App\Events\AnimalWeighingEventUpdated;
 use App\Property;
 use Carbon\Carbon;
-use Event;
 use Illuminate\Http\Request;
 use Gate;
 
@@ -90,7 +90,7 @@ class AnimalWeighingSchedulePropertyController extends ApiController
             return $this->respondNotFound("Animal not found");
         }
 
-        $p = Property::create([
+        $p = AnimalWeighingScheduleProperty::create([
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal_id,
             'type' => 'AnimalWeighingSchedule',
@@ -233,7 +233,7 @@ class AnimalWeighingSchedulePropertyController extends ApiController
             return $this->respondNotFound();
         }
 
-        $e = Event::create([
+        $e = AnimalWeighingEvent::create([
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal->id,
             'type' => 'AnimalWeighing',
@@ -268,7 +268,7 @@ class AnimalWeighingSchedulePropertyController extends ApiController
             return $this->respondNotFound();
         }
 
-        $p = Property::create([
+        $p = AnimalWeighingEvent::create([
             'belongsTo_type' => 'Property',
             'belongsTo_id' => $afs->id,
             'type' => 'AnimalWeighingScheduleStartDate',

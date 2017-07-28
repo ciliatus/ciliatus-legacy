@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\AnimalFeedingEvent;
 use App\AnimalFeedingScheduleProperty;
 use App\Events\AnimalFeedingSchedulePropertyDeleted;
 use App\Events\AnimalFeedingSchedulePropertyUpdated;
@@ -10,7 +11,6 @@ use App\Events\AnimalFeedingEventUpdated;
 use App\Events\AnimalUpdated;
 use App\Property;
 use Carbon\Carbon;
-use App\Event;
 use Illuminate\Http\Request;
 use Gate;
 
@@ -89,7 +89,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             return $this->respondNotFound("Animal not found");
         }
 
-        $p = Property::create([
+        $p = AnimalFeedingScheduleProperty::create([
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal_id,
             'type' => 'AnimalFeedingSchedule',
@@ -236,7 +236,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             return $this->respondNotFound();
         }
 
-        $e = Event::create([
+        $e = AnimalFeedingEvent::create([
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal->id,
             'type' => 'AnimalFeeding',
@@ -272,7 +272,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             return $this->respondNotFound();
         }
 
-        $p = Property::create([
+        $p = AnimalFeedingEvent::create([
             'belongsTo_type' => 'Property',
             'belongsTo_id' => $afs->id,
             'type' => 'AnimalFeedingScheduleStartDate',
