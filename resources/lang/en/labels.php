@@ -178,5 +178,6 @@ return [
     'no_image'                                   => 'No image',
     'features'                                   => 'Features',
     'rollperiod'                                 => 'Roll period',
-    'add_preset'                                 => 'Add preset'
+    'add_preset'                                 => 'Add preset',
+    'inactive'                                   => 'Inactive'
 ];
