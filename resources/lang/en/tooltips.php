@@ -60,5 +60,6 @@ return [
     ],
     'ciliatus_up_to_date' => 'Up to date',
     'ciliatus_not_up_to_date' => 'Update available: <a href=":url">GitHub</a>',
-    'no_feeding_types' => 'There are no food types defined yet.'
+    'no_feeding_types' => 'There are no food types defined yet.',
+    'max_file_size' => 'The maximum file size is :size.'
 ];

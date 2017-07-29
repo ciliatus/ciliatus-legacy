@@ -45,6 +45,9 @@
                                         <input class="file-path validate" type="text">
                                     </div>
                                 </div>
+                                <div class="input-field">
+                                    @lang('tooltips.max_file_size', ['size' => App\System::maxUploadFileSize()/1024/1024 . ' MB'])
+                                </div>
                             </div>
 
                             <div class="row">

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\File;
 use App\Property;
+use App\System;
 use Auth;
 use Gate;
 use \Illuminate\Http\Request;
@@ -83,16 +84,12 @@ class FileController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if (!$request->hasFile('file')) {
-            return $this->setStatusCode(422)
-                        ->setErrorCode(101)
-                        ->respondWithError('File missing');
+        if (!$request->file('file')) {
+            return $this->setStatusCode(422)->respondWithError('No file');
         }
 
-        if (!$request->file('file')->isValid()) {
-            return $this->setStatusCode(422)
-                ->setErrorCode(102)
-                ->respondWithError('File upload failed');
+        if ($request->file('file')->getClientSize() > System::maxUploadFileSize()) {
+            return $this->setStatusCode(422)->respondWithError('File to big');
         }
         /*
          * Create file model
