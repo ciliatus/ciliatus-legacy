@@ -6314,7 +6314,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/files/?with[]=properties&' + that.fileId + that.sourceFilter,
+                url: '/api/v1/files/' + that.fileId + '?with[]=properties&' + that.sourceFilter,
                 method: 'GET',
                 success: function success(data) {
                     if (that.fileId !== '') {
