@@ -16,6 +16,9 @@ use \Illuminate\Http\Request;
 class FileController extends ApiController
 {
 
+    /**
+     * FileController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -31,6 +34,7 @@ class FileController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
@@ -41,6 +45,8 @@ class FileController extends ApiController
 
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
@@ -67,6 +73,7 @@ class FileController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -76,11 +83,16 @@ class FileController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $required_inputs = ['file'];
-        if (!$this->checkInput($required_inputs, $request)) {
+        if (!$request->hasFile('file')) {
             return $this->setStatusCode(422)
                         ->setErrorCode(101)
-                        ->respondWithError('Required inputs: ' . implode(',', $required_inputs));
+                        ->respondWithError('File missing');
+        }
+
+        if (!$request->file('file')->isValid()) {
+            return $this->setStatusCode(422)
+                ->setErrorCode(102)
+                ->respondWithError('File upload failed');
         }
         /*
          * Create file model
@@ -127,6 +139,8 @@ class FileController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
@@ -190,6 +204,12 @@ class FileController extends ApiController
 
     }
 
+    /**
+     * @param Request $request
+     * @param $type
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function associate(Request $request, $type, $id)
     {
         $source_class = 'App\\' . $type;
@@ -208,6 +228,13 @@ class FileController extends ApiController
         return $this->respondWithData([]);
     }
 
+    /**
+     * @param Request $request
+     * @param $type
+     * @param $id
+     * @param $file_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function associate_delete(Request $request, $type, $id, $file_id)
     {
         $source_class = 'App\\' . $type;
