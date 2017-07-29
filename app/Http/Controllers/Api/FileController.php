@@ -127,7 +127,7 @@ class FileController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('files/' . $file->id),
+                    'uri'   => url($file->url()),
                     'delay' => 100
                 ]
             ]
