@@ -46,9 +46,15 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
+
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
                                         <i class="material-icons left">save</i>
                                     </button>
+
+                                    <a class="right btn waves-effect waves-light red" href="{{ url('animals/' . $animal->id .'/feeding_schedules/' . $afs->id . '/delete') }}">@lang('buttons.delete')
+                                        <i class="material-icons left">delete</i>
+                                    </a>
+
                                 </div>
                             </div>
 

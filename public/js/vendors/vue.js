@@ -1519,10 +1519,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -1974,9 +1970,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
 //
 //
 //
@@ -22170,7 +22163,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "card-title activator truncate"
   }, [_c('span', [_vm._v(_vm._s(_vm.$tc("components.animal_weighing_schedules", 2)))])]), _vm._v(" "), _vm._l((_vm.animal_weighing_schedules), function(aws) {
-    return _c('div', [_c('p', [_c('span', {
+    return _c('div', [_c('span', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -22185,30 +22178,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         expression: "aws.timestamps.next == null"
       }]
     }, [_vm._v(_vm._s(_vm.$t("labels.now")))]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (aws.due_days == 0),
-        expression: "aws.due_days == 0"
-      }]
-    }, [_c('span', {
-      staticClass: "new badge",
-      attrs: {
-        "data-badge-caption": _vm.$t('labels.due')
-      }
-    })]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (aws.due_days < 0),
-        expression: "aws.due_days < 0"
-      }]
-    }, [_c('span', {
-      staticClass: "new badge red",
-      attrs: {
-        "data-badge-caption": _vm.$t('labels.overdue')
-      }
-    })]), _vm._v(" "), _c('span', {
       staticClass: "right"
     }, [_c('a', {
       attrs: {
@@ -22216,14 +22185,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "material-icons"
-    }, [_vm._v("edit")])]), _vm._v(" "), _c('a', {
-      staticClass: "red-text",
+    }, [_vm._v("edit")])])]), _vm._v(" "), _c('span', {
+      staticClass: "right"
+    }, [_c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (aws.due_days == 0),
+        expression: "aws.due_days == 0"
+      }],
+      staticClass: "new badge",
       attrs: {
-        "href": '/animals/' + _vm.animalId + '/weighing_schedules/' + aws.id + '/delete'
+        "data-badge-caption": _vm.$t('labels.due')
       }
-    }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("delete")])])])])])
+    }), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (aws.due_days < 0),
+        expression: "aws.due_days < 0"
+      }],
+      staticClass: "new badge red",
+      attrs: {
+        "data-badge-caption": _vm.$t('labels.overdue')
+      }
+    })])])
   }), _vm._v(" "), (_vm.animal_weighing_schedules.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card-action"
   }, [_c('a', {
@@ -23533,31 +23519,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "card-title activator truncate"
   }, [_c('span', [_vm._v(_vm._s(_vm.$tc("components.animal_feeding_schedules", 2)))])]), _vm._v(" "), _vm._l((_vm.animal_feeding_schedules), function(afs) {
-    return _c('div', [_c('p', [(afs.timestamps.next != null) ? _c('span', [_vm._v(_vm._s(afs.timestamps.next) + " - ")]) : _vm._e(), _vm._v(_vm._s(afs.type) + "\n                        "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (afs.due_days == 0),
-        expression: "afs.due_days == 0"
-      }]
-    }, [_c('span', {
-      staticClass: "new badge",
-      attrs: {
-        "data-badge-caption": _vm.$t('labels.due')
-      }
-    })]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (afs.due_days < 0),
-        expression: "afs.due_days < 0"
-      }]
-    }, [_c('span', {
-      staticClass: "new badge red",
-      attrs: {
-        "data-badge-caption": _vm.$t('labels.overdue')
-      }
-    })]), _vm._v(" "), _c('span', {
+    return _c('div', [(afs.timestamps.next != null) ? _c('span', [_vm._v(_vm._s(afs.timestamps.next) + " - ")]) : _vm._e(), _vm._v(_vm._s(afs.type) + "\n\n\n                    "), _c('span', {
       staticClass: "right"
     }, [_c('a', {
       attrs: {
@@ -23565,14 +23527,31 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_c('i', {
       staticClass: "material-icons"
-    }, [_vm._v("edit")])]), _vm._v(" "), _c('a', {
-      staticClass: "red-text",
+    }, [_vm._v("edit")])])]), _vm._v(" "), _c('span', {
+      staticClass: "right"
+    }, [_c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (afs.due_days == 0),
+        expression: "afs.due_days == 0"
+      }],
+      staticClass: "new badge",
       attrs: {
-        "href": '/animals/' + _vm.animalId + '/feeding_schedules/' + afs.id + '/delete'
+        "data-badge-caption": _vm.$t('labels.due')
       }
-    }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("delete")])])])])])
+    }), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (afs.due_days < 0),
+        expression: "afs.due_days < 0"
+      }],
+      staticClass: "new badge red",
+      attrs: {
+        "data-badge-caption": _vm.$t('labels.overdue')
+      }
+    })])])
   }), _vm._v(" "), (_vm.animal_feeding_schedules.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card-action"
   }, [_c('a', {

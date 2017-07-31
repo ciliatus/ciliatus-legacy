@@ -14,24 +14,21 @@
                     </span>
 
                     <div v-for="aws in animal_weighing_schedules">
-                        <p>
-                            <span v-show="aws.timestamps.next != null">{{ aws.timestamps.next }}</span>
-                            <span v-show="aws.timestamps.next == null">{{ $t("labels.now") }}</span>
-                            <span v-show="aws.due_days == 0">
-                                <span class="new badge" v-bind:data-badge-caption="$t('labels.due')"> </span>
-                            </span>
-                            <span v-show="aws.due_days < 0">
-                                <span class="new badge red" v-bind:data-badge-caption="$t('labels.overdue')"> </span>
-                            </span>
-                            <span class="right">
-                                <a :href="'/animals/' + animalId + '/weighing_schedules/' + aws.id + '/edit'">
-                                    <i class="material-icons">edit</i>
-                                </a>
-                                <a class="red-text" :href="'/animals/' + animalId + '/weighing_schedules/' + aws.id + '/delete'">
-                                    <i class="material-icons">delete</i>
-                                </a>
-                            </span>
-                        </p>
+
+                        <span v-show="aws.timestamps.next != null">{{ aws.timestamps.next }}</span>
+
+                        <span v-show="aws.timestamps.next == null">{{ $t("labels.now") }}</span>
+
+                        <span class="right">
+                            <a :href="'/animals/' + animalId + '/weighing_schedules/' + aws.id + '/edit'">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </span>
+
+                        <span class="right">
+                            <span v-show="aws.due_days == 0" class="new badge" v-bind:data-badge-caption="$t('labels.due')"> </span>
+                            <span v-show="aws.due_days < 0" class="new badge red" v-bind:data-badge-caption="$t('labels.overdue')"> </span>
+                        </span>
                     </div>
                     <div v-if="animal_weighing_schedules.length < 1">
                         <p>{{ $t('labels.no_data') }}</p>

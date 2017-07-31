@@ -14,23 +14,19 @@
                     </span>
 
                     <div v-for="afs in animal_feeding_schedules">
-                        <p>
-                            <span v-if="afs.timestamps.next != null">{{ afs.timestamps.next }} - </span>{{ afs.type }}
-                            <span v-show="afs.due_days == 0">
-                                <span class="new badge" v-bind:data-badge-caption="$t('labels.due')"> </span>
-                            </span>
-                            <span v-show="afs.due_days < 0">
-                                <span class="new badge red" v-bind:data-badge-caption="$t('labels.overdue')"> </span>
-                            </span>
-                            <span class="right">
-                                <a :href="'/animals/' + animalId + '/feeding_schedules/' + afs.id + '/edit'">
-                                    <i class="material-icons">edit</i>
-                                </a>
-                                <a class="red-text" :href="'/animals/' + animalId + '/feeding_schedules/' + afs.id + '/delete'">
-                                    <i class="material-icons">delete</i>
-                                </a>
-                            </span>
-                        </p>
+                        <span v-if="afs.timestamps.next != null">{{ afs.timestamps.next }} - </span>{{ afs.type }}
+
+
+                        <span class="right">
+                            <a :href="'/animals/' + animalId + '/feeding_schedules/' + afs.id + '/edit'">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </span>
+
+                        <span class="right">
+                            <span v-show="afs.due_days == 0" class="new badge" v-bind:data-badge-caption="$t('labels.due')"> </span>
+                            <span v-show="afs.due_days < 0" class="new badge red" v-bind:data-badge-caption="$t('labels.overdue')"> </span>
+                        </span>
                     </div>
                     <div v-if="animal_feeding_schedules.length < 1">
                         <p>{{ $t('labels.no_data') }}</p>
