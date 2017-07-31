@@ -1613,9 +1613,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this = this;
 
-        window.echo.private('dashboard-updates').listen('AnimalFeedingScheduleUpdated', function (e) {
+        window.echo.private('dashboard-updates').listen('AnimalFeedingSchedulePropertyUpdated', function (e) {
             _this.update(e);
-        }).listen('AnimalFeedingScheduleDeleted', function (e) {
+        }).listen('AnimalFeedingSchedulePropertyDeleted', function (e) {
             _this.delete(e);
         });
 
@@ -1805,9 +1805,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this = this;
 
-        window.echo.private('dashboard-updates').listen('AnimalFeedingUpdated', function (e) {
+        window.echo.private('dashboard-updates').listen('AnimalFeedingEventUpdated', function (e) {
             _this.update(e);
-        }).listen('AnimalFeedingDeleted', function (e) {
+        }).listen('AnimalFeedingEventDeleted', function (e) {
             _this.delete(e);
         });
 
@@ -2118,9 +2118,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this = this;
 
-        window.echo.private('dashboard-updates').listen('AnimalWeighingScheduleUpdated', function (e) {
+        window.echo.private('dashboard-updates').listen('AnimalWeighingSchedulePropertyUpdated', function (e) {
             _this.update(e);
-        }).listen('AnimalWeighingScheduleDeleted', function (e) {
+        }).listen('AnimalWeighingSchedulePropertyDeleted', function (e) {
             _this.delete(e);
         });
 
@@ -2294,9 +2294,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this = this;
 
-        window.echo.private('dashboard-updates').listen('AnimalWeighingUpdated', function (e) {
+        window.echo.private('dashboard-updates').listen('AnimalWeighingEventUpdated', function (e) {
             _this.update(e);
-        }).listen('AnimalWeighingDeleted', function (e) {
+        }).listen('AnimalWeighingEventDeleted', function (e) {
             _this.delete(e);
         });
 
@@ -3067,9 +3067,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this = this;
 
-        window.echo.private('dashboard-updates').listen('BiographyEntryUpdated', function (e) {
+        window.echo.private('dashboard-updates').listen('BiographyEntryEventUpdated', function (e) {
             _this.update(e);
-        }).listen('BiographyEntryDeleted', function (e) {
+        }).listen('BiographyEntryEventDeleted', function (e) {
             _this.delete(e);
         });
 
@@ -3455,9 +3455,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var _this = this;
 
-        window.echo.private('dashboard-updates').listen('BiographyEntryUpdated', function (e) {
+        window.echo.private('dashboard-updates').listen('BiographyEntryEventUpdated', function (e) {
             _this.update(e);
-        }).listen('BiographyEntryDeleted', function (e) {
+        }).listen('BiographyEntryEventDeleted', function (e) {
             _this.delete(e);
         });
 
@@ -5521,13 +5521,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             _this.updateTerrarium(e);
         }).listen('TerrariumDeleted', function (e) {
             _this.deleteTerrarium(e);
-        }).listen('AnimalFeedingScheduleUpdated', function (e) {
+        }).listen('AnimalFeedingSchedulePropertyUpdated', function (e) {
             _this.updateAnimalFeedingSchedule(e);
-        }).listen('AnimalFeedingScheduleDeleted', function (e) {
+        }).listen('AnimalFeedingSchedulePropertyDeleted', function (e) {
             _this.deleteAnimalFeedingSchedule(e);
-        }).listen('AnimalWeighingScheduleUpdated', function (e) {
+        }).listen('AnimalWeighingSchedulePropertyUpdated', function (e) {
             _this.updateAnimalWeighingSchedule(e);
-        }).listen('AnimalWeighingScheduleDeleted', function (e) {
+        }).listen('AnimalWeighingSchedulePropertyDeleted', function (e) {
             _this.deleteAnimalWeighingSchedule(e);
         }).listen('ActionSequenceScheduleUpdated', function (e) {
             _this.updateActionSequenceSchedule(e);

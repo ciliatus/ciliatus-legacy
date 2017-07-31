@@ -75,7 +75,7 @@
                             <span>@lang('labels.weighprogression')</span>
                         </div>
                         <div class="card-content">
-                            <google-graph type="line" event-type="AnimalWeighingUpdated"
+                            <google-graph type="line" event-type="AnimalWeighingEventUpdated"
                                           vertical-axis-title="@lang('labels.weight')" horizontal-axis-title="@lang('labels.date')"
                                           source="{{ url('api/v1/animals/' . $animal->id .'/weighings?graph=true') }}"
                                           :show-filter-form="true" filter-column="created_at"

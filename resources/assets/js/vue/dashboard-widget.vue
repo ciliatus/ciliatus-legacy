@@ -1140,13 +1140,13 @@
                     this.updateTerrarium(e);
                 }).listen('TerrariumDeleted', (e) => {
                 this.deleteTerrarium(e);
-            }).listen('AnimalFeedingScheduleUpdated', (e) => {
+            }).listen('AnimalFeedingSchedulePropertyUpdated', (e) => {
                 this.updateAnimalFeedingSchedule(e);
-            }).listen('AnimalFeedingScheduleDeleted', (e) => {
+            }).listen('AnimalFeedingSchedulePropertyDeleted', (e) => {
                 this.deleteAnimalFeedingSchedule(e);
-            }).listen('AnimalWeighingScheduleUpdated', (e) => {
+            }).listen('AnimalWeighingSchedulePropertyUpdated', (e) => {
                 this.updateAnimalWeighingSchedule(e);
-            }).listen('AnimalWeighingScheduleDeleted', (e) => {
+            }).listen('AnimalWeighingSchedulePropertyDeleted', (e) => {
                 this.deleteAnimalWeighingSchedule(e);
             }).listen('ActionSequenceScheduleUpdated', (e) => {
                 this.updateActionSequenceSchedule(e);

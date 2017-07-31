@@ -171,9 +171,9 @@ export default {
 
     created: function() {
         window.echo.private('dashboard-updates')
-            .listen('BiographyEntryUpdated', (e) => {
+            .listen('BiographyEntryEventUpdated', (e) => {
                 this.update(e);
-            }).listen('BiographyEntryDeleted', (e) => {
+            }).listen('BiographyEntryEventDeleted', (e) => {
                 this.delete(e);
             });
 
