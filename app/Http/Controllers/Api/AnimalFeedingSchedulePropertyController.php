@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Animal;
 use App\AnimalFeedingEvent;
 use App\AnimalFeedingScheduleProperty;
+use App\Event;
 use App\Events\AnimalFeedingSchedulePropertyDeleted;
 use App\Events\AnimalFeedingSchedulePropertyUpdated;
 use App\Events\AnimalFeedingEventUpdated;
@@ -272,7 +273,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             return $this->respondNotFound();
         }
 
-        $p = AnimalFeedingEvent::create([
+        Property::create([
             'belongsTo_type' => 'Property',
             'belongsTo_id' => $afs->id,
             'type' => 'AnimalFeedingScheduleStartDate',

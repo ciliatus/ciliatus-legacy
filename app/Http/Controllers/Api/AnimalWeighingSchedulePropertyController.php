@@ -228,8 +228,8 @@ class AnimalWeighingSchedulePropertyController extends ApiController
             return $this->respondNotFound();
         }
 
-        $afs = $animal->weighing_schedules()->where('id', $id)->get()->first();
-        if (is_null($afs)) {
+        $aws = $animal->weighing_schedules()->where('id', $id)->get()->first();
+        if (is_null($aws)) {
             return $this->respondNotFound();
         }
 
@@ -237,11 +237,11 @@ class AnimalWeighingSchedulePropertyController extends ApiController
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal->id,
             'type' => 'AnimalWeighing',
-            'name' => $afs->name
+            'name' => $aws->name
         ]);
 
         broadcast(new AnimalWeighingEventUpdated($e));
-        broadcast(new AnimalWeighingSchedulePropertyUpdated($afs));
+        broadcast(new AnimalWeighingSchedulePropertyUpdated($aws));
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
@@ -263,20 +263,20 @@ class AnimalWeighingSchedulePropertyController extends ApiController
             return $this->respondNotFound();
         }
 
-        $afs = $animal->weighing_schedules()->where('id', $id)->get()->first();
-        if (is_null($afs)) {
+        $aws = $animal->weighing_schedules()->where('id', $id)->get()->first();
+        if (is_null($aws)) {
             return $this->respondNotFound();
         }
 
-        $p = AnimalWeighingEvent::create([
+        Property::create([
             'belongsTo_type' => 'Property',
-            'belongsTo_id' => $afs->id,
+            'belongsTo_id' => $aws->id,
             'type' => 'AnimalWeighingScheduleStartDate',
             'name' => 'starts_at',
-            'value' => Carbon::today()->addDays((int)$afs->value)->format('Y-m-d')
+            'value' => Carbon::today()->addDays((int)$aws->value)->format('Y-m-d')
         ]);
 
-        broadcast(new AnimalWeighingSchedulePropertyUpdated($afs));
+        broadcast(new AnimalWeighingSchedulePropertyUpdated($aws));
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([]);
