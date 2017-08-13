@@ -300,8 +300,7 @@ class ActionSequenceTrigger extends CiliatusModel
      */
     public function shouldBeRunning()
     {
-        $logical_sensor = LogicalSensor::find($this->logical_sensor_id);
-        if (is_null($logical_sensor)) {
+        if (is_null($this->logical_sensor)) {
 
             return false;
         }
@@ -318,8 +317,12 @@ class ActionSequenceTrigger extends CiliatusModel
             return false;
         }
 
-        $sensor_data = $logical_sensor->sensorreadings()
-            ->where('created_at', '>', Carbon::now()->subMinutes($this->reference_value_duration_threshold_minutes)->toDateTimeString())
+
+        $sensor_data = $this->logical_sensor->sensorreadings()
+            ->where(
+                'created_at',
+                '>',
+                Carbon::now()->subMinutes($this->reference_value_duration_threshold_minutes)->toDateTimeString())
             ->get();
 
         if ($sensor_data->count() < 1) {
@@ -331,6 +334,7 @@ class ActionSequenceTrigger extends CiliatusModel
                 return false;
             }
         }
+
 
         return true;
 
