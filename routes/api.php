@@ -16,6 +16,8 @@ use Illuminate\Http\Request;
 Route::get('dashboard/system_status', 'DashboardController@system_status');
 Route::resource('dashboard', 'DashboardController');
 
+Route::get('system/health', 'SystemController@health');
+
 /*
  * Animals
  */

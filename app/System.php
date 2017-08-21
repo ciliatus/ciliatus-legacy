@@ -5,6 +5,7 @@ namespace App;
 use ApiAi\HttpClient\GuzzleHttpClient;
 use App\Traits\WritesToInfluxDb;
 use Auth;
+use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Model;
 use Webpatser\Uuid\Uuid;
@@ -19,6 +20,58 @@ class System extends Model
 {
 
     use WritesToInfluxDb;
+
+    public static function health()
+    {
+
+        $t_24h = Carbon::now();
+        $t_24h->subHours(24);
+        $t_1h = Carbon::now();
+        $t_1h->subHours(1);
+        $t_30m = Carbon::now();
+        $t_30m->subMinutes(30);
+        $t_15m = Carbon::now();
+        $t_15m->subMinutes(15);
+        $t_5m = Carbon::now();
+        $t_5m->subMinutes(5);
+
+
+        $health = [
+            'version' => config('version'),
+            'requests' => [
+                'execution_time' => [
+                    'avg_exec_time_30m' => LogRequest::averageExecutionTime($t_30m),
+                    'avg_exec_time_15m' => LogRequest::averageExecutionTime($t_15m),
+                    'avg_exec_time_5m' => LogRequest::averageExecutionTime($t_5m),
+                    'min_exec_time_30m' => LogRequest::minExecutionTime($t_30m),
+                    'min_exec_time_15m' => LogRequest::minExecutionTime($t_15m),
+                    'min_exec_time_5m' => LogRequest::minExecutionTime($t_5m),
+                    'max_exec_time_30m' => LogRequest::maxExecutionTime($t_30m),
+                    'max_exec_time_15m' => LogRequest::maxExecutionTime($t_15m),
+                    'max_exec_time_5m' => LogRequest::maxExecutionTime($t_5m)
+                ],
+                'endpoints' => [
+                    'top5_execution_time' => [
+                        '30m' => LogRequest::topRequests(5, $t_30m),
+                        '15m' => LogRequest::topRequests(5, $t_15m),
+                        '5m' => LogRequest::topRequests(5, $t_5m)
+                    ]
+                ]
+            ],
+            'notifications' => [
+                'messages' => [
+                    'sent_24h' => Message::query()->where('created_at', '>', $t_24h)->where('state', 'sent')->count(),
+                    'draft_24h' => Message::query()->where('created_at', '>', $t_24h)->where('state', 'draft')->count(),
+                    'other_24h' => Message::query()->where('created_at', '>', $t_24h)->whereNotIn('state', ['draft', 'sent'])->count(),
+                    'sent_30m' => Message::query()->where('created_at', '>', $t_30m)->where('state', 'sent')->count(),
+                    'draft_30m' => Message::query()->where('created_at', '>', $t_30m)->where('state', 'draft')->count(),
+                    'other_30m' => Message::query()->where('created_at', '>', $t_30m)->whereNotIn('state', ['draft', 'sent'])->count(),
+                ]
+            ]
+        ];
+
+        return $health;
+    }
 
     /**
      * @return array
