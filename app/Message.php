@@ -13,7 +13,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
  * Class Message
  * @package App
  */
-abstract class Message extends CiliatusModel
+class Message extends CiliatusModel
 {
     use Traits\Uuids;
 
@@ -82,7 +82,31 @@ abstract class Message extends CiliatusModel
     }
 
     /**
-     * @return boolean
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    abstract public function send();
+    public function properties()
+    {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'Message');
+    }
+
+    /**
+     * @return \Illuminate\Contracts\Routing\UrlGenerator|string
+     */
+    public function url() {
+        return url('messages/' . $this->id);
+    }
+
+    /**
+     * @return string
+     */
+    public function icon() {
+        return '';
+    }
+
+    /**
+     * @throws \Exception
+     */
+    public function send() {
+        throw new \Exception("Not implemented. Make sure to define send method in child class.");
+    }
 }
