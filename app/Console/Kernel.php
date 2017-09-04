@@ -21,7 +21,8 @@ class Kernel extends ConsoleKernel
         Commands\Update17b::class,
         Commands\ConvertLangToJson::class,
         Commands\GenerateSuggestions::class,
-        Commands\DetectSensorreadingAnomalies::class
+        Commands\DetectSensorreadingAnomalies::class,
+        Commands\GenerateCaresheets::class
     ];
 
     /**
@@ -33,8 +34,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
 
+        $schedule->command('ciliatus:caresheets:generate')
+                 ->monthly();
+
         $schedule->command('ciliatus:suggestions:generate')
-                 ->weekly();
+                 ->sundays();
 
         $schedule->command('ciliatus:notifications:send')
                  ->dailyAt(env('SCHEDULED_NOTIFICATION_SEND_TIME', '09:00:00'));
