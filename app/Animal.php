@@ -330,11 +330,11 @@ class Animal extends CiliatusModel
         }
 
         if (!isset($settings['sensor_history_days'])) {
-            $settings['sensor_history_days'] = env('DEFAULT_CARESHEET_SENSOR_HISTORY_DAYS', 14);
+            $settings['sensor_history_days'] = env('DEFAULT_CARESHEET_SENSOR_HISTORY_DAYS', 30);
         }
 
         if (!isset($settings['data_history_days'])) {
-            $settings['data_history_days'] = env('DEFAULT_CARESHEET_DATA_HISTORY_DAYS', 60);
+            $settings['data_history_days'] = env('DEFAULT_CARESHEET_DATA_HISTORY_DAYS', 180);
         }
 
         $caresheet = Event::create([

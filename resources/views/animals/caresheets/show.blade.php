@@ -12,7 +12,7 @@
         </div>
 
         <div class="row center-align">
-            <h4><i class="material-icons">pets</i> @choice('components.caresheets', 1) {{ $caresheet->belongsTo_object->display_name }}</h4>
+            <h4><i class="material-icons">pets</i> @choice('components.caresheets', 1) {{ $caresheet->belongsTo_object()->display_name }}</h4>
         </div>
 
         <div class="row">
@@ -29,13 +29,13 @@
             </div>
             <div class="col s9">
                 <p>
-                    <strong>{{ $caresheet->belongsTo_object->lat_name }}</strong> <i>{{ $caresheet->belongsTo_object->common_name }}</i><br />
-                    @if (!is_null($caresheet->belongsTo_object->gender))<strong>@lang('labels.gender_' . $caresheet->belongsTo_object->gender)</strong>@endif<br />
-                    @if (!is_null($caresheet->belongsTo_object->birth_date))<strong>{{ $caresheet->belongsTo_object->birth_date->toDateString() }}</strong>@endif
+                    <strong>{{ $caresheet->belongsTo_object()->lat_name }}</strong> <i>{{ $caresheet->belongsTo_object()->common_name }}</i><br />
+                    @if (!is_null($caresheet->belongsTo_object()->gender))<strong>@lang('labels.gender_' . $caresheet->belongsTo_object()->gender)</strong>@endif<br />
+                    @if (!is_null($caresheet->belongsTo_object()->birth_date))<strong>{{ $caresheet->belongsTo_object()->birth_date->toDateString() }}</strong>@endif
                 </p>
                 <p>
-                    @if (!is_null($caresheet->belongsTo_object->last_weighing()))<strong>{{ $caresheet->belongsTo_object->last_weighing()->value }}{{ $caresheet->belongsTo_object->last_weighing()->name }}</strong> <i>{{ $caresheet->belongsTo_object->last_weighing()->created_at->toDateString() }}</i><br />@endif
-                    @if (!is_null($caresheet->belongsTo_object->last_feeding()))<strong>{{ $caresheet->belongsTo_object->last_feeding()->name }}</strong> <i>{{ $caresheet->belongsTo_object->last_feeding()->created_at->toDateString() }}</i>@endif
+                    @if (!is_null($caresheet->belongsTo_object()->last_weighing()))<strong>{{ $caresheet->belongsTo_object()->last_weighing()->value }}{{ $caresheet->belongsTo_object()->last_weighing()->name }}</strong> <i>{{ $caresheet->belongsTo_object()->last_weighing()->created_at->toDateString() }}</i><br />@endif
+                    @if (!is_null($caresheet->belongsTo_object()->last_feeding()))<strong>{{ $caresheet->belongsTo_object()->last_feeding()->name }}</strong> <i>{{ $caresheet->belongsTo_object()->last_feeding()->created_at->toDateString() }}</i>@endif
                 </p>
             </div>
         </div>
@@ -142,7 +142,7 @@
         </div>
 
         <div class="row center-align">
-            <h4><i class="material-icons">pets</i> @choice('components.caresheets', 1) {{ $caresheet->belongsTo_object->display_name }}</h4>
+            <h4><i class="material-icons">pets</i> @choice('components.caresheets', 1) {{ $caresheet->belongsTo_object()->display_name }}</h4>
         </div>
 
         <div class="row">
