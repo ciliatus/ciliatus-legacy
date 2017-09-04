@@ -28,3 +28,14 @@ Also: Because the source environment is in german you will find user defined str
 
 * User: demo@ciliatus.io
 * Pass: demo
+
+## Requirements
+
+* PHP >= 7.0.0
+* OpenSSL PHP Extension
+* PDO PHP Extension
+* Mbstring PHP Extension
+* Tokenizer PHP Extension
+* XML PHP Extension
+
+Source: https://laravel.com/docs/5.5/installation#server-requirements
