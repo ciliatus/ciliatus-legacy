@@ -148,7 +148,7 @@ class BiographyEntryEventController extends ApiController
             return $this->respondNotFound();
         }
 
-        if ($request->has('category')) {
+        if ($request->filled('category')) {
             $cat = Property::where('belongsTo_type', 'Event')->where('belongsTo_id', $e->id)
                            ->where('type', 'BiographyEntryCategory')->get()->first();
             if (is_null($cat)) {

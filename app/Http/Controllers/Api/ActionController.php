@@ -129,28 +129,28 @@ class ActionController extends ApiController
             return $this->setStatusCode(404)->respondWithError('Action not found');
         }
 
-        if ($request->has('action_sequence_id')) {
+        if ($request->filled('action_sequence_id')) {
             $asi = ActionSequence::find($request->input('action_sequence_id'));
             if (is_null($asi)) {
                 return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
             }
         }
 
-        if ($request->has('wait_for_started_action_id')) {
+        if ($request->filled('wait_for_started_action_id')) {
             $a = Action::find($request->input('wait_for_started_action_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('Action not found');
             }
         }
 
-        if ($request->has('wait_for_finished_action_id')) {
+        if ($request->filled('wait_for_finished_action_id')) {
             $a = Action::find($request->input('wait_for_finished_action_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('Action not found');
             }
         }
 
-        if ($request->has('component')) {
+        if ($request->filled('component')) {
             list($component_type, $component_id) = explode('|', $request->input('component'));
             if (!class_exists('App\\' . $component_type)) {
                 return $this->setStatusCode(422)->respondWithError('Component type not found');

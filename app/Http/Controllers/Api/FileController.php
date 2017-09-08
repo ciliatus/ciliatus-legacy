@@ -102,7 +102,7 @@ class FileController extends ApiController
         $file = $this->addBelongsTo($request, $file);
 
 
-        if ($request->has('use_as_background') && $request->input('use_as_background') == 'On') {
+        if ($request->filled('use_as_background') && $request->input('use_as_background') == 'On') {
             if (is_null($file->property('generic', 'is_default_background'))) {
                 $p = Property::create();
                 $p->belongsTo_type = 'File';
@@ -157,7 +157,7 @@ class FileController extends ApiController
         /*
          * Look for optional inputs
          */
-        if ($request->has('belongsTo_type') && $request->has('belongsTo_id')) {
+        if ($request->filled('belongsTo_type') && $request->filled('belongsTo_id')) {
             $class_name = 'App\\' . $request->input('belongsTo_type');
             if (class_exists($class_name)) {
                 $belongs = $class_name::find($request->input('belongsTo_id'));
@@ -174,7 +174,7 @@ class FileController extends ApiController
             }
         }
 
-        if ($request->has('use_as_background')) {
+        if ($request->filled('use_as_background')) {
             if (is_null($file->property('generic', 'is_default_background'))) {
                 $p = Property::create();
                 $p->belongsTo_type = 'File';

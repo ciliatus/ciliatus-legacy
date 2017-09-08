@@ -115,7 +115,7 @@ class PhysicalSensorController extends ApiController
             return $this->respondNotFound('PhysicalSensor not found');
         }
 
-        if ($request->has('controlunit')) {
+        if ($request->filled('controlunit')) {
             $controlunit = Controlunit::find($request->input('controlunit'));
             if (is_null($controlunit)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');
@@ -132,7 +132,7 @@ class PhysicalSensorController extends ApiController
             ]
         ]);
 
-        if ($request->has('terrarium')) {
+        if ($request->filled('terrarium')) {
             $physical_sensor->belongsTo_type = 'terrarium';
         }
 

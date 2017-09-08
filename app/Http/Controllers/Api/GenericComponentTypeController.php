@@ -52,7 +52,7 @@ class GenericComponentTypeController extends ApiController
             'icon' => $request->input('icon')
         ]);
 
-        if ($request->has('property_name')) {
+        if ($request->filled('property_name')) {
             foreach ($request->get('property_name') as $prop) {
                 $p = Property::create([
                     'belongsTo_type' => 'GenericComponentType',
@@ -63,7 +63,7 @@ class GenericComponentTypeController extends ApiController
             }
         }
 
-        if ($request->has('default_intention_intention') && $request->has('default_intention_type')) {
+        if ($request->filled('default_intention_intention') && $request->filled('default_intention_type')) {
             for ($i = 0; $i < count($request->get('default_intention_intention')); $i++) {
                 $p = Property::create([
                     'belongsTo_type' => 'GenericComponentType',
@@ -75,7 +75,7 @@ class GenericComponentTypeController extends ApiController
             }
         }
 
-        if ($request->has('state')) {
+        if ($request->filled('state')) {
             foreach ($request->get('state') as $state) {
                 $p = Property::create([
                     'belongsTo_type' => 'GenericComponentType',
@@ -84,7 +84,7 @@ class GenericComponentTypeController extends ApiController
                     'name' => $state
                 ]);
 
-                if ($request->has('default_running_state') && $request->input('default_running_state') == $state) {
+                if ($request->filled('default_running_state') && $request->input('default_running_state') == $state) {
                     $type->default_running_state_id = $p->id;
                     $type->save();
                 }
@@ -151,7 +151,7 @@ class GenericComponentTypeController extends ApiController
         /*
          * Keep existing, remove non existing and add new properties
          */
-        if ($request->has('property_name')) {
+        if ($request->filled('property_name')) {
             foreach ($request->get('property_name') as $n) {
                 if (is_null($type->properties()->where('name', $n)->get()->first())) {
                     Property::create([
@@ -177,7 +177,7 @@ class GenericComponentTypeController extends ApiController
         /*
          * Keep existing, remove non existing and add new states
          */
-        if ($request->has('state')) {
+        if ($request->filled('state')) {
             foreach ($request->get('state') as $new_state) {
                 $state = $type->states()->where('name', $new_state)->get()->first();
                 if (is_null($state)) {
@@ -194,7 +194,7 @@ class GenericComponentTypeController extends ApiController
                 if (array_search($s->name, $request->get('state')) === false) {
                     $s->delete();
                 }
-                elseif ($request->has('default_running_state') && $request->input('default_running_state') == $s->name) {
+                elseif ($request->filled('default_running_state') && $request->input('default_running_state') == $s->name) {
                     $type->default_running_state_id = $s->id;
                 }
             }
@@ -207,7 +207,7 @@ class GenericComponentTypeController extends ApiController
         /*
          * Keep existing, remove non existing and add new intentions
          */
-        if ($request->has('default_intention_intention') && $request->has('default_intention_type')) {
+        if ($request->filled('default_intention_intention') && $request->filled('default_intention_type')) {
             foreach ($type->intentions as $intention) {
                 $intention->delete();
             }

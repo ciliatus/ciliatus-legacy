@@ -111,14 +111,14 @@ class AnimalController extends ApiController
         }
 
         $terrarium = null;
-        if ($request->has('terrarium')) {
+        if ($request->filled('terrarium')) {
             $terrarium = Terrarium::find($request->input('terrarium'));
             if (is_null($terrarium)) {
                 return $this->setStatusCode(422)->respondWithError('Terrarium not found');
             }
         }
 
-        if ($request->has('birthdate')) {
+        if ($request->filled('birthdate')) {
             try {
                 Carbon::parse($request->input('birthdate'));
             }
@@ -127,7 +127,7 @@ class AnimalController extends ApiController
             }
         }
 
-        if ($request->has('deathdate')) {
+        if ($request->filled('deathdate')) {
             try {
                 Carbon::parse($request->input('deathdate'));
             }
@@ -136,7 +136,7 @@ class AnimalController extends ApiController
             }
         }
 
-        if ($request->has('active')) {
+        if ($request->filled('active')) {
             if ($request->input('active') == 'on' && !$animal->active()) {
                 $animal->enable();
             }

@@ -94,13 +94,13 @@ class PropertyController extends ApiController
             'name' => $request->input('name')
         ]);
 
-        if ($request->has('value')) {
+        if ($request->filled('value')) {
             $p->value = $request->input('value');
         }
 
         $p->save();
 
-        if ($request->has('update_belongs_to')) {
+        if ($request->filled('update_belongs_to')) {
             $belongs_to->save();
         }
 
@@ -125,7 +125,7 @@ class PropertyController extends ApiController
             return $this->respondNotFound('Property not found');
         }
 
-        if ($request->has('belongsTo_type') && $request->has('belongsTo_id')) {
+        if ($request->filled('belongsTo_type') && $request->filled('belongsTo_id')) {
             $belongsTo_type = $request->input('belongsTo_type');
             $belongsTo_id = $request->input('belongsTo_id');
 

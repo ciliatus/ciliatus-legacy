@@ -96,7 +96,7 @@ class UserController extends ApiController
             return $this->setStatusCode(422)->respondWithError(trans('errors.email_taken'));
         }
 
-        if ($request->has('password') && $request->has('password_2')) {
+        if ($request->filled('password') && $request->filled('password_2')) {
             if ($request->input('password') !== $request->input('password_2')) {
                 return $this->setStatusCode(422)->respondWithError(trans('errors.passwords_do_not_match'));
             }
@@ -152,15 +152,15 @@ class UserController extends ApiController
         }
 
         if (Gate::allows('admin')) {
-            if ($request->has('name')) {
+            if ($request->filled('name')) {
                 $user->name = $request->input('name');
             }
 
-            if ($request->has('email')) {
+            if ($request->filled('email')) {
                 $user->email = $request->input('email');
             }
 
-            if ($request->has('password') && $request->has('password_2')) {
+            if ($request->filled('password') && $request->filled('password_2')) {
                 if ($request->input('password') !== $request->input('password_2')) {
                     return $this->setStatusCode(422)->respondWithError(trans('errors.passwords_do_not_match'));
                 }
@@ -168,7 +168,7 @@ class UserController extends ApiController
                 $user->password = bcrypt($request->input('password'));
             }
 
-            if ($request->has('abilities')) {
+            if ($request->filled('abilities')) {
                 foreach ($user->abilities as $a) {
                     if (!in_array($a->name, array_values($request->input('abilities')))) {
                         $a->delete();
@@ -191,39 +191,39 @@ class UserController extends ApiController
             'locale' => 'language', 'timezone'
         ]);
         
-        if ($request->has('night_starts_at')) {
+        if ($request->filled('night_starts_at')) {
             $user->setSetting('night_starts_at', $request->input('night_starts_at'));
         }
 
-        if ($request->has('night_ends_at')) {
+        if ($request->filled('night_ends_at')) {
             $user->setSetting('night_ends_at', $request->input('night_ends_at'));
         }
 
-        if ($request->has('notification_type')) {
+        if ($request->filled('notification_type')) {
             $user->setSetting('notification_type', $request->input('notification_type'));
         }
 
-        if ($request->has('notifications_enabled')) {
+        if ($request->filled('notifications_enabled')) {
             $user->setSetting('notifications_enabled', $request->input('notifications_enabled'));
         }
 
-        if ($request->has('notifications_controlunits_enabled')) {
+        if ($request->filled('notifications_controlunits_enabled')) {
             $user->setSetting('notifications_controlunits_enabled', $request->input('notifications_controlunits_enabled'));
         }
 
-        if ($request->has('notifications_terraria_enabled')) {
+        if ($request->filled('notifications_terraria_enabled')) {
             $user->setSetting('notifications_terraria_enabled', $request->input('notifications_terraria_enabled'));
         }
 
-        if ($request->has('notifications_daily_enabled')) {
+        if ($request->filled('notifications_daily_enabled')) {
             $user->setSetting('notifications_daily_enabled', $request->input('notifications_daily_enabled'));
         }
 
-        if ($request->has('auto_nightmode_enabled')) {
+        if ($request->filled('auto_nightmode_enabled')) {
             $user->setSetting('auto_nightmode_enabled', $request->input('auto_nightmode_enabled'));
         }
 
-        if ($request->has('permanent_nightmode_enabled')) {
+        if ($request->filled('permanent_nightmode_enabled')) {
             $user->setSetting('permanent_nightmode_enabled', $request->input('permanent_nightmode_enabled'));
         }
 

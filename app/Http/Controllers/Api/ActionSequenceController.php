@@ -82,7 +82,7 @@ class ActionSequenceController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if ($request->has('terrarium')) {
+        if ($request->filled('terrarium')) {
             $t = Terrarium::find($request->input('terrarium'));
             if (is_null($t)) {
                 return $this->setStatusCode(422)->respondWithError('Terrarium not found');
@@ -94,11 +94,11 @@ class ActionSequenceController extends ApiController
 
         $as = ActionSequence::create();
 
-        if ($request->has('name')) {
+        if ($request->filled('name')) {
             $name = $request->input('name');
         }
         else {
-            if ($request->has('template')) {
+            if ($request->filled('template')) {
                 $name = trans('labels.' . $request->input('template')) . ' ' . $t->display_name;
             }
             else {
@@ -106,7 +106,7 @@ class ActionSequenceController extends ApiController
             }
         }
 
-        if ($request->has('runonce')) {
+        if ($request->filled('runonce')) {
             $as->runonce = $request->input('runonce') == 'on' ? true : false;
         }
 
@@ -116,7 +116,7 @@ class ActionSequenceController extends ApiController
         $as->terrarium_id = $request->input('terrarium');
         $as->save();
 
-        if ($request->has('template')) {
+        if ($request->filled('template')) {
             switch ($request->input('template')) {
                 case 'irrigate':
                     $template_name = ActionSequence::TEMPLATE_IRRIGATION;
@@ -176,7 +176,7 @@ class ActionSequenceController extends ApiController
             'name'
         ]);
 
-        if ($request->has('runonce')) {
+        if ($request->filled('runonce')) {
             $action_sequence->runonce = $request->input('runonce') == 'on' ? true : false;
         }
 

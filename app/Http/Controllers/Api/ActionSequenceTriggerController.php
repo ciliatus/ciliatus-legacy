@@ -133,21 +133,21 @@ class ActionSequenceTriggerController extends ApiController
             return $this->setStatusCode(404)->respondWithError('ActionSequenceTrigger not found');
         }
 
-        if ($request->has('action_sequence_id')) {
+        if ($request->filled('action_sequence_id')) {
             $a = ActionSequence::find($request->input('action_sequence_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
             }
         }
 
-        if ($request->has('logical_sensor')) {
+        if ($request->filled('logical_sensor')) {
             $ls = LogicalSensor::find($request->input('logical_sensor'));
             if (is_null($ls)) {
                 return $this->setStatusCode(422)->respondWithError('LogicalSensor not found');
             }
         }
 
-        if ($request->has('reference_value_comparison_type')) {
+        if ($request->filled('reference_value_comparison_type')) {
             if (!in_array($request->input('reference_value_comparison_type'), ['equal', 'lesser', 'greater'])) {
                 return $this->setStatusCode(422)->respondWithError('Unknown reference value comparison type');
             }
@@ -159,11 +159,11 @@ class ActionSequenceTriggerController extends ApiController
             'reference_value_duration_threshold_minutes'
         ]);
 
-        if ($request->has('timeframe_start')) {
+        if ($request->filled('timeframe_start')) {
             $trigger->timeframe_start = Carbon::parse($request->input('timeframe_start'))->format('H:i:s');
         }
 
-        if ($request->has('timeframe_end')) {
+        if ($request->filled('timeframe_end')) {
             $trigger->timeframe_end = Carbon::parse($request->input('timeframe_end'))->format('H:i:s');
         }
 

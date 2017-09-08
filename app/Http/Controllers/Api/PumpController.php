@@ -108,7 +108,7 @@ class PumpController extends ApiController
             return $this->respondNotFound('Pump not found');
         }
 
-        if ($request->has('controlunit') && strlen($request->input('controlunit')) > 0) {
+        if ($request->filled('controlunit') && strlen($request->input('controlunit')) > 0) {
             $controlunit = Controlunit::find($request->input('controlunit'));
             if (is_null($controlunit)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');

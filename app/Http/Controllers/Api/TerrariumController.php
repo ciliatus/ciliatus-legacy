@@ -45,10 +45,10 @@ class TerrariumController extends ApiController
         $terraria = $this->filter($request, $terraria);
 
         $repository_parameters = [
-            'history_to'        => $request->has('history_to') ?
+            'history_to'        => $request->filled('history_to') ?
                                     $request->input('history_to') :
                                     null,
-            'history_minutes'   => $request->has('history_minutes') ?
+            'history_minutes'   => $request->filled('history_minutes') ?
                                     $request->input('history_minutes') :
                                     env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180)
         ];
@@ -81,8 +81,8 @@ class TerrariumController extends ApiController
             return $this->respondNotFound('Terrarium not found');
         }
 
-        $history_to = $request->has('history_to') ? $request->input('history_to') : null;
-        $history_minutes = $request->has('history_minutes') ? $request->input('history_minutes') : env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180);
+        $history_to = $request->filled('history_to') ? $request->input('history_to') : null;
+        $history_minutes = $request->filled('history_minutes') ? $request->input('history_minutes') : env('TERRARIUM_DEFAULT_HISTORY_MINUTES', 180);
 
         return $this->setStatusCode(200)
                     ->respondWithData(
@@ -199,7 +199,7 @@ class TerrariumController extends ApiController
         /*
          * Update valves
          */
-        if ($request->has('valves')) {
+        if ($request->filled('valves')) {
             /*
              * check all valves first
              * so we don't fail after a few
@@ -248,7 +248,7 @@ class TerrariumController extends ApiController
         /*
          * Update animals
          */
-        if ($request->has('animals')) {
+        if ($request->filled('animals')) {
             /*
              * check all animals first
              * so we don't fail after a few
@@ -296,7 +296,7 @@ class TerrariumController extends ApiController
         /*
          * Parse suggestions
          */
-        if ($request->has('suggestions')) {
+        if ($request->filled('suggestions')) {
             foreach ($request->input('suggestions') as $type=>$options) {
                 $terrarium->toggleSuggestions($type, $options['enabled'] != 'off');
                 $terrarium->setSuggestionSettings($type, $options['timeframe_start'], $options['timeframe_unit'], $options['threshold']);
@@ -307,7 +307,7 @@ class TerrariumController extends ApiController
             'name', 'display_name'
         ]);
 
-        if ($request->has('notifications_enabled')) {
+        if ($request->filled('notifications_enabled')) {
             $terrarium->notifications_enabled = $request->input('notifications_enabled') != 'off';
         }
 
@@ -335,7 +335,7 @@ class TerrariumController extends ApiController
         }
 
         $runonce = false;
-        if ($request->has('runonce')) {
+        if ($request->filled('runonce')) {
             if ($request->input('runonce') == 'On') {
                 $runonce = true;
             }
@@ -351,7 +351,7 @@ class TerrariumController extends ApiController
             return $this->setSTatusCode(422)->respondWithError('Could not genereate action sequence');
         }
 
-        if ($request->has('schedule_now')) {
+        if ($request->filled('schedule_now')) {
             if ($request->get('schedule_now') == 'On') {
                 $starts_at = Carbon::now()->addMinute(1);
 

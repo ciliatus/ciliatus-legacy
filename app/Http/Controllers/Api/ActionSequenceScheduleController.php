@@ -119,14 +119,14 @@ class ActionSequenceScheduleController extends ApiController
             return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
         }
 
-        if ($request->has('action_sequence_id')) {
+        if ($request->filled('action_sequence_id')) {
             $a = ActionSequence::find($request->input('action_sequence_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
             }
         }
 
-        if ($request->has('terrarium_id')) {
+        if ($request->filled('terrarium_id')) {
             $a = Terrarium::find($request->input('terrarium_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('Terrarium not found');

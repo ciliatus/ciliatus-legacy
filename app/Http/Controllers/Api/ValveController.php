@@ -113,21 +113,21 @@ class ValveController extends ApiController
             return $this->respondNotFound('Valve not found');
         }
 
-        if ($request->has('pump') && strlen($request->input('pump')) > 0) {
+        if ($request->filled('pump') && strlen($request->input('pump')) > 0) {
             $pump = Pump::find($request->input('pump'));
             if (is_null($pump)) {
                 return $this->setStatusCode(422)->respondWithError('Pump not found');
             }
         }
 
-        if ($request->has('terrarium') && strlen($request->input('terrarium')) > 0) {
+        if ($request->filled('terrarium') && strlen($request->input('terrarium')) > 0) {
             $terrarium = Terrarium::find($request->input('terrarium'));
             if (is_null($terrarium)) {
                 return $this->setStatusCode(422)->respondWithError('Terrarium not found');
             }
         }
 
-        if ($request->has('controlunit') && strlen($request->input('controlunit')) > 0) {
+        if ($request->filled('controlunit') && strlen($request->input('controlunit')) > 0) {
             $controlunit = Controlunit::find($request->input('controlunit'));
             if (is_null($controlunit)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');

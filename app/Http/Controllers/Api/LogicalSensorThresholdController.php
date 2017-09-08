@@ -79,7 +79,7 @@ class LogicalSensorThresholdController extends ApiController
         }
 
         $ls = null;
-        if ($request->has('logical_sensor')) {
+        if ($request->filled('logical_sensor')) {
             $ls = LogicalSensor::find($request->input('logical_sensor'));
             if (is_null($ls)) {
                 return $this->setStatusCode(422)->respondWithError('Logical sensor not found');
@@ -124,7 +124,7 @@ class LogicalSensorThresholdController extends ApiController
             return $this->respondNotFound('LogicalSensorThreshold not found');
         }
 
-        if ($request->has('logical_sensor')) {
+        if ($request->filled('logical_sensor')) {
             $logical_sensor = LogicalSensor::find($request->input('logical_sensor'));
             if (is_null($logical_sensor)) {
                 return $this->setStatusCode(422)->respondWithError('LogicalSensor not found');

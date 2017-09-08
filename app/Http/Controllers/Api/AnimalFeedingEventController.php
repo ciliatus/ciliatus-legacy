@@ -88,10 +88,10 @@ class AnimalFeedingEventController extends ApiController
             'belongsTo_id' => $animal->id,
             'type' => 'AnimalFeeding',
             'name' => $request->input('meal_type'),
-            'value' => $request->has('count') ? $request->input('count') : ''
+            'value' => $request->filled('count') ? $request->input('count') : ''
         ]);
 
-        if ($request->has('created_at')) {
+        if ($request->filled('created_at')) {
             $e->created_at = Carbon::parse($request->input('created_at'));
             $e->save();
         }

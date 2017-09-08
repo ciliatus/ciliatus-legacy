@@ -98,7 +98,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             'value' => $request->input('interval_days')
         ]);
 
-        if ($request->has('starts_at')) {
+        if ($request->filled('starts_at')) {
             Property::create([
                 'belongsTo_type' => 'Property',
                 'belongsTo_id' => $p->id,

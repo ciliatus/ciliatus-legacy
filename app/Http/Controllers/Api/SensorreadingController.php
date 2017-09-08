@@ -143,7 +143,7 @@ class SensorreadingController extends ApiController
             $logical_sensor->physical_sensor->heartbeat();
         }
 
-        if ($request->has('created_at')) {
+        if ($request->filled('created_at')) {
             try {
                 Carbon::parse($request->input('created_at'));
             }

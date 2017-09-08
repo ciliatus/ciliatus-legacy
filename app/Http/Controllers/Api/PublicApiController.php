@@ -143,7 +143,7 @@ class PublicApiController extends \App\Http\Controllers\Controller
     public function checkInput($required_fields, Request $request)
     {
         foreach ($required_fields as $f) {
-            if (!$request->has($f) && !$request->hasFile($f)) {
+            if (!$request->filled($f) && !$request->hasFile($f)) {
                 return false;
             }
         }

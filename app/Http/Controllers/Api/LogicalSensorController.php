@@ -83,7 +83,7 @@ class LogicalSensorController extends ApiController
 
         $logical_sensor = LogicalSensor::create();
         $logical_sensor->name = $request->input('name');
-        if ($request->has('physical_sensor') && strlen($request->input('physical_sensor')) > 0) {
+        if ($request->filled('physical_sensor') && strlen($request->input('physical_sensor')) > 0) {
             $physical_sensor = PhysicalSensor::find($request->input('physical_sensor'));
             if (is_null($physical_sensor)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');
@@ -121,7 +121,7 @@ class LogicalSensorController extends ApiController
             return $this->respondNotFound('LogicalSensor not found');
         }
 
-        if ($request->has('physical_sensor')) {
+        if ($request->filled('physical_sensor')) {
             $physical_sensor = PhysicalSensor::find($request->input('physical_sensor'));
             if (is_null($physical_sensor)) {
                 return $this->setStatusCode(422)->respondWithError('PhysicalSensor not found');

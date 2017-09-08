@@ -161,7 +161,7 @@ class ControlunitController extends ApiController
             return $this->setStatusCode(422)->respondWithError('Controlunit not found');
         }
 
-        if ($request->has('software_version')) {
+        if ($request->filled('software_version')) {
             $controlunit->software_version = $request->input('software_version');
         }
 

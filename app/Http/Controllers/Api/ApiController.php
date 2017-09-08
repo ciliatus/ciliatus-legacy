@@ -258,7 +258,7 @@ class ApiController extends Controller
                                                    $repository_method = 'show')
     {
 
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+        if ($request->filled('raw') && Gate::allows('api-list:raw')) {
             /*
              * If raw is passed, pagination will be ignored
              * Permission api-list:raw is required
@@ -371,7 +371,7 @@ class ApiController extends Controller
     public function paginate(Request $request, Builder $query)
     {
         $per_page = env('PAGINATION_PER_PAGE', 20);
-        if ($request->has('pagination') && isset($request->input('pagination')['per_page'])) {
+        if ($request->filled('pagination') && isset($request->input('pagination')['per_page'])) {
             $per_page = $request->input('pagination')['per_page'];
         }
 
@@ -386,7 +386,7 @@ class ApiController extends Controller
     public function checkInput($required_fields, Request $request)
     {
         foreach ($required_fields as $f) {
-            if (!$request->has($f) && !$request->hasFile($f)) {
+            if (!$request->filled($f) && !$request->hasFile($f)) {
                 return false;
             }
         }
@@ -405,7 +405,7 @@ class ApiController extends Controller
      */
     protected function addBelongsTo($request, $object, $dynamic = true)
     {
-        if ($request->has('belongsTo') && $request->input('belongsTo') != '') {
+        if ($request->filled('belongsTo') && $request->input('belongsTo') != '') {
             $belongsTo_type = explode("|", $request->input('belongsTo'))[0];
             $belongsTo_id = explode("|", $request->input('belongsTo'))[1];
             $class_name = 'App\\' . $belongsTo_type;
@@ -442,12 +442,12 @@ class ApiController extends Controller
      */
     protected function getBelongsTo($request)
     {
-        if ($request->has('belongsTo') && $request->input('belongsTo') != '') {
+        if ($request->filled('belongsTo') && $request->input('belongsTo') != '') {
             $belongsTo_type = explode("|", $request->input('belongsTo'))[0];
             $belongsTo_id = explode("|", $request->input('belongsTo'))[1];
             $class_name = 'App\\' . $belongsTo_type;
         }
-        elseif ($request->has('belongsTo_type') && $request->has('belongsTo_id')) {
+        elseif ($request->filled('belongsTo_type') && $request->filled('belongsTo_id')) {
             $belongsTo_type = $request->input('belongsTo_type');
             $belongsTo_id = $request->input('belongsTo_id');
             $class_name = 'App\\' . $belongsTo_type;
@@ -557,7 +557,7 @@ class ApiController extends Controller
                 $model_field = $request_field;
             }
             if ($request->exists($request_field)) {
-                if ($request->has($request_field)) {
+                if ($request->filled($request_field)) {
                     $model->$model_field = $request->get($request_field);
                 }
                 else {

@@ -123,7 +123,7 @@ class ActionSequenceIntentionController extends ApiController
             return $this->setStatusCode(404)->respondWithError('ActionSequenceIntention not found');
         }
 
-        if ($request->has('action_sequence_id')) {
+        if ($request->filled('action_sequence_id')) {
             $a = ActionSequence::find($request->input('action_sequence_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
@@ -135,15 +135,15 @@ class ActionSequenceIntentionController extends ApiController
             'intention', 'minimum_timeout_minutes'
         ]);
 
-        if ($request->has('minimum_timeout_minutes')) {
+        if ($request->filled('minimum_timeout_minutes')) {
             $intention->minimum_timeout_minutes = $request->input('minimum_timeout_minutes');
         }
 
-        if ($request->has('timeframe_start')) {
+        if ($request->filled('timeframe_start')) {
             $intention->timeframe_start = Carbon::parse($request->input('timeframe_start'))->format('H:i:s');
         }
 
-        if ($request->has('timeframe_end')) {
+        if ($request->filled('timeframe_end')) {
             $intention->timeframe_end = Carbon::parse($request->input('timeframe_end'))->format('H:i:s');
         }
 
