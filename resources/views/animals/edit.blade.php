@@ -35,14 +35,16 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input type="text" placeholder="@lang('labels.common_name')" name="commonname" value="{{ $animal->common_name }}">
+                                        <input type="text" placeholder="@lang('labels.common_name')" name="commonname" value="{{ $animal->common_name }}"
+                                               id="animal-common-name" class="autocomplete">
                                         <label for="name">@lang('labels.common_name')</label>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input type="text" placeholder="@lang('labels.latin_name')" name="latinname" value="{{ $animal->lat_name }}">
+                                        <input type="text" placeholder="@lang('labels.latin_name')" name="latinname" value="{{ $animal->lat_name }}"
+                                               id="animal-latin-name" class="autocomplete">
                                         <label for="name">@lang('labels.latin_name')</label>
                                     </div>
                                 </div>
@@ -127,18 +129,6 @@
         </div>
     </div>
 
-
-
-    <script>
-        $(document).ready(function() {
-            $('.datepicker').pickadate({
-                format: 'yyyy-mm-dd',
-                selectMonths: true, // Creates a dropdown to control month
-                selectYears: true // Creates a dropdown of 15 years to control year
-            });
-        });
-    </script>
-
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large orange darken-4">
             <i class="large material-icons">mode_edit</i>
@@ -149,4 +139,34 @@
             <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/animals/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.datepicker').pickadate({
+                format: 'yyyy-mm-dd',
+                selectMonths: true, // Creates a dropdown to control month
+                selectYears: true // Creates a dropdown of 15 years to control year
+            });
+            $('#animal-common-name').autocomplete({
+                data: {
+                    @foreach ($common_names as $n)
+                    "{{ $n }}": null,
+                    @endforeach
+                },
+                limit: 20,
+                minLength: 1
+            });
+            $('#animal-latin-name').autocomplete({
+                data: {
+                    @foreach ($latin_names as $n)
+                    "{{ $n }}": null,
+                    @endforeach
+                },
+                limit: 20,
+                minLength: 1
+            });
+        });
+    </script>
 @stop

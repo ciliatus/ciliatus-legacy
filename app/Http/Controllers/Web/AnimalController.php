@@ -98,9 +98,21 @@ class AnimalController extends Controller
 
         $terraria = Terrarium::all();
 
+        $common_names = array_column(
+            Animal::select('common_name')->groupBy('common_name')->get()->toArray(),
+            'common_name'
+        );
+
+        $latin_names = array_column(
+            Animal::select('lat_name')->groupBy('lat_name')->get()->toArray(),
+            'lat_name'
+        );
+
         return view('animals.edit', [
-            'animal'     => $animal,
-            'terraria'        => $terraria
+            'animal'        => $animal,
+            'terraria'      => $terraria,
+            'common_names'  => $common_names,
+            'latin_names'   => $latin_names
         ]);
     }
 
