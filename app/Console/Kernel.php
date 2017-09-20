@@ -38,7 +38,7 @@ class Kernel extends ConsoleKernel
                  ->monthly();
 
         $schedule->command('ciliatus:suggestions:generate')
-                 ->sundays();
+                 ->monthly();
 
         $schedule->command('ciliatus:notifications:send')
                  ->dailyAt(env('SCHEDULED_NOTIFICATION_SEND_TIME', '09:00:00'));
