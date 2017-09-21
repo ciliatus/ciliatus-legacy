@@ -291,7 +291,7 @@ class CriticalState extends CiliatusModel
     public function notifyIfNecessary(CiliatusModel $component)
     {
         if ($component->created_at->diffInMinutes(Carbon::now()) > $component->soft_state_duration_minutes
-            && is_null($component->notifications_sent_at)) {
+            && is_null($this->notifications_sent_at)) {
 
             $this->is_soft_state = false;
             $this->save(['silent']);

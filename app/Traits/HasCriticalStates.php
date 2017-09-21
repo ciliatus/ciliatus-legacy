@@ -35,6 +35,9 @@ trait HasCriticalStates
         return $this->critical_states()->whereNull('recovered_at')->get();
     }
 
+    /**
+     *
+     */
     public function evaluate()
     {
         if (!$this->stateOk()) {
@@ -44,6 +47,9 @@ trait HasCriticalStates
                 $this->createCriticalState(true);
             }
             else {
+                /**
+                 * @var CriticalState $cs
+                 */
                 foreach ($existing_cs as $cs) {
                     $cs->notifyIfNecessary($this);
                 }
