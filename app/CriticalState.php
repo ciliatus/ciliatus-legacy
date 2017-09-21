@@ -285,6 +285,51 @@ class CriticalState extends CiliatusModel
     }
 
     /**
+     * @param CiliatusModel $component
+     * @return bool
+     */
+    public function notifyIfNecessary(CiliatusModel $component)
+    {
+        if ($component->created_at->diffInMinutes(Carbon::now()) > $component->soft_state_duration_minutes
+            && is_null($component->notifications_sent_at)) {
+
+            $this->is_soft_state = false;
+            $this->save(['silent']);
+            $this->notify();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * @return bool|CiliatusModel
+     */
+    public function deleteIfOrphaned()
+    {
+        if (is_null($this->belongsTo_type) || is_null($this->belongsTo_id)) {
+            $this->delete();
+            return false;
+        }
+
+        try {
+            $cs_belongs = ('App\\' . $this->belongsTo_type)::find($this->belongsTo_id);
+        }
+        catch (FatalThrowableError $ex) {
+            $this->delete();
+            return false;
+        }
+
+        if (is_null($cs_belongs)) {
+            $this->delete();
+            return false;
+        }
+
+        return $cs_belongs;
+    }
+
+    /**
      * @return null|CiliatusModel
      */
     public function belongsTo_object()
@@ -311,107 +356,19 @@ class CriticalState extends CiliatusModel
      */
     public static function evaluate()
     {
+        LogicalSensor::evaluateCriticalStates();
+        Controlunit::evaluateCriticalStates();
 
-        $result = [
-            'created' => 0,
-            'deleted' => 0,
-            'notified'=> 0,
-            'recovered'=>0
-        ];
-
-        /*
-         * Evaluate LogicalSensor states
-         * and create CriticalStates for
-         * critical sensors
-         */
-        foreach (LogicalSensor::get() as $ls) {
-            if (!$ls->stateOk()) {
-                $existing_cs = $ls->critical_states()->whereNull('recovered_at')->get();
-
-                if ($existing_cs->count() < 1) {
-                    CriticalState::create([
-                        'belongsTo_type' => 'LogicalSensor',
-                        'belongsTo_id'   => $ls->id,
-                        'is_soft_state'  => true
-                    ]);
-
-                    $result['created']++;
-                }
-                else {
-                    foreach ($existing_cs as $cs) {
-                        if ($cs->created_at->diffInMinutes(Carbon::now()) > $ls->soft_state_duration_minutes
-                            && is_null($cs->notifications_sent_at)) {
-
-                            $cs->is_soft_state = false;
-                            $cs->save(['silent']);
-                            $cs->notify();
-
-                            $result['notified']++;
-                        }
-                    }
-                }
-            }
-        }
-
-        foreach (Controlunit::get() as $cu) {
-            if (!$cu->stateOk()) {
-                $existing_cs = $cu->critical_states()->whereNull('recovered_at')->get();
-
-                if ($existing_cs->count() < 1) {
-                    CriticalState::create([
-                        'belongsTo_type' => 'Controlunit',
-                        'belongsTo_id'   => $cu->id
-                    ]);
-
-                    $result['created']++;
-                }
-                else {
-                    foreach ($existing_cs as $cs) {
-                        if ($cs->created_at->diffInMinutes(Carbon::now()) > env('DEFAULT_SOFT_STATE_DURATION_MINUTES', 10)
-                            && is_null($cs->notifications_sent_at)) {
-
-                            $cs->is_soft_state = false;
-                            $cs->save(['silent']);
-                            $cs->notify();
-
-                            $result['notified']++;
-                        }
-                    }
-                }
-            }
-        }
-
-        /*
-         * Evaluate active CriticalStates
-         * and recover them in case they are stateOk
-         *
-         * Delete them in case their belonging
-         * doest not exist
-         */
         foreach (CriticalState::whereNull('recovered_at')->get() as $cs) {
-            if (!is_null($cs->belongsTo_type) && !is_null($cs->belongsTo_id)) {
-                $cs_belongs = nulL;
-                try {
-                    $cs_belongs = ('App\\' . $cs->belongsTo_type)::find($cs->belongsTo_id);
-                }
-                catch (FatalThrowableError $ex) {
-                    $cs->delete();
-                    $result['deleted']++;
-                }
+            $cs_belongs = $cs->deleteIfOrphaned();
+            if (!$cs_belongs) {
+                continue;
+            }
 
-                if (is_null($cs_belongs)) {
-                    $cs->delete();
-                    $result['deleted']++;
-                }
-
-                if ($cs_belongs->stateOk()) {
-                    $cs->recover();
-                    $result['recovered']++;
-                }
+            if ($cs_belongs->stateOk()) {
+                $cs->recover();
             }
         }
-
-        return $result;
     }
 
     /**

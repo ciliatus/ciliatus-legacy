@@ -40,7 +40,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class LogicalSensor extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Traits\Uuids, Traits\HasCriticalStates;
 
     /**
      * Indicates if the IDs are auto-incrementing.

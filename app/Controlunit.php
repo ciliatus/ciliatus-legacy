@@ -33,7 +33,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Controlunit extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Traits\Uuids, Traits\HasCriticalStates;
 
     /**
      * Indicates if the IDs are auto-incrementing.
