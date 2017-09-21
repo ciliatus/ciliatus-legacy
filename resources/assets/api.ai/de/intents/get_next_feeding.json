@@ -144,7 +144,8 @@
           "type": 0,
           "speech": "Ich konnte Ciliatus leider nicht erreichen."
         }
-      ]
+      ],
+      "defaultResponsePlatforms": {}
     }
   ],
   "priority": 500000,

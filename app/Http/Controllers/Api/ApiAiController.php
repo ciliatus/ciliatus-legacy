@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
+use App\Event;
+use App\Repositories\AnimalFeedingSchedulePropertyRepository;
 use App\Traits\SendsApiAiRequests;
 use Auth;
 use Illuminate\Http\Request;
@@ -25,6 +27,9 @@ class ApiAiController extends ApiController
         $this->setLanguage($request);
 
         switch ($request->input('result')['metadata']['intentName']) {
+            case 'get_animal_weight':
+                return $this->respond_get_animal_weight($request);
+
             case 'get_animal_health':
                 return $this->respond_get_animal_health($request);
 
@@ -33,6 +38,9 @@ class ApiAiController extends ApiController
 
             case 'get_next_feeding':
                 return $this->respond_get_next_feeding($request);
+
+            case 'get_last_feeding':
+                return $this->respond_get_animal_last_feeding($request);
 
             default:
                 return $this->respondToApiAi(trans('apiai.errors.query_not_understood'));
@@ -121,6 +129,39 @@ class ApiAiController extends ApiController
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
+    private function respond_get_animal_weight(Request $request)
+    {
+        $animalOrResponse = $this->getAnimalOrRespond($request);
+        if (!is_a($animalOrResponse, 'App\Animal')) {
+            return $animalOrResponse;
+        }
+
+        /**
+         * @var Animal $animal
+         */
+        $animal = $animalOrResponse;
+
+        /**
+         * @var Event $last_weighing
+         */
+        $last_weighing = $animal->last_weighing();
+        if (is_null($last_weighing)) {
+            return $this->respondToApiAi(trans('apiai.fulfillment.animal_no_weight', [
+                'display_name'  => $animal->display_name
+            ]));
+        }
+
+        return $this->respondToApiAi(trans('apiai.fulfillment.animal_weight', [
+            'display_name'  => $animal->display_name,
+            'created_at'    => $last_weighing->created_at->toDateString(),
+            'weight'        => $last_weighing->value
+        ]));
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
     private function respond_get_animal_health(Request $request)
     {
         $animalOrResponse = $this->getAnimalOrRespond($request);
@@ -193,7 +234,7 @@ class ApiAiController extends ApiController
 
         $next = null;
         foreach ($animal->feeding_schedules as $schedule) {
-            $afs = (new AnimalFeedingScheduleRepository($schedule))->show();
+            $afs = (new AnimalFeedingSchedulePropertyRepository($schedule))->show();
             if ((is_null($next) || $afs->next_feeding_at_diff < $next->next_feeding_at_diff)) {
                 $next = $afs;
             }
@@ -201,12 +242,14 @@ class ApiAiController extends ApiController
 
         if (is_null($next)) {
             return $this->respondToApiAi(
-                trans('apiai.fulfillment.animal_next_feeding_none')
+                trans('apiai.errors.animal_no_scheduled_feedings', [
+                    'display_name' => $animal->display_name
+                ])
             );
         }
         else {
             return $this->respondToApiAi(
-                trans('apiai.fulfillment.feedings_today_list', [
+                trans('apiai.fulfillment.animal_next_feeding_list', [
                     'display_name'  => $animal->display_name,
                     'time'          => $next->next_feeding_at_diff < 1 ?
                         trans('labels.today') :
@@ -215,6 +258,39 @@ class ApiAiController extends ApiController
                 ])
             );
         }
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    private function respond_get_animal_last_feeding(Request $request)
+    {
+        $animalOrResponse = $this->getAnimalOrRespond($request);
+        if (!is_a($animalOrResponse, 'App\Animal')) {
+            return $animalOrResponse;
+        }
+
+        /**
+         * @var Animal $animal
+         */
+        $animal = $animalOrResponse;
+
+        /**
+         * @var Event $last_feeding
+         */
+        $last_feeding = $animal->last_feeding();
+        if (is_null($last_feeding)) {
+            return $this->respondToApiAi(trans('apiai.fulfillment.animal_no_feeding', [
+                'display_name'  => $animal->display_name
+            ]));
+        }
+
+        return $this->respondToApiAi(trans('apiai.fulfillment.animal_last_feeding', [
+            'display_name'  => $animal->display_name,
+            'created_at'    => $last_feeding->created_at->toDateString(),
+            'food'          => $last_feeding->name
+        ]));
     }
 
 }
