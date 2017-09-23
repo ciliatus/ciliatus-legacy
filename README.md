@@ -2,20 +2,21 @@
 
 [![Build Status](https://travis-ci.org/matthenning/ciliatus.svg?branch=master)](https://travis-ci.org/matthenning/ciliatus)
 
-## [Visit ciliatus.io](https://ciliatus.io)
+## [ciliatus.io](https://ciliatus.io)
+
+Intelligent terrarium automation
 
 ## Features
 
-* Fully automatic intelligent control over your terrariums' vital parameters
-* Real-time dashboard using Vue and Pusher or another push service of your choice
-* Temperature and humidity monitoring with notification support, e.g. via Telegram
-* Keep track of your animals' feeding schedules, weight and everything else
+* Intelligent automation to control your animals' environments
+* Temperature and humidity monitoring with real time dashboards
+* Feeding and weighing schedules and trackers
+* Notifications (e.g. via Telegram) with daily todo lists and alerts
 * Printable caresheets with all relevant data about your animals' health
 * File management for photos and other files
-* Responsive Material Design UI with automatic night theme to relieve eye strain
-* RESTful API
-
-## [Documentation](https://ciliatus.io/docs)
+* Responsive design with automatic night theme to relieve eye strain
+* Voice Control (experimental)
+* RESTful API to use the collected data or trigger actions from you own applications
 
 ## Demo
 
@@ -28,6 +29,8 @@ Also: Because the source environment is in german you will find user defined str
 
 * User: demo@ciliatus.io
 * Pass: demo
+
+## [Documentation](https://ciliatus.io/docs)
 
 ## Requirements
 
