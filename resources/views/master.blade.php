@@ -12,7 +12,7 @@
         @else
             <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.min.css"  media="screen,projection"/>
         @endif
-        <link type="text/css" rel="stylesheet" href="/css/vendors/timeline.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/vendors/timeline.min.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.clockpicker.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="/css/vendors/dygraph.min.css"  media="screen,projection"/>
 
@@ -287,9 +287,9 @@
         <!-- Laravel-Echo -->
         <script src="{{ url('/js/vendors/echo.min.js') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('/js/app.js') }}"></script>
+        <script src="{{ url('/js/app.min.js') }}"></script>
         <!-- Vue -->
-        <script src="{{ url('/js/vendors/vue.js') }}"></script>
+        <script src="{{ url('/js/vendors/vue.min.js') }}"></script>
         <!-- Dygraph -->
         <script src="{{ url('/js/vendors/dygraph.min.js') }}"></script>
 
