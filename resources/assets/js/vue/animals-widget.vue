@@ -1,9 +1,9 @@
 <template>
     <div>
         <div class="row" v-if="!animalId">
-            <div class="col s8">
+            <div class="col s11">
                 <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
-                    <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
+                    <li v-bind:class="['hide-on-small-only', { 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }]">
                         <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
                     </li>
                     <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
@@ -23,16 +23,17 @@
                     <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
                         <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="material-icons">chevron_right</i></a>
                     </li>
-                    <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
+                    <li v-bind:class="['hide-on-small-only', { 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }]">
                         <a href="#!" v-on:click="set_page(meta.pagination.total_pages)"><i class="material-icons">last_page</i></a>
                     </li>
                 </ul>
             </div>
-            <div class="col s4 right-align" v-if="!animalId">
-                <div class="input-field inline">
-                    {{ $t('labels.filter') }}
-                    <a href="#!"><i class="material-icons" v-on:click="toggle_filters">filter_list</i></a>
-                </div>
+            <div class="col s1 right-align" v-if="!animalId">
+                <ul class="pagination">
+                    <li class="waves-effect">
+                        <a href="#!"><i class="material-icons" v-on:click="toggle_filters">filter_list</i></a>
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="row" v-if="!animalId" v-show="showFilters">

@@ -307,7 +307,7 @@ var Channel = function () {
     createClass(Channel, [{
         key: 'notification',
         value: function notification(callback) {
-            return this.listen('.Illuminate.Notifications.Events.BroadcastNotificationCreated', callback);
+            return this.listen('.Illuminate\\Notifications\\Events\\BroadcastNotificationCreated', callback);
         }
     }, {
         key: 'listenForWhisper',
@@ -328,12 +328,10 @@ var EventFormatter = function () {
     createClass(EventFormatter, [{
         key: 'format',
         value: function format(event) {
-            if (this.namespace) {
-                if (event.charAt(0) != '\\' && event.charAt(0) != '.') {
-                    event = this.namespace + '.' + event;
-                } else {
-                    event = event.substr(1);
-                }
+            if (event.charAt(0) === '.' || event.charAt(0) === '\\') {
+                return event.substr(1);
+            } else if (this.namespace) {
+                event = this.namespace + '.' + event;
             }
             return event.replace(/\./g, '\\');
         }
@@ -673,6 +671,11 @@ var PusherConnector = function (_Connector) {
         value: function socketId() {
             return this.pusher.connection.socket_id;
         }
+    }, {
+        key: 'disconnect',
+        value: function disconnect() {
+            this.pusher.disconnect();
+        }
     }]);
     return PusherConnector;
 }(Connector);
@@ -747,6 +750,11 @@ var SocketIoConnector = function (_Connector) {
         key: 'socketId',
         value: function socketId() {
             return this.socket.id;
+        }
+    }, {
+        key: 'disconnect',
+        value: function disconnect() {
+            this.socket.disconnect();
         }
     }]);
     return SocketIoConnector;
@@ -841,6 +849,11 @@ var Echo = function () {
         key: 'socketId',
         value: function socketId() {
             return this.connector.socketId();
+        }
+    }, {
+        key: 'disconnect',
+        value: function disconnect() {
+            this.connector.disconnect();
         }
     }]);
     return Echo;
