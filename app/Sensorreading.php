@@ -4,29 +4,10 @@ namespace App;
 
 use App\Traits\Uuids;
 use App\Traits\WritesToInfluxDb;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Sensorreading
- *
  * @package App
- * @property string $id
- * @property string $sensorreadinggroup_id
- * @property string $logical_sensor_id
- * @property float $rawvalue
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property bool $is_anomaly
- * @property-read \App\LogicalSensor $logical_sensor
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Query\Builder|\App\Sensorreading whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Sensorreading whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Sensorreading whereIsAnomaly($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Sensorreading whereLogicalSensorId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Sensorreading whereRawvalue($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Sensorreading whereSensorreadinggroupId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Sensorreading whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class Sensorreading extends CiliatusModel
 {

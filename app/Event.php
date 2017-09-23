@@ -2,32 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * Class Event
- *
  * @package App
- * @property string $id
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property string $type
- * @property string $name
- * @property string $value
- * @property string $value_json
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereBelongsToId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereBelongsToType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereValue($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereValueJson($value)
- * @mixin \Eloquent
  */
 class Event extends CiliatusModel
 {

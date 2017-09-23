@@ -2,38 +2,16 @@
 
 namespace App;
 
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class RunningAction
- *
  * @package App
- * @property string $id
- * @property string $action_id
- * @property string $action_sequence_schedule_id
- * @property \Carbon\Carbon $started_at
- * @property \Carbon\Carbon $finished_at
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property string $action_sequence_trigger_id
- * @property string $action_sequence_intention_id
- * @property-read \App\Action $action
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Query\Builder|\App\RunningAction whereActionId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\RunningAction whereActionSequenceIntentionId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\RunningAction whereActionSequenceScheduleId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\RunningAction whereActionSequenceTriggerId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\RunningAction whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\RunningAction whereFinishedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\RunningAction whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\RunningAction whereStartedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\RunningAction whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class RunningAction extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Uuids;
 
     /**
      * Indicates if the IDs are auto-incrementing.

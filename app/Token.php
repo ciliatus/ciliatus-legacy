@@ -3,6 +3,7 @@
 namespace App;
 
 
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
 
 /**
@@ -13,7 +14,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Token extends Model
 {
-    use Traits\Uuids;
+    use Uuids;
 
     /**
      * Indicates if the IDs are auto-incrementing.

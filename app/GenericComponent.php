@@ -3,40 +3,18 @@
 namespace App;
 
 use App\Events\GenericComponentDeleted;
+use App\Events\GenericComponentUpdated;
 use App\Traits\Components;
 use App\Traits\Uuids;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class GenericComponent
- *
  * @package App
- * @property string $id
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property string $controlunit_id
- * @property string $name
- * @property string $generic_component_type_id
- * @property string $state
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \App\Controlunit $controlunit
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $states
- * @property-read \App\GenericComponentType $type
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereBelongsToId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereBelongsToType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereControlunitId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereGenericComponentTypeId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereState($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class GenericComponent extends Component
 {
-    use Uuids, Components;
+    use Uuids, Components, Notifiable;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -60,17 +38,12 @@ class GenericComponent extends Component
     protected $notification_type_name = 'generic_components';
 
     /**
-     * @return bool|null
+     * @var array
      */
-    public function delete()
-    {
-        broadcast(new GenericComponentDeleted($this->id));
-
-        $this->states()->delete();
-        $this->intentions()->delete();
-
-        return parent::delete();
-    }
+    protected $dispatchesEvents = [
+        'updated' => GenericComponentUpdated::class,
+        'deleting' => GenericComponentDeleted::class
+    ];
 
     /**
      * @return mixed

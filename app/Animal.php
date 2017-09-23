@@ -4,55 +4,19 @@ namespace App;
 
 use App\Events\AnimalDeleted;
 use App\Events\AnimalUpdated;
-use App\Http\Transformers\AnimalFeedingSchedulePropertyTransformer;
 use App\Repositories\AnimalFeedingSchedulePropertyRepository;
-use App\Repositories\AnimalFeedingScheduleRepository;
-use App\Repositories\AnimalRepository;
 use App\Repositories\AnimalWeighingSchedulePropertyRepository;
-use App\Repositories\AnimalWeighingScheduleRepository;
-use Auth;
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class Animal
- *
  * @package App
- * @property string $id
- * @property string $terrarium_id
- * @property string $lat_name
- * @property string $common_name
- * @property string $display_name
- * @property string $gender
- * @property \Carbon\Carbon $birth_date
- * @property \Carbon\Carbon $death_date
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $biography_entries
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $caresheets
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $events
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \App\Terrarium $terrarium
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereBirthDate($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereCommonName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereDeathDate($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereDisplayName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereGender($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereLatName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereTerrariumId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereUpdatedAt($value)
- * @mixin \Eloquent
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\AnimalFeedingScheduleProperty[] $feeding_schedules
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\AnimalFeedingEvent[] $feedings
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\AnimalWeighingScheduleProperty[] $weighing_schedules
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\AnimalWeighingEvent[] $weighings
  */
 class Animal extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * @var array
@@ -79,38 +43,12 @@ class Animal extends CiliatusModel
     public $incrementing = false;
 
     /**
-     *
+     * @var array
      */
-    public function delete()
-    {
-        broadcast(new AnimalDeleted($this->id));
-
-        foreach ($this->files as $f) {
-            $f->setBelongsTo();
-        }
-
-        $this->feeding_schedules()->delete();
-        $this->weighing_schedules()->delete();
-        $this->feedings()->delete();
-        $this->weighings()->delete();
-        $this->biography_entries()->delete();
-
-        parent::delete();
-    }
-
-
-    /**
-     * @param array $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-        $result = parent::save($options);
-
-        broadcast(new AnimalUpdated($this));
-
-        return $result;
-    }
+    protected $dispatchesEvents = [
+        'updated' => AnimalUpdated::class,
+        'deleting' => AnimalDeleted::class
+    ];
 
     /**
      * @return mixed
@@ -301,9 +239,10 @@ class Animal extends CiliatusModel
      */
     public function caresheets()
     {
-        return $this->hasMany('App\Event', 'belongsTo_id')->where('type', 'AnimalCaresheet')
-                                                          ->where('belongsTo_type', 'Animal')
-                                                          ->with('properties');
+        return $this->hasMany('App\Event', 'belongsTo_id')
+                    ->where('type', 'AnimalCaresheet')
+                    ->where('belongsTo_type', 'Animal')
+                    ->with('properties');
     }
 
     /**

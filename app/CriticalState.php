@@ -4,40 +4,19 @@ namespace App;
 
 use App\Events\CriticalStateCreated;
 use App\Events\CriticalStateDeleted;
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 /**
  * Class CriticalState
- *
  * @package App
- * @property string $id
- * @property string $name
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property bool $is_soft_state
- * @property \Carbon\Carbon $notifications_sent_at
- * @property \Carbon\Carbon $recovered_at
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereBelongsToId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereBelongsToType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereIsSoftState($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereNotificationsSentAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereRecoveredAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class CriticalState extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -69,44 +48,12 @@ class CriticalState extends CiliatusModel
     protected $dates = ['created_at', 'updated_at', 'recovered_at', 'notifications_sent_at'];
 
     /**
-     * @param array $attributes
-     * @return CiliatusModel|CriticalState
+     * @var array
      */
-    public static function create(array $attributes = [])
-    {
-        $new = new CriticalState($attributes);
-        $new->save();
-
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
-            'target_id'     =>  $new->id,
-            'associatedWith_type' => $new->belongsTo_type,
-            'associatedWith_id' => $new->belongsTo_id,
-            'action'        => 'create'
-        ]);
-
-        broadcast(new CriticalStateCreated($new));
-
-        return $new;
-    }
-
-    /**
-     *
-     */
-    public function delete()
-    {
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
-            'target_id'     =>  $this->id,
-            'associatedWith_type' => $this->belongsTo_type,
-            'associatedWith_id' => $this->belongsTo_id,
-            'action'        => 'delete'
-        ]);
-
-        broadcast(new CriticalStateDeleted($this->id));
-
-        parent::delete();
-    }
+    protected $dispatchesEvents = [
+        'updated' => CriticalStateCreated::class,
+        'deleting' => CriticalStateDeleted::class
+    ];
 
     /**
      * @param array $options

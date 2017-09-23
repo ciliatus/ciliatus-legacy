@@ -4,45 +4,18 @@ namespace App;
 
 use App\Events\ActionSequenceIntentionDeleted;
 use App\Events\ActionSequenceIntentionUpdated;
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class ActionSequenceIntention
- *
  * @package App
- * @property string $id
- * @property string $name
- * @property string $action_sequence_id
- * @property string $type
- * @property string $intention
- * @property int $minimum_timeout_minutes
- * @property string $timeframe_start
- * @property string $timeframe_end
- * @property \Carbon\Carbon $last_start_at
- * @property \Carbon\Carbon $last_finished_at
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \App\ActionSequence $sequence
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereActionSequenceId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereIntention($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereLastFinishedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereLastStartAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereMinimumTimeoutMinutes($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereTimeframeEnd($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereTimeframeStart($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceIntention whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class ActionSequenceIntention extends CiliatusModel
 {
 
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -50,7 +23,6 @@ class ActionSequenceIntention extends CiliatusModel
      * @var bool
      */
     public $incrementing = false;
-
 
     const TYPE_HUMIDITY_PERCENT = 'humidity_percent';
     const TYPE_TEMPERATURE_CELSIUS = 'temperature_celsius';
@@ -71,31 +43,12 @@ class ActionSequenceIntention extends CiliatusModel
     protected $dates = ['created_at', 'updated_at', 'last_start_at', 'last_finished_at'];
 
     /**
-     *
+     * @var array
      */
-    public function delete()
-    {
-        foreach (RunningAction::where('action_sequence_intention_id', $this->id)->get() as $ra) {
-            $ra->delete();
-        }
-
-        broadcast(new ActionSequenceIntentionDeleted($this->id));
-
-        parent::delete();
-    }
-
-    /**
-     * @param array $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-        $return = parent::save($options);
-
-        broadcast(new ActionSequenceIntentionUpdated($this));
-
-        return $return;
-    }
+    protected $dispatchesEvents = [
+        'updated' => ActionSequenceIntentionUpdated::class,
+        'deleting' => ActionSequenceIntentionDeleted::class
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

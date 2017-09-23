@@ -2,39 +2,32 @@
 
 namespace App;
 
+use App\Events\AnimalWeighingSchedulePropertyDeleted;
+use App\Events\AnimalWeighingSchedulePropertyUpdated;
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Notifications\Notifiable;
 
 /**
- * Class AnimalFeedingWeighingProperty
- *
- * @property string $id
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property string $type
- * @property string $name
- * @property bool $value
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @property-read \App\Animal $animal
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingScheduleProperty whereBelongsToId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingScheduleProperty whereBelongsToType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingScheduleProperty whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingScheduleProperty whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingScheduleProperty whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingScheduleProperty whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingScheduleProperty whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingScheduleProperty whereValue($value)
- * @mixin \Eloquent
+ * Class AnimalWeighingScheduleProperty
+ * @package App
  */
 class AnimalWeighingScheduleProperty extends Property
 {
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * @var string
      */
     protected $table = 'properties';
+
+    /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'updated' => AnimalWeighingSchedulePropertyUpdated::class,
+        'deleting' => AnimalWeighingSchedulePropertyDeleted::class
+    ];
 
     /**
      *
@@ -48,6 +41,9 @@ class AnimalWeighingScheduleProperty extends Property
         });
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function animal()
     {
         return $this->belongsTo('App\Animal', 'belongsTo_id');

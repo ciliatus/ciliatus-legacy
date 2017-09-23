@@ -2,11 +2,7 @@
 
 namespace App;
 
-/**
- * Class Message
- * @package App
- */
-use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
+use App\Traits\Uuids;
 use Telegram\Bot\Laravel\Facades\Telegram;
 
 /**
@@ -15,7 +11,7 @@ use Telegram\Bot\Laravel\Facades\Telegram;
  */
 class Message extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Uuids;
 
     /**
      * Indicates if the IDs are auto-incrementing.

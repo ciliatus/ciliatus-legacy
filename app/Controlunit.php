@@ -7,34 +7,15 @@ use App\Events\ControlunitUpdated;
 use App\Traits\HasCriticalStates;
 use App\Traits\Uuids;
 use Carbon\Carbon;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class Controlunit
- *
  * @package App
- * @property string $id
- * @property string $name
- * @property \Carbon\Carbon $heartbeat_at
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property string $software_version
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\CriticalState[] $critical_states
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\GenericComponent[] $generic_components
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\PhysicalSensor[] $physical_sensors
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Pump[] $pumps
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Valve[] $valves
- * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereHeartbeatAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereSoftwareVersion($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class Controlunit extends Component
 {
-    use Uuids, HasCriticalStates;
+    use Uuids, HasCriticalStates, Notifiable;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -62,54 +43,12 @@ class Controlunit extends Component
     protected $notification_type_name = 'controlunits';
 
     /**
-     *
+     * @var array
      */
-    public function delete()
-    {
-        broadcast(new ControlunitDeleted($this->id));
-
-        foreach ($this->physical_sensors as $ps) {
-            $ps->controlunit_id = null;
-            $ps->save();
-        }
-
-        foreach ($this->pumps as $p) {
-            $p->controlunit_id = null;
-            $p->save();
-        }
-
-        foreach ($this->valves as $v) {
-            $v->controlunit_id = null;
-            $v->save();
-        }
-
-        foreach ($this->generic_components as $gc) {
-            $gc->controlunit_id = null;
-            $gc->save();
-        }
-
-        foreach ($this->critical_states as $cs) {
-            $cs->setBelongsTo();
-        }
-
-        parent::delete();
-    }
-
-
-    /**
-     * @param array $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-        $result = parent::save($options);
-
-        if (!isset($options['silent'])) {
-            broadcast(new ControlunitUpdated($this));
-        }
-
-        return $result;
-    }
+    protected $dispatchesEvents = [
+        'updated' => ControlunitUpdated::class,
+        'deleting' => ControlunitDeleted::class
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

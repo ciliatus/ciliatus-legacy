@@ -2,34 +2,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\Uuids;
 
 /**
  * Class Property
- *
  * @package App
- * @property string $id
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property string $type
- * @property string $name
- * @property bool $value
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereBelongsToId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereBelongsToType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereValue($value)
- * @mixin \Eloquent
  */
 class Property extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Uuids;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -47,6 +28,9 @@ class Property extends CiliatusModel
         'name', 'value'
     ];
 
+    /**
+     * @var array
+     */
     protected static $belongTo_Types = [
         'BiographyEntry' => [
             'Terrarium', 'Animal'

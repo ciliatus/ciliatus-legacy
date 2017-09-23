@@ -2,41 +2,32 @@
 
 namespace App;
 
+use App\Events\BiographyEntryEventDeleted;
+use App\Events\BiographyEntryEventUpdated;
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class BiographyEntryEvent
- *
- * @property string $id
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property string $type
- * @property string $name
- * @property string $value
- * @property string $value_json
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Eloquent\Builder|\App\BiographyEntryEvent whereBelongsToId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\BiographyEntryEvent whereBelongsToType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\BiographyEntryEvent whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\BiographyEntryEvent whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\BiographyEntryEvent whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\BiographyEntryEvent whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\BiographyEntryEvent whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\BiographyEntryEvent whereValue($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\BiographyEntryEvent whereValueJson($value)
- * @mixin \Eloquent
+ * @package App
  */
 class BiographyEntryEvent extends Event
 {
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * @var string
      */
     protected $table = 'events';
+
+    /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'updated' => BiographyEntryEventUpdated::class,
+        'deleting' => BiographyEntryEventDeleted::class
+    ];
 
     /**
      *

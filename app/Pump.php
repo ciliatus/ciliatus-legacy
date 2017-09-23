@@ -4,7 +4,10 @@ namespace App;
 
 use App\Events\PumpDeleted;
 use App\Events\PumpUpdated;
+use App\Traits\Components;
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class Pump
@@ -29,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Pump extends CiliatusModel
 {
-    use Traits\Uuids, Traits\Components;
+    use Uuids, Components, Notifiable;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -49,6 +52,14 @@ class Pump extends CiliatusModel
     /**
      * @var array
      */
+    protected $dispatchesEvents = [
+        'updated' => PumpUpdated::class,
+        'deleting' => PumpDeleted::class
+    ];
+
+    /**
+     * @var array
+     */
     private static $states = [
         'Running',
         'Stopped'
@@ -60,35 +71,6 @@ class Pump extends CiliatusModel
     public static function states()
     {
         return self::$states;
-    }
-
-    /**
-     *
-     */
-    public function delete()
-    {
-        broadcast(new PumpDeleted($this->id));
-
-        foreach ($this->valves as $v) {
-            $v->pump_id = null;
-            $v->save();
-        }
-
-        parent::delete();
-    }
-
-
-    /**
-     * @param array $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-        $result = parent::save($options);
-
-        broadcast(new PumpUpdated($this));
-
-        return $result;
     }
 
     /**

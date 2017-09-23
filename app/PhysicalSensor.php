@@ -4,41 +4,17 @@ namespace App;
 
 use App\Events\PhysicalSensorDeleted;
 use App\Events\PhysicalSensorUpdated;
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
-use Symfony\Component\Debug\Exception\ClassNotFoundException;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class PhysicalSensor
- *
  * @package App
- * @property string $id
- * @property string $controlunit_id
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property string $name
- * @property string $model
- * @property \Carbon\Carbon $heartbeat_at
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \App\Controlunit $controlunit
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\LogicalSensor[] $logical_sensors
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \App\Terrarium $terrarium
- * @method static \Illuminate\Database\Query\Builder|\App\PhysicalSensor whereBelongsToId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\PhysicalSensor whereBelongsToType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\PhysicalSensor whereControlunitId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\PhysicalSensor whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\PhysicalSensor whereHeartbeatAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\PhysicalSensor whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\PhysicalSensor whereModel($value)
- * @method static \Illuminate\Database\Query\Builder|\App\PhysicalSensor whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\PhysicalSensor whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class PhysicalSensor extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -59,31 +35,12 @@ class PhysicalSensor extends CiliatusModel
     protected $fillable = ['name', 'belongsTo_type', 'belongsTo_id', 'controlunit_id'];
 
     /**
-     *
+     * @var array
      */
-    public function delete()
-    {
-        broadcast(new PhysicalSensorDeleted($this->id));
-
-        $this->logical_sensors()->delete();
-
-        parent::delete();
-    }
-
-    /**
-     * @param array $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-        $result = parent::save($options);
-
-        if (!isset($options['silent'])) {
-            broadcast(new PhysicalSensorUpdated($this));
-        }
-
-        return $result;
-    }
+    protected $dispatchesEvents = [
+        'updated' => PhysicalSensorUpdated::class,
+        'deleting' => PhysicalSensorDeleted::class
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

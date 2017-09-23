@@ -2,29 +2,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\Uuids;
 
 /**
  * Class UserAbility
- *
  * @package App
- * @property string $id
- * @property string $user_id
- * @property string $name
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \App\User $user
- * @method static \Illuminate\Database\Query\Builder|\App\UserAbility whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\UserAbility whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\UserAbility whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\UserAbility whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\UserAbility whereUserId($value)
- * @mixin \Eloquent
  */
 class UserAbility extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Uuids;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -83,42 +69,6 @@ class UserAbility extends CiliatusModel
         'grant_api-fetch:desired_states',
         'grant_api-evaluate:critical_state'
     ];
-
-    /**
-     * @param array $attributes
-     * @return Model|UserAbility
-     */
-    public static function create(array $attributes = [])
-    {
-        $new = new UserAbility($attributes);
-        $new->save();
-
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
-            'target_id'     =>  $new->id,
-            'associatedWith_type' => 'User',
-            'associatedWith_id' => $new->user_id,
-            'action'        => 'create'
-        ]);
-
-        return $new;
-    }
-
-    /**
-     *
-     */
-    public function delete()
-    {
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
-            'target_id'     =>  $this->id,
-            'associatedWith_type' => 'User',
-            'associatedWith_id' => $this->user_id,
-            'action'        => 'delete'
-        ]);
-
-        parent::delete();
-    }
 
     /**
      * @param array $options

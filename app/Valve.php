@@ -4,37 +4,17 @@ namespace App;
 
 use App\Events\ValveDeleted;
 use App\Events\ValveUpdated;
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\Components;
+use App\Traits\Uuids;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class Valve
- *
  * @package App
- * @property string $id
- * @property string $controlunit_id
- * @property string $terrarium_id
- * @property string $pump_id
- * @property string $name
- * @property string $state
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \App\Controlunit $controlunit
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \App\Pump $pump
- * @property-read \App\Terrarium $terrarium
- * @method static \Illuminate\Database\Query\Builder|\App\Valve whereControlunitId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Valve whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Valve whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Valve whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Valve wherePumpId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Valve whereState($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Valve whereTerrariumId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Valve whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class Valve extends CiliatusModel
 {
-    use Traits\Uuids, Traits\Components;
+    use Uuids, Components, Notifiable;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -58,35 +38,19 @@ class Valve extends CiliatusModel
     ];
 
     /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'updated' => ValveUpdated::class,
+        'deleting' => ValveDeleted::class
+    ];
+
+    /**
      * @return array
      */
     public static function states()
     {
         return self::$states;
-    }
-
-    /**
-     *
-     */
-    public function delete()
-    {
-        broadcast(new ValveDeleted($this->id));
-
-        parent::delete();
-    }
-
-
-    /**
-     * @param array $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-        $result = parent::save($options);
-
-        broadcast(new ValveUpdated($this));
-
-        return $result;
     }
 
     /**

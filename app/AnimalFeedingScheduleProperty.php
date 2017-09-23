@@ -2,39 +2,32 @@
 
 namespace App;
 
+use App\Events\AnimalFeedingSchedulePropertyDeleted;
+use App\Events\AnimalFeedingSchedulePropertyUpdated;
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class AnimalFeedingScheduleProperty
- *
- * @property string $id
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property string $type
- * @property string $name
- * @property bool $value
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @property-read \App\Animal $animal
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereBelongsToId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereBelongsToType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalFeedingScheduleProperty whereValue($value)
- * @mixin \Eloquent
+ * @package App
  */
 class AnimalFeedingScheduleProperty extends Property
 {
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * @var string
      */
     protected $table = 'properties';
+
+    /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'updated' => AnimalFeedingSchedulePropertyUpdated::class,
+        'deleting' => AnimalFeedingSchedulePropertyDeleted::class
+    ];
 
     /**
      *
@@ -48,6 +41,9 @@ class AnimalFeedingScheduleProperty extends Property
         });
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
     public function animal()
     {
         return $this->belongsTo('App\Animal', 'belongsTo_id');

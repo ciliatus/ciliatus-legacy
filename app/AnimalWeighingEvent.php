@@ -2,40 +2,32 @@
 
 namespace App;
 
+use App\Events\AnimalWeighingEventDeleted;
+use App\Events\AnimalWeighingEventUpdated;
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class AnimalWeighingEvent
- *
- * @property string $id
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property string $type
- * @property string $name
- * @property string $value
- * @property string $value_json
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereBelongsToId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereBelongsToType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereValue($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\AnimalWeighingEvent whereValueJson($value)
- * @mixin \Eloquent
+ * @package App
  */
 class AnimalWeighingEvent extends Event
 {
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * @var string
      */
     protected $table = 'events';
+
+    /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'updated' => AnimalWeighingEventUpdated::class,
+        'deleting' => AnimalWeighingEventDeleted::class
+    ];
 
     /**
      *
@@ -49,6 +41,10 @@ class AnimalWeighingEvent extends Event
         });
     }
 
+    /**
+     * @param int $days
+     * @return float|void
+     */
     public function trend($days = 30)
     {
 

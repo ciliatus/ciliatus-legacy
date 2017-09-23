@@ -2,52 +2,27 @@
 
 namespace App;
 
-use Doctrine\DBAL\Query\QueryBuilder;
+use App\Traits\Uuids;
 use Illuminate\Auth\Authenticatable;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
 use Illuminate\Foundation\Auth\Access\Authorizable;
 use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 use Carbon\Carbon;
+use Illuminate\Notifications\Notifiable;
 use Laravel\Passport\HasApiTokens;
 
 /**
  * Class User
- *
  * @package App
- * @property string $id
- * @property string $name
- * @property string $email
- * @property string $password
- * @property string $locale
- * @property string $timezone
- * @property string $remember_token
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\UserAbility[] $abilities
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Client[] $clients
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\UserSetting[] $settings
- * @property-read \Illuminate\Database\Eloquent\Collection|\Laravel\Passport\Token[] $tokens
- * @method static \Illuminate\Database\Query\Builder|\App\User whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\User whereEmail($value)
- * @method static \Illuminate\Database\Query\Builder|\App\User whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\User whereLocale($value)
- * @method static \Illuminate\Database\Query\Builder|\App\User whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\User wherePassword($value)
- * @method static \Illuminate\Database\Query\Builder|\App\User whereRememberToken($value)
- * @method static \Illuminate\Database\Query\Builder|\App\User whereTimezone($value)
- * @method static \Illuminate\Database\Query\Builder|\App\User whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class User extends CiliatusModel implements
     AuthenticatableContract,
     AuthorizableContract,
     CanResetPasswordContract
 {
-    use Authenticatable, Authorizable, HasApiTokens, CanResetPassword, Traits\Uuids;
+    use Authenticatable, Authorizable, HasApiTokens, CanResetPassword, Uuids, Notifiable;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -75,26 +50,6 @@ class User extends CiliatusModel implements
     ];
 
     /**
-     * @param array $attributes
-     * @return CiliatusModel|User
-     */
-    public static function create(array $attributes = [])
-    {
-        $new = new User($attributes);
-        $new->save();
-
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
-            'target_id'     =>  $new->id,
-            'associatedWith_type' => explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
-            'associatedWith_id' => $new->id,
-            'action'        => 'create'
-        ]);
-
-        return $new;
-    }
-
-    /**
      * Returns an Eloquent Builder filtered for users with enabled notifications
      * If $type is set an additional filter for the setting defined in $type will be added
      *
@@ -117,45 +72,6 @@ class User extends CiliatusModel implements
         }
 
         return $query;
-    }
-
-    /**
-     *
-     */
-    public function delete()
-    {
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
-            'target_id'     =>  $this->id,
-            'associatedWith_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
-            'associatedWith_id' => $this->id,
-            'action'        => 'delete'
-        ]);
-
-        $this->abilities()->delete();
-        $this->settings()->delete();
-
-        parent::delete();
-    }
-
-    /**
-     * @param array $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-
-        if (!in_array('silent', $options)) {
-            Log::create([
-                'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-                'target_id' => $this->id,
-                'associatedWith_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-                'associatedWith_id' => $this->id,
-                'action' => 'update'
-            ]);
-        }
-
-        return parent::save($options);
     }
 
     /**

@@ -2,38 +2,16 @@
 
 namespace App;
 
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class LogicalSensorThreshold
- *
  * @package App
- * @property string $id
- * @property string $name
- * @property string $logical_sensor_id
- * @property float $rawvalue_lowerlimit
- * @property float $rawvalue_upperlimit
- * @property string $starts_at
- * @property bool $active
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \App\LogicalSensor $logical_sensor
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensorThreshold whereActive($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensorThreshold whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensorThreshold whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensorThreshold whereLogicalSensorId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensorThreshold whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensorThreshold whereRawvalueLowerlimit($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensorThreshold whereRawvalueUpperlimit($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensorThreshold whereStartsAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensorThreshold whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class LogicalSensorThreshold extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Uuids;
 
     /**
      * Indicates if the IDs are auto-incrementing.
