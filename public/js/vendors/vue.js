@@ -2458,6 +2458,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -21364,7 +21365,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', [(!_vm.terrariumId) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col s8"
@@ -21502,7 +21503,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "material-icons"
-  }, [_vm._v("last_page")])])])]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("last_page")])])])]) : _vm._e()]), _vm._v(" "), (!_vm.terrariumId) ? _c('div', {
     staticClass: "col s4 right-align"
   }, [_c('div', {
     staticClass: "input-field inline"
@@ -21515,7 +21516,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.toggle_filters
     }
-  }, [_vm._v("filter_list")])])])])]), _vm._v(" "), (!_vm.terrariumId) ? _c('div', {
+  }, [_vm._v("filter_list")])])])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (!_vm.terrariumId) ? _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -24797,7 +24798,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
+  return _c('div', [(!_vm.animalId) ? _c('div', {
     staticClass: "row"
   }, [_c('div', {
     staticClass: "col s8"
@@ -24935,11 +24936,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "material-icons"
-  }, [_vm._v("last_page")])])])]) : _vm._e()]), _vm._v(" "), _c('div', {
+  }, [_vm._v("last_page")])])])]) : _vm._e()]), _vm._v(" "), (!_vm.animalId) ? _c('div', {
     staticClass: "col s4 right-align"
   }, [_c('div', {
     staticClass: "input-field inline"
-  }, [_c('a', {
+  }, [_vm._v("\n                " + _vm._s(_vm.$t('labels.filter')) + "\n                "), _c('a', {
     attrs: {
       "href": "#!"
     }
@@ -24948,7 +24949,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "click": _vm.toggle_filters
     }
-  }, [_vm._v("filter_list")])])])])]), _vm._v(" "), (!_vm.animalId) ? _c('div', {
+  }, [_vm._v("filter_list")])])])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (!_vm.animalId) ? _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",

@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div class="row">
+        <div class="row" v-if="!terrariumId">
             <div class="col s8">
                 <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
                     <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
@@ -28,7 +28,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col s4 right-align">
+            <div class="col s4 right-align" v-if="!terrariumId">
                 <div class="input-field inline">
                     {{ $t('labels.filter') }}
                     <a href="#!"><i class="material-icons" v-on:click="toggle_filters">filter_list</i></a>
