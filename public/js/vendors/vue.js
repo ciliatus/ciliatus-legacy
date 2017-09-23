@@ -2458,12 +2458,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 
 
@@ -10534,12 +10528,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loading_indicator_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__loading_indicator_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inline_graph_vue__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__inline_graph_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__inline_graph_vue__);
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -21376,7 +21364,158 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(!_vm.terrariumId) ? _c('div', {
+  return _c('div', [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s8"
+  }, [(_vm.meta.hasOwnProperty('pagination')) ? _c('ul', {
+    staticClass: "pagination"
+  }, [_c('li', {
+    class: {
+      'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "#!"
+    },
+    on: {
+      "click": function($event) {
+        _vm.set_page(1)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "material-icons"
+  }, [_vm._v("first_page")])])]), _vm._v(" "), _c('li', {
+    class: {
+      'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "#!"
+    },
+    on: {
+      "click": function($event) {
+        _vm.set_page(_vm.meta.pagination.current_page - 1)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "material-icons"
+  }, [_vm._v("chevron_left")])])]), _vm._v(" "), (_vm.meta.pagination.current_page - 3 > 0) ? _c('li', {
+    staticClass: "waves-effect"
+  }, [_c('a', {
+    attrs: {
+      "href": "#!"
+    },
+    on: {
+      "click": function($event) {
+        _vm.set_page(_vm.meta.pagination.current_page - 3)
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page - 3))])]) : _vm._e(), _vm._v(" "), (_vm.meta.pagination.current_page - 2 > 0) ? _c('li', {
+    staticClass: "waves-effect"
+  }, [_c('a', {
+    attrs: {
+      "href": "#!"
+    },
+    on: {
+      "click": function($event) {
+        _vm.set_page(_vm.meta.pagination.current_page - 2)
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page - 2))])]) : _vm._e(), _vm._v(" "), (_vm.meta.pagination.current_page - 1 > 0) ? _c('li', {
+    staticClass: "waves-effect"
+  }, [_c('a', {
+    attrs: {
+      "href": "#!"
+    },
+    on: {
+      "click": function($event) {
+        _vm.set_page(_vm.meta.pagination.current_page - 1)
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page - 1))])]) : _vm._e(), _vm._v(" "), _c('li', {
+    staticClass: "active"
+  }, [_c('a', {
+    attrs: {
+      "href": "#!"
+    }
+  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page))])]), _vm._v(" "), (_vm.meta.pagination.current_page + 1 <= _vm.meta.pagination.total_pages) ? _c('li', {
+    staticClass: "waves-effect"
+  }, [_c('a', {
+    attrs: {
+      "href": "#!"
+    },
+    on: {
+      "click": function($event) {
+        _vm.set_page(_vm.meta.pagination.current_page + 1)
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page + 1))])]) : _vm._e(), _vm._v(" "), (_vm.meta.pagination.current_page + 2 <= _vm.meta.pagination.total_pages) ? _c('li', {
+    staticClass: "waves-effect"
+  }, [_c('a', {
+    attrs: {
+      "href": "#!"
+    },
+    on: {
+      "click": function($event) {
+        _vm.set_page(_vm.meta.pagination.current_page + 2)
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page + 2))])]) : _vm._e(), _vm._v(" "), (_vm.meta.pagination.current_page + 3 <= _vm.meta.pagination.total_pages) ? _c('li', {
+    staticClass: "waves-effect"
+  }, [_c('a', {
+    attrs: {
+      "href": "#!"
+    },
+    on: {
+      "click": function($event) {
+        _vm.set_page(_vm.meta.pagination.current_page + 3)
+      }
+    }
+  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page + 3))])]) : _vm._e(), _vm._v(" "), _c('li', {
+    class: {
+      'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages, 'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "#!"
+    },
+    on: {
+      "click": function($event) {
+        _vm.set_page(_vm.meta.pagination.current_page + 1)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "material-icons"
+  }, [_vm._v("chevron_right")])])]), _vm._v(" "), _c('li', {
+    class: {
+      'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages, 'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages
+    }
+  }, [_c('a', {
+    attrs: {
+      "href": "#!"
+    },
+    on: {
+      "click": function($event) {
+        _vm.set_page(_vm.meta.pagination.total_pages)
+      }
+    }
+  }, [_c('i', {
+    staticClass: "material-icons"
+  }, [_vm._v("last_page")])])])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "col s4 right-align"
+  }, [_c('div', {
+    staticClass: "input-field inline"
+  }, [_vm._v("\n                " + _vm._s(_vm.$t('labels.filter')) + "\n                "), _c('a', {
+    attrs: {
+      "href": "#!"
+    }
+  }, [_c('i', {
+    staticClass: "material-icons",
+    on: {
+      "click": _vm.toggle_filters
+    }
+  }, [_vm._v("filter_list")])])])])]), _vm._v(" "), (!_vm.terrariumId) ? _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -21385,7 +21524,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }],
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col s10 m8 l8"
+    staticClass: "col s12"
   }, [_c('div', {
     staticClass: "input-field inline"
   }, [_c('input', {
@@ -21528,41 +21667,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "for": "filter_animal_common_name"
     }
-  }, [_vm._v(_vm._s(_vm.$tc('components.animal', 1)) + " " + _vm._s(_vm.$t('labels.common_name')))])])]), _vm._v(" "), _c('div', {
-    staticClass: "col s2 m4 l4 right-align"
-  }, [_c('div', {
-    staticClass: "input-field inline"
-  }, [_c('a', {
-    attrs: {
-      "href": "#!"
-    }
-  }, [_c('i', {
-    staticClass: "material-icons",
-    on: {
-      "click": _vm.toggle_filters
-    }
-  }, [_vm._v("filter_list")])])])])]) : _vm._e(), _vm._v(" "), (!_vm.terrariumId) ? _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (!_vm.showFilters),
-      expression: "!showFilters"
-    }],
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12 right-align"
-  }, [_c('div', {
-    staticClass: "input-field inline"
-  }, [_vm._v("\n                " + _vm._s(_vm.$t('labels.filter')) + "\n                "), _c('a', {
-    attrs: {
-      "href": "#!"
-    }
-  }, [_c('i', {
-    staticClass: "material-icons",
-    on: {
-      "click": _vm.toggle_filters
-    }
-  }, [_vm._v("filter_list")])])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+  }, [_vm._v(_vm._s(_vm.$tc('components.animal', 1)) + " " + _vm._s(_vm.$t('labels.common_name')))])])])]) : _vm._e(), _vm._v(" "), _c('div', {
     class: [_vm.containerClasses, 'masonry-grid'],
     attrs: {
       "id": _vm.containerId
@@ -21931,143 +22036,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v(_vm._s(_vm.$t('buttons.cool_down')))])]) : _vm._e()], 2)])])
-  })), _vm._v(" "), (!_vm.terrariumId) ? _c('div', {
-    staticClass: "row"
-  }, [(_vm.meta.hasOwnProperty('pagination')) ? _c('ul', {
-    staticClass: "pagination"
-  }, [_c('li', {
-    class: {
-      'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "#!"
-    },
-    on: {
-      "click": function($event) {
-        _vm.set_page(1)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("first_page")])])]), _vm._v(" "), _c('li', {
-    class: {
-      'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "#!"
-    },
-    on: {
-      "click": function($event) {
-        _vm.set_page(_vm.meta.pagination.current_page - 1)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("chevron_left")])])]), _vm._v(" "), (_vm.meta.pagination.current_page - 3 > 0) ? _c('li', {
-    staticClass: "waves-effect"
-  }, [_c('a', {
-    attrs: {
-      "href": "#!"
-    },
-    on: {
-      "click": function($event) {
-        _vm.set_page(_vm.meta.pagination.current_page - 3)
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page - 3))])]) : _vm._e(), _vm._v(" "), (_vm.meta.pagination.current_page - 2 > 0) ? _c('li', {
-    staticClass: "waves-effect"
-  }, [_c('a', {
-    attrs: {
-      "href": "#!"
-    },
-    on: {
-      "click": function($event) {
-        _vm.set_page(_vm.meta.pagination.current_page - 2)
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page - 2))])]) : _vm._e(), _vm._v(" "), (_vm.meta.pagination.current_page - 1 > 0) ? _c('li', {
-    staticClass: "waves-effect"
-  }, [_c('a', {
-    attrs: {
-      "href": "#!"
-    },
-    on: {
-      "click": function($event) {
-        _vm.set_page(_vm.meta.pagination.current_page - 1)
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page - 1))])]) : _vm._e(), _vm._v(" "), _c('li', {
-    staticClass: "active"
-  }, [_c('a', {
-    attrs: {
-      "href": "#!"
-    }
-  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page))])]), _vm._v(" "), (_vm.meta.pagination.current_page + 1 <= _vm.meta.pagination.total_pages) ? _c('li', {
-    staticClass: "waves-effect"
-  }, [_c('a', {
-    attrs: {
-      "href": "#!"
-    },
-    on: {
-      "click": function($event) {
-        _vm.set_page(_vm.meta.pagination.current_page + 1)
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page + 1))])]) : _vm._e(), _vm._v(" "), (_vm.meta.pagination.current_page + 2 <= _vm.meta.pagination.total_pages) ? _c('li', {
-    staticClass: "waves-effect"
-  }, [_c('a', {
-    attrs: {
-      "href": "#!"
-    },
-    on: {
-      "click": function($event) {
-        _vm.set_page(_vm.meta.pagination.current_page + 2)
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page + 2))])]) : _vm._e(), _vm._v(" "), (_vm.meta.pagination.current_page + 3 <= _vm.meta.pagination.total_pages) ? _c('li', {
-    staticClass: "waves-effect"
-  }, [_c('a', {
-    attrs: {
-      "href": "#!"
-    },
-    on: {
-      "click": function($event) {
-        _vm.set_page(_vm.meta.pagination.current_page + 3)
-      }
-    }
-  }, [_vm._v(_vm._s(_vm.meta.pagination.current_page + 3))])]) : _vm._e(), _vm._v(" "), _c('li', {
-    class: {
-      'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages, 'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "#!"
-    },
-    on: {
-      "click": function($event) {
-        _vm.set_page(_vm.meta.pagination.current_page + 1)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("chevron_right")])])]), _vm._v(" "), _c('li', {
-    class: {
-      'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages, 'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages
-    }
-  }, [_c('a', {
-    attrs: {
-      "href": "#!"
-    },
-    on: {
-      "click": function($event) {
-        _vm.set_page(_vm.meta.pagination.total_pages)
-      }
-    }
-  }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("last_page")])])])]) : _vm._e()]) : _vm._e()])
+  }))])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -24828,257 +24797,10 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(!_vm.animalId) ? _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.showFilters),
-      expression: "showFilters"
-    }],
+  return _c('div', [_c('div', {
     staticClass: "row"
   }, [_c('div', {
-    staticClass: "col s10 m8 l8"
-  }, [_c('div', {
-    staticClass: "input-field inline"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.filter.display_name),
-      expression: "filter.display_name"
-    }],
-    attrs: {
-      "id": "filter_display_name",
-      "type": "text",
-      "placeholder": _vm.$t('labels.display_name')
-    },
-    domProps: {
-      "value": (_vm.filter.display_name)
-    },
-    on: {
-      "keyup": function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
-        _vm.set_filter($event)
-      },
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.filter.display_name = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "filter_display_name"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.display_name')))])]), _vm._v(" "), _c('div', {
-    staticClass: "input-field inline"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.filter.lat_name),
-      expression: "filter.lat_name"
-    }],
-    attrs: {
-      "id": "filter_lat_name",
-      "type": "text",
-      "placeholder": _vm.$t('labels.latin_name')
-    },
-    domProps: {
-      "value": (_vm.filter.lat_name)
-    },
-    on: {
-      "keyup": function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
-        _vm.set_filter($event)
-      },
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.filter.lat_name = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "filter_lat_name"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.latin_name')))])]), _vm._v(" "), _c('div', {
-    staticClass: "input-field inline"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.filter.common_name),
-      expression: "filter.common_name"
-    }],
-    attrs: {
-      "id": "filter_common_name",
-      "type": "text",
-      "placeholder": _vm.$t('labels.common_name')
-    },
-    domProps: {
-      "value": (_vm.filter.common_name)
-    },
-    on: {
-      "keyup": function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
-        _vm.set_filter($event)
-      },
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.filter.common_name = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "filter_common_name"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.common_name')))])])]), _vm._v(" "), _c('div', {
-    staticClass: "col s2 m4 l4 right-align"
-  }, [_c('div', {
-    staticClass: "input-field inline"
-  }, [_c('a', {
-    attrs: {
-      "href": "#!"
-    }
-  }, [_c('i', {
-    staticClass: "material-icons",
-    on: {
-      "click": _vm.toggle_filters
-    }
-  }, [_vm._v("filter_list")])])])])]) : _vm._e(), _vm._v(" "), (!_vm.animalId) ? _c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (!_vm.showFilters),
-      expression: "!showFilters"
-    }],
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12 right-align"
-  }, [_c('div', {
-    staticClass: "input-field inline"
-  }, [_vm._v("\n                " + _vm._s(_vm.$t('labels.filter')) + "\n                "), _c('a', {
-    attrs: {
-      "href": "#!"
-    }
-  }, [_c('i', {
-    staticClass: "material-icons",
-    on: {
-      "click": _vm.toggle_filters
-    }
-  }, [_vm._v("filter_list")])])])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    class: [_vm.containerClasses, 'masonry-grid'],
-    attrs: {
-      "id": _vm.containerId
-    }
-  }, _vm._l((_vm.animals), function(animal) {
-    return _c('div', {
-      class: _vm.wrapperClasses
-    }, [_c('animal-add-feeding-modal', {
-      attrs: {
-        "animalId": animal.id,
-        "feedingTypes": _vm.feeding_types,
-        "containerId": 'modal_add_weight_' + animal.id
-      }
-    }), _vm._v(" "), _c('animal-add-weight-modal', {
-      attrs: {
-        "animalId": animal.id,
-        "containerId": 'modal_add_weight_' + animal.id
-      }
-    }), _vm._v(" "), _c('div', {
-      staticClass: "card"
-    }, [_c('div', {
-      staticClass: "card-image terrarium-card-image",
-      style: (animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;')
-    }, [_c('div', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (animal.loading_data),
-        expression: "animal.loading_data"
-      }],
-      staticClass: "tiny right",
-      staticStyle: {
-        "position": "relative",
-        "top": "120px"
-      }
-    }, [_c('loading-indicator', {
-      attrs: {
-        "size": 20
-      }
-    })], 1)]), _vm._v(" "), _c('div', {
-      staticClass: "card-content"
-    }, [_c('span', {
-      staticClass: "card-title activator truncate"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/animals/' + animal.id
-      }
-    }, [_vm._v(_vm._s(animal.display_name))])]), _vm._v(" "), (!animal.death_date) ? _c('i', {
-      staticClass: "material-icons right"
-    }, [_vm._v("more_vert")]) : _vm._e()]), _vm._v(" "), _c('p', [_c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (animal.latin_name),
-        expression: "animal.latin_name"
-      }]
-    }, [_vm._v(_vm._s(animal.latin_name) + ",")]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (animal.common_name && !animal.latin_name),
-        expression: "animal.common_name && !animal.latin_name"
-      }]
-    }, [_vm._v(_vm._s(animal.common_name) + ",")]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (animal.birth_date || animal.death_date),
-        expression: "animal.birth_date || animal.death_date"
-      }]
-    }, [_vm._v(_vm._s(animal.age_value) + " " + _vm._s(_vm.$tc("units." + animal.age_unit, animal.age_value)))]), _vm._v(" "), (animal.last_feeding && !animal.death_date) ? _c('span', [_c('br'), _vm._v(" "), _c('i', {
-      staticClass: "material-icons tiny"
-    }, [_vm._v("local_dining")]), _vm._v("\n                            " + _vm._s(_vm.$t(
-      'units.' + _vm.$getMatchingTimeDiff(animal.last_feeding.timestamps.created_diff).unit, {
-        val: _vm.$getMatchingTimeDiff(animal.last_feeding.timestamps.created_diff).val
-      }
-    )) + "\n                            " + _vm._s(animal.last_feeding.name) + "\n                        ")]) : _vm._e(), _vm._v(" "), (animal.last_weighing && !animal.death_date) ? _c('span', [_c('br'), _vm._v(" "), _c('i', {
-      staticClass: "material-icons tiny"
-    }, [_vm._v("file_download")]), _vm._v("\n                            " + _vm._s(_vm.$t(
-      'units.' + _vm.$getMatchingTimeDiff(animal.last_weighing.timestamps.created_diff).unit, {
-        val: _vm.$getMatchingTimeDiff(animal.last_weighing.timestamps.created_diff).val
-      }
-    )) + "\n                            " + _vm._s(animal.last_weighing.value) + _vm._s(animal.last_weighing.name) + "\n                            "), (animal.last_weighing.trend && animal.last_weighing.trend > 0) ? _c('span', {
-      staticClass: "green-text"
-    }, [_vm._v("\n                                (+ " + _vm._s(animal.last_weighing.trend) + "%)\n                            ")]) : _vm._e(), _vm._v(" "), (animal.last_weighing.trend && animal.last_weighing.trend < 0) ? _c('span', {
-      staticClass: "red-text"
-    }, [_vm._v("\n                                (" + _vm._s(animal.last_weighing.trend) + "%)\n                            ")]) : _vm._e(), _vm._v(" "), (animal.last_weighing.trend && animal.last_weighing.trend == 0) ? _c('span', [_vm._v("\n                                (+/- 0%)\n                            ")]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), (!animal.death_date) ? _c('div', {
-      staticClass: "card-reveal"
-    }, [_c('span', {
-      staticClass: "card-title"
-    }, [_vm._v(_vm._s(_vm.$tc("components.terraria", 1))), _c('i', {
-      staticClass: "material-icons right"
-    }, [_vm._v("close")])]), _vm._v(" "), _c('p', [(animal.terrarium) ? _c('a', {
-      attrs: {
-        "href": '/terraria/' + animal.terrarium.id
-      }
-    }, [_vm._v(_vm._s(animal.terrarium.display_name))]) : _vm._e()]), _vm._v(" "), _c('span', {
-      staticClass: "card-title"
-    }, [_vm._v(_vm._s(_vm.$t("labels.just_fed")))]), _vm._v(" "), _c('p', [_c('a', {
-      attrs: {
-        "href": "#",
-        "href": '#modal_just_fed_' + animal.id,
-        "onclick": '$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'
-      }
-    }, [_vm._v(_vm._s(_vm.$t("labels.just_fed")))])]), _vm._v(" "), _c('p', [_c('a', {
-      attrs: {
-        "href": "#",
-        "href": '#modal_add_weight_' + animal.id,
-        "onclick": '$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'
-      }
-    }, [_vm._v(_vm._s(_vm.$t("labels.add_weight")))])])]) : _vm._e()])], 1)
-  })), _vm._v(" "), (!_vm.animalId) ? _c('div', {
-    staticClass: "row"
+    staticClass: "col s8"
   }, [(_vm.meta.hasOwnProperty('pagination')) ? _c('ul', {
     staticClass: "pagination"
   }, [_c('li', {
@@ -25213,7 +24935,235 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('i', {
     staticClass: "material-icons"
-  }, [_vm._v("last_page")])])])]) : _vm._e()]) : _vm._e()])
+  }, [_vm._v("last_page")])])])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "col s4 right-align"
+  }, [_c('div', {
+    staticClass: "input-field inline"
+  }, [_c('a', {
+    attrs: {
+      "href": "#!"
+    }
+  }, [_c('i', {
+    staticClass: "material-icons",
+    on: {
+      "click": _vm.toggle_filters
+    }
+  }, [_vm._v("filter_list")])])])])]), _vm._v(" "), (!_vm.animalId) ? _c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.showFilters),
+      expression: "showFilters"
+    }],
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('div', {
+    staticClass: "input-field inline"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.filter.display_name),
+      expression: "filter.display_name"
+    }],
+    attrs: {
+      "id": "filter_display_name",
+      "type": "text",
+      "placeholder": _vm.$t('labels.display_name')
+    },
+    domProps: {
+      "value": (_vm.filter.display_name)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.set_filter($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.filter.display_name = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "filter_display_name"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.display_name')))])]), _vm._v(" "), _c('div', {
+    staticClass: "input-field inline"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.filter.lat_name),
+      expression: "filter.lat_name"
+    }],
+    attrs: {
+      "id": "filter_lat_name",
+      "type": "text",
+      "placeholder": _vm.$t('labels.latin_name')
+    },
+    domProps: {
+      "value": (_vm.filter.lat_name)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.set_filter($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.filter.lat_name = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "filter_lat_name"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.latin_name')))])]), _vm._v(" "), _c('div', {
+    staticClass: "input-field inline"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.filter.common_name),
+      expression: "filter.common_name"
+    }],
+    attrs: {
+      "id": "filter_common_name",
+      "type": "text",
+      "placeholder": _vm.$t('labels.common_name')
+    },
+    domProps: {
+      "value": (_vm.filter.common_name)
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13)) { return null; }
+        _vm.set_filter($event)
+      },
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.filter.common_name = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "filter_common_name"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.common_name')))])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    class: [_vm.containerClasses, 'masonry-grid'],
+    attrs: {
+      "id": _vm.containerId
+    }
+  }, _vm._l((_vm.animals), function(animal) {
+    return _c('div', {
+      class: _vm.wrapperClasses
+    }, [_c('animal-add-feeding-modal', {
+      attrs: {
+        "animalId": animal.id,
+        "feedingTypes": _vm.feeding_types,
+        "containerId": 'modal_add_weight_' + animal.id
+      }
+    }), _vm._v(" "), _c('animal-add-weight-modal', {
+      attrs: {
+        "animalId": animal.id,
+        "containerId": 'modal_add_weight_' + animal.id
+      }
+    }), _vm._v(" "), _c('div', {
+      staticClass: "card"
+    }, [_c('div', {
+      staticClass: "card-image terrarium-card-image",
+      style: (animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;')
+    }, [_c('div', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (animal.loading_data),
+        expression: "animal.loading_data"
+      }],
+      staticClass: "tiny right",
+      staticStyle: {
+        "position": "relative",
+        "top": "120px"
+      }
+    }, [_c('loading-indicator', {
+      attrs: {
+        "size": 20
+      }
+    })], 1)]), _vm._v(" "), _c('div', {
+      staticClass: "card-content"
+    }, [_c('span', {
+      staticClass: "card-title activator truncate"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/animals/' + animal.id
+      }
+    }, [_vm._v(_vm._s(animal.display_name))])]), _vm._v(" "), (!animal.death_date) ? _c('i', {
+      staticClass: "material-icons right"
+    }, [_vm._v("more_vert")]) : _vm._e()]), _vm._v(" "), _c('p', [_c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (animal.latin_name),
+        expression: "animal.latin_name"
+      }]
+    }, [_vm._v(_vm._s(animal.latin_name) + ",")]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (animal.common_name && !animal.latin_name),
+        expression: "animal.common_name && !animal.latin_name"
+      }]
+    }, [_vm._v(_vm._s(animal.common_name) + ",")]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (animal.birth_date || animal.death_date),
+        expression: "animal.birth_date || animal.death_date"
+      }]
+    }, [_vm._v(_vm._s(animal.age_value) + " " + _vm._s(_vm.$tc("units." + animal.age_unit, animal.age_value)))]), _vm._v(" "), (animal.last_feeding && !animal.death_date) ? _c('span', [_c('br'), _vm._v(" "), _c('i', {
+      staticClass: "material-icons tiny"
+    }, [_vm._v("local_dining")]), _vm._v("\n                            " + _vm._s(_vm.$t(
+      'units.' + _vm.$getMatchingTimeDiff(animal.last_feeding.timestamps.created_diff).unit, {
+        val: _vm.$getMatchingTimeDiff(animal.last_feeding.timestamps.created_diff).val
+      }
+    )) + "\n                            " + _vm._s(animal.last_feeding.name) + "\n                        ")]) : _vm._e(), _vm._v(" "), (animal.last_weighing && !animal.death_date) ? _c('span', [_c('br'), _vm._v(" "), _c('i', {
+      staticClass: "material-icons tiny"
+    }, [_vm._v("file_download")]), _vm._v("\n                            " + _vm._s(_vm.$t(
+      'units.' + _vm.$getMatchingTimeDiff(animal.last_weighing.timestamps.created_diff).unit, {
+        val: _vm.$getMatchingTimeDiff(animal.last_weighing.timestamps.created_diff).val
+      }
+    )) + "\n                            " + _vm._s(animal.last_weighing.value) + _vm._s(animal.last_weighing.name) + "\n                            "), (animal.last_weighing.trend && animal.last_weighing.trend > 0) ? _c('span', {
+      staticClass: "green-text"
+    }, [_vm._v("\n                                (+ " + _vm._s(animal.last_weighing.trend) + "%)\n                            ")]) : _vm._e(), _vm._v(" "), (animal.last_weighing.trend && animal.last_weighing.trend < 0) ? _c('span', {
+      staticClass: "red-text"
+    }, [_vm._v("\n                                (" + _vm._s(animal.last_weighing.trend) + "%)\n                            ")]) : _vm._e(), _vm._v(" "), (animal.last_weighing.trend && animal.last_weighing.trend == 0) ? _c('span', [_vm._v("\n                                (+/- 0%)\n                            ")]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), (!animal.death_date) ? _c('div', {
+      staticClass: "card-reveal"
+    }, [_c('span', {
+      staticClass: "card-title"
+    }, [_vm._v(_vm._s(_vm.$tc("components.terraria", 1))), _c('i', {
+      staticClass: "material-icons right"
+    }, [_vm._v("close")])]), _vm._v(" "), _c('p', [(animal.terrarium) ? _c('a', {
+      attrs: {
+        "href": '/terraria/' + animal.terrarium.id
+      }
+    }, [_vm._v(_vm._s(animal.terrarium.display_name))]) : _vm._e()]), _vm._v(" "), _c('span', {
+      staticClass: "card-title"
+    }, [_vm._v(_vm._s(_vm.$t("labels.just_fed")))]), _vm._v(" "), _c('p', [_c('a', {
+      attrs: {
+        "href": "#",
+        "href": '#modal_just_fed_' + animal.id,
+        "onclick": '$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'
+      }
+    }, [_vm._v(_vm._s(_vm.$t("labels.just_fed")))])]), _vm._v(" "), _c('p', [_c('a', {
+      attrs: {
+        "href": "#",
+        "href": '#modal_add_weight_' + animal.id,
+        "onclick": '$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'
+      }
+    }, [_vm._v(_vm._s(_vm.$t("labels.add_weight")))])])]) : _vm._e()])], 1)
+  }))])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {

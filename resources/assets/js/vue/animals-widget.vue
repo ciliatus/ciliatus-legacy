@@ -1,7 +1,41 @@
 <template>
     <div>
+        <div class="row">
+            <div class="col s8">
+                <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
+                    <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
+                        <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
+                    </li>
+                    <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
+                        <a href="#!" v-on:click="set_page(meta.pagination.current_page-1)"><i class="material-icons">chevron_left</i></a>
+                    </li>
+
+                    <li v-if="meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
+                    <li v-if="meta.pagination.current_page-2 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-2)">{{ meta.pagination.current_page-2 }}</a></li>
+                    <li v-if="meta.pagination.current_page-1 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-1)">{{ meta.pagination.current_page-1 }}</a></li>
+
+                    <li class="active"><a href="#!">{{ meta.pagination.current_page }}</a></li>
+
+                    <li v-if="meta.pagination.current_page+1 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+1)">{{ meta.pagination.current_page+1 }}</a></li>
+                    <li v-if="meta.pagination.current_page+2 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+2)">{{ meta.pagination.current_page+2 }}</a></li>
+                    <li v-if="meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
+
+                    <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
+                        <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="material-icons">chevron_right</i></a>
+                    </li>
+                    <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
+                        <a href="#!" v-on:click="set_page(meta.pagination.total_pages)"><i class="material-icons">last_page</i></a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col s4 right-align">
+                <div class="input-field inline">
+                    <a href="#!"><i class="material-icons" v-on:click="toggle_filters">filter_list</i></a>
+                </div>
+            </div>
+        </div>
         <div class="row" v-if="!animalId" v-show="showFilters">
-            <div class="col s10 m8 l8">
+            <div class="col s12">
                 <div class="input-field inline">
                     <input id="filter_display_name" type="text" :placeholder="$t('labels.display_name')"
                            v-model="filter.display_name" v-on:keyup.enter="set_filter">
@@ -18,19 +52,6 @@
                     <input id="filter_common_name" type="text" :placeholder="$t('labels.common_name')"
                            v-model="filter.common_name" v-on:keyup.enter="set_filter">
                     <label for="filter_common_name">{{ $t('labels.common_name') }}</label>
-                </div>
-            </div>
-            <div class="col s2 m4 l4 right-align">
-                <div class="input-field inline">
-                    <a href="#!"><i class="material-icons" v-on:click="toggle_filters">filter_list</i></a>
-                </div>
-            </div>
-        </div>
-        <div class="row" v-if="!animalId" v-show="!showFilters">
-            <div class="col s12 right-align">
-                <div class="input-field inline">
-                    {{ $t('labels.filter') }}
-                    <a href="#!"><i class="material-icons" v-on:click="toggle_filters">filter_list</i></a>
                 </div>
             </div>
         </div>
@@ -112,33 +133,6 @@
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="row" v-if="!animalId">
-            <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page-1)"><i class="material-icons">chevron_left</i></a>
-                </li>
-
-                <li v-if="meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
-                <li v-if="meta.pagination.current_page-2 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-2)">{{ meta.pagination.current_page-2 }}</a></li>
-                <li v-if="meta.pagination.current_page-1 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-1)">{{ meta.pagination.current_page-1 }}</a></li>
-
-                <li class="active"><a href="#!">{{ meta.pagination.current_page }}</a></li>
-
-                <li v-if="meta.pagination.current_page+1 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+1)">{{ meta.pagination.current_page+1 }}</a></li>
-                <li v-if="meta.pagination.current_page+2 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+2)">{{ meta.pagination.current_page+2 }}</a></li>
-                <li v-if="meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
-
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="material-icons">chevron_right</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.total_pages)"><i class="material-icons">last_page</i></a>
-                </li>
-            </ul>
         </div>
     </div>
 </template>
