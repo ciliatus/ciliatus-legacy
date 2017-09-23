@@ -21,14 +21,4 @@ class SensorreadingObserver
 
     }
 
-    /**
-     * Listen to the Sensorreading deleting event.
-     *
-     * @param  Sensorreading  $sensorreading
-     * @return void
-     */
-    public function deleting(Sensorreading $sensorreading)
-    {
-        //
-    }
 }
