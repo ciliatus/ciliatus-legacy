@@ -28,7 +28,7 @@
                         <p>
                             <strong>{{ config('app.version') }}:</strong> <i class="material-icons orange-text">close</i>
                             <span>@lang('tooltips.ciliatus_not_up_to_date', [
-                                'url' => 'https://github.com/matthenning/ciliatus/releases/tag/v1.7-beta'
+                                'url' => 'https://github.com/matthenning/ciliatus/releases'
                             ])</span>
                         </p>
                         @endif
