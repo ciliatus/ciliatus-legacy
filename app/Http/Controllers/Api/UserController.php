@@ -212,7 +212,8 @@ class UserController extends ApiController
         }
 
         if ($request->filled('notifications_terraria_enabled')) {
-            $user->setSetting('notifications_terraria_enabled', $request->input('notifications_terraria_enabled'));
+            $user->setSetting('notifications_logical_sensors_enabled', $request->input('notifications_terraria_enabled'));
+            $user->setSetting('notifications_generic_components_enabled', $request->input('notifications_terraria_enabled'));
         }
 
         if ($request->filled('notifications_daily_enabled')) {

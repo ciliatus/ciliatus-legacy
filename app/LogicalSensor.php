@@ -4,8 +4,9 @@ namespace App;
 
 use App\Events\LogicalSensorDeleted;
 use App\Events\LogicalSensorUpdated;
+use App\Traits\HasCriticalStates;
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class LogicalSensor
@@ -38,9 +39,9 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class LogicalSensor extends CiliatusModel
+class LogicalSensor extends Component
 {
-    use Traits\Uuids, Traits\HasCriticalStates;
+    use Uuids, HasCriticalStates;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -54,6 +55,13 @@ class LogicalSensor extends CiliatusModel
      * @var array
      */
     protected $fillable = ['name', 'physical_sensor_id', 'type'];
+
+    /**
+     * Overrides Component->notification_type_name
+     *
+     * @var string
+     */
+    protected $notification_type_name = 'logical_sensors';
 
     /**
      *
@@ -341,5 +349,18 @@ class LogicalSensor extends CiliatusModel
     public function url()
     {
         return url('logical_sensors/' . $this->id);
+    }
+
+    /**
+     * @param $type
+     * @param $locale
+     * @return array|\Illuminate\Contracts\Translation\Translator|null|string
+     */
+    protected function getCriticalStateNotificationsText($type, $locale)
+    {
+        return trans('messages.' . $type . '_' . $this->notification_type_name . '.' . $this->type, [
+            'logical_sensor' => $this->name,
+            $this->type => $this->getCurrentCookedValue()
+        ], $locale);
     }
 }

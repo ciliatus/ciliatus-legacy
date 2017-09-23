@@ -3,13 +3,8 @@
 namespace App;
 
 use App\Events\GenericComponentDeleted;
-use App\Property;
-use Carbon\Carbon;
-use Illuminate\Database\Eloquent\MassAssignmentException;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Database\Eloquent\ModelNotFoundException;
-use Illuminate\Support\Collection;
-use InvalidArgumentException;
+use App\Traits\Components;
+use App\Traits\Uuids;
 
 /**
  * Class GenericComponent
@@ -39,9 +34,9 @@ use InvalidArgumentException;
  * @method static \Illuminate\Database\Query\Builder|\App\GenericComponent whereUpdatedAt($value)
  * @mixin \Eloquent
  */
-class GenericComponent extends CiliatusModel
+class GenericComponent extends Component
 {
-    use Traits\Uuids, Traits\Components;
+    use Uuids, Components;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -56,6 +51,13 @@ class GenericComponent extends CiliatusModel
     protected $fillable = [
         'belongsTo_type', 'belongsTo_id', 'generic_component_type_id', 'name', 'state', 'controlunit_id'
     ];
+
+    /**
+     * Overrides Component->notification_type_name
+     *
+     * @var string
+     */
+    protected $notification_type_name = 'generic_components';
 
     /**
      * @return bool|null
@@ -248,5 +250,17 @@ class GenericComponent extends CiliatusModel
     public function url()
     {
         return url('generic_components/' . $this->id);
+    }
+
+    /**
+     * @param $type
+     * @param $locale
+     * @return array|\Illuminate\Contracts\Translation\Translator|null|string
+     */
+    protected function getCriticalStateNotificationsText($type, $locale)
+    {
+        return trans('messages.'. $type . '_' . $this->notification_type_name, [
+            'generic_component_name' => $this->name
+        ], $locale);
     }
 }

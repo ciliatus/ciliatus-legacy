@@ -13,15 +13,15 @@ return [
 
     'critical_state_generic' => 'Kritisch: :critical_state',
 
-    'critical_state_notification_logical_sensor' => [
+    'critical_state_notification_logical_sensors' => [
         'humidity_percent' => 'Kritisch: Der Sensor :logical_sensor meldet eine Feuchtigkeit von :humidity_percent%.',
         'temperature_celsius' => 'Kritisch: Der Sensor :terrarium meldet eine Temperatur von :temperature_celsius°C.'
     ],
-    'critical_state_recovery_notification_logical_sensor' => [
+    'critical_state_recovery_notification_logical_sensors' => [
         'humidity_percent' => 'OK: Der Sensor :logical_sensor meldet eine Feuchtigkeit von :humidity_percent%.',
         'temperature_celsius' => 'OK: Der Sensor :terrarium meldet eine Temperatur von :temperature_celsius°C.'
     ],
-    'critical_state_notification_controlunit' => 'Kritisch: Die Steuereinheit :controlunit sendet keine Daten.',
+    'critical_state_notification_controlunits' => 'Kritisch: Die Steuereinheit :controlunit sendet keine Daten.',
     'critical_state_recovery_notification_controlunit' => 'OK: Die Steuereinheit :controlunit sendet wieder Daten.',
 
     'daily' => [

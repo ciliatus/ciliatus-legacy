@@ -135,57 +135,36 @@ class CriticalState extends CiliatusModel
     }
 
     /**
+     * @return null|CiliatusModel
+     */
+    public function belongsTo_object()
+    {
+        if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
+            $class_name = 'App\\' . ucfirst($this->belongsTo_type);
+            if (!class_exists($class_name)) {
+                \Log::warning(__CLASS__ . ' "' . $this->name . '" (' . $this->id . ') belongs to object of ' .
+                    'unknown class "' . $class_name . '" (' . $this->belongsTo_id . '). Maybe belongsTo is empty but ' .
+                    'not null?');
+                return null;
+            }
+
+            $object = $class_name::find($this->belongsTo_id);
+            return $object;
+        }
+
+        return null;
+    }
+
+    /**
      *
      */
     public function notify()
     {
-        if (!is_null($this->belongsTo_object())) {
-            if ($this->belongsTo_object()->check_notifications_enabled() !== true) {
-                return;
-            }
+        if (!$this->deleteIfOrphaned()) {
+            return;
         }
 
-        foreach (User::get() as $u) {
-            if ($u->setting('notifications_enabled') == 'on') {
-                switch ($this->belongsTo_type) {
-
-                    case 'LogicalSensor':
-                        if ($u->setting('notifications_terraria_enabled') == 'on') {
-                            $ls = LogicalSensor::find($this->belongsTo_id);
-                            if (is_null($ls)) {
-                                \Log::error('CriticalState ' . $this->id . ' belongs to LogicalSensor ' . $this->belongsTo_id . ' which could not be found.');
-                                break;
-                            }
-                            $u->message(trans('messages.critical_state_notification_logical_sensor.' . $ls->type, [
-                                'logical_sensor' => $ls->name,
-                                $ls->type => $ls->getCurrentCookedValue()
-                            ], '', $u->locale));
-                        }
-                        break;
-
-                    case 'Controlunit':
-                        if ($u->setting('notifications_controlunits_enabled') == 'on') {
-                            $cu = Controlunit::find($this->belongsTo_id);
-                            if (is_null($cu)) {
-                                \Log::error('CriticalState ' . $this->id . ' belongs to Controlunit ' . $this->belongsTo_id . ' which could not be found.');
-                                break;
-                            }
-                            $u->message(trans('messages.critical_state_notification_controlunit', [
-                                'controlunit' => $cu->name
-                            ], '', $u->locale));
-                        }
-                        break;
-
-                    default:
-                        $u->message(trans('messages.critical_state_generic', [
-                            'critical_state' => $this->name
-                        ]));
-                }
-
-
-            }
-        }
-
+        $this->belongsTo_object()->sendNotifications('critical_state_notification');
         $this->notifications_sent_at = Carbon::now();
         $this->save(['silent']);
 
@@ -204,51 +183,11 @@ class CriticalState extends CiliatusModel
      */
     public function notifyRecovered()
     {
-        if (!is_null($this->belongsTo_object())) {
-            if ($this->belongsTo_object()->check_notifications_enabled() !== true) {
-                return;
-            }
+        if (!$this->deleteIfOrphaned()) {
+            return;
         }
 
-        foreach (User::get() as $u) {
-            if ($u->setting('notifications_enabled') == 'on') {
-                switch ($this->belongsTo_type) {
-
-                    case 'LogicalSensor':
-                        if ($u->setting('notifications_terraria_enabled') == 'on') {
-                            $ls = LogicalSensor::find($this->belongsTo_id);
-                            if (is_null($ls)) {
-                                \Log::error('CriticalState ' . $this->id . ' recovered belongs to LogicalSensor ' . $this->belongsTo_id . ' which could not be found.');
-                                break;
-                            }
-                            $u->message(trans('messages.critical_state_recovery_notification_logical_sensor.' . $ls->type, [
-                                'logical_sensor' => $ls->name,
-                                $ls->type => $ls->getCurrentCookedValue()
-                            ], '', $u->locale));
-                        }
-                        break;
-
-                    case 'Controlunit':
-                        if ($u->setting('notifications_controlunits_enabled') == 'on') {
-                            $cu = Controlunit::find($this->belongsTo_id);
-                            if (is_null($cu)) {
-                                \Log::error('CriticalState ' . $this->id . ' recovered belongs to Controlunit ' . $this->belongsTo_id . ' which could not be found.');
-                                break;
-                            }
-                            $u->message(trans('messages.critical_state_recovery_notification_controlunit', [
-                                'controlunit' => $cu->name
-                            ], '', $u->locale));
-                        }
-                        break;
-
-                    default:
-                        $u->message(trans('messages.critical_state_generic', [
-                            'critical_state' => $this->name
-                        ]));
-                }
-            }
-        }
-
+        $this->belongsTo_object()->sendNotifications('critical_state_recovery_notification');
         $this->notifications_sent_at = Carbon::now();
         $this->save(['silent']);
 
@@ -327,27 +266,6 @@ class CriticalState extends CiliatusModel
         }
 
         return $cs_belongs;
-    }
-
-    /**
-     * @return null|CiliatusModel
-     */
-    public function belongsTo_object()
-    {
-        if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
-            $class_name = 'App\\' . ucfirst($this->belongsTo_type);
-            if (!class_exists($class_name)) {
-                \Log::warning(__CLASS__ . ' "' . $this->name . '" (' . $this->id . ') belongs to object of ' .
-                    'unknown class "' . $class_name . '" (' . $this->belongsTo_id . '). Maybe belongsTo is empty but ' .
-                    'not null?');
-                return null;
-            }
-
-            $object = $class_name::find($this->belongsTo_id);
-            return $object;
-        }
-
-        return null;
     }
 
     /**

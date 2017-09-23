@@ -13,15 +13,15 @@ return [
 
     'critical_state_generic' => 'Critical: :critical_state',
 
-    'critical_state_notification_logical_sensor' => [
+    'critical_state_notification_logical_sensors' => [
         'humidity_percent' => 'Critical: The sensor :logical_sensor reports a humidity of :humidity_percent%C.',
         'temperature_celsius' => 'Critical: The sensor :logical_sensor reports a temperature of :temperature_celsius°C.'
     ],
-    'critical_state_recovery_notification_logical_sensor' => [
+    'critical_state_recovery_notification_logical_sensors' => [
         'humidity_percent' => 'OK: The sensor :logical_sensor reports a humidity of :humidity_percent%C.',
         'temperature_celsius' => 'OK: The sensor :logical_sensor reports a temperature of :temperature_celsius°C.'
     ],
-    'critical_state_notification_controlunit' => 'Critical: The controlunit :controlunit is not sending data.',
+    'critical_state_notification_controlunits' => 'Critical: The controlunit :controlunit is not sending data.',
     'critical_state_recovery_notification_controlunit' => 'OK: The controlunit :controlunit ist sending data again.',
 
     'daily' => [

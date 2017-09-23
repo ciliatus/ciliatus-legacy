@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Doctrine\DBAL\Query\QueryBuilder;
 use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Auth\Passwords\CanResetPassword;
@@ -91,6 +92,31 @@ class User extends CiliatusModel implements
         ]);
 
         return $new;
+    }
+
+    /**
+     * Returns an Eloquent Builder filtered for users with enabled notifications
+     * If $type is set an additional filter for the setting defined in $type will be added
+     *
+     * @param null $type
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public static function getWhereNotificationsEnabled($type = null)
+    {
+        $query = User::query()->with('settings');
+        $query->whereHas('settings', function ($query) {
+            $query->where('name', 'notifications_enabled')
+                  ->where('value', 'on');
+        });
+
+        if (!is_null($type)) {
+            $query->whereHas('settings', function ($query) use ($type) {
+                $query->where('name', 'notifications_' . $type . '_enabled')
+                      ->where('value', 'on');
+            });
+        }
+
+        return $query;
     }
 
     /**
@@ -340,6 +366,8 @@ class User extends CiliatusModel implements
         }
 
         $message->content = $content;
+
+        \Log::info('Message => ' . $this->id . ': ' . $message->content);
 
         return $message->send();
     }
