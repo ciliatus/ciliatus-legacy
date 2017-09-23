@@ -14,7 +14,7 @@
                             <i class="material-icons right">more_vert</i>
                         </span>
 
-                        <p>
+                        <p v-if="logical_sensor.type.length">
                             <span>{{ $t("labels.type") }}: {{ $t("labels." + logical_sensor.type) }}</span>
                         </p>
                     </div>
@@ -155,7 +155,8 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?raw=true&' + that.sourceFilter,
+                url: '/api/v1/logical_sensors/' + that.logical_sensorId + '?with[]=physical_sensor&with[]=thresholds&' +
+                     that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.logical_sensorId !== '') {

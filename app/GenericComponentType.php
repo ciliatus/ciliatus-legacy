@@ -2,39 +2,18 @@
 
 namespace App;
 
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
-use phpDocumentor\Reflection\DocBlock\Tags\Generic;
 
 /**
  * Class GenericComponentType
- *
  * @package App
- * @property string $id
- * @property string $name_singular
- * @property string $name_plural
- * @property string $icon
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property string $default_running_state_id
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\GenericComponent[] $components
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $intentions
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $states
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponentType whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponentType whereDefaultRunningStateId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponentType whereIcon($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponentType whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponentType whereNamePlural($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponentType whereNameSingular($value)
- * @method static \Illuminate\Database\Query\Builder|\App\GenericComponentType whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class GenericComponentType extends CiliatusModel
 {
 
-    use Traits\Uuids;
+    use Uuids;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -49,30 +28,6 @@ class GenericComponentType extends CiliatusModel
     protected $fillable = [
         'name_singular', 'name_plural', 'icon'
     ];
-
-    /**
-     * @return bool|null
-     */
-    public function delete()
-    {
-        foreach ($this->properties as $p) {
-            $p->delete();
-        }
-
-        foreach ($this->components as $c) {
-            $c->delete();
-        }
-
-        foreach ($this->states as $s) {
-            $s->delete();
-        }
-
-        foreach ($this->intentions as $i) {
-            $i->delete();
-        }
-
-        return parent::delete();
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

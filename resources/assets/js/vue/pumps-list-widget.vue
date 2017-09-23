@@ -197,14 +197,12 @@ export default {
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/pumps?page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
+                url: '/api/v1/pumps?with[]=valves&with[]=controlunit&page=' + that.page + that.filter_string +
+                    that.order_string + '&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     that.meta = data.meta;
                     that.pumps = data.data;
-                    that.$nextTick(function() {
-                        $('table.collapsible').collapsibletable();
-                    });
                     window.eventHubVue.processEnded();
                 },
                 error: function (error) {

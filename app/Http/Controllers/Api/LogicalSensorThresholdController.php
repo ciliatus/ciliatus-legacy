@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Controlunit;
-use App\Http\Transformers\LogicalSensorThresholdTransformer;
 use App\LogicalSensor;
 use App\LogicalSensorThreshold;
-use App\PhysicalSensor;
-use Cache;
 use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
@@ -19,62 +15,28 @@ use Illuminate\Http\Request;
  */
 class LogicalSensorThresholdController extends ApiController
 {
-    /**
-     * @var LogicalSensorThresholdTransformer
-     */
-    protected $logicalSensorThresholdTransformer;
 
-    /**
-     * LogicalSensorThresholdController constructor.
-     * @param LogicalSensorThresholdTransformer $_logicalSensorTransformer
-     */
-    public function __construct(LogicalSensorThresholdTransformer $_logicalSensorTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->logicalSensorThresholdTransformer = $_logicalSensorTransformer;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $logical_sensor_thresholds = LogicalSensorThreshold::with('logical_sensor');
-        $logical_sensor_thresholds = $this->filter($request, $logical_sensor_thresholds);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $logical_sensor_thresholds,
-            $this->logicalSensorThresholdTransformer
-        );
+        return parent::default_index($request);
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $logical_sensor_threshold = LogicalSensorThreshold::with('logical_sensor')->find($id);
-
-        if (!$logical_sensor_threshold) {
-            return $this->respondNotFound('LogicalSensorThreshold not found');
-        }
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->logicalSensorThresholdTransformer->transform(
-                $logical_sensor_threshold->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 
@@ -117,7 +79,7 @@ class LogicalSensorThresholdController extends ApiController
         }
 
         $ls = null;
-        if ($request->has('logical_sensor')) {
+        if ($request->filled('logical_sensor')) {
             $ls = LogicalSensor::find($request->input('logical_sensor'));
             if (is_null($ls)) {
                 return $this->setStatusCode(422)->respondWithError('Logical sensor not found');
@@ -162,7 +124,7 @@ class LogicalSensorThresholdController extends ApiController
             return $this->respondNotFound('LogicalSensorThreshold not found');
         }
 
-        if ($request->has('logical_sensor')) {
+        if ($request->filled('logical_sensor')) {
             $logical_sensor = LogicalSensor::find($request->input('logical_sensor'));
             if (is_null($logical_sensor)) {
                 return $this->setStatusCode(422)->respondWithError('LogicalSensor not found');

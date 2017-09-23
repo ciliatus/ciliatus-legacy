@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\GenericComponent;
+namespace Tests\Feature\API\GenericComponent;
 
 use App\Controlunit;
 use App\GenericComponentType;

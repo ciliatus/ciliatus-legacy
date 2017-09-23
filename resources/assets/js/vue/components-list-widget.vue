@@ -202,9 +202,6 @@ export default {
                 success: function (data) {
                     that.meta = data.meta;
                     that.components = data.data;
-                    that.$nextTick(function() {
-                        $('table.collapsible').collapsibletable();
-                    });
                     window.eventHubVue.processEnded();
                 },
                 error: function (error) {

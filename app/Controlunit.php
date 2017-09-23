@@ -4,36 +4,18 @@ namespace App;
 
 use App\Events\ControlunitDeleted;
 use App\Events\ControlunitUpdated;
+use App\Traits\HasCriticalStates;
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class Controlunit
- *
  * @package App
- * @property string $id
- * @property string $name
- * @property \Carbon\Carbon $heartbeat_at
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property string $software_version
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\CriticalState[] $critical_states
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\GenericComponent[] $generic_components
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\PhysicalSensor[] $physical_sensors
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Pump[] $pumps
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Valve[] $valves
- * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereHeartbeatAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereSoftwareVersion($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Controlunit whereUpdatedAt($value)
- * @mixin \Eloquent
  */
-class Controlunit extends CiliatusModel
+class Controlunit extends Component
 {
-    use Traits\Uuids;
+    use Uuids, HasCriticalStates, Notifiable;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -54,30 +36,19 @@ class Controlunit extends CiliatusModel
     protected $fillable = ['name'];
 
     /**
+     * Overrides Component->notification_type_name
      *
+     * @var string
      */
-    public function delete()
-    {
-        broadcast(new ControlunitDeleted($this->id));
-
-        parent::delete();
-    }
-
+    protected $notification_type_name = 'controlunits';
 
     /**
-     * @param array $options
-     * @return bool
+     * @var array
      */
-    public function save(array $options = [])
-    {
-        $result = parent::save($options);
-
-        if (!isset($options['silent'])) {
-            broadcast(new ControlunitUpdated($this));
-        }
-
-        return $result;
-    }
+    protected $dispatchesEvents = [
+        'updated' => ControlunitUpdated::class,
+        'deleting' => ControlunitDeleted::class
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -242,5 +213,17 @@ class Controlunit extends CiliatusModel
     public function url()
     {
         return url('controlunits/' . $this->id);
+    }
+
+    /**
+     * @param $type
+     * @param $locale
+     * @return array|\Illuminate\Contracts\Translation\Translator|null|string
+     */
+    protected function getCriticalStateNotificationsText($type, $locale)
+    {
+        return trans('messages.' . $type . '_' . $this->notification_type_name, [
+            'controlunit' => $this->name
+        ], $locale);
     }
 }

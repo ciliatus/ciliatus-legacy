@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature;
+namespace Tests\Feature\Automation;
 
 use App\Controlunit;
 use App\CriticalState;

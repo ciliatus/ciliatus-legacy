@@ -41,12 +41,22 @@ table.collapsible {
   background-repeat: no-repeat;
   background-position: center;
   height: 140px;
+  border-radius: 4px 4px 0 0;
+}
+
+.card {
+  border-radius: 4px;
 }
 
 .card .card-header {
   background-color: $primary-color;
   color: #FFFFFF;
   padding: 10px;
+  border-radius: 4px 4px 0 0;
+}
+
+.card .card-action {
+  border-radius: 0 0 4px 4px;
 }
 
 .side-nav .userView {
@@ -527,4 +537,18 @@ $button-small-height: $button-height * 0.6 !default;
 
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-small):not(.btn-tiny):not(.btn-large):not(.btn-floating) {
   color: $primary-color-light;
+}
+
+.preloader-wrapper {
+  &.tiny {
+    width: 24px;
+    height: 24px;
+  }
+}
+
+/*
+Make sure drop downs, time/date pickers and such are visible in small modals
+ */
+.modal, .picker__holder {
+  overflow: visible;
 }

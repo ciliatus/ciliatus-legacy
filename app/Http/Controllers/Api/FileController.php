@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\File;
 use App\Property;
-use App\Http\Transformers\FileTransformer;
-use App\Repositories\FileRepository;
+use App\System;
 use Auth;
-use Carbon\Carbon;
-use ErrorException;
 use Gate;
 use \Illuminate\Http\Request;
 
@@ -19,70 +16,38 @@ use \Illuminate\Http\Request;
  */
 class FileController extends ApiController
 {
-    /**
-     * @var FileTransformer
-     */
-    protected $fileTransformer;
 
     /**
      * FileController constructor.
-     * @param FileTransformer $_fileTransformer
      */
-    public function __construct(FileTransformer $_fileTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->fileTransformer = $_fileTransformer;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $files = File::query();
-        $files = $this->filter($request, $files);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $files,
-            $this->fileTransformer,
-            'FileRepository'
-        );
-
+        return parent::default_index($request);
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $file = File::with('properties')->find($id);
-
-        if (!$file) {
-            return $this->respondNotFound('File not found');
-        }
-
-        $file = (new FileRepository($file))->show();
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->fileTransformer->transform(
-                $file->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
@@ -109,6 +74,7 @@ class FileController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -118,11 +84,12 @@ class FileController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $required_inputs = ['file'];
-        if (!$this->checkInput($required_inputs, $request)) {
-            return $this->setStatusCode(422)
-                        ->setErrorCode(101)
-                        ->respondWithError('Required inputs: ' . implode(',', $required_inputs));
+        if (!$request->file('file')) {
+            return $this->setStatusCode(422)->respondWithError('No file');
+        }
+
+        if ($request->file('file')->getClientSize() > System::maxUploadFileSize()) {
+            return $this->setStatusCode(422)->respondWithError('File to big');
         }
         /*
          * Create file model
@@ -135,7 +102,7 @@ class FileController extends ApiController
         $file = $this->addBelongsTo($request, $file);
 
 
-        if ($request->has('use_as_background') && $request->input('use_as_background') == 'On') {
+        if ($request->filled('use_as_background') && $request->input('use_as_background') == 'On') {
             if (is_null($file->property('generic', 'is_default_background'))) {
                 $p = Property::create();
                 $p->belongsTo_type = 'File';
@@ -160,7 +127,7 @@ class FileController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('files/' . $file->id),
+                    'uri'   => url($file->url()),
                     'delay' => 100
                 ]
             ]
@@ -169,6 +136,8 @@ class FileController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
@@ -188,7 +157,7 @@ class FileController extends ApiController
         /*
          * Look for optional inputs
          */
-        if ($request->has('belongsTo_type') && $request->has('belongsTo_id')) {
+        if ($request->filled('belongsTo_type') && $request->filled('belongsTo_id')) {
             $class_name = 'App\\' . $request->input('belongsTo_type');
             if (class_exists($class_name)) {
                 $belongs = $class_name::find($request->input('belongsTo_id'));
@@ -205,7 +174,7 @@ class FileController extends ApiController
             }
         }
 
-        if ($request->has('use_as_background')) {
+        if ($request->filled('use_as_background')) {
             if (is_null($file->property('generic', 'is_default_background'))) {
                 $p = Property::create();
                 $p->belongsTo_type = 'File';
@@ -232,6 +201,12 @@ class FileController extends ApiController
 
     }
 
+    /**
+     * @param Request $request
+     * @param $type
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function associate(Request $request, $type, $id)
     {
         $source_class = 'App\\' . $type;
@@ -250,6 +225,13 @@ class FileController extends ApiController
         return $this->respondWithData([]);
     }
 
+    /**
+     * @param Request $request
+     * @param $type
+     * @param $id
+     * @param $file_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function associate_delete(Request $request, $type, $id, $file_id)
     {
         $source_class = 'App\\' . $type;

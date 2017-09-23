@@ -4,40 +4,19 @@ namespace App;
 
 use App\Events\CriticalStateCreated;
 use App\Events\CriticalStateDeleted;
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Doctrine\Common\Proxy\Exception\InvalidArgumentException;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
 use Symfony\Component\Debug\Exception\FatalThrowableError;
 
 /**
  * Class CriticalState
- *
  * @package App
- * @property string $id
- * @property string $name
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property bool $is_soft_state
- * @property \Carbon\Carbon $notifications_sent_at
- * @property \Carbon\Carbon $recovered_at
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereBelongsToId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereBelongsToType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereIsSoftState($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereNotificationsSentAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereRecoveredAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\CriticalState whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class CriticalState extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -69,44 +48,12 @@ class CriticalState extends CiliatusModel
     protected $dates = ['created_at', 'updated_at', 'recovered_at', 'notifications_sent_at'];
 
     /**
-     * @param array $attributes
-     * @return CiliatusModel|CriticalState
+     * @var array
      */
-    public static function create(array $attributes = [])
-    {
-        $new = new CriticalState($attributes);
-        $new->save();
-
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($new))[count(explode('\\', get_class($new)))-1],
-            'target_id'     =>  $new->id,
-            'associatedWith_type' => $new->belongsTo_type,
-            'associatedWith_id' => $new->belongsTo_id,
-            'action'        => 'create'
-        ]);
-
-        broadcast(new CriticalStateCreated($new));
-
-        return $new;
-    }
-
-    /**
-     *
-     */
-    public function delete()
-    {
-        Log::create([
-            'target_type'   =>  explode('\\', get_class($this))[count(explode('\\', get_class($this)))-1],
-            'target_id'     =>  $this->id,
-            'associatedWith_type' => $this->belongsTo_type,
-            'associatedWith_id' => $this->belongsTo_id,
-            'action'        => 'delete'
-        ]);
-
-        broadcast(new CriticalStateDeleted($this->id));
-
-        parent::delete();
-    }
+    protected $dispatchesEvents = [
+        'updated' => CriticalStateCreated::class,
+        'deleting' => CriticalStateDeleted::class
+    ];
 
     /**
      * @param array $options
@@ -116,7 +63,7 @@ class CriticalState extends CiliatusModel
     {
         if (!in_array('no_new_name', $options)) {
             $this->name = 'CS_';
-            if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
+            if (!is_null($this->belongsTo_object())) {
                 $this->name .= $this->belongsTo_object()->name;
             }
             $this->name .= '_' . Carbon::parse($this->created_at)->format('y-m-d_H:i:s');
@@ -135,57 +82,36 @@ class CriticalState extends CiliatusModel
     }
 
     /**
+     * @return null|CiliatusModel
+     */
+    public function belongsTo_object()
+    {
+        if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
+            $class_name = 'App\\' . ucfirst($this->belongsTo_type);
+            if (!class_exists($class_name)) {
+                \Log::warning(__CLASS__ . ' "' . $this->name . '" (' . $this->id . ') belongs to object of ' .
+                    'unknown class "' . $class_name . '" (' . $this->belongsTo_id . '). Maybe belongsTo is empty but ' .
+                    'not null?');
+                return null;
+            }
+
+            $object = $class_name::find($this->belongsTo_id);
+            return $object;
+        }
+
+        return null;
+    }
+
+    /**
      *
      */
     public function notify()
     {
-        if (!is_null($this->belongsTo_object())) {
-            if ($this->belongsTo_object()->check_notifications_enabled() !== true) {
-                return;
-            }
+        if (!$this->deleteIfOrphaned()) {
+            return;
         }
 
-        foreach (User::get() as $u) {
-            if ($u->setting('notifications_enabled') == 'on') {
-                switch ($this->belongsTo_type) {
-
-                    case 'LogicalSensor':
-                        if ($u->setting('notifications_terraria_enabled') == 'on') {
-                            $ls = LogicalSensor::find($this->belongsTo_id);
-                            if (is_null($ls)) {
-                                \Log::error('CriticalState ' . $this->id . ' belongs to LogicalSensor ' . $this->belongsTo_id . ' which could not be found.');
-                                break;
-                            }
-                            $u->message(trans('messages.critical_state_notification_logical_sensor.' . $ls->type, [
-                                'logical_sensor' => $ls->name,
-                                $ls->type => $ls->getCurrentCookedValue()
-                            ], '', $u->locale));
-                        }
-                        break;
-
-                    case 'Controlunit':
-                        if ($u->setting('notifications_controlunits_enabled') == 'on') {
-                            $cu = Controlunit::find($this->belongsTo_id);
-                            if (is_null($cu)) {
-                                \Log::error('CriticalState ' . $this->id . ' belongs to Controlunit ' . $this->belongsTo_id . ' which could not be found.');
-                                break;
-                            }
-                            $u->message(trans('messages.critical_state_notification_controlunit', [
-                                'controlunit' => $cu->name
-                            ], '', $u->locale));
-                        }
-                        break;
-
-                    default:
-                        $u->message(trans('messages.critical_state_generic', [
-                            'critical_state' => $this->name
-                        ]));
-                }
-
-
-            }
-        }
-
+        $this->belongsTo_object()->sendNotifications('critical_state_notification');
         $this->notifications_sent_at = Carbon::now();
         $this->save(['silent']);
 
@@ -204,51 +130,11 @@ class CriticalState extends CiliatusModel
      */
     public function notifyRecovered()
     {
-        if (!is_null($this->belongsTo_object())) {
-            if ($this->belongsTo_object()->check_notifications_enabled() !== true) {
-                return;
-            }
+        if (!$this->deleteIfOrphaned()) {
+            return;
         }
 
-        foreach (User::get() as $u) {
-            if ($u->setting('notifications_enabled') == 'on') {
-                switch ($this->belongsTo_type) {
-
-                    case 'LogicalSensor':
-                        if ($u->setting('notifications_terraria_enabled') == 'on') {
-                            $ls = LogicalSensor::find($this->belongsTo_id);
-                            if (is_null($ls)) {
-                                \Log::error('CriticalState ' . $this->id . ' recovered belongs to LogicalSensor ' . $this->belongsTo_id . ' which could not be found.');
-                                break;
-                            }
-                            $u->message(trans('messages.critical_state_recovery_notification_logical_sensor.' . $ls->type, [
-                                'logical_sensor' => $ls->name,
-                                $ls->type => $ls->getCurrentCookedValue()
-                            ], '', $u->locale));
-                        }
-                        break;
-
-                    case 'Controlunit':
-                        if ($u->setting('notifications_controlunits_enabled') == 'on') {
-                            $cu = Controlunit::find($this->belongsTo_id);
-                            if (is_null($cu)) {
-                                \Log::error('CriticalState ' . $this->id . ' recovered belongs to Controlunit ' . $this->belongsTo_id . ' which could not be found.');
-                                break;
-                            }
-                            $u->message(trans('messages.critical_state_recovery_notification_controlunit', [
-                                'controlunit' => $cu->name
-                            ], '', $u->locale));
-                        }
-                        break;
-
-                    default:
-                        $u->message(trans('messages.critical_state_generic', [
-                            'critical_state' => $this->name
-                        ]));
-                }
-            }
-        }
-
+        $this->belongsTo_object()->sendNotifications('critical_state_recovery_notification');
         $this->notifications_sent_at = Carbon::now();
         $this->save(['silent']);
 
@@ -285,16 +171,48 @@ class CriticalState extends CiliatusModel
     }
 
     /**
-     * @return null|CiliatusModel
+     * @param CiliatusModel $component
+     * @return bool
      */
-    public function belongsTo_object()
+    public function notifyIfNecessary(CiliatusModel $component)
     {
-        if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
-            $obj = ('App\\' . ucfirst($this->belongsTo_type))::find($this->belongsTo_id);
-            return $obj;
+        if ($component->created_at->diffInMinutes(Carbon::now()) > $component->soft_state_duration_minutes
+            && is_null($this->notifications_sent_at)) {
+
+            $this->is_soft_state = false;
+            $this->save(['silent']);
+            $this->notify();
+
+            return true;
         }
 
-        return null;
+        return false;
+    }
+
+    /**
+     * @return bool|CiliatusModel
+     */
+    public function deleteIfOrphaned()
+    {
+        if (is_null($this->belongsTo_type) || is_null($this->belongsTo_id)) {
+            $this->delete();
+            return false;
+        }
+
+        try {
+            $cs_belongs = ('App\\' . $this->belongsTo_type)::find($this->belongsTo_id);
+        }
+        catch (FatalThrowableError $ex) {
+            $this->delete();
+            return false;
+        }
+
+        if (is_null($cs_belongs)) {
+            $this->delete();
+            return false;
+        }
+
+        return $cs_belongs;
     }
 
     /**
@@ -303,107 +221,19 @@ class CriticalState extends CiliatusModel
      */
     public static function evaluate()
     {
+        LogicalSensor::evaluateCriticalStates();
+        Controlunit::evaluateCriticalStates();
 
-        $result = [
-            'created' => 0,
-            'deleted' => 0,
-            'notified'=> 0,
-            'recovered'=>0
-        ];
-
-        /*
-         * Evaluate LogicalSensor states
-         * and create CriticalStates for
-         * critical sensors
-         */
-        foreach (LogicalSensor::get() as $ls) {
-            if (!$ls->stateOk()) {
-                $existing_cs = $ls->critical_states()->whereNull('recovered_at')->get();
-
-                if ($existing_cs->count() < 1) {
-                    CriticalState::create([
-                        'belongsTo_type' => 'LogicalSensor',
-                        'belongsTo_id'   => $ls->id,
-                        'is_soft_state'  => true
-                    ]);
-
-                    $result['created']++;
-                }
-                else {
-                    foreach ($existing_cs as $cs) {
-                        if ($cs->created_at->diffInMinutes(Carbon::now()) > $ls->soft_state_duration_minutes
-                            && is_null($cs->notifications_sent_at)) {
-
-                            $cs->is_soft_state = false;
-                            $cs->save(['silent']);
-                            $cs->notify();
-
-                            $result['notified']++;
-                        }
-                    }
-                }
-            }
-        }
-
-        foreach (Controlunit::get() as $cu) {
-            if (!$cu->stateOk()) {
-                $existing_cs = $cu->critical_states()->whereNull('recovered_at')->get();
-
-                if ($existing_cs->count() < 1) {
-                    CriticalState::create([
-                        'belongsTo_type' => 'Controlunit',
-                        'belongsTo_id'   => $cu->id
-                    ]);
-
-                    $result['created']++;
-                }
-                else {
-                    foreach ($existing_cs as $cs) {
-                        if ($cs->created_at->diffInMinutes(Carbon::now()) > env('DEFAULT_SOFT_STATE_DURATION_MINUTES', 10)
-                            && is_null($cs->notifications_sent_at)) {
-
-                            $cs->is_soft_state = false;
-                            $cs->save(['silent']);
-                            $cs->notify();
-
-                            $result['notified']++;
-                        }
-                    }
-                }
-            }
-        }
-
-        /*
-         * Evaluate active CriticalStates
-         * and recover them in case they are stateOk
-         *
-         * Delete them in case their belonging
-         * doest not exist
-         */
         foreach (CriticalState::whereNull('recovered_at')->get() as $cs) {
-            if (!is_null($cs->belongsTo_type) && !is_null($cs->belongsTo_id)) {
-                $cs_belongs = nulL;
-                try {
-                    $cs_belongs = ('App\\' . $cs->belongsTo_type)::find($cs->belongsTo_id);
-                }
-                catch (FatalThrowableError $ex) {
-                    $cs->delete();
-                    $result['deleted']++;
-                }
+            $cs_belongs = $cs->deleteIfOrphaned();
+            if (!$cs_belongs) {
+                continue;
+            }
 
-                if (is_null($cs_belongs)) {
-                    $cs->delete();
-                    $result['deleted']++;
-                }
-
-                if ($cs_belongs->stateOk()) {
-                    $cs->recover();
-                    $result['recovered']++;
-                }
+            if ($cs_belongs->stateOk()) {
+                $cs->recover();
             }
         }
-
-        return $result;
     }
 
     /**

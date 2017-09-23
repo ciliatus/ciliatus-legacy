@@ -5,7 +5,6 @@ namespace App\Http\Controllers\Api;
 use App\Controlunit;
 use App\GenericComponent;
 use App\GenericComponentType;
-use App\Http\Transformers\GenericComponentTransformer;
 use App\Property;
 use Gate;
 use Illuminate\Http\Request;
@@ -14,41 +13,28 @@ use App\Http\Requests;
 
 class GenericComponentController extends ApiController
 {
-    /**
-    * @var GenericComponentTransformer
-    */
-    protected $genericComponentTransformer;
 
-
-    /**
-     * GenericComponentController constructor.
-     * @param GenericComponentTransformer $_genericComponentTransformer
-     */
-    public function __construct(GenericComponentTransformer $_genericComponentTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->genericComponentTransformer = $_genericComponentTransformer;
     }
 
     /**
-     * Display a listing of the resource.
-     *
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
+        return parent::default_index($request);
+    }
 
-        $gc = GenericComponent::with('properties', 'states', 'type', 'controlunit');
-        $gc = $this->filter($request, $gc);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $gc,
-            $this->genericComponentTransformer
-        );
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(Request $request, $id)
+    {
+        return parent::default_show($request, $id);
     }
 
     /**
@@ -73,7 +59,7 @@ class GenericComponentController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        if ($request->has('controlunit') && is_null(Controlunit::find($request->input('controlunit')))) {
+        if ($request->filled('controlunit') && is_null(Controlunit::find($request->input('controlunit')))) {
             return $this->setStatusCode(422)->respondWithError("Controlunit not found.");
         }
 
@@ -84,12 +70,12 @@ class GenericComponentController extends ApiController
         $component = GenericComponent::create([
             'name' => $request->input('name'),
             'generic_component_type_id' => $request->input('type_id'),
-            'controlunit_id' => $request->has('controlunit') ? $request->input('controlunit') : null
+            'controlunit_id' => $request->filled('controlunit') ? $request->input('controlunit') : null
         ]);
 
         $component = $this->addBelongsTo($request, $component);
 
-        if ($request->has('properties')) {
+        if ($request->filled('properties')) {
             foreach($request->input('properties') as $id=>$prop) {
                 $prop_template = Property::find($id);
                 if (is_null($prop_template)) {
@@ -118,24 +104,6 @@ class GenericComponentController extends ApiController
                 'delay' => 1000
             ]
         ]);
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function show($id)
-    {
-        $gc = GenericComponent::with('properties', 'states', 'type', 'controlunit')->find($id);
-        if (is_null($gc)) {
-            return $this->respondNotFound();
-        }
-
-        return $this->respondWithData(
-            $this->genericComponentTransformer->transform($gc->toArray())
-        );
     }
 
     /**
@@ -169,17 +137,17 @@ class GenericComponentController extends ApiController
 
         $component = $this->addBelongsTo($request, $component);
 
-        if ($request->has('name')) {
+        if ($request->filled('name')) {
             $component->name = $request->input('name');
         }
-        if ($request->has('controlunit')) {
+        if ($request->filled('controlunit')) {
             if (is_null(Controlunit::find($request->input('controlunit')))) {
                 return $this->setStatusCode(422)->respondWithError("Controlunit not found.");
             }
             $component->controlunit_id = $request->input('controlunit');
         }
 
-        if ($request->has('properties')) {
+        if ($request->filled('properties')) {
             foreach($request->input('properties') as $id=>$value) {
                 $component_property = $component->properties()->where('id', $id)->get()->first();
                 if (is_null($component_property)) {

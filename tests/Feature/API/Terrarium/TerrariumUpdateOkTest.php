@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Valve;
+namespace Tests\Feature\API\Terrarium;
 
 use App\Animal;
 use App\Terrarium;

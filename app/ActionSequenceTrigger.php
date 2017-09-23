@@ -4,50 +4,18 @@ namespace App;
 
 use App\Events\ActionSequenceTriggerDeleted;
 use App\Events\ActionSequenceTriggerUpdated;
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class ActionSequenceTrigger
- *
  * @package App
- * @property string $id
- * @property string $name
- * @property string $action_sequence_id
- * @property string $logical_sensor_id
- * @property float $reference_value
- * @property string $reference_value_comparison_type
- * @property int $reference_value_duration_threshold_minutes
- * @property int $minimum_timeout_minutes
- * @property string $timeframe_start
- * @property string $timeframe_end
- * @property \Carbon\Carbon $last_start_at
- * @property \Carbon\Carbon $last_finished_at
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \App\LogicalSensor $logical_sensor
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \App\ActionSequence $sequence
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereActionSequenceId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereLastFinishedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereLastStartAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereLogicalSensorId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereMinimumTimeoutMinutes($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereReferenceValue($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereReferenceValueComparisonType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereReferenceValueDurationThresholdMinutes($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereTimeframeEnd($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereTimeframeStart($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceTrigger whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class ActionSequenceTrigger extends CiliatusModel
 {
 
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -71,31 +39,12 @@ class ActionSequenceTrigger extends CiliatusModel
     protected $dates = ['created_at', 'updated_at', 'last_start_at', 'last_finished_at'];
 
     /**
-     *
+     * @var array
      */
-    public function delete()
-    {
-        foreach (RunningAction::where('action_sequence_trigger_id', $this->id)->get() as $ra) {
-            $ra->delete();
-        }
-
-        broadcast(new ActionSequenceTriggerDeleted($this->id));
-
-        parent::delete();
-    }
-
-    /**
-     * @param array $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-        $return = parent::save($options);
-
-        broadcast(new ActionSequenceTriggerUpdated($this));
-
-        return $return;
-    }
+    protected $dispatchesEvents = [
+        'updated' => ActionSequenceTriggerUpdated::class,
+        'deleting' => ActionSequenceTriggerDeleted::class
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -300,8 +249,7 @@ class ActionSequenceTrigger extends CiliatusModel
      */
     public function shouldBeRunning()
     {
-        $logical_sensor = LogicalSensor::find($this->logical_sensor_id);
-        if (is_null($logical_sensor)) {
+        if (is_null($this->logical_sensor)) {
 
             return false;
         }
@@ -318,8 +266,12 @@ class ActionSequenceTrigger extends CiliatusModel
             return false;
         }
 
-        $sensor_data = $logical_sensor->sensorreadings()
-            ->where('created_at', '>', Carbon::now()->subMinutes($this->reference_value_duration_threshold_minutes)->toDateTimeString())
+
+        $sensor_data = $this->logical_sensor->sensorreadings()
+            ->where(
+                'created_at',
+                '>',
+                Carbon::now()->subMinutes($this->reference_value_duration_threshold_minutes)->toDateTimeString())
             ->get();
 
         if ($sensor_data->count() < 1) {
@@ -331,6 +283,7 @@ class ActionSequenceTrigger extends CiliatusModel
                 return false;
             }
         }
+
 
         return true;
 

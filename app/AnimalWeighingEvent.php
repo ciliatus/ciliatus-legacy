@@ -2,20 +2,32 @@
 
 namespace App;
 
+use App\Events\AnimalWeighingEventDeleted;
+use App\Events\AnimalWeighingEventUpdated;
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class AnimalWeighingEvent
- *
+ * @package App
  */
 class AnimalWeighingEvent extends Event
 {
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * @var string
      */
     protected $table = 'events';
+
+    /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'updated' => AnimalWeighingEventUpdated::class,
+        'deleting' => AnimalWeighingEventDeleted::class
+    ];
 
     /**
      *
@@ -29,6 +41,10 @@ class AnimalWeighingEvent extends Event
         });
     }
 
+    /**
+     * @param int $days
+     * @return float|void
+     */
     public function trend($days = 30)
     {
 
@@ -39,22 +55,28 @@ class AnimalWeighingEvent extends Event
          * If an animal feeding exactly $days prior is found -> compare and return
          */
         $exact_match = AnimalFeedingEvent::whereDate('created_at', $from)->get()->first();
-        if (!is_null($exact_match)) {
-            return round(($this->value - $exact_match->value) / $this->value * 100, 1);
+        if (!is_null($exact_match) && $exact_match->value) {
+            return round(((int)$this->value - (int)$exact_match->value) / (int)$this->value * 100, 1);
         }
 
         /*
          * Find first feeding before and after $from
          */
-        $first_before = $this->belongsTo_object
+        if (is_null($this->belongsTo_object())) {
+            return;
+        }
+
+        $first_before = $this->belongsTo_object()
                              ->weighings()
                              ->whereDate('created_at', '<', $from)
+                             ->where('id', '!=', $this->id)
                              ->orderBy('created_at', 'DESC')
                              ->limit(1)
                              ->get()->first();
-        $first_after = $this->belongsTo_object
+        $first_after = $this->belongsTo_object()
                             ->weighings()
                             ->whereDate('created_at', '>', $from)
+                            ->where('id', '!=', $this->id)
                             ->orderBy('created_at')
                             ->limit(1)
                             ->get()->first();

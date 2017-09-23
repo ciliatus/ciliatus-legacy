@@ -4,10 +4,8 @@ namespace App\Http\Controllers\Api;
 
 use App\Controlunit;
 use App\Pump;
-use App\Http\Transformers\ValveTransformer;
 use App\Valve;
 use App\Terrarium;
-use Cache;
 use Gate;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -19,68 +17,28 @@ use Illuminate\Support\Facades\Auth;
  */
 class ValveController extends ApiController
 {
-    /**
-     * @var ValveTransformer
-     */
-    protected $valveTransformer;
 
-    /**
-     * ValveController constructor.
-     * @param ValveTransformer $_valveTransformer
-     */
-    public function __construct(ValveTransformer $_valveTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->valveTransformer = $_valveTransformer;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $valves = Valve::with('pump')
-                        ->with('terrarium')
-                        ->with('controlunit');
-
-        $valves = $this->filter($request, $valves);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $valves,
-            $this->valveTransformer
-        );
-
+        return parent::default_index($request);
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $valve = Valve::with('pump')
-                        ->with('terrarium')
-                        ->with('controlunit')
-                        ->find($id);
-
-        if (!$valve) {
-            return $this->respondNotFound('Valve not found');
-        }
-        return $this->setStatusCode(200)->respondWithData(
-            $this->valveTransformer->transform(
-                $valve->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 
@@ -155,21 +113,21 @@ class ValveController extends ApiController
             return $this->respondNotFound('Valve not found');
         }
 
-        if ($request->has('pump') && strlen($request->input('pump')) > 0) {
+        if ($request->filled('pump') && strlen($request->input('pump')) > 0) {
             $pump = Pump::find($request->input('pump'));
             if (is_null($pump)) {
                 return $this->setStatusCode(422)->respondWithError('Pump not found');
             }
         }
 
-        if ($request->has('terrarium') && strlen($request->input('terrarium')) > 0) {
+        if ($request->filled('terrarium') && strlen($request->input('terrarium')) > 0) {
             $terrarium = Terrarium::find($request->input('terrarium'));
             if (is_null($terrarium)) {
                 return $this->setStatusCode(422)->respondWithError('Terrarium not found');
             }
         }
 
-        if ($request->has('controlunit') && strlen($request->input('controlunit')) > 0) {
+        if ($request->filled('controlunit') && strlen($request->input('controlunit')) > 0) {
             $controlunit = Controlunit::find($request->input('controlunit'));
             if (is_null($controlunit)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');

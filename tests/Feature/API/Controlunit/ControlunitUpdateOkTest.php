@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Controlunit;
+namespace Tests\Feature\API\Controlunit;
 
 use App\Controlunit;
 use Illuminate\Foundation\Testing\WithoutMiddleware;

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\ActionSequence;
+namespace Tests\Feature\API\ActionSequence;
 
 use App\Controlunit;
 use App\LogicalSensor;
@@ -69,7 +69,7 @@ class ActionSequenceShowOkTest extends TestCase
         $action_sequence_id = $response->decodeResponseJson()['data']['id'];
         $action_sequence = ActionSequence::find($action_sequence_id);
 
-        $response = $this->get('/api/v1/action_sequences/' . $action_sequence_id, [
+        $response = $this->get('/api/v1/action_sequences/' . $action_sequence_id . '/?with[]=terrarium&with[]=actions', [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);

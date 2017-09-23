@@ -247,14 +247,11 @@ export default {
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/files?page=' + that.page + that.filter_string + that.order_string,
+                url: '/api/v1/files?with[]=properties&page=' + that.page + that.filter_string + that.order_string,
                 method: 'GET',
                 success: function (data) {
                     that.meta = data.meta;
                     that.files = data.data;
-                    that.$nextTick(function() {
-                        $('table.collapsible').collapsibletable();
-                    });
                     window.eventHubVue.processEnded();
                 },
                 error: function (error) {

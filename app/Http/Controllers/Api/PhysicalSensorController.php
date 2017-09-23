@@ -3,10 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\Controlunit;
-use App\Http\Transformers\PhysicalSensorTransformer;
 use App\LogicalSensor;
 use App\PhysicalSensor;
-use Cache;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -17,63 +15,28 @@ use Illuminate\Http\Request;
  */
 class PhysicalSensorController extends ApiController
 {
-    /**
-     * @var PhysicalSensorTransformer
-     */
-    protected $physicalSensorTransformer;
 
-
-    /**
-     * PhysicalSensorController constructor.
-     * @param PhysicalSensorTransformer $_physicalSensorTransformer
-     */
-    public function __construct(PhysicalSensorTransformer $_physicalSensorTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->physicalSensorTransformer = $_physicalSensorTransformer;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $physical_sensors = PhysicalSensor::with('controlunit', 'logical_sensors', 'terrarium');
-        $physical_sensors = $this->filter($request, $physical_sensors);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $physical_sensors,
-            $this->physicalSensorTransformer
-        );
+        return parent::default_index($request);
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $physical_sensor = PhysicalSensor::with('controlunit', 'logical_sensors', 'terrarium')->find($id);
-
-        if (!$physical_sensor) {
-            return $this->respondNotFound('PhysicalSensor not found');
-        }
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->physicalSensorTransformer->transform(
-                $physical_sensor->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 
@@ -152,7 +115,7 @@ class PhysicalSensorController extends ApiController
             return $this->respondNotFound('PhysicalSensor not found');
         }
 
-        if ($request->has('controlunit')) {
+        if ($request->filled('controlunit')) {
             $controlunit = Controlunit::find($request->input('controlunit'));
             if (is_null($controlunit)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');
@@ -169,7 +132,7 @@ class PhysicalSensorController extends ApiController
             ]
         ]);
 
-        if ($request->has('terrarium')) {
+        if ($request->filled('terrarium')) {
             $physical_sensor->belongsTo_type = 'terrarium';
         }
 

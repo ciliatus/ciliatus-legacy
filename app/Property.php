@@ -2,34 +2,15 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\Traits\Uuids;
 
 /**
  * Class Property
- *
  * @package App
- * @property string $id
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property string $type
- * @property string $name
- * @property bool $value
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereBelongsToId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereBelongsToType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Property whereValue($value)
- * @mixin \Eloquent
  */
 class Property extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Uuids;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -47,6 +28,9 @@ class Property extends CiliatusModel
         'name', 'value'
     ];
 
+    /**
+     * @var array
+     */
     protected static $belongTo_Types = [
         'BiographyEntry' => [
             'Terrarium', 'Animal'
@@ -62,14 +46,24 @@ class Property extends CiliatusModel
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return null|CiliatusModel
      */
     public function belongsTo_object()
     {
-        if (is_null($this->belongsTo_type)) {
-            return null;
+        if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
+            $class_name = 'App\\' . ucfirst($this->belongsTo_type);
+            if (!class_exists($class_name)) {
+                \Log::warning(__CLASS__ . ' "' . $this->name . '" (' . $this->id . ') belongs to object of ' .
+                    'unknown class "' . $class_name . '" (' . $this->belongsTo_id . '). Maybe belongsTo is empty but ' .
+                    'not null?');
+                return null;
+            }
+
+            $object = $class_name::find($this->belongsTo_id);
+            return $object;
         }
-        return $this->belongsTo('App\\'. $this->belongsTo_type, 'belongsTo_id');
+
+        return null;
     }
 
     /**

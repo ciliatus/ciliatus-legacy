@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\GenericComponentType;
+namespace Tests\Feature\API\GenericComponentType;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

@@ -75,11 +75,11 @@
                             <span>@lang('labels.weighprogression')</span>
                         </div>
                         <div class="card-content">
-                            <google-graph type="line" event-type="AnimalWeighingUpdated"
+                            <google-graph type="line" event-type="AnimalWeighingEventUpdated"
                                           vertical-axis-title="@lang('labels.weight')" horizontal-axis-title="@lang('labels.date')"
                                           source="{{ url('api/v1/animals/' . $animal->id .'/weighings?graph=true') }}"
                                           :show-filter-form="true" filter-column="created_at"
-                                          filter-from-date="{{ Carbon\Carbon::now()->subMonths(3)->toDateString() }}"
+                                          filter-from-date="{{ Carbon\Carbon::now()->subMonths(env('ANIMAL_DEFAULT_WEIGHT_HISTORY_MONTHS', 12))->toDateString() }}"
                                           :height="400"></google-graph>
                         </div>
                     </div>
@@ -105,6 +105,8 @@
                             </div>
                             <div class="card-content">
                                 <dygraph-graph show-filter-field="created_at" :show-filter-form="true"
+                                               labels-div-id="sensorreadings-labels" time-axis-label="@lang('labels.created_at')"
+                                               column-id-field="logical_sensor_id" column-name-field="logical_sensor_name"
                                                source="{{ url('api/v1/terraria/' . $animal->terrarium->id . '/sensorreadings') }}"></dygraph-graph>
                             </div>
                         </div>
@@ -165,10 +167,4 @@
             </ul>
         </div>
     </div>
-
-    <script>
-        $(document).ready(function(){
-            $('ul.tabs').tabs();
-        });
-    </script>
 @stop

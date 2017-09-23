@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Transformers\SensorreadingTransformer;
 use App\LogicalSensor;
 use App\Sensorreading;
-use App\Http\Transformers\SensorreadingTransformer;
 use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
@@ -18,19 +18,10 @@ use Illuminate\Http\Request;
  */
 class SensorreadingController extends ApiController
 {
-    /**
-     * @var
-     */
-    protected $sensorreadingTransformer;
 
-    /**
-     * SensorreadingController constructor.
-     * @param SensorreadingTransformer $_sensorreadingTransformer
-     */
-    public function __construct(SensorreadingTransformer $_sensorreadingTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->sensorreadingTransformer = $_sensorreadingTransformer;
     }
 
     /**
@@ -42,37 +33,39 @@ class SensorreadingController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $sensorreadings = Sensorreading::with('logical_sensor');
+        $sensorreadings = Sensorreading::query();
         $sensorreadings = $this->filter($request, $sensorreadings);
 
         return $this->respondTransformedAndPaginated(
             $request,
-            $sensorreadings,
-            $this->sensorreadingTransformer
+            $sensorreadings
         );
 
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
             return $this->respondUnauthorized();
         }
 
-        $sensorreading = Sensorreading::find($id);
+        $sr = Sensorreading::query();
+        $sr = $this->filter($request, $sr);
+        $sr = $sr->find($id);
 
-        if (!$sensorreading) {
+        if (!$sr) {
             return $this->respondNotFound('Sensorreading not found');
         }
 
         return $this->setStatusCode(200)->respondWithData(
-            $this->sensorreadingTransformer->transform(
-                $sensorreading->toArray()
+            (new SensorreadingTransformer())->transform(
+                $sr->toArray()
             )
         );
     }
@@ -150,7 +143,7 @@ class SensorreadingController extends ApiController
             $logical_sensor->physical_sensor->heartbeat();
         }
 
-        if ($request->has('created_at')) {
+        if ($request->filled('created_at')) {
             try {
                 Carbon::parse($request->input('created_at'));
             }

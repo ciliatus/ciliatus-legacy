@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\ActionSequence;
+namespace Tests\Feature\API\ActionSequence;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

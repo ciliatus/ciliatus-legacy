@@ -2,20 +2,32 @@
 
 namespace App;
 
+use App\Events\BiographyEntryEventDeleted;
+use App\Events\BiographyEntryEventUpdated;
+use App\Traits\Uuids;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class BiographyEntryEvent
- *
+ * @package App
  */
 class BiographyEntryEvent extends Event
 {
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * @var string
      */
     protected $table = 'events';
+
+    /**
+     * @var array
+     */
+    protected $dispatchesEvents = [
+        'updated' => BiographyEntryEventUpdated::class,
+        'deleting' => BiographyEntryEventDeleted::class
+    ];
 
     /**
      *

@@ -147,9 +147,9 @@ export default {
 
     created: function() {
         window.echo.private('dashboard-updates')
-            .listen('AnimalWeighingUpdated', (e) => {
+            .listen('AnimalWeighingEventUpdated', (e) => {
                 this.update(e);
-            }).listen('AnimalWeighingDeleted', (e) => {
+            }).listen('AnimalWeighingEventDeleted', (e) => {
                 this.delete(e);
             });
 

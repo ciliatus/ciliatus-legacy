@@ -1,19 +1,22 @@
 {
   "description": "",
   "language": "de",
-  "enabledDomainFeatures": [],
+  "activeAssistantAgents": [],
   "googleAssistant": {
     "googleAssistantCompatible": true,
     "invocationName": "Ciliatus",
     "project": "ciliatus-YOUR_APP_ID",
     "welcomeIntentSignInRequired": false,
     "startIntents": [],
+    "systemIntents": [],
     "endIntentIds": [],
     "oAuthLinking": {
       "required": false,
       "grantType": "AUTH_CODE_GRANT"
     },
-    "voiceType": "FEMALE_1"
+    "voiceType": "FEMALE_1",
+    "capabilities": [],
+    "protocolVersion": "V1"
   },
   "defaultTimezone": "Europe/Berlin",
   "webhook": {
@@ -22,7 +25,9 @@
       "Authorization": "Bearer YOUR_BEARER_TOKEN"
     },
     "available": true,
-    "useForDomains": false
+    "useForDomains": false,
+    "cloudFunctionsEnabled": false,
+    "cloudFunctionsInitialized": false
   },
   "isPrivate": false,
   "customClassifierMode": "use.after",

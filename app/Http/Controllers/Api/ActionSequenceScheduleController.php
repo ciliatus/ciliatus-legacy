@@ -2,18 +2,12 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Action;
 use App\ActionSequence;
 use App\ActionSequenceSchedule;
-use App\Http\Transformers\ActionSequenceScheduleTransformer;
-use App\Repositories\ActionSequenceScheduleRepository;
 use App\Terrarium;
 use Carbon\Carbon;
-use DB;
 use Gate;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 /**
  * Class ActionSequenceScheduleController
@@ -21,65 +15,28 @@ use App\Http\Requests;
  */
 class ActionSequenceScheduleController extends ApiController
 {
-    /**
-     * @var ActionSequenceScheduleTransformer
-     */
-    protected $actionSequenceScheduleTransformer;
 
-    /**
-     * ActionSequenceScheduleController constructor.
-     * @param ActionSequenceScheduleTransformer $_actionSequenceScheduleTransformer
-     */
-    public function __construct(ActionSequenceScheduleTransformer $_actionSequenceScheduleTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->actionSequenceScheduleTransformer = $_actionSequenceScheduleTransformer;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $action_sequence_schedules = ActionSequenceSchedule::with('sequence');
-        $action_sequence_schedules = $this->filter($request, $action_sequence_schedules);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $action_sequence_schedules,
-            $this->actionSequenceScheduleTransformer,
-            'ActionSequenceSchedule'
-        );
-
+        return parent::default_index($request);
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $action = ActionSequenceSchedule::with('sequence')
-                                        ->find($id);
-
-        if (!$action) {
-            return $this->respondNotFound('ActionSequenceSchedule not found');
-        }
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->actionSequenceScheduleTransformer->transform(
-                $action->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 
@@ -162,14 +119,14 @@ class ActionSequenceScheduleController extends ApiController
             return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
         }
 
-        if ($request->has('action_sequence_id')) {
+        if ($request->filled('action_sequence_id')) {
             $a = ActionSequence::find($request->input('action_sequence_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
             }
         }
 
-        if ($request->has('terrarium_id')) {
+        if ($request->filled('terrarium_id')) {
             $a = Terrarium::find($request->input('terrarium_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('Terrarium not found');

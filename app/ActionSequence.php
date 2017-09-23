@@ -2,39 +2,17 @@
 
 namespace App;
 
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class ActionSequence
- *
  * @package App
- * @property string $id
- * @property string $name
- * @property string $terrarium_id
- * @property int $duration_minutes
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property bool $runonce
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Action[] $actions
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\ActionSequenceIntention[] $intentions
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\ActionSequenceSchedule[] $schedules
- * @property-read \App\Terrarium $terrarium
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\ActionSequenceTrigger[] $triggers
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereDurationMinutes($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereRunonce($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereTerrariumId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequence whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class ActionSequence extends CiliatusModel
 {
 
-    use Traits\Uuids;
+    use Uuids;
 
     const TEMPLATE_IRRIGATION = 'irrigate';
     const TEMPLATE_VENTILATE = 'ventilate';
@@ -59,27 +37,6 @@ class ActionSequence extends CiliatusModel
     protected $casts = [
         'runonce' => 'boolean'
     ];
-
-    /**
-     *
-     */
-    public function delete()
-    {
-        foreach ($this->actions as $a) {
-            $a->delete();
-        }
-        foreach ($this->schedules as $ass) {
-            $ass->delete();
-        }
-        foreach ($this->triggers as $ast) {
-            $ast->delete();
-        }
-        foreach ($this->intentions as $asi) {
-            $asi->delete();
-        }
-
-        parent::delete();
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\LogicalSensor;
+namespace Tests\Feature\API\LogicalSensor;
 
 use App\LogicalSensor;
 use App\PhysicalSensor;
@@ -40,7 +40,7 @@ class LogicalSensorUpdateOkTest extends TestCase
         ]);
         $response->assertStatus(200);
 
-        $response = $this->get('/api/v1/logical_sensors/' . $logical_sensor->id, [
+        $response = $this->get('/api/v1/logical_sensors/' . $logical_sensor->id . '/?with[]=physical_sensor', [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);

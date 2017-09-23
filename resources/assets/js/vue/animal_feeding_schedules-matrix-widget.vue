@@ -96,7 +96,7 @@ export default {
                              * Load feeding schedules
                              */
                             $.ajax({
-                                url: '/api/v1/animal_feeding_schedules?raw',
+                                url: '/api/v1/animal_feeding_schedules?with[]=animal&raw',
                                 method: 'GET',
                                 success: function (data) {
                                     that.schedules = data.data;

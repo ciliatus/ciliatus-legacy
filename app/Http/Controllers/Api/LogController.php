@@ -2,14 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Transformers\GenericTransformer;
-use App\Log;
-use App\Property;
 use App\Http\Transformers\LogTransformer;
-use App\Repositories\GenericRepository;
-use Auth;
-use Carbon\Carbon;
-use ErrorException;
+use App\Log;
 use Gate;
 use \Illuminate\Http\Request;
 
@@ -20,47 +14,26 @@ use \Illuminate\Http\Request;
  */
 class LogController extends ApiController
 {
-    /**
-     * @var LogTransformer
-     */
-    protected $logTransformer;
 
-    /**
-     * LogController constructor.
-     * @param LogTransformer $_logTransformer
-     */
-    public function __construct(LogTransformer $_logTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->logTransformer = $_logTransformer;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $logs = Log::query();
-        $logs = $this->filter($request, $logs);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $logs,
-            $this->logTransformer,
-            'LogRepository'
-        );
-
+        return parent::default_index($request);
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
 
         if (Gate::denies('api-read')) {
@@ -76,7 +49,7 @@ class LogController extends ApiController
         $log->addSourceTargetAssociated(true);
 
         return $this->setStatusCode(200)->respondWithData(
-            $this->logTransformer->transform(
+            (new LogTransformer())->transform(
                 $log->toArray()
             )
         );

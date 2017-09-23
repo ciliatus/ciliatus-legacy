@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Valve;
+namespace Tests\Feature\API\Valve;
 
 use App\Valve;
 use Illuminate\Foundation\Testing\WithoutMiddleware;

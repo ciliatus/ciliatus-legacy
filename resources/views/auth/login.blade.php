@@ -66,6 +66,13 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
+                                        <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
+                                        <label for="remember">@lang('labels.remember_me')</label>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
                                         <button class="btn btn-default submit" type="submit">Log in</button>
                                     </div>
                                 </div>

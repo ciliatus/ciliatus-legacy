@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\GenericComponentType;
+namespace Tests\Feature\API\GenericComponentType;
 
 use App\Controlunit;
 use App\LogicalSensor;

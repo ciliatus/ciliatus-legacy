@@ -2,14 +2,9 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Controlunit;
-use App\Http\Transformers\LogicalSensorTransformer;
 use App\LogicalSensor;
 use App\LogicalSensorThreshold;
 use App\PhysicalSensor;
-use App\Repositories\GenericRepository;
-use App\Repositories\LogicalSensorRepository;
-use Cache;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -20,71 +15,28 @@ use Illuminate\Http\Request;
  */
 class LogicalSensorController extends ApiController
 {
-    /**
-     * @var LogicalSensorTransformer
-     */
-    protected $logicalSensorTransformer;
 
-
-    /**
-     * LogicalSensorController constructor.
-     * @param LogicalSensorTransformer $_logicalSensorTransformer
-     */
-    public function __construct(LogicalSensorTransformer $_logicalSensorTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->logicalSensorTransformer = $_logicalSensorTransformer;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $logical_sensors = LogicalSensor::with('thresholds')
-                                        ->with('physical_sensor');
-
-        $logical_sensors = $this->filter($request, $logical_sensors);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $logical_sensors,
-            $this->logicalSensorTransformer,
-            'LogicalSensorRepository'
-        );
-
+        return parent::default_index($request);
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $logical_sensor = LogicalSensor::with('thresholds')
-                                        ->with('physical_sensor')
-                                        ->find($id);
-
-        if (!$logical_sensor) {
-            return $this->respondNotFound('LogicalSensor not found');
-        }
-
-        $logical_sensor = (new LogicalSensorRepository($logical_sensor))->show();
-
-        return $this->respondWithData(
-            $this->logicalSensorTransformer->transform(
-                $logical_sensor->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 
@@ -131,7 +83,7 @@ class LogicalSensorController extends ApiController
 
         $logical_sensor = LogicalSensor::create();
         $logical_sensor->name = $request->input('name');
-        if ($request->has('physical_sensor') && strlen($request->input('physical_sensor')) > 0) {
+        if ($request->filled('physical_sensor') && strlen($request->input('physical_sensor')) > 0) {
             $physical_sensor = PhysicalSensor::find($request->input('physical_sensor'));
             if (is_null($physical_sensor)) {
                 return $this->setStatusCode(422)->respondWithError('Controlunit not found');
@@ -169,7 +121,7 @@ class LogicalSensorController extends ApiController
             return $this->respondNotFound('LogicalSensor not found');
         }
 
-        if ($request->has('physical_sensor')) {
+        if ($request->filled('physical_sensor')) {
             $physical_sensor = PhysicalSensor::find($request->input('physical_sensor'));
             if (is_null($physical_sensor)) {
                 return $this->setStatusCode(422)->respondWithError('PhysicalSensor not found');

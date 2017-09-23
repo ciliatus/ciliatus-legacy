@@ -4,8 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\Events\ReadFlagSet;
 use App\Property;
-use App\Http\Transformers\PropertyTransformer;
-use Cache;
 use Gate;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
@@ -17,62 +15,28 @@ use Illuminate\Http\Request;
  */
 class PropertyController extends ApiController
 {
-    /**
-     * @var PropertyTransformer
-     */
-    protected $propertyTransformer;
 
-    /**
-     * PropertyController constructor.
-     * @param PropertyTransformer $_propertyTransformer
-     */
-    public function __construct(PropertyTransformer $_propertyTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->propertyTransformer = $_propertyTransformer;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $properties = Property::query();
-        $properties = $this->filter($request, $properties);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $properties,
-            $this->propertyTransformer
-        );
+        return parent::default_index($request);
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $property = Property::with('properties')->find($id);
-
-        if (!$property) {
-            return $this->respondNotFound('Property not found');
-        }
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->propertyTransformer->transform(
-                $property->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 
@@ -130,13 +94,13 @@ class PropertyController extends ApiController
             'name' => $request->input('name')
         ]);
 
-        if ($request->has('value')) {
+        if ($request->filled('value')) {
             $p->value = $request->input('value');
         }
 
         $p->save();
 
-        if ($request->has('update_belongs_to')) {
+        if ($request->filled('update_belongs_to')) {
             $belongs_to->save();
         }
 
@@ -161,7 +125,7 @@ class PropertyController extends ApiController
             return $this->respondNotFound('Property not found');
         }
 
-        if ($request->has('belongsTo_type') && $request->has('belongsTo_id')) {
+        if ($request->filled('belongsTo_type') && $request->filled('belongsTo_id')) {
             $belongsTo_type = $request->input('belongsTo_type');
             $belongsTo_id = $request->input('belongsTo_id');
 

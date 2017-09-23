@@ -2,19 +2,11 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Action;
 use App\ActionSequence;
 use App\ActionSequenceIntention;
-use App\Http\Transformers\ActionSequenceIntentionTransformer;
-use App\LogicalSensor;
-use App\Repositories\ActionSequenceIntentionRepository;
-use App\Terrarium;
 use Carbon\Carbon;
-use DB;
 use Gate;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 /**
  * Clasi ActionSequenceIntentionController
@@ -22,65 +14,28 @@ use App\Http\Requests;
  */
 class ActionSequenceIntentionController extends ApiController
 {
-    /**
-     * @var ActionSequenceIntentionTransformer
-     */
-    protected $actionSequenceIntentionTransformer;
 
-    /**
-     * ActionSequenceIntentionController constructor.
-     * @param ActionSequenceIntentionTransformer $_actionSequenceIntentionTransformer
-     */
-    public function __construct(ActionSequenceIntentionTransformer $_actionSequenceIntentionTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->actionSequenceIntentionTransformer = $_actionSequenceIntentionTransformer;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $action_sequence_intentions = ActionSequenceIntention::with('sequence');
-        $action_sequence_intentions = $this->filter($request, $action_sequence_intentions);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $action_sequence_intentions,
-            $this->actionSequenceIntentionTransformer,
-            'ActionSequenceIntention'
-        );
-
+        return parent::default_index($request);
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $action = ActionSequenceIntention::with('sequence')
-                                        ->find($id);
-
-        if (!$action) {
-            return $this->respondNotFound('ActionSequenceIntention not found');
-        }
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->actionSequenceIntentionTransformer->transform(
-                $action->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 
@@ -168,7 +123,7 @@ class ActionSequenceIntentionController extends ApiController
             return $this->setStatusCode(404)->respondWithError('ActionSequenceIntention not found');
         }
 
-        if ($request->has('action_sequence_id')) {
+        if ($request->filled('action_sequence_id')) {
             $a = ActionSequence::find($request->input('action_sequence_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
@@ -180,15 +135,15 @@ class ActionSequenceIntentionController extends ApiController
             'intention', 'minimum_timeout_minutes'
         ]);
 
-        if ($request->has('minimum_timeout_minutes')) {
+        if ($request->filled('minimum_timeout_minutes')) {
             $intention->minimum_timeout_minutes = $request->input('minimum_timeout_minutes');
         }
 
-        if ($request->has('timeframe_start')) {
+        if ($request->filled('timeframe_start')) {
             $intention->timeframe_start = Carbon::parse($request->input('timeframe_start'))->format('H:i:s');
         }
 
-        if ($request->has('timeframe_end')) {
+        if ($request->filled('timeframe_end')) {
             $intention->timeframe_end = Carbon::parse($request->input('timeframe_end'))->format('H:i:s');
         }
 

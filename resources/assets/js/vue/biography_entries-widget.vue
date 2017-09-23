@@ -84,6 +84,11 @@ export default {
             default: null,
             required: false
         },
+        containerId: {
+            type: String,
+            default: 'biography-entries-widget',
+            required: false
+        },
         wrapperClasses: {
             type: String,
             default: '',
@@ -142,10 +147,11 @@ export default {
 
             var source_url = '';
             if (this.entryId !== null) {
-                source_url = '/api/v1/biography_entries/' + this.entryId
+                source_url = '/api/v1/biography_entries/' + this.entryId + '?with[]=files'
             }
             else {
-                source_url = '/api/v1/biography_entries/?order[created_at]=desc&filter[belongsTo_type]=' + this.belongsToType + '&filter[belongsTo_id]=' + this.belongsToId + '&raw=true';
+                source_url = '/api/v1/biography_entries/?with[]=files&order[created_at]=desc&filter[belongsTo_type]=' +
+                             this.belongsToType + '&filter[belongsTo_id]=' + this.belongsToId + '&raw=true';
             }
 
             window.eventHubVue.processStarted();
@@ -177,9 +183,9 @@ export default {
 
     created: function() {
         window.echo.private('dashboard-updates')
-            .listen('BiographyEntryUpdated', (e) => {
+            .listen('BiographyEntryEventUpdated', (e) => {
                 this.update(e);
-            }).listen('BiographyEntryDeleted', (e) => {
+            }).listen('BiographyEntryEventDeleted', (e) => {
                 this.delete(e);
             });
 

@@ -4,80 +4,40 @@ namespace App\Http\Controllers\Api;
 
 use App\Action;
 use App\ActionSequence;
-use App\Http\Transformers\ActionTransformer;
 use Gate;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+/**
+ * Class ActionController
+ * @package App\Http\Controllers\Api
+ */
 class ActionController extends ApiController
 {
-    /**
-     * @var ActionTransformer
-     */
-    protected $actionTransformer;
 
-    /**
-     * ActionController constructor.
-     * @param ActionTransformer $_actionTransformer
-     */
-    public function __construct(ActionTransformer $_actionTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->actionTransformer = $_actionTransformer;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $actions = Action::with('schedules')
-                        ->with('terrarium');
-
-        $actions = $this->filter($request, $action);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $actions,
-            $this->actionTransformer
-        );
-
+        return parent::default_index($request);
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $action = Action::find($id);
-
-        if (!$action) {
-            return $this->respondNotFound('Action not found');
-        }
-
-        $action->action_object = $action->action_object();
-        $action->wait_for_started_action_object = $action->wait_for_started_action_object();
-        $action->wait_for_finished_action_object = $action->wait_for_finished_action_object();
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->actionTransformer->transform(
-                $action->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
-
 
     /**
      * @return \Illuminate\Http\JsonResponse
@@ -169,28 +129,28 @@ class ActionController extends ApiController
             return $this->setStatusCode(404)->respondWithError('Action not found');
         }
 
-        if ($request->has('action_sequence_id')) {
+        if ($request->filled('action_sequence_id')) {
             $asi = ActionSequence::find($request->input('action_sequence_id'));
             if (is_null($asi)) {
                 return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
             }
         }
 
-        if ($request->has('wait_for_started_action_id')) {
+        if ($request->filled('wait_for_started_action_id')) {
             $a = Action::find($request->input('wait_for_started_action_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('Action not found');
             }
         }
 
-        if ($request->has('wait_for_finished_action_id')) {
+        if ($request->filled('wait_for_finished_action_id')) {
             $a = Action::find($request->input('wait_for_finished_action_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('Action not found');
             }
         }
 
-        if ($request->has('component')) {
+        if ($request->filled('component')) {
             list($component_type, $component_id) = explode('|', $request->input('component'));
             if (!class_exists('App\\' . $component_type)) {
                 return $this->setStatusCode(422)->respondWithError('Component type not found');

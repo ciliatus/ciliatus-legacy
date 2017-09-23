@@ -2,32 +2,9 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
-
 /**
  * Class Event
- *
  * @package App
- * @property string $id
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property string $type
- * @property string $name
- * @property string $value
- * @property string $value_json
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereBelongsToId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereBelongsToType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereValue($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Event whereValueJson($value)
- * @mixin \Eloquent
  */
 class Event extends CiliatusModel
 {
@@ -78,14 +55,24 @@ class Event extends CiliatusModel
     ];
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return null|CiliatusModel
      */
     public function belongsTo_object()
     {
-        if (is_null($this->belongsTo_type)) {
-            return null;
+        if (!is_null($this->belongsTo_type) && !is_null($this->belongsTo_id)) {
+            $class_name = 'App\\' . ucfirst($this->belongsTo_type);
+            if (!class_exists($class_name)) {
+                \Log::warning(__CLASS__ . ' "' . $this->name . '" (' . $this->id . ') belongs to object of ' .
+                    'unknown class "' . $class_name . '" (' . $this->belongsTo_id . '). Maybe belongsTo is empty but ' .
+                    'not null?');
+                return null;
+            }
+
+            $object = $class_name::find($this->belongsTo_id);
+            return $object;
         }
-        return $this->belongsTo('App\\'. $this->belongsTo_type, 'belongsTo_id');
+
+        return null;
     }
 
     /**

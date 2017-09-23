@@ -111,14 +111,14 @@ export default {
                 return this.FilterFromDate;
             }
 
-            return $('#filter_from_' + this.id).val();
+            return "{{b64(" + $('#filter_from_' + this.id).val().base64encode() + ")}}";
         },
         get_filter_to_date: function() {
             if ($('#filter_to_' + this.id).val() == undefined) {
                 return this.FilterToDate + " 23:59:59";
             }
 
-            return $('#filter_to_' + this.id).val() + " 23:59:59";
+            return "{{b64(" + ($('#filter_to_' + this.id).val() + " 23:59:59").base64encode() + ")}}";
         },
 
         init: function() {
@@ -240,7 +240,8 @@ export default {
             });
         },
         draw: function() {
-            if (this.data === null) {
+            if (this.data === null || this.data.length < 1) {
+                $('#dygraph_' + this.id + '_loading').hide();
                 return;
             }
 
@@ -301,14 +302,23 @@ export default {
             }
 
             var that = this;
-            this.graph = new Dygraph(
-                document.getElementById('dygraph_' + this.id),
-                this.data,
-                this.options
-            );
-            this.graph.ready(function() {
+
+            try {
+                this.graph = new Dygraph(
+                    document.getElementById('dygraph_' + this.id),
+                    this.data,
+                    this.options
+                );
+
+                this.graph.ready(function() {
+                    $('#dygraph_' + that.id + '_loading').hide();
+                });
+            }
+            catch (ex) {
                 $('#dygraph_' + that.id + '_loading').hide();
-            });
+                console.log(ex);
+            }
+
         }
     },
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\LogicalSensorThreshold;
+namespace Tests\Feature\API\LogicalSensorThreshold;
 
 use App\LogicalSensorThreshold;
 use Illuminate\Foundation\Testing\WithoutMiddleware;

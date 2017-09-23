@@ -2,44 +2,17 @@
 
 namespace App;
 
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Action
- *
  * @package App
- * @property string $id
- * @property string $action_sequence_id
- * @property string $target_type
- * @property string $target_id
- * @property string $desired_state
- * @property int $duration_minutes
- * @property int $sequence_sort_id
- * @property string $wait_for_started_action_id
- * @property string $wait_for_finished_action_id
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\RunningAction[] $running_actions
- * @property-read \App\ActionSequence $sequence
- * @method static \Illuminate\Database\Query\Builder|\App\Action whereActionSequenceId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Action whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Action whereDesiredState($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Action whereDurationMinutes($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Action whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Action whereSequenceSortId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Action whereTargetId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Action whereTargetType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Action whereUpdatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Action whereWaitForFinishedActionId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Action whereWaitForStartedActionId($value)
- * @mixin \Eloquent
  */
 class Action extends CiliatusModel
 {
 
-    use Traits\Uuids;
+    use Uuids;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -59,18 +32,6 @@ class Action extends CiliatusModel
     protected $fillable = [
         'action_sequence_id', 'target_type', 'target_id', 'desired_state', 'duration_minutes', 'sequence_sort_id'
     ];
-
-    /**
-     * @return bool|null
-     */
-    public function delete()
-    {
-        foreach ($this->running_actions as $ra) {
-            $ra->delete();
-        }
-
-        return parent::delete();
-    }
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

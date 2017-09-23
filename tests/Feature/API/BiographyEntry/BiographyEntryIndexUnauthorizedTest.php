@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\BiographyEntry;
+namespace Tests\Feature\API\BiographyEntry;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

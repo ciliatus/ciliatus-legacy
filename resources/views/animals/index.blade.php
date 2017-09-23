@@ -11,7 +11,7 @@
             <li class="tab"><a class="active" href="#tab_dashboard">@lang('labels.overview')</a></li>
             <li class="tab"><a href="#tab_feeding_schedules">@choice('components.animal_feeding_schedules', 2)</a></li>
             <li class="tab"><a href="#tab_weighing_schedules">@choice('components.animal_weighing_schedules', 2)</a></li>
-            <li class="tab"><a href="#tab_dashboard_deceased">@lang('labels.deceased')</a></li>
+            <li class="tab"><a href="#tab_dashboard_inactive">@lang('labels.inactive')</a></li>
         </ul>
 
 
@@ -19,7 +19,7 @@
             <div class="container">
                 <animals-widget container-classes="row" wrapper-classes="col s12 m6 l4"
                                 container-id="animals-masonry-grid-alive"
-                                source-filter="filter[death_date]=null"
+                                source-filter="filter[!properties.type]=ModelNotActive"
                                 :refresh-timeout-seconds="60"
                                 :subscribe-add="false"></animals-widget>
             </div>
@@ -39,11 +39,11 @@
             </div>
         </div>
 
-        <div id="tab_dashboard_deceased" class="col s12">
+        <div id="tab_dashboard_inactive" class="col s12">
             <div class="container">
                 <animals-widget container-classes="row" wrapper-classes="col s12 m6 l4"
-                                container-id="animals-masonry-grid-deceased"
-                                source-filter="filter[death_date]=notnull"
+                                container-id="animals-masonry-grid-inactive"
+                                source-filter="filter[properties.type]=ModelNotActive"
                                 :refresh-timeout-seconds="180"
                                 :subscribe-add="false"></animals-widget>
             </div>

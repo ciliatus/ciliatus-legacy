@@ -2,12 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Event;
 use App\Http\Transformers\AnimalCaresheetTransformer;
-use App\Http\Transformers\AnimalTransformer;
 use App\Animal;
-use App\Property;
-use App\Repositories\AnimalRepository;
 use App\Terrarium;
 use Carbon\Carbon;
 use Gate;
@@ -20,64 +16,28 @@ use Illuminate\Http\Request;
  */
 class AnimalController extends ApiController
 {
-    /**
-     * @var AnimalTransformer
-     */
-    protected $animalTransformer;
 
-    /**
-     * AnimalController constructor.
-     * @param AnimalTransformer $_animalTransformer
-     */
-    public function __construct(AnimalTransformer $_animalTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->animalTransformer = $_animalTransformer;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $animals = Animal::query();
-        $animals = $this->filter($request, $animals);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $animals,
-            $this->animalTransformer,
-            'AnimalRepository'
-        );
-
+        return parent::default_index($request);
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $animal = Animal::find($id);
-        if (is_null($animal)) {
-            return $this->respondNotFound();
-        }
-
-        $animal = (new AnimalRepository($animal))->show();
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->animalTransformer->transform(
-                $animal->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 
@@ -151,14 +111,14 @@ class AnimalController extends ApiController
         }
 
         $terrarium = null;
-        if ($request->has('terrarium')) {
+        if ($request->filled('terrarium')) {
             $terrarium = Terrarium::find($request->input('terrarium'));
             if (is_null($terrarium)) {
                 return $this->setStatusCode(422)->respondWithError('Terrarium not found');
             }
         }
 
-        if ($request->has('birthdate')) {
+        if ($request->filled('birthdate')) {
             try {
                 Carbon::parse($request->input('birthdate'));
             }
@@ -167,12 +127,21 @@ class AnimalController extends ApiController
             }
         }
 
-        if ($request->has('deathdate')) {
+        if ($request->filled('deathdate')) {
             try {
                 Carbon::parse($request->input('deathdate'));
             }
             catch (\Exception $ex) {
                 return $this->setStatusCode(422)->respondWithError('Cannot parse date of death');
+            }
+        }
+
+        if ($request->filled('active')) {
+            if ($request->input('active') == 'on' && !$animal->active()) {
+                $animal->enable();
+            }
+            else if ($request->input('active') == 'off' && $animal->active()) {
+                $animal->disable();
             }
         }
 

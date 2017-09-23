@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Api;
 
 use App\CiliatusModel;
+use App\Factories\RepositoryFactory;
+use App\Factories\TransformerFactory;
 use App\Http\Controllers\Controller;
 use App\Http\Transformers\Transformer;
 use App\Property;
@@ -42,6 +44,75 @@ class ApiController extends Controller
      */
     public function __construct()
     {
+    }
+
+    /**
+     * @return string
+     */
+    protected function getModelNameFromController()
+    {
+        $model_class_name_arr = explode('\\', get_class($this));
+        preg_match_all('/((?:^|[A-Z])[a-z]+)/',end($model_class_name_arr),$matches, PREG_PATTERN_ORDER);
+        return 'App\\' . implode(
+                '',
+                array_slice(
+                    $matches[0],
+                    0,
+                    count($matches[0]) - 1
+                )
+            );
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function default_index(Request $request)
+    {
+        if (Gate::denies('api-list')) {
+            return $this->respondUnauthorized();
+        }
+
+        $model_class_name = $this->getModelNameFromController();
+
+        $objects = $model_class_name::query();
+        $objects = $this->filter($request, $objects);
+
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $objects
+        );
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function default_show(Request $request, $id)
+    {
+        if (Gate::denies('api-read')) {
+            return $this->respondUnauthorized();
+        }
+
+        $model_class_name = $this->getModelNameFromController();
+
+        $object = $this->filter(
+            $request,
+            $model_class_name::query()
+        )->find($id);
+
+        if (is_null($object)) {
+            return $this->respondNotFound(sprintf('%s not found', $model_class_name));
+        }
+
+        $this->applyRepository($object);
+
+        return $this->setStatusCode(200)->respondWithData(
+            TransformerFactory::get($object)->transform(
+                $object->toArray()
+            )
+        );
     }
 
     /**
@@ -177,89 +248,116 @@ class ApiController extends Controller
     /**
      * @param Request $request
      * @param Builder $query
-     * @param Transformer $transformer
-     * @param string|null $repository_name
      * @param array $repository_parameters
      * @param string $repository_method
      * @return \Illuminate\Http\JsonResponse
      */
     public function respondTransformedAndPaginated(Request $request,
                                                    Builder $query,
-                                                   Transformer $transformer,
-                                                   string $repository_name = null,
                                                    array $repository_parameters = [],
-                                                   string $repository_method = 'show')
+                                                   $repository_method = 'show')
     {
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->has('raw') && Gate::allows('api-list:raw')) {
+
+        if ($request->filled('raw') && Gate::allows('api-list:raw')) {
+            /*
+             * If raw is passed, pagination will be ignored
+             * Permission api-list:raw is required
+             */
             $objects = $query->get();
 
-
-            if (!is_null($repository_name)) {
-                $this->applyRepository(
-                    $repository_name,
-                    $objects,
-                    $repository_parameters,
-                    $repository_method
-                );
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                $transformer->transformCollection(
-                    $objects->toArray()
-                )
-            );
-
-        }
-
-        /*
-         * If pagination is requested, apply paginator
-         */
-
-        $objects = $this->paginate($request, $query);
-
-
-        if (!is_null($repository_name)) {
             $this->applyRepository(
-                $repository_name,
-                Collection::make($objects->items()),
+                $objects,
                 $repository_parameters,
                 $repository_method
             );
-        }
 
-        return $this->setStatusCode(200)->respondWithPagination(
-            $transformer->transformCollection(
-                $objects->toArray()['data']
-            ),
-            $objects
-        );
+            return $this->setStatusCode(200)
+                        ->respondWithData($this->applyTransformer($objects));
+
+        }
+        else {
+            /*
+             * If pagination is requested, apply paginator
+             */
+            $objects = $this->paginate($request, $query);
+
+            if (count($objects->items()) < 1) {
+                return $this->setStatusCode(200)
+                            ->respondWithPagination([], $objects);
+            }
+            $transformer = TransformerFactory::get($objects->items()[0]);
+
+            $this->applyRepository(
+                $objects->items(),
+                $repository_parameters,
+                $repository_method
+            );
+
+            return $this->setStatusCode(200)->respondWithPagination(
+                $transformer->transformCollection(
+                    $objects->toArray()['data']
+                ),
+                $objects
+            );
+
+        }
     }
 
     /**
      * Retrieves additional data for each object from a repository
      *
-     * @param string $repository_name
-     * @param Collection $objects
+     * @param array|Collection|CiliatusModel $objects
      * @param array $repository_parameters
      * @param string $repository_method
      */
-    protected function applyRepository(string $repository_name,
-                                       Collection $objects,
+    protected function applyRepository($objects,
                                        array $repository_parameters = [],
-                                       string $repository_method = 'show')
+                                       $repository_method = 'show')
     {
-        $fully_qualified_repository_name = "App\\Repositories\\$repository_name";
-        foreach ($objects as &$o) {
-            $repository = new $fully_qualified_repository_name($o);
+        if (is_a($objects, 'Illuminate\Support\Collection') || is_array($objects)) {
+            foreach ($objects as &$o) {
+                $this->applyRepository(
+                    $o,
+                    $repository_parameters,
+                    $repository_method
+                );
+            }
+        }
+        else {
+            $repository = RepositoryFactory::get($objects);
             foreach ($repository_parameters as $n=>$v) {
                 $repository->addShowParameter($n, $v);
             }
-            $o = $repository->$repository_method();
+            $repository->$repository_method();
         }
+
+    }
+
+
+
+    /**
+     * Transforms a single object or an array/Collection of objects
+     *
+     * @param array|Collection|CiliatusModel $objects
+     * @return array
+     */
+    protected function applyTransformer($objects)
+    {
+
+        if (is_a($objects, 'Illuminate\Support\Collection')) {
+            $transformer = TransformerFactory::get($objects->first());
+            return $transformer->transformCollection($objects->toArray());
+        }
+
+        if (is_array($objects)) {
+            $transformer = TransformerFactory::get($objects[0]);
+            return $transformer->transformCollection($objects->toArray());
+        }
+        else {
+            $transformer = TransformerFactory::get($objects);
+            return $transformer->transform($objects->toArray());
+        }
+
     }
 
     /**
@@ -273,7 +371,7 @@ class ApiController extends Controller
     public function paginate(Request $request, Builder $query)
     {
         $per_page = env('PAGINATION_PER_PAGE', 20);
-        if ($request->has('pagination') && isset($request->input('pagination')['per_page'])) {
+        if ($request->filled('pagination') && isset($request->input('pagination')['per_page'])) {
             $per_page = $request->input('pagination')['per_page'];
         }
 
@@ -288,7 +386,7 @@ class ApiController extends Controller
     public function checkInput($required_fields, Request $request)
     {
         foreach ($required_fields as $f) {
-            if (!$request->has($f) && !$request->hasFile($f)) {
+            if (!$request->filled($f) && !$request->hasFile($f)) {
                 return false;
             }
         }
@@ -307,7 +405,7 @@ class ApiController extends Controller
      */
     protected function addBelongsTo($request, $object, $dynamic = true)
     {
-        if ($request->has('belongsTo') && $request->input('belongsTo') != '') {
+        if ($request->filled('belongsTo') && $request->input('belongsTo') != '') {
             $belongsTo_type = explode("|", $request->input('belongsTo'))[0];
             $belongsTo_id = explode("|", $request->input('belongsTo'))[1];
             $class_name = 'App\\' . $belongsTo_type;
@@ -344,12 +442,12 @@ class ApiController extends Controller
      */
     protected function getBelongsTo($request)
     {
-        if ($request->has('belongsTo') && $request->input('belongsTo') != '') {
+        if ($request->filled('belongsTo') && $request->input('belongsTo') != '') {
             $belongsTo_type = explode("|", $request->input('belongsTo'))[0];
             $belongsTo_id = explode("|", $request->input('belongsTo'))[1];
             $class_name = 'App\\' . $belongsTo_type;
         }
-        elseif ($request->has('belongsTo_type') && $request->has('belongsTo_id')) {
+        elseif ($request->filled('belongsTo_type') && $request->filled('belongsTo_id')) {
             $belongsTo_type = $request->input('belongsTo_type');
             $belongsTo_id = $request->input('belongsTo_id');
             $class_name = 'App\\' . $belongsTo_type;
@@ -459,7 +557,7 @@ class ApiController extends Controller
                 $model_field = $request_field;
             }
             if ($request->exists($request_field)) {
-                if ($request->has($request_field)) {
+                if ($request->filled($request_field)) {
                     $model->$model_field = $request->get($request_field);
                 }
                 else {

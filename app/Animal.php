@@ -4,49 +4,19 @@ namespace App;
 
 use App\Events\AnimalDeleted;
 use App\Events\AnimalUpdated;
-use App\Http\Transformers\AnimalFeedingScheduleTransformer;
-use App\Repositories\AnimalFeedingScheduleRepository;
-use App\Repositories\AnimalRepository;
-use App\Repositories\AnimalWeighingScheduleRepository;
-use Auth;
+use App\Repositories\AnimalFeedingSchedulePropertyRepository;
+use App\Repositories\AnimalWeighingSchedulePropertyRepository;
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class Animal
- *
  * @package App
- * @property string $id
- * @property string $terrarium_id
- * @property string $lat_name
- * @property string $common_name
- * @property string $display_name
- * @property string $gender
- * @property \Carbon\Carbon $birth_date
- * @property \Carbon\Carbon $death_date
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $biography_entries
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $caresheets
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Event[] $events
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \App\Terrarium $terrarium
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereBirthDate($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereCommonName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereDeathDate($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereDisplayName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereGender($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereLatName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereTerrariumId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Animal whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class Animal extends CiliatusModel
 {
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * @var array
@@ -73,28 +43,12 @@ class Animal extends CiliatusModel
     public $incrementing = false;
 
     /**
-     *
+     * @var array
      */
-    public function delete()
-    {
-        broadcast(new AnimalDeleted($this->id));
-
-        parent::delete();
-    }
-
-
-    /**
-     * @param array $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-        $result = parent::save($options);
-
-        broadcast(new AnimalUpdated($this));
-
-        return $result;
-    }
+    protected $dispatchesEvents = [
+        'updated' => AnimalUpdated::class,
+        'deleting' => AnimalDeleted::class
+    ];
 
     /**
      * @return mixed
@@ -141,7 +95,7 @@ class Animal extends CiliatusModel
      */
     public function feeding_schedules()
     {
-        return $this->properties()->where('type', 'AnimalFeedingSchedule');
+        return $this->hasMany('App\AnimalFeedingScheduleProperty', 'belongsTo_id');
     }
 
     /**
@@ -155,7 +109,7 @@ class Animal extends CiliatusModel
         ];
 
         foreach ($this->feeding_schedules as $afs) {
-            $afs = (new AnimalFeedingScheduleRepository($afs))->show();
+            $afs = (new AnimalFeedingSchedulePropertyRepository($afs))->show();
             if ($afs->next_feeding_at_diff == 0) {
                 $feeding_schedules['due'][] = $afs;
             }
@@ -180,7 +134,7 @@ class Animal extends CiliatusModel
      */
     public function weighing_schedules()
     {
-        return $this->properties()->where('type', 'AnimalWeighingSchedule');
+        return $this->hasMany('App\AnimalWeighingScheduleProperty', 'belongsTo_id');
     }
 
     /**
@@ -194,7 +148,7 @@ class Animal extends CiliatusModel
         ];
 
         foreach ($this->weighing_schedules as $afs) {
-            $afs = (new AnimalWeighingScheduleRepository($afs))->show();
+            $afs = (new AnimalWeighingSchedulePropertyRepository($afs))->show();
             if ($afs->next_weighing_at_diff == 0) {
                 $weighing_schedules['due'][] = $afs;
             }
@@ -285,9 +239,10 @@ class Animal extends CiliatusModel
      */
     public function caresheets()
     {
-        return $this->hasMany('App\Event', 'belongsTo_id')->where('type', 'AnimalCaresheet')
-                                                          ->where('belongsTo_type', 'Animal')
-                                                          ->with('properties');
+        return $this->hasMany('App\Event', 'belongsTo_id')
+                    ->where('type', 'AnimalCaresheet')
+                    ->where('belongsTo_type', 'Animal')
+                    ->with('properties');
     }
 
     /**
@@ -314,11 +269,11 @@ class Animal extends CiliatusModel
         }
 
         if (!isset($settings['sensor_history_days'])) {
-            $settings['sensor_history_days'] = env('DEFAULT_CARESHEET_SENSOR_HISTORY_DAYS', 14);
+            $settings['sensor_history_days'] = env('DEFAULT_CARESHEET_SENSOR_HISTORY_DAYS', 30);
         }
 
         if (!isset($settings['data_history_days'])) {
-            $settings['data_history_days'] = env('DEFAULT_CARESHEET_DATA_HISTORY_DAYS', 60);
+            $settings['data_history_days'] = env('DEFAULT_CARESHEET_DATA_HISTORY_DAYS', 180);
         }
 
         $caresheet = Event::create([

@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\CriticalState;
+namespace Tests\Feature\API\CriticalState;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

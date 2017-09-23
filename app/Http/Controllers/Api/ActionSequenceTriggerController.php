@@ -2,85 +2,41 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Action;
 use App\ActionSequence;
 use App\ActionSequenceTrigger;
-use App\Http\Transformers\ActionSequenceTriggerTransformer;
 use App\LogicalSensor;
-use App\Repositories\ActionSequenceTriggerRepository;
-use App\Terrarium;
 use Carbon\Carbon;
-use DB;
 use Gate;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 /**
- * Clast ActionSequenceTriggerController
+ * Class ActionSequenceTriggerController
  * @package App\Http\Controllers
  */
 class ActionSequenceTriggerController extends ApiController
 {
-    /**
-     * @var ActionSequenceTriggerTransformer
-     */
-    protected $actionSequenceTriggerTransformer;
 
-    /**
-     * ActionSequenceTriggerController constructor.
-     * @param ActionSequenceTriggerTransformer $_actionSequenceTriggerTransformer
-     */
-    public function __construct(ActionSequenceTriggerTransformer $_actionSequenceTriggerTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->actionSequenceTriggerTransformer = $_actionSequenceTriggerTransformer;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $action_sequence_triggers = ActionSequenceTrigger::with('sequence');
-        $action_sequence_triggers = $this->filter($request, $action_sequence_triggers);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $action_sequence_triggers,
-            $this->actionSequenceTriggerTransformer,
-            'ActionSequenceTrigger'
-        );
-
+        return parent::default_index($request);
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $action = ActionSequenceTrigger::with('sequence')
-                                        ->find($id);
-
-        if (!$action) {
-            return $this->respondNotFound('ActionSequenceTrigger not found');
-        }
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->actionSequenceTriggerTransformer->transform(
-                $action->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 
@@ -177,21 +133,21 @@ class ActionSequenceTriggerController extends ApiController
             return $this->setStatusCode(404)->respondWithError('ActionSequenceTrigger not found');
         }
 
-        if ($request->has('action_sequence_id')) {
+        if ($request->filled('action_sequence_id')) {
             $a = ActionSequence::find($request->input('action_sequence_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
             }
         }
 
-        if ($request->has('logical_sensor')) {
+        if ($request->filled('logical_sensor')) {
             $ls = LogicalSensor::find($request->input('logical_sensor'));
             if (is_null($ls)) {
                 return $this->setStatusCode(422)->respondWithError('LogicalSensor not found');
             }
         }
 
-        if ($request->has('reference_value_comparison_type')) {
+        if ($request->filled('reference_value_comparison_type')) {
             if (!in_array($request->input('reference_value_comparison_type'), ['equal', 'lesser', 'greater'])) {
                 return $this->setStatusCode(422)->respondWithError('Unknown reference value comparison type');
             }
@@ -203,11 +159,11 @@ class ActionSequenceTriggerController extends ApiController
             'reference_value_duration_threshold_minutes'
         ]);
 
-        if ($request->has('timeframe_start')) {
+        if ($request->filled('timeframe_start')) {
             $trigger->timeframe_start = Carbon::parse($request->input('timeframe_start'))->format('H:i:s');
         }
 
-        if ($request->has('timeframe_end')) {
+        if ($request->filled('timeframe_end')) {
             $trigger->timeframe_end = Carbon::parse($request->input('timeframe_end'))->format('H:i:s');
         }
 

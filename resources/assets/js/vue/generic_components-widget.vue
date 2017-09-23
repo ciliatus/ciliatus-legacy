@@ -141,7 +141,8 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/generic_components/' + that.genericComponentId + '?raw=true&' + that.sourceFilter,
+                url: '/api/v1/generic_components/' + that.genericComponentId + '?with[]=properties&with[]=states&' +
+                     'with[]=type&with[]=controlunit&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.genericComponentId !== '') {

@@ -8,20 +8,17 @@ use App\Event;
 use App\Http\Transformers\ActionSequenceIntentionTransformer;
 use App\Http\Transformers\ActionSequenceScheduleTransformer;
 use App\Http\Transformers\ActionSequenceTriggerTransformer;
-use App\Http\Transformers\AnimalFeedingScheduleTransformer;
-use App\Http\Transformers\AnimalWeighingScheduleTransformer;
+use App\Http\Transformers\AnimalFeedingSchedulePropertyTransformer;
+use App\Http\Transformers\AnimalWeighingSchedulePropertyTransformer;
 use App\Http\Transformers\ControlunitTransformer;
 use App\Http\Transformers\EventTransformer;
 use App\Http\Transformers\PhysicalSensorTransformer;
 use App\Http\Transformers\TerrariumTransformer;
 use App\PhysicalSensor;
 use App\Property;
-use App\Repositories\AnimalFeedingScheduleRepository;
-use App\Repositories\AnimalWeighingScheduleRepository;
 use App\Repositories\GenericRepository;
 use App\System;
 use Carbon\Carbon;
-use Doctrine\DBAL\Events;
 use Gate;
 use App\Terrarium;
 use Illuminate\Http\Request;
@@ -48,7 +45,7 @@ class DashboardController extends ApiController
      *
      * @return \Illuminate\Http\JsonResponse
      */
-    public function index()
+    public function index(Request $request)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
@@ -85,11 +82,11 @@ class DashboardController extends ApiController
             'overdue' => []
         ];
 
-        foreach (Animal::orderBy('display_name')->get() as $animal) {
+        foreach (Animal::whereNull('death_date')->orderBy('display_name')->get() as $animal) {
             $feeding_schedules_temp = $animal->getDueFeedingSchedules();
             foreach ($feeding_schedules_temp as $type=>$schedules) {
                 foreach ($schedules as $schedule) {
-                    $feeding_schedules[$type][] = (new AnimalFeedingScheduleTransformer())->transform($schedule->toArray());
+                    $feeding_schedules[$type][] = (new AnimalFeedingSchedulePropertyTransformer())->transform($schedule->toArray());
                 }
             }
         }
@@ -100,11 +97,11 @@ class DashboardController extends ApiController
             'overdue' => []
         ];
 
-        foreach (Animal::orderBy('display_name')->get() as $animal) {
+        foreach (Animal::whereNull('death_date')->orderBy('display_name')->get() as $animal) {
             $weighing_schedules_temp = $animal->getDueWeighingSchedules();
             foreach ($weighing_schedules_temp as $type=>$schedules) {
                 foreach ($schedules as $index=>$schedule) {
-                    $weighing_schedules[$type][] = (new AnimalWeighingScheduleTransformer())->transform($schedule->toArray());
+                    $weighing_schedules[$type][] = (new AnimalWeighingSchedulePropertyTransformer())->transform($schedule->toArray());
                 }
             }
         }
@@ -169,9 +166,9 @@ class DashboardController extends ApiController
                                 ->where('type', 'ReadFlag')
                                 ->get()->first())) {
 
-                $belongsTo = $suggestion->belongsTo_object()->get()->first();
+                $belongsTo = $suggestion->belongsTo_object();
                 $belongsTo = (new GenericRepository($belongsTo))->show();
-                $suggestion->belongsTo_object = $belongsTo->toArray();
+                $suggestion->belongsTo_object = is_null($belongsTo) ? null : $belongsTo->toArray();
                 $suggestions[] = (new EventTransformer())->transform($suggestion->toArray());
 
             }
@@ -225,7 +222,7 @@ class DashboardController extends ApiController
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
         //
     }

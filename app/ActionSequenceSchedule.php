@@ -4,43 +4,18 @@ namespace App;
 
 use App\Events\ActionSequenceScheduleDeleted;
 use App\Events\ActionSequenceScheduleUpdated;
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class ActionSequenceSchedule
- *
  * @package App
- * @property string $id
- * @property string $name
- * @property string $action_sequence_id
- * @property string $starts_at
- * @property \Carbon\Carbon $last_start_at
- * @property \Carbon\Carbon $last_finished_at
- * @property string $terrarium_id
- * @property bool $runonce
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property \Carbon\Carbon $next_start_not_before
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \App\ActionSequence $sequence
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereActionSequenceId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereLastFinishedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereLastStartAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereNextStartNotBefore($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereRunonce($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereStartsAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereTerrariumId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\ActionSequenceSchedule whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class ActionSequenceSchedule extends CiliatusModel
 {
 
-    use Traits\Uuids;
+    use Uuids, Notifiable;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -56,10 +31,12 @@ class ActionSequenceSchedule extends CiliatusModel
         'name', 'runonce', 'starts_at', 'action_sequence_id'
     ];
 
+    /**
+     * @var array
+     */
     protected $casts = [
         'runonce' => 'boolean'
     ];
-
 
     /**
      * @var array
@@ -67,49 +44,12 @@ class ActionSequenceSchedule extends CiliatusModel
     protected $dates = ['created_at', 'updated_at', 'last_start_at', 'last_finished_at', 'next_start_not_before'];
 
     /**
-     * @param array $attributes
-     * @return CiliatusModel|ActionSequenceSchedule
+     * @var array
      */
-    public static function create(array $attributes = [])
-    {
-        $new = new ActionSequenceSchedule($attributes);
-        $new->save();
-
-        if ($new->startsToday()->lt(Carbon::now()->subMinutes(10))) {
-            $new->last_start_at = Carbon::now();
-            $new->last_finished_at = Carbon::now();
-        }
-
-        $new->save();
-        return $new;
-    }
-
-    /**
-     *
-     */
-    public function delete()
-    {
-        foreach (RunningAction::where('action_sequence_schedule_id', $this->id)->get() as $ra) {
-            $ra->delete();
-        }
-
-        broadcast(new ActionSequenceScheduleDeleted($this->id));
-
-        parent::delete();
-    }
-
-    /**
-     * @param array $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-        $return = parent::save($options);
-
-        broadcast(new ActionSequenceScheduleUpdated($this));
-
-        return $return;
-    }
+    protected $dispatchesEvents = [
+        'updated' => ActionSequenceScheduleUpdated::class,
+        'deleting' => ActionSequenceScheduleDeleted::class
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany

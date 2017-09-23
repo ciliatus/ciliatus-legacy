@@ -7,7 +7,7 @@
  */
 
 namespace App\Http\Transformers;
-use App\Http\Controllers\Api\BiographyEntryController;
+use App\Http\Controllers\Api\BiographyEntryEventController;
 use Carbon\Carbon;
 
 /**
@@ -38,8 +38,8 @@ class AnimalTransformer extends Transformer
             'url'           =>  isset($item['url'])? $item['url'] : ''
         ];
 
-        if (isset($item['terrarium_object'])) {
-            $return['terrarium'] = $item['terrarium_object'];
+        if (isset($item['terrarium'])) {
+            $return['terrarium'] = $item['terrarium'];
         }
 
         if (isset($item['age'])) {
@@ -83,23 +83,23 @@ class AnimalTransformer extends Transformer
         }
 
         if (isset($item['feedings'])) {
-            $return['feedings'] = (new AnimalFeedingTransformer())->transformCollection($item['feedings']);
+            $return['feedings'] = (new AnimalFeedingEventTransformer())->transformCollection($item['feedings']);
         }
 
         if (isset($item['feeding_schedules'])) {
-            $return['feeding_schedules'] = (new AnimalFeedingScheduleTransformer())->transformCollection($item['feeding_schedules']);
+            $return['feeding_schedules'] = (new AnimalFeedingSchedulePropertyTransformer())->transformCollection($item['feeding_schedules']);
         }
 
         if (isset($item['weighings'])) {
-            $return['weighings'] = (new AnimalWeighingTransformer())->transformCollection($item['weighings']);
+            $return['weighings'] = (new AnimalWeighingEventTransformer())->transformCollection($item['weighings']);
         }
 
         if (isset($item['weighing_schedules'])) {
-            $return['weighing_schedules'] = (new AnimalWeighingScheduleTransformer())->transformCollection($item['weighing_schedules']);
+            $return['weighing_schedules'] = (new AnimalWeighingSchedulePropertyTransformer())->transformCollection($item['weighing_schedules']);
         }
 
         if (isset($item['biography_entries'])) {
-            $return['biography_entries'] = (new BiographyEntryTransformer())->transformCollection($item['biography_entries']);
+            $return['biography_entries'] = (new BiographyEntryEventTransformer())->transformCollection($item['biography_entries']);
         }
 
         return $return;

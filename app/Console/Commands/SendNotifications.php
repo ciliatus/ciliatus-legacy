@@ -3,8 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Animal;
-use App\Repositories\AnimalFeedingScheduleRepository;
-use App\Repositories\AnimalWeighingScheduleRepository;
+use App\Repositories\AnimalFeedingSchedulePropertyRepository;
+use App\Repositories\AnimalWeighingSchedulePropertyRepository;
 use App\User;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
@@ -36,7 +36,7 @@ class SendNotifications extends Command
         $weighings_due = '';
         foreach (Animal::get() as $animal) {
             foreach ($animal->weighing_schedules as $afs) {
-                $afs = (new AnimalWeighingScheduleRepository($afs))->show();
+                $afs = (new AnimalWeighingSchedulePropertyRepository($afs))->show();
                 if ($afs->next_weighing_at_diff <= 0) {
                     $is_weighings_due = true;
                     $weighings_due .= PHP_EOL . ' * ' . $animal->display_name;
@@ -48,7 +48,7 @@ class SendNotifications extends Command
         $feedings_due = '';
         foreach (Animal::get() as $animal) {
             foreach ($animal->feeding_schedules as $afs) {
-                $afs = (new AnimalFeedingScheduleRepository($afs))->show();
+                $afs = (new AnimalFeedingSchedulePropertyRepository($afs))->show();
                 if ($afs->next_feeding_at_diff <= 0) {
                     $is_feedings_due = true;
                     $feedings_due .= PHP_EOL . ' * ' . $animal->display_name . ': ' . $afs->name;

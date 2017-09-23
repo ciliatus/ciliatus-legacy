@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\LogicalSensorThreshold;
+namespace Tests\Feature\API\LogicalSensorThreshold;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

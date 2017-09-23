@@ -3,7 +3,6 @@
 namespace App\Http\Controllers\Api;
 
 use App\Controlunit;
-use App\Http\Transformers\ControlunitTransformer;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -13,64 +12,28 @@ use Illuminate\Http\Request;
  */
 class ControlunitController extends ApiController
 {
-    /**
-     * @var ControlunitTransformer
-     */
-    protected $controlunitTransformer;
 
-    /**
-     * ControlunitController constructor.
-     * @param ControlunitTransformer $_controlunitTransformer
-     */
-    public function __construct(ControlunitTransformer $_controlunitTransformer)
+    public function __construct()
     {
         parent::__construct();
-        $this->controlunitTransformer = $_controlunitTransformer;
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function index(Request $request)
     {
-        if (Gate::denies('api-list')) {
-            return $this->respondUnauthorized();
-        }
-
-        $controlunits = Controlunit::with('physical_sensors', 'valves', 'pumps', 'generic_components');
-
-        $controlunits = $this->filter($request, $controlunits);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $controlunits,
-            $this->controlunitTransformer
-        );
-        
+        return parent::default_index($request);
     }
 
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-
-        if (Gate::denies('api-read')) {
-            return $this->respondUnauthorized();
-        }
-
-        $controlunit = Controlunit::with('physical_sensors', 'valves', 'pumps', 'generic_components')->find($id);
-
-        if (!$controlunit) {
-            return $this->respondNotFound('Controlunit not found');
-        }
-
-        return $this->setStatusCode(200)->respondWithData(
-            $this->controlunitTransformer->transform(
-                $controlunit->toArray()
-            )
-        );
+        return parent::default_show($request, $id);
     }
 
 
@@ -198,7 +161,7 @@ class ControlunitController extends ApiController
             return $this->setStatusCode(422)->respondWithError('Controlunit not found');
         }
 
-        if ($request->has('software_version')) {
+        if ($request->filled('software_version')) {
             $controlunit->software_version = $request->input('software_version');
         }
 

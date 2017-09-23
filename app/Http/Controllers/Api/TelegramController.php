@@ -7,10 +7,8 @@ use App\Traits\SendsApiAiRequests;
 use App\UserSetting;
 use Gate;
 use Illuminate\Http\Request;
-use GuzzleHttp\Client;
 use Mockery\CountValidator\Exception;
 use Telegram\Bot\HttpClients\GuzzleHttpClient;
-use ApiAi\Client as ApiAiClient;
 
 
 /**
@@ -21,14 +19,6 @@ class TelegramController extends PublicApiController
 {
 
     use SendsApiAiRequests;
-
-    /**
-     * TelegramController constructor.
-     */
-    public function __construct()
-    {
-        parent::__construct();
-    }
 
     /**
      * @param Request $request

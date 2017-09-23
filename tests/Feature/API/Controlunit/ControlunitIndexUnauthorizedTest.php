@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\Controlunit;
+namespace Tests\Feature\API\Controlunit;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;

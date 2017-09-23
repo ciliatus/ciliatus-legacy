@@ -2,7 +2,41 @@
 
 namespace App\Providers;
 
-use Illuminate\Support\Facades\Event;
+use App\Action;
+use App\ActionSequence;
+use App\ActionSequenceIntention;
+use App\ActionSequenceSchedule;
+use App\ActionSequenceTrigger;
+use App\Animal;
+use App\Controlunit;
+use App\File;
+use App\GenericComponent;
+use App\GenericComponentType;
+use App\LogicalSensor;
+use App\Observers\ActionObserver;
+use App\Observers\ActionSequenceIntentionObserver;
+use App\Observers\ActionSequenceObserver;
+use App\Observers\ActionSequenceScheduleObserver;
+use App\Observers\ActionSequenceTriggerObserver;
+use App\Observers\AnimalObserver;
+use App\Observers\ControlunitObserver;
+use App\Observers\CriticalStateObserver;
+use App\Observers\FileObserver;
+use App\Observers\GenericComponentObserver;
+use App\Observers\GenericComponentTypeObserver;
+use App\Observers\LogicalSensorObserver;
+use App\Observers\PhysicalSensorObserver;
+use App\Observers\PumpObserver;
+use App\Observers\SensorreadingObserver;
+use App\Observers\TerrariumObserver;
+use App\Observers\UserAbilityObserver;
+use App\Observers\UserObserver;
+use App\PhysicalSensor;
+use App\Pump;
+use App\Sensorreading;
+use App\Terrarium;
+use App\User;
+use App\UserAbility;
 use Illuminate\Foundation\Support\Providers\EventServiceProvider as ServiceProvider;
 
 class EventServiceProvider extends ServiceProvider
@@ -27,6 +61,22 @@ class EventServiceProvider extends ServiceProvider
     {
         parent::boot();
 
-        //
+        Action::observe(ActionObserver::class);
+        ActionSequence::observe(ActionSequenceObserver::class);
+        ActionSequenceIntention::observe(ActionSequenceIntentionObserver::class);
+        ActionSequenceSchedule::observe(ActionSequenceScheduleObserver::class);
+        ActionSequenceTrigger::observe(ActionSequenceTriggerObserver::class);
+        Animal::observe(AnimalObserver::class);
+        Controlunit::observe(ControlunitObserver::class);
+        File::observe(FileObserver::class);
+        GenericComponent::observe(GenericComponentObserver::class);
+        GenericComponentType::observe(GenericComponentTypeObserver::class);
+        LogicalSensor::observe(LogicalSensorObserver::class);
+        PhysicalSensor::observe(PhysicalSensorObserver::class);
+        Pump::observe(PumpObserver::class);
+        Sensorreading::observe(SensorreadingObserver::class);
+        Terrarium::observe(TerrariumObserver::class);
+        UserAbility::observe(UserAbilityObserver::class);
+        User::observe(UserObserver::class);
     }
 }

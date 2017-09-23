@@ -31,27 +31,27 @@ Route::get('animals/caresheets/create', 'AnimalController@create_caresheet');
 Route::get('animals/{animal_id}/caresheets/create', 'AnimalController@create_caresheet');
 
 // Feedingtypes
-Route::get('animals/feedings/types', 'AnimalFeedingController@edit_types');
-Route::get('animals/feedings/types/create', 'AnimalFeedingController@create_type');
+Route::get('animals/feedings/types', 'AnimalFeedingEventController@edit_types');
+Route::get('animals/feedings/types/create', 'AnimalFeedingEventController@create_type');
 
 // Feedings
-Route::get('animals/{animal_id}/feedings/{id}/delete', 'AnimalFeedingController@delete');
-Route::resource('animals/{animal_id}/feedings', 'AnimalFeedingController');
-Route::resource('animals/{animal_id}/feeding_schedules', 'AnimalFeedingScheduleController');
+Route::get('animals/{animal_id}/feedings/{id}/delete', 'AnimalFeedingEventController@delete');
+Route::resource('animals/{animal_id}/feedings', 'AnimalFeedingEventController');
+Route::resource('animals/{animal_id}/feeding_schedules', 'AnimalFeedingSchedulePropertyController');
 
 // Feeding schedules
-Route::get('animals/{animal_id}/feeding_schedules/{id}/delete', 'AnimalFeedingScheduleController@delete');
-Route::get('animal_feeding_schedules', 'AnimalFeedingScheduleController@index');
+Route::get('animals/{animal_id}/feeding_schedules/{id}/delete', 'AnimalFeedingSchedulePropertyController@delete');
+Route::get('animal_feeding_schedules', 'AnimalFeedingSchedulePropertyController@index');
 
 // Weighings
-Route::get('animals/weighings', 'AnimalWeighingController@index');
-Route::get('animals/{animal_id}/weighings/{id}/delete', 'AnimalWeighingController@delete');
-Route::resource('animals/{animal_id}/weighings', 'AnimalWeighingController');
-Route::resource('animals/{animal_id}/weighing_schedules', 'AnimalWeighingScheduleController');
+Route::get('animals/weighings', 'AnimalWeighingEventController@index');
+Route::get('animals/{animal_id}/weighings/{id}/delete', 'AnimalWeighingEventController@delete');
+Route::resource('animals/{animal_id}/weighings', 'AnimalWeighingEventController');
+Route::resource('animals/{animal_id}/weighing_schedules', 'AnimalWeighingSchedulePropertyController');
 
 // Weighing schedules
-Route::get('animal_weighing_schedules', 'AnimalWeighingScheduleController@index');
-Route::get('animals/{animal_id}/weighing_schedules/{id}/delete', 'AnimalWeighingScheduleController@delete');
+Route::get('animal_weighing_schedules', 'AnimalWeighingSchedulePropertyController@index');
+Route::get('animals/{animal_id}/weighing_schedules/{id}/delete', 'AnimalWeighingSchedulePropertyController@delete');
 
 /*
  * Terraria

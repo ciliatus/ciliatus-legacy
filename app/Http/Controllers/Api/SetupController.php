@@ -6,8 +6,6 @@ use App\Property;
 use App\User;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 /**
  * Class SetupController
  * @package App\Http\Controllers\Api
@@ -84,7 +82,7 @@ class SetupController extends ApiController
             return $this->setStatusCode(422)->respondWithError(trans('errors.email_taken'));
         }
 
-        if ($request->has('password') && $request->has('password_2')) {
+        if ($request->filled('password') && $request->filled('password_2')) {
             if ($request->input('password') !== $request->input('password_2')) {
                 return $this->setStatusCode(422)->respondWithError(trans('errors.passwords_do_not_match'));
             }

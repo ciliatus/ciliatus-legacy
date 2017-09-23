@@ -1,6 +1,6 @@
 <?php
 
-namespace Tests\Feature\LogicalSensor;
+namespace Tests\Feature\API\LogicalSensor;
 
 use App\LogicalSensor;
 use App\PhysicalSensor;
@@ -43,7 +43,7 @@ class LogicalSensorStoreOkTest extends TestCase
 
         $id = $response->decodeResponseJson()['data']['id'];
 
-        $response = $this->get('/api/v1/logical_sensors/' . $id, [
+        $response = $this->get('/api/v1/logical_sensors/' . $id . '/?with[]=physical_sensor', [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);

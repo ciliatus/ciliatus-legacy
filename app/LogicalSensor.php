@@ -4,43 +4,18 @@ namespace App;
 
 use App\Events\LogicalSensorDeleted;
 use App\Events\LogicalSensorUpdated;
+use App\Traits\HasCriticalStates;
+use App\Traits\Uuids;
 use Carbon\Carbon;
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 /**
  * Class LogicalSensor
- *
  * @package App
- * @property string $id
- * @property string $name
- * @property string $physical_sensor_id
- * @property string $type
- * @property float $rawvalue
- * @property float $rawvalue_lowerlimit
- * @property float $rawvalue_upperlimit
- * @property mixed $soft_state_duration_minutes
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\CriticalState[] $critical_states
- * @property-read \App\PhysicalSensor $physical_sensor
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Sensorreading[] $sensorreadings
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\LogicalSensorThreshold[] $thresholds
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor wherePhysicalSensorId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereRawvalue($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereRawvalueLowerlimit($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereRawvalueUpperlimit($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereSoftStateDurationMinutes($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereType($value)
- * @method static \Illuminate\Database\Query\Builder|\App\LogicalSensor whereUpdatedAt($value)
- * @mixin \Eloquent
  */
-class LogicalSensor extends CiliatusModel
+class LogicalSensor extends Component
 {
-    use Traits\Uuids;
+    use Uuids, HasCriticalStates, Notifiable;
 
     /**
      * Indicates if the IDs are auto-incrementing.
@@ -56,33 +31,19 @@ class LogicalSensor extends CiliatusModel
     protected $fillable = ['name', 'physical_sensor_id', 'type'];
 
     /**
+     * Overrides Component->notification_type_name
      *
+     * @var string
      */
-    public function delete()
-    {
-        $this->thresholds()->delete();
-        $this->properties()->delete();
-
-        broadcast(new LogicalSensorDeleted($this->id));
-
-        parent::delete();
-    }
-
+    protected $notification_type_name = 'logical_sensors';
 
     /**
-     * @param array $options
-     * @return bool
+     * @var array
      */
-    public function save(array $options = [])
-    {
-        $result = parent::save($options);
-
-        if (!isset($options['silent'])) {
-            broadcast(new LogicalSensorUpdated($this));
-        }
-
-        return $result;
-    }
+    protected $dispatchesEvents = [
+        'updated' => LogicalSensorUpdated::class,
+        'deleting' => LogicalSensorDeleted::class
+    ];
 
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
@@ -342,5 +303,18 @@ class LogicalSensor extends CiliatusModel
     public function url()
     {
         return url('logical_sensors/' . $this->id);
+    }
+
+    /**
+     * @param $type
+     * @param $locale
+     * @return array|\Illuminate\Contracts\Translation\Translator|null|string
+     */
+    protected function getCriticalStateNotificationsText($type, $locale)
+    {
+        return trans('messages.' . $type . '_' . $this->notification_type_name . '.' . $this->type, [
+            'logical_sensor' => $this->name,
+            $this->type => $this->getCurrentCookedValue()
+        ], $locale);
     }
 }
