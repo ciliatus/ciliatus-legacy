@@ -23,15 +23,34 @@
     <div id="tab_overview" class="col s12">
         <div class="container">
             <div class="row">
-                <animals-widget animal-id="{{ $animal->id }}"
-                                         :subscribe-add="false" :subscribe-delete="false"
-                                         container-classes="col s12 m6 l4" wrapper-classes=""></animals-widget>
+                <div class="col s12 m5 l4">
+                    <animals-widget animal-id="{{ $animal->id }}"
+                                    :subscribe-add="false" :subscribe-delete="false"
+                                    container-classes="row" wrapper-classes="col s12"></animals-widget>
 
-                @if (!is_null($animal->terrarium))
-                <terraria-widget terrarium-id="{{ $animal->terrarium_id }}"
-                                         :subscribe-add="false" :subscribe-delete="false"
-                                         container-classes="col s12 m6 l4" wrapper-classes=""></terraria-widget>
-                @endif
+                    @if (!is_null($animal->terrarium))
+                    <terraria-widget terrarium-id="{{ $animal->terrarium_id }}"
+                                     :subscribe-add="false" :subscribe-delete="false"
+                                     container-classes="row" wrapper-classes="col s12"></terraria-widget>
+                    @endif
+                </div>
+                <div class="col s12 m7 l8">
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="material-icons">timeline</i>
+                            <span>@lang('labels.weighprogression')</span>
+                        </div>
+                        <div class="card-content">
+                            <google-graph type="line" event-type="AnimalWeighingEventUpdated"
+                                          vertical-axis-title="@lang('labels.weight')" horizontal-axis-title="@lang('labels.date')"
+                                          source="{{ url('api/v1/animals/' . $animal->id .'/weighings?graph=true') }}"
+                                          :show-filter-form="true" filter-column="created_at"
+                                          filter-from-date="{{ Carbon\Carbon::now()->subMonths(env('ANIMAL_DEFAULT_WEIGHT_HISTORY_MONTHS', 12))->toDateString() }}"
+                                          id="animal_weigh_overview_graph"
+                                          :height="400"></google-graph>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -72,6 +91,7 @@
                 <div class="col s12 m12 l8">
                     <div class="card">
                         <div class="card-header">
+                            <i class="material-icons">timeline</i>
                             <span>@lang('labels.weighprogression')</span>
                         </div>
                         <div class="card-content">
@@ -80,6 +100,7 @@
                                           source="{{ url('api/v1/animals/' . $animal->id .'/weighings?graph=true') }}"
                                           :show-filter-form="true" filter-column="created_at"
                                           filter-from-date="{{ Carbon\Carbon::now()->subMonths(env('ANIMAL_DEFAULT_WEIGHT_HISTORY_MONTHS', 12))->toDateString() }}"
+                                          id="animal_weigh_details_graph"
                                           :height="400"></google-graph>
                         </div>
                     </div>
@@ -101,6 +122,7 @@
                     <div class="col s12 m7 l8">
                         <div class="card">
                             <div class="card-header">
+                                <i class="material-icons">timeline</i>
                                 @lang('labels.temp_and_hum_history')
                             </div>
                             <div class="card-content">

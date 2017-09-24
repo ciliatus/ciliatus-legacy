@@ -29,11 +29,6 @@
                 </div>
 
                 <div class="card-content">
-                    <span class="card-title activator truncate">
-                        <span>{{ $tc("components.animal_weighings", 2) }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
-
                     <div v-for="af in animal_weighings">
                         <div style="width: 100%;" class="row row-no-margin">
                             <span v-if="af.timestamps.created_diff.days > 1">{{ $t('units.days_ago', {val: af.timestamps.created_diff.days}) }}</span>
@@ -50,13 +45,6 @@
 
                 <div class="card-action">
                     <a v-bind:href="'#modal_add_weighing_' + animalId" v-bind:onclick="'$(\'#modal_add_weighing_' + animalId + '\').modal(); $(\'#modal_add_weighing_' + animalId + ' select\').material_select(); $(\'#modal_add_weighing_' + animalId + '\').modal(\'open\');'">{{ $t("buttons.add") }}</a>
-                </div>
-
-                <div class="card-reveal">
-                    <span class="card-title"><i class="material-icons right">close</i></span>
-
-                    <p>
-                    </p>
                 </div>
             </div>
         </div>

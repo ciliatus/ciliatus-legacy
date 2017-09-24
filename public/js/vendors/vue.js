@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 148);
+/******/ 	return __webpack_require__(__webpack_require__.s = 151);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -131,7 +131,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(42),
   /* template */
-  __webpack_require__(123),
+  __webpack_require__(126),
   /* scopeId */
   null,
   /* cssModules */
@@ -192,7 +192,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(16),
   /* template */
-  __webpack_require__(141),
+  __webpack_require__(144),
   /* scopeId */
   null,
   /* cssModules */
@@ -226,7 +226,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(41),
   /* template */
-  __webpack_require__(132),
+  __webpack_require__(135),
   /* scopeId */
   null,
   /* cssModules */
@@ -273,92 +273,94 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_peity__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue_peity___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue_peity__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_i18n__ = __webpack_require__(59);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vue_system_indicator_vue__ = __webpack_require__(95);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vue_i18n__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vue_system_indicator_vue__ = __webpack_require__(97);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vue_system_indicator_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__vue_system_indicator_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vue_loading_indicator_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vue_loading_indicator_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__vue_loading_indicator_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__vue_dashboard_widget_vue__ = __webpack_require__(79);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__vue_dashboard_widget_vue__ = __webpack_require__(80);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__vue_dashboard_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__vue_dashboard_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__vue_google_graph_vue__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__vue_google_graph_vue__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__vue_google_graph_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__vue_google_graph_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__vue_dygraph_graph_vue__ = __webpack_require__(80);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__vue_dygraph_graph_vue__ = __webpack_require__(81);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__vue_dygraph_graph_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__vue_dygraph_graph_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__vue_chartjs_graph_vue__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__vue_chartjs_graph_vue__ = __webpack_require__(76);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__vue_chartjs_graph_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_7__vue_chartjs_graph_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__vue_inline_graph_vue__ = __webpack_require__(4);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__vue_inline_graph_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_8__vue_inline_graph_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__vue_animals_widget_vue__ = __webpack_require__(70);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__vue_animals_widget_vue__ = __webpack_require__(71);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__vue_animals_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_9__vue_animals_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__vue_animal_feedings_widget_vue__ = __webpack_require__(66);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__vue_animal_feedings_widget_vue__ = __webpack_require__(67);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__vue_animal_feedings_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_10__vue_animal_feedings_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__vue_animal_feeding_schedules_widget_vue__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__vue_animal_feeding_schedules_widget_vue__ = __webpack_require__(66);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_11__vue_animal_feeding_schedules_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_11__vue_animal_feeding_schedules_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__vue_animal_feeding_schedules_matrix_widget_vue__ = __webpack_require__(64);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__vue_animal_feeding_schedules_matrix_widget_vue__ = __webpack_require__(65);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__vue_animal_feeding_schedules_matrix_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_12__vue_animal_feeding_schedules_matrix_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__vue_animal_weighing_schedules_matrix_widget_vue__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__vue_animal_weighing_schedules_matrix_widget_vue__ = __webpack_require__(68);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_13__vue_animal_weighing_schedules_matrix_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_13__vue_animal_weighing_schedules_matrix_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__vue_animal_weighings_widget_vue__ = __webpack_require__(69);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__vue_animal_weighings_widget_vue__ = __webpack_require__(70);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__vue_animal_weighings_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_14__vue_animal_weighings_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__vue_animal_weighing_schedules_widget_vue__ = __webpack_require__(68);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__vue_animal_weighing_schedules_widget_vue__ = __webpack_require__(69);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_15__vue_animal_weighing_schedules_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_15__vue_animal_weighing_schedules_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__vue_terraria_widget_vue__ = __webpack_require__(97);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__vue_terraria_widget_vue__ = __webpack_require__(99);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__vue_terraria_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__vue_terraria_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__vue_terraria_overview_widget_vue__ = __webpack_require__(96);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__vue_terraria_overview_widget_vue__ = __webpack_require__(98);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__vue_terraria_overview_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__vue_terraria_overview_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__vue_controlunit_widget_vue__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__vue_controlunit_widget_vue__ = __webpack_require__(78);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__vue_controlunit_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__vue_controlunit_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__vue_controlunits_list_widget_vue__ = __webpack_require__(78);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__vue_controlunits_list_widget_vue__ = __webpack_require__(79);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__vue_controlunits_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__vue_controlunits_list_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__vue_files_widget_vue__ = __webpack_require__(83);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__vue_files_widget_vue__ = __webpack_require__(84);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__vue_files_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__vue_files_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__vue_files_list_widget_vue__ = __webpack_require__(81);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__vue_files_list_widget_vue__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_21__vue_files_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_21__vue_files_list_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__vue_files_show_widget_vue__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__vue_files_show_widget_vue__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_22__vue_files_show_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_22__vue_files_show_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__vue_action_sequences_list_widget_vue__ = __webpack_require__(61);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__vue_action_sequences_list_widget_vue__ = __webpack_require__(62);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_23__vue_action_sequences_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_23__vue_action_sequences_list_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__vue_action_sequences_widget_vue__ = __webpack_require__(62);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__vue_action_sequences_widget_vue__ = __webpack_require__(63);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_24__vue_action_sequences_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_24__vue_action_sequences_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__vue_action_sequence_schedule_widget_vue__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__vue_action_sequence_schedule_widget_vue__ = __webpack_require__(61);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_25__vue_action_sequence_schedule_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_25__vue_action_sequence_schedule_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__vue_pumps_widget_vue__ = __webpack_require__(94);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__vue_pumps_widget_vue__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__vue_pumps_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_26__vue_pumps_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__vue_pumps_list_widget_vue__ = __webpack_require__(93);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__vue_pumps_list_widget_vue__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__vue_pumps_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_27__vue_pumps_list_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__vue_valves_widget_vue__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__vue_valves_widget_vue__ = __webpack_require__(102);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__vue_valves_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_28__vue_valves_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__vue_valves_list_widget_vue__ = __webpack_require__(99);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__vue_valves_list_widget_vue__ = __webpack_require__(101);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__vue_valves_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_29__vue_valves_list_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__vue_physical_sensors_widget_vue__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__vue_physical_sensors_widget_vue__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__vue_physical_sensors_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_30__vue_physical_sensors_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__vue_physical_sensors_list_widget_vue__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__vue_physical_sensors_list_widget_vue__ = __webpack_require__(93);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__vue_physical_sensors_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_31__vue_physical_sensors_list_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__vue_logical_sensors_widget_vue__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__vue_logical_sensors_widget_vue__ = __webpack_require__(91);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__vue_logical_sensors_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_32__vue_logical_sensors_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__vue_logical_sensors_list_widget_vue__ = __webpack_require__(88);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__vue_logical_sensors_list_widget_vue__ = __webpack_require__(90);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__vue_logical_sensors_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_33__vue_logical_sensors_list_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__vue_generic_components_widget_vue__ = __webpack_require__(86);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__vue_generic_components_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_34__vue_generic_components_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__vue_generic_components_list_widget_vue__ = __webpack_require__(85);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__vue_generic_components_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_35__vue_generic_components_list_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__vue_users_widget_vue__ = __webpack_require__(98);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__vue_users_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_36__vue_users_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__vue_biography_entries_widget_vue__ = __webpack_require__(72);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__vue_biography_entries_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_37__vue_biography_entries_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__vue_caresheets_widget_vue__ = __webpack_require__(74);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__vue_caresheets_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_38__vue_caresheets_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__vue_logs_widget_vue__ = __webpack_require__(90);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__vue_logs_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_39__vue_logs_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__vue_components_list_widget_vue__ = __webpack_require__(76);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__vue_components_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_40__vue_components_list_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__vue_api_io_widget_vue__ = __webpack_require__(71);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__vue_api_io_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_41__vue_api_io_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__vue_bus_type_edit_form_vue__ = __webpack_require__(73);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__vue_bus_type_edit_form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_42__vue_bus_type_edit_form_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__vue_generic_component_type_create_form_vue__ = __webpack_require__(84);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__vue_generic_component_type_create_form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_43__vue_generic_component_type_create_form_vue__);
-var Vue = __webpack_require__(145);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__vue_logical_sensor_thresholds_widget_vue__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__vue_logical_sensor_thresholds_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_34__vue_logical_sensor_thresholds_widget_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__vue_generic_components_widget_vue__ = __webpack_require__(87);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__vue_generic_components_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_35__vue_generic_components_widget_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__vue_generic_components_list_widget_vue__ = __webpack_require__(86);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_36__vue_generic_components_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_36__vue_generic_components_list_widget_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__vue_users_widget_vue__ = __webpack_require__(100);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_37__vue_users_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_37__vue_users_widget_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__vue_biography_entries_widget_vue__ = __webpack_require__(73);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__vue_biography_entries_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_38__vue_biography_entries_widget_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__vue_caresheets_widget_vue__ = __webpack_require__(75);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__vue_caresheets_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_39__vue_caresheets_widget_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__vue_logs_widget_vue__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__vue_logs_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_40__vue_logs_widget_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__vue_components_list_widget_vue__ = __webpack_require__(77);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__vue_components_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_41__vue_components_list_widget_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__vue_api_io_widget_vue__ = __webpack_require__(72);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_42__vue_api_io_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_42__vue_api_io_widget_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__vue_bus_type_edit_form_vue__ = __webpack_require__(74);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_43__vue_bus_type_edit_form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_43__vue_bus_type_edit_form_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__vue_generic_component_type_create_form_vue__ = __webpack_require__(85);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_44__vue_generic_component_type_create_form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_44__vue_generic_component_type_create_form_vue__);
+var Vue = __webpack_require__(148);
 
 
 
@@ -406,7 +408,7 @@ window.eventHubVue = new Vue({
 
 Vue.use(__WEBPACK_IMPORTED_MODULE_1_vue_i18n__["a" /* default */]);
 
-var locales = __webpack_require__(56);
+var locales = __webpack_require__(57);
 var lang = $('body').data('lang');
 var locales_array = [];
 Object.keys(locales).forEach(function (lang) {
@@ -446,6 +448,7 @@ TimeStringFormatter.install = function (Vue, options) {
 };
 
 Vue.use(TimeStringFormatter);
+
 
 
 
@@ -558,18 +561,19 @@ window.bodyVue = new Vue({
         'physical_sensors-list-widget': __WEBPACK_IMPORTED_MODULE_31__vue_physical_sensors_list_widget_vue___default.a,
         'logical_sensors-widget': __WEBPACK_IMPORTED_MODULE_32__vue_logical_sensors_widget_vue___default.a,
         'logical_sensors-list-widget': __WEBPACK_IMPORTED_MODULE_33__vue_logical_sensors_list_widget_vue___default.a,
-        'generic_components-widget': __WEBPACK_IMPORTED_MODULE_34__vue_generic_components_widget_vue___default.a,
-        'generic_components-list-widget': __WEBPACK_IMPORTED_MODULE_35__vue_generic_components_list_widget_vue___default.a,
-        'users-widget': __WEBPACK_IMPORTED_MODULE_36__vue_users_widget_vue___default.a,
-        'biography_entries-widget': __WEBPACK_IMPORTED_MODULE_37__vue_biography_entries_widget_vue___default.a,
-        'caresheets-widget': __WEBPACK_IMPORTED_MODULE_38__vue_caresheets_widget_vue___default.a,
-        'logs-widget': __WEBPACK_IMPORTED_MODULE_39__vue_logs_widget_vue___default.a,
-        'components-list-widget': __WEBPACK_IMPORTED_MODULE_40__vue_components_list_widget_vue___default.a,
+        'logical_sensor_thresholds-widget': __WEBPACK_IMPORTED_MODULE_34__vue_logical_sensor_thresholds_widget_vue___default.a,
+        'generic_components-widget': __WEBPACK_IMPORTED_MODULE_35__vue_generic_components_widget_vue___default.a,
+        'generic_components-list-widget': __WEBPACK_IMPORTED_MODULE_36__vue_generic_components_list_widget_vue___default.a,
+        'users-widget': __WEBPACK_IMPORTED_MODULE_37__vue_users_widget_vue___default.a,
+        'biography_entries-widget': __WEBPACK_IMPORTED_MODULE_38__vue_biography_entries_widget_vue___default.a,
+        'caresheets-widget': __WEBPACK_IMPORTED_MODULE_39__vue_caresheets_widget_vue___default.a,
+        'logs-widget': __WEBPACK_IMPORTED_MODULE_40__vue_logs_widget_vue___default.a,
+        'components-list-widget': __WEBPACK_IMPORTED_MODULE_41__vue_components_list_widget_vue___default.a,
 
-        'api-io-widget': __WEBPACK_IMPORTED_MODULE_41__vue_api_io_widget_vue___default.a,
+        'api-io-widget': __WEBPACK_IMPORTED_MODULE_42__vue_api_io_widget_vue___default.a,
 
-        'bus-type-edit-form': __WEBPACK_IMPORTED_MODULE_42__vue_bus_type_edit_form_vue___default.a,
-        'generic_component_type_create-form': __WEBPACK_IMPORTED_MODULE_43__vue_generic_component_type_create_form_vue___default.a
+        'bus-type-edit-form': __WEBPACK_IMPORTED_MODULE_43__vue_bus_type_edit_form_vue___default.a,
+        'generic_component_type_create-form': __WEBPACK_IMPORTED_MODULE_44__vue_generic_component_type_create_form_vue___default.a
     }
 });
 
@@ -1047,12 +1051,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -1094,9 +1092,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
             });
             if (item === null) {
-                this.action_sequences.push(a.animal);
+                this.action_sequences.push(a.action_sequence);
             } else if (item !== null) {
-                this.action_sequences.splice(item, 1, a.animal);
+                this.action_sequences.splice(item, 1, a.action_sequence);
             }
         },
 
@@ -1507,18 +1505,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -1635,17 +1621,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -2010,18 +1985,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -2190,18 +2153,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -2315,7 +2266,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loading_indicator_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loading_indicator_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__loading_indicator_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__animal_add_feeding_modal_vue__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__animal_add_feeding_modal_vue__ = __webpack_require__(64);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__animal_add_feeding_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__animal_add_feeding_modal_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__animal_add_weight_modal_vue__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__animal_add_weight_modal_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__animal_add_weight_modal_vue__);
@@ -3900,20 +3851,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -6223,17 +6160,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -6350,17 +6276,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 //
 //
 //
@@ -8039,23 +7954,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -8614,6 +8512,152 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            logical_sensors: []
+        };
+    },
+
+
+    props: {
+        refreshTimeoutSeconds: {
+            type: Number,
+            default: null,
+            required: false
+        },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        }
+    },
+
+    methods: {
+        update: function update(a) {
+            var item = null;
+            this.logical_sensors.forEach(function (data, index) {
+                if (data.id === a.logical_sensor.id) {
+                    item = index;
+                }
+            });
+            if (item !== null) {
+                this.logical_sensors.splice(item, 1, a.logical_sensor);
+            }
+        },
+
+        delete: function _delete(a) {
+            var item = null;
+            this.logical_sensors.forEach(function (data, index) {
+                if (data.id === a.logical_sensor_id) {
+                    item = index;
+                }
+            });
+
+            if (item !== null) {
+                this.logical_sensors.splice(item, 1);
+            }
+        },
+
+        load_data: function load_data() {
+            window.eventHubVue.processStarted();
+            var that = this;
+            $.ajax({
+                url: '/api/v1/logical_sensors?with[]=thresholds&' + that.sourceFilter,
+                method: 'GET',
+                success: function success(data) {
+                    that.logical_sensors = data.data;
+
+                    window.eventHubVue.processEnded();
+                },
+                error: function error(_error) {
+                    console.log(JSON.stringify(_error));
+                    window.eventHubVue.processEnded();
+                }
+            });
+        }
+
+    },
+
+    created: function created() {
+        var _this = this;
+
+        window.echo.private('dashboard-updates').listen('LogicalSensorUpdated', function (e) {
+            _this.update(e);
+        }).listen('LogicalSensorDeleted', function (e) {
+            _this.delete(e);
+        });
+
+        var that = this;
+        setTimeout(function () {
+            that.load_data();
+        }, 100);
+
+        if (this.refreshTimeoutSeconds !== null) {
+            setInterval(function () {
+                that.load_data();
+            }, this.refreshTimeoutSeconds * 1000);
+        }
+    }
+});
+
+/***/ }),
+/* 44 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -8867,16 +8911,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 44 */
+/* 45 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
 //
 //
 //
@@ -9078,7 +9117,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 45 */
+/* 46 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9303,7 +9342,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 46 */
+/* 47 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9590,7 +9629,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 47 */
+/* 48 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -9782,7 +9821,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 48 */
+/* 49 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10016,7 +10055,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 49 */
+/* 50 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10204,7 +10243,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 50 */
+/* 51 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10279,7 +10318,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 51 */
+/* 52 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -10521,7 +10560,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 52 */
+/* 53 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11038,7 +11077,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 53 */
+/* 54 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11206,7 +11245,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 54 */
+/* 55 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11470,7 +11509,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 55 */
+/* 56 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -11671,15 +11710,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 56 */
+/* 57 */
 /***/ (function(module, exports) {
 
-module.exports = { "de": { "buttons": { "next": "Weiter", "save": "Speichern", "delete": "L\xF6schen", "delete_type": "{type} L\xF6schen", "delete_all_type": "Alle {type} l\xF6schen", "loadgraph": "Graph laden", "upload": "Hochladen", "start_setup": "Setup starten", "add": "Hinzuf\xFCgen", "add_intention": "Neue Intention", "add_property": "Neue Eigenschaft", "add_state": "Neuer Zustand", "create": "Hinzuf\xFCgen", "edit": "Bearbeiten", "details": "Details", "download": "Herunterladen", "emergency_stop": "Notaus", "emergency_resume": "Notus aufheben", "revoke": "Widerrufen", "irrigate": "Bew\xE4ssern", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "start": "Starten", "close": "Schlie\xDFen", "select_all_read": "Alles lesen", "select_all_list": "Alles auflisten", "select_all_write": "Alles schreiben" }, "components": { "User": "Benutzer|Benutzer", "user": "Benutzer|Benutzer", "users": "Benutzer|Benutzer", "Terrarium": "Terrarium|Terraria", "terrarium": "Terrarium|Terraria", "terraria": "Terrarium|Terrarien", "Animal": "Tier|Tiere", "animal": "Tier|Tiere", "animals": "Tier|Tiere", "Controlunit": "Steuereinheit|Steuereinheiten", "controlunit": "Steuereinheit|Steuereinheiten", "controlunits": "Steuereinheit|Steuereinheiten", "Pump": "Pumpe|Pumpen", "pump": "Pumpe|Pumpen", "pumps": "Pumpe|Pumpen", "Valve": "Ventil|Ventile", "valve": "Ventil|Ventile", "valves": "Ventil|Ventile", "PhysicalSensor": "Physischer Sensor|Physische Sensoren", "physical_sensor": "Physischer Sensor|Physische Sensoren", "physical_sensors": "Physischer Sensor|Physische Sensoren", "LogicalSensor": "Logischer Sensor|Logische Sensoren", "logical_sensor": "Logischer Sensor|Logische Sensoren", "logical_sensors": "Logischer Sensor|Logische Sensoren", "LogicalSensorThreshold": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "logical_sensor_threshold": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "logical_sensor_thresholds": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "File": "Datei|Dateien", "file": "Datei|Dateien", "files": "Datei|Dateien", "Log": "Systemlog|Systemlogs", "log": "Systemlog|Systemlogs", "logs": "Systemlog|Systemlogs", "Action": "Aktion|Aktionen", "action": "Aktion|Aktionen", "actions": "Aktion|Aktionen", "ActionSequence": "Aktionssequenz|Aktionssequenzen", "action_sequence": "Aktionssequenz|Aktionssequenzen", "action_sequences": "Aktionssequenz|Aktionssequenzen", "ActionSequenceSchedule": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "action_sequence_schedule": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "action_sequence_schedules": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "ActionSequenceTrigger": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "action_sequence_trigger": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "action_sequence_triggers": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "ActionSequenceIntention": "Aktionssequenz Intention|Aktionssequenz Intentionen", "action_sequence_intention": "Aktionssequenz Intention|Aktionssequenz Intentionen", "action_sequence_intentions": "Aktionssequenz Intention|Aktionssequenz Intentionen", "Trigger": "Ausl\xF6ser|Ausl\xF6ser", "trigger": "Ausl\xF6ser|Ausl\xF6ser", "triggers": "Ausl\xF6ser|Ausl\xF6ser", "admin_panel": "Admin Panel", "admin_panels": "Admin Panel", "AnimalFeedings": "F\xFCtterung|F\xFCtterungen", "animal_feeding": "F\xFCtterung|F\xFCtterungen", "animal_feedings": "F\xFCtterung|F\xFCtterungen", "AnimalFeedingSchedule": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "animal_feeding_schedule": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "animal_feeding_schedules": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "AnimalWeighings": "Wiegung|Wiegungen", "animal_weighing": "Wiegung|Wiegungen", "animal_weighings": "Wiegung|Wiegungen", "AnimalWeighingSchedule": "Wiegeplan|Wiegepl\xE4ne", "animal_weighing_schedule": "Wiegeplan|Wiegepl\xE4ne", "animal_weighing_schedules": "Wiegeplan|Wiegepl\xE4ne", "BiographyEntryEvent": "Biografieeintrag|Biografieeintr\xE4ge", "biography_entry": "Biografieeintrag|Biografieeintr\xE4ge", "biography_entries": "Biografieeintrag|Biografieeintr\xE4ge", "CaresheetEvent": "Begleitblatt|Begleitbl\xE4tter", "caresheet": "Begleitblatt|Begleitbl\xE4tter", "caresheets": "Begleitblatt|Begleitbl\xE4tter", "GenericComponents": "Generische Komponente|Generische Komponenten", "generic_components": "Generische Komponente|Generische Komponenten", "GenericComponentTypes": "Generischer Komponententyp|Generische Komponententypen", "generic_component_type": "Generischer Komponententyp|Generische Komponententypen", "generic_component_types": "Generischer Komponententyp|Generische Komponententypen", "SuggestionEvent": "Vorschlag|Vorschl\xE4ge", "suggestion": "Vorschlag|Vorschl\xE4ge", "suggestions": "Vorschlag|Vorschl\xE4ge" }, "errors": { "retrievegraphdata": "Could not retrieve graph data.", "auth": { "failed": "Authentication failed." } }, "labels": { "connecting": "Verbinde", "title": "Titel", "text": "Text", "tags": "Tags", "status": "Status", "health": "Gesundheit", "birth": "Geburt", "gender": "Geschlecht", "gender_male": "M\xE4nnlich", "gender_female": "Weiblich", "date": "Datum", "date_birth": "Geburtstag", "date_death": "Todestag", "model": "Modell", "type": "Typ", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Anzeigename", "common_name": "Gemeiner Name", "latin_name": "Lateinischer Name", "temperature": "Temperatur", "temperature_celsius": "Temperatur", "humidity": "Feuchtigkeit", "humidity_percent": "Feuchtigkeit", "heartbeat": "Puls", "last_heartbeat": "Letzter Puls", "noanimals": "Keine Tiere", "create": "Erstelle", "settings": "Einstellung|Einstellungen", "notifications": "Benachrichtigung|Benachrichtigungen", "notification_type": "Nachrichten Kanal", "details": "Details", "rawlimitlo": "Rohwert - unteres Limit", "rawlimithi": "Rohwert - oberes Limit", "file": "Datei", "files": "Dateien", "size": "Gr\xF6\xDFe", "current_value": "Aktueller Wert", "created_at": "Erstellt", "updated_at": "Letztes Update", "download": "Herunterladen", "properties": "Eigenschaften", "preview": "Vorschau", "source": "Quelle", "target": "Ziel", "associated_with": "Assoziiert mit", "log": "Log", "starts_at": "Beginnt um", "ends_at": "Endet um", "starts_after": "Startet nach", "thresholds": "Grenzwerte", "abilities": "F\xE4higkeit|F\xE4higkeiten", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto Nachtmodus", "permanent_nightmode": "Permanenter Nachtmodus", "language": "Sprache", "belongsTo_type": "Geh\xF6rt zu (Typ)", "belongsTo_id": "Geh\xF6rt zu (ID)", "belongsTo": "Geh\xF6rt zu", "doku": "Dokumentation", "step": "Schritt", "phone_number": "Telefonnummer", "template": "Vorlage", "timezone": "Zeitzone", "critical": "Kritisch", "ok": "OK", "running": "Laufend", "runs_since": "L\xE4uft seit", "queued": "Wartend", "criticalstates": "Kritische Zust\xE4nde", "since": "Seit", "state": "Zustand", "actions": "Aktionen", "irrigate": "Bew\xE4ssern", "duration": "Dauer", "on": "An", "off": "Aus", "just_fed": "F\xFCtterung hinzuf\xFCgen", "add_weight": "Gewicht hinzuf\xFCgen", "active": "Aktiv", "copy_thresholds": "Grenzwerte kopieren", "daily": "T\xE4glich", "last_feeding": "Letzte F\xFCtterung", "crickets": "Heimchen", "mixed_fruits": "Fruchtbrei", "beetle_jelly": "BeetleJelly", "due": "F\xE4llig", "overdue": "\xDCberf\xE4llig", "meal_type": "Nahrungsart", "interval_days": "Intervall in Tagen", "interval": "Intervall", "password": "Passwort", "action": "Aktion", "weight": "Gewicht", "no_data": "Keine Daten", "overview": "\xDCbersicht", "environment": "Umgebung", "now": "Jetzt", "scheduled": "Geplant", "sequence": "Sequenz", "weighprogression": "Gewichtsverlauf", "from": "Von", "tO": "Bis", "feedings": "F\xFCtterungen", "temp_and_hum_history": "Temperatur- und Feuchtigkeitsverlauf", "biography": "Biografie", "bio_categories": "Biografiekategorien", "icon": "Symbol", "average": "Durchschnitt", "min": "Minimum", "max": "Maximum", "during_day": "Tags", "during_night": "Nachts", "total": "Total", "infrastructure": "Infrastruktur", "timeframe_start": "Zeitrahmen ab", "timeframe_end": "Zeitrahmen bis", "reference_value": "Vergleichswert", "reference_value_duration_threshold_minutes": "Vergleichswert unter/\xFCberschritten seit (Minuten)", "for": "f\xFCr", "minimum_timeout_minutes": "Timeout (Minuten)", "emergency_stop": "Notaus", "increases": "Erh\xF6ht", "increase": "Erh\xF6ht", "decreases": "Senkt", "decrease": "Senkt", "personal_access_tokens": "Zugriffstoken", "expires": "L\xE4uft ab", "security": "Sicherheit", "general": "Allgemein", "component": "Komponente", "to": "Bis", "daily_reminders": "T\xE4gliche Erinnerungen", "yesterday": "Gestern", "tomorrow": "Morgen", "today": "Heute", "runonce": "Nur einmal ausf\xFChren", "intention": "Intention", "deceased": "Verstorben", "software_version": "Software Version", "use_as_background": "Als Hintergrund verwenden", "relation_map": "Beziehungskarte", "start_action_sequence": "Aktionssequenz starten", "suggestions": "Vorschl\xE4ge", "suggestions_unit": "Mind. Vorkommnisse", "suggestion_timeframe_unit": "Zeitrahmen (Einheit)", "suggestions_timeframe": "Zeitrahmen", "bus": "Bus", "i2c_address": "I2C Adresse", "i2c_multiplexer_address": "I2C Multiplexer Adresse", "i2c_multiplexer_port": "I2C Multiplexer Port", "gpio_pin": "GPIO Pin", "gpio_default_high": "GPIO Standard High", "configuration": "Konfiguration", "yes": "Ja", "no": "Nein", "rawvalue": "Rohwert", "adjust_rawvalue": "Rohwertkorrektur", "filter": "Filter", "logout": "Ausloggen", "login": "Einloggen", "ask_me_something": "Frag mich etwas", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "between": "zwischen", "and": "und", "association": "Verkn\xFCpfung", "choose_logfile": "Log-Datei ausw\xE4hlen", "no_image": "Kein Bild", "features": "Features", "rollperiod": "Rollperiode", "add_preset": "Voreinstellung hinzuf\xFCgen" }, "languages": { "german": "Deutsch", "english": "Englisch" }, "menu": { "welcome": "Willkommen", "dashboard": "\xDCbersicht", "general": "Allgemein", "administration": "Administration", "create": "Erstellen", "edit": "Editieren", "delete": "L\xF6schen", "infrastructure": "Infrastruktur", "help": "Hilfe", "logout": "Abmelden", "animals": "Tiere", "terraria": "Terrarien", "users": "Benutzer", "animal_feeding_types": "Nahrungsarten", "logs": "Protokoll", "categories": "Kategorien", "monitoring": "\xDCberwachung", "automation": "Automatisierung", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "Alle preexistenten Grenzwerte des Zielsensors werden entfernt." }, "users": { "setup_telegram_ok": "Telegram ist eingerichtet.", "setup_telegram_err": "Telegram ist noch nicht eingerichtet.", "setup_telegram_description": "Bitte \xF6ffnen Sie Telegram in Ihrem <a href=\"https://web.telegram.org/#/im?p=@\">Browser</a> oder auf ihrem Smartphone und kontaktieren Sie <b>@</b> mit untenstehendem Aktivierungscode." }, "critical_state_generic": "Kritisch: {critical}_state", "critical_state_notification_logical_sensor": { "humidity_percent": "Kritisch: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "temperature_celsius": "Kritisch: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." }, "critical_state_recovery_notification_logical_sensor": { "humidity_percent": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "temperature_celsius": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." }, "critical_state_notification_controlunit": "Kritisch: Die Steuereinheit {controlunit} sendet keine Daten.", "critical_state_recovery_notification_controlunit": "OK: Die Steuereinheit {controlunit} sendet wieder Daten.", "daily": { "intro": "T\xE4gliche Erinnerungen", "feedings_due": "F\xE4llige F\xFCtterungen:", "weighings_due": "F\xE4llige Wiegungen:" }, "own_token_expires": "Token '{name}' l\xE4uft in {days} Tagen ab.", "suggestions": { "humidity_percent": "T\xE4gliche Aktionssequenz zum Bew\xE4ssern um {hour} Uhr" } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Willkommen zu Ciliatus", "create_user": "Erstelle Deinen Benutzer", "done": "Geschafft!", "what_now": "Was nun?", "login": "Einloggen", "tooltip_login": "Logge Dich mit Deinem soeben erstellten Nutzer bei Ciliatus an.", "add_terrarium": "Terrarium anlegen", "tooltip_add_terrarium": "Erstelle Dein erstes Terrarium in Ciliatus.", "add_animal": "Tier anlegen", "tooltip_add_animal": "Erstelle Dein erstes Tier und ordne es einem Terrarium zu.", "setup_telegram": "Telegram einrichten", "tooltip_setup_telegram": "Lerne, wie Du Telegram mit Ciliatus konfigurieren kannst.", "setup_controlunit": "Kontrolleinheit erstellen", "tooltip_setup_controlunit": "Lerne eine Kontrolleinheit und zugeordnete Sensoren anzulegen um damit zu beginnen Sensordaten zu Deinen Terrarien zu \xFCbermitteln.", "err_completed": "Das Setup wurde bereits durchgef\xFChrt." }, "tooltips": { "ctrltoselect": "Strg+Klick zum selektieren", "active": "Aktiv", "showondefaultdashboard": "Auf Default Dashboard anzeigen", "autoirrigation": "Automatische Bew\xE4sserung", "sendnotificationsfor": "Benachrichtigungen versenden f\xFCr", "loadandrendergraph": "Daten werden ermittelt und Graph wird gerendert", "disables_option": "Deaktiviert \"{option}\"", "phone_number": "Mobilnummer", "contact_bot": "Den Bot kontaktieren", "wait_confirmation": "Auf Best\xE4tigung warten", "set_state_to": "Zustand von <b>{target}</b> auf <b>{state}</b> \xE4ndern f\xFCr <b>{minutes} Minuten</b>", "start_after_started": "Startet wenn Schritt <b>{id}<\/b> gestartet wurde", "start_after_finished": "Startet wenn Schritt <b>{id}<\/b> beendet wurde", "sendnotifications": "Benachrichtigungen versenden", "no_schedules": "Keine Zeitpl\xE4ne", "runonce": "Einmalig", "heartbeat_critical": "Heartbeat ist kritisch!", "copy_thresholds_warning": "Alle existierenden Grenzwerte des Zielsensors werden entfernt.", "animal_feeding_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten F\xFCtterungspl\xE4ne. Die Zahl in einer Spalte stellt das Intervall dar.", "animal_weighing_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten Wiegepl\xE4ne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom n\xE4chsten F\xE4lligkeitsdatum dar.", "done": "Erledigt", "skip": "\xDCberspringen", "material_icons_list": "Die komplette Symbolliste ist unter <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> einsehbar.", "no_data": "Keine Daten.", "connecting_to_server": "Verbindung zum Ciliatus Server wird hergestellt. Sollte dies l\xE4nger als einige Sekunden dauern, \xFCberpr\xFCfen Sie bitte Ihre Internetverbindung.", "generic_components": { "about": "Generische Komponenten sind Komponenten eines benutzerdefinierten Typs.", "type_about": "Generische Komponententypen definieren Name, Eigenschaften und m\xF6gliche Zust\xE4nde f\xFCr generische Komponenten. Sie dienen als Vorlage beim Erstellen einer neuen generischen Komponente.", "property_templates": "Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszuf\xFCllen.", "state_templates": "Definiert m\xF6gliche Zust\xE4nde die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zust\xE4nden den gew\xFCnschten Zustand ausw\xE4hlen.<br /><br />Die Checkbox links definiert den standardm\xE4\xDFigen 'laufend'-Zustand.", "type_delete_warning": "Beim L\xF6schen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gel\xF6scht.", "intentions": "Intentionen von generischen Komponenten erm\xF6glichen deren automatisches Einbinden in Aktionssequenzen." }, "minimum_timeout_minutes": "Definiert die Dauer der minimalen Pause, bevor die Aktionssequenz durch diesen Ausl\xF6ser nach einem Durchlauf erneut gestartet werden kann.", "reference_value": "Der Wert, mit dem der Sensorwert verglichen werden soll.", "reference_value_duration_threshold_minutes": "Dauer in Minuten, die der Sensorwert den Grenzwert unter/\xFCberschritten haben muss, bevor die Aktionssequenz ausgel\xF6st wird.", "emergency_stop": "H\xE4lt sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.", "emergency_resume": "Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.", "leave_empty_for_auto": "Frei lassen f\xFCr automatisch", "intention_increase_decrease": "Definiert ob die Intention dieser Aktionssequenz das Erh\xF6hen oder Senken des Sensorwerts ist.", "suggestions_unit": "Mindestanzahl von Kritischen Zust\xE4nden innerhalb des Zeitrahmens, bevor ein Vorschlag generiert werden soll.", "suggestion_timeframe_unit": "Zeitrahmen der zur Analyse herangezogen werden soll (Einheit)", "suggestions_timeframe": "Zeitrahmen der zur Analyse herangezogen werden soll (Wert)", "show_suggestions": "Vorschl\xE4ge anzeigen", "bus_type_edit_form": "Erm\xF6glicht Ciliatus das automatische Generieren von Kontroleinheitskonfigurationen.", "gpio_default_high": "GPIO Pin wird im Betrieb auf High gezogen. Zum aktivieren der Komponente auf Low.", "adjust_rawvalue": "Beim Empfangen eines Werts durch diesen Sensor kann der Wert korrigiert werden.", "experimental_feature": "Dieses Feature ist experimentell.", "action_sequence_schedules": { "skip": "Heutigen Durchlauf \xFCberspringen." }, "associate_new": "Verkn\xFCpfe <i class=\"material-icons\">{source}_icon</i> {source}_type \"{source}_name\" mit <i class=\"material-icons\">{target}_icon</i> {target}_type", "floating": { "add": "Neu", "edit": "Bearbeiten", "delete": "L\xF6schen" }, "ciliatus_up_to_date": "Aktuell", "ciliatus_not_up_to_date": "Update verf\xFCgbar: <a href=\"{url}\">GitHub</a>", "no_feeding_types": "Es wurden noch keine Futtertypen definiert." }, "units": { "years": "Jahr|Jahre", "months": "Monat|Monate", "days": "Tag|Tage", "hours": "Stunde|Stunden", "minutes": "Minute|Minuten", "seconds": "Sekunde|Sekunden", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "vor {val} Jahren", "months_ago": "vor {val} Monaten", "weeks_ago": "vor {val} Wochen", "days_ago": "vor {val} Tagen", "hours_ago": "vor {val} Stunden", "minutes_ago": "vor {val} Minuten", "years_in": "in {val} Jahren", "months_in": "in {val} Monaten", "weeks_in": "in {val} Wochen", "days_in": "in {val} Tagen", "hours_in": "in {val} Stunden", "minutes_in": "in {val} Minuten", "just_now": "gerade eben", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" } }, "en": { "buttons": { "next": "Next", "save": "Save", "delete": "Delete", "delete_type": "Delete {type}", "delete_all_type": "Delete all {type}", "loadgraph": "Load graph", "upload": "Upload", "start_setup": "Start Setup", "add": "Add", "add_intention": "Add Intention", "add_property": "Add Property", "add_state": "Add State", "create": "Add", "edit": "Edit", "details": "Details", "download": "Download", "emergency_stop": "Emergency stop", "emergency_resume": "Remove emergency stop", "revoke": "Revoke", "irrigate": "Irrigate", "ventilate": "Ventilate", "heat_up": "Heat up", "cool_down": "Cool down", "start": "Start", "close": "Close", "select_all_read": "Read all", "select_all_list": "List all", "select_all_write": "Write all" }, "components": { "User": "User|Users", "user": "User|Users", "users": "User|Users", "Terrarium": "Terrarium|Terraria", "terrarium": "Terrarium|Terraria", "terraria": "Terrarium|Terraria", "Animal": "Animal|Animals", "animal": "Animal|Animals", "animals": "Animal|Animals", "Controlunit": "Control Unit|Control Units", "controlunit": "Control Unit|Control Units", "controlunits": "Control Unit|Control Units", "Pump": "Pump|Pumps", "pump": "Pump|Pumps", "pumps": "Pump|Pumps", "Valve": "Valve|Valves", "valve": "Valve|Valves", "valves": "Valve|Valves", "PhysicalSensor": "Physical Sensor|Physical Sensors", "physical_sensor": "Physical Sensor|Physical Sensors", "physical_sensors": "Physical Sensor|Physical Sensors", "LogicalSensor": "Logical Sensor|Logical Sensors", "logical_sensor": "Logical Sensor|Logical Sensors", "logical_sensors": "Logical Sensor|Logical Sensors", "LogicalSensorThreshold": "Logical Sensor Threshold|Logical Sensor Thresholds", "logical_sensor_threshold": "Logical Sensor Threshold|Logical Sensor Thresholds", "logical_sensor_thresholds": "Logical Sensor Threshold|Logical Sensor Thresholds", "File": "File|Files", "file": "File|Files", "files": "File|Files", "Log": "System log|System logs", "log": "System log|System logs", "logs": "System log|System logs", "Action": "Action|Actions", "action": "Action|Actions", "actions": "Action|Actions", "ActionSequence": "Action sequence|Action sequences", "action_sequence": "Action sequence|Action sequences", "action_sequences": "Action sequence|Action sequences", "ActionSequenceSchedule": "Action sequence schedule|Action sequence schedules", "action_sequence_schedule": "Action sequence schedule|Action sequence schedules", "action_sequence_schedules": "Action sequence schedule|Action sequence schedules", "ActionSequenceTrigger": "Action sequence trigger|Action sequence triggers", "action_sequence_trigger": "Action sequence trigger|Action sequence triggers", "action_sequence_triggers": "Action sequence trigger|Action sequence triggers", "ActionSequenceIntention": "Action sequence intention|Action sequence intentions", "action_sequence_intention": "Action sequence intention|Action sequence intentions", "action_sequence_intentions": "Action sequence intention|Action sequence intentions", "Trigger": "Trigger|Triggers", "trigger": "Trigger|Triggers", "triggers": "Trigger|Triggers", "admin_panel": "Admin panel", "admin_panels": "Admin panel", "AnimalFeeding": "Feeding|Feedings", "animal_feeding": "Feeding|Feedings", "animal_feedings": "Feeding|Feedings", "AnimalFeedingSchedule": "Feeding schedule|Feeding schedules", "animal_feeding_schedule": "Feeding schedule|Feeding schedules", "animal_feeding_schedules": "Feeding schedule|Feeding schedules", "AnimalWeighing": "Weighing|Weighings", "animal_weighing": "Weighing|Weighings", "animal_weighings": "Weighing|Weighings", "AnimalWeighingSchedule": "Weighing schedule|Weighing schedules", "animal_weighing_schedule": "Weighing schedule|Weighing schedules", "animal_weighing_schedules": "Weighing schedule|Weighing schedules", "BiographyEntryEvent": "Biography entry|Biography entries", "biography_entry": "Biography entry|Biography entries", "biography_entries": "Biography entry|Biography entries", "CaresheetEvent": "Care Sheet|Care Sheets", "caresheet": "Care Sheet|Care Sheets", "caresheets": "Care Sheet|Care Sheets", "GenericComponent": "Generic Component|Generic Components", "generic_component": "Generic Component|Generic Components", "generic_components": "Generic Component|Generic Components", "GenericComponentType": "Generic Component Type|Generic Component Types", "generic_component_type": "Generic Component Type|Generic Component Types", "generic_component_types": "Generic Component Type|Generic Component Types", "SuggestionEvent": "Suggestion|Suggestions", "suggestion": "Suggestion|Suggestions", "suggestions": "Suggestion|Suggestions" }, "errors": { "retrievegraphdata": "Graphdaten konnten nicht ermittelt werden.", "auth": { "failed": "Authentifizierung fehlgeschlagen." } }, "labels": { "connecting": "Connecting", "title": "Title", "text": "Text", "tags": "Tags", "status": "Status", "health": "Health", "birth": "Birth", "gender": "Gender", "gender_male": "Male", "gender_female": "Female", "date": "Date", "date_birth": "Day of birth", "date_death": "Day of death", "model": "Model", "type": "Type", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Display Name", "common_name": "Common Name", "latin_name": "Latin Name", "temperature": "Temperature", "temperature_celsius": "Temperature", "humidity": "Humidity", "humidity_percent": "Humidity", "heartbeat": "Heartbeat", "last_heartbeat": "Last Heartbeat", "noanimals": "No Animals", "create": "Create", "settings": "Setting|Settings", "notifications": "Notification|Notifications", "notification_type": "Notification channel", "details": "Details", "rawlimitlo": "Raw value - lower limit", "rawlimithi": "Raw value - upper limit", "file": "File", "files": "Files", "size": "Size", "current_value": "Current value", "created_at": "Creation", "updated_at": "Last update", "download": "Download", "properties": "Properties", "preview": "Preview", "source": "Source", "target": "Target", "associated_with": "Associated with", "log": "Log", "starts_at": "Starts at", "ends_at": "Ends at", "starts_after": "Starts after", "thresholds": "Thresholds", "abilities": "Ability|Abilities", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto night mode", "permanent_nightmode": "Permanent night mode", "language": "Language", "belongsTo_type": "Belongs to (type)", "belongsTo_id": "Belongs to (ID)", "belongsTo": "Belongs to", "doku": "Documentation", "step": "Step", "phone_number": "Phone number", "template": "Template", "timezone": "Timezone", "critical": "Critical", "ok": "OK", "running": "Running", "runs_since": "Running since", "queued": "Queued", "criticalstates": "Critical States", "since": "Since", "state": "State", "actions": "Actions", "irrigate": "Irrigate", "duration": "Duration", "on": "On", "off": "Off", "just_fed": "Add feeding", "add_weight": "Add weight", "active": "Aktiv", "copy_thresholds": "Copy thresholds", "daily": "Daily", "last_feeding": "Last feeding", "crickets": "Crickets", "mixed_fruits": "Fruits", "beetle_jelly": "BeetleJelly", "due": "Due", "overdue": "Overdue", "meal_type": "Meal type", "interval_days": "Interval in days", "interval": "Interval", "password": "Password", "action": "Action", "weight": "Weight", "no_data": "No Data", "overview": "Overview", "environment": "Environment", "now": "Now", "scheduled": "Scheduled", "sequence": "Sequence", "weighprogression": "Weight progression", "from": "From", "tO": "To", "feedings": "Feedings", "temp_and_hum_history": "Temperature and Humidity History", "biography": "Biography", "bio_categories": "Biography categories", "icon": "Icon", "average": "Average", "min": "Minimum", "max": "Maximum", "during_day": "Daytime", "during_night": "Nighttime", "total": "Total", "infrastructure": "Infrastructure", "timeframe_start": "Timeframe from", "timeframe_end": "Timeframe to", "reference_value": "Reference value", "reference_value_duration_threshold_minutes": "Reference value undershot\/exceeded for (Minutes)", "for": "for", "minimum_timeout_minutes": "Timeout (minutes)", "emergency_stop": "Emergency stop", "increases": "Increases", "increase": "Increases", "decreases": "Decreases", "decrease": "Decreases", "personal_access_tokens": "Access Tokens", "expires": "Expires", "security": "Security", "general": "General", "component": "Component", "to": "To", "daily_reminders": "Daily Reminders", "yesterday": "Yesterday", "tomorrow": "Tomorrow", "today": "Today", "runonce": "Only run once", "intention": "Intention", "deceased": "Deceased", "software_version": "Software Version", "use_as_background": "Use as background image", "relation_map": "Relation map", "start_action_sequence": "Start Action Sequence", "suggestions": "Suggestions", "suggestions_unit": "Min. Occurences", "suggestion_timeframe_unit": "Timeframe (Unit)", "suggestions_timeframe": "Timeframe", "bus": "Bus", "i2c_address": "I2C address", "i2c_multiplexer_address": "I2C multiplexer address", "i2c_multiplexer_port": "I2C multiplexer port", "gpio_pin": "GPIO pin", "gpio_default_high": "GPIO Default High", "configuration": "Configuration", "yes": "Yes", "no": "No", "rawvalue": "Raw value", "adjust_rawvalue": "Raw value correction", "filter": "Filter", "logout": "Log off", "login": "Log in", "ask_me_something": "Ask me something", "ventilate": "Ventilate", "heat_up": "Heat", "cool_down": "Cool", "between": "between", "and": "and", "association": "Association", "choose_logfile": "Choose a log file", "no_image": "No image", "features": "Features", "rollperiod": "Roll period", "add_preset": "Add preset" }, "languages": { "german": "German", "english": "English" }, "menu": { "welcome": "Welcome", "dashboard": "Dashboard", "general": "General", "administration": "Administration", "create": "Create", "edit": "Edit", "delete": "Delete", "infrastructure": "Infrastructure", "help": "Help", "logout": "Log out", "animals": "Animals", "terraria": "Terraria", "users": "Users", "animal_feeding_types": "Food types", "logs": "Logs", "categories": "Categories", "monitoring": "Monitoring", "automation": "Automation", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "All existing thresholds associated with the target sensor will be deleted." }, "users": { "setup_telegram_ok": "Telegram is set up.", "setup_telegram_err": "Telegram has not yet been set up.", "setup_telegram_description": "Please point your browser to <a href=\"https:\/\/web.telegram.org\/#\/im?p=@\">Telegram Web<\/a> or use your smartphone to contact <b>@<\/b> with your verification code below." }, "critical_state_generic": "Critical: {critical}_state", "critical_state_notification_logical_sensor": { "humidity_percent": "Critical: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "temperature_celsius": "Critical: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C." }, "critical_state_recovery_notification_logical_sensor": { "humidity_percent": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "temperature_celsius": "OK: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C." }, "critical_state_notification_controlunit": "Critical: The controlunit {controlunit} is not sending data.", "critical_state_recovery_notification_controlunit": "OK: The controlunit {controlunit} ist sending data again.", "daily": { "intro": "Daily reminders", "feedings_due": "Feedings due:", "weighings_due": "Weighings due:" }, "own_token_expires": "Token '{name}' expires in {days} days.", "suggestions": { "humidity_percent": "Daily irrigation action sequence at {hour} o'clock." } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Welcome to Ciliatus", "create_user": "Create your user", "done": "Done!", "what_now": "What now?", "login": "Log in", "tooltip_login": "Log in to Ciliatus with the user you just created.", "add_terrarium": "Create Terrarium", "tooltip_add_terrarium": "Create your first terrarium in Ciliatus.", "add_animal": "Create animal", "tooltip_add_animal": "Create your first animal and assign it to a terrarium.", "setup_telegram": "Setup Telegram", "tooltip_setup_telegram": "Learn how to configure Telegram with Ciliatus.", "setup_controlunit": "Create Controlunit", "tooltip_setup_controlunit": "Learn how to setup a controlunit to start feeding Ciliatus with sensor readings.", "err_completed": "Setup is already completed." }, "tooltips": { "ctrltoselect": "Ctrl-click to deselect", "active": "Active", "showondefaultdashboard": "Show on default dashboard", "autoirrigation": "Automatic irrigation (if available)", "sendnotificationsfor": "Send notifications for", "loadandrendergraph": "Collection data and rendering graph", "disables_option": "Disables \"{option}\"", "phone_number": "Mobile number", "contact_bot": "Contacting the bot", "wait_confirmation": "Waiting for confirmation", "set_state_to": "Set state of <b>{target}<\/b> to <b>{state}<\/b> for <b>{minutes} minutes<\/b>", "start_after_started": "Starts as soon as step <b>{id}<\/b> was started", "start_after_finished": "Starts as soon as step <b>{id}<\/b> finished", "sendnotifications": "Send notifications", "no_schedules": "No schedules", "runonce": "Run once", "heartbeat_critical": "Heartbeat is critical!", "copy_thresholds_warning": "All existing thresholds on the target sensor will be removed.", "animal_feeding_schedule_matrix": "This matrix contains all defined feeding schedules. A number in a column represents the schedule's interval in days.", "animal_weighing_schedule_matrix": "This matrix contains all defined weighing schedules. A number in a column represents the schedule's interval in days followed by the next due date.", "done": "Done", "skip": "Skip", "material_icons_list": "Visit <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> for a complete icon overview.", "no_data": "No data.", "connecting_to_server": "Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.", "generic_components": { "about": "Generic components are components of a user defined type.", "type_about": "Generic component types define name, properties and possible states of a generic component. They are used as a template when creating a new generic component.", "property_templates": "Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.", "state_templates": "Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.<br \/><br \/>The radio box on the left defines the default 'running' state.", "type_delete_warning": "When deleting a component type <strong>all components of this type<\/strong> will also be deleted.", "intentions": "Intentionen of generic components allows them to be automatically used within action sequences." }, "minimum_timeout_minutes": "Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.", "reference_value": "Reference value which will be compared to the sensor values.", "reference_value_duration_threshold_minutes": "Duration in minutes for which the sensor value has to be greater\/lower\/equal to the reference value before triggering the action sequence.", "emergency_stop": "Instantly stops all running action sequences and prohibits action sequences from starting.", "emergency_resume": "Revokes the emergency stop and allows action sequences to start.", "leave_empty_for_auto": "Leave empty for automatic", "intention_increase_decrease": "Defines whether the intention of this action sequence is to increase or decrease the sensor's readings", "suggestions_unit": "Minimum number of critical states within the timeframe before a suggestion should be generated.", "suggestion_timeframe_unit": "Timeframe used for analysis (Unit)", "suggestions_timeframe": "Timeframe used for analysis (Value)", "show_suggestions": "Show suggestions", "bus_type_edit_form": "Allows Ciliatus to automatically generate controlunit configurations.", "gpio_default_high": "GPIO Pin will be pulled to high. When activating a component to low.", "adjust_rawvalue": "When receiving a reading from this sensor you can adjust the raw value.", "experimental_feature": "This is an experimental feature.", "action_sequence_schedules": { "skip": "Skip today's run." }, "associate_new": "Associate <i class=\"material-icons\">{source}_icon<\/i> {source}_type \"{source}_name\" with <i class=\"material-icons\">{target}_icon<\/i> {target}_type", "floating": { "add": "New", "edit": "Edit", "delete": "Delete" }, "ciliatus_up_to_date": "Up to date", "ciliatus_not_up_to_date": "Update available: <a href=\"{url}\">GitHub<\/a>", "no_feeding_types": "There are no food types defined yet." }, "units": { "years": "year|years", "months": "month|months", "days": "day|days", "hours": "hour|hours", "minutes": "minute|minutes", "seconds": "second|seconds", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "{val} years ago", "months_ago": "{val} months ago", "weeks_ago": "{val} weeks ago", "days_ago": "{val} days ago", "hours_ago": "{val} hours ago", "minutes_ago": "{val} minutes ago", "years_in": "in {val} years", "months_in": "in {val} months", "weeks_in": "in {val} weeks", "days_in": "in {val} days", "hours_in": "in {val} hours", "minutes_in": "in {val} minutes", "just_now": "just now", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" } } };
+module.exports = { "de": { "buttons": { "next": "Weiter", "save": "Speichern", "delete": "L\xF6schen", "delete_type": "{type} L\xF6schen", "delete_all_type": "Alle {type} l\xF6schen", "loadgraph": "Graph laden", "upload": "Hochladen", "start_setup": "Setup starten", "add": "Hinzuf\xFCgen", "add_intention": "Neue Intention", "add_property": "Neue Eigenschaft", "add_state": "Neuer Zustand", "create": "Hinzuf\xFCgen", "edit": "Bearbeiten", "details": "Details", "download": "Herunterladen", "emergency_stop": "Notaus", "emergency_resume": "Notus aufheben", "revoke": "Widerrufen", "irrigate": "Bew\xE4ssern", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "start": "Starten", "close": "Schlie\xDFen", "select_all_read": "Alles lesen", "select_all_list": "Alles auflisten", "select_all_write": "Alles schreiben" }, "components": { "User": "Benutzer|Benutzer", "user": "Benutzer|Benutzer", "users": "Benutzer|Benutzer", "Terrarium": "Terrarium|Terraria", "terrarium": "Terrarium|Terraria", "terraria": "Terrarium|Terrarien", "Animal": "Tier|Tiere", "animal": "Tier|Tiere", "animals": "Tier|Tiere", "Controlunit": "Steuereinheit|Steuereinheiten", "controlunit": "Steuereinheit|Steuereinheiten", "controlunits": "Steuereinheit|Steuereinheiten", "Pump": "Pumpe|Pumpen", "pump": "Pumpe|Pumpen", "pumps": "Pumpe|Pumpen", "Valve": "Ventil|Ventile", "valve": "Ventil|Ventile", "valves": "Ventil|Ventile", "PhysicalSensor": "Physischer Sensor|Physische Sensoren", "physical_sensor": "Physischer Sensor|Physische Sensoren", "physical_sensors": "Physischer Sensor|Physische Sensoren", "LogicalSensor": "Logischer Sensor|Logische Sensoren", "logical_sensor": "Logischer Sensor|Logische Sensoren", "logical_sensors": "Logischer Sensor|Logische Sensoren", "LogicalSensorThreshold": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "logical_sensor_threshold": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "logical_sensor_thresholds": "Logischer Sensor Grenzwert|Logische Sensor Grenzwerte", "File": "Datei|Dateien", "file": "Datei|Dateien", "files": "Datei|Dateien", "Log": "Systemlog|Systemlogs", "log": "Systemlog|Systemlogs", "logs": "Systemlog|Systemlogs", "Action": "Aktion|Aktionen", "action": "Aktion|Aktionen", "actions": "Aktion|Aktionen", "ActionSequence": "Aktionssequenz|Aktionssequenzen", "action_sequence": "Aktionssequenz|Aktionssequenzen", "action_sequences": "Aktionssequenz|Aktionssequenzen", "ActionSequenceSchedule": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "action_sequence_schedule": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "action_sequence_schedules": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "ActionSequenceTrigger": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "action_sequence_trigger": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "action_sequence_triggers": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "ActionSequenceIntention": "Aktionssequenz Intention|Aktionssequenz Intentionen", "action_sequence_intention": "Aktionssequenz Intention|Aktionssequenz Intentionen", "action_sequence_intentions": "Aktionssequenz Intention|Aktionssequenz Intentionen", "Trigger": "Ausl\xF6ser|Ausl\xF6ser", "trigger": "Ausl\xF6ser|Ausl\xF6ser", "triggers": "Ausl\xF6ser|Ausl\xF6ser", "admin_panel": "Admin Panel", "admin_panels": "Admin Panel", "AnimalFeedings": "F\xFCtterung|F\xFCtterungen", "animal_feeding": "F\xFCtterung|F\xFCtterungen", "animal_feedings": "F\xFCtterung|F\xFCtterungen", "AnimalFeedingSchedule": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "animal_feeding_schedule": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "animal_feeding_schedules": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "AnimalWeighings": "Wiegung|Wiegungen", "animal_weighing": "Wiegung|Wiegungen", "animal_weighings": "Wiegung|Wiegungen", "AnimalWeighingSchedule": "Wiegeplan|Wiegepl\xE4ne", "animal_weighing_schedule": "Wiegeplan|Wiegepl\xE4ne", "animal_weighing_schedules": "Wiegeplan|Wiegepl\xE4ne", "BiographyEntryEvent": "Biografieeintrag|Biografieeintr\xE4ge", "biography_entry": "Biografieeintrag|Biografieeintr\xE4ge", "biography_entries": "Biografieeintrag|Biografieeintr\xE4ge", "CaresheetEvent": "Begleitblatt|Begleitbl\xE4tter", "caresheet": "Begleitblatt|Begleitbl\xE4tter", "caresheets": "Begleitblatt|Begleitbl\xE4tter", "GenericComponents": "Generische Komponente|Generische Komponenten", "generic_components": "Generische Komponente|Generische Komponenten", "GenericComponentTypes": "Generischer Komponententyp|Generische Komponententypen", "generic_component_type": "Generischer Komponententyp|Generische Komponententypen", "generic_component_types": "Generischer Komponententyp|Generische Komponententypen", "SuggestionEvent": "Vorschlag|Vorschl\xE4ge", "suggestion": "Vorschlag|Vorschl\xE4ge", "suggestions": "Vorschlag|Vorschl\xE4ge" }, "errors": { "retrievegraphdata": "Could not retrieve graph data.", "auth": { "failed": "Authentication failed." } }, "labels": { "connecting": "Verbinde", "title": "Titel", "text": "Text", "tags": "Tags", "status": "Status", "health": "Gesundheit", "birth": "Geburt", "gender": "Geschlecht", "gender_male": "M\xE4nnlich", "gender_female": "Weiblich", "date": "Datum", "date_birth": "Geburtstag", "date_death": "Todestag", "model": "Modell", "type": "Typ", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Anzeigename", "common_name": "Gemeiner Name", "latin_name": "Lateinischer Name", "temperature": "Temperatur", "temperature_celsius": "Temperatur", "humidity": "Feuchtigkeit", "humidity_percent": "Feuchtigkeit", "heartbeat": "Puls", "last_heartbeat": "Letzter Puls", "noanimals": "Keine Tiere", "create": "Erstelle", "settings": "Einstellung|Einstellungen", "notifications": "Benachrichtigung|Benachrichtigungen", "notification_type": "Nachrichten Kanal", "details": "Details", "rawlimitlo": "Rohwert - unteres Limit", "rawlimithi": "Rohwert - oberes Limit", "file": "Datei", "files": "Dateien", "size": "Gr\xF6\xDFe", "current_value": "Aktueller Wert", "created_at": "Erstellt", "updated_at": "Letztes Update", "download": "Herunterladen", "properties": "Eigenschaften", "preview": "Vorschau", "source": "Quelle", "target": "Ziel", "associated_with": "Assoziiert mit", "log": "Log", "starts_at": "Beginnt um", "ends_at": "Endet um", "starts_after": "Startet nach", "thresholds": "Grenzwerte", "abilities": "F\xE4higkeit|F\xE4higkeiten", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto Nachtmodus", "permanent_nightmode": "Permanenter Nachtmodus", "language": "Sprache", "belongsTo_type": "Geh\xF6rt zu (Typ)", "belongsTo_id": "Geh\xF6rt zu (ID)", "belongsTo": "Geh\xF6rt zu", "doku": "Dokumentation", "step": "Schritt", "phone_number": "Telefonnummer", "template": "Vorlage", "timezone": "Zeitzone", "critical": "Kritisch", "ok": "OK", "running": "Laufend", "runs_since": "L\xE4uft seit", "queued": "Wartend", "criticalstates": "Kritische Zust\xE4nde", "since": "Seit", "state": "Zustand", "actions": "Aktionen", "irrigate": "Bew\xE4ssern", "duration": "Dauer", "on": "An", "off": "Aus", "just_fed": "F\xFCtterung hinzuf\xFCgen", "add_weight": "Gewicht hinzuf\xFCgen", "active": "Aktiv", "copy_thresholds": "Grenzwerte kopieren", "daily": "T\xE4glich", "last_feeding": "Letzte F\xFCtterung", "crickets": "Heimchen", "mixed_fruits": "Fruchtbrei", "beetle_jelly": "BeetleJelly", "due": "F\xE4llig", "overdue": "\xDCberf\xE4llig", "meal_type": "Nahrungsart", "interval_days": "Intervall in Tagen", "interval": "Intervall", "password": "Passwort", "action": "Aktion", "weight": "Gewicht", "no_data": "Keine Daten", "overview": "\xDCbersicht", "environment": "Umgebung", "now": "Jetzt", "scheduled": "Geplant", "sequence": "Sequenz", "weighprogression": "Gewichtsverlauf", "from": "Von", "tO": "Bis", "feedings": "F\xFCtterungen", "temp_and_hum_history": "Temperatur- und Feuchtigkeitsverlauf", "biography": "Biografie", "bio_categories": "Biografiekategorien", "icon": "Symbol", "average": "Durchschnitt", "min": "Minimum", "min_short": "Min", "max": "Maximum", "max_short": "Max", "during_day": "Tags", "during_night": "Nachts", "total": "Total", "infrastructure": "Infrastruktur", "timeframe_start": "Zeitrahmen ab", "timeframe_end": "Zeitrahmen bis", "reference_value": "Vergleichswert", "reference_value_duration_threshold_minutes": "Vergleichswert unter/\xFCberschritten seit (Minuten)", "for": "f\xFCr", "minimum_timeout_minutes": "Timeout (Minuten)", "emergency_stop": "Notaus", "increases": "Erh\xF6ht", "increase": "Erh\xF6ht", "decreases": "Senkt", "decrease": "Senkt", "personal_access_tokens": "Zugriffstoken", "expires": "L\xE4uft ab", "security": "Sicherheit", "general": "Allgemein", "component": "Komponente", "to": "Bis", "daily_reminders": "T\xE4gliche Erinnerungen", "yesterday": "Gestern", "tomorrow": "Morgen", "today": "Heute", "runonce": "Nur einmal ausf\xFChren", "intention": "Intention", "deceased": "Verstorben", "software_version": "Software Version", "use_as_background": "Als Hintergrund verwenden", "relation_map": "Beziehungskarte", "start_action_sequence": "Aktionssequenz starten", "suggestions": "Vorschl\xE4ge", "suggestions_unit": "Mind. Vorkommnisse", "suggestion_timeframe_unit": "Zeitrahmen (Einheit)", "suggestions_timeframe": "Zeitrahmen", "bus": "Bus", "i2c_address": "I2C Adresse", "i2c_multiplexer_address": "I2C Multiplexer Adresse", "i2c_multiplexer_port": "I2C Multiplexer Port", "gpio_pin": "GPIO Pin", "gpio_default_high": "GPIO Standard High", "configuration": "Konfiguration", "yes": "Ja", "no": "Nein", "rawvalue": "Rohwert", "adjust_rawvalue": "Rohwertkorrektur", "filter": "Filter", "logout": "Ausloggen", "login": "Einloggen", "remember_me": "Eingeloggt bleiben", "ask_me_something": "Frag mich etwas", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "between": "zwischen", "and": "und", "association": "Verkn\xFCpfung", "choose_logfile": "Log-Datei ausw\xE4hlen", "no_image": "Kein Bild", "features": "Features", "rollperiod": "Rollperiode", "add_preset": "Voreinstellung hinzuf\xFCgen", "inactive": "Inaktiv" }, "languages": { "german": "Deutsch", "english": "Englisch" }, "menu": { "welcome": "Willkommen", "dashboard": "\xDCbersicht", "general": "Allgemein", "administration": "Administration", "create": "Erstellen", "edit": "Editieren", "delete": "L\xF6schen", "infrastructure": "Infrastruktur", "help": "Hilfe", "logout": "Abmelden", "animals": "Tiere", "terraria": "Terrarien", "users": "Benutzer", "animal_feeding_types": "Nahrungsarten", "logs": "Protokoll", "categories": "Kategorien", "monitoring": "\xDCberwachung", "automation": "Automatisierung", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "Alle preexistenten Grenzwerte des Zielsensors werden entfernt." }, "users": { "setup_telegram_ok": "Telegram ist eingerichtet.", "setup_telegram_err": "Telegram ist noch nicht eingerichtet.", "setup_telegram_description": "Bitte \xF6ffnen Sie Telegram in Ihrem <a href=\"https://web.telegram.org/#/im?p=@\">Browser</a> oder auf ihrem Smartphone und kontaktieren Sie <b>@</b> mit untenstehendem Aktivierungscode." }, "critical_state_generic": "Kritisch: {critical}_state", "critical_state_notification_logical_sensors": { "humidity_percent": "Kritisch: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "temperature_celsius": "Kritisch: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." }, "critical_state_recovery_notification_logical_sensors": { "humidity_percent": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "temperature_celsius": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." }, "critical_state_notification_controlunits": "Kritisch: Die Steuereinheit {controlunit} sendet keine Daten.", "critical_state_recovery_notification_controlunit": "OK: Die Steuereinheit {controlunit} sendet wieder Daten.", "daily": { "intro": "T\xE4gliche Erinnerungen", "feedings_due": "F\xE4llige F\xFCtterungen:", "weighings_due": "F\xE4llige Wiegungen:" }, "own_token_expires": "Token '{name}' l\xE4uft in {days} Tagen ab.", "suggestions": { "humidity_percent": "T\xE4gliche Aktionssequenz zum Bew\xE4ssern um {hour} Uhr" } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Willkommen zu Ciliatus", "create_user": "Erstelle Deinen Benutzer", "done": "Geschafft!", "what_now": "Was nun?", "login": "Einloggen", "tooltip_login": "Logge Dich mit Deinem soeben erstellten Nutzer bei Ciliatus an.", "add_terrarium": "Terrarium anlegen", "tooltip_add_terrarium": "Erstelle Dein erstes Terrarium in Ciliatus.", "add_animal": "Tier anlegen", "tooltip_add_animal": "Erstelle Dein erstes Tier und ordne es einem Terrarium zu.", "setup_telegram": "Telegram einrichten", "tooltip_setup_telegram": "Lerne, wie Du Telegram mit Ciliatus konfigurieren kannst.", "setup_controlunit": "Kontrolleinheit erstellen", "tooltip_setup_controlunit": "Lerne eine Kontrolleinheit und zugeordnete Sensoren anzulegen um damit zu beginnen Sensordaten zu Deinen Terrarien zu \xFCbermitteln.", "err_completed": "Das Setup wurde bereits durchgef\xFChrt." }, "tooltips": { "ctrltoselect": "Strg+Klick zum selektieren", "active": "Aktiv", "showondefaultdashboard": "Auf Default Dashboard anzeigen", "autoirrigation": "Automatische Bew\xE4sserung", "sendnotificationsfor": "Benachrichtigungen versenden f\xFCr", "loadandrendergraph": "Daten werden ermittelt und Graph wird gerendert", "disables_option": "Deaktiviert \"{option}\"", "phone_number": "Mobilnummer", "contact_bot": "Den Bot kontaktieren", "wait_confirmation": "Auf Best\xE4tigung warten", "set_state_to": "Zustand von <b>{target}</b> auf <b>{state}</b> \xE4ndern f\xFCr <b>{minutes} Minuten</b>", "start_after_started": "Startet wenn Schritt <b>{id}<\/b> gestartet wurde", "start_after_finished": "Startet wenn Schritt <b>{id}<\/b> beendet wurde", "sendnotifications": "Benachrichtigungen versenden", "no_schedules": "Keine Zeitpl\xE4ne", "runonce": "Einmalig", "heartbeat_critical": "Heartbeat ist kritisch!", "copy_thresholds_warning": "Alle existierenden Grenzwerte des Zielsensors werden entfernt.", "animal_feeding_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten F\xFCtterungspl\xE4ne. Die Zahl in einer Spalte stellt das Intervall dar.", "animal_weighing_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten Wiegepl\xE4ne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom n\xE4chsten F\xE4lligkeitsdatum dar.", "done": "Erledigt", "skip": "\xDCberspringen", "material_icons_list": "Die komplette Symbolliste ist unter <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> einsehbar.", "no_data": "Keine Daten.", "connecting_to_server": "Verbindung zum Ciliatus Server wird hergestellt. Sollte dies l\xE4nger als einige Sekunden dauern, \xFCberpr\xFCfen Sie bitte Ihre Internetverbindung.", "generic_components": { "about": "Generische Komponenten sind Komponenten eines benutzerdefinierten Typs.", "type_about": "Generische Komponententypen definieren Name, Eigenschaften und m\xF6gliche Zust\xE4nde f\xFCr generische Komponenten. Sie dienen als Vorlage beim Erstellen einer neuen generischen Komponente.", "property_templates": "Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszuf\xFCllen.", "state_templates": "Definiert m\xF6gliche Zust\xE4nde die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zust\xE4nden den gew\xFCnschten Zustand ausw\xE4hlen.<br /><br />Die Checkbox links definiert den standardm\xE4\xDFigen 'laufend'-Zustand.", "type_delete_warning": "Beim L\xF6schen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gel\xF6scht.", "intentions": "Intentionen von generischen Komponenten erm\xF6glichen deren automatisches Einbinden in Aktionssequenzen." }, "minimum_timeout_minutes": "Definiert die Dauer der minimalen Pause, bevor die Aktionssequenz durch diesen Ausl\xF6ser nach einem Durchlauf erneut gestartet werden kann.", "reference_value": "Der Wert, mit dem der Sensorwert verglichen werden soll.", "reference_value_duration_threshold_minutes": "Dauer in Minuten, die der Sensorwert den Grenzwert unter/\xFCberschritten haben muss, bevor die Aktionssequenz ausgel\xF6st wird.", "emergency_stop": "H\xE4lt sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.", "emergency_resume": "Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.", "leave_empty_for_auto": "Frei lassen f\xFCr automatisch", "intention_increase_decrease": "Definiert ob die Intention dieser Aktionssequenz das Erh\xF6hen oder Senken des Sensorwerts ist.", "suggestions_unit": "Mindestanzahl von Kritischen Zust\xE4nden innerhalb des Zeitrahmens, bevor ein Vorschlag generiert werden soll.", "suggestion_timeframe_unit": "Zeitrahmen der zur Analyse herangezogen werden soll (Einheit)", "suggestions_timeframe": "Zeitrahmen der zur Analyse herangezogen werden soll (Wert)", "show_suggestions": "Vorschl\xE4ge anzeigen", "bus_type_edit_form": "Erm\xF6glicht Ciliatus das automatische Generieren von Kontroleinheitskonfigurationen.", "gpio_default_high": "GPIO Pin wird im Betrieb auf High gezogen. Zum aktivieren der Komponente auf Low.", "adjust_rawvalue": "Beim Empfangen eines Werts durch diesen Sensor kann der Wert korrigiert werden.", "experimental_feature": "Dieses Feature ist experimentell.", "action_sequence_schedules": { "skip": "Heutigen Durchlauf \xFCberspringen." }, "associate_new": "Verkn\xFCpfe <i class=\"material-icons\">{source}_icon</i> {source}_type \"{source}_name\" mit <i class=\"material-icons\">{target}_icon</i> {target}_type", "floating": { "add": "Neu", "edit": "Bearbeiten", "delete": "L\xF6schen" }, "ciliatus_up_to_date": "Aktuell", "ciliatus_not_up_to_date": "Update verf\xFCgbar: <a href=\"{url}\">GitHub</a>", "no_feeding_types": "Es wurden noch keine Futtertypen definiert.", "max_file_size": "Die maximale Dateigr\xF6\xDFe betr\xE4gt {size}." }, "units": { "years": "Jahr|Jahre", "months": "Monat|Monate", "days": "Tag|Tage", "hours": "Stunde|Stunden", "minutes": "Minute|Minuten", "seconds": "Sekunde|Sekunden", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "vor {val} Jahren", "months_ago": "vor {val} Monaten", "weeks_ago": "vor {val} Wochen", "days_ago": "vor {val} Tagen", "hours_ago": "vor {val} Stunden", "minutes_ago": "vor {val} Minuten", "years_in": "in {val} Jahren", "months_in": "in {val} Monaten", "weeks_in": "in {val} Wochen", "days_in": "in {val} Tagen", "hours_in": "in {val} Stunden", "minutes_in": "in {val} Minuten", "just_now": "gerade eben", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" } }, "en": { "buttons": { "next": "Next", "save": "Save", "delete": "Delete", "delete_type": "Delete {type}", "delete_all_type": "Delete all {type}", "loadgraph": "Load graph", "upload": "Upload", "start_setup": "Start Setup", "add": "Add", "add_intention": "Add Intention", "add_property": "Add Property", "add_state": "Add State", "create": "Add", "edit": "Edit", "details": "Details", "download": "Download", "emergency_stop": "Emergency stop", "emergency_resume": "Remove emergency stop", "revoke": "Revoke", "irrigate": "Irrigate", "ventilate": "Ventilate", "heat_up": "Heat up", "cool_down": "Cool down", "start": "Start", "close": "Close", "select_all_read": "Read all", "select_all_list": "List all", "select_all_write": "Write all" }, "components": { "User": "User|Users", "user": "User|Users", "users": "User|Users", "Terrarium": "Terrarium|Terraria", "terrarium": "Terrarium|Terraria", "terraria": "Terrarium|Terraria", "Animal": "Animal|Animals", "animal": "Animal|Animals", "animals": "Animal|Animals", "Controlunit": "Control Unit|Control Units", "controlunit": "Control Unit|Control Units", "controlunits": "Control Unit|Control Units", "Pump": "Pump|Pumps", "pump": "Pump|Pumps", "pumps": "Pump|Pumps", "Valve": "Valve|Valves", "valve": "Valve|Valves", "valves": "Valve|Valves", "PhysicalSensor": "Physical Sensor|Physical Sensors", "physical_sensor": "Physical Sensor|Physical Sensors", "physical_sensors": "Physical Sensor|Physical Sensors", "LogicalSensor": "Logical Sensor|Logical Sensors", "logical_sensor": "Logical Sensor|Logical Sensors", "logical_sensors": "Logical Sensor|Logical Sensors", "LogicalSensorThreshold": "Logical Sensor Threshold|Logical Sensor Thresholds", "logical_sensor_threshold": "Logical Sensor Threshold|Logical Sensor Thresholds", "logical_sensor_thresholds": "Logical Sensor Threshold|Logical Sensor Thresholds", "File": "File|Files", "file": "File|Files", "files": "File|Files", "Log": "System log|System logs", "log": "System log|System logs", "logs": "System log|System logs", "Action": "Action|Actions", "action": "Action|Actions", "actions": "Action|Actions", "ActionSequence": "Action sequence|Action sequences", "action_sequence": "Action sequence|Action sequences", "action_sequences": "Action sequence|Action sequences", "ActionSequenceSchedule": "Action sequence schedule|Action sequence schedules", "action_sequence_schedule": "Action sequence schedule|Action sequence schedules", "action_sequence_schedules": "Action sequence schedule|Action sequence schedules", "ActionSequenceTrigger": "Action sequence trigger|Action sequence triggers", "action_sequence_trigger": "Action sequence trigger|Action sequence triggers", "action_sequence_triggers": "Action sequence trigger|Action sequence triggers", "ActionSequenceIntention": "Action sequence intention|Action sequence intentions", "action_sequence_intention": "Action sequence intention|Action sequence intentions", "action_sequence_intentions": "Action sequence intention|Action sequence intentions", "Trigger": "Trigger|Triggers", "trigger": "Trigger|Triggers", "triggers": "Trigger|Triggers", "admin_panel": "Admin panel", "admin_panels": "Admin panel", "AnimalFeeding": "Feeding|Feedings", "animal_feeding": "Feeding|Feedings", "animal_feedings": "Feeding|Feedings", "AnimalFeedingSchedule": "Feeding schedule|Feeding schedules", "animal_feeding_schedule": "Feeding schedule|Feeding schedules", "animal_feeding_schedules": "Feeding schedule|Feeding schedules", "AnimalWeighing": "Weighing|Weighings", "animal_weighing": "Weighing|Weighings", "animal_weighings": "Weighing|Weighings", "AnimalWeighingSchedule": "Weighing schedule|Weighing schedules", "animal_weighing_schedule": "Weighing schedule|Weighing schedules", "animal_weighing_schedules": "Weighing schedule|Weighing schedules", "BiographyEntryEvent": "Biography entry|Biography entries", "biography_entry": "Biography entry|Biography entries", "biography_entries": "Biography entry|Biography entries", "CaresheetEvent": "Care Sheet|Care Sheets", "caresheet": "Care Sheet|Care Sheets", "caresheets": "Care Sheet|Care Sheets", "GenericComponent": "Generic Component|Generic Components", "generic_component": "Generic Component|Generic Components", "generic_components": "Generic Component|Generic Components", "GenericComponentType": "Generic Component Type|Generic Component Types", "generic_component_type": "Generic Component Type|Generic Component Types", "generic_component_types": "Generic Component Type|Generic Component Types", "SuggestionEvent": "Suggestion|Suggestions", "suggestion": "Suggestion|Suggestions", "suggestions": "Suggestion|Suggestions" }, "errors": { "retrievegraphdata": "Graphdaten konnten nicht ermittelt werden.", "auth": { "failed": "Authentifizierung fehlgeschlagen." } }, "labels": { "connecting": "Connecting", "title": "Title", "text": "Text", "tags": "Tags", "status": "Status", "health": "Health", "birth": "Birth", "gender": "Gender", "gender_male": "Male", "gender_female": "Female", "date": "Date", "date_birth": "Day of birth", "date_death": "Day of death", "model": "Model", "type": "Type", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Display Name", "common_name": "Common Name", "latin_name": "Latin Name", "temperature": "Temperature", "temperature_celsius": "Temperature", "humidity": "Humidity", "humidity_percent": "Humidity", "heartbeat": "Heartbeat", "last_heartbeat": "Last Heartbeat", "noanimals": "No Animals", "create": "Create", "settings": "Setting|Settings", "notifications": "Notification|Notifications", "notification_type": "Notification channel", "details": "Details", "rawlimitlo": "Raw value - lower limit", "rawlimithi": "Raw value - upper limit", "file": "File", "files": "Files", "size": "Size", "current_value": "Current value", "created_at": "Creation", "updated_at": "Last update", "download": "Download", "properties": "Properties", "preview": "Preview", "source": "Source", "target": "Target", "associated_with": "Associated with", "log": "Log", "starts_at": "Starts at", "ends_at": "Ends at", "starts_after": "Starts after", "thresholds": "Thresholds", "abilities": "Ability|Abilities", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto night mode", "permanent_nightmode": "Permanent night mode", "language": "Language", "belongsTo_type": "Belongs to (type)", "belongsTo_id": "Belongs to (ID)", "belongsTo": "Belongs to", "doku": "Documentation", "step": "Step", "phone_number": "Phone number", "template": "Template", "timezone": "Timezone", "critical": "Critical", "ok": "OK", "running": "Running", "runs_since": "Running since", "queued": "Queued", "criticalstates": "Critical States", "since": "Since", "state": "State", "actions": "Actions", "irrigate": "Irrigate", "duration": "Duration", "on": "On", "off": "Off", "just_fed": "Add feeding", "add_weight": "Add weight", "active": "Aktiv", "copy_thresholds": "Copy thresholds", "daily": "Daily", "last_feeding": "Last feeding", "crickets": "Crickets", "mixed_fruits": "Fruits", "beetle_jelly": "BeetleJelly", "due": "Due", "overdue": "Overdue", "meal_type": "Meal type", "interval_days": "Interval in days", "interval": "Interval", "password": "Password", "action": "Action", "weight": "Weight", "no_data": "No Data", "overview": "Overview", "environment": "Environment", "now": "Now", "scheduled": "Scheduled", "sequence": "Sequence", "weighprogression": "Weight progression", "from": "From", "tO": "To", "feedings": "Feedings", "temp_and_hum_history": "Temperature and Humidity History", "biography": "Biography", "bio_categories": "Biography categories", "icon": "Icon", "average": "Average", "min": "Minimum", "min_short": "Min", "max": "Maximum", "max_short": "Max", "during_day": "Daytime", "during_night": "Nighttime", "total": "Total", "infrastructure": "Infrastructure", "timeframe_start": "Timeframe from", "timeframe_end": "Timeframe to", "reference_value": "Reference value", "reference_value_duration_threshold_minutes": "Reference value undershot\/exceeded for (Minutes)", "for": "for", "minimum_timeout_minutes": "Timeout (minutes)", "emergency_stop": "Emergency stop", "increases": "Increases", "increase": "Increases", "decreases": "Decreases", "decrease": "Decreases", "personal_access_tokens": "Access Tokens", "expires": "Expires", "security": "Security", "general": "General", "component": "Component", "to": "To", "daily_reminders": "Daily Reminders", "yesterday": "Yesterday", "tomorrow": "Tomorrow", "today": "Today", "runonce": "Only run once", "intention": "Intention", "deceased": "Deceased", "software_version": "Software Version", "use_as_background": "Use as background image", "relation_map": "Relation map", "start_action_sequence": "Start Action Sequence", "suggestions": "Suggestions", "suggestions_unit": "Min. Occurences", "suggestion_timeframe_unit": "Timeframe (Unit)", "suggestions_timeframe": "Timeframe", "bus": "Bus", "i2c_address": "I2C address", "i2c_multiplexer_address": "I2C multiplexer address", "i2c_multiplexer_port": "I2C multiplexer port", "gpio_pin": "GPIO pin", "gpio_default_high": "GPIO Default High", "configuration": "Configuration", "yes": "Yes", "no": "No", "rawvalue": "Raw value", "adjust_rawvalue": "Raw value correction", "filter": "Filter", "logout": "Log off", "login": "Log in", "remember_me": "Stay logged in", "ask_me_something": "Ask me something", "ventilate": "Ventilate", "heat_up": "Heat", "cool_down": "Cool", "between": "between", "and": "and", "association": "Association", "choose_logfile": "Choose a log file", "no_image": "No image", "features": "Features", "rollperiod": "Roll period", "add_preset": "Add preset", "inactive": "Inactive" }, "languages": { "german": "German", "english": "English" }, "menu": { "welcome": "Welcome", "dashboard": "Dashboard", "general": "General", "administration": "Administration", "create": "Create", "edit": "Edit", "delete": "Delete", "infrastructure": "Infrastructure", "help": "Help", "logout": "Log out", "animals": "Animals", "terraria": "Terraria", "users": "Users", "animal_feeding_types": "Food types", "logs": "Logs", "categories": "Categories", "monitoring": "Monitoring", "automation": "Automation", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "All existing thresholds associated with the target sensor will be deleted." }, "users": { "setup_telegram_ok": "Telegram is set up.", "setup_telegram_err": "Telegram has not yet been set up.", "setup_telegram_description": "Please point your browser to <a href=\"https:\/\/web.telegram.org\/#\/im?p=@\">Telegram Web<\/a> or use your smartphone to contact <b>@<\/b> with your verification code below." }, "critical_state_generic": "Critical: {critical}_state", "critical_state_notification_logical_sensors": { "humidity_percent": "Critical: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "temperature_celsius": "Critical: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C." }, "critical_state_recovery_notification_logical_sensors": { "humidity_percent": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "temperature_celsius": "OK: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C." }, "critical_state_notification_controlunits": "Critical: The controlunit {controlunit} is not sending data.", "critical_state_recovery_notification_controlunit": "OK: The controlunit {controlunit} ist sending data again.", "daily": { "intro": "Daily reminders", "feedings_due": "Feedings due:", "weighings_due": "Weighings due:" }, "own_token_expires": "Token '{name}' expires in {days} days.", "suggestions": { "humidity_percent": "Daily irrigation action sequence at {hour} o'clock." } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Welcome to Ciliatus", "create_user": "Create your user", "done": "Done!", "what_now": "What now?", "login": "Log in", "tooltip_login": "Log in to Ciliatus with the user you just created.", "add_terrarium": "Create Terrarium", "tooltip_add_terrarium": "Create your first terrarium in Ciliatus.", "add_animal": "Create animal", "tooltip_add_animal": "Create your first animal and assign it to a terrarium.", "setup_telegram": "Setup Telegram", "tooltip_setup_telegram": "Learn how to configure Telegram with Ciliatus.", "setup_controlunit": "Create Controlunit", "tooltip_setup_controlunit": "Learn how to setup a controlunit to start feeding Ciliatus with sensor readings.", "err_completed": "Setup is already completed." }, "tooltips": { "ctrltoselect": "Ctrl-click to deselect", "active": "Active", "showondefaultdashboard": "Show on default dashboard", "autoirrigation": "Automatic irrigation (if available)", "sendnotificationsfor": "Send notifications for", "loadandrendergraph": "Collection data and rendering graph", "disables_option": "Disables \"{option}\"", "phone_number": "Mobile number", "contact_bot": "Contacting the bot", "wait_confirmation": "Waiting for confirmation", "set_state_to": "Set state of <b>{target}<\/b> to <b>{state}<\/b> for <b>{minutes} minutes<\/b>", "start_after_started": "Starts as soon as step <b>{id}<\/b> was started", "start_after_finished": "Starts as soon as step <b>{id}<\/b> finished", "sendnotifications": "Send notifications", "no_schedules": "No schedules", "runonce": "Run once", "heartbeat_critical": "Heartbeat is critical!", "copy_thresholds_warning": "All existing thresholds on the target sensor will be removed.", "animal_feeding_schedule_matrix": "This matrix contains all defined feeding schedules. A number in a column represents the schedule's interval in days.", "animal_weighing_schedule_matrix": "This matrix contains all defined weighing schedules. A number in a column represents the schedule's interval in days followed by the next due date.", "done": "Done", "skip": "Skip", "material_icons_list": "Visit <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> for a complete icon overview.", "no_data": "No data.", "connecting_to_server": "Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.", "generic_components": { "about": "Generic components are components of a user defined type.", "type_about": "Generic component types define name, properties and possible states of a generic component. They are used as a template when creating a new generic component.", "property_templates": "Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.", "state_templates": "Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.<br \/><br \/>The radio box on the left defines the default 'running' state.", "type_delete_warning": "When deleting a component type <strong>all components of this type<\/strong> will also be deleted.", "intentions": "Intentionen of generic components allows them to be automatically used within action sequences." }, "minimum_timeout_minutes": "Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.", "reference_value": "Reference value which will be compared to the sensor values.", "reference_value_duration_threshold_minutes": "Duration in minutes for which the sensor value has to be greater\/lower\/equal to the reference value before triggering the action sequence.", "emergency_stop": "Instantly stops all running action sequences and prohibits action sequences from starting.", "emergency_resume": "Revokes the emergency stop and allows action sequences to start.", "leave_empty_for_auto": "Leave empty for automatic", "intention_increase_decrease": "Defines whether the intention of this action sequence is to increase or decrease the sensor's readings", "suggestions_unit": "Minimum number of critical states within the timeframe before a suggestion should be generated.", "suggestion_timeframe_unit": "Timeframe used for analysis (Unit)", "suggestions_timeframe": "Timeframe used for analysis (Value)", "show_suggestions": "Show suggestions", "bus_type_edit_form": "Allows Ciliatus to automatically generate controlunit configurations.", "gpio_default_high": "GPIO Pin will be pulled to high. When activating a component to low.", "adjust_rawvalue": "When receiving a reading from this sensor you can adjust the raw value.", "experimental_feature": "This is an experimental feature.", "action_sequence_schedules": { "skip": "Skip today's run." }, "associate_new": "Associate <i class=\"material-icons\">{source}_icon<\/i> {source}_type \"{source}_name\" with <i class=\"material-icons\">{target}_icon<\/i> {target}_type", "floating": { "add": "New", "edit": "Edit", "delete": "Delete" }, "ciliatus_up_to_date": "Up to date", "ciliatus_not_up_to_date": "Update available: <a href=\"{url}\">GitHub<\/a>", "no_feeding_types": "There are no food types defined yet.", "max_file_size": "The maximum file size is {size}." }, "units": { "years": "year|years", "months": "month|months", "days": "day|days", "hours": "hour|hours", "minutes": "minute|minutes", "seconds": "second|seconds", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "{val} years ago", "months_ago": "{val} months ago", "weeks_ago": "{val} weeks ago", "days_ago": "{val} days ago", "hours_ago": "{val} hours ago", "minutes_ago": "{val} minutes ago", "years_in": "in {val} years", "months_in": "in {val} months", "weeks_in": "in {val} weeks", "days_in": "in {val} days", "hours_in": "in {val} hours", "minutes_in": "in {val} minutes", "just_now": "just now", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" } } };
 
 /***/ }),
-/* 57 */,
 /* 58 */,
-/* 59 */
+/* 59 */,
+/* 60 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -13178,14 +13217,14 @@ if (typeof window !== 'undefined' && window.Vue) {
 
 
 /***/ }),
-/* 60 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(12),
   /* template */
-  __webpack_require__(133),
+  __webpack_require__(136),
   /* scopeId */
   null,
   /* cssModules */
@@ -13212,14 +13251,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 61 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(13),
   /* template */
-  __webpack_require__(128),
+  __webpack_require__(131),
   /* scopeId */
   null,
   /* cssModules */
@@ -13246,14 +13285,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 62 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(14),
   /* template */
-  __webpack_require__(101),
+  __webpack_require__(103),
   /* scopeId */
   null,
   /* cssModules */
@@ -13280,14 +13319,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 63 */
+/* 64 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(15),
   /* template */
-  __webpack_require__(134),
+  __webpack_require__(137),
   /* scopeId */
   null,
   /* cssModules */
@@ -13314,14 +13353,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 64 */
+/* 65 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(17),
   /* template */
-  __webpack_require__(115),
+  __webpack_require__(118),
   /* scopeId */
   null,
   /* cssModules */
@@ -13348,14 +13387,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 65 */
+/* 66 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(18),
   /* template */
-  __webpack_require__(130),
+  __webpack_require__(133),
   /* scopeId */
   null,
   /* cssModules */
@@ -13382,14 +13421,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 66 */
+/* 67 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(19),
   /* template */
-  __webpack_require__(139),
+  __webpack_require__(142),
   /* scopeId */
   null,
   /* cssModules */
@@ -13416,14 +13455,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 67 */
+/* 68 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(20),
   /* template */
-  __webpack_require__(112),
+  __webpack_require__(114),
   /* scopeId */
   null,
   /* cssModules */
@@ -13450,14 +13489,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 68 */
+/* 69 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(21),
   /* template */
-  __webpack_require__(121),
+  __webpack_require__(124),
   /* scopeId */
   null,
   /* cssModules */
@@ -13484,14 +13523,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 69 */
+/* 70 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(22),
   /* template */
-  __webpack_require__(129),
+  __webpack_require__(132),
   /* scopeId */
   null,
   /* cssModules */
@@ -13518,14 +13557,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 70 */
+/* 71 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(23),
   /* template */
-  __webpack_require__(140),
+  __webpack_require__(143),
   /* scopeId */
   null,
   /* cssModules */
@@ -13552,14 +13591,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 71 */
+/* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(24),
   /* template */
-  __webpack_require__(104),
+  __webpack_require__(106),
   /* scopeId */
   null,
   /* cssModules */
@@ -13586,14 +13625,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 72 */
+/* 73 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(25),
   /* template */
-  __webpack_require__(127),
+  __webpack_require__(130),
   /* scopeId */
   null,
   /* cssModules */
@@ -13620,14 +13659,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 73 */
+/* 74 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(26),
   /* template */
-  __webpack_require__(113),
+  __webpack_require__(116),
   /* scopeId */
   null,
   /* cssModules */
@@ -13654,14 +13693,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 74 */
+/* 75 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(27),
   /* template */
-  __webpack_require__(102),
+  __webpack_require__(104),
   /* scopeId */
   null,
   /* cssModules */
@@ -13688,14 +13727,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 75 */
+/* 76 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(28),
   /* template */
-  __webpack_require__(117),
+  __webpack_require__(120),
   /* scopeId */
   null,
   /* cssModules */
@@ -13722,14 +13761,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 76 */
+/* 77 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(29),
   /* template */
-  __webpack_require__(142),
+  __webpack_require__(145),
   /* scopeId */
   null,
   /* cssModules */
@@ -13756,14 +13795,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 77 */
+/* 78 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(30),
   /* template */
-  __webpack_require__(118),
+  __webpack_require__(121),
   /* scopeId */
   null,
   /* cssModules */
@@ -13790,14 +13829,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 78 */
+/* 79 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(31),
   /* template */
-  __webpack_require__(106),
+  __webpack_require__(108),
   /* scopeId */
   null,
   /* cssModules */
@@ -13824,14 +13863,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 79 */
+/* 80 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(144),
+  __webpack_require__(147),
   /* scopeId */
   null,
   /* cssModules */
@@ -13858,14 +13897,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 80 */
+/* 81 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(33),
   /* template */
-  __webpack_require__(124),
+  __webpack_require__(127),
   /* scopeId */
   null,
   /* cssModules */
@@ -13892,14 +13931,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 81 */
+/* 82 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(34),
   /* template */
-  __webpack_require__(136),
+  __webpack_require__(139),
   /* scopeId */
   null,
   /* cssModules */
@@ -13926,14 +13965,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 82 */
+/* 83 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(35),
   /* template */
-  __webpack_require__(137),
+  __webpack_require__(140),
   /* scopeId */
   null,
   /* cssModules */
@@ -13960,14 +13999,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 83 */
+/* 84 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(36),
   /* template */
-  __webpack_require__(126),
+  __webpack_require__(129),
   /* scopeId */
   null,
   /* cssModules */
@@ -13994,14 +14033,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 84 */
+/* 85 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(37),
   /* template */
-  __webpack_require__(111),
+  __webpack_require__(113),
   /* scopeId */
   null,
   /* cssModules */
@@ -14028,14 +14067,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 85 */
+/* 86 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(38),
   /* template */
-  __webpack_require__(135),
+  __webpack_require__(138),
   /* scopeId */
   null,
   /* cssModules */
@@ -14062,14 +14101,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 86 */
+/* 87 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(39),
   /* template */
-  __webpack_require__(109),
+  __webpack_require__(111),
   /* scopeId */
   null,
   /* cssModules */
@@ -14096,14 +14135,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 87 */
+/* 88 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(40),
   /* template */
-  __webpack_require__(103),
+  __webpack_require__(105),
   /* scopeId */
   null,
   /* cssModules */
@@ -14130,14 +14169,48 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 88 */
+/* 89 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(43),
   /* template */
-  __webpack_require__(114),
+  __webpack_require__(115),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\logical_sensor_thresholds-widget.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] logical_sensor_thresholds-widget.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-3ef626cd", Component.options)
+  } else {
+    hotAPI.reload("data-v-3ef626cd", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(44),
+  /* template */
+  __webpack_require__(117),
   /* scopeId */
   null,
   /* cssModules */
@@ -14164,14 +14237,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 89 */
+/* 91 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(44),
+  __webpack_require__(45),
   /* template */
-  __webpack_require__(110),
+  __webpack_require__(112),
   /* scopeId */
   null,
   /* cssModules */
@@ -14198,14 +14271,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 90 */
+/* 92 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(45),
+  __webpack_require__(46),
   /* template */
-  __webpack_require__(143),
+  __webpack_require__(146),
   /* scopeId */
   null,
   /* cssModules */
@@ -14232,14 +14305,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 91 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(46),
+  __webpack_require__(47),
   /* template */
-  __webpack_require__(108),
+  __webpack_require__(110),
   /* scopeId */
   null,
   /* cssModules */
@@ -14266,14 +14339,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 92 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(47),
+  __webpack_require__(48),
   /* template */
-  __webpack_require__(107),
+  __webpack_require__(109),
   /* scopeId */
   null,
   /* cssModules */
@@ -14300,14 +14373,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 93 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(48),
+  __webpack_require__(49),
   /* template */
-  __webpack_require__(116),
+  __webpack_require__(119),
   /* scopeId */
   null,
   /* cssModules */
@@ -14334,14 +14407,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 94 */
+/* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(49),
+  __webpack_require__(50),
   /* template */
-  __webpack_require__(138),
+  __webpack_require__(141),
   /* scopeId */
   null,
   /* cssModules */
@@ -14368,14 +14441,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 95 */
+/* 97 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(50),
+  __webpack_require__(51),
   /* template */
-  __webpack_require__(122),
+  __webpack_require__(125),
   /* scopeId */
   null,
   /* cssModules */
@@ -14402,14 +14475,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 96 */
+/* 98 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(51),
+  __webpack_require__(52),
   /* template */
-  __webpack_require__(131),
+  __webpack_require__(134),
   /* scopeId */
   null,
   /* cssModules */
@@ -14436,14 +14509,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 97 */
+/* 99 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(52),
+  __webpack_require__(53),
   /* template */
-  __webpack_require__(119),
+  __webpack_require__(122),
   /* scopeId */
   null,
   /* cssModules */
@@ -14470,14 +14543,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 98 */
+/* 100 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(53),
+  __webpack_require__(54),
   /* template */
-  __webpack_require__(105),
+  __webpack_require__(107),
   /* scopeId */
   null,
   /* cssModules */
@@ -14504,14 +14577,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 99 */
+/* 101 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(54),
+  __webpack_require__(55),
   /* template */
-  __webpack_require__(125),
+  __webpack_require__(128),
   /* scopeId */
   null,
   /* cssModules */
@@ -14538,14 +14611,14 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 100 */
+/* 102 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(55),
+  __webpack_require__(56),
   /* template */
-  __webpack_require__(120),
+  __webpack_require__(123),
   /* scopeId */
   null,
   /* cssModules */
@@ -14572,7 +14645,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 101 */
+/* 103 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -14584,17 +14657,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "material-icons"
   }, [_vm._v("playlist_play")]), _vm._v("\n        " + _vm._s(_vm.action_sequences.length) + " " + _vm._s(_vm.$tc("components.action_sequences", 2)) + "\n    ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
-  }, [_c('span', {
-    staticClass: "card-title activator truncate"
-  }, [_c('span', [_vm._v(_vm._s(_vm.$tc("components.action_sequences", 2)))]), _vm._v(" "), _c('i', {
-    staticClass: "material-icons right"
-  }, [_vm._v("more_vert")])]), _vm._v(" "), _vm._l((_vm.action_sequences), function(as) {
+  }, [_vm._l((_vm.action_sequences), function(as) {
     return _c('div', [_c('p', [_c('a', {
       attrs: {
         "href": '/action_sequences/' + as.id + '/edit'
       }
     }, [_c('strong', [_vm._v(_vm._s(as.name))])])]), _vm._v(" "), _vm._l((as.intentions), function(asi) {
-      return _c('p', [_c('i', {
+      return _c('div', {
+        staticClass: "row row-no-margin"
+      }, [_c('i', {
         staticClass: "material-icons"
       }, [_vm._v("explore")]), _vm._v(" "), (asi.intention === 'increase') ? _c('span', [_vm._v(_vm._s(_vm.$t('labels.increases')))]) : _vm._e(), _vm._v(" "), (asi.intention === 'decrease') ? _c('span', [_vm._v(_vm._s(_vm.$t('labels.decreases')))]) : _vm._e(), _vm._v("\n\n                " + _vm._s(_vm.$t('labels.' + asi.type)) + "\n\n                "), _c('span', {
         directives: [{
@@ -14610,7 +14681,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       })])])
     }), _vm._v(" "), _vm._l((as.triggers), function(ast) {
-      return _c('p', [_c('i', {
+      return _c('div', [_c('i', {
         staticClass: "material-icons"
       }, [_vm._v("flare")]), _vm._v(" " + _vm._s(ast.logical_sensor.name) + " " + _vm._s(_vm.$t('units.' + ast.reference_value_comparison_type)) + " " + _vm._s(ast.reference_value) + "\n                "), _c('span', {
         directives: [{
@@ -14626,7 +14697,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       })])])
     }), _vm._v(" "), _vm._l((as.schedules), function(ass) {
-      return _c('p', [_c('i', {
+      return _c('div', [_c('i', {
         staticClass: "material-icons"
       }, [_vm._v("schedule")]), _vm._v(" " + _vm._s(ass.timestamps.starts) + " "), _c('i', {
         directives: [{
@@ -14649,22 +14720,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       })])])
     })], 2)
-  })], 2), _vm._v(" "), _c('div', {
+  }), _vm._v(" "), (_vm.action_sequences.length < 1) ? _c('div', [_vm._v("\n            " + _vm._s(_vm.$t('tooltips.no_data')) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
     staticClass: "card-action"
   }, [_c('a', {
     attrs: {
       "href": '/action_sequences/create?preset[terrarium]=' + _vm.terrariumId
     }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])]), _vm._v(" "), _vm._m(0)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "card-reveal"
-  }, [_c('span', {
-    staticClass: "card-title"
-  }, [_c('i', {
-    staticClass: "material-icons right"
-  }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
-}]}
+  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -14674,7 +14737,7 @@ if (false) {
 }
 
 /***/ }),
-/* 102 */
+/* 104 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -14785,7 +14848,7 @@ if (false) {
 }
 
 /***/ }),
-/* 103 */
+/* 105 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -14878,7 +14941,7 @@ if (false) {
 }
 
 /***/ }),
-/* 104 */
+/* 106 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -14971,7 +15034,7 @@ if (false) {
 }
 
 /***/ }),
-/* 105 */
+/* 107 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -15256,7 +15319,7 @@ if (false) {
 }
 
 /***/ }),
-/* 106 */
+/* 108 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -15541,7 +15604,7 @@ if (false) {
 }
 
 /***/ }),
-/* 107 */
+/* 109 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -15599,7 +15662,7 @@ if (false) {
 }
 
 /***/ }),
-/* 108 */
+/* 110 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -16049,7 +16112,7 @@ if (false) {
 }
 
 /***/ }),
-/* 109 */
+/* 111 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -16069,11 +16132,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "material-icons"
     }, [_vm._v(_vm._s(generic_component.type.icon))]), _vm._v("\n                    " + _vm._s(generic_component.type.name_singular) + "\n                ")]), _vm._v(" "), _c('div', {
       staticClass: "card-content"
-    }, [_c('span', {
-      staticClass: "card-title activator truncate"
-    }, [_c('span', [_vm._v(_vm._s(generic_component.name))]), _vm._v(" "), _c('i', {
-      staticClass: "material-icons right"
-    }, [_vm._v("more_vert")])]), _vm._v(" "), _c('p', _vm._l((generic_component.properties), function(value, name) {
+    }, [_c('div', _vm._l((generic_component.properties), function(value, name) {
       return _c('span', [_vm._v(_vm._s(name) + ": " + _vm._s(value)), _c('br')])
     }))]), _vm._v(" "), _c('div', {
       staticClass: "card-action"
@@ -16085,23 +16144,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": '/generic_components/' + generic_component.id + '/edit'
       }
-    }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])]), _vm._v(" "), _c('div', {
-      staticClass: "card-reveal"
-    }, [(generic_component.controlunit !== undefined) ? _c('div', [_c('span', {
-      staticClass: "card-title"
-    }, [_vm._v(_vm._s(_vm.$tc('components.controlunits', 1))), _c('i', {
-      staticClass: "material-icons right"
-    }, [_vm._v("close")])]), _vm._v(" "), _c('p', [_c('a', {
-      attrs: {
-        "href": '/controlunits/' + generic_component.controlunit.id
-      }
-    }, [_vm._v(_vm._s(generic_component.controlunit.name))])]), _vm._v(" "), _c('span', {
-      staticClass: "card-title"
-    }, [_vm._v(_vm._s(generic_component.belongsTo_type))]), _vm._v(" "), _c('p', [(generic_component.belongsTo) ? _c('a', {
-      attrs: {
-        "href": generic_component.belongsTo.url
-      }
-    }, [_vm._v(_vm._s(generic_component.belongsTo.name))]) : _vm._e()])]) : _vm._e()])])])])
+    }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])])])])
   }))
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -16113,7 +16156,7 @@ if (false) {
 }
 
 /***/ }),
-/* 110 */
+/* 112 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -16133,11 +16176,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "material-icons"
     }, [_vm._v("memory")]), _vm._v("\n                    " + _vm._s(_vm.$tc("components.logical_sensors", 2)) + "\n                ")]), _vm._v(" "), _c('div', {
       staticClass: "card-content"
-    }, [_c('span', {
-      staticClass: "card-title activator truncate"
-    }, [_c('span', [_vm._v(_vm._s(logical_sensor.name))]), _vm._v(" "), _c('i', {
-      staticClass: "material-icons right"
-    }, [_vm._v("more_vert")])]), _vm._v(" "), (logical_sensor.type.length) ? _c('p', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(_vm.$t("labels." + logical_sensor.type)))])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    }, [(logical_sensor.type.length) ? _c('div', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(_vm.$t("labels." + logical_sensor.type)))])]) : _vm._e()]), _vm._v(" "), _c('div', {
       staticClass: "card-action"
     }, [_c('a', {
       attrs: {
@@ -16206,7 +16245,7 @@ if (false) {
 }
 
 /***/ }),
-/* 111 */
+/* 113 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -20306,7 +20345,7 @@ if (false) {
 }
 
 /***/ }),
-/* 112 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -20337,7 +20376,60 @@ if (false) {
 }
 
 /***/ }),
-/* 113 */
+/* 115 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    staticClass: "material-icons"
+  }, [_vm._v("vertical_align_center")]), _vm._v("\n        " + _vm._s(_vm.$tc("components.logical_sensor_thresholds", 2)) + "\n    ")]), _vm._v(" "), _vm._l((_vm.logical_sensors), function(ls) {
+    return [_c('div', {
+      staticClass: "card-content"
+    }, [_c('div', {
+      staticClass: "row row-no-margin"
+    }, [_c('span', [_c('strong', [_c('a', {
+      attrs: {
+        "href": '/logical_sensors/' + ls.id
+      }
+    }, [_vm._v(_vm._s(ls.name))])])])]), _vm._v(" "), _vm._l((ls.thresholds), function(th) {
+      return _c('div', {
+        staticClass: "row row-no-margin"
+      }, [_c('i', {
+        staticClass: "material-icons"
+      }, [_vm._v("vertical_align_center")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(th.timestamps.starts) + ":")]), _vm._v(" "), (th.rawvalue_lowerlimit !== null) ? _c('span', [_vm._v(_vm._s(_vm.$t("labels.min_short")) + ": " + _vm._s(th.rawvalue_lowerlimit))]) : _vm._e(), _vm._v(" "), (th.rawvalue_upperlimit !== null) ? _c('span', [_vm._v(_vm._s(_vm.$t("labels.max_short")) + ": " + _vm._s(th.rawvalue_upperlimit))]) : _vm._e(), _vm._v(" "), _c('span', {
+        staticClass: "right"
+      }, [_c('a', {
+        attrs: {
+          "href": '/logical_sensor_thresholds/' + th.id + '/edit'
+        }
+      }, [_c('i', {
+        staticClass: "material-icons"
+      }, [_vm._v("edit")])])])])
+    }), _vm._v(" "), (ls.thresholds.length < 1) ? _c('div', {
+      staticClass: "row row-no-margin"
+    }, [_vm._v("\n            " + _vm._s(_vm.$t("tooltips.no_data")) + "\n        ")]) : _vm._e()], 2), _vm._v(" "), _c('div', {
+      staticClass: "card-action"
+    }, [_c('a', {
+      attrs: {
+        "href": '/logical_sensor_thresholds/create?preset[belongsTo_type]=LogicalSensor&preset[belongsTo_id]=' + ls.id
+      }
+    }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])]
+  })], 2)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-3ef626cd", module.exports)
+  }
+}
+
+/***/ }),
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -20601,7 +20693,7 @@ if (false) {
 }
 
 /***/ }),
-/* 114 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21081,7 +21173,7 @@ if (false) {
 }
 
 /***/ }),
-/* 115 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21121,7 +21213,7 @@ if (false) {
 }
 
 /***/ }),
-/* 116 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21435,7 +21527,7 @@ if (false) {
 }
 
 /***/ }),
-/* 117 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21517,7 +21609,7 @@ if (false) {
 }
 
 /***/ }),
-/* 118 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -21537,11 +21629,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "material-icons"
     }, [_vm._v("developer_board")]), _vm._v("\n                    " + _vm._s(_vm.$tc("components.controlunits", 2)) + "\n                ")]), _vm._v(" "), _c('div', {
       staticClass: "card-content"
-    }, [_c('span', {
-      staticClass: "card-title activator truncate"
-    }, [_c('span', [_vm._v(_vm._s(controlunit.name))]), _vm._v(" "), _c('i', {
-      staticClass: "material-icons right"
-    }, [_vm._v("more_vert")])]), _vm._v(" "), _c('p', [_vm._v("\n                        " + _vm._s(_vm.$t('labels.last_heartbeat')) + ":\n                        "), _vm._v(" "), _c('span', {
+    }, [_c('div', [_vm._v("\n                        " + _vm._s(_vm.$t('labels.last_heartbeat')) + ":\n                        "), _vm._v(" "), _c('span', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -21604,7 +21692,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "data-delay": "50",
         "data-tooltip": controlunit.timestamps.last_heartbeat
       }
-    }, [_vm._v("\n                            " + _vm._s(_vm.$t('units.just_now')) + "\n                        ")]), _vm._v(" "), _c('br')])]), _vm._v(" "), _c('div', {
+    }, [_vm._v("\n                            " + _vm._s(_vm.$t('units.just_now')) + "\n                        ")])])]), _vm._v(" "), _c('div', {
       staticClass: "card-action"
     }, [_c('a', {
       attrs: {
@@ -21614,19 +21702,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": '/controlunits/' + controlunit.id + '/edit'
       }
-    }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])]), _vm._v(" "), _c('div', {
-      staticClass: "card-reveal"
-    }, [_c('span', {
-      staticClass: "card-title"
-    }, [_vm._v(_vm._s(_vm.$tc("components.physical_sensors", 2))), _c('i', {
-      staticClass: "material-icons right"
-    }, [_vm._v("close")])]), _vm._v(" "), _vm._l((controlunit.physical_sensors), function(physical_sensor) {
-      return _c('p', [_c('a', {
-        attrs: {
-          "href": '/physical_sensors/' + physical_sensor.id
-        }
-      }, [_vm._v(_vm._s(physical_sensor.name))])])
-    })], 2)])])])
+    }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])])])])
   }))
 },staticRenderFns: []}
 module.exports.render._withStripped = true
@@ -21638,7 +21714,7 @@ if (false) {
 }
 
 /***/ }),
-/* 119 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22311,7 +22387,7 @@ if (false) {
 }
 
 /***/ }),
-/* 120 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22379,7 +22455,7 @@ if (false) {
 }
 
 /***/ }),
-/* 121 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22393,9 +22469,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "material-icons"
   }, [_vm._v("schedule")]), _vm._v("\n                " + _vm._s(_vm.$tc("components.animal_weighing_schedules", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
-  }, [_c('span', {
-    staticClass: "card-title activator truncate"
-  }, [_c('span', [_vm._v(_vm._s(_vm.$tc("components.animal_weighing_schedules", 2)))])]), _vm._v(" "), _vm._l((_vm.animal_weighing_schedules), function(aws) {
+  }, [_vm._l((_vm.animal_weighing_schedules), function(aws) {
     return _c('div', [_c('span', {
       directives: [{
         name: "show",
@@ -22449,16 +22523,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": '/animals/' + _vm.animalId + '/weighing_schedules/create'
     }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])]), _vm._v(" "), _vm._m(0)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "card-reveal"
-  }, [_c('span', {
-    staticClass: "card-title"
-  }, [_c('i', {
-    staticClass: "material-icons right"
-  }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
-}]}
+  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -22468,7 +22534,7 @@ if (false) {
 }
 
 /***/ }),
-/* 122 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22521,7 +22587,7 @@ if (false) {
 }
 
 /***/ }),
-/* 123 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22544,7 +22610,7 @@ if (false) {
 }
 
 /***/ }),
-/* 124 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -22645,7 +22711,7 @@ if (false) {
 }
 
 /***/ }),
-/* 125 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23093,7 +23159,7 @@ if (false) {
 }
 
 /***/ }),
-/* 126 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23109,11 +23175,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "material-icons"
   }, [_vm._v("attach_file")]), _vm._v("\n                " + _vm._s(_vm.files.length) + " " + _vm._s(_vm.$tc("components.files", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
-  }, [_c('span', {
-    staticClass: "card-title activator truncate"
-  }, [_c('span', [_vm._v(_vm._s(_vm.$tc("components.files", 2)))]), _vm._v(" "), _c('i', {
-    staticClass: "material-icons right"
-  }, [_vm._v("more_vert")])]), _vm._v(" "), _c('p'), _vm._l((_vm.files), function(file) {
+  }, [_c('div', _vm._l((_vm.files), function(file) {
     return _c('div', {
       staticClass: "chip"
     }, [_c('i', {
@@ -23123,7 +23185,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/files/' + file.id
       }
     }, [_vm._v(_vm._s(file.display_name))]), _vm._v(" "), _c('i', [_vm._v(_vm._s((file.size / 1024 / 1024).toFixed(2)) + " MB")])])
-  }), _vm._v(" "), _c('p')], 2), _vm._v(" "), _c('div', {
+  }))]), _vm._v(" "), _c('div', {
     staticClass: "card-action"
   }, [_c('a', {
     attrs: {
@@ -23133,16 +23195,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": '/files/?filter[belongsTo_type]=' + _vm.belongsTo_type + '&filter[belongsTo_id]=' + _vm.belongsTo_id
     }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))])]), _vm._v(" "), _vm._m(0)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "card-reveal"
-  }, [_c('span', {
-    staticClass: "card-title"
-  }, [_c('i', {
-    staticClass: "material-icons right"
-  }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
-}]}
+  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))])])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -23152,7 +23206,7 @@ if (false) {
 }
 
 /***/ }),
-/* 127 */
+/* 130 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23288,7 +23342,7 @@ if (false) {
 }
 
 /***/ }),
-/* 128 */
+/* 131 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23603,7 +23657,7 @@ if (false) {
 }
 
 /***/ }),
-/* 129 */
+/* 132 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23661,11 +23715,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "material-icons"
   }, [_vm._v("vertical_align_bottom")]), _vm._v("\n                " + _vm._s(_vm.$tc("components.animal_weighings", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
-  }, [_c('span', {
-    staticClass: "card-title activator truncate"
-  }, [_c('span', [_vm._v(_vm._s(_vm.$tc("components.animal_weighings", 2)))]), _vm._v(" "), _c('i', {
-    staticClass: "material-icons right"
-  }, [_vm._v("more_vert")])]), _vm._v(" "), _vm._l((_vm.animal_weighings), function(af) {
+  }, [_vm._l((_vm.animal_weighings), function(af) {
     return _c('div', [_c('div', {
       staticClass: "row row-no-margin",
       staticStyle: {
@@ -23692,16 +23742,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": '#modal_add_weighing_' + _vm.animalId,
       "onclick": '$(\'#modal_add_weighing_' + _vm.animalId + '\').modal(); $(\'#modal_add_weighing_' + _vm.animalId + ' select\').material_select(); $(\'#modal_add_weighing_' + _vm.animalId + '\').modal(\'open\');'
     }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])]), _vm._v(" "), _vm._m(0)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "card-reveal"
-  }, [_c('span', {
-    staticClass: "card-title"
-  }, [_c('i', {
-    staticClass: "material-icons right"
-  }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
-}]}
+  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -23711,7 +23753,7 @@ if (false) {
 }
 
 /***/ }),
-/* 130 */
+/* 133 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23725,9 +23767,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "material-icons"
   }, [_vm._v("schedule")]), _vm._v("\n                " + _vm._s(_vm.$tc("components.animal_feeding_schedules", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
-  }, [_c('span', {
-    staticClass: "card-title activator truncate"
-  }, [_c('span', [_vm._v(_vm._s(_vm.$tc("components.animal_feeding_schedules", 2)))])]), _vm._v(" "), _vm._l((_vm.animal_feeding_schedules), function(afs) {
+  }, [_vm._l((_vm.animal_feeding_schedules), function(afs) {
     return _c('div', [(afs.timestamps.next != null) ? _c('span', [_vm._v(_vm._s(afs.timestamps.next) + " - ")]) : _vm._e(), _vm._v(_vm._s(afs.type) + "\n\n\n                    "), _c('span', {
       staticClass: "right"
     }, [_c('a', {
@@ -23767,16 +23807,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "href": '/animals/' + _vm.animalId + '/feeding_schedules/create'
     }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])]), _vm._v(" "), _vm._m(0)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "card-reveal"
-  }, [_c('span', {
-    staticClass: "card-title"
-  }, [_c('i', {
-    staticClass: "material-icons right"
-  }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
-}]}
+  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -23786,7 +23818,7 @@ if (false) {
 }
 
 /***/ }),
-/* 131 */
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23944,7 +23976,7 @@ if (false) {
 }
 
 /***/ }),
-/* 132 */
+/* 135 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23965,7 +23997,7 @@ if (false) {
 }
 
 /***/ }),
-/* 133 */
+/* 136 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -23980,7 +24012,7 @@ if (false) {
 }
 
 /***/ }),
-/* 134 */
+/* 137 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -24036,7 +24068,7 @@ if (false) {
 }
 
 /***/ }),
-/* 135 */
+/* 138 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -24410,7 +24442,7 @@ if (false) {
 }
 
 /***/ }),
-/* 136 */
+/* 139 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -24794,7 +24826,7 @@ if (false) {
 }
 
 /***/ }),
-/* 137 */
+/* 140 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -24813,11 +24845,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "material-icons"
     }, [_vm._v("attach_file")]), _vm._v("\n                    " + _vm._s(_vm.$tc("components.files", 1)) + "\n                ")]), _vm._v(" "), _c('div', {
       staticClass: "card-content"
-    }, [_c('span', {
-      staticClass: "card-title activator truncate"
-    }, [_c('span', [_vm._v(_vm._s(file.display_name))]), _vm._v(" "), _c('i', {
-      staticClass: "material-icons right"
-    }, [_vm._v("more_vert")])]), _vm._v(" "), _c('p', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.size")) + ": " + _vm._s((file.size / 1024 / 1024).toFixed(2)) + " MB")]), _c('br'), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(file.mimetype))])])]), _vm._v(" "), _c('div', {
+    }, [_c('div', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.size")) + ": " + _vm._s((file.size / 1024 / 1024).toFixed(2)) + " MB")]), _c('br'), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(file.mimetype))])])]), _vm._v(" "), _c('div', {
       staticClass: "card-action"
     }, [_c('a', {
       attrs: {
@@ -24827,7 +24855,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": '/files/' + file.id + '/download/' + file.display_name
       }
-    }, [_vm._v(_vm._s(_vm.$t("buttons.download")))])]), _vm._v(" "), _vm._m(0, true)])]), _vm._v(" "), (file.is_image && file.thumb !== _vm.undefiend) ? _c('div', {
+    }, [_vm._v(_vm._s(_vm.$t("buttons.download")))])])])]), _vm._v(" "), (file.is_image && file.thumb !== _vm.undefiend) ? _c('div', {
       staticClass: "col s12 m12 l8"
     }, [_c('div', {
       staticClass: "card"
@@ -24841,15 +24869,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     })])])]) : _vm._e()])
   }))
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "card-reveal"
-  }, [_c('span', {
-    staticClass: "card-title"
-  }, [_c('i', {
-    staticClass: "material-icons right"
-  }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -24859,7 +24879,7 @@ if (false) {
 }
 
 /***/ }),
-/* 138 */
+/* 141 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -24913,7 +24933,7 @@ if (false) {
 }
 
 /***/ }),
-/* 139 */
+/* 142 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -24974,11 +24994,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "material-icons"
   }, [_vm._v("local_dining")]), _vm._v("\n                " + _vm._s(_vm.$tc("components.animal_feedings", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
-  }, [_c('span', {
-    staticClass: "card-title activator truncate"
-  }, [_c('span', [_vm._v(_vm._s(_vm.$tc("components.animal_feedings", 2)))]), _vm._v(" "), _c('i', {
-    staticClass: "material-icons right"
-  }, [_vm._v("more_vert")])]), _vm._v(" "), _vm._l((_vm.animal_feedings), function(af) {
+  }, [_vm._l((_vm.animal_feedings), function(af) {
     return _c('div', [_c('div', {
       staticClass: "row row-no-margin"
     }, [(af.timestamps.created_diff.days > 1) ? _c('span', [_vm._v(_vm._s(_vm.$t('units.days_ago', {
@@ -25002,16 +25018,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": '#modal_add_feeding_' + _vm.animalId,
       "onclick": '$(\'#modal_add_feeding_' + _vm.animalId + '\').modal(); $(\'#modal_add_feeding_' + _vm.animalId + ' select\').material_select(); $(\'#modal_add_feeding_' + _vm.animalId + '\').modal(\'open\');'
     }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])]), _vm._v(" "), _vm._m(0)])])])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "card-reveal"
-  }, [_c('span', {
-    staticClass: "card-title"
-  }, [_c('i', {
-    staticClass: "material-icons right"
-  }, [_vm._v("close")])]), _vm._v(" "), _c('p')])
-}]}
+  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])])])])
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
@@ -25021,7 +25029,7 @@ if (false) {
 }
 
 /***/ }),
-/* 140 */
+/* 143 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -25406,7 +25414,7 @@ if (false) {
 }
 
 /***/ }),
-/* 141 */
+/* 144 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -25459,7 +25467,7 @@ if (false) {
 }
 
 /***/ }),
-/* 142 */
+/* 145 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -25636,7 +25644,7 @@ if (false) {
 }
 
 /***/ }),
-/* 143 */
+/* 146 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -26104,7 +26112,7 @@ if (false) {
 }
 
 /***/ }),
-/* 144 */
+/* 147 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -26576,7 +26584,7 @@ if (false) {
 }
 
 /***/ }),
-/* 145 */
+/* 148 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -36776,9 +36784,9 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 146 */,
-/* 147 */,
-/* 148 */
+/* 149 */,
+/* 150 */,
+/* 151 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports = __webpack_require__(8);

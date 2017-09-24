@@ -9,14 +9,9 @@
                     </div>
 
                     <div class="card-content">
-                        <span class="card-title activator truncate">
-                            <span>{{ logical_sensor.name }}</span>
-                            <i class="material-icons right">more_vert</i>
-                        </span>
-
-                        <p v-if="logical_sensor.type.length">
+                        <div v-if="logical_sensor.type.length">
                             <span>{{ $t("labels.type") }}: {{ $t("labels." + logical_sensor.type) }}</span>
-                        </p>
+                        </div>
                     </div>
 
                     <div class="card-action">

@@ -9,9 +9,6 @@
     <div class="col s12">
         <ul class="tabs z-depth-1">
             <li class="tab col s3"><a class="active" href="#tab_overview">@lang('labels.overview')</a></li>
-            @if (!is_null($terrarium->animals))
-                <li class="tab col s3"><a href="#tab_animals">@choice('components.animals', 2)</a></li>
-            @endif
             <li class="tab col s3"><a href="#tab_infrastructure">@lang('labels.infrastructure')</a></li>
             <li class="tab col s3"><a href="#tab_biography">@lang('labels.biography')</a></li>
             <li class="tab col s3"><a href="#tab_files">@choice('components.files', 2)</a></li>
@@ -25,15 +22,20 @@
                                      :subscribe-add="false" :subscribe-delete="false"
                                      container-classes="row" wrapper-classes="col s12"></terraria-widget>
 
-
                     <action_sequences-widget :refresh-timeout-seconds="60" source-filter="filter[terrarium_id]={{ $terrarium->id }}"
                                              terrarium-id="{{ $terrarium->id }}"
                                              container-classes="row" wrapper-classes="col s12"></action_sequences-widget>
+
+                    <logical_sensor_thresholds-widget :refresh-timeout-seconds="60"
+                                                      source-filter="filter[physical_sensor.belongsTo_type]=Terrarium&filter[physical_sensor.belongsTo_id]={{ $terrarium->id }}"
+                                                      container-classes="row" wrapper-classes="col s12"></logical_sensor_thresholds-widget>
+
                 </div>
 
                 <div class="col s12 m7 l8">
                     <div class="card">
                         <div class="card-header">
+                            <i class="material-icons">timeline</i>
                             @lang('labels.temp_and_hum_history')
                         </div>
                         <div class="card-content">
@@ -45,6 +47,19 @@
                             <div id="sensorreadings-labels" class="dygraph-legend-div"></div>
                         </div>
                     </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <i class="material-icons">pets</i>
+                            @choice('components.animals', 2)
+                        </div>
+                        <div class="card-content">
+                            <animals-widget source-filter="filter[terrarium_id]={{ $terrarium->id }}"
+                                            :subscribe-add="false" :subscribe-delete="false"
+                                            container-classes="row" wrapper-classes="col s12 m6 l6"></animals-widget>
+                        </div>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -60,16 +75,6 @@
             </ul>
         </div>
     </div>
-
-    @if (!is_null($terrarium->animals))
-        <div id="tab_animals" class="col s12">
-            <div class="container">
-                <animals-widget source-filter="filter[terrarium_id]={{ $terrarium->id }}"
-                                :subscribe-add="false" :subscribe-delete="false"
-                                container-classes="row" wrapper-classes="col s12 m6 l4"></animals-widget>
-            </div>
-        </div>
-    @endif
 
     <div id="tab_infrastructure" class="col s12">
         <div class="container">

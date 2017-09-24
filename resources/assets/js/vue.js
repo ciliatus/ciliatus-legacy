@@ -122,6 +122,7 @@ import PhysicalSensorsWidget from './vue/physical_sensors-widget.vue';
 import PhysicalSensorsListWidget from './vue/physical_sensors-list-widget.vue';
 import LogicalSensorsWidget from './vue/logical_sensors-widget.vue';
 import LogicalSensorsListWidget from './vue/logical_sensors-list-widget.vue';
+import LogicalSensorThresholdsWidget from './vue/logical_sensor_thresholds-widget.vue';
 import GenericComponentsWidget from './vue/generic_components-widget.vue';
 import GenericComponentsListWidget from './vue/generic_components-list-widget.vue';
 import UsersWidget from './vue/users-widget.vue';
@@ -200,6 +201,7 @@ window.bodyVue = new Vue({
         'physical_sensors-list-widget': PhysicalSensorsListWidget,
         'logical_sensors-widget': LogicalSensorsWidget,
         'logical_sensors-list-widget': LogicalSensorsListWidget,
+        'logical_sensor_thresholds-widget': LogicalSensorThresholdsWidget,
         'generic_components-widget': GenericComponentsWidget,
         'generic_components-list-widget': GenericComponentsListWidget,
         'users-widget': UsersWidget,

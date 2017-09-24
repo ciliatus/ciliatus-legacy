@@ -9,12 +9,7 @@
                     </div>
 
                     <div class="card-content">
-                        <span class="card-title activator truncate">
-                            <span>{{ controlunit.name }}</span>
-                            <i class="material-icons right">more_vert</i>
-                        </span>
-
-                        <p>
+                        <div>
                             {{ $t('labels.last_heartbeat') }}:
                             <!-- @TODO: there has to be a better way to do this -->
                             <span v-show="controlunit.timestamps.last_heartbeat_diff.days > 0"
@@ -38,21 +33,12 @@
                                           class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
                                 {{ $t('units.just_now') }}
                             </span>
-                            <br />
-                        </p>
+                        </div>
                     </div>
 
                     <div class="card-action">
                         <a v-bind:href="'/controlunits/' + controlunit.id">{{ $t("buttons.details") }}</a>
                         <a v-bind:href="'/controlunits/' + controlunit.id + '/edit'">{{ $t("buttons.edit") }}</a>
-                    </div>
-
-                    <div class="card-reveal">
-                        <span class="card-title">{{ $tc("components.physical_sensors", 2) }}<i class="material-icons right">close</i></span>
-
-                        <p v-for="physical_sensor in controlunit.physical_sensors">
-                            <a v-bind:href="'/physical_sensors/' + physical_sensor.id">{{ physical_sensor.name }}</a>
-                        </p>
                     </div>
                 </div>
             </div>

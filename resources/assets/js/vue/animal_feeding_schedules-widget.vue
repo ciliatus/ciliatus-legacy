@@ -8,11 +8,6 @@
                 </div>
 
                 <div class="card-content">
-                    <span class="card-title activator truncate">
-                        <span>{{ $tc("components.animal_feeding_schedules", 2) }}</span>
-                        <!--<i class="material-icons right">more_vert</i>-->
-                    </span>
-
                     <div v-for="afs in animal_feeding_schedules">
                         <span v-if="afs.timestamps.next != null">{{ afs.timestamps.next }} - </span>{{ afs.type }}
 
@@ -35,13 +30,6 @@
 
                 <div class="card-action">
                     <a v-bind:href="'/animals/' + animalId + '/feeding_schedules/create'">{{ $t("buttons.add") }}</a>
-                </div>
-
-                <div class="card-reveal">
-                    <span class="card-title"><i class="material-icons right">close</i></span>
-
-                    <p>
-                    </p>
                 </div>
             </div>
         </div>

@@ -1,23 +1,19 @@
 <template>
 
     <div class="card">
+
         <div class="card-header">
             <i class="material-icons">playlist_play</i>
             {{ action_sequences.length }} {{ $tc("components.action_sequences", 2) }}
         </div>
 
         <div class="card-content">
-            <span class="card-title activator truncate">
-                <span>{{ $tc("components.action_sequences", 2) }}</span>
-                <i class="material-icons right">more_vert</i>
-            </span>
-
             <div v-for="as in action_sequences">
                 <p>
                     <a :href="'/action_sequences/' + as.id + '/edit'"><strong>{{ as.name }}</strong></a>
                 </p>
 
-                <p v-for="asi in as.intentions">
+                <div class="row row-no-margin" v-for="asi in as.intentions">
                     <i class="material-icons">explore</i>
 
                     <span v-if="asi.intention === 'increase'">{{ $t('labels.increases') }}</span>
@@ -28,21 +24,25 @@
                     <span v-show="asi.states.running">
                         <span class="new badge" v-bind:data-badge-caption="$t('labels.active')"> </span>
                     </span>
-                </p>
+                </div>
 
-                <p v-for="ast in as.triggers">
+                <div v-for="ast in as.triggers">
                     <i class="material-icons">flare</i> {{ ast.logical_sensor.name }} {{ $t('units.' + ast.reference_value_comparison_type) }} {{ ast.reference_value }}
                     <span v-show="ast.states.running">
                         <span class="new badge" v-bind:data-badge-caption="$t('labels.active')"> </span>
                     </span>
-                </p>
+                </div>
 
-                <p v-for="ass in as.schedules">
+                <div v-for="ass in as.schedules">
                     <i class="material-icons">schedule</i> {{ ass.timestamps.starts }} <i v-show="!ass.runonce">{{ $t("labels.daily") }}</i>
                     <span v-show="ass.states.running">
                         <span class="new badge" v-bind:data-badge-caption="$t('labels.active')"> </span>
                     </span>
-                </p>
+                </div>
+            </div>
+
+            <div v-if="action_sequences.length < 1">
+                {{ $t('tooltips.no_data') }}
             </div>
 
         </div>
@@ -51,14 +51,8 @@
             <a v-bind:href="'/action_sequences/create?preset[terrarium]=' + terrariumId">{{ $t("buttons.add") }}</a>
         </div>
 
-        <div class="card-reveal">
-            <span class="card-title"><i class="material-icons right">close</i></span>
-            <p>
-
-            </p>
-        </div>
-
     </div>
+
 </template>
 
 <script>
@@ -102,10 +96,10 @@ export default {
                 }
             });
             if (item === null) {
-                this.action_sequences.push(a.animal)
+                this.action_sequences.push(a.action_sequence)
             }
             else if (item !== null) {
-                this.action_sequences.splice(item, 1, a.animal);
+                this.action_sequences.splice(item, 1, a.action_sequence);
             }
         },
 

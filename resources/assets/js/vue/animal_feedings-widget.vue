@@ -30,10 +30,6 @@
                 </div>
 
                 <div class="card-content">
-                    <span class="card-title activator truncate">
-                        <span>{{ $tc("components.animal_feedings", 2) }}</span>
-                        <i class="material-icons right">more_vert</i>
-                    </span>
 
                     <div v-for="af in animal_feedings">
                         <div class="row row-no-margin">
@@ -51,13 +47,6 @@
 
                 <div class="card-action">
                     <a v-bind:href="'#modal_add_feeding_' + animalId" v-bind:onclick="'$(\'#modal_add_feeding_' + animalId + '\').modal(); $(\'#modal_add_feeding_' + animalId + ' select\').material_select(); $(\'#modal_add_feeding_' + animalId + '\').modal(\'open\');'">{{ $t("buttons.add") }}</a>
-                </div>
-
-                <div class="card-reveal">
-                    <span class="card-title"><i class="material-icons right">close</i></span>
-
-                    <p>
-                    </p>
                 </div>
             </div>
         </div>

@@ -9,31 +9,14 @@
                     </div>
 
                     <div class="card-content">
-                        <span class="card-title activator truncate">
-                            <span>{{ generic_component.name }}</span>
-                            <i class="material-icons right">more_vert</i>
-                        </span>
-                        <p>
+                        <div>
                             <span v-for="(value, name) in generic_component.properties">{{ name }}: {{ value }}<br /></span>
-                        </p>
+                        </div>
                     </div>
 
                     <div class="card-action">
                         <a v-bind:href="'/generic_components/' + generic_component.id">{{ $t("buttons.details") }}</a>
                         <a v-bind:href="'/generic_components/' + generic_component.id + '/edit'">{{ $t("buttons.edit") }}</a>
-                    </div>
-
-                    <div class="card-reveal">
-                        <div v-if="generic_component.controlunit !== undefined">
-                            <span class="card-title">{{ $tc('components.controlunits', 1) }}<i class="material-icons right">close</i></span>
-                            <p>
-                                <a :href="'/controlunits/' + generic_component.controlunit.id">{{ generic_component.controlunit.name }}</a>
-                            </p>
-                            <span class="card-title">{{ generic_component.belongsTo_type }}</span>
-                            <p>
-                                <a v-if="generic_component.belongsTo" :href="generic_component.belongsTo.url">{{ generic_component.belongsTo.name }}</a>
-                            </p>
-                        </div>
                     </div>
                 </div>
             </div>
