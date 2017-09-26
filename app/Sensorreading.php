@@ -52,7 +52,7 @@ class Sensorreading extends CiliatusModel
 
         }
 
-        return $this->writeToInfluxDb(
+        $result = $this->writeToInfluxDb(
             'logical_sensor_readings',
             $this->rawvalue,
             [
@@ -62,6 +62,39 @@ class Sensorreading extends CiliatusModel
                 'terrarium'             => $this->logical_sensor->physical_sensor->terrarium->name
             ]
         );
+
+        $threshold = $this->logical_sensor->current_threshold();
+        if (is_null($threshold)) {
+            return $result;
+        }
+
+        if (!is_null($threshold->rawvalue_lowerlimit)) {
+            $result = $result && $this->writeToInfluxDb(
+                'logical_sensor_threshold_lower',
+                $threshold->rawvalue_lowerlimit,
+                [
+                    'logical_sensor_type' => $this->logical_sensor->type,
+                    'logical_sensor'      => $this->logical_sensor->name,
+                    'physical_sensor'     => $this->logical_sensor->physical_sensor->name,
+                    'terrarium'           => $this->logical_sensor->physical_sensor->terrarium->name
+                ]
+            );
+        }
+
+        if (!is_null($threshold->rawvalue_upperlimit)) {
+            $result = $result && $this->writeToInfluxDb(
+                'logical_sensor_threshold_upper',
+                $threshold->rawvalue_upperlimit,
+                [
+                    'logical_sensor_type'   => $this->logical_sensor->type,
+                    'logical_sensor'        => $this->logical_sensor->name,
+                    'physical_sensor'       => $this->logical_sensor->physical_sensor->name,
+                    'terrarium'             => $this->logical_sensor->physical_sensor->terrarium->name
+                ]
+            );
+        }
+
+        return $result;
     }
 
     /**
