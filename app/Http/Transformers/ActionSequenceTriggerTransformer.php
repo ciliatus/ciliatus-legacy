@@ -41,10 +41,10 @@ class ActionSequenceTriggerTransformer extends Transformer
             'timestamps' => $this->parseTimestamps($item, [
                 'last_start_at' => 'last_start',
                 'last_finished_at' => 'last_finished'
-            ]),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            ])
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         if (isset($item['sequence'])) {
             $return['sequence'] = (new ActionSequenceTransformer())->transform($item['sequence']);

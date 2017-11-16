@@ -26,16 +26,10 @@ class GenericComponentTypeTransformer extends Transformer
             'id'    => $item['id'],
             'name_singular' => $item['name_singular'],
             'name_plural' => $item['name_plural'],
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
 
-        if (isset($item['properties']) && is_array($item['properties'])) {
-            foreach ($item['properties'] as $property) {
-                $return['properties'][$property['name']] = $property['value'];
-            }
-        }
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         return $return;
     }

@@ -53,6 +53,7 @@
                                 <span>
                                     <i class="material-icons">transform</i>
                                     <a v-bind:href="'/valves/' + valve.id">{{ valve.name }}</a>
+                                    <span v-if="!valve.active"> - {{ $t('labels.inactive') }}</span>
                                 </span>
                             </td>
 

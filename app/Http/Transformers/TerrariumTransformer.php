@@ -38,10 +38,10 @@ class TerrariumTransformer extends Transformer
             'heartbeat_critical' => $item['heartbeat_critical'],
             'cooked_temperature_celsius' => $item['cooked_temperature_celsius'],
             'cooked_humidity_percent' => $item['cooked_humidity_percent'],
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         if (isset($item['physical_sensors'])) {
             $return['physical_sensors'] = $physicalSensorTransformer->transformCollection($item['physical_sensors']);

@@ -22,10 +22,10 @@ class AnimalWeighingEventTransformer extends Transformer
             'id'    => $item['id'],
             'type'  => $item['name'],
             'amount'  => $item['value'],
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         if (isset($item['animal'])) {
             $return['animal'] = (new AnimalTransformer())->transform($item['animal']);

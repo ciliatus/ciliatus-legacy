@@ -34,10 +34,10 @@ class PhysicalSensorTransformer extends Transformer
             'controlunit_id'  => $item['controlunit_id'],
             'name' => $item['name'],
             'model' => $item['model'],
-            'timestamps' => $this->parseTimestamps($item, ['heartbeat_at' => 'last_heartbeat']),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item, ['heartbeat_at' => 'last_heartbeat'])
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         if (isset($item['controlunit'])) {
             $return['controlunit'] = $controlunitTransformer->transform($item['controlunit']);

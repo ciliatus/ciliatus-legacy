@@ -37,12 +37,10 @@ class LogTransformer extends Transformer
             'associated_type' => $item['associatedWith_type'],
             'associated'    => isset($item['associated']) ? $item['associated'] : null,
             'associated_name' => $item['associatedWith_name'],
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url']) ? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
 
-
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         return $return;
     }

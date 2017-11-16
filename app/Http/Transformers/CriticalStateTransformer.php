@@ -33,10 +33,10 @@ class CriticalStateTransformer extends Transformer
             'timestamps' => $this->parseTimestamps($item, [
                 'notifications_sent_at' => 'notifications_sent_at',
                 'recovered_at' => 'recovered_at'
-            ]),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            ])
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         if (isset($item['belongsTo_object'])) {
             $belongsTo_transformerName = 'App\\Http\\Transformers\\' . $item['belongsTo_type'] . 'Transformer';

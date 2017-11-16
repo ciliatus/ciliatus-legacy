@@ -45,6 +45,7 @@
                                 <span>
                                     <i class="material-icons">{{ generic_component.type.icon }}</i>
                                     <a v-bind:href="'/generic_components/' + generic_component.id">{{ generic_component.name }}</a>
+                                    <span v-if="!generic_component.active"> - {{ $t('labels.inactive') }}</span>
                                 </span>
                             </td>
 

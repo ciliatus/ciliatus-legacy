@@ -148,18 +148,24 @@ abstract class Transformer
     /**
      * @param array $return
      * @param array $item
+     * @param array $exclude
      * @return array
      */
-    protected function addCiliatusSpecificFields(array $return, array $item)
+    protected function addCiliatusSpecificFields(array $return, array $item, array $exclude = ['properties'])
     {
-        if (isset($item['properties'])) {
-            $return['properties'] = (new PropertyTransformer())->transformCollection($item['properties']->toArray());
+        if (isset($item['properties']) && !in_array('properties', $exclude)) {
+            $return['properties'] = (new PropertyTransformer())->transformCollection(
+                is_array($item['properties']) ? $item['properties'] : $item['properties']->toArray()
+            );
         }
-        if (isset($item['icon'])) {
+        if (isset($item['icon']) && !in_array('icon', $exclude)) {
             $return['icon'] = $item['icon'];
         }
-        if (isset($item['url'])) {
+        if (isset($item['url']) && !in_array('url', $exclude)) {
             $return['url'] = $item['url'];
+        }
+        if (isset($item['active']) && !in_array('active', $exclude)) {
+            $return['active'] = $item['active'];
         }
 
         return $return;

@@ -22,10 +22,10 @@ class ReminderTransformer extends Transformer
             'id'    => $item['id'],
             'name'  => $item['name'],
             'value'  => $item['value'],
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url']) ? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         return $return;
     }

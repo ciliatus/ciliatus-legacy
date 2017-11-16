@@ -30,10 +30,10 @@ class PropertyTransformer extends Transformer
             'value' => $item['value'],
             'belongsTo_type' => $item['belongsTo_type'],
             'belongsTo_id' => $item['belongsTo_id'],
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         return $return;
     }

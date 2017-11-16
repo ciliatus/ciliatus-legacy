@@ -25,6 +25,8 @@ class CategoryTransformer extends Transformer
             'timestamps' => $this->parseTimestamps($item)
         ];
 
+        $return = $this->addCiliatusSpecificFields($return, $item);
+
         return $return;
     }
 }

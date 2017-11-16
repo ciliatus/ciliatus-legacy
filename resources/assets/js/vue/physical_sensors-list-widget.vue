@@ -53,6 +53,7 @@
                                 <span>
                                     <i class="material-icons">memory</i>
                                     <a v-bind:href="'/physical_sensors/' + physical_sensor.id">{{ physical_sensor.name }}</a>
+                                    <span v-if="!physical_sensor.active"> - {{ $t('labels.inactive') }}</span>
                                 </span>
                             </td>
 

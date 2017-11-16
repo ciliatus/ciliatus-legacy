@@ -116,6 +116,15 @@ class ControlunitController extends ApiController
             ]
         ]);
 
+        if ($request->filled('active')) {
+            if ($request->input('active') == 'on' && !$controlunit->active()) {
+                $controlunit->enable();
+            }
+            else if ($request->input('active') == 'off' && $controlunit->active()) {
+                $controlunit->disable();
+            }
+        }
+
         $controlunit->save();
 
         return $this->setStatusCode(200)->respondWithData([], [

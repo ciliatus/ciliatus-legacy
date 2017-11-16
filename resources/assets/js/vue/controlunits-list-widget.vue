@@ -35,6 +35,7 @@
                                 <span>
                                     <i class="material-icons">developer_board</i>
                                     <a v-bind:href="'/controlunits/' + controlunit.id">{{ controlunit.name }}</a>
+                                    <span v-if="!controlunit.active"> - {{ $t('labels.inactive') }}</span>
                                 </span>
                             </td>
 

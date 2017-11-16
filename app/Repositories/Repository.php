@@ -20,12 +20,22 @@ abstract class Repository {
 
     /**
      * Adds properties, icon and url fields
+     *
+     * @param array $exclude
      */
-    protected function addCiliatusSpecificFields()
+    protected function addCiliatusSpecificFields(array $exclude = ['properties'])
     {
-        $this->scope->properties = $this->scope->properties()->get();
-        $this->scope->icon = $this->scope->icon();
-        $this->scope->url = $this->scope->url();
+        if (!in_array('properties', $exclude))
+            $this->scope->properties = $this->scope->properties()->get();
+
+        if (!in_array('icon', $exclude))
+            $this->scope->icon = $this->scope->icon();
+
+        if (!in_array('url', $exclude))
+            $this->scope->url = $this->scope->url();
+
+        if (!in_array('active', $exclude))
+            $this->scope->active = $this->scope->active();
     }
 
     /**

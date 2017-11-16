@@ -25,10 +25,10 @@ class AnimalWeighingSchedulePropertyTransformer extends Transformer
             'due_days' => isset($item['next_weighing_at_diff']) ? $item['next_weighing_at_diff'] : 0,
             'timestamps' => $this->parseTimestamps($item, [
                 'next_weighing_at' => 'next'
-            ]),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            ])
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         if (isset($item['animal'])) {
             $return['animal'] = (new AnimalTransformer())->transform($item['animal']);

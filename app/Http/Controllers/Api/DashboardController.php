@@ -53,7 +53,7 @@ class DashboardController extends ApiController
 
         $controlunits_critical = new Collection();
         foreach (Controlunit::orderBy('name')->get() as $controlunit) {
-            if (!$controlunit->heartbeatOk()) {
+            if (!$controlunit->heartbeatOk() && $controlunit->active()) {
                 $controlunits_critical->push($controlunit);
             }
         }
@@ -62,7 +62,9 @@ class DashboardController extends ApiController
         $physical_sensors_critical = new Collection();
         foreach (PhysicalSensor::orderBy('name')->get() as $physical_sensor) {
             if (!$physical_sensor->heartbeatOk() &&
-                !is_null($physical_sensor->controlunit)) {
+                !is_null($physical_sensor->controlunit) &&
+                $physical_sensor->active() &&
+                $physical_sensor->controlunit->active()) {
                 $physical_sensors_critical->push($physical_sensor);
             }
         }

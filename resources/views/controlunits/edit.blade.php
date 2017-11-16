@@ -18,21 +18,33 @@
                                 <span>{{ $controlunit->name }}</span>
                             </span>
 
-                            <p>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $controlunit->id }}">
-                                        <label for="id">ID</label>
-                                    </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $controlunit->id }}">
+                                    <label for="id">ID</label>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $controlunit->name }}">
-                                        <label for="name">@lang('labels.name')</label>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $controlunit->name }}">
+                                    <label for="name">@lang('labels.name')</label>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <div class="switch">
+                                        <label>
+                                            <input name="active" type="hidden" value="off">
+                                            <input name="active" type="checkbox" value="on"
+                                                   @if($controlunit->active()) checked @endif>
+                                            <span class="lever"></span>
+                                            @lang('labels.active')
+                                        </label>
                                     </div>
                                 </div>
-                            </p>
+                            </div>
 
                         </div>
 

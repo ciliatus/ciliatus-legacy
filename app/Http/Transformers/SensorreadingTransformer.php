@@ -28,10 +28,10 @@ class SensorreadingTransformer extends Transformer
             'logical_sensor_id'  => $item['logical_sensor_id'],
             'group_id' => $item['sensorreadinggroup_id'],
             'rawvalue' => $item['rawvalue'],
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         return $return;
     }

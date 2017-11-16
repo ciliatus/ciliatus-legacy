@@ -33,10 +33,10 @@ class AnimalTransformer extends Transformer
             'death_date' => isset($item['death_date']) ? Carbon::parse($item['death_date'])->format('d.m.Y') : null,
             'gender' => isset($item['gender']) ? $item['gender'] : '',
             'terrarium_id' => isset($item['terrarium_id']) ? $item['terrarium_id'] : '',
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         if (isset($item['terrarium'])) {
             $return['terrarium'] = $item['terrarium'];

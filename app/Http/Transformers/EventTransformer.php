@@ -30,10 +30,10 @@ class EventTransformer extends Transformer
             'name' => $item['name'],
             'value' => $item['value'],
             'value_json' => json_decode($item['value_json']),
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         if (isset($item['belongsTo_object'])) {
             $transformerName = 'App\\Http\\Transformers\\' . $item['belongsTo_type'] . 'Transformer';

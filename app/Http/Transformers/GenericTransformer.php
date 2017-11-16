@@ -22,15 +22,16 @@ class GenericTransformer extends Transformer
      */
     public function transform($item)
     {
+        if (!is_array($item)) {
+            $item = $item->toArray();
+        }
         $return = [
             'id'    =>  $item['id'],
             'name'  =>  $item['name'],
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url']) ? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
 
-
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         return $return;
     }

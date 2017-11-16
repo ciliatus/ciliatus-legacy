@@ -35,6 +35,7 @@
                                 <span>
                                     <i class="material-icons">rotate_right</i>
                                     <a v-bind:href="'/pumps/' + pump.id">{{ pump.name }}</a>
+                                    <span v-if="!pump.active"> - {{ $t('labels.inactive') }}</span>
                                 </span>
                             </td>
 

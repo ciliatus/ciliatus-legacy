@@ -32,10 +32,10 @@ class LogicalSensorThresholdTransformer extends Transformer
             'rawvalue_upperlimit' => $item['rawvalue_upperlimit'],
             'timestamps' => $this->parseTimestamps($item, [
                 'starts_at' => 'starts'
-            ]),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            ])
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         return $return;
     }

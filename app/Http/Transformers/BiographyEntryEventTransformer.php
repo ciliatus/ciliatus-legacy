@@ -22,17 +22,21 @@ class BiographyEntryEventTransformer extends Transformer
             'id'    => $item['id'],
             'title'  => $item['name'],
             'text'  => $item['value'],
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url']) ? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
 
+        $return = $this->addCiliatusSpecificFields($return, $item);
+
         if (isset($item['category'])) {
-            $return['category'] = (new CategoryTransformer())->transform($item['category']);
+            $return['category'] = (new CategoryTransformer())->transform(
+                (is_array($item['category']) ? $item['category'] : $item['category']->toArray())
+            );
         }
 
         if (isset($item['files'])) {
-            $return['files'] = (new FileTransformer())->transformCollection((is_array($item['files']) ? $item['files'] : $item['files']->toArray()));
+            $return['files'] = (new FileTransformer())->transformCollection(
+                (is_array($item['files']) ? $item['files'] : $item['files']->toArray())
+            );
         }
 
         return $return;

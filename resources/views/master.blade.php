@@ -176,7 +176,7 @@
                                                 @choice('components.valves', 2)
                                             </a>
                                         </li>
-                                        @foreach(\App\GenericComponentType::get() as $gct)
+                                        @foreach(\App\GenericComponentType::orderBy('name_plural')->get() as $gct)
                                             <li @if(Request::is('generic_component_types/' . $gct->id, 'generic_component_types/' . $gct->id . '/*')) class="active" @endif>
                                                 <a href="{{ url('generic_component_types/' . $gct->id) }}" class="waves-effect waves-orange">
                                                     <i class="material-icons">{{ $gct->icon }}</i>

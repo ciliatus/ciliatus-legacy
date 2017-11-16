@@ -33,16 +33,10 @@ class GenericComponentTransformer extends Transformer
             'controlunit_id' => $item['controlunit_id'],
             'belongsTo_type' => $item['belongsTo_type'],
             'belongsTo_id' => $item['belongsTo_id'],
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['type']) ? $item['type']['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
 
-        if (isset($item['properties']) && is_array($item['properties'])) {
-            foreach ($item['properties'] as $property) {
-                $return['properties'][$property['name']] = $property['value'];
-            }
-        }
+        $return = $this->addCiliatusSpecificFields($return, $item, []);
 
         if (isset($item['states']) && is_array($item['states'])) {
             foreach ($item['states'] as $state) {

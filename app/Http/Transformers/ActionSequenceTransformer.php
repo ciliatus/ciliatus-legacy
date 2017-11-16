@@ -32,10 +32,10 @@ class ActionSequenceTransformer extends Transformer
             'id'            =>  $item['id'],
             'name'          =>  $item['name'],
             'duration_minutes' =>  $item['duration_minutes'],
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         if (isset($item['actions'])) {
             $return['actions'] = $actionTransformer->transformCollection($item['actions']);

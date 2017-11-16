@@ -29,10 +29,10 @@ class PumpTransformer extends Transformer
             'class' => 'Pump',
             'name' => $item['name'],
             'controlunit_id' => isset($item['controlunit_id']) ? $item['controlunit_id'] : '',
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         if (isset($item['controlunit'])) {
             $return['controlunit'] = $controlunitTransformer->transform($item['controlunit']);

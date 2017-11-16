@@ -31,10 +31,10 @@ class LogicalSensorTransformer extends Transformer
             'rawvalue' => $item['rawvalue'],
             'rawvalue_lowerlimit' => $item['rawvalue_lowerlimit'],
             'rawvalue_upperlimit' => $item['rawvalue_upperlimit'],
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
+
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         if (isset($item['thresholds'])) {
             $return['thresholds'] = (
@@ -52,8 +52,6 @@ class LogicalSensorTransformer extends Transformer
         if (isset($item['current_threshold_id'])) {
             $return['current_threshold_id'] = $item['current_threshold_id'];
         }
-
-        $return = $this->addCiliatusSpecificFields($return, $item);
 
         return $return;
     }

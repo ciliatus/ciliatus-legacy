@@ -29,16 +29,10 @@ class FileTransformer extends Transformer
             'size' => $item['size'],
             'state' => $item['state'],
             'mimetype' => $item['mimetype'],
-            'timestamps' => $this->parseTimestamps($item),
-            'icon'          =>  isset($item['icon']) ? $item['icon'] : '',
-            'url'           =>  isset($item['url'])? $item['url'] : ''
+            'timestamps' => $this->parseTimestamps($item)
         ];
 
-        if (isset($item['properties']) && is_array($item['properties'])) {
-            foreach ($item['properties'] as $property) {
-                $return['properties'][$property['name']] = $property['value'];
-            }
-        }
+        $return = $this->addCiliatusSpecificFields($return, $item, []);
 
         if (isset($item['path_internal'])) {
             $return['path_internal'] = $item['path_internal'];

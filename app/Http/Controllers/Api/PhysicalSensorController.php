@@ -136,6 +136,15 @@ class PhysicalSensorController extends ApiController
             $physical_sensor->belongsTo_type = 'terrarium';
         }
 
+        if ($request->filled('active')) {
+            if ($request->input('active') == 'on' && !$physical_sensor->active()) {
+                $physical_sensor->enable();
+            }
+            else if ($request->input('active') == 'off' && $physical_sensor->active()) {
+                $physical_sensor->disable();
+            }
+        }
+
         $physical_sensor = $this->addBelongsTo($request, $physical_sensor);
 
         $physical_sensor->save();
