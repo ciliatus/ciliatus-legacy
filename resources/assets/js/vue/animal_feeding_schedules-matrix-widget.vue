@@ -87,7 +87,7 @@ export default {
                      * Load animals
                      */
                     $.ajax({
-                        url: '/api/v1/animals?filter[death_date]=null&raw=true',
+                        url: '/api/v1/animals?filter[death_date]=null&filter[!properties.type]=ModelNotActive&raw=true',
                         method: 'GET',
                         success: function (data) {
                             that.animals = data.data;

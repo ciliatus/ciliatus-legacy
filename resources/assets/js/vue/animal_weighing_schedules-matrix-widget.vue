@@ -76,7 +76,7 @@ export default {
              * then load weighing schedules
              */
             $.ajax({
-                url: '/api/v1/animals?raw=true&' + that.sourceFilter,
+                url: '/api/v1/animals?filter[!properties.type]=ModelNotActive&raw=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     that.animals = data.data;
