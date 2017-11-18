@@ -154,11 +154,13 @@ Route::post('action_sequence_schedules/{id}/skip', 'ActionSequenceScheduleContro
  * Action sequence triggers
  */
 Route::resource('action_sequence_triggers', 'ActionSequenceTriggerController');
+Route::post('action_sequence_triggers/{id}/skip', 'ActionSequenceTriggerController@skip');
 
 /*
  * Action sequence intentions
  */
 Route::resource('action_sequence_intentions', 'ActionSequenceIntentionController');
+Route::post('action_sequence_intentions/{id}/skip', 'ActionSequenceIntentionController@skip');
 
 /*
  * Events

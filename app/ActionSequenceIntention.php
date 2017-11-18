@@ -265,6 +265,10 @@ class ActionSequenceIntention extends CiliatusModel
             return false;
         }
 
+        if (!is_null($this->next_start_not_before) && $this->next_start_not_before->lt(Carbon::now())) {
+            return false;
+        }
+
         $critical_states = CriticalState::whereNull('recovered_at')
             ->where('is_soft_state', false)
             ->where('belongsTo_type', 'LogicalSensor')

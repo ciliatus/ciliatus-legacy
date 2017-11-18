@@ -266,6 +266,10 @@ class ActionSequenceTrigger extends CiliatusModel
             return false;
         }
 
+        if (!is_null($this->next_start_not_before) && $this->next_start_not_before->lt(Carbon::now())) {
+            return false;
+        }
+
 
         $sensor_data = $this->logical_sensor->sensorreadings()
             ->where(

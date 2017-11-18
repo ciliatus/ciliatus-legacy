@@ -157,4 +157,28 @@ class ActionSequenceIntentionController extends ApiController
         ]);
 
     }
+
+    /**
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function skip($id)
+    {
+        if (Gate::denies('api-write:action_sequence_intention')) {
+            return $this->respondUnauthorized();
+        }
+
+        $action_sequence_intention = ActionSequenceIntention::find($id);
+        if (is_null($action_sequence_intention)) {
+            return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
+        }
+
+        $action_sequence_intention->next_start_not_before = Carbon::now()->addHours(2);
+        $action_sequence_intention->save();
+
+        return $this->respondWithData([
+            'next_start_not_before' => $action_sequence_intention->next_start_not_before
+        ]);
+
+    }
 }
