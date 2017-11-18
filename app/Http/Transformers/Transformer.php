@@ -151,7 +151,7 @@ abstract class Transformer
      * @param array $exclude
      * @return array
      */
-    protected function addCiliatusSpecificFields(array $return, array $item, array $exclude = ['properties'])
+    protected function addCiliatusSpecificFields(array $return, array $item, array $exclude = [])
     {
         if (isset($item['properties']) && !in_array('properties', $exclude)) {
             $return['properties'] = (new PropertyTransformer())->transformCollection(

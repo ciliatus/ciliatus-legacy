@@ -73,7 +73,7 @@
                         </tr>
                         <tr class="collapsible-body">
                             <td colspan="4">
-                                <span v-for="(value, name) in generic_component.properties">
+                                <span v-for="(value, name) in generic_component.component_properties">
                                     {{ name }}: {{ value }}
                                     <br />
                                 </span>
@@ -223,7 +223,7 @@ export default {
             this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             var that = this;
             $.ajax({
-                url: '/api/v1/generic_components?with[]=properties&with[]=states&with[]=type&with[]=controlunit&page=' +
+                url: '/api/v1/generic_components?with[]=component_properties&with[]=states&with[]=type&with[]=controlunit&page=' +
                      that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {

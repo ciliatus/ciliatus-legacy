@@ -50,6 +50,14 @@ class GenericComponent extends Component
      */
     public function properties()
     {
+        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'GenericComponent');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function component_properties()
+    {
         return $this->hasMany('App\Property', 'belongsTo_id')->where('type', 'GenericComponentProperty');
     }
 
