@@ -91,6 +91,8 @@ class ActionSequenceIntention extends CiliatusModel
         $this->last_finished_at = Carbon::now();
         $this->save();
 
+        RunningAction::where('action_sequence_intention_id', $this->id)->delete();
+
         if ($this->sequence->runonce === true) {
             $this->sequence->delete();
         }

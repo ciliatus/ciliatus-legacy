@@ -111,6 +111,8 @@ class ActionSequenceSchedule extends CiliatusModel
             'action'        => 'finish'
         ]);
 
+        RunningAction::where('action_sequence_schedule_id', $this->id)->delete();
+
         if ($this->sequence->runonce == true) {
             $this->sequence->delete();
         }
