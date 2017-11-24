@@ -1,6 +1,6 @@
-![alt text](https://github.com/matthenning/ciliatus/blob/master/public/images/logo_horizontal.png "Ciliatus")
+![alt text](https://github.com/ciliatus/ciliatus/blob/master/public/images/logo_horizontal.png "Ciliatus")
 
-[![Build Status](https://travis-ci.org/matthenning/ciliatus.svg?branch=master)](https://travis-ci.org/matthenning/ciliatus)
+[![Build Status](https://travis-ci.org/ciliatus/ciliatus.svg?branch=master)](https://travis-ci.org/ciliatus/ciliatus)
 
 ## [ciliatus.io](https://ciliatus.io)
 

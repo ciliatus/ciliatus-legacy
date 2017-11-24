@@ -1,8 +1,8 @@
 {
-    "name": "matthenning/ciliatus",
+    "name": "ciliatus/ciliatus",
     "description": "Intelligent terrarium automation",
     "keywords": ["ciliatus", "terrarium", "automation"],
-    "homepage:": "https://github.com/matthenning/ciliatus",
+    "homepage:": "https://github.com/ciliatus/ciliatus",
     "license": "GPL-3.0",
     "type": "project",
     "minimum-stability": "stable",

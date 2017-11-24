@@ -242,7 +242,7 @@
                                             </a>
                                         </li>
                                         <li>
-                                            <a href="https://github.com/matthenning/ciliatus/issues" class="waves-effect waves-orange">
+                                            <a href="https://github.com/ciliatus/ciliatus/issues" class="waves-effect waves-orange">
                                                 <i class="material-icons">bug_report</i>
                                                 @lang('labels.bugtracker')</a>
                                             </a>

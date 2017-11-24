@@ -27,7 +27,7 @@ class SystemController extends Controller
         ];
 
         try {
-            $response = $client->get('https://api.github.com/repos/matthenning/ciliatus/releases/latest', $send);
+            $response = $client->get('https://api.github.com/repos/ciliatus/ciliatus/releases/latest', $send);
             $version = json_decode($response->getBody(),true);
         }
         catch (\GuzzleHttp\Exception\ClientException $ex) {
