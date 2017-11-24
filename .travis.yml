@@ -17,3 +17,9 @@ install:
   - php artisan migrate
   - php artisan passport:install
   - composer dump-autoload
+
+script:
+  - vendor/bin/phpunit --coverage-clover=coverage.xml
+
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
