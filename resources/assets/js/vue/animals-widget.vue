@@ -77,10 +77,11 @@
                     </div>
 
                     <div class="card-content">
-                        <span class="card-title activator truncate">
-                            <span><a :href="'/animals/' + animal.id">{{ animal.display_name }}</a></span>
+                        <span class="card-title activator grey-text text-darken-4">
+                            <a :href="'/animals/' + animal.id">{{ animal.display_name }}</a>
                             <i class="material-icons right" v-if="!animal.death_date">more_vert</i>
                         </span>
+
                         <p>
                             <span v-show="animal.latin_name">{{ animal.latin_name }},</span>
                             <span v-show="animal.common_name && !animal.latin_name">{{ animal.common_name }},</span>
