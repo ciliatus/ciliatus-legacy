@@ -163,10 +163,11 @@
                         </div>
                     </div>
                     <div class="card-content">
-                        <span class="card-title activator truncate">
-                            <span><a :href="'/terraria/' + terrarium.id">{{ terrarium.display_name }}</a></span>
+                        <span class="card-title activator grey-text text-darken-4">
+                            <a :href="'/terraria/' + terrarium.id">{{ terrarium.display_name }}</a>
                             <i class="material-icons right">more_vert</i>
                         </span>
+
                         <p>
                             <span v-show="terrarium.cooked_temperature_celsius !== null" v-bind:class="{ 'red-text': terrarium.temperature_critical, 'darken-3': terrarium.temperature_critical }">
                                 {{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C
