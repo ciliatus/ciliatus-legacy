@@ -16,21 +16,22 @@
         "pusher/pusher-php-server": "~3.0",
         "doctrine/dbal": "^2.5",
         "spatie/image": "^1.0",
-        "laravel/passport": "^3.0",
+        "laravel/passport": "^4.0",
         "laravel/tinker": "^1.0",
         "matthenning/eloquent-api-filter": "^1.4",
-        "iboldurev/api-ai-php": "^0.2.5",
+        "iboldurev/api-ai-php": "^0.3.0",
         "predis/predis": "^1.1",
-        "rap2hpoutre/laravel-log-viewer": "^0.10.0",
+        "rap2hpoutre/laravel-log-viewer": "^0.11.0",
         "influxdb/influxdb-php": "^1.14",
-        "composer/semver": "^1.4"
+        "composer/semver": "^1.4",
+        "laravel/browser-kit-testing": "^2.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
-        "mockery/mockery": "0.9.*",
+        "mockery/mockery": "^1.0",
         "phpunit/phpunit": "~6.0",
         "symfony/css-selector": "2.8.*|3.3.*",
-        "symfony/dom-crawler": "2.8.*|3.0.*"
+        "symfony/dom-crawler": "^3.3"
     },
     "autoload": {
         "classmap": [
