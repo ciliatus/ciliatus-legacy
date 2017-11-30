@@ -22,7 +22,7 @@ class Localization
          * set user specific locale
          */
         if (!is_null($request->user())) {
-            if (!is_null($request->user()->locale)) {
+            if (!is_null($request->user()->locale) && strlen($request->user()->locale) == 2) {
                 app()->setLocale($request->user()->locale);
             }
         }

@@ -38,7 +38,7 @@
         <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
     </head>
 
-    <body data-lang="{{ Auth::user()->locale }}" style="height: 100%;">
+    <body data-lang="{{ app()->getLocale() }}" style="height: 100%;">
 
         <script>
             var domCallbacks = [];
