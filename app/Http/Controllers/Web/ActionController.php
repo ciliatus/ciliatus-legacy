@@ -34,9 +34,7 @@ class ActionController extends Controller
      */
     public function index()
     {
-        return view('actions.index', [
-            'actions' => Action::get()
-        ]);
+        //
     }
 
     /**
@@ -111,14 +109,7 @@ class ActionController extends Controller
      */
     public function show($id)
     {
-        $action = Action::find($id);
-        if (is_null($action)) {
-            return view('errors.404');
-        }
-
-        return view('actions.show', [
-            'action' => $action
-        ]);
+        return redirect(url('/actions/' . $id . '/edit'));
     }
 
     /**

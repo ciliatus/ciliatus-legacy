@@ -9,6 +9,24 @@ use Webpatser\Uuid\Uuid;
 trait TestHelperTrait
 {
 
+    public function createUserWeb()
+    {
+        $user = User::where('name', 'phpunit-web')->get()->first();
+        if (!is_null($user)) {
+            $user->delete();
+        }
+
+        ;
+        $user = User::create([
+            'name' => 'phpunit-web',
+            'email' => 'phpunit-web@ciliatus.io',
+            'password' => bcrypt(Uuid::generate()),
+            'locale' => 'en'
+        ]);
+
+        return $user;
+    }
+
     /**
      * @return bool|String
      */

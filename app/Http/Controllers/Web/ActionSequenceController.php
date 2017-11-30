@@ -70,14 +70,7 @@ class ActionSequenceController extends Controller
      */
     public function show($id)
     {
-        $action_sequence = ActionSequence::find($id);
-        if (is_null($action_sequence)) {
-            return view('errors.404');
-        }
-
-        return view('action_sequences.show', [
-            'action_sequence' => $action_sequence
-        ]);
+        return redirect(url('action_sequences/' . $id . '/edit'));
     }
 
     /**

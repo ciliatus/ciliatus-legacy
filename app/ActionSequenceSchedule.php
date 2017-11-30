@@ -73,8 +73,9 @@ class ActionSequenceSchedule extends CiliatusModel
     public function startsToday()
     {
         $startsToday = Carbon::now();
-        $startsToday->hour = explode(':', $this->starts_at)[0];
-        $startsToday->minute = explode(':', $this->starts_at)[1];
+        $time_hours_minutes = explode(':', $this->starts_at);
+        $startsToday->hour = (int)($time_hours_minutes[0]);
+        $startsToday->minute = (int)(isset($time_hours_minutes[1]) ? $time_hours_minutes[1] : '00');
         $startsToday->second = 0;
 
         return $startsToday;
