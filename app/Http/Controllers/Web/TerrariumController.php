@@ -99,11 +99,16 @@ class TerrariumController extends Controller
 
         $animals = Animal::where(function ($query) use ($terrarium) {
             $query->where('terrarium_id', $terrarium->id)
-                ->orWhere(function ($inner_query) use ($terrarium) {
-                    $inner_query->whereNull('terrarium_id')
-                        ->whereNull('death_date');
-                });
-        })->get();
+                  ->orWhere(function ($filter_query) use ($terrarium) {
+                      $filter_query->whereDoesntHave('properties', function ($inner_query) {
+                          $inner_query->where('type', 'ModelNotActive');
+                      })
+                      ->where(function ($inner_query) use ($terrarium) {
+                          $inner_query->whereNull('terrarium_id')
+                                      ->whereNull('death_date');
+                      });
+                  });
+            })->get();
 
         return view('terraria.edit', [
             'terrarium'     => $terrarium,
