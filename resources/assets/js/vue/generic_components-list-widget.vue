@@ -13,7 +13,7 @@
                             <label for="filter_name">Filter</label>
                         </div>
                     </th>
-                    <th data-field="generic_component.type.name">
+                    <th data-field="generic_component.type.name" class="hide-on-small-only">
                         <a href="#!" v-on:click="set_order('type.name_singular')">{{ $t('labels.type') }}</a>
                         <i v-show="order.field == 'type.name_singular' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'type.name_singular' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
@@ -22,7 +22,7 @@
                             <label for="filter_generic_component_type_name_singular">Filter</label>
                         </div>
                     </th>
-                    <th data-field="controlunit" class="hide-on-small-only">
+                    <th data-field="controlunit">
                         <a href="#!" v-on:click="set_order('controlunit')">{{ $tc('components.controlunit', 1) }}</a>
                         <i v-show="order.field == 'controlunit' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'controlunit' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
@@ -32,7 +32,7 @@
                         </div>
                     </th>
 
-                    <th style="width: 40px">
+                    <th style="width: 40px" class="hide-on-small-only">
                     </th>
                 </tr>
                 </thead>
@@ -49,20 +49,20 @@
                                 </span>
                             </td>
 
-                            <td>
+                            <td class="hide-on-small-only">
                                 <span>
                                     <a v-bind:href="'/generic_component_types/' + generic_component.type.id">{{ generic_component.type.name_singular }}</a>
                                 </span>
                             </td>
 
-                            <td class="hide-on-small-only">
+                            <td>
                                 <span v-if="generic_component.controlunit">
                                     <i class="material-icons">developer_board</i>
                                     <a v-bind:href="'/controlunits/' + generic_component.controlunit.id">{{ generic_component.controlunit.name }}</a>
                                 </span>
                             </td>
 
-                            <td>
+                            <td class="hide-on-small-only">
                                 <span>
                                     <a v-bind:href="'/generic_components/' + generic_component.id + '/edit'">
                                         <i class="material-icons">edit</i>
