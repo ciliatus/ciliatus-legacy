@@ -158,16 +158,13 @@
 
                         </div>
 
-                        <div class="tiny right" style="position: relative; top: -173px" v-show="terrarium.loading_data">
-                            <loading-indicator :size="20" ></loading-indicator>
+                        <div class="card-title">
+                            <span><a :href="'/terraria/' + terrarium.id">{{ terrarium.display_name }}</a></span>
+                            <loading-indicator :size="20" v-show="terrarium.loading_data"></loading-indicator>
+                            <a href="#"><i class="material-icons right activator">more_vert</i></a>
                         </div>
                     </div>
-                    <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">
-                            <a :href="'/terraria/' + terrarium.id">{{ terrarium.display_name }}</a>
-                            <i class="material-icons right">more_vert</i>
-                        </span>
-
+                    <div class="card-content" v-if="terrarium.cooked_temperature_celsius !== null || terrarium.cooked_humidity_percent !== null || terrarium.heartbeat_critical">
                         <p>
                             <span v-show="terrarium.cooked_temperature_celsius !== null" v-bind:class="{ 'red-text': terrarium.temperature_critical, 'darken-3': terrarium.temperature_critical }">
                                 {{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C
@@ -180,54 +177,17 @@
                                 <br />
                                 {{ $t("tooltips.heartbeat_critical") }}
                             </span>
-
-                            <!--
-                            <span class="red-text sensorreading-card-indicator">
-                                <span v-show="terrarium.cooked_temperature_celsius !== null">
-                                    {{ terrarium.cooked_temperature_celsius }}°C
-                                </span>
-                            </span>
-                            <span class="blue-text sensorreading-card-indicator right">
-                                <span v-show="terrarium.cooked_humidity_percent !== null">
-                                    {{ terrarium.cooked_humidity_percent }}%
-                                </span>
-                            </span>
-                            -->
-                            <!--
-                            <span v-show="terrarium.cooked_temperature_celsius !== null" v-bind:class="{ 'red-text': terrarium.temperature_critical, 'darken-3': terrarium.temperature_critical }">
-                                {{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C
-                                <br />
-                            </span>
-                            <span v-show="terrarium.cooked_humidity_percent !== null" v-bind:class="{ 'red-text': terrarium.humidity_critical, 'darken-3': terrarium.humidity_critical }">
-                                {{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%
-                            </span>
-                            <span v-show="terrarium.heartbeat_critical" class="red-text darken-3">
-                                <br />
-                                {{ $t("tooltips.heartbeat_critical") }}
-                            </span>
-                            -->
                         </p>
                     </div>
 
-                    <!--
-                    <div class="card-action">
-                        <a v-bind:href="'/terraria/' + terrarium.id">{{ $t("buttons.details") }}</a>
-                        <a v-bind:href="'/terraria/' + terrarium.id + '/edit'">{{ $t("buttons.edit") }}</a>
-
-                        <div class="tiny right" v-show="terrarium.loading_data">
-                            <loading-indicator :size="20" ></loading-indicator>
-                        </div>
-                    </div>
-                    -->
-
                     <div class="card-reveal">
-                        <span class="card-title">{{ $tc("components.animals", 2) }}<i class="material-icons right">close</i></span>
+                        <span class="card-title card-title-small">{{ $tc("components.animals", 2) }}<i class="material-icons right">close</i></span>
 
                         <p v-for="animal in terrarium.animals">
                             <a v-bind:href="'/animals/' + animal.id">{{ animal.display_name }}</a> <i>{{ animal.common_name }}</i>
                         </p>
 
-                        <span class="card-title">{{ $t("labels.start_action_sequence") }}</span>
+                        <span class="card-title card-title-small">{{ $t("labels.start_action_sequence") }}</span>
 
                         <p v-if="terrarium.capabilities.irrigate">
                             <a href="#" v-on:click="action_sequence_modal(terrarium.id, 'irrigate')">{{ $t('buttons.irrigate') }}</a>

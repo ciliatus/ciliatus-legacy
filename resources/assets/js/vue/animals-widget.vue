@@ -71,17 +71,14 @@
                     <div class="card-image terrarium-card-image"
                          v-bind:style="animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
 
-                        <div class="tiny right" style="position: relative; top: 120px;" v-show="animal.loading_data">
-                            <loading-indicator :size="20" ></loading-indicator>
+                        <div class="card-title">
+                            <span><a :href="'/animals/' + animal.id">{{ animal.display_name }}</a></span>
+                            <loading-indicator :size="20" v-show="animal.loading_data"></loading-indicator>
+                            <a href="#"><i class="material-icons right activator" v-if="!animal.death_date">more_vert</i></a>
                         </div>
                     </div>
 
                     <div class="card-content">
-                        <span class="card-title activator grey-text text-darken-4">
-                            <a :href="'/animals/' + animal.id">{{ animal.display_name }}</a>
-                            <i class="material-icons right" v-if="!animal.death_date">more_vert</i>
-                        </span>
-
                         <p>
                             <span v-show="animal.latin_name">{{ animal.latin_name }},</span>
                             <span v-show="animal.common_name && !animal.latin_name">{{ animal.common_name }},</span>

@@ -1,9 +1,9 @@
 <template>
-    <div class="overlay-loader center">
+    <span class="overlay-loader center">
         <img src="https://dev-43256.ciliatus.io/svg/Ciliatus_Logo.svg"
              class="loader-icon spinning-logo"
              :style="'width: ' + size + 'px; width: ' + size + 'px;'">
-    </div>
+    </span>
 </template>
 
 <script>
