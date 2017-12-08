@@ -1,7 +1,7 @@
 <template>
     <div>
         <div class="row" v-if="!animalId">
-            <div class="col s11">
+            <div class="col s10">
                 <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
                     <li v-bind:class="['hide-on-small-only', { 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }]">
                         <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
@@ -28,7 +28,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col s1 right-align" v-if="!animalId">
+            <div class="col s2 right-align" v-if="!animalId">
                 <ul class="pagination">
                     <li class="waves-effect">
                         <a href="#!"><i class="material-icons" v-on:click="toggle_filters">filter_list</i></a>
