@@ -40,7 +40,7 @@
                             <label for="filter_terrarium">Filter</label>
                         </div>
                     </th>
-                    <th style="width: 40px">
+                    <th class="hide-on-small-only" style="width: 40px">
                     </th>
                 </tr>
                 </thead>
@@ -78,7 +78,7 @@
                                 </span>
                             </td>
 
-                            <td>
+                            <td class="hide-on-small-only">
                                 <span>
                                     <a v-bind:href="'/valves/' + valve.id + '/edit'">
                                         <i class="material-icons">edit</i>
