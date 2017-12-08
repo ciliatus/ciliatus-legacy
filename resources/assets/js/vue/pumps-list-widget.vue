@@ -22,7 +22,7 @@
                             <label for="filter_controlunit">Filter</label>
                         </div>
                     </th>
-                    <th style="width: 40px">
+                    <th class="hide-on-small-only" style="width: 40px">
                     </th>
                 </tr>
                 </thead>
@@ -46,7 +46,7 @@
                                 </span>
                             </td>
 
-                            <td>
+                            <td class="hide-on-small-only">
                                 <span>
                                     <a v-bind:href="'/pumps/' + pump.id + '/edit'">
                                         <i class="material-icons">edit</i>
