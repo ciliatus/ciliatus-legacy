@@ -13,7 +13,7 @@
                                 <label for="filter_name">Filter</label>
                             </div>
                         </th>
-                        <th data-field="physical_sensor" class="hide-on-small-only">
+                        <th data-field="physical_sensor">
                             <a href="#!" v-on:click="set_order('physical_sensors.name')">{{ $tc('components.physical_sensors', 1) }}</a>
                             <i v-show="order.field == 'physical_sensor.name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                             <i v-show="order.field == 'physical_sensor.name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
@@ -31,7 +31,7 @@
                                 <label for="filter_terrarium">Filter</label>
                             </div>
                         </th>
-                        <th data-field="type">
+                        <th data-field="type" class="hide-on-small-only">
                             <a href="#!" v-on:click="set_order('type')">{{ $t('labels.type') }}</a>
                             <i v-show="order.field == 'type' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                             <i v-show="order.field == 'type' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
@@ -45,7 +45,7 @@
                             <i v-show="order.field == 'rawvalue' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                             <i v-show="order.field == 'rawvalue' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
                         </th>
-                        <th style="width: 40px">
+                        <th class="hide-on-small-only" style="width: 40px">
                         </th>
                     </tr>
                 </thead>
@@ -61,7 +61,7 @@
                                 </span>
                             </td>
 
-                            <td class="hide-on-small-only">
+                            <td>
                                 <span v-if="logical_sensor.physical_sensor">
                                     <i class="material-icons">memory</i>
                                     <a v-bind:href="'/physical_sensors/' + logical_sensor.physical_sensor.id">{{ logical_sensor.physical_sensor.name }}</a>
@@ -75,7 +75,7 @@
                                 </span>
                             </td>
 
-                            <td>
+                            <td class="hide-on-small-only">
                                 {{ logical_sensor.type }}
                             </td>
 
@@ -91,7 +91,7 @@
                                 </span>
                             </td>
 
-                            <td>
+                            <td class="hide-on-small-only">
                                 <span>
                                     <a v-bind:href="'/logical_sensors/' + logical_sensor.id + '/edit'">
                                         <i class="material-icons">edit</i>
