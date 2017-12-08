@@ -14,7 +14,7 @@
                         </div>
                     </th>
 
-                    <th data-field="software_version">
+                    <th class="hide-on-small-only" data-field="software_version">
                         {{ $t('labels.software_version') }}
                     </th>
 
@@ -22,7 +22,7 @@
                         {{ $t('labels.last_heartbeat') }}
                     </th>
 
-                    <th style="width: 40px">
+                    <th class="hide-on-small-only" style="width: 40px">
                     </th>
                 </tr>
                 </thead>
@@ -39,7 +39,7 @@
                                 </span>
                             </td>
 
-                            <td>
+                            <td class="hide-on-small-only">
                                 <span>
                                     {{ controlunit.software_version }}
                                 </span>
@@ -52,7 +52,7 @@
                                 )}}
                             </td>
 
-                            <td>
+                            <td class="hide-on-small-only">
                                 <span>
                                     <a v-bind:href="'/controlunits/' + controlunit.id + '/edit'">
                                         <i class="material-icons">edit</i>
