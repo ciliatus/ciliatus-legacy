@@ -22,7 +22,8 @@ class Kernel extends ConsoleKernel
         Commands\ConvertLangToJson::class,
         Commands\GenerateSuggestions::class,
         Commands\DetectSensorreadingAnomalies::class,
-        Commands\GenerateCaresheets::class
+        Commands\GenerateCaresheets::class,
+        Commands\GenerateDemoData::class
     ];
 
     /**
@@ -50,6 +51,9 @@ class Kernel extends ConsoleKernel
                  ->everyMinute();
 
         $schedule->command('ciliatus:cache:rebuild')
+                 ->everyMinute();
+
+        $schedule->command('ciliatus:demo:gen')
                  ->everyMinute();
     }
 
