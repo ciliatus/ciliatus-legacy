@@ -53,8 +53,10 @@ class Kernel extends ConsoleKernel
         $schedule->command('ciliatus:cache:rebuild')
                  ->everyMinute();
 
-        $schedule->command('ciliatus:demo:gen')
-                 ->everyMinute();
+        if (env('ENABLE_DEMO_DATA')) {
+            $schedule->command('ciliatus:demo:gen')
+                     ->everyMinute();
+        }
     }
 
     /**
