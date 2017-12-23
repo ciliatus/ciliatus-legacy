@@ -90,9 +90,8 @@ Route::resource('physical_sensors', 'PhysicalSensorController');
 Route::resource('logical_sensors', 'LogicalSensorController');
 
 // logical sensor thresholds
-Route::resource('logical_sensor_thresholds/{id}/copy', 'LogicalSensorThresholdController@copy');
+Route::post('logical_sensor_thresholds/{id}/copy', 'LogicalSensorThresholdController@copy');
 Route::resource('logical_sensor_thresholds', 'LogicalSensorThresholdController');
-Route::post('logical_sensor_thresholds/copy', 'LogicalSensorThresholdController@copy');
 
 /*
  * Generic components
