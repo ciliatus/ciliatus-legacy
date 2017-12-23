@@ -42,11 +42,11 @@ class GenerateDemoData extends Command
 
             switch ($ls->type) {
                 case 'temperature_celsius':
-                    $rawvalue = sqrt(sin($factor+0.75*pi())+3) * 15 + rand(2, 2.4);
+                    $rawvalue = sqrt(sin($factor+0.75*pi())+3) * 15 + rand(20, 24)/10;
                     break;
 
                 case 'humidity_percent':
-                    $rawvalue = (sin($factor/2)+1)*25+50 + rand(0.1, 2);
+                    $rawvalue = (sin($factor/2+pi())+1)*25+50 + mt_rand(0, 20)/10;
                     $rawvalue = $rawvalue > 100 ? 100 : $rawvalue;
                     break;
 
