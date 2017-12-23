@@ -36,16 +36,17 @@ class GenerateDemoData extends Command
         $token = env('DEMO_USER_TOKEN');
         $srg = Uuid::uuid4();
         $minutes = Carbon::today()->diffInMinutes(Carbon::now());
+        $factor = $minutes*(2/1440*2);
 
         foreach (LogicalSensor::get() as $ls) {
 
             switch ($ls->type) {
                 case 'temperature_celsius':
-                    $rawvalue = sqrt(sin($minutes+0.75*pi())+3) * 15 + rand(2, 3);
+                    $rawvalue = sqrt(sin($factor+0.75*pi())+3) * 15 + rand(2, 2.4);
                     break;
 
                 case 'humidity_percent':
-                    $rawvalue = (sin($minutes/2)+1)*25+50 + rand(0.1, 2);
+                    $rawvalue = (sin($factor/2)+1)*25+50 + rand(0.1, 2);
                     $rawvalue = $rawvalue > 100 ? 100 : $rawvalue;
                     break;
 
