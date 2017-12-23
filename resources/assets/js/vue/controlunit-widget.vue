@@ -9,6 +9,9 @@
                     </div>
 
                     <div class="card-content">
+                        <div v-if="!controlunit.active">
+                            <strong>{{ $t('labels.inactive') }}</strong>
+                        </div>
                         <div>
                             {{ $t('labels.last_heartbeat') }}:
                             <!-- @TODO: there has to be a better way to do this -->
@@ -33,6 +36,9 @@
                                           class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
                                 {{ $t('units.just_now') }}
                             </span>
+                        </div>
+                        <div v-if="controlunit.software_version">
+                            {{ $t('labels.software_version') }}: {{ controlunit.software_version }}
                         </div>
                     </div>
 
