@@ -43,6 +43,15 @@ class PhysicalSensor extends CiliatusModel
     ];
 
     /**
+     * @return bool|null
+     */
+    public function delete()
+    {
+        $this->logical_sensors()->delete();
+        return parent::delete();
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function properties()
