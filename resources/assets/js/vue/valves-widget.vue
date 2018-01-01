@@ -9,8 +9,8 @@
                     </div>
 
                     <div class="card-content">
-                        <span class="card-title activator truncate">
-                            <span>{{ valve.name }}</span>
+                        <span class="card-title activator">
+                            {{ valve.name }}
                             <i class="material-icons right">more_vert</i>
                         </span>
                     </div>

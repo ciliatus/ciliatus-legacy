@@ -13,7 +13,7 @@
                             <label for="filter_name">Filter</label>
                         </div>
                     </th>
-                    <th data-field="pump">
+                    <th data-field="pump" v-if="hideCols.indexOf('pump') === -1">
                         <a href="#!" v-on:click="set_order('pump')">{{ $tc('components.pump', 1) }}</a>
                         <i v-show="order.field == 'pump' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'pump' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
@@ -22,7 +22,7 @@
                             <label for="filter_pump">Filter</label>
                         </div>
                     </th>
-                    <th data-field="controlunit" class="hide-on-small-only">
+                    <th data-field="controlunit" class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
                         <a href="#!" v-on:click="set_order('controlunit')">{{ $tc('components.controlunit', 1) }}</a>
                         <i v-show="order.field == 'controlunit' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'controlunit' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
@@ -31,7 +31,7 @@
                             <label for="filter_controlunit">Filter</label>
                         </div>
                     </th>
-                    <th data-field="terrarium" class="hide-on-med-and-down">
+                    <th data-field="terrarium" class="hide-on-med-and-down" v-if="hideCols.indexOf('terrarium') === -1">
                         <a href="#!" v-on:click="set_order('terraria.display_name')">{{ $tc('components.terraria', 1) }}</a>
                         <i v-show="order.field == 'valve.terrarium.display_name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'valve.terrarium.display_name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
@@ -57,21 +57,21 @@
                                 </span>
                             </td>
 
-                            <td>
+                            <td v-if="hideCols.indexOf('pump') === -1">
                                 <span v-if="valve.pump">
                                     <i class="material-icons">rotate_right</i>
                                     <a v-bind:href="'/pumps/' + valve.pump.id">{{ valve.pump.name }}</a>
                                 </span>
                             </td>
 
-                            <td class="hide-on-small-only">
+                            <td class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
                                 <span v-if="valve.controlunit">
                                     <i class="material-icons">developer_board</i>
                                     <a v-bind:href="'/controlunits/' + valve.controlunit.id">{{ valve.controlunit.name }}</a>
                                 </span>
                             </td>
 
-                            <td class="hide-on-med-and-down">
+                            <td class="hide-on-med-and-down" v-if="hideCols.indexOf('terrarium') === -1">
                                 <span v-if="valve.terrarium">
                                     <i class="material-icons">video_label</i>
                                     <a v-bind:href="'/terraria/' + valve.terrarium.id">{{ valve.terrarium.display_name }}</a>
@@ -158,6 +158,11 @@ export default {
         sourceFilter: {
             type: String,
             default: '',
+            required: false
+        },
+        hideCols: {
+            type: Array,
+            default: function () { return [] },
             required: false
         }
     },

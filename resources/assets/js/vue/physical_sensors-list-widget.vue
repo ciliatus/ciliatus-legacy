@@ -22,7 +22,7 @@
                             <label for="filter_model">Filter</label>
                         </div>
                     </th>
-                    <th data-field="controlunit" class="hide-on-small-only">
+                    <th data-field="controlunit" class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
                         <a href="#!" v-on:click="set_order('controlunit')">{{ $tc('components.controlunit', 1) }}</a>
                         <i v-show="order.field == 'controlunit' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'controlunit' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
@@ -31,7 +31,7 @@
                             <label for="filter_controlunit">Filter</label>
                         </div>
                     </th>
-                    <th data-field="terrarium" class="hide-on-med-and-down">
+                    <th data-field="terrarium" class="hide-on-med-and-down" v-if="hideCols.indexOf('terrarium') === -1">
                         <a href="#!" v-on:click="set_order('terraria.display_name')">{{ $tc('components.terraria', 1) }}</a>
                         <i v-show="order.field == 'physical_sensor.terrarium.display_name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'physical_sensor.terrarium.display_name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
@@ -63,14 +63,14 @@
                                 </span>
                             </td>
 
-                            <td class="hide-on-small-only">
+                            <td class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
                                 <span v-if="physical_sensor.controlunit">
                                     <i class="material-icons">developer_board</i>
                                     <a v-bind:href="'/controlunits/' + physical_sensor.controlunit.id">{{ physical_sensor.controlunit.name }}</a>
                                 </span>
                             </td>
 
-                            <td class="hide-on-med-and-down">
+                            <td class="hide-on-med-and-down" v-if="hideCols.indexOf('terrarium') === -1">
                                 <span v-if="physical_sensor.terrarium">
                                     <i class="material-icons">video_label</i>
                                     <a v-bind:href="'/terraria/' + physical_sensor.terrarium.id">{{ physical_sensor.terrarium.display_name }}</a>
@@ -172,6 +172,11 @@ export default {
         sourceFilter: {
             type: String,
             default: '',
+            required: false
+        },
+        hideCols: {
+            type: Array,
+            default: [],
             required: false
         }
     },

@@ -5,16 +5,14 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="material-icons">memory</i>
-                        {{ $tc("components.physical_sensors", 2) }}
+                        {{ $tc("components.physical_sensors", physical_sensors.length) }}
                     </div>
 
                     <div class="card-content">
-                        <span class="card-title activator truncate">
-                            <span>{{ physical_sensor.name }}</span>
+                        <span class="card-title activator">
+                            {{ physical_sensor.name }}
                             <i class="material-icons right">more_vert</i>
                         </span>
-                        <p>
-                        </p>
                     </div>
 
                     <div class="card-action">

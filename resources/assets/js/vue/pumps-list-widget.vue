@@ -13,7 +13,7 @@
                             <label for="filter_name">Filter</label>
                         </div>
                     </th>
-                    <th data-field="controlunit">
+                    <th data-field="controlunit" v-if="hideCols.indexOf('controlunit') === -1">
                         <a href="#!" v-on:click="set_order('controlunit')">{{ $tc('components.controlunit', 1) }}</a>
                         <i v-show="order.field == 'controlunit' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'controlunit' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
@@ -39,7 +39,7 @@
                                 </span>
                             </td>
 
-                            <td>
+                            <td v-if="hideCols.indexOf('controlunit') === -1">
                                 <span v-if="pump.controlunit">
                                     <i class="material-icons">developer_board</i>
                                     <a v-bind:href="'/controlunits/' + pump.controlunit.id">{{ pump.controlunit.name }}</a>
@@ -128,6 +128,11 @@ export default {
         sourceFilter: {
             type: String,
             default: '',
+            required: false
+        },
+        hideCols: {
+            type: Array,
+            default: [],
             required: false
         }
     },

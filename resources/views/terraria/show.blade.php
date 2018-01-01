@@ -14,6 +14,7 @@
             <li class="tab col s3"><a href="#tab_files">@choice('components.files', 2)</a></li>
         </ul>
     </div>
+
     <div id="tab_overview" class="col s12">
         <div class="container">
             <div class="row">

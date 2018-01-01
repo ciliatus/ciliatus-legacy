@@ -9,8 +9,8 @@
                     </div>
 
                     <div class="card-content">
-                        <span class="card-title activator truncate">
-                            <span>{{ pump.name }}</span>
+                        <span class="card-title activator">
+                            {{ pump.name }}
                             <i class="material-icons right">more_vert</i>
                         </span>
                     </div>
@@ -132,7 +132,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/pumps/' + that.pumpId + '?with[]=valves&with[]=controlunit&with&' + that.sourceFilter,
+                url: '/api/v1/pumps/' + that.pumpId + '?with[]=valves&with[]=controlunit&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     if (that.pumpId !== '') {

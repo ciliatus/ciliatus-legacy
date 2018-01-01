@@ -13,7 +13,7 @@
                             <label for="filter_name">Filter</label>
                         </div>
                     </th>
-                    <th data-field="controlunit" class="hide-on-small-only">
+                    <th data-field="controlunit" class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
                         <a href="#!" v-on:click="set_order('controlunit')">{{ $tc('components.controlunit', 1) }}</a>
                         <i v-show="order.field == 'controlunit' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'controlunit' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
@@ -39,7 +39,7 @@
                                 </span>
                             </td>
 
-                            <td class="hide-on-small-only">
+                            <td class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
                                 <span v-if="component.controlunit">
                                     <i class="material-icons">developer_board</i>
                                     <a v-bind:href="'/controlunits/' + component.controlunit.id">{{ component.controlunit.name }}</a>
@@ -105,6 +105,11 @@ export default {
         refreshTimeoutSeconds: {
             type: Number,
             default: 60,
+            required: false
+        },
+        hideCols: {
+            type: Array,
+            default: [],
             required: false
         }
     },

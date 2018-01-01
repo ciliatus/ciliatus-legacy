@@ -5,10 +5,15 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="material-icons">developer_board</i>
-                        {{ $tc("components.controlunits", 2) }}
+                        {{ $tc("components.controlunits", controlunit.length) }}
                     </div>
 
                     <div class="card-content">
+                        <span class="card-title activator">
+                            {{ controlunit.name }}
+                            <i class="material-icons right">more_vert</i>
+                        </span>
+
                         <div v-if="!controlunit.active">
                             <strong>{{ $t('labels.inactive') }}</strong>
                         </div>

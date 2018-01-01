@@ -22,7 +22,7 @@
                             <label for="filter_generic_component_type_name_singular">Filter</label>
                         </div>
                     </th>
-                    <th data-field="controlunit">
+                    <th data-field="controlunit" v-if="hideCols.indexOf('controlunit') === -1">
                         <a href="#!" v-on:click="set_order('controlunit')">{{ $tc('components.controlunit', 1) }}</a>
                         <i v-show="order.field == 'controlunit' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'controlunit' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
@@ -55,7 +55,7 @@
                                 </span>
                             </td>
 
-                            <td>
+                            <td v-if="hideCols.indexOf('controlunit') === -1">
                                 <span v-if="generic_component.controlunit">
                                     <i class="material-icons">developer_board</i>
                                     <a v-bind:href="'/controlunits/' + generic_component.controlunit.id">{{ generic_component.controlunit.name }}</a>
@@ -152,6 +152,11 @@ export default {
         refreshTimeoutSeconds: {
             type: Number,
             default: 60,
+            required: false
+        },
+        hideCols: {
+            type: Array,
+            default: [],
             required: false
         }
     },

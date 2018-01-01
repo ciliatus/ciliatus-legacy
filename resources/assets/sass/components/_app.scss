@@ -581,3 +581,14 @@ div.card div.card-reveal span.card-title.card-title-small {
 div.card div.card-content {
   padding: 18px;
 }
+
+/*
+ * Margin on table filter fields
+ */
+div.input-field.inline {
+  margin-top: 0;
+}
+
+table thead tr th {
+  margin: 0 5px;
+}
