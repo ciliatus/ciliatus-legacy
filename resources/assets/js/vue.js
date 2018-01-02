@@ -88,7 +88,6 @@ TimeStringFormatter.install = function(Vue, options) {
 
 Vue.use(TimeStringFormatter);
 
-
 import SystemIndicator from './vue/system-indicator.vue';
 import LoadingIndicator from './vue/loading-indicator.vue';
 
@@ -216,3 +215,20 @@ window.bodyVue = new Vue({
         'generic_component_type_create-form': GenericComponentTypeCreateForm
     }
 });
+
+Vue.config.errorHandler = function (err, vm, info)  {
+    let handler, current = vm;
+    if (vm.$options.errorHandler) {
+        handler = vm.$options.errorHandler
+    } else {
+        while (current.$parent) {
+            current = current.$parent;
+            if (handler = current.$options.errorHandler) break
+        }
+    }
+    if (handler) handler.call(current, err, vm, info);
+    else {
+        console.log(err);
+        window.notification(window.bodyVue.$t('errors.frontend.generic'), 'red darken-1 text-white');
+    }
+}

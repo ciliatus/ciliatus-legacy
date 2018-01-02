@@ -1,8 +1,11 @@
 <?php
 
 return [
-    'retrievegraphdata'     =>  'Graphdaten konnten nicht ermittelt werden.',
+    'retrievegraphdata'     =>  'Could not retrieve graph data.',
     'auth'  =>  [
-        'failed' => 'Authentifizierung fehlgeschlagen.'
+        'failed' => 'Authentication failed.'
+    ],
+    'frontend' => [
+        'generic' => 'An error occured. Check the console for details.'
     ]
 ];
