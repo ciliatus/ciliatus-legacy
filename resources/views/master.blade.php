@@ -13,10 +13,9 @@
             <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.min.css"  media="screen,projection"/>
         @endif
         <link type="text/css" rel="stylesheet" href="/css/vendors/timeline.css"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.clockpicker.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="/css/vendors/dygraph.min.css"  media="screen,projection"/>
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script>
             $.ajaxSetup({
                 headers: {
@@ -127,15 +126,6 @@
                                 </a>
                                 <div class="collapsible-body">
                                     <ul>
-                                        <!--
-                                        <li @if(Request::is('map', 'map/*')) class="active" @endif>
-                                            <a href="{{ url('map') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">map</i>
-                                                @lang('labels.relation_map')
-                                            </a>
-                                        </li>
-                                        -->
-
                                         <li @if(Request::is('physical_sensors', 'physical_sensors/*')) class="active" @endif>
                                             <a href="{{ url('physical_sensors') }}" class="waves-effect waves-orange">
                                                 <i class="material-icons">memory</i>
@@ -296,7 +286,6 @@
         @yield('scripts')
 
         <script>
-
             $(document).ready(function() {
                 window.runPage();
             });
