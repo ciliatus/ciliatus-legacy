@@ -85,14 +85,16 @@
                             </div>
 
                             <div class="row">
-                                <div class="input-field col s12">
+                                <div class="col s12">
+                                    <label for="active">@lang('labels.active')</label>
                                     <div class="switch">
                                         <label>
+                                            @lang('labels.on')
                                             <input name="active" type="hidden" value="off">
                                             <input name="active" type="checkbox" value="on"
                                                    @if($physical_sensor->active()) checked @endif>
                                             <span class="lever"></span>
-                                            @lang('labels.active')
+                                            @lang('labels.off')
                                         </label>
                                     </div>
                                 </div>

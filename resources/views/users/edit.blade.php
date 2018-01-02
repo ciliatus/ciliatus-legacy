@@ -209,28 +209,32 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="input-field col s12">
+                                        <div class="col s12">
+                                            <label for="auto_nightmode_enabled">@lang('labels.auto_nightmode')</label>
                                             <div class="switch">
                                                 <label>
+                                                    @lang('labels.off')
                                                     <input name="auto_nightmode_enabled" type="hidden" value="off">
                                                     <input name="auto_nightmode_enabled" type="checkbox"
                                                            @if($user->setting('auto_nightmode_enabled') == 'on') checked @endif>
                                                     <span class="lever"></span>
-                                                    @lang('labels.auto_nightmode')
+                                                    @lang('labels.on')
                                                 </label>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="input-field col s12">
+                                        <div class="col s12">
+                                            <label for="permanent_nightmode_enabled">@lang('labels.permanent_nightmode')</label>
                                             <div class="switch">
                                                 <label>
+                                                    @lang('labels.off')
                                                     <input name="permanent_nightmode_enabled" type="hidden" value="off">
                                                     <input name="permanent_nightmode_enabled" type="checkbox"
                                                            @if($user->setting('permanent_nightmode_enabled') == 'on') checked @endif>
                                                     <span class="lever"></span>
-                                                    @lang('labels.permanent_nightmode')
+                                                    @lang('labels.on')
                                                 </label>
                                             </div>
                                         </div>
@@ -338,16 +342,6 @@
                                 </div>
 
                                 <div class="row">
-                                    <script>
-                                        function select_abilities(filter) {
-                                            $('#user-abilities-select').find('option').each(function() {
-                                                if ($(this).val().indexOf(filter) >= 0) {
-                                                    $(this).attr('selected', true);
-                                                }
-                                            });
-                                            $('#user-abilities-select').material_select();
-                                        }
-                                    </script>
                                     <div class="col s12">
                                         <strong>@lang('labels.add_preset')</strong>
                                     </div>
@@ -458,53 +452,67 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="input-field col s12">
+                                    <div class="col s12">
+                                        <label for="notifications_enabled">@choice('labels.notifications', 2)</label>
                                         <div class="switch">
                                             <label>
+                                                @lang('labels.off')
                                                 <input name="notifications_enabled" type="hidden" value="off">
                                                 <input name="notifications_enabled" type="checkbox"
                                                        @if($user->setting('notifications_enabled') == 'on') checked @endif>
                                                 <span class="lever"></span>
-                                                @choice('labels.notifications', 2)
+                                                @lang('labels.on')
                                             </label>
                                             <br />
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="input-field col s12">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <label for="notifications_controlunits_enabled">@choice('labels.notifications', 2) @choice('components.controlunits', 2)</label>
                                         <div class="switch">
                                             <label>
+                                                @lang('labels.off')
                                                 <input name="notifications_controlunits_enabled" type="hidden" value="off">
                                                 <input name="notifications_controlunits_enabled" type="checkbox"
                                                        @if($user->setting('notifications_controlunits_enabled') == 'on') checked @endif>
                                                 <span class="lever"></span>
-                                                @choice('labels.notifications', 2) @choice('components.controlunits', 2)
+                                                @lang('labels.on')
                                             </label>
                                             <br />
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="input-field col s12">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <label for="notifications_terraria_enabled">@choice('labels.notifications', 2) @choice('components.terraria', 2)</label>
                                         <div class="switch">
                                             <label>
+                                                @lang('labels.off')
                                                 <input name="notifications_terraria_enabled" type="hidden" value="off">
                                                 <input name="notifications_terraria_enabled" type="checkbox"
                                                        @if($user->setting('notifications_terraria_enabled') == 'on') checked @endif>
                                                 <span class="lever"></span>
-                                                @choice('labels.notifications', 2) @choice('components.terraria', 2)
+                                                @lang('labels.on')
                                             </label>
                                             <br />
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="input-field col s12">
+                                <div class="row">
+                                    <div class="col s12">
+                                        <label for="notifications_daily_enabled">@choice('labels.notifications', 2) @lang('labels.daily_reminders')</label>
                                         <div class="switch">
                                             <label>
+                                                @lang('labels.off')
                                                 <input name="notifications_daily_enabled" type="hidden" value="off">
                                                 <input name="notifications_daily_enabled" type="checkbox"
                                                        @if($user->setting('notifications_daily_enabled') == 'on') checked @endif>
                                                 <span class="lever"></span>
-                                                @choice('labels.notifications', 2) @lang('labels.daily_reminders')
+                                                @lang('labels.on')
                                             </label>
                                             <br />
                                         </div>
@@ -562,14 +570,6 @@
         </div>
     </div>
 
-    <script>
-        $(document).ready(function() {
-            $('.timepicker').pickatime({
-                twelvehour: false
-            });
-        });
-    </script>
-
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large orange darken-4">
             <i class="large material-icons">mode_edit</i>
@@ -580,4 +580,23 @@
             <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/users/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        function select_abilities(filter) {
+            $('#user-abilities-select').find('option').each(function() {
+                if ($(this).val().indexOf(filter) >= 0) {
+                    $(this).attr('selected', true);
+                }
+            });
+            $('#user-abilities-select').material_select();
+        }
+
+        $(document).ready(function() {
+            $('.timepicker').pickatime({
+                twelvehour: false
+            });
+        });
+    </script>
 @stop

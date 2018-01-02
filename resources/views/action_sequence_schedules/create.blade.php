@@ -37,24 +37,18 @@
                             </div>
 
                             <div class="row">
-                                <div class="input-field col s12">
+                                <div class="col s12">
+                                    <label for="runonce">@lang('labels.runonce')</label>
                                     <div class="switch">
                                         <label>
+                                            @lang('labels.off')
                                             <input name="runonce" type="checkbox">
                                             <span class="lever"></span>
-                                            @lang('labels.runonce')
+                                            @lang('labels.on')
                                         </label>
                                     </div>
                                 </div>
                             </div>
-
-                            <script>
-                                $(document).ready(function() {
-                                    $('.timepicker').pickatime({
-                                        twelvehour: false
-                                    });
-                                });
-                            </script>
 
                         </div>
 
@@ -74,4 +68,14 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.timepicker').pickatime({
+                twelvehour: false
+            });
+        });
+    </script>
 @stop

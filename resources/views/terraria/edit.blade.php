@@ -73,13 +73,15 @@
                             </div>
 
                             <div class="row">
-                                <div class="input-field col s12">
+                                <div class="col s12">
+                                    <label for="notifications_enabled">@lang('tooltips.sendnotifications')</label>
                                     <div class="switch">
                                         <label>
+                                            @lang('tooltips.on')
                                             <input name="notifications_enabled" type="hidden" value="off">
                                             <input name="notifications_enabled" type="checkbox" @if($terrarium->notifications_enabled) checked @endif>
                                             <span class="lever"></span>
-                                            @lang('tooltips.sendnotifications')
+                                            @lang('tooltips.off')
                                         </label>
                                     </div>
                                 </div>
@@ -123,13 +125,15 @@
 
                                 <div class="row">
 
-                                    <div class="input-field col s12 m6">
+                                    <div class="col s12 m6">
+                                        <label for="suggestions[{{ $type }}][enabled]">@lang('tooltips.show_suggestions')</label>
                                         <div class="switch">
                                             <label>
+                                                @lang('labels.off')
                                                 <input name="suggestions[{{ $type }}][enabled]" type="hidden" value="off">
                                                 <input name="suggestions[{{ $type }}][enabled]" type="checkbox" value="on" @if($terrarium->getSuggestionsEnabled($type)) checked @endif>
                                                 <span class="lever"></span>
-                                                @lang('tooltips.show_suggestions')
+                                                @lang('labels.on')
                                             </label>
                                         </div>
                                     </div>
