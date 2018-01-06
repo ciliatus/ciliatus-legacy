@@ -43,7 +43,7 @@ class AnimalWeighingEvent extends Event
 
     /**
      * @param int $days
-     * @return float|void
+     * @return float
      */
     public function trend($days = 30)
     {
@@ -63,7 +63,7 @@ class AnimalWeighingEvent extends Event
          * Find first feeding before and after $from
          */
         if (is_null($this->belongsTo_object())) {
-            return;
+            return 0.0;
         }
 
         $first_before = $this->belongsTo_object()
@@ -84,8 +84,8 @@ class AnimalWeighingEvent extends Event
         /*
          * Calculate timespans of the two feedings to $from
          */
-        $span_before = is_null($first_before) ? 0 : $first_before->created_at->diffInDays($from);
-        $span_after  = is_null($first_after)  ? 0 : $first_after->created_at->diffInDays($from);
+        $span_before = is_null($first_before) ? 0 : $first_before->created_at->diffInHours($from)/24;
+        $span_after  = is_null($first_after)  ? 0 : $first_after->created_at->diffInHours($from)/24;
         $span_total = $span_before + $span_after;
 
         /*
