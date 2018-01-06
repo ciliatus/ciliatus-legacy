@@ -64,5 +64,11 @@ return [
     'max_file_size' => 'The maximum file size is :size.',
     'animal_weighing' => [
         'trend' => 'Trend within the last 60 days'
+    ],
+    'logical_sensor_thresholds' => [
+        'limits'     => 'Non-critical range. Values outside this range will be considered critical',
+        'lowerlimit' => 'Sensor reading will be considered critical, if below this value',
+        'upperlimit' => 'Sensor reading will be considered critical, if above this value',
+        'starts_at'  => 'Time from which on this threshold is active'
     ]
 ];

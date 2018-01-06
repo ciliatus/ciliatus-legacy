@@ -17,65 +17,61 @@
 
                             <span class="card-title activator truncate">
                                 <span>{{ $logical_sensor_threshold->name }}</span>
-
                             </span>
 
-                            <p>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $logical_sensor_threshold->id }}">
-                                        <label for="id">ID</label>
-                                    </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $logical_sensor_threshold->id }}">
+                                    <label for="id">ID</label>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <select name="belongsTo">
-                                            <option></option>
-                                            @foreach ($belongTo_Options as $t=>$objects)
-                                                <optgroup label="@choice('components.' . strtolower($t), 2)">
-                                                    @foreach ($objects as $o)
-                                                        <option value="{{ $t }}|{{ $o->id }}"
-                                                            @if($logical_sensor_threshold->logical_sensor_id == $o->id)
-                                                                selected
-                                                            @endif>@if(is_null($o->display_name)) {{ $o->name }} @else {{ $o->display_name }} @endif</option>
-                                                    @endforeach
-                                                </optgroup>
-                                            @endforeach
-                                        </select>
-                                        <label for="belongsTo">@lang('labels.belongsTo')</label>
-                                    </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <select name="belongsTo">
+                                        <option></option>
+                                        @foreach ($belongTo_Options as $t=>$objects)
+                                            <optgroup label="@choice('components.' . strtolower($t), 2)">
+                                                @foreach ($objects as $o)
+                                                    <option value="{{ $t }}|{{ $o->id }}"
+                                                        @if($logical_sensor_threshold->logical_sensor_id == $o->id)
+                                                            selected
+                                                        @endif>@if(is_null($o->display_name)) {{ $o->name }} @else {{ $o->display_name }} @endif</option>
+                                                @endforeach
+                                            </optgroup>
+                                        @endforeach
+                                    </select>
+                                    <label for="belongsTo">@lang('labels.belongsTo')</label>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <div class="input-field col s12 m6 l6">
-                                        <input type="text" placeholder="@lang('labels.rawlimitlo')" name="lowerlimit"
-                                               value="{{ $logical_sensor_threshold->rawvalue_lowerlimit }}">
-                                        <label for="lowerlimit">@lang('labels.rawlimitlo')</label>
-                                    </div>
-                                    <div class="input-field col s12 m6 l6">
-                                        <input type="text" placeholder="@lang('labels.rawlimithi')" name="upperlimit"
-                                               value="{{ $logical_sensor_threshold->rawvalue_upperlimit }}">
-                                        <label for="upperlimit">@lang('labels.rawlimithi')</label>
-                                    </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <strong class="tooltipped" data-delay="50" data-html="true"
+                                            :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.logical_sensor_thresholds.limits') + '</div>'">
+                                        @lang('labels.rawlimits')
+                                        <i class="material-icons">info_outline</i>
+                                    </strong>
                                 </div>
-
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input class="timepicker" placeholder="@lang('labels.starts_at')" name="starts_at"
-                                               data-default="{{ $logical_sensor_threshold->starts_at }}" value="{{ $logical_sensor_threshold->starts_at }}">
-                                        <label for="starts_at">@lang('labels.starts_at')</label>
-                                    </div>
+                                <div class="input-field col s12 m6 l6">
+                                    <input type="text" placeholder="@lang('labels.rawlimitlo')" name="lowerlimit"
+                                           value="{{ $logical_sensor_threshold->rawvalue_lowerlimit }}">
+                                    <label for="lowerlimit">@lang('labels.rawlimitlo')</label>
                                 </div>
+                                <div class="input-field col s12 m6 l6">
+                                    <input type="text" placeholder="@lang('labels.rawlimithi')" name="upperlimit"
+                                           value="{{ $logical_sensor_threshold->rawvalue_upperlimit }}">
+                                    <label for="upperlimit">@lang('labels.rawlimithi')</label>
+                                </div>
+                            </div>
 
-                                <script>
-                                    $(document).ready(function() {
-                                        $('.timepicker').pickatime({
-                                            twelvehour: false
-                                        });
-                                    });
-                                </script>
-                            </p>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input class="timepicker" placeholder="@lang('labels.starts_at')" name="starts_at"
+                                           data-default="{{ $logical_sensor_threshold->starts_at }}" value="{{ $logical_sensor_threshold->starts_at }}">
+                                    <label for="starts_at">@lang('labels.starts_at')</label>
+                                </div>
+                            </div>
 
                         </div>
 
@@ -106,4 +102,14 @@
             <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/logical_sensor_thresholds/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.timepicker').pickatime({
+                twelvehour: false
+            });
+        });
+    </script>
 @stop
