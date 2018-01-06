@@ -42,7 +42,7 @@ export default {
 
     props: {
         id: {
-            type: Number,
+            type: String,
             required: false,
             default: Math.floor(Math.random() * 1000000)
         },
