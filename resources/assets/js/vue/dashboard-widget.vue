@@ -541,49 +541,61 @@
                         item = index;
                     }
                 });
-                if (item !== null) {
-                    if (e.terrarium.temperature_critical !== false || e.terrarium.humidity_critical !== false || e.terrarium.heartbeat_critical !== false) {
-                        this.dashboard.terraria.ok.splice(item, 1);
-                    }
-                    else {
-                        this.dashboard.terraria.ok.splice(item, 1, e.terrarium);
-                        found = true;
-                    }
-                }
+                
+                let that = this;
+                $.ajax({
+                    url: '/api/v1/terraria/' + e.terrarium_id + '?default_history_minutes=true',
+                    method: 'GET',
+                    success: function (data) {
+                        let terrarium = data.data;
+                        if (item !== null) {
+                            if (terrarium.temperature_critical !== false || terrarium.humidity_critical !== false || terrarium.heartbeat_critical !== false) {
+                                that.dashboard.terraria.ok.splice(item, 1);
+                            }
+                            else {
+                                that.dashboard.terraria.ok.splice(item, 1, terrarium);
+                                found = true;
+                            }
+                        }
 
-                /*
-                 * Check in critical array
-                 */
-                item = null;
-                this.dashboard.terraria.critical.forEach(function(data, index) {
-                    if (data.id === e.terrarium_id) {
-                        item = index;
+                        /*
+                         * Check in critical array
+                         */
+                        item = null;
+                        that.dashboard.terraria.critical.forEach(function(data, index) {
+                            if (data.id === e.terrarium_id) {
+                                item = index;
+                            }
+                        });
+                        if (item !== null) {
+                            if (terrarium.temperature_critical === false && terrarium.humidity_critical === false && terrarium.heartbeat_critical === false) {
+                                that.dashboard.terraria.critical.splice(item, 1);
+                            }
+                            else {
+                                that.dashboard.terraria.critical.splice(item, 1, terrarium);
+                                found = true;
+                            }
+                        }
+
+                        /*
+                         * If found is not true, the item was either not found
+                         * or was removed from an array.
+                         * In that case properties will be checked again and
+                         * item will be pushed to an array if they match certain criteria
+                         */
+                        if (found !== true) {
+                            if (terrarium.temperature_critical === false && terrarium.humidity_critical === false && terrarium.heartbeat_critical === false) {
+                                that.dashboard.terraria.ok.push(terrarium);
+                            }
+                            else {
+                                that.dashboard.terraria.critical.push(terrarium);
+                            }
+                        }
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
                     }
                 });
-                if (item !== null) {
-                    if (e.terrarium.temperature_critical === false && e.terrarium.humidity_critical === false && e.terrarium.heartbeat_critical === false) {
-                        this.dashboard.terraria.critical.splice(item, 1);
-                    }
-                    else {
-                        this.dashboard.terraria.critical.splice(item, 1, e.terrarium);
-                        found = true;
-                    }
-                }
-
-                /*
-                 * If found is not true, the item was either not found
-                 * or was removed from an array.
-                 * In this case properties will be checked again and
-                 * item will be pushed to an array if they match certain criteria
-                 */
-                if (found !== true) {
-                    if (e.terrarium.temperature_critical === false && e.terrarium.humidity_critical === false && e.terrarium.heartbeat_critical === false) {
-                        this.dashboard.terraria.ok.push(e.terrarium);
-                    }
-                    else {
-                        this.dashboard.terraria.critical.push(e.terrarium);
-                    }
-                }
 
                 this.refresh_grid();
             },
