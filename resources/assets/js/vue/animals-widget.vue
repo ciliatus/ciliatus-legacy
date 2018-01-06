@@ -102,13 +102,19 @@
                                     {val: $getMatchingTimeDiff(animal.last_weighing.timestamps.created_diff).val}
                                 )}}
                                 {{ animal.last_weighing.value }}{{ animal.last_weighing.name }}
-                                <span v-if="animal.last_weighing.trend && animal.last_weighing.trend > 0" class="green-text">
+                                <span v-if="animal.last_weighing.trend && animal.last_weighing.trend > 0" class="green-text tooltipped"
+                                      data-delay="50" data-html="true"
+                                      :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.animal_weighing.trend') + '</div>'">
                                     (+ {{ animal.last_weighing.trend }}%)
                                 </span>
-                                <span v-if="animal.last_weighing.trend && animal.last_weighing.trend < 0" class="red-text">
+                                <span v-if="animal.last_weighing.trend && animal.last_weighing.trend < 0" class="red-text tooltipped"
+                                      data-delay="50" data-html="true"
+                                      :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.animal_weighing.trend') + '</div>'">
                                     ({{ animal.last_weighing.trend }}%)
                                 </span>
-                                <span v-if="animal.last_weighing.trend && animal.last_weighing.trend == 0">
+                                <span v-if="animal.last_weighing.trend && animal.last_weighing.trend == 0" class="tooltipped"
+                                      data-delay="50" data-html="true"
+                                      :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.animal_weighing.trend') + '</div>'">
                                     (+/- 0%)
                                 </span>
                             </span>
@@ -386,6 +392,7 @@ export default {
         refresh_grid: function() {
             $('#' + this.containerId).masonry('reloadItems');
             $('#' + this.containerId).masonry('layout');
+            $('.tooltipped').tooltip({delay: 50});
             $('.modal').modal();
             $('.datepicker').pickadate({
                 selectMonths: true,

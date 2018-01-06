@@ -61,5 +61,8 @@ return [
     'ciliatus_up_to_date' => 'Aktuell',
     'ciliatus_not_up_to_date' => 'Update verfügbar: <a href=":url">GitHub</a>',
     'no_feeding_types' => 'Es wurden noch keine Futtertypen definiert.',
-    'max_file_size' => 'Die maximale Dateigröße beträgt :size.'
+    'max_file_size' => 'Die maximale Dateigröße beträgt :size.',
+    'animal_weighing' => [
+        'trend' => 'Trend der letzten 60 Tage'
+    ]
 ];
