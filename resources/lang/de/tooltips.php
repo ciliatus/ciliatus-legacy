@@ -70,5 +70,6 @@ return [
         'lowerlimit' => 'Sensorwert ist kritisch, falls er unter diesem Wert liegt',
         'upperlimit' => 'Sensorwert ist kritisch, falls er über diesem Wert liegt',
         'starts_at'  => 'Zeitpunkt, ab dem der Grenzwert gelten soll'
-    ]
+    ],
+    'logical_sensor_rawvalue_limit' => 'Gültigkeitsbereich dieses Sensors. Sensorwerte außerhalb dieses Bereichs werden abgelehnt, wenn sie über die API gesendet werden.'
 ];

@@ -70,5 +70,6 @@ return [
         'lowerlimit' => 'Sensor reading will be considered critical, if below this value',
         'upperlimit' => 'Sensor reading will be considered critical, if above this value',
         'starts_at'  => 'Time from which on this threshold is active'
-    ]
+    ],
+    'logical_sensor_rawvalue_limit' => 'Valid value range for this sensor. Values outside this range submitted via the API will be rejected'
 ];

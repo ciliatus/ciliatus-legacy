@@ -11,64 +11,67 @@
         <div class="row">
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <form action="{{ url('api/v1/logical_sensors/' . $logical_sensor->id) }}" data-method="PUT"
-                          >
+                    <form action="{{ url('api/v1/logical_sensors/' . $logical_sensor->id) }}" data-method="PUT">
                         <div class="card-content">
 
                             <span class="card-title activator truncate">
                                 <span>{{ $logical_sensor->name }}</span>
                             </span>
 
-                            <p>
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $logical_sensor->id }}">
-                                        <label for="id">ID</label>
-                                    </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $logical_sensor->id }}">
+                                    <label for="id">ID</label>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $logical_sensor->name }}">
-                                        <label for="name">@lang('labels.name')</label>
-                                    </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $logical_sensor->name }}">
+                                    <label for="name">@lang('labels.name')</label>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <select name="type">
-                                            <option></option>
-                                            <option value="humidity_percent" @if($logical_sensor->type == 'humidity_percent')selected="selected"@endif>@lang('labels.humidity') %</option>
-                                            <option value="temperature_celsius" @if($logical_sensor->type == 'temperature_celsius')selected="selected"@endif>@lang('labels.temperature') °C</option>
-                                        </select>
-                                        <label for="valves">@lang('labels.type')</label>
-                                    </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <select name="type">
+                                        <option></option>
+                                        <option value="humidity_percent" @if($logical_sensor->type == 'humidity_percent')selected="selected"@endif>@lang('labels.humidity') %</option>
+                                        <option value="temperature_celsius" @if($logical_sensor->type == 'temperature_celsius')selected="selected"@endif>@lang('labels.temperature') °C</option>
+                                    </select>
+                                    <label for="valves">@lang('labels.type')</label>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <div class="input-field col s12">
-                                        <select name="physical_sensor">
-                                            <option></option>
-                                            @foreach ($physical_sensors as $ps)
-                                                <option value="{{ $ps->id }}" @if($logical_sensor->physical_sensor_id == $ps->id)selected="selected"@endif>{{ $ps->name }}</option>
-                                            @endforeach
-                                        </select>
-                                        <label for="valves">@choice('components.physical_sensors', 1)</label>
-                                    </div>
+                            <div class="row">
+                                <div class="input-field col s12">
+                                    <select name="physical_sensor">
+                                        <option></option>
+                                        @foreach ($physical_sensors as $ps)
+                                            <option value="{{ $ps->id }}" @if($logical_sensor->physical_sensor_id == $ps->id)selected="selected"@endif>{{ $ps->name }}</option>
+                                        @endforeach
+                                    </select>
+                                    <label for="valves">@choice('components.physical_sensors', 1)</label>
                                 </div>
+                            </div>
 
-                                <div class="row">
-                                    <div class="input-field col s12 m6 l6">
-                                        <input type="text" placeholder="@lang('labels.rawlimitlo')" name="rawvalue_lowerlimit" value="{{ $logical_sensor->rawvalue_lowerlimit }}">
-                                        <label for="name">@lang('labels.rawlimitlo')</label>
-                                    </div>
-                                    <div class="input-field col s12 m6 l6">
-                                        <input type="text" placeholder="@lang('labels.rawlimithi')" name="rawvalue_upperlimit" value="{{ $logical_sensor->rawvalue_upperlimit }}">
-                                        <label for="name">@lang('labels.rawlimithi')</label>
-                                    </div>
+                            <div class="row">
+                                <div class="col s12">
+                                    <strong class="tooltipped" data-delay="50" data-html="true"
+                                            :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.logical_sensor_rawvalue_limit') + '</div>'">
+                                        @lang('labels.rawlimits')
+                                        <i class="material-icons">info_outline</i>
+                                    </strong>
                                 </div>
-
-                            </p>
+                                <div class="input-field col s12 m6 l6">
+                                    <input type="text" placeholder="@lang('labels.rawlimitlo')" name="rawvalue_lowerlimit" value="{{ $logical_sensor->rawvalue_lowerlimit }}">
+                                    <label for="name">@lang('labels.rawlimitlo')</label>
+                                </div>
+                                <div class="input-field col s12 m6 l6">
+                                    <input type="text" placeholder="@lang('labels.rawlimithi')" name="rawvalue_upperlimit" value="{{ $logical_sensor->rawvalue_upperlimit }}">
+                                    <label for="name">@lang('labels.rawlimithi')</label>
+                                </div>
+                            </div>
 
                         </div>
 
