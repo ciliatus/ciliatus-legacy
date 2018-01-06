@@ -10,7 +10,7 @@
     <div class="container">
         <generic_components-list-widget :refresh-timeout-seconds="60"
                                    default-type-filter="{{ $generic_component_type->name_singular }}"
-                                   container-classes="" wrapper-classes=""></generic_components-list-widget>
+                                   :container-classes="['masonry-grid']" wrapper-classes=""></generic_components-list-widget>
     </div>
 
     <div class="fixed-action-btn">

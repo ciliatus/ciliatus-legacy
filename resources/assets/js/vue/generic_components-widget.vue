@@ -1,5 +1,5 @@
 <template>
-    <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
+    <div :class="containerClasses" :id="containerId">
         <div v-for="generic_component in generic_components">
             <div :class="wrapperClasses">
                 <div class="card">

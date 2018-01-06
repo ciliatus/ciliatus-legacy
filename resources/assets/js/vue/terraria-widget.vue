@@ -60,7 +60,7 @@
                 </div>
             </div>
         </div>
-        <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
+        <div :class="containerClasses" :id="containerId">
             <div :class="wrapperClasses" v-for="terrarium in terraria">
                 <!-- Modals -->
                 <div :id="terrarium.id + '_irrigate'" class="modal" v-if="terrarium.capabilities.irrigate">

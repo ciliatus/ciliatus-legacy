@@ -57,7 +57,7 @@
                 </div>
             </div>
         </div>
-        <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
+        <div :class="containerClasses" :id="containerId">
             <div :class="wrapperClasses" v-for="animal in animals">
                 <!-- Modals -->
                 <animal-add-feeding-modal :animalId="animal.id" :feedingTypes="feeding_types"
