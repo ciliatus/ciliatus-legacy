@@ -469,8 +469,9 @@ class Terrarium extends CiliatusModel
     }
 
     /**
-     * @param array $options
+     * @param null $options
      * @return array
+     * @throws \Exception
      */
     public function getSuggestions($options = null)
     {
