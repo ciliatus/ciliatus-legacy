@@ -63,7 +63,7 @@ return [
     'no_feeding_types' => 'There are no food types defined yet.',
     'max_file_size' => 'The maximum file size is :size.',
     'animal_weighing' => [
-        'trend' => 'Trend within the last 60 days'
+        'trend' => 'Trend within the last 60 days from the last weighing'
     ],
     'logical_sensor_thresholds' => [
         'limits'     => 'Non-critical range. Values outside this range will be considered critical',
