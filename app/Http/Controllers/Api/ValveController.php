@@ -74,8 +74,6 @@ class ValveController extends ApiController
     public function store(Request $request)
     {
 
-        \Log::debug(Auth::user()->name);
-
         if (Gate::denies('api-write:valve')) {
             return $this->respondUnauthorized();
         }

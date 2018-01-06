@@ -26,7 +26,6 @@ class TelegramController extends PublicApiController
      */
     public function handle(Request $request)
     {
-        \Log::debug($request->all());
         try {
             $request_arr = $request->all();
 

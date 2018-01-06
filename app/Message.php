@@ -51,7 +51,6 @@ class Message extends CiliatusModel
             }
         }
         else {
-            \Log::debug('in4');
             throw new \InvalidArgumentException('Missing attribute: type');
         }
     }
