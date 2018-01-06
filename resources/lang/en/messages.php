@@ -33,6 +33,7 @@ return [
     'own_token_expires' => 'Token \':name\' expires in :days days.',
 
     'suggestions' => [
-        'humidity_percent' => 'Daily irrigation action sequence at :hour o\'clock.'
+        'humidity_percent' => 'Rgulate humidity daily at :hour o\'clock.',
+        'temperature_celsius' => 'Rgulate temperature daily at :hour o\'clock.'
     ]
 ];

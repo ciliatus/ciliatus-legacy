@@ -33,6 +33,7 @@ return [
     'own_token_expires' => 'Token \':name\' läuft in :days Tagen ab.',
 
     'suggestions' => [
-        'humidity_percent' => 'Tägliche Aktionssequenz zum Bewässern um :hour Uhr'
+        'humidity_percent' => 'Feuchtigkeit regulieren täglich um :hour Uhr',
+        'temperature_celsius' => 'Temperatur regulieren täglich um :hour Uhr'
     ]
 ];
