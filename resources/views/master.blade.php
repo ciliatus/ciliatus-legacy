@@ -253,6 +253,8 @@
                     <li><div class="divider"></div></li>
 
                     <li><a href="{{ url('auth/logout') }}" class="waves-effect waves-orange"><i class="material-icons">exit_to_app</i>@lang('labels.logout')</a></li>
+
+                    <br /><br /><br />
                 </ul>
 
             </header>
