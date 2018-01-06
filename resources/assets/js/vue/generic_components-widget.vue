@@ -9,8 +9,12 @@
                     </div>
 
                     <div class="card-content">
+                        <span class="card-title activator">
+                            {{ generic_component.name }}
+                        </span>
+
                         <div>
-                            <span v-for="(value, name) in generic_component.properties">{{ name }}: {{ value }}<br /></span>
+                            <span v-for="(property, index) in generic_component.properties">{{ property.name }}: {{ property.value }}<br /></span>
                         </div>
                     </div>
 
