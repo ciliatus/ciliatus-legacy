@@ -26,7 +26,7 @@ class Animal extends CiliatusModel
     /**
      * @var array
      */
-    protected $fillable = ['display_name'];
+    protected $fillable = ['display_name', 'common_name', 'latin_name', 'gender'];
 
     /**
      * @var array
