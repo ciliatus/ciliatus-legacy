@@ -28,14 +28,14 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input type="text" placeholder="@lang('labels.display_name')" name="displayname" value="{{ $animal->display_name }}">
+                                        <input type="text" placeholder="@lang('labels.display_name')" name="display_name" value="{{ $animal->display_name }}">
                                         <label for="display_name">@lang('labels.display_name')</label>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input type="text" placeholder="@lang('labels.common_name')" name="commonname" value="{{ $animal->common_name }}"
+                                        <input type="text" placeholder="@lang('labels.common_name')" name="common_name" value="{{ $animal->common_name }}"
                                                id="animal-common-name" class="autocomplete">
                                         <label for="name">@lang('labels.common_name')</label>
                                     </div>
@@ -43,7 +43,7 @@
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input type="text" placeholder="@lang('labels.latin_name')" name="latinname" value="{{ $animal->lat_name }}"
+                                        <input type="text" placeholder="@lang('labels.latin_name')" name="latin_name" value="{{ $animal->lat_name }}"
                                                id="animal-latin-name" class="autocomplete">
                                         <label for="name">@lang('labels.latin_name')</label>
                                     </div>
@@ -71,7 +71,7 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <input type="date" class="datepicker" placeholder="@lang('labels.date_birth')"
-                                               name="birthdate" id="birthdate"
+                                               name="birth_date" id="birthdate"
                                                @if ($animal->birth_date) value="{{ $animal->birth_date->format('Y-m-d') }}" @endif>
                                         <label for="name">@lang('labels.date_birth')</label>
                                     </div>
@@ -80,7 +80,7 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <input type="date" class="datepicker" placeholder="@lang('labels.date_death')"
-                                               name="deathdate" id="deathdate"
+                                               name="death_date" id="deathdate"
                                                @if ($animal->death_date) value="{{ $animal->death_date->format('Y-m-d') }}" @endif>
                                         <label for="name">@lang('labels.date_death')</label>
                                     </div>

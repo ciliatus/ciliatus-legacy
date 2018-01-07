@@ -146,8 +146,8 @@ class AnimalController extends ApiController
         }
 
         $this->updateModelProperties($animal, $request, [
-            'display_name' => 'displayname', 'common_name' => 'commonname', 'lat_name' => 'latinname',
-            'gender', 'terrarium_id' => 'terrarium', 'birth_date' => 'birthdate', 'death_date' => 'deathdate'
+            'display_name', 'common_name', 'lat_name' => 'latin_name',
+            'gender', 'terrarium_id' => 'terrarium', 'birth_date', 'death_date'
         ]);
 
         $animal->save();
