@@ -177,7 +177,7 @@
     <div id="tab_files" class="col s12">
         <div class="container">
             <files-list-widget
-                    source-filter="filter[belongsTo_type]=Animal&filter[belongsTo_id]={{ $animal->id }}"
+                    source-url="animals/{{ $animal->id }}/files"
                     subscribe-add="false">
             </files-list-widget>
         </div>
@@ -188,6 +188,7 @@
             </a>
             <ul>
                 <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/files/create?preset[belongsTo_type]=Animal&preset[belongsTo_id]={{ $animal->id }}"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.link')" href="/files/associate/Animal/{{ $animal->id }}"><i class="material-icons">link</i></a></li>
             </ul>
         </div>
     </div>

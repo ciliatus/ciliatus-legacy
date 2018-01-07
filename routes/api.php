@@ -22,6 +22,7 @@ Route::get('system/health', 'SystemController@health');
  * Animals
  */
 Route::resource('animals', 'AnimalController');
+Route::get('animals/{animal_id}/files', 'AnimalController@files');
 
 // Animal caresheets
 Route::post('animals/caresheets', 'AnimalController@store_caresheet');
@@ -57,6 +58,7 @@ Route::get('animal_weighing_schedules', 'AnimalWeighingSchedulePropertyControlle
 Route::resource('terraria', 'TerrariumController');
 Route::get('terraria/{id}/infrastructure', 'TerrariumController@infrastructure');
 Route::post('terraria/{id}/action_sequence', 'TerrariumController@generateActionSequence');
+Route::get('terraria/{animal_id}/files', 'TerrariumController@files');
 
 // Sensorreadings
 Route::get('terraria/{id}/sensorreadings', 'TerrariumController@sensorreadings');

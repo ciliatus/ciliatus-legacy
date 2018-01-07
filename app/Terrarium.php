@@ -126,7 +126,7 @@ class Terrarium extends CiliatusModel
      */
     public function files()
     {
-        return $this->hasMany('App\File', 'belongsTo_id')->where('belongsTo_type', 'Terrarium');
+        return $this->morphToMany('App\File', 'belongsTo', 'has_files', 'belongsTo_id', 'file_id');
     }
 
     /**

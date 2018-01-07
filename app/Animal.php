@@ -63,7 +63,7 @@ class Animal extends CiliatusModel
      */
     public function files()
     {
-        return $this->hasMany('App\File', 'belongsTo_id')->where('belongsTo_type', 'Animal')->orderBy('created_at', 'DESC');
+        return $this->morphToMany('App\File', 'belongsTo', 'has_files', 'belongsTo_id', 'file_id');
     }
 
     /**
