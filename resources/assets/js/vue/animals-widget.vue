@@ -122,18 +122,23 @@
                     </div>
 
                     <div class="card-reveal" v-if="!animal.death_date">
-                        <span class="card-title">{{ $tc("components.terraria", 1) }}<i class="material-icons right">close</i></span>
+                        <div>
+                            <strong>{{ animal.display_name }}</strong>
+                            <i class="material-icons right card-title card-title-small">close</i>
+                        </div>
 
-                        <p>
-                            <a v-if="animal.terrarium" v-bind:href="'/terraria/' + animal.terrarium.id">{{ animal.terrarium.display_name }}</a>
+                        <p v-if="animal.terrarium">
+                            <i class="material-icons">video_label</i>
+                            <a v-bind:href="'/terraria/' + animal.terrarium.id">{{ animal.terrarium.display_name }}</a>
                         </p>
 
-                        <span class="card-title">{{ $t("labels.just_fed") }}</span>
-
                         <p>
+                            <i class="material-icons">play_arrow</i>
                             <a href="#" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
                         </p>
+
                         <p>
+                            <i class="material-icons">play_arrow</i>
                             <a href="#" v-bind:href="'#modal_add_weight_' + animal.id" v-bind:onclick="'$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.add_weight") }}</a>
                         </p>
                     </div>

@@ -181,24 +181,30 @@
                     </div>
 
                     <div class="card-reveal">
-                        <span class="card-title card-title-small">{{ $tc("components.animals", 2) }}<i class="material-icons right">close</i></span>
+                        <div>
+                            <strong>{{ terrarium.display_name }}</strong>
+                            <i class="material-icons right card-title card-title-small">close</i>
+                        </div>
 
                         <p v-for="animal in terrarium.animals">
+                            <i class="material-icons">pets</i>
                             <a v-bind:href="'/animals/' + animal.id">{{ animal.display_name }}</a> <i>{{ animal.common_name }}</i>
                         </p>
 
-                        <span class="card-title card-title-small">{{ $t("labels.start_action_sequence") }}</span>
-
                         <p v-if="terrarium.capabilities.irrigate">
+                            <i class="material-icons">play_arrow</i>
                             <a href="#" v-on:click="action_sequence_modal(terrarium.id, 'irrigate')">{{ $t('buttons.irrigate') }}</a>
                         </p>
                         <p v-if="terrarium.capabilities.ventilate">
+                            <i class="material-icons">play_arrow</i>
                             <a href="#" v-on:click="action_sequence_modal(terrarium.id, 'ventilate')">{{ $t('buttons.ventilate') }}</a>
                         </p>
                         <p v-if="terrarium.capabilities.heat_up">
+                            <i class="material-icons">play_arrow</i>
                             <a href="#" v-on:click="action_sequence_modal(terrarium.id, 'heat_up')">{{ $t('buttons.heat_up') }}</a>
                         </p>
                         <p v-if="terrarium.capabilities.cool_down">
+                            <i class="material-icons">play_arrow</i>
                             <a href="#" v-on:click="action_sequence_modal(terrarium.id, 'cool_down')">{{ $t('buttons.cool_down') }}</a>
                         </p>
                     </div>
