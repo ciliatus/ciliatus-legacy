@@ -390,6 +390,7 @@ img.tiny {
   &.info {
     @extend .white-text;
     border: 1px solid color('blue', 'lighten-1');
+    border-radius: 4px;
 
     .collection-header {
       background-color: color('blue', 'lighten-1');
@@ -405,6 +406,7 @@ img.tiny {
   &.ok {
     @extend .white-text;
     border: 1px solid color('teal', 'base');
+    border-radius: 4px;
 
     .collection-header {
       background-color: color('teal', 'base');
@@ -420,6 +422,7 @@ img.tiny {
   &.warning {
     @extend .white-text;
     border: 1px solid color('orange', 'darken-3');
+    border-radius: 4px;
 
     .collection-header {
       background-color: color('orange', 'darken-3');
@@ -435,6 +438,7 @@ img.tiny {
   &.critical {
     @extend .white-text;
     border: 1px solid color('red', 'darken-4');
+    border-radius: 4px;
 
     .collection-header {
       background-color: color('red', 'darken-4');
