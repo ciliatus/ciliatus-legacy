@@ -299,15 +299,18 @@ class Animal extends CiliatusModel
                     Carbon::today()
                 );
 
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_average_humidity',
-                $all_stats->avg_rawvalue
-            );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_min_humidity',
-                $all_stats->min_rawvalue
-            );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_max_humidity',
-                $all_stats->max_rawvalue
-            );
+            if (!is_null($all_stats)) {
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_average_humidity',
+                    $all_stats->avg_rawvalue
+                );
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_min_humidity',
+                    $all_stats->min_rawvalue
+                );
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_max_humidity',
+                    $all_stats->max_rawvalue
+                );
+            }
+
             
             $day_stats = 
                 $this->terrarium->getHumidityStats(
@@ -316,16 +319,20 @@ class Animal extends CiliatusModel
                     Carbon::createFromTime(7, 0, 0),
                     Carbon::createFromTime(20, 0, 0)
                 );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_average_humidity_day',
-                $day_stats->avg_rawvalue
-            );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_min_humidity_day',
-                $day_stats->min_rawvalue
-            );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_max_humidity_day',
-                $day_stats->max_rawvalue
-            );
-            
+
+            if (!is_null($day_stats)) {
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_average_humidity_day',
+                    $day_stats->avg_rawvalue
+                );
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_min_humidity_day',
+                    $day_stats->min_rawvalue
+                );
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_max_humidity_day',
+                    $day_stats->max_rawvalue
+                );
+            }
+
+
             $night_stats =
                 $this->terrarium->getHumidityStats(
                     $settings['sensor_history_days'],
@@ -333,15 +340,19 @@ class Animal extends CiliatusModel
                     Carbon::createFromTime(20, 0, 0),
                     Carbon::createFromTime(7, 0, 0)
                 );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_average_humidity_night',
-                $night_stats->avg_rawvalue
-            );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_min_humidity_night',
-                $night_stats->min_rawvalue
-            );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_max_humidity_night',
-                $night_stats->max_rawvalue
-            );
+
+            if (!is_null($night_stats)) {
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_average_humidity_night',
+                    $night_stats->avg_rawvalue
+                );
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_min_humidity_night',
+                    $night_stats->min_rawvalue
+                );
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_max_humidity_night',
+                    $night_stats->max_rawvalue
+                );
+            }
+
             
             /*
              * Get Temperature stats
@@ -352,15 +363,18 @@ class Animal extends CiliatusModel
                     Carbon::today()
                 );
 
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_average_temperature',
-                $all_stats->avg_rawvalue
-            );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_min_temperature',
-                $all_stats->min_rawvalue
-            );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_max_temperature',
-                $all_stats->max_rawvalue
-            );
+            if (!is_null($all_stats)) {
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_average_temperature',
+                    $all_stats->avg_rawvalue
+                );
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_min_temperature',
+                    $all_stats->min_rawvalue
+                );
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_max_temperature',
+                    $all_stats->max_rawvalue
+                );
+            }
+
 
             $day_stats =
                 $this->terrarium->getTemperatureStats(
@@ -369,15 +383,19 @@ class Animal extends CiliatusModel
                     Carbon::createFromTime(7, 0, 0),
                     Carbon::createFromTime(20, 0, 0)
                 );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_average_temperature_day',
-                $day_stats->avg_rawvalue
-            );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_min_temperature_day',
-                $day_stats->min_rawvalue
-            );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_max_temperature_day',
-                $day_stats->max_rawvalue
-            );
+
+            if (!is_null($day_stats)) {
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_average_temperature_day',
+                    $day_stats->avg_rawvalue
+                );
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_min_temperature_day',
+                    $day_stats->min_rawvalue
+                );
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_max_temperature_day',
+                    $day_stats->max_rawvalue
+                );
+            }
+
 
             $night_stats =
                 $this->terrarium->getTemperatureStats(
@@ -386,15 +404,18 @@ class Animal extends CiliatusModel
                     Carbon::createFromTime(20, 0, 0),
                     Carbon::createFromTime(7, 0, 0)
                 );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_average_temperature_night',
-                $night_stats->avg_rawvalue
-            );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_min_temperature_night',
-                $night_stats->min_rawvalue
-            );
-            $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_max_temperature_night',
-                $night_stats->max_rawvalue
-            );
+
+            if (!is_null($night_stats)) {
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_average_temperature_night',
+                    $night_stats->avg_rawvalue
+                );
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_min_temperature_night',
+                    $night_stats->min_rawvalue
+                );
+                $caresheet->create_property('AnimalCaresheetProperty', 'terrarium_max_temperature_night',
+                    $night_stats->max_rawvalue
+                );
+            }
         }
 
         if (in_array('include_biography_entries', $settings)) {
