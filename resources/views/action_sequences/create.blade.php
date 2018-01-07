@@ -25,7 +25,7 @@
                                         @endforeach
                                         </optgroup>
                                     </select>
-                                    <label for="valves">@lang('labels.terrarium')</label>
+                                    <label for="valves">@choice('components.terraria', 1)</label>
                                 </div>
                             </div>
 
