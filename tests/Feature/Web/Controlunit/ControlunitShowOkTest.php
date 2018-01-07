@@ -5,7 +5,6 @@ namespace Tests\Feature\Web\Controlunit;
 use App\Controlunit;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTranscontrolunits;
 use Tests\TestCase;
 use Tests\TestHelperTrait;
 

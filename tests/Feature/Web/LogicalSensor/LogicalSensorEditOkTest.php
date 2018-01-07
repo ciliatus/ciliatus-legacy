@@ -4,7 +4,6 @@ namespace Tests\Feature\Web\LogicalSensor;
 
 use App\LogicalSensor;
 use App\PhysicalSensor;
-use App\Valve;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Tests\TestCase;

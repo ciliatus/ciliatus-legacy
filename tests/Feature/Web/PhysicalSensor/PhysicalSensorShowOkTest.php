@@ -5,7 +5,6 @@ namespace Tests\Feature\Web\PhysicalSensor;
 use App\PhysicalSensor;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransphysical_sensors;
 use Tests\TestCase;
 use Tests\TestHelperTrait;
 

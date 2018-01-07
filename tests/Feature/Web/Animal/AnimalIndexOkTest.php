@@ -4,7 +4,6 @@ namespace Tests\Feature\Web\Animal;
 
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransanimals;
 use Tests\TestCase;
 use Tests\TestHelperTrait;
 

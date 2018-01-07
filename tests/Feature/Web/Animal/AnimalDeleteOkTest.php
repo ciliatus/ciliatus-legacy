@@ -3,11 +3,8 @@
 namespace Tests\Feature\Web\Animal;
 
 use App\Animal;
-use App\AnimalSequence;
-use App\Valve;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransanimals;
 use Tests\TestCase;
 use Tests\TestHelperTrait;
 

@@ -3,11 +3,8 @@
 namespace Tests\Feature\Web\PhysicalSensor;
 
 use App\PhysicalSensor;
-use App\PhysicalSensorSequence;
-use App\Valve;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
-use Illuminate\Foundation\Testing\DatabaseTransphysical_sensors;
 use Tests\TestCase;
 use Tests\TestHelperTrait;
 
