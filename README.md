@@ -5,7 +5,7 @@
 
 ## [ciliatus.io](https://ciliatus.io)
 
-Intelligent terrarium automation
+Intelligent Terrarium Automation
 
 ## Features
 
@@ -17,13 +17,13 @@ Intelligent terrarium automation
 * File management for photos and other files
 * Responsive design with automatic night theme to relieve eye strain
 * Voice Control (experimental)
-* RESTful API to use the collected data or trigger actions from you own applications
+* RESTful API to attach your own applications and send sensor data
 
 ## Demo
 
 **Be aware:** 
 
-The demo version pulls it's data from our live environment every day at roughly 7 pm. Real-time updates are not available in the demo environment.
+The demo version pulls it's data from our live environment every day at roughly 7 pm. Some data is generated demo data. Real-time updates are not available in the demo environment.
 Also: Because the source environment is in german you will find user defined strings which cannot be localized. You won't see that in your own environment.
 
 [Demo](https://demo01.ciliatus.io)
