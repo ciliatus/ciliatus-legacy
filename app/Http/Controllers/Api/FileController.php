@@ -76,6 +76,7 @@ class FileController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function store(Request $request)
     {
