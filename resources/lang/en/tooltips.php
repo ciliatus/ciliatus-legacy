@@ -71,5 +71,9 @@ return [
         'upperlimit' => 'Sensor reading will be considered critical, if above this value',
         'starts_at'  => 'Time from which on this threshold is active'
     ],
-    'logical_sensor_rawvalue_limit' => 'Valid value range for this sensor. Values outside this range submitted via the API will be rejected'
+    'logical_sensor_rawvalue_limit' => 'Valid value range for this sensor. Values outside this range submitted via the API will be rejected',
+    'caresheet' => [
+        'sensor_history_days' => 'Timespan for sensor readings to include in the average/min/max calculation',
+        'data_history_days' => 'Timespan of animal feedings, weighings and biography entries to include'
+    ]
 ];

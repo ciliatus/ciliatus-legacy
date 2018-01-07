@@ -182,5 +182,9 @@ return [
     'features'                                   => 'Features',
     'rollperiod'                                 => 'Roll period',
     'add_preset'                                 => 'Add preset',
-    'inactive'                                   => 'Inactive'
+    'inactive'                                   => 'Inactive',
+    'caresheet' => [
+        'sensor_history_days' => 'Sensorreading timespan',
+        'data_history_days' => 'Animal and terrarium data timespan'
+    ]
 ];

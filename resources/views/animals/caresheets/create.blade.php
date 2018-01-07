@@ -35,18 +35,26 @@
                             </div>
 
                             <div class="row">
+                                <div class="col s12">
+                                    <i href="#" class="material-icons tooltipped" data-delay="50" data-html="true"
+                                       data-tooltip="<div style='max-width: 300px'>@lang('tooltips.caresheet.sensor_history_days')</div>">info_outline</i>
+                                </div>
                                 <div class="input-field col s12">
-                                    <input type="text" placeholder="@lang('tooltips.caresheet.sensor_history_days')"
+                                    <input type="text" placeholder="@lang('labels.caresheet.sensor_history_days')"
                                            name="sensor_history_days" value="{{ env('DEFAULT_CARESHEET_SENSOR_HISTORY_DAYS', 14) }}">
-                                    <label for="sensor_history_days">@lang('tooltips.caresheet.sensor_history_days')</label>
+                                    <label for="sensor_history_days">@lang('labels.caresheet.sensor_history_days')</label>
                                 </div>
                             </div>
 
                             <div class="row">
+                                <div class="col s12">
+                                    <i href="#" class="material-icons tooltipped" data-delay="50" data-html="true"
+                                       data-tooltip="<div style='max-width: 300px'>@lang('tooltips.caresheet.data_history_days')</div>">info_outline</i>
+                                </div>
                                 <div class="input-field col s12">
-                                    <input type="text" placeholder="@lang('tooltips.caresheet.data_history_days')"
+                                    <input type="text" placeholder="@lang('labels.caresheet.data_history_days')"
                                            name="data_history_days" value="{{ env('DEFAULT_CARESHEET_DATA_HISTORY_DAYS', 60) }}">
-                                    <label for="data_history_days">@lang('tooltips.caresheet.data_history_days')</label>
+                                    <label for="data_history_days">@lang('labels.caresheet.data_history_days')</label>
                                 </div>
                             </div>
 

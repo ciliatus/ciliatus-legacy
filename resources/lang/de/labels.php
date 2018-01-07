@@ -182,5 +182,9 @@ return [
     'features'                                   => 'Features',
     'rollperiod'                                 => 'Rollperiode',
     'add_preset'                                 => 'Voreinstellung hinzufügen',
-    'inactive'                                   => 'Inaktiv'
+    'inactive'                                   => 'Inaktiv',
+    'caresheet' => [
+        'sensor_history_days' => 'Zeitrahmen für Sensorwerte',
+        'data_history_days' => 'Zeitrahmen für Tier- und Terrarieninformationen'
+    ]
 ];
