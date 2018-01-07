@@ -45,7 +45,7 @@ class ConvertLangToJson extends Command
      */
     public function handle()
     {
-        $languages = array_diff(scandir('resources/lang'), array('..', '.'));
+        $languages = array_diff(scandir(resource_path() . '/lang'), array('..', '.'));
         
         $groups = [
             'buttons', 'components', 'errors', 'labels', 'languages',
@@ -66,7 +66,7 @@ class ConvertLangToJson extends Command
             );
         }
 
-        $fp = fopen('resources/assets/js/lang.js', 'w');
+        $fp = fopen(resource_path() . '/assets/js/lang.js', 'w');
         fwrite($fp, 'module.exports = ' . json_encode($language_array));
     }
 }
