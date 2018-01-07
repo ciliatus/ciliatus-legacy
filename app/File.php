@@ -63,6 +63,7 @@ class File extends CiliatusModel
      * @param Request $request
      * @param $user_id
      * @return CiliatusModel|File
+     * @throws ErrorException
      */
     public static function createFromRequest(Request $request, $user_id)
     {
@@ -87,6 +88,7 @@ class File extends CiliatusModel
     /**
      * @param $new_display_name
      * @return File|Model|CiliatusModel
+     * @throws ErrorException
      */
     public function copy($new_display_name)
     {
