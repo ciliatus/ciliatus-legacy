@@ -86,7 +86,9 @@
                             <td>
                                 <span v-if="backgroundSelectorClassName && backgroundSelectorId">
                                     <a v-bind:href="'/files/set-background/' + backgroundSelectorClassName + '/' + backgroundSelectorId + '/' + file.id">
-                                        <i class="material-icons">wallpaper</i>
+                                        <i class="material-icons tooltipped"
+                                           data-delay="50" data-html="true"
+                                           :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.set_as_background') + '</div>'">wallpaper</i>
                                     </a>
                                 </span>
                                 <span>

@@ -32,22 +32,6 @@
                                 </div>
                             </div>
 
-                            @if(explode("/", $file->mimetype)[0] == 'image')
-                            <div class="row">
-                                <div class="col s12">
-                                    <label for="use_as_background">@lang('labels.use_as_background')</label>
-                                    <div class="switch">
-                                        <label>
-                                            @lang('labels.on')
-                                            <input name="use_as_background" type="checkbox" @if($file->property('generic', 'is_default_background') == true) checked @endif>
-                                            <span class="lever"></span>
-                                            @lang('labels.off')
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                            @endif
-
                         </div>
 
                         <div class="card-action">
