@@ -25,13 +25,16 @@ class FileRepository extends Repository {
     }
 
     /**
+     * @param bool $exlude_models
      * @return File
      */
-    public function show()
+    public function show($exlude_models = false)
     {
         $file = $this->scope;
 
-        $file->models = $file->getModels();
+        if (!$exlude_models) {
+            $file->models = $file->getModels();
+        }
         $file->path_external = $file->path_external();
         if (!is_null($file->thumb())) {
             $file->thumb = (new FileRepository($file->thumb()))->show();

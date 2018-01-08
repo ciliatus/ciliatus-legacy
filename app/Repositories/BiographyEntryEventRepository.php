@@ -32,7 +32,7 @@ class BiographyEntryEventRepository extends Repository {
 
         $files = is_null($biography_entry->files) ? [] : $biography_entry->files;
         foreach ($files as &$file) {
-            $file = (new FileRepository($file))->show();
+            $file = (new FileRepository($file))->show(true);
         }
         $biography_entry->files = $files;
 

@@ -247,16 +247,21 @@ class FileController extends ApiController
 
         if (!is_null($source->property('generic', 'background_file_id'))) {
             $source->property('generic', 'background_file_id')->delete();
+            $p = Property::create();
+            $p->belongsTo_type = $type;
+            $p->belongsTo_id = $source->id;
+            $p->name = 'background_file_id';
+            $p->value = $file->id;
+            $p->save();
         }
 
-        $p = Property::create();
-        $p->type = 'generic';
-        $p->belongsTo_type = $type;
-        $p->belongsTo_id = $source->id;
-        $p->name = 'background_file_id';
-        $p->value = $file->id;
-        $p->save();
-
-        return $this->respondWithData([]);
+        return $this->respondWithData(
+            [],
+            [
+                'redirect' => [
+                    'uri' => back()->getTargetUrl()
+                ]
+            ]
+        );
     }
 }

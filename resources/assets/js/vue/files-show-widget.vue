@@ -20,6 +20,7 @@
                             </p>
                             <p v-for="model in file.models">
                                 <i class="material-icons">{{ model.icon }}</i>
+                                <a :href="model.url" v-if="!model.name && !model.display_name">{{ model.title }}</a>
                                 <a :href="model.url" v-if="model.name && !model.display_name">{{ model.name }}</a>
                                 <a :href="model.url" v-if="model.display_name">{{ model.display_name }}</a>
                                 <span class="right">
@@ -85,6 +86,16 @@ export default {
         belongsTo_id: {
             type: String,
             default: '',
+            required: false
+        },
+        containerClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerId: {
+            type: String,
+            default: 'files-masonry-grid',
             required: false
         }
     },

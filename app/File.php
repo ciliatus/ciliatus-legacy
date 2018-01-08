@@ -137,6 +137,14 @@ class File extends CiliatusModel
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
+    public function biography_entries()
+    {
+        return $this->morphedByMany('App\BiographyEntryEvent', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
     public function controlunits()
     {
         return $this->morphedByMany('App\Controlunit', 'belongsTo', 'has_files');
@@ -200,7 +208,7 @@ class File extends CiliatusModel
         $model_names = [
             'animals', 'actions', 'action_sequence_intentions', 'action_sequence_schedules',
             'action_sequence_triggers', 'controlunits', 'generic_components', 'logical_sensors',
-            'physical_sensors', 'pumps', 'terraria', 'valves'
+            'physical_sensors', 'pumps', 'terraria', 'valves', 'biography_entries'
         ];
 
         foreach ($model_names as $model_name) {
