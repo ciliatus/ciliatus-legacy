@@ -31,7 +31,7 @@
                                     <select name="belongsTo">
                                         <option></option>
                                         @foreach ($belongTo_Options as $t=>$objects)
-                                            <optgroup label="@choice('components.' . strtolower($t), 2)">
+                                            <optgroup label="@choice('components.' . $t, 2)">
                                                 @foreach ($objects as $o)
                                                     <option value="{{ $t }}|{{ $o->id }}"
                                                         @if($logical_sensor_threshold->logical_sensor_id == $o->id)
