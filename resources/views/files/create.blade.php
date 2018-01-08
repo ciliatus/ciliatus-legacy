@@ -14,26 +14,30 @@
                           data-ignore-enctype="true" data-user-formdata="true">
                         <div class="card-content">
 
+                            @if(!$preset_defined)
                             <div class="row">
                                 <div class="input-field col s12">
                                     <select name="belongsTo">
                                         <option></option>
                                         @foreach ($belongTo_Options as $t=>$objects)
-                                            <optgroup label="@choice('components.' . strtolower($t), 2)">
+                                        <optgroup label="@choice('components.' . strtolower($t), 2)">
                                             @foreach ($objects as $o)
-                                                <option value="{{ $t }}|{{ $o->id }}"
+                                            <option value="{{ $t }}|{{ $o->id }}"
                                                 @if(isset($preset['belongsTo_type']) && isset($preset['belongsTo_id']))
                                                     @if($preset['belongsTo_type'] == $t && $preset['belongsTo_id'] == $o->id)
-                                                        selected
+                                                    selected
                                                     @endif
                                                 @endif>@if(is_null($o->display_name)) {{ $o->name }} @else {{ $o->display_name }} @endif</option>
                                             @endforeach
-                                            </optgroup>
+                                        </optgroup>
                                         @endforeach
                                     </select>
                                     <label for="valves">@lang('labels.belongsTo')</label>
                                 </div>
                             </div>
+                            @else
+                                <input name="belongsTo" hidden="hidden" value="{{ $preset['belongsTo_type'] }}|{{ $preset['belongsTo_id'] }}">
+                            @endif
 
                             <div class="row">
                                 <div class="file-field input-field">

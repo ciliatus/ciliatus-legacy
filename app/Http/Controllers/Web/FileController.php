@@ -40,16 +40,23 @@ class FileController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
     {
-        $belongTo_Options = [];
-        foreach (File::belongTo_Types() as $t) {
-            $belongTo_Options[$t] = ('App\\' . $t)::get();
+        if (!$request->has('preset')) {
+            $belongTo_Options = [];
+            foreach (File::belongTo_Types() as $t) {
+                $belongTo_Options[$t] = ('App\\' . $t)::get();
+            }
+        }
+        else {
+            $belongTo_Options = [];
         }
 
         return view('files.create', [
+            'preset_defined' => $request->has('preset'),
             'belongTo_Options' => $belongTo_Options,
             'preset' => $request->input('preset')
         ]);

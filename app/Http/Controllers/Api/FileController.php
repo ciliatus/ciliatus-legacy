@@ -107,11 +107,9 @@ class FileController extends ApiController
         /*
          * Create many-to-many relationship if file belongs to a terrarium or animal
          */
-        if (in_array($file->belongsTo_type, ['Terrarium', 'Animal'])) {
-            $class = 'App\\' . $file->belongsTo_type;
-            $object = $class::find($file->belongsTo_id);
-            $object->files()->save($file);
-        }
+        $class = 'App\\' . $file->belongsTo_type;
+        $object = $class::find($file->belongsTo_id);
+        $object->files()->save($file);
 
         if ($request->filled('use_as_background') && $request->input('use_as_background') == 'On') {
             if (is_null($file->property('generic', 'is_default_background'))) {
