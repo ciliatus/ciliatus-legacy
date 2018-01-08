@@ -431,7 +431,7 @@ export default {
 
                     that.$nextTick(function() {
                         if (that.initial) {
-                            var element = '#' + this.containerId;
+                            let element = $('#' + this.containerId + '.masonry-grid');
                             $(element).masonry({
                                 columnWidth: '.col',
                                 itemSelector: '.col',
@@ -451,8 +451,11 @@ export default {
         },
 
         refresh_grid: function() {
-            $('#' + this.containerId).masonry('reloadItems');
-            $('#' + this.containerId).masonry('layout');
+            let grid = $('#' + this.containerId + '.masonry-grid');
+            if (grid.length > 0) {
+                grid.masonry('reloadItems');
+                grid.masonry('layout');
+            }
             $('.modal').modal();
         }
     },

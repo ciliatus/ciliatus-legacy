@@ -24,12 +24,10 @@
                                      container-classes="row" wrapper-classes="col s12"></terraria-widget>
 
                     <action_sequences-widget :refresh-timeout-seconds="60" source-filter="filter[terrarium_id]={{ $terrarium->id }}"
-                                             terrarium-id="{{ $terrarium->id }}"
-                                             container-classes="row" wrapper-classes="col s12"></action_sequences-widget>
+                                             terrarium-id="{{ $terrarium->id }}"></action_sequences-widget>
 
                     <logical_sensor_thresholds-widget :refresh-timeout-seconds="60"
-                                                      source-filter="filter[physical_sensor.belongsTo_type]=Terrarium&filter[physical_sensor.belongsTo_id]={{ $terrarium->id }}"
-                                                      container-classes="row" wrapper-classes="col s12"></logical_sensor_thresholds-widget>
+                                                      source-filter="filter[physical_sensor.belongsTo_type]=Terrarium&filter[physical_sensor.belongsTo_id]={{ $terrarium->id }}"></logical_sensor_thresholds-widget>
 
                 </div>
 
@@ -57,7 +55,7 @@
                         <div class="card-content">
                             <animals-widget source-filter="filter[terrarium_id]={{ $terrarium->id }}"
                                             :subscribe-add="false" :subscribe-delete="false"
-                                            :container-classes="['masonry-grid', 'row']" wrapper-classes="col s12 m6 l6"></animals-widget>
+                                            container-classes="masonry-grid row" wrapper-classes="col s12 m6 l6"></animals-widget>
                         </div>
                     </div>
 

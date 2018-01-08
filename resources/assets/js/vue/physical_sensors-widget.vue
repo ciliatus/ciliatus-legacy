@@ -126,8 +126,11 @@ export default {
         },
 
         refresh_grid: function() {
-            $('#' + this.containerId).masonry('reloadItems');
-            $('#' + this.containerId).masonry('layout');
+            let grid = $('#' + this.containerId + '.masonry-grid');
+            if (grid.length > 0) {
+                grid.masonry('reloadItems');
+                grid.masonry('layout');
+            }
         },
 
         load_data: function() {

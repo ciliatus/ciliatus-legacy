@@ -1074,8 +1074,11 @@
                     constrain_width: false
                 });
                 $('.modal').modal();
-                $('#' + this.containerId).masonry('reloadItems');
-                $('#' + this.containerId).masonry('layout');
+                let grid = $('#' + this.containerId + '.masonry-grid');
+                if (grid.length > 0) {
+                    grid.masonry('reloadItems');
+                    grid.masonry('layout');
+                }
                 $('.tooltipped').tooltip({delay: 50});
                 $('.datepicker').pickadate({
                     selectMonths: true,

@@ -361,7 +361,7 @@ export default {
 
                     that.$nextTick(function() {
                         if (that.initial) {
-                            var element = '#' + this.containerId;
+                            var element = '#' + that.containerId + '.masonry-grid';
                             $(element).masonry({
                                 columnWidth: '.col',
                                 itemSelector: '.col',

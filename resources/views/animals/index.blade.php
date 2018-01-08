@@ -17,7 +17,7 @@
 
         <div id="tab_dashboard" class="col s12">
             <div class="container">
-                <animals-widget :container-classes="['masonry-grid', 'row']" wrapper-classes="col s12 m6 l4"
+                <animals-widget container-classes="masonry-grid row" wrapper-classes="col s12 m6 l4"
                                 container-id="animals-masonry-grid-alive"
                                 source-filter="filter[!properties.type]=ModelNotActive"
                                 :refresh-timeout-seconds="60"
