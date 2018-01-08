@@ -21,6 +21,7 @@ class LogRepository extends Repository
     {
 
         $this->scope = $scope;
+        $this->addCiliatusSpecificFields();
 
     }
 

@@ -18,6 +18,7 @@ class AnimalFeedingEventRepository extends Repository {
     {
 
         $this->scope = $scope ? : new Event();
+        $this->addCiliatusSpecificFields();
 
     }
 

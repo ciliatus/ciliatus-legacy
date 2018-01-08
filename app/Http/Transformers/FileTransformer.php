@@ -34,6 +34,13 @@ class FileTransformer extends Transformer
 
         $return = $this->addCiliatusSpecificFields($return, $item, []);
 
+        if (isset($item['models'])) {
+            $return['models'] = [];
+            foreach ($item['models'] as $model) {
+                $return['models'][] = $model->enrichAndTransform();
+            }
+        }
+
         if (isset($item['path_internal'])) {
             $return['path_internal'] = $item['path_internal'];
         }

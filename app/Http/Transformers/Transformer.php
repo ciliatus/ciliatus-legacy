@@ -167,6 +167,9 @@ abstract class Transformer
         if (isset($item['active']) && !in_array('active', $exclude)) {
             $return['active'] = $item['active'];
         }
+        if (isset($item['class']) && !in_array('class', $exclude)) {
+            $return['class'] = $item['class'];
+        }
 
         return $return;
     }

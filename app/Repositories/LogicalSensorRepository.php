@@ -21,6 +21,7 @@ class LogicalSensorRepository extends Repository
     {
 
         $this->scope = $scope;
+        $this->addCiliatusSpecificFields();
 
     }
 
@@ -32,7 +33,6 @@ class LogicalSensorRepository extends Repository
         $model = $this->scope;
 
         if (!is_null($model)) {
-            $this->addCiliatusSpecificFields();
             $model->current_threshold_id = is_null($model->current_threshold()) ? null : $model->current_threshold()->id;
         }
 

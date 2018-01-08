@@ -22,6 +22,7 @@ class AnimalRepository extends Repository
     {
 
         $this->scope = $scope ? : new Animal();
+        $this->addCiliatusSpecificFields();
 
     }
 
@@ -66,9 +67,6 @@ class AnimalRepository extends Repository
                 break;
             }
         }
-
-        $animal->icon = $animal->icon();
-        $animal->url = $animal->url();
 
         return $animal;
     }

@@ -13,6 +13,22 @@
                             <span>{{ $t("labels.size") }}: {{ (file.size / 1024 / 1024).toFixed(2) }} MB</span><br />
                             <span>{{ $t("labels.type") }}: {{ file.mimetype }}</span>
                         </div>
+
+                        <div>
+                            <p>
+                                <strong>{{ $t('labels.associated_with') }}:</strong>
+                            </p>
+                            <p v-for="model in file.models">
+                                <i class="material-icons">{{ model.icon }}</i>
+                                <a :href="model.url" v-if="model.name && !model.display_name">{{ model.name }}</a>
+                                <a :href="model.url" v-if="model.display_name">{{ model.display_name }}</a>
+                                <span class="right">
+                                    <a class="red-text" :href="'/files/associate/' + model.class + '/' + model.id + '/' + file.id">
+                                        <i class="material-icons">delete</i>
+                                    </a>
+                                </span>
+                            </p>
+                        </div>
                     </div>
 
                     <div class="card-action">

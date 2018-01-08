@@ -30,7 +30,6 @@ class PhysicalSensorTransformer extends Transformer
 
         $return = [
             'id'    => $item['id'],
-            'class' => 'PhysicalSensor',
             'controlunit_id'  => $item['controlunit_id'],
             'name' => $item['name'],
             'model' => $item['model'],

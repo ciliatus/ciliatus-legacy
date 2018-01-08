@@ -19,6 +19,7 @@ class BiographyEntryEventRepository extends Repository {
     {
 
         $this->scope = $scope ? : new Event();
+        $this->addCiliatusSpecificFields();
 
     }
 

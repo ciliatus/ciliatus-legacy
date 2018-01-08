@@ -19,6 +19,7 @@ class AnimalCaresheetRepository extends Repository {
     {
 
         $this->scope = $scope ? : new Event();
+        $this->addCiliatusSpecificFields();
 
     }
 
@@ -28,8 +29,6 @@ class AnimalCaresheetRepository extends Repository {
     public function show()
     {
         $animal_caresheet = $this->scope;
-
-
 
         return $animal_caresheet;
     }

@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Http\Transformers\GenericTransformer;
+use App\Repositories\GenericRepository;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Schema;
@@ -12,6 +14,13 @@ use Illuminate\Support\Facades\Schema;
  */
 abstract class CiliatusModel extends Model
 {
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function files()
+    {
+        return $this->morphToMany('App\File', 'belongsTo', 'has_files', 'belongsTo_id', 'file_id');
+    }
 
     /**
      * Returns a property belonging to the model matching the criteria
@@ -129,6 +138,44 @@ abstract class CiliatusModel extends Model
             'type' => 'ModelNotActive',
             'name' => 'ModelNotActive'
         ]);
+    }
+
+    /**
+     * @return CiliatusModel
+     */
+    public function enrich()
+    {
+        $class_split = explode("\\",get_class($this));
+        $class_name = 'App\Repositories\\' . end($class_split) . 'Repository';
+        if (class_exists($class_name)) {
+            return (new $class_name($this))->show();
+        }
+        else {
+            return (new GenericRepository($this))->show();
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function transform()
+    {
+        $class_split = explode("\\",get_class($this));
+        $class_name = 'App\Http\Transformers\\' . end($class_split) . 'Transformer';
+        if (class_exists($class_name)) {
+            return (new $class_name())->transform($this->toArray());
+        }
+        else {
+            return (new GenericTransformer())->transform($this);
+        }
+    }
+
+    /**
+     * @return array
+     */
+    public function enrichAndTransform()
+    {
+        return $this->enrich()->transform();
     }
 
     /**

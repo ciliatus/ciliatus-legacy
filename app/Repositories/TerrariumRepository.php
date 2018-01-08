@@ -27,6 +27,7 @@ class TerrariumRepository extends Repository
     {
 
         $this->scope = $scope ? : new Terrarium();
+        $this->addCiliatusSpecificFields();
 
     }
 
@@ -92,8 +93,6 @@ class TerrariumRepository extends Repository
         }
 
         $terrarium->capabilities = $terrarium->capabilities();
-        $terrarium->icon = $terrarium->icon();
-        $terrarium->url = $terrarium->url();
 
         return $terrarium;
     }

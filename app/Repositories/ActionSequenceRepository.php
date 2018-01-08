@@ -18,6 +18,7 @@ class ActionSequenceRepository extends Repository {
     {
 
         $this->scope = $scope ? : new ActionSequence();
+        $this->addCiliatusSpecificFields();
 
     }
 
@@ -35,9 +36,6 @@ class ActionSequenceRepository extends Repository {
         foreach ($this->scope->intentions as &$i) {
             $i = (new ActionSequenceIntentionRepository($i))->show();
         }
-
-        $this->scope->icon = $this->scope->icon();
-        $this->scope->url = $this->scope->url();
 
         return $this->scope;
     }

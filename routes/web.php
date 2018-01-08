@@ -113,6 +113,7 @@ Route::get('sensorreadings/{id}/delete', 'SensorreadingController@delete');
 Route::resource('files', 'FileController');
 Route::get('files/{id}/delete', 'FileController@delete');
 Route::get('files/associate/{type}/{id}', 'FileController@associate');
+Route::get('files/associate/{source_type}/{source_id}/{file_id}', 'FileController@associate_delete');
 Route::get('files/{id}/download/{display_name?}{ext?}', 'FileController@download');
 
 // file properties

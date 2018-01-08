@@ -33,6 +33,7 @@ class TerrariumController extends ApiController
 
     /**
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -476,27 +477,6 @@ class TerrariumController extends ApiController
         }, $data);
 
         return $this->setStatusCode(200)->respondWithData($data);
-    }
-
-
-    /**
-     * @param Request $request
-     * @param $animal_id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function files(Request $request, $animal_id) {
-        $terrarium = Terrarium::find($animal_id);
-        if (is_null($terrarium)) {
-            return $this->setStatusCode(404)->respondWithError('Terrarium not found');
-        }
-
-        $query = $terrarium->files()->getQuery();
-        $files = $this->filter($request, $query);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $files
-        );
     }
 
 }

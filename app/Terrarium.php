@@ -122,14 +122,6 @@ class Terrarium extends CiliatusModel
     }
 
     /**
-     * @return mixed
-     */
-    public function files()
-    {
-        return $this->morphToMany('App\File', 'belongsTo', 'has_files', 'belongsTo_id', 'file_id');
-    }
-
-    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function action_sequences()

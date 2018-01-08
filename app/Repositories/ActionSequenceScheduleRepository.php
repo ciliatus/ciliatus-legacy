@@ -18,6 +18,7 @@ class ActionSequenceScheduleRepository extends Repository {
     {
 
         $this->scope = $scope ? : new ActionSequenceSchedule();
+        $this->addCiliatusSpecificFields();
 
     }
 
@@ -30,9 +31,6 @@ class ActionSequenceScheduleRepository extends Repository {
         $this->scope->will_run_today = $this->scope->willRunToday();
         $this->scope->ran_today = $this->scope->ranToday();
         $this->scope->is_overdue = $this->scope->isOverdue(10);
-
-        $this->scope->icon = $this->scope->icon();
-        $this->scope->url = $this->scope->url();
 
         return $this->scope;
     }

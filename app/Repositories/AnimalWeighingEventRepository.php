@@ -18,6 +18,7 @@ class AnimalWeighingEventRepository extends Repository {
     {
 
         $this->scope = $scope ? : new Event();
+        $this->addCiliatusSpecificFields();
 
     }
 

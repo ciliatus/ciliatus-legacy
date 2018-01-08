@@ -30,7 +30,6 @@ class TerrariumTransformer extends Transformer
 
         $return = [
             'id'    => $item['id'],
-            'class' => 'Terrarium',
             'name'  => isset($item['name']) ? $item['name'] : '',
             'display_name' => $item['display_name'],
             'temperature_critical' => $item['temperature_critical'],

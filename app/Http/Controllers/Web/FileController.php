@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\File;
+use App\Repositories\FileRepository;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -173,6 +174,32 @@ class FileController extends Controller
             'type' => $type,
             'source' => $source,
             'target_type_url_name' => 'files'
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param $type
+     * @param $id
+     * @param $file_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function associate_delete(Request $request, $type, $id, $file_id)
+    {
+        $source_class = 'App\\' . $type;
+        $source = $source_class::find($id);
+        if (is_null($source)) {
+            return $this->respondNotFound('Source not found');
+        }
+
+        $file = File::find($file_id);
+        if (is_null($file)) {
+            return $this->respondNotFound('File not found');
+        }
+
+        return view('files.associate_delete', [
+            'file'      => $file->enrich(),
+            'source'    => $source->enrich()
         ]);
     }
 }

@@ -26,6 +26,7 @@ class AnimalController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -35,6 +36,7 @@ class AnimalController extends ApiController
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -239,24 +241,5 @@ class AnimalController extends ApiController
         );
     }
 
-    /**
-     * @param Request $request
-     * @param $animal_id
-     * @return \Illuminate\Http\JsonResponse
-     */
-    public function files(Request $request, $animal_id) {
-        $animal = Animal::find($animal_id);
-        if (is_null($animal)) {
-            return $this->setStatusCode(404)->respondWithError('Animal not found');
-        }
-
-        $query = $animal->files()->getQuery();
-        $files = $this->filter($request, $query);
-
-        return $this->respondTransformedAndPaginated(
-            $request,
-            $files
-        );
-    }
 
 }

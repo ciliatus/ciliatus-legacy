@@ -18,6 +18,7 @@ class ActionSequenceIntentionRepository extends Repository {
     {
 
         $this->scope = $scope ? : new ActionSequenceIntention();
+        $this->addCiliatusSpecificFields();
 
     }
 
@@ -28,9 +29,6 @@ class ActionSequenceIntentionRepository extends Repository {
     {
         $this->scope->running = $this->scope->running();
         $this->scope->should_be_started = $this->scope->shouldBeStarted();
-
-        $this->scope->icon = $this->scope->icon();
-        $this->scope->url = $this->scope->url();
 
         return $this->scope;
     }

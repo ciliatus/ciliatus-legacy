@@ -21,6 +21,7 @@ class GenericRepository extends Repository
     {
 
         $this->scope = $scope;
+        $this->addCiliatusSpecificFields();
 
     }
 
@@ -30,10 +31,6 @@ class GenericRepository extends Repository
     public function show()
     {
         $model = $this->scope;
-
-        if (!is_null($model)) {
-            $this->addCiliatusSpecificFields();
-        }
 
         return $model;
     }

@@ -26,7 +26,6 @@ class PumpTransformer extends Transformer
         $valveTransformer = new ValveTransformer();
         $return = [
             'id'    => $item['id'],
-            'class' => 'Pump',
             'name' => $item['name'],
             'controlunit_id' => isset($item['controlunit_id']) ? $item['controlunit_id'] : '',
             'timestamps' => $this->parseTimestamps($item)

@@ -36,6 +36,10 @@ abstract class Repository {
 
         if (!in_array('active', $exclude))
             $this->scope->active = $this->scope->active();
+
+        if (!in_array('class', $exclude))
+            $class_split = explode("\\",get_class($this->scope));
+            $this->scope->class = end($class_split);
     }
 
     /**

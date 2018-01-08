@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use ErrorException;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Spatie\Image\Image;
 use Spatie\Image\Manipulations;
 
@@ -83,6 +84,130 @@ class File extends CiliatusModel
         }
 
         return $file;
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function animals()
+    {
+        return $this->morphedByMany('App\Animal', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function actions()
+    {
+        return $this->morphedByMany('App\Action', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function action_sequences()
+    {
+        return $this->morphedByMany('App\ActionSequence', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function action_sequence_schedules()
+    {
+        return $this->morphedByMany('App\ActionSequenceSchedule', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function action_sequence_intentions()
+    {
+        return $this->morphedByMany('App\ActionSequenceIntention', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function action_sequence_triggers()
+    {
+        return $this->morphedByMany('App\ActionSequenceTrigger', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function controlunits()
+    {
+        return $this->morphedByMany('App\Controlunit', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function generic_components()
+    {
+        return $this->morphedByMany('App\GenericComponent', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function logical_sensors()
+    {
+        return $this->morphedByMany('App\LogicalSensor', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function physical_sensors()
+    {
+        return $this->morphedByMany('App\PhysicalSensor', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function pumps()
+    {
+        return $this->morphedByMany('App\Pump', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function terraria()
+    {
+        return $this->morphedByMany('App\Terrarium', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
+    public function valves()
+    {
+        return $this->morphedByMany('App\Valve', 'belongsTo', 'has_files');
+    }
+
+    /**
+     * @return Collection|static
+     */
+    public function getModels()
+    {
+        $collection = new Collection();
+
+        $model_names = [
+            'animals', 'actions', 'action_sequence_intentions', 'action_sequence_schedules',
+            'action_sequence_triggers', 'controlunits', 'generic_components', 'logical_sensors',
+            'physical_sensors', 'pumps', 'terraria', 'valves'
+        ];
+
+        foreach ($model_names as $model_name) {
+            $collection = $collection->merge($this->$model_name);
+        }
+
+        return $collection;
     }
 
     /**
@@ -234,6 +359,9 @@ class File extends CiliatusModel
         return null;
     }
 
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
+     */
     public function biography_entry_event()
     {
         return $this->morphedByMany('App\BiographyEntryEvent','belongsTo', 'has_files', 'belongsTo_id');

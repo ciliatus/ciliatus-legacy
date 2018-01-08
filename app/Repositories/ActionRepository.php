@@ -20,6 +20,7 @@ class ActionRepository extends Repository
     {
 
         $this->scope = $scope ? : new Action();
+        $this->addCiliatusSpecificFields();
 
     }
 

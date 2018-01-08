@@ -61,14 +61,6 @@ class Animal extends CiliatusModel
     /**
      * @return mixed
      */
-    public function files()
-    {
-        return $this->morphToMany('App\File', 'belongsTo', 'has_files', 'belongsTo_id', 'file_id');
-    }
-
-    /**
-     * @return mixed
-     */
     public function properties()
     {
         return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'Animal');

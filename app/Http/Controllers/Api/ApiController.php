@@ -66,6 +66,7 @@ class ApiController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function default_index(Request $request)
     {
@@ -88,6 +89,7 @@ class ApiController extends Controller
      * @param Request $request
      * @param int $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function default_show(Request $request, $id)
     {
@@ -112,6 +114,29 @@ class ApiController extends Controller
             TransformerFactory::get($object)->transform(
                 $object->toArray()
             )
+        );
+    }
+
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
+     */
+    public function files(Request $request, $id) {
+        $model_class_name = $this->getModelNameFromController();
+        $model = $model_class_name::find($id);
+        if (is_null($model)) {
+            return $this->setStatusCode(404)->respondWithError($model_class_name . ' not found');
+        }
+
+        $query = $model->files()->getQuery();
+        $files = $this->filter($request, $query);
+
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $files
         );
     }
 
@@ -251,6 +276,7 @@ class ApiController extends Controller
      * @param array $repository_parameters
      * @param string $repository_method
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function respondTransformedAndPaginated(Request $request,
                                                    Builder $query,
@@ -334,12 +360,12 @@ class ApiController extends Controller
     }
 
 
-
     /**
      * Transforms a single object or an array/Collection of objects
      *
      * @param array|Collection|CiliatusModel $objects
      * @return array
+     * @throws \ErrorException
      */
     protected function applyTransformer($objects)
     {

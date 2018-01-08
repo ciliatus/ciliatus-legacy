@@ -22,6 +22,7 @@ class AnimalWeighingSchedulePropertyRepository extends Repository {
     {
 
         $this->scope = $scope ? : new Property();
+        $this->addCiliatusSpecificFields();
 
     }
 
