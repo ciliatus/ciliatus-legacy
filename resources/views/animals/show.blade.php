@@ -177,6 +177,8 @@
     <div id="tab_files" class="col s12">
         <div class="container">
             <files-list-widget
+                    background-selector-class-name="Animal"
+                    background-selector-id="{{ $animal->id }}"
                     source-url="animals/{{ $animal->id }}/files"
                     subscribe-add="false">
             </files-list-widget>
