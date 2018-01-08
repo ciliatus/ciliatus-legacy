@@ -84,7 +84,7 @@
                             </td>
 
                             <td>
-                                <span v-if="backgroundSelectorClassName && backgroundSelectorId">
+                                <span v-if="backgroundSelectorClassName && backgroundSelectorId && file.mimetype.indexOf('image') !== -1">
                                     <a v-bind:href="'/files/set-background/' + backgroundSelectorClassName + '/' + backgroundSelectorId + '/' + file.id">
                                         <i class="material-icons tooltipped"
                                            data-delay="50" data-html="true"
