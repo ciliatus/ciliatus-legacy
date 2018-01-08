@@ -124,6 +124,14 @@ class Controlunit extends Component
     }
 
     /**
+     * @return string
+     */
+    public function getStateDetails()
+    {
+        return 'HEARTBEAT_CRITICAL';
+    }
+
+    /**
      *
      */
     public function heartbeat()

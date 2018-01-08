@@ -182,6 +182,36 @@ class LogicalSensor extends Component
     }
 
     /**
+     * Returns a reason why stateOk() is false
+     * @return bool|string
+     */
+    public function getStateDetails()
+    {
+        if ($this->stateOk()) {
+            return 'STATE_OK';
+        }
+
+        $t = $this->current_threshold();
+        if (is_null($t)) {
+            return true;
+        }
+
+        if (!is_null($t->rawvalue_lowerlimit)) {
+            if ($this->rawvalue < $t->rawvalue_lowerlimit) {
+                return 'LOWERLIMIT_DECEEDED';
+            }
+        }
+
+        if (!is_null($t->rawvalue_upperlimit)) {
+            if ($this->rawvalue > $t->rawvalue_upperlimit) {
+                return 'UPPERLIMIT_EXCEEDED';
+            }
+        }
+
+        return 'STATE_OK';
+    }
+
+    /**
      * @return float|int|mixed
      */
     public function getCurrentCookedValue()

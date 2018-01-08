@@ -14,6 +14,8 @@ use Carbon\Carbon;
 trait HasCriticalStates
 {
 
+    abstract public function getStateDetails();
+
     /**
      * @param bool $soft
      * @return $this|\App\CiliatusModel|CriticalState|\Illuminate\Database\Eloquent\Model
@@ -23,7 +25,8 @@ trait HasCriticalStates
         return CriticalState::create([
             'belongsTo_type' => explode("\\",__CLASS__)[1],
             'belongsTo_id'   => $this->id,
-            'is_soft_state'  => $soft
+            'is_soft_state'  => $soft,
+            'state_details'  => $this->getStateDetails()
         ]);
     }
 

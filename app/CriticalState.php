@@ -32,7 +32,8 @@ class CriticalState extends CiliatusModel
     protected $fillable = [
         'belongsTo_type',
         'belongsTo_id',
-        'is_soft_state'
+        'is_soft_state',
+        'state_details'
     ];
 
     /**
