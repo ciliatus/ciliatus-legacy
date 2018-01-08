@@ -75,5 +75,6 @@ return [
     'caresheet' => [
         'sensor_history_days' => 'Zeitraum der in die Berechnung von Durschnitts-/Max-/Min-Werten einbezogen werden soll',
         'data_history_days' => 'Zeitraum aus dem Biographieinträge, Fütterungen und Gewichtsverlauf einbezogen werden soll'
-    ]
+    ],
+    'set_as_background' => 'Als Hintergrund setzen'
 ];

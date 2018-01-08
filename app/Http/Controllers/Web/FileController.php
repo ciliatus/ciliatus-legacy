@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\File;
+use App\Property;
 use App\Repositories\FileRepository;
 use Illuminate\Http\Request;
 
@@ -57,8 +58,8 @@ class FileController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -105,9 +106,9 @@ class FileController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
@@ -134,8 +135,8 @@ class FileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return void
      */
     public function destroy($id)
     {
@@ -189,15 +190,41 @@ class FileController extends Controller
         $source_class = 'App\\' . $type;
         $source = $source_class::find($id);
         if (is_null($source)) {
-            return $this->respondNotFound('Source not found');
+            return view('errors.404');
         }
 
         $file = File::find($file_id);
         if (is_null($file)) {
-            return $this->respondNotFound('File not found');
+            return view('errors.404');
         }
 
         return view('files.associate_delete', [
+            'file'      => $file->enrich(),
+            'source'    => $source->enrich()
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param $type
+     * @param $id
+     * @param $file_id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\View\View
+     */
+    public function set_background(Request $request, $type, $id, $file_id)
+    {
+        $source_class = 'App\\' . $type;
+        $source = $source_class::find($id);
+        if (is_null($source)) {
+            return view('errors.404');
+        }
+
+        $file = File::find($file_id);
+        if (is_null($file)) {
+            return view('errors.404');
+        }
+
+        return view('files.set_background', [
             'file'      => $file->enrich(),
             'source'    => $source->enrich()
         ]);

@@ -84,6 +84,11 @@
                             </td>
 
                             <td>
+                                <span v-if="backgroundSelectorClassName && backgroundSelectorId">
+                                    <a v-bind:href="'/files/set-background/' + backgroundSelectorClassName + '/' + backgroundSelectorId + '/' + file.id">
+                                        <i class="material-icons">wallpaper</i>
+                                    </a>
+                                </span>
                                 <span>
                                     <a v-bind:href="'/files/' + file.id + '/edit'">
                                         <i class="material-icons">edit</i>
@@ -178,6 +183,16 @@ export default {
         sourceUrl: {
             type: String,
             default: 'files',
+            required: false
+        },
+        backgroundSelectorClassName: {
+            type: String,
+            default: null,
+            required: false
+        },
+        backgroundSelectorId: {
+            type: String,
+            default: null,
             required: false
         }
     },

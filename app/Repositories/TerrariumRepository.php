@@ -55,43 +55,7 @@ class TerrariumRepository extends Repository
             }
         }
 
-        /*
-         * Find background files
-         */
-        $files = $terrarium->files()->with('properties')->get();
-        $terrarium->default_background_filepath = null;
-        foreach ($files as $f) {
-            if ($f->property('generic', 'is_default_background', true) == true) {
-                if (!is_null($f->thumb())) {
-                    $terrarium->default_background_filepath = $f->thumb()->path_external();
-                }
-                else {
-                    $terrarium->default_background_filepath = $f->path_external();
-                }
-
-                break;
-            }
-        }
-
-        if (is_null($terrarium->default_background_filepath)) {
-            foreach ($terrarium->animals as $a) {
-                foreach ($a->files as $f) {
-                    if ($f->property('generic', 'is_default_background', true) == true) {
-                        if (!is_null($f->thumb())) {
-                            $terrarium->default_background_filepath = $f->thumb()->path_external();
-                        }
-                        else {
-                            $terrarium->default_background_filepath = $f->path_external();
-                        }
-                        break;
-                    }
-                }
-                if (!is_null($terrarium->default_background_filepath)) {
-                    break;
-                }
-            }
-        }
-
+        $terrarium->default_background_filepath = $terrarium->background_image_path();
         $terrarium->capabilities = $terrarium->capabilities();
 
         return $terrarium;

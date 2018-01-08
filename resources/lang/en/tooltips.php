@@ -75,5 +75,6 @@ return [
     'caresheet' => [
         'sensor_history_days' => 'Timespan for sensor readings to include in the average/min/max calculation',
         'data_history_days' => 'Timespan of animal feedings, weighings and biography entries to include'
-    ]
+    ],
+    'set_as_background' => 'Set as background'
 ];

@@ -165,42 +165,6 @@ class FileController extends ApiController
 
         $file->display_name = $request->input('display_name');
 
-        /*
-         * Look for optional inputs
-         */
-        if ($request->filled('belongsTo_type') && $request->filled('belongsTo_id')) {
-            $class_name = 'App\\' . $request->input('belongsTo_type');
-            if (class_exists($class_name)) {
-                $belongs = $class_name::find($request->input('belongsTo_id'));
-                if (is_null($belongs)) {
-                    return $this->setStatusCode(422)
-                                ->respondWithError('Model not found');
-                }
-
-                $file->belongsTo_type = $request->input('belongsTo_type');
-                $file->belongsTo_id = $belongs->id;
-            } else {
-                return $this->setStatusCode(422)
-                            ->respondWithError('Class not found');
-            }
-        }
-
-        if ($request->filled('use_as_background')) {
-            if (is_null($file->property('generic', 'is_default_background'))) {
-                $p = Property::create();
-                $p->belongsTo_type = 'File';
-                $p->belongsTo_id = $file->id;
-                $p->name = 'is_default_background';
-                $p->value = true;
-                $p->save();
-            }
-        }
-        else {
-            foreach ($file->properties()->where('name', 'is_default_background')->get() as $p) {
-                $p->delete();
-            }
-        }
-
         $file->save();
 
         return $this->setStatusCode(200)->respondWithData([], [
@@ -261,4 +225,38 @@ class FileController extends ApiController
         return $this->respondWithData([]);
     }
 
+    /**
+     * @param Request $request
+     * @param $type
+     * @param $id
+     * @param $file_id
+     * @return mixed
+     */
+    public function set_background(Request $request, $type, $id, $file_id)
+    {
+        $source_class = 'App\\' . $type;
+        $source = $source_class::find($id);
+        if (is_null($source)) {
+            return $this->respondNotFound('Source not found');
+        }
+
+        $file = File::find($file_id);
+        if (is_null($file)) {
+            return $this->respondNotFound('File not found');
+        }
+
+        if (!is_null($source->property('generic', 'background_file_id'))) {
+            $source->property('generic', 'background_file_id')->delete();
+        }
+
+        $p = Property::create();
+        $p->type = 'generic';
+        $p->belongsTo_type = $type;
+        $p->belongsTo_id = $source->id;
+        $p->name = 'background_file_id';
+        $p->value = $file->id;
+        $p->save();
+
+        return $this->respondWithData([]);
+    }
 }

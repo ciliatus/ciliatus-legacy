@@ -128,6 +128,8 @@
     <div id="tab_files" class="col s12">
         <div class="container">
             <files-list-widget
+                    background-selector-class-name="Terrarium"
+                    background-selector-id="{{ $terrarium->id }}"
                     source-url="terraria/{{ $terrarium->id }}/files"
                     subscribe-add="false">
             </files-list-widget>

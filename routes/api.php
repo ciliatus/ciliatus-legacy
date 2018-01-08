@@ -112,6 +112,7 @@ Route::resource('sensorreadings', 'SensorreadingController');
 Route::resource('files', 'FileController');
 Route::delete('files/associate/{source_type}/{source_id}/{file_id}', 'FileController@associate_delete');
 Route::post('files/associate/{source_type}/{source_id}', 'FileController@associate');
+Route::post('files/set-background/{source_type}/{source_id}/{file_id}', 'FileController@set_background');
 
 // File properties
 Route::resource('file_properties', 'PropertyController');

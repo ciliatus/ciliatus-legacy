@@ -439,25 +439,34 @@ class Terrarium extends CiliatusModel
      */
     public function background_image_path()
     {
-        $files = $this->files()->with('properties')->get();
-        foreach ($files as $f) {
-            if ($f->property('generic', 'is_default_background') == true) {
-                if (!is_null($f->thumb())) {
-                    return $f->thumb()->path_external();
-                }
-                else {
-                    return $f->path_external();
+        $file_id = null;
+        $prop = $this->property('generic', 'background_file_id');
+        if (is_null($prop)) {
+            foreach ($this->animals as $animal) {
+                $prop = $animal->property('generic', 'background_file_id');
+                if (!is_null($prop)) {
+                    $file_id = $prop->value;
+                    break;
                 }
             }
         }
-
-        foreach ($this->animals as $a) {
-            if (!is_null($a->background_image_path())) {
-                return $a->background_image_path();
-            }
+        else {
+            $file_id = $prop->value;
         }
 
-        return null;
+        if (is_null($file_id)) {
+            return null;
+        }
+
+        /**
+         * @var File $file
+         */
+        $file = File::find($file_id);
+        if (is_null($file)) {
+            return null;
+        }
+
+        return $file->path_external();
     }
 
     /**

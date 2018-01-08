@@ -111,6 +111,7 @@ Route::get('sensorreadings/{id}/delete', 'SensorreadingController@delete');
  * Files
  */
 Route::resource('files', 'FileController');
+Route::get('files/set-background/{source_type}/{source_id}/{file_id}', 'FileController@set_background');
 Route::get('files/{id}/delete', 'FileController@delete');
 Route::get('files/associate/{type}/{id}', 'FileController@associate');
 Route::get('files/associate/{source_type}/{source_id}/{file_id}', 'FileController@associate_delete');

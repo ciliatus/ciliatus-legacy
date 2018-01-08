@@ -54,19 +54,7 @@ class AnimalRepository extends Repository
             }
         }
 
-        $files = $animal->files()->with('properties')->get();
-        $animal->default_background_filepath = null;
-        foreach ($files as $f) {
-            if ($f->property('generic', 'is_default_background', true) == true) {
-                if (!is_null($f->thumb())) {
-                    $animal->default_background_filepath = $f->thumb()->path_external();
-                }
-                else {
-                    $animal->default_background_filepath = $f->path_external();
-                }
-                break;
-            }
-        }
+        $animal->default_background_filepath = $animal->background_image_path();
 
         return $animal;
     }
