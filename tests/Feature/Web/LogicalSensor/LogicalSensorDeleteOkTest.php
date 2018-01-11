@@ -25,7 +25,7 @@ class LogicalSensorDeleteOkTest extends TestCase
 
         $ps = PhysicalSensor::create(['display_name' => 'LogicalSensor01']);
         $obj = LogicalSensor::create(['display_name' => 'LogicalSensor01', 'physical_sensor_id' => $ps->id]);
-        $this->actingAs($user)->get('/physical_sensors/' . $obj->id . '/delete')->assertStatus(200);
+        $this->actingAs($user)->get('/logical_sensors/' . $obj->id . '/delete')->assertStatus(200);
         $obj->delete();
 
         $this->cleanupUsers();

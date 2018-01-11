@@ -24,7 +24,7 @@ class AdminCategoriesUnauthorizedTest extends TestCase
 
         $user = $this->createUserWeb();
 
-        $this->actingAs($user)->get('/categories')->assertStatus(200);
+        $this->actingAs($user)->get('/categories')->assertStatus(401);
 
         $this->cleanupUsers();
 
