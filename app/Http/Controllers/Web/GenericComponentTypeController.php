@@ -30,7 +30,7 @@ class GenericComponentTypeController extends Controller
     public function create()
     {
         if (Gate::denies('api-write:generic_component_type')) {
-            return view('errors.401');
+            return view('errors.401', [], 401);
         }
 
         return view('generic_components.types.create', [
@@ -59,7 +59,7 @@ class GenericComponentTypeController extends Controller
     {
         $type = GenericComponentType::find($id);
         if (is_null($type)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('generic_components.types.show', [
@@ -76,12 +76,12 @@ class GenericComponentTypeController extends Controller
     public function edit($id)
     {
         if (Gate::denies('api-write:generic_component_type')) {
-            return view('errors.401');
+            return view('errors.401', [], 401);
         }
 
         $type = GenericComponentType::find($id);
         if (is_null($type)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('generic_components.types.edit', [
@@ -109,12 +109,12 @@ class GenericComponentTypeController extends Controller
     public function delete($id)
     {
         if (Gate::denies('api-write:generic_component_type')) {
-            return view('errors.401');
+            return view('errors.401', [], 401);
         }
 
         $type = GenericComponentType::find($id);
         if (is_null($type)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('generic_components.types.delete', [

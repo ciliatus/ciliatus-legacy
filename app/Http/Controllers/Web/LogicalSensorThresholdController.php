@@ -68,7 +68,7 @@ class LogicalSensorThresholdController extends Controller
     {
         $logical_sensor_threshold = LogicalSensorThreshold::find($id);
         if (is_null($logical_sensor_threshold)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('logical_sensor_thresholds.show', [
@@ -87,7 +87,7 @@ class LogicalSensorThresholdController extends Controller
         $logical_sensor_threshold = LogicalSensorThreshold::find($id);
 
         if (is_null($logical_sensor_threshold)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         $belongTo_Options['LogicalSensor'] = LogicalSensor::get();
@@ -115,7 +115,7 @@ class LogicalSensorThresholdController extends Controller
         $logical_sensor_threshold = LogicalSensorThreshold::find($id);
 
         if (is_null($logical_sensor_threshold)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('logical_sensor_thresholds.delete', [

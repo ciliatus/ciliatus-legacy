@@ -123,7 +123,7 @@ class ActionController extends Controller
         $action = Action::find($id);
 
         if (is_null($action)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         $components = [
@@ -193,7 +193,7 @@ class ActionController extends Controller
         $action = Action::find($id);
 
         if (is_null($action)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('actions.delete', [

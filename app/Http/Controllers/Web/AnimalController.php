@@ -74,7 +74,7 @@ class AnimalController extends Controller
     {
         $animal = Animal::find($id);
         if (is_null($animal)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('animals.show', [
@@ -93,7 +93,7 @@ class AnimalController extends Controller
         $animal = Animal::find($id);
 
         if (is_null($animal)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         $terraria = Terrarium::all();
@@ -137,7 +137,7 @@ class AnimalController extends Controller
         $animal = Animal::find($id);
 
         if (is_null($animal)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('animals.delete', [
@@ -165,12 +165,12 @@ class AnimalController extends Controller
     {
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         $caresheet = $animal->caresheets()->find($id);
         if (is_null($caresheet)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         if (!is_null($caresheet->property('AnimalCaresheetProperty', 'terrarium_id'))) {
@@ -243,7 +243,7 @@ class AnimalController extends Controller
     public function create_caresheet(Request $request)
     {
         if (Gate::denies('api-write:caresheet')) {
-            return view('errors.401');
+            return view('errors.401', [], 401);
         }
 
         $belongTo_Options = [];
@@ -260,12 +260,12 @@ class AnimalController extends Controller
     public function delete_caresheet(Request $request, $animal_id = null, $id)
     {
         if (Gate::denies('api-write:caresheet')) {
-            return view('errors.401');
+            return view('errors.401', [], 401);
         }
 
         $caresheet = Event::where('type', 'AnimalCaresheet')->find($id);
         if (is_null($caresheet)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('animals.caresheets.delete', [

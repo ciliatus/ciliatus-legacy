@@ -68,7 +68,7 @@ class LogicalSensorController extends Controller
     {
         $ls = LogicalSensor::find($id);
         if (is_null($ls)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('logical_sensors.show', [
@@ -87,7 +87,7 @@ class LogicalSensorController extends Controller
         $logical_sensor = LogicalSensor::find($id);
 
         if (is_null($logical_sensor)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         $physical_sensors = PhysicalSensor::all();
@@ -119,7 +119,7 @@ class LogicalSensorController extends Controller
         $logical_sensor = LogicalSensor::find($id);
 
         if (is_null($logical_sensor)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('logical_sensors.delete', [

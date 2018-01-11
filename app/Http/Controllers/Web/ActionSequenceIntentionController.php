@@ -76,7 +76,7 @@ class ActionSequenceIntentionController extends Controller
     {
         $action_sequence_intention = ActionSequenceIntention::find($id);
         if (is_null($action_sequence_intention)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('action_sequence_intentions.show', [
@@ -96,7 +96,7 @@ class ActionSequenceIntentionController extends Controller
         $sequences = ActionSequence::all();
 
         if (is_null($action_sequence_intention)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         $sensorreading_types = LogicalSensor::types();
@@ -129,7 +129,7 @@ class ActionSequenceIntentionController extends Controller
         $action_sequence_intention = ActionSequenceIntention::find($id);
 
         if (is_null($action_sequence_intention)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('action_sequence_intentions.delete', [

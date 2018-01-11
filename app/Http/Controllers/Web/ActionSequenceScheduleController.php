@@ -72,7 +72,7 @@ class ActionSequenceScheduleController extends Controller
     {
         $action_sequence_schedule = ActionSequenceSchedule::find($id);
         if (is_null($action_sequence_schedule)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('action_sequence_schedules.show', [
@@ -92,7 +92,7 @@ class ActionSequenceScheduleController extends Controller
         $sequences = ActionSequence::all();
 
         if (is_null($action_sequence_schedule)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('action_sequence_schedules.edit', [
@@ -122,7 +122,7 @@ class ActionSequenceScheduleController extends Controller
         $action_sequence_schedule = ActionSequenceSchedule::find($id);
 
         if (is_null($action_sequence_schedule)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('action_sequence_schedules.delete', [

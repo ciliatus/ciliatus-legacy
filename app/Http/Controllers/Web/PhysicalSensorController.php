@@ -66,7 +66,7 @@ class PhysicalSensorController extends Controller
     {
         $ps = PhysicalSensor::find($id);
         if (is_null($ps)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('physical_sensors.show', [
@@ -85,7 +85,7 @@ class PhysicalSensorController extends Controller
         $physical_sensor = PhysicalSensor::find($id);
 
         if (is_null($physical_sensor)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         $models = array_column(PhysicalSensor::groupBy('model')->get()->toArray(), 'model');
@@ -117,7 +117,7 @@ class PhysicalSensorController extends Controller
         $physical_sensor = PhysicalSensor::find($id);
 
         if (is_null($physical_sensor)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('physical_sensors.delete', [

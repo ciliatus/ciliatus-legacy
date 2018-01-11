@@ -92,7 +92,7 @@ class AdminController extends Controller
     public function categories()
     {
         if (Gate::denies('admin')) {
-            return view('errors.401');
+            return response()->view('errors.401', [], 401);
         }
 
         return view('admin.categories', [

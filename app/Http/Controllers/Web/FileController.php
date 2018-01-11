@@ -83,7 +83,7 @@ class FileController extends Controller
     {
         $file = File::find($id);
         if (is_null($file)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('files.show', [
@@ -102,7 +102,7 @@ class FileController extends Controller
         $file = File::find($id);
 
         if (is_null($file)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('files.edit', [
@@ -131,7 +131,7 @@ class FileController extends Controller
         $file = File::find($id);
 
         if (is_null($file)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('files.delete', [
@@ -159,7 +159,7 @@ class FileController extends Controller
     {
         $file = File::find($id);
         if (is_null($file)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return response()->file($file->path_internal());
@@ -175,7 +175,7 @@ class FileController extends Controller
         $source_class = 'App\\' . $type;
         $source = $source_class::find($id);
         if (is_null($source)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('files.associate', [
@@ -197,12 +197,12 @@ class FileController extends Controller
         $source_class = 'App\\' . $type;
         $source = $source_class::find($id);
         if (is_null($source)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         $file = File::find($file_id);
         if (is_null($file)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('files.associate_delete', [
@@ -223,12 +223,12 @@ class FileController extends Controller
         $source_class = 'App\\' . $type;
         $source = $source_class::find($id);
         if (is_null($source)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         $file = File::find($file_id);
         if (is_null($file)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('files.set_background', [

@@ -66,8 +66,8 @@ class ActionSequenceTriggerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -84,7 +84,7 @@ class ActionSequenceTriggerController extends Controller
     {
         $action_sequence_trigger = ActionSequenceTrigger::find($id);
         if (is_null($action_sequence_trigger)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('action_sequence_triggers.show', [
@@ -104,7 +104,7 @@ class ActionSequenceTriggerController extends Controller
         $sequences = ActionSequence::all();
 
         if (is_null($action_sequence_trigger)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('action_sequence_triggers.edit', [
@@ -117,9 +117,9 @@ class ActionSequenceTriggerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
@@ -135,7 +135,7 @@ class ActionSequenceTriggerController extends Controller
         $action_sequence_trigger = ActionSequenceTrigger::find($id);
 
         if (is_null($action_sequence_trigger)) {
-            return view('errors.404');
+            return view('errors.404', [], 404);
         }
 
         return view('action_sequence_triggers.delete', [
@@ -146,8 +146,8 @@ class ActionSequenceTriggerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return void
      */
     public function destroy($id)
     {

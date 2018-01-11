@@ -16,7 +16,7 @@ class SystemController extends Controller
     {
 
         if (Gate::denies('admin')) {
-            return view('errors.401');
+            return view('errors.401', [], 401);
         }
 
         $client = new Client();
