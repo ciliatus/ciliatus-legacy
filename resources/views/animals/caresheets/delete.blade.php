@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
     <a href="/caresheets" class="breadcrumb hide-on-small-and-down">@choice('components.animals', 2)</a>
-    <a href="/animal/{{ $caresheet->belongsTo_id }}" class="breadcrumb hide-on-small-and-down">{{ $caresheet->belongsTo_object->display_name }}</a>
+    <a href="/animal/{{ $caresheet->belongsTo_id }}" class="breadcrumb hide-on-small-and-down">{{ $caresheet->belongsTo_object()->display_name }}</a>
     <a href="/animal/{{ $caresheet->belongsTo_id }}/#tab_caresheets" class="breadcrumb hide-on-small-and-down">@choice('components.caresheets', 2)</a>
     <a href="/animal/{{ $caresheet->belongsTo_id }}/caresheets/{{ $caresheet->id }}" class="breadcrumb hide-on-small-and-down">{{ $caresheet->name }}</a>
     <a href="/caresheets/{{ $caresheet->id }}/delete" class="breadcrumb hide-on-small-and-down">@lang('buttons.delete')</a>
@@ -16,10 +16,6 @@
                     <form action="{{ url('api/v1/animals/' . $caresheet->belongsTo_id . '/caresheets/' . $caresheet->id) }}"
                           data-method="DELETE" data-redirect-success="auto">
                         <div class="card-content">
-
-                            <span class="card-title activator truncate">
-                                <span>{{ $caresheet->title }}</span>
-                            </span>
 
                             <div class="row">
                                 <div class="input-field col s12">
