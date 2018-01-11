@@ -2,18 +2,19 @@
 
 namespace App\Observers;
 
+use App\ActionSequenceTrigger;
 use App\RunningAction;
 
 class ActionSequenceTriggerObserver
 {
 
     /**
-     * @param ActionSequenceTriggerObserver $actionSequenceTriggerObserver
+     * @param ActionSequenceTrigger $actionSequenceTrigger
      * @return void
      */
-    public function deleting(ActionSequenceTriggerObserver $actionSequenceTriggerObserver)
+    public function deleting(ActionSequenceTrigger $actionSequenceTrigger)
     {
-        foreach (RunningAction::where('action_sequence_trigger_id', $actionSequenceTriggerObserver->id)->get() as $ra) {
+        foreach (RunningAction::where('action_sequence_trigger_id', $actionSequenceTrigger->id)->get() as $ra) {
             $ra->delete();
         }
     }
