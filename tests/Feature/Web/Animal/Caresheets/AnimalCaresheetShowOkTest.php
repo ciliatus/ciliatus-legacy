@@ -9,7 +9,7 @@ use Tests\TestCase;
 use Tests\TestHelperTrait;
 
 /**
- * Class AnimalIndexOkTest
+ * Class AnimalCaresheetShowOkTest
  * @package Tests\Feature
  */
 class AnimalCaresheetShowOkTest extends TestCase
