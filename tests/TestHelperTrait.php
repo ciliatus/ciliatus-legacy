@@ -9,6 +9,10 @@ use Webpatser\Uuid\Uuid;
 trait TestHelperTrait
 {
 
+    /**
+     * @return mixed
+     * @throws \Exception
+     */
     public function createUserWeb()
     {
         $user = User::where('name', 'phpunit-web')->get()->first();
@@ -28,7 +32,34 @@ trait TestHelperTrait
     }
 
     /**
+     * @return User
+     * @throws \Exception
+     */
+    public function createUserAdmin()
+    {
+        $user = User::where('name', 'phpunit-admin')->get()->first();
+        if (!is_null($user)) {
+            $user->delete();
+        }
+
+        /**
+         * @var User $user
+         */
+        $user = User::create([
+            'name' => 'phpunit-admin',
+            'email' => 'phpunit-admin@ciliatus.io',
+            'password' => bcrypt(Uuid::generate()),
+            'locale' => 'en'
+        ]);
+
+        $user->grantFullAbilities();
+
+        return $user;
+    }
+
+    /**
      * @return bool|String
+     * @throws \Exception
      */
     public function createUserNothing()
     {
@@ -49,6 +80,7 @@ trait TestHelperTrait
 
     /**
      * @return bool|String
+     * @throws \Exception
      */
     public function createUserReadOnly()
     {
@@ -79,6 +111,7 @@ trait TestHelperTrait
 
     /**
      * @return String|bool
+     * @throws \Exception
      */
     public function createUserFullPermissions()
     {
