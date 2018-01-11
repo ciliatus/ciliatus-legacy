@@ -37,7 +37,7 @@ class ActionTransformer extends Transformer
 
         if (isset($item['target_object'])) {
             $transformerName = 'App\Http\Transformers\\' . $item['target_type'] . 'Transformer';
-            $return['target_object'] = (new $transformerName())->transform($item['target_object']);
+            $return['target_object'] = (new $transformerName())->transform($item['target_object']->toArray());
         }
 
         if (isset($item['wait_for_started_action_object'])) {

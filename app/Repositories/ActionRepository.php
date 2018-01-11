@@ -31,7 +31,7 @@ class ActionRepository extends Repository
     {
         $action = $this->scope;
 
-        $action->action_object = $action->action_object();
+        $action->target_object = $action->target_object();
         $action->wait_for_started_action_object = $action->wait_for_started_action_object();
         $action->wait_for_finished_action_object = $action->wait_for_finished_action_object();
 
