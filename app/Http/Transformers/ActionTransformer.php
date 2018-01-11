@@ -48,6 +48,10 @@ class ActionTransformer extends Transformer
             $return['wait_for_finished_action_object'] = $item['wait_for_finished_action_object'];
         }
 
+        if (isset($item['sequence'])) {
+            $return['sequence'] = (new ActionSequenceTransformer())->transform($item['sequence']);
+        }
+
         return $return;
     }
 }
