@@ -134,6 +134,7 @@ return [
     'increase'                                   => 'Increases',
     'decreases'                                  => 'Decreases',
     'decrease'                                   => 'Decreases',
+    'personal_access_token'                      => 'Access Token',
     'personal_access_tokens'                     => 'Access Tokens',
     'expires'                                    => 'Expires',
     'security'                                   => 'Security',

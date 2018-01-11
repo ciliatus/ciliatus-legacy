@@ -23,7 +23,7 @@
                             </div>
 
                             <div class="row" id="result-row" style="display: none; overflow-wrap: break-word;">
-                                <h4>@lang('tooltips.personal_access_token')</h4>
+                                <h4>@lang('labels.personal_access_token')</h4>
                                 <p id="result-content"></p>
                             </div>
 
