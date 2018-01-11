@@ -85,7 +85,7 @@ class ActionSequenceController extends Controller
         $terraria = Terrarium::get();
 
         if (is_null($action_sequence)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('action_sequences.edit', [
@@ -115,7 +115,7 @@ class ActionSequenceController extends Controller
         $action_sequence = ActionSequence::find($id);
 
         if (is_null($action_sequence)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('action_sequences.delete', [

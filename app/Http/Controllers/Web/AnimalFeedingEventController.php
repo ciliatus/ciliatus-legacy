@@ -100,12 +100,12 @@ class AnimalFeedingEventController extends \App\Http\Controllers\Controller
     {
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         $animal_feeding = $animal->feedings()->where('id', $id)->get()->first();
         if (is_null($animal_feeding)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('animals.feedings.delete', [
@@ -131,7 +131,7 @@ class AnimalFeedingEventController extends \App\Http\Controllers\Controller
     public function edit_types()
     {
         if (Gate::denies('admin')) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         $types = Property::where('type', 'AnimalFeedingType')->get();
@@ -147,7 +147,7 @@ class AnimalFeedingEventController extends \App\Http\Controllers\Controller
     public function create_type()
     {
         if (Gate::denies('admin')) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         return view('animals.feedings.create_type');

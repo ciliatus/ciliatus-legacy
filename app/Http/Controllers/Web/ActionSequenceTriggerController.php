@@ -84,7 +84,7 @@ class ActionSequenceTriggerController extends Controller
     {
         $action_sequence_trigger = ActionSequenceTrigger::find($id);
         if (is_null($action_sequence_trigger)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('action_sequence_triggers.show', [
@@ -104,7 +104,7 @@ class ActionSequenceTriggerController extends Controller
         $sequences = ActionSequence::all();
 
         if (is_null($action_sequence_trigger)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('action_sequence_triggers.edit', [
@@ -135,7 +135,7 @@ class ActionSequenceTriggerController extends Controller
         $action_sequence_trigger = ActionSequenceTrigger::find($id);
 
         if (is_null($action_sequence_trigger)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('action_sequence_triggers.delete', [

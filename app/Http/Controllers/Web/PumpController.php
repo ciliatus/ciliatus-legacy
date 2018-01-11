@@ -70,7 +70,7 @@ class PumpController extends Controller
     {
         $pump = Pump::find($id);
         if (is_null($pump)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('pumps.show', [
@@ -89,7 +89,7 @@ class PumpController extends Controller
         $pump = Pump::find($id);
 
         if (is_null($pump)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         $controlunits = Controlunit::all();
@@ -123,7 +123,7 @@ class PumpController extends Controller
         $pump = Pump::find($id);
 
         if (is_null($pump)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('pumps.delete', [

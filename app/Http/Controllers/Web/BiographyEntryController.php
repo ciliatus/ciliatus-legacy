@@ -45,7 +45,7 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
     public function create(Request $request)
     {
         if (Gate::denies('api-write:property')) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         $belongTo_Options = [];
@@ -81,7 +81,7 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
     {
         $entry = BiographyEntryEvent::find($id);
         if (is_null($entry)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('biographies.entries.show', [
@@ -98,12 +98,12 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
     public function edit($id)
     {
         if (Gate::denies('api-write:property')) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         $entry = BiographyEntryEvent::with('files')->find($id);
         if (is_null($entry)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         $category = Property::where('belongsTo_type', 'Event')->where('belongsTo_id', $entry->id)->get()->first();
@@ -140,12 +140,12 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
     public function delete($id)
     {
         if (Gate::denies('api-write:property')) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         $entry = Event::find($id);
         if (is_null($entry)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('biographies.entries.delete', [
@@ -170,7 +170,7 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
     public function edit_types()
     {
         if (Gate::denies('admin')) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         $types = Property::where('type', 'BiographyEntryCategory')->get();
@@ -186,7 +186,7 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
     public function create_type()
     {
         if (Gate::denies('admin')) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         return view('biographies.entries.types.create');

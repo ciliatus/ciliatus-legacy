@@ -32,15 +32,15 @@ class GenericComponentController extends Controller
     public function create(Request $request)
     {
         if (Gate::denies('api-write:generic_component')) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         if (!$request->has('preset') || !isset($request->input('preset')['generic_component_type_id'])) {
-            return view('errors.422', [], 422);
+            return response()->view('errors.422', [], 422);
         }
         $type = GenericComponentType::with('properties')->find($request->input('preset')['generic_component_type_id']);
         if (is_null($type)) {
-            return view('errors.422', [], 422);
+            return response()->view('errors.422', [], 422);
         }
 
         $belongTo_Options = [];
@@ -76,12 +76,12 @@ class GenericComponentController extends Controller
     public function show($id)
     {
         if (Gate::denies('api-write:generic_component')) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         $component = GenericComponent::find($id);
         if (is_null($component)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('generic_components.show', [
@@ -98,12 +98,12 @@ class GenericComponentController extends Controller
     public function edit($id)
     {
         if (Gate::denies('api-write:generic_component')) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         $component = GenericComponent::find($id);
         if (is_null($component)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         $belongTo_Options = [];
@@ -137,12 +137,12 @@ class GenericComponentController extends Controller
     public function delete($id)
     {
         if (Gate::denies('api-write:generic_component')) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         $component = GenericComponent::find($id);
         if (is_null($component)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('generic_components.delete', [

@@ -67,7 +67,7 @@ class ValveController extends Controller
     {
         $valve = Valve::find($id);
         if (is_null($valve)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('valves.show', [
@@ -86,7 +86,7 @@ class ValveController extends Controller
         $valve = Valve::find($id);
 
         if (is_null($valve)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         $controlunits = Controlunit::all();
@@ -118,7 +118,7 @@ class ValveController extends Controller
         $valve = Valve::find($id);
 
         if (is_null($valve)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('valves.delete', [

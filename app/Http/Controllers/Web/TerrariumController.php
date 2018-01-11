@@ -70,7 +70,7 @@ class TerrariumController extends Controller
     {
         $terrarium = Terrarium::find($id);
         if (is_null($terrarium)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('terraria.show', [
@@ -89,7 +89,7 @@ class TerrariumController extends Controller
         $terrarium = Terrarium::find($id);
 
         if (is_null($terrarium)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         $valves = Valve::where(function ($query) use ($terrarium) {
@@ -138,7 +138,7 @@ class TerrariumController extends Controller
         $terrarium = Terrarium::find($id);
 
         if (is_null($terrarium)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('terraria.delete', [

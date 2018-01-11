@@ -29,7 +29,7 @@ class LogController extends Controller
     public function index()
     {
         if (Gate::denies('admin')) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         return view('logs.index');
@@ -66,7 +66,7 @@ class LogController extends Controller
     {
         $log = Log::find($id);
         if (is_null($log)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('logs.show', [

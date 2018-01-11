@@ -68,7 +68,7 @@ class ControlunitController extends Controller
     {
         $cu = Controlunit::find($id);
         if (is_null($cu)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('controlunits.show', [
@@ -87,7 +87,7 @@ class ControlunitController extends Controller
         $controlunit = Controlunit::find($id);
 
         if (is_null($controlunit)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('controlunits.edit', [
@@ -116,7 +116,7 @@ class ControlunitController extends Controller
         $controlunit = Controlunit::find($id);
 
         if (is_null($controlunit)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('controlunits.delete', [

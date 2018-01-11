@@ -34,7 +34,7 @@ class UserController extends Controller
     public function index()
     {
         if (Gate::denies('admin')) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         return view('users.index');
@@ -71,7 +71,7 @@ class UserController extends Controller
     {
         $user = User::find($id);
         if (is_null($user)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         return view('users.show', [
@@ -90,14 +90,14 @@ class UserController extends Controller
         $user = User::find($id);
 
         if (is_null($user)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         /*
          * Make sure non-admin users can only edit themselves
          */
         if (Gate::denies('admin') && $user->id != Auth::user()->id) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
 
@@ -127,14 +127,14 @@ class UserController extends Controller
         $user = User::find($id);
 
         if (is_null($user)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         /*
          * Make sure non-admin users can only edit themselves
          */
         if (Gate::denies('admin') && $user->id != Auth::user()->id) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
         return view('users.delete', [
@@ -179,14 +179,14 @@ class UserController extends Controller
         $user = User::find($id);
 
         if (is_null($user)) {
-            return view('errors.404', [], 404);
+            return response()->view('errors.404', [], 404);
         }
 
         /*
          * Make sure non-admin users can only edit themselves
          */
         if (Gate::denies('admin') && $user->id != Auth::user()->id) {
-            return view('errors.401', [], 401);
+            return response()->view('errors.401', [], 401);
         }
 
 
