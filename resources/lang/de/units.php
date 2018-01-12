@@ -3,6 +3,7 @@
 return [
     'years'     =>  'Jahr|Jahre',
     'months'    =>  'Monat|Monate',
+    'weeks'     =>  'Woche|Wochen',
     'days'      =>  'Tag|Tage',
     'hours'     =>  'Stunde|Stunden',
     'minutes'   =>  'Minute|Minuten',
