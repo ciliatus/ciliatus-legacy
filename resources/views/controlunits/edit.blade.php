@@ -75,14 +75,12 @@
                         </div>
                         <div class="card-content">
                             <div class="row">
-                                <div class="input-field col s12">
+                                <div class="input-field col s12 tooltipped" data-position="top"
+                                     data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.i2c.bus_num')</div>">
                                     <input type="text" placeholder="@lang('labels.i2c_bus_num')" name="ControlunitConnectivity::i2c_bus_num" value="{{ $controlunit->property('ControlunitConnectivity', 'i2c_bus_num', true) }}">
+
                                     <label for="name">
                                         @lang('labels.i2c_bus_num')
-                                        <a href="#!" class="material-icons black-text tooltipped" data-position="top"
-                                           data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.i2c_bus_num')</div>">
-                                            info_outline
-                                        </a>
                                     </label>
                                 </div>
                             </div>

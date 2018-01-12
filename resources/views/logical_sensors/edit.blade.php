@@ -190,14 +190,11 @@
                         </div>
                         <div class="card-content">
                             <div class="row">
-                                <div class="input-field col s12">
+                                <div class="input-field col s12 tooltipped" data-position="top"
+                                     data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.adjust_rawvalue')</div>">
                                     <input type="text" placeholder="@lang('labels.adjust_rawvalue')" name="LogicalSensorAccuracy::adjust_rawvalue" value="{{ $logical_sensor->property('LogicalSensorAccuracy', 'adjust_rawvalue', true) }}">
                                     <label for="name">
                                         @lang('labels.adjust_rawvalue')
-                                        <a href="#!" class="material-icons black-text tooltipped" data-position="top"
-                                           data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.adjust_rawvalue')</div>">
-                                            info_outline
-                                        </a>
                                     </label>
                                 </div>
                             </div>

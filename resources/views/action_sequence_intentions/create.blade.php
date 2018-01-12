@@ -41,15 +41,14 @@
                             </div>
 
                             <div class="row">
-                                <div class="input-field col s12 m6 l6">
+                                <div class="input-field col s12 m6 l6 tooltipped" data-position="top"
+                                     data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.intention_increase_decrease')</div>">
                                     <select name="intention">
                                         <option value="increase">@lang('labels.increases')</option>
                                         <option value="decrease">@lang('labels.decreases')</option>
                                     </select>
                                     <label for="intention">
                                         @lang('labels.intention')
-                                        <a href="#!" class="material-icons black-text tooltipped" data-position="top"
-                                           data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.intention_increase_decrease')</div>">info_outline</a>
                                     </label>
                                 </div>
                                 <div class="input-field col s12 m6 l6">
@@ -64,12 +63,11 @@
 
 
                             <div class="row">
-                                <div class="input-field col s12">
+                                <div class="input-field col s12 tooltipped" data-position="top"
+                                     data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.minimum_timeout_minutes')</div>">
                                     <input type="text" name="minimum_timeout_minutes" placeholder="@lang('labels.minimum_timeout_minutes')">
                                     <label for="minimum_timeout_minutes">
                                         @lang('labels.minimum_timeout_minutes')
-                                        <a href="#!" class="material-icons black-text tooltipped" data-position="top"
-                                           data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.minimum_timeout_minutes')</div>">info_outline</a>
                                     </label>
                                 </div>
                             </div>
