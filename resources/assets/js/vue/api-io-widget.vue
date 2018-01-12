@@ -39,6 +39,10 @@ export default {
 
     methods: {
         submit_interceptor: function(e) {
+            if (!this.recording_capability) {
+                window.notification(window.bodyVue.$t('errors.frontend.no_recording_capability'), 'red darken-1 text-white');
+                return;
+            }
             if (this.loading) {
                 e.preventDefault();
                 return;
@@ -72,6 +76,10 @@ export default {
 
         },
         record: function() {
+            if (!this.recording_capability) {
+                window.notification(window.bodyVue.$t('errors.frontend.no_recording_capability'), 'red darken-1 text-white');
+                return;
+            }
             this.recording = !this.recording;
             if (this.recording) {
                 this.recognition.start();
