@@ -383,17 +383,17 @@ img.tiny {
 
   &.warning {
     @extend .white-text;
-    border: 1px solid color('orange', 'darken-3');
+    border: 1px solid color('deep-orange', 'darken-3');
     border-radius: 4px;
 
     .collection-header {
-      background-color: color('orange', 'darken-3');
-      border-bottom: 1px solid color('orange', 'darken-3');
+      background-color: color('deep-orange', 'darken-3');
+      border-bottom: 1px solid color('deep-orange', 'darken-3');
     }
 
     .collection-item {
-      background-color: color('orange', 'darken-2');
-      border-bottom: 1px solid color('orange', 'darken-3');
+      background-color: color('deep-orange', 'darken-2');
+      border-bottom: 1px solid color('deep-orange', 'darken-2');
     }
   }
 
@@ -479,7 +479,7 @@ $button-small-height: $button-height * 0.6 !default;
   }
 
   &.btn-warning {
-    background-color: color('orange', 'darken-3');
+    background-color: color('deep-orange', 'darken-3');
   }
 
   &.btn-critical, &.btn-danger {
