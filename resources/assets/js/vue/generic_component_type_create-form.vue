@@ -1010,7 +1010,7 @@
                                     </div>
 
                                     <div class="input-field col s2 m2 l2">
-                                        <a href="#" class="red-text" v-on:click="component_intentions.splice(index, 1)">
+                                        <a href="#!" class="red-text" v-on:click="component_intentions.splice(index, 1)">
                                             <i class="material-icons">delete</i>
                                         </a>
                                     </div>
@@ -1040,7 +1040,7 @@
                                                 <input type="text" name="property_name[]" v-model="item.name">
                                             </div>
                                             <div class="input-field col s2 m2 l2">
-                                                <a href="#" class="red-text" v-on:click="component_properties.splice(index, 1)">
+                                                <a href="#!" class="red-text" v-on:click="component_properties.splice(index, 1)">
                                                     <i class="material-icons">delete</i>
                                                 </a>
                                             </div>
@@ -1084,7 +1084,7 @@
                                             </div>
 
                                             <div class="input-field col s2 m2 l2">
-                                                <a href="#" class="red-text" v-on:click="component_states.splice(index, 1)">
+                                                <a href="#!" class="red-text" v-on:click="component_states.splice(index, 1)">
                                                     <i class="material-icons">delete</i>
                                                 </a>
                                             </div>

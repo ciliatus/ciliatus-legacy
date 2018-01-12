@@ -143,7 +143,7 @@
                                                name="suggestions[{{ $type }}][threshold]" @if($terrarium->getSuggestionThreshold($type)) value="{{ $terrarium->getSuggestionThreshold($type) }}" @else value="10" @endif>
                                         <label for="suggestions[{{ $type }}][threshold]">
                                             @lang('labels.suggestions_unit')
-                                            <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                                            <a href="#!" class="material-icons black-text tooltipped" data-position="top"
                                                data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.suggestions_unit')</div>">info_outline</a>
                                         </label>
                                     </div>
@@ -161,7 +161,7 @@
 
                                         <label for="suggestions[{{ $type }}][timeframe_unit]">
                                             @lang('labels.suggestion_timeframe_unit')
-                                            <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                                            <a href="#!" class="material-icons black-text tooltipped" data-position="top"
                                                data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.suggestion_timeframe_unit')</div>">info_outline</a>
                                         </label>
                                     </div>
@@ -171,7 +171,7 @@
                                                name="suggestions[{{ $type }}][timeframe_start]" @if($terrarium->getSuggestionTimeframe($type)) value="{{ $terrarium->getSuggestionTimeframe($type) }}" @else value="1" @endif>
                                         <label for="suggestions[{{ $type }}][timeframe_start]">
                                             @lang('labels.suggestions_timeframe')
-                                            <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                                            <a href="#!" class="material-icons black-text tooltipped" data-position="top"
                                                data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.suggestions_timeframe')</div>">info_outline</a>
                                         </label>
                                     </div>

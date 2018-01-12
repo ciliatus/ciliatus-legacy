@@ -3,8 +3,8 @@
 @section('breadcrumbs')
     <a href="/animals" class="breadcrumb hide-on-small-and-down">@choice('components.animals', 2)</a>
     <a href="{{ url('animals/' . $animal->id) }}" class="breadcrumb hide-on-small-and-down">{{ $animal->display_name }}</a>
-    <a href="#" class="breadcrumb hide-on-small-and-down">@choice('components.animal_feeding_schedules', 1)</a>
-    <a href="#" class="breadcrumb hide-on-small-and-down">@lang('buttons.add')</a>
+    <a href="#!" class="breadcrumb hide-on-small-and-down">@choice('components.animal_feeding_schedules', 1)</a>
+    <a href="#!" class="breadcrumb hide-on-small-and-down">@lang('buttons.add')</a>
 @stop
 
 @section('content')

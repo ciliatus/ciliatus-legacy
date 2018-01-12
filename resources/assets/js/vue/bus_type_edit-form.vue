@@ -12,7 +12,7 @@
                     <div class="card-content">
 
                         <strong>{{ $t('labels.bus') }}
-                            <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                            <a href="#!" class="material-icons black-text tooltipped" data-position="top"
                                data-delay="50" data-html="true" :data-tooltip="'<div style=\'max-width: 300px\'>' +
                                $t('tooltips.bus_type_edit_form') + '</div>'">
                                 info_outline
@@ -63,7 +63,7 @@
                                 </select>
                                 <label for="gpio_default_high">
                                     {{ $t('labels.gpio_default_high') }}
-                                    <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                                    <a href="#!" class="material-icons black-text tooltipped" data-position="top"
                                        data-delay="50" data-html="true" :data-tooltip="'<div style=\'max-width: 300px\'>' +
                                         $t('tooltips.gpio_default_high') + '</div>'">
                                         info_outline

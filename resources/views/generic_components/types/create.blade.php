@@ -3,7 +3,7 @@
 @section('breadcrumbs')
     <a href="/generic_components" class="breadcrumb hide-on-small-and-down">@choice('components.generic_components', 2)</a>
     <a href="/generic_components/types" class="breadcrumb hide-on-small-and-down">@choice('components.generic_component_types', 2)</a>
-    <a href="#" class="breadcrumb hide-on-small-and-down">@lang('buttons.add')</a>
+    <a href="#!" class="breadcrumb hide-on-small-and-down">@lang('buttons.add')</a>
 @stop
 
 @section('content')

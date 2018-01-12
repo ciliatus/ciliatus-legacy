@@ -31,7 +31,7 @@
                             <td>{{ $type->name }}</td>
                             <td>
                                 <form action="/api/v1/animals/feedings/types/{{ $type->id }}" data-method="DELETE" data-redirect-success="/categories#tab_feeding_types">
-                                    <a class="red-text text-lighten-1" href="#" onclick="$(this).closest('form').submit();">
+                                    <a class="red-text text-lighten-1" href="#!" onclick="$(this).closest('form').submit();">
                                         <i class="material-icons">delete</i>
                                     </a>
                                 </form>
@@ -72,7 +72,7 @@
                             <td><i class="material-icons">{{ $type->value }}</i></td>
                             <td>
                                 <form action="/api/v1/biography_entries/categories/{{ $type->id }}" data-method="DELETE" data-redirect-success="/categories#tab_bio_categories">
-                                    <a class="red-text text-lighten-1" href="#" onclick="$(this).closest('form').submit();">
+                                    <a class="red-text text-lighten-1" href="#!" onclick="$(this).closest('form').submit();">
                                         <i class="material-icons">delete</i>
                                     </a>
                                 </form>

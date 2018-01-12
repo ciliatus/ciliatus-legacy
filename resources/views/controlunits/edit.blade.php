@@ -79,7 +79,7 @@
                                     <input type="text" placeholder="@lang('labels.i2c_bus_num')" name="ControlunitConnectivity::i2c_bus_num" value="{{ $controlunit->property('ControlunitConnectivity', 'i2c_bus_num', true) }}">
                                     <label for="name">
                                         @lang('labels.i2c_bus_num')
-                                        <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                                        <a href="#!" class="material-icons black-text tooltipped" data-position="top"
                                            data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.i2c_bus_num')</div>">
                                             info_outline
                                         </a>

@@ -114,7 +114,7 @@
                                             @endif
                                         </strong>
 
-                                        <a class="dropdown-button btn btn-small btn-icon-only" href="#" data-beloworigin="true" data-activates="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}">
+                                        <a class="dropdown-button btn btn-small btn-icon-only" href="#!" data-beloworigin="true" data-activates="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}">
                                             <i class="material-icons">settings</i>
                                         </a>
 
@@ -194,7 +194,7 @@
                                     <input type="text" placeholder="@lang('labels.adjust_rawvalue')" name="LogicalSensorAccuracy::adjust_rawvalue" value="{{ $logical_sensor->property('LogicalSensorAccuracy', 'adjust_rawvalue', true) }}">
                                     <label for="name">
                                         @lang('labels.adjust_rawvalue')
-                                        <a href="#" class="material-icons black-text tooltipped" data-position="top"
+                                        <a href="#!" class="material-icons black-text tooltipped" data-position="top"
                                            data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.adjust_rawvalue')</div>">
                                             info_outline
                                         </a>

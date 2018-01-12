@@ -346,13 +346,13 @@
                                         <strong>@lang('labels.add_preset')</strong>
                                     </div>
                                     <div class="input-field col s12 m4 l4">
-                                        <a href="#" onclick="select_abilities('grant_api-write')">@lang('buttons.select_all_write')</a>
+                                        <a href="#!" onclick="select_abilities('grant_api-write')">@lang('buttons.select_all_write')</a>
                                     </div>
                                     <div class="input-field col s12 m4 l4">
-                                        <a href="#" onclick="select_abilities('grant_api-read')">@lang('buttons.select_all_read')</a>
+                                        <a href="#!" onclick="select_abilities('grant_api-read')">@lang('buttons.select_all_read')</a>
                                     </div>
                                     <div class="input-field col s12 m4 l4">
-                                        <a href="#" onclick="select_abilities('grant_api-list')">@lang('buttons.select_all_list')</a>
+                                        <a href="#!" onclick="select_abilities('grant_api-list')">@lang('buttons.select_all_list')</a>
                                     </div>
                                 </div>
                             </div>

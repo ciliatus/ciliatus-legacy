@@ -2,8 +2,8 @@
 
 @section('breadcrumbs')
     <a href="/animals" class="breadcrumb hide-on-small-and-down">@choice('components.animals', 2)</a>
-    <a href="#" class="breadcrumb hide-on-small-and-down">@choice('components.animal_feedings', 1)</a>
-    <a href="#" class="breadcrumb hide-on-small-and-down">@lang('labels.type')</a>
+    <a href="#!" class="breadcrumb hide-on-small-and-down">@choice('components.animal_feedings', 1)</a>
+    <a href="#!" class="breadcrumb hide-on-small-and-down">@lang('labels.type')</a>
 @stop
 
 @section('content')

@@ -161,7 +161,7 @@
                         <div class="card-title">
                             <span><a :href="'/terraria/' + terrarium.id">{{ terrarium.display_name }}</a></span>
                             <loading-indicator :size="20" v-show="terrarium.loading_data"></loading-indicator>
-                            <a href="#"><i class="material-icons right activator">more_vert</i></a>
+                            <a href="#!"><i class="material-icons right activator">more_vert</i></a>
                         </div>
                     </div>
                     <div class="card-content" v-if="terrarium.cooked_temperature_celsius !== null || terrarium.cooked_humidity_percent !== null || terrarium.heartbeat_critical">
@@ -193,19 +193,19 @@
 
                         <p v-if="terrarium.capabilities.irrigate">
                             <i class="material-icons">play_arrow</i>
-                            <a href="#" v-on:click="action_sequence_modal(terrarium.id, 'irrigate')">{{ $t('buttons.irrigate') }}</a>
+                            <a href="#!" v-on:click="action_sequence_modal(terrarium.id, 'irrigate')">{{ $t('buttons.irrigate') }}</a>
                         </p>
                         <p v-if="terrarium.capabilities.ventilate">
                             <i class="material-icons">play_arrow</i>
-                            <a href="#" v-on:click="action_sequence_modal(terrarium.id, 'ventilate')">{{ $t('buttons.ventilate') }}</a>
+                            <a href="#!" v-on:click="action_sequence_modal(terrarium.id, 'ventilate')">{{ $t('buttons.ventilate') }}</a>
                         </p>
                         <p v-if="terrarium.capabilities.heat_up">
                             <i class="material-icons">play_arrow</i>
-                            <a href="#" v-on:click="action_sequence_modal(terrarium.id, 'heat_up')">{{ $t('buttons.heat_up') }}</a>
+                            <a href="#!" v-on:click="action_sequence_modal(terrarium.id, 'heat_up')">{{ $t('buttons.heat_up') }}</a>
                         </p>
                         <p v-if="terrarium.capabilities.cool_down">
                             <i class="material-icons">play_arrow</i>
-                            <a href="#" v-on:click="action_sequence_modal(terrarium.id, 'cool_down')">{{ $t('buttons.cool_down') }}</a>
+                            <a href="#!" v-on:click="action_sequence_modal(terrarium.id, 'cool_down')">{{ $t('buttons.cool_down') }}</a>
                         </p>
                     </div>
                 </div>

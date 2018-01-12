@@ -36,7 +36,7 @@
 
                             <div class="row">
                                 <div class="col s12">
-                                    <i href="#" class="material-icons tooltipped" data-delay="50" data-html="true"
+                                    <i href="#!" class="material-icons tooltipped" data-delay="50" data-html="true"
                                        data-tooltip="<div style='max-width: 300px'>@lang('tooltips.caresheet.sensor_history_days')</div>">info_outline</i>
                                 </div>
                                 <div class="input-field col s12">
@@ -48,7 +48,7 @@
 
                             <div class="row">
                                 <div class="col s12">
-                                    <i href="#" class="material-icons tooltipped" data-delay="50" data-html="true"
+                                    <i href="#!" class="material-icons tooltipped" data-delay="50" data-html="true"
                                        data-tooltip="<div style='max-width: 300px'>@lang('tooltips.caresheet.data_history_days')</div>">info_outline</i>
                                 </div>
                                 <div class="input-field col s12">

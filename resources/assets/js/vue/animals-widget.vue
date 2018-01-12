@@ -74,7 +74,7 @@
                         <div class="card-title">
                             <span><a :href="'/animals/' + animal.id">{{ animal.display_name }}</a></span>
                             <loading-indicator :size="20" v-show="animal.loading_data"></loading-indicator>
-                            <a href="#"><i class="material-icons right activator" v-if="!animal.death_date">more_vert</i></a>
+                            <a href="#!"><i class="material-icons right activator" v-if="!animal.death_date">more_vert</i></a>
                         </div>
                     </div>
 
@@ -134,12 +134,12 @@
 
                         <p>
                             <i class="material-icons">play_arrow</i>
-                            <a href="#" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
+                            <a href="#!" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
                         </p>
 
                         <p>
                             <i class="material-icons">play_arrow</i>
-                            <a href="#" v-bind:href="'#modal_add_weight_' + animal.id" v-bind:onclick="'$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.add_weight") }}</a>
+                            <a href="#!" v-bind:href="'#modal_add_weight_' + animal.id" v-bind:onclick="'$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.add_weight") }}</a>
                         </p>
                     </div>
                 </div>

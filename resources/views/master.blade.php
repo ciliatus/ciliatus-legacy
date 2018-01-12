@@ -60,7 +60,7 @@
                         <div class="nav-wrapper">
                             <ul class="left">
                                 <li>
-                                    <a href="#" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"
+                                    <a href="#!" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"
                                         style="padding-left: 15px; padding-right: 0; margin: 0;">
                                         <i class="material-icons">menu</i>
                                     </a>
