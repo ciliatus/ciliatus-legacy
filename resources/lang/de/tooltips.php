@@ -77,5 +77,8 @@ return [
         'data_history_days' => 'Zeitraum aus dem Biographieinträge, Fütterungen und Gewichtsverlauf einbezogen werden soll'
     ],
     'set_as_background' => 'Als Hintergrund setzen',
-    'critical_state_actuality' => 'Daten werden zum jetzigen Zeitpunkt ermittelt und könnten zum Zeitpunkt des kritischen Zustand unterschiedlich gewesen sein.'
+    'critical_state_actuality' => 'Daten werden zum jetzigen Zeitpunkt ermittelt und könnten zum Zeitpunkt des kritischen Zustand unterschiedlich gewesen sein.',
+    'i2c' => [
+        'bus_num' => 'Für Raspberry Pi: 0 für RPI1, 1 für alle anderen Modelle'
+    ]
 ];

@@ -158,6 +158,7 @@ return [
     'suggestion_timeframe_unit'                  => 'Timeframe (Unit)',
     'suggestions_timeframe'                      => 'Timeframe',
     'bus'                                        => 'Bus',
+    'i2c_bus_num'                                => 'I2C bus number',
     'i2c_address'                                => 'I2C address',
     'i2c_multiplexer_address'                    => 'I2C multiplexer address',
     'i2c_multiplexer_port'                       => 'I2C multiplexer port',

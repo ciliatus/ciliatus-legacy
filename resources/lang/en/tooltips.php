@@ -77,5 +77,8 @@ return [
         'data_history_days' => 'Timespan of animal feedings, weighings and biography entries to include'
     ],
     'set_as_background' => 'Set as background',
-    'critical_state_actuality' => 'This is current information which could have been different at the time of the critical state.'
+    'critical_state_actuality' => 'This is current information which could have been different at the time of the critical state.',
+    'i2c' => [
+        'bus_num' => 'For Raspberry Pi: Use 0 for RPI1, 1 for all other models'
+    ]
 ];
