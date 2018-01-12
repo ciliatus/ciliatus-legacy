@@ -63,7 +63,7 @@ return [
     'no_feeding_types' => 'Es wurden noch keine Futtertypen definiert.',
     'max_file_size' => 'Die maximale Dateigröße beträgt :size.',
     'animal_weighing' => [
-        'trend' => 'Trend der letzten 60 Tage bis zur letzten Wiegung'
+        'trend' => 'Trend der letzten 60 Tage bis zum letzten Wiegen'
     ],
     'logical_sensor_thresholds' => [
         'limits'     => 'Nicht-kritischer Wertebereich. Werte außerhalb des Bereichs werden als kritisch angesehen',

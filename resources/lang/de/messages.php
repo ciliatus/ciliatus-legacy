@@ -27,7 +27,7 @@ return [
     'daily' => [
         'intro' => 'Tägliche Erinnerungen',
         'feedings_due'  =>  'Fällige Fütterungen:',
-        'weighings_due' =>  'Fällige Wiegungen:'
+        'weighings_due' =>  'Fälliges Wiegen:'
     ],
 
     'own_token_expires' => 'Token \':name\' läuft in :days Tagen ab.',
