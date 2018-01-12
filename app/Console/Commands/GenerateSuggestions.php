@@ -4,6 +4,7 @@ namespace App\Console\Commands;
 
 use App\Animal;
 use App\Event;
+use App\Property;
 use App\Repositories\AnimalFeedingScheduleRepository;
 use App\Repositories\AnimalWeighingScheduleRepository;
 use App\Terrarium;
@@ -55,12 +56,20 @@ class GenerateSuggestions extends Command
             $total += count($suggestions);
 
             foreach ($suggestions as $type=>$suggestion) {
-                Event::create([
+                $e = Event::create([
                     'belongsTo_type' => 'Terrarium',
                     'belongsTo_id' => $t->id,
                     'type' => 'Suggestion',
                     'name' => $type,
-                    'value' => key($suggestion)
+                    'value' => $suggestion['hour']
+                ]);
+
+                Property::create([
+                    'belongsTo_type' => 'Event',
+                    'belongsTo_id' => $e->id,
+                    'type' => 'SuggestionProperty',
+                    'name' => 'violation_type',
+                    'value' => $suggestion['violation_type']
                 ]);
             }
         }

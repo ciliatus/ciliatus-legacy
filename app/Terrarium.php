@@ -421,20 +421,6 @@ class Terrarium extends CiliatusModel
     }
 
     /**
-     *
-     */
-    public static function rebuild_cache()
-    {
-        $reading_types = LogicalSensor::types();
-        foreach (Terrarium::get() as $t) {
-            foreach ($reading_types as $type) {
-                echo "Rebuilding $type of {$t->display_name}" . PHP_EOL;
-                $t->getSensorreadingsByType($type, true);
-            }
-        }
-    }
-
-    /**
      * @return mixed
      */
     public function background_image_path()
@@ -506,24 +492,28 @@ class Terrarium extends CiliatusModel
                 continue;
             }
 
-            $critical_states = CriticalState::where('belongsTo_type', 'LogicalSensor')
-                                            ->whereIn('belongsTo_id', array_column(
-                                                $this->logical_sensors()->where('type', $type)->get()->toArray(),
-                                                'id'
-                                            ))
-                                            ->where('is_soft_state', false)
-                                            ->where('created_at', '>=', $this->getSuggestionTimeframe($type, true))
-                                            ->get();
+            foreach (['UPPERLIMIT_EXCEEDED', 'LOWERLIMIT_DECEEDED'] as $violation_type) {
+                $critical_states = CriticalState::where('belongsTo_type', 'LogicalSensor')
+                                                ->whereIn('belongsTo_id', array_column(
+                                                    $this->logical_sensors()->where('type', $type)->get()->toArray(),
+                                                    'id'
+                                                ))
+                                                ->where('state_details', $violation_type)
+                                                ->where('is_soft_state', false)
+                                                ->where('created_at', '>=', $this->getSuggestionTimeframe($type, true))
+                                                ->get();
 
 
-            $first = CriticalState::getFirstTimeUnitViolatingThreshold(
-                $critical_states,
-                $this->getSuggestionThreshold($type)
-            );
+                $first = CriticalState::getFirstTimeUnitViolatingThreshold(
+                    $critical_states,
+                    $this->getSuggestionThreshold($type)
+                );
 
-            if (!is_null($first)) {
-                $suggestions[$type] = $first;
+                if (!is_null($first)) {
+                    $suggestions[$type] = $first;
+                }
             }
+
         }
 
         return $suggestions;
@@ -815,6 +805,20 @@ class Terrarium extends CiliatusModel
         else {
             $action_sequence->delete();
             return false;
+        }
+    }
+
+    /**
+     *
+     */
+    public static function rebuild_cache()
+    {
+        $reading_types = LogicalSensor::types();
+        foreach (Terrarium::get() as $t) {
+            foreach ($reading_types as $type) {
+                echo "Rebuilding $type of {$t->display_name}" . PHP_EOL;
+                $t->getSensorreadingsByType($type, true);
+            }
         }
     }
 

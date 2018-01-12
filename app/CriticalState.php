@@ -308,7 +308,11 @@ class CriticalState extends CiliatusModel
 
         ksort($cs_timeline);
         reset($cs_timeline);
-        return [key($cs_timeline) => current($cs_timeline)];
+        return [
+            'violation_type' => $critical_states->first()->state_details,
+            'amount' => current($cs_timeline),
+            'hour' => key($cs_timeline)
+        ];
     }
 
     /**
