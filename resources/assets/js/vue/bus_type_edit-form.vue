@@ -11,17 +11,12 @@
 
                     <div class="card-content">
 
-                        <strong>{{ $t('labels.bus') }}
-                            <a href="#!" class="material-icons black-text tooltipped" data-position="top"
-                               data-delay="50" data-html="true" :data-tooltip="'<div style=\'max-width: 300px\'>' +
-                               $t('tooltips.bus_type_edit_form') + '</div>'">
-                                info_outline
-                            </a>
-                        </strong>
+                        <strong>{{ $t('labels.bus') }}</strong><br />
+                        <span>{{ $t('tooltips.bus_type_edit_form') }}</span>
 
                         <div class="row">
                             <div class="input-field col s12">
-                                <select name="ControlunitConnectivity::bus_type" v-model="bus_type" id="bus_type" class="browser-default">
+                                <select name="ControlunitConnectivity::bus_type" v-model="bus_type" id="bus_type">
                                     <option></option>
                                     <option value="gpio">GPIO</option>
                                     <option value="i2c">I2C</option>
@@ -55,7 +50,9 @@
                                        name="ControlunitConnectivity::gpio_pin" v-model="gpio_pin">
                                 <label for="gpio_pin">{{ $t('labels.gpio_pin') }}</label>
                             </div>
-                            <div class="input-field col s12 m6 l6">
+                            <div class="input-field col s12 m6 l6 tooltipped" data-position="top"
+                                 data-delay="50" data-html="true" :data-tooltip="'<div style=\'max-width: 300px\'>' +
+                                        $t('tooltips.gpio_default_high') + '</div>'">
                                 <select id="gpio_default_high"
                                         name="ControlunitConnectivity::gpio_default_high" v-model="gpio_default_high">
                                     <option :value="false">{{ $t('labels.no') }}</option>
@@ -63,11 +60,6 @@
                                 </select>
                                 <label for="gpio_default_high">
                                     {{ $t('labels.gpio_default_high') }}
-                                    <a href="#!" class="material-icons black-text tooltipped" data-position="top"
-                                       data-delay="50" data-html="true" :data-tooltip="'<div style=\'max-width: 300px\'>' +
-                                        $t('tooltips.gpio_default_high') + '</div>'">
-                                        info_outline
-                                    </a>
                                 </label>
                             </div>
                         </div>
@@ -177,6 +169,10 @@ export default {
                 that.i2c_multiplexer_address = that.i2cMultiplexerAddress;
                 that.i2c_multiplexer_port = that.i2cMultiplexerPort;
             }
+            $('select').material_select();
+            $('#bus_type').on('change', function () {
+                that.change_bus_type($(this)[0].value)
+            })
         });
     }
 }
