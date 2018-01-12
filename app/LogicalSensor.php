@@ -86,6 +86,14 @@ class LogicalSensor extends Component
     }
 
     /**
+     * @return LogicalSensor
+     */
+    public function belongsTo_object()
+    {
+        return $this->physical_sensor;
+    }
+
+    /**
      * Adjust rawvalue if LogicalSensorAccuracy::adjust_rawvalue property is set
      *
      * @param $value

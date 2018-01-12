@@ -44,6 +44,7 @@ return [
     'current_value'                              => 'Aktueller Wert',
     'created_at'                                 => 'Erstellt',
     'updated_at'                                 => 'Letztes Update',
+    'recovered_at'                               => 'Erholt',
     'download'                                   => 'Herunterladen',
     'properties'                                 => 'Eigenschaften',
     'preview'                                    => 'Vorschau',
@@ -187,5 +188,8 @@ return [
     'caresheet' => [
         'sensor_history_days' => 'Zeitrahmen für Sensorwerte',
         'data_history_days' => 'Zeitrahmen für Tier- und Terrarieninformationen'
-    ]
+    ],
+    'soft_state'                                 => 'Soft state',
+    'reason'                                     => 'Grund',
+    'possibly_affected_animals'                  => 'Möglicherweise betroffene Tiere'
 ];

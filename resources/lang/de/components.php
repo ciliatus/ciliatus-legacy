@@ -72,6 +72,8 @@ return [
     'CaresheetEvent' =>   'Begleitblatt|Begleitblätter',
     'caresheet' =>   'Begleitblatt|Begleitblätter',
     'caresheets' =>   'Begleitblatt|Begleitblätter',
+    'critical_state' => 'Kritischer Zustand|Kritische Zustände',
+    'critical_states' => 'Kritischer Zustand|Kritische Zustände',
     'GenericComponents' => 'Generische Komponente|Generische Komponenten',
     'generic_components' => 'Generische Komponente|Generische Komponenten',
     'GenericComponentTypes' => 'Generischer Komponententyp|Generische Komponententypen',

@@ -44,6 +44,7 @@ return [
     'current_value'                              => 'Current value',
     'created_at'                                 => 'Creation',
     'updated_at'                                 => 'Last update',
+    'recovered_at'                               => 'Recovered',
     'download'                                   => 'Download',
     'properties'                                 => 'Properties',
     'preview'                                    => 'Preview',
@@ -187,5 +188,8 @@ return [
     'caresheet' => [
         'sensor_history_days' => 'Sensorreading timespan',
         'data_history_days' => 'Animal and terrarium data timespan'
-    ]
+    ],
+    'soft_state'                                 => 'Soft state',
+    'reason'                                     => 'Reason',
+    'possibly_affected_animals'                  => 'Possibly affected animals'
 ];

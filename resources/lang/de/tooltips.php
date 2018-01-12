@@ -76,5 +76,6 @@ return [
         'sensor_history_days' => 'Zeitraum der in die Berechnung von Durschnitts-/Max-/Min-Werten einbezogen werden soll',
         'data_history_days' => 'Zeitraum aus dem Biographieinträge, Fütterungen und Gewichtsverlauf einbezogen werden soll'
     ],
-    'set_as_background' => 'Als Hintergrund setzen'
+    'set_as_background' => 'Als Hintergrund setzen',
+    'critical_state_actuality' => 'Daten werden zum jetzigen Zeitpunkt ermittelt und könnten zum Zeitpunkt des kritischen Zustand unterschiedlich gewesen sein.'
 ];

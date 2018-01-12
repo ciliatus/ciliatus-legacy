@@ -171,6 +171,18 @@ abstract class CiliatusModel extends Model
     }
 
     /**
+     * @return Collection
+     */
+    public function getPossiblyAffectedAnimals()
+    {
+        if (!is_null($this->animals)) {
+            return $this->animals;
+        }
+
+        return new Collection();
+    }
+
+    /**
      * @return array
      */
     public function enrichAndTransform()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\CriticalState;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
@@ -25,7 +26,7 @@ class CriticalStateController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
@@ -35,7 +36,7 @@ class CriticalStateController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -45,8 +46,8 @@ class CriticalStateController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -61,14 +62,21 @@ class CriticalStateController extends Controller
      */
     public function show($id)
     {
-        //
+        $cs = CriticalState::find($id);
+        if (is_null($cs)) {
+            return response()->view('errors.404', [], 404);
+        }
+
+        return view('critical_states.show', [
+            'critical_state' => $cs
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return void
      */
     public function edit($id)
     {
@@ -78,9 +86,9 @@ class CriticalStateController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
@@ -90,8 +98,8 @@ class CriticalStateController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return void
      */
     public function destroy($id)
     {

@@ -217,6 +217,21 @@ class CriticalState extends CiliatusModel
     }
 
     /**
+     * @return Collection
+     */
+    public function getPossiblyAffectedAnimals()
+    {
+        $animals = new Collection();
+        $obj = $this;
+        while (method_exists($obj, 'belongsTo_object') && !is_null($obj->belongsTo_object())) {
+            $obj = $obj->belongsTo_object();
+            $animals = $animals->merge($obj->getPossiblyAffectedAnimals());
+        }
+
+        return $animals;
+    }
+
+        /**
      * Evaluates critical states
      * Creates/deletes
      */

@@ -72,6 +72,8 @@ return [
     'CaresheetEvent' =>   'Care Sheet|Care Sheets',
     'caresheet' =>   'Care Sheet|Care Sheets',
     'caresheets' =>   'Care Sheet|Care Sheets',
+    'critical_state' => 'Critical State|Critical States',
+    'critical_states' => 'Critical State|Critical States',
     'GenericComponent' => 'Generic Component|Generic Components',
     'generic_component' => 'Generic Component|Generic Components',
     'generic_components' => 'Generic Component|Generic Components',

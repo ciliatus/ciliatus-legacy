@@ -76,5 +76,6 @@ return [
         'sensor_history_days' => 'Timespan for sensor readings to include in the average/min/max calculation',
         'data_history_days' => 'Timespan of animal feedings, weighings and biography entries to include'
     ],
-    'set_as_background' => 'Set as background'
+    'set_as_background' => 'Set as background',
+    'critical_state_actuality' => 'This is current information which could have been different at the time of the critical state.'
 ];

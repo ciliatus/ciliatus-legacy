@@ -8,6 +8,7 @@ use App\Traits\HasCriticalStates;
 use App\Traits\Uuids;
 use Carbon\Carbon;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 
 /**
  * Class Controlunit
@@ -205,6 +206,21 @@ class Controlunit extends Component
         }
 
         return $desired_states;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPossiblyAffectedAnimals()
+    {
+        $animals = new Collection();
+        foreach (['physical_sensors', 'valves', 'generic_components'] as $component_type) {
+            foreach ($this->$component_type as $ps) {
+                $animals = $animals->merge($ps->getPossiblyAffectedAnimals());
+            }
+        }
+
+        return $animals;
     }
 
     /**

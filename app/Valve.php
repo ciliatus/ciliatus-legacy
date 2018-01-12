@@ -7,6 +7,7 @@ use App\Events\ValveUpdated;
 use App\Traits\Components;
 use App\Traits\Uuids;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Collection;
 
 /**
  * Class Valve
@@ -109,6 +110,17 @@ class Valve extends CiliatusModel
         }
 
         return $config;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getPossiblyAffectedAnimals()
+    {
+        if (is_null($this->terrarium())) {
+            return new Collection();
+        }
+        return $this->terrarium->animals;
     }
 
     /**
