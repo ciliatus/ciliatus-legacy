@@ -492,7 +492,7 @@ class Terrarium extends CiliatusModel
                 continue;
             }
 
-            foreach (['UPPERLIMIT_EXCEEDED', 'LOWERLIMIT_DECEEDED'] as $violation_type) {
+            foreach (['UPPERLIMIT_EXCEEDED', 'LOWERLIMIT_DECEEDED', 'UNKNOWN'] as $violation_type) {
                 $critical_states = CriticalState::where('belongsTo_type', 'LogicalSensor')
                                                 ->whereIn('belongsTo_id', array_column(
                                                     $this->logical_sensors()->where('type', $type)->get()->toArray(),
