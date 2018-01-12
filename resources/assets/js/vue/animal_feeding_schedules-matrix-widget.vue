@@ -4,7 +4,7 @@
             <table class="responsive highlight">
                 <thead>
                 <tr>
-                    <th data-field="id" class="hide-on-med-and-down">
+                    <th data-field="id">
                         {{ $tc('components.animals', 1) }}
                     </th>
 
@@ -24,6 +24,8 @@
                         <span v-for="schedule in get_animal_feeding_schedules_of_type(animal.id, type.name)">
                             <a v-bind:href="'/animals/' + animal.id + '/feeding_schedules/' + schedule.id + '/edit'">{{ schedule.interval_days }}</a>
                             <i>({{ schedule.due_days }} {{ $tc('units.days', schedule.due_days) }})</i>
+                            <i v-if="schedule.due_days < 0" class="material-icons red-text">error</i>
+                            <i v-else-if="schedule.due_days < 1" class="material-icons orange-text">error_outline</i>
                         </span>
                     </td>
                 </tr>
