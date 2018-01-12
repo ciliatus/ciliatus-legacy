@@ -142,7 +142,7 @@
                 <ul class="collection warning with-header">
                     <li class="collection-header">
                         <i class="material-icons">local_dining</i>
-                        {{ dashboard.animal_feeding_schedules.overdue.length }} {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.overdue") }}
+                        {{ dashboard.animal_feeding_schedules.overdue.length }} {{ $tc("components.animal_feedings", dashboard.animal_feeding_schedules.overdue.length) }} {{ $t("labels.overdue") }}
                     </li>
 
                     <li class="collection-item" v-for="schedule in dashboard.animal_feeding_schedules.overdue">
@@ -179,7 +179,7 @@
                 <ul class="collection warning with-header">
                     <li class="collection-header">
                         <i class="material-icons">vertical_align_bottom</i>
-                        {{ dashboard.animal_weighing_schedules.overdue.length }} {{ $tc("components.animal_weighings", 2) }} {{ $t("labels.overdue") }}
+                        {{ dashboard.animal_weighing_schedules.overdue.length }} {{ $tc("components.animal_weighings", dashboard.animal_weighing_schedules.overdue.length) }} {{ $t("labels.overdue") }}
                     </li>
 
                     <li class="collection-item" v-for="schedule in dashboard.animal_weighing_schedules.overdue">
@@ -215,7 +215,7 @@
                 <ul class="collection warning with-header">
                     <li class="collection-header">
                         <i class="material-icons">playlist_play</i>
-                        {{ dashboard.action_sequence_schedules.overdue.length }} {{ $tc("components.action_sequences", 2) }} {{ $t("labels.overdue") }}
+                        {{ dashboard.action_sequence_schedules.overdue.length }} {{ $tc("components.action_sequences", dashboard.action_sequence_schedules.overdue.length) }} {{ $t("labels.overdue") }}
                     </li>
 
                     <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.overdue">
@@ -248,7 +248,7 @@
                 <ul class="collection ok with-header">
                     <li class="collection-header">
                         <i class="material-icons">local_dining</i>
-                        {{ dashboard.animal_feeding_schedules.due.length }} {{ $tc("components.animal_feedings", 2) }} {{ $t("labels.due") }}
+                        {{ dashboard.animal_feeding_schedules.due.length }} {{ $tc("components.animal_feedings", dashboard.animal_feeding_schedules.due.length) }} {{ $t("labels.due") }}
                     </li>
 
                     <li class="collection-item" v-for="schedule in dashboard.animal_feeding_schedules.due">
@@ -282,7 +282,7 @@
                 <ul class="collection ok with-header">
                     <li class="collection-header">
                         <i class="material-icons">vertical_align_bottom</i>
-                        {{ dashboard.animal_weighing_schedules.due.length }} {{ $tc("components.animal_weighings", 2) }} {{ $t("labels.due") }}
+                        {{ dashboard.animal_weighing_schedules.due.length }} {{ $tc("components.animal_weighings", dashboard.animal_weighing_schedules.due.length) }} {{ $t("labels.due") }}
                     </li>
 
                     <li class="collection-item" v-for="schedule in dashboard.animal_weighing_schedules.due">
@@ -317,7 +317,7 @@
                 <ul class="collection ok with-header">
                     <li class="collection-header">
                         <i class="material-icons">playlist_play</i>
-                        {{ dashboard.action_sequence_schedules.due.length }} {{ $tc("components.action_sequences", 2) }} {{ $t("labels.due") }}
+                        {{ dashboard.action_sequence_schedules.due.length }} {{ $tc("components.action_sequences", dashboard.action_sequence_schedules.due.length) }} {{ $t("labels.due") }}
                     </li>
 
                     <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.due">
@@ -355,7 +355,7 @@
                     <li class="collection-header">
                         <i class="material-icons">playlist_play</i>
                         {{ (dashboard.action_sequence_schedules.running.length + dashboard.action_sequence_triggers.running.length + dashboard.action_sequence_intentions.running.length) }}
-                        {{ $tc("components.action_sequences", 2) }} {{ $t("labels.running") }}
+                        {{ $tc("components.action_sequences", dashboard.action_sequence_intentions.running.length) }} {{ $t("labels.running") }}
                     </li>
 
                     <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.running">
@@ -430,7 +430,7 @@
                 <ul class="collection ok with-header">
                     <li class="collection-header">
                         <i class="material-icons">video_label</i>
-                        {{ dashboard.terraria.ok.length }} {{ $tc("components.terraria", 2) }}
+                        {{ dashboard.terraria.ok.length }} {{ $tc("components.terraria", dashboard.terraria.ok.length) }}
                     </li>
 
                     <li class="collection-item">
