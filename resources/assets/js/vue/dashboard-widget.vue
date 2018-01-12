@@ -28,7 +28,7 @@
                                 <a class="white-text" v-bind:href="suggestion.belongsTo_object.url">
                                     {{ suggestion.belongsTo_object.display_name || suggestion.belongsTo_object.name }}:
                                 </a>
-                                {{ $t('messages.suggestions.' + suggestion.name, {
+                                {{ $t('messages.suggestions.' + suggestion.name + '.' + suggestion.violation_type, {
                                 hour: suggestion.value,
                                 name: suggestion
                             }) }}

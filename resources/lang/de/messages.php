@@ -33,7 +33,15 @@ return [
     'own_token_expires' => 'Token \':name\' läuft in :days Tagen ab.',
 
     'suggestions' => [
-        'humidity_percent' => 'Feuchtigkeit regulieren täglich um :hour Uhr',
-        'temperature_celsius' => 'Temperatur regulieren täglich um :hour Uhr'
+        'humidity_percent' => [
+            'UPPERLIMIT_EXCEEDED' => 'Feuchtigkeit reduzieren täglich um :hour:00 Uhr',
+            'LOWERLIMIT_DECEEDED' => 'Feuchtigkeit erhöhen täglich um :hour:00 Uhr',
+            'UNKNOWN' => 'Feuchtigkeit regulieren täglich um :hour:00 Uhr'
+        ],
+        'temperature_celsius' => [
+            'UPPERLIMIT_EXCEEDED' => 'Feuchtigkeit reduzieren täglich um :hour:00 Uhr',
+            'LOWERLIMIT_DECEEDED' => 'Temperatur erhöhen täglich um :hour:00 Uhr',
+            'UNKNOWN' => 'Temperatur regulieren täglich um :hour:00 Uhr'
+        ]
     ]
 ];

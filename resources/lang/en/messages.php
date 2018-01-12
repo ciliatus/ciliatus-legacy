@@ -33,7 +33,15 @@ return [
     'own_token_expires' => 'Token \':name\' expires in :days days.',
 
     'suggestions' => [
-        'humidity_percent' => 'Rgulate humidity daily at :hour o\'clock.',
-        'temperature_celsius' => 'Rgulate temperature daily at :hour o\'clock.'
+        'humidity_percent' => [
+            'UPPERLIMIT_EXCEEDED' => 'Decrease humidity daily at :hour:00',
+            'LOWERLIMIT_DECEEDED' => 'Increase humidity daily at :hour:00',
+            'UNKNOWN' => 'Regulate humidity daily at :hour:00',
+        ],
+        'temperature_celsius' => [
+            'UPPERLIMIT_EXCEEDED' => 'Decrease temperature daily at :hour:00',
+            'LOWERLIMIT_DECEEDED' => 'Increase temperature daily at :hour:00',
+            'UNKNOWN' => 'Regulate temperature daily at :hour:00'
+        ]
     ]
 ];

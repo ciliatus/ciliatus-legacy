@@ -13,6 +13,7 @@ use App\Http\Transformers\AnimalWeighingSchedulePropertyTransformer;
 use App\Http\Transformers\ControlunitTransformer;
 use App\Http\Transformers\EventTransformer;
 use App\Http\Transformers\PhysicalSensorTransformer;
+use App\Http\Transformers\SuggestionEventTransformer;
 use App\Http\Transformers\TerrariumTransformer;
 use App\PhysicalSensor;
 use App\Property;
@@ -171,7 +172,9 @@ class DashboardController extends ApiController
                 $belongsTo = $suggestion->belongsTo_object();
                 $belongsTo = (new GenericRepository($belongsTo))->show();
                 $suggestion->belongsTo_object = is_null($belongsTo) ? null : $belongsTo->toArray();
-                $suggestions[] = (new EventTransformer())->transform($suggestion->toArray());
+                $violation_type = $suggestion->properties()->where('name', 'violation_type')->get()->first();
+                $suggestion->violation_type = is_null($violation_type) ? 'UNKNOWN' : $violation_type->value;
+                $suggestions[] = (new SuggestionEventTransformer())->transform($suggestion->toArray());
 
             }
 
