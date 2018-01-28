@@ -193,6 +193,9 @@ export default {
                 backgroundColor: 'transparent',
                 curveType: 'function',
                 pointSize: 4,
+                tooltip: {
+                    isHtml: true
+                }
             }
 
             this.chart.draw(this.data, this.options);

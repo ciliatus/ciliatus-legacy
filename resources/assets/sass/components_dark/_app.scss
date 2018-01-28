@@ -184,6 +184,20 @@ text {
   fill: #FFFFFF;
 }
 
+.google-visualization-tooltip {
+  border: 1px #263238 solid !important;
+  border-radius: 5px !important;
+  width: 200px;
+  background-color: #263238 !important;
+  box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12),0 3px 1px -2px rgba(0,0,0,.2) !important;
+  -moz-box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12),0 3px 1px -2px rgba(0,0,0,.2) !important;
+  -webkit-box-shadow: 0 2px 2px 0 rgba(0,0,0,.14),0 1px 5px 0 rgba(0,0,0,.12),0 3px 1px -2px rgba(0,0,0,.2) !important;
+}
+
+div.google-visualization-tooltip > ul > li > span {
+  color: rgb(238, 238, 238) !important;
+}
+
 /* Material icon select */
 .material-icons {
   font-family: 'Material Icons';
