@@ -21,9 +21,9 @@ Intelligent Terrarium Automation
 
 ## Demo
 
-**Be aware:** 
+**Notice:** 
 
-The demo version pulls it's data from our live environment every day at roughly 7 pm. Some data is generated demo data. Real-time updates are not available in the demo environment.
+The demo system pulls it's data from a live environment daily. Sensor readings are generated artificially.
 Also: Because the source environment is in german you will find user defined strings which cannot be localized. You won't see that in your own environment.
 
 [Demo](https://demo01.ciliatus.io)

@@ -82,8 +82,8 @@
                                     Username: <strong>demo@ciliatus.io</strong><br />
                                     Password: <strong>demo</strong><br />
                                     <br />
-                                    Real-time updates are disabled.<br />
-                                    Data pulled from live environment daily.
+                                    Data is pulled from live environment daily.<br />
+                                    Sensor readings are artificially generated.
                                 </div>
                                 @endif
                             </div>
