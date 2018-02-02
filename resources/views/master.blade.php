@@ -15,7 +15,7 @@
         <link type="text/css" rel="stylesheet" href="/css/vendors/timeline.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="/css/vendors/dygraph.min.css"  media="screen,projection"/>
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script>
             $.ajaxSetup({
                 headers: {
@@ -81,7 +81,7 @@
                             <ul class="right" style="position:relative; right: 0px;">
                                 <li>
                                     @if(App\System::hasVoiceCapability())
-                                    <span>API.AI is not available in your language yet.</span>
+                                    <span>Your language is not installed.</span>
                                     @else
                                     <api-io-widget></api-io-widget>
                                     @endif
@@ -234,7 +234,13 @@
                                         <li>
                                             <a href="https://github.com/ciliatus/ciliatus/issues" class="waves-effect waves-orange">
                                                 <i class="material-icons">bug_report</i>
-                                                @lang('labels.bugtracker')</a>
+                                                @lang('labels.bugtracker')
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="https://ciliatus.io/docs/{{ config('app.version_doc') }}" class="waves-effect waves-orange">
+                                                <i class="material-icons">help</i>
+                                                @lang('labels.tech_doku')
                                             </a>
                                         </li>
                                     </ul>
@@ -245,7 +251,7 @@
 
                     <li><div class="divider"></div></li>
 
-                    <li><a href="https://ciliatus.io/docs/{{ config('app.version') }}" class="waves-effect waves-orange"><i class="material-icons">help</i>@lang('labels.doku')</a></li>
+                    <li><a href="https://ciliatus.io/guide/{{ config('app.version_doc') }}" class="waves-effect waves-orange"><i class="material-icons">local_library</i>@lang('labels.users_guide')</a></li>
                     @endif
 
                     <li><a @if(!App\ActionSequence::stopped())href="/action_sequences/stop_all" @else href="/action_sequences/resume_all" @endif class="waves-effect waves-red red-text"><i class="material-icons red-text">power_settings_new</i>@lang('buttons.emergency_stop')</a></li>
