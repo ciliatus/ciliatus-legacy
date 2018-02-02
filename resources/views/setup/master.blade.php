@@ -12,7 +12,7 @@
         <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.clockpicker.css"  media="screen,projection"/>
         <link type="text/css" rel="stylesheet" href="/css/vendors/dygraph.min.css"  media="screen,projection"/>
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script>
             window.Laravel = {
                 csrfToken: "{{ csrf_token() }}"
@@ -39,15 +39,18 @@
             @yield('content')
         </div>
 
-        <!-- Materialize.css -->
-        <script src="{{ url('js/vendors/materialize.min.js') }}"></script>
-        <!-- Materialize.clockpicker.css -->
-        <script src="{{ url('js/vendors/materialize.clockpicker.js') }}"></script>
+        <!-- Materialize.js -->
+        <script src="{{ url('/js/vendors/materialize.min.js') }}"></script>
+        <!-- Materialize.clockpicker.js -->
+        <script src="{{ url('/js/vendors/materialize.clockpicker.js') }}"></script>
+        <!-- Masonry -->
+        <script src="{{ url('/js/vendors/masonry.pkgd.min.js') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('js/app.js') }}"></script>
+        <script src="{{ url('/js/app.js') }}"></script>
         <!-- Vue -->
         <script src="{{ url('/js/vendors/vue.js') }}"></script>
 
+        @yield('scripts')
 
         <script>
             $(document).ready(function() {
