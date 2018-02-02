@@ -11,10 +11,9 @@
                     <form action="{{ url('api/v1/setup/' . env('APP_KEY') . '/step/0') }}"
                           data-method="POST" data-redirect-success="{{ url('setup/' . env('APP_KEY') . '/step/1') }}">
                     <div class="card-content">
-
                         <div class="row">
                             <div class="input-field col s12">
-                                <select name="language">
+                                <select id="language" name="language">
                                     <option value="en" selected>@lang('languages.english')</option>
                                     <option value="de">@lang('languages.german')</option>
                                 </select>
