@@ -37,23 +37,12 @@
                     <td class="hide-on-med-and-down">{{ user.id }}</td>
                     <td>{{ user.name }}</td>
                     <td>{{ user.email }}</td>
-                    <td>
-                        <a class="dropdown-button btn btn-small" href="#!" v-bind:data-activates="'dropdown-edit-user_' + user.id">
-                            {{ $t('labels.actions') }}<i class="material-icons">keyboard_arrow_down</i>
-                        </a>
-
-                        <ul v-bind:id="'dropdown-edit-user_' + user.id" class="dropdown-content">
-                            <li>
-                                <a v-bind:href="'/users/' + user.id + '/edit'">
-                                    {{ $t('buttons.edit') }}
-                                </a>
-                            </li>
-                            <li>
-                                <a v-bind:href="'/users/' + user.id + '/delete'">
-                                    {{ $t('buttons.delete') }}
-                                </a>
-                            </li>
-                        </ul>
+                    <td class="hide-on-small-only">
+                        <span>
+                            <a v-bind:href="'/users/' + user.id + '/edit'">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </span>
                     </td>
                 </tr>
                 </tbody>
@@ -93,7 +82,9 @@ export default {
     data () {
         return {
             users: [],
-            meta: [],
+            meta: {
+                pagination: {}
+            },
             filter: {
                 id: null,
                 name: null,
