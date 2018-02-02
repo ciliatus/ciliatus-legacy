@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
     <a href="/users" class="breadcrumb hide-on-small-and-down">@lang('menu.users')</a>
-    <a href="/users/{{ $user->id }}" class="breadcrumb hide-on-small-and-down">{{ $user->email }}</a>
+    <a href="/users/{{ $user->id }}/edit" class="breadcrumb hide-on-small-and-down">{{ $user->email }}</a>
     <a class="breadcrumb hide-on-small-and-down">@lang('labels.personal_access_tokens')</a>
 @stop
 
