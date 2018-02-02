@@ -61,8 +61,8 @@
                                     <li v-for="(schedule, index) in action_sequence.schedules">
                                         <i class="material-icons">schedule</i>
                                         <span>{{ schedule.timestamps.starts }}</span>
-                                        <span v-if="schedule.timestamps.runonce">({{ $t('labels.runonce') }})</span>
-                                        <template v-if="index < action_sequence.schedules.length-1">, </template>
+                                        <span v-if="schedule.timestamps.runonce"><i>{{ $t('labels.runonce') }}</i></span>
+                                        <span v-else><i>{{ $t('labels.daily') }}</i></span>
                                     </li>
                                 </ul>
 
@@ -72,23 +72,21 @@
                                         <i class="material-icons">flare</i>
                                         <span>{{ $t('labels.' + trigger.logical_sensor.type) }}</span>
                                         <span v-if="trigger.reference_value_comparison_type == 'greater'">&gt;</span>
-                                        <span v-if="trigger.reference_value_comparison_type == 'lower'">&lt;</span>
+                                        <span v-if="trigger.reference_value_comparison_type == 'lesser'">&lt;</span>
                                         <span>{{ trigger.reference_value }}</span>
                                         <span>{{ $t('labels.between') }} {{ trigger.timeframe.start }} {{ $t('labels.and') }} {{ trigger.timeframe.end }},</span>
-                                        <span>{{ $t('labels.minimum_timeout_minutes') }}: {{ trigger.minimum_timeout_minutes }} {{ $tc('units.minutes', trigger.minimum_timeout_minutes) }}</span>
-                                        <template v-if="index < action_sequence.triggers.length-1">, </template>
+                                        <span>{{ $t('labels.minimum_timeout') }}: {{ trigger.minimum_timeout_minutes }} {{ $tc('units.minutes', trigger.minimum_timeout_minutes) }}</span>
                                     </li>
                                 </ul>
 
                                 <ul v-show="action_sequence.intentions.length > 0">
                                     <strong>{{ $tc('components.action_sequence_intentions', 2) }}</strong>
                                     <li v-for="(intention, index) in action_sequence.intentions">
-                                        <i class="material-icons">flare</i>
+                                        <i class="material-icons">explore</i>
                                         <span>{{ $t('labels.' + intention.intention) }}</span>
                                         <span>{{ $t('labels.' + intention.type) }}</span>
                                         <span>{{ $t('labels.between') }} {{ intention.timeframe.start }} {{ $t('labels.and') }} {{ intention.timeframe.end }},</span>
-                                        <span>{{ $t('labels.minimum_timeout_minutes') }}: {{ intention.minimum_timeout_minutes }} {{ $tc('units.minutes', intention.minimum_timeout_minutes) }}</span>
-                                        <template v-if="index < action_sequence.intentions.length-1">, </template>
+                                        <span>{{ $t('labels.minimum_timeout') }}: {{ intention.minimum_timeout_minutes }} {{ $tc('units.minutes', intention.minimum_timeout_minutes) }}</span>
                                     </li>
                                 </ul>
                             </td>

@@ -35,7 +35,7 @@ class SuggestionProperty extends Property
      */
     public function icon()
     {
-        return 'light_bulb';
+        return 'lightbulb_outline';
     }
 
     /**

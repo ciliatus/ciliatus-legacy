@@ -113,7 +113,10 @@
                     <div class="card">
                         <div class="card-header">
                             <span class="activator truncate">
-                                <span>@lang('labels.suggestions')</span>
+                                <span>
+                                    <i class="material-icons">lightbulb_outline</i>
+                                    @lang('labels.suggestions')
+                                </span>
                             </span>
                         </div>
 

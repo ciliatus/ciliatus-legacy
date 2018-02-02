@@ -161,7 +161,13 @@ class LogicalSensor extends Component
     public static function types()
     {
         $reading_types = array_column(LogicalSensor::groupBy('type')->get()->toArray(), 'type');
-        return array_merge($reading_types, ['humidity_percent', 'temperature_celsius']);
+        return array_unique(
+            array_merge(
+                $reading_types,
+                ['humidity_percent', 'temperature_celsius']
+            ),
+            SORT_STRING
+        );
     }
 
     /**

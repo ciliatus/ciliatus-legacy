@@ -70,7 +70,10 @@
                     <form action="{{ url('api/v1/controlunits/' . $controlunit->id) }}" data-method="PUT">
                         <div class="card-header">
                             <span class="activator truncate">
-                                <span>@lang('labels.properties')</span>
+                                <span>
+                                    <i class="material-icons">local_offer</i>
+                                    @lang('labels.properties')
+                                </span>
                             </span>
                         </div>
                         <div class="card-content">

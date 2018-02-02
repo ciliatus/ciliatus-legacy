@@ -104,31 +104,28 @@
                 <div class="card">
                     <div class="card-header">
                         <span class="activator truncate">
-                            <span><i class="material-icons">schedule</i> @choice('components.action_sequence_schedules', 2)</span>
+                            <span>
+                                <i class="material-icons">schedule</i>
+                                @choice('components.action_sequence_schedules', 2)
+                            </span>
                         </span>
                     </div>
 
                     <div class="card-content">
+                        @foreach($action_sequence->schedules as $ass)
+                            <div class="row row-no-margin">
+                                <i class="material-icons">schedule</i>
+                                {{ $ass->starts_at }} @if (!$ass->runonce)<i>@lang('labels.daily')</i>@endif
 
-                        <div class="row">
-                            @foreach($action_sequence->schedules as $ass)
-                                <div class="input-field col s12">
-                                    <li>
-                                        {{ $ass->starts_at }} @if (!$ass->runonce)<i>@lang('labels.daily')</i>@endif
+                                <a href="{{ url('action_sequence_schedules/' . $ass->id . '/delete') }}" class="right red-text text-lighten-1">
+                                    <i class="material-icons">delete</i>
+                                </a>
 
-                                        <a href="{{ url('action_sequence_schedules/' . $ass->id . '/delete') }}" class="right red-text text-lighten-1">
-                                            <i class="material-icons">delete</i>
-                                        </a>
-
-                                        <a href="{{ url('action_sequence_schedules/' . $ass->id . '/edit') }}" class="right">
-                                            <i class="material-icons">edit</i>
-                                        </a>
-                                    </li>
-                                </div>
-                            @endforeach
-
-                        </div>
-
+                                <a href="{{ url('action_sequence_schedules/' . $ass->id . '/edit') }}" class="right">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
 
                     <div class="card-action">
@@ -142,35 +139,33 @@
                 <div class="card">
                     <div class="card-header">
                         <span class="activator truncate">
-                            <span><i class="material-icons">flare</i> @choice('components.action_sequence_triggers', 2)</span>
+                            <span>
+                                <i class="material-icons">flare</i>
+                                @choice('components.action_sequence_triggers', 2)
+                            </span>
                         </span>
                     </div>
 
                     <div class="card-content">
+                        @foreach($action_sequence->triggers as $trigger)
+                            <div class="row row-no-margin">
+                                <i class="material-icons">flare</i>
+                                <a href="/logical_sensors/{{ $trigger->logical_sensor->id }}">{{ $trigger->logical_sensor->name }}</a>
+                                @lang('units.' . $trigger->reference_value_comparison_type) {{ $trigger->reference_value }}
 
-                        <div class="row">
-                            @foreach($action_sequence->triggers as $trigger)
-                                <div class="input-field col s12">
-                                    <li>
-                                        <a href="/logical_sensors/{{ $trigger->logical_sensor->id }}">{{ $trigger->logical_sensor->name }}</a>
-                                        @lang('units.' . $trigger->reference_value_comparison_type) {{ $trigger->reference_value }}
+                                @lang('labels.for') {{ $trigger->reference_value_duration_threshold_minutes }} @choice('units.minutes', $trigger->reference_value_duration_threshold_minutes)
+                                <i>{{ $trigger->timeframe_start }} - {{ $trigger->timeframe_end }}</i>
 
-                                        @lang('labels.for') {{ $trigger->reference_value_duration_threshold_minutes }} @choice('units.minutes', $trigger->reference_value_duration_threshold_minutes)
-                                        <i>{{ $trigger->timeframe_start }} - {{ $trigger->timeframe_end }}</i>
 
-                                        <a href="{{ url('action_sequence_triggers/' . $trigger->id . '/delete') }}" class="right red-text text-lighten-1">
-                                            <i class="material-icons">delete</i>
-                                        </a>
+                                <a href="{{ url('action_sequence_triggers/' . $trigger->id . '/delete') }}" class="right red-text text-lighten-1">
+                                    <i class="material-icons">delete</i>
+                                </a>
 
-                                        <a href="{{ url('action_sequence_triggers/' . $trigger->id . '/edit') }}" class="right">
-                                            <i class="material-icons">edit</i>
-                                        </a>
-                                    </li>
-                                </div>
-                            @endforeach
-
-                        </div>
-
+                                <a href="{{ url('action_sequence_triggers/' . $trigger->id . '/edit') }}" class="right">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
 
                     <div class="card-action">
@@ -184,33 +179,31 @@
                 <div class="card">
                     <div class="card-header">
                         <span class="activator truncate">
-                            <span><i class="material-icons">explore</i> @choice('components.action_sequence_intentions', 2)</span>
+                            <span>
+                                <i class="material-icons">explore</i>
+                                @choice('components.action_sequence_intentions', 2)
+                            </span>
                         </span>
                     </div>
 
                     <div class="card-content">
+                        @foreach($action_sequence->intentions as $intention)
+                            <div class="row row-no-margin">
+                                <i class="material-icons">explore</i>
+                                @if($intention->intention == 'increase')<span>@lang('labels.increases')</span>@endif
+                                @if($intention->intention == 'decrease')<span>@lang('labels.decreases')</span>@endif
+                                @lang('labels.' . $intention->type)
+                                <i>{{ $intention->timeframe_start }} - {{ $intention->timeframe_end }}</i>
 
-                        <div class="row">
-                            @foreach($action_sequence->intentions as $intention)
-                                <div class="input-field col s12">
-                                    <li>
-                                        @if($intention->intention == 'increase')<span>@lang('labels.increases')</span>@endif
-                                        @if($intention->intention == 'decrease')<span>@lang('labels.decreases')</span>@endif
-                                        @lang('labels.' . $intention->type)
+                                <a href="{{ url('action_sequence_intentions/' . $intention->id . '/delete') }}" class="right red-text text-lighten-1">
+                                    <i class="material-icons">delete</i>
+                                </a>
 
-                                        <a href="{{ url('action_sequence_intentions/' . $intention->id . '/delete') }}" class="right red-text text-lighten-1">
-                                            <i class="material-icons">delete</i>
-                                        </a>
-
-                                        <a href="{{ url('action_sequence_intentions/' . $intention->id . '/edit') }}" class="right">
-                                            <i class="material-icons">edit</i>
-                                        </a>
-                                    </li>
-                                </div>
-                            @endforeach
-
-                        </div>
-
+                                <a href="{{ url('action_sequence_intentions/' . $intention->id . '/edit') }}" class="right">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </div>
+                        @endforeach
                     </div>
 
                     <div class="card-action">

@@ -11,6 +11,10 @@
             <div v-for="as in action_sequences">
                 <p>
                     <a :href="'/action_sequences/' + as.id + '/edit'"><strong>{{ as.name }}</strong></a>
+
+                    <a v-bind:href="'/action_sequences/' + as.id + '/edit'" class="right">
+                        <i class="material-icons">edit</i>
+                    </a>
                 </p>
 
                 <div class="row row-no-margin" v-for="asi in as.intentions">

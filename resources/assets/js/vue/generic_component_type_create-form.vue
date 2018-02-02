@@ -1143,7 +1143,7 @@ export default {
             required: false
         },
         genericComponentType: {
-            type: String,
+            type: Object,
             default: null,
             required: false
         },
@@ -1196,7 +1196,7 @@ export default {
     created: function() {
         var that = this;
         this.$nextTick(function() {
-            if (that.genericComponentType !== null && that.genericComponentType.length < 1) {
+            if (that.genericComponentType !== null) {
                 that.generic_component_type = that.genericComponentType;
                 $('#' + that.generic_component_type.id).attr('data-method', 'PUT');
 

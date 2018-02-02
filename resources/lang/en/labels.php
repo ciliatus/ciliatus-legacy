@@ -65,7 +65,9 @@ return [
     'belongsTo_type'                             => 'Belongs to (type)',
     'belongsTo_id'                               => 'Belongs to (ID)',
     'belongsTo'                                  => 'Belongs to',
+    'users_guide'                                => 'User\'s Guide',
     'doku'                                       => 'Documentation',
+    'tech_doku'                                  => 'Tech. Documentation',
     'step'                                       => 'Step',
     'phone_number'                               => 'Phone number',
     'template'                                   => 'Template',
@@ -129,6 +131,7 @@ return [
     'reference_value'                            => 'Reference value',
     'reference_value_duration_threshold_minutes' => 'Reference value undershot/exceeded for (Minutes)',
     'for'                                        => 'for',
+    'minimum_timeout'                            => 'Timeout',
     'minimum_timeout_minutes'                    => 'Timeout (minutes)',
     'emergency_stop'                             => 'Emergency stop',
     'increases'                                  => 'Increases',
@@ -192,5 +195,6 @@ return [
     ],
     'soft_state'                                 => 'Soft state',
     'reason'                                     => 'Reason',
-    'possibly_affected_animals'                  => 'Possibly affected animals'
+    'possibly_affected_animals'                  => 'Possibly affected animals',
+    'scope'                                      => 'Scope'
 ];

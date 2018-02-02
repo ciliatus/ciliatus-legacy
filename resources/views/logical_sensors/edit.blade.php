@@ -59,7 +59,7 @@
                                 <div class="col s12">
                                     <strong class="tooltipped" data-delay="50" data-html="true"
                                             :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.logical_sensor_rawvalue_limit') + '</div>'">
-                                        @lang('labels.rawlimits')
+                                        @lang('labels.scope')
                                         <i class="material-icons">info_outline</i>
                                     </strong>
                                 </div>
@@ -93,47 +93,38 @@
             <div class="col s12 m12 l6">
                 <div class="card">
                     <div class="card-header">
-                        <span>@choice('components.logical_sensor_thresholds', 2)</span>
+                        <span>
+                            <i class="material-icons">vertical_align_center</i>
+                            @choice('components.logical_sensor_thresholds', 2)
+                        </span>
                     </div>
 
                     <div class="card-content">
-                            <div class="row">
-                                @foreach($logical_sensor->thresholds()->orderBy('starts_at')->get() as $t)
-                                    <div class="input-field col s12">
+                        @if($logical_sensor->thresholds()->count() > 0)
+                            @foreach($logical_sensor->thresholds()->orderBy('starts_at')->get() as $t)
+                            <div class="row row-no-margin">
+                                <i class="material-icons">vertical_align_center</i>
+                                {{ $t->starts_at }}:
 
-                                        @lang('labels.starts_at') {{ $t->starts_at }}:
+                                @if(!is_null($t->rawvalue_lowerlimit))
+                                    <span>@lang("labels.max_short"): {{ $t->rawvalue_lowerlimit }}</span>
+                                @endif
+                                @if(!is_null($t->rawvalue_upperlimit))
+                                    <span>@lang("labels.min_short"): {{ $t->rawvalue_upperlimit }}</span>
+                                @endif
 
-                                        <strong>
-                                            @if(is_null($t->rawvalue_lowerlimit) && !is_null($t->rawvalue_upperlimit))
-                                                max {{ $t->rawvalue_upperlimit }}
-                                            @elseif(!is_null($t->rawvalue_lowerlimit) && is_null($t->rawvalue_upperlimit))
-                                                min {{ $t->rawvalue_lowerlimit }}
-                                            @elseif(is_null($t->rawvalue_lowerlimit) && is_null($t->rawvalue_upperlimit))
-                                            @else
-                                                {{ $t->rawvalue_lowerlimit }} - {{ $t->rawvalue_upperlimit }}
-                                            @endif
-                                        </strong>
-
-                                        <a class="dropdown-button btn btn-small btn-icon-only" href="#!" data-beloworigin="true" data-activates="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}">
-                                            <i class="material-icons">settings</i>
-                                        </a>
-
-                                        <ul id="dropdown-edit-logical_sensor_thresholds_{{ $t->id }}" class="dropdown-content">
-                                            <li>
-                                                <a href="{{ url('logical_sensor_thresholds/' . $t->id . '/edit') }}">
-                                                    @lang('buttons.edit')
-                                                </a>
-                                            </li>
-                                            <li>
-                                                <a href="{{ url('logical_sensor_thresholds/' . $t->id . '/delete') }}">
-                                                    @lang('buttons.delete')
-                                                </a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                @endforeach
-
+                                <span class="right">
+                                    <a href="{{ url('logical_sensor_thresholds/' . $t->id . '/edit') }}">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                </span>
                             </div>
+                            @endforeach
+                        @else
+                        <div class="row row-no-margin">
+                            @lang("tooltips.no_data")
+                        </div>
+                        @endif
                     </div>
 
 
@@ -146,7 +137,10 @@
 
                 <div class="card">
                     <div class="card-header">
-                        <span>@lang('labels.copy_thresholds')</span>
+                        <span>
+                            <i class="material-icons">content_copy</i>
+                            @lang('labels.copy_thresholds')
+                        </span>
                     </div>
 
                     <form action="{{ url('api/v1/logical_sensor_thresholds/' . $logical_sensor->id . '/copy') }}" data-method="POST">
@@ -185,7 +179,10 @@
                     <form action="{{ url('api/v1/logical_sensors/' . $logical_sensor->id) }}" data-method="PUT">
                         <div class="card-header">
                             <span class="activator truncate">
-                                <span>@lang('labels.properties')</span>
+                                <span>
+                                    <i class="material-icons">local_offer</i>
+                                    @lang('labels.properties')
+                                </span>
                             </span>
                         </div>
                         <div class="card-content">

@@ -5,7 +5,10 @@
                 <form :action="formUri" data-method="PUT">
                     <div class="card-header">
                         <span class="activator truncate">
-                            <span>{{ $t('labels.properties') }}</span>
+                            <span>
+                                <i class="material-icons">local_offer</i>
+                                {{ $t('labels.properties') }}
+                            </span>
                         </span>
                     </div>
 
