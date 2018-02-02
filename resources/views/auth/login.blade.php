@@ -6,9 +6,9 @@
         <link rel="manifest" href="manifest.json">
         <link rel="icon" href="/images/manifest/launcher-icon-0-75x.png" type="image/png">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.css"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.min.css"  media="screen,projection"/>
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+        <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
         <script>
             window.Laravel = {
                 csrfToken: "{{ csrf_token() }}"
@@ -65,7 +65,7 @@
                                 </div>
 
                                 <div class="row">
-                                    <div class="input-field col s12">
+                                    <div class="col s12">
                                         <input type="checkbox" id="remember" name="remember" {{ old('remember') ? 'checked' : '' }}>
                                         <label for="remember">@lang('labels.remember_me')</label>
                                     </div>
@@ -95,8 +95,6 @@
 
         <!-- Materialize.js -->
         <script src="{{ url('/js/vendors/materialize.min.js') }}"></script>
-        <!-- Materialize.clockpicker.js -->
-        <script src="{{ url('/js/vendors/materialize.clockpicker.js') }}"></script>
 
     </body>
 </html>
