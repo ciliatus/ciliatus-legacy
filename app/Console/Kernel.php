@@ -56,7 +56,7 @@ class Kernel extends ConsoleKernel
 
         if (env('ENABLE_DEMO_DATA')) {
             $schedule->command('ciliatus:demo:gen')
-                     ->everyMinute();
+                     ->everyFiveMinutes();
         }
     }
 
