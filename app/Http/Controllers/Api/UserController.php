@@ -26,6 +26,7 @@ class UserController extends ApiController
 
     /**
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
