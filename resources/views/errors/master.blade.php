@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html style="height: calc(100% - 75px);">
     <head>
-        <title>Ciliatus - @yield('error_id')</title>
+        <title>Ciliatus - @if(App::isDownForMaintenance()) Maintenance @else @yield('error_id') @endif</title>
 
         <link rel="manifest" href="manifest.json">
         <link rel="icon" href="/images/manifest/launcher-icon-0-75x.png" type="image/png">
@@ -39,15 +39,17 @@
                 <div class="row center-align white-text" style="margin-top: 100px;">
                     <h5>@yield('error_id')</h5>
                     <h1 class="thin">@yield('error_text')</h1>
-                    <span>@yield('error_description')</span>
+                    <strong>@yield('error_description')</strong>
                 </div>
             </div>
+            @if(!App::isDownForMaintenance())
             <div class="row center-align white-text">
                 <a class="btn btn-primary" href="/">
                     <i class="material-icons">keyboard_return</i>
                     Return to start
                 </a>
             </div>
+            @endif
         </div>
 
     </body>
