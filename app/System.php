@@ -37,7 +37,7 @@ class System extends Model
 
 
         $health = [
-            'version' => config('version'),
+            'version' => config('app.version'),
             'requests' => [
                 'execution_time' => [
                     'avg_exec_time_30m' => LogRequest::averageExecutionTime($t_30m),
@@ -58,8 +58,12 @@ class System extends Model
                     ]
                 ]
             ],
-            'notifications' => [
-                'messages' => [
+            'throughput' => [
+                'sensorreadings' => [
+                    'received_24h' => Sensorreading::query()->where('created_at', '>', $t_24h)->count(),
+                    'received_30m' => Sensorreading::query()->where('created_at', '>', $t_30m)->count(),
+                ],
+                'notifications' => [
                     'sent_24h' => Message::query()->where('created_at', '>', $t_24h)->where('state', 'sent')->count(),
                     'draft_24h' => Message::query()->where('created_at', '>', $t_24h)->where('state', 'draft')->count(),
                     'other_24h' => Message::query()->where('created_at', '>', $t_24h)->whereNotIn('state', ['draft', 'sent'])->count(),
