@@ -39,7 +39,7 @@
                     <div class="card-panel">
                         @foreach ($errors->all() as $error)
                             <i class="material-icons red-text">close</i>
-                            <strong>@lang('errors.' . $error)</strong><br />
+                            <strong>{{ $error }}</strong><br />
                         @endforeach
                     </div>
                     @endif
