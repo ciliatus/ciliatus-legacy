@@ -369,7 +369,9 @@ class TerrariumController extends ApiController
             }
         }
 
-        return $this->respondWithData([]);
+        return $this->respondWithData([
+            'id' => $action_sequence->id
+        ]);
     }
 
     /**
