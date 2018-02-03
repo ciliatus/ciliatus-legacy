@@ -197,14 +197,17 @@ class AnimalFeedingEventController extends ApiController
             return $this->setErrorCode(422)->respondWithError('Missing fields');
         }
 
-        Property::create([
+        $type = Property::create([
             'belongsTo_type' => 'System',
             'belongsTo_id' => '00000000-0000-0000-0000-000000000000',
             'type' => 'AnimalFeedingType',
             'name' => $request->input('name')
         ]);
 
-        return $this->respondWithData([],
+        return $this->respondWithData(
+            [
+                'id' => $type->id
+            ],
             [
                 'redirect' => [
                     'uri' => url('categories#tab_feeding_types')

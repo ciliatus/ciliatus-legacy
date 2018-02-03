@@ -1,9 +1,8 @@
 <?php
 
-namespace Tests\Feature\API\AnimalFeeding;
+namespace Tests\Feature\API\AnimalFeedingType;
 
 use App\Animal;
-use App\AnimalFeeding;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
@@ -11,10 +10,10 @@ use Tests\TestCase;
 use Tests\TestHelperTrait;
 
 /**
- * class AnimalFeedingDeleteOkTest
+ * class AnimalFeedingTypeIndexOkTest
  * @package Tests\Feature
  */
-class AnimalFeedingDeleteOkTest extends TestCase
+class AnimalFeedingTypeIndexOkTest extends TestCase
 {
 
     use TestHelperTrait;
@@ -24,13 +23,8 @@ class AnimalFeedingDeleteOkTest extends TestCase
 
         $token = $this->createUserFullPermissions();
 
-        $animal = Animal::create([
-            'name' => 'TestAnimalFeeding01', 'display_name' => 'TestAnimalFeeding01'
-        ]);
-
-        $response = $this->post('/api/v1/animals/' . $animal->id . '/feedings', [
-            'meal_type' => 'Food',
-            'created_at' => '2018-02-02'
+        $response = $this->post('/api/v1/animals/feedings/types', [
+            'name' => 'Food'
         ],
         [
             'Authorization' => 'Bearer ' . $token
@@ -39,15 +33,13 @@ class AnimalFeedingDeleteOkTest extends TestCase
 
         $id = $response->decodeResponseJson()['data']['id'];
 
-        $response = $this->delete('/api/v1/animals/' . $animal->id . '/feeding/' . $id, [], [
+        $response = $this->json('GET', '/api/v1/animals/feedings/types', [], [
             'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
-
-        $response = $this->get('/api/v1/animals/' . $animal->id . '/feeding/' . $id, [
-            'Authorization' => 'Bearer ' . $token
+        $response->assertJson([
+            'data' => []
         ]);
-        $response->assertStatus(404);
 
         $this->cleanupUsers();
 
