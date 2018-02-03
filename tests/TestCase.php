@@ -15,6 +15,6 @@ abstract class TestCase extends BaseTestCase
          * the same way as it shown on the browser
          */
         parent::setUp();
-        $this->withoutExceptionHandling();
+        //$this->withoutExceptionHandling();
     }
 }
