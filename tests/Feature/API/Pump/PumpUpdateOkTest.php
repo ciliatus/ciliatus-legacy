@@ -36,12 +36,12 @@ class PumpUpdateOkTest extends TestCase
             'name' => 'TestPump01_Updated',
             'controlunit' => $controlunit->id
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/pumps/' . $pump->id . '/?with[]=controlunit', [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

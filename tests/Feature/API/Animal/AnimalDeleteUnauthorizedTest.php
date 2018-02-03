@@ -28,7 +28,7 @@ class AnimalDeleteUnauthorizedTest extends TestCase
         ]);
 
         $response = $this->delete('/api/v1/animals/' . $animal->id, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

@@ -25,7 +25,7 @@ class AnimalStoreUnauthorizedTest extends TestCase
         $response = $this->json('POST', '/api/v1/animals', [
             'name' => 'TestAnimal01'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

@@ -36,7 +36,7 @@ class AnimalCaresheetGenerateOkTest extends TestCase
             'data_history_days' => 180
         ],
         [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 

@@ -59,7 +59,7 @@ class ActionSequenceTriggerUpdateUnauthorizedTest extends TestCase
             'terrarium' => $terrarium->id,
             'name' => 'TestActionSequenceTrigger01_UPDATED'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

@@ -38,7 +38,7 @@ class GenericComponentUpdateUnprocessableEntityTest extends TestCase
                 'doesnotexist'
             ]
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 

@@ -29,7 +29,7 @@ class BiographyEntryUpdateUnprocessableEntityTest extends TestCase
             'name' => 'TestBiographyEntryCategory04',
             'icon' => 'close'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
@@ -44,7 +44,7 @@ class BiographyEntryUpdateUnprocessableEntityTest extends TestCase
             'belongsTo_id' => $animal->id,
             'category' => 'TestBiographyEntryCategory04'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
@@ -53,7 +53,7 @@ class BiographyEntryUpdateUnprocessableEntityTest extends TestCase
         $response = $this->put('/api/v1/biography_entries/' . $id, [
             'category' => 'TestBiographyEntryCategoryDoesNotExist'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 

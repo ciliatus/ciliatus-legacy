@@ -25,7 +25,7 @@ class LogicalSensorThresholdStoreUnauthorizedTest extends TestCase
         $response = $this->json('POST', '/api/v1/logical_sensor_thresholds', [
             'name' => 'TestLogicalSensorThreshold01'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

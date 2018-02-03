@@ -30,7 +30,7 @@ class ControlunitUpdateUnauthorizedTest extends TestCase
         $response = $this->put('/api/v1/controlunits/' . $controlunit->id, [
             'name' => 'TestControlunit01_Updated'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

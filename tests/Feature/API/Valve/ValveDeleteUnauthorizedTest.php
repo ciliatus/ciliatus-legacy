@@ -28,7 +28,7 @@ class ValveDeleteUnauthorizedTest extends TestCase
         ]);
 
         $response = $this->delete('/api/v1/valves/' . $valve->id, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

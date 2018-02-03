@@ -42,12 +42,12 @@ class LogicalSensorThresholdDeleteOkTest extends TestCase
         ]);
 
         $response = $this->delete('/api/v1/logical_sensor_thresholds/' . $logical_sensor_threshold->id, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/logical_sensor_thresholds/' . $logical_sensor_threshold->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(404);
 

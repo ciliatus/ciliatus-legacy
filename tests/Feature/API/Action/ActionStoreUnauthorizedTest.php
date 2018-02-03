@@ -33,7 +33,7 @@ class ActionStoreUnauthorizedTest extends TestCase
         $response = $this->json('POST', '/api/v1/actions', [
             'action_sequence_id' => $action_sequence->id
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

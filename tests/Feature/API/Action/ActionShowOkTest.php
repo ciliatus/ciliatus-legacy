@@ -46,7 +46,7 @@ class ActionShowOkTest extends TestCase
         ]);
 
         $response = $this->get('/api/v1/actions/' . $action->id . '?with[]=sequence', [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

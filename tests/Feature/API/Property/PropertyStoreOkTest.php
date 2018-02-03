@@ -36,7 +36,7 @@ class PropertyStoreOkTest extends TestCase
             'name' => 'TestProperty01',
             'value' => 'SomeValue'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -48,7 +48,7 @@ class PropertyStoreOkTest extends TestCase
         $id = $response->decodeResponseJson()['data']['id'];
 
         $response = $this->get('/api/v1/properties/' . $id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

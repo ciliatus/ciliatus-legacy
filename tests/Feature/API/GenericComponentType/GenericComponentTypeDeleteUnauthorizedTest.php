@@ -30,7 +30,7 @@ class GenericComponentTypeDeleteUnauthorizedTest extends TestCase
         ]);
 
         $response = $this->delete('/api/v1/generic_component_types/' . $generic_component_type->id, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

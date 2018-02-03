@@ -30,12 +30,12 @@ class ControlunitUpdateOkTest extends TestCase
         $response = $this->put('/api/v1/controlunits/' . $controlunit->id, [
             'name' => 'TestControlunit01_Updated',
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/controlunits/' . $controlunit->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

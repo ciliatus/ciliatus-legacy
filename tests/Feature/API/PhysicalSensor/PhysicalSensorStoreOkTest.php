@@ -27,7 +27,7 @@ class PhysicalSensorStoreOkTest extends TestCase
         $response = $this->post('/api/v1/physical_sensors', [
             'name' => 'TestPhysicalSensor01'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -39,7 +39,7 @@ class PhysicalSensorStoreOkTest extends TestCase
         $id = $response->decodeResponseJson()['data']['id'];
 
         $response = $this->get('/api/v1/physical_sensors/' . $id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

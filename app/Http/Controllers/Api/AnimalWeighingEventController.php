@@ -113,7 +113,7 @@ class AnimalWeighingEventController extends ApiController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -154,14 +154,16 @@ class AnimalWeighingEventController extends ApiController
         broadcast(new AnimalWeighingEventUpdated($e->fresh()));
         broadcast(new AnimalUpdated($animal));
 
-        return $this->respondWithData([]);
+        return $this->respondWithData([
+            'id' => $e->id
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return void
      */
     public function edit($id)
     {
@@ -171,9 +173,9 @@ class AnimalWeighingEventController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return void
      */
     public function update(Request $request, $id)
     {

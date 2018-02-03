@@ -26,7 +26,7 @@ class LogicalSensorThresholdUpdateUnauthorizedTest extends TestCase
         $logical_sensor_threshold = LogicalSensorThreshold::create();
 
         $response = $this->put('/api/v1/logical_sensor_thresholds/' . $logical_sensor_threshold->id, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

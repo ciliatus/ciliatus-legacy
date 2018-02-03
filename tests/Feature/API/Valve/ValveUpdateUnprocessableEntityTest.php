@@ -31,7 +31,7 @@ class ValveUpdateUnprocessableEntityTest extends TestCase
             'name' => 'TestValve01_Updated',
             'terrarium' => 'doesnotexist',
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 
@@ -39,7 +39,7 @@ class ValveUpdateUnprocessableEntityTest extends TestCase
             'name' => 'TestValve01_Updated',
             'pump' => 'doesnotexist',
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 
@@ -47,7 +47,7 @@ class ValveUpdateUnprocessableEntityTest extends TestCase
             'name' => 'TestValve01_Updated',
             'controlunit' => 'doesnotexist',
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 

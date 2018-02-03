@@ -49,7 +49,7 @@ class ActionSequenceScheduleUpdateUnauthorizedTest extends TestCase
             'terrarium' => $terrarium->id,
             'name' => 'TestActionSequenceSchedule01_UPDATED'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

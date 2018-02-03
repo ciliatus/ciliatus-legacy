@@ -47,12 +47,12 @@ class ValveUpdateOkTest extends TestCase
             'terrarium' => $terrarium->id,
             'controlunit' => $controlunit->id
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/valves/' . $valve->id . '/?with[]=controlunit&with[]=pump&with[]=terrarium', [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

@@ -33,7 +33,7 @@ class PropertyStoreUnauthorizedTest extends TestCase
             'type' => 'TestProperty',
             'name' => 'TestProperty01'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

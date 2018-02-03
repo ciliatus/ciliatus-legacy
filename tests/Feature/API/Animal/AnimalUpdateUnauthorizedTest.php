@@ -31,7 +31,7 @@ class AnimalUpdateUnauthorizedTest extends TestCase
         $response = $this->put('/api/v1/animals/' . $animal->id, [
             'display_name' => 'TestAnimal01_Updated'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

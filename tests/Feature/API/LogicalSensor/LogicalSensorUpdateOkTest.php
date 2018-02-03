@@ -36,12 +36,12 @@ class LogicalSensorUpdateOkTest extends TestCase
             'name' => 'TestLogicalSensor01_Updated',
             'physical_sensor' => $physical_sensor->id
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/logical_sensors/' . $logical_sensor->id . '/?with[]=physical_sensor', [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

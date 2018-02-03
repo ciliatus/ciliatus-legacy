@@ -54,7 +54,7 @@ class ActionSequenceScheduleUpdateOkTest extends TestCase
             'name' => 'TestActionSequenceSchedule01_UPDATED',
             'starts_at' => Carbon::today()->toDateTimeString()
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 

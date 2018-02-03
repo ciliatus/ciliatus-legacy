@@ -23,7 +23,7 @@ class ValveIndexOkTest extends TestCase
         $token = $this->createUserReadOnly();
 
         $response = $this->json('GET', '/api/v1/valves', [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

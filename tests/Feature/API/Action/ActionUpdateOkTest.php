@@ -56,12 +56,12 @@ class ActionUpdateOkTest extends TestCase
         $response = $this->json('PUT', '/api/v1/actions/' . $action->id, [
             'wait_for_started_action_id' => $action2->id
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/actions/' . $action->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

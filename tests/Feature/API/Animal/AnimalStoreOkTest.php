@@ -28,7 +28,7 @@ class AnimalStoreOkTest extends TestCase
             'display_name' => 'TestAnimal01',
             'gender' => 'female'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -40,7 +40,7 @@ class AnimalStoreOkTest extends TestCase
         $id = $response->decodeResponseJson()['data']['id'];
 
         $response = $this->get('/api/v1/animals/' . $id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

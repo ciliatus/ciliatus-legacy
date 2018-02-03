@@ -57,7 +57,7 @@ class ActionSequenceShowOkTest extends TestCase
             'runonce' => false,
             'duration_minutes' => 1
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token_write
+            'Authorization' => 'Bearer ' . $token_write
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -70,7 +70,7 @@ class ActionSequenceShowOkTest extends TestCase
         $action_sequence = ActionSequence::find($action_sequence_id);
 
         $response = $this->get('/api/v1/action_sequences/' . $action_sequence_id . '/?with[]=terrarium&with[]=actions', [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

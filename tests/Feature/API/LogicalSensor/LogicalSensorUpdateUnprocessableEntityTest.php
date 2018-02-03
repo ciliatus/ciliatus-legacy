@@ -38,7 +38,7 @@ class LogicalSensorUpdateUnprocessableEntityTest extends TestCase
             'name' => 'TestLogicalSensor01_Updated',
             'physical_sensor' => 'doesnotexist',
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 

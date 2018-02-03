@@ -63,7 +63,7 @@ class ActionSequenceScheduleShowOkTest extends TestCase
         ]);
 
         $response = $this->get('/api/v1/action_sequence_schedules/' . $ass->id . '/?with[]=sequence', [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

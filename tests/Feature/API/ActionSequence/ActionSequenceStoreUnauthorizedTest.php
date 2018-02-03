@@ -27,7 +27,7 @@ class ActionSequenceStoreUnauthorizedTest extends TestCase
         $response = $this->post('/api/v1/action_sequences', [
             'name' => 'TestActionSequence02_Updated'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

@@ -78,7 +78,7 @@ class ActionSequenceAutomationTest extends TestCase
             'runonce' => false,
             'duration_minutes' => 1
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -109,7 +109,7 @@ class ActionSequenceAutomationTest extends TestCase
             'runonce' => true,
             'duration_minutes' => 1
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -158,7 +158,7 @@ class ActionSequenceAutomationTest extends TestCase
             'timeframe_end' => '23:59:59',
             'action_sequence' => $action_sequence_id
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -234,7 +234,7 @@ class ActionSequenceAutomationTest extends TestCase
             'timeframe_end' => '23:59:59',
             'action_sequence' => $action_sequence_id
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -249,7 +249,7 @@ class ActionSequenceAutomationTest extends TestCase
             'lowerlimit' => 90,
             'active' => true
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([

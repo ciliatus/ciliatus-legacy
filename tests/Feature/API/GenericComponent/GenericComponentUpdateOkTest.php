@@ -42,7 +42,7 @@ class GenericComponentUpdateOkTest extends TestCase
         $response = $this->put('/api/v1/generic_components/' . $generic_component->id, [
             'name' => 'GenericComponent01_Updated'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 

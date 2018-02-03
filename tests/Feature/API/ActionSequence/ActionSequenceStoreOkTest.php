@@ -37,7 +37,7 @@ class ActionSequenceStoreOkTest extends TestCase
             'runonce' => false,
             'duration_minutes' => 1
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([

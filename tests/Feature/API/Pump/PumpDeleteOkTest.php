@@ -28,12 +28,12 @@ class PumpDeleteOkTest extends TestCase
         ]);
 
         $response = $this->delete('/api/v1/pumps/' . $pump->id, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/pumps/' . $pump->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(404);
 

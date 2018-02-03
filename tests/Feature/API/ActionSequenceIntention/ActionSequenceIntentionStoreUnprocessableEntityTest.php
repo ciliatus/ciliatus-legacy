@@ -29,7 +29,7 @@ class ActionSequenceIntentionStoreUnprocessableEntityTest extends TestCase
             'name' => 'TestActionSequenceIntention01',
             'action_sequence' => 'null'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 

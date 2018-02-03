@@ -27,7 +27,7 @@ class BiographyEntryUpdateUnauthorizedTest extends TestCase
         $response = $this->put('/api/v1/biography_entries/' . Uuid::generate()->string, [
             'category' => 'TestBiographyEntryCategory03'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

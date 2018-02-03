@@ -34,7 +34,7 @@ class BiographyEntryUpdateOkTest extends TestCase
             'name' => 'TestBiographyEntryCategory06',
             'icon' => 'close'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
@@ -42,7 +42,7 @@ class BiographyEntryUpdateOkTest extends TestCase
             'name' => 'TestBiographyEntryCategory07',
             'icon' => 'close'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
@@ -57,7 +57,7 @@ class BiographyEntryUpdateOkTest extends TestCase
             'belongsTo_id' => $animal->id,
             'category' => 'TestBiographyEntryCategory06'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
@@ -67,13 +67,13 @@ class BiographyEntryUpdateOkTest extends TestCase
             'title' => 'TestBiographyEntry01_Updated',
             'category' => 'TestBiographyEntryCategory07'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
 
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/biography_entries/' . $id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

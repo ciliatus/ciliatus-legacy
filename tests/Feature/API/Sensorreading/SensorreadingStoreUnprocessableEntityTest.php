@@ -43,7 +43,7 @@ class SensorreadingStoreUnprocessableEntityTest extends TestCase
             'logical_sensor_id' => Uuid::generate()->string,
             'rawvalue' => 15.4
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 
@@ -51,7 +51,7 @@ class SensorreadingStoreUnprocessableEntityTest extends TestCase
             'logical_sensor_id' => $ls->id,
             'rawvalue' => 15.4
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 
@@ -59,7 +59,7 @@ class SensorreadingStoreUnprocessableEntityTest extends TestCase
             'group_id' => Uuid::generate()->string,
             'logical_sensor_id' => $ls->id,
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 
@@ -68,7 +68,7 @@ class SensorreadingStoreUnprocessableEntityTest extends TestCase
             'logical_sensor_id' => $ls->id,
             'rawvalue' => 31
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 
@@ -77,7 +77,7 @@ class SensorreadingStoreUnprocessableEntityTest extends TestCase
             'logical_sensor_id' => $ls->id,
             'rawvalue' => -5
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 

@@ -28,7 +28,7 @@ class PumpShowOkTest extends TestCase
         ]);
 
         $response = $this->get('/api/v1/pumps/' . $pump->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

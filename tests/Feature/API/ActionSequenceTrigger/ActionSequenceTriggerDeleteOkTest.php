@@ -54,12 +54,12 @@ class ActionSequenceTriggerDeleteOkTest extends TestCase
         ]);
 
         $response = $this->delete('/api/v1/action_sequence_triggers/' . $ast->id, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/action_sequence_triggers/' . $ast->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(404);
 

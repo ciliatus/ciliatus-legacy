@@ -45,7 +45,7 @@ class TerrariumUpdateOkTest extends TestCase
                 $animal1->id, $animal2->id
             ]
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
@@ -57,12 +57,12 @@ class TerrariumUpdateOkTest extends TestCase
                 $animal3->id
             ]
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/terraria/' . $terrarium->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

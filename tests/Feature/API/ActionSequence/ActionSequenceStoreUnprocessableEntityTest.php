@@ -31,7 +31,7 @@ class ActionSequenceStoreUnprocessableEntityTest extends TestCase
             'runonce' => true,
             'duration_minutes' => 1
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 
@@ -42,7 +42,7 @@ class ActionSequenceStoreUnprocessableEntityTest extends TestCase
             'runonce' => true,
             'duration_minutes' => 1
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 

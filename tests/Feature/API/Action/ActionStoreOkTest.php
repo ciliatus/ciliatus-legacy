@@ -42,7 +42,7 @@ class ActionStoreOkTest extends TestCase
             'sequence_sort_id' => 1
 
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 

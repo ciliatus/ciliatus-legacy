@@ -40,7 +40,7 @@ class GenericComponentStoreUnauthorizedTest extends TestCase
             'generic_component_type_id' => $generic_component_type->id,
             'controlunit_id' => $controlunit->id
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

@@ -23,7 +23,7 @@ class LogicalSensorThresholdIndexOkTest extends TestCase
         $token = $this->createUserReadOnly();
 
         $response = $this->json('GET', '/api/v1/logical_sensor_thresholds', [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

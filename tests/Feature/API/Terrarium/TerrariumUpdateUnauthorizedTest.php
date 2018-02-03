@@ -31,7 +31,7 @@ class TerrariumUpdateUnauthorizedTest extends TestCase
         $response = $this->put('/api/v1/terraria/' . $terrarium->id, [
             'name' => 'TestTerrarium01_Updated'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

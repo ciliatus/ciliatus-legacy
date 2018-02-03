@@ -30,7 +30,7 @@ class BiographyEntryDeleteOkTest extends TestCase
             'name' => 'TestBiographyEntryCategory10',
             'icon' => 'close'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
@@ -45,19 +45,19 @@ class BiographyEntryDeleteOkTest extends TestCase
             'belongsTo_id' => $animal->id,
             'category' => 'TestBiographyEntryCategory10'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $id = $response->decodeResponseJson()['data']['id'];
 
         $response = $this->delete('/api/v1/biography_entries/' . $id, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/biography_entries/' . $id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(404);
 

@@ -40,7 +40,7 @@ class LogicalSensorThresholdStoreOkTest extends TestCase
             'upperlimit' => 20,
             'active' => true
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -52,7 +52,7 @@ class LogicalSensorThresholdStoreOkTest extends TestCase
         $id = $response->decodeResponseJson()['data']['id'];
 
         $response = $this->get('/api/v1/logical_sensor_thresholds/' . $id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

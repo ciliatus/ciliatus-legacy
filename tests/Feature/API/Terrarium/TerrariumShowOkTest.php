@@ -28,7 +28,7 @@ class TerrariumShowOkTest extends TestCase
         ]);
 
         $response = $this->get('/api/v1/terraria/' . $terrarium->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

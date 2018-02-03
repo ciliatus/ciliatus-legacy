@@ -27,7 +27,7 @@ class TerrariumStoreOkTest extends TestCase
         $response = $this->post('/api/v1/terraria', [
             'name' => 'TestTerrarium01', 'display_name' => 'TestTerrarium01'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -39,7 +39,7 @@ class TerrariumStoreOkTest extends TestCase
         $id = $response->decodeResponseJson()['data']['id'];
 
         $response = $this->get('/api/v1/terraria/' . $id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

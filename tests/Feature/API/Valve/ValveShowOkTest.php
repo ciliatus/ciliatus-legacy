@@ -28,7 +28,7 @@ class ValveShowOkTest extends TestCase
         ]);
 
         $response = $this->get('/api/v1/valves/' . $valve->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

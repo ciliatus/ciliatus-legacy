@@ -25,7 +25,7 @@ class PumpStoreUnauthorizedTest extends TestCase
         $response = $this->json('POST', '/api/v1/pumps', [
             'name' => 'TestPump01'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

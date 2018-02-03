@@ -35,7 +35,7 @@ class ActionSequenceUpdateUnauthorizedTest extends TestCase
             'runonce' => false,
             'duration_minutes' => 1
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -53,7 +53,7 @@ class ActionSequenceUpdateUnauthorizedTest extends TestCase
         $response = $this->put('/api/v1/action_sequences/' . $action_sequence_id, [
             'name' => 'TestActionSequence01_Updated',
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

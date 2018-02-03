@@ -27,7 +27,7 @@ class BiographyEntryDeleteUnauthorizedTest extends TestCase
         $token = $this->createUserReadOnly();
 
         $response = $this->delete('/api/v1/biography_entries/' . Uuid::generate()->string, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

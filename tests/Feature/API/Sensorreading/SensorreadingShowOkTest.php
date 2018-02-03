@@ -47,7 +47,7 @@ class SensorreadingShowOkTest extends TestCase
         ]);
 
         $response = $this->get('/api/v1/sensorreadings/' . $sr->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

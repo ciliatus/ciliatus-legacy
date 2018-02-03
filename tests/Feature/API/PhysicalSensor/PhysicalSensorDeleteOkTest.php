@@ -28,12 +28,12 @@ class PhysicalSensorDeleteOkTest extends TestCase
         ]);
 
         $response = $this->delete('/api/v1/physical_sensors/' . $physical_sensor->id, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/physical_sensors/' . $physical_sensor->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(404);
 

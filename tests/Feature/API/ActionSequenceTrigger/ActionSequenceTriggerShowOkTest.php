@@ -73,7 +73,7 @@ class ActionSequenceTriggerShowOkTest extends TestCase
         ]);
 
         $response = $this->get('/api/v1/action_sequence_triggers/' . $ast->id . '/?with[]=sequence', [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

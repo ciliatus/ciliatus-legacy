@@ -42,7 +42,7 @@ class GenericComponentStoreOkTest extends TestCase
             'type_id' => $generic_component_type->id,
             'controlunit' => $controlunit->id
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
 
         $response->assertStatus(200);

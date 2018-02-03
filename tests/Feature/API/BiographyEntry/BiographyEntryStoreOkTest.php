@@ -31,7 +31,7 @@ class BiographyEntryStoreOkTest extends TestCase
             'name' => 'TestBiographyEntryCategory02',
             'icon' => 'close'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
@@ -46,7 +46,7 @@ class BiographyEntryStoreOkTest extends TestCase
             'belongsTo_id' => $animal->id,
             'category' => 'TestBiographyEntryCategory02'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([
@@ -58,7 +58,7 @@ class BiographyEntryStoreOkTest extends TestCase
         $id = $response->decodeResponseJson()['data']['id'];
 
         $response = $this->get('/api/v1/biography_entries/' . $id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

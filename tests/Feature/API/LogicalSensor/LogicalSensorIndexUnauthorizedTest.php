@@ -23,7 +23,7 @@ class LogicalSensorIndexUnauthorizedTest extends TestCase
         $token = $this->createUserNothing();
 
         $response = $this->json('GET', '/api/v1/logical_sensors', [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

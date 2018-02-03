@@ -31,7 +31,7 @@ class PumpUpdateUnauthorizedTest extends TestCase
         $response = $this->put('/api/v1/pumps/' . $pump->id, [
             'name' => 'TestPump01_Updated'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

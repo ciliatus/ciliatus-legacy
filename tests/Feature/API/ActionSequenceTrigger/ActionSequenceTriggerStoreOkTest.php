@@ -55,7 +55,7 @@ class ActionSequenceTriggerStoreOkTest extends TestCase
             'timeframe_start' => '20:00:00',
             'timeframe_end' => '08:00:00',
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([

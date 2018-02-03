@@ -23,7 +23,7 @@ class PumpIndexUnauthorizedTest extends TestCase
         $token = $this->createUserNothing();
 
         $response = $this->json('GET', '/api/v1/pumps', [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

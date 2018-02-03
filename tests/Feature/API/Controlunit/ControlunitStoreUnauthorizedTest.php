@@ -25,7 +25,7 @@ class ControlunitStoreUnauthorizedTest extends TestCase
         $response = $this->json('POST', '/api/v1/controlunits', [
             'name' => 'TestControlunit01'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

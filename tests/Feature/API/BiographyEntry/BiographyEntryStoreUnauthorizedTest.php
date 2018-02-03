@@ -27,7 +27,7 @@ class BiographyEntryStoreUnauthorizedTest extends TestCase
             'name' => 'TestBiographyEntryCategory01',
             'icon' => 'close'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 
@@ -42,7 +42,7 @@ class BiographyEntryStoreUnauthorizedTest extends TestCase
             'belongsTo_id' => $animal->id,
             'category' => 'TestBiographyEntryCategory01'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

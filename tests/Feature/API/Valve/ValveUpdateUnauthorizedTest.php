@@ -30,7 +30,7 @@ class ValveUpdateUnauthorizedTest extends TestCase
         $response = $this->put('/api/v1/valves/' . $valve->id, [
             'name' => 'TestValve01_Updated'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

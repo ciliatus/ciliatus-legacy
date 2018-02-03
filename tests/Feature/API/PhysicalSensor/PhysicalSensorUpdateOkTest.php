@@ -38,12 +38,12 @@ class PhysicalSensorUpdateOkTest extends TestCase
             'name' => 'TestPhysicalSensor01_Updated',
             'controlunit' => $controlunit->id
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/physical_sensors/' . $physical_sensor->id . '/?with[]=controlunit', [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

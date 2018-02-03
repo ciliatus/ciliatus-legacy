@@ -40,7 +40,7 @@ class PropertyUpdateUnauthorizedTest extends TestCase
         $response = $this->put('/api/v1/properties/' . $property->id, [
             'name' => 'TestProperty02'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

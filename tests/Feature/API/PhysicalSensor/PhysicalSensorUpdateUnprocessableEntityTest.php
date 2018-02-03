@@ -31,7 +31,7 @@ class PhysicalSensorUpdateUnprocessableEntityTest extends TestCase
             'name' => 'TestPhysicalSensor01_Updated',
             'controlunit' => 'doesnotexist',
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 

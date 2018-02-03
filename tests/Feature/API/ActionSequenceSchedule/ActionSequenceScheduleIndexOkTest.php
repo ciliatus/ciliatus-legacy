@@ -20,7 +20,7 @@ class ActionSequenceScheduleIndexOkTest extends TestCase
         $token = $this->createUserReadOnly();
 
         $response = $this->json('GET', '/api/v1/action_sequence_schedules', [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

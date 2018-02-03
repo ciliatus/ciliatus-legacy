@@ -37,7 +37,7 @@ class PropertyShowOkTest extends TestCase
         ]);
 
         $response = $this->get('/api/v1/properties/' . $property->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

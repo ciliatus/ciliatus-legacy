@@ -40,7 +40,7 @@ class ActionSequenceTriggerStoreUnauthorizedTest extends TestCase
         $response = $this->post('/api/v1/action_sequence_triggers', [
             'name' => 'TestActionSequenceTrigger02_Updated'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

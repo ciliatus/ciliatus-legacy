@@ -23,7 +23,7 @@ class CriticalStateIndexUnauthorizedTest extends TestCase
         $token = $this->createUserNothing();
 
         $response = $this->json('GET', '/api/v1/critical_states', [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

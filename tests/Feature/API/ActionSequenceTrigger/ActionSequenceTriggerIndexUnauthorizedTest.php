@@ -20,7 +20,7 @@ class ActionSequenceTriggerIndexUnauthorizedTest extends TestCase
         $token = $this->createUserNothing();
 
         $response = $this->json('GET', '/api/v1/action_sequence_triggers', [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

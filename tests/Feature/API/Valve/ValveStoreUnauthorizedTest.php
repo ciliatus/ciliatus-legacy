@@ -25,7 +25,7 @@ class ValveStoreUnauthorizedTest extends TestCase
         $response = $this->json('POST', '/api/v1/valves', [
             'name' => 'TestValve01'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

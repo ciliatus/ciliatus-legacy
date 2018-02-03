@@ -46,7 +46,7 @@ class ActionSequenceIntentionDeleteUnauthorizedTest extends TestCase
         ]);
 
         $response = $this->delete('/api/v1/action_sequence_intentions/' . $asi->id, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

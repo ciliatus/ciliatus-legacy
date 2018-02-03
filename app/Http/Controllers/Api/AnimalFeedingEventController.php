@@ -28,6 +28,7 @@ class AnimalFeedingEventController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request, $animal_id)
     {
@@ -49,6 +50,7 @@ class AnimalFeedingEventController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -58,7 +60,7 @@ class AnimalFeedingEventController extends ApiController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -99,14 +101,16 @@ class AnimalFeedingEventController extends ApiController
         broadcast(new AnimalFeedingEventUpdated($e->fresh()));
         broadcast(new AnimalUpdated($animal));
 
-        return $this->respondWithData([]);
+        return $this->respondWithData([
+            'id' => $e->id
+        ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return void
      */
     public function edit($id)
     {
@@ -116,9 +120,9 @@ class AnimalFeedingEventController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return void
      */
     public function update(Request $request, $id)
     {

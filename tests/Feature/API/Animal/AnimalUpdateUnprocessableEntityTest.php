@@ -31,7 +31,7 @@ class AnimalUpdateUnprocessableEntityTest extends TestCase
             'display_name' => 'TestAnimal01_Updated',
             'terrarium' => 'doesnotexist',
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 

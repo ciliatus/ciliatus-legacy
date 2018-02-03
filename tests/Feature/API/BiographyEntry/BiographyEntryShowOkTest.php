@@ -30,7 +30,7 @@ class BiographyEntryShowOkTest extends TestCase
             'name' => 'TestBiographyEntryCategory08',
             'icon' => 'close'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
@@ -45,7 +45,7 @@ class BiographyEntryShowOkTest extends TestCase
             'belongsTo_id' => $animal->id,
             'category' => 'TestBiographyEntryCategory08'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
@@ -56,7 +56,7 @@ class BiographyEntryShowOkTest extends TestCase
         $token = $this->createUserReadOnly();
 
         $response = $this->get('/api/v1/biography_entries/' . $id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

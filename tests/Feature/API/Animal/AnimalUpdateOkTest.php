@@ -34,12 +34,12 @@ class AnimalUpdateOkTest extends TestCase
             'gender' => 'female',
             'terrarium' => $terrarium->id
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/animals/' . $animal->id . '/?with[]=terrarium', [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

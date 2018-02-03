@@ -36,7 +36,7 @@ class LogicalSensorUpdateUnauthorizedTest extends TestCase
         $response = $this->put('/api/v1/logical_sensors/' . $logical_sensor->id, [
             'name' => 'TestLogicalSensor01_Updated'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

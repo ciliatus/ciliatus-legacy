@@ -32,7 +32,7 @@ class ActionStoreUnprocessableEntityTest extends TestCase
         $response = $this->json('POST', '/api/v1/actions', [
             'action_sequence_id' => 'NO_EXISTING'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 

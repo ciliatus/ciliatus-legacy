@@ -25,7 +25,7 @@ class PhysicalSensorStoreUnauthorizedTest extends TestCase
         $response = $this->json('POST', '/api/v1/physical_sensors', [
             'name' => 'TestPhysicalSensor01'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

@@ -42,7 +42,7 @@ class GenericComponentTypeUpdateOkTest extends TestCase
                 'open', 'closed'
             ]
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
@@ -60,7 +60,7 @@ class GenericComponentTypeUpdateOkTest extends TestCase
                 'open', 'notopen'
             ]
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 

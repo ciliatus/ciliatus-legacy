@@ -26,7 +26,7 @@ class ValveStoreOkTest extends TestCase
         $response = $this->post('/api/v1/valves', [
             'name' => 'TestValve01'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([

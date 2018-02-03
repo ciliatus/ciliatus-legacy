@@ -40,7 +40,7 @@ class ActionSequenceScheduleStoreUnauthorizedTest extends TestCase
         $response = $this->post('/api/v1/action_sequence_schedules', [
             'name' => 'TestActionSequenceSchedule02_Updated'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

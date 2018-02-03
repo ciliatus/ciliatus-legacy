@@ -52,7 +52,7 @@ class ActionSequenceIntentionUpdateUnauthorizedTest extends TestCase
             'terrarium' => $terrarium->id,
             'name' => 'TestActionSequenceIntention01_UPDATED'
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

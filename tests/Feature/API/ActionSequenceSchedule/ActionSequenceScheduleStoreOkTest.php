@@ -46,7 +46,7 @@ class ActionSequenceScheduleStoreOkTest extends TestCase
             'runonce' => 'on',
             'starts_at' => Carbon::tomorrow()->toDateTimeString()
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([

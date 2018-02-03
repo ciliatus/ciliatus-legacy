@@ -29,7 +29,7 @@ class LogicalSensorDeleteOkTest extends TestCase
         ]);
 
         $response = $this->delete('/api/v1/logical_sensors/' . $logical_sensor->id, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 

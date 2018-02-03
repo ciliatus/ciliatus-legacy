@@ -36,12 +36,12 @@ class PropertyDeleteOkTest extends TestCase
         ]);
 
         $response = $this->delete('/api/v1/properties/' . $property->id, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
         $response = $this->get('/api/v1/properties/' . $property->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(404);
 

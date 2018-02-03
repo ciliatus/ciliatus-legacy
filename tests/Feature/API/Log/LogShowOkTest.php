@@ -45,7 +45,7 @@ class LogShowOkTest extends TestCase
         ]);
 
         $response = $this->get('/api/v1/logs/' . $log->id, [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([

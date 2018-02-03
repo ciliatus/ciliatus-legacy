@@ -35,7 +35,7 @@ class ActionUpdateUnauthorizedTest extends TestCase
         $response = $this->json('PUT', '/api/v1/actions/' . $action->id, [
             'wait_for_started_action_id' => $action2->id
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
 

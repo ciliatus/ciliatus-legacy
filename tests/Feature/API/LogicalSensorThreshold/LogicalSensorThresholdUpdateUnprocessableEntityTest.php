@@ -28,7 +28,7 @@ class LogicalSensorThresholdUpdateUnprocessableEntityTest extends TestCase
         $response = $this->put('/api/v1/logical_sensor_thresholds/' . $logical_sensor_threshold->id, [
             'logical_sensor' => 'doesnotexist',
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 

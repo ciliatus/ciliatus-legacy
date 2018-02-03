@@ -34,7 +34,7 @@ class GenericComponentDeleteOkTest extends TestCase
         ]);
 
         $response = $this->delete('/api/v1/generic_components/' . $generic_component->id, [], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 

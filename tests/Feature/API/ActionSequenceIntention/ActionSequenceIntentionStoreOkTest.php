@@ -49,7 +49,7 @@ class ActionSequenceIntentionStoreOkTest extends TestCase
             'type' => 'humidity_percent',
             'minimum_timeout_minutes' => 120
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJsonStructure([

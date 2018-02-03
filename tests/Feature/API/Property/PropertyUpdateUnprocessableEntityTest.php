@@ -41,7 +41,7 @@ class PropertyUpdateUnprocessableEntityTest extends TestCase
             'belongsTo_type' => 'Controlunit',
             'belongsTo_id' => Uuid::generate()->string
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 
@@ -49,7 +49,7 @@ class PropertyUpdateUnprocessableEntityTest extends TestCase
             'belongsTo_type' => 'Gibtsnicht',
             'belongsTo_id' => Uuid::generate()->string
         ], [
-            'HTTP_Authorization' => 'Bearer ' . $token
+            'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(422);
 
