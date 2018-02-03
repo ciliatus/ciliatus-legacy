@@ -330,6 +330,10 @@ class TerrariumController extends ApiController
      */
     public function generateActionSequence(Request $request, $id)
     {
+        if (Gate::denies('api-write:terrarium')) {
+            return $this->respondUnauthorized();
+        }
+
         $terrarium = Terrarium::find($id);
         if (is_null($terrarium)) {
             return $this->respondNotFound('Terrarium not found');
