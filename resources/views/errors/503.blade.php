@@ -17,7 +17,7 @@
 @section('error_description')
     @if(App::isDownForMaintenance())
         @if (env('DEMO_ENVIRONMENT', false) == true)
-            Rebuilding demo environment. This will take only a few minutes.
+            Rebuilding demo environment. This will only take a moment.
         @else
             Be right back!
         @endif
