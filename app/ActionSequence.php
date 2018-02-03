@@ -39,6 +39,19 @@ class ActionSequence extends CiliatusModel
     ];
 
     /**
+     * @return bool|null
+     */
+    public function delete()
+    {
+        $this->triggers()->delete();
+        $this->schedules()->delete();
+        $this->intentions()->delete();
+        $this->actions()->delete();
+        $this->properties()->delete();
+        return parent::delete();
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function properties()
@@ -55,7 +68,7 @@ class ActionSequence extends CiliatusModel
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function schedules()
     {
@@ -63,7 +76,7 @@ class ActionSequence extends CiliatusModel
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function triggers()
     {
@@ -71,7 +84,7 @@ class ActionSequence extends CiliatusModel
     }
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function intentions()
     {

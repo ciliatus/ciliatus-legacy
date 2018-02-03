@@ -54,6 +54,15 @@ class Terrarium extends CiliatusModel
     ];
 
     /**
+     * @return bool|null
+     */
+    public function delete()
+    {
+        $this->action_sequences()->delete();
+        return parent::delete();
+    }
+
+    /**
      *
      */
     public function updateStaticFields()
