@@ -1,10 +1,10 @@
 <?php
 
-namespace Tests\Feature\API\ActionSequenceSchedule;
+namespace Tests\Feature\API\ActionSequenceIntention;
 
 use App\ActionSequence;
 use App\Controlunit;
-use App\ActionSequenceSchedule;
+use App\ActionSequenceIntention;
 use App\Pump;
 use App\Terrarium;
 use App\Valve;
@@ -13,10 +13,10 @@ use Tests\TestCase;
 use Tests\TestHelperTrait;
 
 /**
- * Class ActionSequenceScheduleShowOkTest
+ * Class ActionSequenceIntentionShowOkTest
  * @package Tests\Feature
  */
-class ActionSequenceScheduleShowOkTest extends TestCase
+class ActionSequenceIntentionShowOkTest extends TestCase
 {
 
     use TestHelperTrait;
@@ -49,32 +49,40 @@ class ActionSequenceScheduleShowOkTest extends TestCase
 
         $as = ActionSequence::create([
             'terrarium_id' => $terrarium->id,
-            'name' => 'TestActionSequenceSchedule01',
+            'name' => 'TestActionSequenceIntention01',
             'template' => 'irrigate',
             'runonce' => false,
             'duration_minutes' => 1
         ]);
 
-        $ass = ActionSequenceSchedule::create([
-            'name' => 'TestActionSequenceSchedule01_Schedule',
-            'runonce' => false,
-            'starts_at' => Carbon::today(),
-            'action_sequence_id' => $as->id
+        $asi = ActionSequenceIntention::create([
+            'name' => 'TestActionSequenceIntention01_Schedule',
+            'action_sequence_id' => $as->id,
+            'timeframe_start' => '20:00:00',
+            'timeframe_end' => '08:00:00',
+            'intention' => 'increase',
+            'type' => 'humidity_percent',
+            'minimum_timeout_minutes' => 120
         ]);
 
-        $response = $this->get('/api/v1/action_sequence_schedules/' . $ass->id . '/?with[]=sequence', [
+        $response = $this->get('/api/v1/action_sequence_intentions/' . $asi->id . '/?with[]=sequence', [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
         $response->assertJson([
             'data' => [
-                'id'            =>  $ass->id,
-                'runonce'       =>  $ass->runonce,
-                'states'        => [
-                    'willRunToday' => false,
-                    'ran_today' => false,
+                'id' => $asi->id,
+                'action_sequence_id' => $as->id,
+                'type' => $asi->type,
+                'intention' => $asi->intention,
+                'minimum_timeout_minutes' => $asi->minimum_timeout_minutes,
+                'timeframe' => [
+                    'start' => $asi->timeframe_start,
+                    'end'   => $asi->timeframe_end,
+                ],
+                'states'    => [
                     'running' => false,
-                    'is_overdue' => true,
+                    'should_be_started' => false,
                 ],
                 'sequence' => [
                     'id' => $as->id

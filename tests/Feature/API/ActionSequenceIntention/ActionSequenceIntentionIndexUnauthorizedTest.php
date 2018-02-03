@@ -1,15 +1,15 @@
 <?php
 
-namespace Tests\Feature\API\ActionSequenceSchedule;
+namespace Tests\Feature\API\ActionSequenceIntention;
 
 use Tests\TestCase;
 use Tests\TestHelperTrait;
 
 /**
- * Class ActionSequenceScheduleIndexUnauthorizedTest
+ * Class ActionSequenceIntentionIndexUnauthorizedTest
  * @package Tests\Feature
  */
-class ActionSequenceScheduleIndexUnauthorizedTest extends TestCase
+class ActionSequenceIntentionIndexUnauthorizedTest extends TestCase
 {
 
     use TestHelperTrait;
@@ -19,7 +19,7 @@ class ActionSequenceScheduleIndexUnauthorizedTest extends TestCase
 
         $token = $this->createUserNothing();
 
-        $response = $this->json('GET', '/api/v1/action_sequence_schedules', [], [
+        $response = $this->json('GET', '/api/v1/action_sequence_intentions', [], [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
