@@ -1,9 +1,9 @@
 <?php
 
-namespace Tests\Feature\API\AnimalFeeding;
+namespace Tests\Feature\API\AnimalWeighing;
 
 use App\Animal;
-use App\AnimalFeeding;
+use App\AnimalWeighing;
 use App\Valve;
 use Illuminate\Foundation\Testing\WithoutMiddleware;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -12,10 +12,10 @@ use Tests\TestCase;
 use Tests\TestHelperTrait;
 
 /**
- * class AnimalFeedingStoreOkTest
+ * class AnimalWeighingStoreOkTest
  * @package Tests\Feature
  */
-class AnimalFeedingStoreOkTest extends TestCase
+class AnimalWeighingStoreOkTest extends TestCase
 {
 
     use TestHelperTrait;
@@ -26,11 +26,11 @@ class AnimalFeedingStoreOkTest extends TestCase
         $token = $this->createUserFullPermissions();
 
         $animal = Animal::create([
-            'name' => 'TestAnimalFeeding01', 'display_name' => 'TestAnimalFeeding01'
+            'name' => 'TestAnimalWeighing01', 'display_name' => 'TestAnimalWeighing01'
         ]);
 
-        $response = $this->post('/api/v1/animals/' . $animal->id . '/feedings', [
-            'meal_type' => 'Food',
+        $response = $this->post('/api/v1/animals/' . $animal->id . '/weighings', [
+            'weight' => '50',
             'created_at' => '2018-02-02'
         ],
         [

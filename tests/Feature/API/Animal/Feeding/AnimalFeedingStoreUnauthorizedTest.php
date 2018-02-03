@@ -29,7 +29,6 @@ class AnimalFeedingStoreUnauthorizedTest extends TestCase
 
         $response = $this->post('/api/v1/animals/' . $animal->id . '/feedings', [
             'meal_type' => 'Food',
-            'count' => 1,
             'created_at' => '2018-02-02'
         ],
         [
