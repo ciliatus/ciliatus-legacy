@@ -39,12 +39,12 @@ class AnimalFeedingDeleteOkTest extends TestCase
 
         $id = $response->decodeResponseJson()['data']['id'];
 
-        $response = $this->delete('/api/v1/animals/' . $animal->id . '/feeding/' . $id, [], [
+        $response = $this->delete('/api/v1/animals/' . $animal->id . '/feedings/' . $id, [], [
             'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);
 
-        $response = $this->get('/api/v1/animals/' . $animal->id . '/feeding/' . $id, [
+        $response = $this->get('/api/v1/animals/' . $animal->id . '/feedings/' . $id, [
             'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(404);
