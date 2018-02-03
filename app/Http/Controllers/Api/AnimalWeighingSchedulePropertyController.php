@@ -217,41 +217,6 @@ class AnimalWeighingSchedulePropertyController extends ApiController
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
-    public function done($animal_id, $id)
-    {
-        if (Gate::denies('api-write:animal_weighing_schedule')) {
-            return $this->respondUnauthorized();
-        }
-
-        $animal = Animal::find($animal_id);
-        if (is_null($animal)) {
-            return $this->respondNotFound();
-        }
-
-        $aws = $animal->weighing_schedules()->where('id', $id)->get()->first();
-        if (is_null($aws)) {
-            return $this->respondNotFound();
-        }
-
-        $e = AnimalWeighingEvent::create([
-            'belongsTo_type' => 'Animal',
-            'belongsTo_id' => $animal->id,
-            'type' => 'AnimalWeighing',
-            'name' => $aws->name
-        ]);
-
-        broadcast(new AnimalWeighingEventUpdated($e));
-        broadcast(new AnimalWeighingSchedulePropertyUpdated($aws));
-        broadcast(new AnimalUpdated($animal));
-
-        return $this->respondWithData([]);
-    }
-
-    /**
-     * @param $animal_id
-     * @param $id
-     * @return \Illuminate\Http\JsonResponse
-     */
     public function skip($animal_id, $id)
     {
         if (Gate::denies('api-write:animal_weighing_schedule')) {
