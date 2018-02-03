@@ -89,7 +89,9 @@ class ActionSequenceAutomationTest extends TestCase
 
         $action_sequence_id = $response->decodeResponseJson()['data']['id'];
 
-        $response = $this->json('GET', '/api/v1/controlunits/' . $controlunit->id . '/fetch_desired_states');
+        $response = $this->json('GET', '/api/v1/controlunits/' . $controlunit->id . '/fetch_desired_states', [], [
+            'Authorization' => 'Bearer ' . $token
+        ]);
         $response->assertStatus(200);
         $response->assertJson([
             'data' => [

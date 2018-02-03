@@ -2,6 +2,7 @@
 
 namespace Tests\Feature\API\Terrarium;
 
+use App\ActionSequence;
 use App\GenericComponent;
 use App\GenericComponentType;
 use App\PhysicalSensor;
@@ -26,7 +27,7 @@ class TerrariumGenerateActionSequenceOkTest extends TestCase
     public function test()
     {
 
-        $token = $this->createUserReadOnly();
+        $token = $this->createUserFullPermissions();
 
         $terrarium = Terrarium::create([
             'name' => 'TestTerrarium01', 'display_name' => 'TestTerrarium01'
@@ -49,6 +50,11 @@ class TerrariumGenerateActionSequenceOkTest extends TestCase
         $response->assertJson([
             'data' => []
         ]);
+
+        $id = $response->decodeResponseJson()['data']['id'];
+
+        $this->assertNotNull(ActionSequence::find($id));
+        ActionSequence::find($id)->delete();
 
         $valve->delete();
         $terrarium->delete();
