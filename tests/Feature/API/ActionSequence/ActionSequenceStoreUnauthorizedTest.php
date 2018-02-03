@@ -24,27 +24,12 @@ class ActionSequenceStoreUnauthorizedTest extends TestCase
 
         $token = $this->createUserReadOnly();
 
-        $terrarium = Terrarium::create([
-            'name' => 'TestTerrarium01', 'display_name' => 'TestTerrarium01'
-        ]);
-
-        $as = ActionSequence::create([
-            'terrarium_id' => $terrarium->id,
-            'name' => 'TestActionSequence01',
-            'template' => 'irrigate',
-            'runonce' => false,
-            'duration_minutes' => 1
-        ]);
-
-        $response = $this->put('/api/v1/action_sequences/' . $as->id, [
+        $response = $this->post('/api/v1/action_sequences', [
             'name' => 'TestActionSequence02_Updated'
         ], [
             'HTTP_Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(401);
-
-        $as->delete();
-        $terrarium->delete();
 
         $this->cleanupUsers();
 
