@@ -170,6 +170,9 @@ class DashboardController extends ApiController
                                 ->get()->first())) {
 
                 $belongsTo = $suggestion->belongsTo_object();
+                if (is_null($belongsTo)) {
+                    continue;
+                }
                 $belongsTo = (new GenericRepository($belongsTo))->show();
                 $suggestion->belongsTo_object = is_null($belongsTo) ? null : $belongsTo->toArray();
                 $violation_type = $suggestion->properties()->where('name', 'violation_type')->get()->first();
