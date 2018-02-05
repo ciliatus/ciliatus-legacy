@@ -13,22 +13,6 @@ use Illuminate\Notifications\Notifiable;
  * Class Pump
  *
  * @package App
- * @property string $id
- * @property string $controlunit_id
- * @property string $name
- * @property string $state
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property-read \App\Controlunit $controlunit
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Valve[] $valves
- * @method static \Illuminate\Database\Query\Builder|\App\Pump whereControlunitId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Pump whereCreatedAt($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Pump whereId($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Pump whereName($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Pump whereState($value)
- * @method static \Illuminate\Database\Query\Builder|\App\Pump whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 class Pump extends CiliatusModel
 {
@@ -46,7 +30,7 @@ class Pump extends CiliatusModel
      * @var array
      */
     protected $fillable = [
-        'name', 'controlunit_id'
+        'name', 'controlunit_id', 'model'
     ];
 
     /**

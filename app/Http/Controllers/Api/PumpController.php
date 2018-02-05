@@ -23,6 +23,7 @@ class PumpController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -32,6 +33,7 @@ class PumpController extends ApiController
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -116,7 +118,7 @@ class PumpController extends ApiController
         }
 
         $this->updateModelProperties($pump, $request, [
-            'name', 'controlunit_id' => 'controlunit'
+            'name', 'controlunit_id' => 'controlunit', 'model'
         ]);
 
         $this->updateExternalProperties($pump, $request, [

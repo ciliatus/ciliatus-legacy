@@ -13,6 +13,15 @@
                             <label for="filter_name">Filter</label>
                         </div>
                     </th>
+                    <th data-field="model">
+                        <a href="#!" v-on:click="set_order('model')">{{ $t('labels.model') }}</a>
+                        <i v-show="order.field == 'model' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
+                        <i v-show="order.field == 'model' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
+                        <div class="input-field inline">
+                            <input id="filter_model" type="text" v-model="filter.model" v-on:keyup.enter="set_filter">
+                            <label for="filter_model">Filter</label>
+                        </div>
+                    </th>
                     <th data-field="pump" v-if="hideCols.indexOf('pump') === -1">
                         <a href="#!" v-on:click="set_order('pump')">{{ $tc('components.pump', 1) }}</a>
                         <i v-show="order.field == 'pump' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
@@ -54,6 +63,12 @@
                                     <i class="material-icons">transform</i>
                                     <a v-bind:href="'/valves/' + valve.id">{{ valve.name }}</a>
                                     <span v-if="!valve.active"> - {{ $t('labels.inactive') }}</span>
+                                </span>
+                            </td>
+
+                            <td>
+                                <span>
+                                    {{ valve.model }}
                                 </span>
                             </td>
 

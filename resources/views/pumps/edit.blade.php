@@ -33,6 +33,14 @@
                                         <label for="name">@lang('labels.name')</label>
                                     </div>
                                 </div>
+
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <input type="text" placeholder="@lang('labels.model')" name="model" value="{{ $pump->model }}"
+                                               id="valve-model" class="autocomplete">
+                                        <label for="name">@lang('labels.model')</label>
+                                    </div>
+                                </div>
     
                                 <div class="row">
                                     <div class="input-field col s12">
@@ -88,4 +96,20 @@
             <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/pumps/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#valve-model').autocomplete({
+                data: {
+                    @foreach ($models as $m)
+                    "{{ $m }}": null,
+                    @endforeach
+                },
+                limit: 20,
+                minLength: 1
+            });
+        });
+    </script>
 @stop

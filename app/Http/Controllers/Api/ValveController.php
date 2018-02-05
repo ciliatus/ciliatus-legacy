@@ -26,6 +26,7 @@ class ValveController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -35,6 +36,7 @@ class ValveController extends ApiController
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -133,7 +135,7 @@ class ValveController extends ApiController
         }
 
         $this->updateModelProperties($valve, $request, [
-            'name', 'pump_id' => 'pump', 'terrarium_id' => 'terrarium', 'controlunit_id' => 'controlunit'
+            'name', 'pump_id' => 'pump', 'terrarium_id' => 'terrarium', 'controlunit_id' => 'controlunit', 'model'
         ]);
 
         $this->updateExternalProperties($valve, $request, [

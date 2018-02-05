@@ -28,7 +28,7 @@ class Valve extends CiliatusModel
     /**
      * @var array
      */
-    protected $fillable = ['name', 'terrarium_id', 'pump_id', 'controlunit_id'];
+    protected $fillable = ['name', 'terrarium_id', 'pump_id', 'controlunit_id', 'model'];
 
     /**
      * @var array

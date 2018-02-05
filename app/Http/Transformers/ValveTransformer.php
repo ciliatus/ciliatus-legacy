@@ -28,6 +28,7 @@ class ValveTransformer extends Transformer
         $return = [
             'id'    => $item['id'],
             'name' => $item['name'],
+            'model' => $item['model'],
             'controlunit_id' => $item['controlunit_id'],
             'terrarium_id' => $item['terrarium_id'],
             'pump_id' => $item['pump_id'],

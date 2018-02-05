@@ -13,6 +13,10 @@
                             {{ valve.name }}
                             <i class="material-icons right">more_vert</i>
                         </span>
+
+                        <div>
+                            {{ $t('labels.model') }}: {{ valve.model }}
+                        </div>
                     </div>
 
                     <div class="card-action">

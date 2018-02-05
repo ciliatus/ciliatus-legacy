@@ -11,6 +11,10 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+/**
+ * Class ValveController
+ * @package App\Http\Controllers\Web
+ */
 class ValveController extends Controller
 {
 
@@ -49,8 +53,8 @@ class ValveController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -93,26 +97,36 @@ class ValveController extends Controller
         $terraria = Terrarium::all();
         $pumps = Pump::all();
 
+        $models = array_column(
+            Valve::select('model')->groupBy('model')->get()->toArray(),
+            'model'
+        );
+
         return view('valves.edit', [
             'valve'         => $valve,
             'controlunits'  => $controlunits,
             'pumps'         => $pumps,
             'terraria'      => $terraria,
+            'models'        => $models
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
         //
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     */
     public function delete($id)
     {
         $valve = Valve::find($id);
@@ -129,8 +143,8 @@ class ValveController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return void
      */
     public function destroy($id)
     {

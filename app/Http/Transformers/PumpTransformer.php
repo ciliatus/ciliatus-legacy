@@ -27,6 +27,7 @@ class PumpTransformer extends Transformer
         $return = [
             'id'    => $item['id'],
             'name' => $item['name'],
+            'model' => $item['model'],
             'controlunit_id' => isset($item['controlunit_id']) ? $item['controlunit_id'] : '',
             'timestamps' => $this->parseTimestamps($item)
         ];

@@ -52,8 +52,8 @@ class PumpController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -95,19 +95,25 @@ class PumpController extends Controller
         $controlunits = Controlunit::all();
         $terraria = Terrarium::all();
 
+        $models = array_column(
+            Pump::select('model')->groupBy('model')->get()->toArray(),
+            'model'
+        );
+
         return view('pumps.edit', [
-            'pump'     => $pump,
-            'controlunits'        => $controlunits,
-            'terraria'        => $terraria,
+            'pump'          => $pump,
+            'controlunits'  => $controlunits,
+            'terraria'      => $terraria,
+            'models'        => $models
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
@@ -134,8 +140,8 @@ class PumpController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return void
      */
     public function destroy($id)
     {
