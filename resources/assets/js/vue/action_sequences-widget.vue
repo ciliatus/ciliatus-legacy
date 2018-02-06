@@ -7,15 +7,15 @@
             {{ action_sequences.length }} {{ $tc("components.action_sequences", 2) }}
         </div>
 
-        <div class="card-content">
-            <div v-for="as in action_sequences">
-                <p>
+        <div v-for="as in action_sequences">
+            <div class="card-content">
+                <div class="card-sub-header">
                     <a :href="'/action_sequences/' + as.id + '/edit'"><strong>{{ as.name }}</strong></a>
 
                     <a v-bind:href="'/action_sequences/' + as.id + '/edit'" class="right">
                         <i class="material-icons">edit</i>
                     </a>
-                </p>
+                </div>
 
                 <div class="row row-no-margin" v-for="asi in as.intentions">
                     <i class="material-icons">explore</i>

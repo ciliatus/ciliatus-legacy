@@ -287,6 +287,8 @@ window.notification = function (text, cssClass, length) {
 };
 
 window.runPage = function () {
+    $('.masonry-grid').masonry();
+
     $('select').material_select();
 
     $('.dropdown-button').dropdown({
@@ -329,7 +331,7 @@ window.runPage = function () {
         onShow: function onShow(event, ui) {
             location.hash = $(this).attr('href');
             var grid = $('.masonry-grid');
-            if (grid !== undefined) {
+            if (grid && grid.masonry) {
                 grid.masonry('layout');
                 grid.masonry('reloadItems');
             }

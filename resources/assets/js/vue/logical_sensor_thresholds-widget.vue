@@ -11,12 +11,8 @@
 
         <div class="card-content">
 
-            <div class="row row-no-margin">
-                <span>
-                    <strong>
-                    <a v-bind:href="'/logical_sensors/' + ls.id">{{ ls.name }}</a>
-                    </strong>
-                </span>
+            <div class="card-sub-header">
+                <a v-bind:href="'/logical_sensors/' + ls.id"><strong>{{ ls.name }}</strong></a>
             </div>
 
             <div class="row row-no-margin" v-for="th in ls.thresholds">
