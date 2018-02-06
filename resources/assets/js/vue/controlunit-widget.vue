@@ -42,6 +42,9 @@
                                 {{ $t('units.just_now') }}
                             </span>
                         </div>
+                        <div>
+                            {{ $t('labels.client_server_time_diff') }}: {{ controlunit.client_server_time_diff_seconds }}s
+                        </div>
                         <div v-if="controlunit.software_version">
                             {{ $t('labels.software_version') }}: {{ controlunit.software_version }}
                         </div>

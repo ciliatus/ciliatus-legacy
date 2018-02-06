@@ -25,6 +25,7 @@ class ControlunitTransformer extends Transformer
         $return = [
             'id'    => $item['id'],
             'name' => $item['name'],
+            'client_server_time_diff_seconds' => $item['client_server_time_diff_seconds'],
             'software_version' => isset($item['software_version']) ? $item['software_version'] : null,
             'timestamps' => $this->parseTimestamps($item, ['heartbeat_at' => 'last_heartbeat']),
         ];

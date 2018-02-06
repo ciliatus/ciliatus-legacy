@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\Controlunit;
+use Carbon\Carbon;
 use Gate;
 use Illuminate\Http\Request;
 
@@ -21,6 +22,7 @@ class ControlunitController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -28,8 +30,10 @@ class ControlunitController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -174,9 +178,23 @@ class ControlunitController extends ApiController
             $controlunit->software_version = $request->input('software_version');
         }
 
+        if ($request->filled('client_time')) {
+            try {
+                $client_time = Carbon::parse($request->input('client_time'));
+            }
+            catch (\Exception $ex) {
+                return $this->setStatusCode(422)->respondWithError('Could not parse client time');
+            }
+
+            $controlunit->client_server_time_diff_seconds = Carbon::now()->diffInSeconds($client_time);
+        }
+
         $controlunit->save();
 
-        return $this->respondWithData([]);
+        return $this->respondWithData([
+            'id' => $controlunit->id,
+            'server_time' => Carbon::now()
+        ]);
     }
 
 }

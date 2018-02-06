@@ -35,6 +35,20 @@ class System extends Model
         $t_5m = Carbon::now();
         $t_5m->subMinutes(5);
 
+        $controlunits = [];
+        foreach (Controlunit::get() as $cu) {
+            $controlunits[$cu->id] = [
+                'id' => $cu->id,
+                'name' => $cu->name,
+                'version' => $cu->software_version,
+                'active' => $cu->active(),
+                'heartbeat' => [
+                    'last' => $cu->heartbeat_at,
+                    'diff_seconds' => Carbon::now()->diffInSeconds($cu->heartbeat_at)
+                ],
+                'client_server_time_diff_seconds' => $cu->client_server_time_diff_seconds
+            ];
+        }
 
         $health = [
             'version' => config('app.version'),
@@ -71,7 +85,8 @@ class System extends Model
                     'draft_30m' => Message::query()->where('created_at', '>', $t_30m)->where('state', 'draft')->count(),
                     'other_30m' => Message::query()->where('created_at', '>', $t_30m)->whereNotIn('state', ['draft', 'sent'])->count(),
                 ]
-            ]
+            ],
+            'controlunits' => $controlunits
         ];
 
         return $health;

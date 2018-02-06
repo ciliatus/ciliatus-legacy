@@ -196,5 +196,6 @@ return [
     'soft_state'                                 => 'Soft state',
     'reason'                                     => 'Reason',
     'possibly_affected_animals'                  => 'Possibly affected animals',
-    'scope'                                      => 'Scope'
+    'scope'                                      => 'Scope',
+    'client_server_time_diff'                    => 'Client/Server time difference'
 ];

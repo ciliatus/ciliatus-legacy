@@ -14,12 +14,22 @@
                         </div>
                     </th>
 
-                    <th class="hide-on-small-only" data-field="software_version">
-                        {{ $t('labels.software_version') }}
+                    <th  class="hide-on-small-only" data-field="software_version">
+                        <a href="#!" v-on:click="set_order('software_version')">{{ $t('labels.software_version') }}</a>
+                        <i v-show="order.field == 'software_version' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
+                        <i v-show="order.field == 'software_version' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
+                        <div class="input-field inline">
+                            <input id="filter_software_version" type="text" v-model="filter.software_version" v-on:keyup.enter="set_filter">
+                            <label for="filter_software_version">Filter</label>
+                        </div>
                     </th>
 
                     <th data-field="timestamps.last_heartbeat">
                         {{ $t('labels.last_heartbeat') }}
+                    </th>
+
+                    <th class="hide-on-small-only" data-field="client_server_time_diff_seconds">
+                        {{ $t('labels.client_server_time_diff') }}
                     </th>
 
                     <th class="hide-on-small-only" style="width: 40px">
@@ -50,6 +60,12 @@
                                     'units.' + $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).unit,
                                     {val: $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).val}
                                 )}}
+                            </td>
+
+                            <td class="hide-on-small-only">
+                                <span>
+                                    {{ controlunit.client_server_time_diff_seconds }}s
+                                </span>
                             </td>
 
                             <td class="hide-on-small-only">

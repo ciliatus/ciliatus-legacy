@@ -35,9 +35,9 @@ return [
     'notifications'                              => 'Benachrichtigung|Benachrichtigungen',
     'notification_type'                          => 'Nachrichten Kanal',
     'details'                                    => 'Details',
-    'rawlimits'                                  => 'Grenzwerte',
-    'rawlimitlo'                                 => 'Unterer Grenzwert',
-    'rawlimithi'                                 => 'Oberer Grenzwert',
+    'rawlimits'                                  => 'Schwellenwerte',
+    'rawlimitlo'                                 => 'Unterer Schwellenwert',
+    'rawlimithi'                                 => 'Oberer Schwellenwert',
     'file'                                       => 'Datei',
     'files'                                      => 'Dateien',
     'size'                                       => 'Größe',
@@ -55,7 +55,7 @@ return [
     'starts_at'                                  => 'Beginnt um',
     'ends_at'                                    => 'Endet um',
     'starts_after'                               => 'Startet nach',
-    'thresholds'                                 => 'Grenzwerte',
+    'thresholds'                                 => 'Schwellenwerte',
     'abilities'                                  => 'Fähigkeit|Fähigkeiten',
     'bugtracker'                                 => 'Bugtracker',
     'wiki'                                       => 'Wiki',
@@ -88,7 +88,7 @@ return [
     'just_fed'                                   => 'Fütterung hinzufügen',
     'add_weight'                                 => 'Gewicht hinzufügen',
     'active'                                     => 'Aktiv',
-    'copy_thresholds'                            => 'Grenzwerte kopieren',
+    'copy_thresholds'                            => 'Schwellenwerte kopieren',
     'daily'                                      => 'Täglich',
     'last_feeding'                               => 'Letzte Fütterung',
     'crickets'                                   => 'Heimchen',
@@ -196,5 +196,6 @@ return [
     'soft_state'                                 => 'Soft state',
     'reason'                                     => 'Grund',
     'possibly_affected_animals'                  => 'Möglicherweise betroffene Tiere',
-    'scope'                                      => 'Gültigkeitsbereich'
+    'scope'                                      => 'Gültigkeitsbereich',
+    'client_server_time_diff'                    => 'Client/Server Zeitdifferenz'
 ];
