@@ -475,7 +475,7 @@ class TerrariumController extends ApiController
         $data = array_map(function ($sr) {
             return [
                 'value' => $sr['rawvalue'],
-                'created_at' => $sr['created_at'],
+                'read_at' => $sr['read_at'],
                 'logical_sensor_name' => $sr['logical_sensor']['name'],
                 'logical_sensor_id' => $sr['logical_sensor_id'],
                 'value_type' => $sr['logical_sensor']['type']

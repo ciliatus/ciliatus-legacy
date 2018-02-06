@@ -361,8 +361,8 @@ class Terrarium extends CiliatusModel
             }
         }
 
-        $query = DB::table('sensorreadings')->where('created_at', '>=', $time_from)
-                                            ->where('created_at', '<=', $time_to);
+        $query = DB::table('sensorreadings')->where('read_at', '>=', $time_from)
+                                                 ->where('read_at', '<=', $time_to);
 
         if ($ignore_anomalies) {
             $query = $query->where('is_anomaly', false);
@@ -509,7 +509,7 @@ class Terrarium extends CiliatusModel
                                                 ))
                                                 ->where('state_details', $violation_type)
                                                 ->where('is_soft_state', false)
-                                                ->where('created_at', '>=', $this->getSuggestionTimeframe($type, true))
+                                                ->where('read_at', '>=', $this->getSuggestionTimeframe($type, true))
                                                 ->get();
 
 
