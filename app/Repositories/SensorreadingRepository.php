@@ -32,7 +32,7 @@ class SensorreadingRepository extends Repository {
     public function getByLogicalSensor($query, array $logical_sensor_ids)
     {
         return $query->with('logical_sensor')
-                     ->whereIn('logical_sensor_id', $logical_sensor_ids)->orderBy('created_at', 'desc');
+                     ->whereIn('logical_sensor_id', $logical_sensor_ids)->orderBy('read_at', 'desc');
     }
 
     /**
@@ -62,7 +62,7 @@ class SensorreadingRepository extends Repository {
         else {
             $sensor_readings = $query
                 ->select(
-                    DB::raw('id, sensorreadinggroup_id, avg(rawvalue) as avg_rawvalue, min(is_anomaly) as anomaly, created_at')
+                    DB::raw('id, sensorreadinggroup_id, avg(rawvalue) as avg_rawvalue, min(is_anomaly) as anomaly, read_at')
                 );
         }
         
@@ -72,29 +72,29 @@ class SensorreadingRepository extends Repository {
         if (!is_null($time_of_day_from) && !is_null($time_of_day_to)) {
             if ($time_of_day_from->gt($time_of_day_to)) {
                 $sensor_readings = $sensor_readings->whereRaw(
-                    '(HOUR(`created_at`) <= ? OR HOUR(`created_at`) >= ?)',
+                    '(HOUR(`read_at`) <= ? OR HOUR(`read_at`) >= ?)',
                     [$time_of_day_to->hour, $time_of_day_from->hour]
                 );
             }
             else {
                 $sensor_readings = $sensor_readings->whereRaw(
-                    'HOUR(`created_at`) >= ? AND HOUR(`created_at`) <= ?',
+                    'HOUR(`read_at`) >= ? AND HOUR(`read_at`) <= ?',
                     [$time_of_day_from->hour, $time_of_day_to->hour]
                 );
             }
         }
         elseif (!is_null($time_of_day_from) && is_null($time_of_day_to)) {
-            $sensor_readings = $sensor_readings->whereRaw('HOUR(`created_at`) >= ?', [$time_of_day_from->hour]);
+            $sensor_readings = $sensor_readings->whereRaw('HOUR(`read_at`) >= ?', [$time_of_day_from->hour]);
         }
         elseif (is_null($time_of_day_from) && !is_null($time_of_day_to)) {
-            $sensor_readings = $sensor_readings->whereRaw('HOUR(`created_at`) <= ?', [$time_of_day_to->hour]);
+            $sensor_readings = $sensor_readings->whereRaw('HOUR(`read_at`) <= ?', [$time_of_day_to->hour]);
         }
 
         if ($return_total_max) {
             $sensor_readings = $sensor_readings->groupBy('x');
         }
         else {
-            $sensor_readings = $sensor_readings->groupBy('sensorreadinggroup_id')->orderBy('created_at');
+            $sensor_readings = $sensor_readings->groupBy('sensorreadinggroup_id')->orderBy('read_at');
         }
 
         return $sensor_readings;

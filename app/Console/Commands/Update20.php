@@ -4,8 +4,9 @@ namespace App\Console\Commands;
 
 use App\File;
 use App\Property;
+use App\Sensorreading;
 use Illuminate\Console\Command;
-use Mockery\Exception;
+use Illuminate\Support\Facades\Artisan;
 
 class Update20 extends Command
 {
@@ -32,7 +33,10 @@ class Update20 extends Command
     {
         echo "Starting upgrade to v2.0" . PHP_EOL;
 
+        echo "Running database migration ..." . PHP_EOL;
+        Artisan::call('migrate');
 
+        /*
         echo "Updating file associations ..." . PHP_EOL;
         foreach (File::get() as $file) {
             if (is_null($file->belongsTo_type) ||
@@ -84,6 +88,27 @@ class Update20 extends Command
             }
             $prop->delete();
         }
+        */
+
+        echo "Updating sensorreading timestamps ..." . PHP_EOL;
+
+        $blocksize = Sensorreading::query()->count() / 10;
+        $blocks_done = 0;
+        $i = 0;
+
+        foreach (Sensorreading::get() as $sr) {
+            if ($i >= $blocksize) {
+                $i = 0;
+                $blocks_done++;
+                echo $blocks_done*10 . "%" . PHP_EOL;
+            }
+
+            $sr->read_at = $sr->created_at;
+            $sr->save();
+
+            $i +=1;
+        }
+
 
         echo "Done!" . PHP_EOL;
         return true;

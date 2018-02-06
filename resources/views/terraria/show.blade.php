@@ -38,8 +38,9 @@
                             @lang('labels.temp_and_hum_history')
                         </div>
                         <div class="card-content">
-                            <dygraph-graph show-filter-field="created_at" :show-filter-form="true"
-                                           labels-div-id="sensorreadings-labels" time-axis-label="@lang('labels.created_at')"
+                            <dygraph-graph show-filter-field="read_at" :show-filter-form="true"
+                                           filter-column="read_at"
+                                           labels-div-id="sensorreadings-labels" time-axis-label="@lang('labels.read_at')"
                                            column-id-field="logical_sensor_id" column-name-field="logical_sensor_name"
                                            source="{{ url('api/v1/terraria/' . $terrarium->id . '/sensorreadings') }}"></dygraph-graph>
 

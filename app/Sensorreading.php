@@ -24,7 +24,7 @@ class Sensorreading extends CiliatusModel
      * @var array
      */
     protected $fillable = [
-        'sensorreadinggroup_id', 'logical_sensor_id', 'rawvalue', 'created_at'
+        'sensorreadinggroup_id', 'logical_sensor_id', 'rawvalue', 'read_at'
     ];
 
     /**

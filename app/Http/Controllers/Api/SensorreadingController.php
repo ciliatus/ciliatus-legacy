@@ -26,6 +26,7 @@ class SensorreadingController extends ApiController
 
     /**
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -143,9 +144,9 @@ class SensorreadingController extends ApiController
             $logical_sensor->physical_sensor->heartbeat();
         }
 
-        if ($request->filled('created_at')) {
+        if ($request->filled('read_at')) {
             try {
-                Carbon::parse($request->input('created_at'));
+                Carbon::parse($request->input('read_at'));
             }
             catch (\Exception $ex) {
                 return $this->setStatusCode(422)
@@ -153,10 +154,10 @@ class SensorreadingController extends ApiController
                             ->respondWithError('Field created_at could not be parsed: ' . $ex->getMessage());
             }
 
-            $created_at = $request->input('created_at');
+            $read_at = $request->input('read_at');
         }
         else {
-            $created_at = Carbon::now();
+            $read_at = Carbon::now();
         }
 
 
@@ -164,7 +165,7 @@ class SensorreadingController extends ApiController
             'sensorreadinggroup_id' => $request->input('group_id'),
             'logical_sensor_id'     => $request->input('logical_sensor_id'),
             'rawvalue'              => $logical_sensor->rawvalue,
-            'created_at'            => $created_at
+            'read_at'               => $read_at
         ]);
 
         return $this->setStatusCode(200)->respondWithData(

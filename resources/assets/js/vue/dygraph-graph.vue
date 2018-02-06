@@ -128,7 +128,7 @@ export default {
             $('#dygraph_' + this.id + '_loading').show();
             var that = this;
             var url = this.source + '?filter[' + this.FilterColumn + ']=ge:' + this.get_filter_from_date() +
-                ':and:le:' + this.get_filter_to_date() + '&filter[is_anomaly]=0';
+                ':and:le:' + this.get_filter_to_date() + '&filter[is_anomaly]=0&order[' + this.FilterColumn + ']=desc';
 
             $.ajax({
                 url: url,
@@ -153,7 +153,7 @@ export default {
                         'default': 0
                     };
 
-                    that.columns = ['created_at'];
+                    that.columns = [that.FilterColumn];
                     that.colors = [];
                     _columns.forEach(function (c) {
                         var repo_name = '';
@@ -191,7 +191,7 @@ export default {
                     _columns.forEach(function (c) {
                         c.forEach(function(d) {
                             var series = [];
-                            series.push(new Date(d.created_at));
+                            series.push(new Date(d[that.FilterColumn]));
                             for (var j = 0; j < _columns.length; j++) {
                                 if (i === j) {
                                     series.push(d.value);
