@@ -509,7 +509,7 @@ class Terrarium extends CiliatusModel
                                                 ))
                                                 ->where('state_details', $violation_type)
                                                 ->where('is_soft_state', false)
-                                                ->where('read_at', '>=', $this->getSuggestionTimeframe($type, true))
+                                                ->where('created_at', '>=', $this->getSuggestionTimeframe($type, true))
                                                 ->get();
 
 
