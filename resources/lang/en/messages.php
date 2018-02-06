@@ -22,7 +22,7 @@ return [
         'temperature_celsius' => 'OK: The sensor :logical_sensor reports a temperature of :temperature_celsius°C.'
     ],
     'critical_state_notification_controlunits' => 'Critical: The controlunit :controlunit is not sending data.',
-    'critical_state_recovery_notification_controlunit' => 'OK: The controlunit :controlunit ist sending data again.',
+    'critical_state_recovery_notification_controlunits' => 'OK: The controlunit :controlunit ist sending data again.',
 
     'daily' => [
         'intro' => 'Daily reminders',

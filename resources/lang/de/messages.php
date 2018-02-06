@@ -2,7 +2,7 @@
 
 return [
     'logical_sensor_thresholds' => [
-        'copy_warning' => 'Alle preexistenten Grenzwerte des Zielsensors werden entfernt.'
+        'copy_warning' => 'Alle preexistenten Schwellenwerte des Zielsensors werden entfernt.'
     ],
 
     'users' => [
@@ -22,7 +22,7 @@ return [
         'temperature_celsius' => 'OK: Der Sensor :terrarium meldet eine Temperatur von :temperature_celsius°C.'
     ],
     'critical_state_notification_controlunits' => 'Kritisch: Die Steuereinheit :controlunit sendet keine Daten.',
-    'critical_state_recovery_notification_controlunit' => 'OK: Die Steuereinheit :controlunit sendet wieder Daten.',
+    'critical_state_recovery_notification_controlunits' => 'OK: Die Steuereinheit :controlunit sendet wieder Daten.',
 
     'daily' => [
         'intro' => 'Tägliche Erinnerungen',
