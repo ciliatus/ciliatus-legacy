@@ -110,6 +110,14 @@ class Controlunit extends Component
     /**
      * @return bool
      */
+    public function timeDiffOk()
+    {
+        return $this->client_server_time_diff_seconds < env('CONTROLUNIT_TIME_DIFF_THRESHOLD', 60);
+    }
+
+    /**
+     * @return bool
+     */
     public function check_notifications_enabled()
     {
         // TODO add attribute
@@ -117,19 +125,35 @@ class Controlunit extends Component
     }
 
     /**
-     * @return string
+     * @return bool
      */
     public function stateOk()
     {
-        return $this->heartbeatOk();
+        if (!$this->active()) {
+            return true;
+        }
+
+        return $this->heartbeatOk() && $this->timeDiffOk();
     }
 
     /**
-     * @return string
+     * @return array
      */
     public function getStateDetails()
     {
-        return 'HEARTBEAT_CRITICAL';
+        $state_details = [];
+        if (!$this->heartbeatOk()) {
+            $state_details[] = 'HEARTBEAT_CRITICAL';
+        }
+        if (!$this->timeDiffOk()) {
+            $state_details[] = 'TIME_DIFF_CRITICAL';
+        }
+
+        if (empty($state_details)) {
+            return ['STATE_OK'];
+        }
+
+        return $state_details;
     }
 
     /**
@@ -224,6 +248,23 @@ class Controlunit extends Component
     }
 
     /**
+     * @param $type
+     * @param $locale
+     * @param string $details
+     * @return array|\Illuminate\Contracts\Translation\Translator|null|string
+     */
+    protected function getCriticalStateNotificationsText($type, $locale, $details = 'UNKNOWN')
+    {
+        return trans(
+            'messages.' . $type . '_' . $this->notification_type_name . '.' . $details,
+            [
+                'controlunit' => $this->name
+            ],
+            $locale
+        );
+    }
+
+    /**
      * @return string
      */
     public function icon()
@@ -239,15 +280,4 @@ class Controlunit extends Component
         return url('controlunits/' . $this->id);
     }
 
-    /**
-     * @param $type
-     * @param $locale
-     * @return array|\Illuminate\Contracts\Translation\Translator|null|string
-     */
-    protected function getCriticalStateNotificationsText($type, $locale)
-    {
-        return trans('messages.' . $type . '_' . $this->notification_type_name, [
-            'controlunit' => $this->name
-        ], $locale);
-    }
 }

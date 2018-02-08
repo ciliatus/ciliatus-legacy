@@ -197,32 +197,33 @@ class LogicalSensor extends Component
 
     /**
      * Returns a reason why stateOk() is false
-     * @return bool|string
+     * @return array
      */
     public function getStateDetails()
     {
         if ($this->stateOk()) {
-            return 'STATE_OK';
+            return ['STATE_OK'];
         }
 
         $t = $this->current_threshold();
         if (is_null($t)) {
-            return true;
+            return ['STATE_OK'];
         }
 
+        $state_details = [];
         if (!is_null($t->rawvalue_lowerlimit)) {
             if ($this->rawvalue < $t->rawvalue_lowerlimit) {
-                return 'LOWERLIMIT_DECEEDED';
+                $state_details[] = 'LOWERLIMIT_DECEEDED';
             }
         }
 
         if (!is_null($t->rawvalue_upperlimit)) {
             if ($this->rawvalue > $t->rawvalue_upperlimit) {
-                return 'UPPERLIMIT_EXCEEDED';
+                $state_details[] = 'UPPERLIMIT_EXCEEDED';
             }
         }
 
-        return 'STATE_OK';
+        return $state_details;
     }
 
     /**
@@ -352,13 +353,18 @@ class LogicalSensor extends Component
     /**
      * @param $type
      * @param $locale
+     * @param string $details
      * @return array|\Illuminate\Contracts\Translation\Translator|null|string
      */
-    protected function getCriticalStateNotificationsText($type, $locale)
+    protected function getCriticalStateNotificationsText($type, $locale, $details = 'UNKNOWN')
     {
-        return trans('messages.' . $type . '_' . $this->notification_type_name . '.' . $this->type, [
-            'logical_sensor' => $this->name,
-            $this->type => $this->getCurrentCookedValue()
-        ], $locale);
+        return trans(
+            'messages.' . $type . '_' . $this->notification_type_name . '.' . $this->type . '.' . $details,
+            [
+                'logical_sensor' => $this->name,
+                $this->type => $this->getCurrentCookedValue()
+            ],
+            $locale
+        );
     }
 }

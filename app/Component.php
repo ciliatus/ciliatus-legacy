@@ -19,13 +19,14 @@ abstract class Component extends CiliatusModel
 
     /**
      * @param $type
+     * @param string $details
      */
-    public function sendNotifications($type)
+    public function sendNotifications($type, $details = 'UNKNOWN')
     {
         $users = User::getWhereNotificationsEnabled($this->notification_type_name)->get();
 
         foreach ($users as $user) {
-            $user->message($this->getCriticalStateNotificationsText($type, $user->locale));
+            $user->message($this->getCriticalStateNotificationsText($type, $user->locale, $details));
         }
     }
 

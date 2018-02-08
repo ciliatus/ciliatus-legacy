@@ -14,15 +14,39 @@ return [
     'critical_state_generic' => 'Critical: :critical_state',
 
     'critical_state_notification_logical_sensors' => [
-        'humidity_percent' => 'Critical: The sensor :logical_sensor reports a humidity of :humidity_percent%C.',
-        'temperature_celsius' => 'Critical: The sensor :logical_sensor reports a temperature of :temperature_celsius°C.'
+        'humidity_percent' => [
+            'UNKNOWN' => 'Critical: The sensor :logical_sensor reports a humidity of :humidity_percent%C.',
+            'LOWERLIMIT_DECEEDED' => 'Critical: The sensor :logical_sensor reports a too low humidity of :humidity_percent%C.',
+            'UPPERLIMIT_EXCEEDED' => 'Critical: The sensor :logical_sensor reports a too high humidity of :humidity_percent%C.'
+        ],
+        'temperature_celsius' => [
+            'UNKNOWN' => 'Critical: The sensor :logical_sensor reports a temperature of :temperature_celsius°C.',
+            'LOWERLIMIT_DECEEDED' => 'Critical: The sensor :logical_sensor reports a too low temperature of :temperature_celsius°C.',
+            'UPPERLIMIT_EXCEEDED' => 'Critical: The sensor :logical_sensor reports a too high temperature of :temperature_celsius°C.'
+        ]
     ],
     'critical_state_recovery_notification_logical_sensors' => [
-        'humidity_percent' => 'OK: The sensor :logical_sensor reports a humidity of :humidity_percent%C.',
-        'temperature_celsius' => 'OK: The sensor :logical_sensor reports a temperature of :temperature_celsius°C.'
+        'humidity_percent' => [
+            'UNKNOWN' => 'OK: The sensor :logical_sensor reports a humidity of :humidity_percent%C.',
+            'LOWERLIMIT_DECEEDED' => 'OK: The sensor :logical_sensor reports a humidity of :humidity_percent%C.',
+            'UPPERLIMIT_EXCEEDED' => 'OK: The sensor :logical_sensor reports a humidity of :humidity_percent%C.'
+        ],
+        'temperature_celsius' => [
+            'UNKNOWN' => 'OK: The sensor :logical_sensor reports a temperature of :temperature_celsius°C.',
+            'LOWERLIMIT_DECEEDED' => 'OK: The sensor :logical_sensor reports a humidity of :humidity_percent%C.',
+            'UPPERLIMIT_EXCEEDED' => 'OK: The sensor :logical_sensor reports a humidity of :humidity_percent%C.'
+        ]
     ],
-    'critical_state_notification_controlunits' => 'Critical: The controlunit :controlunit is not sending data.',
-    'critical_state_recovery_notification_controlunits' => 'OK: The controlunit :controlunit ist sending data again.',
+    'critical_state_notification_controlunits' => [
+        'UNKNOWN' => 'Critical: The controlunit :controlunit is in an unknown state.',
+        'HEARTBEAT_CRITICAL' => 'Critical: The controlunit :controlunit is not sending data.',
+        'TIME_DIFF_CRITICAL' => 'Critical: The controlunit :controlunit has a too large time difference.'
+    ],
+    'critical_state_recovery_notification_controlunits' => [
+        'UNKNOWN' => 'OK: The controlunit :controlunit is no longer in an unknown state.',
+        'HEARTBEAT_CRITICAL' => 'OK: The controlunit :controlunit is sending data again.',
+        'TIME_DIFF_CRITICAL' => 'OK: The controlunit :controlunit has an acceptable time difference again.'
+    ],
 
     'daily' => [
         'intro' => 'Daily reminders',

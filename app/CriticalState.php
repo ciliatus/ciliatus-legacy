@@ -67,6 +67,7 @@ class CriticalState extends CiliatusModel
             if (!is_null($this->belongsTo_object())) {
                 $this->name .= $this->belongsTo_object()->name;
             }
+            $this->name .= '_' . $this->state_details;
             $this->name .= '_' . Carbon::parse($this->created_at)->format('y-m-d_H:i:s');
             $this->save(['silent', 'no_new_name']);
         }
@@ -112,7 +113,7 @@ class CriticalState extends CiliatusModel
             return;
         }
 
-        $this->belongsTo_object()->sendNotifications('critical_state_notification');
+        $this->belongsTo_object()->sendNotifications('critical_state_notification', $this->state_details);
         $this->notifications_sent_at = Carbon::now();
         $this->save(['silent']);
 
@@ -135,7 +136,7 @@ class CriticalState extends CiliatusModel
             return;
         }
 
-        $this->belongsTo_object()->sendNotifications('critical_state_recovery_notification');
+        $this->belongsTo_object()->sendNotifications('critical_state_recovery_notification', $this->state_details);
         $this->notifications_sent_at = Carbon::now();
         $this->save(['silent']);
 
@@ -231,7 +232,7 @@ class CriticalState extends CiliatusModel
         return $animals;
     }
 
-        /**
+    /**
      * Evaluates critical states
      * Creates/deletes
      */
@@ -246,7 +247,13 @@ class CriticalState extends CiliatusModel
                 continue;
             }
 
-            if ($cs_belongs->stateOk()) {
+            if (
+                $cs_belongs->stateOk() ||
+                !in_array(
+                    $cs->state_details,
+                    $cs_belongs->getStateDetails()
+                )
+            ) {
                 $cs->recover();
             }
         }
