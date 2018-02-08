@@ -161,7 +161,13 @@ class FileController extends ApiController
             return $this->respondNotFound('File not found');
         }
 
-        $file->display_name = $request->input('display_name');
+        if ($request->filled('display_name')) {
+            $file->display_name = $request->input('display_name');
+        }
+
+        if ($request->filled('name')) {
+            $file->name = $request->input('name');
+        }
 
         $file->save();
 
