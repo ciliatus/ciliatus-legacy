@@ -36,7 +36,6 @@ class Update20 extends Command
         echo "Running database migration ..." . PHP_EOL;
         Artisan::call('migrate');
 
-        /*
         echo "Updating file associations ..." . PHP_EOL;
         foreach (File::get() as $file) {
             if (is_null($file->belongsTo_type) ||
@@ -88,7 +87,6 @@ class Update20 extends Command
             }
             $prop->delete();
         }
-        */
 
         echo "Updating sensorreading timestamps ..." . PHP_EOL;
 
