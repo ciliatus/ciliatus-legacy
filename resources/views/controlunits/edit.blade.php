@@ -37,12 +37,12 @@
                                     <label for="active">@lang('labels.active')</label>
                                     <div class="switch">
                                         <label>
-                                            @lang('labels.on')
+                                            @lang('labels.off')
                                             <input name="active" type="hidden" value="off">
                                             <input name="active" type="checkbox" value="on"
                                                    @if($controlunit->active()) checked @endif>
                                             <span class="lever"></span>
-                                            @lang('labels.off')
+                                            @lang('labels.on')
                                         </label>
                                     </div>
                                 </div>
