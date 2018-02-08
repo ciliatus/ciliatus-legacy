@@ -237,12 +237,6 @@
                                                 @lang('labels.bugtracker')
                                             </a>
                                         </li>
-                                        <li>
-                                            <a href="https://ciliatus.io/docs/{{ config('app.version_doc') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">help</i>
-                                                @lang('labels.tech_doku')
-                                            </a>
-                                        </li>
                                     </ul>
                                 </div>
                             </li>
@@ -251,7 +245,7 @@
 
                     <li><div class="divider"></div></li>
 
-                    <li><a href="https://ciliatus.io/guide/{{ config('app.version_doc') }}" class="waves-effect waves-orange"><i class="material-icons">local_library</i>@lang('labels.users_guide')</a></li>
+                    <li><a href="https://ciliatus.io/docs/{{ config('app.version_doc') }}" class="waves-effect waves-orange"><i class="material-icons">local_library</i>@lang('labels.users_guide')</a></li>
                     @endif
 
                     <li><a @if(!App\ActionSequence::stopped())href="/action_sequences/stop_all" @else href="/action_sequences/resume_all" @endif class="waves-effect waves-red red-text"><i class="material-icons red-text">power_settings_new</i>@lang('buttons.emergency_stop')</a></li>
