@@ -193,6 +193,28 @@ class ActionSequenceSchedule extends CiliatusModel
     }
 
     /**
+     * Returns true if action sequence should run on a certain weekday
+     * The $weekday parameter is a 0-based index starting on sunday
+     *
+     * @param $weekday
+     * @return bool
+     */
+    public function runsOnWeekday($weekday)
+    {
+        $property = $this->property('ActionSequenceScheduleProperty', $weekday);
+
+        return !is_null($property) && (bool)$property->value;
+    }
+
+    /**
+     * Returns true if the action sequence will run today
+     * This is true if
+     * - the start time is lower than the current time
+     * - if hasn't finished today
+     * - it's not running already
+     * - the next start property is not set or it is set to today
+     * - the schedule is scheduled for the current weekday
+     *
      * @TODO: Clean this up. It's horrible
      * @return bool
      */
@@ -206,7 +228,8 @@ class ActionSequenceSchedule extends CiliatusModel
                     || $this->startsToday()->gt(Carbon::now())
                 )
                 && !$this->running()
-                && (is_null($this->next_start_not_before) || $this->next_start_not_before->isToday());
+                && (is_null($this->next_start_not_before) || $this->next_start_not_before->isToday())
+                && $this->runsOnWeekday(Carbon::today()->dayOfWeek);
     }
 
     /**
@@ -217,6 +240,7 @@ class ActionSequenceSchedule extends CiliatusModel
      *
      * @param Controlunit $controlunit
      * @return bool
+     * @throws \Exception
      */
     public function shouldBeHandledBy(Controlunit $controlunit)
     {
@@ -256,6 +280,7 @@ class ActionSequenceSchedule extends CiliatusModel
      *
      * @param Controlunit $controlunit
      * @return bool
+     * @throws \Exception
      */
     public function shouldBeStartedBy(Controlunit $controlunit)
     {

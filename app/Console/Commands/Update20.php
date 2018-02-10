@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\ActionSequenceSchedule;
 use App\File;
 use App\Property;
 use App\Sensorreading;
@@ -35,6 +36,13 @@ class Update20 extends Command
 
         echo "Running database migration ..." . PHP_EOL;
         Artisan::call('migrate');
+
+        echo "Updating action sequence schedules ..." . PHP_EOL;
+        foreach (ActionSequenceSchedule::get() as $ass) {
+            for ($i = 0; $i < 7; $i++) {
+                $ass->setProperty('ActionSequenceScheduleProperty', $i, true);
+            }
+        }
 
         echo "Updating file associations ..." . PHP_EOL;
         foreach (File::get() as $file) {
