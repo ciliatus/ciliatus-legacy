@@ -24,7 +24,7 @@ return [
     | or any other location as required by the application or its packages.
     */
 
-    'version' => 'v1.10-beta',
+    'version' => 'master',
 
     /*
     |--------------------------------------------------------------------------
