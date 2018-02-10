@@ -63,10 +63,11 @@ abstract class CiliatusModel extends Model
      */
     public function setProperty($type, $name, $value)
     {
-        $class_arr = explode("\\",__CLASS__);
+        $class_arr = explode('\\', get_class($this));
+        $property = $this->property($type, $name);
 
-        if (is_null($p = $this->property($type, $name, $value))) {
-            $p = Property::create([
+        if (is_null($property)) {
+            $property = Property::create([
                 'belongsTo_type' => end($class_arr),
                 'belongsTo_id' => $this->id,
                 'type' => $type,
@@ -75,13 +76,13 @@ abstract class CiliatusModel extends Model
             ]);
         }
         else {
-            $p->type = $type;
-            $p->name = $name;
-            $p->value = $value;
-            $p->save();
+            $property->type = $type;
+            $property->name = $name;
+            $property->value = $value;
+            $property->save();
         }
 
-        return $p;
+        return $property;
     }
 
     /**
