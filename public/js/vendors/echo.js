@@ -5062,7 +5062,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 window.echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
     broadcaster: 'pusher',
-    key: '0c8933e7ceb3ed05bc9c',
+    key: '[YOUR PUSHER APP KEY HERE]',
     namespace: 'App\\Events',
     cluster: 'eu'
 });
