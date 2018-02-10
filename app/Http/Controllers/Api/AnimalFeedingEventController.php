@@ -197,7 +197,7 @@ class AnimalFeedingEventController extends ApiController
             return $this->setErrorCode(422)->respondWithError('Missing fields');
         }
 
-        if (is_null(
+        if (is_null($type =
             Property::where([
                 'belongsTo_type' => 'System',
                 'belongsTo_id' => '00000000-0000-0000-0000-000000000000',
