@@ -34,7 +34,7 @@ return [
     | Used to redirect to the correct documentation and user's guide version
     */
 
-    'version_doc' => 'v2.0.0',
+    'version_doc' => 'v2.0',
 
     /*
     |--------------------------------------------------------------------------
