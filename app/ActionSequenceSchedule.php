@@ -6,6 +6,7 @@ use App\Events\ActionSequenceScheduleDeleted;
 use App\Events\ActionSequenceScheduleUpdated;
 use App\Traits\Uuids;
 use Carbon\Carbon;
+use Illuminate\Http\Request;
 use Illuminate\Notifications\Notifiable;
 
 /**
@@ -52,11 +53,28 @@ class ActionSequenceSchedule extends CiliatusModel
     ];
 
     /**
+     * @param Request $request
+     */
+    public function updateFromRequest(Request $request)
+    {
+        for ($i = 0; $i < 7; $i++) {
+            $input_name = 'weekday_' . $i;
+            $value = $request->filled($input_name) && $request->input($input_name) == 'on' ? 1 : 0;
+            $this->setProperty(
+                'ActionSequenceScheduleProperty',
+                $i,
+                $value
+            );
+        }
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function properties()
     {
-        return $this->hasMany('App\Property', 'belongsTo_id')->where('belongsTo_type', 'ActionSequenceSchedule');
+        return $this->hasMany('App\Property', 'belongsTo_id')
+                    ->where('belongsTo_type', 'ActionSequenceSchedule');
     }
 
     /**
@@ -206,6 +224,38 @@ class ActionSequenceSchedule extends CiliatusModel
         return !is_null($property) && (bool)$property->value;
     }
 
+
+    /**
+     * @return bool
+     */
+    public function nextStartNotBeforeConditionMet()
+    {
+        return is_null($this->next_start_not_before) || $this->startsToday()->gt($this->next_start_not_before);
+    }
+
+    /**
+     * Returns true if the start time conditions to start right now are met
+     * @return bool
+     */
+    public function startTimeConditionMet()
+    {
+        $time_ok = $this->startsToday()->lt(Carbon::now());
+        $last_finished_ok = is_null($this->last_finished_at) ||
+                            !$this->last_finished_at->isToday();
+
+        return $time_ok && $last_finished_ok;
+    }
+
+    /**
+     * Returns true if the start time conditions to start some time today are met
+     * @return bool
+     */
+    public function startTimeConditionTodayMet()
+    {
+        return $this->startTimeConditionMet() ||
+               $this->startsToday()->gt(Carbon::now());
+    }
+
     /**
      * Returns true if the action sequence will run today
      * This is true if
@@ -215,20 +265,13 @@ class ActionSequenceSchedule extends CiliatusModel
      * - the next start property is not set or it is set to today
      * - the schedule is scheduled for the current weekday
      *
-     * @TODO: Clean this up. It's horrible
      * @return bool
      */
     public function willRunToday()
     {
-        return (
-                    (
-                          $this->startsToday()->lt(Carbon::now())
-                          && (is_null($this->last_finished_at) || !$this->last_finished_at->isToday())
-                    )
-                    || $this->startsToday()->gt(Carbon::now())
-                )
+        return $this->startTimeConditionTodayMet()
                 && !$this->running()
-                && (is_null($this->next_start_not_before) || $this->next_start_not_before->isToday())
+                && $this->nextStartNotBeforeConditionMet()
                 && $this->runsOnWeekday(Carbon::today()->dayOfWeek);
     }
 
@@ -266,9 +309,8 @@ class ActionSequenceSchedule extends CiliatusModel
      */
     public function shouldBeRunning()
     {
-        return $this->startsToday()->lt(Carbon::now())
-            && (is_null($this->last_finished_at) || !$this->last_finished_at->isToday())
-            && (is_null($this->next_start_not_before) || $this->next_start_not_before->isToday());
+        return $this->startTimeConditionMet()
+            && $this->nextStartNotBeforeConditionMet();
     }
 
     /**

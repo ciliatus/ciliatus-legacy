@@ -50,6 +50,18 @@
                                 </div>
                             </div>
 
+                            <div class="row">
+                                @foreach($weekdays as $num=>$weekday)
+                                    <div class="col s12">
+                                        <input type="checkbox"
+                                               id="weekday-{{ $num }}"
+                                               name="weekday_{{ $num }}"
+                                               checked />
+                                        <label for="weekday-{{ $num }}">@lang('weekdays.' . $weekday)</label>
+                                    </div>
+                                @endforeach
+                            </div>
+
                         </div>
 
                         <div class="card-action">

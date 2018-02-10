@@ -37,6 +37,7 @@ class ActionSequenceScheduleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -44,16 +45,25 @@ class ActionSequenceScheduleController extends Controller
         $sequences = ActionSequence::all();
 
         return view('action_sequence_schedules.create', [
-            'action_sequences'        => $sequences,
-            'preset' => $request->input('preset')
+            'action_sequences'  => $sequences,
+            'preset'            => $request->input('preset'),
+            'weekdays'          => [
+                0 => 'sunday',
+                1 => 'monday',
+                2 => 'tuesday',
+                3 => 'wednesday',
+                4 => 'thursday',
+                5 => 'friday',
+                6 => 'saturday'
+            ]
         ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -94,17 +104,26 @@ class ActionSequenceScheduleController extends Controller
         }
 
         return view('action_sequence_schedules.edit', [
-            'action_sequence_schedule'     => $action_sequence_schedule,
-            'action_sequences'        => $sequences
+            'action_sequence_schedule'  => $action_sequence_schedule,
+            'action_sequences'          => $sequences,
+            'weekdays'                  => [
+                0 => 'sunday',
+                1 => 'monday',
+                2 => 'tuesday',
+                3 => 'wednesday',
+                4 => 'thursday',
+                5 => 'friday',
+                6 => 'saturday'
+            ]
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param  int $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
@@ -131,8 +150,8 @@ class ActionSequenceScheduleController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  int $id
+     * @return void
      */
     public function destroy($id)
     {

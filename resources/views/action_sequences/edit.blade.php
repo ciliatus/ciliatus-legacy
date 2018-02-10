@@ -115,7 +115,22 @@
                         @foreach($action_sequence->schedules as $ass)
                             <div class="row row-no-margin">
                                 <i class="material-icons">schedule</i>
-                                {{ $ass->starts_at }} @if (!$ass->runonce)<i>@lang('labels.daily')</i>@endif
+                                {{ $ass->starts_at }}
+                                @if ($ass->runonce)
+                                    <i>@lang('labels.runoncen')</i>
+                                @else
+                                    @for ($i = 0; $i < 7; $i++)
+                                        @if ($ass->runsOnWeekday($i))
+                                            <span class="green-text">
+                                                {{ str_limit(trans('weekdays.' . $i), 1, '') }}
+                                            </span>
+                                        @else
+                                            <span class="deep-orange-text">
+                                                {{ str_limit(trans('weekdays.' . $i), 1, '') }}
+                                            </span>
+                                        @endif
+                                    @endfor
+                                @endif
 
                                 <a href="{{ url('action_sequence_schedules/' . $ass->id . '/delete') }}" class="right red-text text-lighten-1">
                                     <i class="material-icons">delete</i>

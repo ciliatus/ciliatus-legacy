@@ -51,13 +51,17 @@
                                 </div>
                             </div>
 
-                            <script>
-                                $(document).ready(function() {
-                                    $('.timepicker').pickatime({
-                                        twelvehour: false
-                                    });
-                                });
-                            </script>
+                            <div class="row">
+                                @foreach($weekdays as $num=>$weekday)
+                                <div class="col s12">
+                                    <input type="checkbox"
+                                           id="weekday-{{ $num }}"
+                                           name="weekday_{{ $num }}"
+                                           @if($action_sequence_schedule->runsOnWeekday($num)) checked @endif />
+                                    <label for="weekday-{{ $num }}">@lang('weekdays.' . $weekday)</label>
+                                </div>
+                                @endforeach
+                            </div>
 
                         </div>
 
@@ -77,4 +81,14 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('scripts')
+<script>
+    $(document).ready(function() {
+        $('.timepicker').pickatime({
+            twelvehour: false
+        });
+    });
+</script>
 @stop

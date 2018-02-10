@@ -32,6 +32,7 @@ class ActionSequenceScheduleController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      * @throws \ErrorException
@@ -43,6 +44,8 @@ class ActionSequenceScheduleController extends ApiController
 
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
@@ -71,6 +74,7 @@ class ActionSequenceScheduleController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -92,6 +96,8 @@ class ActionSequenceScheduleController extends ApiController
             'action_sequence_id' => $request->input('action_sequence')
         ]);
 
+        $ass->updateFromRequest($request);
+
         return $this->setStatusCode(200)->respondWithData(
             [
                 'id'    =>  $ass->id
@@ -107,6 +113,8 @@ class ActionSequenceScheduleController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
@@ -121,23 +129,18 @@ class ActionSequenceScheduleController extends ApiController
             return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
         }
 
-        if ($request->filled('action_sequence_id')) {
+        if ($request->filled('action_sequence')) {
             $a = ActionSequence::find($request->input('action_sequence_id'));
             if (is_null($a)) {
                 return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
             }
         }
 
-        if ($request->filled('terrarium_id')) {
-            $a = Terrarium::find($request->input('terrarium_id'));
-            if (is_null($a)) {
-                return $this->setStatusCode(422)->respondWithError('Terrarium not found');
-            }
-        }
-
         $this->updateModelProperties($action_sequence_schedule, $request, [
             'name', 'action_sequence_id' => 'action_sequence', 'starts_at'
         ]);
+
+        $action_sequence_schedule->updateFromRequest($request);
 
         $action_sequence_schedule->save();
 

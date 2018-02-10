@@ -48,7 +48,8 @@ class ConvertLangToJson extends Command
         
         $groups = [
             'buttons', 'components', 'errors', 'labels', 'languages',
-            'menu', 'messages', 'product', 'setup', 'tooltips', 'units'
+            'menu', 'messages', 'product', 'setup', 'tooltips', 'units',
+            'weekdays'
         ];
 
         $language_array = [];
