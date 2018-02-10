@@ -31,9 +31,14 @@ abstract class CiliatusModel extends Model
      * @param $return_null_if_value_null bool: If $return_value_only is true and this is true, return null if value is empty
      * @return mixed
      */
-    public function property($type, $name, $return_value_only = false, $return_null_if_value_null = false)
+    public function property($type, $name = null, $return_value_only = false, $return_null_if_value_null = false)
     {
-        $property = $this->properties()->where('type', $type)->where('name', $name)->get()->first();
+        $property = $this->properties()->where('type', $type);
+        if (!is_null($name)) {
+            $property = $property->where('name', $name);
+        }
+        $property = $property->get()->first();
+
         if ($return_value_only) {
             if (is_null($property)) {
                 return null;

@@ -21,6 +21,9 @@ class System extends Model
 
     use WritesToInfluxDb;
 
+    /**
+     * @return array
+     */
     public static function health()
     {
 
@@ -98,7 +101,7 @@ class System extends Model
     public static function status()
     {
         return [
-            'emergency_stop' => !is_null(Property::where('type', 'SystemProperty')->where('name', 'stop_all_action_sequences')->get()->first()),
+            'emergency_stop' => !is_null(System::property('stop_all_action_sequences')),
         ];
     }
 
@@ -122,6 +125,7 @@ class System extends Model
 
     /**
      * @return array
+     * @throws \Exception
      */
     public static function apiAiConfigurationStatus()
     {
@@ -225,6 +229,10 @@ class System extends Model
         return $max_size;
     }
 
+    /**
+     * @param $size
+     * @return float
+     */
     public static function parseSize($size) {
         $unit = preg_replace('/[^bkmgtpezy]/i', '', $size); // Remove the non-unit characters from the size.
         $size = preg_replace('/[^0-9\.]/', '', $size); // Remove the non-numeric characters from the size.
@@ -235,6 +243,18 @@ class System extends Model
         else {
             return round($size);
         }
+    }
+
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public static function property($name)
+    {
+        return Property::where('type', 'SystemProperty')
+                       ->where('name', $name)
+                       ->get()
+                       ->first();
     }
 
 }

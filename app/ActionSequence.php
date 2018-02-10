@@ -270,7 +270,7 @@ class ActionSequence extends CiliatusModel
      */
     public static function stopped()
     {
-        return !is_null(Property::where('type', 'SystemProperty')->where('name', 'stop_all_action_sequences')->get()->first());
+        return !is_null(System::property('stop_all_action_sequences'));
     }
 
     /**

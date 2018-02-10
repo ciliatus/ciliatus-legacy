@@ -161,11 +161,7 @@ class DashboardController extends ApiController
         $suggestions = [];
         foreach (Event::orderBy('name')->where('type', 'Suggestion')->get() as $suggestion) {
 
-            if (is_null(Property::where('belongsTo_type', 'Event')
-                                ->where('belongsTo_id', $suggestion->id)
-                                ->where('type', 'ReadFlag')
-                                ->get()->first())) {
-
+            if (is_null($suggestion->property('ReadFlag'))) {
                 $belongsTo = $suggestion->belongsTo_object();
                 if (is_null($belongsTo)) {
                     continue;

@@ -149,8 +149,7 @@ class BiographyEntryEventController extends ApiController
         }
 
         if ($request->filled('category')) {
-            $cat = Property::where('belongsTo_type', 'Event')->where('belongsTo_id', $e->id)
-                           ->where('type', 'BiographyEntryCategory')->get()->first();
+            $cat = $e->property('BiographyEntryCategory');
             if (is_null($cat)) {
                 return $this->setStatusCode(422)->respondWithError('Category property not found');
             }
@@ -206,8 +205,7 @@ class BiographyEntryEventController extends ApiController
         if (is_null($e)) {
             return $this->respondNotFound();
         }
-        $cat = Property::where('belongsTo_type', 'Event')->where('belongsTo_id', $e->id)
-            ->where('type', 'BiographyEntryCategory')->get()->first();
+        $cat = $e->property('BiographyEntryCategory');
         if (!is_null($cat)) {
             $cat->delete();
         }
