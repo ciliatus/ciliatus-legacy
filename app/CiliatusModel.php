@@ -101,6 +101,7 @@ abstract class CiliatusModel extends Model
 
     /**
      * @return bool|null
+     * @throws \Exception
      */
     public function delete()
     {
@@ -191,9 +192,111 @@ abstract class CiliatusModel extends Model
     }
 
     /**
+     * @param $severity
+     * @param $action
+     * @param CiliatusModel|null $target
+     * @param CiliatusModel|null $source
+     * @param CiliatusModel|null $associatedWith
+     */
+    public function log($severity,
+                        $action,
+                        CiliatusModel $target = null,
+                        CiliatusModel $source = null,
+                        CiliatusModel $associatedWith = null)
+    {
+        if (is_null($target)) {
+            $target = $this;
+        }
+
+        if (is_null($source)) {
+            $source = $this;
+        }
+
+        if (is_null($associatedWith)) {
+            $associatedWith = $this;
+        }
+
+        $source_class = get_class($source);
+        $target_class = get_class($target);
+        $associated_class = get_class($associatedWith);
+
+        $source_class_arr = explode('\\', $source_class);
+        $target_class_arr = explode('\\', $target_class);
+        $associated_class_arr = explode('\\', $associated_class);
+
+        Log::create([
+            'source_type'           =>  end($source_class_arr),
+            'source_id'             =>  $source->id,
+            'target_type'           =>  end($target_class_arr),
+            'target_id'             =>  $target->id,
+            'associatedWith_type'   => end($associated_class_arr),
+            'associatedWith_id'     => $associatedWith->id,
+            'action'                => $action,
+            'type'                  => $severity
+        ]);
+    }
+
+    /**
+     * @param $action
+     * @param CiliatusModel|null $target
+     * @param CiliatusModel|null $source
+     * @param CiliatusModel|null $associatedWith
+     */
+    public function info($action,
+                         CiliatusModel $target = null,
+                         CiliatusModel $source = null,
+                         CiliatusModel $associatedWith = null)
+    {
+        $this->log('info', $action, $target, $source, $associatedWith);
+    }
+
+    /**
+     * @param $action
+     * @param CiliatusModel|null $target
+     * @param CiliatusModel|null $source
+     * @param CiliatusModel|null $associatedWith
+     */
+    public function warning($action,
+                            CiliatusModel $target = null,
+                            CiliatusModel $source = null,
+                            CiliatusModel $associatedWith = null)
+    {
+        $this->log('warning', $action, $target, $source, $associatedWith);
+    }
+
+    /**
+     * @param $action
+     * @param CiliatusModel|null $target
+     * @param CiliatusModel|null $source
+     * @param CiliatusModel|null $associatedWith
+     */
+    public function error($action,
+                          CiliatusModel $target = null,
+                          CiliatusModel $source = null,
+                          CiliatusModel $associatedWith = null)
+    {
+        $this->log('error', $action, $target, $source, $associatedWith);
+    }
+
+    /**
+     * @param $action
+     * @param CiliatusModel|null $target
+     * @param CiliatusModel|null $source
+     * @param CiliatusModel|null $associatedWith
+     */
+    public function critical($action,
+                             CiliatusModel $target = null,
+                             CiliatusModel $source = null,
+                             CiliatusModel $associatedWith = null)
+    {
+        $this->log('critical', $action, $target, $source, $associatedWith);
+    }
+
+    /**
      * @return mixed
      */
     abstract public function properties();
+
     /**
      * @return string
      */

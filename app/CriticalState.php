@@ -117,14 +117,7 @@ class CriticalState extends CiliatusModel
         $this->notifications_sent_at = Carbon::now();
         $this->save(['silent']);
 
-        Log::create([
-            'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-            'target_id' => $this->id,
-            'associatedWith_type' => $this->belongsTo_type,
-            'associatedWith_id' => $this->belongsTo_id,
-            'action' => 'notify'
-        ]);
-
+        $this->info('notify',null, null, $this->belongsTo_object());
     }
 
     /**
@@ -140,14 +133,7 @@ class CriticalState extends CiliatusModel
         $this->notifications_sent_at = Carbon::now();
         $this->save(['silent']);
 
-        Log::create([
-            'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-            'target_id' => $this->id,
-            'associatedWith_type' => $this->belongsTo_type,
-            'associatedWith_id' => $this->belongsTo_id,
-            'action' => 'notify_recovered'
-        ]);
-
+        $this->info('notify_recovered',null, null, $this->sequence);
     }
 
     /**
@@ -162,14 +148,7 @@ class CriticalState extends CiliatusModel
         $this->recovered_at = Carbon::now();
         $this->save();
 
-        Log::create([
-            'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-            'target_id' => $this->id,
-            'associatedWith_type' => $this->belongsTo_type,
-            'associatedWith_id' => $this->belongsTo_id,
-            'action' => 'recover'
-        ]);
-
+        $this->info('recover',null, null, $this->sequence);
     }
 
     /**

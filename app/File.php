@@ -376,26 +376,6 @@ class File extends CiliatusModel
     }
 
     /**
-     * @param array $options
-     * @return bool
-     */
-    public function save(array $options = [])
-    {
-
-        if (!in_array('silent', $options)) {
-            Log::create([
-                'target_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-                'target_id' => $this->id,
-                'associatedWith_type' => explode('\\', get_class($this))[count(explode('\\', get_class($this))) - 1],
-                'associatedWith_id' => $this->id,
-                'action' => 'update'
-            ]);
-        }
-
-        return parent::save($options);
-    }
-
-    /**
      * @return string
      */
     public function path_internal()
