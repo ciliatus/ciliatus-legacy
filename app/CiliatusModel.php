@@ -29,7 +29,7 @@ abstract class CiliatusModel extends Model
      * @param $name
      * @param $return_value_only bool: If true the value will be returned instead of the Property object
      * @param $return_null_if_value_null bool: If $return_value_only is true and this is true, return null if value is empty
-     * @return mixed
+     * @return Property|null
      */
     public function property($type, $name = null, $return_value_only = false, $return_null_if_value_null = false)
     {
@@ -63,8 +63,9 @@ abstract class CiliatusModel extends Model
      */
     public function setProperty($type, $name, $value)
     {
+        $class_arr = explode("\\",__CLASS__);
         $p = Property::create([
-            'belongsTo_type' => end(explode("\\",__CLASS__)),
+            'belongsTo_type' => end($class_arr),
             'belongsTo_id' => $this->id,
             'type' => $type,
             'name' => $name,
