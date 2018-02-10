@@ -224,6 +224,10 @@ class Controlunit extends Component
         ActionSequenceIntention::createAndUpdateRunningActions($this);
 
         foreach (RunningAction::whereNull('finished_at')->get() as $ra) {
+            if (is_null($ra->action)) {
+                $ra->delete();
+                continue;
+            }
             if ($ra->action->target_object()->controlunit_id == $this->id) {
                 $desired_states[$ra->action->target_type][$ra->action->target_id] = 'running';
             }
