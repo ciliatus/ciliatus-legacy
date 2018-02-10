@@ -34,6 +34,17 @@ class Action extends CiliatusModel
     ];
 
     /**
+     * @return bool|null
+     * @throws \Exception
+     */
+    public function delete()
+    {
+        $this->running_actions()->delete();
+
+        return parent::delete();
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function properties()
