@@ -746,7 +746,13 @@ class Terrarium extends CiliatusModel
 
             case ActionSequence::TEMPLATE_IRRIGATION:
 
-                return $this->valves->count() > 0;
+                $generic_components = GenericComponentType::getGenericComponentsByIntention(
+                    ActionSequenceIntention::TYPE_HUMIDITY_PERCENT,
+                    ActionSequenceIntention::INTENTION_INCREASE,
+                    $this->generic_components()->getQuery()
+                );
+
+                return $this->valves->count() + $generic_components->count() > 0;
 
             case ActionSequence::TEMPLATE_VENTILATE:
 
