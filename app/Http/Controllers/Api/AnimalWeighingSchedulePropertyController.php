@@ -97,6 +97,12 @@ class AnimalWeighingSchedulePropertyController extends ApiController
         ]);
 
         if ($request->filled('starts_at')) {
+            Property::where('belongsTo_type', 'Property')
+                ->where('belongsTo_id', $p->id)
+                ->where('type', 'AnimalWeighingScheduleStartDate')
+                ->where('name', 'starts_at')
+                ->delete();
+
             Property::create([
                 'belongsTo_type' => 'Property',
                 'belongsTo_id' => $p->id,
@@ -230,6 +236,12 @@ class AnimalWeighingSchedulePropertyController extends ApiController
         if (is_null($aws)) {
             return $this->respondNotFound();
         }
+
+        Property::where('belongsTo_type', 'Property')
+            ->where('belongsTo_id', $aws->id)
+            ->where('type', 'AnimalWeighingScheduleStartDate')
+            ->where('name', 'starts_at')
+            ->delete();
 
         Property::create([
             'belongsTo_type' => 'Property',

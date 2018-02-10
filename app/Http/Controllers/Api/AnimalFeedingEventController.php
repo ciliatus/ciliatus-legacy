@@ -201,7 +201,8 @@ class AnimalFeedingEventController extends ApiController
             'belongsTo_type' => 'System',
             'belongsTo_id' => '00000000-0000-0000-0000-000000000000',
             'type' => 'AnimalFeedingType',
-            'name' => $request->input('name')
+            'name' => $request->input('name'),
+            'value' => $request->input('name')
         ]);
 
         return $this->respondWithData(
