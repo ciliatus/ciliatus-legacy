@@ -6,8 +6,8 @@ use App\BiographyEntryEvent;
 use App\Events\BiographyEntryEventDeleted;
 use App\Events\BiographyEntryEventUpdated;
 use App\Property;
-use Illuminate\Http\Request;
 use Gate;
+use Illuminate\Http\Request;
 
 /**
  * Class BiographyEntryController

@@ -7,7 +7,6 @@
  */
 
 namespace App\Http\Transformers;
-use App\Http\Controllers\Api\BiographyEntryEventController;
 use Carbon\Carbon;
 
 /**

@@ -7,8 +7,6 @@ use App\Property;
 use Gate;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 /**
  * Class AnimalFeedingEventController
  * @package App\Http\Controllers

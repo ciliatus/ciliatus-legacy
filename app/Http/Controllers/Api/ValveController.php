@@ -4,11 +4,10 @@ namespace App\Http\Controllers\Api;
 
 use App\Controlunit;
 use App\Pump;
-use App\Valve;
 use App\Terrarium;
+use App\Valve;
 use Gate;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
 
 /**

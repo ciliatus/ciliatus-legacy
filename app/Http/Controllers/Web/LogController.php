@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
-use Gate;
-use Auth;
 use App\Log;
+use Gate;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class LogController extends Controller
 {

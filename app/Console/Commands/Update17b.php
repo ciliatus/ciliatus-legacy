@@ -3,8 +3,6 @@
 namespace App\Console\Commands;
 
 use App\File;
-use App\Log;
-use App\Terrarium;
 use Illuminate\Console\Command;
 
 class Update17b extends Command

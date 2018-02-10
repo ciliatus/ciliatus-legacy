@@ -6,7 +6,6 @@ use App\Events\PumpDeleted;
 use App\Events\PumpUpdated;
 use App\Traits\Components;
 use App\Traits\Uuids;
-use Illuminate\Database\Eloquent\Model;
 use Illuminate\Notifications\Notifiable;
 
 /**

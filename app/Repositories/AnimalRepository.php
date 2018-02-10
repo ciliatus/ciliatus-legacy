@@ -3,8 +3,6 @@
 namespace App\Repositories;
 
 use App\Animal;
-use Cache;
-use DB;
 
 /**
  * Class AnimalRepository

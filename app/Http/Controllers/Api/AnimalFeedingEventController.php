@@ -5,13 +5,13 @@ namespace App\Http\Controllers\Api;
 use App\Animal;
 use App\AnimalFeedingEvent;
 use App\Events\AnimalFeedingEventDeleted;
-use App\Events\AnimalFeedingSchedulePropertyDeleted;
 use App\Events\AnimalFeedingEventUpdated;
+use App\Events\AnimalFeedingSchedulePropertyDeleted;
 use App\Events\AnimalUpdated;
 use App\Property;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Gate;
+use Illuminate\Http\Request;
 
 /**
  * Class AnimalFeedingEventController

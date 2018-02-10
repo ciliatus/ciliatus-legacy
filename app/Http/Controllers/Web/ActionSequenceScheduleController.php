@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Web;
 
 use App\ActionSequence;
-use App\Http\Controllers\Controller;
 use App\ActionSequenceSchedule;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 /**
  * Class ActionSequenceScheduleController

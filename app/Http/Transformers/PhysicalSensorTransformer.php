@@ -8,8 +8,6 @@
 
 namespace App\Http\Transformers;
 
-use App\Http\Transformers\LogicalSensorTransformer;
-
 /**
  * Class PhysicalSensorTransformer
  * @package App\Http\Transformers

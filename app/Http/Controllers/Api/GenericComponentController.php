@@ -9,8 +9,6 @@ use App\Property;
 use Gate;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 class GenericComponentController extends ApiController
 {
 

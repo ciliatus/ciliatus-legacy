@@ -2,13 +2,9 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
 use App\File;
-use App\Property;
-use App\Repositories\FileRepository;
+use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 /**
  * Class FileController

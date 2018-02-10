@@ -6,15 +6,12 @@ use App\Animal;
 use App\Controlunit;
 use App\GenericComponent;
 use App\Http\Controllers\Controller;
-use App\ActionSequenceSchedule;
 use App\LogicalSensor;
 use App\PhysicalSensor;
 use App\Pump;
 use App\Terrarium;
 use App\Valve;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 /**
  * Class DashboardController

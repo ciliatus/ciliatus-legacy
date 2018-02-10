@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\CriticalState;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Lang;
 

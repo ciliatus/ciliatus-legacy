@@ -8,8 +8,6 @@ use App\Property;
 use Gate;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 /**
  * Class BiographyEntryController
  * @package App\Http\Controllers

@@ -2,9 +2,7 @@
 
 namespace App\Repositories;
 
-use App\Event;
 use App\File;
-use App\Property;
 
 /**
  * Class FileRepository

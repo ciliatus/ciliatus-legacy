@@ -7,7 +7,7 @@ use App\Property;
 use App\System;
 use Auth;
 use Gate;
-use \Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 
 /**

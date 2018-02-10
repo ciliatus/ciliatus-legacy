@@ -7,8 +7,6 @@ use App\LogicalSensor;
 use App\LogicalSensorThreshold;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 class LogicalSensorThresholdController extends Controller
 {
 

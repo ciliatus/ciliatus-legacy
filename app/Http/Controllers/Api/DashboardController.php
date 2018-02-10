@@ -11,7 +11,6 @@ use App\Http\Transformers\ActionSequenceTriggerTransformer;
 use App\Http\Transformers\AnimalFeedingSchedulePropertyTransformer;
 use App\Http\Transformers\AnimalWeighingSchedulePropertyTransformer;
 use App\Http\Transformers\ControlunitTransformer;
-use App\Http\Transformers\EventTransformer;
 use App\Http\Transformers\PhysicalSensorTransformer;
 use App\Http\Transformers\SuggestionEventTransformer;
 use App\Http\Transformers\TerrariumTransformer;
@@ -19,12 +18,10 @@ use App\PhysicalSensor;
 use App\Property;
 use App\Repositories\GenericRepository;
 use App\System;
+use App\Terrarium;
 use Carbon\Carbon;
 use Gate;
-use App\Terrarium;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Illuminate\Support\Collection;
 
 /**

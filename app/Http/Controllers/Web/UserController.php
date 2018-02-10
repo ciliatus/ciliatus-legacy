@@ -4,12 +4,10 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\Token;
-use Gate;
-use Auth;
 use App\User;
+use Auth;
+use Gate;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 /**
  * Class UserController

@@ -7,8 +7,6 @@ use App\ActionSequence;
 use Gate;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 /**
  * Class ActionController
  * @package App\Http\Controllers\Api

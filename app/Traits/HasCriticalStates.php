@@ -5,7 +5,6 @@ namespace App\Traits;
 
 use App\CiliatusModel;
 use App\CriticalState;
-use Carbon\Carbon;
 
 /**
  * Trait HasCriticalStates

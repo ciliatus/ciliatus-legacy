@@ -2,9 +2,8 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\Http\Transformers\AnimalCaresheetTransformer;
 use App\Animal;
-use App\Http\Transformers\FileTransformer;
+use App\Http\Transformers\AnimalCaresheetTransformer;
 use App\Terrarium;
 use Carbon\Carbon;
 use Gate;

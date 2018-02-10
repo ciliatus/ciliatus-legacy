@@ -3,16 +3,14 @@
 namespace App\Http\Controllers\Api;
 
 use App\Animal;
-use App\AnimalWeighingEvent;
 use App\AnimalWeighingScheduleProperty;
 use App\Events\AnimalUpdated;
 use App\Events\AnimalWeighingSchedulePropertyDeleted;
 use App\Events\AnimalWeighingSchedulePropertyUpdated;
-use App\Events\AnimalWeighingEventUpdated;
 use App\Property;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Gate;
+use Illuminate\Http\Request;
 
 /**
  * Class AnimalWeighingController

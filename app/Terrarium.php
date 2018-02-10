@@ -2,15 +2,15 @@
 
 namespace App;
 
-use App\Events\TerrariumUpdated;
 use App\Events\TerrariumDeleted;
+use App\Events\TerrariumUpdated;
 use App\Repositories\SensorreadingRepository;
 use App\Traits\Uuids;
-use Illuminate\Notifications\Notifiable;
-use Illuminate\Support\Facades\Cache;
 use Carbon\Carbon;
 use DB;
+use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\Cache;
 
 /**
  * Class Terrarium

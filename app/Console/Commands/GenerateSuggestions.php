@@ -2,13 +2,11 @@
 
 namespace App\Console\Commands;
 
-use App\Animal;
 use App\Event;
 use App\Property;
 use App\Repositories\AnimalFeedingScheduleRepository;
 use App\Repositories\AnimalWeighingScheduleRepository;
 use App\Terrarium;
-use App\User;
 use Illuminate\Console\Command;
 
 class GenerateSuggestions extends Command

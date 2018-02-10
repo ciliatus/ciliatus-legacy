@@ -6,8 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Property;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 /**
  * Class SetupController
  * @package App\Http\Controllers\Web

@@ -2,14 +2,11 @@
 
 namespace App\Events;
 
-use App\Controlunit;
-use App\Http\Transformers\ControlunitTransformer;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Queue\SerializesModels;
 
 class ControlunitDeleted implements ShouldBroadcast
 {

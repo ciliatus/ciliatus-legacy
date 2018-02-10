@@ -2,16 +2,11 @@
 
 namespace App\Events;
 
-use App\Http\Transformers\ActionSequenceScheduleTransformer;
-use App\ActionSequenceSchedule;
-use Carbon\Carbon;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Log;
+use Illuminate\Queue\SerializesModels;
 
 class ActionSequenceScheduleDeleted implements ShouldBroadcast
 {

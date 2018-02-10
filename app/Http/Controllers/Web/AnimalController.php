@@ -2,14 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
+use App\Animal;
 use App\Event;
 use App\Http\Controllers\Controller;
-use App\Animal;
 use App\Terrarium;
-use Gate;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 use Illuminate\Support\Collection;
 
 /**

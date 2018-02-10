@@ -4,7 +4,6 @@ namespace App\Http\Middleware;
 
 use App;
 use Closure;
-use Illuminate\Support\Facades\Auth;
 
 class Localization
 {

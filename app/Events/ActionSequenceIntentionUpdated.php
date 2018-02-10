@@ -2,17 +2,14 @@
 
 namespace App\Events;
 
-use App\Http\Transformers\ActionSequenceIntentionTransformer;
 use App\ActionSequenceIntention;
+use App\Http\Transformers\ActionSequenceIntentionTransformer;
 use App\Repositories\ActionSequenceIntentionRepository;
-use Carbon\Carbon;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Log;
+use Illuminate\Queue\SerializesModels;
 
 class ActionSequenceIntentionUpdated implements ShouldBroadcast
 {

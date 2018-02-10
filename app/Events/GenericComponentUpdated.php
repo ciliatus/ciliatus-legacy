@@ -2,15 +2,14 @@
 
 namespace App\Events;
 
-use App\Http\Transformers\GenericComponentTransformer;
 use App\GenericComponent;
+use App\Http\Transformers\GenericComponentTransformer;
 use App\Repositories\GenericRepository;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Queue\SerializesModels;
 
 class GenericComponentUpdated implements ShouldBroadcast
 {

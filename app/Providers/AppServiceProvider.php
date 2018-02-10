@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
-use App\Sensorreading;
 
 class AppServiceProvider extends ServiceProvider
 {

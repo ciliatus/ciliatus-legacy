@@ -3,13 +3,10 @@
 namespace App\Http\Controllers\Web;
 
 use App\ActionSequence;
-use App\Http\Controllers\Controller;
 use App\ActionSequenceIntention;
+use App\Http\Controllers\Controller;
 use App\LogicalSensor;
-use App\Sensorreading;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 /**
  * Class ActionSequenceIntentionController

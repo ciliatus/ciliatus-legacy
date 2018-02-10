@@ -4,9 +4,9 @@ namespace App\Http\Controllers\Web;
 
 use App\Http\Controllers\Controller;
 use App\System;
+use Composer\Semver\Comparator;
 use Gate;
 use GuzzleHttp\Client;
-use Composer\Semver\Comparator;
 
 class SystemController extends Controller
 {

@@ -6,11 +6,10 @@ use App\Http\Transformers\LogicalSensorTransformer;
 use App\LogicalSensor;
 use App\Repositories\GenericRepository;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
+use Illuminate\Queue\SerializesModels;
 
 class LogicalSensorUpdated implements ShouldBroadcast
 {

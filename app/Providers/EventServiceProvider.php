@@ -20,7 +20,6 @@ use App\Observers\ActionSequenceScheduleObserver;
 use App\Observers\ActionSequenceTriggerObserver;
 use App\Observers\AnimalObserver;
 use App\Observers\ControlunitObserver;
-use App\Observers\CriticalStateObserver;
 use App\Observers\FileObserver;
 use App\Observers\GenericComponentObserver;
 use App\Observers\GenericComponentTypeObserver;

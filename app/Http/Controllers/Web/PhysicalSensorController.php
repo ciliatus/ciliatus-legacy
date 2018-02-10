@@ -2,13 +2,11 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
 use App\Controlunit;
+use App\Http\Controllers\Controller;
 use App\PhysicalSensor;
 use App\Terrarium;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class PhysicalSensorController extends Controller
 {

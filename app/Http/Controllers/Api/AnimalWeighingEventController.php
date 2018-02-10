@@ -10,8 +10,8 @@ use App\Events\AnimalWeighingEventUpdated;
 use App\Http\Transformers\AnimalWeighingEventTransformer;
 use App\Repositories\AnimalWeighingEventRepository;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
 use Gate;
+use Illuminate\Http\Request;
 
 /**
  * Class AnimalWeighingEventController

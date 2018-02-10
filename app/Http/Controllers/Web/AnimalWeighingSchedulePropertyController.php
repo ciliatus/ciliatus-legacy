@@ -3,10 +3,7 @@
 namespace App\Http\Controllers\Web;
 
 use App\Animal;
-use App\Property;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 /**
  * Class AnimalWeighingScheduleController

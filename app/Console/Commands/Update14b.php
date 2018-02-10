@@ -2,7 +2,6 @@
 
 namespace App\Console\Commands;
 
-use App\Log;
 use App\Terrarium;
 use Illuminate\Console\Command;
 

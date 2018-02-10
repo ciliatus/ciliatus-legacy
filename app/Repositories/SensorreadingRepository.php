@@ -2,10 +2,9 @@
 
 namespace App\Repositories;
 
-use App\Terrarium;
+use App\Sensorreading;
 use Carbon\Carbon;
 use DB;
-use App\Sensorreading;
 
 /**
  * Class SensorreadingRepository

@@ -3,7 +3,6 @@
 namespace App\Console\Commands;
 
 use App\Helpers\AnomalyDetection;
-use App\Log;
 use App\Sensorreading;
 use App\Terrarium;
 use Carbon\Carbon;

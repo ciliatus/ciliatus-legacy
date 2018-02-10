@@ -6,8 +6,6 @@ use App\Animal;
 use App\Property;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 /**
  * Class AnimalFeedingSchedulePropertyController
  * @package App\Http\Controllers

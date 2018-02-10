@@ -2,14 +2,10 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Http\Controllers\Controller;
 use App\ActionSequence;
-use App\ActionSequenceSchedule;
-use App\Property;
+use App\Http\Controllers\Controller;
 use App\Terrarium;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 /**
  * Class ActionSequenceController

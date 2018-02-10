@@ -2,14 +2,9 @@
 
 namespace App\Repositories;
 
-use App\ActionSequence;
-use App\Http\Transformers\ActionSequenceScheduleTransformer;
 use App\LogicalSensor;
 use App\Terrarium;
-use Cache;
 use Carbon\Carbon;
-use DB;
-use App\Sensorreading;
 
 /**
  * Class TerrariumRepository

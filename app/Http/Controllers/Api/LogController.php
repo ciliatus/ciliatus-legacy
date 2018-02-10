@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\Http\Transformers\LogTransformer;
 use App\Log;
 use Gate;
-use \Illuminate\Http\Request;
+use Illuminate\Http\Request;
 
 
 /**

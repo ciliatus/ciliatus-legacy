@@ -6,11 +6,8 @@ use App\Controlunit;
 use App\GenericComponent;
 use App\GenericComponentType;
 use App\Http\Controllers\Controller;
-use App\Property;
 use Gate;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 class GenericComponentController extends Controller
 {

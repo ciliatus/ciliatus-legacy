@@ -2,15 +2,13 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\GenericComponentType;
-use App\Http\Controllers\Controller;
 use App\Action;
 use App\ActionSequence;
+use App\GenericComponentType;
+use App\Http\Controllers\Controller;
 use App\Pump;
 use App\Valve;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 /**
  * Class ActionController

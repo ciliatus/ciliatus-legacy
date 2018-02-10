@@ -6,7 +6,6 @@ use App\LogicalSensor;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\RequestOptions;
 use Illuminate\Console\Command;
 use Ramsey\Uuid\Uuid;
 

@@ -3,9 +3,6 @@
 namespace App\Traits;
 
 
-use App\Action;
-use App\ActionSequence;
-use Auth;
 use GuzzleHttp\Client;
 use Webpatser\Uuid\Uuid;
 

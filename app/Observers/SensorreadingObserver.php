@@ -2,8 +2,8 @@
 
 namespace App\Observers;
 
-use App\System;
 use App\Sensorreading;
+use App\System;
 
 class SensorreadingObserver
 {

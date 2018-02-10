@@ -8,8 +8,6 @@ use App\LogicalSensor;
 use Gate;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 class GenericComponentTypeController extends Controller
 {
     /**

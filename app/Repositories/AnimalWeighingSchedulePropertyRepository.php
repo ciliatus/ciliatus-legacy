@@ -2,7 +2,6 @@
 
 namespace App\Repositories;
 
-use App\Animal;
 use App\Property;
 use Carbon\Carbon;
 

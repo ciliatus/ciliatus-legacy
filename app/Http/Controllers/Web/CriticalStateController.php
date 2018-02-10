@@ -6,8 +6,6 @@ use App\CriticalState;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-use App\Http\Requests;
-
 /**
  * Class CriticalStateController
  * @package App\Http\Controllers\Web

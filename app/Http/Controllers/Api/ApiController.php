@@ -6,12 +6,11 @@ use App\CiliatusModel;
 use App\Factories\RepositoryFactory;
 use App\Factories\TransformerFactory;
 use App\Http\Controllers\Controller;
-use App\Http\Transformers\Transformer;
 use App\Property;
 use Gate;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Collection;
 use Matthenning\EloquentApiFilter\Traits\FiltersEloquentApi;
 

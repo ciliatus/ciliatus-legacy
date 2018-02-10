@@ -3,7 +3,6 @@
 namespace App\Repositories;
 
 use App\Event;
-use App\Property;
 
 /**
  * Class AnimalCaresheetRepository

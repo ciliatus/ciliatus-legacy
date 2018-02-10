@@ -2,17 +2,11 @@
 
 namespace App\Events;
 
-use App\Http\Transformers\TerrariumTransformer;
-use App\Repositories\TerrariumRepository;
-use App\Terrarium;
-use Carbon\Carbon;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Log;
+use Illuminate\Queue\SerializesModels;
 
 class TerrariumDeleted implements ShouldBroadcast
 {

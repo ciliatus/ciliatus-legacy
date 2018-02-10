@@ -5,12 +5,10 @@ namespace App\Events;
 use App\CriticalState;
 use App\Http\Transformers\CriticalStateTransformer;
 use Illuminate\Broadcasting\Channel;
-use Illuminate\Queue\SerializesModels;
-use Illuminate\Broadcasting\PrivateChannel;
-use Illuminate\Broadcasting\PresenceChannel;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
-use Log;
+use Illuminate\Queue\SerializesModels;
 use Tests\Feature\CriticalStateTest;
 
 class CriticalStateCreated implements ShouldBroadcast
