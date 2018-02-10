@@ -42,4 +42,4 @@ Also: Because the source environment is in german you will find user defined str
 * Tokenizer PHP Extension
 * XML PHP Extension
 
-Source: https://laravel.com/docs/5.5/installation#server-requirements
+Source: https://laravel.com/docs/5.6/installation#server-requirements
