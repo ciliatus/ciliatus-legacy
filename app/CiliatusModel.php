@@ -59,18 +59,27 @@ abstract class CiliatusModel extends Model
      * @param $type
      * @param $name
      * @param $value
-     * @return mixed
+     * @return Property
      */
     public function setProperty($type, $name, $value)
     {
         $class_arr = explode("\\",__CLASS__);
-        $p = Property::create([
-            'belongsTo_type' => end($class_arr),
-            'belongsTo_id' => $this->id,
-            'type' => $type,
-            'name' => $name,
-            'value' => $value
-        ]);
+
+        if (is_null($p = $this->property($type, $name, $value))) {
+            $p = Property::create([
+                'belongsTo_type' => end($class_arr),
+                'belongsTo_id' => $this->id,
+                'type' => $type,
+                'name' => $name,
+                'value' => $value
+            ]);
+        }
+        else {
+            $p->type = $type;
+            $p->name = $name;
+            $p->value = $value;
+            $p->save();
+        }
 
         return $p;
     }
