@@ -11,10 +11,17 @@ use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 use Tests\Feature\CriticalStateTest;
 
+/**
+ * Class CriticalStateCreated
+ * @package App\Events
+ */
 class CriticalStateCreated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var array
+     */
     public $critical_state;
 
     /**

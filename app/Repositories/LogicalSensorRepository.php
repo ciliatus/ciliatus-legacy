@@ -11,8 +11,6 @@ use App\CiliatusModel;
  */
 class LogicalSensorRepository extends Repository
 {
-
-
     /**
      * LogicalSensorRepository constructor.
      * @param CiliatusModel|null $scope

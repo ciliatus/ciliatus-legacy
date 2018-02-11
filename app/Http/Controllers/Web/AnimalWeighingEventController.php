@@ -25,7 +25,8 @@ class AnimalWeighingEventController extends \App\Http\Controllers\Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param $animal_id
+     * @return void
      */
     public function index($animal_id)
     {
@@ -37,7 +38,7 @@ class AnimalWeighingEventController extends \App\Http\Controllers\Controller
      * Show the form for creating a new resource.
      *
      * @param $animal_id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return void
      */
     public function create($animal_id)
     {
@@ -47,8 +48,9 @@ class AnimalWeighingEventController extends \App\Http\Controllers\Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param $animal_id
+     * @return void
      */
     public function store(Request $request, $animal_id)
     {
@@ -58,8 +60,9 @@ class AnimalWeighingEventController extends \App\Http\Controllers\Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $animal_id
+     * @param string $id
+     * @return void
      */
     public function show($animal_id, $id)
     {
@@ -69,8 +72,9 @@ class AnimalWeighingEventController extends \App\Http\Controllers\Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $animal_id
+     * @param string $id
+     * @return void
      */
     public function edit($animal_id, $id)
     {
@@ -80,9 +84,10 @@ class AnimalWeighingEventController extends \App\Http\Controllers\Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param $animal_id
+     * @param string $id
+     * @return void
      */
     public function update(Request $request, $animal_id, $id)
     {
@@ -115,8 +120,9 @@ class AnimalWeighingEventController extends \App\Http\Controllers\Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $animal_id
+     * @param string $id
+     * @return void
      */
     public function destroy($animal_id, $id)
     {

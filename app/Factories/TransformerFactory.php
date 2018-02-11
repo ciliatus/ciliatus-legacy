@@ -24,7 +24,6 @@ class TransformerFactory extends Factory
     /**
      * @param CiliatusModel|null $object
      * @return Transformer
-     * @throws ErrorException
      */
     public static function get(CiliatusModel $object = null)
     {

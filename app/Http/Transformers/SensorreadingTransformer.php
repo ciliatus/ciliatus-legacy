@@ -15,7 +15,6 @@ namespace App\Http\Transformers;
  */
 class SensorreadingTransformer extends Transformer
 {
-
     /**
      * @param $item
      * @return array

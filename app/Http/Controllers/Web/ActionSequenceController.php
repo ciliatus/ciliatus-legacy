@@ -35,6 +35,7 @@ class ActionSequenceController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -50,8 +51,8 @@ class ActionSequenceController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -61,7 +62,7 @@ class ActionSequenceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -72,7 +73,7 @@ class ActionSequenceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -93,9 +94,9 @@ class ActionSequenceController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param string $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
@@ -122,19 +123,25 @@ class ActionSequenceController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $id
+     * @return void
      */
     public function destroy($id)
     {
         //
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function stop_all()
     {
         return view('action_sequences.stop_all');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function resume_all()
     {
         return view('action_sequences.resume_all');

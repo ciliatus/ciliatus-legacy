@@ -72,7 +72,7 @@ class FileController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -90,7 +90,7 @@ class FileController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -110,7 +110,7 @@ class FileController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param string $id
      * @return void
      */
     public function update(Request $request, $id)
@@ -138,7 +138,7 @@ class FileController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param string $id
      * @return void
      */
     public function destroy($id)

@@ -13,6 +13,9 @@ use App\CriticalState;
 trait HasCriticalStates
 {
 
+    /**
+     * @return mixed
+     */
     abstract public function getStateDetails();
 
     /**

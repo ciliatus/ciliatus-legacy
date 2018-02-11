@@ -8,10 +8,21 @@ use Composer\Semver\Comparator;
 use Gate;
 use GuzzleHttp\Client;
 
+/**
+ * Class SystemController
+ * @package App\Http\Controllers\Web
+ */
 class SystemController extends Controller
 {
+    /**
+     * @var
+     */
     protected $request;
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @throws \Exception
+     */
     public function index()
     {
 

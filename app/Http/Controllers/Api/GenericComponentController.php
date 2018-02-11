@@ -9,9 +9,16 @@ use App\Property;
 use Gate;
 use Illuminate\Http\Request;
 
+/**
+ * Class GenericComponentController
+ * @package App\Http\Controllers\Api
+ */
 class GenericComponentController extends ApiController
 {
 
+    /**
+     * GenericComponentController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -20,6 +27,7 @@ class GenericComponentController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -27,8 +35,10 @@ class GenericComponentController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -38,7 +48,7 @@ class GenericComponentController extends ApiController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -107,8 +117,8 @@ class GenericComponentController extends ApiController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $id
+     * @return void
      */
     public function edit($id)
     {
@@ -119,7 +129,7 @@ class GenericComponentController extends ApiController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
@@ -175,7 +185,7 @@ class GenericComponentController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)

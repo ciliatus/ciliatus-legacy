@@ -5,6 +5,10 @@ namespace App\Observers;
 
 use App\LogicalSensor;
 
+/**
+ * Class LogicalSensorObserver
+ * @package App\Observers
+ */
 class LogicalSensorObserver
 {
     /**

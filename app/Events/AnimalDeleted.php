@@ -8,16 +8,23 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Class AnimalDeleted
+ * @package App\Events
+ */
 class AnimalDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var
+     */
     public $animal_id;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $animal_id
      */
     public function __construct($animal_id)
     {

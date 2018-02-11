@@ -11,16 +11,23 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Class ActionSequenceScheduleUpdated
+ * @package App\Events
+ */
 class ActionSequenceScheduleUpdated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var array
+     */
     public $action_sequence_schedule;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param ActionSequenceSchedule $ass
      */
     public function __construct(ActionSequenceSchedule $ass)
     {

@@ -5,6 +5,10 @@ namespace App\Observers;
 use App\Sensorreading;
 use App\System;
 
+/**
+ * Class SensorreadingObserver
+ * @package App\Observers
+ */
 class SensorreadingObserver
 {
     /**

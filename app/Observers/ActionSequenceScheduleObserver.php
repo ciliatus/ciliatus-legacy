@@ -7,6 +7,10 @@ use App\ActionSequenceSchedule;
 use App\RunningAction;
 use Carbon\Carbon;
 
+/**
+ * Class ActionSequenceScheduleObserver
+ * @package App\Observers
+ */
 class ActionSequenceScheduleObserver
 {
     /**

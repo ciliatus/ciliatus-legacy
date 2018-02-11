@@ -5,6 +5,10 @@ namespace App\Observers;
 
 use App\Action;
 
+/**
+ * Class ActionObserver
+ * @package App\Observers
+ */
 class ActionObserver
 {
     /**

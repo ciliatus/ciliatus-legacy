@@ -20,6 +20,9 @@ use Illuminate\Http\Request;
 class ActionSequenceController extends ApiController
 {
 
+    /**
+     * ActionSequenceController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -28,6 +31,7 @@ class ActionSequenceController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -35,8 +39,10 @@ class ActionSequenceController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -45,6 +51,8 @@ class ActionSequenceController extends ApiController
 
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
@@ -73,6 +81,7 @@ class ActionSequenceController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -158,6 +167,8 @@ class ActionSequenceController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)

@@ -5,6 +5,10 @@ namespace App\Observers;
 
 use App\GenericComponent;
 
+/**
+ * Class GenericComponentObserver
+ * @package App\Observers
+ */
 class GenericComponentObserver
 {
 

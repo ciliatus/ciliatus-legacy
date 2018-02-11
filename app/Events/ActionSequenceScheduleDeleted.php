@@ -8,16 +8,23 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Class ActionSequenceScheduleDeleted
+ * @package App\Events
+ */
 class ActionSequenceScheduleDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var
+     */
     public $action_sequence_schedule_id;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $action_sequence_schedule_id
      */
     public function __construct($action_sequence_schedule_id)
     {

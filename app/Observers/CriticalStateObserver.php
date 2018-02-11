@@ -6,6 +6,10 @@ namespace App\Observers;
 use App\CriticalState;
 use App\Log;
 
+/**
+ * Class CriticalStateObserver
+ * @package App\Observers
+ */
 class CriticalStateObserver
 {
 

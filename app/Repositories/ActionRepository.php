@@ -10,8 +10,6 @@ use App\Action;
  */
 class ActionRepository extends Repository
 {
-
-
     /**
      * ActionRepository constructor.
      * @param Action|null $scope

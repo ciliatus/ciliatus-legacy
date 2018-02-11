@@ -9,10 +9,17 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Class TerrariumUpdated
+ * @package App\Events
+ */
 class TerrariumUpdated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var mixed
+     */
     public $terrarium_id;
 
     /**

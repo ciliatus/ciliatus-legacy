@@ -14,8 +14,6 @@ namespace App\Http\Transformers;
  */
 class ActionSequenceTriggerTransformer extends Transformer
 {
-
-
     /**
      * @param $item
      * @return array

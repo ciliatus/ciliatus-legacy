@@ -8,16 +8,23 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Class PumpDeleted
+ * @package App\Events
+ */
 class PumpDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var
+     */
     public $pump_id;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $pump_id
      */
     public function __construct($pump_id)
     {

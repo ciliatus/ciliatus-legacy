@@ -5,6 +5,10 @@ namespace App\Observers;
 
 use App\Pump;
 
+/**
+ * Class PumpObserver
+ * @package App\Observers
+ */
 class PumpObserver
 {
     /**

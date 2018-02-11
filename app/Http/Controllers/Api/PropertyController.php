@@ -16,6 +16,9 @@ use Illuminate\Http\Request;
 class PropertyController extends ApiController
 {
 
+    /**
+     * PropertyController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -24,6 +27,7 @@ class PropertyController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -31,8 +35,10 @@ class PropertyController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -41,6 +47,7 @@ class PropertyController extends ApiController
 
 
     /**
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)
@@ -61,6 +68,7 @@ class PropertyController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -111,6 +119,8 @@ class PropertyController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)

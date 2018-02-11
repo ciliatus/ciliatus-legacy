@@ -9,8 +9,6 @@ namespace App\Http\Transformers;
  */
 class CategoryTransformer extends Transformer
 {
-
-
     /**
      * @param $item
      * @return array

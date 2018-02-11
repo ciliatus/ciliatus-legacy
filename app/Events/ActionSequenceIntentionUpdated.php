@@ -11,16 +11,23 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Class ActionSequenceIntentionUpdated
+ * @package App\Events
+ */
 class ActionSequenceIntentionUpdated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var array
+     */
     public $action_sequence_intention;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param ActionSequenceIntention $asi
      */
     public function __construct(ActionSequenceIntention $asi)
     {

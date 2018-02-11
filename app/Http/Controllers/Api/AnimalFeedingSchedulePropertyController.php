@@ -21,6 +21,9 @@ use Illuminate\Http\Request;
 class AnimalFeedingSchedulePropertyController extends ApiController
 {
 
+    /**
+     * AnimalFeedingSchedulePropertyController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -31,6 +34,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
      * @param null $animal_id
      * @return \Illuminate\Http\JsonResponse
      * @internal param $animal_id
+     * @throws \ErrorException
      */
     public function index(Request $request, $animal_id = null)
     {
@@ -63,7 +67,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -132,8 +136,8 @@ class AnimalFeedingSchedulePropertyController extends ApiController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $id
+     * @return void
      */
     public function edit($id)
     {
@@ -144,8 +148,8 @@ class AnimalFeedingSchedulePropertyController extends ApiController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $animal_id
-     * @param  int  $id
+     * @param string $animal_id
+     * @param string $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $animal_id, $id)
@@ -184,7 +188,8 @@ class AnimalFeedingSchedulePropertyController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param $animal_id
+     * @param string $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($animal_id, $id)

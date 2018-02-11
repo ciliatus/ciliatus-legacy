@@ -23,7 +23,8 @@ class AnimalWeighingSchedulePropertyController extends \App\Http\Controllers\Con
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @param $animal_id
+     * @return void
      */
     public function index($animal_id)
     {
@@ -52,8 +53,9 @@ class AnimalWeighingSchedulePropertyController extends \App\Http\Controllers\Con
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param $animal_id
+     * @return void
      */
     public function store(Request $request, $animal_id)
     {
@@ -63,8 +65,9 @@ class AnimalWeighingSchedulePropertyController extends \App\Http\Controllers\Con
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $animal_id
+     * @param string $id
+     * @return void
      */
     public function show($animal_id, $id)
     {
@@ -74,7 +77,8 @@ class AnimalWeighingSchedulePropertyController extends \App\Http\Controllers\Con
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param $animal_id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function edit($animal_id, $id)
@@ -98,15 +102,21 @@ class AnimalWeighingSchedulePropertyController extends \App\Http\Controllers\Con
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param $animal_id
+     * @param string $id
+     * @return void
      */
     public function update(Request $request, $animal_id, $id)
     {
         //
     }
 
+    /**
+     * @param $animal_id
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function delete($animal_id, $id)
     {
         $animal = Animal::find($animal_id);
@@ -128,8 +138,9 @@ class AnimalWeighingSchedulePropertyController extends \App\Http\Controllers\Con
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $animal_id
+     * @param string $id
+     * @return void
      */
     public function destroy($animal_id, $id)
     {

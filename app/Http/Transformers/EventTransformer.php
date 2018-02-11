@@ -15,8 +15,6 @@ namespace App\Http\Transformers;
  */
 class EventTransformer extends Transformer
 {
-
-
     /**
      * @param $item
      * @return array

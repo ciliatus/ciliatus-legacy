@@ -8,16 +8,23 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Class PhysicalSensorDeleted
+ * @package App\Events
+ */
 class PhysicalSensorDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var
+     */
     public $physical_sensor_id;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $physical_sensor_id
      */
     public function __construct($physical_sensor_id)
     {

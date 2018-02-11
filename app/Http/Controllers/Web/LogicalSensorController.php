@@ -7,6 +7,10 @@ use App\LogicalSensor;
 use App\PhysicalSensor;
 use Illuminate\Http\Request;
 
+/**
+ * Class LogicalSensorController
+ * @package App\Http\Controllers\Web
+ */
 class LogicalSensorController extends Controller
 {
 
@@ -33,6 +37,7 @@ class LogicalSensorController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -48,8 +53,8 @@ class LogicalSensorController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -59,7 +64,7 @@ class LogicalSensorController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -77,7 +82,7 @@ class LogicalSensorController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -103,15 +108,19 @@ class LogicalSensorController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param string $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
         //
     }
 
+    /**
+     * @param $id
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     */
     public function delete($id)
     {
         $logical_sensor = LogicalSensor::find($id);
@@ -128,8 +137,8 @@ class LogicalSensorController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $id
+     * @return void
      */
     public function destroy($id)
     {

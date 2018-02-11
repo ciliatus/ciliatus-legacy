@@ -11,16 +11,23 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Class PumpUpdated
+ * @package App\Events
+ */
 class PumpUpdated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var array
+     */
     public $pump;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param Pump $p
      */
     public function __construct(Pump $p)
     {

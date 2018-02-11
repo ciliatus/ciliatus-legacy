@@ -5,6 +5,10 @@ namespace App\Observers;
 
 use App\Animal;
 
+/**
+ * Class AnimalObserver
+ * @package App\Observers
+ */
 class AnimalObserver
 {
     /**

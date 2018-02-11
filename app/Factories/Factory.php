@@ -11,9 +11,17 @@ namespace App\Factories;
 
 use App\CiliatusModel;
 
+/**
+ * Class Factory
+ * @package App\Factories
+ */
 abstract class Factory
 {
 
+    /**
+     * @param CiliatusModel $object
+     * @return mixed
+     */
     abstract static function get(CiliatusModel $object);
 
 }

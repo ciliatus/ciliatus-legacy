@@ -14,6 +14,9 @@ use Illuminate\Http\Request;
 class ActionController extends ApiController
 {
 
+    /**
+     * ActionController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -30,6 +33,7 @@ class ActionController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      * @throws \ErrorException
@@ -40,6 +44,8 @@ class ActionController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
@@ -66,6 +72,7 @@ class ActionController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -115,6 +122,8 @@ class ActionController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)

@@ -44,6 +44,7 @@ class PhysicalSensor extends CiliatusModel
 
     /**
      * @return bool|null
+     * @throws \Exception
      */
     public function delete()
     {

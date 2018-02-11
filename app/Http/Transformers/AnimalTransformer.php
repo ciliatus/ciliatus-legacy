@@ -15,8 +15,6 @@ use Carbon\Carbon;
  */
 class AnimalTransformer extends Transformer
 {
-
-
     /**
      * @param $item
      * @return array

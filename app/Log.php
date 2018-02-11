@@ -158,6 +158,9 @@ class Log extends CiliatusModel
         }
     }
 
+    /**
+     * @param bool $transform
+     */
     public function addSource($transform = false)
     {
         $this->source = (new GenericRepository($this->source))->show();
@@ -166,6 +169,9 @@ class Log extends CiliatusModel
         }
     }
 
+    /**
+     * @param bool $transform
+     */
     public function addTarget($transform = false)
     {
         $this->target = (new GenericRepository($this->target))->show();
@@ -174,6 +180,9 @@ class Log extends CiliatusModel
         }
     }
 
+    /**
+     * @param bool $transform
+     */
     public function addAssociated($transform = false)
     {
         $this->associated = (new GenericRepository($this->associated))->show();

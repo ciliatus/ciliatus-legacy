@@ -11,10 +11,17 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Class AnimalCaresheetUpdated
+ * @package App\Events
+ */
 class AnimalCaresheetUpdated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var array
+     */
     public $animal_caresheet;
 
     /**

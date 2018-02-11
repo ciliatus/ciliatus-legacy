@@ -40,6 +40,7 @@ class ActionSequence extends CiliatusModel
 
     /**
      * @return bool|null
+     * @throws \Exception
      */
     public function delete()
     {

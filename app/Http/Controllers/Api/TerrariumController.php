@@ -26,12 +26,16 @@ use Illuminate\Http\Request;
 class TerrariumController extends ApiController
 {
 
+    /**
+     * TerrariumController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \ErrorException
      */
@@ -96,6 +100,8 @@ class TerrariumController extends ApiController
 
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
@@ -150,6 +156,7 @@ class TerrariumController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)

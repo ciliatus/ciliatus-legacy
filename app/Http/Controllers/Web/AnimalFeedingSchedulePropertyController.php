@@ -24,6 +24,7 @@ class AnimalFeedingSchedulePropertyController extends \App\Http\Controllers\Cont
     /**
      * Display a listing of the resource.
      *
+     * @param null $animal_id
      * @return \Illuminate\Http\Response
      */
     public function index($animal_id = null)
@@ -67,7 +68,7 @@ class AnimalFeedingSchedulePropertyController extends \App\Http\Controllers\Cont
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function show($animal_id, $id)
@@ -78,7 +79,7 @@ class AnimalFeedingSchedulePropertyController extends \App\Http\Controllers\Cont
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function edit($animal_id, $id)
@@ -104,7 +105,7 @@ class AnimalFeedingSchedulePropertyController extends \App\Http\Controllers\Cont
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $animal_id, $id)
@@ -134,7 +135,7 @@ class AnimalFeedingSchedulePropertyController extends \App\Http\Controllers\Cont
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function destroy($animal_id, $id)

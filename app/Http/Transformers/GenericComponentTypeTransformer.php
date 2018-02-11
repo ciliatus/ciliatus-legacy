@@ -14,8 +14,6 @@ namespace App\Http\Transformers;
  */
 class GenericComponentTypeTransformer extends Transformer
 {
-
-
     /**
      * @param $item
      * @return array

@@ -16,6 +16,9 @@ use Illuminate\Http\Request;
 class ActionSequenceScheduleController extends ApiController
 {
 
+    /**
+     * ActionSequenceScheduleController constructor.
+     */
     public function __construct()
     {
         parent::__construct();

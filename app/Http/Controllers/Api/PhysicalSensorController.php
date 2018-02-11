@@ -16,6 +16,9 @@ use Illuminate\Http\Request;
 class PhysicalSensorController extends ApiController
 {
 
+    /**
+     * PhysicalSensorController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -24,6 +27,7 @@ class PhysicalSensorController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -31,8 +35,10 @@ class PhysicalSensorController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -41,6 +47,8 @@ class PhysicalSensorController extends ApiController
 
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
@@ -73,6 +81,7 @@ class PhysicalSensorController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -101,6 +110,8 @@ class PhysicalSensorController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)

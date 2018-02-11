@@ -6,6 +6,10 @@ namespace App\Observers;
 use App\Log;
 use App\User;
 
+/**
+ * Class UserObserver
+ * @package App\Observers
+ */
 class UserObserver
 {
     /**

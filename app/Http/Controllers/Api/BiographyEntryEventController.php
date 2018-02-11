@@ -16,17 +16,20 @@ use Illuminate\Http\Request;
 class BiographyEntryEventController extends ApiController
 {
 
+    /**
+     * BiographyEntryEventController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
-
 
     /**
      * @param Request $request
      * @param $belongsTo_type
      * @param $belongsTo_id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request, $belongsTo_type = null, $belongsTo_id = null)
     {
@@ -58,8 +61,10 @@ class BiographyEntryEventController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -69,7 +74,7 @@ class BiographyEntryEventController extends ApiController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -121,8 +126,8 @@ class BiographyEntryEventController extends ApiController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $id
+     * @return void
      */
     public function edit($id)
     {
@@ -133,7 +138,7 @@ class BiographyEntryEventController extends ApiController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
@@ -192,7 +197,7 @@ class BiographyEntryEventController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy($id)

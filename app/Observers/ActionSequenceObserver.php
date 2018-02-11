@@ -5,6 +5,10 @@ namespace App\Observers;
 
 use App\ActionSequence;
 
+/**
+ * Class ActionSequenceObserver
+ * @package App\Observers
+ */
 class ActionSequenceObserver
 {
     /**

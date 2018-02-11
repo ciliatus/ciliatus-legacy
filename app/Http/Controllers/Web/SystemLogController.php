@@ -6,15 +6,29 @@ use App\Http\Controllers\Controller;
 use Gate;
 use Rap2hpoutre\LaravelLogViewer\LaravelLogViewer;
 
+/**
+ * Class SystemLogController
+ * @package App\Http\Controllers\Web
+ */
 class SystemLogController extends Controller
 {
+    /**
+     * @var \Illuminate\Foundation\Application|mixed|request
+     */
     protected $request;
 
+    /**
+     * SystemLogController constructor.
+     */
     public function __construct ()
     {
         $this->request = app('request');
     }
 
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\RedirectResponse|\Illuminate\Http\Response|\Illuminate\Routing\Redirector|\Illuminate\View\View|\Symfony\Component\HttpFoundation\BinaryFileResponse
+     * @throws \Exception
+     */
     public function index()
     {
 
@@ -73,6 +87,10 @@ class SystemLogController extends Controller
         ]);
     }
 
+    /**
+     * @param $to
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
     private function redirect($to)
     {
         if (function_exists('redirect')) {
@@ -82,6 +100,10 @@ class SystemLogController extends Controller
         return app('redirect')->to($to);
     }
 
+    /**
+     * @param $data
+     * @return \Symfony\Component\HttpFoundation\BinaryFileResponse
+     */
     private function download($data)
     {
         if (function_exists('response')) {

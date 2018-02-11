@@ -9,12 +9,15 @@ use Gate;
 use Illuminate\Http\Request;
 
 /**
- * Clasi ActionSequenceIntentionController
+ * Class ActionSequenceIntentionController
  * @package App\Http\Controllers
  */
 class ActionSequenceIntentionController extends ApiController
 {
 
+    /**
+     * ActionSequenceIntentionController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -23,6 +26,7 @@ class ActionSequenceIntentionController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -30,8 +34,10 @@ class ActionSequenceIntentionController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -40,6 +46,8 @@ class ActionSequenceIntentionController extends ApiController
 
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
@@ -68,6 +76,7 @@ class ActionSequenceIntentionController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -109,6 +118,8 @@ class ActionSequenceIntentionController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)

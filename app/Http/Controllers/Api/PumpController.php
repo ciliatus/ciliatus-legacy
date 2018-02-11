@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 class PumpController extends ApiController
 {
 
+    /**
+     * PumpController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -31,6 +34,7 @@ class PumpController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      * @throws \ErrorException
@@ -42,6 +46,8 @@ class PumpController extends ApiController
 
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
@@ -68,6 +74,7 @@ class PumpController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -96,6 +103,8 @@ class PumpController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)

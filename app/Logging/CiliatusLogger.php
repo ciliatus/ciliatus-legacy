@@ -6,6 +6,10 @@ use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\RotatingFileHandler;
 use Monolog\Logger;
 
+/**
+ * Class CiliatusLogger
+ * @package App\Logging
+ */
 class CiliatusLogger
 {
     /**

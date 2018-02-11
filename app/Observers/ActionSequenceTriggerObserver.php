@@ -5,6 +5,10 @@ namespace App\Observers;
 use App\ActionSequenceTrigger;
 use App\RunningAction;
 
+/**
+ * Class ActionSequenceTriggerObserver
+ * @package App\Observers
+ */
 class ActionSequenceTriggerObserver
 {
 

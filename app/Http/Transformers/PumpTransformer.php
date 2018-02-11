@@ -14,8 +14,6 @@ namespace App\Http\Transformers;
  */
 class PumpTransformer extends Transformer
 {
-
-
     /**
      * @param $item
      * @return array

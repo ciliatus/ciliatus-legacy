@@ -26,7 +26,7 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function index()
     {
@@ -61,8 +61,8 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -72,7 +72,7 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -90,7 +90,7 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -122,9 +122,9 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param string $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
@@ -154,8 +154,8 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $id
+     * @return void
      */
     public function destroy($id)
     {

@@ -11,8 +11,6 @@ use App\CiliatusModel;
  */
 class LogRepository extends Repository
 {
-
-
     /**
      * LogRepository constructor.
      * @param CiliatusModel|null $scope

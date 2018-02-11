@@ -5,18 +5,25 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 
 
+/**
+ * Class EventController
+ * @package App\Http\Controllers\Api
+ */
 class EventController extends ApiController
 {
 
+    /**
+     * EventController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
-
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -24,8 +31,10 @@ class EventController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -35,7 +44,7 @@ class EventController extends ApiController
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return void
      */
     public function create()
     {
@@ -45,8 +54,8 @@ class EventController extends ApiController
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -56,8 +65,8 @@ class EventController extends ApiController
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $id
+     * @return void
      */
     public function edit($id)
     {
@@ -67,9 +76,9 @@ class EventController extends ApiController
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param  \Illuminate\Http\Request $request
+     * @param string $id
+     * @return void
      */
     public function update(Request $request, $id)
     {
@@ -79,8 +88,8 @@ class EventController extends ApiController
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param string $id
+     * @return void
      */
     public function destroy($id)
     {

@@ -10,8 +10,6 @@ use App\Animal;
  */
 class AnimalRepository extends Repository
 {
-
-
     /**
      * AnimalRepository constructor.
      * @param Animal|null $scope

@@ -8,11 +8,22 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Class ReadFlagSet
+ * @package App\Events
+ */
 class ReadFlagSet implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var String
+     */
     public $target_type;
+
+    /**
+     * @var String
+     */
     public $target_id;
 
     /**

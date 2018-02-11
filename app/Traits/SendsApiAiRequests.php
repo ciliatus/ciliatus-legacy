@@ -13,6 +13,13 @@ use Webpatser\Uuid\Uuid;
 trait SendsApiAiRequests
 {
 
+    /**
+     * @param $query
+     * @param null $user
+     * @param null $custom_sessionId
+     * @return bool|mixed
+     * @throws \Exception
+     */
     public function sendApiAiRequest($query, $user = null, $custom_sessionId = null) {
         if (!is_null($user)) {
             $locale = $user->locale;

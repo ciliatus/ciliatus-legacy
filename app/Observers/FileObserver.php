@@ -6,6 +6,10 @@ namespace App\Observers;
 
 use App\File;
 
+/**
+ * Class FileObserver
+ * @package App\Observers
+ */
 class FileObserver
 {
 

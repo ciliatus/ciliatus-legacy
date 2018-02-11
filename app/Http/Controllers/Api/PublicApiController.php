@@ -51,6 +51,7 @@ class PublicApiController extends \App\Http\Controllers\Controller
 
     /**
      * @param mixed $errorCode
+     * @return PublicApiController
      */
     public function setErrorCode($errorCode)
     {
@@ -79,7 +80,7 @@ class PublicApiController extends \App\Http\Controllers\Controller
 
     /**
      * @param $message
-     * @param null $errorCode
+     * @param null $entityId
      * @return \Illuminate\Http\JsonResponse
      */
     public function respondWithError($message, $entityId = null)
@@ -138,6 +139,7 @@ class PublicApiController extends \App\Http\Controllers\Controller
 
     /**
      * @param $required_fields
+     * @param Request $request
      * @return bool
      */
     public function checkInput($required_fields, Request $request)

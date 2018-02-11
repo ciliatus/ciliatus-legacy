@@ -192,6 +192,7 @@ class ActionSequenceIntention extends CiliatusModel
      *
      * @param Controlunit $controlunit
      * @return bool
+     * @throws \Exception
      */
     public function shouldBeHandledBy(Controlunit $controlunit)
     {
@@ -219,6 +220,7 @@ class ActionSequenceIntention extends CiliatusModel
      *
      * @param Controlunit $controlunit
      * @return bool
+     * @throws \Exception
      */
     public function shouldBeStartedBy(Controlunit $controlunit)
     {

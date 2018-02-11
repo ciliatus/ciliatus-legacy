@@ -6,6 +6,10 @@ namespace App\Observers;
 use App\ActionSequenceIntention;
 use App\RunningAction;
 
+/**
+ * Class ActionSequenceIntentionObserver
+ * @package App\Observers
+ */
 class ActionSequenceIntentionObserver
 {
     /**

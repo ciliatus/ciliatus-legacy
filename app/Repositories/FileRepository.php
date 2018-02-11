@@ -23,10 +23,10 @@ class FileRepository extends Repository {
     }
 
     /**
-     * @param bool $exlude_models
+     * @param bool $exclude_models
      * @return File
      */
-    public function show($exlude_models = false)
+    public function show($exclude_models = false)
     {
         $file = $this->scope;
 

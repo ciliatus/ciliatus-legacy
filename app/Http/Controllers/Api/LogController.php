@@ -15,6 +15,9 @@ use Illuminate\Http\Request;
 class LogController extends ApiController
 {
 
+    /**
+     * LogController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -23,6 +26,7 @@ class LogController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -30,6 +34,7 @@ class LogController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
@@ -55,9 +60,10 @@ class LogController extends ApiController
         );
     }
 
-
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @param $id
+     * @return void
      */
     public function destroy(Request $request, $id)
     {
@@ -65,6 +71,7 @@ class LogController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -77,7 +84,8 @@ class LogController extends ApiController
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return void
      */
     public function update(Request $request)
     {

@@ -172,6 +172,7 @@ class CriticalState extends CiliatusModel
 
     /**
      * @return bool|CiliatusModel
+     * @throws \Exception
      */
     public function deleteIfOrphaned()
     {

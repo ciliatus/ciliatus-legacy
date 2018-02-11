@@ -186,6 +186,7 @@ class ActionSequenceTrigger extends CiliatusModel
         return ($this->last_start_at > $this->last_finished_at
             || !is_null($this->last_start_at) && is_null($this->last_finished_at));
     }
+
     /**
      * Checks whether any of the sequences actions
      * can be started by this $controlunit.
@@ -194,6 +195,7 @@ class ActionSequenceTrigger extends CiliatusModel
      *
      * @param Controlunit $controlunit
      * @return bool
+     * @throws \Exception
      */
     public function shouldBeHandledBy(Controlunit $controlunit)
     {
@@ -220,6 +222,7 @@ class ActionSequenceTrigger extends CiliatusModel
      *
      * @param Controlunit $controlunit
      * @return bool
+     * @throws \Exception
      */
     public function shouldBeStartedBy(Controlunit $controlunit)
     {

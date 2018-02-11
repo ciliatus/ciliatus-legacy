@@ -5,6 +5,10 @@ namespace App\Observers;
 
 use App\PhysicalSensor;
 
+/**
+ * Class PhysicalSensorObserver
+ * @package App\Observers
+ */
 class PhysicalSensorObserver
 {
     /**

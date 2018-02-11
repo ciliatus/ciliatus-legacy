@@ -15,12 +15,16 @@ use Illuminate\Http\Request;
 class UserSettingController extends ApiController
 {
 
+    /**
+     * UserSettingController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
@@ -45,6 +49,8 @@ class UserSettingController extends ApiController
 
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
@@ -76,7 +82,8 @@ class UserSettingController extends ApiController
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @param Request $request
+     * @return void
      */
     public function store(Request $request)
     {
@@ -86,6 +93,7 @@ class UserSettingController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request)

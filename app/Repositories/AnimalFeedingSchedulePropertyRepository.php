@@ -11,6 +11,9 @@ use Carbon\Carbon;
  */
 class AnimalFeedingSchedulePropertyRepository extends Repository {
 
+    /**
+     * @var Property
+     */
     protected $scope;
 
     /**

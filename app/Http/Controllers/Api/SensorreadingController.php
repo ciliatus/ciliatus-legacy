@@ -19,12 +19,16 @@ use Illuminate\Http\Request;
 class SensorreadingController extends ApiController
 {
 
+    /**
+     * SensorreadingController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \ErrorException
      */
@@ -81,6 +85,7 @@ class SensorreadingController extends ApiController
      *  - 106: The reading group already has a reading for this logical sensor
      *
      *
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)

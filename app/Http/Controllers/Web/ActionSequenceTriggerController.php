@@ -38,6 +38,7 @@ class ActionSequenceTriggerController extends Controller
     /**
      * Show the form for creating a new resource.
      *
+     * @param Request $request
      * @return \Illuminate\Http\Response
      */
     public function create(Request $request)
@@ -75,7 +76,7 @@ class ActionSequenceTriggerController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function show($id)
@@ -93,7 +94,7 @@ class ActionSequenceTriggerController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param string $id
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
@@ -116,7 +117,7 @@ class ActionSequenceTriggerController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param  int $id
+     * @param string $id
      * @return void
      */
     public function update(Request $request, $id)
@@ -144,7 +145,7 @@ class ActionSequenceTriggerController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int $id
+     * @param string $id
      * @return void
      */
     public function destroy($id)

@@ -5,6 +5,10 @@ namespace App\Observers;
 
 use App\Terrarium;
 
+/**
+ * Class TerrariumObserver
+ * @package App\Observers
+ */
 class TerrariumObserver
 {
     /**

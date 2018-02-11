@@ -16,6 +16,9 @@ use Illuminate\Http\Request;
 class LogicalSensorThresholdController extends ApiController
 {
 
+    /**
+     * LogicalSensorThresholdController constructor.
+     */
     public function __construct()
     {
         parent::__construct();
@@ -24,6 +27,7 @@ class LogicalSensorThresholdController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -31,8 +35,10 @@ class LogicalSensorThresholdController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -41,6 +47,8 @@ class LogicalSensorThresholdController extends ApiController
 
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function destroy(Request $request, $id)
@@ -69,6 +77,7 @@ class LogicalSensorThresholdController extends ApiController
     }
 
     /**
+     * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
     public function store(Request $request)
@@ -110,6 +119,8 @@ class LogicalSensorThresholdController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @param $id
      * @return \Illuminate\Http\JsonResponse
      */
     public function update(Request $request, $id)
@@ -152,6 +163,11 @@ class LogicalSensorThresholdController extends ApiController
 
     }
 
+    /**
+     * @param Request $request
+     * @param $source_id
+     * @return \Illuminate\Http\JsonResponse
+     */
     public function copy(Request $request, $source_id)
     {
         if (Gate::denies('api-write:logical_sensor_threshold')) {

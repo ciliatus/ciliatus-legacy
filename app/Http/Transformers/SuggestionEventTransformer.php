@@ -15,8 +15,6 @@ namespace App\Http\Transformers;
  */
 class SuggestionEventTransformer extends Transformer
 {
-
-
     /**
      * @param $item
      * @return array

@@ -12,8 +12,6 @@ use Carbon\Carbon;
  */
 class TerrariumRepository extends Repository
 {
-
-
     /**
      * TerrariumRepository constructor.
      * @param Terrarium $scope

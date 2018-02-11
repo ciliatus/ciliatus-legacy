@@ -86,7 +86,7 @@ class ApiController extends Controller
 
     /**
      * @param Request $request
-     * @param int $id
+     * @param string $id
      * @return \Illuminate\Http\JsonResponse
      * @throws \ErrorException
      */

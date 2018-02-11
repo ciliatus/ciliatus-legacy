@@ -8,16 +8,23 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Queue\SerializesModels;
 
+/**
+ * Class ControlunitDeleted
+ * @package App\Events
+ */
 class ControlunitDeleted implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
+    /**
+     * @var
+     */
     public $controlunit_id;
 
     /**
      * Create a new event instance.
      *
-     * @return void
+     * @param $controlunit_id
      */
     public function __construct($controlunit_id)
     {

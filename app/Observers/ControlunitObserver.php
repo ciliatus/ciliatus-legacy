@@ -5,6 +5,10 @@ namespace App\Observers;
 
 use App\Controlunit;
 
+/**
+ * Class ControlunitObserver
+ * @package App\Observers
+ */
 class ControlunitObserver
 {
 

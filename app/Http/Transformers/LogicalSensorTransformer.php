@@ -15,8 +15,6 @@ namespace App\Http\Transformers;
  */
 class LogicalSensorTransformer extends Transformer
 {
-
-
     /**
      * @param $item
      * @return array
