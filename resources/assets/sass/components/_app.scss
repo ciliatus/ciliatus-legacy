@@ -605,3 +605,16 @@ table thead tr th {
 div.card-sub-header {
   margin-bottom: 10px;
 }
+
+.no-margin {
+  margin: 0 !important;
+}
+
+.ciliatus-search-wrapper {
+  margin: 0
+}
+
+.ciliatus-search-wrapper > label {
+  top: -10px !important;
+  margin-left: 15px !important;
+}

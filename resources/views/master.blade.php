@@ -108,6 +108,15 @@
                         </div>
                     </li>
 
+                    <li>
+                        <div class="input-field ciliatus-search-wrapper">
+                            <input type="text" id="search-ciliatus" class="no-margin">
+                            <label for="search-ciliatus">Search Ciliatus</label>
+                        </div>
+                    </li>
+
+                    <li><div class="divider"></div></li>
+
                     <li @if(Request::is('/')) class="active" @endif><a href="{{ url('/') }}" class="waves-effect waves-orange"><i class="material-icons">dashboard</i>@choice('menu.dashboard', 1)</a></li>
 
                     <li><div class="divider"></div></li>
