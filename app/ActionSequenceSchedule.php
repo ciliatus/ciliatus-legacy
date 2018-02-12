@@ -53,16 +53,14 @@ class ActionSequenceSchedule extends CiliatusModel
     ];
 
     /**
-     * @param Request $request
+     * @param $weekdays
      */
-    public function updateFromRequest(Request $request)
+    public function updateWeekdays($weekdays)
     {
-        for ($i = 0; $i < 7; $i++) {
-            $input_name = 'weekday_' . $i;
-            $value = $request->filled($input_name) && $request->input($input_name) == 'on' ? 1 : 0;
+        foreach ($weekdays as $day=>$value) {
             $this->setProperty(
                 'ActionSequenceScheduleProperty',
-                $i,
+                $day,
                 $value
             );
         }
