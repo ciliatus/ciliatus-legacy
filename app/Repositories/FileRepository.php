@@ -30,7 +30,7 @@ class FileRepository extends Repository {
     {
         $file = $this->scope;
 
-        if (!$exlude_models) {
+        if (!$exclude_models) {
             $file->models = $file->getModels();
         }
         $file->path_external = $file->path_external();
