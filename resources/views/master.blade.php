@@ -304,7 +304,9 @@
                     @endforeach
                 };
 
-                $('#search-ciliatus').autocomplete({
+                var search_ciliatus_dom = $('#search-ciliatus');
+
+                search_ciliatus_dom.autocomplete({
                     data: {
                         @foreach(App\System::getCachedAnimalsAndTerraria() as $obj)
                             "{{ $obj->display_name }}": null,
@@ -315,6 +317,9 @@
                     },
                     limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
                 });
+
+                search_ciliatus_dom.focus();
+                search_ciliatus_dom.select();
             });
         </script>
 

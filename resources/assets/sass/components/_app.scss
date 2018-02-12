@@ -619,6 +619,14 @@ div.card-sub-header {
   margin-left: 15px !important;
 }
 
+.ciliatus-search-wrapper > label.active {
+  display: none;
+}
+
+.ciliatus-search-wrapper > input {
+  padding-left: 15px !important;
+}
+
 .ciliatus-search-wrapper > ul.autocomplete-content {
   position: absolute;
   top: 60px;
