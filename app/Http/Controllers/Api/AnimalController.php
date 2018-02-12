@@ -51,6 +51,7 @@ class AnimalController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -59,6 +60,9 @@ class AnimalController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($id);
         if (is_null($animal)) {
             return $this->setStatusCode(422)->respondWithError('Animal not found');
@@ -68,8 +72,7 @@ class AnimalController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('animals'),
-                'delay' => 2000
+                'uri'   => url('animals')
             ]
         ]);
 
@@ -86,9 +89,14 @@ class AnimalController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::create([
             'display_name' => $request->input('display_name')
         ]);
+
+        $this->update($request, $animal->id);
 
         return $this->setStatusCode(200)->respondWithData(
             [
@@ -96,8 +104,7 @@ class AnimalController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('animals/' . $animal->id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('animals/' . $animal->id . '/edit')
                 ]
             ]
         );
@@ -116,11 +123,17 @@ class AnimalController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($id);
         if (is_null($animal)) {
             return $this->setStatusCode(404)->respondWithError('Animal not found');
         }
 
+        /**
+         * @var Terrarium $terrarium
+         */
         $terrarium = null;
         if ($request->filled('terrarium')) {
             $terrarium = Terrarium::find($request->input('terrarium'));
@@ -169,8 +182,7 @@ class AnimalController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('animals'),
-                'delay' => 1000
+                'uri'   => url('animals')
             ]
         ]);
 
@@ -186,6 +198,9 @@ class AnimalController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($this->getBelongsTo($request)['belongsTo_id']);
         if (is_null($animal)) {
             return $this->respondNotFound('Animal not found.');
@@ -212,6 +227,9 @@ class AnimalController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
             return $this->respondNotFound();
@@ -234,6 +252,9 @@ class AnimalController extends ApiController
      */
     public function caresheets(Request $request, $animal_id)
     {
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
             return view('errors.404');

@@ -88,11 +88,17 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
             return $this->respondNotFound("Animal not found");
         }
 
+        /**
+         * @var AnimalFeedingScheduleProperty $p
+         */
         $p = AnimalFeedingScheduleProperty::create([
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal_id,
@@ -126,8 +132,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('animals/' . $animal_id),
-                    'delay' => 100
+                    'uri'   => url('animals/' . $animal_id)
                 ]
             ]
         );
@@ -158,11 +163,17 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
             return $this->respondNotFound();
         }
 
+        /**
+         * @var AnimalFeedingScheduleProperty $afs
+         */
         $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
         if (is_null($afs)) {
             return $this->respondNotFound();
@@ -179,8 +190,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
 
         return $this->respondWithData([], [
             'redirect' => [
-                'uri'   => url('animals/' . $animal->id . '/edit'),
-                'delay' => 1000
+                'uri'   => url('animals/' . $animal->id . '/edit')
             ]
         ]);
     }
@@ -191,6 +201,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
      * @param $animal_id
      * @param string $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy($animal_id, $id)
     {
@@ -198,11 +209,17 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
             return $this->respondNotFound();
         }
 
+        /**
+         * @var AnimalFeedingScheduleProperty $afs
+         */
         $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
         if (is_null($afs)) {
             return $this->respondNotFound();
@@ -220,8 +237,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
 
         return $this->respondWithData([], [
             'redirect' => [
-                'uri'   => url('animals/' . $animal->id . '/edit'),
-                'delay' => 1000
+                'uri'   => url('animals/' . $animal->id . '/edit')
             ]
         ]);
     }
@@ -237,11 +253,17 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
             return $this->respondNotFound();
         }
 
+        /**
+         * @var AnimalFeedingScheduleProperty $afs
+         */
         $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
         if (is_null($afs)) {
             return $this->respondNotFound();
@@ -273,11 +295,17 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
             return $this->respondNotFound();
         }
 
+        /**
+         * @var AnimalFeedingScheduleProperty $afs
+         */
         $afs = $animal->feeding_schedules()->where('id', $id)->get()->first();
         if (is_null($afs)) {
             return $this->respondNotFound();

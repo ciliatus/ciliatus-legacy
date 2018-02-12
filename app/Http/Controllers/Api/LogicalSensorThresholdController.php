@@ -45,11 +45,11 @@ class LogicalSensorThresholdController extends ApiController
         return parent::default_show($request, $id);
     }
 
-
     /**
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -58,6 +58,9 @@ class LogicalSensorThresholdController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var LogicalSensorThreshold $logical_sensor_threshold
+         */
         $logical_sensor_threshold = LogicalSensorThreshold::find($id);
         if (is_null($logical_sensor_threshold)) {
             return $this->respondNotFound('LogicalSensorThreshold not found');
@@ -68,8 +71,7 @@ class LogicalSensorThresholdController extends ApiController
         return $this->setStatusCode(200)->respondWithData([],
             [
                 'redirect' => [
-                    'uri'   => url('logical_sensors/' . $logical_sensor_threshold->logical_sensor_id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('logical_sensors/' . $logical_sensor_threshold->logical_sensor_id . '/edit')
                 ]
             ]
         );
@@ -95,7 +97,10 @@ class LogicalSensorThresholdController extends ApiController
             }
         }
 
-        $logical_sensor_threshold = LogicalSensorThreshold::create();
+        /**
+         * @var LogicalSensorThreshold $logical_sensor_threshold
+         */
+        $logical_sensor_threshold = new LogicalSensorThreshold();
         $logical_sensor_threshold->logical_sensor_id = is_null($ls) ? null : $ls->id;
         $logical_sensor_threshold = $this->addBelongsTo($request, $logical_sensor_threshold, false);
         $logical_sensor_threshold->starts_at = Carbon::parse($request->input('starts_at'));
@@ -110,8 +115,7 @@ class LogicalSensorThresholdController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('logical_sensors/' . $logical_sensor_threshold->logical_sensor_id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('logical_sensors/' . $logical_sensor_threshold->logical_sensor_id . '/edit')
                 ]
             ]
         );
@@ -155,8 +159,7 @@ class LogicalSensorThresholdController extends ApiController
         return $this->setStatusCode(200)->respondWithData([],
             [
                 'redirect' => [
-                    'uri'   => url('logical_sensors/' . $logical_sensor_threshold->logical_sensor_id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('logical_sensors/' . $logical_sensor_threshold->logical_sensor_id . '/edit')
                 ]
             ]
         );
@@ -196,8 +199,7 @@ class LogicalSensorThresholdController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('logical_sensors/' . $logical_sensor_target->id . '/edit'),
-                'delay' => 1000
+                'uri'   => url('logical_sensors/' . $logical_sensor_target->id . '/edit')
             ]
         ]);
     }

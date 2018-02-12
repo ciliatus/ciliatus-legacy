@@ -30,6 +30,9 @@ class UserSettingController extends ApiController
      */
     public function show(Request $request, $id)
     {
+        /**
+         * @var UserSetting $us
+         */
         $us = UserSetting::find($id);
         if (is_null($us)) {
             return $this->respondNotFound('UserSetting not found');
@@ -60,6 +63,9 @@ class UserSettingController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var User $user
+         */
         $user = User::find($request->input('user_id'));
         if (is_null($user)) {
             return $this->setStatusCode(422)->respondWithError('User not found');
@@ -73,8 +79,7 @@ class UserSettingController extends ApiController
             [],
             [
                 'redirect' => [
-                    'uri'   => url('users/' . $user->id . '/edit'),
-                    'delay' => 1000
+                    'uri'   => url('users/' . $user->id . '/edit')
                 ]
             ]
         );
@@ -87,9 +92,7 @@ class UserSettingController extends ApiController
      */
     public function store(Request $request)
     {
-
         $this->update($request);
-
     }
 
     /**
@@ -102,18 +105,29 @@ class UserSettingController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var User $user
+         */
         $user = User::find($request->input('user_id'));
         if (is_null($user)) {
             return $this->setStatusCode(422)->respondWithError('User not found');
         }
 
-        if (!is_null($user->setting($request->input('name'))))
+        if (!is_null($user->setting($request->input('name')))) {
+            /**
+             * @var UserSetting $user_setting
+             */
             $user_setting = $user->settings()->where('name', $request->input('name'))->first();
-        else
+        }
+        else {
+            /**
+             * @var UserSetting $user_setting
+             */
             $user_setting = UserSetting::create([
-                'user_id'   => $request->input('user_id'),
-                'name'      => $request->input('name')
+                'user_id' => $request->input('user_id'),
+                'name'    => $request->input('name')
             ]);
+        }
 
         $user_setting->value = $request->input('value');
         $user_setting->save();

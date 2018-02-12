@@ -71,7 +71,6 @@ class AnimalFeedingEventController extends ApiController
         //
     }
 
-
     /**
      * Store a newly created resource in storage.
      *
@@ -85,12 +84,18 @@ class AnimalFeedingEventController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($id);
         if (is_null($animal)) {
             return $this->setStatusCode(404)->respondWithError('Animal not found');
         }
 
-        $e = AnimalFeedingEvent::create([
+        /**
+         * @var AnimalFeedingEvent $event
+         */
+        $event = AnimalFeedingEvent::create([
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal->id,
             'type' => 'AnimalFeeding',
@@ -99,15 +104,15 @@ class AnimalFeedingEventController extends ApiController
         ]);
 
         if ($request->filled('created_at')) {
-            $e->created_at = Carbon::parse($request->input('created_at'));
-            $e->save();
+            $event->created_at = Carbon::parse($request->input('created_at'));
+            $event->save();
         }
 
-        broadcast(new AnimalFeedingEventUpdated($e->fresh()));
+        broadcast(new AnimalFeedingEventUpdated($event->fresh()));
         broadcast(new AnimalUpdated($animal));
 
         return $this->respondWithData([
-            'id' => $e->id
+            'id' => $event->id
         ]);
     }
 
@@ -140,6 +145,7 @@ class AnimalFeedingEventController extends ApiController
      * @param string $animal_id
      * @param string $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy($animal_id, $id)
     {
@@ -147,19 +153,25 @@ class AnimalFeedingEventController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
             return $this->respondNotFound('Animal not found');
         }
 
-        $animal_feeding = $animal->feedings()->where('id', $id)->get()->first();
-        if (is_null($animal_feeding)) {
+        /**
+         * @var AnimalFeedingEvent $event
+         */
+        $event = $animal->feedings()->where('id', $id)->get()->first();
+        if (is_null($event)) {
             return $this->respondNotFound('Animal feeding not found');
         }
 
-        $id = $animal_feeding->id;
+        $id = $event->id;
 
-        $animal_feeding->delete();
+        $event->delete();
 
         broadcast(new AnimalFeedingEventDeleted($id));
 

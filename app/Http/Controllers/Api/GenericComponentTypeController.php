@@ -54,6 +54,9 @@ class GenericComponentTypeController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var GenericComponentType $type
+         */
         $type = GenericComponentType::create([
             'name_singular' => $request->input('name_singular'),
             'name_plural' => $request->input('name_plural'),
@@ -62,7 +65,7 @@ class GenericComponentTypeController extends ApiController
 
         if ($request->filled('property_name')) {
             foreach ($request->get('property_name') as $prop) {
-                $p = Property::create([
+                Property::create([
                     'belongsTo_type' => 'GenericComponentType',
                     'belongsTo_id' => $type->id,
                     'type' => 'GenericComponentTypeProperty',
@@ -73,7 +76,7 @@ class GenericComponentTypeController extends ApiController
 
         if ($request->filled('default_intention_intention') && $request->filled('default_intention_type')) {
             for ($i = 0; $i < count($request->get('default_intention_intention')); $i++) {
-                $p = Property::create([
+                Property::create([
                     'belongsTo_type' => 'GenericComponentType',
                     'belongsTo_id' => $type->id,
                     'type' => 'GenericComponentTypeIntention',
@@ -105,8 +108,7 @@ class GenericComponentTypeController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('generic_property_types/' . $type->id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('generic_property_types/' . $type->id . '/edit')
                 ]
             ]
         );
@@ -148,6 +150,9 @@ class GenericComponentTypeController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var GenericComponentType $type
+         */
         $type = GenericComponentType::find($id);
         if (is_null($type)) {
             return $this->respondNotFound();
@@ -190,7 +195,7 @@ class GenericComponentTypeController extends ApiController
             foreach ($request->get('state') as $new_state) {
                 $state = $type->states()->where('name', $new_state)->get()->first();
                 if (is_null($state)) {
-                    $p = Property::create([
+                    Property::create([
                         'belongsTo_type' => 'GenericComponentType',
                         'belongsTo_id' => $type->id,
                         'type' => 'GenericComponentTypeState',
@@ -243,8 +248,7 @@ class GenericComponentTypeController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('generic_component_types'),
-                'delay' => 1000
+                'uri'   => url('generic_component_types')
             ]
         ]);
     }
@@ -254,6 +258,7 @@ class GenericComponentTypeController extends ApiController
      *
      * @param string $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {
@@ -261,6 +266,9 @@ class GenericComponentTypeController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var GenericComponentType $type
+         */
         $type = GenericComponentType::find($id);
         if (is_null($type)) {
             return $this->respondNotFound();
@@ -270,8 +278,7 @@ class GenericComponentTypeController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('generic_component_types'),
-                'delay' => 1000
+                'uri'   => url('generic_component_types')
             ]
         ]);
     }

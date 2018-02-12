@@ -136,11 +136,17 @@ class AnimalWeighingEventController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($id);
         if (is_null($animal)) {
             return $this->setStatusCode(404)->respondWithError('Animal not found');
         }
 
+        /**
+         * @var AnimalWeighingEvent $e
+         */
         $e = AnimalWeighingEvent::create([
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $animal->id,
@@ -191,6 +197,7 @@ class AnimalWeighingEventController extends ApiController
      * @param string $animal_id
      * @param string $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy($animal_id, $id)
     {
@@ -198,11 +205,17 @@ class AnimalWeighingEventController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Animal $animal
+         */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
             return $this->respondNotFound('Animal not found');
         }
 
+        /**
+         * @var AnimalWeighingEvent $animal_weighing
+         */
         $animal_weighing = $animal->weighings()->where('id', $id)->get()->first();
         if (is_null($animal_weighing)) {
             return $this->respondNotFound('Animal weighing not found');

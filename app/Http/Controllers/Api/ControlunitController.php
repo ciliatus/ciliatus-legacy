@@ -48,6 +48,7 @@ class ControlunitController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -56,6 +57,9 @@ class ControlunitController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Controlunit $controlunit
+         */
         $controlunit = Controlunit::find($id);
         if (is_null($controlunit)) {
             return $this->setStatusCode(422)->respondWithError('Controlunit not found');
@@ -65,8 +69,7 @@ class ControlunitController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('controlunits'),
-                'delay' => 2000
+                'uri'   => url('controlunits')
             ]
         ]);
 
@@ -83,6 +86,9 @@ class ControlunitController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Controlunit $controlunit
+         */
         $controlunit = Controlunit::create([
             'name' => $request->input('name')
         ]);
@@ -93,8 +99,7 @@ class ControlunitController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('controlunits/' . $controlunit->id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('controlunits/' . $controlunit->id . '/edit')
                 ]
             ]
         );
@@ -113,6 +118,9 @@ class ControlunitController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Controlunit $controlunit
+         */
         $controlunit = Controlunit::find($id);
         if (is_null($controlunit)) {
             return $this->setStatusCode(422)->respondWithError('Controlunit not found');
@@ -141,8 +149,7 @@ class ControlunitController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('controlunits'),
-                'delay' => 1000
+                'uri'   => url('controlunits')
             ]
         ]);
 
@@ -158,6 +165,9 @@ class ControlunitController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Controlunit $controlunit
+         */
         $controlunit = Controlunit::find($id);
         if (is_null($controlunit)) {
             return $this->setStatusCode(422)->respondWithError('Controlunit not found');
@@ -177,6 +187,9 @@ class ControlunitController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Controlunit $controlunit
+         */
         $controlunit = Controlunit::find($id);
         if (is_null($controlunit)) {
             return $this->setStatusCode(422)->respondWithError('Controlunit not found');

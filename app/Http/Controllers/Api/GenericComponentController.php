@@ -75,6 +75,9 @@ class GenericComponentController extends ApiController
             return $this->setStatusCode(422)->respondWithError("GenericComponentType not found.");
         }
 
+        /**
+         * @var GenericComponent $component
+         */
         $component = GenericComponent::create([
             'name' => $request->input('name'),
             'generic_component_type_id' => $request->input('type_id'),
@@ -102,14 +105,15 @@ class GenericComponentController extends ApiController
 
         $component->save();
 
+        $this->update($request, $component->id);
+
         $component->resync_states();
 
         return $this->setStatusCode(200)->respondWithData([
             'id' => $component->id
         ], [
             'redirect' => [
-                'uri'   => url('generic_components/' . $component->id),
-                'delay' => 1000
+                'uri'   => url('generic_components/' . $component->id)
             ]
         ]);
     }
@@ -138,6 +142,9 @@ class GenericComponentController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var GenericComponent $component
+         */
         $component = GenericComponent::find($id);
         if (is_null($component)) {
             return $this->respondNotFound();
@@ -176,8 +183,7 @@ class GenericComponentController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('generic_components/' . $component->id),
-                'delay' => 1000
+                'uri'   => url('generic_components/' . $component->id)
             ]
         ]);
     }
@@ -187,6 +193,7 @@ class GenericComponentController extends ApiController
      *
      * @param string $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {
@@ -194,6 +201,9 @@ class GenericComponentController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var GenericComponent $component
+         */
         $component = GenericComponent::find($id);
         if (is_null($component)) {
             return $this->respondNotFound();
@@ -203,8 +213,7 @@ class GenericComponentController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('generic_components'),
-                'delay' => 1000
+                'uri'   => url('generic_components')
             ]
         ]);
     }

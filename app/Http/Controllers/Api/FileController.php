@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\CiliatusModel;
 use App\File;
 use App\Property;
 use App\System;
@@ -51,6 +52,7 @@ class FileController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -59,6 +61,9 @@ class FileController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var File $file
+         */
         $file = File::find($id);
         if (is_null($file)) {
             return $this->respondNotFound('File not found');
@@ -68,8 +73,7 @@ class FileController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('files'),
-                'delay' => 2000
+                'uri'   => url('files')
             ]
         ]);
 
@@ -94,26 +98,35 @@ class FileController extends ApiController
         if ($request->file('file')->getClientSize() > System::maxUploadFileSize()) {
             return $this->setStatusCode(422)->respondWithError('File to big');
         }
-        /*
+        /**
          * Create file model
+         * @var File $file
          */
         $file = File::createFromRequest($request, Auth::user()->id);
 
-        /*
+        /**
          * Look for optional inputs
+         * @var File $file
          */
         $file = $this->addBelongsTo($request, $file);
 
-        /*
+        /**
          * Create many-to-many relationship if file belongs to a terrarium or animal
          */
         $class = 'App\\' . $file->belongsTo_type;
+
+        /**
+         * @var CiliatusModel $object
+         */
         $object = $class::find($file->belongsTo_id);
         $object->files()->save($file);
 
         if ($request->filled('use_as_background') && $request->input('use_as_background') == 'On') {
             if (is_null($file->property('generic', 'is_default_background'))) {
-                $p = Property::create();
+                /**
+                 * @var Property $p
+                 */
+                $p = new Property();
                 $p->belongsTo_type = 'File';
                 $p->belongsTo_id = $file->id;
                 $p->name = 'is_default_background';
@@ -136,8 +149,7 @@ class FileController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url($file->url()),
-                    'delay' => 100
+                    'uri'   => url($file->url())
                 ]
             ]
         );
@@ -156,6 +168,9 @@ class FileController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var File $file
+         */
         $file = File::find($id);
         if (is_null($file)) {
             return $this->respondNotFound('File not found');
@@ -173,8 +188,7 @@ class FileController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('files'),
-                'delay' => 1000
+                'uri'   => url('files')
             ]
         ]);
 
@@ -194,6 +208,9 @@ class FileController extends ApiController
             return $this->respondNotFound('Source not found');
         }
 
+        /**
+         * @var File $file
+         */
         $file = File::find($request->input('file'));
         if (is_null($file)) {
             return $this->respondNotFound('File not found');
@@ -219,6 +236,9 @@ class FileController extends ApiController
             return $this->respondNotFound('Source not found');
         }
 
+        /**
+         * @var File $file
+         */
         $file = File::find($file_id);
         if (is_null($file)) {
             return $this->respondNotFound('File not found');
@@ -244,6 +264,9 @@ class FileController extends ApiController
             return $this->respondNotFound('Source not found');
         }
 
+        /**
+         * @var File $file
+         */
         $file = File::find($file_id);
         if (is_null($file)) {
             return $this->respondNotFound('File not found');
@@ -251,7 +274,10 @@ class FileController extends ApiController
 
         if (!is_null($source->property('generic', 'background_file_id'))) {
             $source->property('generic', 'background_file_id')->delete();
-            $p = Property::create();
+            /**
+             * @var Property $p
+             */
+            $p = new Property();
             $p->belongsTo_type = $type;
             $p->belongsTo_id = $source->id;
             $p->name = 'background_file_id';

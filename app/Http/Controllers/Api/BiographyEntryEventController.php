@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Api;
 
 use App\BiographyEntryEvent;
+use App\CiliatusModel;
 use App\Events\BiographyEntryEventDeleted;
 use App\Events\BiographyEntryEventUpdated;
 use App\Property;
@@ -94,9 +95,14 @@ class BiographyEntryEventController extends ApiController
             return $this->respondUnauthorized();
         }
 
-
+        /**
+         * @var CiliatusModel $belongsTo
+         */
         $belongsTo = $this->getBelongsTo($request);
 
+        /**
+         * @var BiographyEntryEvent $e
+         */
         $e = BiographyEntryEvent::create([
             'belongsTo_type' => $belongsTo['belongsTo_type'],
             'belongsTo_id' => $belongsTo['belongsTo_id'],
@@ -148,6 +154,9 @@ class BiographyEntryEventController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var BiographyEntryEvent $e
+         */
         $e = BiographyEntryEvent::find($id);
         if (is_null($e)) {
             return $this->respondNotFound();
@@ -199,6 +208,7 @@ class BiographyEntryEventController extends ApiController
      *
      * @param string $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {
@@ -206,6 +216,9 @@ class BiographyEntryEventController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var BiographyEntryEvent $e
+         */
         $e = BiographyEntryEvent::find($id);
         if (is_null($e)) {
             return $this->respondNotFound();
@@ -286,6 +299,7 @@ class BiographyEntryEventController extends ApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function delete_type(Request $request, $id)
     {
@@ -293,6 +307,9 @@ class BiographyEntryEventController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Property $type
+         */
         $type = Property::find($id);
         $type->delete();
 

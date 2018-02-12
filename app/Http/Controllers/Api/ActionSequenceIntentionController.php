@@ -49,6 +49,7 @@ class ActionSequenceIntentionController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -57,19 +58,21 @@ class ActionSequenceIntentionController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $asi = ActionSequenceIntention::find($id);
-        if (is_null($asi)) {
+        /**
+         * @var ActionSequenceIntention $intention
+         */
+        $intention = ActionSequenceIntention::find($id);
+        if (is_null($intention)) {
             return $this->setStatusCode(422)->respondWithError('ActionSequenceIntention not found');
         }
 
-        $asid = $asi->sequence->id;
+        $id = $intention->sequence->id;
 
-        $asi->delete();
+        $intention->delete();
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('action_sequences/' . $asid . '/edit'),
-                'delay' => 1000
+                'uri'   => url('action_sequences/' . $id . '/edit')
             ]
         ]);
 
@@ -91,9 +94,10 @@ class ActionSequenceIntentionController extends ApiController
             return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
         }
 
-        
-
-        $asi = ActionSequenceIntention::create([
+        /**
+         * @var ActionSequenceIntention $intention
+         */
+        $intention = ActionSequenceIntention::create([
             'name' => 'ASI_' . $a->name . '_' . Carbon::parse($request->input('starts_at'))->format('H:i:s'),
             'type' => $request->input('type'),
             'intention' => $request->input('intention'),
@@ -105,12 +109,11 @@ class ActionSequenceIntentionController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData(
             [
-                'id'    =>  $asi->id
+                'id'    =>  $intention->id
             ],
             [
                 'redirect' => [
-                    'uri'   => url('action_sequences/' . $asi->sequence->id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('action_sequences/' . $intention->sequence->id . '/edit')
                 ]
             ]
         );
@@ -129,6 +132,9 @@ class ActionSequenceIntentionController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var ActionSequenceIntention $intention
+         */
         $intention = ActionSequenceIntention::find($id);
         if (is_null($intention)) {
             return $this->setStatusCode(404)->respondWithError('ActionSequenceIntention not found');
@@ -162,8 +168,7 @@ class ActionSequenceIntentionController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('action_sequences/' . $intention->sequence->id . '/edit'),
-                'delay' => 100
+                'uri'   => url('action_sequences/' . $intention->sequence->id . '/edit')
             ]
         ]);
 
@@ -179,16 +184,19 @@ class ActionSequenceIntentionController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action_sequence_intention = ActionSequenceIntention::find($id);
-        if (is_null($action_sequence_intention)) {
+        /**
+         * @var ActionSequenceIntention $intention
+         */
+        $intention = ActionSequenceIntention::find($id);
+        if (is_null($intention)) {
             return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
         }
 
-        $action_sequence_intention->next_start_not_before = Carbon::now()->addHours(2);
-        $action_sequence_intention->save();
+        $intention->next_start_not_before = Carbon::now()->addHours(2);
+        $intention->save();
 
         return $this->respondWithData([
-            'next_start_not_before' => $action_sequence_intention->next_start_not_before
+            'next_start_not_before' => $intention->next_start_not_before
         ]);
 
     }

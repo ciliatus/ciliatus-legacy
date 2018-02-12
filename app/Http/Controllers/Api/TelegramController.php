@@ -23,6 +23,7 @@ class TelegramController extends PublicApiController
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function handle(Request $request)
     {

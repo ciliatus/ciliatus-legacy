@@ -45,11 +45,11 @@ class LogicalSensorController extends ApiController
         return parent::default_show($request, $id);
     }
 
-
     /**
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -58,6 +58,9 @@ class LogicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var LogicalSensor $logical_sensor
+         */
         $logical_sensor = LogicalSensor::find($id);
         if (is_null($logical_sensor)) {
             return $this->respondNotFound('LogicalSensor not found');
@@ -72,8 +75,7 @@ class LogicalSensorController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('logical_sensors'),
-                'delay' => 2000
+                'uri'   => url('logical_sensors')
             ]
         ]);
 
@@ -90,6 +92,9 @@ class LogicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var LogicalSensor $logical_sensor
+         */
         $logical_sensor = LogicalSensor::create();
         $logical_sensor->name = $request->input('name');
         if ($request->filled('physical_sensor') && strlen($request->input('physical_sensor')) > 0) {
@@ -99,7 +104,10 @@ class LogicalSensorController extends ApiController
             }
             $logical_sensor->physical_sensor_id = $physical_sensor->id;
         }
+
         $logical_sensor->save();
+
+        $this->update($request, $logical_sensor);
 
         return $this->setStatusCode(200)->respondWithData(
             [
@@ -107,8 +115,7 @@ class LogicalSensorController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('logical_sensors/' . $logical_sensor->id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('logical_sensors/' . $logical_sensor->id . '/edit')
                 ]
             ]
         );
@@ -127,6 +134,9 @@ class LogicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var LogicalSensor $logical_sensor
+         */
         $logical_sensor = LogicalSensor::find($id);
         if (is_null($logical_sensor)) {
             return $this->respondNotFound('LogicalSensor not found');
@@ -154,8 +164,7 @@ class LogicalSensorController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('logical_sensors'),
-                'delay' => 1000
+                'uri'   => url('logical_sensors')
             ]
         ]);
 

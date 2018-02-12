@@ -50,6 +50,7 @@ class PhysicalSensorController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -58,6 +59,9 @@ class PhysicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var PhysicalSensor $physical_sensor
+         */
         $physical_sensor = PhysicalSensor::with('controlunit', 'logical_sensors', 'terrarium')->find($id);
         if (is_null($physical_sensor)) {
             return $this->respondNotFound('PhysicalSensor not found');
@@ -73,8 +77,7 @@ class PhysicalSensorController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('physical_sensors'),
-                'delay' => 2000
+                'uri'   => url('physical_sensors')
             ]
         ]);
 
@@ -91,9 +94,14 @@ class PhysicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $physical_sensor = PhysicalSensor::create();
-        $physical_sensor->name = $request->input('name');
-        $physical_sensor->save();
+        /**
+         * @var PhysicalSensor $physical_sensor
+         */
+        $physical_sensor = PhysicalSensor::create([
+            'name' => $request->input('name')
+        ]);
+
+        $this->update($request, $physical_sensor);
 
         return $this->setStatusCode(200)->respondWithData(
             [
@@ -101,8 +109,7 @@ class PhysicalSensorController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('physical_sensors/' . $physical_sensor->id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('physical_sensors/' . $physical_sensor->id . '/edit')
                 ]
             ]
         );
@@ -162,8 +169,7 @@ class PhysicalSensorController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('physical_sensors'),
-                'delay' => 1000
+                'uri'   => url('physical_sensors')
             ]
         ]);
 

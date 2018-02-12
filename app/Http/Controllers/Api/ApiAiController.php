@@ -52,6 +52,7 @@ class ApiAiController extends ApiController
      *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function parseAndSendRequest(Request $request)
     {

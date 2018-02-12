@@ -49,11 +49,11 @@ class ActionSequenceController extends ApiController
         return parent::default_show($request, $id);
     }
 
-
     /**
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -62,18 +62,20 @@ class ActionSequenceController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $as = ActionSequence::find($id);
+        /**
+         * @var ActionSequence $as
+         */
+        $action_sequence = ActionSequence::find($id);
         if (is_null($as)) {
             return $this->setStatusCode(404)->respondWithError('ActionSequence not found');
         }
 
-        $as->delete();
+        $action_sequence->delete();
 
         return $this->setStatusCode(200)->respondWithData([],
             [
                 'redirect' => [
-                    'uri'   => url('terraria/' . $as->terrarium_id),
-                    'delay' => 1000
+                    'uri'   => url('terraria/' . $action_sequence->terrarium_id)
                 ]
             ]
         );
@@ -101,7 +103,10 @@ class ActionSequenceController extends ApiController
             return $this->setStatusCode(422)->respondWithError('No Terrarium selected');
         }
 
-        $as = ActionSequence::create();
+        /**
+         * @var ActionSequence $as
+         */
+        $action_sequence = new ActionSequence();
 
         if ($request->filled('name')) {
             $name = $request->input('name');
@@ -116,14 +121,14 @@ class ActionSequenceController extends ApiController
         }
 
         if ($request->filled('runonce')) {
-            $as->runonce = $request->input('runonce') == 'on' ? true : false;
+            $action_sequence->runonce = $request->input('runonce') == 'on' ? true : false;
         }
 
 
-        $as->name = $name;
-        $as->duration_minutes = $request->input('duration_minutes');
-        $as->terrarium_id = $request->input('terrarium');
-        $as->save();
+        $action_sequence->name = $name;
+        $action_sequence->duration_minutes = $request->input('duration_minutes');
+        $action_sequence->terrarium_id = $request->input('terrarium');
+        $action_sequence->save();
 
         if ($request->filled('template')) {
             switch ($request->input('template')) {
@@ -144,22 +149,21 @@ class ActionSequenceController extends ApiController
             }
 
             if (!is_null($template_name)) {
-                $as->generateActionsByTemplate($template_name);
+                $action_sequence->generateActionsByTemplate($template_name);
 
                 if ($request->input('generate_intentions') == 'On') {
-                    $as->generateIntentionsByTemplate($template_name);
+                    $action_sequence->generateIntentionsByTemplate($template_name);
                 }
             }
         }
 
         return $this->setStatusCode(200)->respondWithData(
             [
-                'id'    =>  $as->id
+                'id'    =>  $action_sequence->id
             ],
             [
                 'redirect' => [
-                    'uri'   => url('action_sequences/' . $as->id . '/edit'),
-                    'delay' => 1000
+                    'uri'   => url('action_sequences/' . $action_sequence->id . '/edit')
                 ]
             ]
         );
@@ -178,6 +182,9 @@ class ActionSequenceController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var ActionSequence $action_sequence
+         */
         $action_sequence = ActionSequence::find($id);
         if (is_null($action_sequence)) {
             return $this->setStatusCode(404)->respondWithError('ActionSequence not found');
@@ -196,8 +203,7 @@ class ActionSequenceController extends ApiController
         return $this->setStatusCode(200)->respondWithData([],
             [
                 'redirect' => [
-                    'uri'   => url('terraria/' . $action_sequence->terrarium_id),
-                    'delay' => 1000
+                    'uri'   => url('terraria/' . $action_sequence->terrarium_id)
                 ]
             ]
         );

@@ -165,7 +165,9 @@ class SensorreadingController extends ApiController
             $read_at = Carbon::now();
         }
 
-
+        /**
+         * @var Sensorreading $sensorreading
+         */
         $sensorreading = Sensorreading::create([
             'sensorreadinggroup_id' => $request->input('group_id'),
             'logical_sensor_id'     => $request->input('logical_sensor_id'),

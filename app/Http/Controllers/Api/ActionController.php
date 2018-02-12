@@ -47,6 +47,7 @@ class ActionController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -55,6 +56,9 @@ class ActionController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Action $action
+         */
         $action = Action::find($id);
         if (is_null($action)) {
             return $this->setStatusCode(404)->respondWithError('Action not found');
@@ -64,8 +68,7 @@ class ActionController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('actions'),
-                'delay' => 2000
+                'uri'   => url('actions')
             ]
         ]);
 
@@ -82,6 +85,9 @@ class ActionController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var ActionSequence $sequence
+         */
         $sequence = ActionSequence::find($request->input('action_sequence'));
         if (is_null($sequence)) {
             return $this->setStatusCode(422)->respondWithError('Action Sequence not found');
@@ -91,11 +97,15 @@ class ActionController extends ApiController
         if (!class_exists('App\\' . $component_type)) {
             return $this->setStatusCode(422)->respondWithError('Component type not found');
         }
+
         $component = ('App\\' . $component_type)::find($component_id);
         if (is_null($component)) {
             return $this->setStatusCode(422)->respondWithError('Component not found');
         }
 
+        /**
+         * @var Action $action
+         */
         $action = Action::create([
             'action_sequence_id' => $request->input('action_sequence'),
             'target_type' => $component_type,
@@ -105,7 +115,7 @@ class ActionController extends ApiController
             'sequence_sort_id' => count($sequence->actions) + 1
         ]);
 
-        $action->save();
+        $this->update($request, $action->id);
 
         return $this->respondWithData(
             [
@@ -113,8 +123,7 @@ class ActionController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('action_sequences/' . $sequence->id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('action_sequences/' . $sequence->id . '/edit')
                 ]
             ]
         );
@@ -133,6 +142,9 @@ class ActionController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Action $action
+         */
         $action = Action::find($id);
         if (is_null($action)) {
             return $this->setStatusCode(404)->respondWithError('Action not found');
@@ -182,8 +194,7 @@ class ActionController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('actions'),
-                'delay' => 1000
+                'uri'   => url('actions')
             ]
         ]);
 

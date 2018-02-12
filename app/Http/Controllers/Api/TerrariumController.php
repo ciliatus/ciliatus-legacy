@@ -78,6 +78,9 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Terrarium $t
+         */
         $t = Terrarium::query();
         $t = $this->filter($request, $t);
         $t = $t->find($id);
@@ -103,6 +106,7 @@ class TerrariumController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -111,11 +115,13 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Terrarium $terrarium
+         */
         $terrarium = Terrarium::find($id);
         if (is_null($terrarium)) {
             return $this->respondNotFound('Terrarium not found');
         }
-
 
         /*
          * Update valves
@@ -129,7 +135,6 @@ class TerrariumController extends ApiController
             $v->terrarium_id = null;
             $v->save();
         }
-
 
         /*
          * Update animals
@@ -148,8 +153,7 @@ class TerrariumController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('terraria'),
-                'delay' => 2000
+                'uri'   => url('terraria')
             ]
         ]);
 
@@ -166,6 +170,9 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Terrarium $terrarium
+         */
         $terrarium = Terrarium::create([
             'name' => $request->input('display_name'),
             'display_name' => $request->input('display_name')
@@ -173,14 +180,15 @@ class TerrariumController extends ApiController
 
         $terrarium->generateDefaultSuggestionSettings();
 
+        $this->update($request, $terrarium->id);
+
         return $this->setStatusCode(200)->respondWithData(
             [
                 'id'    =>  $terrarium->id
             ],
             [
                 'redirect' => [
-                    'uri'   => url('terraria/' . $terrarium->id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('terraria/' . $terrarium->id . '/edit')
                 ]
             ]
         );
@@ -198,6 +206,9 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Terrarium $terrarium
+         */
         $terrarium = Terrarium::find($id);
         if (is_null($terrarium)) {
             return $this->respondNotFound('Terrarium not found');
@@ -323,8 +334,7 @@ class TerrariumController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('terraria'),
-                'delay' => 1000
+                'uri'   => url('terraria')
             ]
         ]);
 
@@ -341,6 +351,9 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Terrarium $terrarium
+         */
         $terrarium = Terrarium::find($id);
         if (is_null($terrarium)) {
             return $this->respondNotFound('Terrarium not found');
@@ -388,6 +401,9 @@ class TerrariumController extends ApiController
      */
     public function infrastructure(Request $request, $id)
     {
+        /**
+         * @var Terrarium $terrarium
+         */
         $terrarium = Terrarium::find($id);
         if (is_null($terrarium)) {
             return $this->respondNotFound('Terrarium not found');
@@ -432,6 +448,9 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Terrarium $terrarium
+         */
         $terrarium = Terrarium::with('physical_sensors')->find($id);
 
         if (!$terrarium) {
@@ -459,6 +478,9 @@ class TerrariumController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Terrarium $terrarium
+         */
         $terrarium = Terrarium::find($id);
 
         if (!$terrarium) {

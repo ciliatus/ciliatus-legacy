@@ -49,6 +49,7 @@ class PumpController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -57,6 +58,9 @@ class PumpController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Pump $pump
+         */
         $pump = Pump::find($id);
         if (is_null($pump)) {
             return $this->respondNotFound('Pump not found');
@@ -66,8 +70,7 @@ class PumpController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('pumps'),
-                'delay' => 2000
+                'uri'   => url('pumps')
             ]
         ]);
 
@@ -84,9 +87,14 @@ class PumpController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $pump = Pump::create();
-        $pump->name = $request->input('name');
-        $pump->save();
+        /**
+         * @var Pump $pump
+         */
+        $pump = Pump::create([
+            'name' => $request->input('name')
+        ]);
+
+        $this->update($request, $pump->id);
 
         return $this->setStatusCode(200)->respondWithData(
             [
@@ -94,8 +102,7 @@ class PumpController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('pumps/' . $pump->id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('pumps/' . $pump->id . '/edit')
                 ]
             ]
         );
@@ -114,6 +121,9 @@ class PumpController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Pump $pump
+         */
         $pump = Pump::find($id);
         if (is_null($pump)) {
             return $this->respondNotFound('Pump not found');
@@ -139,8 +149,7 @@ class PumpController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('pumps'),
-                'delay' => 1000
+                'uri'   => url('pumps')
             ]
         ]);
 

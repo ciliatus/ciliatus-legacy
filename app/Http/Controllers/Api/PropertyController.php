@@ -45,10 +45,10 @@ class PropertyController extends ApiController
         return parent::default_show($request, $id);
     }
 
-
     /**
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy($id)
     {
@@ -56,6 +56,9 @@ class PropertyController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Property $property
+         */
         $property = Property::find($id);
         if (is_null($property)) {
             return $this->respondNotFound('Property not found');
@@ -95,6 +98,9 @@ class PropertyController extends ApiController
             return $this->setStatusCode(422)->respondWithError("Object $belongsTo_id of type $belongsTo_type not found.");
         }
 
+        /**
+         * @var Property $property
+         */
         $p = Property::create([
             'belongsTo_type' => $belongsTo_type,
             'belongsTo_id' => $belongs_to->id,

@@ -52,6 +52,7 @@ class UserController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -60,6 +61,9 @@ class UserController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var User $user
+         */
         $user = User::find($id);
         if (is_null($user)) {
             return $this->respondNotFound('User not found');
@@ -76,8 +80,7 @@ class UserController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('user/' . $user->id),
-                'delay' => 2000
+                'uri'   => url('user/' . $user->id)
             ]
         ]);
 
@@ -94,11 +97,17 @@ class UserController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var User $user
+         */
         $user = User::where('name', $request->input('name'))->get()->first();
         if (!is_null($user)) {
             return $this->setStatusCode(422)->respondWithError(trans('errors.username_taken'));
         }
 
+        /**
+         * @var User $user
+         */
         $user = User::where('email', $request->input('email'))->get()->first();
         if (!is_null($user)) {
             return $this->setStatusCode(422)->respondWithError(trans('errors.email_taken'));
@@ -115,6 +124,9 @@ class UserController extends ApiController
             return $this->setStatusCode(422)->respondWithError(trans('errors.no_password'));
         }
 
+        /**
+         * @var User $user
+         */
         $user = User::create([
             'name' => $request->input('name'),
             'email' => $request->input('email'),
@@ -127,8 +139,7 @@ class UserController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('users/' . $user->id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('users/' . $user->id . '/edit')
                 ]
             ]
         );
@@ -147,6 +158,9 @@ class UserController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var User $user
+         */
         $user = User::find($id);
         if (is_null($user)) {
             return $this->respondNotFound('User not found');
@@ -240,8 +254,7 @@ class UserController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('users/' . $user->id . '/edit'),
-                'delay' => 1000
+                'uri'   => url('users/' . $user->id . '/edit')
             ]
         ]);
 

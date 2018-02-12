@@ -45,11 +45,11 @@ class ActionSequenceScheduleController extends ApiController
         return parent::default_show($request, $id);
     }
 
-
     /**
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -58,19 +58,21 @@ class ActionSequenceScheduleController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $ass = ActionSequenceSchedule::find($id);
-        if (is_null($ass)) {
+        /**
+         * @var ActionSequenceSchedule $schedule
+         */
+        $schedule = ActionSequenceSchedule::find($id);
+        if (is_null($schedule)) {
             return $this->setStatusCode(422)->respondWithError('ActionSequenceSchedule not found');
         }
 
-        $asid = $ass->sequence->id;
+        $id = $schedule->sequence->id;
 
-        $ass->delete();
+        $schedule->delete();
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('action_sequences/' . $asid . '/edit'),
-                'delay' => 1000
+                'uri'   => url('action_sequences/' . $id . '/edit')
             ]
         ]);
 
@@ -87,28 +89,34 @@ class ActionSequenceScheduleController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $a = ActionSequence::find($request->input('action_sequence'));
-        if (is_null($a)) {
+        /**
+         * @var ActionSequence $sequence
+         */
+        $sequence = ActionSequence::find($request->input('action_sequence'));
+        if (is_null($sequence)) {
             return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
         }
 
-        $ass = ActionSequenceSchedule::create([
-            'name' => 'ASS_' . $a->name . '_' . Carbon::parse($request->input('starts_at'))->format('H:i:s'),
+        /**
+         * @var ActionSequenceSchedule $schedule
+         */
+        $schedule = ActionSequenceSchedule::create([
+            'name' => 'ASS_' . $sequence->name . '_' . Carbon::parse($request->input('starts_at'))->format('H:i:s'),
             'runonce' => $request->input('runonce') == 'on' ? true : false,
             'starts_at' => Carbon::parse($request->input('starts_at'))->format('H:i:s'),
             'action_sequence_id' => $request->input('action_sequence')
         ]);
 
-        $ass->updateFromRequest($request);
+
+        $schedule->updateWeekdays($this->getWeekdaysArrayFromRequest($request));
 
         return $this->setStatusCode(200)->respondWithData(
             [
-                'id'    =>  $ass->id
+                'id'    =>  $schedule->id
             ],
             [
                 'redirect' => [
-                    'uri'   => url('action_sequences/' . $ass->sequence->id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('action_sequences/' . $schedule->sequence->id . '/edit')
                 ]
             ]
         );
@@ -127,8 +135,11 @@ class ActionSequenceScheduleController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action_sequence_schedule = ActionSequenceSchedule::find($id);
-        if (is_null($action_sequence_schedule)) {
+        /**
+         * @var ActionSequenceSchedule $schedule
+         */
+        $schedule = ActionSequenceSchedule::find($id);
+        if (is_null($schedule)) {
             return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
         }
 
@@ -139,18 +150,17 @@ class ActionSequenceScheduleController extends ApiController
             }
         }
 
-        $this->updateModelProperties($action_sequence_schedule, $request, [
+        $this->updateModelProperties($schedule, $request, [
             'name', 'action_sequence_id' => 'action_sequence', 'starts_at'
         ]);
 
-        $action_sequence_schedule->updateFromRequest($request);
+        $schedule->updateWeekdays($this->getWeekdaysArrayFromRequest($request));
 
-        $action_sequence_schedule->save();
+        $schedule->save();
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('action_sequence_schedules'),
-                'delay' => 1000
+                'uri'   => url('action_sequence_schedules')
             ]
         ]);
 
@@ -166,18 +176,37 @@ class ActionSequenceScheduleController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action_sequence_schedule = ActionSequenceSchedule::find($id);
-        if (is_null($action_sequence_schedule)) {
+        /**
+         * @var ActionSequenceSchedule $schedule
+         */
+        $schedule = ActionSequenceSchedule::find($id);
+        if (is_null($schedule)) {
             return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
         }
 
-        $action_sequence_schedule->next_start_not_before = Carbon::now()->addDays(1)->subMinute(1);
-        $action_sequence_schedule->save();
+        $schedule->next_start_not_before = Carbon::now()->addDays(1)->subMinute(1);
+        $schedule->save();
 
         return $this->respondWithData([
-            'next_start_not_before' => $action_sequence_schedule->next_start_not_before
+            'next_start_not_before' => $schedule->next_start_not_before
         ]);
 
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    protected function getWeekdaysArrayFromRequest(Request $request)
+    {
+        $weekdays = [];
+        for ($i = 0; $i < 7; $i++) {
+            $input_name = 'weekday_' . $i;
+            $value = $request->filled($input_name) && $request->input($input_name) == 'on' ? 1 : 0;
+            $weekdays[$i] = $value;
+        }
+
+        return $weekdays;
     }
 
 }

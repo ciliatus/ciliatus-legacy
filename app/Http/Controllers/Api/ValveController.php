@@ -46,11 +46,11 @@ class ValveController extends ApiController
         return parent::default_show($request, $id);
     }
 
-
     /**
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -59,6 +59,9 @@ class ValveController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Valve $valve
+         */
         $valve = Valve::find($id);
         if (is_null($valve)) {
             return $this->respondNotFound('Valve not found');
@@ -68,8 +71,7 @@ class ValveController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('valves'),
-                'delay' => 2000
+                'uri'   => url('valves')
             ]
         ]);
 
@@ -86,9 +88,12 @@ class ValveController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $valve = Valve::create();
-        $valve->name = $request->input('name');
-        $valve->save();
+        /**
+         * @var Valve $valve
+         */
+        $valve = Valve::create([
+            'name' => $request->input('name')
+        ]);
 
         return $this->setStatusCode(200)->respondWithData(
             [
@@ -96,8 +101,7 @@ class ValveController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('valves/' . $valve->id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('valves/' . $valve->id . '/edit')
                 ]
             ]
         );
@@ -116,6 +120,9 @@ class ValveController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Valve $valve
+         */
         $valve = Valve::find($id);
         if (is_null($valve)) {
             return $this->respondNotFound('Valve not found');
@@ -155,8 +162,7 @@ class ValveController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('valves'),
-                'delay' => 1000
+                'uri'   => url('valves')
             ]
         ]);
 

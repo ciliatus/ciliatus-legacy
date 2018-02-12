@@ -45,6 +45,9 @@ class LogController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var Log $log
+         */
         $log = Log::find($id);
 
         if (is_null($log)) {

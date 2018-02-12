@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Action;
 use App\ActionSequence;
 use App\ActionSequenceTrigger;
 use App\LogicalSensor;
@@ -50,6 +51,7 @@ class ActionSequenceTriggerController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
+     * @throws \Exception
      */
     public function destroy(Request $request, $id)
     {
@@ -58,19 +60,21 @@ class ActionSequenceTriggerController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $ast = ActionSequenceTrigger::find($id);
-        if (is_null($ast)) {
+        /**
+         * @var ActionSequenceTrigger $trigger
+         */
+        $trigger = ActionSequenceTrigger::find($id);
+        if (is_null($trigger)) {
             return $this->setStatusCode(422)->respondWithError('ActionSequenceTrigger not found');
         }
 
-        $asid = $ast->sequence->id;
+        $id = $trigger->sequence->id;
 
-        $ast->delete();
+        $trigger->delete();
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('action_sequences/' . $asid . '/edit'),
-                'delay' => 1000
+                'uri'   => url('action_sequences/' . $id . '/edit')
             ]
         ]);
 
@@ -87,11 +91,17 @@ class ActionSequenceTriggerController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $a = ActionSequence::find($request->input('action_sequence'));
-        if (is_null($a)) {
+        /**
+         * @var ActionSequence $sequence
+         */
+        $sequence = ActionSequence::find($request->input('action_sequence'));
+        if (is_null($sequence)) {
             return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
         }
 
+        /**
+         * @var LogicalSensor $ls
+         */
         $ls = LogicalSensor::find($request->input('logical_sensor'));
         if (is_null($ls)) {
             return $this->setStatusCode(422)->respondWithError('LogicalSensor not found');
@@ -101,8 +111,11 @@ class ActionSequenceTriggerController extends ApiController
             return $this->setStatusCode(422)->respondWithError('Unknown reference value comparison type');
         }
 
-        $ast = ActionSequenceTrigger::create([
-            'name' => 'AST_' . $a->name . '_' . Carbon::parse($request->input('starts_at'))->format('H:i:s'),
+        /**
+         * @var ActionSequenceTrigger $trigger
+         */
+        $trigger = ActionSequenceTrigger::create([
+            'name' => 'AST_' . $sequence->name . '_' . Carbon::parse($request->input('starts_at'))->format('H:i:s'),
             'logical_sensor_id' => $ls->id,
             'reference_value' => $request->input('reference_value'),
             'reference_value_comparison_type' => $request->input('reference_value_comparison_type'),
@@ -115,12 +128,11 @@ class ActionSequenceTriggerController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData(
             [
-                'id'    =>  $ast->id
+                'id'    =>  $trigger->id
             ],
             [
                 'redirect' => [
-                    'uri'   => url('action_sequences/' . $ast->sequence->id . '/edit'),
-                    'delay' => 100
+                    'uri'   => url('action_sequences/' . $trigger->sequence->id . '/edit')
                 ]
             ]
         );
@@ -139,6 +151,9 @@ class ActionSequenceTriggerController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var ActionSequenceTrigger $trigger
+         */
         $trigger = ActionSequenceTrigger::find($id);
         if (is_null($trigger)) {
             return $this->setStatusCode(404)->respondWithError('ActionSequenceTrigger not found');
@@ -182,8 +197,7 @@ class ActionSequenceTriggerController extends ApiController
 
         return $this->setStatusCode(200)->respondWithData([], [
             'redirect' => [
-                'uri'   => url('action_sequences/' . $trigger->sequence->id . '/edit'),
-                'delay' => 100
+                'uri'   => url('action_sequences/' . $trigger->sequence->id . '/edit')
             ]
         ]);
 
@@ -199,16 +213,19 @@ class ActionSequenceTriggerController extends ApiController
             return $this->respondUnauthorized();
         }
 
-        $action_sequence_trigger = ActionSequenceTrigger::find($id);
-        if (is_null($action_sequence_trigger)) {
+        /**
+         * @var ActionSequenceTrigger $trigger
+         */
+        $trigger = ActionSequenceTrigger::find($id);
+        if (is_null($trigger)) {
             return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
         }
 
-        $action_sequence_trigger->next_start_not_before = Carbon::now()->addHours(2);
-        $action_sequence_trigger->save();
+        $trigger->next_start_not_before = Carbon::now()->addHours(2);
+        $trigger->save();
 
         return $this->respondWithData([
-            'next_start_not_before' => $action_sequence_trigger->next_start_not_before
+            'next_start_not_before' => $trigger->next_start_not_before
         ]);
     }
 }
