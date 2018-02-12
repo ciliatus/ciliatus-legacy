@@ -107,7 +107,7 @@ class LogicalSensorController extends ApiController
 
         $logical_sensor->save();
 
-        $this->update($request, $logical_sensor);
+        $this->update($request, $logical_sensor->id);
 
         return $this->setStatusCode(200)->respondWithData(
             [

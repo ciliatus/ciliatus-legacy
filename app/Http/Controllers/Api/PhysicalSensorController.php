@@ -101,7 +101,7 @@ class PhysicalSensorController extends ApiController
             'name' => $request->input('name')
         ]);
 
-        $this->update($request, $physical_sensor);
+        $this->update($request, $physical_sensor->id);
 
         return $this->setStatusCode(200)->respondWithData(
             [
@@ -128,6 +128,9 @@ class PhysicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        /**
+         * @var PhysicalSensor $physical_sensor
+         */
         $physical_sensor = PhysicalSensor::find($id);
         if (is_null($physical_sensor)) {
             return $this->respondNotFound('PhysicalSensor not found');
