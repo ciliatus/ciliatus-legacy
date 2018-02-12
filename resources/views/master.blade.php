@@ -297,6 +297,24 @@
         <script>
             $(document).ready(function() {
                 window.runPage();
+
+                var search_ciliatus_data = {
+                    @foreach(App\System::getCachedAnimalsAndTerraria() as $obj)
+                        "{{ $obj->display_name }}": "{{ $obj->url }}",
+                    @endforeach
+                };
+
+                $('#search-ciliatus').autocomplete({
+                    data: {
+                        @foreach(App\System::getCachedAnimalsAndTerraria() as $obj)
+                            "{{ $obj->display_name }}": null,
+                        @endforeach
+                    },
+                    onAutocomplete: function(item) {
+                        window.location.replace(search_ciliatus_data[item]);
+                    },
+                    limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+                });
             });
         </script>
 
