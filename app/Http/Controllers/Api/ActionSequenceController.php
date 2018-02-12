@@ -63,10 +63,10 @@ class ActionSequenceController extends ApiController
         }
 
         /**
-         * @var ActionSequence $as
+         * @var ActionSequence $action_sequence
          */
         $action_sequence = ActionSequence::find($id);
-        if (is_null($as)) {
+        if (is_null($action_sequence)) {
             return $this->setStatusCode(404)->respondWithError('ActionSequence not found');
         }
 
