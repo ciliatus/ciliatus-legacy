@@ -189,9 +189,9 @@
                             <i class="material-icons right card-title card-title-small">close</i>
                         </div>
 
-                        <p v-for="animal in terrarium.data.animals">
+                        <p v-for="animal in animals.filter(a => a.data.terrarium_id === terrarium.id)">
                             <i class="material-icons">pets</i>
-                            <a v-bind:href="'/animals/' + animal.id">{{ animal.display_name }}</a> <i>{{ animal.common_name }}</i>
+                            <a v-bind:href="'/animals/' + animal.data.id">{{ animal.data.display_name }}</a> <i>{{ animal.data.common_name }}</i>
                         </p>
 
                         <p v-if="terrarium.data.capabilities.irrigate">
@@ -226,6 +226,7 @@ export default {
     data () {
         return {
             ids: [],
+            animal_ids: [],
             initial: true,
             meta: [],
             filter: {},
@@ -293,6 +294,13 @@ export default {
             return this.$store.state.terraria.filter(function(t) {
                 return that.ids.includes(t.id) && t.data !== null
             });
+        },
+
+        animals() {
+            let that = this;
+            return this.$store.state.animals.filter(function(a) {
+                return that.animal_ids.includes(a.id) && a.data !== null
+            })
         }
     },
 
@@ -375,21 +383,44 @@ export default {
                         that.ids = data.data;
                         that.meta = data.meta;
                         that.$parent.ensureObjects('terraria', that.ids);
+                        that.load_animals();
                     },
                     error: function (error) {
                         console.log(JSON.stringify(error));
                     }
                 });
+
+
             }
             else {
                 this.ids = [this.terrariumId];
                 this.$parent.ensureObjects('terraria', this.ids);
             }
+        },
+
+        load_animals: function() {
+            let that = this;
+            let url = '/api/v1/animals/?select_ids=true&all=true';
+            this.ids.forEach(function(id) {
+                url += '&orWhere[terrarium_id]=' + id;
+            });
+
+            $.ajax({
+                url: url,
+                method: 'GET',
+                success: function (data) {
+                    that.animal_ids = data.data;
+                    that.$parent.ensureObjects('animals', that.animal_ids);
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                }
+            });
         }
     },
 
     created: function() {
-        var that = this;
+        let that = this;
         setTimeout(function() {
             that.set_filter();
         }, 100);
