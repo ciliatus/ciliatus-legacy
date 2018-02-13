@@ -151,7 +151,7 @@ export default {
             }
             else {
                 source_url = '/api/v1/biography_entries/?with[]=files&order[created_at]=desc&filter[belongsTo_type]=' +
-                             this.belongsToType + '&filter[belongsTo_id]=' + this.belongsToId + '&raw=true';
+                             this.belongsToType + '&filter[belongsTo_id]=' + this.belongsToId + '&all=true';
             }
 
             window.eventHubVue.processStarted();

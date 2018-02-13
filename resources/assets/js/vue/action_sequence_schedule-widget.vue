@@ -96,7 +96,7 @@ export default {
 
         var uri = '';
         if (this.assid === '') {
-            uri = '/api/v1/action_sequence_schedules/?raw=true&' + this.sourceFilter;
+            uri = '/api/v1/action_sequence_schedules/?all=true&' + this.sourceFilter;
         }
         else {
             uri = '/api/v1/action_sequence_schedules/' + this.assid;

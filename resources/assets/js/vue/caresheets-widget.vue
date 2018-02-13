@@ -139,7 +139,7 @@ export default {
                 source_url = '/api/v1/animals/caresheets/' + this.caresheetId
             }
             else {
-                source_url = '/api/v1/animals/' + this.belongsToId + '/caresheets/?order[created_at]=desc&filter[belongsTo_type]=' + this.belongsToType + '&filter[belongsTo_id]=' + this.belongsToId + '&raw=true';
+                source_url = '/api/v1/animals/' + this.belongsToId + '/caresheets/?order[created_at]=desc&filter[belongsTo_type]=' + this.belongsToType + '&filter[belongsTo_id]=' + this.belongsToId + '&all=true';
             }
 
             window.eventHubVue.processStarted();

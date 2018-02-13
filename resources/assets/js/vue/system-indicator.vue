@@ -47,7 +47,7 @@ export default {
         var that = this;
 
         $.ajax({
-            url: '/api/v1/dashboard/system_status?raw=true',
+            url: '/api/v1/dashboard/system_status?all=true',
             method: 'GET',
             success: function (data) {
                 that.system = data.data;

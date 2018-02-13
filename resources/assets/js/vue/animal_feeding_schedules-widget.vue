@@ -108,7 +108,7 @@ export default {
             window.eventHubVue.processStarted();
             var that = this;
             $.ajax({
-                url: '/api/v1/animals/' + that.animalId + '/feeding_schedules?raw=true&' + that.sourceFilter,
+                url: '/api/v1/animals/' + that.animalId + '/feeding_schedules?all=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     that.animal_feeding_schedules = data.data;

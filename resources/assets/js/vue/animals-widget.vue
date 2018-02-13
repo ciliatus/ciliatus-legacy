@@ -381,7 +381,7 @@ export default {
 
             window.eventHubVue.processStarted();
             $.ajax({
-                url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw=true',
+                url: '/api/v1/properties?filter[type]=AnimalFeedingType&all=true',
                 method: 'GET',
                 success: function (data) {
                     that.feeding_types = data.data;
