@@ -1,6 +1,7 @@
 export default class CiliatusObject {
 
     constructor(type, id) {
+        this.init = false;
         this.data = null;
         this.type = type;
         this.id = id;
@@ -36,6 +37,17 @@ export default class CiliatusObject {
         this.last_change = Date.now();
         this.last_refresh = Date.now();
         this.last_persist = Date.now();
+
+        if (!this.init) {
+            window.echo.private('dashboard-updates')
+                .listen(this.data.class + 'Updated', (e) => {
+                    this.refresh()
+                }).listen(this.data.class + 'Deleted', (e) => {
+                    this.data = null;
+                });
+
+            this.init = true;
+        }
     }
 
     persist () {
