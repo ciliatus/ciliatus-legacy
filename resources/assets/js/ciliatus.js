@@ -16,7 +16,6 @@ import AnimalWeighingSchedulesMatrixWidget from './vue/animal_weighing_schedules
 import AnimalWeighingsWidget from './vue/animal_weighings-widget.vue';
 import AnimalWeighingSchedulesWidget from './vue/animal_weighing_schedules-widget.vue';
 import TerrariaWidget from './vue/terraria-widget.vue';
-import TerrariaOverviewWidget from './vue/terraria-overview-widget.vue';
 import ControlunitsWidget from './vue/controlunit-widget.vue';
 import ControlunitsListWidget from './vue/controlunits-list-widget.vue';
 import FilesWidget from './vue/files-widget.vue';
@@ -55,6 +54,10 @@ global.Vue.use(Vuex);
 const store = new Vuex.Store({
     state: {
         terraria: [],
+        animals: [],
+        valves: [],
+        pumps: [],
+        generic_components: [],
 
         max_object_age_seconds: 60
     }
@@ -125,7 +128,6 @@ global.ciliatusVue = new global.Vue({
         'animal_weighings-widget': AnimalWeighingsWidget,
         'animal_weighing_schedules-widget': AnimalWeighingSchedulesWidget,
         'terraria-widget': TerrariaWidget,
-        'terraria-overview-widget': TerrariaOverviewWidget,
         'controlunits-widget': ControlunitsWidget,
         'controlunits-list-widget': ControlunitsListWidget,
         'files-widget': FilesWidget,
