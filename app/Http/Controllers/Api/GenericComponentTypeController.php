@@ -17,9 +17,9 @@ class GenericComponentTypeController extends ApiController
     /**
      * GenericComponentTypeController constructor.
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
     }
 
     /**

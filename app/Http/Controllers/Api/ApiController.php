@@ -24,6 +24,11 @@ class ApiController extends Controller
     use FiltersEloquentApi;
 
     /**
+     * @var null
+     */
+    protected $request = null;
+
+    /**
      * @var
      */
     protected $statusCode = 200;
@@ -40,9 +45,11 @@ class ApiController extends Controller
 
     /**
      * ApiController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
+        $this->request = $request;
     }
 
     /**
@@ -77,6 +84,10 @@ class ApiController extends Controller
 
         $objects = $model_class_name::query();
         $objects = $this->filter($request, $objects);
+
+        if ($request->has('select_ids')) {
+            $objects = $objects->select('id');
+        }
 
         return $this->respondTransformedAndPaginated(
             $request,
@@ -227,6 +238,14 @@ class ApiController extends Controller
             'current_page'  => $paginator->currentPage(),
             'per_page'         => $paginator->perPage()
         ];
+
+        if ($this->request->has('select_ids')) {
+            return $this->respondWithData(
+                array_column($data, 'id'),
+                $meta
+            );
+        }
+
         return $this->respondWithData($data, $meta);
     }
 
@@ -317,6 +336,7 @@ class ApiController extends Controller
                 $repository_parameters,
                 $repository_method
             );
+
 
             return $this->setStatusCode(200)->respondWithPagination(
                 $transformer->transformCollection(
