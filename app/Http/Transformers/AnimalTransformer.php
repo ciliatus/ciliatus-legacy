@@ -29,7 +29,7 @@ class AnimalTransformer extends Transformer
             'birth_date' => isset($item['birth_date']) ? Carbon::parse($item['birth_date'])->format('d.m.Y') : null,
             'death_date' => isset($item['death_date']) ? Carbon::parse($item['death_date'])->format('d.m.Y') : null,
             'gender' => isset($item['gender']) ? $item['gender'] : '',
-            'terrarium_id' => isset($item['terrarium_id']) ? $item['terrarium_id'] : '',
+            'terrarium_id' => $item['terrarium_id'],
             'timestamps' => $this->parseTimestamps($item)
         ];
 

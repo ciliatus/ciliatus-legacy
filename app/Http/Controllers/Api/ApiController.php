@@ -72,7 +72,6 @@ class ApiController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function default_index(Request $request)
     {
@@ -99,7 +98,6 @@ class ApiController extends Controller
      * @param Request $request
      * @param string $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function default_show(Request $request, $id)
     {
@@ -132,7 +130,6 @@ class ApiController extends Controller
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function files(Request $request, $id) {
         $model_class_name = $this->getModelNameFromController();
@@ -294,7 +291,6 @@ class ApiController extends Controller
      * @param array $repository_parameters
      * @param string $repository_method
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function respondTransformedAndPaginated(Request $request,
                                                    Builder $query,
@@ -302,7 +298,10 @@ class ApiController extends Controller
                                                    $repository_method = 'show')
     {
 
-        if ($request->filled('raw') && Gate::allows('api-list:raw')) {
+        if ($request->filled('all')) {
+            if (Gate::denies('api-list:all')) {
+                return $this->respondUnauthorized('Not permitted to index object without pagination');
+            }
             /*
              * If raw is passed, pagination will be ignored
              * Permission api-list:raw is required
@@ -314,6 +313,12 @@ class ApiController extends Controller
                 $repository_parameters,
                 $repository_method
             );
+
+            if ($this->request->has('select_ids')) {
+                return $this->respondWithData(
+                    array_column($objects->toArray(), 'id')
+                );
+            }
 
             return $this->setStatusCode(200)
                         ->respondWithData($this->applyTransformer($objects));
@@ -384,7 +389,6 @@ class ApiController extends Controller
      *
      * @param array|Collection|CiliatusModel $objects
      * @return array
-     * @throws \ErrorException
      */
     protected function applyTransformer($objects)
     {
