@@ -47,12 +47,25 @@ import ApiIoWidget from './vue/api-io-widget.vue';
 import BusTypeEditForm from './vue/bus_type_edit-form.vue';
 import GenericComponentTypeCreateForm from './vue/generic_component_type_create-form.vue';
 
-window.bodyVue = new global.Vue({
+import CiliatusObject from './ciliatus_object.js';
+import Vuex from "vuex";
+
+global.Vue.use(Vuex);
+
+const store = new Vuex.Store({
+    state: {
+        terraria: [],
+
+        max_object_age_seconds: 60
+    }
+});
+
+global.ciliatusVue = new global.Vue({
 
     el: '#body',
 
     i18n: global.i18n,
-    store: global.store,
+    store,
 
     data: {
         terraria: [],
@@ -75,6 +88,22 @@ window.bodyVue = new global.Vue({
             type: String,
             default: '',
             required: false
+        }
+    },
+
+    methods: {
+        ensureObject (type, id) {
+            if (this.$store.state[type] === undefined) {
+                this.$store.state[type] = [];
+            }
+
+            if (this.$store.state[type].filter(t => t.id === id).length < 1) {
+                this.$store.state[type].push(new CiliatusObject(type, id));
+            }
+        },
+
+        ensureObjects (type, ids) {
+            ids.forEach(id => this.ensureObject(type, id));
         }
     },
 

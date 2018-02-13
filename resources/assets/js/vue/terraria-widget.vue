@@ -28,7 +28,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col s2 right-align" v-if="!animalId">
+            <div class="col s2 right-align" v-if="!terrariumId">
                 <ul class="pagination">
                     <li class="waves-effect">
                         <a href="#!"><i class="material-icons" v-on:click="toggle_filters">filter_list</i></a>
@@ -36,6 +36,7 @@
                 </ul>
             </div>
         </div>
+
         <div class="row" v-if="!terrariumId" v-show="showFilters">
             <div class="col s12">
                 <div class="input-field inline">
@@ -60,20 +61,21 @@
                 </div>
             </div>
         </div>
+
         <div :class="containerClasses" :id="containerId">
             <div :class="wrapperClasses" v-for="terrarium in terraria">
                 <!-- Modals -->
-                <div :id="terrarium.id + '_irrigate'" class="modal" v-if="terrarium.capabilities.irrigate">
-                    <form :action="'/api/v1/terraria/' + terrarium.id + '/action_sequence'" data-method="POST"
-                          :id="'form_irrigate_' + terrarium.id" v-on:submit="submit">
+                <div :id="terrarium.data.id + '_irrigate'" class="modal" v-if="terrarium.data.capabilities.irrigate">
+                    <form :action="'/api/v1/terraria/' + terrarium.data.id + '/action_sequence'" data-method="POST"
+                          :id="'form_irrigate_' + terrarium.data.id" v-on:submit="submit">
                         <div class="modal-content">
                             <h4>{{ $t('labels.irrigate') }}</h4>
                             <p>
                                 <input type="hidden" name="template" value="irrigate">
                                 <input type="hidden" name="runonce" value="On">
                                 <input type="hidden" name="schedule_now" value="On">
-                                <input :id="'duration_minutes_irrigate_' + terrarium.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="1">
-                                <label :for="'duration_minutes_irrigate_' + terrarium.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
+                                <input :id="'duration_minutes_irrigate_' + terrarium.data.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="1">
+                                <label :for="'duration_minutes_irrigate_' + terrarium.data.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
                             </p>
                         </div>
                         <div class="modal-footer">
@@ -82,17 +84,17 @@
                     </form>
                 </div>
 
-                <div :id="terrarium.id + '_ventilate'" class="modal" v-if="terrarium.capabilities.ventilate">
-                    <form :action="'/api/v1/terraria/' + terrarium.id + '/action_sequence'" data-method="POST"
-                          :id="'form_ventilate_' + terrarium.id" v-on:submit="submit">
+                <div :id="terrarium.data.id + '_ventilate'" class="modal" v-if="terrarium.data.capabilities.ventilate">
+                    <form :action="'/api/v1/terraria/' + terrarium.data.id + '/action_sequence'" data-method="POST"
+                          :id="'form_ventilate_' + terrarium.data.id" v-on:submit="submit">
                         <div class="modal-content">
                             <h4>{{ $t('labels.ventilate') }}</h4>
                             <p>
                                 <input type="hidden" name="template" value="ventilation">
                                 <input type="hidden" name="runonce" value="On">
                                 <input type="hidden" name="schedule_now" value="On">
-                                <input :id="'duration_minutes_ventilate_' + terrarium.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="3">
-                                <label :for="'duration_minutes_ventilate_' + terrarium.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
+                                <input :id="'duration_minutes_ventilate_' + terrarium.data.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="3">
+                                <label :for="'duration_minutes_ventilate_' + terrarium.data.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
                             </p>
                         </div>
                         <div class="modal-footer">
@@ -101,17 +103,17 @@
                     </form>
                 </div>
 
-                <div :id="terrarium.id + '_heat_up'" class="modal" v-if="terrarium.capabilities.heat_up">
-                    <form :action="'/api/v1/terraria/' + terrarium.id + '/action_sequence'" data-method="POST"
-                          :id="'form_heat_up_' + terrarium.id" v-on:submit="submit">
+                <div :id="terrarium.data.id + '_heat_up'" class="modal" v-if="terrarium.data.capabilities.heat_up">
+                    <form :action="'/api/v1/terraria/' + terrarium.data.id + '/action_sequence'" data-method="POST"
+                          :id="'form_heat_up_' + terrarium.data.id" v-on:submit="submit">
                         <div class="modal-content">
                             <h4>{{ $t('labels.heat_up') }}</h4>
                             <p>
                                 <input type="hidden" name="template" value="heat_up">
                                 <input type="hidden" name="runonce" value="On">
                                 <input type="hidden" name="schedule_now" value="On">
-                                <input :id="'duration_minutes_heat_up_' + terrarium.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="3">
-                                <label :for="'duration_minutes_heat_up_' + terrarium.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
+                                <input :id="'duration_minutes_heat_up_' + terrarium.data.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="3">
+                                <label :for="'duration_minutes_heat_up_' + terrarium.data.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
                             </p>
                         </div>
                         <div class="modal-footer">
@@ -120,17 +122,17 @@
                     </form>
                 </div>
 
-                <div :id="terrarium.id + '_cool_down'" class="modal" v-if="terrarium.capabilities.cool_down">
-                    <form :action="'/api/v1/terraria/' + terrarium.id + '/action_sequence'" data-method="POST"
-                          :id="'form_cool_down_' + terrarium.id" v-on:submit="submit">
+                <div :id="terrarium.data.id + '_cool_down'" class="modal" v-if="terrarium.data.capabilities.cool_down">
+                    <form :action="'/api/v1/terraria/' + terrarium.data.id + '/action_sequence'" data-method="POST"
+                          :id="'form_cool_down_' + terrarium.data.id" v-on:submit="submit">
                         <div class="modal-content">
                             <h4>{{ $t('labels.cool_down') }}</h4>
                             <p>
                                 <input type="hidden" name="template" value="cool_down">
                                 <input type="hidden" name="runonce" value="On">
                                 <input type="hidden" name="schedule_now" value="On">
-                                <input :id="'duration_minutes_cool_down_' + terrarium.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="3">
-                                <label :for="'duration_minutes_cool_down_' + terrarium.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
+                                <input :id="'duration_minutes_cool_down_' + terrarium.data.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="3">
+                                <label :for="'duration_minutes_cool_down_' + terrarium.data.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
                             </p>
                         </div>
                         <div class="modal-footer">
@@ -142,38 +144,39 @@
                 <!-- Card -->
                 <div class="card">
                     <div class="card-image terrarium-card-image"
-                         v-bind:style="terrarium.default_background_filepath ? 'background-image: url(\'' + terrarium.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
+                         v-bind:style="terrarium.data.default_background_filepath ? 'background-image: url(\'' + terrarium.data.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
                         <div>
-                            <inline-graph :parentid="terrarium.id" graphtype="humidity_percent" type="line"
+                            <inline-graph :parentid="terrarium.data.id" graphtype="humidity_percent" type="line"
                                           :options="{'fill': null, 'strokeWidth': '2', 'stroke': '#2196f3', width: '100%', height:'140px', min: 1, max: 99}"
-                                          :source="'/api/v1/terraria/'+terrarium.id+'/sensorreadingsByType/humidity_percent'"
-                                          :data-prefill="terrarium.humidity_history"></inline-graph>
+                                          :source="'/api/v1/terraria/'+terrarium.data.id+'/sensorreadingsByType/humidity_percent'"
+                                          :data-prefill="terrarium.data.humidity_history"></inline-graph>
                         </div>
 
                         <div style="position: relative; top: -145px">
-                            <inline-graph :parentid="terrarium.id" graphtype="temperature_celsius" type="line"
+                            <inline-graph :parentid="terrarium.data.id" graphtype="temperature_celsius" type="line"
                                           :options="{'fill': null, 'strokeWidth': '2', 'stroke': '#b71c1c', width: '100%', height:'140px', min: 1, max: 99}"
-                                          :source="'/api/v1/terraria/'+terrarium.id+'/sensorreadingsByType/temperature_celsius'"
-                                          :data-prefill="terrarium.temperature_history"></inline-graph>
+                                          :source="'/api/v1/terraria/'+terrarium.data.id+'/sensorreadingsByType/temperature_celsius'"
+                                          :data-prefill="terrarium.data.temperature_history"></inline-graph>
 
                         </div>
 
                         <div class="card-title">
-                            <span><a :href="'/terraria/' + terrarium.id">{{ terrarium.display_name }}</a></span>
-                            <loading-indicator :size="20" v-show="terrarium.loading_data"></loading-indicator>
+                            <span><a :href="'/terraria/' + terrarium.data.id">{{ terrarium.data.display_name }}</a></span>
+                            <loading-indicator :size="20" v-show="terrarium.data.loading_data"></loading-indicator>
                             <a href="#!"><i class="material-icons right activator">more_vert</i></a>
                         </div>
                     </div>
-                    <div class="card-content" v-if="terrarium.cooked_temperature_celsius !== null || terrarium.cooked_humidity_percent !== null || terrarium.heartbeat_critical">
+
+                    <div class="card-content" v-if="terrarium.data.cooked_temperature_celsius !== null || terrarium.data.cooked_humidity_percent !== null || terrarium.data.heartbeat_critical">
                         <p>
-                            <span v-show="terrarium.cooked_temperature_celsius !== null" v-bind:class="{ 'red-text': terrarium.temperature_critical, 'darken-3': terrarium.temperature_critical }">
-                                {{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C
+                            <span v-show="terrarium.data.cooked_temperature_celsius !== null" v-bind:class="{ 'red-text': terrarium.data.temperature_critical, 'darken-3': terrarium.data.temperature_critical }">
+                                {{ $t("labels.temperature") }}: {{ terrarium.data.cooked_temperature_celsius }}°C
                                 <br />
                             </span>
-                            <span v-show="terrarium.cooked_humidity_percent !== null" v-bind:class="{ 'red-text': terrarium.humidity_critical, 'darken-3': terrarium.humidity_critical }">
-                                {{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%
+                            <span v-show="terrarium.data.cooked_humidity_percent !== null" v-bind:class="{ 'red-text': terrarium.data.humidity_critical, 'darken-3': terrarium.data.humidity_critical }">
+                                {{ $t("labels.humidity") }}: {{ terrarium.data.cooked_humidity_percent }}%
                             </span>
-                            <span v-show="terrarium.heartbeat_critical" class="red-text darken-3">
+                            <span v-show="terrarium.data.heartbeat_critical" class="red-text darken-3">
                                 <br />
                                 {{ $t("tooltips.heartbeat_critical") }}
                             </span>
@@ -182,30 +185,30 @@
 
                     <div class="card-reveal">
                         <div>
-                            <strong>{{ terrarium.display_name }}</strong>
+                            <strong>{{ terrarium.data.display_name }}</strong>
                             <i class="material-icons right card-title card-title-small">close</i>
                         </div>
 
-                        <p v-for="animal in terrarium.animals">
+                        <p v-for="animal in terrarium.data.animals">
                             <i class="material-icons">pets</i>
                             <a v-bind:href="'/animals/' + animal.id">{{ animal.display_name }}</a> <i>{{ animal.common_name }}</i>
                         </p>
 
-                        <p v-if="terrarium.capabilities.irrigate">
+                        <p v-if="terrarium.data.capabilities.irrigate">
                             <i class="material-icons">play_arrow</i>
-                            <a href="#!" v-on:click="action_sequence_modal(terrarium.id, 'irrigate')">{{ $t('buttons.irrigate') }}</a>
+                            <a href="#!" v-on:click="action_sequence_modal(terrarium.data.id, 'irrigate')">{{ $t('buttons.irrigate') }}</a>
                         </p>
-                        <p v-if="terrarium.capabilities.ventilate">
+                        <p v-if="terrarium.data.capabilities.ventilate">
                             <i class="material-icons">play_arrow</i>
-                            <a href="#!" v-on:click="action_sequence_modal(terrarium.id, 'ventilate')">{{ $t('buttons.ventilate') }}</a>
+                            <a href="#!" v-on:click="action_sequence_modal(terrarium.data.id, 'ventilate')">{{ $t('buttons.ventilate') }}</a>
                         </p>
-                        <p v-if="terrarium.capabilities.heat_up">
+                        <p v-if="terrarium.data.capabilities.heat_up">
                             <i class="material-icons">play_arrow</i>
-                            <a href="#!" v-on:click="action_sequence_modal(terrarium.id, 'heat_up')">{{ $t('buttons.heat_up') }}</a>
+                            <a href="#!" v-on:click="action_sequence_modal(terrarium.data.id, 'heat_up')">{{ $t('buttons.heat_up') }}</a>
                         </p>
-                        <p v-if="terrarium.capabilities.cool_down">
+                        <p v-if="terrarium.data.capabilities.cool_down">
                             <i class="material-icons">play_arrow</i>
-                            <a href="#!" v-on:click="action_sequence_modal(terrarium.id, 'cool_down')">{{ $t('buttons.cool_down') }}</a>
+                            <a href="#!" v-on:click="action_sequence_modal(terrarium.data.id, 'cool_down')">{{ $t('buttons.cool_down') }}</a>
                         </p>
                     </div>
                 </div>
@@ -222,7 +225,7 @@ import InlineGraph from './inline-graph.vue';
 export default {
     data () {
         return {
-            terraria: [],
+            ids: [],
             initial: true,
             meta: [],
             filter: {},
@@ -284,6 +287,28 @@ export default {
         }
     },
 
+    computed: {
+        terraria () {
+            let that = this;
+            return this.$store.state.terraria.filter(function(t) {
+                return that.ids.includes(t.id) && t.data !== null
+            });
+        }
+    },
+
+    watch: {
+        'terraria': function() {
+            this.$nextTick(function() {
+                let grid = $('#' + this.containerId + '.masonry-grid');
+                if (grid.length > 0) {
+                    grid.masonry('reloadItems');
+                    grid.masonry('layout');
+                }
+                $('.modal').modal();
+            });
+        }
+    },
+
     components: {
         'inline-graph': InlineGraph,
         'loading-indicator': LoadingIndicator
@@ -332,152 +357,42 @@ export default {
         action_sequence_modal: function(terrarium_id, action) {
             $('#' + terrarium_id + '_' + action).modal('open');
         },
-        update: function(t) {
-            var item = null;
-            this.terraria.forEach(function(data, index) {
-                if (data.id === t.terrarium_id) {
-                    item = index;
-                }
-            });
-            if (item === null && this.subscribeAdd === true) {
-                var that = this;
-                $.ajax({
-                    url: '/api/v1/terraria/' + t.terrarium_id + '?default_history_minutes=true',
-                    method: 'GET',
-                    success: function (data) {
-                        that.terraria.push(data.data);
-                        window.eventHubVue.$emit('TerrariumGraphUpdated', data.data);
-
-                        that.$nextTick(function() {
-                            that.refresh_grid();
-                        });
-                    },
-                    error: function (error) {
-                        console.log(JSON.stringify(error));
-                    }
-                });
-            }
-            else if (item !== null) {
-                this.$set(this.terraria[item], 'loading_data', true);
-                var that = this;
-                $.ajax({
-                    url: '/api/v1/terraria/' + t.terrarium_id + '?default_history_minutes=true',
-                    method: 'GET',
-                    success: function (data) {
-                        that.terraria.splice(item, 1, data.data);
-                        window.eventHubVue.$emit('TerrariumGraphUpdated', data.data);
-
-                        that.$nextTick(function() {
-                            that.refresh_grid();
-                        });
-                    },
-                    error: function (error) {
-                        console.log(JSON.stringify(error));
-                        this.$set(this.terraria[item], 'loading_data', false);
-                    }
-                });
-            }
-        },
-        delete: function(t) {
-            if (this.subscribeDelete !== true) {
-                return;
-            }
-            var item = null;
-            this.terraria.forEach(function(data, index) {
-                if (data.id === t.terrarium_id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.terraria.splice(item, 1);
-            }
-
-            this.$nextTick(function() {
-                this.refresh_grid();
-            });
-        },
 
         submit: function(e) {
             window.submit_form(e);
         },
 
         load_data: function() {
-            var that = this;
-            var source_url = '';
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            if (this.terrariumId !== null) {
-                source_url = '/api/v1/terraria/' + this.terrariumId + '?with[]=action_sequences&with[]=animals&' +
-                             'with[]=files&with[]=physical_sensors&with[]=valves';
+            if (this.terrariumId === null) {
+                let that = this;
+                this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
+
+                $.ajax({
+                    url: '/api/v1/terraria/?select_ids=true&pagination[per_page]=6&page=' +
+                            that.page + that.filter_string + that.order_string,
+                    method: 'GET',
+                    success: function (data) {
+                        that.ids = data.data;
+                        that.meta = data.meta;
+                        that.$parent.ensureObjects('terraria', that.ids);
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
             }
             else {
-                source_url = '/api/v1/terraria/?with[]=action_sequences&with[]=animals&with[]=files&' +
-                             'with[]=physical_sensors&with[]=valves&pagination[per_page]=6&page=' +
-                             this.page + this.filter_string + this.order_string;
+                this.ids = [this.terrariumId];
+                this.$parent.ensureObjects('terraria', this.ids);
             }
-
-            window.eventHubVue.processStarted();
-            $.ajax({
-                url: source_url,
-                method: 'GET',
-                success: function (data) {
-                    if (that.terrariumId !== null) {
-                        that.terraria = [data.data];
-                    }
-                    else {
-                        that.meta = data.meta;
-                        that.terraria = data.data;
-                    }
-
-                    that.$nextTick(function() {
-                        if (that.initial) {
-                            let element = $('#' + this.containerId + '.masonry-grid');
-                            $(element).masonry({
-                                columnWidth: '.col',
-                                itemSelector: '.col',
-                            });
-                            that.initial = false;
-                        }
-                        that.refresh_grid();
-                    });
-
-                    window.eventHubVue.processEnded();
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
-        },
-
-        refresh_grid: function() {
-            let grid = $('#' + this.containerId + '.masonry-grid');
-            if (grid.length > 0) {
-                grid.masonry('reloadItems');
-                grid.masonry('layout');
-            }
-            $('.modal').modal();
         }
     },
 
     created: function() {
-        window.echo.private('dashboard-updates')
-            .listen('TerrariumUpdated', (e) => {
-                this.update(e);
-            }).listen('TerrariumDeleted', (e) => {
-                this.delete(e);
-            });
-
         var that = this;
         setTimeout(function() {
             that.set_filter();
         }, 100);
-
-        if (this.refreshTimeoutSeconds !== null) {
-            setInterval(function() {
-                that.load_data();
-            }, this.refreshTimeoutSeconds * 1000)
-        }
     }
 
 }

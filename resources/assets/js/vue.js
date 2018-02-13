@@ -1,8 +1,9 @@
 /**
  * Setup Vue
  */
-global.Vue = require('vue');
+import Vuex from 'vuex';
 
+global.Vue = require('vue');
 global.Vue.config.errorHandler = function (err, vm, info)  {
     let handler, current = vm;
     if (vm.$options.errorHandler) {
@@ -16,9 +17,11 @@ global.Vue.config.errorHandler = function (err, vm, info)  {
     if (handler) handler.call(current, err, vm, info);
     else {
         console.log(err);
-        window.notification(window.bodyVue.$t('errors.frontend.generic'), 'red darken-1 text-white');
+        window.notification(global.ciliatusVue.$t('errors.frontend.generic'), 'red darken-1 text-white');
     }
 };
+
+
 
 /**
  * Retrive env variables
@@ -80,5 +83,5 @@ global.Vue.use(TimeStringFormatter);
  * Require components
  */
 require('./eventhub.js');
-require('./datastore.js');
 require('./ciliatus.js');
+require('./ciliatus_object.js');
