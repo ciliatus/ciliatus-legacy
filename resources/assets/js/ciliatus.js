@@ -30,7 +30,7 @@ import ValveWidget from './vue/valve-widget.vue';
 import ValvesListWidget from './vue/valves-list-widget.vue';
 import PhysicalSensorWidget from './vue/physical_sensor-widget.vue';
 import PhysicalSensorsListWidget from './vue/physical_sensors-list-widget.vue';
-import LogicalSensorsWidget from './vue/logical_sensors-widget.vue';
+import LogicalSensorWidget from './vue/logical_sensor-widget.vue';
 import LogicalSensorsListWidget from './vue/logical_sensors-list-widget.vue';
 import LogicalSensorThresholdsWidget from './vue/logical_sensor_thresholds-widget.vue';
 import GenericComponentsWidget from './vue/generic_components-widget.vue';
@@ -62,6 +62,7 @@ const store = new Vuex.Store({
         controlunits: [],
         physical_sensors: [],
         logical_sensors: [],
+        logical_sensor_thresholds: [],
         valves: [],
         pumps: [],
         generic_components: [],
@@ -167,7 +168,7 @@ global.ciliatusVue = new global.Vue({
         'valves-list-widget': ValvesListWidget,
         'physical_sensor-widget': PhysicalSensorWidget,
         'physical_sensors-list-widget': PhysicalSensorsListWidget,
-        'logical_sensors-widget': LogicalSensorsWidget,
+        'logical_sensor-widget': LogicalSensorWidget,
         'logical_sensors-list-widget': LogicalSensorsListWidget,
         'logical_sensor_thresholds-widget': LogicalSensorThresholdsWidget,
         'generic_components-widget': GenericComponentsWidget,
