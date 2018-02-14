@@ -122,7 +122,14 @@ export default {
             let that = this;
             return this.$store.state.valves.filter(function(v) {
                 return that.ids.includes(v.id) && v.data !== null
-            });
+            }).sort(function (a, b) {
+                let c = a.data[that.$refs.pagination.order.field] > b.data[that.$refs.pagination.order.field];
+                if ( c && that.$refs.pagination.order.direction === 'asc' ||
+                    !c && that.$refs.pagination.order.direction === 'desc') {
+                    return 1;
+                }
+                return -1;
+            });;
         },
 
         pumps () {

@@ -7,10 +7,17 @@
                         <a href="#!" v-on:click="set_order(filter.path)">
                             {{ $t('labels.' + filter.name) }}
                         </a>
-                        <i v-show="order.field === filter.path && order.direction === 'asc'"
+
+                        <i v-if="$parent.$refs.pagination"
+                           v-show="$parent.$refs.pagination.order.field === filter.path &&
+                                   $parent.$refs.pagination.order.direction === 'asc'"
                            class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field === filter.path && order.direction === 'desc'"
+
+                        <i v-if="$parent.$refs.pagination"
+                           v-show="$parent.$refs.pagination.order.field === filter.path &&
+                                   $parent.$refs.pagination.order.direction === 'desc'"
                            class="material-icons">arrow_drop_down</i>
+
                         <div class="input-field inline" v-if="$parent.$refs.pagination">
                             <input :id="'filter_' + filter.name"
                                    type="text" v-model="$parent.$refs.pagination.filter[filter.path]"
@@ -35,11 +42,6 @@ export default {
             meta: [],
             applied_filter: {},
             filter_string: '',
-            order: {
-                field: 'display_name',
-                direction: 'asc'
-            },
-            order_string: ''
         }
     },
 

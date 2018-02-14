@@ -127,6 +127,13 @@
                 let that = this;
                 return this.$store.state.physical_sensors.filter(function (p) {
                     return that.ids.includes(p.id) && p.data !== null
+                }).sort(function (a, b) {
+                    let c = a.data[that.$refs.pagination.order.field] > b.data[that.$refs.pagination.order.field];
+                    if ( c && that.$refs.pagination.order.direction === 'asc' ||
+                        !c && that.$refs.pagination.order.direction === 'desc') {
+                        return 1;
+                    }
+                    return -1;
                 });
             },
 
