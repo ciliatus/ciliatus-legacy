@@ -129,7 +129,7 @@ export default {
                     return 1;
                 }
                 return -1;
-            });;
+            });
         },
 
         pumps () {
