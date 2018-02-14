@@ -1,8 +1,8 @@
 export default class CiliatusObject {
 
-    constructor(type, id) {
+    constructor(type, id, data) {
         this.init = false;
-        this.data = null;
+        this.data = data === undefined ? null : data;
         this.type = type;
         this.id = id;
         this.max_age_seconds = 60;
@@ -11,7 +11,9 @@ export default class CiliatusObject {
         this.last_change = 0;
         this.api_url = global.apiUrl;
 
-        this.refresh();
+        if (this.data === null) {
+            this.refresh();
+        }
     }
 
     refresh () {

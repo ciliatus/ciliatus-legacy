@@ -373,24 +373,23 @@ export default {
         load_data: function() {
             if (this.terrariumId === null) {
                 let that = this;
+
                 this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
 
                 $.ajax({
-                    url: '/api/v1/terraria/?select_ids=true&pagination[per_page]=6&page=' +
-                            that.page + that.filter_string + that.order_string,
+                    url: '/api/v1/terraria/?pagination[per_page]=6&page=' +
+                         that.page + that.filter_string + that.order_string,
                     method: 'GET',
                     success: function (data) {
-                        that.ids = data.data;
+                        that.ids = data.data.map(t => t.id);
                         that.meta = data.meta;
-                        that.$parent.ensureObjects('terraria', that.ids);
+                        that.$parent.ensureObjects('terraria', that.ids, data.data);
                         that.load_animals();
                     },
                     error: function (error) {
                         console.log(JSON.stringify(error));
                     }
                 });
-
-
             }
             else {
                 this.ids = [this.terrariumId];
@@ -400,17 +399,15 @@ export default {
 
         load_animals: function() {
             let that = this;
-            let url = '/api/v1/animals/?select_ids=true&all=true';
-            this.ids.forEach(function(id) {
-                url += '&orWhere[terrarium_id]=' + id;
-            });
+
+            let url = '/api/v1/animals/?all=true&filter[terrarium_id]=' + this.ids.join(':or:');
 
             $.ajax({
                 url: url,
                 method: 'GET',
                 success: function (data) {
-                    that.animal_ids = data.data;
-                    that.$parent.ensureObjects('animals', that.animal_ids);
+                    that.animal_ids = data.data.map(a => a.id);
+                    that.$parent.ensureObjects('animals', that.animal_ids, data.data);
                 },
                 error: function (error) {
                     console.log(JSON.stringify(error));

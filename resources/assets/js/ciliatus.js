@@ -95,18 +95,18 @@ global.ciliatusVue = new global.Vue({
     },
 
     methods: {
-        ensureObject (type, id) {
+        ensureObject (type, id, data) {
             if (this.$store.state[type] === undefined) {
                 this.$store.state[type] = [];
             }
 
             if (this.$store.state[type].filter(t => t.id === id).length < 1) {
-                this.$store.state[type].push(new CiliatusObject(type, id));
+                this.$store.state[type].push(new CiliatusObject(type, id, data));
             }
         },
 
-        ensureObjects (type, ids) {
-            ids.forEach(id => this.ensureObject(type, id));
+        ensureObjects (type, ids, data) {
+            ids.forEach(id => this.ensureObject(type, id, data.filter(o => o.id === id)[0]));
         }
     },
 
