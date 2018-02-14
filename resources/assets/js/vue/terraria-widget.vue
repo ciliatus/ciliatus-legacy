@@ -393,7 +393,8 @@ export default {
             }
             else {
                 this.ids = [this.terrariumId];
-                this.$parent.ensureObjects('terraria', this.ids);
+                this.$parent.ensureObject('terraria', this.terrariumId);
+                this.load_animals();
             }
         },
 
