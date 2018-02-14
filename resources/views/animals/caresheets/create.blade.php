@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
     <a href="/animals" class="breadcrumb hide-on-small-and-down">@choice('labels.animals', 2)</a>
-    <a href="/animals/caresheets/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create') @choice('labels.caresheet', 1)</a>
+    <a href="/animals/caresheets/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create') @choice('labels.caresheets', 1)</a>
 @stop
 
 @section('content')
@@ -18,7 +18,7 @@
                                     <select name="belongsTo">
                                         <option></option>
                                         @foreach ($belongTo_Options as $t=>$objects)
-                                            <optgroup label="@choice('labels.' . strtolower($t), 2)">
+                                            <optgroup label="@lang('labels.' . strtolower($t))">
                                                 @foreach ($objects as $o)
                                                     <option value="{{ $t }}|{{ $o->id }}"
                                                             @if(isset($preset['belongsTo_type']) && isset($preset['belongsTo_id']))
