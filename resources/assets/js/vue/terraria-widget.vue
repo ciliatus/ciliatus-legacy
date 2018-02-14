@@ -1,66 +1,13 @@
 <template>
+
     <div>
-        <div class="row" v-if="!terrariumId">
-            <div class="col s10">
-                <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
-                    <li v-bind:class="['hide-on-small-only', { 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }]">
-                        <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
-                    </li>
-                    <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                        <a href="#!" v-on:click="set_page(meta.pagination.current_page-1)"><i class="material-icons">chevron_left</i></a>
-                    </li>
 
-                    <li v-if="meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
-                    <li v-if="meta.pagination.current_page-2 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-2)">{{ meta.pagination.current_page-2 }}</a></li>
-                    <li v-if="meta.pagination.current_page-1 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-1)">{{ meta.pagination.current_page-1 }}</a></li>
-
-                    <li class="active"><a href="#!">{{ meta.pagination.current_page }}</a></li>
-
-                    <li v-if="meta.pagination.current_page+1 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+1)">{{ meta.pagination.current_page+1 }}</a></li>
-                    <li v-if="meta.pagination.current_page+2 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+2)">{{ meta.pagination.current_page+2 }}</a></li>
-                    <li v-if="meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
-
-                    <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                        <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="material-icons">chevron_right</i></a>
-                    </li>
-                    <li v-bind:class="['hide-on-small-only', { 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }]">
-                        <a href="#!" v-on:click="set_page(meta.pagination.total_pages)"><i class="material-icons">last_page</i></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col s2 right-align" v-if="!terrariumId">
-                <ul class="pagination">
-                    <li class="waves-effect">
-                        <a href="#!"><i class="material-icons" v-on:click="toggle_filters">filter_list</i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="row" v-if="!terrariumId" v-show="showFilters">
-            <div class="col s12">
-                <div class="input-field inline">
-                    <input id="filter_display_name" type="text" :placeholder="$t('labels.display_name')"
-                           v-model="filter.display_name" v-on:keyup.enter="set_filter">
-                    <label for="filter_display_name">{{ $t('labels.display_name') }}</label>
-                </div>
-                <div class="input-field inline">
-                    <input id="filter_animal_display_name" type="text" :placeholder="$tc('components.animal', 1) + ' ' + $t('labels.display_name')"
-                           v-model="filter['animals.display_name']" v-on:keyup.enter="set_filter">
-                    <label for="filter_animal_display_name">{{ $tc('components.animal', 1) }} {{ $t('labels.display_name') }}</label>
-                </div>
-                <div class="input-field inline">
-                    <input id="filter_animal_latin_name" type="text" :placeholder="$tc('components.animal', 1) + ' ' + $t('labels.latin_name')"
-                           v-model="filter['animals.lat_name']" v-on:keyup.enter="set_filter">
-                    <label for="filter_animal_latin_name">{{ $tc('components.animal', 1) }} {{ $t('labels.latin_name') }}</label>
-                </div>
-                <div class="input-field inline">
-                    <input id="filter_animal_common_name" type="text" :placeholder="$tc('components.animal', 1) + ' ' + $t('labels.common_name')"
-                           v-model="filter['animals.common_name']" v-on:keyup.enter="set_filter">
-                    <label for="filter_animal_common_name">{{ $tc('components.animal', 1) }} {{ $t('labels.common_name') }}</label>
-                </div>
-            </div>
-        </div>
+        <pagination ref="pagination"
+                    v-show="terrariumId === null"
+                    :source-filter="sourceFilter"
+                    :show-filters="showFilters"
+                    :filter-fields="['display_name']">
+        </pagination>
 
         <div :class="containerClasses" :id="containerId">
             <div :class="wrapperClasses" v-for="terrarium in terraria">
@@ -167,20 +114,37 @@
                         </div>
                     </div>
 
-                    <div class="card-content" v-if="terrarium.data.cooked_temperature_celsius !== null || terrarium.data.cooked_humidity_percent !== null || terrarium.data.heartbeat_critical">
-                        <p>
-                            <span v-show="terrarium.data.cooked_temperature_celsius !== null" v-bind:class="{ 'red-text': terrarium.data.temperature_critical, 'darken-3': terrarium.data.temperature_critical }">
-                                {{ $t("labels.temperature") }}: {{ terrarium.data.cooked_temperature_celsius }}°C
-                                <br />
-                            </span>
-                            <span v-show="terrarium.data.cooked_humidity_percent !== null" v-bind:class="{ 'red-text': terrarium.data.humidity_critical, 'darken-3': terrarium.data.humidity_critical }">
-                                {{ $t("labels.humidity") }}: {{ terrarium.data.cooked_humidity_percent }}%
-                            </span>
-                            <span v-show="terrarium.data.heartbeat_critical" class="red-text darken-3">
-                                <br />
-                                {{ $t("tooltips.heartbeat_critical") }}
-                            </span>
-                        </p>
+                    <div class="card-content"
+                         v-if="terrarium.data.cooked_temperature_celsius !== null ||
+                               terrarium.data.cooked_humidity_percent !== null ||
+                               terrarium.data.heartbeat_critical">
+
+                        <div v-show="terrarium.data.cooked_temperature_celsius !== null" v-bind:class="{ 'red-text': terrarium.data.temperature_critical, 'darken-3': terrarium.data.temperature_critical }">
+
+                            {{ $t("labels.temperature") }}: {{ terrarium.data.cooked_temperature_celsius }}°C
+
+                            <i v-if="terrarium.data.heartbeat_critical"
+                               class="material-icons deep-orange-text tooltipped"
+                               data-delay="50" data-html="true"
+                               :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.heartbeat_critical') + '</div>'">
+                                sync_disabled
+                            </i>
+
+                        </div>
+
+                        <div v-show="terrarium.data.cooked_humidity_percent !== null"
+                             v-bind:class="{ 'red-text': terrarium.data.humidity_critical, 'darken-3': terrarium.data.humidity_critical }">
+
+                            {{ $t("labels.humidity") }}: {{ terrarium.data.cooked_humidity_percent }}%
+
+                            <i v-if="terrarium.data.heartbeat_critical"
+                               class="material-icons deep-orange-text tooltipped"
+                               data-delay="50" data-html="true"
+                               :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.heartbeat_critical') + '</div>'">
+                                sync_disabled
+                            </i>
+
+                        </div>
                     </div>
 
                     <div class="card-reveal">
@@ -214,29 +178,23 @@
                 </div>
             </div>
         </div>
-    </div>
-</template>
 
+    </div>
+
+</template>
 
 <script>
 import LoadingIndicator from './loading-indicator.vue';
 import InlineGraph from './inline-graph.vue';
+import pagination from './mixins/pagination.vue';
 
 export default {
+
     data () {
         return {
             ids: [],
             animal_ids: [],
-            initial: true,
-            meta: [],
-            filter: {},
-            filter_string: '',
-            order: {
-                field: 'display_name',
-                direction: 'asc'
-            },
-            order_string: '',
-            page: 1
+            initial: true
         }
     },
 
@@ -249,11 +207,6 @@ export default {
         terrariumId: {
             type: String,
             default: null,
-            required: false
-        },
-        sourceFilter: {
-            type: String,
-            default: '',
             required: false
         },
         subscribeAdd: {
@@ -281,6 +234,17 @@ export default {
             default: 'terraria-masonry-grid',
             required: false
         },
+        itemsPerPage: {
+            type: Number,
+            default: 9,
+            required: false
+        },
+
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
         showFilters: {
             type: Boolean,
             default: false,
@@ -306,62 +270,17 @@ export default {
 
     watch: {
         'terraria': function() {
-            this.$nextTick(function() {
-                let grid = $('#' + this.containerId + '.masonry-grid');
-                if (grid.length > 0) {
-                    grid.masonry('reloadItems');
-                    grid.masonry('layout');
-                }
-                $('.modal').modal();
-            });
+            this.rerender();
         }
     },
 
     components: {
+        pagination,
         'inline-graph': InlineGraph,
         'loading-indicator': LoadingIndicator
     },
 
     methods: {
-        toggle_filters: function() {
-            this.showFilters = !this.showFilters;
-        },
-        set_order: function(field) {
-            if (this.order.field == field || field === null) {
-                if (this.order.direction == 'asc') {
-                    this.order.direction = 'desc';
-                }
-                else {
-                    this.order.direction = 'asc';
-                }
-            }
-            else {
-                this.order.field = field;
-            }
-
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            this.load_data();
-        },
-        set_filter: function() {
-            this.filter_string = '&';
-            if (this.sourceFilter !== '') {
-                this.filter_string += this.sourceFilter + '&';
-            }
-            for (var prop in this.filter) {
-                if (this.filter.hasOwnProperty(prop)) {
-                    if (this.filter[prop] !== null
-                        && this.filter[prop] !== '') {
-
-                        this.filter_string += 'filter[' + prop + ']=like:*' + this.filter[prop] + '*&';
-                    }
-                }
-            }
-            this.load_data();
-        },
-        set_page: function(page) {
-            this.page = page;
-            this.load_data();
-        },
         action_sequence_modal: function(terrarium_id, action) {
             $('#' + terrarium_id + '_' + action).modal('open');
         },
@@ -374,15 +293,15 @@ export default {
             if (this.terrariumId === null) {
                 let that = this;
 
-                this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-
                 $.ajax({
-                    url: '/api/v1/terraria/?pagination[per_page]=6&page=' +
-                         that.page + that.filter_string + that.order_string,
+                    url: '/api/v1/terraria/?pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                            that.$refs.pagination.page +
+                            that.$refs.pagination.filter_string +
+                            that.$refs.pagination.order_string,
                     method: 'GET',
                     success: function (data) {
                         that.ids = data.data.map(t => t.id);
-                        that.meta = data.meta;
+                        that.$refs.pagination.meta = data.meta;
                         that.$parent.ensureObjects('terraria', that.ids, data.data);
                         that.load_animals();
                     },
@@ -409,10 +328,23 @@ export default {
                 success: function (data) {
                     that.animal_ids = data.data.map(a => a.id);
                     that.$parent.ensureObjects('animals', that.animal_ids, data.data);
+                    that.rerender();
                 },
                 error: function (error) {
                     console.log(JSON.stringify(error));
                 }
+            });
+        },
+
+        rerender () {
+            this.$nextTick(function() {
+                let grid = $('#' + this.containerId + '.masonry-grid');
+                if (grid.length > 0) {
+                    grid.masonry('reloadItems');
+                    grid.masonry('layout');
+                }
+                $('.modal').modal();
+                $('.tooltipped').tooltip({delay: 50});
             });
         }
     },
@@ -420,7 +352,7 @@ export default {
     created: function() {
         let that = this;
         setTimeout(function() {
-            that.set_filter();
+            that.$refs.pagination.set_filter();
         }, 100);
     }
 

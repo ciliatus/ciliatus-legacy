@@ -47,6 +47,10 @@ import BusTypeEditForm from './vue/bus_type_edit-form.vue';
 import GenericComponentTypeCreateForm from './vue/generic_component_type_create-form.vue';
 
 import CiliatusObject from './ciliatus_object.js';
+
+/**
+ * Vuex
+ */
 import Vuex from "vuex";
 
 global.Vue.use(Vuex);
@@ -63,6 +67,10 @@ const store = new Vuex.Store({
     }
 });
 
+
+/**
+ * ciliatusVue
+ */
 global.ciliatusVue = new global.Vue({
 
     el: '#body',
@@ -96,6 +104,14 @@ global.ciliatusVue = new global.Vue({
 
     methods: {
         ensureObject (type, id, data) {
+            if (!type || (!id && !data)) {
+                return;
+            }
+
+            if (!id) {
+                id = data.id;
+            }
+
             if (this.$store.state[type] === undefined) {
                 this.$store.state[type] = [];
             }
@@ -106,7 +122,16 @@ global.ciliatusVue = new global.Vue({
         },
 
         ensureObjects (type, ids, data) {
-            ids.forEach(id => this.ensureObject(type, id, data.filter(o => o.id === id)[0]));
+            if (!ids && !data) {
+                return;
+            }
+
+            if (!ids) {
+                data.forEach(obj => this.ensureObject(type, null, obj));
+            }
+            else {
+                ids.forEach(id => this.ensureObject(type, id, data === undefined ? undefined : data.filter(o => o.id === id)[0]));
+            }
         }
     },
 

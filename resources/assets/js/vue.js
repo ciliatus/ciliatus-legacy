@@ -79,6 +79,7 @@ TimeStringFormatter.install = function(Vue, options) {
 
 global.Vue.use(TimeStringFormatter);
 
+
 /**
  * Require components
  */
