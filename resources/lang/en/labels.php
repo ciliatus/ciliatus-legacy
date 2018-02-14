@@ -280,5 +280,6 @@ return [
     'reason'                                     => 'Reason',
     'possibly_affected_animals'                  => 'Possibly affected animals',
     'scope'                                      => 'Scope',
-    'client_server_time_diff'                    => 'Client/Server time difference'
+    'client_server_time_diff'                    => 'Client/Server time difference',
+    'id'                                         => 'ID'
 ];

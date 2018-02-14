@@ -1,153 +1,117 @@
 <template>
     <div>
         <div :class="wrapperClasses">
-            <table class="responsive highlight">
-                <thead>
-                <tr>
-                    <th data-field="id" class="hide-on-med-and-down">
-                        ID
-                        <div class="input-field inline">
-                            <input id="filter_id" type="text" v-model="filter.id" v-on:keyup.enter="set_filter">
-                            <label for="filter_id">Filter</label>
-                        </div>
-                    </th>
-                    <th data-field="name">
-                        {{ $t('labels.name') }}
-                        <div class="input-field inline">
-                            <input id="filter_name" type="text" v-model="filter.name" v-on:keyup.enter="set_filter">
-                            <label for="filter_name">Filter</label>
-                        </div>
-                    </th>
-                    <th data-field="email">
-                        {{ $t('labels.email') }}
-                        <div class="input-field inline">
-                            <input id="filter_email" type="text" v-model="filter.email" v-on:keyup.enter="set_filter">
-                            <label for="filter_email">Filter</label>
-                        </div>
-                    </th>
-                    <th data-field="actions">
-                        {{ $t('labels.actions') }}
-                    </th>
-                </tr>
-                </thead>
+            <table class="responsive highlight collapsible" data-collapsible="expandable">
+                <table-filter ref="table_filter"
+                              :cols="6"
+                              :hide-cols="hideCols"
+                              :filter-fields="[{name: 'id', path: 'id', col: 0, class: 'hide-on-med-and-down'},
+                                               {name: 'name', path: 'name', col: 1},
+                                               {name: 'email', noFilter: true, col: 2},
+                                               {name: '', noFilter: true, col: 5, class: 'hide-on-small-only'}]">
+                </table-filter>
 
                 <tbody>
-
-                <tr v-for="user in users">
-                    <td class="hide-on-med-and-down">{{ user.id }}</td>
-                    <td>{{ user.name }}</td>
-                    <td>{{ user.email }}</td>
-                    <td class="hide-on-small-only">
-                        <span>
-                            <a v-bind:href="'/users/' + user.id + '/edit'">
-                                <i class="material-icons">edit</i>
-                            </a>
-                        </span>
-                    </td>
-                </tr>
+                    <tr v-for="user in users">
+                        <td class="hide-on-med-and-down">{{ user.data.id }}</td>
+                        <td>{{ user.data.name }}</td>
+                        <td>{{ user.data.email }}</td>
+                        <td class="hide-on-small-only">
+                            <span>
+                                <a :href="'/users/' + user.data.id + '/edit'">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </span>
+                        </td>
+                    </tr>
                 </tbody>
             </table>
 
-            <ul class="pagination">
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page-1)"><i class="material-icons">chevron_left</i></a>
-                </li>
-
-                <li v-if="meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
-                <li v-if="meta.pagination.current_page-2 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-2)">{{ meta.pagination.current_page-2 }}</a></li>
-                <li v-if="meta.pagination.current_page-1 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-1)">{{ meta.pagination.current_page-1 }}</a></li>
-
-                <li class="active"><a href="#!">{{ meta.pagination.current_page }}</a></li>
-
-                <li v-if="meta.pagination.current_page+1 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+1)">{{ meta.pagination.current_page+1 }}</a></li>
-                <li v-if="meta.pagination.current_page+2 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+2)">{{ meta.pagination.current_page+2 }}</a></li>
-                <li v-if="meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
-
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="material-icons">chevron_right</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.total_pages)"><i class="material-icons">last_page</i></a>
-                </li>
-            </ul>
+            <pagination ref="pagination"
+                        :source-filter="sourceFilter"
+                        :enable-filters="false">
+            </pagination>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            users: [],
-            meta: {
-                pagination: {}
-            },
-            filter: {
-                id: null,
-                name: null,
-                email: null
-            },
-            filter_string: '',
-            page: 1
-        }
-    },
+    import pagination from './mixins/pagination.vue';
+    import table_filter from './mixins/table_filter.vue';
 
-    props: {
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        }
-    },
-
-    methods: {
-        set_filter: function() {
-            this.filter_string = '';
-            for (var prop in this.filter) {
-                if (this.filter.hasOwnProperty(prop)) {
-                    if (this.filter[prop] !== null
-                        && this.filter[prop] !== '') {
-
-                        this.filter_string += 'filter[' + prop + ']=like:*' + this.filter[prop] + '*&';
-                    }
-                }
+    export default {
+        data () {
+            return {
+                ids: []
             }
-            this.load_data();
         },
-        set_page: function(page) {
-            this.page = page;
-            this.load_data();
-        },
-        load_data: function() {
-            window.eventHubVue.processStarted();
-            var that = this;
-            $.ajax({
-                url: '/api/v1/users?with[]=settings&page=' + this.page + '&' + this.filter_string,
-                method: 'GET',
-                success: function (data) {
-                    that.meta = data.meta;
-                    that.users = data.data;
-                    that.$nextTick(function() {
-                        $('.dropdown-button').dropdown();
-                    });
-                    window.eventHubVue.processEnded();
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
-        }
-    },
 
-    created: function() {
-        var that = this;
-        setTimeout(function() {
-            that.load_data();
-        }, 100);
+        props: {
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
+            },
+            sourceFilter: {
+                type: String,
+                default: '',
+                required: false
+            },
+            hideCols: {
+                type: Array,
+                default: function(){return [];},
+                required: false
+            },
+            itemsPerPage: {
+                type: Number,
+                default: 9,
+                required: false
+            }
+        },
+
+        computed: {
+            users () {
+                let that = this;
+                return this.$store.state.users.filter(function(u) {
+                    return that.ids.includes(u.id) && u.data !== null
+                });
+            }
+        },
+
+        components: {
+            pagination,
+            'table-filter': table_filter
+        },
+
+        methods: {
+            load_data: function() {
+                let that = this;
+
+                $.ajax({
+                    url: '/api/v1/users/?pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                         that.$refs.pagination.page +
+                         that.$refs.pagination.filter_string +
+                         that.$refs.pagination.order_string,
+                    method: 'GET',
+                    success: function (data) {
+                        that.ids = data.data.map(u => u.id);
+
+                        that.$refs.pagination.meta = data.meta;
+
+                        that.$parent.ensureObjects('users', that.ids, data.data);
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
+            }
+        },
+
+        created: function() {
+            let that = this;
+            setTimeout(function() {
+                that.$refs.pagination.set_filter();
+            }, 100);
+        }
     }
-}
 </script>

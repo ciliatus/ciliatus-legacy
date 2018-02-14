@@ -63,6 +63,7 @@ const store = new Vuex.Store({
         valves: [],
         pumps: [],
         generic_components: [],
+        users: [],
 
         max_object_age_seconds: 60
     }
@@ -111,10 +112,6 @@ global.ciliatusVue = new global.Vue({
 
             if (!id) {
                 id = data.id;
-            }
-
-            if (this.$store.state[type] === undefined) {
-                this.$store.state[type] = [];
             }
 
             if (this.$store.state[type].filter(t => t.id === id).length < 1) {
