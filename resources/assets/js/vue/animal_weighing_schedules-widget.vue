@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-header">
                     <i class="material-icons">schedule</i>
-                    {{ $tc("components.animal_weighing_schedules", 2) }}
+                    {{ $tc("labels.animal_weighing_schedules", 2) }}
                 </div>
 
                 <div class="card-content">

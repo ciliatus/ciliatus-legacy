@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="material-icons">attach_file</i>
-                        {{ $tc("components.files", 1) }}
+                        {{ $tc("labels.files", 1) }}
                     </div>
 
                     <div class="card-content">

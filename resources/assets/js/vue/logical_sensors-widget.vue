@@ -5,7 +5,7 @@
                 <div class="card">
                     <div class="card-header">
                         <i class="material-icons">memory</i>
-                        {{ $tc("components.logical_sensors", 2) }}
+                        {{ $tc("labels.logical_sensors", 2) }}
                     </div>
 
                     <div class="card-content">
@@ -25,16 +25,16 @@
                     </div>
 
                     <div class="card-reveal">
-                        <span class="card-title">{{ $tc("components.physical_sensors", 1) }}<i class="material-icons right">close</i></span>
+                        <span class="card-title">{{ $tc("labels.physical_sensors", 1) }}<i class="material-icons right">close</i></span>
 
                         <p>
                             <span v-if="logical_sensor.physical_sensor">
-                                {{ $tc("components.physical_sensor", 1) }}:
+                                {{ $tc("labels.physical_sensor", 1) }}:
                                 <a v-bind:href="'/physical_sensors/' + logical_sensor.physical_sensor.id">{{ logical_sensor.physical_sensor.name }}</a>
                             </span>
                         </p>
 
-                        <span class="card-title">{{ $tc("components.logical_sensor_thresholds", 2) }}</span>
+                        <span class="card-title">{{ $tc("labels.logical_sensor_thresholds", 2) }}</span>
 
                         <p v-for="lst in logical_sensor.thresholds">
                             {{ $t("labels.starts_at") }} {{ lst.timestamps.starts }}:

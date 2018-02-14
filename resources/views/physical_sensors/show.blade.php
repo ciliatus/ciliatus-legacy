@@ -16,25 +16,32 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m5 l4">
-                    <physical_sensors-widget :refresh-timeout-seconds="60" physical_sensor-id="{{ $physical_sensor->id }}"
-                                             :subscribe-add="false" :subscribe-delete="false"></physical_sensors-widget>
+                    <div class="row">
+                        <physical_sensor-widget physical-sensor-id="{{ $physical_sensor->id }}"
+                                                wrapper-classes="col s12"></physical_sensor-widget>
+                    </div>
                 </div>
 
                 <div class="col s12 m7 l8">
                     @if(!is_null($physical_sensor->controlunit))
-                        <controlunits-widget :refresh-timeout-seconds="60" controlunit-id="{{ $physical_sensor->controlunit_id }}"
-                                             :subscribe-add="false" :subscribe-delete="false"
-                                             container-classes="row" wrapper-classes="col s12"></controlunits-widget>
+                    <div class="row">
+                        <controlunit-widget controlunit-id="{{ $physical_sensor->controlunit_id }}"
+                                            wrapper-classes="col s12"></controlunit-widget>
+                    </div>
                     @endif
 
-                    <div class="card">
-                        <div class="card-header">
-                            <i class="material-icons">memory</i>
-                            @choice('labels.logical_sensors', 2)
-                        </div>
-                        <div class="card-content">
-                            <logical_sensors-list-widget :refresh-timeout-seconds="60" source-filter="filter[physical_sensor_id]={{ $physical_sensor->id }}"
-                                                         :hide-cols="['physical_sensor']" :subscribe-add="false"></logical_sensors-list-widget>
+                    <div class="row">
+                        <div class="col s12">
+                            <div class="card">
+                                <div class="card-header">
+                                    <i class="material-icons">memory</i>
+                                    @choice('labels.logical_sensors', 2)
+                                </div>
+                                <div class="card-content">
+                                    <logical_sensors-list-widget :refresh-timeout-seconds="60" source-filter="filter[physical_sensor_id]={{ $physical_sensor->id }}"
+                                                                 :hide-cols="['physical_sensor']" :subscribe-add="false"></logical_sensors-list-widget>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>

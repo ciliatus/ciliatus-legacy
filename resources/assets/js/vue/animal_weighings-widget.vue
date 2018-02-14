@@ -25,7 +25,7 @@
             <div class="card">
                 <div class="card-header">
                     <i class="material-icons">vertical_align_bottom</i>
-                    {{ $tc("components.animal_weighings", 2) }}
+                    {{ $tc("labels.animal_weighings", 2) }}
                 </div>
 
                 <div class="card-content">

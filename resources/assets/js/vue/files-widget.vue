@@ -4,7 +4,7 @@
             <div class="card">
                 <div class="card-header">
                     <i class="material-icons">attach_file</i>
-                    {{ files.length }} {{ $tc("components.files", 2) }}
+                    {{ files.length }} {{ $tc("labels.files", 2) }}
                 </div>
 
                 <div class="card-content">

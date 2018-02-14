@@ -4,7 +4,7 @@
         
         <div class="card-header">
             <i class="material-icons">vertical_align_center</i>
-            {{ $tc("components.logical_sensor_thresholds", 2) }}
+            {{ $tc("labels.logical_sensor_thresholds", 2) }}
         </div>
 
         <template v-for="ls in logical_sensors">

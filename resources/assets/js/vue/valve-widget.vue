@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="material-icons">transform</i>
-                {{ $tc("components.valves", 1) }}
+                {{ $tc("labels.valves", 1) }}
             </div>
 
             <div class="card-content">

@@ -3,7 +3,7 @@
         <div class="card">
             <div class="card-header">
                 <i class="material-icons">rotate_right</i>
-                {{ $tc("components.controlunits", 1) }}
+                {{ $tc("labels.controlunits", 1) }}
             </div>
 
             <div class="card-content">

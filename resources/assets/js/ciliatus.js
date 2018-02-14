@@ -28,7 +28,7 @@ import PumpWidget from './vue/pump-widget.vue';
 import PumpsListWidget from './vue/pumps-list-widget.vue';
 import ValveWidget from './vue/valve-widget.vue';
 import ValvesListWidget from './vue/valves-list-widget.vue';
-import PhysicalSensorsWidget from './vue/physical_sensors-widget.vue';
+import PhysicalSensorWidget from './vue/physical_sensor-widget.vue';
 import PhysicalSensorsListWidget from './vue/physical_sensors-list-widget.vue';
 import LogicalSensorsWidget from './vue/logical_sensors-widget.vue';
 import LogicalSensorsListWidget from './vue/logical_sensors-list-widget.vue';
@@ -60,6 +60,8 @@ const store = new Vuex.Store({
         terraria: [],
         animals: [],
         controlunits: [],
+        physical_sensors: [],
+        logical_sensors: [],
         valves: [],
         pumps: [],
         generic_components: [],
@@ -163,7 +165,7 @@ global.ciliatusVue = new global.Vue({
         'pumps-list-widget': PumpsListWidget,
         'valve-widget': ValveWidget,
         'valves-list-widget': ValvesListWidget,
-        'physical_sensors-widget': PhysicalSensorsWidget,
+        'physical_sensor-widget': PhysicalSensorWidget,
         'physical_sensors-list-widget': PhysicalSensorsListWidget,
         'logical_sensors-widget': LogicalSensorsWidget,
         'logical_sensors-list-widget': LogicalSensorsListWidget,

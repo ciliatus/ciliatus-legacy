@@ -26,7 +26,7 @@
             <div class="card">
                 <div class="card-header">
                     <i class="material-icons">local_dining</i>
-                    {{ $tc("components.animal_feedings", 2) }}
+                    {{ $tc("labels.animal_feedings", 2) }}
                 </div>
 
                 <div class="card-content">
