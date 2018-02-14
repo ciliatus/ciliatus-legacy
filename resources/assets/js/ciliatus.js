@@ -16,7 +16,7 @@ import AnimalWeighingSchedulesMatrixWidget from './vue/animal_weighing_schedules
 import AnimalWeighingsWidget from './vue/animal_weighings-widget.vue';
 import AnimalWeighingSchedulesWidget from './vue/animal_weighing_schedules-widget.vue';
 import TerrariaWidget from './vue/terraria-widget.vue';
-import ControlunitsWidget from './vue/controlunit-widget.vue';
+import ControlunitWidget from './vue/controlunit-widget.vue';
 import ControlunitsListWidget from './vue/controlunits-list-widget.vue';
 import FilesWidget from './vue/files-widget.vue';
 import FilesListWidget from './vue/files-list-widget.vue';
@@ -24,9 +24,9 @@ import FilesShowWidget from './vue/files-show-widget.vue';
 import ActionSequencesListWidget from './vue/action_sequences-list-widget.vue';
 import ActionSequencesWidget from './vue/action_sequences-widget.vue';
 import ActionSequenceScheduleWidget from './vue/action_sequence_schedule-widget.vue';
-import PumpsWidget from './vue/pumps-widget.vue';
+import PumpWidget from './vue/pump-widget.vue';
 import PumpsListWidget from './vue/pumps-list-widget.vue';
-import ValvesWidget from './vue/valves-widget.vue';
+import ValveWidget from './vue/valve-widget.vue';
 import ValvesListWidget from './vue/valves-list-widget.vue';
 import PhysicalSensorsWidget from './vue/physical_sensors-widget.vue';
 import PhysicalSensorsListWidget from './vue/physical_sensors-list-widget.vue';
@@ -59,6 +59,7 @@ const store = new Vuex.Store({
     state: {
         terraria: [],
         animals: [],
+        controlunits: [],
         valves: [],
         pumps: [],
         generic_components: [],
@@ -130,7 +131,7 @@ global.ciliatusVue = new global.Vue({
                 data.forEach(obj => this.ensureObject(type, null, obj));
             }
             else {
-                ids.forEach(id => this.ensureObject(type, id, data === undefined ? undefined : data.filter(o => o.id === id)[0]));
+                ids.forEach(id => this.ensureObject(type, id, data === undefined ? undefined : data.filter(o => o !== undefined && o.id === id)[0]));
             }
         }
     },
@@ -153,7 +154,7 @@ global.ciliatusVue = new global.Vue({
         'animal_weighings-widget': AnimalWeighingsWidget,
         'animal_weighing_schedules-widget': AnimalWeighingSchedulesWidget,
         'terraria-widget': TerrariaWidget,
-        'controlunits-widget': ControlunitsWidget,
+        'controlunit-widget': ControlunitWidget,
         'controlunits-list-widget': ControlunitsListWidget,
         'files-widget': FilesWidget,
         'files-list-widget': FilesListWidget,
@@ -161,9 +162,9 @@ global.ciliatusVue = new global.Vue({
         'action_sequences-list-widget': ActionSequencesListWidget,
         'action_sequences-widget': ActionSequencesWidget,
         'action_sequence_schedule-widget': ActionSequenceScheduleWidget,
-        'pumps-widget': PumpsWidget,
+        'pump-widget': PumpWidget,
         'pumps-list-widget': PumpsListWidget,
-        'valves-widget': ValvesWidget,
+        'valve-widget': ValveWidget,
         'valves-list-widget': ValvesListWidget,
         'physical_sensors-widget': PhysicalSensorsWidget,
         'physical_sensors-list-widget': PhysicalSensorsListWidget,

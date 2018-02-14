@@ -5,7 +5,7 @@
                 <thead>
                 <tr>
                     <th data-field="id">
-                        {{ $tc('components.animals', 1) }}
+                        {{ $tc('labels.animals', 1) }}
                     </th>
 
                     <th v-for="type in feeding_types">

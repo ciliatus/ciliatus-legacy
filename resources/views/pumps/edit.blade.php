@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-<a href="/pumps" class="breadcrumb hide-on-small-and-down">@choice('components.pumps', 2)</a>
+<a href="/pumps" class="breadcrumb hide-on-small-and-down">@choice('labels.pumps', 2)</a>
 <a href="/pumps/{{ $pump->id }}" class="breadcrumb hide-on-small-and-down">{{ $pump->name }}</a>
 <a href="/pumps/{{ $pump->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
@@ -50,7 +50,7 @@
                                                 <option value="{{ $cu->id }}" @if($pump->controlunit_id == $cu->id)selected="selected"@endif>{{ $cu->name }}</option>
                                             @endforeach
                                         </select>
-                                        <label for="controlunit">@choice('components.controlunits', 1)</label>
+                                        <label for="controlunit">@choice('labels.controlunits', 1)</label>
                                     </div>
                                 </div>
                             </p>

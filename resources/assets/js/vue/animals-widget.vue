@@ -6,7 +6,9 @@
                     v-show="animalId === null"
                     :source-filter="sourceFilter"
                     :show-filters="showFilters"
-                    :filter-fields="['display_name', 'common_name', 'latin_name']">
+                    :filter-fields="[{name: 'display_name', path: 'display_name'},
+                                     {name: 'common_name', path: 'common_name'},
+                                     {name: 'latin_name', path: 'latin_name'}]">
         </pagination>
 
         <div :class="containerClasses" :id="containerId">

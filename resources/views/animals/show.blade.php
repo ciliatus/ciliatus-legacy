@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/animals" class="breadcrumb hide-on-small-and-down">@choice('components.animals', 2)</a>
+    <a href="/animals" class="breadcrumb hide-on-small-and-down">@choice('labels.animals', 2)</a>
     <a href="/animals/{{ $animal->id }}" class="breadcrumb hide-on-small-and-down">{{ $animal->display_name }}</a>
 @stop
 
@@ -16,8 +16,8 @@
                 <li class="tab col s3"><a href="#tab_environment">@lang('labels.environment')</a></li>
             @endif
             <li class="tab col s3"><a href="#tab_biography">@lang('labels.biography')</a></li>
-            <li class="tab col s3"><a href="#tab_caresheets">@choice('components.caresheets', 2)</a></li>
-            <li class="tab col s3"><a href="#tab_files">@choice('components.files', 2)</a></li>
+            <li class="tab col s3"><a href="#tab_caresheets">@choice('labels.caresheets', 2)</a></li>
+            <li class="tab col s3"><a href="#tab_files">@choice('labels.files', 2)</a></li>
         </ul>
     </div>
     <div id="tab_overview" class="col s12">

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/action_sequence_schedules" class="breadcrumb hide-on-small-and-down">@choice('components.action_sequence_schedules', 2)</a>
+    <a href="/action_sequence_schedules" class="breadcrumb hide-on-small-and-down">@choice('labels.action_sequence_schedules', 2)</a>
     <a href="/action_sequence_schedules/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create')</a>
 @stop
 
@@ -17,7 +17,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <select name="action_sequence">
-                                        <optgroup label="@choice('components.action_sequences', 1)">
+                                        <optgroup label="@choice('labels.action_sequences', 1)">
                                         @foreach ($action_sequences as $as)
                                             <option value="{{ $as->id }}"
                                                 @if(isset($preset['action_sequence']) && $preset['action_sequence'] == $as->id) selected @endif >@if(is_null($as->display_name)){{ $as->name }}@else{{ $as->display_name }}@endif
@@ -25,7 +25,7 @@
                                         @endforeach
                                         </optgroup>
                                     </select>
-                                    <label for="action_sequence">@choice('components.action_sequences', 1)</label>
+                                    <label for="action_sequence">@choice('labels.action_sequences', 1)</label>
                                 </div>
                             </div>
 

@@ -5,7 +5,7 @@
                 <thead>
                 <tr>
                     <th>
-                        {{ $tc('components.animals', 1) }}
+                        {{ $tc('labels.animals', 1) }}
                     </th>
                     <th>
                         {{ $t('labels.scheduled') }}

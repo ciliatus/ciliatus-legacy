@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/users" class="breadcrumb hide-on-small-and-down">@choice('components.users', 2)</a>
+    <a href="/users" class="breadcrumb hide-on-small-and-down">@choice('labels.users', 2)</a>
     <a href="/users/{{ $user->id }}/edit" class="breadcrumb hide-on-small-and-down">{{ $user->name }}</a>
     <a href="/users/{{ $user->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
     <a href="#!" class="breadcrumb hide-on-small-and-down">@lang('buttons.setup_telegram')</a>

@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/animals" class="breadcrumb hide-on-small-and-down">@choice('components.animals', 2)</a>
+    <a href="/animals" class="breadcrumb hide-on-small-and-down">@choice('labels.animals', 2)</a>
     <a href="{{ url('animals/' . $animal->id) }}" class="breadcrumb hide-on-small-and-down">{{ $animal->display_name }}</a>
-    <a href="#!" class="breadcrumb hide-on-small-and-down">@choice('components.animal_weighing_schedules', 1)</a>
+    <a href="#!" class="breadcrumb hide-on-small-and-down">@choice('labels.animal_weighing_schedules', 1)</a>
     <a href="#!" class="breadcrumb hide-on-small-and-down">@lang('buttons.add')</a>
 @stop
 
@@ -17,8 +17,8 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input type="text" placeholder="@choice('components.animals', 1)" name="animal" value="{{ $animal->display_name }}" readonly>
-                                    <label for="animal">@choice('components.animals', 1)</label>
+                                    <input type="text" placeholder="@choice('labels.animals', 1)" name="animal" value="{{ $animal->display_name }}" readonly>
+                                    <label for="animal">@choice('labels.animals', 1)</label>
                                 </div>
                             </div>
 

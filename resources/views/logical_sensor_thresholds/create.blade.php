@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/logical_sensor_thresholds" class="breadcrumb hide-on-small-and-down">@choice('components.logical_sensor_thresholds', 2)</a>
+    <a href="/logical_sensor_thresholds" class="breadcrumb hide-on-small-and-down">@choice('labels.logical_sensor_thresholds', 2)</a>
     <a href="/logical_sensor_thresholds/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create')</a>
 @stop
 
@@ -18,7 +18,7 @@
                                     <select name="belongsTo">
                                         <option></option>
                                         @foreach ($belongTo_Options as $t=>$objects)
-                                            <optgroup label="@choice('components.' . strtolower($t), 2)">
+                                            <optgroup label="@choice('labels.' . strtolower($t), 2)">
                                                 @foreach ($objects as $o)
                                                     <option value="{{ $t }}|{{ $o->id }}"
                                                             @if(isset($preset['belongsTo_type']) && isset($preset['belongsTo_id']))

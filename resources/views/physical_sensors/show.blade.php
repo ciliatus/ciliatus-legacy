@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/physical_sensors" class="breadcrumb hide-on-small-and-down">@choice('components.physical_sensors', 2)</a>
+    <a href="/physical_sensors" class="breadcrumb hide-on-small-and-down">@choice('labels.physical_sensors', 2)</a>
     <a href="/physical_sensors/{{ $physical_sensor->id }}" class="breadcrumb hide-on-small-and-down">{{ $physical_sensor->name }}</a>
 @stop
 
@@ -30,7 +30,7 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="material-icons">memory</i>
-                            @choice('components.logical_sensors', 2)
+                            @choice('labels.logical_sensors', 2)
                         </div>
                         <div class="card-content">
                             <logical_sensors-list-widget :refresh-timeout-seconds="60" source-filter="filter[physical_sensor_id]={{ $physical_sensor->id }}"

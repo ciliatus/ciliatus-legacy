@@ -23,7 +23,7 @@
                         </div>
                     </th>
                     <th data-field="controlunit" class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
-                        <a href="#!" v-on:click="set_order('controlunit')">{{ $tc('components.controlunit', 1) }}</a>
+                        <a href="#!" v-on:click="set_order('controlunit')">{{ $tc('labels.controlunit', 1) }}</a>
                         <i v-show="order.field == 'controlunit' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'controlunit' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
                         <div class="input-field inline">
@@ -32,7 +32,7 @@
                         </div>
                     </th>
                     <th data-field="terrarium" class="hide-on-med-and-down" v-if="hideCols.indexOf('terrarium') === -1">
-                        <a href="#!" v-on:click="set_order('terraria.display_name')">{{ $tc('components.terraria', 1) }}</a>
+                        <a href="#!" v-on:click="set_order('terraria.display_name')">{{ $tc('labels.terraria', 1) }}</a>
                         <i v-show="order.field == 'physical_sensor.terrarium.display_name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'physical_sensor.terrarium.display_name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
                         <div class="input-field inline">
@@ -94,7 +94,7 @@
                                     {val: $getMatchingTimeDiff(physical_sensor.timestamps.last_heartbeat_diff).val}
                                 )}}
                                 <br />
-                                {{ $tc('components.logical_sensors', 2) }}:
+                                {{ $tc('labels.logical_sensors', 2) }}:
                                 <span v-for="(logical_sensor, index) in physical_sensor.logical_sensors">
                                     <i class="material-icons">memory</i>
                                     <a v-bind:href="'/logical_sensors/' + logical_sensor.id">{{ logical_sensor.name }}</a>
@@ -176,7 +176,7 @@ export default {
         },
         hideCols: {
             type: Array,
-            default: [],
+            default: function(){return [];},
             required: false
         }
     },

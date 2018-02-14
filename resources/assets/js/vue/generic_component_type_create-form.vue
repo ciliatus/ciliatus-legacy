@@ -10,7 +10,7 @@
 
                         <div class="row">
                             <div class="col s12">
-                                <h5>{{ $tc('components.generic_component_types', 1) }}</h5>
+                                <h5>{{ $tc('labels.generic_component_types', 1) }}</h5>
                             </div>
                             <div class="col s12 m6 l6">
                                 <div class="row">
@@ -1006,7 +1006,7 @@
                                                     :selected="intention.type == srt">{{ $t('labels.' + srt) }}
                                             </option>
                                         </select>
-                                        <label for="default_intention_type">{{ $tc('components.logical_sensors', 1) }}</label>
+                                        <label for="default_intention_type">{{ $tc('labels.logical_sensors', 1) }}</label>
                                     </div>
 
                                     <div class="input-field col s2 m2 l2">
@@ -1169,7 +1169,7 @@ export default {
         },
         sensorreadingTypes: {
             type: Array,
-            default: [],
+            default: function(){return [];},
             required: false
         }
     },

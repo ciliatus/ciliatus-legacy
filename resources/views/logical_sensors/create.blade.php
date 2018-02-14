@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/logical_sensors" class="breadcrumb hide-on-small-and-down">@choice('components.logical_sensors', 2)</a>
+    <a href="/logical_sensors" class="breadcrumb hide-on-small-and-down">@choice('labels.logical_sensors', 2)</a>
     <a href="/logical_sensors/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create')</a>
 @stop
 
@@ -28,7 +28,7 @@
                                             <option value="{{ $ps->id }}" @if($preset['physical_sensor'] == $ps->id)selected="selected"@endif>{{ $ps->name }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="valves">@choice('components.physical_sensors', 1)</label>
+                                    <label for="valves">@choice('labels.physical_sensors', 1)</label>
                                 </div>
                             </div>
 

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/files" class="breadcrumb hide-on-small-and-down">@choice('components.files', 2)</a>
+    <a href="/files" class="breadcrumb hide-on-small-and-down">@choice('labels.files', 2)</a>
     <a href="/files/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create')</a>
 @stop
 
@@ -20,7 +20,7 @@
                                     <select name="belongsTo">
                                         <option></option>
                                         @foreach ($belongTo_Options as $t=>$objects)
-                                        <optgroup label="@choice('components.' . strtolower($t), 2)">
+                                        <optgroup label="@choice('labels.' . strtolower($t), 2)">
                                             @foreach ($objects as $o)
                                             <option value="{{ $t }}|{{ $o->id }}"
                                                 @if(isset($preset['belongsTo_type']) && isset($preset['belongsTo_id']))
@@ -42,7 +42,7 @@
                             <div class="row">
                                 <div class="file-field input-field">
                                     <div class="btn">
-                                        <span>@choice('components.files', 1)</span>
+                                        <span>@choice('labels.files', 1)</span>
                                         <input type="file" name="file">
                                     </div>
                                     <div class="file-path-wrapper">

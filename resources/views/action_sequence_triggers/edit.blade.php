@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/action_sequence_triggers" class="breadcrumb hide-on-small-and-down">@choice('components.action_sequence_triggers', 2)</a>
+    <a href="/action_sequence_triggers" class="breadcrumb hide-on-small-and-down">@choice('labels.action_sequence_triggers', 2)</a>
     <a href="/action_sequence_triggers/{{ $action_sequence_trigger->id }}" class="breadcrumb hide-on-small-and-down">{{ $action_sequence_trigger->name }}</a>
     <a href="/action_sequence_triggers/{{ $action_sequence_trigger->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
@@ -24,7 +24,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    <label for="action_sequence">@choice('components.action_sequences', 1)</label>
+                                    <label for="action_sequence">@choice('labels.action_sequences', 1)</label>
                                 </div>
                             </div>
 
@@ -50,7 +50,7 @@
                                             <option value="{{ $ls->id }}" @if($action_sequence_trigger->logical_sensor_id == $ls->id) selected @endif>{{ $ls->name }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="action_sequence">@choice('components.logical_sensors', 1)</label>
+                                    <label for="action_sequence">@choice('labels.logical_sensors', 1)</label>
                                 </div>
                             </div>
 

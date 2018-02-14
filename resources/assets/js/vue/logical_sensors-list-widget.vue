@@ -14,7 +14,7 @@
                             </div>
                         </th>
                         <th data-field="physical_sensor" v-if="hideCols.indexOf('physical_sensor') === -1">
-                            <a href="#!" v-on:click="set_order('physical_sensors.name')">{{ $tc('components.physical_sensors', 1) }}</a>
+                            <a href="#!" v-on:click="set_order('physical_sensors.name')">{{ $tc('labels.physical_sensors', 1) }}</a>
                             <i v-show="order.field == 'physical_sensor.name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                             <i v-show="order.field == 'physical_sensor.name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
                             <div class="input-field inline">
@@ -23,7 +23,7 @@
                             </div>
                         </th>
                         <th data-field="terrarium" class="hide-on-med-and-down" v-if="hideCols.indexOf('terrarium') === -1">
-                            <a href="#!" v-on:click="set_order('terraria.display_name')">{{ $tc('components.terraria', 1) }}</a>
+                            <a href="#!" v-on:click="set_order('terraria.display_name')">{{ $tc('labels.terraria', 1) }}</a>
                             <i v-show="order.field == 'physical_sensor.terrarium.display_name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                             <i v-show="order.field == 'physical_sensor.terrarium.display_name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
                             <div class="input-field inline">
@@ -107,7 +107,7 @@
                             </td>
                             <td class="hide-on-small-only">
                                 <span v-if="logical_sensor.physical_sensor.controlunit">
-                                    {{ $tc('components.controlunits', 1) }}:
+                                    {{ $tc('labels.controlunits', 1) }}:
                                     <i class="material-icons">developer_board</i>
                                     <a v-bind:href="'/controlunits/' + logical_sensor.physical_sensor.controlunit.id">{{ logical_sensor.physical_sensor.controlunit.name }}</a>
                                 </span>
@@ -116,8 +116,8 @@
                             </td>
                             <td class="hide-on-med-and-down">
                                 <span v-if="logical_sensor.physical_sensor.terrarium">
-                                    {{ $tc('components.terraria', 1) }} {{ $t('labels.temperature_celsius') }}: {{ logical_sensor.physical_sensor.terrarium.cooked_temperature_celsius }}°C<br />
-                                    {{ $tc('components.terraria', 1) }} {{ $t('labels.humidity_percent') }}: {{ logical_sensor.physical_sensor.terrarium.cooked_humidity_percent }}%
+                                    {{ $tc('labels.terraria', 1) }} {{ $t('labels.temperature_celsius') }}: {{ logical_sensor.physical_sensor.terrarium.cooked_temperature_celsius }}°C<br />
+                                    {{ $tc('labels.terraria', 1) }} {{ $t('labels.humidity_percent') }}: {{ logical_sensor.physical_sensor.terrarium.cooked_humidity_percent }}%
                                 </span>
                             </td>
                             <td> </td>
@@ -192,7 +192,7 @@ export default {
         },
         hideCols: {
             type: Array,
-            default: [],
+            default: function(){return [];},
             required: false
         }
     },

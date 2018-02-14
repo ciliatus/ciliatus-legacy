@@ -14,7 +14,7 @@
                         </div>
                     </th>
                     <th data-field="controlunit" class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
-                        <a href="#!" v-on:click="set_order('controlunit')">{{ $tc('components.controlunit', 1) }}</a>
+                        <a href="#!" v-on:click="set_order('controlunit')">{{ $tc('labels.controlunit', 1) }}</a>
                         <i v-show="order.field == 'controlunit' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
                         <i v-show="order.field == 'controlunit' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
                         <div class="input-field inline">
@@ -109,7 +109,7 @@ export default {
         },
         hideCols: {
             type: Array,
-            default: [],
+            default: function(){return [];},
             required: false
         }
     },

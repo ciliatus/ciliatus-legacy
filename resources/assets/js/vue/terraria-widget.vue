@@ -6,7 +6,7 @@
                     v-show="terrariumId === null"
                     :source-filter="sourceFilter"
                     :show-filters="showFilters"
-                    :filter-fields="['display_name']">
+                    :filter-fields="[{name: 'display_name', path: 'display_name'}]">
         </pagination>
 
         <div :class="containerClasses" :id="containerId">
@@ -260,11 +260,15 @@ export default {
             });
         },
 
-        animals() {
+        animals () {
             let that = this;
             return this.$store.state.animals.filter(function(a) {
                 return that.animal_ids.includes(a.id) && a.data !== null
             })
+        },
+
+        pagination () {
+            return this.$refs.pagination;
         }
     },
 

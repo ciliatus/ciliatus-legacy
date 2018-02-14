@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/actions" class="breadcrumb hide-on-small-and-down">@choice('components.actions', 2)</a>
+    <a href="/actions" class="breadcrumb hide-on-small-and-down">@choice('labels.actions', 2)</a>
     <a href="/actions/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create')</a>
 @stop
 
@@ -21,7 +21,7 @@
                                             <option value="{{ $sequence->id }}" @if($preset['action_sequence_id'] == $sequence->id) selected @endif>{{ $sequence->name }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="action_sequence">@choice('components.action_sequence', 1)</label>
+                                    <label for="action_sequence">@choice('labels.action_sequence', 1)</label>
                                 </div>
                             </div>
 

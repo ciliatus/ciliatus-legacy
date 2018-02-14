@@ -15,7 +15,7 @@
                     </th>
 
                     <th data-field="terrarium">
-                        {{ $tc('components.terraria', 1) }}
+                        {{ $tc('labels.terraria', 1) }}
                         <div class="input-field inline">
                             <input id="filter_terrarium_name" type="text" v-model="filter['terrarium.name']" v-on:keyup.enter="set_filter">
                             <label for="filter_terrarium_name">Filter</label>
@@ -57,7 +57,7 @@
                         <tr class="collapsible-body">
                             <td colspan="3" class="table-details-collapsible">
                                 <ul v-show="action_sequence.schedules.length > 0">
-                                    <strong>{{ $tc('components.action_sequence_schedules', 2) }}</strong>
+                                    <strong>{{ $tc('labels.action_sequence_schedules', 2) }}</strong>
                                     <li v-for="(schedule, index) in action_sequence.schedules">
                                         <i class="material-icons">schedule</i>
                                         <span>{{ schedule.timestamps.starts }}</span>
@@ -67,7 +67,7 @@
                                 </ul>
 
                                 <ul v-show="action_sequence.triggers.length > 0">
-                                    <strong>{{ $tc('components.action_sequence_triggers', 2) }}</strong>
+                                    <strong>{{ $tc('labels.action_sequence_triggers', 2) }}</strong>
                                     <li v-for="(trigger, index) in action_sequence.triggers">
                                         <i class="material-icons">flare</i>
                                         <span>{{ $t('labels.' + trigger.logical_sensor.type) }}</span>
@@ -80,7 +80,7 @@
                                 </ul>
 
                                 <ul v-show="action_sequence.intentions.length > 0">
-                                    <strong>{{ $tc('components.action_sequence_intentions', 2) }}</strong>
+                                    <strong>{{ $tc('labels.action_sequence_intentions', 2) }}</strong>
                                     <li v-for="(intention, index) in action_sequence.intentions">
                                         <i class="material-icons">explore</i>
                                         <span>{{ $t('labels.' + intention.intention) }}</span>

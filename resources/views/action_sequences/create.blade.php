@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/action_sequences" class="breadcrumb hide-on-small-and-down">@choice('components.action_sequences', 2)</a>
+    <a href="/action_sequences" class="breadcrumb hide-on-small-and-down">@choice('labels.action_sequences', 2)</a>
     <a href="/action_sequences/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create')</a>
 @stop
 
@@ -17,7 +17,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <select name="terrarium">
-                                        <optgroup label="@choice('components.terraria', 1)">
+                                        <optgroup label="@choice('labels.terraria', 1)">
                                         @foreach ($terraria as $t)
                                             <option value="{{ $t->id }}"
                                                 @if(isset($preset['terrarium']) && $preset['terrarium'] == $t->id) selected @endif >@if(is_null($t->display_name)){{ $t->name }}@else{{ $t->display_name }}@endif
@@ -25,7 +25,7 @@
                                         @endforeach
                                         </optgroup>
                                     </select>
-                                    <label for="valves">@choice('components.terraria', 1)</label>
+                                    <label for="valves">@choice('labels.terraria', 1)</label>
                                 </div>
                             </div>
 

@@ -47,8 +47,8 @@ class ConvertLangToJson extends Command
         $languages = array_diff(scandir(resource_path() . '/lang'), array('..', '.'));
         
         $groups = [
-            'buttons', 'components', 'errors', 'labels', 'languages',
-            'menu', 'messages', 'product', 'setup', 'tooltips', 'units',
+            'buttons', 'errors', 'labels', 'languages', 'menu',
+            'messages', 'product', 'setup', 'tooltips', 'units',
             'weekdays'
         ];
 

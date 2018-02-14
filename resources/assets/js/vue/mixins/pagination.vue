@@ -29,7 +29,7 @@
                     </li>
                 </ul>
             </div>
-            <div class="col s2 right-align">
+            <div class="col s2 right-align" v-if="enableFilters">
                 <ul class="pagination">
                     <li class="waves-effect">
                         <a href="#!"><i class="material-icons" v-on:click="toggle_filters">filter_list</i></a>
@@ -38,12 +38,12 @@
             </div>
         </div>
 
-        <div class="row" v-show="showFilters">
+        <div class="row" v-show="showFilters && enableFilters">
             <div class="col s12">
                 <div class="input-field inline" v-for="field in filterFields">
-                    <input :id="'filter_' + field" type="text" :placeholder="$t('labels.' + field)"
-                           v-model="filter[field]" v-on:keyup.enter="set_filter">
-                    <label :for="'filter_' + field">{{ $t('labels.'+ field) }}</label>
+                    <input :id="'filter_' + field.name" type="text" :placeholder="$t('labels.' + field.name)"
+                           v-model="filter[field.path]" v-on:keyup.enter="set_filter">
+                    <label :for="'filter_' + field.name">{{ $t('labels.'+ field.name) }}</label>
                 </div>
             </div>
         </div>
@@ -75,6 +75,11 @@ export default {
             default: '',
             required: false
         },
+        enableFilters: {
+            type: Boolean,
+            default: false,
+            required: false
+        },
         showFilters: {
             type: Boolean,
             default: false,
@@ -82,7 +87,7 @@ export default {
         },
         filterFields: {
             type: Array,
-            default:  [],
+            default: function(){return [];},
             required: false
         }
     },
@@ -116,7 +121,7 @@ export default {
             if (this.sourceFilter !== '') {
                 this.filter_string += this.sourceFilter + '&';
             }
-            for (var prop in this.filter) {
+            for (let prop in this.filter) {
                 if (this.filter.hasOwnProperty(prop)) {
                     if (this.filter[prop] !== null
                         && this.filter[prop] !== '') {

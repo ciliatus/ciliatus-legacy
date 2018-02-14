@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/generic_components" class="breadcrumb hide-on-small-and-down">@choice('components.generic_components', 2)</a>
+    <a href="/generic_components" class="breadcrumb hide-on-small-and-down">@choice('labels.generic_components', 2)</a>
     <a href="/generic_components/{{ $generic_component_type->id }}" class="breadcrumb hide-on-small-and-down">{{ $generic_component_type->name_plural }}</a>
 @stop
 

@@ -13,7 +13,7 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="material-icons">error_outline</i>
-                            @choice('components.critical_states', 1)
+                            @choice('labels.critical_states', 1)
                         </div>
 
                         <div class="card-content">

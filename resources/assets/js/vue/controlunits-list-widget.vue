@@ -79,28 +79,28 @@
                         </tr>
                         <tr class="collapsible-body">
                             <td colspan="3">
-                                {{ $tc('components.physical_sensors', 2) }}:
+                                {{ $tc('labels.physical_sensors', 2) }}:
                                 <span v-for="(physical_sensor, index) in controlunit.physical_sensors">
                                     <i class="material-icons">memory</i>
                                     <a v-bind:href="'/physical_sensors/' + physical_sensor.id">{{ physical_sensor.name }}</a>
                                     <template v-if="index < controlunit.physical_sensors.length-1">, </template>
                                 </span>
                                 <br />
-                                {{ $tc('components.valves', 2) }}:
+                                {{ $tc('labels.valves', 2) }}:
                                 <span v-for="(valve, index) in controlunit.valves">
                                     <i class="material-icons">transform</i>
                                     <a v-bind:href="'/valves/' + valve.id">{{ valve.name }}</a>
                                     <template v-if="index < controlunit.valves.length-1">, </template>
                                 </span>
                                 <br />
-                                {{ $tc('components.pumps', 2) }}:
+                                {{ $tc('labels.pumps', 2) }}:
                                 <span v-for="(pump, index) in controlunit.pumps">
                                     <i class="material-icons">rotate_right</i>
                                     <a v-bind:href="'/pumps/' + pump.id">{{ pump.name }}</a>
                                     <template v-if="index < controlunit.pumps.length-1">, </template>
                                 </span>
                                 <br />
-                                {{ $tc('components.generic_components', 2) }}:
+                                {{ $tc('labels.generic_components', 2) }}:
                                 <span v-for="(generic_component, index) in controlunit.generic_components">
                                     <i class="material-icons">{{ generic_component.type.icon }}</i>
                                     <a v-bind:href="'/generic_components/' + generic_component.id">{{ generic_component.name }}</a>

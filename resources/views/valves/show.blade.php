@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/valves" class="breadcrumb hide-on-small-and-down">@choice('components.valves', 2)</a>
+    <a href="/valves" class="breadcrumb hide-on-small-and-down">@choice('labels.valves', 2)</a>
     <a href="/valves/{{ $valve->id }}" class="breadcrumb hide-on-small-and-down">{{ $valve->name }}</a>
 @stop
 
@@ -16,22 +16,23 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m5 l4">
-                    <valves-widget :refresh-timeout-seconds="60" valve-id="{{ $valve->id }}"
-                                   :subscribe-add="false" :subscribe-delete="false"></valves-widget>
+                    <valve-widget valve-id="{{ $valve->id }}"></valve-widget>
                 </div>
 
                 <div class="col s12 m6 l4">
-                    <terraria-widget :refresh-timeout-seconds="60" terrarium-id="{{ $valve->terrarium_id }}"
+                    @if(!is_null($valve->terrarium))
+                    <terraria-widget terrarium-id="{{ $valve->terrarium_id }}"
                                      :subscribe-add="false" :subscribe-delete="false"
                                      container-classes="row" wrapper-classes="col s12"></terraria-widget>
+                    @endif
 
-                    <pumps-widget :refresh-timeout-seconds="60" pump-id="{{ $valve->pump_id }}"
-                                  :subscribe-add="false" :subscribe-delete="false"
-                                  container-classes="row" wrapper-classes="col s12"></pumps-widget>
+                    <div class="row">
+                        <pump-widget pump-id="{{ $valve->pump_id }}" wrapper-classes="col s12"></pump-widget>
+                    </div>
 
-                    <controlunits-widget :refresh-timeout-seconds="60" controlunit-id="{{ $valve->controlunit_id }}"
-                                         :subscribe-add="false" :subscribe-delete="false"
-                                         container-classes="row" wrapper-classes="col s12"></controlunits-widget>
+                    <div class="row">
+                        <controlunit-widget controlunit-id="{{ $valve->controlunit_id }}" wrapper-classes="col s12"></controlunit-widget>
+                    </div>
                 </div>
             </div>
 
