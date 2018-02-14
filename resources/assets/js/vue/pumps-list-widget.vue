@@ -146,7 +146,7 @@
                     success: function (data) {
                         that.ids = data.data.map(p => p.id);
                         that.controlunit_ids = data.data.map(p => p.controlunit_id);
-                        that.valve_ids = data.data.map(p => p.valves.map(v => v.id))[0];
+                        that.valve_ids = [].concat.apply([], data.data.map(p => p.valves.map(v => v.id)));
 
                         that.$refs.pagination.meta = data.meta;
 
