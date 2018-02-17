@@ -20,10 +20,6 @@ class PhysicalSensorTransformer extends Transformer
      */
     public function transform($item)
     {
-        $controlunitTransformer = new ControlunitTransformer();
-        $logicalSensorTransformer = new LogicalSensorTransformer();
-        $terrariumTransformer = new TerrariumTransformer();
-
         $return = [
             'id'    => $item['id'],
             'controlunit_id'  => $item['controlunit_id'],
@@ -33,18 +29,6 @@ class PhysicalSensorTransformer extends Transformer
         ];
 
         $return = $this->addCiliatusSpecificFields($return, $item);
-
-        if (isset($item['controlunit'])) {
-            $return['controlunit'] = $controlunitTransformer->transform($item['controlunit']);
-        }
-
-        if (isset($item['terrarium'])) {
-            $return['terrarium'] = $terrariumTransformer->transform($item['terrarium']);
-        }
-
-        if (isset($item['logical_sensors'])) {
-            $return['logical_sensors'] = $logicalSensorTransformer->transformCollection($item['logical_sensors']);
-        }
 
         return $return;
     }

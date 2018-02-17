@@ -48,10 +48,6 @@ class GenericComponentTransformer extends Transformer
             }
         }
 
-        if (isset($item['controlunit'])) {
-            $return['controlunit'] = (new ControlunitTransformer())->transform($item['controlunit']);
-        }
-
         if (isset($item['belongsTo'])) {
             $return['belongsTo'] = $item['belongsTo'];
         }

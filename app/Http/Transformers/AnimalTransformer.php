@@ -79,26 +79,6 @@ class AnimalTransformer extends Transformer
             }
         }
 
-        if (isset($item['feedings'])) {
-            $return['feedings'] = (new AnimalFeedingEventTransformer())->transformCollection($item['feedings']);
-        }
-
-        if (isset($item['feeding_schedules'])) {
-            $return['feeding_schedules'] = (new AnimalFeedingSchedulePropertyTransformer())->transformCollection($item['feeding_schedules']);
-        }
-
-        if (isset($item['weighings'])) {
-            $return['weighings'] = (new AnimalWeighingEventTransformer())->transformCollection($item['weighings']);
-        }
-
-        if (isset($item['weighing_schedules'])) {
-            $return['weighing_schedules'] = (new AnimalWeighingSchedulePropertyTransformer())->transformCollection($item['weighing_schedules']);
-        }
-
-        if (isset($item['biography_entries'])) {
-            $return['biography_entries'] = (new BiographyEntryEventTransformer())->transformCollection($item['biography_entries']);
-        }
-
         return $return;
     }
 }

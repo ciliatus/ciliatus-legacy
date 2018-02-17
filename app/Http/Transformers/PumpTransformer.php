@@ -20,8 +20,6 @@ class PumpTransformer extends Transformer
      */
     public function transform($item)
     {
-        $controlunitTransformer = new ControlunitTransformer();
-        $valveTransformer = new ValveTransformer();
         $return = [
             'id'    => $item['id'],
             'name' => $item['name'],
@@ -31,14 +29,6 @@ class PumpTransformer extends Transformer
         ];
 
         $return = $this->addCiliatusSpecificFields($return, $item);
-
-        if (isset($item['controlunit'])) {
-            $return['controlunit'] = $controlunitTransformer->transform($item['controlunit']);
-        }
-
-        if (isset($item['valves'])) {
-            $return['valves'] = $valveTransformer->transformCollection($item['valves']);
-        }
 
         return $return;
     }

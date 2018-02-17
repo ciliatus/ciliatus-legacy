@@ -49,7 +49,7 @@ class BiographyEntryEventController extends ApiController
             $entries = $belongsTo->entries();
         }
         else {
-            $entries = BiographyEntryEvent::with('files');
+            $entries = BiographyEntryEvent::query();
         }
 
         $entries = $this->filter($request, $entries);

@@ -61,7 +61,9 @@ class TerrariumUpdateOkTest extends TestCase
         ]);
         $response->assertStatus(200);
 
-        $response = $this->get('/api/v1/terraria/' . $terrarium->id, [
+        $response = $this->get('/api/v1/terraria/' . $terrarium->id .
+            '?with[]=valves&with[]=animals',
+        [
             'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);

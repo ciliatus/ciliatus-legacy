@@ -1,6 +1,10 @@
 <?php
 
 namespace App\Repositories;
+use App\CiliatusModel;
+use App\Factories\RepositoryFactory;
+use Illuminate\Database\Eloquent\Relations\MorphPivot;
+use Illuminate\Support\Collection;
 
 /**
  * Class Repository
@@ -37,9 +41,55 @@ abstract class Repository {
         if (!in_array('active', $exclude))
             $this->scope->active = $this->scope->active();
 
-        if (!in_array('class', $exclude))
-            $class_split = explode("\\",get_class($this->scope));
+        if (!in_array('class', $exclude)) {
+            $class_split = explode("\\", get_class($this->scope));
             $this->scope->class = end($class_split);
+        }
+
+        $related_models = array_filter(
+            $this->scope->getRelations(),
+            function ($relation) {
+                if (is_a($relation, MorphPivot::class)) {
+                    return false;
+                }
+
+                return true;
+            }
+        );
+
+        foreach ($related_models as $relation=>$objects) {
+            if (is_a($objects, MorphPivot::class)) {
+                unset($related_models[$relation]);
+                dd($related_models);
+                continue;
+            }
+
+            if (is_a($objects, Collection::class)) {
+                foreach ($objects as $index=>$object) {
+                    if (is_null($object)) {
+                        unset($related_models[$relation][$index]);
+                        continue;
+                    }
+                    $this->applyRepositoryToObject($object);
+                }
+            }
+            else {
+                $object = $objects;
+                if (is_null($object)) {
+                    unset($related_models[$relation]);
+                    continue;
+                }
+                $this->applyRepositoryToObject($object);
+            }
+        }
+
+        $this->scope->related_models = $related_models;
+    }
+
+    protected function applyRepositoryToObject(CiliatusModel $object)
+    {
+        $repository = RepositoryFactory::get($object);
+        $repository->show();
     }
 
     /**

@@ -34,18 +34,6 @@ class LogicalSensorTransformer extends Transformer
 
         $return = $this->addCiliatusSpecificFields($return, $item);
 
-        if (isset($item['thresholds'])) {
-            $return['thresholds'] = (
-                new LogicalSensorThresholdTransformer()
-            )->transformCollection($item['thresholds']);
-        }
-
-        if (isset($item['physical_sensor'])) {
-            $return['physical_sensor'] = (
-                new PhysicalSensorTransformer()
-            )->transform($item['physical_sensor']);
-        }
-
 
         if (isset($item['current_threshold_id'])) {
             $return['current_threshold_id'] = $item['current_threshold_id'];

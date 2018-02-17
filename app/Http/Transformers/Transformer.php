@@ -8,7 +8,10 @@
 
 namespace App\Http\Transformers;
 
+use App\CiliatusModel;
+use App\Factories\TransformerFactory;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 
 
 /**
@@ -167,6 +170,20 @@ abstract class Transformer
         }
         if (isset($item['class']) && !in_array('class', $exclude)) {
             $return['class'] = $item['class'];
+        }
+
+        if (isset($item['related_models'])) {
+            foreach ($item['related_models'] as $relation=>$objects) {
+                if (is_a($objects, Collection::class)) {
+                    $transformer = TransformerFactory::get($objects->first());
+                    $return[$relation] = $transformer->transformCollection($objects->toArray());
+                }
+                else {
+                    $object = $objects;
+                    $transformer = TransformerFactory::get($object);
+                    $return[$relation] = $transformer->transform($object->toArray());
+                }
+            }
         }
 
         return $return;

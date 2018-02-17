@@ -27,10 +27,6 @@ class AnimalFeedingSchedulePropertyTransformer extends Transformer
 
         $return = $this->addCiliatusSpecificFields($return, $item);
 
-        if (isset($item['animal'])) {
-            $return['animal'] = (new AnimalTransformer())->transform($item['animal']);
-        }
-
         return $return;
     }
 }
