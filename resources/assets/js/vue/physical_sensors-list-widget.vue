@@ -184,7 +184,7 @@
                         that.$refs.pagination.meta = data.meta;
 
                         that.$parent.ensureObjects('physical_sensors', that.ids, data.data);
-                        that.$parent.ensureObjects('logical_sensors', that.logical_sensor_ids, data.data.map(p => p.logical_sensors));
+                        that.$parent.ensureObjects('logical_sensors', that.logical_sensor_ids, [].concat.apply([], data.data.map(p => p.logical_sensors)));
                         that.$parent.ensureObjects('controlunits', that.controlunit_ids, data.data.map(p => p.controlunit));
                         that.$parent.ensureObjects('terraria', that.terraria_ids, data.data.map(p => p.terrarium));
                     },

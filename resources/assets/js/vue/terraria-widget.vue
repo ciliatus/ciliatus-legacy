@@ -298,16 +298,18 @@ export default {
                 let that = this;
 
                 $.ajax({
-                    url: '/api/v1/terraria/?pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                    url: '/api/v1/terraria/?with[]=animals&pagination[per_page]=' + that.itemsPerPage + '&page=' +
                             that.$refs.pagination.page +
                             that.$refs.pagination.filter_string +
                             that.$refs.pagination.order_string,
                     method: 'GET',
                     success: function (data) {
                         that.ids = data.data.map(t => t.id);
+                        that.animal_ids = [].concat.apply([], data.data.map(p => p.animals.map(l => l.id)));
                         that.$refs.pagination.meta = data.meta;
+
                         that.$parent.ensureObjects('terraria', that.ids, data.data);
-                        that.load_animals();
+                        that.$parent.ensureObjects('animals', that.animal_ids, [].concat.apply([], data.data.map(p => p.animals)));
                     },
                     error: function (error) {
                         console.log(JSON.stringify(error));
@@ -317,27 +319,7 @@ export default {
             else {
                 this.ids = [this.terrariumId];
                 this.$parent.ensureObject('terraria', this.terrariumId);
-                this.load_animals();
             }
-        },
-
-        load_animals: function() {
-            let that = this;
-
-            let url = '/api/v1/animals/?all=true&filter[terrarium_id]=' + this.ids.join(':or:');
-
-            $.ajax({
-                url: url,
-                method: 'GET',
-                success: function (data) {
-                    that.animal_ids = data.data.map(a => a.id);
-                    that.$parent.ensureObjects('animals', that.animal_ids, data.data);
-                    that.rerender();
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                }
-            });
         },
 
         rerender () {

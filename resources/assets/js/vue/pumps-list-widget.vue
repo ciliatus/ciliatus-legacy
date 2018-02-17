@@ -159,7 +159,7 @@
 
                         that.$parent.ensureObjects('pumps', that.ids, data.data);
                         that.$parent.ensureObjects('controlunits', that.controlunit_ids, data.data.map(p => p.controlunit));
-                        that.$parent.ensureObjects('valves', that.valve_ids, data.data.map(p => p.valves));
+                        that.$parent.ensureObjects('valves', that.valve_ids, [].concat.apply([], data.data.map(p => p.valves)));
                     },
                     error: function (error) {
                         console.log(JSON.stringify(error));
