@@ -8,9 +8,9 @@
                               :filter-fields="[{name: 'name', path: 'name', col: 0},
                                                {name: 'model', path: 'model', col: 1},
                                                {name: 'pump', noFilter: true, col: 2},
-                                               {name: 'controlunit', noFilter: true, col: 3, class: 'hide-on-small-only'},
-                                               {name: 'terrarium', noFilter: true, col: 4, class: 'hide-on-med-and-down'},
-                                               {name: '', noFilter: true, col: 5, class: 'hide-on-small-only'}]">
+                                               {name: 'controlunit', noSort: true, col: 3, class: 'hide-on-small-only'},
+                                               {name: 'terrarium', noSort: true, col: 4, class: 'hide-on-med-and-down'},
+                                               {name: '', noFilter: true, noSort:true, col: 5, class: 'hide-on-small-only'}]">
                 </table-filter>
 
                 <template v-for="valve in valves">
