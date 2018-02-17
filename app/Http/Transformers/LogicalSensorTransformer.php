@@ -39,6 +39,10 @@ class LogicalSensorTransformer extends Transformer
             $return['current_threshold_id'] = $item['current_threshold_id'];
         }
 
+        if (isset($item['rawvalue_adjustment'])) {
+            $return['rawvalue_adjustment'] = $item['rawvalue_adjustment'];
+        }
+
         return $return;
     }
 }

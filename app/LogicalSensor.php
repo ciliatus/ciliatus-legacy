@@ -58,7 +58,7 @@ class LogicalSensor extends Component
      */
     public function physical_sensor()
     {
-        return $this->belongsTo('App\PhysicalSensor')->with('terrarium', 'controlunit');
+        return $this->belongsTo('App\PhysicalSensor');
     }
 
     /**
@@ -94,16 +94,22 @@ class LogicalSensor extends Component
     }
 
     /**
+     * @return float|int
+     */
+    public function getRawvalueAdjustment()
+    {
+        $adjustment = $this->property('LogicalSensorAccuracy', 'adjust_rawvalue', true);
+        return is_null($adjustment) ? 0 : (float)$adjustment;
+    }
+
+    /**
      * Adjust rawvalue if LogicalSensorAccuracy::adjust_rawvalue property is set
      *
      * @param $value
      */
     public function setRawvalueAttribute($value)
     {
-        $adjustment = $this->property('LogicalSensorAccuracy', 'adjust_rawvalue', true);
-        if (!is_null($adjustment)) {
-            $value = $value + (int)$adjustment;
-        }
+        $value = $value + $this->getRawvalueAdjustment();
         $this->attributes['rawvalue'] = $value;
     }
 
