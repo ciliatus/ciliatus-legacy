@@ -1,135 +1,137 @@
 <template>
+    <div :class="wrapperClasses">
+        <div class="card">
 
-    <div class="card">
-        
-        <div class="card-header">
-            <i class="material-icons">vertical_align_center</i>
-            {{ $tc("labels.logical_sensor_thresholds", 2) }}
-        </div>
-
-        <template v-for="ls in logical_sensors">
-
-        <div class="card-content">
-
-            <div class="card-sub-header">
-                <a v-bind:href="'/logical_sensors/' + ls.id"><strong>{{ ls.name }}</strong></a>
-            </div>
-
-            <div class="row row-no-margin" v-for="th in ls.thresholds">
+            <div class="card-header">
                 <i class="material-icons">vertical_align_center</i>
-
-                <span>{{ th.timestamps.starts }}:</span>
-                <span v-if="th.rawvalue_lowerlimit !== null">{{ $t("labels.min_short") }}: {{ th.rawvalue_lowerlimit }}</span>
-                <span v-if="th.rawvalue_upperlimit !== null">{{ $t("labels.max_short") }}: {{ th.rawvalue_upperlimit }}</span>
-
-                <span class="right">
-                    <a v-bind:href="'/logical_sensor_thresholds/' + th.id + '/edit'">
-                        <i class="material-icons">edit</i>
-                    </a>
-                </span>
-            </div>
-            <div class="row row-no-margin" v-if="ls.thresholds.length < 1">
-                {{ $t("tooltips.no_data") }}
+                {{ $tc("labels.logical_sensor_thresholds", 2) }}
             </div>
 
-        </div>
+            <template v-for="logical_sensor in logical_sensors">
 
-        <div class="card-action">
-            <a v-bind:href="'/logical_sensor_thresholds/create?preset[belongsTo_type]=LogicalSensor&preset[belongsTo_id]=' + ls.id">{{ $t("buttons.add") }}</a>
-        </div>
+            <div class="card-content" v-if="logical_sensor.data">
 
-        </template>
+                <div class="card-sub-header">
+                    <a v-bind:href="'/logical_sensors/' + logical_sensor.data.id"><strong>{{ logical_sensor.data.name }}</strong></a>
+                </div>
+
+                <template v-if="(threshold_list = thresholds.filter(t => t.data.logical_sensor_id === logical_sensor.data.id)).length > 0">
+                    <div v-for="threshold in threshold_list" class="row row-no-margin">
+                        <i class="material-icons">vertical_align_center</i>
+
+                        <span>{{ threshold.data.timestamps.starts }}:</span>
+                        <span v-if="threshold.data.rawvalue_lowerlimit !== null">
+                            {{ $t("labels.min_short") }}: {{ threshold.data.rawvalue_lowerlimit }}
+                        </span>
+                        <span v-if="threshold.data.rawvalue_upperlimit !== null">
+                            {{ $t("labels.max_short") }}: {{ threshold.data.rawvalue_upperlimit }}
+                        </span>
+
+                        <span class="right">
+                            <a :href="'/logical_sensor_thresholds/' + threshold.data.id + '/edit'">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </span>
+                    </div>
+                </template>
+                <div class="row row-no-margin" v-else>
+                    {{ $t("tooltips.no_data") }}
+                </div>
+
+            </div>
+
+            <div class="card-action">
+                <a :href="'/logical_sensor_thresholds/create?preset[belongsTo_type]=LogicalSensor&preset[belongsTo_id]=' + logical_sensor.data.id">
+                    {{ $t("buttons.add") }}
+                </a>
+            </div>
+
+            </template>
+
+        </div>
 
     </div>
-
 </template>
 
 <script>
-export default {
-
-    data () {
-        return {
-            logical_sensors: []
-        }
-    },
-
-    props: {
-        refreshTimeoutSeconds: {
-            type: Number,
-            default: null,
-            required: false
-        },
-        sourceFilter: {
-            type: String,
-            default: '',
-            required: false
-        }
-    },
-
-    methods: {
-        update: function(a) {
-            var item = null;
-            this.logical_sensors.forEach(function(data, index) {
-                if (data.id === a.logical_sensor.id) {
-                    item = index;
-                }
-            });
-            if (item !== null) {
-                this.logical_sensors.splice(item, 1, a.logical_sensor);
+    export default {
+        data() {
+            return {
+                ids: [],
+                threshold_ids: [],
+                meta: []
             }
         },
 
-        delete: function(a) {
-            var item = null;
-            this.logical_sensors.forEach(function(data, index) {
-                if (data.id === a.logical_sensor_id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.logical_sensors.splice(item, 1);
-            }
-        },
-
-        load_data: function() {
-            window.eventHubVue.processStarted();
-            var that = this;
-            $.ajax({
-                url: '/api/v1/logical_sensors?with[]=thresholds&' + that.sourceFilter,
-                method: 'GET',
-                success: function (data) {
-                    that.logical_sensors = data.data;
-
-                    window.eventHubVue.processEnded();
+        props: {
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
+            },
+            sourceFilter: {
+                type: String,
+                default: '',
+                required: false
+            },
+            hideCols: {
+                type: Array,
+                default: function () {
+                    return [];
                 },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
-        }
+                required: false
+            },
+            itemsPerPage: {
+                type: Number,
+                default: 9,
+                required: false
+            }
+        },
 
-    },
+        computed: {
+            logical_sensors () {
+                let that = this;
+                return this.$store.state.logical_sensors.filter(function (l) {
+                    return that.ids.includes(l.id) && l.data !== null
+                });
+            },
 
-    created: function() {
-        window.echo.private('dashboard-updates')
-            .listen('LogicalSensorUpdated', (e) => {
-                this.update(e);
-            }).listen('LogicalSensorDeleted', (e) => {
-                this.delete(e);
-            });
+            thresholds () {
+                let that = this;
+                return this.$store.state.logical_sensor_thresholds.filter(function (l) {
+                    return that.threshold_ids.includes(l.id) && l.data !== null
+                });
+            },
+        },
 
-        var that = this;
-        setTimeout(function() {
-            that.load_data();
-        }, 100);
+        methods: {
+            load_data: function () {
+                let that = this;
 
-        if (this.refreshTimeoutSeconds !== null) {
-            setInterval(function() {
+                $.ajax({
+                    url: '/api/v1/logical_sensors/?with[]=thresholds&all=true&' + that.sourceFilter,
+                    method: 'GET',
+                    success: function (data) {
+                        that.ids = data.data.map(l => l.id);
+                        that.threshold_ids = [].concat.apply([], data.data.map(l => l.thresholds.map(t => t.id)));
+
+                        that.meta = data.meta;
+
+                        that.$parent.ensureObjects('logical_sensors', that.ids);
+                        that.$parent.ensureObjects('logical_sensor_thresholds', that.threshold_ids, [].concat.apply([], data.data.map(l => l.thresholds)));
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
+            }
+        },
+
+        created: function () {
+            let that = this;
+            setTimeout(function () {
                 that.load_data();
-            }, this.refreshTimeoutSeconds * 1000)
+            }, 100);
         }
     }
-}
 </script>

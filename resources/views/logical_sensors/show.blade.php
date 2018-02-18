@@ -21,9 +21,11 @@
                                                wrapper-classes="col s12"></logical_sensor-widget>
                     </div>
 
-                    <logical_sensor_thresholds-widget :refresh-timeout-seconds="60"
-                                                      source-filter="filter[id]={{ $logical_sensor->id }}"
-                                                      container-classes="row" wrapper-classes="col s12"></logical_sensor_thresholds-widget>
+                    <div class="row">
+                        <logical_sensor_thresholds-widget :refresh-timeout-seconds="60"
+                                                          source-filter="filter[id]={{ $logical_sensor->id }}"
+                                                          wrapper-classes="col s12"></logical_sensor_thresholds-widget>
+                    </div>
                 </div>
 
                 <div class="col s12 m5 l4">

@@ -80,12 +80,12 @@
 
         computed: {
             logical_sensor () {
-                let sensor = this.$store.state.logical_sensors.filter(p => p.id = this.logicalSensorId);
+                let sensor = this.$store.state.logical_sensors.filter(l => l.id === this.logicalSensorId);
                 return sensor.length > 0 ? sensor[0] : {};
             },
 
             physical_sensor () {
-                let sensor = this.$store.state.physical_sensors.filter(p => p.id = this.physical_sensor_id);
+                let sensor = this.$store.state.physical_sensors.filter(p => p.id === this.physical_sensor_id);
                 return sensor.length > 0 ? sensor[0] : {};
             },
 
