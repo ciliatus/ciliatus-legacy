@@ -53,7 +53,7 @@
                         </tr>
                         <tr class="collapsible-body">
                             <td colspan="5">
-                                <div v-if="controlunit.data" v-for="type in ['pumps', 'valves', 'generic_components', 'physical_sensors']">
+                                <div v-if="controlunit.data" v-for="type in component_types">
                                     <template v-if="(component_list = _self[type].filter(c => c.data.controlunit_id === controlunit.id)).length > 0">
                                         {{ $tc('labels.' + type, 2) }}:
                                         <span v-for="component in component_list">
@@ -87,7 +87,8 @@
                 pump_ids: [],
                 valve_ids: [],
                 generic_component_ids: [],
-                physical_sensor_ids: []
+                physical_sensor_ids: [],
+                component_types: ['pumps', 'valves', 'generic_components', 'physical_sensors']
             }
         },
 
@@ -112,6 +113,11 @@
                 default: 9,
                 required: false
             }
+        },
+
+        components: {
+            pagination,
+            'table-filter': table_filter
         },
 
         computed: {
@@ -156,11 +162,6 @@
                     return that.physical_sensor_ids.includes(p.id) && p.data !== null
                 });
             },
-        },
-
-        components: {
-            pagination,
-            'table-filter': table_filter
         },
 
         methods: {
