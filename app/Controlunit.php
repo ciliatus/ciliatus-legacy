@@ -88,7 +88,7 @@ class Controlunit extends Component
      */
     public function generic_components()
     {
-        return $this->hasMany('App\GenericComponent')->with('type');
+        return $this->hasMany('App\GenericComponent');
     }
 
     /**

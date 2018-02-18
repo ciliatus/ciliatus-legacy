@@ -2,75 +2,49 @@
     <div>
         <div :class="wrapperClasses">
             <table class="responsive highlight collapsible" data-collapsible="expandable">
-                <thead>
-                <tr>
-                    <th data-field="name">
-                        <a href="#!" v-on:click="set_order('name')">{{ $t('labels.name') }}</a>
-                        <i v-show="order.field == 'name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline">
-                            <input id="filter_name" type="text" v-model="filter.name" v-on:keyup.enter="set_filter">
-                            <label for="filter_name">Filter</label>
-                        </div>
-                    </th>
-
-                    <th  class="hide-on-small-only" data-field="software_version">
-                        <a href="#!" v-on:click="set_order('software_version')">{{ $t('labels.software_version') }}</a>
-                        <i v-show="order.field == 'software_version' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'software_version' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline">
-                            <input id="filter_software_version" type="text" v-model="filter.software_version" v-on:keyup.enter="set_filter">
-                            <label for="filter_software_version">Filter</label>
-                        </div>
-                    </th>
-
-                    <th data-field="timestamps.last_heartbeat">
-                        {{ $t('labels.last_heartbeat') }}
-                    </th>
-
-                    <th class="hide-on-small-only" data-field="client_server_time_diff_seconds">
-                        {{ $t('labels.client_server_time_diff') }}
-                    </th>
-
-                    <th class="hide-on-small-only" style="width: 40px">
-                    </th>
-                </tr>
-                </thead>
+                <table-filter ref="table_filter"
+                              :cols="5"
+                              :hide-cols="hideCols"
+                              :filter-fields="[{name: 'name', path: 'name', col: 0},
+                                               {name: 'software_version', path: 'software_version', col: 1, class: 'hide-on-small-only'},
+                                               {name: 'heartbeat', path: 'heartbeat_at', noFilter: true, col: 2},
+                                               {name: 'client_server_time_diff', noSort: true, noFilter: true, col: 3, class: 'hide-on-med-and-down'},
+                                               {noSort: true, noFilter: true, col: 4, class: 'hide-on-small-only'}]">
+                </table-filter>
 
                 <template v-for="controlunit in controlunits">
                     <tbody>
                         <tr class="collapsible-header">
-
                             <td>
                                 <span>
                                     <i class="material-icons">developer_board</i>
-                                    <a v-bind:href="'/controlunits/' + controlunit.id">{{ controlunit.name }}</a>
-                                    <span v-if="!controlunit.active"> - {{ $t('labels.inactive') }}</span>
+                                    <a v-bind:href="'/controlunits/' + controlunit.data.id">{{ controlunit.data.name }}</a>
+                                    <span v-if="!controlunit.data.active"> - {{ $t('labels.inactive') }}</span>
                                 </span>
                             </td>
 
                             <td class="hide-on-small-only">
                                 <span>
-                                    {{ controlunit.software_version }}
+                                    {{ controlunit.data.software_version }}
                                 </span>
                             </td>
 
                             <td>
                                 {{ $t(
-                                    'units.' + $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).unit,
-                                    {val: $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).val}
+                                'units.' + $getMatchingTimeDiff(controlunit.data.timestamps.last_heartbeat_diff).unit,
+                                {val: $getMatchingTimeDiff(controlunit.data.timestamps.last_heartbeat_diff).val}
                                 )}}
                             </td>
 
-                            <td class="hide-on-small-only">
+                            <td class="hide-on-med-and-down">
                                 <span>
-                                    {{ controlunit.client_server_time_diff_seconds }}s
+                                    {{ controlunit.data.client_server_time_diff_seconds }}s
                                 </span>
                             </td>
 
                             <td class="hide-on-small-only">
                                 <span>
-                                    <a v-bind:href="'/controlunits/' + controlunit.id + '/edit'">
+                                    <a v-bind:href="'/controlunits/' + controlunit.data.id + '/edit'">
                                         <i class="material-icons">edit</i>
                                     </a>
                                 </span>
@@ -78,125 +52,144 @@
 
                         </tr>
                         <tr class="collapsible-body">
-                            <td colspan="3">
-                                {{ $tc('labels.physical_sensors', 2) }}:
-                                <span v-for="(physical_sensor, index) in controlunit.physical_sensors">
-                                    <i class="material-icons">memory</i>
-                                    <a v-bind:href="'/physical_sensors/' + physical_sensor.id">{{ physical_sensor.name }}</a>
-                                    <template v-if="index < controlunit.physical_sensors.length-1">, </template>
-                                </span>
-                                <br />
-                                {{ $tc('labels.valves', 2) }}:
-                                <span v-for="(valve, index) in controlunit.valves">
-                                    <i class="material-icons">transform</i>
-                                    <a v-bind:href="'/valves/' + valve.id">{{ valve.name }}</a>
-                                    <template v-if="index < controlunit.valves.length-1">, </template>
-                                </span>
-                                <br />
-                                {{ $tc('labels.pumps', 2) }}:
-                                <span v-for="(pump, index) in controlunit.pumps">
-                                    <i class="material-icons">rotate_right</i>
-                                    <a v-bind:href="'/pumps/' + pump.id">{{ pump.name }}</a>
-                                    <template v-if="index < controlunit.pumps.length-1">, </template>
-                                </span>
-                                <br />
-                                {{ $tc('labels.generic_components', 2) }}:
-                                <span v-for="(generic_component, index) in controlunit.generic_components">
-                                    <i class="material-icons">{{ generic_component.type.icon }}</i>
-                                    <a v-bind:href="'/generic_components/' + generic_component.id">{{ generic_component.name }}</a>
-                                    <template v-if="index < controlunit.generic_components.length-1">, </template>
-                                </span>
-                                <br />
+                            <td colspan="5">
+                                <div v-if="controlunit.data" v-for="type in ['pumps', 'valves', 'generic_components', 'physical_sensors']">
+                                    <template v-if="(component_list = _self[type].filter(c => c.data.controlunit_id === controlunit.id)).length > 0">
+                                        {{ $tc('labels.' + type, 2) }}:
+                                        <span v-for="component in component_list">
+                                            <i class="material-icons">{{ component.data.icon }}</i>
+                                            <a :href="component.data.url">{{ component.data.name }}</a>
+                                        </span>
+                                    </template>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
                 </template>
             </table>
 
-            <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page-1)"><i class="material-icons">chevron_left</i></a>
-                </li>
-
-                <li v-if="meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
-                <li v-if="meta.pagination.current_page-2 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-2)">{{ meta.pagination.current_page-2 }}</a></li>
-                <li v-if="meta.pagination.current_page-1 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-1)">{{ meta.pagination.current_page-1 }}</a></li>
-
-                <li class="active"><a href="#!">{{ meta.pagination.current_page }}</a></li>
-
-                <li v-if="meta.pagination.current_page+1 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+1)">{{ meta.pagination.current_page+1 }}</a></li>
-                <li v-if="meta.pagination.current_page+2 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+2)">{{ meta.pagination.current_page+2 }}</a></li>
-                <li v-if="meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
-
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="material-icons">chevron_right</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.total_pages)"><i class="material-icons">last_page</i></a>
-                </li>
-            </ul>
+            <pagination ref="pagination"
+                        :source-filter="sourceFilter"
+                        :enable-filters="false">
+            </pagination>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            controlunits: [],
-            meta: [],
-            filter: {
-                name: '',
-                model: '',
-                'controlunit.name': '',
-                'terrarium.display_name': ''
-            },
-            filter_string: '',
-            order: {
-                field: 'name',
-                direction: 'asc'
-            },
-            order_string: '',
-            page: 1
-        }
-    },
+    import pagination from './mixins/pagination.vue';
+    import table_filter from './mixins/table_filter.vue';
 
-    props: {
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
+    export default {
+        data () {
+            return {
+                ids: [],
+                pump_ids: [],
+                valve_ids: [],
+                generic_component_ids: [],
+                physical_sensor_ids: []
+            }
         },
-        sourceFilter: {
-            type: String,
-            default: '',
-            required: false
-        },
-        refreshTimeoutSeconds: {
-            type: Number,
-            default: 60,
-            required: false
-        }
-    },
 
-    methods: {
-        update: function(cu) {
-            var item = null;
-            this.controlunits.forEach(function(data, index) {
-                if (data.id === cu.controlunit.id) {
-                    item = index;
-                }
-            });
-            if (item !== null) {
-                var that = this;
+        props: {
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
+            },
+            sourceFilter: {
+                type: String,
+                default: '',
+                required: false
+            },
+            hideCols: {
+                type: Array,
+                default: function(){return [];},
+                required: false
+            },
+            itemsPerPage: {
+                type: Number,
+                default: 9,
+                required: false
+            }
+        },
+
+        computed: {
+            controlunits () {
+                let that = this;
+                return this.$store.state.controlunits.filter(function(c) {
+                    return that.ids.includes(c.id) && c.data !== null
+                }).sort(function (a, b) {
+                    let c = a.data[that.$refs.pagination.order.field] > b.data[that.$refs.pagination.order.field];
+                    if ( c && that.$refs.pagination.order.direction === 'asc' ||
+                        !c && that.$refs.pagination.order.direction === 'desc') {
+                        return 1;
+                    }
+                    return -1;
+                });
+            },
+
+            pumps () {
+                let that = this;
+                return this.$store.state.pumps.filter(function(p) {
+                    return that.pump_ids.includes(p.id) && p.data !== null
+                });
+            },
+
+            valves () {
+                let that = this;
+                return this.$store.state.valves.filter(function(v) {
+                    return that.valve_ids.includes(v.id) && v.data !== null
+                });
+            },
+
+            generic_components () {
+                let that = this;
+                return this.$store.state.generic_components.filter(function(g) {
+                    return that.generic_component_ids.includes(g.id) && g.data !== null
+                });
+            },
+
+            physical_sensors () {
+                let that = this;
+                return this.$store.state.physical_sensors.filter(function(p) {
+                    return that.physical_sensor_ids.includes(p.id) && p.data !== null
+                });
+            },
+        },
+
+        components: {
+            pagination,
+            'table-filter': table_filter
+        },
+
+        methods: {
+            load_data: function() {
+                let that = this;
+
                 $.ajax({
-                    url: '/api/v1/controlunits/' + cu.controlunit.id,
+                    url: '/api/v1/controlunits/?' +
+                         'with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=generic_components&with[]=generic_components.type&' +
+                         that.sourceFilter + '&' +
+                         'pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                         that.$refs.pagination.page +
+                         that.$refs.pagination.filter_string +
+                         that.$refs.pagination.order_string,
                     method: 'GET',
                     success: function (data) {
-                        that.controlunits.splice(item, 1, data.data);
+                        that.ids = data.data.map(c => c.id);
+                        that.pump_ids = [].concat.apply([], data.data.map(c => c.pumps.map(p => p.id)));
+                        that.valve_ids = [].concat.apply([], data.data.map(c => c.valves.map(v => v.id)));
+                        that.generic_component_ids = [].concat.apply([], data.data.map(c => c.generic_components.map(g => g.id)));
+                        that.physical_sensors_ids = [].concat.apply([], data.data.map(c => c.physical_sensors.map(p => p.id)));
+
+                        that.$refs.pagination.meta = data.meta;
+
+                        that.$parent.ensureObjects('controlunits', that.ids, data.data, ['physical_sensors', 'valves', 'pumps', 'generic_components']);
+                        that.$parent.ensureObjects('pumps', that.pump_ids, [].concat.apply([], data.data.map(c => c.pumps)));
+                        that.$parent.ensureObjects('valves', that.valve_ids, [].concat.apply([], data.data.map(c => c.valves)));
+                        that.$parent.ensureObjects('generic_components', that.generic_component_ids, [].concat.apply([], data.data.map(c => c.generic_components)));
+                        that.$parent.ensureObjects('physical_sensors', that.physical_sensors_ids, [].concat.apply([], data.data.map(c => c.physical_sensors)));
                     },
                     error: function (error) {
                         console.log(JSON.stringify(error));
@@ -205,94 +198,11 @@ export default {
             }
         },
 
-        delete: function(cu) {
-            var item = null;
-            this.controlunits.forEach(function(data, index) {
-                if (data.id === cu.controlunit.id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.controlunits.splice(item, 1);
-            }
-        },
-        
-        set_order: function(field) {
-            if (this.order.field == field || field === null) {
-                if (this.order.direction == 'asc') {
-                    this.order.direction = 'desc';
-                }
-                else {
-                    this.order.direction = 'asc';
-                }
-            }
-            else {
-                this.order.field = field;
-            }
-
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            this.load_data();
-        },
-        set_filter: function() {
-            this.filter_string = '&';
-            if (this.sourceFilter !== '') {
-                this.filter_string += this.sourceFilter + '&';
-            }
-            for (var prop in this.filter) {
-                if (this.filter.hasOwnProperty(prop)) {
-                    if (this.filter[prop] !== null
-                        && this.filter[prop] !== '') {
-
-                        this.filter_string += 'filter[' + prop + ']=like:*' + this.filter[prop] + '*&';
-                    }
-                }
-            }
-            this.load_data();
-        },
-        set_page: function(page) {
-            this.page = page;
-            this.load_data();
-        },
-        load_data: function() {
-            window.eventHubVue.processStarted();
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            var that = this;
-            $.ajax({
-                url: '/api/v1/controlunits?with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=generic_components' +
-                     '&page=' + that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
-                method: 'GET',
-                success: function (data) {
-                    that.meta = data.meta;
-                    that.controlunits = data.data;
-                    window.eventHubVue.processEnded();
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
-        }
-    },
-
-    created: function() {
-        window.echo.private('dashboard-updates')
-                .listen('ControlunitUpdated', (e) => {
-                this.update(e);
-        }).listen('ControlunitDeleted', (e) => {
-                this.delete(e);
-        });
-
-        var that = this;
-        setTimeout(function() {
-            that.set_filter();
-        }, 100);
-
-        if (this.refreshTimeoutSeconds !== null) {
-            setInterval(function() {
-                that.load_data();
-            }, this.refreshTimeoutSeconds * 1000)
+        created: function() {
+            let that = this;
+            setTimeout(function() {
+                that.$refs.pagination.set_filter();
+            }, 100);
         }
     }
-}
 </script>
