@@ -8,44 +8,43 @@
             </div>
 
             <template v-for="logical_sensor in logical_sensors">
+                <template v-if="logical_sensor.data">
+                    <div class="card-content">
+                        <div class="card-sub-header">
+                            <a v-bind:href="'/logical_sensors/' + logical_sensor.data.id"><strong>{{ logical_sensor.data.name }}</strong></a>
+                        </div>
 
-            <div class="card-content" v-if="logical_sensor.data">
+                        <template v-if="(threshold_list = thresholds.filter(t => t.data.logical_sensor_id === logical_sensor.data.id)).length > 0">
+                            <div v-for="threshold in threshold_list" class="row row-no-margin">
+                                <i class="material-icons">vertical_align_center</i>
 
-                <div class="card-sub-header">
-                    <a v-bind:href="'/logical_sensors/' + logical_sensor.data.id"><strong>{{ logical_sensor.data.name }}</strong></a>
-                </div>
+                                <span>{{ threshold.data.timestamps.starts }}:</span>
+                                <span v-if="threshold.data.rawvalue_lowerlimit !== null">
+                                    {{ $t("labels.min_short") }}: {{ threshold.data.rawvalue_lowerlimit }}
+                                </span>
+                                <span v-if="threshold.data.rawvalue_upperlimit !== null">
+                                    {{ $t("labels.max_short") }}: {{ threshold.data.rawvalue_upperlimit }}
+                                </span>
 
-                <template v-if="(threshold_list = thresholds.filter(t => t.data.logical_sensor_id === logical_sensor.data.id)).length > 0">
-                    <div v-for="threshold in threshold_list" class="row row-no-margin">
-                        <i class="material-icons">vertical_align_center</i>
+                                <span class="right">
+                                    <a :href="'/logical_sensor_thresholds/' + threshold.data.id + '/edit'">
+                                        <i class="material-icons">edit</i>
+                                    </a>
+                                </span>
+                            </div>
+                        </template>
+                        <div class="row row-no-margin" v-else>
+                            {{ $t("tooltips.no_data") }}
+                        </div>
 
-                        <span>{{ threshold.data.timestamps.starts }}:</span>
-                        <span v-if="threshold.data.rawvalue_lowerlimit !== null">
-                            {{ $t("labels.min_short") }}: {{ threshold.data.rawvalue_lowerlimit }}
-                        </span>
-                        <span v-if="threshold.data.rawvalue_upperlimit !== null">
-                            {{ $t("labels.max_short") }}: {{ threshold.data.rawvalue_upperlimit }}
-                        </span>
+                    </div>
 
-                        <span class="right">
-                            <a :href="'/logical_sensor_thresholds/' + threshold.data.id + '/edit'">
-                                <i class="material-icons">edit</i>
-                            </a>
-                        </span>
+                    <div class="card-action">
+                        <a :href="'/logical_sensor_thresholds/create?preset[belongsTo_type]=LogicalSensor&preset[belongsTo_id]=' + logical_sensor.data.id">
+                            {{ $t("buttons.add") }}
+                        </a>
                     </div>
                 </template>
-                <div class="row row-no-margin" v-else>
-                    {{ $t("tooltips.no_data") }}
-                </div>
-
-            </div>
-
-            <div class="card-action">
-                <a :href="'/logical_sensor_thresholds/create?preset[belongsTo_type]=LogicalSensor&preset[belongsTo_id]=' + logical_sensor.data.id">
-                    {{ $t("buttons.add") }}
-                </a>
-            </div>
-
             </template>
 
         </div>
