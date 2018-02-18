@@ -96,20 +96,20 @@
                             <inline-graph :parentid="terrarium.data.id" graphtype="humidity_percent" type="line"
                                           :options="{'fill': null, 'strokeWidth': '2', 'stroke': '#2196f3', width: '100%', height:'140px', min: 1, max: 99}"
                                           :source="'/api/v1/terraria/'+terrarium.data.id+'/sensorreadingsByType/humidity_percent'"
-                                          :data-prefill="terrarium.data.humidity_history"></inline-graph>
+                                          :data-prefill="terrarium.data.humidity_history"> </inline-graph>
                         </div>
 
                         <div style="position: relative; top: -145px">
                             <inline-graph :parentid="terrarium.data.id" graphtype="temperature_celsius" type="line"
                                           :options="{'fill': null, 'strokeWidth': '2', 'stroke': '#b71c1c', width: '100%', height:'140px', min: 1, max: 99}"
                                           :source="'/api/v1/terraria/'+terrarium.data.id+'/sensorreadingsByType/temperature_celsius'"
-                                          :data-prefill="terrarium.data.temperature_history"></inline-graph>
+                                          :data-prefill="terrarium.data.temperature_history"> </inline-graph>
 
                         </div>
 
                         <div class="card-title">
                             <span><a :href="'/terraria/' + terrarium.data.id">{{ terrarium.data.display_name }}</a></span>
-                            <loading-indicator :size="20" v-show="terrarium.data.loading_data"></loading-indicator>
+                            <loading-indicator :size="20" v-show="terrarium.refreshing"> </loading-indicator>
                             <a href="#!"><i class="material-icons right activator">more_vert</i></a>
                         </div>
                     </div>
