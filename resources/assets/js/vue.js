@@ -4,22 +4,6 @@
 import Vuex from 'vuex';
 
 global.Vue = require('vue');
-global.Vue.config.errorHandler = function (err, vm, info)  {
-    let handler, current = vm;
-    if (vm.$options.errorHandler) {
-        handler = vm.$options.errorHandler
-    } else {
-        while (current.$parent) {
-            current = current.$parent;
-            if (handler = current.$options.errorHandler) break
-        }
-    }
-    if (handler) handler.call(current, err, vm, info);
-    else {
-        console.log(err);
-        window.notification(global.ciliatusVue.$t('errors.frontend.generic'), 'red darken-1 text-white');
-    }
-};
 
 
 
@@ -86,3 +70,21 @@ global.Vue.use(TimeStringFormatter);
 require('./eventhub.js');
 require('./ciliatus.js');
 require('./ciliatus_object.js');
+
+
+global.Vue.config.errorHandler = function (err, vm, info)  {
+    let handler, current = vm;
+    if (vm.$options.errorHandler) {
+        handler = vm.$options.errorHandler
+    } else {
+        while (current.$parent) {
+            current = current.$parent;
+            if (handler = current.$options.errorHandler) break
+        }
+    }
+    if (handler) handler.call(current, err, vm, info);
+    else {
+        console.log(err);
+        window.notification(global.ciliatusVue.$t('errors.frontend.generic'), 'red darken-1 text-white');
+    }
+};
