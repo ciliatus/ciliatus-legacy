@@ -1,6 +1,6 @@
 <template>
-    <div :class="wrapperClasses" v-if="valve.data">
-        <div class="card">
+    <div :class="wrapperClasses">
+        <div class="card" v-if="valve.data">
             <div class="card-header">
                 <i class="material-icons">transform</i>
                 {{ $tc("labels.valves", 1) }}
@@ -21,38 +21,47 @@
                 <a v-bind:href="'/valves/' + valve.data.id + '/edit'">{{ $t("buttons.edit") }}</a>
             </div>
         </div>
+        <div v-else>
+            <loading-card-widget> </loading-card-widget>
+        </div>
     </div>
 </template>
 
 <script>
-export default {
-    props: {
-        valveId: {
-            type: String,
-            default: '',
-            required: false
+    import LoadingCardWidget from './loading-card-widget';
+
+    export default {
+        props: {
+            valveId: {
+                type: String,
+                default: '',
+                required: false
+            },
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
+            }
         },
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        }
-    },
 
-    computed: {
-        valve () {
-            return this.$store.state.valves.filter(v => v.id = this.valveId)[0];
-        }
-    },
+        components: {
+            'loading-card-widget': LoadingCardWidget
+        },
 
-    methods: {
-        load_data: function() {
-            this.$parent.ensureObject('valves', this.valveId);
-        }
-    },
+        computed: {
+            valve () {
+                return this.$store.state.valves.filter(v => v.id = this.valveId)[0];
+            }
+        },
 
-    created: function() {
-        this.load_data();
+        methods: {
+            load_data: function() {
+                this.$parent.ensureObject('valves', this.valveId);
+            }
+        },
+
+        created: function() {
+            this.load_data();
+        }
     }
-}
 </script>

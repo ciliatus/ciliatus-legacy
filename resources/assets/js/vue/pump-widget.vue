@@ -1,6 +1,6 @@
 <template>
-    <div :class="wrapperClasses" v-if="pump.data">
-        <div class="card">
+    <div :class="wrapperClasses">
+        <div class="card" v-if="pump.data">
             <div class="card-header">
                 <i class="material-icons">rotate_right</i>
                 {{ $tc("labels.pumps", 1) }}
@@ -21,38 +21,47 @@
                 <a v-bind:href="'/pumps/' + pump.data.id + '/edit'">{{ $t("buttons.edit") }}</a>
             </div>
         </div>
+        <div v-else>
+            <loading-card-widget> </loading-card-widget>
+        </div>
     </div>
 </template>
 
 <script>
-export default {
-    props: {
-        pumpId: {
-            type: String,
-            default: '',
-            required: false
+    import LoadingCardWidget from './loading-card-widget';
+
+    export default {
+        props: {
+            pumpId: {
+                type: String,
+                default: '',
+                required: false
+            },
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
+            }
         },
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        }
-    },
 
-    computed: {
-        pump () {
-            return this.$store.state.pumps.filter(v => v.id = this.pumpId)[0];
-        }
-    },
+        components: {
+            'loading-card-widget': LoadingCardWidget
+        },
 
-    methods: {
-        load_data: function() {
-            this.$parent.ensureObject('pumps', this.pumpId);
-        }
-    },
+        computed: {
+            pump () {
+                return this.$store.state.pumps.filter(v => v.id = this.pumpId)[0];
+            }
+        },
 
-    created: function() {
-        this.load_data();
+        methods: {
+            load_data: function() {
+                this.$parent.ensureObject('pumps', this.pumpId);
+            }
+        },
+
+        created: function() {
+            this.load_data();
+        }
     }
-}
 </script>

@@ -89,9 +89,11 @@
                 </div>
 
                 <!-- Card -->
-                <div class="card">
+                <div class="card" v-if="terrarium.data">
                     <div class="card-image terrarium-card-image"
-                         v-bind:style="terrarium.data.default_background_filepath ? 'background-image: url(\'' + terrarium.data.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
+                         v-bind:style="terrarium.data.default_background_filepath ?
+                                        'background-image: url(\'' + terrarium.data.default_background_filepath + '\');' :
+                                        'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
                         <div>
                             <inline-graph :parentid="terrarium.data.id" graphtype="humidity_percent" type="line"
                                           :options="{'fill': null, 'strokeWidth': '2', 'stroke': '#2196f3', width: '100%', height:'140px', min: 1, max: 99}"
@@ -176,6 +178,9 @@
                         </p>
                     </div>
                 </div>
+                <div v-else>
+                    <loading-card-widget> </loading-card-widget>
+                </div>
             </div>
         </div>
 
@@ -184,163 +189,165 @@
 </template>
 
 <script>
-import LoadingIndicator from './loading-indicator.vue';
-import InlineGraph from './inline-graph.vue';
-import pagination from './mixins/pagination.vue';
+    import LoadingCardWidget from './loading-card-widget';
+    import LoadingIndicator from './loading-indicator.vue';
+    import InlineGraph from './inline-graph.vue';
+    import pagination from './mixins/pagination.vue';
 
-export default {
+    export default {
 
-    data () {
-        return {
-            ids: [],
-            animal_ids: [],
-            initial: true
-        }
-    },
-
-    props: {
-        refreshTimeoutSeconds: {
-            type: Number,
-            default: null,
-            required: false
-        },
-        terrariumId: {
-            type: String,
-            default: null,
-            required: false
-        },
-        subscribeAdd: {
-            type: Boolean,
-            default: true,
-            required: false
-        },
-        subscribeDelete: {
-            type: Boolean,
-            default: true,
-            required: false
-        },
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        containerClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        containerId: {
-            type: String,
-            default: 'terraria-masonry-grid',
-            required: false
-        },
-        itemsPerPage: {
-            type: Number,
-            default: 9,
-            required: false
+        data () {
+            return {
+                ids: [],
+                animal_ids: [],
+                initial: true
+            }
         },
 
-        sourceFilter: {
-            type: String,
-            default: '',
-            required: false
+        props: {
+            refreshTimeoutSeconds: {
+                type: Number,
+                default: null,
+                required: false
+            },
+            terrariumId: {
+                type: String,
+                default: null,
+                required: false
+            },
+            subscribeAdd: {
+                type: Boolean,
+                default: true,
+                required: false
+            },
+            subscribeDelete: {
+                type: Boolean,
+                default: true,
+                required: false
+            },
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
+            },
+            containerClasses: {
+                type: String,
+                default: '',
+                required: false
+            },
+            containerId: {
+                type: String,
+                default: 'terraria-masonry-grid',
+                required: false
+            },
+            itemsPerPage: {
+                type: Number,
+                default: 9,
+                required: false
+            },
+
+            sourceFilter: {
+                type: String,
+                default: '',
+                required: false
+            },
+            showFilters: {
+                type: Boolean,
+                default: false,
+                required: false
+            }
         },
-        showFilters: {
-            type: Boolean,
-            default: false,
-            required: false
-        }
-    },
 
-    computed: {
-        terraria () {
-            let that = this;
-            return this.$store.state.terraria.filter(function(t) {
-                return that.ids.includes(t.id) && t.data !== null
-            });
+        components: {
+            pagination,
+            'inline-graph': InlineGraph,
+            'loading-indicator': LoadingIndicator,
+            'loading-card-widget': LoadingCardWidget
         },
 
-        animals () {
-            let that = this;
-            return this.$store.state.animals.filter(function(a) {
-                return that.animal_ids.includes(a.id) && a.data !== null
-            })
-        },
-
-        pagination () {
-            return this.$refs.pagination;
-        }
-    },
-
-    watch: {
-        'terraria': function() {
-            this.rerender();
-        }
-    },
-
-    components: {
-        pagination,
-        'inline-graph': InlineGraph,
-        'loading-indicator': LoadingIndicator
-    },
-
-    methods: {
-        action_sequence_modal: function(terrarium_id, action) {
-            $('#' + terrarium_id + '_' + action).modal('open');
-        },
-
-        submit: function(e) {
-            window.submit_form(e);
-        },
-
-        load_data: function() {
-            if (this.terrariumId === null) {
+        computed: {
+            terraria () {
                 let that = this;
+                return this.$store.state.terraria.filter(function(t) {
+                    return that.ids.includes(t.id) && t.data !== null
+                });
+            },
 
-                $.ajax({
-                    url: '/api/v1/terraria/?with[]=animals&pagination[per_page]=' + that.itemsPerPage + '&page=' +
-                            that.$refs.pagination.page +
-                            that.$refs.pagination.filter_string +
-                            that.$refs.pagination.order_string,
-                    method: 'GET',
-                    success: function (data) {
-                        that.ids = data.data.map(t => t.id);
-                        that.animal_ids = [].concat.apply([], data.data.map(p => p.animals.map(l => l.id)));
-                        that.$refs.pagination.meta = data.meta;
+            animals () {
+                let that = this;
+                return this.$store.state.animals.filter(function(a) {
+                    return that.animal_ids.includes(a.id) && a.data !== null
+                })
+            },
 
-                        that.$parent.ensureObjects('terraria', that.ids, data.data);
-                        that.$parent.ensureObjects('animals', that.animal_ids, [].concat.apply([], data.data.map(p => p.animals)));
-                    },
-                    error: function (error) {
-                        console.log(JSON.stringify(error));
+            pagination () {
+                return this.$refs.pagination;
+            }
+        },
+
+        watch: {
+            'terraria': function() {
+                this.rerender();
+            }
+        },
+
+        methods: {
+            action_sequence_modal: function(terrarium_id, action) {
+                $('#' + terrarium_id + '_' + action).modal('open');
+            },
+
+            submit: function(e) {
+                window.submit_form(e);
+            },
+
+            load_data: function() {
+                if (this.terrariumId === null) {
+                    let that = this;
+
+                    $.ajax({
+                        url: '/api/v1/terraria/?with[]=animals&pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                                that.$refs.pagination.page +
+                                that.$refs.pagination.filter_string +
+                                that.$refs.pagination.order_string,
+                        method: 'GET',
+                        success: function (data) {
+                            that.ids = data.data.map(t => t.id);
+                            that.animal_ids = [].concat.apply([], data.data.map(p => p.animals.map(l => l.id)));
+                            that.$refs.pagination.meta = data.meta;
+
+                            that.$parent.ensureObjects('terraria', that.ids, data.data);
+                            that.$parent.ensureObjects('animals', that.animal_ids, [].concat.apply([], data.data.map(p => p.animals)));
+                        },
+                        error: function (error) {
+                            console.log(JSON.stringify(error));
+                        }
+                    });
+                }
+                else {
+                    this.ids = [this.terrariumId];
+                    this.$parent.ensureObject('terraria', this.terrariumId);
+                }
+            },
+
+            rerender () {
+                this.$nextTick(function() {
+                    let grid = $('#' + this.containerId + '.masonry-grid');
+                    if (grid.length > 0) {
+                        grid.masonry('reloadItems');
+                        grid.masonry('layout');
                     }
+                    $('.modal').modal();
+                    $('.tooltipped').tooltip({delay: 50});
                 });
             }
-            else {
-                this.ids = [this.terrariumId];
-                this.$parent.ensureObject('terraria', this.terrariumId);
-            }
         },
 
-        rerender () {
-            this.$nextTick(function() {
-                let grid = $('#' + this.containerId + '.masonry-grid');
-                if (grid.length > 0) {
-                    grid.masonry('reloadItems');
-                    grid.masonry('layout');
-                }
-                $('.modal').modal();
-                $('.tooltipped').tooltip({delay: 50});
-            });
+        created: function() {
+            let that = this;
+            setTimeout(function() {
+                that.$refs.pagination.set_filter();
+            }, 100);
         }
-    },
 
-    created: function() {
-        let that = this;
-        setTimeout(function() {
-            that.$refs.pagination.set_filter();
-        }, 100);
     }
-
-}
 </script>

@@ -1,6 +1,6 @@
 <template>
-    <div :class="wrapperClasses" v-if="logical_sensor.data">
-        <div class="card">
+    <div :class="wrapperClasses">
+        <div class="card" v-if="logical_sensor.data">
             <div class="card-header">
                 <i class="material-icons">transform</i>
                 {{ $t("labels.logical_sensor") }}
@@ -54,10 +54,15 @@
                 </div>
             </div>
         </div>
+        <div v-else>
+            <loading-card-widget> </loading-card-widget>
+        </div>
     </div>
 </template>
 
 <script>
+    import LoadingCardWidget from './loading-card-widget';
+
     export default {
         data () {
             return {
@@ -76,6 +81,10 @@
                 default: '',
                 required: false
             }
+        },
+
+        components: {
+            'loading-card-widget': LoadingCardWidget
         },
 
         computed: {

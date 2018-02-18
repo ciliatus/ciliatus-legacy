@@ -1,6 +1,6 @@
 <template>
-    <div :class="wrapperClasses" v-if="physical_sensor.data">
-        <div class="card">
+    <div :class="wrapperClasses">
+        <div class="card" v-if="physical_sensor.data">
             <div class="card-header">
                 <i class="material-icons">memory</i>
                 {{ $t("labels.physical_sensor") }}
@@ -24,68 +24,77 @@
                 <a v-bind:href="'/physical_sensors/' + physical_sensor.data.id + '/edit'">{{ $t("buttons.edit") }}</a>
             </div>
         </div>
+        <div v-else>
+            <loading-card-widget> </loading-card-widget>
+        </div>
     </div>
 </template>
 
 <script>
-export default {
+    import LoadingCardWidget from './loading-card-widget';
 
-    data () {
-        return {
-            logical_sensor_ids: []
-        }
-    },
+    export default {
 
-    props: {
-        physicalSensorId: {
-            type: String,
-            default: '',
-            required: false
-        },
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        }
-    },
-
-    computed: {
-        physical_sensor () {
-            let sensor = this.$store.state.physical_sensors.filter(p => p.id = this.physicalSensorId);
-            return sensor.length > 0 ? sensor[0] : {};
+        data () {
+            return {
+                logical_sensor_ids: []
+            }
         },
 
-        logical_sensors () {
-            return this.$store.state.logical_sensors.filter(l => this.logical_sensor_ids.includes(l.id));
-        }
-    },
+        props: {
+            physicalSensorId: {
+                type: String,
+                default: '',
+                required: false
+            },
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
+            }
+        },
 
-    methods: {
-        load_data: function() {
-            this.$parent.ensureObject('physical_sensors', this.physicalSensorId);
+        components: {
+            'loading-card-widget': LoadingCardWidget
+        },
 
+        computed: {
+            physical_sensor () {
+                let sensor = this.$store.state.physical_sensors.filter(p => p.id = this.physicalSensorId);
+                return sensor.length > 0 ? sensor[0] : {};
+            },
+
+            logical_sensors () {
+                return this.$store.state.logical_sensors.filter(l => this.logical_sensor_ids.includes(l.id));
+            }
+        },
+
+        methods: {
+            load_data: function() {
+                this.$parent.ensureObject('physical_sensors', this.physicalSensorId);
+
+                let that = this;
+
+                $.ajax({
+                    url: '/api/v1/logical_sensors/?all=true&filter[physical_sensor_id]=' + that.physicalSensorId,
+                    method: 'GET',
+                    success: function (data) {
+                        that.logical_sensor_ids = data.data.map(l => l.id);
+
+                        that.$parent.ensureObjects('logical_sensors', that.logical_sensor_ids, data.data);
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
+            }
+        },
+
+        created: function() {
             let that = this;
-
-            $.ajax({
-                url: '/api/v1/logical_sensors/?all=true&filter[physical_sensor_id]=' + that.physicalSensorId,
-                method: 'GET',
-                success: function (data) {
-                    that.logical_sensor_ids = data.data.map(l => l.id);
-
-                    that.$parent.ensureObjects('logical_sensors', that.logical_sensor_ids, data.data);
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                }
-            });
+            setTimeout(function() {
+                that.load_data();
+            }, 2000);
         }
-    },
-
-    created: function() {
-        let that = this;
-        setTimeout(function() {
-            that.load_data();
-        }, 2000);
     }
-}
 </script>
