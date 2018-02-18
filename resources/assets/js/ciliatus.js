@@ -108,7 +108,7 @@ global.ciliatusVue = new global.Vue({
     },
 
     methods: {
-        ensureObject (type, id, data) {
+        ensureObject (type, id, data, include) {
             if (!type || (!id && !data)) {
                 return;
             }
@@ -118,11 +118,11 @@ global.ciliatusVue = new global.Vue({
             }
 
             if (this.$store.state[type].filter(o => o.id === id).length < 1) {
-                this.$store.state[type].push(new CiliatusObject(type, id, data));
+                this.$store.state[type].push(new CiliatusObject(type, id, data, include));
             }
         },
 
-        ensureObjects (type, ids, data) {
+        ensureObjects (type, ids, data, include) {
             if (!ids && !data) {
                 return;
             }
@@ -136,7 +136,8 @@ global.ciliatusVue = new global.Vue({
                     that.ensureObject(
                         type,
                         id,
-                        data ? data.filter(o => o && o.id === id)[0] : undefined
+                        data ? data.filter(o => o && o.id === id)[0] : undefined,
+                        include
                     )
                 });
             }

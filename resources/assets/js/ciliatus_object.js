@@ -1,9 +1,10 @@
 export default class CiliatusObject {
 
-    constructor(type, id, data) {
+    constructor(type, id, data, include) {
         this.type = type;
         this.id = id;
         this.data = data;
+        this.include = include ? include : [];
         this.max_age_seconds = 60;
         this.api_url = global.apiUrl;
         this.init_done = false;
@@ -32,7 +33,8 @@ export default class CiliatusObject {
     }
 
     url () {
-        return this.api_url + '/' + this.type + '/' + this.id;
+        let includes = this.include.map(i => 'with[]=' + i).join('&');
+        return this.api_url + '/' + this.type + '/' + this.id + '?' + includes;
     }
 
     handleApiResult (result) {
