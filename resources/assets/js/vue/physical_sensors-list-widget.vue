@@ -9,7 +9,7 @@
                                                {name: 'model', path: 'model', col: 1},
                                                {name: 'controlunit', noSort: true, path: 'controlunit.name', col: 2, class: 'hide-on-small-only'},
                                                {name: 'terrarium', noSort:true, path: 'terrarium.display_name', col: 3, class: 'hide-on-med-and-down'},
-                                               {name: '', noFilter: true, col: 4, class: 'hide-on-small-only'}]">
+                                               {noSort: true, noFilter: true, col: 4, class: 'hide-on-small-only'}]">
                 </table-filter>
 
                 <template v-for="physical_sensor in physical_sensors">

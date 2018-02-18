@@ -10,7 +10,7 @@
                                                {name: 'terrarium', noSort:true, path: 'terrarium.name', col: 2, class: 'hide-on-med-and-down'},
                                                {name: 'type', path: 'type', col: 3, class: 'hide-on-small-only'},
                                                {name: 'rawvalue', path: 'rawvalue', col: 4, class: 'hide-on-small-only'},
-                                               {name: '', noFilter: true, noSort:true, col: 5, class: 'hide-on-small-only'}]">
+                                               {noSort: true, noFilter: true, col: 5, class: 'hide-on-small-only'}]">
                 </table-filter>
 
                 <template v-for="logical_sensor in logical_sensors">

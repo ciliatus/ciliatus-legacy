@@ -8,7 +8,7 @@
                               :filter-fields="[{name: 'name', path: 'name', col: 0},
                                                {name: 'model', path: 'model', col: 1},
                                                {name: 'controlunit', noSort:true, path: 'controlunit.name', col: 2},
-                                               {name: '', noFilter: true, col: 3, class: 'hide-on-small-only'}]">
+                                               {noSort: true, noFilter: true, col: 3, class: 'hide-on-small-only'}]">
                 </table-filter>
 
                 <template v-for="pump in pumps">
