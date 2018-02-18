@@ -80,7 +80,7 @@
         <div class="container">
 
             <components-list-widget :refresh-timeout-seconds="60"
-                                    source-api-base-url="terraria/{{ $terrarium->id }}/infrastructure"></components-list-widget>
+                                    source-api-url="terraria/{{ $terrarium->id }}/infrastructure"></components-list-widget>
 
             <!--
             <physical_sensors-widget :refresh-timeout-seconds="60" source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
