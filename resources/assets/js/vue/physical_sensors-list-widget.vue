@@ -170,6 +170,7 @@
 
                 $.ajax({
                     url: '/api/v1/physical_sensors/?with[]=terrarium&with[]=controlunit&with[]=logical_sensors&' +
+                         that.sourceFilter + '&' +
                          'pagination[per_page]=' + that.itemsPerPage + '&page=' +
                          that.$refs.pagination.page +
                          that.$refs.pagination.filter_string +

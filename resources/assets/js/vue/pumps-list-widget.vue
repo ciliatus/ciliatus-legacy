@@ -145,6 +145,7 @@
 
                 $.ajax({
                     url: '/api/v1/pumps/?with[]=valves&with[]=controlunit&' +
+                         that.sourceFilter + '&' +
                          'pagination[per_page]=' + that.itemsPerPage + '&page=' +
                          that.$refs.pagination.page +
                          that.$refs.pagination.filter_string +
