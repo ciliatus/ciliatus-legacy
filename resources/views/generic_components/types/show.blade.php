@@ -8,9 +8,8 @@
 
 @section('content')
     <div class="container">
-        <generic_components-list-widget :refresh-timeout-seconds="60"
-                                   default-type-filter="{{ $generic_component_type->name_singular }}"
-                                   :container-classes="['masonry-grid']" wrapper-classes=""></generic_components-list-widget>
+        <generic_components-list-widget default-type-filter="{{ $generic_component_type->name_singular }}"
+                                        wrapper-classes=""></generic_components-list-widget>
     </div>
 
     <div class="fixed-action-btn">

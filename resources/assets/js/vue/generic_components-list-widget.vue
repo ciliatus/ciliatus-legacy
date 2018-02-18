@@ -2,69 +2,42 @@
     <div>
         <div :class="wrapperClasses">
             <table class="responsive highlight collapsible" data-collapsible="expandable">
-                <thead>
-                <tr>
-                    <th data-field="name">
-                        <a href="#!" v-on:click="set_order('name')">{{ $t('labels.name') }}</a>
-                        <i v-show="order.field == 'name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline">
-                            <input id="filter_name" type="text" v-model="filter.name" v-on:keyup.enter="set_filter">
-                            <label for="filter_name">Filter</label>
-                        </div>
-                    </th>
-                    <th data-field="generic_component.type.name" class="hide-on-small-only">
-                        <a href="#!" v-on:click="set_order('type.name_singular')">{{ $t('labels.type') }}</a>
-                        <i v-show="order.field == 'type.name_singular' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'type.name_singular' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline">
-                            <input id="filter_generic_component_type_name_singular" type="text" v-model="filter['type.name_singular']" v-on:keyup.enter="set_filter">
-                            <label for="filter_generic_component_type_name_singular">Filter</label>
-                        </div>
-                    </th>
-                    <th data-field="controlunit" v-if="hideCols.indexOf('controlunit') === -1">
-                        <a href="#!" v-on:click="set_order('controlunit')">{{ $tc('labels.controlunit', 1) }}</a>
-                        <i v-show="order.field == 'controlunit' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'controlunit' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline">
-                            <input id="filter_controlunit" type="text" v-model="filter['controlunit.name']" v-on:keyup.enter="set_filter">
-                            <label for="filter_controlunit">Filter</label>
-                        </div>
-                    </th>
-
-                    <th style="width: 40px" class="hide-on-small-only">
-                    </th>
-                </tr>
-                </thead>
+                <table-filter ref="table_filter"
+                              :cols="4"
+                              :hide-cols="hideCols"
+                              :filter-fields="[{name: 'name', path: 'name', col: 0},
+                                               {name: 'type', noSort: true, path: 'type.name_singular', col: 1, class: 'hide-on-small-only'},
+                                               {name: 'controlunit', noSort: true, path: 'controlunit.name', col: 2, class: 'hide-on-small-only'},
+                                               {noSort: true, noFilter: true, col: 3, class: 'hide-on-small-only'}]">
+                </table-filter>
 
                 <template v-for="generic_component in generic_components">
                     <tbody>
                         <tr class="collapsible-header">
-
                             <td>
                                 <span>
-                                    <i class="material-icons">{{ generic_component.type.icon }}</i>
-                                    <a v-bind:href="'/generic_components/' + generic_component.id">{{ generic_component.name }}</a>
-                                    <span v-if="!generic_component.active"> - {{ $t('labels.inactive') }}</span>
+                                    <i class="material-icons">{{ generic_component.data.type.icon }}</i>
+                                    <a v-bind:href="'/generic_components/' + generic_component.data.id">{{ generic_component.data.name }}</a>
+                                    <span v-if="!generic_component.data.active"> - {{ $t('labels.inactive') }}</span>
                                 </span>
                             </td>
 
                             <td class="hide-on-small-only">
                                 <span>
-                                    <a v-bind:href="'/generic_component_types/' + generic_component.type.id">{{ generic_component.type.name_singular }}</a>
+                                    <a v-bind:href="'/generic_component_types/' + generic_component.data.type.id">{{ generic_component.data.type.name_singular }}</a>
                                 </span>
                             </td>
 
-                            <td v-if="hideCols.indexOf('controlunit') === -1">
-                                <span v-if="generic_component.controlunit">
+                            <td class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
+                                <span v-if="generic_component.data.controlunit">
                                     <i class="material-icons">developer_board</i>
-                                    <a v-bind:href="'/controlunits/' + generic_component.controlunit.id">{{ generic_component.controlunit.name }}</a>
+                                    <a v-bind:href="'/controlunits/' + generic_component.data.controlunit.id">{{ generic_component.data.controlunit.name }}</a>
                                 </span>
                             </td>
 
                             <td class="hide-on-small-only">
                                 <span>
-                                    <a v-bind:href="'/generic_components/' + generic_component.id + '/edit'">
+                                    <a :href="'/generic_components/' + generic_component.data.id + '/edit'">
                                         <i class="material-icons">edit</i>
                                     </a>
                                 </span>
@@ -73,197 +46,120 @@
                         </tr>
                         <tr class="collapsible-body">
                             <td colspan="4">
-                                <span v-for="(value, name) in generic_component.component_properties">
+                                <div v-for="(value, name) in generic_component.data.component_properties">
                                     {{ name }}: {{ value }}
-                                    <br />
-                                </span>
+                                </div>
                             </td>
                         </tr>
                     </tbody>
                 </template>
             </table>
 
-            <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page-1)"><i class="material-icons">chevron_left</i></a>
-                </li>
-
-                <li v-if="meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
-                <li v-if="meta.pagination.current_page-2 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-2)">{{ meta.pagination.current_page-2 }}</a></li>
-                <li v-if="meta.pagination.current_page-1 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-1)">{{ meta.pagination.current_page-1 }}</a></li>
-
-                <li class="active"><a href="#!">{{ meta.pagination.current_page }}</a></li>
-
-                <li v-if="meta.pagination.current_page+1 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+1)">{{ meta.pagination.current_page+1 }}</a></li>
-                <li v-if="meta.pagination.current_page+2 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+2)">{{ meta.pagination.current_page+2 }}</a></li>
-                <li v-if="meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
-
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="material-icons">chevron_right</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.total_pages)"><i class="material-icons">last_page</i></a>
-                </li>
-            </ul>
+            <pagination ref="pagination"
+                        :source-filter="sourceFilter"
+                        :enable-filters="false">
+            </pagination>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            generic_components: [],
-            meta: [],
-            filter: {
-                name: '',
-                'type.name_singular': this.defaultTypeFilter,
-                'controlunit.name': ''
+    import pagination from './mixins/pagination.vue';
+    import table_filter from './mixins/table_filter.vue';
+
+    export default {
+        data() {
+            return {
+                ids: [],
+                controlunit_ids: []
+            }
+        },
+
+        props: {
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
             },
-            filter_string: '',
-            order: {
-                field: 'name',
-                direction: 'asc'
+            sourceFilter: {
+                type: String,
+                default: '',
+                required: false
             },
-            order_string: '',
-            page: 1
-        }
-    },
-
-    props: {
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        defaultTypeFilter: {
-            type: String,
-            default: '',
-            required: false
-        },
-        sourceFilter: {
-            type: String,
-            default: '',
-            required: false
-        },
-        refreshTimeoutSeconds: {
-            type: Number,
-            default: 60,
-            required: false
-        },
-        hideCols: {
-            type: Array,
-            default: function(){return [];},
-            required: false
-        }
-    },
-
-    methods: {
-        update: function(ps) {
-            var item = null;
-            this.generic_components.forEach(function(data, index) {
-                if (data.id === ps.generic_component.id) {
-                    item = index;
-                }
-            });
-            if (item !== null) {
-                this.generic_components.splice(item, 1, ps.generic_component);
-            }
-        },
-
-        delete: function(ps) {
-            var item = null;
-            this.generic_components.forEach(function(data, index) {
-                if (data.id === ps.generic_component.id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.generic_components.splice(item, 1);
-            }
-        },
-        
-        set_order: function(field) {
-            if (this.order.field == field || field === null) {
-                if (this.order.direction == 'asc') {
-                    this.order.direction = 'desc';
-                }
-                else {
-                    this.order.direction = 'asc';
-                }
-            }
-            else {
-                this.order.field = field;
-            }
-
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            this.load_data();
-        },
-        set_filter: function() {
-            this.filter_string = '&';
-            if (this.sourceFilter !== '') {
-                this.filter_string += this.sourceFilter + '&';
-            }
-            for (var prop in this.filter) {
-                if (this.filter.hasOwnProperty(prop)) {
-                    if (this.filter[prop] !== null
-                        && this.filter[prop] !== '') {
-
-                        this.filter_string += 'filter[' + prop + ']=like:*' + this.filter[prop] + '*&';
-                    }
-                }
-            }
-            this.load_data();
-        },
-        set_page: function(page) {
-            this.page = page;
-            this.load_data();
-        },
-        load_data: function() {
-            window.eventHubVue.processStarted();
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            var that = this;
-            $.ajax({
-                url: '/api/v1/generic_components?with[]=component_properties&with[]=states&with[]=type&with[]=controlunit&page=' +
-                     that.page + that.filter_string + that.order_string + '&' + that.sourceFilter,
-                method: 'GET',
-                success: function (data) {
-                    that.meta = data.meta;
-                    that.generic_components = data.data;
-                    window.eventHubVue.processEnded();
+            hideCols: {
+                type: Array,
+                default: function () {
+                    return [];
                 },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
-        }
-    },
+                required: false
+            },
+            itemsPerPage: {
+                type: Number,
+                default: 9,
+                required: false
+            }
+        },
 
-    created: function() {
-        window.echo.private('dashboard-updates')
-                .listen('GenericComponentUpdated', (e) => {
-                this.update(e);
-        }).listen('GenericComponentDeleted', (e) => {
-                this.delete(e);
-        });
+        computed: {
+            generic_components () {
+                let that = this;
+                return this.$store.state.generic_components.filter(function (g) {
+                    return that.ids.includes(g.id) && g.data !== null
+                }).sort(function (a, b) {
+                    let c = a.data[that.$refs.pagination.order.field] > b.data[that.$refs.pagination.order.field];
+                    if ( c && that.$refs.pagination.order.direction === 'asc' ||
+                        !c && that.$refs.pagination.order.direction === 'desc') {
+                        return 1;
+                    }
+                    return -1;
+                });
+            },
 
-        var that = this;
-        setTimeout(function() {
-            that.set_filter();
-        }, 100);
+            controlunits () {
+                let that = this;
+                return this.$store.state.controlunits.filter(function (c) {
+                    return that.controlunit_ids.includes(c.id) && c.data !== null
+                });
+            }
+        },
 
-        this.set_filter();
+        components: {
+            pagination,
+            'table-filter': table_filter
+        },
 
-        if (this.refreshTimeoutSeconds !== null) {
-            setInterval(function() {
-                that.load_data();
-            }, this.refreshTimeoutSeconds * 1000)
+        methods: {
+            load_data: function () {
+                let that = this;
+
+                $.ajax({
+                    url: '/api/v1/generic_components/?with[]=component_properties&with[]=states&with[]=type&with[]=controlunit&' +
+                         'pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                         that.$refs.pagination.page +
+                         that.$refs.pagination.filter_string +
+                         that.$refs.pagination.order_string,
+                    method: 'GET',
+                    success: function (data) {
+                        that.ids = data.data.map(g => g.id);
+                        that.controlunit_ids = data.data.map(g => g.controlunit_id);
+
+                        that.$refs.pagination.meta = data.meta;
+
+                        that.$parent.ensureObjects('generic_components', that.ids, data.data, ['component_properties', 'states', 'type']);
+                        that.$parent.ensureObjects('controlunits', that.controlunit_ids, data.data.map(g => g.controlunit));
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
+            }
+        },
+
+        created: function () {
+            let that = this;
+            setTimeout(function () {
+                that.$refs.pagination.set_filter();
+            }, 100);
         }
     }
-}
 </script>
