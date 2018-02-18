@@ -19,7 +19,6 @@ import TerrariaWidget from './vue/terraria-widget.vue';
 import ControlunitWidget from './vue/controlunit-widget.vue';
 import ControlunitsListWidget from './vue/controlunits-list-widget.vue';
 import FilesWidget from './vue/files-widget.vue';
-import FilesListWidget from './vue/files-list-widget.vue';
 import FilesShowWidget from './vue/files-show-widget.vue';
 import ActionSequencesListWidget from './vue/action_sequences-list-widget.vue';
 import ActionSequencesWidget from './vue/action_sequences-widget.vue';
@@ -165,7 +164,6 @@ global.ciliatusVue = new global.Vue({
         'controlunit-widget': ControlunitWidget,
         'controlunits-list-widget': ControlunitsListWidget,
         'files-widget': FilesWidget,
-        'files-list-widget': FilesListWidget,
         'files-show-widget': FilesShowWidget,
         'action_sequences-list-widget': ActionSequencesListWidget,
         'action_sequences-widget': ActionSequencesWidget,
