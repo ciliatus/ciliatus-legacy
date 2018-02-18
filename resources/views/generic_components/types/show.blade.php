@@ -8,7 +8,8 @@
 
 @section('content')
     <div class="container">
-        <generic_components-list-widget default-type-filter="{{ $generic_component_type->name_singular }}"
+        <generic_components-list-widget :refresh-timeout-seconds="60"
+                                        source-filter="filter[type.id]={{ $generic_component_type->id }}"
                                         wrapper-classes=""></generic_components-list-widget>
     </div>
 
