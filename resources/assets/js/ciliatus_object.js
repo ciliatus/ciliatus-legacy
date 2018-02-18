@@ -1,24 +1,28 @@
 export default class CiliatusObject {
 
     constructor(type, id, data) {
-        this.init_done = false;
         this.type = type;
         this.id = id;
         this.data = data;
         this.max_age_seconds = 60;
-        this.last_refresh = 0;
-        this.last_persist = 0;
-        this.last_change = 0;
         this.api_url = global.apiUrl;
+        this.init_done = false;
+        this.refreshing = false;
 
         this.__verifyId();
 
         if (!this.data) {
             this.refresh();
         }
+        else {
+            this.last_change = 0;
+            this.last_refresh = Date.now();
+            this.last_persist = 0
+        }
     }
 
     refresh () {
+        this.refreshing = true;
         jQuery.ajax({
             context: this,
             url: this.url(),
@@ -33,11 +37,13 @@ export default class CiliatusObject {
 
     handleApiResult (result) {
         this.data = result['data'];
-        this.last_change = Date.now();
+        this.last_change = 0;
         this.last_refresh = Date.now();
-        this.last_persist = Date.now();
+        this.last_persist = 0;
 
         this.__verifyId();
+
+        this.refreshing = false;
 
         if (!this.init_done) {
             window.echo.private('dashboard-updates')
