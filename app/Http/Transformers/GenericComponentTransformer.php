@@ -36,12 +36,6 @@ class GenericComponentTransformer extends Transformer
 
         $return = $this->addCiliatusSpecificFields($return, $item, []);
 
-        if (isset($item['component_properties']) && is_array($item['component_properties'])) {
-            foreach ($item['component_properties'] as $property) {
-                $return['component_properties'][$property['name']] = $property['value'];
-            }
-        }
-
         if (isset($item['states']) && is_array($item['states'])) {
             foreach ($item['states'] as $state) {
                 $return['states'][$state['name']] = $state['value'];

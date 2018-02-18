@@ -46,8 +46,8 @@
                         </tr>
                         <tr class="collapsible-body">
                             <td colspan="4">
-                                <div v-for="(value, name) in generic_component.data.component_properties">
-                                    {{ name }}: {{ value }}
+                                <div v-for="(prop, index) in generic_component.data.component_properties">
+                                    {{ prop.name }}: {{ prop.value }}
                                 </div>
                             </td>
                         </tr>
