@@ -12,8 +12,10 @@
                 </span>
 
                 <div v-for="logical_sensor in logical_sensors">
-                    <a v-bind:href="'/logical_sensors/' + logical_sensor.data.id">{{ logical_sensor.data.name }}</a>
-                    <i>{{ $t("labels." + logical_sensor.data.type) }}</i>
+                    <template v-if="logical_sensor.data">
+                        <a :href="'/logical_sensors/' + logical_sensor.data.id">{{ logical_sensor.data.name }}</a>
+                        <i>{{ $t("labels." + logical_sensor.data.type) }}</i>
+                    </template>
                 </div>
             </div>
 
@@ -65,7 +67,7 @@ export default {
             let that = this;
 
             $.ajax({
-                url: '/api/v1/logical_sensors/?filter[physical_sensor_id]=' + that.physicalSensorId,
+                url: '/api/v1/logical_sensors/?all=true&filter[physical_sensor_id]=' + that.physicalSensorId,
                 method: 'GET',
                 success: function (data) {
                     that.logical_sensor_ids = data.data.map(l => l.id);
@@ -80,7 +82,10 @@ export default {
     },
 
     created: function() {
-        this.load_data();
+        let that = this;
+        setTimeout(function() {
+            that.load_data();
+        }, 2000);
     }
 }
 </script>
