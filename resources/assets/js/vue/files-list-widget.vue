@@ -116,6 +116,21 @@
                 type: Number,
                 default: 9,
                 required: false
+            },
+            showOptionSelect: {
+                type: Boolean,
+                default: false,
+                required: false
+            },
+            backgroundSelectorClassName: {
+                type: String,
+                default: null,
+                required: false
+            },
+            backgroundSelectorId: {
+                type: String,
+                default: null,
+                required: false
             }
         },
 
