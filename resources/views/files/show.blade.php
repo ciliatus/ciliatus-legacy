@@ -7,11 +7,8 @@
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <files-show-widget file-id="{{ $file->id }}"
-                               :subscribe-add="false" :subscribe-delete="false"
-                               container-classes="row"></files-show-widget>
-        </div>
+        <files-show-widget file-id="{{ $file->id }}"
+                           container-classes="row"></files-show-widget>
     </div>
 
     <div class="fixed-action-btn">
