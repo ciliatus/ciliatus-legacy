@@ -3,7 +3,7 @@
         <tr>
             <template v-for="filter in filters" v-if="hideCols.indexOf(filter.name) === -1">
                 <th :data-field="filter.name" :class="filter.class">
-                    <template v-if="!filter.noSort">
+                    <template v-if="!filter.noSort && $parent.$refs.pagination">
                         <a href="#!" v-on:click="set_order(filter.path)">
                             {{ $t('labels.' + filter.name) }}
                         </a>
@@ -22,7 +22,7 @@
                         {{ $t('labels.' + filter.name) }}
                     </template>
 
-                    <template v-if="!filter.noFilter">
+                    <template v-if="!filter.noFilter && $parent.$refs.pagination">
                         <div class="input-field inline" v-if="$parent.$refs.pagination">
                             <input :id="'filter_' + filter.name"
                                    type="text" v-model="$parent.$refs.pagination.filter[filter.path]"
