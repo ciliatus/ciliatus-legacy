@@ -1,7 +1,7 @@
 <template>
     <div class="card">
         <div class="card-header">
-            {{ $t('labels.loading') }}
+            {{ $t('labels.loading_dots') }}
         </div>
 
         <div class="card-content center">

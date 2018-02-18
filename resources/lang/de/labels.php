@@ -282,5 +282,6 @@ return [
     'possibly_affected_animals'                  => 'Möglicherweise betroffene Tiere',
     'scope'                                      => 'Gültigkeitsbereich',
     'client_server_time_diff'                    => 'Client/Server Zeitdifferenz',
-    'id'                                         => 'ID'
+    'id'                                         => 'ID',
+    'loading_dots'                               => 'Laden...'
 ];
