@@ -11,82 +11,84 @@
 
         <div :class="containerClasses" :id="containerId">
             <div :class="wrapperClasses" v-for="terrarium in terraria">
-                <!-- Modals -->
-                <div :id="terrarium.data.id + '_irrigate'" class="modal" v-if="terrarium.data.capabilities.irrigate">
-                    <form :action="'/api/v1/terraria/' + terrarium.data.id + '/action_sequence'" data-method="POST"
-                          :id="'form_irrigate_' + terrarium.data.id" v-on:submit="submit">
-                        <div class="modal-content">
-                            <h4>{{ $t('labels.irrigate') }}</h4>
-                            <p>
-                                <input type="hidden" name="template" value="irrigate">
-                                <input type="hidden" name="runonce" value="On">
-                                <input type="hidden" name="schedule_now" value="On">
-                                <input :id="'duration_minutes_irrigate_' + terrarium.data.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="1">
-                                <label :for="'duration_minutes_irrigate_' + terrarium.data.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="modal-action modal-close btn waves-effect waves-green" type="submit">{{ $t('buttons.start') }}</button>
-                        </div>
-                    </form>
-                </div>
+                <template v-if="terrarium.data">
+                    <!-- Modals -->
+                    <div :id="terrarium.data.id + '_irrigate'" class="modal" v-if="terrarium.data.capabilities.irrigate">
+                        <form :action="'/api/v1/terraria/' + terrarium.data.id + '/action_sequence'" data-method="POST"
+                              :id="'form_irrigate_' + terrarium.data.id" v-on:submit="submit">
+                            <div class="modal-content">
+                                <h4>{{ $t('labels.irrigate') }}</h4>
+                                <p>
+                                    <input type="hidden" name="template" value="irrigate">
+                                    <input type="hidden" name="runonce" value="On">
+                                    <input type="hidden" name="schedule_now" value="On">
+                                    <input :id="'duration_minutes_irrigate_' + terrarium.data.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="1">
+                                    <label :for="'duration_minutes_irrigate_' + terrarium.data.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="modal-action modal-close btn waves-effect waves-green" type="submit">{{ $t('buttons.start') }}</button>
+                            </div>
+                        </form>
+                    </div>
 
-                <div :id="terrarium.data.id + '_ventilate'" class="modal" v-if="terrarium.data.capabilities.ventilate">
-                    <form :action="'/api/v1/terraria/' + terrarium.data.id + '/action_sequence'" data-method="POST"
-                          :id="'form_ventilate_' + terrarium.data.id" v-on:submit="submit">
-                        <div class="modal-content">
-                            <h4>{{ $t('labels.ventilate') }}</h4>
-                            <p>
-                                <input type="hidden" name="template" value="ventilation">
-                                <input type="hidden" name="runonce" value="On">
-                                <input type="hidden" name="schedule_now" value="On">
-                                <input :id="'duration_minutes_ventilate_' + terrarium.data.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="3">
-                                <label :for="'duration_minutes_ventilate_' + terrarium.data.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="modal-action modal-close btn waves-effect waves-green" type="submit">{{ $t('buttons.start') }}</button>
-                        </div>
-                    </form>
-                </div>
+                    <div :id="terrarium.data.id + '_ventilate'" class="modal" v-if="terrarium.data.capabilities.ventilate">
+                        <form :action="'/api/v1/terraria/' + terrarium.data.id + '/action_sequence'" data-method="POST"
+                              :id="'form_ventilate_' + terrarium.data.id" v-on:submit="submit">
+                            <div class="modal-content">
+                                <h4>{{ $t('labels.ventilate') }}</h4>
+                                <p>
+                                    <input type="hidden" name="template" value="ventilation">
+                                    <input type="hidden" name="runonce" value="On">
+                                    <input type="hidden" name="schedule_now" value="On">
+                                    <input :id="'duration_minutes_ventilate_' + terrarium.data.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="3">
+                                    <label :for="'duration_minutes_ventilate_' + terrarium.data.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="modal-action modal-close btn waves-effect waves-green" type="submit">{{ $t('buttons.start') }}</button>
+                            </div>
+                        </form>
+                    </div>
 
-                <div :id="terrarium.data.id + '_heat_up'" class="modal" v-if="terrarium.data.capabilities.heat_up">
-                    <form :action="'/api/v1/terraria/' + terrarium.data.id + '/action_sequence'" data-method="POST"
-                          :id="'form_heat_up_' + terrarium.data.id" v-on:submit="submit">
-                        <div class="modal-content">
-                            <h4>{{ $t('labels.heat_up') }}</h4>
-                            <p>
-                                <input type="hidden" name="template" value="heat_up">
-                                <input type="hidden" name="runonce" value="On">
-                                <input type="hidden" name="schedule_now" value="On">
-                                <input :id="'duration_minutes_heat_up_' + terrarium.data.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="3">
-                                <label :for="'duration_minutes_heat_up_' + terrarium.data.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="modal-action modal-close btn waves-effect waves-green" type="submit">{{ $t('buttons.start') }}</button>
-                        </div>
-                    </form>
-                </div>
+                    <div :id="terrarium.data.id + '_heat_up'" class="modal" v-if="terrarium.data.capabilities.heat_up">
+                        <form :action="'/api/v1/terraria/' + terrarium.data.id + '/action_sequence'" data-method="POST"
+                              :id="'form_heat_up_' + terrarium.data.id" v-on:submit="submit">
+                            <div class="modal-content">
+                                <h4>{{ $t('labels.heat_up') }}</h4>
+                                <p>
+                                    <input type="hidden" name="template" value="heat_up">
+                                    <input type="hidden" name="runonce" value="On">
+                                    <input type="hidden" name="schedule_now" value="On">
+                                    <input :id="'duration_minutes_heat_up_' + terrarium.data.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="3">
+                                    <label :for="'duration_minutes_heat_up_' + terrarium.data.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="modal-action modal-close btn waves-effect waves-green" type="submit">{{ $t('buttons.start') }}</button>
+                            </div>
+                        </form>
+                    </div>
 
-                <div :id="terrarium.data.id + '_cool_down'" class="modal" v-if="terrarium.data.capabilities.cool_down">
-                    <form :action="'/api/v1/terraria/' + terrarium.data.id + '/action_sequence'" data-method="POST"
-                          :id="'form_cool_down_' + terrarium.data.id" v-on:submit="submit">
-                        <div class="modal-content">
-                            <h4>{{ $t('labels.cool_down') }}</h4>
-                            <p>
-                                <input type="hidden" name="template" value="cool_down">
-                                <input type="hidden" name="runonce" value="On">
-                                <input type="hidden" name="schedule_now" value="On">
-                                <input :id="'duration_minutes_cool_down_' + terrarium.data.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="3">
-                                <label :for="'duration_minutes_cool_down_' + terrarium.data.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
-                            </p>
-                        </div>
-                        <div class="modal-footer">
-                            <button class="modal-action modal-close btn waves-effect waves-green" type="submit">{{ $t('buttons.start') }}</button>
-                        </div>
-                    </form>
-                </div>
+                    <div :id="terrarium.data.id + '_cool_down'" class="modal" v-if="terrarium.data.capabilities.cool_down">
+                        <form :action="'/api/v1/terraria/' + terrarium.data.id + '/action_sequence'" data-method="POST"
+                              :id="'form_cool_down_' + terrarium.data.id" v-on:submit="submit">
+                            <div class="modal-content">
+                                <h4>{{ $t('labels.cool_down') }}</h4>
+                                <p>
+                                    <input type="hidden" name="template" value="cool_down">
+                                    <input type="hidden" name="runonce" value="On">
+                                    <input type="hidden" name="schedule_now" value="On">
+                                    <input :id="'duration_minutes_cool_down_' + terrarium.data.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="3">
+                                    <label :for="'duration_minutes_cool_down_' + terrarium.data.id">{{ $t('labels.duration') }} {{ ($tc('units.minutes', 2)) }}</label>
+                                </p>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="modal-action modal-close btn waves-effect waves-green" type="submit">{{ $t('buttons.start') }}</button>
+                            </div>
+                        </form>
+                    </div>
+                </template>
 
                 <!-- Card -->
                 <div class="card" v-if="terrarium.data">
