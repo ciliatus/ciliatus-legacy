@@ -1,46 +1,45 @@
 export default class CiliatusObject {
 
     constructor(type, id, data) {
-        this.init = false;
-        this.data = data === undefined ? null : data;
+        this.init_done = false;
         this.type = type;
         this.id = id;
+        this.data = data;
         this.max_age_seconds = 60;
         this.last_refresh = 0;
         this.last_persist = 0;
         this.last_change = 0;
         this.api_url = global.apiUrl;
 
-        if (this.data === null) {
+        this.__verifyId();
+
+        if (!this.data) {
             this.refresh();
         }
     }
 
     refresh () {
-        let that = this;
-        $.ajax({
-            url: that.url(),
+        jQuery.ajax({
+            context: this,
+            url: this.url(),
             method: 'GET',
-            success: function (data) {
-                that.handleApiResult(data);
-            },
-            error: function (error) {
-                console.log(JSON.stringify(error));
-            }
-        });
+            success: this.handleApiResult
+        })
     }
 
     url () {
-        return this.api_url + '/' + this.type + '/' + this.id
+        return this.api_url + '/' + this.type + '/' + this.id;
     }
 
-    handleApiResult (data) {
-        this.data = data['data'];
+    handleApiResult (result) {
+        this.data = result['data'];
         this.last_change = Date.now();
         this.last_refresh = Date.now();
         this.last_persist = Date.now();
 
-        if (!this.init) {
+        this.__verifyId();
+
+        if (!this.init_done) {
             window.echo.private('dashboard-updates')
                 .listen(this.data.class + 'Updated', (e) => {
                     this.refresh()
@@ -48,7 +47,7 @@ export default class CiliatusObject {
                     this.data = null;
                 });
 
-            this.init = true;
+            this.init_done = true;
         }
     }
 
@@ -66,5 +65,17 @@ export default class CiliatusObject {
             }
         });
         this.last_persist = Date.now();
+    }
+
+    __verifyId () {
+        if (this.data && this.data.id !== this.id) {
+            console.log('----------------------------');
+            console.log('CiliatusModel ' + this.type + ' mismatched ID');
+            console.log(this.id + ' <> ' + this.data.id);
+            console.log(this);
+            return false;
+        }
+
+        return true;
     }
 }

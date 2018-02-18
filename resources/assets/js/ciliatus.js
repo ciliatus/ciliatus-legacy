@@ -46,7 +46,7 @@ import ApiIoWidget from './vue/api-io-widget.vue';
 import BusTypeEditForm from './vue/bus_type_edit-form.vue';
 import GenericComponentTypeCreateForm from './vue/generic_component_type_create-form.vue';
 
-import CiliatusObject from './ciliatus_object.js';
+import CiliatusObject from "./ciliatus_object";
 
 /**
  * Vuex
@@ -117,7 +117,7 @@ global.ciliatusVue = new global.Vue({
                 id = data.id;
             }
 
-            if (this.$store.state[type].filter(t => t.id === id).length < 1) {
+            if (this.$store.state[type].filter(o => o.id === id).length < 1) {
                 this.$store.state[type].push(new CiliatusObject(type, id, data));
             }
         },
@@ -131,7 +131,14 @@ global.ciliatusVue = new global.Vue({
                 data.forEach(obj => this.ensureObject(type, null, obj));
             }
             else {
-                ids.forEach(id => this.ensureObject(type, id, data === undefined ? undefined : data.filter(o => o !== undefined && o.id === id)[0]));
+                let that = this;
+                ids.forEach(function (id) {
+                    that.ensureObject(
+                        type,
+                        id,
+                        data ? data.filter(o => o && o.id === id)[0] : undefined
+                    )
+                });
             }
         }
     },
