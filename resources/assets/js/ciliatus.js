@@ -73,6 +73,7 @@ const store = new Vuex.Store({
         animal_feedings: [],
         animal_feeding_types: [],
         animal_weighing_schedules: [],
+        animal_feeding_schedules: [],
 
         max_object_age_seconds: 60
     }
