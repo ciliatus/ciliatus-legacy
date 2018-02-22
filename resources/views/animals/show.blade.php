@@ -143,9 +143,9 @@
 
     <div id="tab_biography" class="col s12">
         <div class="container">
-            <biography_entries-widget :refresh-timeout-seconds="60"
-                                      belongs-to-type="Animal" belongs-to-id="{{ $animal->id }}"
-                                      container-classes="container"></biography_entries-widget>
+            <biography_entries-widget belongs-to-type="Animal"
+                                      belongs-to-id="{{ $animal->id }}"
+                                      wrapper-classes="row"></biography_entries-widget>
         </div>
 
         <div class="fixed-action-btn">

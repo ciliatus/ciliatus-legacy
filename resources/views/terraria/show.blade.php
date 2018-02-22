@@ -109,9 +109,9 @@
 
     <div id="tab_biography" class="col s12">
         <div class="container">
-            <biography_entries-widget :refresh-timeout-seconds="60"
-                                      belongs-to-type="Terrarium" belongs-to-id="{{ $terrarium->id }}"
-                                      container-classes="container"></biography_entries-widget>
+            <biography_entries-widget belongs-to-type="Terrarium"
+                                      belongs-to-id="{{ $terrarium->id }}"
+                                      wrapper-classes="row"></biography_entries-widget>
         </div>
 
         <div class="fixed-action-btn">

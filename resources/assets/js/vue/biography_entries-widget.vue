@@ -1,205 +1,174 @@
 <template>
-    <div :class="containerClasses" :id="containerId">
-        <div class="timeline">
-            <div class="timeline-event" v-for="entry in entries">
-                <div class="timeline-date">
-                    <!-- @TODO: there has to be a better way to do this -->
-                    <span v-show="entry.timestamps.created_diff.days > 0"
-                          class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="entry.timestamps.created">
-                                {{ $t('units.days_ago', {val: entry.timestamps.created_diff.days}) }}
-                    </span>
-                    <span v-show="entry.timestamps.created_diff.days < 1 &&
-                                  entry.timestamps.created_diff.hours > 0"
-                          class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="entry.timestamps.created">
-                                {{ $t('units.hours_ago', {val: entry.timestamps.created_diff.hours}) }}
-                    </span>
-                    <span v-show="entry.timestamps.created_diff.days < 1 &&
-                                  entry.timestamps.created_diff.hours < 1 &&
-                                  entry.timestamps.created_diff.minutes > 1"
-                          class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="entry.timestamps.created">
-                                {{ $t('units.minutes_ago', {val: entry.timestamps.created_diff.minutes}) }}
-                    </span>
-                    <span v-show="entry.timestamps.created_diff.days < 1 &&
-                                  entry.timestamps.created_diff.hours < 1 &&
-                                  entry.timestamps.created_diff.minutes < 2"
-                          class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="entry.timestamps.created">
-                                {{ $t('units.just_now') }}
-                    </span>
-                </div>
-                <div class="card timeline-content">
-                    <div class="card-content">
-                        <h5>{{ entry.title }}</h5>
+    <div>
+        <div :class="wrapperClasses">
+            <div class="timeline">
+                <div class="timeline-event" v-for="entry in entries">
+                    <template v-if="entry.data">
+                        <div class="timeline-date">
+                            <!-- @TODO: there has to be a better way to do this -->
+                            <span v-show="entry.data.timestamps.created_diff.days > 0"
+                                  class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="entry.data.timestamps.created">
+                                    {{ $t('units.days_ago', {val: entry.data.timestamps.created_diff.days}) }}
+                        </span>
+                            <span v-show="entry.data.timestamps.created_diff.days < 1 &&
+                                      entry.data.timestamps.created_diff.hours > 0"
+                                  class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="entry.data.timestamps.created">
+                                    {{ $t('units.hours_ago', {val: entry.data.timestamps.created_diff.hours}) }}
+                        </span>
+                            <span v-show="entry.data.timestamps.created_diff.days < 1 &&
+                                      entry.data.timestamps.created_diff.hours < 1 &&
+                                      entry.data.timestamps.created_diff.minutes > 1"
+                                  class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="entry.data.timestamps.created">
+                                    {{ $t('units.minutes_ago', {val: entry.data.timestamps.created_diff.minutes}) }}
+                        </span>
+                            <span v-show="entry.data.timestamps.created_diff.days < 1 &&
+                                      entry.data.timestamps.created_diff.hours < 1 &&
+                                      entry.data.timestamps.created_diff.minutes < 2"
+                                  class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="entry.data.timestamps.created">
+                                    {{ $t('units.just_now') }}
+                        </span>
+                        </div>
+                        <div class="card timeline-content">
+                            <div class="card-content">
+                                <h5>{{ entry.data.title }}</h5>
 
-                        <p v-html="entry.text"> </p>
+                                <p v-html="entry.data.text"> </p>
 
-                        <p v-show="entry.files.length > 0" style="margin-top: 15px;">
-                            <span v-for="file in entry.files" style="margin-right: 15px;">
-                                <i class="material-icons">{{ file.icon }}</i>
-                                <a :href="file.url">{{ file.display_name }}</a>
-                            </span>
-                        </p>
-                    </div>
+                                <p v-show="files.filter(f => f.data.belongsTo_id === entry.data.id).length > 0" style="margin-top: 15px;">
+                                <span v-for="(file, index) in files.filter(f => f.data.belongsTo_id === entry.data.id)" style="margin-right: 15px;">
+                                    <i class="material-icons">{{ file.data.icon }}</i>
+                                    <a :href="file.data.url">{{ file.data.display_name }}</a>
+                                </span>
+                                </p>
+                            </div>
 
-                    <div class="card-action">
-                        <a v-bind:href="'/biography_entries/' + entry.id + '/edit'">{{ $t("buttons.edit") }}</a>
-                    </div>
-                </div>
-                <div class="timeline-badge teal darken-2 white-text">
-                    <i v-if="entry.category" class="material-icons tooltipped" data-position="top" data-delay="50"
-                       v-bind:data-tooltip="entry.category.name">
-                        {{ entry.category.icon }}
-                    </i>
+                            <div class="card-action">
+                                <a v-bind:href="'/biography_entries/' + entry.data.id + '/edit'">{{ $t("buttons.edit") }}</a>
+                            </div>
+                        </div>
+                        <div class="timeline-badge teal darken-2 white-text">
+                            <i v-if="entry.data.category" class="material-icons tooltipped" data-position="top" data-delay="50"
+                               v-bind:data-tooltip="entry.data.category.name">
+                                {{ entry.data.category.icon }}
+                            </i>
+                        </div>
+                    </template>
                 </div>
             </div>
         </div>
+
+        <pagination ref="pagination"
+                    :source-filter="sourceFilter"
+                    :enable-filters="false">
+        </pagination>
     </div>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            entries: []
-        }
-    },
+    import pagination from './mixins/pagination.vue';
 
-    props: {
-        refreshTimeoutSeconds: {
-            type: Number,
-            default: null,
-            required: false
-        },
-        belongsToType: {
-            type: String,
-            default: null,
-            required: false
-        },
-        belongsToId: {
-            type: String,
-            default: null,
-            required: false
-        },
-        entryId: {
-            type: String,
-            default: null,
-            required: false
-        },
-        containerId: {
-            type: String,
-            default: 'biography-entries-widget',
-            required: false
-        },
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        containerClasses: {
-            type: String,
-            default: '',
-            required: false
-        }
-    },
-
-    methods: {
-        update: function(a) {
-            var item = null;
-            this.entries.forEach(function(data, index) {
-                if (data.id === a.entry.id) {
-                    item = index;
-                }
-            });
-            if (item === null) {
-                this.entries.push(a.animal)
+    export default {
+        data () {
+            return {
+                ids: [],
+                file_ids: []
             }
-            else if (item !== null) {
-                this.entries.splice(item, 1, a.entry);
-            }
-
-            this.$nextTick(function() {
-                this.refresh_grid();
-            });
         },
 
-        delete: function(a) {
-            var item = null;
-            this.entries.forEach(function(data, index) {
-                if (data.id === a.entry_id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.entries.splice(item, 1);
+        props: {
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
+            },
+            belongsToType: {
+                type: String,
+                required: true
+            },
+            belongsToId: {
+                type: String,
+                required: true
+            },
+            sourceFilter: {
+                type: String,
+                default: '',
+                required: false
+            },
+            hideCols: {
+                type: Array,
+                default: function(){return [];},
+                required: false
+            },
+            itemsPerPage: {
+                type: Number,
+                default: 10,
+                required: false
             }
-
-            this.$nextTick(function() {
-                this.refresh_grid();
-            });
         },
 
-        refresh_grid: function() {
-            $('.tooltipped').tooltip({delay: 50});
+        components: {
+            pagination
         },
 
-        load_data: function() {
-            var that = this;
-
-            var source_url = '';
-            if (this.entryId !== null) {
-                source_url = '/api/v1/biography_entries/' + this.entryId + '?with[]=files'
-            }
-            else {
-                source_url = '/api/v1/biography_entries/?with[]=files&order[created_at]=desc&filter[belongsTo_type]=' +
-                             this.belongsToType + '&filter[belongsTo_id]=' + this.belongsToId + '&all=true';
-            }
-
-            window.eventHubVue.processStarted();
-            $.ajax({
-                url: source_url,
-                method: 'GET',
-                success: function (data) {
-                    if (that.entryId !== null) {
-                        that.entries = [data.data];
+        computed: {
+            entries () {
+                let that = this;
+                return this.$store.state.biography_entries.filter(function(e) {
+                    return that.ids.includes(e.id) && e.data !== null
+                }).sort(function (a, b) {
+                    let c = a.data[that.$refs.pagination.order.field] > b.data[that.$refs.pagination.order.field];
+                    if ( c && that.$refs.pagination.order.direction === 'asc' ||
+                        !c && that.$refs.pagination.order.direction === 'desc') {
+                        return 1;
                     }
-                    else {
-                        that.entries = data.data;
+                    return -1;
+                });
+            },
+
+            files () {
+                let that = this;
+                return this.$store.state.files.filter(function (f) {
+                    return that.file_ids.includes(f.id) && f.data !== null
+                });
+            }
+        },
+
+        methods: {
+            load_data: function() {
+                let that = this;
+
+                $.ajax({
+                    url: '/api/v1/biography_entries/?with[]=files&' +
+                         'filter[belongsTo_type]=' + that.belongsToType + '&' +
+                         'filter[belongsTo_id]=' + that.belongsToId + '&' +
+                         'pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                         that.$refs.pagination.page +
+                         that.$refs.pagination.filter_string +
+                         that.$refs.pagination.order_string,
+                    method: 'GET',
+                    success: function (data) {
+                        that.ids = data.data.map(c => c.id);
+                        that.file_ids = [].concat.apply([], data.data.map(f => f.files.map(f => f.id)));
+
+                        that.$refs.pagination.meta = data.meta;
+
+                        that.$parent.ensureObjects('biography_entries', that.ids, data.data);
+                        that.$parent.ensureObjects('files', that.file_ids, [].concat.apply([], data.data.map(f => f.files)));
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
                     }
+                });
+            }
+        },
 
-                    that.$nextTick(function() {
-                        that.refresh_grid();
-                    });
-
-                    window.eventHubVue.processEnded();
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
-        }
-
-    },
-
-    created: function() {
-        window.echo.private('dashboard-updates')
-            .listen('BiographyEntryEventUpdated', (e) => {
-                this.update(e);
-            }).listen('BiographyEntryEventDeleted', (e) => {
-                this.delete(e);
-            });
-
-        var that = this;
-        setTimeout(function() {
-            that.load_data();
-        }, 100);
-
-        if (this.refreshTimeoutSeconds !== null) {
-            setInterval(function() {
-                that.load_data();
-            }, this.refreshTimeoutSeconds * 1000)
+        created: function() {
+            let that = this;
+            setTimeout(function() {
+                that.$refs.pagination.order.field = 'created_at';
+                that.$refs.pagination.order.direction = 'desc';
+                that.$refs.pagination.set_filter();
+            }, 100);
         }
     }
-
-}
 </script>
