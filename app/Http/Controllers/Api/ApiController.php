@@ -288,14 +288,18 @@ class ApiController extends Controller
     /**
      * @param Request $request
      * @param Builder $query
-     * @param array $repository_parameters
-     * @param string $repository_method
+     * @param array   $repository_parameters
+     * @param string  $repository_method
+     * @param null    $override_repository_name
+     * @param null    $override_transformer_name
      * @return \Illuminate\Http\JsonResponse
      */
     public function respondTransformedAndPaginated(Request $request,
                                                    Builder $query,
                                                    array $repository_parameters = [],
-                                                   $repository_method = 'show')
+                                                   $repository_method = 'show',
+                                                   $override_repository_name = null,
+                                                   $override_transformer_name = null)
     {
 
         if ($request->filled('all')) {
@@ -311,7 +315,8 @@ class ApiController extends Controller
             $this->applyRepository(
                 $objects,
                 $repository_parameters,
-                $repository_method
+                $repository_method,
+                $override_repository_name
             );
 
             if ($this->request->has('select_ids')) {
@@ -321,7 +326,7 @@ class ApiController extends Controller
             }
 
             return $this->setStatusCode(200)
-                        ->respondWithData($this->applyTransformer($objects));
+                        ->respondWithData($this->applyTransformer($objects, $override_transformer_name));
 
         }
         else {
@@ -334,12 +339,17 @@ class ApiController extends Controller
                 return $this->setStatusCode(200)
                             ->respondWithPagination([], $objects);
             }
-            $transformer = TransformerFactory::get($objects->items()[0]);
+
+
+            $fq_override_transformer_name = 'App\Http\Transformers\\' . $override_transformer_name;
+            $transformer = is_null($override_transformer_name) ?
+                TransformerFactory::get($objects->items()[0]) : new $fq_override_transformer_name();
 
             $this->applyRepository(
                 $objects->items(),
                 $repository_parameters,
-                $repository_method
+                $repository_method,
+                $override_repository_name
             );
 
 
@@ -357,24 +367,29 @@ class ApiController extends Controller
      * Retrieves additional data for each object from a repository
      *
      * @param array|Collection|CiliatusModel $objects
-     * @param array $repository_parameters
-     * @param string $repository_method
+     * @param array                          $repository_parameters
+     * @param string                         $repository_method
+     * @param null                           $override_repository_name
      */
     protected function applyRepository($objects,
                                        array $repository_parameters = [],
-                                       $repository_method = 'show')
+                                       $repository_method = 'show',
+                                       $override_repository_name = null)
     {
         if (is_a($objects, 'Illuminate\Support\Collection') || is_array($objects)) {
             foreach ($objects as &$o) {
                 $this->applyRepository(
                     $o,
                     $repository_parameters,
-                    $repository_method
+                    $repository_method,
+                    $override_repository_name
                 );
             }
         }
         else {
-            $repository = RepositoryFactory::get($objects);
+            $fq_override_repository_name = 'App\Repositories\\' . $override_repository_name;
+            $repository = is_null($override_repository_name) ?
+                RepositoryFactory::get($objects) : new $fq_override_repository_name($objects);
             foreach ($repository_parameters as $n=>$v) {
                 $repository->addShowParameter($n, $v);
             }
@@ -388,9 +403,10 @@ class ApiController extends Controller
      * Transforms a single object or an array/Collection of objects
      *
      * @param array|Collection|CiliatusModel $objects
+     * @param null                           $override_transformer_name
      * @return array
      */
-    protected function applyTransformer($objects)
+    protected function applyTransformer($objects, $override_transformer_name = null)
     {
 
         if (is_a($objects, 'Illuminate\Support\Collection')) {
@@ -399,11 +415,15 @@ class ApiController extends Controller
         }
 
         if (is_array($objects)) {
-            $transformer = TransformerFactory::get($objects[0]);
+            $fq_override_transformer_name = 'App\Http\Transformers\\' . $override_transformer_name;
+            $transformer = is_null($override_transformer_name) ?
+                TransformerFactory::get($objects[0]) : $fq_override_transformer_name();
             return $transformer->transformCollection($objects->toArray());
         }
         else {
-            $transformer = TransformerFactory::get($objects);
+            $fq_override_transformer_name = 'App\Http\Transformers\\' . $override_transformer_name;
+            $transformer = is_null($override_transformer_name) ?
+                TransformerFactory::get($objects) : $fq_override_transformer_name();
             return $transformer->transform($objects->toArray());
         }
 
