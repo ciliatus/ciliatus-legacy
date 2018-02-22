@@ -167,7 +167,7 @@
             setTimeout(function() {
                 that.$refs.pagination.order.field = 'created_at';
                 that.$refs.pagination.order.direction = 'desc';
-                that.$refs.pagination.set_filter();
+                that.$refs.pagination.init();
             }, 100);
         }
     }

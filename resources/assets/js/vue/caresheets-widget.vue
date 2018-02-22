@@ -107,7 +107,7 @@
                          that.$refs.pagination.page +
                          that.$refs.pagination.filter_string +
                          that.$refs.pagination.order_string,
-                         method: 'GET',
+                    method: 'GET',
                     success: function (data) {
                         that.caresheet_ids = data.data.map(c => c.id);
 
@@ -127,7 +127,7 @@
             setTimeout(function() {
                 that.$refs.pagination.order.field = 'created_at';
                 that.$refs.pagination.order.direction = 'desc';
-                that.$refs.pagination.set_filter();
+                that.$refs.pagination.init();
             }, 100);
         }
     }

@@ -194,7 +194,7 @@ export default {
     created: function() {
         let that = this;
         setTimeout(function() {
-            that.$refs.pagination.set_filter();
+            that.$refs.pagination.init();
         }, 100);
     }
 }
