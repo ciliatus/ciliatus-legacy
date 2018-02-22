@@ -68,6 +68,11 @@
                 type: Array,
                 default: function(){return [];},
                 required: false
+            },
+            itemsPerPage: {
+                type: Number,
+                default: 10,
+                required: false
             }
         },
 
@@ -98,11 +103,15 @@
 
                 $.ajax({
                     url: '/api/v1/animals/' + that.animalId + '/caresheets/?' +
+                         'pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                         that.$refs.pagination.page +
                          that.$refs.pagination.filter_string +
                          that.$refs.pagination.order_string,
                          method: 'GET',
                     success: function (data) {
                         that.caresheet_ids = data.data.map(c => c.id);
+
+                        that.$refs.pagination.meta = data.meta;
 
                         that.$parent.ensureObjects('caresheets', that.caresheet_ids, data.data);
                     },
