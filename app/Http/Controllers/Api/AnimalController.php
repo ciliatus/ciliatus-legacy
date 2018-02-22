@@ -261,13 +261,15 @@ class AnimalController extends ApiController
         }
 
         $query = $animal->caresheets()->getQuery();
-        $caresheets = $this->filter($request, $query)->get();
+        $caresheets = $this->filter($request, $query);
 
-        return $this->respondWithData(
-            (new AnimalCaresheetTransformer())->transformCollection(
-                $caresheets->toArray()
-            )
-        );
+        return $this->respondTransformedAndPaginated(
+            $request,
+            $caresheets,
+            [],
+            'show',
+            'AnimalCaresheetRepository',
+            'AnimalCaresheetTransformer');
     }
 
 
