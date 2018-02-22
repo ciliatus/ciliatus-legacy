@@ -6,8 +6,8 @@
                               :cols="4"
                               :hide-cols="hideCols"
                               :filter-fields="[{name: 'display_name', path: 'display_name', col: 0},
-                                               {name: 'mimetype', path: 'mimetyper', col: 1},
-                                               {name: 'size', path: 'mimetype', noFilter: true, col: 2},
+                                               {name: 'type', path: 'mimetype', col: 1},
+                                               {name: 'size', path: 'size', noFilter: true, col: 2},
                                                {name: 'created_at', path: 'created_at', noFilter: true, col: 3},
                                                {noSort: true, noFilter: true, col: 4, class: 'hide-on-small-only'}]">
                 </table-filter>
@@ -162,6 +162,7 @@
                 $.ajax({
                     url: '/api/v1/files?' +
                          that.sourceFilter + '&' +
+                         'filter[usage]=ne:thumb:or:null&' +
                          'pagination[per_page]=' + that.itemsPerPage + '&page=' +
                          that.$refs.pagination.page +
                          that.$refs.pagination.filter_string +
