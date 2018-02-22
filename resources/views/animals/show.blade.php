@@ -161,8 +161,8 @@
     <div id="tab_caresheets" class="col s12">
         <div class="container">
             <caresheets-widget :refresh-timeout-seconds="60"
-                                      belongs-to-id="{{ $animal->id }}"
-                                      container-classes="container"></caresheets-widget>
+                                    belongs-to-id="{{ $animal->id }}"
+                                    container-classes="container"></caresheets-widget>
         </div>
 
         <div class="fixed-action-btn">
@@ -180,7 +180,7 @@
             <files-list-widget
                     background-selector-class-name="Animal"
                     background-selector-id="{{ $animal->id }}"
-                    source-url="animals/{{ $animal->id }}/files"
+                    source-filter="filter[belongsTo_id]={{ $animal->id }}&filter[belongsTo_type=Animal"
                     subscribe-add="false">
             </files-list-widget>
         </div>
