@@ -73,7 +73,7 @@
                     <animal_feeding_schedules-widget animal-id="{{ $animal->id }}"></animal_feeding_schedules-widget>
                 </div>
                 <div class="col s12 m6 l4">
-                    <animal_feedings-widget animal-id="{{ $animal->id }}" source-filter="limit=10"></animal_feedings-widget>
+                    <animal_feedings-widget animal-id="{{ $animal->id }}"></animal_feedings-widget>
                 </div>
             </div>
         </div>
