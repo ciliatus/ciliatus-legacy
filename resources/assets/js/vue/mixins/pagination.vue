@@ -7,21 +7,21 @@
                     <li v-bind:class="['hide-on-small-only', { 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }]">
                         <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
                     </li>
-                    <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
+                    <li v-if="!mini" v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
                         <a href="#!" v-on:click="set_page(meta.pagination.current_page-1)"><i class="material-icons">chevron_left</i></a>
                     </li>
 
-                    <li v-if="meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
-                    <li v-if="meta.pagination.current_page-2 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-2)">{{ meta.pagination.current_page-2 }}</a></li>
+                    <li v-if="!mini && meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
+                    <li v-if="!mini && meta.pagination.current_page-2 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-2)">{{ meta.pagination.current_page-2 }}</a></li>
                     <li v-if="meta.pagination.current_page-1 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-1)">{{ meta.pagination.current_page-1 }}</a></li>
 
                     <li class="active"><a href="#!">{{ meta.pagination.current_page }}</a></li>
 
                     <li v-if="meta.pagination.current_page+1 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+1)">{{ meta.pagination.current_page+1 }}</a></li>
-                    <li v-if="meta.pagination.current_page+2 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+2)">{{ meta.pagination.current_page+2 }}</a></li>
-                    <li v-if="meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
+                    <li v-if="!mini && meta.pagination.current_page+2 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+2)">{{ meta.pagination.current_page+2 }}</a></li>
+                    <li v-if="!mini && meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
 
-                    <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
+                    <li v-if="!mini" v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
                         <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="material-icons">chevron_right</i></a>
                     </li>
                     <li v-bind:class="['hide-on-small-only', { 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }]">
@@ -89,6 +89,10 @@ export default {
             type: Array,
             default: function(){return [];},
             required: false
+        },
+        mini: {
+            type: Boolean,
+            default: false
         }
     },
 
@@ -99,7 +103,6 @@ export default {
         },
 
         set_order: function(field) {
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
             if (this.order.field === field || field === null) {
                 if (this.order.direction === 'asc') {
                     this.order.direction = 'desc';
@@ -112,11 +115,23 @@ export default {
                 this.order.field = field;
             }
 
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
+            this.render_order_string();
             this.$parent.load_data();
         },
 
+        render_order_string: function () {
+            if (!this.order.string || !this.order.direction) {
+                this.order_string = '';
+            }
+            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
+        },
+
         set_filter: function() {
+            this.render_filter_string();
+            this.$parent.load_data();
+        },
+
+        render_filter_string: function() {
             this.filter_string = '&';
             if (this.sourceFilter !== '') {
                 this.filter_string += this.sourceFilter + '&';
@@ -130,13 +145,18 @@ export default {
                     }
                 }
             }
-            this.$parent.load_data();
         },
 
         set_page: function(page) {
-            this.page = page;
+            this.page = page ? page : 1;
             this.$parent.load_data();
         },
+
+        init: function() {
+            this.render_filter_string();
+            this.render_order_string();
+            this.set_page();
+        }
 
     }
 
