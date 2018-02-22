@@ -81,6 +81,13 @@
                 let that = this;
                 return this.$store.state.caresheets.filter(function(c) {
                     return that.caresheet_ids.includes(c.id) && c.data !== null
+                }).sort(function (a, b) {
+                    let c = a.data[that.$refs.pagination.order.field] > b.data[that.$refs.pagination.order.field];
+                    if ( c && that.$refs.pagination.order.direction === 'asc' ||
+                        !c && that.$refs.pagination.order.direction === 'desc') {
+                        return 1;
+                    }
+                    return -1;
                 });
             }
         },
@@ -109,6 +116,8 @@
         created: function() {
             let that = this;
             setTimeout(function() {
+                that.$refs.pagination.order.field = 'created_at';
+                that.$refs.pagination.order.direction = 'desc';
                 that.$refs.pagination.set_filter();
             }, 100);
         }
