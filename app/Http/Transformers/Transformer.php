@@ -172,6 +172,9 @@ abstract class Transformer
             $return['class'] = $item['class'];
         }
 
+        $return['created_at'] = $item['created_at'];
+        $return['updated_at'] = $item['updated_at'];
+
         if (isset($item['related_models'])) {
             foreach ($item['related_models'] as $relation=>$objects) {
                 if (is_a($objects, Collection::class)) {
