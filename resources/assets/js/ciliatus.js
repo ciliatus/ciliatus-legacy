@@ -69,6 +69,8 @@ const store = new Vuex.Store({
         files: [],
         caresheets: [],
         biography_entries: [],
+        animal_weighings: [],
+        animal_feedings: [],
 
         max_object_age_seconds: 60
     }

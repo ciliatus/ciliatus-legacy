@@ -1,8 +1,8 @@
 <template>
     <div>
         <div :class="wrapperClasses">
-            <div v-bind:id="'modal_add_weighing_' + animalId" class="modal" style="min-height: 800px;">
-                <form v-bind:action="'/api/v1/animals/' + animalId + '/weighings'" data-method="POST" onsubmit="window.submit_form">
+            <div :id="'modal_add_weighing_' + animalId" class="modal" style="min-height: 800px;">
+                <form :action="'/api/v1/animals/' + animalId + '/weighings'" data-method="POST" onsubmit="window.submit_form">
                     <div class="modal-content">
                         <h4>{{ $t("labels.add_weight") }}</h4>
                         <p>
@@ -15,7 +15,8 @@
                     </div>
 
                     <div class="modal-footer">
-                        <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
+                        <button class="btn modal-action modal-close waves-effect waves-light" type="submit">
+                            {{ $t("buttons.save") }}
                             <i class="material-icons left">send</i>
                         </button>
                     </div>
@@ -29,129 +30,145 @@
                 </div>
 
                 <div class="card-content">
-                    <div v-for="af in animal_weighings">
-                        <div style="width: 100%;" class="row row-no-margin">
-                            <span v-if="af.timestamps.created_diff.days > 1">{{ $t('units.days_ago', {val: af.timestamps.created_diff.days}) }}</span>
-                            <span v-if="af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours > 1">{{ $t('units.hours_ago', {val: af.timestamps.created_diff.hours}) }}</span>
-                            <span v-if="af.timestamps.created_diff.days <= 1 && af.timestamps.created_diff.hours <= 1">{{ $t('units.just_now') }}</span>
-                            <span> - {{ af.amount }}g</span>
-                            <span class="right"><a class="red-text" :href="'/animals/' + animalId + '/weighings/' + af.id + '/delete'"><i class="material-icons">delete</i></a></span>
+                    <div v-for="weighing in weighings">
+                        <div style="width: 100%;" class="row row-no-margin" v-if="weighing.data">
+                            <span v-if="weighing.data.timestamps.created_diff.days > 1">
+                                {{ $t('units.days_ago', {val: weighing.data.timestamps.created_diff.days}) }}
+                            </span>
+
+                            <span v-if="weighing.data.timestamps.created_diff.days <= 1 &&
+                                        weighing.data.timestamps.created_diff.hours > 1">
+                                {{ $t('units.hours_ago', {val: weighing.data.timestamps.created_diff.hours}) }}
+                            </span>
+
+                            <span v-if="weighing.data.timestamps.created_diff.days <= 1 &&
+                                        weighing.data.timestamps.created_diff.hours <= 1">
+                                {{ $t('units.just_now') }}
+                            </span>
+
+                            <span> - {{ weighing.data.amount }}g</span>
+
+                            <span class="right">
+                                <a class="red-text"
+                                   :href="'/animals/' + animalId + '/weighings/' + weighing.data.id + '/delete'">
+                                    <i class="material-icons">delete</i>
+                                </a>
+                            </span>
                         </div>
                     </div>
-                    <div v-if="animal_weighings.length < 1">
+                    <div v-if="weighings.length < 1">
                         <p>{{ $t('labels.no_data') }}</p>
                     </div>
+
+                    <pagination ref="pagination"
+                                :source-filter="sourceFilter"
+                                :enable-filters="false"
+                                :mini="true">
+                    </pagination>
                 </div>
 
                 <div class="card-action">
-                    <a v-bind:href="'#modal_add_weighing_' + animalId" v-bind:onclick="'$(\'#modal_add_weighing_' + animalId + '\').modal(); $(\'#modal_add_weighing_' + animalId + ' select\').material_select(); $(\'#modal_add_weighing_' + animalId + '\').modal(\'open\');'">{{ $t("buttons.add") }}</a>
+                    <a :href="'#modal_add_weighing_' + animalId"
+                       :onclick="'$(\'#modal_add_weighing_' + animalId + '\').modal(); $(\'#modal_add_weighing_' + animalId + ' select\').material_select(); $(\'#modal_add_weighing_' + animalId + '\').modal(\'open\');'">
+                        {{ $t("buttons.add") }}
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </template>
 
+
 <script>
-export default {
-    data () {
-        return {
-            animal_weighings: []
-        }
-    },
+    import pagination from './mixins/pagination.vue';
 
-    props: {
-        refreshTimeoutSeconds: {
-            type: Number,
-            default: null,
-            required: false
-        },
-        animalId: {
-            type: String,
-            required: true
-        },
-        sourceFilter: {
-            type: String,
-            default: '',
-            required: false
-        },
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        }
-    },
-
-    methods: {
-        update: function(a) {
-            var item = null;
-            if (a.animal_weighing.animal.id !== this.animalId) {
-                return;
-            }
-
-            this.animal_weighings.forEach(function(data, index) {
-                if (data.id === a.animal_weighing.id) {
-                    item = index;
-                }
-            });
-            if (item === null) {
-                this.animal_weighings.push(a.animal_weighing)
-            }
-            else if (item !== null) {
-                this.animal_weighings.splice(item, 1, a.animal_weighing);
+    export default {
+        data () {
+            return {
+                ids: [],
+                file_ids: []
             }
         },
 
-        delete: function(a) {
-            var item = null;
-            this.animal_weighings.forEach(function(data, index) {
-                if (data.id === a.animal_weighing_id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.animal_weighings.splice(item, 1);
+        props: {
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
+            },
+            animalId: {
+                type: String,
+                required: true
+            },
+            sourceFilter: {
+                type: String,
+                default: '',
+                required: false
+            },
+            hideCols: {
+                type: Array,
+                default: function(){return [];},
+                required: false
+            },
+            itemsPerPage: {
+                type: Number,
+                default: 10,
+                required: false
             }
         },
 
-        load_data: function() {
-            window.eventHubVue.processStarted();
-            var that = this;
-            $.ajax({
-                url: '/api/v1/animals/' + that.animalId + '/weighings?all=true&' + that.sourceFilter,
-                method: 'GET',
-                success: function (data) {
-                    that.animal_weighings = data.data;
-                    window.eventHubVue.processEnded();
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
-        }
+        components: {
+            pagination
+        },
 
-    },
+        computed: {
+            weighings () {
+                let that = this;
+                return this.$store.state.animal_weighings.filter(function(a) {
+                    return that.ids.includes(a.id) && a.data !== null
+                }).sort(function (a, b) {
+                    let c = a.data[that.$refs.pagination.order.field] > b.data[that.$refs.pagination.order.field];
+                    if ( c && that.$refs.pagination.order.direction === 'asc' ||
+                        !c && that.$refs.pagination.order.direction === 'desc') {
+                        return 1;
+                    }
+                    return -1;
+                });
+            }
+        },
 
-    created: function() {
-        window.echo.private('dashboard-updates')
-            .listen('AnimalWeighingEventUpdated', (e) => {
-                this.update(e);
-            }).listen('AnimalWeighingEventDeleted', (e) => {
-                this.delete(e);
-            });
+        methods: {
+            load_data: function() {
+                let that = this;
 
-        var that = this;
-        setTimeout(function() {
-            that.load_data();
-        }, 100);
+                $.ajax({
+                    url: '/api/v1/animals/' + that.animalId + '/weighings?' +
+                         'pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                         that.$refs.pagination.page +
+                         that.$refs.pagination.filter_string +
+                         that.$refs.pagination.order_string,
+                    method: 'GET',
+                    success: function (data) {
+                        that.ids = data.data.map(a => a.id);
 
-        if (this.refreshTimeoutSeconds !== null) {
-            setInterval(function() {
-                that.load_data();
-            }, this.refreshTimeoutSeconds * 1000)
+                        that.$refs.pagination.meta = data.meta;
+
+                        that.$parent.ensureObjects('animal_weighings', that.ids, data.data);
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
+            }
+        },
+
+        created: function() {
+            let that = this;
+            setTimeout(function() {
+                that.$refs.pagination.order.field = 'created_at';
+                that.$refs.pagination.order.direction = 'desc';
+                that.$refs.pagination.init();
+            }, 100);
         }
     }
-
-}
 </script>
