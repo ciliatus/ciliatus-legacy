@@ -67,6 +67,7 @@ const store = new Vuex.Store({
         generic_components: [],
         users: [],
         files: [],
+        caresheets: [],
 
         max_object_age_seconds: 60
     }

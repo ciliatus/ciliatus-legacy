@@ -160,9 +160,8 @@
 
     <div id="tab_caresheets" class="col s12">
         <div class="container">
-            <caresheets-widget :refresh-timeout-seconds="60"
-                                    belongs-to-id="{{ $animal->id }}"
-                                    container-classes="container"></caresheets-widget>
+            <caresheets-widget animal-id="{{ $animal->id }}"
+                               wrapper-classes="row"></caresheets-widget>
         </div>
 
         <div class="fixed-action-btn">
