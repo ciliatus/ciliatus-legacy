@@ -6,6 +6,8 @@ use App\ActionSequenceSchedule;
 use App\File;
 use App\Property;
 use App\Sensorreading;
+use App\User;
+use App\UserAbility;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
@@ -36,6 +38,14 @@ class Update20 extends Command
 
         echo "Running database migration ..." . PHP_EOL;
         Artisan::call('migrate');
+
+        echo "Updating permissions ..." . PHP_EOL;
+        foreach (User::get() as $user) {
+            if ($user->hasAbility('grant_api-list:raw')) {
+                $user->grantAbility('grant_api-list:all');
+            }
+        }
+        UserAbility::where('name', 'grant_api-list:raw')->delete();
 
         echo "Updating action sequence schedules ..." . PHP_EOL;
         foreach (ActionSequenceSchedule::get() as $ass) {
