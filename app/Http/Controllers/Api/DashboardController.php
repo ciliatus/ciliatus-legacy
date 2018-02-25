@@ -68,7 +68,8 @@ class DashboardController extends ApiController
             if (!$physical_sensor->heartbeatOk() &&
                 !is_null($physical_sensor->controlunit) &&
                 $physical_sensor->active() &&
-                $physical_sensor->controlunit->active()) {
+                $physical_sensor->controlunit->active()
+            ) {
                 $physical_sensors_critical->push($physical_sensor->enrich());
             }
         }
@@ -83,7 +84,8 @@ class DashboardController extends ApiController
                     $query->where('humidity_critical', true)
                           ->orWhere('temperature_critical', true);
                 })->orderBy('name')
-                  ->get() as $terrarium) {
+                  ->get() as $terrarium
+        ) {
             $terraria_critical[] = $terrarium->enrichAndTransform();
         }
 
@@ -120,8 +122,8 @@ class DashboardController extends ApiController
              */
             foreach ($sequence->schedules as $schedule) {
                 if (($schedule->willRunToday() &&
-                   !$schedule->isOverdue() &&
-                    $schedule->startsToday()->diffInHours(Carbon::now()) < 3)
+                    !$schedule->isOverdue() &&
+                     $schedule->startsToday()->diffInHours(Carbon::now()) < 3)
                 ||
                     $schedule->isOverdue()
                 ||
