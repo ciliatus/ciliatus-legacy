@@ -22,7 +22,6 @@ import FilesListWidget from './vue/files-list-widget.vue';
 import FilesShowWidget from './vue/files-show-widget.vue';
 import ActionSequencesListWidget from './vue/action_sequences-list-widget.vue';
 import ActionSequencesWidget from './vue/action_sequences-widget.vue';
-import ActionSequenceScheduleWidget from './vue/action_sequence_schedule-widget.vue';
 import PumpWidget from './vue/pump-widget.vue';
 import PumpsListWidget from './vue/pumps-list-widget.vue';
 import ValveWidget from './vue/valve-widget.vue';
@@ -179,7 +178,6 @@ global.ciliatusVue = new global.Vue({
         'files-show-widget': FilesShowWidget,
         'action_sequences-list-widget': ActionSequencesListWidget,
         'action_sequences-widget': ActionSequencesWidget,
-        'action_sequence_schedule-widget': ActionSequenceScheduleWidget,
         'pump-widget': PumpWidget,
         'pumps-list-widget': PumpsListWidget,
         'valve-widget': ValveWidget,
