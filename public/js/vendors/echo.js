@@ -68,15 +68,37 @@
 /************************************************************************/
 /******/ ({
 
+/***/ 12:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pusher_js__ = __webpack_require__(67);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_pusher_js__);
+
+
+
+window.echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
+    broadcaster: 'pusher',
+    key: '[YOUR PUSHER APP KEY HERE]',
+    namespace: 'App\\Events',
+    cluster: 'eu',
+    encrypted: true
+});
+
+/***/ }),
+
 /***/ 157:
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(7);
+module.exports = __webpack_require__(12);
 
 
 /***/ }),
 
-/***/ 61:
+/***/ 65:
 /***/ (function(module, exports) {
 
 var asyncGenerator = function () {
@@ -863,7 +885,7 @@ module.exports = Echo;
 
 /***/ }),
 
-/***/ 63:
+/***/ 67:
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -5045,27 +5067,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ ])
 });
 ;
-
-/***/ }),
-
-/***/ 7:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo__ = __webpack_require__(61);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_laravel_echo__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pusher_js__ = __webpack_require__(63);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_pusher_js___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1_pusher_js__);
-
-
-
-window.echo = new __WEBPACK_IMPORTED_MODULE_0_laravel_echo___default.a({
-    broadcaster: 'pusher',
-    key: '0c8933e7ceb3ed05bc9c',
-    namespace: 'App\\Events',
-    cluster: 'eu'
-});
 
 /***/ })
 
