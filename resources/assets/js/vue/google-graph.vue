@@ -196,9 +196,11 @@ export default {
                 tooltip: {
                     isHtml: true
                 }
-            }
+            };
 
-            this.chart.draw(this.data, this.options);
+            if (this.chart) {
+                this.chart.draw(this.data, this.options);
+            }
 
             $('#dygraph_' + this.id + '_loading').hide();
         }
