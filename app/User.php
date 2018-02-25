@@ -206,6 +206,17 @@ class User extends CiliatusModel implements
     }
 
     /**
+     * @param $ability
+     */
+    public function grantAbility($ability)
+    {
+        UserAbility::create([
+            'user_id' => $this->id,
+            'name'    => $ability
+        ]);
+    }
+
+    /**
      * Return current time converted
      * to user's timezone
      *
