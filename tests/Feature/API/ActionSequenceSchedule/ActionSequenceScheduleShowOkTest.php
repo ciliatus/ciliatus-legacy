@@ -71,7 +71,7 @@ class ActionSequenceScheduleShowOkTest extends TestCase
                 'id'            =>  $ass->id,
                 'runonce'       =>  $ass->runonce,
                 'states'        => [
-                    'willRunToday' => false,
+                    'will_run_today' => false,
                     'ran_today' => false,
                     'running' => false,
                     'is_overdue' => true,

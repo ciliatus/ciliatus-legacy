@@ -40,6 +40,10 @@ class ActionSequenceIntentionTransformer extends Transformer
             ])
         ];
 
+        if (isset($item['sequence'])) {
+            $return['sequence'] = is_array($item['sequence']) ? $item['sequence'] : $item['sequence']->transform();
+        }
+
         $return = $this->addCiliatusSpecificFields($return, $item);
 
         return $return;

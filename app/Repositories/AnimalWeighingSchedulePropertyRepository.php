@@ -35,7 +35,7 @@ class AnimalWeighingSchedulePropertyRepository extends Repository {
     {
         $ws = $this->scope;
         $belongsTo_object = $ws->belongsTo_object();
-        $ws->animal = is_null($belongsTo_object) ? null : $ws->belongsTo_object()->toArray();
+        $ws->animal = is_null($belongsTo_object) ? null : $ws->belongsTo_object()->enrich();
         $last_weighing_of_type = $belongsTo_object->last_weighing();
         $starts_at = $ws->property('AnimalWeighingScheduleStartDate', 'starts_at');
 

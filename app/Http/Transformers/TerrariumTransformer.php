@@ -25,9 +25,10 @@ class TerrariumTransformer extends Transformer
             'id'    => $item['id'],
             'name'  => isset($item['name']) ? $item['name'] : '',
             'display_name' => $item['display_name'],
-            'temperature_critical' => $item['temperature_critical'],
-            'humidity_critical' => $item['humidity_critical'],
-            'heartbeat_critical' => $item['heartbeat_critical'],
+            'temperature_critical' => isset($item['temperature_critical']) ? $item['temperature_critical'] : null,
+            'humidity_critical' => isset($item['humidity_critical']) ? $item['humidity_critical'] : null,
+            'heartbeat_critical' => isset($item['heartbeat_critical']) ? $item['heartbeat_critical'] : null,
+            'state_ok' => isset($item['state_ok']) ? $item['state_ok'] : null,
             'cooked_temperature_celsius' => $item['cooked_temperature_celsius'],
             'cooked_humidity_percent' => $item['cooked_humidity_percent'],
             'timestamps' => $this->parseTimestamps($item)

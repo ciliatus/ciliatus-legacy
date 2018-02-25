@@ -27,16 +27,6 @@ class ActionSequenceRepository extends Repository {
      */
     public function show()
     {
-        foreach ($this->scope->schedules as &$s) {
-            $s = (new ActionSequenceScheduleRepository($s))->show();
-        }
-        foreach ($this->scope->triggers as &$t) {
-            $t = (new ActionSequenceTriggerRepository($t))->show();
-        }
-        foreach ($this->scope->intentions as &$i) {
-            $i = (new ActionSequenceIntentionRepository($i))->show();
-        }
-
         return $this->scope;
     }
 

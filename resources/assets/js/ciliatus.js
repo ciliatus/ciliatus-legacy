@@ -74,6 +74,7 @@ const store = new Vuex.Store({
         logical_sensor_thresholds: [],
         physical_sensors: [],
         pumps: [],
+        suggestions: [],
         terraria: [],
         users: [],
         valves: [],

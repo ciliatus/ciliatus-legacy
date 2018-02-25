@@ -25,6 +25,10 @@ class AnimalWeighingSchedulePropertyTransformer extends Transformer
             ])
         ];
 
+        if (isset($item['animal'])) {
+            $return['animal'] = is_array($item['animal']) ? $item['animal'] : $item['animal']->transform();
+        }
+
         $return = $this->addCiliatusSpecificFields($return, $item);
 
         return $return;

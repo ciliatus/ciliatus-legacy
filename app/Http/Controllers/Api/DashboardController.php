@@ -2,6 +2,10 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\ActionSequence;
+use App\ActionSequenceIntention;
+use App\ActionSequenceSchedule;
+use App\ActionSequenceTrigger;
 use App\Animal;
 use App\Controlunit;
 use App\Event;
@@ -17,6 +21,7 @@ use App\Http\Transformers\TerrariumTransformer;
 use App\PhysicalSensor;
 use App\Property;
 use App\Repositories\GenericRepository;
+use App\SuggestionEvent;
 use App\System;
 use App\Terrarium;
 use Carbon\Carbon;
@@ -53,7 +58,7 @@ class DashboardController extends ApiController
         $controlunits_critical = new Collection();
         foreach (Controlunit::orderBy('name')->get() as $controlunit) {
             if (!$controlunit->heartbeatOk() && $controlunit->active()) {
-                $controlunits_critical->push($controlunit);
+                $controlunits_critical->push($controlunit->enrich());
             }
         }
         $controlunits_critical = (new ControlunitTransformer())->transformCollection($controlunits_critical->toArray());
@@ -64,103 +69,98 @@ class DashboardController extends ApiController
                 !is_null($physical_sensor->controlunit) &&
                 $physical_sensor->active() &&
                 $physical_sensor->controlunit->active()) {
-                $physical_sensors_critical->push($physical_sensor);
+                $physical_sensors_critical->push($physical_sensor->enrich());
             }
         }
         $physical_sensors_critical = (new PhysicalSensorTransformer())->transformCollection($physical_sensors_critical->toArray());
 
-        $terraria_ok = (new TerrariumTransformer())->transformCollection(Terrarium::where('humidity_critical', false)
-            ->where('temperature_critical', false)->get()->toArray());
+        $terraria_ok_count = Terrarium::where('humidity_critical', false)
+                                      ->where('temperature_critical', false)
+                                      ->count();
 
-        $terraria_critical = (new TerrariumTransformer())->transformCollection(Terrarium::where(function($query) {
-            $query->where('humidity_critical', true)
-                ->orWhere('temperature_critical', true);
-        })->orderBy('name')->get()->toArray());
+        $terraria_critical = [];
+        foreach (Terrarium::where(function ($query) {
+                    $query->where('humidity_critical', true)
+                          ->orWhere('temperature_critical', true);
+                })->orderBy('name')
+                  ->get() as $terrarium) {
+            $terraria_critical[] = $terrarium->enrichAndTransform();
+        }
 
-
-        $feeding_schedules = [
-            'due' => [],
-            'overdue' => []
-        ];
-
+        $feeding_schedules = [];
         foreach (Animal::whereNull('death_date')->orderBy('display_name')->get() as $animal) {
             $feeding_schedules_temp = $animal->getDueFeedingSchedules();
-            foreach ($feeding_schedules_temp as $type=>$schedules) {
+            foreach ($feeding_schedules_temp as $type => $schedules) {
                 foreach ($schedules as $schedule) {
-                    $feeding_schedules[$type][] = (new AnimalFeedingSchedulePropertyTransformer())->transform($schedule->toArray());
+                    $feeding_schedules[] = $schedule->enrichAndTransform();
                 }
             }
         }
 
-
-        $weighing_schedules = [
-            'due' => [],
-            'overdue' => []
-        ];
-
+        $weighing_schedules = [];
         foreach (Animal::whereNull('death_date')->orderBy('display_name')->get() as $animal) {
             $weighing_schedules_temp = $animal->getDueWeighingSchedules();
-            foreach ($weighing_schedules_temp as $type=>$schedules) {
-                foreach ($schedules as $index=>$schedule) {
-                    $weighing_schedules[$type][] = (new AnimalWeighingSchedulePropertyTransformer())->transform($schedule->toArray());
+            foreach ($weighing_schedules_temp as $type => $schedules) {
+                foreach ($schedules as $index => $schedule) {
+                    $weighing_schedules[] = $schedule->enrichAndTransform();
                 }
             }
         }
 
+        $action_sequence_schedules = [];
+        $action_sequence_triggers = [];
+        $action_sequence_intentions = [];
 
-        $action_sequence_schedules = [
-            'due' => [],
-            'overdue' => [],
-            'running' => []
-        ];
-
-        $action_sequence_triggers = [
-            'running' => [],
-            'should_be_running' => []
-        ];
-
-        $action_sequence_intentions = [
-            'running' => [],
-            'should_be_running' => []
-        ];
-
-        foreach (Terrarium::orderBy('name')->get() as $terrarium) {
-            foreach ($terrarium->action_sequences as $as) {
-                foreach ($as->schedules()->with('sequence')->get() as $ass) {
-                    if ($ass->willRunToday() && !$ass->isOverdue() && $ass->startsToday()->diffInHours(Carbon::now()) < 3) {
-                        $action_sequence_schedules['due'][] = (new ActionSequenceScheduleTransformer())->transform($ass->toArray());
-                    }
-                    elseif ($ass->isOverdue()) {
-                        $action_sequence_schedules['overdue'][] = (new ActionSequenceScheduleTransformer())->transform($ass->toArray());
-                    }
-                    elseif ($ass->running()) {
-                        $action_sequence_schedules['running'][] = (new ActionSequenceScheduleTransformer())->transform($ass->toArray());
-                    }
+        /**
+         * @var ActionSequence $sequence
+         */
+        foreach (ActionSequence::get() as $sequence) {
+            /**
+             * @var ActionSequenceSchedule $schedule
+             */
+            foreach ($sequence->schedules as $schedule) {
+                if (($schedule->willRunToday() &&
+                   !$schedule->isOverdue() &&
+                    $schedule->startsToday()->diffInHours(Carbon::now()) < 3)
+                ||
+                    $schedule->isOverdue()
+                ||
+                    $schedule->running()
+                ) {
+                    $schedule->sequence = $schedule->sequence()->get()->first()->enrich();
+                    $action_sequence_schedules[] = $schedule->enrichAndTransform();
                 }
             }
 
-            foreach ($terrarium->action_sequences as $as) {
-                foreach ($as->triggers()->with('sequence')->get() as $ast) {
-                    if ($ast->running()) {
-                        $action_sequence_triggers['running'][] = (new ActionSequenceTriggerTransformer())->transform($ast->toArray());
-                    }
+            /**
+             * @var ActionSequenceTrigger $trigger
+             */
+            foreach ($sequence->triggers as $trigger) {
+                if ($trigger->running()
+                ||
+                    $trigger->shouldBeStarted()
+                ) {
+                    $trigger->sequence = $trigger->sequence()->get()->first()->enrich();
+                    $action_sequence_triggers[] = $trigger->enrichAndTransform();
                 }
             }
 
-            foreach ($terrarium->action_sequences as $as) {
-                foreach ($as->intentions()->with('sequence')->get() as $asi) {
-                    if ($asi->running()) {
-                        $action_sequence_intentions['running'][] = (new ActionSequenceIntentionTransformer())->transform($asi->toArray());
-                    }
-                    elseif ($asi->shouldBeRunning()) {
-                        $action_sequence_intentions['should_be_running'][] = (new ActionSequenceIntentionTransformer())->transform($asi->toArray());
-                    }
+            /**
+             * @var ActionSequenceIntention $intention
+             */
+            foreach ($sequence->intentions as $intention) {
+                if ($intention->running()
+                ||
+                    $intention->shouldBeStarted()
+                ) {
+                    $intention->sequence = $intention->sequence()->get()->first()->enrich();
+                    $action_sequence_intentions[] = $intention->enrichAndTransform();
                 }
             }
         }
 
         $suggestions = [];
-        foreach (Event::orderBy('name')->where('type', 'Suggestion')->get() as $suggestion) {
+        foreach (SuggestionEvent::orderBy('name')->get() as $suggestion) {
 
             if (is_null($suggestion->property('ReadFlag'))) {
                 $belongsTo = $suggestion->belongsTo_object();
@@ -171,29 +171,23 @@ class DashboardController extends ApiController
                 $suggestion->belongsTo_object = is_null($belongsTo) ? null : $belongsTo->toArray();
                 $violation_type = $suggestion->properties()->where('name', 'violation_type')->get()->first();
                 $suggestion->violation_type = is_null($violation_type) ? 'UNKNOWN' : $violation_type->value;
-                $suggestions[] = (new SuggestionEventTransformer())->transform($suggestion->toArray());
+                $suggestions[] = $suggestion->enrichAndTransform();
 
             }
 
         }
 
         return $this->respondWithData([
-            'controlunits' => [
-                'critical' => $controlunits_critical
-            ],
-            'physical_sensors' => [
-                'critical' => $physical_sensors_critical
-            ],
-            'terraria' => [
-                'ok' => $terraria_ok,
-                'critical' => $terraria_critical
-            ],
-            'animal_feeding_schedules' => $feeding_schedules,
-            'animal_weighing_schedules' => $weighing_schedules,
-            'action_sequence_schedules' => $action_sequence_schedules,
-            'action_sequence_triggers' => $action_sequence_triggers,
+            'controlunits'               => $controlunits_critical,
+            'physical_sensors'           => $physical_sensors_critical,
+            'terraria_ok_count'          => $terraria_ok_count,
+            'terraria'                   => $terraria_critical,
+            'animal_feeding_schedules'   => $feeding_schedules,
+            'animal_weighing_schedules'  => $weighing_schedules,
+            'action_sequence_schedules'  => $action_sequence_schedules,
+            'action_sequence_triggers'   => $action_sequence_triggers,
             'action_sequence_intentions' => $action_sequence_intentions,
-            'suggestions' => $suggestions
+            'suggestions'                => $suggestions
         ]);
     }
 
@@ -222,7 +216,7 @@ class DashboardController extends ApiController
      * Display the specified resource.
      *
      * @param Request $request
-     * @param string $id
+     * @param string  $id
      * @return void
      */
     public function show(Request $request, $id)
@@ -245,7 +239,7 @@ class DashboardController extends ApiController
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request $request
-     * @param string $id
+     * @param string                    $id
      * @return void
      */
     public function update(Request $request, $id)

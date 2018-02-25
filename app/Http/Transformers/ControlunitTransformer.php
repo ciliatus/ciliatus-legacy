@@ -25,6 +25,8 @@ class ControlunitTransformer extends Transformer
             'name' => $item['name'],
             'client_server_time_diff_seconds' => $item['client_server_time_diff_seconds'],
             'software_version' => isset($item['software_version']) ? $item['software_version'] : null,
+            'heartbeat_critical' => isset($item['heartbeat_critical']) ? $item['heartbeat_critical'] : null,
+            'state_ok' => isset($item['state_ok']) ? $item['state_ok'] : null,
             'timestamps' => $this->parseTimestamps($item, ['heartbeat_at' => 'last_heartbeat']),
         ];
 

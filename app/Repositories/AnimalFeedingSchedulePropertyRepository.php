@@ -35,7 +35,7 @@ class AnimalFeedingSchedulePropertyRepository extends Repository {
     {
         $fs = $this->scope;
         $belongsTo_object = $fs->belongsTo_object();
-        $fs->animal = is_null($belongsTo_object) ? null : $fs->belongsTo_object()->toArray();
+        $fs->animal = is_null($belongsTo_object) ? null : $fs->belongsTo_object()->enrich();
         $last_feeding_of_type = $belongsTo_object->last_feeding($fs->name);
         $starts_at = $fs->properties()->where('type', 'AnimalFeedingScheduleStartDate')
                          ->orderBy('created_at', 'desc')
