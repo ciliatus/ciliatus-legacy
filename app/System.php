@@ -3,11 +3,14 @@
 namespace App;
 
 use ApiAi\HttpClient\GuzzleHttpClient;
+use App\Repositories\AnimalRepository;
+use App\Repositories\TerrariumRepository;
 use App\Traits\WritesToInfluxDb;
 use Auth;
 use Carbon\Carbon;
 use GuzzleHttp\Client;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 use Webpatser\Uuid\Uuid;
 
 /**
@@ -265,6 +268,44 @@ class System extends Model
                        ->where('name', $name)
                        ->get()
                        ->first();
+    }
+
+    /**
+     * @param bool $kill_cache
+     * @return array
+     */
+    public static function getCachedAnimalsAndTerraria($kill_cache = false)
+    {
+        $cache_key = 'SystemAnimalsAndTerraria';
+        if (Cache::has($cache_key) && !$kill_cache) {
+            $cache = Cache::get($cache_key);
+            $final_data = json_decode($cache);
+            return $final_data;
+        }
+
+        $data = [];
+        foreach (Animal::get() as $animal) {
+            $data[] = (new AnimalRepository($animal))->show();
+        }
+        foreach (Terrarium::get() as $terrarium) {
+            $data[] = (new TerrariumRepository($terrarium))->show();
+        }
+
+        Cache::put(
+            $cache_key,
+            json_encode($data),
+            env('SYSTEM_ANIMALS_TERRARIA_CACHE_DURATION_MINUTES', 60));
+
+        return $data;
+    }
+
+    /**
+     *
+     */
+    public static function rebuild_cache()
+    {
+        echo "Rebuilding cache for getCachedAnimalsAndTerraria" . PHP_EOL;
+        self::getCachedAnimalsAndTerraria(true);
     }
 
 }

@@ -2,6 +2,7 @@
 
 namespace App\Console\Commands;
 
+use App\System;
 use App\Terrarium;
 use Illuminate\Console\Command;
 
@@ -30,6 +31,7 @@ class RebuildCache extends Command
     {
         echo "Rebuilding terrarium caches ..." . PHP_EOL;
         Terrarium::rebuild_cache();
+        System::rebuild_cache();
         echo "Done" . PHP_EOL;
 
         return true;

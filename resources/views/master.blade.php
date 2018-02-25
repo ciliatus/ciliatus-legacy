@@ -108,6 +108,13 @@
                         </div>
                     </li>
 
+                    <li>
+                        <div class="input-field ciliatus-search-wrapper">
+                            <input type="text" id="search-ciliatus" class="no-margin">
+                            <label for="search-ciliatus">Search Ciliatus</label>
+                        </div>
+                    </li>
+
                     <li @if(Request::is('/')) class="active" @endif><a href="{{ url('/') }}" class="waves-effect waves-orange"><i class="material-icons">dashboard</i>@choice('menu.dashboard', 1)</a></li>
 
                     <li><div class="divider"></div></li>
@@ -290,6 +297,29 @@
         <script>
             $(document).ready(function() {
                 window.runPage();
+
+                var search_ciliatus_data = {
+                    @foreach(App\System::getCachedAnimalsAndTerraria() as $obj)
+                        "{{ $obj->display_name }}": "{{ $obj->url }}",
+                    @endforeach
+                };
+
+                var search_ciliatus_dom = $('#search-ciliatus');
+
+                search_ciliatus_dom.autocomplete({
+                    data: {
+                        @foreach(App\System::getCachedAnimalsAndTerraria() as $obj)
+                            "{{ $obj->display_name }}": null,
+                        @endforeach
+                    },
+                    onAutocomplete: function(item) {
+                        window.location.replace(search_ciliatus_data[item]);
+                    },
+                    limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
+                });
+
+                search_ciliatus_dom.focus();
+                search_ciliatus_dom.select();
             });
         </script>
 
