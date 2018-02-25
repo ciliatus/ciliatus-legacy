@@ -170,7 +170,7 @@
         created: function() {
             let that = this;
             setTimeout(function() {
-                that.$refs.pagination.init();
+                that.$refs.pagination.init('name');
             }, 100);
         }
     }
