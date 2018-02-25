@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/controlunits" class="breadcrumb hide-on-small-and-down">@choice('components.controlunits', 2)</a>
+    <a href="/controlunits" class="breadcrumb hide-on-small-and-down">@choice('labels.controlunits', 2)</a>
     <a href="/controlunits/{{ $controlunit->id }}" class="breadcrumb hide-on-small-and-down">{{ $controlunit->name }}</a>
 @stop
 
@@ -16,17 +16,14 @@
     <div id="tab_overview" class="col s12">
         <div class="container">
             <div class="row">
-                <div class="col s12 m5 l4">
-                    <controlunits-widget :refresh-timeout-seconds="60" controlunit-id="{{ $controlunit->id }}"
-                                         :subscribe-add="false"  :subscribe-delete="false"
-                                         container-classes="row" wrapper-classes="col s12"></controlunits-widget>
-                </div>
+                <controlunit-widget controlunit-id="{{ $controlunit->id }}"
+                                    wrapper-classes="col s12 m5 l4"></controlunit-widget>
 
                 <div class="col s12 m7 l8">
                     <div class="card">
                         <div class="card-header">
                             <i class="material-icons">memory</i>
-                            @choice('components.physical_sensors', 2)
+                            @choice('labels.physical_sensors', 2)
                         </div>
                         <div class="card-content">
                             <physical_sensors-list-widget :refresh-timeout-seconds="60"
@@ -39,7 +36,7 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="material-icons">rotate_right</i>
-                            @choice('components.pumps', 2)
+                            @choice('labels.pumps', 2)
                         </div>
                         <div class="card-content">
                             <pumps-list-widget :refresh-timeout-seconds="60"
@@ -52,7 +49,7 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="material-icons">transform</i>
-                            @choice('components.valves', 2)
+                            @choice('labels.valves', 2)
                         </div>
                         <div class="card-content">
                             <valves-list-widget :refresh-timeout-seconds="60"

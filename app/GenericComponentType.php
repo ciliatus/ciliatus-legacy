@@ -129,7 +129,7 @@ class GenericComponentType extends CiliatusModel
      */
     public function icon()
     {
-        // TODO: Implement icon() method.
+        return $this->icon;
     }
 
     /**

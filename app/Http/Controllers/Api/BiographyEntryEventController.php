@@ -20,9 +20,9 @@ class BiographyEntryEventController extends ApiController
     /**
      * BiographyEntryEventController constructor.
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
     }
 
     /**
@@ -49,7 +49,7 @@ class BiographyEntryEventController extends ApiController
             $entries = $belongsTo->entries();
         }
         else {
-            $entries = BiographyEntryEvent::with('files');
+            $entries = BiographyEntryEvent::query();
         }
 
         $entries = $this->filter($request, $entries);

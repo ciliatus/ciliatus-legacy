@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/action_sequence_intentions" class="breadcrumb hide-on-small-and-down">@choice('components.action_sequence_intentions', 2)</a>
+    <a href="/action_sequence_intentions" class="breadcrumb hide-on-small-and-down">@choice('labels.action_sequence_intentions', 2)</a>
     <a href="/action_sequence_intentions/{{ $action_sequence_intention->id }}" class="breadcrumb hide-on-small-and-down">{{ $action_sequence_intention->name }}</a>
     <a href="/action_sequence_intentions/{{ $action_sequence_intention->id }}/delete" class="breadcrumb hide-on-small-and-down">@lang('buttons.delete')</a>
 @stop

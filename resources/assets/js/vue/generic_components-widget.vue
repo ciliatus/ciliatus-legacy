@@ -1,182 +1,77 @@
 <template>
-    <div :class="containerClasses" :id="containerId">
-        <div v-for="generic_component in generic_components">
-            <div :class="wrapperClasses">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="material-icons">{{ generic_component.type.icon }}</i>
-                        {{ generic_component.type.name_singular }}
-                    </div>
+    <div :class="wrapperClasses">
+        <div class="card" v-if="generic_component.data">
+            <div class="card-header">
+                <i class="material-icons">{{ generic_component.data.type.icon }}</i>
+                {{ generic_component.data.type.name_singular }}
+            </div>
 
-                    <div class="card-content">
-                        <span class="card-title activator">
-                            {{ generic_component.name }}
-                        </span>
+            <div class="card-content">
+                <span class="card-title">
+                    {{ generic_component.data.name }}
+                </span>
 
-                        <div>
-                            <span v-for="(property, index) in generic_component.properties">{{ property.name }}: {{ property.value }}<br /></span>
-                        </div>
-                    </div>
-
-                    <div class="card-action">
-                        <a v-bind:href="'/generic_components/' + generic_component.id">{{ $t("buttons.details") }}</a>
-                        <a v-bind:href="'/generic_components/' + generic_component.id + '/edit'">{{ $t("buttons.edit") }}</a>
-                    </div>
+                <div v-for="(property, index) in generic_component.data.properties">
+                    {{ property.name }}: {{ property.value }}<br />
                 </div>
             </div>
+
+            <div class="card-action">
+                <a v-bind:href="'/generic_components/' + generic_component.data.id">{{ $t("buttons.details") }}</a>
+                <a v-bind:href="'/generic_components/' + generic_component.data.id + '/edit'">{{ $t("buttons.edit") }}</a>
+            </div>
+        </div>
+        <div v-else>
+            <loading-card-widget> </loading-card-widget>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            generic_components: []
-        }
-    },
+    import LoadingCardWidget from './loading-card-widget';
 
-    props: {
-        refreshTimeoutSeconds: {
-            type: Number,
-            default: null,
-            required: false
-        },
-        genericComponentId: {
-            type: String,
-            default: '',
-            required: false
-        },
-        sourceFilter: {
-            type: String,
-            default: '',
-            required: false
-        },
-        subscribeAdd: {
-            type: Boolean,
-            default: true,
-            required: false
-        },
-        subscribeDelete: {
-            type: Boolean,
-            default: true,
-            required: false
-        },
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        containerClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        containerId: {
-            type: String,
-            default: 'generic_components-masonry-grid',
-            required: false
-        }
-    },
+    export default {
 
-    methods: {
-        update: function(gc) {
-            var item = null;
-            this.generic_components.forEach(function(data, index) {
-                if (data.id === gc.generic_component.id) {
-                    item = index;
-                }
-            });
-            if (item === null && this.subscribeAdd === true) {
-                this.generic_components.push(gc.generic_component);
-            }
-            else if (item !== null) {
-                this.generic_components.splice(item, 1, gc.generic_component);
-            }
-
-            this.$nextTick(function() {
-                this.refresh_grid();
-            });
-        },
-
-        delete: function(gc) {
-            if (this.subscribeDelete !== true) {
-                return;
-            }
-            var item = null;
-            this.generic_components.forEach(function(data, index) {
-                if (data.id === gc.generic_component_id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.generic_components.splice(item, 1);
-            }
-
-            this.$nextTick(function() {
-                this.refresh_grid();
-            });
-        },
-
-        refresh_grid: function() {
-            let grid = $('#' + this.containerId + '.masonry-grid');
-            if (grid.length > 0) {
-                grid.masonry('reloadItems');
-                grid.masonry('layout');
+        data () {
+            return {
             }
         },
 
-        load_data: function() {
-            window.eventHubVue.processStarted();
-            var that = this;
-            $.ajax({
-                url: '/api/v1/generic_components/' + that.genericComponentId + '?with[]=properties&with[]=states&' +
-                     'with[]=type&with[]=controlunit&' + that.sourceFilter,
-                method: 'GET',
-                success: function (data) {
-                    if (that.genericComponentId !== '') {
-                        that.generic_components = [data.data];
-                    }
-                    else {
-                        that.generic_components = data.data;
-                    }
+        props: {
+            genericComponentId: {
+                type: String,
+                default: '',
+                required: false
+            },
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
+            }
+        },
 
-                    that.$nextTick(function() {
-                        $('#' + that.containerId).masonry({
-                            columnWidth: '.col',
-                            itemSelector: '.col',
-                        });
-                    });
+        components: {
+            'loading-card-widget': LoadingCardWidget
+        },
 
-                    window.eventHubVue.processEnded();
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
-        }
-    },
+        computed: {
+            generic_component () {
+                let component = this.$store.state.generic_components.filter(p => p.id = this.genericComponentId);
+                return component.length > 0 ? component[0] : {};
+            }
+        },
 
-    created: function() {
-        window.echo.private('dashboard-updates')
-            .listen('GenericComponentUpdated', (e) => {
-                this.update(e);
-            }).listen('GenericComponentDeleted', (e) => {
-                this.delete(e);
-            });
+        methods: {
+            load_data: function() {
+                this.$parent.ensureObject('generic_components', this.genericComponentId, null, ['properties', 'states', 'type']);
+            }
+        },
 
-        var that = this;
-        setTimeout(function() {
-            that.load_data();
-        }, 100);
-
-        if (this.refreshTimeoutSeconds !== null) {
-            setInterval(function() {
+        created: function() {
+            let that = this;
+            setTimeout(function() {
                 that.load_data();
-            }, this.refreshTimeoutSeconds * 1000)
+            }, 2000);
         }
     }
-}
 </script>

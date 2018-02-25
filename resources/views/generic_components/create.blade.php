@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/generic_components" class="breadcrumb hide-on-small-and-down">@choice('components.generic_components', 2)</a>
+    <a href="/generic_components" class="breadcrumb hide-on-small-and-down">@choice('labels.generic_components', 2)</a>
     <a href="/generic_component_types/{{ $type->id }}" class="breadcrumb hide-on-small-and-down">{{ $type->name_plural }}</a>
     <a href="/generic_components/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create')</a>
 @stop
@@ -20,7 +20,7 @@
                                     <input type="text" name="type_id" value="{{ $type->id }}" readonly hidden>
                                     <i class="material-icons prefix">{{ $type->icon }}</i>
                                     <input type="text" name="type_name" value="{{ $type->name_singular }}" readonly>
-                                    <label for="type_name">@choice('components.generic_component_types', 1)</label>
+                                    <label for="type_name">@choice('labels.generic_component_types', 1)</label>
                                 </div>
                             </div>
 
@@ -29,7 +29,7 @@
                                     <select name="belongsTo">
                                         <option></option>
                                         @foreach ($belongTo_Options as $t=>$objects)
-                                            <optgroup label="@choice('components.' . strtolower($t), 2)">
+                                            <optgroup label="@choice('labels.' . strtolower($t), 2)">
                                                 @foreach ($objects as $o)
                                                     <option value="{{ $t }}|{{ $o->id }}"
                                                             @if(isset($preset['belongsTo_type']) && isset($preset['belongsTo_id']))
@@ -53,7 +53,7 @@
                                             <option value="{{ $cu->id }}">{{ $cu->name }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="controlunit">@choice('components.controlunits', 1)</label>
+                                    <label for="controlunit">@choice('labels.controlunits', 1)</label>
                                 </div>
                             </div>
 

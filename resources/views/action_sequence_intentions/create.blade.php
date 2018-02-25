@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/action_sequence_intentions" class="breadcrumb hide-on-small-and-down">@choice('components.action_sequence_intentions', 2)</a>
+    <a href="/action_sequence_intentions" class="breadcrumb hide-on-small-and-down">@choice('labels.action_sequence_intentions', 2)</a>
     <a href="/action_sequence_intentions/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create')</a>
 @stop
 
@@ -23,7 +23,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    <label for="action_sequence">@choice('components.action_sequences', 1)</label>
+                                    <label for="action_sequence">@choice('labels.action_sequences', 1)</label>
                                 </div>
                             </div>
 
@@ -57,7 +57,7 @@
                                             <option value="{{ $srt }}">@lang('labels.' . $srt)</option>
                                         @endforeach
                                     </select>
-                                    <label for="type">@choice('components.logical_sensors', 1)</label>
+                                    <label for="type">@choice('labels.logical_sensors', 1)</label>
                                 </div>
                             </div>
 

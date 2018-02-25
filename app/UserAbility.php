@@ -33,7 +33,7 @@ class UserAbility extends CiliatusModel
     protected static $abilities = [
         'grant_admin',
         'grant_api-list',
-        'grant_api-list:raw',
+        'grant_api-list:all',
         'grant_api-list_admin',
         'grant_api-read',
         'grant_api-read_admin',

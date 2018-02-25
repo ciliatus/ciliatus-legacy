@@ -41,15 +41,11 @@ class ActionSequenceTriggerTransformer extends Transformer
             ])
         ];
 
-        $return = $this->addCiliatusSpecificFields($return, $item);
-
         if (isset($item['sequence'])) {
-            $return['sequence'] = (new ActionSequenceTransformer())->transform($item['sequence']);
+            $return['sequence'] = is_array($item['sequence']) ? $item['sequence'] : $item['sequence']->transform();
         }
 
-        if (isset($item['logical_sensor'])) {
-            $return['logical_sensor'] = (new LogicalSensorTransformer())->transform($item['logical_sensor']);
-        }
+        $return = $this->addCiliatusSpecificFields($return, $item);
 
         return $return;
     }

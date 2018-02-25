@@ -1,211 +1,107 @@
 <template>
-    <div :class="containerClasses" :id="containerId">
-        <div v-for="controlunit in controlunits">
-            <div :class="wrapperClasses">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="material-icons">developer_board</i>
-                        {{ $tc("components.controlunits", controlunit.length) }}
-                    </div>
+    <div :class="wrapperClasses">
+        <div class="card" v-if="controlunit.data">
+            <div class="card-header">
+                <i class="material-icons">rotate_right</i>
+                {{ $tc("labels.controlunits", 1) }}
+            </div>
 
-                    <div class="card-content">
-                        <span class="card-title activator">
-                            {{ controlunit.name }}
-                            <i class="material-icons right">more_vert</i>
+            <div class="card-content">
+                <span class="card-title activator">
+                    {{ controlunit.data.name }}
+                </span>
+
+                <div>
+                    <div v-if="!controlunit.data.active">
+                        <strong>{{ $t('labels.inactive') }}</strong>
+                    </div>
+                    <div>
+                        {{ $t('labels.last_heartbeat') }}:
+                        <!-- @TODO: there has to be a better way to do this -->
+                        <span v-show="controlunit.data.timestamps.last_heartbeat_diff.days > 0"
+                              class="tooltipped" data-position="bottom" data-delay="50"
+                              v-bind:data-tooltip="controlunit.data.timestamps.last_heartbeat">
+                            {{ $t('units.days_ago', {val: controlunit.data.timestamps.last_heartbeat_diff.days}) }}
                         </span>
 
-                        <div v-if="!controlunit.active">
-                            <strong>{{ $t('labels.inactive') }}</strong>
-                        </div>
-                        <div>
-                            {{ $t('labels.last_heartbeat') }}:
-                            <!-- @TODO: there has to be a better way to do this -->
-                            <span v-show="controlunit.timestamps.last_heartbeat_diff.days > 0"
-                                  class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
-                                {{ $t('units.days_ago', {val: controlunit.timestamps.last_heartbeat_diff.days}) }}
-                            </span>
-                            <span v-show="controlunit.timestamps.last_heartbeat_diff.days < 1 &&
-                                          controlunit.timestamps.last_heartbeat_diff.hours > 0"
-                                          class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
-                                {{ $t('units.hours_ago', {val: controlunit.timestamps.last_heartbeat_diff.hours}) }}
-                            </span>
-                            <span v-show="controlunit.timestamps.last_heartbeat_diff.days < 1 &&
-                                          controlunit.timestamps.last_heartbeat_diff.hours < 1 &&
-                                          controlunit.timestamps.last_heartbeat_diff.minutes > 1"
-                                          class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
-                                {{ $t('units.minutes_ago', {val: controlunit.timestamps.last_heartbeat_diff.minutes}) }}
-                            </span>
-                            <span v-show="controlunit.timestamps.last_heartbeat_diff.days < 1 &&
-                                          controlunit.timestamps.last_heartbeat_diff.hours < 1 &&
-                                          controlunit.timestamps.last_heartbeat_diff.minutes < 2"
-                                          class="tooltipped" data-position="bottom" data-delay="50" v-bind:data-tooltip="controlunit.timestamps.last_heartbeat">
-                                {{ $t('units.just_now') }}
-                            </span>
-                        </div>
-                        <div>
-                            {{ $t('labels.client_server_time_diff') }}: {{ controlunit.client_server_time_diff_seconds }}s
-                        </div>
-                        <div v-if="controlunit.software_version">
-                            {{ $t('labels.software_version') }}: {{ controlunit.software_version }}
-                        </div>
-                    </div>
+                        <span v-show="controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&
+                                      controlunit.data.timestamps.last_heartbeat_diff.hours > 0"
+                              class="tooltipped" data-position="bottom" data-delay="50"
+                              v-bind:data-tooltip="controlunit.data.timestamps.last_heartbeat">
+                            {{ $t('units.hours_ago', {val: controlunit.data.timestamps.last_heartbeat_diff.hours}) }}
+                        </span>
 
-                    <div class="card-action">
-                        <a v-bind:href="'/controlunits/' + controlunit.id">{{ $t("buttons.details") }}</a>
-                        <a v-bind:href="'/controlunits/' + controlunit.id + '/edit'">{{ $t("buttons.edit") }}</a>
+                        <span v-show="controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&
+                                      controlunit.data.timestamps.last_heartbeat_diff.hours < 1 &&
+                                      controlunit.data.timestamps.last_heartbeat_diff.minutes > 1"
+                              class="tooltipped" data-position="bottom" data-delay="50"
+                              v-bind:data-tooltip="controlunit.data.timestamps.last_heartbeat">
+                            {{ $t('units.minutes_ago', {val: controlunit.data.timestamps.last_heartbeat_diff.minutes}) }}
+                        </span>
+
+                        <span v-show="controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&
+                                      controlunit.data.timestamps.last_heartbeat_diff.hours < 1 &&
+                                      controlunit.data.timestamps.last_heartbeat_diff.minutes < 2"
+                              class="tooltipped" data-position="bottom" data-delay="50"
+                              v-bind:data-tooltip="controlunit.data.timestamps.last_heartbeat">
+                            {{ $t('units.just_now') }}
+                        </span>
+                    </div>
+                    <div>
+                        {{ $t('labels.client_server_time_diff') }}: {{ controlunit.data.client_server_time_diff_seconds }}s
+                    </div>
+                    <div v-if="controlunit.data.software_version">
+                        {{ $t('labels.software_version') }}: {{ controlunit.data.software_version }}
                     </div>
                 </div>
             </div>
+
+            <div class="card-action">
+                <a v-bind:href="'/controlunits/' + controlunit.data.id">{{ $t("buttons.details") }}</a>
+                <a v-bind:href="'/controlunits/' + controlunit.data.id + '/edit'">{{ $t("buttons.edit") }}</a>
+            </div>
+        </div>
+        <div v-else>
+            <loading-card-widget> </loading-card-widget>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            controlunits: []
-        }
-    },
+    import LoadingCardWidget from './loading-card-widget';
 
-    props: {
-        refreshTimeoutSeconds: {
-            type: Number,
-            default: null,
-            required: false
-        },
-        controlunitId: {
-            type: String,
-            default: '',
-            required: false
-        },
-        subscribeAdd: {
-            type: Boolean,
-            default: true,
-            required: false
-        },
-        subscribeDelete: {
-            type: Boolean,
-            default: true,
-            required: false
-        },
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        containerClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        containerId: {
-            type: String,
-            default: 'valves-masonry-grid',
-            required: false
-        }
-    },
-
-    methods: {
-        update: function(cu) {
-            var item = null;
-            this.controlunits.forEach(function(data, index) {
-                if (data.id === cu.controlunit.id) {
-                    item = index;
-                }
-            });
-            if (item === null && this.subscribeAdd === true) {
-                this.controlunits.push(cu.controlunit);
+    export default {
+        props: {
+            controlunitId: {
+                type: String,
+                default: '',
+                required: false
+            },
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
             }
-            else if (item !== null) {
-                this.controlunits.splice(item, 1, cu.controlunit);
-            }
-
-            this.$nextTick(function() {
-                this.refresh_grid();
-            });
         },
 
-        delete: function(cu) {
-            if (this.subscribeDelete !== true) {
-                return;
-            }
-            var item = null;
-            this.controlunits.forEach(function(data, index) {
-                if (data.id === cu.controlunit_id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.controlunits.splice(item, 1);
-            }
-
-            this.$nextTick(function() {
-                this.refresh_grid();
-            });
+        components: {
+            'loading-card-widget': LoadingCardWidget
         },
 
-        refresh_grid: function() {
-            let grid = $('#' + this.containerId + '.masonry-grid');
-            if (grid.length > 0) {
-                grid.masonry('reloadItems');
-                grid.masonry('layout');
+        computed: {
+            controlunit () {
+                return this.$store.state.controlunits.filter(v => v.id = this.controlunitId)[0];
             }
-            $('.tooltipped').tooltip({delay: 50});
         },
 
-        load_data: function() {
-            window.eventHubVue.processStarted();
-            var that = this;
-            $.ajax({
-                url: '/api/v1/controlunits/' + that.controlunitId +
-                     '?with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=generic_components&',
-                method: 'GET',
-                success: function (data) {
-                    if (that.controlunitId !== '') {
-                        that.controlunits = [data.data];
-                    }
-                    else {
-                        that.controlunits = data.data;
-                    }
+        methods: {
+            load_data: function() {
+                this.$parent.ensureObject('controlunits', this.controlunitId);
+            }
+        },
 
-                    that.$nextTick(function() {
-                        $('#' + that.containerId).masonry({
-                            columnWidth: '.col',
-                            itemSelector: '.col',
-                        });
-                $('.tooltipped').tooltip({delay: 50});
-                    });
-
-                    window.eventHubVue.processEnded();
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
-        }
-    },
-
-    created: function() {
-        window.echo.private('dashboard-updates')
-                .listen('ControlunitUpdated', (e) => {
-                this.update(e);
-        }).listen('ControlunitDeleted', (e) => {
-                this.delete(e);
-        });
-
-        var that = this;
-        setTimeout(function() {
-            that.load_data();
-        }, 100);
-
-        if (this.refreshTimeoutSeconds !== null) {
-            setInterval(function() {
-                that.load_data();
-            }, this.refreshTimeoutSeconds * 1000)
+        created: function() {
+            this.load_data();
         }
     }
-}
 </script>

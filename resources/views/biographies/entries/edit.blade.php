@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/biography_entries" class="breadcrumb hide-on-small-and-down">@choice('components.biography_entries', 2)</a>
+    <a href="/biography_entries" class="breadcrumb hide-on-small-and-down">@choice('labels.biography_entries', 2)</a>
     <a href="/biography_entries/{{ $entry->id }}" class="breadcrumb hide-on-small-and-down">/{{ $entry->name }}</a>
     <a href="/biography_entries/{{ $entry->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
@@ -19,7 +19,7 @@
                                     <select name="belongsTo" disabled>
                                         <option></option>
                                         @foreach ($belongTo_Options as $t=>$objects)
-                                            <optgroup label="@choice('components.' . strtolower($t), 2)">
+                                            <optgroup label="@choice('labels.' . strtolower($t), 2)">
                                                 @foreach ($objects as $o)
                                                     <option value="{{ $t }}|{{ $o->id }}"
                                                             @if($entry->belongsTo_type == $t && $entry->belongsTo_id == $o->id)
@@ -86,7 +86,7 @@
                 <div class="card">
                     <div class="card-content">
                         <span class="card-title activator truncate">
-                            <span>@choice('components.files', 2)</span>
+                            <span>@choice('labels.files', 2)</span>
                         </span>
                     </div>
                     <div class="card-content">

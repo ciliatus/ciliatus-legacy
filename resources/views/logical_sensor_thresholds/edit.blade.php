@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-<a href="/logical_sensor_thresholds" class="breadcrumb hide-on-small-and-down">@choice('components.logical_sensor_thresholds', 2)</a>
+<a href="/logical_sensor_thresholds" class="breadcrumb hide-on-small-and-down">@choice('labels.logical_sensor_thresholds', 2)</a>
 <a href="/logical_sensor_thresholds/{{ $logical_sensor_threshold->id }}" class="breadcrumb hide-on-small-and-down">{{ $logical_sensor_threshold->name }}</a>
 <a href="/logical_sensor_thresholds/{{ $logical_sensor_threshold->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
@@ -31,7 +31,7 @@
                                     <select name="belongsTo">
                                         <option></option>
                                         @foreach ($belongTo_Options as $t=>$objects)
-                                            <optgroup label="@choice('components.' . $t, 2)">
+                                            <optgroup label="@choice('labels.' . $t, 2)">
                                                 @foreach ($objects as $o)
                                                     <option value="{{ $t }}|{{ $o->id }}"
                                                         @if($logical_sensor_threshold->logical_sensor_id == $o->id)

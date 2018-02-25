@@ -1,5 +1,10 @@
-
-
+$.ajaxPrefilter(function(options) {
+    if (!options.beforeSend) {
+        options.beforeSend = function (xhr) {
+            xhr.setRequestHeader('X-CSRF-TOKEN', window.Laravel.csrfToken);
+        }
+    }
+});
 
 /*
  LiveData objects refresh data automatically

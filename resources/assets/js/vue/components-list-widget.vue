@@ -2,255 +2,176 @@
     <div>
         <div :class="wrapperClasses">
             <table class="responsive highlight collapsible" data-collapsible="expandable">
-                <thead>
-                <tr>
-                    <th data-field="name">
-                        <a href="#!" v-on:click="set_order('name')">{{ $t('labels.name') }}</a>
-                        <i v-show="order.field == 'name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline">
-                            <input id="filter_name" type="text" v-model="filter.name" v-on:keyup.enter="set_filter">
-                            <label for="filter_name">Filter</label>
-                        </div>
-                    </th>
-                    <th data-field="controlunit" class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
-                        <a href="#!" v-on:click="set_order('controlunit')">{{ $tc('components.controlunit', 1) }}</a>
-                        <i v-show="order.field == 'controlunit' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'controlunit' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline">
-                            <input id="filter_controlunit" type="text" v-model="filter['controlunit.name']" v-on:keyup.enter="set_filter">
-                            <label for="filter_controlunit">Filter</label>
-                        </div>
-                    </th>
+                <table-filter ref="table_filter"
+                              :cols="3"
+                              :hide-cols="hideCols"
+                              :filter-fields="[{name: 'name', path: 'name', col: 0},
+                                               {name: 'controlunit', path: 'controlunit.name', col: 1, class: 'hide-on-small-only'},
+                                               {noSort: true, noFilter: true, col: 2, class: 'hide-on-small-only'}]">
+                </table-filter>
 
-                    <th style="width: 40px">
-                    </th>
-                </tr>
-                </thead>
+                <template v-for="type in component_types">
+                    <template v-if="(component_list = _self[type]).length > 0">
+                        <template v-for="component in component_list">
+                            <tbody v-if="component.data">
+                                <tr class="collapsible-header">
+                                    <td>
+                                        <span>
+                                            <i class="material-icons">{{ component.data.icon }}</i>
+                                            <a v-bind:href="component.data.url">{{ component.data.name }}</a>
+                                        </span>
+                                    </td>
 
-                <template v-for="component in components">
-                    <tbody>
-                        <tr class="collapsible-header">
+                                    <td class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
+                                        <span v-if="component.data.controlunit">
+                                            <i class="material-icons">developer_board</i>
+                                            <a v-bind:href="'/controlunits/' + component.data.controlunit.id">{{ component.data.controlunit.name }}</a>
+                                        </span>
+                                    </td>
 
-                            <td>
-                                <span>
-                                    <i class="material-icons">{{ component.icon }}</i>
-                                    <a v-bind:href="component.url">{{ component.name }}</a>
-                                </span>
-                            </td>
+                                    <td class="hide-on-small-only">
+                                        <span>
+                                            <a v-bind:href="component.data.url + '/edit'">
+                                                <i class="material-icons">edit</i>
+                                            </a>
+                                        </span>
+                                    </td>
 
-                            <td class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
-                                <span v-if="component.controlunit">
-                                    <i class="material-icons">developer_board</i>
-                                    <a v-bind:href="'/controlunits/' + component.controlunit.id">{{ component.controlunit.name }}</a>
-                                </span>
-                            </td>
+                                </tr>
+                                <tr class="collapsible-body">
+                                    <td colspan="3">
 
-                            <td>
-                                <span>
-                                    <a v-bind:href="component.url + '/edit'">
-                                        <i class="material-icons">edit</i>
-                                    </a>
-                                </span>
-                            </td>
-
-                        </tr>
-                        <tr class="collapsible-body">
-                            <td colspan="3">
-
-                            </td>
-                        </tr>
-                    </tbody>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </template>
+                    </template>
                 </template>
+
             </table>
+
+            <pagination ref="pagination"
+                        :source-filter="sourceFilter"
+                        :enable-filters="false">
+            </pagination>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            components: [],
-            meta: [],
-            filter: {
-                name: '',
-                'controlunit.name': ''
+    import pagination from './mixins/pagination.vue';
+    import table_filter from './mixins/table_filter.vue';
+
+    export default {
+        data () {
+            return {
+                pump_ids: [],
+                valve_ids: [],
+                generic_component_ids: [],
+                physical_sensor_ids: [],
+                controlunit_ids: [],
+                component_types: ['pumps', 'valves', 'generic_components', 'physical_sensors']
+            }
+        },
+
+        props: {
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
             },
-            filter_string: '',
-            order: {
-                field: 'name',
-                direction: 'asc'
+            sourceApiUrl: {
+                type: String,
+                required: true
             },
-            order_string: '',
-            page: 1
-        }
-    },
-
-    props: {
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        sourceApiBaseUrl: {
-            type: String,
-            required: true
-        },
-        sourceFilter: {
-            type: String,
-            default: '',
-            required: false
-        },
-        refreshTimeoutSeconds: {
-            type: Number,
-            default: 60,
-            required: false
-        },
-        hideCols: {
-            type: Array,
-            default: [],
-            required: false
-        }
-    },
-
-    methods: {
-        update: function(e) {
-            var item = null;
-            var component = this.get_component_from_event(e);
-            
-            this.components.forEach(function(data, index) {
-                if (data.id === component.id) {
-                    item = index;
-                }
-            });
-            if (item !== null) {
-                this.components.splice(item, 1, component);
+            sourceFilter: {
+                type: String,
+                default: '',
+                required: false
+            },
+            hideCols: {
+                type: Array,
+                default: function(){return [];},
+                required: false
             }
         },
 
-        delete: function(e) {
-            var item = null;
-            var component = this.get_component_from_event(e);
-
-            this.components.forEach(function(data, index) {
-                if (data.id === component.id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.components.splice(item, 1);
-            }
+        components: {
+            pagination,
+            'table-filter': table_filter
         },
 
-        get_component_from_event: function(e) {
-            var component_types = [
-                'physical_sensor', 'logical_sensor', 'valve', 'pump', 'generic_component'
-            ];
+        computed: {
+            pumps () {
+                let that = this;
+                return this.$store.state.pumps.filter(function(p) {
+                    return that.pump_ids.includes(p.id) && p.data !== null
+                });
+            },
 
-            var component = null;
+            valves () {
+                let that = this;
+                return this.$store.state.valves.filter(function(v) {
+                    return that.valve_ids.includes(v.id) && v.data !== null
+                });
+            },
 
-            component_types.forEach(function(item) {
-                if (e[item] !== undefined) {
-                    component = e[item];
-                    return;
-                }
-            });
+            generic_components () {
+                let that = this;
+                return this.$store.state.generic_components.filter(function(g) {
+                    return that.generic_component_ids.includes(g.id) && g.data !== null
+                });
+            },
 
-            return component;
+            physical_sensors () {
+                let that = this;
+                return this.$store.state.physical_sensors.filter(function(p) {
+                    return that.physical_sensor_ids.includes(p.id) && p.data !== null
+                });
+            },
+
+            controlunits () {
+                let that = this;
+                return this.$store.state.controlunits.filter(function(c) {
+                    return that.controlunit_ids.includes(c.id) && c.data !== null
+                });
+            },
         },
-        
-        set_order: function(field) {
-            if (this.order.field == field || field === null) {
-                if (this.order.direction == 'asc') {
-                    this.order.direction = 'desc';
-                }
-                else {
-                    this.order.direction = 'asc';
-                }
-            }
-            else {
-                this.order.field = field;
-            }
 
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            this.load_data();
-        },
-        set_filter: function() {
-            this.filter_string = '&';
-            if (this.sourceFilter !== '') {
-                this.filter_string += this.sourceFilter + '&';
-            }
-            for (var prop in this.filter) {
-                if (this.filter.hasOwnProperty(prop)) {
-                    if (this.filter[prop] !== null
-                        && this.filter[prop] !== '') {
+        methods: {
+            load_data: function() {
+                let that = this;
 
-                        this.filter_string += 'filter[' + prop + ']=like:*' + this.filter[prop] + '*&';
+                $.ajax({
+                    url: '/api/v1/' + that.sourceApiUrl + '?' +
+                         that.$refs.pagination.filter_string +
+                         that.$refs.pagination.order_string,
+                    method: 'GET',
+                    success: function (data) {
+                        that.pump_ids = data.data.filter(c => c.class === 'Pump').map(c => c.id);
+                        that.valve_ids = data.data.filter(c => c.class === 'Valve').map(c => c.id);
+                        that.generic_component_ids = data.data.filter(c => c.class === 'GenericComponent').map(c => c.id);
+                        that.physical_sensor_ids = data.data.filter(c => c.class === 'PhysicalSensor').map(c => c.id);
+                        that.controlunit_ids = data.data.map(c => c.controlunit_id);
+
+                        that.$parent.ensureObjects('pumps', that.pump_ids, data.data.filter(c => c.class === 'Pump'));
+                        that.$parent.ensureObjects('valves', that.valve_ids, data.data.filter(c => c.class === 'Valve'));
+                        that.$parent.ensureObjects('generic_components', that.generic_component_ids, data.data.filter(c => c.class === 'GenericComponent'));
+                        that.$parent.ensureObjects('physical_sensors', that.physical_sensor_ids, data.data.filter(c => c.class === 'PhysicalSensor'));
+                        that.$parent.ensureObjects('controlunits', that.controlunit_ids, data.data.map(c => c.controlunit));
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
                     }
-                }
+                });
             }
-            this.load_data();
         },
-        set_page: function(page) {
-            this.page = page;
-            this.load_data();
-        },
-        load_data: function() {
-            window.eventHubVue.processStarted();
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            var that = this;
-            $.ajax({
-                url: '/api/v1/' + that.sourceApiBaseUrl + '?' + that.filter_string + that.order_string + '&' + that.sourceFilter,
-                method: 'GET',
-                success: function (data) {
-                    that.meta = data.meta;
-                    that.components = data.data;
-                    window.eventHubVue.processEnded();
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
-        }
-    },
 
-    created: function() {
-        window.echo.private('dashboard-updates')
-            .listen('PhysicalSensorUpdated', (e) => {
-                this.update(e);
-            }).listen('PhysicalSensorDeleted', (e) => {
-                this.delete(e);
-            }).listen('LogicalSensorUpdated', (e) => {
-                this.update(e);
-            }).listen('LogicalSensorDeleted', (e) => {
-                this.delete(e);
-            }).listen('ValveUpdated', (e) => {
-                this.update(e);
-            }).listen('ValveDeleted', (e) => {
-                this.delete(e);
-            }).listen('PumpUpdated', (e) => {
-                this.update(e);
-            }).listen('PumpDeleted', (e) => {
-                this.delete(e);
-            }).listen('GenericComponentUpdated', (e) => {
-                this.update(e);
-            }).listen('GenericComponentDeleted', (e) => {
-                this.delete(e);
-        });
-
-        var that = this;
-        setTimeout(function() {
-            that.set_filter();
-        }, 100);
-
-        if (this.refreshTimeoutSeconds !== null) {
-            setInterval(function() {
-                that.load_data();
-            }, this.refreshTimeoutSeconds * 1000)
+        created: function() {
+            let that = this;
+            setTimeout(function() {
+                that.$refs.pagination.init('name');
+            }, 100);
         }
     }
-}
 </script>

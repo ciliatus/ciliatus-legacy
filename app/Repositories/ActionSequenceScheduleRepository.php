@@ -30,6 +30,7 @@ class ActionSequenceScheduleRepository extends Repository {
         $this->scope->running = $this->scope->running();
         $this->scope->will_run_today = $this->scope->willRunToday();
         $this->scope->ran_today = $this->scope->ranToday();
+        $this->scope->is_due = $this->scope->isOverdue(-180);
         $this->scope->is_overdue = $this->scope->isOverdue(10);
 
         return $this->scope;

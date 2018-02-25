@@ -2,250 +2,178 @@
     <div>
         <div :class="wrapperClasses">
             <table class="responsive highlight collapsible" data-collapsible="expandable">
-                <thead>
-                <tr>
-                    <th data-field="name">
-                        <a href="#!" v-on:click="set_order('name')">{{ $t('labels.name') }}</a>
-                        <i v-show="order.field == 'name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline">
-                            <input id="filter_name" type="text" v-model="filter.name" v-on:keyup.enter="set_filter">
-                            <label for="filter_name">Filter</label>
-                        </div>
-                    </th>
-                    <th data-field="model">
-                        <a href="#!" v-on:click="set_order('model')">{{ $t('labels.model') }}</a>
-                        <i v-show="order.field == 'model' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'model' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline">
-                            <input id="filter_model" type="text" v-model="filter.model" v-on:keyup.enter="set_filter">
-                            <label for="filter_model">Filter</label>
-                        </div>
-                    </th>
-                    <th data-field="controlunit" v-if="hideCols.indexOf('controlunit') === -1">
-                        <a href="#!" v-on:click="set_order('controlunit')">{{ $tc('components.controlunit', 1) }}</a>
-                        <i v-show="order.field == 'controlunit' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'controlunit' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline">
-                            <input id="filter_controlunit" type="text" v-model="filter['controlunit.name']" v-on:keyup.enter="set_filter">
-                            <label for="filter_controlunit">Filter</label>
-                        </div>
-                    </th>
-                    <th class="hide-on-small-only" style="width: 40px">
-                    </th>
-                </tr>
-                </thead>
+                <table-filter ref="table_filter"
+                              :cols="4"
+                              :hide-cols="hideCols"
+                              :filter-fields="[{name: 'name', path: 'name', col: 0},
+                                               {name: 'model', path: 'model', col: 1},
+                                               {name: 'controlunit', noSort:true, path: 'controlunit.name', col: 2},
+                                               {noSort: true, noFilter: true, col: 3, class: 'hide-on-small-only'}]">
+                </table-filter>
 
                 <template v-for="pump in pumps">
                     <tbody>
                         <tr class="collapsible-header">
-
                             <td>
                                 <span>
                                     <i class="material-icons">rotate_right</i>
-                                    <a v-bind:href="'/pumps/' + pump.id">{{ pump.name }}</a>
-                                    <span v-if="!pump.active"> - {{ $t('labels.inactive') }}</span>
+                                    <a v-bind:href="'/pumps/' + pump.data.id">{{ pump.data.name }}</a>
+                                    <span v-if="!pump.data.active"> - {{ $t('labels.inactive') }}</span>
                                 </span>
                             </td>
 
                             <td>
                                 <span>
-                                    {{ pump.model }}
+                                    {{ pump.data.model }}
                                 </span>
                             </td>
 
                             <td v-if="hideCols.indexOf('controlunit') === -1">
-                                <span v-if="pump.controlunit">
+                                <span v-if="(controlunit = controlunits.filter(c => c.data.id === pump.data.controlunit_id)).length > 0">
                                     <i class="material-icons">developer_board</i>
-                                    <a v-bind:href="'/controlunits/' + pump.controlunit.id">{{ pump.controlunit.name }}</a>
+                                    <a v-bind:href="'/controlunits/' + controlunit[0].data.id">{{ controlunit[0].data.name }}</a>
                                 </span>
                             </td>
 
                             <td class="hide-on-small-only">
                                 <span>
-                                    <a v-bind:href="'/pumps/' + pump.id + '/edit'">
+                                    <a v-bind:href="'/pumps/' + pump.data.id + '/edit'">
                                         <i class="material-icons">edit</i>
                                     </a>
                                 </span>
                             </td>
-
                         </tr>
+
                         <tr class="collapsible-body">
                             <td colspan="3">
-                                {{ $tc('components.valves', 2) }}:
-                                <span v-for="(valve, index) in pump.valves">
-                                    <i class="material-icons">transform</i>
-                                    <a v-bind:href="'/valves/' + valve.id">{{ valve.name }}</a>
-                                    <template v-if="index < pump.valves.length-1">, </template>
-                                </span>
+                                {{ $tc('labels.valves', 2) }}:
+                                <span v-for="(valve, index) in valves.filter(v => v.data.pump_id === pump.data.id)">
+                                        <i class="material-icons">transform</i>
+                                        <a v-bind:href="'/valves/' + valve.data.id">{{ valve.data.name }}</a>
+                                        <template v-if="index < valves.filter(v => v.data.pump_id === pump.data.id).length-1">, </template>
+                                    </span>
                             </td>
                         </tr>
                     </tbody>
                 </template>
             </table>
 
-            <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page-1)"><i class="material-icons">chevron_left</i></a>
-                </li>
-
-                <li v-if="meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
-                <li v-if="meta.pagination.current_page-2 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-2)">{{ meta.pagination.current_page-2 }}</a></li>
-                <li v-if="meta.pagination.current_page-1 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-1)">{{ meta.pagination.current_page-1 }}</a></li>
-
-                <li class="active"><a href="#!">{{ meta.pagination.current_page }}</a></li>
-
-                <li v-if="meta.pagination.current_page+1 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+1)">{{ meta.pagination.current_page+1 }}</a></li>
-                <li v-if="meta.pagination.current_page+2 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+2)">{{ meta.pagination.current_page+2 }}</a></li>
-                <li v-if="meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
-
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="material-icons">chevron_right</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.total_pages)"><i class="material-icons">last_page</i></a>
-                </li>
-            </ul>
+            <pagination ref="pagination"
+                        :source-filter="sourceFilter"
+                        :enable-filters="false">
+            </pagination>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            pumps: [],
-            meta: [],
-            filter: {
-                name: '',
-                'controlunit.name': '',
-                'terrarium.display_name': ''
+    import pagination from './mixins/pagination.vue';
+    import table_filter from './mixins/table_filter.vue';
+
+    export default {
+        data() {
+            return {
+                ids: [],
+                valve_ids: [],
+                controlunit_ids: []
+            }
+        },
+
+        props: {
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
             },
-            filter_string: '',
-            order: {
-                field: 'name',
-                direction: 'asc'
+            sourceFilter: {
+                type: String,
+                default: '',
+                required: false
             },
-            order_string: '',
-            page: 1
-        }
-    },
-
-    props: {
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        sourceFilter: {
-            type: String,
-            default: '',
-            required: false
-        },
-        hideCols: {
-            type: Array,
-            default: [],
-            required: false
-        }
-    },
-
-    methods: {
-        update: function(p) {
-            var item = null;
-            this.pumps.forEach(function(data, index) {
-                if (data.id === p.pump.id) {
-                    item = index;
-                }
-            });
-            if (item !== null) {
-                this.pumps.splice(item, 1, p.pump);
-            }
-        },
-
-        delete: function(p) {
-            var item = null;
-            this.pumps.forEach(function(data, index) {
-                if (data.id === p.pump.id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.pumps.splice(item, 1);
-            }
-        },
-        set_order: function(field) {
-            if (this.order.field == field || field === null) {
-                if (this.order.direction == 'asc') {
-                    this.order.direction = 'desc';
-                }
-                else {
-                    this.order.direction = 'asc';
-                }
-            }
-            else {
-                this.order.field = field;
-            }
-
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            this.load_data();
-        },
-        set_filter: function() {
-            this.filter_string = '&';
-            if (this.sourceFilter !== '') {
-                this.filter_string += this.sourceFilter + '&';
-            }
-            for (var prop in this.filter) {
-                if (this.filter.hasOwnProperty(prop)) {
-                    if (this.filter[prop] !== null
-                        && this.filter[prop] !== '') {
-
-                        this.filter_string += 'filter[' + prop + ']=like:*' + this.filter[prop] + '*&';
-                    }
-                }
-            }
-            this.load_data();
-        },
-        set_page: function(page) {
-            this.page = page;
-            this.load_data();
-        },
-        load_data: function() {
-            window.eventHubVue.processStarted();
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            var that = this;
-            $.ajax({
-                url: '/api/v1/pumps?with[]=valves&with[]=controlunit&page=' + that.page + that.filter_string +
-                    that.order_string + '&' + that.sourceFilter,
-                method: 'GET',
-                success: function (data) {
-                    that.meta = data.meta;
-                    that.pumps = data.data;
-                    window.eventHubVue.processEnded();
+            hideCols: {
+                type: Array,
+                default: function () {
+                    return [];
                 },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
+                required: false
+            },
+            itemsPerPage: {
+                type: Number,
+                default: 9,
+                required: false
+            }
+        },
+
+        computed: {
+            pumps () {
+                let that = this;
+                return this.$store.state.pumps.filter(function (p) {
+                    return that.ids.includes(p.id) && p.data !== null
+                }).sort(function (a, b) {
+                    let c = a.data[that.$refs.pagination.order.field] > b.data[that.$refs.pagination.order.field];
+                    if ( c && that.$refs.pagination.order.direction === 'asc' ||
+                        !c && that.$refs.pagination.order.direction === 'desc') {
+                        return 1;
+                    }
+                    return -1;
+                });;
+            },
+
+            valves () {
+                let that = this;
+                return this.$store.state.valves.filter(function (v) {
+                    return that.valve_ids.includes(v.id) && v.data !== null
+                });
+            },
+
+            controlunits () {
+                let that = this;
+                return this.$store.state.controlunits.filter(function (c) {
+                    return that.controlunit_ids.includes(c.id) && c.data !== null
+                });
+            },
+        },
+
+        components: {
+            pagination,
+            'table-filter': table_filter
+        },
+
+        methods: {
+            load_data: function () {
+                let that = this;
+
+                $.ajax({
+                    url: '/api/v1/pumps/?with[]=valves&with[]=controlunit&' +
+                         that.sourceFilter + '&' +
+                         'pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                         that.$refs.pagination.page +
+                         that.$refs.pagination.filter_string +
+                         that.$refs.pagination.order_string,
+                    method: 'GET',
+                    success: function (data) {
+                        that.ids = data.data.map(p => p.id);
+                        that.controlunit_ids = data.data.map(p => p.controlunit_id);
+                        that.valve_ids = [].concat.apply([], data.data.map(p => p.valves.map(v => v.id)));
+
+                        that.$refs.pagination.meta = data.meta;
+
+                        that.$parent.ensureObjects('pumps', that.ids, data.data);
+                        that.$parent.ensureObjects('controlunits', that.controlunit_ids, data.data.map(p => p.controlunit));
+                        that.$parent.ensureObjects('valves', that.valve_ids, [].concat.apply([], data.data.map(p => p.valves)));
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
+            }
+        },
+
+        created: function () {
+            let that = this;
+            setTimeout(function () {
+                that.$refs.pagination.init('name');
+            }, 100);
         }
-    },
-
-    created: function() {
-        window.echo.private('dashboard-updates')
-                .listen('PumpUpdated', (e) => {
-                this.update(e);
-        }).listen('PumpDeleted', (e) => {
-                this.delete(e);
-        });
-
-        var that = this;
-        setTimeout(function() {
-            that.set_filter();
-        }, 100);
     }
-}
 </script>

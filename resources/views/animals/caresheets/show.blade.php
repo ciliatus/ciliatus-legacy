@@ -12,7 +12,7 @@
         </div>
 
         <div class="row center-align">
-            <h4><i class="material-icons">pets</i> @choice('components.caresheets', 1) {{ $caresheet->belongsTo_object()->display_name }}</h4>
+            <h4><i class="material-icons">pets</i> @choice('labels.caresheets', 1) {{ $caresheet->belongsTo_object()->display_name }}</h4>
         </div>
 
         <div class="row">
@@ -42,7 +42,7 @@
 
         <div class="row">
             <div class="col s12">
-                <h5><i class="material-icons">video_label</i> @choice('components.terraria', 1) - <i>{{ $caresheet->property('AnimalCaresheetProperty', 'sensor_history_days', true) }} @choice('units.days', $caresheet->property('AnimalCaresheetProperty', 'sensor_history_days', true))</i></h5>
+                <h5><i class="material-icons">video_label</i> @choice('labels.terraria', 1) - <i>{{ $caresheet->property('AnimalCaresheetProperty', 'sensor_history_days', true) }} @choice('units.days', $caresheet->property('AnimalCaresheetProperty', 'sensor_history_days', true))</i></h5>
 
                 <table>
                     <thead>
@@ -142,12 +142,12 @@
         </div>
 
         <div class="row center-align">
-            <h4><i class="material-icons">pets</i> @choice('components.caresheets', 1) {{ $caresheet->belongsTo_object()->display_name }}</h4>
+            <h4><i class="material-icons">pets</i> @choice('labels.caresheets', 1) {{ $caresheet->belongsTo_object()->display_name }}</h4>
         </div>
 
         <div class="row">
             <div class="col s12">
-                <h5><i class="material-icons">format_list_bulleted</i> @choice('components.biography_entries', 2) - <i>{{ $caresheet->property('AnimalCaresheetProperty', 'data_history_days', true) }} @choice('units.days', $caresheet->property('AnimalCaresheetProperty', 'data_history_days', true))</i></h5>
+                <h5><i class="material-icons">format_list_bulleted</i> @choice('labels.biography_entries', 2) - <i>{{ $caresheet->property('AnimalCaresheetProperty', 'data_history_days', true) }} @choice('units.days', $caresheet->property('AnimalCaresheetProperty', 'data_history_days', true))</i></h5>
                 <br />
 
                 @if ($biography_entries->count() < 1)

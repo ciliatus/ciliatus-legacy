@@ -1,147 +1,105 @@
 <template>
+
     <div>
-        <div class="row" v-if="!animalId">
-            <div class="col s10">
-                <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
-                    <li v-bind:class="['hide-on-small-only', { 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }]">
-                        <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
-                    </li>
-                    <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                        <a href="#!" v-on:click="set_page(meta.pagination.current_page-1)"><i class="material-icons">chevron_left</i></a>
-                    </li>
 
-                    <li v-if="meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
-                    <li v-if="meta.pagination.current_page-2 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-2)">{{ meta.pagination.current_page-2 }}</a></li>
-                    <li v-if="meta.pagination.current_page-1 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-1)">{{ meta.pagination.current_page-1 }}</a></li>
+        <pagination ref="pagination"
+                    v-show="animalId === null"
+                    :source-filter="sourceFilter"
+                    :show-filters="showFilters"
+                    :filter-fields="[{name: 'display_name', path: 'display_name'},
+                                     {name: 'common_name', path: 'common_name'},
+                                     {name: 'latin_name', path: 'latin_name'}]">
+        </pagination>
 
-                    <li class="active"><a href="#!">{{ meta.pagination.current_page }}</a></li>
-
-                    <li v-if="meta.pagination.current_page+1 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+1)">{{ meta.pagination.current_page+1 }}</a></li>
-                    <li v-if="meta.pagination.current_page+2 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+2)">{{ meta.pagination.current_page+2 }}</a></li>
-                    <li v-if="meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
-
-                    <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                        <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="material-icons">chevron_right</i></a>
-                    </li>
-                    <li v-bind:class="['hide-on-small-only', { 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }]">
-                        <a href="#!" v-on:click="set_page(meta.pagination.total_pages)"><i class="material-icons">last_page</i></a>
-                    </li>
-                </ul>
-            </div>
-            <div class="col s2 right-align" v-if="!animalId">
-                <ul class="pagination">
-                    <li class="waves-effect">
-                        <a href="#!"><i class="material-icons" v-on:click="toggle_filters">filter_list</i></a>
-                    </li>
-                </ul>
-            </div>
-        </div>
-        <div class="row" v-if="!animalId" v-show="showFilters">
-            <div class="col s12">
-                <div class="input-field inline">
-                    <input id="filter_display_name" type="text" :placeholder="$t('labels.display_name')"
-                           v-model="filter.display_name" v-on:keyup.enter="set_filter">
-                    <label for="filter_display_name">{{ $t('labels.display_name') }}</label>
-                </div>
-
-                <div class="input-field inline">
-                    <input id="filter_lat_name" type="text" :placeholder="$t('labels.latin_name')"
-                           v-model="filter.lat_name" v-on:keyup.enter="set_filter">
-                    <label for="filter_lat_name">{{ $t('labels.latin_name') }}</label>
-                </div>
-
-                <div class="input-field inline">
-                    <input id="filter_common_name" type="text" :placeholder="$t('labels.common_name')"
-                           v-model="filter.common_name" v-on:keyup.enter="set_filter">
-                    <label for="filter_common_name">{{ $t('labels.common_name') }}</label>
-                </div>
-            </div>
-        </div>
         <div :class="containerClasses" :id="containerId">
             <div :class="wrapperClasses" v-for="animal in animals">
-                <!-- Modals -->
-                <animal-add-feeding-modal :animalId="animal.id" :feedingTypes="feeding_types"
-                                         :containerId="'modal_add_weight_' + animal.id"></animal-add-feeding-modal>
+                <template v-if="animal.data">
+                    <!-- Modals -->
+                    <animal-add-feeding-modal :animalId="animal.data.id" :feedingTypes="feeding_types"
+                                             :containerId="'modal_add_weight_' + animal.data.id"> </animal-add-feeding-modal>
 
-                <animal-add-weight-modal :animalId="animal.id"
-                                         :containerId="'modal_add_weight_' + animal.id"></animal-add-weight-modal>
-
+                    <animal-add-weight-modal :animalId="animal.data.id"
+                                             :containerId="'modal_add_weight_' + animal.data.id"> </animal-add-weight-modal>
+                </template>
                 <!-- Card -->
-                <div class="card">
+                <div class="card" v-if="animal.data">
                     <div class="card-image terrarium-card-image"
-                         v-bind:style="animal.default_background_filepath ? 'background-image: url(\'' + animal.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
+                         v-bind:style="animal.data.default_background_filepath ? 'background-image: url(\'' + animal.data.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
 
                         <div class="card-title">
-                            <span><a :href="'/animals/' + animal.id">{{ animal.display_name }}</a></span>
-                            <loading-indicator :size="20" v-show="animal.loading_data"></loading-indicator>
-                            <a href="#!"><i class="material-icons right activator" v-if="!animal.death_date">more_vert</i></a>
+                            <span><a :href="'/animals/' + animal.data.id">{{ animal.data.display_name }}</a></span>
+                            <loading-indicator :size="20" v-show="animal.data.loading_data"> </loading-indicator>
+                            <a href="#!"><i class="material-icons right activator" v-if="!animal.data.death_date">more_vert</i></a>
                         </div>
                     </div>
 
                     <div class="card-content">
-                        <p>
-                            <span v-show="animal.latin_name">{{ animal.latin_name }},</span>
-                            <span v-show="animal.common_name && !animal.latin_name">{{ animal.common_name }},</span>
-                            <span v-show="animal.birth_date || animal.death_date">{{ animal.age_value }} {{ $tc("units." + animal.age_unit, animal.age_value) }}</span>
+                        <div>
+                            <span v-show="animal.data.latin_name">{{ animal.data.latin_name }},</span>
+                            <span v-show="animal.data.common_name && !animal.data.latin_name">{{ animal.data.common_name }},</span>
+                            <span v-show="animal.data.birth_date || animal.data.death_date">{{ animal.data.age_value }} {{ $tc("units." + animal.data.age_unit, animal.data.age_value) }}</span>
 
-                            <span v-if="animal.last_feeding && !animal.death_date">
+                            <span v-if="animal.data.last_feeding && !animal.data.death_date">
                                 <br />
                                 <i class="material-icons tiny">local_dining</i>
                                 {{ $t(
-                                    'units.' + $getMatchingTimeDiff(animal.last_feeding.timestamps.created_diff).unit,
-                                    {val: $getMatchingTimeDiff(animal.last_feeding.timestamps.created_diff).val}
+                                    'units.' + $getMatchingTimeDiff(animal.data.last_feeding.timestamps.created_diff).unit,
+                                    {val: $getMatchingTimeDiff(animal.data.last_feeding.timestamps.created_diff).val}
                                 )}}
-                                {{ animal.last_feeding.name }}
+                                {{ animal.data.last_feeding.name }}
                             </span>
 
-                            <span v-if="animal.last_weighing && !animal.death_date">
+                            <span v-if="animal.data.last_weighing && !animal.data.death_date">
                                 <br />
                                 <i class="material-icons tiny">file_download</i>
                                 {{ $t(
-                                    'units.' + $getMatchingTimeDiff(animal.last_weighing.timestamps.created_diff).unit,
-                                    {val: $getMatchingTimeDiff(animal.last_weighing.timestamps.created_diff).val}
+                                    'units.' + $getMatchingTimeDiff(animal.data.last_weighing.timestamps.created_diff).unit,
+                                    {val: $getMatchingTimeDiff(animal.data.last_weighing.timestamps.created_diff).val}
                                 )}}
-                                {{ animal.last_weighing.value }}{{ animal.last_weighing.name }}
-                                <span v-if="animal.last_weighing.trend && animal.last_weighing.trend > 0" class="green-text tooltipped"
+                                {{ animal.data.last_weighing.value }}{{ animal.data.last_weighing.name }}
+                                <span v-if="animal.data.last_weighing.trend && animal.data.last_weighing.trend > 0" class="green-text tooltipped"
                                       data-delay="50" data-html="true"
                                       :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.animal_weighing.trend') + '</div>'">
-                                    (+ {{ animal.last_weighing.trend }}%)
+                                    (+ {{ animal.data.last_weighing.trend }}%)
                                 </span>
-                                <span v-if="animal.last_weighing.trend && animal.last_weighing.trend < 0" class="red-text tooltipped"
+                                <span v-if="animal.data.last_weighing.trend && animal.data.last_weighing.trend < 0" class="red-text tooltipped"
                                       data-delay="50" data-html="true"
                                       :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.animal_weighing.trend') + '</div>'">
-                                    ({{ animal.last_weighing.trend }}%)
+                                    ({{ animal.data.last_weighing.trend }}%)
                                 </span>
-                                <span v-if="animal.last_weighing.trend && animal.last_weighing.trend == 0" class="tooltipped"
+                                <span v-if="animal.data.last_weighing.trend && animal.data.last_weighing.trend == 0" class="tooltipped"
                                       data-delay="50" data-html="true"
                                       :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.animal_weighing.trend') + '</div>'">
                                     (+/- 0%)
                                 </span>
                             </span>
-                        </p>
+                        </div>
                     </div>
 
-                    <div class="card-reveal" v-if="!animal.death_date">
+                    <div class="card-reveal" v-if="!animal.data.death_date">
                         <div>
-                            <strong>{{ animal.display_name }}</strong>
+                            <strong>{{ animal.data.display_name }}</strong>
                             <i class="material-icons right card-title card-title-small">close</i>
                         </div>
 
-                        <p v-if="animal.terrarium">
+                        <p v-if="terrarium = terraria.filter(t => t.id === animal.data.terrarium_id)[0]">
                             <i class="material-icons">video_label</i>
-                            <a v-bind:href="'/terraria/' + animal.terrarium.id">{{ animal.terrarium.display_name }}</a>
+                            <a :href="'/terraria/' + terrarium.data.id">{{ terrarium.data.display_name }}</a>
                         </p>
 
                         <p>
                             <i class="material-icons">play_arrow</i>
-                            <a href="#!" v-bind:href="'#modal_just_fed_' + animal.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.id + '\').modal(); $(\'#modal_just_fed_' + animal.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
+                            <a href="#!" v-bind:href="'#modal_just_fed_' + animal.data.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.data.id + '\').modal(); $(\'#modal_just_fed_' + animal.data.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.data.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
                         </p>
 
                         <p>
                             <i class="material-icons">play_arrow</i>
-                            <a href="#!" v-bind:href="'#modal_add_weight_' + animal.id" v-bind:onclick="'$(\'#modal_add_weight_' + animal.id + '\').modal(); $(\'#modal_add_weight_' + animal.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.id + '\').modal(\'open\');'">{{ $t("labels.add_weight") }}</a>
+                            <a href="#!" v-bind:href="'#modal_add_weight_' + animal.data.id" v-bind:onclick="'$(\'#modal_add_weight_' + animal.data.id + '\').modal(); $(\'#modal_add_weight_' + animal.data.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.data.id + '\').modal(\'open\');'">{{ $t("labels.add_weight") }}</a>
                         </p>
                     </div>
+                </div>
+                <div v-else>
+                    <loading-card-widget> </loading-card-widget>
                 </div>
             </div>
         </div>
@@ -152,22 +110,16 @@
 import LoadingIndicator from './loading-indicator.vue';
 import AnimalAddFeedingModal from './animal_add_feeding-modal.vue';
 import AnimalAddWeightModal from './animal_add_weight-modal.vue';
+import pagination from './mixins/pagination.vue';
+import LoadingCardWidget from './loading-card-widget';
 
 export default {
     data () {
         return {
-            animals: [],
+            ids: [],
+            terrarium_ids: [],
             initial: true,
-            meta: [],
-            feeding_types: [],
-            filter: {},
-            filter_string: '',
-            order: {
-                field: 'display_name',
-                direction: 'asc'
-            },
-            order_string: '',
-            page: 1
+            feeding_types: []
         }
     },
 
@@ -180,11 +132,6 @@ export default {
         animalId: {
             type: String,
             default: null,
-            required: false
-        },
-        sourceFilter: {
-            type: String,
-            default: '',
             required: false
         },
         subscribeAdd: {
@@ -212,6 +159,17 @@ export default {
             default: 'animals-masonry-grid',
             required: false
         },
+        itemsPerPage: {
+            type: Number,
+            default: 9,
+            required: false
+        },
+
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
         showFilters: {
             type: Boolean,
             default: false,
@@ -220,211 +178,93 @@ export default {
     },
 
     components: {
+        pagination,
         'loading-indicator': LoadingIndicator,
         'animal-add-feeding-modal': AnimalAddFeedingModal,
-        'animal-add-weight-modal': AnimalAddWeightModal
+        'animal-add-weight-modal': AnimalAddWeightModal,
+        'loading-card-widget': LoadingCardWidget
+    },
+
+    computed: {
+        animals () {
+            let that = this;
+            return this.$store.state.animals.filter(function(a) {
+                return that.ids.includes(a.id) && a.data !== null
+            });
+        },
+
+        terraria () {
+            let that = this;
+            return this.$store.state.terraria.filter(function(t) {
+                return that.terrarium_ids.includes(t.id);
+            })
+        }
+    },
+
+    watch: {
+        'animals': function() {
+            this.rerender();
+        }
     },
 
     methods: {
-        toggle_filters: function() {
-            this.showFilters = !this.showFilters;
-        },
-        set_order: function(field) {
-            if (this.order.field == field || field === null) {
-                if (this.order.direction == 'asc') {
-                    this.order.direction = 'desc';
-                }
-                else {
-                    this.order.direction = 'asc';
-                }
-            }
-            else {
-                this.order.field = field;
-            }
-
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            this.load_data();
-        },
-        set_filter: function() {
-            this.filter_string = '&';
-            if (this.sourceFilter !== '') {
-                this.filter_string += this.sourceFilter + '&';
-            }
-            for (var prop in this.filter) {
-                if (this.filter.hasOwnProperty(prop)) {
-                    if (this.filter[prop] !== null
-                        && this.filter[prop] !== '') {
-
-                        this.filter_string += 'filter[' + prop + ']=like:*' + this.filter[prop] + '*&';
-                    }
-                }
-            }
-            this.load_data();
-        },
-        set_page: function(page) {
-            this.page = page;
-            this.load_data();
-        },
-        update: function(a) {
-            var item = null;
-            this.animals.forEach(function(data, index) {
-                if (data.id === a.animal_id) {
-                    item = index;
-                }
-            });
-            if (item === null && this.subscribeAdd === true) {
-                var that = this;
-                $.ajax({
-                    url: '/api/v1/animals/' + a.animal_id,
-                    method: 'GET',
-                    success: function (data) {
-                        that.animals.push(data.data);
-
-                        that.$nextTick(function() {
-                            that.refresh_grid();
-                        });
-                    },
-                    error: function (error) {
-                        console.log(JSON.stringify(error));
-                    }
-                });
-            }
-            else if (item !== null) {
-                this.$set(this.animals[item], 'loading_data', true);
-                var that = this;
-                $.ajax({
-                    url: '/api/v1/animals/' + a.animal_id,
-                    method: 'GET',
-                    success: function (data) {
-                        that.animals.splice(item, 1, data.data);
-
-                        that.$nextTick(function() {
-                            that.refresh_grid();
-                        });
-                    },
-                    error: function (error) {
-                        console.log(JSON.stringify(error));
-                        this.$set(this.animals[item], 'loading_data', false);
-                    }
-                });
-            }
-
-            this.$nextTick(function() {
-                this.refresh_grid();
-            });
-        },
-        delete: function(a) {
-            var item = null;
-            this.animals.forEach(function(data, index) {
-                if (data.id === a.animal_id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null && this.subscribeDelete === true) {
-                this.animals.splice(item, 1);
-            }
-
-            this.$nextTick(function() {
-                this.refresh_grid();
-            });
-        },
 
         submit: function(e) {
             window.submit_form(e);
         },
 
         load_data: function() {
-            var that = this;
-            var source_url = '';
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            if (this.animalId !== null) {
-                source_url = '/api/v1/animals/' + this.animalId + '/?with[]=terrarium'
+            if (this.animalId === null) {
+                let that = this;
+
+                $.ajax({
+                    url: '/api/v1/animals/?with[]=terrarium&pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                        that.$refs.pagination.page +
+                        that.$refs.pagination.filter_string +
+                        that.$refs.pagination.order_string,
+                    method: 'GET',
+                    success: function (data) {
+                        that.ids = data.data.map(a => a.id);
+                        that.$refs.pagination.meta = data.meta;
+                        that.$parent.ensureObjects('animals', that.ids, data.data);
+                        that.terrarium_ids = data.data.map(a => a.terrarium_id);
+                        that.$parent.ensureObjects('terraria', null, data.data.map(a => a.terrarium));
+                        that.rerender();
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
             }
             else {
-                source_url = '/api/v1/animals/?with[]=terrarium&pagination[per_page]=6&page=' +
-                             this.page + this.filter_string + this.order_string;
+                this.ids = [this.animalId];
+                this.$parent.ensureObject('animals', this.animalId);
             }
-
-            window.eventHubVue.processStarted();
-            $.ajax({
-                url: source_url,
-                method: 'GET',
-                success: function (data) {
-                    if (that.animalId !== null) {
-                        that.animals = [data.data];
-                    }
-                    else {
-                        that.meta = data.meta;
-                        that.animals = data.data;
-                    }
-
-                    that.$nextTick(function() {
-                        if (that.initial) {
-                            var element = '#' + that.containerId + '.masonry-grid';
-                            $(element).masonry({
-                                columnWidth: '.col',
-                                itemSelector: '.col',
-                            });
-                            that.initial = false;
-                        }
-                        that.refresh_grid();
-                    });
-
-                    window.eventHubVue.processEnded();
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
-
-            window.eventHubVue.processStarted();
-            $.ajax({
-                url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw=true',
-                method: 'GET',
-                success: function (data) {
-                    that.feeding_types = data.data;
-                    window.eventHubVue.processEnded();
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
         },
 
-        refresh_grid: function() {
-            $('#' + this.containerId).masonry('reloadItems');
-            $('#' + this.containerId).masonry('layout');
-            $('.tooltipped').tooltip({delay: 50});
-            $('.modal').modal();
-            $('.datepicker').pickadate({
-                selectMonths: true,
-                selectYears: 15,
-                format: 'yyyy-mm-dd',
+        rerender: function() {
+            this.$nextTick(function() {
+                let grid = $('#' + this.containerId + '.masonry-grid');
+                if (grid.length > 0) {
+                    grid.masonry('reloadItems');
+                    grid.masonry('layout');
+                }
+                $('.modal').modal();
+                $('.tooltipped').tooltip({delay: 50});
+                $('.datepicker').pickadate({
+                    selectMonths: true,
+                    selectYears: 15,
+                    format: 'yyyy-mm-dd',
+                });
             });
         }
     },
 
     created: function() {
-        window.echo.private('dashboard-updates')
-            .listen('AnimalUpdated', (e) => {
-                this.update(e);
-            }).listen('AnimalDeleted', (e) => {
-                this.delete(e);
-            });
-
-        var that = this;
+        let that = this;
         setTimeout(function() {
-            that.set_filter();
+            that.$refs.pagination.init();
         }, 100);
-
-        if (this.refreshTimeoutSeconds !== null) {
-            setInterval(function() {
-                that.load_data();
-            }, this.refreshTimeoutSeconds * 1000)
-        }
     }
 
 }

@@ -4,7 +4,7 @@
 
         <div class="card-header">
             <i class="material-icons">playlist_play</i>
-            {{ action_sequences.length }} {{ $tc("components.action_sequences", 2) }}
+            {{ action_sequences.length }} {{ $tc("labels.action_sequences", 2) }}
         </div>
 
         <div v-for="as in action_sequences">

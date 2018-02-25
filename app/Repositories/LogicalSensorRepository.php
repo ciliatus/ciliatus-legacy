@@ -32,6 +32,7 @@ class LogicalSensorRepository extends Repository
 
         if (!is_null($model)) {
             $model->current_threshold_id = is_null($model->current_threshold()) ? null : $model->current_threshold()->id;
+            $model->rawvalue_adjustment = $model->getRawvalueAdjustment();
         }
 
         return $model;

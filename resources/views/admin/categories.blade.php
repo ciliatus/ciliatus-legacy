@@ -10,7 +10,7 @@
         <ul class="tabs z-depth-1">
             <li class="tab col s3"><a class="active" href="#tab_feeding_types">@lang('menu.animal_feeding_types')</a></li>
             <li class="tab col s3"><a href="#tab_bio_categories">@lang('labels.bio_categories')</a></li>
-            <li class="tab col s3"><a href="#tab_generic_components_types">@choice('components.generic_component_types', 2)</a></li>
+            <li class="tab col s3"><a href="#tab_generic_components_types">@choice('labels.generic_component_types', 2)</a></li>
         </ul>
     </div>
 
@@ -104,7 +104,7 @@
                 <table>
                     <thead>
                     <tr>
-                        <th data-field="type">@choice('components.generic_component_types', 1)</th>
+                        <th data-field="type">@choice('labels.generic_component_types', 1)</th>
                         <th data-field="icon">@lang('labels.icon')</th>
                         <th data-field="actions">@lang('labels.actions')</th>
                     </tr>

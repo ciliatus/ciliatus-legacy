@@ -56,27 +56,37 @@ class System extends Model
             ];
         }
 
+        if (env('ENABLE_REQUEST_LOGGING', false)) {
+            $execution_time = [
+                'avg_exec_time_30m' => LogRequest::averageExecutionTime($t_30m),
+                'avg_exec_time_15m' => LogRequest::averageExecutionTime($t_15m),
+                'avg_exec_time_5m' => LogRequest::averageExecutionTime($t_5m),
+                'min_exec_time_30m' => LogRequest::minExecutionTime($t_30m),
+                'min_exec_time_15m' => LogRequest::minExecutionTime($t_15m),
+                'min_exec_time_5m' => LogRequest::minExecutionTime($t_5m),
+                'max_exec_time_30m' => LogRequest::maxExecutionTime($t_30m),
+                'max_exec_time_15m' => LogRequest::maxExecutionTime($t_15m),
+                'max_exec_time_5m' => LogRequest::maxExecutionTime($t_5m)
+            ];
+
+            $endpoints = [
+                'top5_execution_time' => [
+                    '30m' => LogRequest::topRequests(5, $t_30m),
+                    '15m' => LogRequest::topRequests(5, $t_15m),
+                    '5m' => LogRequest::topRequests(5, $t_5m)
+                ]
+            ];
+        }
+        else {
+            $execution_time = [];
+            $endpoints = [];
+        }
+
         $health = [
             'version' => config('app.version'),
             'requests' => [
-                'execution_time' => [
-                    'avg_exec_time_30m' => LogRequest::averageExecutionTime($t_30m),
-                    'avg_exec_time_15m' => LogRequest::averageExecutionTime($t_15m),
-                    'avg_exec_time_5m' => LogRequest::averageExecutionTime($t_5m),
-                    'min_exec_time_30m' => LogRequest::minExecutionTime($t_30m),
-                    'min_exec_time_15m' => LogRequest::minExecutionTime($t_15m),
-                    'min_exec_time_5m' => LogRequest::minExecutionTime($t_5m),
-                    'max_exec_time_30m' => LogRequest::maxExecutionTime($t_30m),
-                    'max_exec_time_15m' => LogRequest::maxExecutionTime($t_15m),
-                    'max_exec_time_5m' => LogRequest::maxExecutionTime($t_5m)
-                ],
-                'endpoints' => [
-                    'top5_execution_time' => [
-                        '30m' => LogRequest::topRequests(5, $t_30m),
-                        '15m' => LogRequest::topRequests(5, $t_15m),
-                        '5m' => LogRequest::topRequests(5, $t_5m)
-                    ]
-                ]
+                'execution_time' => $execution_time,
+                'endpoints' => $endpoints
             ],
             'throughput' => [
                 'sensorreadings' => [

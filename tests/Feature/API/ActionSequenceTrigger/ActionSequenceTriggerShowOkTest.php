@@ -72,7 +72,9 @@ class ActionSequenceTriggerShowOkTest extends TestCase
             'timeframe_end' => '08:00:00'
         ]);
 
-        $response = $this->get('/api/v1/action_sequence_triggers/' . $ast->id . '/?with[]=sequence', [
+        $response = $this->get('/api/v1/action_sequence_triggers/' . $ast->id .
+            '/?with[]=sequence&with[]=logical_sensor',
+        [
             'Authorization' => 'Bearer ' . $token
         ]);
         $response->assertStatus(200);

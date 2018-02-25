@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-<a href="/valves" class="breadcrumb hide-on-small-and-down">@choice('components.valves', 2)</a>
+<a href="/valves" class="breadcrumb hide-on-small-and-down">@choice('labels.valves', 2)</a>
 <a href="/valves/{{ $valve->id }}" class="breadcrumb hide-on-small-and-down">{{ $valve->name }}</a>
 <a href="/valves/{{ $valve->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
@@ -50,7 +50,7 @@
                                                 <option value="{{ $cu->id }}" @if($valve->controlunit_id == $cu->id)selected="selected"@endif>{{ $cu->name }}</option>
                                             @endforeach
                                         </select>
-                                        <label for="valves">@choice('components.controlunits', 1)</label>
+                                        <label for="valves">@choice('labels.controlunits', 1)</label>
                                     </div>
                                 </div>
 
@@ -62,7 +62,7 @@
                                                 <option value="{{ $p->id }}" @if($valve->pump_id == $p->id)selected="selected"@endif>{{ $p->name }}</option>
                                             @endforeach
                                         </select>
-                                        <label for="valves">@choice('components.pumps', 1)</label>
+                                        <label for="valves">@choice('labels.pumps', 1)</label>
                                     </div>
                                 </div>
 
@@ -74,7 +74,7 @@
                                                 <option value="{{ $t->id }}" @if($valve->terrarium_id == $t->id)selected="selected"@endif>{{ $t->name }}</option>
                                             @endforeach
                                         </select>
-                                        <label for="valves">@choice('components.terraria', 1)</label>
+                                        <label for="valves">@choice('labels.terraria', 1)</label>
                                     </div>
                                 </div>
                             </p>

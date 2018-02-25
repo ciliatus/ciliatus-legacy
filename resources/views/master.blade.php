@@ -37,7 +37,7 @@
         <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
     </head>
 
-    <body data-lang="{{ app()->getLocale() }}" style="height: 100%;">
+    <body data-lang="{{ app()->getLocale() }}" data-base-url="{{ config()->get('app.url') }}" style="height: 100%;">
 
         <script>
             var domCallbacks = [];
@@ -119,9 +119,9 @@
 
                     <li><div class="divider"></div></li>
 
-                    <li @if(Request::is('animals', 'animals/*')) class="active" @endif><a href="{{ url('animals') }}" class="waves-effect waves-orange"><i class="material-icons">pets</i>@choice('components.animals', 2)</a></li>
-                    <li @if(Request::is('terraria', 'terraria/*')) class="active" @endif><a href="{{ url('terraria') }}" class="waves-effect waves-orange"><i class="material-icons">video_label</i>@choice('components.terraria', 2)</a></li>
-                    <li @if(Request::is('controlunits', 'controlunits/*')) class="active" @endif><a href="{{ url('controlunits') }}" class="waves-effect waves-orange"><i class="material-icons">memory</i>@choice('components.controlunits', 2)</a></li>
+                    <li @if(Request::is('animals', 'animals/*')) class="active" @endif><a href="{{ url('animals') }}" class="waves-effect waves-orange"><i class="material-icons">pets</i>@choice('labels.animals', 2)</a></li>
+                    <li @if(Request::is('terraria', 'terraria/*')) class="active" @endif><a href="{{ url('terraria') }}" class="waves-effect waves-orange"><i class="material-icons">video_label</i>@choice('labels.terraria', 2)</a></li>
+                    <li @if(Request::is('controlunits', 'controlunits/*')) class="active" @endif><a href="{{ url('controlunits') }}" class="waves-effect waves-orange"><i class="material-icons">memory</i>@choice('labels.controlunits', 2)</a></li>
 
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
@@ -136,13 +136,13 @@
                                         <li @if(Request::is('physical_sensors', 'physical_sensors/*')) class="active" @endif>
                                             <a href="{{ url('physical_sensors') }}" class="waves-effect waves-orange">
                                                 <i class="material-icons">memory</i>
-                                                @choice('components.physical_sensors', 2)
+                                                @choice('labels.physical_sensors', 2)
                                             </a>
                                         </li>
                                         <li @if(Request::is('logical_sensors', 'logical_sensors/*')) class="active" @endif>
                                             <a href="{{ url('logical_sensors') }}" class="waves-effect waves-orange">
                                                 <i class="material-icons">memory</i>
-                                                @choice('components.logical_sensors', 2)
+                                                @choice('labels.logical_sensors', 2)
                                             </a>
                                         </li>
                                     </ul>
@@ -164,13 +164,13 @@
                                         <li @if(Request::is('pumps', 'pumps/*')) class="active" @endif>
                                             <a href="{{ url('pumps') }}" class="waves-effect waves-orange">
                                                 <i class="material-icons">rotate_right</i>
-                                                @choice('components.pumps', 2)
+                                                @choice('labels.pumps', 2)
                                             </a>
                                         </li>
                                         <li @if(Request::is('valves', 'valves/*')) class="active" @endif>
                                             <a href="{{ url('valves') }}" class="waves-effect waves-orange">
                                                 <i class="material-icons">transform</i>
-                                                @choice('components.valves', 2)
+                                                @choice('labels.valves', 2)
                                             </a>
                                         </li>
                                         @foreach(\App\GenericComponentType::orderBy('name_plural')->get() as $gct)
@@ -184,7 +184,7 @@
                                         <li @if(Request::is('action_sequences', 'action_sequences/*')) class="active" @endif>
                                             <a href="{{ url('action_sequences') }}" class="waves-effect waves-orange">
                                                 <i class="material-icons">playlist_play</i>
-                                                @choice('components.action_sequences', 2)
+                                                @choice('labels.action_sequences', 2)
                                             </a>
                                         </li>
                                     </ul>

@@ -324,9 +324,13 @@ class ActionSequenceIntention extends CiliatusModel
      */
     private function timeframe_start_today()
     {
+        if (!$this->timeframe_start) {
+            return Carbon::today();
+        }
+        $timeframe_split = explode(':', $this->timeframe_start);
         $time = Carbon::now();
-        $time->hour = explode(':', $this->timeframe_start)[0];
-        $time->minute = explode(':', $this->timeframe_start)[1];
+        $time->hour = (int)($timeframe_split[0]);
+        $time->minute = (int)($timeframe_split[1]);
         $time->second = 0;
 
         return $time;
@@ -337,9 +341,13 @@ class ActionSequenceIntention extends CiliatusModel
      */
     private function timeframe_end_today()
     {
+        if (!$this->timeframe_end) {
+            return Carbon::tomorrow()->subSecond();
+        }
+        $timeframe_split = explode(':', $this->timeframe_end);
         $time = Carbon::now();
-        $time->hour = explode(':', $this->timeframe_end)[0];
-        $time->minute = explode(':', $this->timeframe_end)[1];
+        $time->hour = (int)($timeframe_split[0]);
+        $time->minute = (int)($timeframe_split[1]);
         $time->second = 0;
 
         return $time;

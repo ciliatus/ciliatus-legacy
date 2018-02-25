@@ -2,97 +2,62 @@
     <div>
         <div :class="wrapperClasses">
             <table class="responsive highlight collapsible" data-collapsible="expandable">
-                <thead>
-                <tr>
-                    <th v-if="showOptionSelect" width="100">
-
-                    </th>
-                    <th data-field="display_name">
-                        <a href="#!" v-on:click="set_order('name')">{{ $t('labels.display_name') }}</a>
-                        <i v-show="order.field == 'display_name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'display_name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline">
-                            <input id="filter_display_name" type="text" v-model="filter.display_name" v-on:keydown.enter="set_filter">
-                            <label for="filter_display_name">Filter</label>
-                        </div>
-                    </th>
-
-                    <th data-field="mimetype">
-                        <a href="#!" v-on:click="set_order('name')">{{ $t('labels.type') }}</a>
-                        <i v-show="order.field == 'mimetype' && order.direction == 'mimetype'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'mimetype' && order.direction == 'mimetype'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline">
-                            <input id="filter_mimetype" type="text" v-model="filter.mimetype" v-on:keydown.enter="set_filter">
-                            <label for="filter_mimetype">Filter</label>
-                        </div>
-                    </th>
-
-                    <th data-field="size">
-                        <a href="#!" v-on:click="set_order('name')">{{ $t('labels.size') }}</a>
-                        <i v-show="order.field == 'size' && order.direction == 'size'" class="material-icons">arrow_drop_up</i>
-                        <i v-show="order.field == 'size' && order.direction == 'size'" class="material-icons">arrow_drop_down</i>
-                        <div class="input-field inline">
-                            <input id="filter_size" type="text" v-model="filter.size" v-on:keydown.enter="set_filter">
-                            <label for="filter_size">Filter</label>
-                        </div>
-                    </th>
-
-                    <th data-field="timestamps.created_at">
-                        {{ $t('labels.created_at') }}
-                    </th>
-                </tr>
-                </thead>
+                <table-filter ref="table_filter"
+                              :cols="4"
+                              :hide-cols="hideCols"
+                              :filter-fields="[{name: 'display_name', path: 'display_name', col: 0},
+                                               {name: 'type', path: 'mimetype', col: 1},
+                                               {name: 'size', path: 'size', noFilter: true, col: 2},
+                                               {name: 'created_at', path: 'created_at', noFilter: true, col: 3},
+                                               {noSort: true, noFilter: true, col: 4, class: 'hide-on-small-only'}]">
+                </table-filter>
 
                 <template v-for="file in files">
                     <tbody>
                         <tr class="collapsible-header">
-
-                            <td v-if="showOptionSelect">
+                            <td>
+                                <span v-if="showOptionSelect">
+                                    <input name="file" type="radio" :id="file.data.id" :value="file.data.id">
+                                    <label :for="file.data.id"> </label>
+                                </span>
                                 <span>
-                                    <input name="file" type="radio" :id="file.id" :value="file.id">
-                                    <label :for="file.id"> </label>
+                                    <i class="material-icons">{{ file.data.icon }}</i>
+                                    <a v-bind:href="'/files/' + file.data.id">{{ file.data.display_name }}</a>
                                 </span>
                             </td>
 
                             <td>
                                 <span>
-                                    <i class="material-icons">{{ file.icon }}</i>
-                                    <a v-bind:href="'/files/' + file.id">{{ file.display_name }}</a>
+                                    {{ file.data.mimetype }}
                                 </span>
                             </td>
 
                             <td>
-                                <span>
-                                    {{ file.mimetype }}
-                                </span>
-                            </td>
-
-                            <td>
-                                <span v-if="file.size / 1024 > 1024">
-                                    {{ Math.round(file.size / 1024 / 1024, 1) }} MB
+                                <span v-if="file.data.size / 1024 > 1024">
+                                    {{ Math.round(file.data.size / 1024 / 1024, 1) }} MB
                                 </span>
                                 <span v-else>
-                                    {{ Math.round(file.size / 1024, 0) }} KB
+                                    {{ Math.round(file.data.size / 1024, 0) }} KB
                                 </span>
                             </td>
 
                             <td>
                                 {{ $t(
-                                    'units.' + $getMatchingTimeDiff(file.timestamps.created_diff).unit,
-                                    {val: $getMatchingTimeDiff(file.timestamps.created_diff).val}
+                                    'units.' + $getMatchingTimeDiff(file.data.timestamps.created_diff).unit,
+                                    {val: $getMatchingTimeDiff(file.data.timestamps.created_diff).val}
                                 )}}
                             </td>
 
-                            <td>
-                                <span v-if="backgroundSelectorClassName && backgroundSelectorId && file.mimetype.indexOf('image') !== -1">
-                                    <a v-bind:href="'/files/set-background/' + backgroundSelectorClassName + '/' + backgroundSelectorId + '/' + file.id">
+                            <td class="hide-on-small-only">
+                                <span v-if="backgroundSelectorClassName && backgroundSelectorId && file.data.mimetype.indexOf('image') !== -1">
+                                    <a v-bind:href="'/files/set-background/' + backgroundSelectorClassName + '/' + backgroundSelectorId + '/' + file.data.id">
                                         <i class="material-icons tooltipped"
                                            data-delay="50" data-html="true"
                                            :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.set_as_background') + '</div>'">wallpaper</i>
                                     </a>
                                 </span>
                                 <span>
-                                    <a v-bind:href="'/files/' + file.id + '/edit'">
+                                    <a v-bind:href="'/files/' + file.data.id + '/edit'">
                                         <i class="material-icons">edit</i>
                                     </a>
                                 </span>
@@ -103,207 +68,125 @@
                             <td v-if="showOptionSelect">
                             </td>
                             <td colspan="4">
-                                <img v-if="file.mimetype.startsWith('image') && file.thumb != undefined" :src="file.thumb.path_external">
+                                <img v-if="file.data.mimetype.startsWith('image') && file.data.thumb != undefined" :src="file.data.thumb.path_external">
                             </td>
                         </tr>
                     </tbody>
                 </template>
             </table>
 
-            <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page-1)"><i class="material-icons">chevron_left</i></a>
-                </li>
-
-                <li v-if="meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
-                <li v-if="meta.pagination.current_page-2 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-2)">{{ meta.pagination.current_page-2 }}</a></li>
-                <li v-if="meta.pagination.current_page-1 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-1)">{{ meta.pagination.current_page-1 }}</a></li>
-
-                <li class="active"><a href="#!">{{ meta.pagination.current_page }}</a></li>
-
-                <li v-if="meta.pagination.current_page+1 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+1)">{{ meta.pagination.current_page+1 }}</a></li>
-                <li v-if="meta.pagination.current_page+2 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+2)">{{ meta.pagination.current_page+2 }}</a></li>
-                <li v-if="meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
-
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="material-icons">chevron_right</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.total_pages)"><i class="material-icons">last_page</i></a>
-                </li>
-            </ul>
+            <pagination ref="pagination"
+                        :source-filter="sourceFilter"
+                        :enable-filters="false">
+            </pagination>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            files: [],
-            meta: [],
-            filter: {
-                name: '',
-                model: '',
-                'file.name': '',
-                'terrarium.display_name': ''
+    import pagination from './mixins/pagination.vue';
+    import table_filter from './mixins/table_filter.vue';
+
+    export default {
+        data() {
+            return {
+                ids: []
+            }
+        },
+
+        props: {
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
             },
-            filter_string: '',
-            order: {
-                field: 'name',
-                direction: 'asc'
+            sourceFilter: {
+                type: String,
+                default: '',
+                required: false
             },
-            order_string: '',
-            page: 1
-        }
-    },
-
-    props: {
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        sourceFilter: {
-            type: String,
-            default: 'filter[usage]=notlike:thumb:or:null',
-            required: false
-        },
-        refreshTimeoutSeconds: {
-            type: Number,
-            default: 60,
-            required: false
-        },
-        showOptionSelect: {
-            type: Boolean,
-            default: false,
-            required: false
-        },
-        sourceUrl: {
-            type: String,
-            default: 'files',
-            required: false
-        },
-        backgroundSelectorClassName: {
-            type: String,
-            default: null,
-            required: false
-        },
-        backgroundSelectorId: {
-            type: String,
-            default: null,
-            required: false
-        }
-    },
-
-    methods: {
-        update: function(f) {
-            var item = null;
-            this.files.forEach(function(data, index) {
-                if (data.id === f.file.id) {
-                    item = index;
-                }
-            });
-            if (item !== null) {
-                this.files.splice(item, 1, f.file);
-            }
-        },
-
-        delete: function(f) {
-            var item = null;
-            this.files.forEach(function(data, index) {
-                if (data.id === f.file.id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.files.splice(item, 1);
-            }
-        },
-        
-        set_order: function(field) {
-            if (this.order.field == field || field === null) {
-                if (this.order.direction == 'asc') {
-                    this.order.direction = 'desc';
-                }
-                else {
-                    this.order.direction = 'asc';
-                }
-            }
-            else {
-                this.order.field = field;
-            }
-
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            this.load_data();
-        },
-        set_filter: function(e) {
-            if (e) {
-                e.preventDefault();
-            }
-            this.filter_string = '&';
-            if (this.sourceFilter !== '') {
-                this.filter_string += this.sourceFilter + '&';
-            }
-            for (var prop in this.filter) {
-                if (this.filter.hasOwnProperty(prop)) {
-                    if (this.filter[prop] !== null
-                        && this.filter[prop] !== '') {
-
-                        this.filter_string += 'filter[' + prop + ']=like:*' + this.filter[prop] + '*&';
-                    }
-                }
-            }
-            this.load_data();
-        },
-        set_page: function(page) {
-            this.page = page;
-            this.load_data();
-        },
-        load_data: function() {
-            window.eventHubVue.processStarted();
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            var that = this;
-            $.ajax({
-                url: '/api/v1/' + that.sourceUrl + '?with[]=properties&page=' + that.page + that.filter_string + that.order_string,
-                method: 'GET',
-                success: function (data) {
-                    that.meta = data.meta;
-                    that.files = data.data;
-                    window.eventHubVue.processEnded();
+            hideCols: {
+                type: Array,
+                default: function () {
+                    return [];
                 },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
-        }
-    },
+                required: false
+            },
+            itemsPerPage: {
+                type: Number,
+                default: 9,
+                required: false
+            },
+            showOptionSelect: {
+                type: Boolean,
+                default: false,
+                required: false
+            },
+            backgroundSelectorClassName: {
+                type: String,
+                default: null,
+                required: false
+            },
+            backgroundSelectorId: {
+                type: String,
+                default: null,
+                required: false
+            }
+        },
 
-    created: function() {
-        window.echo.private('dashboard-updates')
-                .listen('FileUpdated', (e) => {
-                this.update(e);
-        }).listen('FileDeleted', (e) => {
-                this.delete(e);
-        });
+        computed: {
+            files () {
+                let that = this;
+                return this.$store.state.files.filter(function (f) {
+                    return that.ids.includes(f.id) && f.data !== null
+                }).sort(function (a, b) {
+                    let c = a.data[that.$refs.pagination.order.field] > b.data[that.$refs.pagination.order.field];
+                    if ( c && that.$refs.pagination.order.direction === 'asc' ||
+                        !c && that.$refs.pagination.order.direction === 'desc') {
+                        return 1;
+                    }
+                    return -1;
+                });
+            }
+        },
 
-        var that = this;
-        setTimeout(function() {
-            that.set_filter();
-        }, 100);
+        components: {
+            pagination,
+            'table-filter': table_filter
+        },
 
-        this.set_filter();
+        methods: {
+            load_data: function () {
+                let that = this;
 
-        if (this.refreshTimeoutSeconds !== null) {
-            setInterval(function() {
-                that.load_data();
-            }, this.refreshTimeoutSeconds * 1000)
+                $.ajax({
+                    url: '/api/v1/files?' +
+                         that.sourceFilter + '&' +
+                         'filter[usage]=ne:thumb:or:null&' +
+                         'pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                         that.$refs.pagination.page +
+                         that.$refs.pagination.filter_string +
+                         that.$refs.pagination.order_string,
+                    method: 'GET',
+                    success: function (data) {
+                        that.ids = data.data.map(g => g.id);
+
+                        that.$refs.pagination.meta = data.meta;
+
+                        that.$parent.ensureObjects('files', that.ids, data.data);
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
+            }
+        },
+
+        created: function () {
+            let that = this;
+            setTimeout(function () {
+                that.$refs.pagination.init();
+            }, 100);
         }
     }
-}
 </script>

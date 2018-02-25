@@ -23,9 +23,9 @@ class AnimalWeighingEventController extends ApiController
     /**
      * AnimalWeighingEventController constructor.
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
     }
 
     /**
@@ -40,7 +40,7 @@ class AnimalWeighingEventController extends ApiController
         }
 
         if (is_null($id)) {
-            $weighings = $this->filter($request, AnimalWeighingEvent::orderBy('created_at', 'DESC')->getQuery());
+            $weighings = $this->filter($request, AnimalWeighingEvent::query());
         }
         else {
             $animal = Animal::find($id);
@@ -48,30 +48,11 @@ class AnimalWeighingEventController extends ApiController
                 return $this->respondNotFound("Animal not found");
             }
 
-            $weighings = $this->filter($request, $animal->weighings()->orderBy('created_at', 'DESC')->getQuery());
-        }
-
-
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->filled('raw') && Gate::allows('api-list:raw')) {
-            $weighings = $weighings->get();
-            foreach ($weighings as &$f) {
-                $f = (new AnimalWeighingEventRepository($f))->show()->toArray();
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                (new AnimalWeighingEventTransformer())->transformCollection(
-                    $weighings->toArray()
-                )
-            );
-
+            $weighings = $this->filter($request, $animal->weighings()->getQuery());
         }
 
         if ($request->filled('graph')) {
-            $weighings = $weighings->get();
+            $weighings = $weighings->orderBy('created_at')->get();
 
             $return = [
                 'columns' => [
@@ -97,16 +78,8 @@ class AnimalWeighingEventController extends ApiController
             return $this->respondWithData($return);
         }
 
-        $weighings = $weighings->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        foreach ($weighings->items() as &$f) {
-            $f = (new AnimalWeighingEventRepository($f))->show()->toArray();
-        }
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            (new AnimalWeighingEventTransformer())->transformCollection(
-                $weighings->toArray()['data']
-            ),
+        return $this->respondTransformedAndPaginated(
+            $request,
             $weighings
         );
 

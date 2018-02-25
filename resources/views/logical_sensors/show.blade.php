@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/logical_sensors" class="breadcrumb hide-on-small-and-down">@choice('components.logical_sensors', 2)</a>
+    <a href="/logical_sensors" class="breadcrumb hide-on-small-and-down">@choice('labels.logical_sensors', 2)</a>
     <a href="/logical_sensors/{{ $logical_sensor->id }}" class="breadcrumb hide-on-small-and-down">{{ $logical_sensor->name }}</a>
 @stop
 
@@ -16,19 +16,23 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m5 l4">
-                    <logical_sensors-widget :refresh-timeout-seconds="60" logical_sensor-id="{{ $logical_sensor->id }}"
-                                            :subscribe-add="false" :subscribe-delete="false"
-                                            container-classes="row" wrapper-classes="col s12"></logical_sensors-widget>
+                    <div class="row">
+                        <logical_sensor-widget logical-sensor-id="{{ $logical_sensor->id }}"
+                                               wrapper-classes="col s12"></logical_sensor-widget>
+                    </div>
 
-                    <logical_sensor_thresholds-widget :refresh-timeout-seconds="60"
-                                                      source-filter="filter[id]={{ $logical_sensor->id }}"
-                                                      container-classes="row" wrapper-classes="col s12"></logical_sensor_thresholds-widget>
+                    <div class="row">
+                        <logical_sensor_thresholds-widget :refresh-timeout-seconds="60"
+                                                          source-filter="filter[id]={{ $logical_sensor->id }}"
+                                                          wrapper-classes="col s12"></logical_sensor_thresholds-widget>
+                    </div>
                 </div>
 
                 <div class="col s12 m5 l4">
-                    <physical_sensors-widget :refresh-timeout-seconds="60" physical_sensor-id="{{ $logical_sensor->physical_sensor_id }}"
-                                             :subscribe-add="false" :subscribe-delete="false"
-                                             container-classes="row" wrapper-classes="col s12"></physical_sensors-widget>
+                    <div class="row">
+                        <physical_sensor-widget physical-sensor-id="{{ $logical_sensor->physical_sensor_id }}"
+                                                wrapper-classes="col s12"></physical_sensor-widget>
+                    </div>
                 </div>
             </div>
         </div>
