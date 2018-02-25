@@ -26,38 +26,21 @@ class DashboardTest extends TestCase
 
         $response->assertJson([
             'data' => [
-                'controlunits' => [
-                    'critical' => []
-                ],
-                'physical_sensors' => [
-                    'critical' => []
-                ],
-                'terraria' => [
-                    'ok' => [],
-                    'critical' => []
-                ],
-                'animal_feeding_schedules' => [
-                    'due' => [],
-                    'overdue' => []
-                ],
-                'animal_weighing_schedules' => [
-                    'due' => [],
-                    'overdue' => []
-                ],
-                'action_sequence_schedules' => [
-                    'due' => [],
-                    'overdue' => [],
-                    'running' => []
-                ],
-                'action_sequence_triggers' => [
-                    'running' => [],
-                    'should_be_running' => []
-                ],
-                'action_sequence_intentions' => [
-                    'running' => [],
-                    'should_be_running' => []
-                ],
+                'controlunits' => [],
+                'physical_sensors' => [],
+                'terraria' => [],
+                'animal_feeding_schedules' => [],
+                'animal_weighing_schedules' => [],
+                'action_sequence_schedules' => [],
+                'action_sequence_triggers' => [],
+                'action_sequence_intentions' => [],
                 'suggestions' => []
+            ]
+        ]);
+
+        $response->assertJsonStructure([
+            'data' => [
+                'terraria_ok_count'
             ]
         ]);
 
