@@ -16,11 +16,8 @@
     <div id="tab_overview" class="col s12">
         <div class="container">
             <div class="row">
-                <div class="col s12 m5 l4">
-                    <controlunits-widget :refresh-timeout-seconds="60" controlunit-id="{{ $controlunit->id }}"
-                                         :subscribe-add="false"  :subscribe-delete="false"
-                                         container-classes="row" wrapper-classes="col s12"></controlunits-widget>
-                </div>
+                <controlunit-widget controlunit-id="{{ $controlunit->id }}"
+                                    wrapper-classes="col s12 m5 l4"></controlunit-widget>
 
                 <div class="col s12 m7 l8">
                     <div class="card">
