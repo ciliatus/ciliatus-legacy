@@ -1,6 +1,6 @@
 <template>
-    <div :class="wrapperClasses" v-if="controlunit.data">
-        <div class="card">
+    <div :class="wrapperClasses">
+        <div class="card" v-if="controlunit.data">
             <div class="card-header">
                 <i class="material-icons">rotate_right</i>
                 {{ $tc("labels.controlunits", 1) }}
@@ -61,10 +61,15 @@
                 <a v-bind:href="'/controlunits/' + controlunit.data.id + '/edit'">{{ $t("buttons.edit") }}</a>
             </div>
         </div>
+        <div v-else>
+            <loading-card-widget> </loading-card-widget>
+        </div>
     </div>
 </template>
 
 <script>
+    import LoadingCardWidget from './loading-card-widget';
+
     export default {
         props: {
             controlunitId: {
@@ -77,6 +82,10 @@
                 default: '',
                 required: false
             }
+        },
+
+        components: {
+            'loading-card-widget': LoadingCardWidget
         },
 
         computed: {
