@@ -1,6 +1,14 @@
 <template>
     <div>
 
+        <!--
+            Modals
+         -->
+        <div v-for="schedule in animal_weighing_schedules.filter(s => s.data.due_days <= 0)">
+            <animal-add-weight-modal :animalId="schedule.data.animal.id"
+                                     :containerId="'modal_add_weight_' + schedule.data.id"> </animal-add-weight-modal>
+        </div>
+
         <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
             <!--
                 Active suggestions
