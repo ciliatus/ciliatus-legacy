@@ -136,7 +136,7 @@ class SensorreadingController extends ApiController
         }
 
         $logical_sensor->rawvalue = (float)$request->input('rawvalue');
-        $logical_sensor->save(['silent']);
+        $logical_sensor->save();
 
         if (!is_null($logical_sensor->physical_sensor)) {
 
