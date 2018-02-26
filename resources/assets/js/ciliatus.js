@@ -159,7 +159,90 @@ global.ciliatusVue = new global.Vue({
                 this.$store.state[object.type].findIndex(o => o.id === object.id),
                 1
             );
+        },
+
+        __deleteEventName(type) {
+            let event_names = {
+                action_sequences: 'ActionSequenceDeleted',
+                action_sequence_intentions: 'ActionSequenceIntentionDeleted',
+                action_sequence_schedules: 'ActionSequenceScheduleDeleted',
+                action_sequence_triggers: 'ActionSequenceTriggerDeleted',
+                animals: 'AnimalDeleted',
+                animal_weighings: 'AnimalWeighingDeleted',
+                animal_feedings: 'AnimalFeedingDeleted',
+                animal_weighing_schedules: 'AnimalWeighingScheduleDeleted',
+                animal_feeding_schedules: 'AnimalFeedingScheduleDeleted',
+                biography_entries: 'BiographyEntryDeleted',
+                caresheets: 'CaresheetDeleted',
+                controlunits: 'ControlunitDeleted',
+                files: 'FileDeleted',
+                generic_components: 'GenericComponentDeleted',
+                logical_sensors: 'LogicalSensorDeleted',
+                logical_sensor_thresholds: 'LogicalSensorThresholdsDeleted',
+                physical_sensors: 'PhysicalSensorDeleted',
+                pumps: 'PumpDeleted',
+                suggestions: 'SuggestionDeleted',
+                terraria: 'TerrariumDeleted',
+                users: 'UserDeleted',
+                valves: 'ValveDeleted',
+            };
+
+            return event_names[type];
+        },
+
+        __updateEventName(type) {
+            let event_names = {
+                action_sequences: 'ActionSequenceUpdated',
+                action_sequence_intentions: 'ActionSequenceIntentionUpdated',
+                action_sequence_schedules: 'ActionSequenceScheduleUpdated',
+                action_sequence_triggers: 'ActionSequenceTriggerUpdated',
+                animals: 'AnimalUpdated',
+                animal_weighings: 'AnimalWeighingUpdated',
+                animal_feedings: 'AnimalFeedingUpdated',
+                animal_weighing_schedules: 'AnimalWeighingScheduleUpdated',
+                animal_feeding_schedules: 'AnimalFeedingScheduleUpdated',
+                biography_entries: 'BiographyEntryUpdated',
+                caresheets: 'CaresheetUpdated',
+                controlunits: 'ControlunitUpdated',
+                files: 'FileUpdated',
+                generic_components: 'GenericComponentUpdated',
+                logical_sensors: 'LogicalSensorUpdated',
+                logical_sensor_thresholds: 'LogicalSensorThresholdsUpdated',
+                physical_sensors: 'PhysicalSensorUpdated',
+                pumps: 'PumpUpdated',
+                suggestions: 'SuggestionUpdated',
+                terraria: 'TerrariumUpdated',
+                users: 'UserUpdated',
+                valves: 'ValveUpdated',
+            };
+
+            return event_names[type];
         }
+    },
+
+    created () {
+        let that = this;
+        let event_name;
+        Object.keys(this.$store.state).forEach(function (k) {
+            if (event_name = that.__updateEventName(k)) {
+                window
+                    .echo
+                    .private('dashboard-updates')
+                    .listen(event_name, function (e) {
+                        that.$store.state[k].filter(obj => obj.id === e.id).forEach(obj => obj.refresh(false, 2));
+                    });
+            }
+
+            if (event_name = that.__deleteEventName(k)) {
+                window
+                    .echo
+                    .private('dashboard-updates')
+                    .listen(event_name, function (e) {
+                        that.$store.state[o].filter(obj => obj.id === e.id).forEach(obj => that.removeObject(obj));
+                    });
+            }
+        });
+
     },
 
     components: {
