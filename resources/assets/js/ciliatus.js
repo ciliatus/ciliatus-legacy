@@ -129,7 +129,7 @@ global.ciliatusVue = new global.Vue({
             }
 
             if (this.$store.state[type].filter(o => o.id === id).length < 1) {
-                this.$store.state[type].push(new CiliatusObject(type, id, data, include));
+                this.$store.state[type].push(new CiliatusObject(this, type, id, data, include));
             }
         },
 
@@ -152,6 +152,13 @@ global.ciliatusVue = new global.Vue({
                     )
                 });
             }
+        },
+
+        removeObject (object) {
+            this.$store.state[object.type].splice(
+                this.$store.state[object.type].findIndex(o => o.id === object.id),
+                1
+            );
         }
     },
 
