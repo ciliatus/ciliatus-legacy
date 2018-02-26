@@ -18,20 +18,20 @@ class AnimalCaresheetDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $animal_caresheet_id;
+    public $id;
 
 
     /**
      * Create a new event instance.
      *
      * AnimalCaresheetDeleted constructor.
-     * @param String $animal_caresheet_id
+     * @param Event $animal_caresheet
      */
-    public function __construct($animal_caresheet_id)
+    public function __construct(Event $animal_caresheet)
     {
-        $this->animal_caresheet_id = $animal_caresheet_id;
+        $this->id = $animal_caresheet->id;
     }
 
     /**

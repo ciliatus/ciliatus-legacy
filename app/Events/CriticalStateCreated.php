@@ -20,9 +20,9 @@ class CriticalStateCreated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $critical_state;
+    public $id;
 
     /**
      * Create a new event instance.
@@ -31,11 +31,7 @@ class CriticalStateCreated implements ShouldBroadcast
      */
     public function __construct(CriticalState $critical_state)
     {
-        $critical_state = CriticalState::find($critical_state->id);
-        $critical_state->belongsTo_object = $critical_state->belongsTo_object();
-        $critical_state->belongsTo_object->icon = $critical_state->belongsTo_object->icon();
-        $critical_state->belongsTo_object->url = $critical_state->belongsTo_object->url();
-        $this->critical_state = (new CriticalStateTransformer())->transform($critical_state->toArray());
+        $this->id = $critical_state->id;
     }
 
     /**

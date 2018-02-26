@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\ActionSequenceTrigger;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,18 +18,18 @@ class ActionSequenceTriggerDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var
+     * @var string $id
      */
-    public $action_sequence_trigger_id;
+    public $id;
 
     /**
      * Create a new event instance.
      *
-     * @param $action_sequence_trigger_id
+     * @param ActionSequenceTrigger $action_sequence_trigger
      */
-    public function __construct($action_sequence_trigger_id)
+    public function __construct(ActionSequenceTrigger $action_sequence_trigger)
     {
-        $this->action_sequence_trigger_id = $action_sequence_trigger_id;
+        $this->id = $action_sequence_trigger->id;
     }
 
     /**

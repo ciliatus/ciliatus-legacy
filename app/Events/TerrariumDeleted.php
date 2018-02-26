@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Terrarium;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,18 +18,18 @@ class TerrariumDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var
+     * @var string $id
      */
-    public $terrarium_id;
+    public $id;
 
     /**
      * Create a new event instance.
      *
-     * @param $terrarium_id
+     * @param Terrarium $terrarium
      */
-    public function __construct($terrarium_id)
+    public function __construct(Terrarium $terrarium)
     {
-        $this->terrarium_id = $terrarium_id;
+        $this->id = $terrarium->id;
     }
 
     /**

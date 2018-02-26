@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\CriticalState;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,18 +18,18 @@ class CriticalStateDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var
+     * @var string $id
      */
-    public $critical_state_id;
+    public $id;
 
     /**
      * Create a new event instance.
      *
-     * @param $critical_state_id
+     * @param CriticalState $critical_state
      */
-    public function __construct($critical_state_id)
+    public function __construct(CriticalState $critical_state)
     {
-        $this->critical_state_id = $critical_state_id;
+        $this->id = $critical_state->id;
     }
 
     /**

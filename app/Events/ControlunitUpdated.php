@@ -20,9 +20,9 @@ class ControlunitUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $controlunit;
+    public $id;
 
     /**
      * Create a new event instance.
@@ -31,11 +31,7 @@ class ControlunitUpdated implements ShouldBroadcast
      */
     public function __construct(Controlunit $cu)
     {
-        $transformer = new ControlunitTransformer();
-
-        $this->controlunit = $transformer->transform(
-            (new GenericRepository($cu))->show()->toArray()
-        );
+        $this->id = $cu->id;
     }
 
     /**

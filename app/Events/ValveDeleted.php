@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Valve;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,18 +18,18 @@ class ValveDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var
+     * @var string $id
      */
-    public $valve_id;
+    public $id;
 
     /**
      * Create a new event instance.
      *
-     * @param $valve_id
+     * @param Valve $valve
      */
-    public function __construct($valve_id)
+    public function __construct(Valve $valve)
     {
-        $this->valve_id = $valve_id;
+        $this->id = $valve->id;
     }
 
     /**

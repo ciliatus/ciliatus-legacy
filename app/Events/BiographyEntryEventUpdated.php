@@ -20,9 +20,9 @@ class BiographyEntryEventUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $biography_entry;
+    public $id;
 
     /**
      * Create a new event instance.
@@ -31,11 +31,7 @@ class BiographyEntryEventUpdated implements ShouldBroadcast
      */
     public function __construct(BiographyEntryEvent $be)
     {
-        $transformer = new BiographyEntryEventTransformer();
-
-        $this->biography_entry = $transformer->transform(
-            (new BiographyEntryEventRepository($be))->show()->toArray()
-        );
+        $this->id = $be->id;
     }
 
     /**

@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\AnimalWeighingScheduleProperty;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,18 +18,18 @@ class AnimalWeighingSchedulePropertyDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var
+     * @var string $id
      */
-    public $animal_weighing_schedule_id;
+    public $id;
 
 
     /**
      * AnimalWeighingScheduleDeleted constructor.
-     * @param String $animal_weighing_schedule_id
+     * @param AnimalWeighingScheduleProperty $animal_weighing_schedule
      */
-    public function __construct($animal_weighing_schedule_id)
+    public function __construct(AnimalWeighingScheduleProperty $animal_weighing_schedule)
     {
-        $this->animal_weighing_schedule_id = $animal_weighing_schedule_id;
+        $this->id = $animal_weighing_schedule->id;
     }
 
     /**

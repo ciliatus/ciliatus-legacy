@@ -20,9 +20,9 @@ class ValveUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $valve;
+    public $id;
 
     /**
      * Create a new event instance.
@@ -31,15 +31,7 @@ class ValveUpdated implements ShouldBroadcast
      */
     public function __construct(Valve $v)
     {
-        $transformer = new ValveTransformer();
-
-        $this->valve = $transformer->transform(
-            (new GenericRepository(
-                Valve::with('pump', 'terrarium', 'controlunit')
-                    ->find($v->id)
-            ))->show()
-              ->toArray()
-        );
+        $this->id = $v->id;
     }
 
     /**

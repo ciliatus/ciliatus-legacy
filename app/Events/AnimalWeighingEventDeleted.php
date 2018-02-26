@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\AnimalWeighingEvent;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,20 +18,20 @@ class AnimalWeighingEventDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $animal_weighing_id;
+    public $id;
 
 
     /**
      * Create a new event instance.
      *
      * AnimalWeighingDeleted constructor.
-     * @param String $animal_weighing_id
+     * @param AnimalWeighingEvent $animal_weighing
      */
-    public function __construct($animal_weighing_id)
+    public function __construct(AnimalWeighingEvent $animal_weighing)
     {
-        $this->animal_weighing_id = $animal_weighing_id;
+        $this->id = $animal_weighing->id;
     }
 
     /**

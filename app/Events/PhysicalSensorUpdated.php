@@ -20,9 +20,9 @@ class PhysicalSensorUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $physical_sensor;
+    public $id;
 
     /**
      * Create a new event instance.
@@ -31,13 +31,7 @@ class PhysicalSensorUpdated implements ShouldBroadcast
      */
     public function __construct(PhysicalSensor $ps)
     {
-        $transformer = new PhysicalSensorTransformer();
-        $this->physical_sensor = $transformer->transform(
-            (new GenericRepository(
-                PhysicalSensor::with('logical_sensors', 'controlunit', 'terrarium')->find($ps->id)
-            ))->show()
-              ->toArray()
-        );
+        $this->id = $ps->id;
     }
 
     /**

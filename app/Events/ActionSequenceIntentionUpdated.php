@@ -20,9 +20,9 @@ class ActionSequenceIntentionUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $action_sequence_intention;
+    public $id;
 
     /**
      * Create a new event instance.
@@ -31,18 +31,7 @@ class ActionSequenceIntentionUpdated implements ShouldBroadcast
      */
     public function __construct(ActionSequenceIntention $asi)
     {
-        $transformer = new ActionSequenceIntentionTransformer();
-        $repository = new ActionSequenceIntentionRepository(
-            ActionSequenceIntention::with('sequence')
-                                  ->find($asi->id)
-        );
-
-        $asi = $repository->show();
-        $sequence = $asi->sequence()->get();
-        if (!is_null($sequence)) {
-            $asi->sequence = $sequence->first();
-        }
-        $this->action_sequence_intention = $transformer->transform($asi->toArray());
+        $this->id = $asi->id;
     }
 
     /**

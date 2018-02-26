@@ -21,9 +21,9 @@ class AnimalFeedingSchedulePropertyUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $animal_feeding_schedule;
+    public $id;
 
 
     /**
@@ -34,11 +34,7 @@ class AnimalFeedingSchedulePropertyUpdated implements ShouldBroadcast
      */
     public function __construct(AnimalFeedingScheduleProperty $p)
     {
-        $transformer = new AnimalFeedingSchedulePropertyTransformer();
-
-        $this->animal_feeding_schedule = $transformer->transform(
-            (new AnimalFeedingSchedulePropertyRepository($p))->show()->toArray()
-        );
+        $this->id = $p->id;
     }
 
     /**

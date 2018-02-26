@@ -21,9 +21,9 @@ class AnimalFeedingEventUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $animal_feeding;
+    public $id;
 
 
     /**
@@ -34,17 +34,7 @@ class AnimalFeedingEventUpdated implements ShouldBroadcast
      */
     public function __construct(AnimalFeedingEvent $e)
     {
-        $transformer = new AnimalFeedingEventTransformer();
-
-        if (!is_null($e->belongsTo_object())) {
-            foreach ($e->belongsTo_object()->feeding_schedules as $fs) {
-                broadcast(new AnimalFeedingSchedulePropertyUpdated($fs));
-            }
-        }
-
-        $this->animal_feeding = $transformer->transform(
-            (new AnimalFeedingEventRepository($e))->show()->toArray()
-        );
+        $this->id = $e->id;
     }
 
     /**

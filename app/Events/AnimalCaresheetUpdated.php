@@ -20,9 +20,9 @@ class AnimalCaresheetUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $animal_caresheet;
+    public $id;
 
     /**
      * Create a new event instance.
@@ -31,11 +31,7 @@ class AnimalCaresheetUpdated implements ShouldBroadcast
      */
     public function __construct(Event $be)
     {
-        $transformer = new AnimalCaresheetTransformer();
-
-        $this->animal_caresheet = $transformer->transform(
-            (new AnimalCaresheetRepository($be))->show()->toArray()
-        );
+        $this->id = $be->id;
     }
 
     /**

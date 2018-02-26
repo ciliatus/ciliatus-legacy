@@ -3,6 +3,7 @@
 namespace App\Events;
 
 
+use App\BiographyEntryEvent;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -18,20 +19,20 @@ class BiographyEntryEventDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $biography_entry_id;
+    public $id;
 
 
     /**
      * Create a new event instance.
      *
      * BiographyEntryDeleted constructor.
-     * @param String $biography_entry_id
+     * @param BiographyEntryEvent $biography_entry
      */
-    public function __construct($biography_entry_id)
+    public function __construct(BiographyEntryEvent $biography_entry)
     {
-        $this->biography_entry_id = $biography_entry_id;
+        $this->id = $biography_entry->id;
     }
 
     /**

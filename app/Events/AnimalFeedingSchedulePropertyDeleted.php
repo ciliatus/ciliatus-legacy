@@ -3,6 +3,7 @@
 namespace App\Events;
 
 
+use App\AnimalFeedingScheduleProperty;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -18,18 +19,18 @@ class AnimalFeedingSchedulePropertyDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var
+     * @var string $id
      */
-    public $animal_feeding_schedule_id;
+    public $id;
 
 
     /**
      * AnimalFeedingScheduleDeleted constructor.
-     * @param String $animal_feeding_schedule_id
+     * @param AnimalFeedingScheduleProperty $animal_feeding_schedule
      */
-    public function __construct($animal_feeding_schedule_id)
+    public function __construct(AnimalFeedingScheduleProperty $animal_feeding_schedule)
     {
-        $this->animal_feeding_schedule_id = $animal_feeding_schedule_id;
+        $this->id = $animal_feeding_schedule->id;
     }
 
     /**

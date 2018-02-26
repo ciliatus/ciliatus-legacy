@@ -20,9 +20,9 @@ class LogicalSensorUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $logical_sensor;
+    public $id;
 
     /**
      * Create a new event instance.
@@ -31,16 +31,7 @@ class LogicalSensorUpdated implements ShouldBroadcast
      */
     public function __construct(LogicalSensor $ls)
     {
-        $transformer = new LogicalSensorTransformer();
-        $logical_sensor = LogicalSensor::with('thresholds')
-                                       ->with('physical_sensor')
-                                       ->find($ls->id);
-
-        $logical_sensor->current_threshold_id = is_null($logical_sensor->current_threshold()) ? null : $logical_sensor->current_threshold()->id;
-
-        $this->logical_sensor = $transformer->transform(
-            (new GenericRepository($logical_sensor))->show()->toArray()
-        );
+        $this->id = $ls->id;
     }
 
     /**
