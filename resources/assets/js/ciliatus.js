@@ -238,7 +238,7 @@ global.ciliatusVue = new global.Vue({
                     .echo
                     .private('dashboard-updates')
                     .listen(event_name, function (e) {
-                        that.$store.state[o].filter(obj => obj.id === e.id).forEach(obj => that.removeObject(obj));
+                        that.$store.state[k].filter(obj => obj.id === e.id).forEach(obj => that.removeObject(obj));
                     });
             }
         });
