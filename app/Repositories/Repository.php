@@ -35,6 +35,12 @@ abstract class Repository {
         if (!in_array('icon', $exclude))
             $this->scope->icon = $this->scope->icon();
 
+        if (!in_array('api_base_url', $exclude))
+            $this->scope->api_base_url = $this->scope->api_base_url();
+
+        if (!in_array('web_base_url', $exclude))
+            $this->scope->web_base_url = $this->scope->web_base_url();
+
         if (!in_array('url', $exclude))
             $this->scope->url = $this->scope->url();
 
@@ -86,6 +92,9 @@ abstract class Repository {
         $this->scope->related_models = $related_models;
     }
 
+    /**
+     * @param CiliatusModel $object
+     */
     protected function applyRepositoryToObject(CiliatusModel $object)
     {
         $repository = RepositoryFactory::get($object);

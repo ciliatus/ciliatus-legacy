@@ -162,6 +162,12 @@ abstract class Transformer
         if (isset($item['icon']) && !in_array('icon', $exclude)) {
             $return['icon'] = $item['icon'];
         }
+        if (isset($item['web_base_url']) && !in_array('web_base_url', $exclude)) {
+            $return['web_base_url'] = $item['web_base_url'];
+        }
+        if (isset($item['api_base_url']) && !in_array('api_base_url', $exclude)) {
+            $return['api_base_url'] = $item['api_base_url'];
+        }
         if (isset($item['url']) && !in_array('url', $exclude)) {
             $return['url'] = $item['url'];
         }
