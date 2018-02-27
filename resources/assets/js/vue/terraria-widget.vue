@@ -98,14 +98,18 @@
                                         'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
                         <div>
                             <inline-graph :parentid="terrarium.data.id" graphtype="humidity_percent" type="line"
-                                          :options="{'fill': null, 'strokeWidth': '2', 'stroke': '#2196f3', width: '100%', height:'140px', min: 1, max: 99}"
+                                          :options="{'fill': null, 'strokeWidth': '2', 'stroke': '#2196f3',
+                                                width: '100%', height:'140px',
+                                                min: humidityGraphMin, max: humidityGraphMax}"
                                           :source="'/api/v1/terraria/'+terrarium.data.id+'/sensorreadingsByType/humidity_percent'"
                                           :data-prefill="terrarium.data.humidity_history"> </inline-graph>
                         </div>
 
                         <div style="position: relative; top: -145px">
                             <inline-graph :parentid="terrarium.data.id" graphtype="temperature_celsius" type="line"
-                                          :options="{'fill': null, 'strokeWidth': '2', 'stroke': '#b71c1c', width: '100%', height:'140px', min: 1, max: 99}"
+                                          :options="{'fill': null, 'strokeWidth': '2', 'stroke': '#b71c1c',
+                                                width: '100%', height:'140px',
+                                                min: temperatureGraphMin, max: temperatureGraphMax}"
                                           :source="'/api/v1/terraria/'+terrarium.data.id+'/sensorreadingsByType/temperature_celsius'"
                                           :data-prefill="terrarium.data.temperature_history"> </inline-graph>
 
@@ -256,6 +260,26 @@
             showFilters: {
                 type: Boolean,
                 default: false,
+                required: false
+            },
+            temperatureGraphMin: {
+                type: Number,
+                default: 10,
+                required: false
+            },
+            temperatureGraphMax: {
+                type: Number,
+                default: 40,
+                required: false
+            },
+            humidityGraphMin: {
+                type: Number,
+                default: 1,
+                required: false
+            },
+            humidityGraphMax: {
+                type: Number,
+                default: 99,
                 required: false
             }
         },
