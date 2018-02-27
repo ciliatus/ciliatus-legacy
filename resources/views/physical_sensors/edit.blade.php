@@ -30,26 +30,6 @@
                                     <input type="text" placeholder="@lang('labels.model')" name="model" value="{{ $physical_sensor->model }}"
                                            class="autocomplete" id="model-autocomplete" autocomplete="off">
                                     <label for="model">@lang('labels.model')</label>
-
-                                    <script>
-                                        /*
-                                         * TODO: find alternative to using a timeout
-                                         */
-                                        $(document).ready(function () {
-                                            setTimeout(function()
-                                            {
-                                                $('#model-autocomplete').autocomplete({
-                                                    data: {
-                                                        @foreach ($models as $model)
-                                                        '{{ $model }}': null,
-                                                        @endforeach
-                                                    },
-                                                    limit: 20,
-                                                });
-
-                                            }, 500)
-                                        });
-                                    </script>
                                 </div>
                             </div>
 
@@ -141,4 +121,26 @@
             <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/physical_sensors/create"><i class="material-icons">add</i></a></li>
         </ul>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        /*
+         * TODO: find alternative to using a timeout
+         */
+        $(document).ready(function () {
+            setTimeout(function()
+            {
+                $('#model-autocomplete').autocomplete({
+                    data: {
+                        @foreach ($models as $model)
+                        '{{ $model }}': null,
+                        @endforeach
+                    },
+                    limit: 20,
+                });
+
+            }, 500)
+        });
+    </script>
 @stop

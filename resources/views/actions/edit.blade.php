@@ -88,7 +88,9 @@
             <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/actions/{{ $action->id }}/delete"><i class="material-icons">delete</i></a></li>
         </ul>
     </div>
+@stop
 
+@section('scripts')
     <script>
         $(document).ready(function() {
             $('#component_select').change(function(e) {

@@ -71,15 +71,6 @@
                                     </label>
                                 </div>
                             </div>
-
-                            <script>
-                                $(document).ready(function() {
-                                    $('.timepicker').pickatime({
-                                        twelvehour: false
-                                    });
-                                });
-                            </script>
-
                         </div>
 
                         <div class="card-action">
@@ -98,4 +89,14 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.timepicker').pickatime({
+                twelvehour: false
+            });
+        });
+    </script>
 @stop

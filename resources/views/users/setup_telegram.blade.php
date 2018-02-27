@@ -8,16 +8,6 @@
 @stop
 
 @section('content')
-    <script>
-        domCallbacks['wizard_wait_for_telegram_contact'] = function(success, data, ld) {
-            ld.cleanupRefs();
-            if (success === true) {
-                ld.stop();
-                $('#loading-indicator').html('<h4><i class="material-icons">check</i></h4>');
-                $('#next-button').removeAttr('disabled');
-            }
-        };
-    </script>
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l6">
@@ -66,4 +56,17 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        domCallbacks['wizard_wait_for_telegram_contact'] = function(success, data, ld) {
+            ld.cleanupRefs();
+            if (success === true) {
+                ld.stop();
+                $('#loading-indicator').html('<h4><i class="material-icons">check</i></h4>');
+                $('#next-button').removeAttr('disabled');
+            }
+        };
+    </script>
 @stop

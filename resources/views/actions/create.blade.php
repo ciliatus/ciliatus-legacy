@@ -49,19 +49,6 @@
                                 </div>
                             </div>
 
-                            <script>
-                                $(document).ready(function() {
-                                    $('#component_select').change(function(e) {
-                                        $('#state_select option').remove();
-                                        $('#component_select').find(':selected').first().data('states').forEach(function(el) {
-                                            $('#state_select').append('<option value="' + el + '">' + el + '</option>');
-                                        });
-                                        $('#state_select').material_select();
-                                    });
-
-                                });
-                            </script>
-
                             <div class="row">
                                 <div class="input-field col s12">
                                     <input type="text" name="duration" value="10">
@@ -87,4 +74,19 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('#component_select').change(function(e) {
+                $('#state_select option').remove();
+                $('#component_select').find(':selected').first().data('states').forEach(function(el) {
+                    $('#state_select').append('<option value="' + el + '">' + el + '</option>');
+                });
+                $('#state_select').material_select();
+            });
+
+        });
+    </script>
 @stop

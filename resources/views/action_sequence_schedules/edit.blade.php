@@ -84,11 +84,11 @@
 @stop
 
 @section('scripts')
-<script>
-    $(document).ready(function() {
-        $('.timepicker').pickatime({
-            twelvehour: false
+    <script>
+        $(document).ready(function() {
+            $('.timepicker').pickatime({
+                twelvehour: false
+            });
         });
-    });
-</script>
+    </script>
 @stop

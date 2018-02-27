@@ -47,15 +47,6 @@
                                     <label for="starts_at">@lang('labels.starts_at')</label>
                                 </div>
                             </div>
-
-                            <script>
-                                $(document).ready(function() {
-                                    $('.datepicker').pickadate({
-                                        format: 'yyyy-mm-dd',
-                                    });
-                                });
-                            </script>
-
                         </div>
 
                         <div class="card-action">
@@ -74,4 +65,14 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.datepicker').pickadate({
+                format: 'yyyy-mm-dd',
+            });
+        });
+    </script>
 @stop
