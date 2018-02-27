@@ -123,7 +123,7 @@ class SetupController extends ApiController
                 'belongsTo_type' => 'System',
                 'belongsTo_id' => '00000000-0000-0000-0000-000000000000',
                 'type' => 'BiographyEntryCategoryType',
-                'name' => $name,
+                'name' => trans('presets.biography_entry_categories.' . $name, [], $locale),
                 'value' => $icon
             ]);
         }
@@ -134,8 +134,8 @@ class SetupController extends ApiController
                 'belongsTo_type' => 'System',
                 'belongsTo_id' => '00000000-0000-0000-0000-000000000000',
                 'type' => 'AnimalFeedingType',
-                'name' => $name,
-                'value' => $name
+                'name' => trans('presets.food_types.' . $name, [], $locale),
+                'value' => trans('presets.food_types' . $name, [], $locale),
             ]);
         }
 
