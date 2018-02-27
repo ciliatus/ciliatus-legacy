@@ -286,9 +286,9 @@
         <!-- Laravel-Echo -->
         <script src="{{ url('/js/vendors/echo.min.js') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('/js/app.js') }}"></script>
+        <script src="{{ url('/js/app.min.js') }}"></script>
         <!-- Vue -->
-        <script src="{{ url('/js/vendors/vue.js') }}"></script>
+        <script src="{{ url('/js/vendors/vue.min.js') }}"></script>
         <!-- Dygraph -->
         <script src="{{ url('/js/vendors/dygraph.min.js') }}"></script>
 
