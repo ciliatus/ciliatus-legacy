@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\GenericComponentType;
 use App\Property;
 use App\User;
 use Illuminate\Http\Request;
@@ -137,6 +138,77 @@ class SetupController extends ApiController
                 'name' => trans('presets.food_types.' . $name, [], $locale),
                 'value' => trans('presets.food_types' . $name, [], $locale),
             ]);
+        }
+
+        $generic_component_types = [
+            'fan' => [
+                'icon' => 'toys',
+                'properties' => ['speed', 'direction'],
+                'states' => [
+                    'running' => true,
+                    'stopped' => false
+                ],
+                'intentions' => [
+                    'humidity_percent'      => 'decrease',
+                    'temperature_celsius'   => 'decrease'
+                ]
+            ]
+        ];
+        foreach ($generic_component_types as $type_name=>$type_description) {
+            $type = GenericComponentType::create([
+                'name_singular' => trans(
+                    'presets.generic_components.' . $type_name . '.name_singular',
+                    [],
+                    $locale
+                ),
+                'name_plural' => trans(
+                    'presets.generic_components.' . $type_name . '.name_plural',
+                    [],
+                    $locale
+                ),
+                'icon' => $type_description['icon']
+            ]);
+
+            foreach ($type_description['properties'] as $property) {
+                Property::create([
+                    'belongsTo_type' => 'GenericComponentType',
+                    'belongsTo_id' => $type->id,
+                    'type' => 'GenericComponentTypeProperty',
+                    'name' => trans(
+                        'presets.generic_components.' . $type_name . '.properties.' . $property,
+                        [],
+                        $locale
+                    ),
+                ]);
+            }
+
+            foreach ($type_description['intentions'] as $parameter=>$intention) {
+                Property::create([
+                    'belongsTo_type' => 'GenericComponentType',
+                    'belongsTo_id' => $type->id,
+                    'type' => 'GenericComponentTypeIntention',
+                    'name' => $parameter,
+                    'value' => $intention
+                ]);
+            }
+
+            foreach ($type_description['states'] as $state=>$default) {
+                $p = Property::create([
+                    'belongsTo_type' => 'GenericComponentType',
+                    'belongsTo_id' => $type->id,
+                    'type' => 'GenericComponentTypeState',
+                    'name' => trans(
+                        'presets.generic_components.' . $type_name . '.states.' . $state,
+                        [],
+                        $locale
+                    ),
+                ]);
+
+                if ($default) {
+                    $type->default_running_state_id = $p->id;
+                    $type->save();
+                }
+            }
         }
 
         return $this->respondWithData([]);

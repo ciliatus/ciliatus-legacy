@@ -10,5 +10,19 @@ return [
         'repashy'   =>  'Repashy',
         'pangea'    =>  'Pangea',
         'fruit_mix' =>  'Früchtemix'
+    ],
+    'generic_components' => [
+        'fan' => [
+            'name_singular' =>  'Lüfter',
+            'name_plural'   =>  'Lüfter',
+            'properties'    =>  [
+                'speed'     =>  'Geschwindigkeit',
+                'direction' =>  'Richtung'
+            ],
+            'states'    =>  [
+                'running'   =>  'Laufend',
+                'stopped'   =>  'Gestoppt'
+            ]
+        ]
     ]
 ];
