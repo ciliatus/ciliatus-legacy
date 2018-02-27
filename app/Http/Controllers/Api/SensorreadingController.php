@@ -76,15 +76,6 @@ class SensorreadingController extends ApiController
     }
 
     /**
-     * Error codes:
-     *  - 101: Missing input fields
-     *  - 102: group_id is not a valid uuid
-     *  - 103: logical_sensor_id is not a valid uuid
-     *  - 104: LogicalSensor not found
-     *  - 105: rawvalue out of range
-     *  - 106: The reading group already has a reading for this logical sensor
-     *
-     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
