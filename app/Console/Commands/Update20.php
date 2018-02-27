@@ -11,7 +11,7 @@ use App\UserAbility;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Artisan;
 
-class Update20 extends Command
+class Update20 extends UpdateCommand
 {
     /**
      * The name and signature of the console command.
@@ -34,7 +34,8 @@ class Update20 extends Command
      */
     public function handle()
     {
-        echo "Starting upgrade to v2.0" . PHP_EOL;
+        $this->init_update('v1.10-beta', 'v2.0');
+
         Artisan::call('down');
 
         echo "Transforming Generic Component Type Intentions ..." . PHP_EOL;

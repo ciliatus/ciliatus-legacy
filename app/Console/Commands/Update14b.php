@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Terrarium;
 use Illuminate\Console\Command;
 
-class Update14b extends Command
+class Update14b extends UpdateCommand
 {
     /**
      * The name and signature of the console command.
@@ -28,7 +28,8 @@ class Update14b extends Command
      */
     public function handle()
     {
-        echo "Starting upgrade from v1.3-beta to v1.4-beta" . PHP_EOL;
+        $this->init_update('v1.3-beta', 'v1.4-beta');
+
         echo "Generating default suggestion settings ..." . PHP_EOL;
         foreach (Terrarium::get() as $t) {
             $t->generateDefaultSuggestionSettings();

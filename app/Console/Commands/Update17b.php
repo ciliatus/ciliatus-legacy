@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\File;
 use Illuminate\Console\Command;
 
-class Update17b extends Command
+class Update17b extends UpdateCommand
 {
     /**
      * The name and signature of the console command.
@@ -28,7 +28,7 @@ class Update17b extends Command
      */
     public function handle()
     {
-        echo "Starting upgrade to v1.7-beta" . PHP_EOL;
+        $this->init_update('v1.4+-beta', 'v1.7-beta');
 
         echo "Updating file display names ..." . PHP_EOL;
         foreach (File::get() as $file) {

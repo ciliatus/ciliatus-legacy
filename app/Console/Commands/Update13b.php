@@ -5,7 +5,7 @@ namespace App\Console\Commands;
 use App\Log;
 use Illuminate\Console\Command;
 
-class Update13b extends Command
+class Update13b extends UpdateCommand
 {
     /**
      * The name and signature of the console command.
@@ -28,7 +28,8 @@ class Update13b extends Command
      */
     public function handle()
     {
-        echo "Starting upgrade from v1.2-beta to v1.3-beta" . PHP_EOL;
+        $this->init_update('v1.2-beta', 'v1.3-beta');
+
         echo "Updating Logs ..." . PHP_EOL;
         foreach (Log::get() as $l) {
             if (!is_null($l->source)) {
