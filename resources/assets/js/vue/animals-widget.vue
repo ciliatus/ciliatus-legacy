@@ -83,8 +83,10 @@
                         </div>
 
                         <p v-if="terrarium = terraria.filter(t => t.id === animal.data.terrarium_id)[0]">
-                            <i class="material-icons">video_label</i>
-                            <a :href="'/terraria/' + terrarium.data.id">{{ terrarium.data.display_name }}</a>
+                            <template v-if="terrarium.data">
+                                <i class="material-icons">video_label</i>
+                                <a :href="'/terraria/' + terrarium.data.id">{{ terrarium.data.display_name }}</a>
+                            </template>
                         </p>
 
                         <p>
