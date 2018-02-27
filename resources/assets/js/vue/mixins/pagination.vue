@@ -152,10 +152,15 @@ export default {
             this.$parent.load_data();
         },
 
-        init: function(order_field) {
+        init: function(order_field, order_direction) {
             if (order_field) {
                 this.order.field = order_field;
             }
+
+            if (order_direction) {
+                this.order.direction = order_direction;
+            }
+
             this.render_filter_string();
             this.render_order_string();
             this.set_page();
