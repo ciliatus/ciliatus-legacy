@@ -62,6 +62,18 @@ class AnimalWeighingSchedulePropertyController extends ApiController
 
     }
 
+
+    /**
+     * @param Request $request
+     * @param         $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(Request $request, $id)
+    {
+        return $this->default_show($request, $id);
+    }
+
+
     /**
      * Show the form for creating a new resource.
      *
