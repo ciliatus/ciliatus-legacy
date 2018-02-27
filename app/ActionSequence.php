@@ -166,8 +166,13 @@ class ActionSequence extends CiliatusModel
 
             case self::TEMPLATE_IRRIGATION:
 
-                if (!$this->terrarium->valves->count() > 0)
-                    return false;
+                $generic_components = GenericComponentType::getGenericComponentsByIntention(
+                    ActionSequenceIntention::TYPE_HUMIDITY_PERCENT,
+                    ActionSequenceIntention::INTENTION_INCREASE,
+                    $this->terrarium->generic_components()->getQuery()
+                );
+
+                $this->generateActionsForComponentsAndAppend($generic_components);
 
                 foreach ($this->terrarium->valves as $valve) {
                     $action = $valve->generateActionForSequence($this->duration_minutes, 'running', $this);
