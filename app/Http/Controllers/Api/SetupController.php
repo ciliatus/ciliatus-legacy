@@ -110,6 +110,35 @@ class SetupController extends ApiController
 
         $user->grantFullAbilities();
 
+        /**
+         * Create presets
+         */
+        $biography_entry_categories = [
+            'abnormalities' =>  'live_help',
+            'terrarium'     =>  'video_label',
+            'veterinarian'  =>  'local_hospital'
+        ];
+        foreach ($biography_entry_categories as $name=>$icon) {
+            Property::create([
+                'belongsTo_type' => 'System',
+                'belongsTo_id' => '00000000-0000-0000-0000-000000000000',
+                'type' => 'BiographyEntryCategoryType',
+                'name' => $name,
+                'value' => $icon
+            ]);
+        }
+
+        $food_types = ['repashy', 'pangea', 'fruit_mix'];
+        foreach ($food_types as $name) {
+            Property::create([
+                'belongsTo_type' => 'System',
+                'belongsTo_id' => '00000000-0000-0000-0000-000000000000',
+                'type' => 'AnimalFeedingType',
+                'name' => $name,
+                'value' => $name
+            ]);
+        }
+
         return $this->respondWithData([]);
     }
 
