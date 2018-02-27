@@ -92,10 +92,8 @@ window.submit_form = function (e, _callback = undefined)
         },
         error: function(data) {
             btns.removeAttr('disabled');
-            let msg = 'Unknown';
-            if (data.responseJSON !== undefined)
-                msg = data.responseJSON.error.message;
-            window.notification('Error ' + data.status + ':<br />' + msg, 'orange darken-2 text-white');
+            let msg = data.responseJSON !== undefined ? data.responseJSON.error.message : 'Unknown Error ' + data.status;
+            window.notification(msg, 'orange darken-2 text-white');
         }
     });
 };
