@@ -556,6 +556,10 @@
         },
 
         methods: {
+            handleCiliatusObjectUpdated: function(object_information) {
+                this.$nextTick(() => this.refresh_grid());
+            },
+
             refresh_grid: function() {
                 $('.dropdown-button').dropdown({
                     constrain_width: false
@@ -665,6 +669,8 @@
                     that.load_data();
                 }, this.refreshTimeoutSeconds * 1000)
             }
+
+            window.eventHubVue.$on('CiliatusObjectUpdated', this.handleCiliatusObjectUpdated);
         }
     }
 </script>
