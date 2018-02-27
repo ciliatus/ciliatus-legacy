@@ -148,10 +148,6 @@ window.runPage = function() {
 
     $('form').submit(window.submit_form);
 
-    $('[data-livedata="true"]').each(function() {
-        new LiveData($(this).data('livedatasource'), $(this).data('livedatainterval'), domCallbacks[$(this).data('livedatacallback')], this).run();
-    });
-
     /* Enable tabs to update url with tab hash and
      * force rerender of masonry grids */
     $('ul.tabs').tabs({
