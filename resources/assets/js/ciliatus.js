@@ -159,6 +159,7 @@ global.ciliatusVue = new global.Vue({
                 this.$store.state[object.type].findIndex(o => o.id === object.id),
                 1
             );
+            window.eventHubVue.$emit('CiliatusObjectDeleted', {type: object.type, id: object.id});
         },
 
         __deleteEventName(type) {

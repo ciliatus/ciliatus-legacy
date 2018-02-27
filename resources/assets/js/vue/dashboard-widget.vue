@@ -560,6 +560,10 @@
                 this.$nextTick(() => this.refresh_grid());
             },
 
+            handleCiliatusObjectDeleted: function(object_information) {
+                this.$nextTick(() => this.refresh_grid());
+            },
+
             refresh_grid: function() {
                 $('.dropdown-button').dropdown({
                     constrain_width: false
@@ -671,6 +675,7 @@
             }
 
             window.eventHubVue.$on('CiliatusObjectUpdated', this.handleCiliatusObjectUpdated);
+            window.eventHubVue.$on('CiliatusObjectDeleted', this.handleCiliatusObjectDeleted);
         }
     }
 </script>
