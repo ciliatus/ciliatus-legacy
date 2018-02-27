@@ -38,7 +38,7 @@
                             <div class="modal-content">
                                 <h4>{{ $t('labels.ventilate') }}</h4>
                                 <p>
-                                    <input type="hidden" name="template" value="ventilation">
+                                    <input type="hidden" name="template" value="ventilate">
                                     <input type="hidden" name="runonce" value="On">
                                     <input type="hidden" name="schedule_now" value="On">
                                     <input :id="'duration_minutes_ventilate_' + terrarium.data.id" type="text" :placeholder="$tc('units.minutes', 2)" name="duration_minutes" value="3">
