@@ -6,68 +6,6 @@ $.ajaxPrefilter(function(options) {
     }
 });
 
-/*
- LiveData objects refresh data automatically
- - source_uri provides the data source. Normally an API
- - interval sets the interval between data pulls
- - type sets the type of data we're fetching and defines
- what the callback method will do with new data
- - target defines the element where the callback
- function will put the new data
- */
-
-var liveDataObjects = [];
-
-global.LiveData = function(source_uri, interval, callback, target)
-{
-    liveDataObjects += this;
-    this.source_uri = source_uri;
-    this.interval = interval * 1000;
-    this.callback = callback;
-    this.target = target;
-    this.runner = null;
-    this.refs = new Array();
-    return this;
-}
-
-LiveData.prototype.run = function()
-{
-    var ld = this;
-    ld.fetchData(ld);
-    this.runner = setInterval(function() {
-        ld.fetchData(ld);
-    }, this.interval);
-};
-
-LiveData.prototype.fetchData = function(ld)
-{
-    $.ajax({
-        url: ld.source_uri,
-        type: 'GET',
-        error: function() {
-            ld.callback(false, 'error', ld);
-        },
-        success: function(data) {
-            ld.callback(true, data, ld);
-        }
-    });
-};
-
-LiveData.prototype.cleanupRefs = function ()
-{
-    $.each(this.refs, function() { this.remove() });
-
-    this.refs = new Array();
-};
-
-LiveData.prototype.stop = function()
-{
-    clearInterval(this.runner);
-};
-
-
-
-
 window.submit_form = function (e, _callback = undefined)
 {
 
