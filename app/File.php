@@ -237,7 +237,9 @@ class File extends CiliatusModel
     }
 
     /**
-     *
+     * @return CiliatusModel|File|Model
+     * @throws ErrorException
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
      */
     public function generateThumb()
     {
