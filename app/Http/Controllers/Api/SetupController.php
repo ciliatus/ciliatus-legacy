@@ -16,7 +16,7 @@ class SetupController extends ApiController
     /**
      * SetupController constructor.
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
         // empty to disable auth.basic
     }

@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\PhysicalSensor;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,18 +18,18 @@ class PhysicalSensorDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var
+     * @var string $id
      */
-    public $physical_sensor_id;
+    public $id;
 
     /**
      * Create a new event instance.
      *
-     * @param $physical_sensor_id
+     * @param PhysicalSensor $physical_sensor
      */
-    public function __construct($physical_sensor_id)
+    public function __construct(PhysicalSensor $physical_sensor)
     {
-        $this->physical_sensor_id = $physical_sensor_id;
+        $this->id = $physical_sensor->id;
     }
 
     /**

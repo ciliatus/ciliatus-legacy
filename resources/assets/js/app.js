@@ -1,67 +1,10 @@
-
-
-
-/*
- LiveData objects refresh data automatically
- - source_uri provides the data source. Normally an API
- - interval sets the interval between data pulls
- - type sets the type of data we're fetching and defines
- what the callback method will do with new data
- - target defines the element where the callback
- function will put the new data
- */
-
-var liveDataObjects = [];
-
-global.LiveData = function(source_uri, interval, callback, target)
-{
-    liveDataObjects += this;
-    this.source_uri = source_uri;
-    this.interval = interval * 1000;
-    this.callback = callback;
-    this.target = target;
-    this.runner = null;
-    this.refs = new Array();
-    return this;
-}
-
-LiveData.prototype.run = function()
-{
-    var ld = this;
-    ld.fetchData(ld);
-    this.runner = setInterval(function() {
-        ld.fetchData(ld);
-    }, this.interval);
-};
-
-LiveData.prototype.fetchData = function(ld)
-{
-    $.ajax({
-        url: ld.source_uri,
-        type: 'GET',
-        error: function() {
-            ld.callback(false, 'error', ld);
-        },
-        success: function(data) {
-            ld.callback(true, data, ld);
+$.ajaxPrefilter(function(options) {
+    if (!options.beforeSend) {
+        options.beforeSend = function (xhr) {
+            xhr.setRequestHeader('X-CSRF-TOKEN', window.Laravel.csrfToken);
         }
-    });
-};
-
-LiveData.prototype.cleanupRefs = function ()
-{
-    $.each(this.refs, function() { this.remove() });
-
-    this.refs = new Array();
-};
-
-LiveData.prototype.stop = function()
-{
-    clearInterval(this.runner);
-};
-
-
-
+    }
+});
 
 window.submit_form = function (e, _callback = undefined)
 {
@@ -74,15 +17,15 @@ window.submit_form = function (e, _callback = undefined)
         return false;
     }
 
-    var btns = $('button[type=submit]:enabled');
+    let btns = $('button[type=submit]:enabled');
     btns.attr('disabled', 'disabled');
-    var callback = $(e.target).data('callback') || _callback;
-    var redirect_success = $(e.target).data('redirect-success');
+    let callback = $(e.target).data('callback') || _callback;
+    let redirect_success = $(e.target).data('redirect-success');
     /*
      * Fix for empty data when using
      * PUT with FormData
      */
-    var data = null;
+    let data = null;
     if ($(e.target).data('user-formdata')) {
         data = new FormData(this);
     }
@@ -90,13 +33,13 @@ window.submit_form = function (e, _callback = undefined)
         data = $(e.target).serialize();
     }
 
-    var content_type = 'application/x-www-form-urlencoded';
+    let content_type = 'application/x-www-form-urlencoded';
     if ($(e.target).data('ignore-enctype')) {
         content_type = false;
     }
 
-    var form_id =  $(e.target).prop('id');
-    var form = this;
+    let form_id =  $(e.target).prop('id');
+    let form = this;
 
     return $.ajax({
         url: $(e.target).prop('action'),
@@ -106,7 +49,7 @@ window.submit_form = function (e, _callback = undefined)
         contentType: content_type,
         processData: false,
         xhr: function() {  // Custom XMLHttpRequest
-            var xhr = $.ajaxSettings.xhr();
+            let xhr = $.ajaxSettings.xhr();
             if(xhr.upload){ // Check if upload property exists
                 xhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
             }
@@ -149,15 +92,13 @@ window.submit_form = function (e, _callback = undefined)
         },
         error: function(data) {
             btns.removeAttr('disabled');
-            var msg = 'Unknown';
-            if (data.responseJSON !== undefined)
-                msg = data.responseJSON.error.message;
-            window.notification('Error ' + data.status + '<br />' + data.statusText + ':<br />' + msg, 'orange darken-2 text-white');
+            let msg = data.responseJSON !== undefined ? data.responseJSON.error.message : 'Unknown Error ' + data.status;
+            window.notification(msg, 'orange darken-2 text-white');
         }
     });
 };
 
-var progressHandlingFunction = function(e){
+let progressHandlingFunction = function(e){
     if (e.lengthComputable){
         $('.form-progress-bar').data('valuenow', e.loaded/e.total*100);
         $('.form-progress-bar').css('width', e.loaded/e.total*100 + '%');
@@ -199,22 +140,18 @@ window.runPage = function() {
     });
 
     // SideNav collapse active
-    var active_headers = $('.collapsible-body ul li.active').parent().parent().parent();
+    let active_headers = $('.collapsible-body ul li.active').parent().parent().parent();
     active_headers.addClass('active');
     active_headers.children('.collapsible-body').css('display', 'block');
 
     $('form').submit(window.submit_form);
-
-    $('[data-livedata="true"]').each(function() {
-        new LiveData($(this).data('livedatasource'), $(this).data('livedatainterval'), domCallbacks[$(this).data('livedatacallback')], this).run();
-    });
 
     /* Enable tabs to update url with tab hash and
      * force rerender of masonry grids */
     $('ul.tabs').tabs({
         onShow: function(event, ui) {
             location.hash = $(this).attr('href');
-            var grid = $('.masonry-grid');
+            let grid = $('.masonry-grid');
             if (grid && grid.masonry) {
                 grid.masonry('layout');
                 grid.masonry('reloadItems');
@@ -232,7 +169,7 @@ window.runPage = function() {
     });
 };
 
-var Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){var t="";var n,r,i,s,o,u,a;var f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){var t="";var n,r,i;var s,o,u,a;var f=0;e=e.replace(/[^A-Za-z0-9+/=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/rn/g,"n");var t="";for(var n=0;n<e.length;n++){var r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){var t="";var n=0;var r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
+let Base64={_keyStr:"ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",encode:function(e){let t="";let n,r,i,s,o,u,a;let f=0;e=Base64._utf8_encode(e);while(f<e.length){n=e.charCodeAt(f++);r=e.charCodeAt(f++);i=e.charCodeAt(f++);s=n>>2;o=(n&3)<<4|r>>4;u=(r&15)<<2|i>>6;a=i&63;if(isNaN(r)){u=a=64}else if(isNaN(i)){a=64}t=t+this._keyStr.charAt(s)+this._keyStr.charAt(o)+this._keyStr.charAt(u)+this._keyStr.charAt(a)}return t},decode:function(e){let t="";let n,r,i;let s,o,u,a;let f=0;e=e.replace(/[^A-Za-z0-9+/=]/g,"");while(f<e.length){s=this._keyStr.indexOf(e.charAt(f++));o=this._keyStr.indexOf(e.charAt(f++));u=this._keyStr.indexOf(e.charAt(f++));a=this._keyStr.indexOf(e.charAt(f++));n=s<<2|o>>4;r=(o&15)<<4|u>>2;i=(u&3)<<6|a;t=t+String.fromCharCode(n);if(u!=64){t=t+String.fromCharCode(r)}if(a!=64){t=t+String.fromCharCode(i)}}t=Base64._utf8_decode(t);return t},_utf8_encode:function(e){e=e.replace(/rn/g,"n");let t="";for(let n=0;n<e.length;n++){let r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r)}else if(r>127&&r<2048){t+=String.fromCharCode(r>>6|192);t+=String.fromCharCode(r&63|128)}else{t+=String.fromCharCode(r>>12|224);t+=String.fromCharCode(r>>6&63|128);t+=String.fromCharCode(r&63|128)}}return t},_utf8_decode:function(e){let t="";let n=0;let r=c1=c2=0;while(n<e.length){r=e.charCodeAt(n);if(r<128){t+=String.fromCharCode(r);n++}else if(r>191&&r<224){c2=e.charCodeAt(n+1);t+=String.fromCharCode((r&31)<<6|c2&63);n+=2}else{c2=e.charCodeAt(n+1);c3=e.charCodeAt(n+2);t+=String.fromCharCode((r&15)<<12|(c2&63)<<6|c3&63);n+=3}}return t}}
 
 String.prototype.toUnderscoreCase = function() {
     return this.replace(/\.?([A-Z])/g, function (x,y){return "_" + y.toLowerCase()}).replace(/^_/, "")
@@ -247,7 +184,7 @@ String.prototype.base64decode = function() {
 };
 
 Date.prototype.toYmd = function() {
-    var month = this.getMonth()+1;
-    var date = this.getDate();
+    let month = this.getMonth()+1;
+    let date = this.getDate();
     return this.getFullYear() + '-' + (month > 9 ? month : '0' + month) + '-' + (date > 9 ? date : '0' + date);
 };

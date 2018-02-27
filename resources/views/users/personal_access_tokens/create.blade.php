@@ -41,16 +41,19 @@
 
                         </div>
                     </form>
-                    <script>
-                        window.showToken = function(data) {
-                            $('#input-row').remove();
-                            $('#button-row').remove();
-                            $('#result-content').html(data.data.token);
-                            $('#result-row').show();
-                        }
-                    </script>
                 </div>
             </div>
         </div>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        window.showToken = function(data) {
+            $('#input-row').remove();
+            $('#button-row').remove();
+            $('#result-content').html(data.data.token);
+            $('#result-row').show();
+        }
+    </script>
 @stop

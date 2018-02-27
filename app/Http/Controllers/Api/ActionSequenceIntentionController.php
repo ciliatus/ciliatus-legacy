@@ -18,15 +18,16 @@ class ActionSequenceIntentionController extends ApiController
     /**
      * ActionSequenceIntentionController constructor.
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '13';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -37,7 +38,6 @@ class ActionSequenceIntentionController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -63,7 +63,7 @@ class ActionSequenceIntentionController extends ApiController
          */
         $intention = ActionSequenceIntention::find($id);
         if (is_null($intention)) {
-            return $this->setStatusCode(422)->respondWithError('ActionSequenceIntention not found');
+            return $this->respondRelatedModelNotFound(ActionSequenceIntention::class);
         }
 
         $id = $intention->sequence->id;
@@ -91,7 +91,7 @@ class ActionSequenceIntentionController extends ApiController
 
         $a = ActionSequence::find($request->input('action_sequence'));
         if (is_null($a)) {
-            return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
+            return $this->respondRelatedModelNotFound(ActionSequence::class);
         }
 
         /**
@@ -137,13 +137,13 @@ class ActionSequenceIntentionController extends ApiController
          */
         $intention = ActionSequenceIntention::find($id);
         if (is_null($intention)) {
-            return $this->setStatusCode(404)->respondWithError('ActionSequenceIntention not found');
+            return $this->respondNotFound();
         }
 
         if ($request->filled('action_sequence_id')) {
             $a = ActionSequence::find($request->input('action_sequence_id'));
             if (is_null($a)) {
-                return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
+                return $this->respondRelatedModelNotFound(ActionSequence::class);
             }
         }
 
@@ -189,7 +189,7 @@ class ActionSequenceIntentionController extends ApiController
          */
         $intention = ActionSequenceIntention::find($id);
         if (is_null($intention)) {
-            return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
+            return $this->respondNotFound();
         }
 
         $intention->next_start_not_before = Carbon::now()->addHours(2);

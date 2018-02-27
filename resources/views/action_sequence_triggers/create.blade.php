@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/action_sequence_triggers" class="breadcrumb hide-on-small-and-down">@choice('components.action_sequence_triggers', 2)</a>
+    <a href="/action_sequence_triggers" class="breadcrumb hide-on-small-and-down">@choice('labels.action_sequence_triggers', 2)</a>
     <a href="/action_sequence_triggers/create" class="breadcrumb hide-on-small-and-down">@lang('buttons.create')</a>
 @stop
 
@@ -23,7 +23,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    <label for="action_sequence">@choice('components.action_sequences', 1)</label>
+                                    <label for="action_sequence">@choice('labels.action_sequences', 1)</label>
                                 </div>
                             </div>
 
@@ -47,7 +47,7 @@
                                             <option value="{{ $ls->id }}">{{ $ls->name }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="action_sequence">@choice('components.logical_sensors', 1)</label>
+                                    <label for="action_sequence">@choice('labels.logical_sensors', 1)</label>
                                 </div>
                             </div>
 
@@ -86,15 +86,6 @@
                                     </label>
                                 </div>
                             </div>
-
-                            <script>
-                                $(document).ready(function() {
-                                    $('.timepicker').pickatime({
-                                        twelvehour: false
-                                    });
-                                });
-                            </script>
-
                         </div>
 
                         <div class="card-action">
@@ -113,4 +104,14 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        $(document).ready(function() {
+            $('.timepicker').pickatime({
+                twelvehour: false
+            });
+        });
+    </script>
 @stop

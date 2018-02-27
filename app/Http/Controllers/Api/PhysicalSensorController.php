@@ -18,16 +18,18 @@ class PhysicalSensorController extends ApiController
 
     /**
      * PhysicalSensorController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '26';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -38,7 +40,6 @@ class PhysicalSensorController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -64,7 +65,7 @@ class PhysicalSensorController extends ApiController
          */
         $physical_sensor = PhysicalSensor::with('controlunit', 'logical_sensors', 'terrarium')->find($id);
         if (is_null($physical_sensor)) {
-            return $this->respondNotFound('PhysicalSensor not found');
+            return $this->respondNotFound();
         }
 
         $logical_sensors = LogicalSensor::where('physical_sensor_id', $physical_sensor->id)->get();
@@ -92,6 +93,12 @@ class PhysicalSensorController extends ApiController
 
         if (Gate::denies('api-write:physical_sensor')) {
             return $this->respondUnauthorized();
+        }
+
+        if (!$request->has('name')) {
+            return $this->setStatusCode(422)
+                        ->setErrorCode('104')
+                        ->respondWithErrorDefaultMessage(['missing_fields' => 'name']);
         }
 
         /**
@@ -133,13 +140,13 @@ class PhysicalSensorController extends ApiController
          */
         $physical_sensor = PhysicalSensor::find($id);
         if (is_null($physical_sensor)) {
-            return $this->respondNotFound('PhysicalSensor not found');
+            return $this->respondNotFound();
         }
 
         if ($request->filled('controlunit')) {
             $controlunit = Controlunit::find($request->input('controlunit'));
             if (is_null($controlunit)) {
-                return $this->setStatusCode(422)->respondWithError('Controlunit not found');
+                return $this->respondRelatedModelNotFound(Controlunit::class);
             }
         }
 

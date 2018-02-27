@@ -2,53 +2,16 @@
     <div>
         <div :class="wrapperClasses">
             <table class="responsive highlight collapsible" data-collapsible="expandable">
-                <thead>
-                    <tr>
-                        <th data-field="name">
-                            <a href="#!" v-on:click="set_order('name')">{{ $t('labels.name') }}</a>
-                            <i v-show="order.field == 'name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                            <i v-show="order.field == 'name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                            <div class="input-field inline">
-                                <input id="filter_name" type="text" v-model="filter.name" v-on:keyup.enter="set_filter">
-                                <label for="filter_name">Filter</label>
-                            </div>
-                        </th>
-                        <th data-field="physical_sensor" v-if="hideCols.indexOf('physical_sensor') === -1">
-                            <a href="#!" v-on:click="set_order('physical_sensors.name')">{{ $tc('components.physical_sensors', 1) }}</a>
-                            <i v-show="order.field == 'physical_sensor.name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                            <i v-show="order.field == 'physical_sensor.name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                            <div class="input-field inline">
-                                <input id="filter_physical_sensor" type="text" v-model="filter['physical_sensor.name']" v-on:keyup.enter="set_filter">
-                                <label for="filter_physical_sensor">Filter</label>
-                            </div>
-                        </th>
-                        <th data-field="terrarium" class="hide-on-med-and-down" v-if="hideCols.indexOf('terrarium') === -1">
-                            <a href="#!" v-on:click="set_order('terraria.display_name')">{{ $tc('components.terraria', 1) }}</a>
-                            <i v-show="order.field == 'physical_sensor.terrarium.display_name' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                            <i v-show="order.field == 'physical_sensor.terrarium.display_name' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                            <div class="input-field inline">
-                                <input id="filter_terrarium" type="text" v-model="filter['physical_sensor.terrarium.display_name']" v-on:keyup.enter="set_filter">
-                                <label for="filter_terrarium">Filter</label>
-                            </div>
-                        </th>
-                        <th data-field="type" class="hide-on-small-only">
-                            <a href="#!" v-on:click="set_order('type')">{{ $t('labels.type') }}</a>
-                            <i v-show="order.field == 'type' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                            <i v-show="order.field == 'type' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                            <div class="input-field inline">
-                                <input id="filter_type" type="text" v-model="filter.type" v-on:keyup.enter="set_filter">
-                                <label for="filter_type">Filter</label>
-                            </div>
-                        </th>
-                        <th data-field="rawvalue" class="hide-on-small-only">
-                            <a href="#!" v-on:click="set_order('rawvalue')">{{ $t('labels.rawvalue', 1) }}</a>
-                            <i v-show="order.field == 'rawvalue' && order.direction == 'asc'" class="material-icons">arrow_drop_up</i>
-                            <i v-show="order.field == 'rawvalue' && order.direction == 'desc'" class="material-icons">arrow_drop_down</i>
-                        </th>
-                        <th class="hide-on-small-only" style="width: 40px">
-                        </th>
-                    </tr>
-                </thead>
+                <table-filter ref="table_filter"
+                              :cols="5"
+                              :hide-cols="hideCols"
+                              :filter-fields="[{name: 'name', path: 'name', col: 0},
+                                               {name: 'physical_sensor', noSort:true, path: 'physical_sensor.name', col: 1},
+                                               {name: 'terrarium', noSort:true, path: 'terrarium.name', col: 2, class: 'hide-on-med-and-down'},
+                                               {name: 'type', path: 'type', col: 3, class: 'hide-on-small-only'},
+                                               {name: 'rawvalue', path: 'rawvalue', col: 4, class: 'hide-on-small-only'},
+                                               {noSort: true, noFilter: true, col: 5, class: 'hide-on-small-only'}]">
+                </table-filter>
 
                 <template v-for="logical_sensor in logical_sensors">
                     <tbody>
@@ -57,43 +20,45 @@
                             <td>
                                 <span>
                                     <i class="material-icons">memory</i>
-                                    <a v-bind:href="'/logical_sensors/' + logical_sensor.id">{{ logical_sensor.name }}</a>
+                                    <a v-bind:href="'/logical_sensors/' + logical_sensor.data.id">{{ logical_sensor.data.name }}</a>
                                 </span>
                             </td>
 
                             <td v-if="hideCols.indexOf('physical_sensor') === -1">
-                                <span v-if="logical_sensor.physical_sensor">
+                                <span v-if="ps = physical_sensor(logical_sensor)">
                                     <i class="material-icons">memory</i>
-                                    <a v-bind:href="'/physical_sensors/' + logical_sensor.physical_sensor.id">{{ logical_sensor.physical_sensor.name }}</a>
+                                    <a :href="'/physical_sensors/' + ps.data.id">
+                                        {{ ps.data.name }}
+                                    </a>
                                 </span>
                             </td>
 
                             <td class="hide-on-med-and-down" v-if="hideCols.indexOf('terrarium') === -1">
-                                <span v-if="logical_sensor.physical_sensor && logical_sensor.physical_sensor.terrarium">
+                                <span v-if="t = terrarium(logical_sensor)">
                                     <i class="material-icons">video_label</i>
-                                    <a v-bind:href="'/terraria/' + logical_sensor.physical_sensor.terrarium.id">{{ logical_sensor.physical_sensor.terrarium.display_name }}</a>
+                                    <a :href="'/terraria/' + t.data.id">{{ t.data.display_name }}</a>
                                 </span>
                             </td>
 
                             <td class="hide-on-small-only">
-                                {{ logical_sensor.type }}
+                                {{ logical_sensor.data.type }}
                             </td>
 
                             <td class="hide-on-small-only">
-                                <span>{{ Math.round(logical_sensor.rawvalue, 2) }}</span>
-                                <span v-if="get_accuracy_adjustment(logical_sensor) !== null">
-                                    <span v-if="get_accuracy_adjustment(logical_sensor) > 0">
-                                        <span class="green-text darken-2">(+{{ get_accuracy_adjustment(logical_sensor) }})</span>
+                                <span>{{ Math.round(logical_sensor.data.rawvalue, 2) }}</span>
+                                <span v-if="logical_sensor.data.rawvalue_adjustment !== 0">
+                                    <span v-if="logical_sensor.data.rawvalue_adjustment > 0">
+                                        <span class="green-text darken-2">(+{{ logical_sensor.data.rawvalue_adjustment }})</span>
                                     </span>
                                     <span v-else>
-                                        <span class="red darken-2">({{ get_accuracy_adjustment(logical_sensor) }})</span>
+                                        <span class="red darken-2">({{ logical_sensor.data.rawvalue_adjustment }})</span>
                                     </span>
                                 </span>
                             </td>
 
                             <td class="hide-on-small-only">
                                 <span>
-                                    <a v-bind:href="'/logical_sensors/' + logical_sensor.id + '/edit'">
+                                    <a v-bind:href="'/logical_sensors/' + logical_sensor.data.id + '/edit'">
                                         <i class="material-icons">edit</i>
                                     </a>
                                 </span>
@@ -102,22 +67,25 @@
                         </tr>
                         <tr class="collapsible-body">
                             <td>
-                                {{ $t('labels.rawlimitlo') }}: {{ logical_sensor.rawvalue_lowerlimit }}<br />
-                                {{ $t('labels.rawlimithi') }}: {{ logical_sensor.rawvalue_upperlimit }}
+                                {{ $t('labels.rawlimitlo') }}: {{ logical_sensor.data.rawvalue_lowerlimit }}<br />
+                                {{ $t('labels.rawlimithi') }}: {{ logical_sensor.data.rawvalue_upperlimit }}
                             </td>
                             <td class="hide-on-small-only">
-                                <span v-if="logical_sensor.physical_sensor.controlunit">
-                                    {{ $tc('components.controlunits', 1) }}:
+                                <span v-if="c = controlunit(logical_sensor)">
+                                    {{ $tc('labels.controlunits', 1) }}:
                                     <i class="material-icons">developer_board</i>
-                                    <a v-bind:href="'/controlunits/' + logical_sensor.physical_sensor.controlunit.id">{{ logical_sensor.physical_sensor.controlunit.name }}</a>
+                                    <a v-bind:href="'/controlunits/' + c.data.id">{{ c.data.name }}</a>
                                 </span>
                                 <br />
-                                <span>{{ $t('labels.model') }}: {{ logical_sensor.physical_sensor.model }}</span>
+                                <span>{{ $t('labels.model') }}: {{ physical_sensor(logical_sensor).data.model }}</span>
                             </td>
                             <td class="hide-on-med-and-down">
-                                <span v-if="logical_sensor.physical_sensor.terrarium">
-                                    {{ $tc('components.terraria', 1) }} {{ $t('labels.temperature_celsius') }}: {{ logical_sensor.physical_sensor.terrarium.cooked_temperature_celsius }}°C<br />
-                                    {{ $tc('components.terraria', 1) }} {{ $t('labels.humidity_percent') }}: {{ logical_sensor.physical_sensor.terrarium.cooked_humidity_percent }}%
+                                <span v-if="t = terrarium(logical_sensor)">
+                                    {{ $tc('labels.terraria', 1) }} {{ $t('labels.temperature_celsius') }}:
+                                    {{ t.data.cooked_temperature_celsius }}°C<br />
+
+                                    {{ $tc('labels.terraria', 1) }} {{ $t('labels.humidity_percent') }}:
+                                    {{ t.data.cooked_humidity_percent }}%
                                 </span>
                             </td>
                             <td> </td>
@@ -128,184 +96,176 @@
                 </template>
             </table>
 
-            <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(1)"><i class="material-icons">first_page</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page-1)"><i class="material-icons">chevron_left</i></a>
-                </li>
+            <pagination ref="pagination"
+                        :source-filter="sourceFilter"
+                        :enable-filters="false">
+            </pagination>
 
-                <li v-if="meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
-                <li v-if="meta.pagination.current_page-2 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-2)">{{ meta.pagination.current_page-2 }}</a></li>
-                <li v-if="meta.pagination.current_page-1 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-1)">{{ meta.pagination.current_page-1 }}</a></li>
-
-                <li class="active"><a href="#!">{{ meta.pagination.current_page }}</a></li>
-
-                <li v-if="meta.pagination.current_page+1 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+1)">{{ meta.pagination.current_page+1 }}</a></li>
-                <li v-if="meta.pagination.current_page+2 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+2)">{{ meta.pagination.current_page+2 }}</a></li>
-                <li v-if="meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
-
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="material-icons">chevron_right</i></a>
-                </li>
-                <li v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                    <a href="#!" v-on:click="set_page(meta.pagination.total_pages)"><i class="material-icons">last_page</i></a>
-                </li>
-            </ul>
         </div>
     </div>
 </template>
 
 <script>
-export default {
-    data () {
-        return {
-            logical_sensors: [],
-            meta: [],
-            filter: {
-                name: '',
-                type: '',
-                'physical_sensor.terrarium.display_name': '',
-                'physical_sensor.name': ''
+    import pagination from './mixins/pagination.vue';
+    import table_filter from './mixins/table_filter.vue';
+
+    export default {
+        data() {
+            return {
+                ids: [],
+                physical_sensor_ids: [],
+                controlunit_ids: [],
+                terraria_ids: []
+            }
+        },
+
+        props: {
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
             },
-            filter_string: '',
-            order: {
-                field: 'name',
-                direction: 'asc'
+            sourceFilter: {
+                type: String,
+                default: '',
+                required: false
             },
-            order_string: '',
-            page: 1
-        }
-    },
-
-    props: {
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        sourceFilter: {
-            type: String,
-            default: '',
-            required: false
-        },
-        hideCols: {
-            type: Array,
-            default: [],
-            required: false
-        }
-    },
-
-    methods: {
-        get_accuracy_adjustment: function(ls) {
-            if (ls.properties === undefined) {
-                return null;
-            }
-
-            var adjustment = ls.properties.filter(function (el) {
-                return  el.type == 'LogicalSensorAccuracy' &&
-                        el.name == 'adjust_rawvalue' &&
-                        el.value.length > 0;
-            });
-            if (adjustment.length > 0) {
-                return adjustment[0].value;
-            }
-            return null;
-        },
-        update: function(ls) {
-            var item = null;
-            this.logical_sensors.forEach(function(data, index) {
-                if (data.id === ls.logical_sensor.id) {
-                    item = index;
-                }
-            });
-            if (item !== null) {
-                this.logical_sensors.splice(item, 1, ls.logical_sensor);
-            }
-        },
-
-        delete: function(ls) {
-            var item = null;
-            this.logical_sensors.forEach(function(data, index) {
-                if (data.id === ls.logical_sensor.id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.logical_sensors.splice(item, 1);
-            }
-        },
-        set_order: function(field) {
-            if (this.order.field == field || field === null) {
-                if (this.order.direction == 'asc') {
-                    this.order.direction = 'desc';
-                }
-                else {
-                    this.order.direction = 'asc';
-                }
-            }
-            else {
-                this.order.field = field;
-            }
-
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            this.load_data();
-        },
-        set_filter: function() {
-            this.filter_string = '&';
-            if (this.sourceFilter !== '') {
-                this.filter_string += this.sourceFilter + '&';
-            }
-            for (var prop in this.filter) {
-                if (this.filter.hasOwnProperty(prop)) {
-                    if (this.filter[prop] !== null
-                        && this.filter[prop] !== '') {
-
-                        this.filter_string += 'filter[' + prop + ']=like:*' + this.filter[prop] + '*&';
-                    }
-                }
-            }
-            this.load_data();
-        },
-        set_page: function(page) {
-            this.page = page;
-            this.load_data();
-        },
-        load_data: function() {
-            window.eventHubVue.processStarted();
-            this.order_string = 'order[' + this.order.field + ']=' + this.order.direction;
-            var that = this;
-            $.ajax({
-                url: '/api/v1/logical_sensors?with[]=physical_sensor&with[]=thresholds&page=' +
-                     that.page + that.filter_string + that.order_string,
-                method: 'GET',
-                success: function (data) {
-                    that.meta = data.meta;
-                    that.logical_sensors = data.data;
-                    window.eventHubVue.processEnded();
+            hideCols: {
+                type: Array,
+                default: function () {
+                    return [];
                 },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
+                required: false
+            },
+            itemsPerPage: {
+                type: Number,
+                default: 9,
+                required: false
+            }
+        },
+
+        computed: {
+            logical_sensors () {
+                let that = this;
+                return this.$store.state.logical_sensors.filter(function (l) {
+                    return that.ids.includes(l.id) && l.data !== null
+                }).sort(function (a, b) {
+                    let c = a.data[that.$refs.pagination.order.field] > b.data[that.$refs.pagination.order.field];
+                    if ( c && that.$refs.pagination.order.direction === 'asc' ||
+                        !c && that.$refs.pagination.order.direction === 'desc') {
+                        return 1;
+                    }
+                    return -1;
+                });
+            },
+
+            physical_sensors () {
+                let that = this;
+                return this.$store.state.physical_sensors.filter(function (p) {
+                    return that.physical_sensor_ids.includes(p.id) && p.data !== null
+                });
+            },
+
+            terraria () {
+                let that = this;
+                return this.$store.state.terraria.filter(function (t) {
+                    return that.terraria_ids.includes(t.id) && t.data !== null
+                });
+            },
+
+            controlunits () {
+                let that = this;
+                return this.$store.state.controlunits.filter(function (c) {
+                    return that.controlunit_ids.includes(c.id) && c.data !== null
+                });
+            }
+        },
+
+        components: {
+            pagination,
+            'table-filter': table_filter
+        },
+
+        methods: {
+            terrarium(logical_sensor) {
+                let terrarium = this.terraria.filter(
+                    l => l.data.id === this.physical_sensors.filter(
+                        p => p.data.id === logical_sensor.data.physical_sensor.id
+                    )[0].data.terrarium.id
+                );
+
+                if (terrarium.length > 0) {
+                    return terrarium[0];
                 }
-            });
+
+                return null;
+            },
+
+            controlunit(logical_sensor) {
+                let controlunit = this.controlunits.filter(
+                    l => l.data.id === this.physical_sensors.filter(
+                        p => p.data.id === logical_sensor.data.physical_sensor.id
+                    )[0].data.controlunit.id
+                );
+
+                if (controlunit.length > 0) {
+                    return controlunit[0];
+                }
+
+                return null;
+            },
+
+            physical_sensor(logical_sensor) {
+                let physical_sensor = this.physical_sensors.filter(
+                    p => p.data.id === logical_sensor.data.physical_sensor.id
+                );
+                if (physical_sensor.length > 0) {
+                    return physical_sensor[0];
+                }
+
+                return null;
+            },
+
+            load_data: function () {
+                let that = this;
+
+                $.ajax({
+                    url: '/api/v1/logical_sensors/?with[]=physical_sensor&with[]=physical_sensor.terrarium&with[]=physical_sensor.controlunit&' +
+                         that.sourceFilter + '&' +
+                         'pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                         that.$refs.pagination.page +
+                         that.$refs.pagination.filter_string +
+                         that.$refs.pagination.order_string,
+                    method: 'GET',
+                    success: function (data) {
+                        that.ids = data.data.map(l => l.id);
+                        that.physical_sensor_ids = data.data.map(l => l.physical_sensor.id);
+                        that.controlunit_ids = data.data.filter(l => l.physical_sensor.controlunit)
+                                                        .map(l => l.physical_sensor)
+                                                        .map(p => p.controlunit.id);
+                        that.terraria_ids = data.data.filter(l => l.physical_sensor.terrarium)
+                                                     .map(l => l.physical_sensor)
+                                                     .map(p => p.terrarium.id);
+
+                        that.$refs.pagination.meta = data.meta;
+
+                        that.$parent.ensureObjects('logical_sensors', that.ids, data.data);
+                        that.$parent.ensureObjects('physical_sensors', that.physical_sensor_ids, [].concat.apply([], data.data.map(p => p.physical_sensor)));
+                        that.$parent.ensureObjects('controlunits', that.controlunit_ids, [].concat.apply([], that.physical_sensors.map(p => p.data.controlunit)));
+                        that.$parent.ensureObjects('terraria', that.terraria_ids, [].concat.apply([], that.physical_sensors.map(p => p.data.terrarium)));
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
+            }
+        },
+
+        created: function () {
+            let that = this;
+            setTimeout(function () {
+                that.$refs.pagination.init('name');
+            }, 100);
         }
-    },
-
-    created: function() {
-        window.echo.private('dashboard-updates')
-                .listen('LogicalSensorUpdated', (e) => {
-                this.update(e);
-        }).listen('LogicalSensorDeleted', (e) => {
-                this.delete(e);
-        });
-
-        var that = this;
-        setTimeout(function() {
-            that.set_filter();
-        }, 100);
     }
-}
 </script>

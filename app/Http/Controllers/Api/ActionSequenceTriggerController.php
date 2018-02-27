@@ -19,16 +19,18 @@ class ActionSequenceTriggerController extends ApiController
 
     /**
      * ActionSequenceTriggerController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '15';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -39,7 +41,6 @@ class ActionSequenceTriggerController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -65,7 +66,7 @@ class ActionSequenceTriggerController extends ApiController
          */
         $trigger = ActionSequenceTrigger::find($id);
         if (is_null($trigger)) {
-            return $this->setStatusCode(422)->respondWithError('ActionSequenceTrigger not found');
+            return $this->respondNotFound();
         }
 
         $id = $trigger->sequence->id;
@@ -140,6 +141,8 @@ class ActionSequenceTriggerController extends ApiController
     }
 
     /**
+     * Custom error Codes
+     *  - 201: Unknown reference value comparison type
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
@@ -156,26 +159,28 @@ class ActionSequenceTriggerController extends ApiController
          */
         $trigger = ActionSequenceTrigger::find($id);
         if (is_null($trigger)) {
-            return $this->setStatusCode(404)->respondWithError('ActionSequenceTrigger not found');
+            return $this->respondNotFound();
         }
 
         if ($request->filled('action_sequence_id')) {
             $a = ActionSequence::find($request->input('action_sequence_id'));
             if (is_null($a)) {
-                return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
+                return $this->respondRelatedModelNotFound(ActionSequence::class);
             }
         }
 
         if ($request->filled('logical_sensor')) {
             $ls = LogicalSensor::find($request->input('logical_sensor'));
             if (is_null($ls)) {
-                return $this->setStatusCode(422)->respondWithError('LogicalSensor not found');
+                return $this->respondRelatedModelNotFound(LogicalSensor::class);
             }
         }
 
         if ($request->filled('reference_value_comparison_type')) {
             if (!in_array($request->input('reference_value_comparison_type'), ['equal', 'lesser', 'greater'])) {
-                return $this->setStatusCode(422)->respondWithError('Unknown reference value comparison type');
+                return $this->setStatusCode(422)
+                            ->setErrorCode('201')
+                            ->respondWithErrorDefaultMessage();
             }
         }
 
@@ -218,7 +223,7 @@ class ActionSequenceTriggerController extends ApiController
          */
         $trigger = ActionSequenceTrigger::find($id);
         if (is_null($trigger)) {
-            return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
+            return $this->respondNotFound();
         }
 
         $trigger->next_start_not_before = Carbon::now()->addHours(2);

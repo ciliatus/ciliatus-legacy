@@ -5,7 +5,7 @@
                 <thead>
                 <tr>
                     <th>
-                        {{ $tc('components.animals', 1) }}
+                        {{ $tc('labels.animals', 1) }}
                     </th>
                     <th>
                         {{ $t('labels.scheduled') }}
@@ -76,7 +76,7 @@ export default {
              * then load weighing schedules
              */
             $.ajax({
-                url: '/api/v1/animals?filter[!properties.type]=ModelNotActive&raw=true&' + that.sourceFilter,
+                url: '/api/v1/animals?filter[!properties.type]=ModelNotActive&all=true&' + that.sourceFilter,
                 method: 'GET',
                 success: function (data) {
                     that.animals = data.data;
@@ -85,7 +85,7 @@ export default {
                      * Load weighing schedules
                      */
                     $.ajax({
-                        url: '/api/v1/animal_weighing_schedules?with[]=animal&raw=true',
+                        url: '/api/v1/animal_weighing_schedules?with[]=animal&all=true',
                         method: 'GET',
                         success: function (data) {
                             that.schedules = data.data;

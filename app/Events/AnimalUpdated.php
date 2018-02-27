@@ -17,7 +17,10 @@ class AnimalUpdated implements ShouldBroadcast
 {
     use InteractsWithSockets, SerializesModels;
 
-    public $animal_id;
+    /**
+     * @var string $id
+     */
+    public $id;
 
     /**
      * Create a new event instance.
@@ -26,7 +29,7 @@ class AnimalUpdated implements ShouldBroadcast
      */
     public function __construct(Animal $a)
     {
-        $this->animal_id = $a->id;
+        $this->id = $a->id;
     }
 
     /**

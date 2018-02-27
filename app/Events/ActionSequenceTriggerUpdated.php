@@ -20,9 +20,9 @@ class ActionSequenceTriggerUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $action_sequence_trigger;
+    public $id;
 
     /**
      * Create a new event instance.
@@ -31,18 +31,7 @@ class ActionSequenceTriggerUpdated implements ShouldBroadcast
      */
     public function __construct(ActionSequenceTrigger $ass)
     {
-        $transformer = new ActionSequenceTriggerTransformer();
-        $repository = new ActionSequenceTriggerRepository(
-            ActionSequenceTrigger::with('sequence')
-                                  ->find($ass->id)
-        );
-
-        $ass = $repository->show();
-        $sequence = $ass->sequence()->get();
-        if (!is_null($sequence)) {
-            $ass->sequence = $sequence->first();
-        }
-        $this->action_sequence_trigger = $transformer->transform($ass->toArray());
+        $this->id = $ass->id;
     }
 
     /**

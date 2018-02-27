@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\GenericComponent;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,17 +18,17 @@ class GenericComponentDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var
+     * @var string $id
      */
-    public $generic_component_id;
+    public $id;
 
     /**
      * Create a new event instance.
-     * @param $generic_component_id
+     * @param GenericComponent $generic_component
      */
-    public function __construct($generic_component_id)
+    public function __construct(GenericComponent $generic_component)
     {
-        $this->generic_component_id = $generic_component_id;
+        $this->id = $generic_component->id;
     }
 
     /**

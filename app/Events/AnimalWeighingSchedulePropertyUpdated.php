@@ -21,24 +21,20 @@ class AnimalWeighingSchedulePropertyUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $animal_weighing_schedule;
+    public $id;
 
 
     /**
      * Create a new event instance.
      *
      * AnimalWeighingScheduleUpdated constructor.
-     * @param AnimalWeighingScheduleProperty $p
+     * @param AnimalWeighingScheduleProperty $s
      */
-    public function __construct(AnimalWeighingScheduleProperty $p)
+    public function __construct(AnimalWeighingScheduleProperty $s)
     {
-        $transformer = new AnimalWeighingSchedulePropertyTransformer();
-
-        $this->animal_weighing_schedule = $transformer->transform(
-            (new AnimalWeighingSchedulePropertyRepository($p))->show()->toArray()
-        );
+        $this->id = $s->id;
     }
 
     /**

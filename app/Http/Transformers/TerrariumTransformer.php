@@ -21,40 +21,20 @@ class TerrariumTransformer extends Transformer
      */
     public function transform($item)
     {
-        $valveTransformer = new ValveTransformer();
-        $physicalSensorTransformer = new PhysicalSensorTransformer();
-        $animalTransformer = new AnimalTransformer();
-        $actionSequenceTransformer = new ActionSequenceTransformer();
-
         $return = [
             'id'    => $item['id'],
             'name'  => isset($item['name']) ? $item['name'] : '',
             'display_name' => $item['display_name'],
-            'temperature_critical' => $item['temperature_critical'],
-            'humidity_critical' => $item['humidity_critical'],
-            'heartbeat_critical' => $item['heartbeat_critical'],
+            'temperature_critical' => isset($item['temperature_critical']) ? $item['temperature_critical'] : null,
+            'humidity_critical' => isset($item['humidity_critical']) ? $item['humidity_critical'] : null,
+            'heartbeat_critical' => isset($item['heartbeat_critical']) ? $item['heartbeat_critical'] : null,
+            'state_ok' => isset($item['state_ok']) ? $item['state_ok'] : null,
             'cooked_temperature_celsius' => $item['cooked_temperature_celsius'],
             'cooked_humidity_percent' => $item['cooked_humidity_percent'],
             'timestamps' => $this->parseTimestamps($item)
         ];
 
         $return = $this->addCiliatusSpecificFields($return, $item);
-
-        if (isset($item['physical_sensors'])) {
-            $return['physical_sensors'] = $physicalSensorTransformer->transformCollection($item['physical_sensors']);
-        }
-
-        if (isset($item['animals'])) {
-            $return['animals'] = $animalTransformer->transformCollection($item['animals']);
-        }
-
-        if (isset($item['valves'])) {
-            $return['valves'] = $valveTransformer->transformCollection($item['valves']);
-        }
-
-        if (isset($item['action_sequences'])) {
-            $return['action_sequences'] = $actionSequenceTransformer->transformCollection($item['action_sequences']);
-        }
 
         if (isset($item['temperature_celsius_history'])) {
             $return['temperature_history'] = $item['temperature_celsius_history'];

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/generic_components" class="breadcrumb hide-on-small-and-down">@choice('components.generic_components', 2)</a>
+    <a href="/generic_components" class="breadcrumb hide-on-small-and-down">@choice('labels.generic_components', 2)</a>
     <a href="/generic_component_types/{{ $generic_component->type->id }}" class="breadcrumb hide-on-small-and-down">{{ $generic_component->type->name_plural }}</a>
     <a href="/generic_components/{{ $generic_component->id }}" class="breadcrumb hide-on-small-and-down">{{ $generic_component->name }}</a>
 @stop
@@ -9,10 +9,15 @@
 
 @section('content')
     <div class="container">
-        <generic_components-widget :refresh-timeout-seconds="60"
-                                   generic-component-id="{{ $generic_component->id }}"
-                                   :subscribe-add="false" :subscribe-delete="false"
-                                   container-classes="row" wrapper-classes="col s12 m5 l4"></generic_components-widget>
+        <div class="row">
+            <generic_components-widget generic-component-id="{{ $generic_component->id }}"
+                                       wrapper-classes="col s12 m5 l4"></generic_components-widget>
+
+            @if(!is_null($generic_component->controlunit))
+                <controlunit-widget controlunit-id="{{ $generic_component->controlunit_id }}"
+                                    wrapper-classes="col s12 m7 l8"></controlunit-widget>
+            @endif
+        </div>
     </div>
 
     <div class="fixed-action-btn">

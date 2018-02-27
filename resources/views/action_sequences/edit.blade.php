@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/action_sequences" class="breadcrumb hide-on-small-and-down">@choice('components.action_sequences', 2)</a>
+    <a href="/action_sequences" class="breadcrumb hide-on-small-and-down">@choice('labels.action_sequences', 2)</a>
     <a href="{{ url('action_sequences/' . $action_sequence->id) }}" class="breadcrumb hide-on-small-and-down">{{ $action_sequence->name }}</a>
     <a href="{{ url('action_sequences/' . $action_sequence->id . '/edit') }}" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
@@ -23,7 +23,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <select name="terrarium">
-                                        <optgroup label="@choice('components.terraria', 1)">
+                                        <optgroup label="@choice('labels.terraria', 1)">
                                             @foreach ($terraria as $t)
                                                 <option value="{{ $t->id }}"
                                                         @if($action_sequence->terrarium_id == $t->id) selected @endif >@if(is_null($t->display_name)){{ $t->name }}@else{{ $t->display_name }}@endif
@@ -31,7 +31,7 @@
                                             @endforeach
                                         </optgroup>
                                     </select>
-                                    <label for="valves">@choice('components.terraria', 1)</label>
+                                    <label for="valves">@choice('labels.terraria', 1)</label>
                                 </div>
                             </div>
 
@@ -61,7 +61,7 @@
                 <div class="card">
                     <div class="card-header">
                         <span class="activator truncate">
-                            <span><i class="material-icons">assignment</i> @choice('components.actions', 2)</span>
+                            <span><i class="material-icons">assignment</i> @choice('labels.actions', 2)</span>
                         </span>
                     </div>
 
@@ -106,7 +106,7 @@
                         <span class="activator truncate">
                             <span>
                                 <i class="material-icons">schedule</i>
-                                @choice('components.action_sequence_schedules', 2)
+                                @choice('labels.action_sequence_schedules', 2)
                             </span>
                         </span>
                     </div>
@@ -156,7 +156,7 @@
                         <span class="activator truncate">
                             <span>
                                 <i class="material-icons">flare</i>
-                                @choice('components.action_sequence_triggers', 2)
+                                @choice('labels.action_sequence_triggers', 2)
                             </span>
                         </span>
                     </div>
@@ -196,7 +196,7 @@
                         <span class="activator truncate">
                             <span>
                                 <i class="material-icons">explore</i>
-                                @choice('components.action_sequence_intentions', 2)
+                                @choice('labels.action_sequence_intentions', 2)
                             </span>
                         </span>
                     </div>

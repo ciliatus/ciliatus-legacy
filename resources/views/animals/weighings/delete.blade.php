@@ -2,7 +2,7 @@
 
 @section('breadcrumbs')
     <a href="/animals/{{ $animal->id }}" class="breadcrumb hide-on-small-and-down">{{ $animal->display_name }}</a>
-    <a href="/animals/{{ $animal->id }}/weighings/" class="breadcrumb hide-on-small-and-down">@choice('components.animal_weighing_schedules', 1)</a>
+    <a href="/animals/{{ $animal->id }}/weighings/" class="breadcrumb hide-on-small-and-down">@choice('labels.animal_weighing_schedules', 1)</a>
     <a href="/animals/{{ $animal->id }}/weighings/{{ $animal_weighing->id }}/delete" class="breadcrumb hide-on-small-and-down">@lang('buttons.delete')</a>
 @stop
 

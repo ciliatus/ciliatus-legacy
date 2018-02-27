@@ -23,9 +23,11 @@ class AnimalWeighingEventController extends ApiController
     /**
      * AnimalWeighingEventController constructor.
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '19';
     }
 
     /**
@@ -40,38 +42,19 @@ class AnimalWeighingEventController extends ApiController
         }
 
         if (is_null($id)) {
-            $weighings = $this->filter($request, AnimalWeighingEvent::orderBy('created_at', 'DESC')->getQuery());
+            $weighings = $this->filter($request, AnimalWeighingEvent::query());
         }
         else {
             $animal = Animal::find($id);
             if (is_null($animal)) {
-                return $this->respondNotFound("Animal not found");
+                return $this->respondNotFound();
             }
 
-            $weighings = $this->filter($request, $animal->weighings()->orderBy('created_at', 'DESC')->getQuery());
-        }
-
-
-        /*
-         * If raw is passed, pagination will be ignored
-         * Permission api-list:raw is required
-         */
-        if ($request->filled('raw') && Gate::allows('api-list:raw')) {
-            $weighings = $weighings->get();
-            foreach ($weighings as &$f) {
-                $f = (new AnimalWeighingEventRepository($f))->show()->toArray();
-            }
-
-            return $this->setStatusCode(200)->respondWithData(
-                (new AnimalWeighingEventTransformer())->transformCollection(
-                    $weighings->toArray()
-                )
-            );
-
+            $weighings = $this->filter($request, $animal->weighings()->getQuery());
         }
 
         if ($request->filled('graph')) {
-            $weighings = $weighings->get();
+            $weighings = $weighings->orderBy('created_at')->get();
 
             $return = [
                 'columns' => [
@@ -97,16 +80,8 @@ class AnimalWeighingEventController extends ApiController
             return $this->respondWithData($return);
         }
 
-        $weighings = $weighings->paginate(env('PAGINATION_PER_PAGE', 20));
-
-        foreach ($weighings->items() as &$f) {
-            $f = (new AnimalWeighingEventRepository($f))->show()->toArray();
-        }
-
-        return $this->setStatusCode(200)->respondWithPagination(
-            (new AnimalWeighingEventTransformer())->transformCollection(
-                $weighings->toArray()['data']
-            ),
+        return $this->respondTransformedAndPaginated(
+            $request,
             $weighings
         );
 
@@ -141,7 +116,7 @@ class AnimalWeighingEventController extends ApiController
          */
         $animal = Animal::find($id);
         if (is_null($animal)) {
-            return $this->setStatusCode(404)->respondWithError('Animal not found');
+            return $this->respondNotFound();
         }
 
         /**
@@ -156,7 +131,15 @@ class AnimalWeighingEventController extends ApiController
         ]);
 
         if ($request->filled('created_at')) {
-            $e->created_at = Carbon::parse($request->input('created_at'));
+            try {
+                $e->created_at = Carbon::parse($request->input('created_at'));
+            }
+            catch (\Exception $ex) {
+                return $this->setStatusCode(422)
+                            ->setErrorCode('103')
+                            ->respondWithErrorDefaultMessage(['timestamp' => 'created_at']);
+            }
+
             $e->save();
         }
 
@@ -210,7 +193,7 @@ class AnimalWeighingEventController extends ApiController
          */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return $this->respondNotFound('Animal not found');
+            return $this->respondNotFound();
         }
 
         /**
@@ -218,14 +201,13 @@ class AnimalWeighingEventController extends ApiController
          */
         $animal_weighing = $animal->weighings()->where('id', $id)->get()->first();
         if (is_null($animal_weighing)) {
-            return $this->respondNotFound('Animal weighing not found');
+            return $this->respondNotFound();
         }
 
-        $id = $animal_weighing->id;
+        broadcast(new AnimalWeighingEventDeleted($animal_weighing));
 
         $animal_weighing->delete();
 
-        broadcast(new AnimalWeighingEventDeleted($id));
 
         return $this->respondWithData([]);
     }

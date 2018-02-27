@@ -4,146 +4,92 @@
             <div class="card">
                 <div class="card-header">
                     <i class="material-icons">schedule</i>
-                    {{ $tc("components.animal_weighing_schedules", 2) }}
+                    {{ $tc("labels.animal_weighing_schedules", 2) }}
                 </div>
 
                 <div class="card-content">
-                    <div v-for="aws in animal_weighing_schedules">
+                    <div class="row no-margin" v-for="schedule in schedules">
+                        <template v-if="schedule.data">
+                            <span v-show="schedule.data.timestamps.next != null">{{ schedule.data.timestamps.next }}</span>
 
-                        <span v-show="aws.timestamps.next != null">{{ aws.timestamps.next }}</span>
+                            <span v-show="schedule.data.timestamps.next == null">{{ $t("labels.now") }}</span>
 
-                        <span v-show="aws.timestamps.next == null">{{ $t("labels.now") }}</span>
+                            <span class="right">
+                                <a :href="'/animals/' + animalId + '/weighing_schedules/' + schedule.data.id + '/edit'">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </span>
 
-                        <span class="right">
-                            <a :href="'/animals/' + animalId + '/weighing_schedules/' + aws.id + '/edit'">
-                                <i class="material-icons">edit</i>
-                            </a>
-                        </span>
-
-                        <span class="right">
-                            <span v-show="aws.due_days == 0" class="new badge" v-bind:data-badge-caption="$t('labels.due')"> </span>
-                            <span v-show="aws.due_days < 0" class="new badge red" v-bind:data-badge-caption="$t('labels.overdue')"> </span>
-                        </span>
+                            <span class="right">
+                                <span v-show="schedule.data.due_days == 0" class="new badge" v-bind:data-badge-caption="$t('labels.due')"> </span>
+                                <span v-show="schedule.data.due_days < 0" class="new badge red" v-bind:data-badge-caption="$t('labels.overdue')"> </span>
+                            </span>
+                        </template>
                     </div>
-                    <div v-if="animal_weighing_schedules.length < 1">
+                    <div v-if="schedules.length < 1">
                         <p>{{ $t('labels.no_data') }}</p>
                     </div>
                 </div>
 
                 <div class="card-action">
-                    <a v-bind:href="'/animals/' + animalId + '/weighing_schedules/create'">{{ $t("buttons.add") }}</a>
+                    <a :href="'/animals/' + animalId + '/weighing_schedules/create'">{{ $t("buttons.add") }}</a>
                 </div>
             </div>
         </div>
     </div>
 </template>
 
+
 <script>
-export default {
-    data () {
-        return {
-            animal_weighing_schedules: []
-        }
-    },
-
-    props: {
-        refreshTimeoutSeconds: {
-            type: Number,
-            default: null,
-            required: false
-        },
-        animalId: {
-            type: String,
-            required: true
-        },
-        sourceFilter: {
-            type: String,
-            default: '',
-            required: false
-        },
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        }
-    },
-
-    methods: {
-        update: function(a) {
-            var item = null;
-
-            if (a.animal_weighing_schedule.animal.id !== this.animalId) {
-                return;
-            }
-
-            this.animal_weighing_schedules.forEach(function(data, index) {
-                if (data.id === a.animal_weighing_schedule.id) {
-                    item = index;
-                }
-            });
-            if (item === null) {
-                this.animal_weighing_schedules.push(a.animal_weighing_schedule)
-            }
-            else if (item !== null) {
-                this.animal_weighing_schedules.splice(item, 1, a.animal_weighing_schedule);
+    export default {
+        data () {
+            return {
+                ids: []
             }
         },
 
-        delete: function(a) {
-            var item = null;
-            this.animal_weighing_schedules.forEach(function(data, index) {
-                if (data.id === a.animal_weighing_schedule_id) {
-                    item = index;
-                }
-            });
-
-            if (item !== null) {
-                this.animal_weighing_schedules.splice(item, 1);
+        props: {
+            wrapperClasses: {
+                type: String,
+                default: '',
+                required: false
+            },
+            animalId: {
+                type: String,
+                required: true
             }
         },
 
-        submit: function(e) {
-            window.submit_form(e);
+        computed: {
+            schedules () {
+                let that = this;
+                return this.$store.state.animal_weighing_schedules.filter(function(s) {
+                    return that.ids.includes(s.id) && s.data !== null
+                });
+            }
         },
 
-        load_data: function() {
-            window.eventHubVue.processStarted();
-            var that = this;
-            $.ajax({
-                url: '/api/v1/animals/' + that.animalId + '/weighing_schedules?raw=true&' + that.sourceFilter,
-                method: 'GET',
-                success: function (data) {
-                    that.animal_weighing_schedules = data.data;
-                    window.eventHubVue.processEnded();
-                },
-                error: function (error) {
-                    console.log(JSON.stringify(error));
-                    window.eventHubVue.processEnded();
-                }
-            });
+        methods: {
+            load_data: function() {
+                let that = this;
+
+                $.ajax({
+                    url: '/api/v1/animals/' + that.animalId + '/weighing_schedules?all=true',
+                    method: 'GET',
+                    success: function (data) {
+                        that.ids = data.data.map(v => v.id);
+
+                        that.$parent.ensureObjects('animal_weighing_schedules', that.ids, data.data);
+                    },
+                    error: function (error) {
+                        console.log(JSON.stringify(error));
+                    }
+                });
+            }
+        },
+
+        created: function() {
+            this.load_data();
         }
-    },
-
-    created: function() {
-        window.echo.private('dashboard-updates')
-            .listen('AnimalWeighingSchedulePropertyUpdated', (e) => {
-                this.update(e);
-            }).listen('AnimalWeighingSchedulePropertyDeleted', (e) => {
-                this.delete(e);
-            });
-
-        var that = this;
-        setTimeout(function() {
-            that.load_data();
-        }, 100);
-
-        if (this.refreshTimeoutSeconds !== null) {
-            setInterval(function() {
-                that.load_data();
-            }, this.refreshTimeoutSeconds * 1000)
-        }
-
     }
-
-}
 </script>

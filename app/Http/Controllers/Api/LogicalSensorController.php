@@ -18,16 +18,18 @@ class LogicalSensorController extends ApiController
 
     /**
      * LogicalSensorController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '24';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -38,7 +40,6 @@ class LogicalSensorController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -63,7 +64,7 @@ class LogicalSensorController extends ApiController
          */
         $logical_sensor = LogicalSensor::find($id);
         if (is_null($logical_sensor)) {
-            return $this->respondNotFound('LogicalSensor not found');
+            return $this->respondNotFound();
         }
 
         $ths = LogicalSensorThreshold::where('logical_sensor_id', $logical_sensor->id)->get();
@@ -92,18 +93,17 @@ class LogicalSensorController extends ApiController
             return $this->respondUnauthorized();
         }
 
+        $physical_sensor = PhysicalSensor::find($request->input('physical_sensor'));
+        if (is_null($physical_sensor)) {
+            return $this->respondRelatedModelNotFound(PhysicalSensor::class);
+        }
+
         /**
          * @var LogicalSensor $logical_sensor
          */
         $logical_sensor = LogicalSensor::create();
         $logical_sensor->name = $request->input('name');
-        if ($request->filled('physical_sensor') && strlen($request->input('physical_sensor')) > 0) {
-            $physical_sensor = PhysicalSensor::find($request->input('physical_sensor'));
-            if (is_null($physical_sensor)) {
-                return $this->setStatusCode(422)->respondWithError('Controlunit not found');
-            }
-            $logical_sensor->physical_sensor_id = $physical_sensor->id;
-        }
+        $logical_sensor->physical_sensor_id = $physical_sensor->id;
 
         $logical_sensor->save();
 
@@ -139,13 +139,13 @@ class LogicalSensorController extends ApiController
          */
         $logical_sensor = LogicalSensor::find($id);
         if (is_null($logical_sensor)) {
-            return $this->respondNotFound('LogicalSensor not found');
+            return $this->respondNotFound();
         }
 
         if ($request->filled('physical_sensor')) {
             $physical_sensor = PhysicalSensor::find($request->input('physical_sensor'));
             if (is_null($physical_sensor)) {
-                return $this->setStatusCode(422)->respondWithError('PhysicalSensor not found');
+                return $this->respondRelatedModelNotFound(PhysicalSensor::class);
             }
         }
 

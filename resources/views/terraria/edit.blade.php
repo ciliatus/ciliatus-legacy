@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/terraria" class="breadcrumb hide-on-small-and-down">@choice('components.terraria', 2)</a>
+    <a href="/terraria" class="breadcrumb hide-on-small-and-down">@choice('labels.terraria', 2)</a>
     <a href="/terraria/{{ $terrarium->id }}" class="breadcrumb hide-on-small-and-down">{{ $terrarium->display_name }}</a>
     <a href="/terraria/{{ $terrarium->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
@@ -50,7 +50,7 @@
                                             <option value="{{ $v->id }}" @if($v->terrarium_id == $terrarium->id)selected="selected"@endif>{{ $v->name }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="valves">@choice('components.valves', 2)</label>
+                                    <label for="valves">@choice('labels.valves', 2)</label>
                                 </div>
                             </div>
 
@@ -68,7 +68,7 @@
                                             </option>
                                         @endforeach
                                     </select>
-                                    <label for="animals">@choice('components.animals', 2)</label>
+                                    <label for="animals">@choice('labels.animals', 2)</label>
                                 </div>
                             </div>
 

@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/biography_entries" class="breadcrumb hide-on-small-and-down">@choice('components.biography_entries', 2)</a>
+    <a href="/biography_entries" class="breadcrumb hide-on-small-and-down">@choice('labels.biography_entries', 2)</a>
     <a href="/biography_entries/{{ $entry->id }}" class="breadcrumb hide-on-small-and-down">{{ $entry->name }}</a>
 @stop
 

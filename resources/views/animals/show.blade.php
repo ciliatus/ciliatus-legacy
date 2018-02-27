@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/animals" class="breadcrumb hide-on-small-and-down">@choice('components.animals', 2)</a>
+    <a href="/animals" class="breadcrumb hide-on-small-and-down">@choice('labels.animals', 2)</a>
     <a href="/animals/{{ $animal->id }}" class="breadcrumb hide-on-small-and-down">{{ $animal->display_name }}</a>
 @stop
 
@@ -16,8 +16,8 @@
                 <li class="tab col s3"><a href="#tab_environment">@lang('labels.environment')</a></li>
             @endif
             <li class="tab col s3"><a href="#tab_biography">@lang('labels.biography')</a></li>
-            <li class="tab col s3"><a href="#tab_caresheets">@choice('components.caresheets', 2)</a></li>
-            <li class="tab col s3"><a href="#tab_files">@choice('components.files', 2)</a></li>
+            <li class="tab col s3"><a href="#tab_caresheets">@choice('labels.caresheets', 2)</a></li>
+            <li class="tab col s3"><a href="#tab_files">@choice('labels.files', 2)</a></li>
         </ul>
     </div>
     <div id="tab_overview" class="col s12">
@@ -73,7 +73,7 @@
                     <animal_feeding_schedules-widget animal-id="{{ $animal->id }}"></animal_feeding_schedules-widget>
                 </div>
                 <div class="col s12 m6 l4">
-                    <animal_feedings-widget animal-id="{{ $animal->id }}" source-filter="limit=10"></animal_feedings-widget>
+                    <animal_feedings-widget animal-id="{{ $animal->id }}"></animal_feedings-widget>
                 </div>
             </div>
         </div>
@@ -143,9 +143,9 @@
 
     <div id="tab_biography" class="col s12">
         <div class="container">
-            <biography_entries-widget :refresh-timeout-seconds="60"
-                                      belongs-to-type="Animal" belongs-to-id="{{ $animal->id }}"
-                                      container-classes="container"></biography_entries-widget>
+            <biography_entries-widget belongs-to-type="Animal"
+                                      belongs-to-id="{{ $animal->id }}"
+                                      wrapper-classes="row"></biography_entries-widget>
         </div>
 
         <div class="fixed-action-btn">
@@ -160,9 +160,8 @@
 
     <div id="tab_caresheets" class="col s12">
         <div class="container">
-            <caresheets-widget :refresh-timeout-seconds="60"
-                                      belongs-to-id="{{ $animal->id }}"
-                                      container-classes="container"></caresheets-widget>
+            <caresheets-widget animal-id="{{ $animal->id }}"
+                               wrapper-classes="row"></caresheets-widget>
         </div>
 
         <div class="fixed-action-btn">
@@ -180,7 +179,7 @@
             <files-list-widget
                     background-selector-class-name="Animal"
                     background-selector-id="{{ $animal->id }}"
-                    source-url="animals/{{ $animal->id }}/files"
+                    source-filter="filter[belongsTo_id]={{ $animal->id }}&filter[belongsTo_type=Animal"
                     subscribe-add="false">
             </files-list-widget>
         </div>

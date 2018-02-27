@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/generic_components" class="breadcrumb hide-on-small-and-down">@choice('components.generic_components', 2)</a>
+    <a href="/generic_components" class="breadcrumb hide-on-small-and-down">@choice('labels.generic_components', 2)</a>
     <a href="/generic_component_types/{{ $generic_component->type->id }}" class="breadcrumb hide-on-small-and-down">{{ $generic_component->type->name_plural }}</a>
     <a href="/generic_components/{{ $generic_component->id }}" class="breadcrumb hide-on-small-and-down">{{ $generic_component->name }}</a>
     <a href="/generic_components/{{ $generic_component->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('labels.edit')</a>
@@ -21,7 +21,7 @@
                                     <input type="text" name="type_id" value="{{ $generic_component->type->id }}" readonly hidden>
                                     <i class="material-icons prefix">{{ $generic_component->type->icon }}</i>
                                     <input type="text" name="type_name" value="{{ $generic_component->type->name_singular }}" readonly>
-                                    <label for="type_name">@choice('components.generic_components', 1)</label>
+                                    <label for="type_name">@choice('labels.generic_components', 1)</label>
                                 </div>
                             </div>
 
@@ -30,7 +30,7 @@
                                     <select name="belongsTo">
                                         <option></option>
                                         @foreach ($belongTo_Options as $t=>$objects)
-                                            <optgroup label="@choice('components.' . strtolower($t), 2)">
+                                            <optgroup label="@choice('labels.' . strtolower($t), 2)">
                                                 @foreach ($objects as $o)
                                                     <option value="{{ $t }}|{{ $o->id }}"
                                                             @if($generic_component->belongsTo_type == $t && $generic_component->belongsTo_id == $o->id)
@@ -52,7 +52,7 @@
                                             <option value="{{ $cu->id }}" @if(!is_null($generic_component->controlunit) && $cu->id == $generic_component->controlunit->id) selected @endif>{{ $cu->name }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="controlunit">@choice('components.controlunit', 1)</label>
+                                    <label for="controlunit">@choice('labels.controlunit', 1)</label>
                                 </div>
                             </div>
 

@@ -8,7 +8,10 @@
 
 namespace App\Http\Transformers;
 
+use App\CiliatusModel;
+use App\Factories\TransformerFactory;
 use Carbon\Carbon;
+use Illuminate\Support\Collection;
 
 
 /**
@@ -159,6 +162,12 @@ abstract class Transformer
         if (isset($item['icon']) && !in_array('icon', $exclude)) {
             $return['icon'] = $item['icon'];
         }
+        if (isset($item['web_base_url']) && !in_array('web_base_url', $exclude)) {
+            $return['web_base_url'] = $item['web_base_url'];
+        }
+        if (isset($item['api_base_url']) && !in_array('api_base_url', $exclude)) {
+            $return['api_base_url'] = $item['api_base_url'];
+        }
         if (isset($item['url']) && !in_array('url', $exclude)) {
             $return['url'] = $item['url'];
         }
@@ -167,6 +176,23 @@ abstract class Transformer
         }
         if (isset($item['class']) && !in_array('class', $exclude)) {
             $return['class'] = $item['class'];
+        }
+
+        $return['created_at'] = $item['created_at'];
+        $return['updated_at'] = $item['updated_at'];
+
+        if (isset($item['related_models'])) {
+            foreach ($item['related_models'] as $relation=>$objects) {
+                if (is_a($objects, Collection::class)) {
+                    $transformer = TransformerFactory::get($objects->first());
+                    $return[$relation] = $transformer->transformCollection($objects->toArray());
+                }
+                else {
+                    $object = $objects;
+                    $transformer = TransformerFactory::get($object);
+                    $return[$relation] = $transformer->transform($object->toArray());
+                }
+            }
         }
 
         return $return;

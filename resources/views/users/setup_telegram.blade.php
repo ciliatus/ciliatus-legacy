@@ -1,23 +1,13 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/users" class="breadcrumb hide-on-small-and-down">@choice('components.users', 2)</a>
+    <a href="/users" class="breadcrumb hide-on-small-and-down">@choice('labels.users', 2)</a>
     <a href="/users/{{ $user->id }}/edit" class="breadcrumb hide-on-small-and-down">{{ $user->name }}</a>
     <a href="/users/{{ $user->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
     <a href="#!" class="breadcrumb hide-on-small-and-down">@lang('buttons.setup_telegram')</a>
 @stop
 
 @section('content')
-    <script>
-        domCallbacks['wizard_wait_for_telegram_contact'] = function(success, data, ld) {
-            ld.cleanupRefs();
-            if (success === true) {
-                ld.stop();
-                $('#loading-indicator').html('<h4><i class="material-icons">check</i></h4>');
-                $('#next-button').removeAttr('disabled');
-            }
-        };
-    </script>
     <div class="container">
         <div class="row">
             <div class="col s12 m12 l6">
@@ -66,4 +56,17 @@
             </div>
         </div>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        domCallbacks['wizard_wait_for_telegram_contact'] = function(success, data, ld) {
+            ld.cleanupRefs();
+            if (success === true) {
+                ld.stop();
+                $('#loading-indicator').html('<h4><i class="material-icons">check</i></h4>');
+                $('#next-button').removeAttr('disabled');
+            }
+        };
+    </script>
 @stop

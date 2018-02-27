@@ -1,104 +1,112 @@
 <template>
     <div>
+
         <!--
             Modals
          -->
-        <div v-for="schedule in dashboard.animal_weighing_schedules.overdue.concat(dashboard.animal_weighing_schedules.due)">
-            <animal-add-weight-modal :animalId="schedule.animal.id"
-                                     :containerId="'modal_add_weight_' + schedule.id"></animal-add-weight-modal>
+        <div v-for="schedule in animal_weighing_schedules.filter(s => s.data.due_days <= 0)">
+            <animal-add-weight-modal :animalId="schedule.data.animal.id"
+                                     :containerId="'modal_add_weight_' + schedule.data.id"> </animal-add-weight-modal>
         </div>
 
         <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
             <!--
                 Active suggestions
             -->
-            <div :class="wrapperClasses" v-if="dashboard.suggestions.length > 0">
+            <div :class="wrapperClasses" v-if="suggestions.length > 0">
 
                 <ul class="collection info with-header">
                     <li class="collection-header">
                         <i class="material-icons">lightbulb_outline</i>
-                        {{ dashboard.suggestions.length }} {{ $tc("components.suggestions", dashboard.suggestions.length) }}
+                        {{ suggestions.length }} {{ $tc("labels.suggestions", suggestions.length) }}
                     </li>
 
-                    <li class="collection-item" v-for="suggestion in dashboard.suggestions">
-
-                        <div class="white-text">
-
+                    <li class="collection-item" v-for="suggestion in suggestions">
+                        <div v-if="suggestion.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 60px);">
-                                <a class="white-text" v-bind:href="suggestion.belongsTo_object.url">
-                                    {{ suggestion.belongsTo_object.display_name || suggestion.belongsTo_object.name }}:
+                                <a class="white-text" :href="suggestion.data.belongsTo_object.url">
+                                    {{ suggestion.data.belongsTo_object.display_name || suggestion.data.belongsTo_object.name }}:
                                 </a>
-                                {{ $t('messages.suggestions.' + suggestion.name + '.' + suggestion.violation_type, {
-                                hour: suggestion.value,
-                                name: suggestion
-                            }) }}
+                                {{ $t('messages.suggestions.' + suggestion.data.name + '.' + suggestion.data.violation_type, {
+                                    hour: suggestion.data.value,
+                                    name: suggestion
+                                }) }}
                             </span>
 
-
-                            <a class="secondary-content white-text" v-bind:href="'/api/v1/properties/read/Event/' + suggestion.id" v-on:click="link_post">
+                            <a class="secondary-content white-text" :href="'/api/v1/properties/read/Event/' + suggestion.data.id" v-on:click="link_post">
                                 <i class="material-icons">done</i>
                             </a>
-
                         </div>
-
+                        <div v-else>
+                            {{ $t('labels.loading') }}
+                        </div>
                     </li>
 
                 </ul>
 
 
             </div>
-
 
             <!--
                 Controlunits critical
             -->
-            <div :class="wrapperClasses" v-if="dashboard.controlunits.critical.length > 0">
+            <div :class="wrapperClasses" v-if="controlunits.filter(c => !c.data.state_ok).length > 0">
 
                 <ul class="collection critical with-header">
                     <li class="collection-header">
                         <i class="material-icons">developer_board</i>
-                        {{ dashboard.controlunits.critical.length }} {{ $tc("components.controlunits", dashboard.controlunits.critical.length) }} {{ $t("labels.critical") }}
+                        {{ controlunits.filter(c => !c.data.state_ok).length }}
+                        {{ $tc("labels.controlunits", controlunits.filter(c => !c.data.state_ok).length) }}
+                        {{ $t("labels.critical") }}
                     </li>
 
-                    <li class="collection-item" v-for="controlunit in dashboard.controlunits.critical">
-
-                        <div>
-                            <a v-bind:href="'/controlunits/' + controlunit.id" class="white-text">{{ controlunit.name }}</a>
-
+                    <li class="collection-item" v-for="controlunit in controlunits.filter(c => !c.data.state_ok)">
+                        <div v-if="controlunit.data">
+                            <a :href="'/controlunits/' + controlunit.data.id" class="white-text">{{ controlunit.data.name }}</a>
                             <span>({{ $t("labels.last_heartbeat") }}: {{ $t(
-                                'units.' + $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).unit,
-                                {val: $getMatchingTimeDiff(controlunit.timestamps.last_heartbeat_diff).val}
+                                'units.' + $getMatchingTimeDiff(controlunit.data.timestamps.last_heartbeat_diff).unit,
+                                {val: $getMatchingTimeDiff(controlunit.data.timestamps.last_heartbeat_diff).val}
                             )}})</span>
                         </div>
-
+                        <div v-else>
+                            {{ $t('labels.loading') }}
+                        </div>
                     </li>
-
                 </ul>
 
             </div>
 
-
             <!--
                 Terraria critical
             -->
-            <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length > 0">
+            <div :class="wrapperClasses" v-if="terraria.filter(t => !t.data.state_ok).length > 0">
 
                 <ul class="collection critical with-header">
                     <li class="collection-header">
                         <i class="material-icons">video_label</i>
-                        {{ dashboard.terraria.critical.length }} {{ $tc("components.terraria", dashboard.terraria.critical.length) }} {{ $t("labels.critical") }}
+                        {{ terraria.filter(t => !t.data.state_ok).length }}
+                        {{ $tc("labels.terraria", terraria.filter(t => !t.data.state_ok).length) }}
+                        {{ $t("labels.critical") }}
                     </li>
 
-                    <li class="collection-item" v-for="terrarium in dashboard.terraria.critical">
+                    <li class="collection-item" v-for="terrarium in terraria.filter(t => !t.data.state_ok)">
+                        <div v-if="terrarium.data">
+                            <a :href="'/terraria/' + terrarium.data.id" class="white-text">{{ terrarium.data.display_name }}</a>
 
-                        <div>
-                            <a v-bind:href="'/terraria/' + terrarium.id" class="white-text">{{ terrarium.display_name }}</a>
-
-                            <span v-show="terrarium.humidity_critical === true && terrarium.temperature_critical !== true">({{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%)</span>
-                            <span v-show="terrarium.humidity_critical === true && terrarium.temperature_critical === true">({{ $t("labels.humidity") }}: {{ terrarium.cooked_humidity_percent }}%, {{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C)</span>
-                            <span v-show="terrarium.humidity_critical !== true && terrarium.temperature_critical === true">({{ $t("labels.temperature") }}: {{ terrarium.cooked_temperature_celsius }}°C)</span>
+                            <span v-show="terrarium.data.humidity_critical === true &&
+                                          terrarium.data.temperature_critical !== true">
+                                ({{ $t("labels.humidity") }}: {{ terrarium.data.cooked_humidity_percent }}%)
+                            </span>
+                            <span v-show="terrarium.data.humidity_critical === true &&
+                                          terrarium.data.temperature_critical === true">
+                                ({{ $t("labels.humidity") }}: {{ terrarium.data.cooked_humidity_percent }}%,
+                                {{ $t("labels.temperature") }}: {{ terrarium.data.cooked_temperature_celsius }}°C)
+                            </span>
+                            <span v-show="terrarium.data.humidity_critical !== true &&
+                                          terrarium.data.temperature_critical === true">
+                                ({{ $t("labels.temperature") }}: {{ terrarium.data.cooked_temperature_celsius }}°C)
+                            </span>
                         </div>
-
                     </li>
 
                 </ul>
@@ -108,28 +116,27 @@
             <!--
                 Physical Sensors critical
             -->
-            <div :class="wrapperClasses" v-if="dashboard.physical_sensors.critical.length > 0">
-
+            <div :class="wrapperClasses" v-if="physical_sensors.filter(p => !p.data.state_ok).length > 0">
                 <ul class="collection critical with-header">
                     <li class="collection-header">
                         <i class="material-icons">memory</i>
-                        {{ dashboard.physical_sensors.critical.length }} {{ $tc("components.physical_sensors", dashboard.physical_sensors.critical.length) }} {{ $t("labels.critical") }}
+                        {{ physical_sensors.filter(p => !p.data.state_ok).length }}
+                        {{ $tc("labels.physical_sensors", physical_sensors.filter(p => !p.data.state_ok).length) }}
+                        {{ $t("labels.critical") }}
                     </li>
 
-                    <li class="collection-item" v-for="physical_sensor in dashboard.physical_sensors.critical">
-
-                        <div>
-                            <a v-bind:href="'/physical_sensors/' + physical_sensor.id" class="white-text">{{ physical_sensor.name }}</a>
+                    <li class="collection-item" v-for="physical_sensor in physical_sensors.filter(p => !p.data.state_ok)">
+                        <div v-if="physical_sensor.data">
+                            <a v-bind:href="'/physical_sensors/' + physical_sensor.data.id" class="white-text">{{ physical_sensor.data.name }}</a>
 
                             <span>({{ $t("labels.last_heartbeat") }}:
-                            {{ $t(
-                                'units.' + $getMatchingTimeDiff(physical_sensor.timestamps.last_heartbeat_diff).unit,
-                                {val: $getMatchingTimeDiff(physical_sensor.timestamps.last_heartbeat_diff).val}
-                            )}})</span>
+                                {{ $t(
+                                    'units.' + $getMatchingTimeDiff(physical_sensor.data.timestamps.last_heartbeat_diff).unit,
+                                    {val: $getMatchingTimeDiff(physical_sensor.data.timestamps.last_heartbeat_diff).val}
+                                )}})
+                            </span>
                         </div>
-
                     </li>
-
                 </ul>
 
             </div>
@@ -137,363 +144,322 @@
             <!--
                 Animal Feeding Schedules overdue
             -->
-            <div :class="wrapperClasses" v-if="dashboard.animal_feeding_schedules.overdue.length > 0">
-
+            <div :class="wrapperClasses" v-if="animal_feeding_schedules.filter(s => s.data.due_days < 0).length > 0">
                 <ul class="collection warning with-header">
                     <li class="collection-header">
                         <i class="material-icons">local_dining</i>
-                        {{ dashboard.animal_feeding_schedules.overdue.length }} {{ $tc("components.animal_feedings", dashboard.animal_feeding_schedules.overdue.length) }} {{ $t("labels.overdue") }}
+                        {{ animal_feeding_schedules.filter(s => s.data.due_days < 0).length }}
+                        {{ $tc("labels.animal_feedings", animal_feeding_schedules.filter(s => s.data.due_days < 0).length) }}
+                        {{ $t("labels.overdue") }}
                     </li>
 
-                    <li class="collection-item" v-for="schedule in dashboard.animal_feeding_schedules.overdue">
-
-                        <div class="white-text">
-
+                    <li class="collection-item" v-for="schedule in animal_feeding_schedules.filter(s => s.data.due_days < 0)">
+                        <div v-if="schedule.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 60px);">
-                                {{ schedule.animal.display_name }}: {{ schedule.type }} ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
+                                {{ schedule.data.animal.display_name }}: {{ schedule.data.type }} ({{ $t("labels.since") }} {{ (schedule.data.due_days*-1) }} {{ $tc("units.days", (schedule.data.due_days*-1)) }})
                             </span>
 
-
-                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/skip'" v-on:click="link_post">
                                 <i class="material-icons">update</i>
                             </a>
 
-                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'" v-on:click="link_post">
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/done'" v-on:click="link_post">
                                 <i class="material-icons">done</i>
                             </a>
-
                         </div>
-
                     </li>
-
                 </ul>
-
-
             </div>
 
             <!--
                 Animal Weighing Schedules overdue
             -->
-            <div :class="wrapperClasses" v-if="dashboard.animal_weighing_schedules.overdue.length > 0">
-
+            <div :class="wrapperClasses" v-if="animal_weighing_schedules.filter(s => s.data.due_days < 0).length > 0">
                 <ul class="collection warning with-header">
                     <li class="collection-header">
                         <i class="material-icons">vertical_align_bottom</i>
-                        {{ dashboard.animal_weighing_schedules.overdue.length }} {{ $tc("components.animal_weighings", dashboard.animal_weighing_schedules.overdue.length) }} {{ $t("labels.overdue") }}
+                        {{ animal_weighing_schedules.filter(s => s.data.due_days < 0).length }}
+                        {{ $tc("labels.animal_weighings", animal_weighing_schedules.filter(s => s.data.due_days < 0).length) }}
+                        {{ $t("labels.overdue") }}
                     </li>
 
-                    <li class="collection-item" v-for="schedule in dashboard.animal_weighing_schedules.overdue">
-
-                        <div class="white-text">
-
+                    <li class="collection-item" v-for="schedule in animal_weighing_schedules.filter(s => s.data.due_days < 0)">
+                        <div v-if="schedule.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 60px);">
-                                {{ schedule.animal.display_name }} ({{ $t("labels.since") }} {{ (schedule.due_days*-1) }} {{ $tc("units.days", (schedule.due_days*-1)) }})
+                                {{ schedule.data.animal.display_name }} ({{ $t("labels.since") }}
+                                {{ (schedule.data.due_days*-1) }} {{ $tc("units.days", (schedule.data.due_days*-1)) }})
                             </span>
 
-
-                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                            <a class="secondary-content white-text"
+                               v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/weighing_schedules/' + schedule.data.id + '/skip'"
+                               v-on:click="link_post">
                                 <i class="material-icons">update</i>
                             </a>
 
-                            <a class="secondary-content white-text" v-bind:href="'#modal_add_weight_' + schedule.id" v-bind:onclick="'$(\'#modal_add_weight_' + schedule.id + '\').modal(); $(\'#modal_add_weight_' + schedule.id + '\').modal(\'open\');'">
+                            <a class="secondary-content white-text"
+                               v-bind:href="'#modal_add_weight_' + schedule.data.id"
+                               v-bind:onclick="'$(\'#modal_add_weight_' + schedule.data.id + '\').modal(); $(\'#modal_add_weight_' + schedule.data.id + '\').modal(\'open\');'">
                                 <i class="material-icons">done</i>
                             </a>
-
                         </div>
-
                     </li>
-
                 </ul>
-
-            </div>
-
-            <!--
-                Action Sequence Schedules overdue
-            -->
-            <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.overdue.length > 0">
-
-                <ul class="collection warning with-header">
-                    <li class="collection-header">
-                        <i class="material-icons">playlist_play</i>
-                        {{ dashboard.action_sequence_schedules.overdue.length }} {{ $tc("components.action_sequences", dashboard.action_sequence_schedules.overdue.length) }} {{ $t("labels.overdue") }}
-                    </li>
-
-                    <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.overdue">
-
-                        <div class="white-text">
-
-                            <span style="display: inline-block; width: calc(100% - 30px);">
-                                {{ schedule.timestamps.starts }}: {{ schedule.sequence.name }}
-                            </span>
-
-                            <a class="secondary-content white-text tooltipped" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post"
-                               data-delay="50" data-html="true"
-                               :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.action_sequence_schedules.skip') + '</div>'">
-                                <i class="material-icons">update</i>
-                            </a>
-
-                        </div>
-
-                    </li>
-
-                </ul>
-
             </div>
 
             <!--
                 Animal Feeding Schedules due
             -->
-            <div :class="wrapperClasses" v-if="dashboard.animal_feeding_schedules.due.length > 0">
-
+            <div :class="wrapperClasses" v-if="animal_feeding_schedules.filter(s => s.data.due_days === 0).length > 0">
                 <ul class="collection ok with-header">
                     <li class="collection-header">
                         <i class="material-icons">local_dining</i>
-                        {{ dashboard.animal_feeding_schedules.due.length }} {{ $tc("components.animal_feedings", dashboard.animal_feeding_schedules.due.length) }} {{ $t("labels.due") }}
+                        {{ animal_feeding_schedules.filter(s => s.data.due_days < 0).length }} 
+                        {{ $tc("labels.animal_feedings", animal_feeding_schedules.filter(s => s.data.due_days < 0).length) }} 
+                        {{ $t("labels.due") }}
                     </li>
 
-                    <li class="collection-item" v-for="schedule in dashboard.animal_feeding_schedules.due">
-
-                        <div class="white-text">
-
+                    <li class="collection-item" v-for="schedule in animal_feeding_schedules.filter(s => s.data.due_days < 0)">
+                        <div v-if="schedule.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 60px);">
-                                {{ schedule.animal.display_name }}: {{ schedule.type }}
+                                {{ schedule.data.animal.display_name }}: {{ schedule.data.type }}
                             </span>
 
-                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                            <a class="secondary-content white-text"
+                               v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/skip'"
+                               v-on:click="link_post">
                                 <i class="material-icons">update</i>
                             </a>
-                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/feeding_schedules/' + schedule.id + '/done'" v-on:click="link_post">
+                            <a class="secondary-content white-text"
+                               v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/done'"
+                               v-on:click="link_post">
                                 <i class="material-icons">done</i>
                             </a>
-
                         </div>
-
                     </li>
-
                 </ul>
-
             </div>
 
             <!--
                 Animal Weighing Schedules due
             -->
-            <div :class="wrapperClasses" v-if="dashboard.animal_weighing_schedules.due.length > 0">
-
+            <div :class="wrapperClasses" v-if="animal_weighing_schedules.filter(s => s.data.due_days === 0).length > 0">
                 <ul class="collection ok with-header">
                     <li class="collection-header">
                         <i class="material-icons">vertical_align_bottom</i>
-                        {{ dashboard.animal_weighing_schedules.due.length }} {{ $tc("components.animal_weighings", dashboard.animal_weighing_schedules.due.length) }} {{ $t("labels.due") }}
+                        {{ animal_weighing_schedules.filter(s => s.data.due_days === 0).length }} 
+                        {{ $tc("labels.animal_weighings", animal_weighing_schedules.filter(s => s.data.due_days === 0).length) }} 
+                        {{ $t("labels.due") }}
                     </li>
 
-                    <li class="collection-item" v-for="schedule in dashboard.animal_weighing_schedules.due">
-
-                        <div class="white-text">
-
+                    <li class="collection-item" v-for="schedule in animal_weighing_schedules.filter(s => s.data.due_days === 0)">
+                        <div v-if="schedule.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 60px);">
-                                {{ schedule.animal.display_name }} {{ $t('labels.today') }}
+                                {{ schedule.data.animal.display_name }} {{ $t('labels.today') }}
                             </span>
 
-                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.animal.id + '/weighing_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
+                            <a class="secondary-content white-text"
+                               v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/weighing_schedules/' + schedule.data.id + '/skip'"
+                               v-on:click="link_post">
                                 <i class="material-icons">update</i>
                             </a>
-
-                            <a class="secondary-content white-text" v-bind:href="'#modal_add_weight_' + schedule.id" v-bind:onclick="'$(\'#modal_add_weight_' + schedule.id + '\').modal(); $(\'#modal_add_weight_' + schedule.id + '\').modal(\'open\');'">
+                            <a class="secondary-content white-text"
+                               v-bind:href="'#modal_add_weight_' + schedule.data.id"
+                               v-bind:onclick="'$(\'#modal_add_weight_' + schedule.data.id + '\').modal(); $(\'#modal_add_weight_' + schedule.data.id + '\').modal(\'open\');'">
                                 <i class="material-icons">done</i>
                             </a>
-
                         </div>
-
                     </li>
-
                 </ul>
-
             </div>
 
             <!--
                 Action Sequence Schedules due
             -->
-            <div :class="wrapperClasses" v-if="dashboard.action_sequence_schedules.due.length > 0">
-
+            <div :class="wrapperClasses" v-if="action_sequence_schedules.filter(s => s.data.states.is_due === true).length > 0">
                 <ul class="collection ok with-header">
                     <li class="collection-header">
                         <i class="material-icons">playlist_play</i>
-                        {{ dashboard.action_sequence_schedules.due.length }} {{ $tc("components.action_sequences", dashboard.action_sequence_schedules.due.length) }} {{ $t("labels.due") }}
+                        {{ action_sequence_schedules.filter(s => s.data.states.is_due === true).length }}
+                        {{ $tc("labels.action_sequences", action_sequence_schedules.filter(s => s.data.states.is_due === true).length) }}
+                        {{ $t("labels.due") }}
                     </li>
 
-                    <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.due">
-
-                        <div class="white-text">
-
+                    <li class="collection-item" v-for="schedule in action_sequence_schedules.filter(s => s.data.states.is_due === true)">
+                        <div v-if="schedule.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 30px);">
-                                {{ schedule.timestamps.starts }}: {{ schedule.sequence.name }}
+                                {{ schedule.data.timestamps.starts }}: {{ schedule.data.sequence.name }}
                             </span>
 
-                            <a class="secondary-content white-text tooltipped" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post"
+                            <a class="secondary-content white-text tooltipped"
+                               v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.data.id + '/skip'"
+                               v-on:click="link_post"
                                data-delay="50" data-html="true"
                                :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.action_sequence_schedules.skip') + '</div>'">
                                 <i class="material-icons">update</i>
                             </a>
-
                         </div>
-
                     </li>
-
                 </ul>
-
             </div>
 
-
             <!--
-                Action Sequence schedules/triggers/intentions running
+                Action Sequence triggers/intentions should be started
             -->
             <div :class="wrapperClasses"
-                 v-if="dashboard.action_sequence_schedules.running.length > 0
-                    || dashboard.action_sequence_triggers.running.length > 0
-                    || dashboard.action_sequence_intentions.running.length > 0">
+                 v-if="action_sequence_triggers.filter(t => t.should_be_started).length > 0
+                    || action_sequence_intentions.filter(t => t.should_be_started).length > 0">
 
                 <ul class="collection ok with-header">
                     <li class="collection-header">
                         <i class="material-icons">playlist_play</i>
-                        {{ (dashboard.action_sequence_schedules.running.length + dashboard.action_sequence_triggers.running.length + dashboard.action_sequence_intentions.running.length) }}
-                        {{ $tc("components.action_sequences", dashboard.action_sequence_intentions.running.length) }} {{ $t("labels.running") }}
+                        {{ (action_sequence_triggers.filter(t => t.should_be_started).length + 
+                            action_sequence_intentions.filter(t => t.should_be_started).length) }}
+                        {{ $tc("labels.action_sequences", action_sequence_intentions.filter(t => t.should_be_started).length) }} 
+                        {{ $t("labels.should_be_running") }}
                     </li>
-
-                    <li class="collection-item" v-for="schedule in dashboard.action_sequence_schedules.running">
-
-                        <div class="white-text">
-
-                            <span style="display: inline-block; width: calc(100% - 30px);">
-                                <i class="material-icons">schedule</i>
-                                <a v-if="schedule.timestamps.last_start !== null" class="white-text">{{ schedule.timestamps.last_start.split(" ")[1] }}</a>
-                                <a v-bind:href="'/action_sequences/' + schedule.sequence.id + '/edit'" class="white-text">
-                                    {{ schedule.sequence.name }}
-                                </a>
-                            </span>
-
-                            <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_schedules/' + schedule.id + '/skip'" v-on:click="link_post">
-                                <i class="material-icons">update</i>
-                            </a>
-
-                        </div>
-
-                    </li>
-
-                    <li class="collection-item" v-for="trigger in dashboard.action_sequence_triggers.running">
-
-                        <div class="white-text">
-
+                    
+                    <li class="collection-item" v-for="trigger in action_sequence_triggers.filter(t => t.should_be_started)">
+                        <div v-if="trigger.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 30px);">
                                 <i class="material-icons">flare</i>
-                                <a v-if="trigger.timestamps.last_start !== null" class="white-text">{{ trigger.timestamps.last_start.split(" ")[1] }}</a>
-                                <a v-bind:href="'/action_sequences/' + trigger.sequence.id + '/edit'" class="white-text">
-                                    {{ trigger.sequence.name }}
+                                <a v-if="trigger.data.timestamps.last_start !== null" class="white-text">
+                                    {{ trigger.data.timestamps.last_start.split(" ")[1] }}
+                                </a>
+                                <a v-bind:href="'/action_sequences/' + trigger.data.sequence.id + '/edit'" class="white-text">
+                                    {{ trigger.data.sequence.name }}
                                 </a>
                             </span>
 
-                            <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_triggers/' + trigger.id + '/skip'" v-on:click="link_post">
+                            <a class="secondary-content white-text"
+                               v-bind:href="'/api/v1/action_sequence_triggers/' + trigger.data.id + '/skip'"
+                               v-on:click="link_post">
                                 <i class="material-icons">update</i>
                             </a>
-
                         </div>
-
                     </li>
 
-                    <li class="collection-item" v-for="intention in dashboard.action_sequence_intentions.running">
-
-                        <div class="white-text">
-
+                    <li class="collection-item" v-for="intention in action_sequence_intentions.filter(t => t.should_be_started)">
+                        <div v-if="intention.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 30px);">
                                 <i class="material-icons">explore</i>
-                                <a v-if="intention.timestamps.last_start !== null" class="white-text">{{ intention.timestamps.last_start.split(" ")[1] }}</a>
-                                <a v-bind:href="'/action_sequences/' + intention.sequence.id + '/edit'" class="white-text">
-                                    {{ intention.sequence.name }}
+                                <a v-if="intention.data.timestamps.last_start !== null" class="white-text">
+                                    {{ intention.data.timestamps.last_start.split(" ")[1] }}
+                                </a>
+                                <a v-bind:href="'/action_sequences/' + intention.data.sequence.id + '/edit'" class="white-text">
+                                    {{ intention.data.sequence.name }}
                                 </a>
                             </span>
 
-                            <a class="secondary-content white-text" v-bind:href="'/api/v1/action_sequence_intentions/' + intention.id + '/skip'" v-on:click="link_post">
+                            <a class="secondary-content white-text"
+                               v-bind:href="'/api/v1/action_sequence_intentions/' + intention.data.id + '/skip'"
+                               v-on:click="link_post">
                                 <i class="material-icons">update</i>
                             </a>
-
                         </div>
+                    </li>
+                </ul>
+            </div>
 
+            <!--
+                Action Sequence triggers/intentions running
+            -->
+            <div :class="wrapperClasses"
+                 v-if="action_sequence_triggers.filter(t => t.running).length > 0
+                    || action_sequence_intentions.filter(t => t.running).length > 0">
+
+                <ul class="collection ok with-header">
+                    <li class="collection-header">
+                        <i class="material-icons">playlist_play</i>
+                        {{ (action_sequence_triggers.filter(t => t.running).length +
+                        action_sequence_intentions.filter(t => t.running).length) }}
+                        {{ $tc("labels.action_sequences", action_sequence_intentions.filter(t => t.running).length) }}
+                        {{ $t("labels.running") }}
                     </li>
 
-                </ul>
+                    <li class="collection-item" v-for="trigger in action_sequence_triggers.filter(t => t.running)">
+                        <div v-if="trigger.data" class="white-text">
+                            <span style="display: inline-block; width: calc(100% - 30px);">
+                                <i class="material-icons">flare</i>
+                                <a v-if="trigger.data.timestamps.last_start !== null" class="white-text">
+                                    {{ trigger.data.timestamps.last_start.split(" ")[1] }}
+                                </a>
+                                <a v-bind:href="'/action_sequences/' + trigger.data.sequence.id + '/edit'" class="white-text">
+                                    {{ trigger.data.sequence.name }}
+                                </a>
+                            </span>
 
+                            <a class="secondary-content white-text"
+                               v-bind:href="'/api/v1/action_sequence_triggers/' + trigger.data.id + '/skip'"
+                               v-on:click="link_post">
+                                <i class="material-icons">update</i>
+                            </a>
+                        </div>
+                    </li>
+
+                    <li class="collection-item" v-for="intention in action_sequence_intentions.filter(t => t.running)">
+                        <div v-if="intention.data" class="white-text">
+                            <span style="display: inline-block; width: calc(100% - 30px);">
+                                <i class="material-icons">explore</i>
+                                <a v-if="intention.data.timestamps.last_start !== null" class="white-text">
+                                    {{ intention.data.timestamps.last_start.split(" ")[1] }}
+                                </a>
+                                <a v-bind:href="'/action_sequences/' + intention.data.sequence.id + '/edit'" class="white-text">
+                                    {{ intention.data.sequence.name }}
+                                </a>
+                            </span>
+
+                            <a class="secondary-content white-text"
+                               v-bind:href="'/api/v1/action_sequence_intentions/' + intention.data.id + '/skip'"
+                               v-on:click="link_post">
+                                <i class="material-icons">update</i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
 
             <!--
                 Terraria ok
             -->
-            <div :class="wrapperClasses" v-if="dashboard.terraria.critical.length < 1">
-
+            <div :class="wrapperClasses" v-if="terraria.filter(t => !t.data.state_ok).length < 1">
                 <ul class="collection ok with-header">
                     <li class="collection-header">
                         <i class="material-icons">video_label</i>
-                        {{ dashboard.terraria.ok.length }} {{ $tc("components.terraria", dashboard.terraria.ok.length) }}
+                        {{ terraria_ok_count }}
+                        {{ $tc("labels.terraria", terraria_ok_count) }}
                     </li>
 
                     <li class="collection-item">
-
                         <div class="white-text">
-
-                            {{ dashboard.terraria.ok.length }} {{ $tc("components.terraria", dashboard.terraria.ok.length) }} {{ $t("labels.ok") }}
-
+                            {{ terraria_ok_count }}
+                            {{ $tc("labels.terraria", terraria_ok_count) }}
+                            {{ $t("labels.ok") }}
                         </div>
-
                     </li>
-
                 </ul>
-
             </div>
-
         </div>
 
     </div>
 </template>
 
 <script>
-
     import AnimalAddWeightModal from './animal_add_weight-modal.vue';
 
     export default {
 
         data () {
             return {
-                dashboard: {
-                    action_sequence_intentions: {
-                        running: [],
-                        should_be_running: []
-                    },
-                    action_sequence_schedules: {
-                        due: [],
-                        overdue: [],
-                        running: []
-                    },
-                    action_sequence_triggers: {
-                        running: [],
-                        should_be_running: []
-                    },
-                    animal_feeding_schedules: {
-                        due: [],
-                        overdue: []
-                    },
-                    animal_weighing_schedules: {
-                        due: [],
-                        overdue: []
-                    },
-                    suggestions: [],
-                    terraria: {
-                        ok: [],
-                        critical: []
-                    },
-                    controlunits: {
-                        critical: []
-                    },
-                    physical_sensors: {
-                        critical: []
-                    }
-                }
+                action_sequence_intention_ids: [],
+                action_sequence_schedule_ids: [],
+                action_sequence_trigger_ids: [],
+                animal_feeding_schedule_ids: [],
+                animal_weighing_schedule_ids: [],
+                suggestion_ids: [],
+                terrarium_ids: [],
+                controlunit_ids: [],
+                physical_sensor_ids: [],
+                terraria_ok_count: 0
             }
         },
 
@@ -524,549 +490,78 @@
             'animal-add-weight-modal': AnimalAddWeightModal
         },
 
-        methods: {
-
-            /*
-             * Terrarium events
-             */
-            updateTerrarium: function(e) {
-                var item = null;
-                var found = false;
-
-                /*
-                 * Check in ok array
-                 */
-                this.dashboard.terraria.ok.forEach(function(data, index) {
-                    if (data.id === e.terrarium_id) {
-                        item = index;
-                    }
-                });
-                
+        computed: {
+            suggestions () {
                 let that = this;
-                $.ajax({
-                    url: '/api/v1/terraria/' + e.terrarium_id + '?default_history_minutes=true',
-                    method: 'GET',
-                    success: function (data) {
-                        let terrarium = data.data;
-                        if (item !== null) {
-                            if (terrarium.temperature_critical !== false || terrarium.humidity_critical !== false || terrarium.heartbeat_critical !== false) {
-                                that.dashboard.terraria.ok.splice(item, 1);
-                            }
-                            else {
-                                that.dashboard.terraria.ok.splice(item, 1, terrarium);
-                                found = true;
-                            }
-                        }
-
-                        /*
-                         * Check in critical array
-                         */
-                        item = null;
-                        that.dashboard.terraria.critical.forEach(function(data, index) {
-                            if (data.id === e.terrarium_id) {
-                                item = index;
-                            }
-                        });
-                        if (item !== null) {
-                            if (terrarium.temperature_critical === false && terrarium.humidity_critical === false && terrarium.heartbeat_critical === false) {
-                                that.dashboard.terraria.critical.splice(item, 1);
-                            }
-                            else {
-                                that.dashboard.terraria.critical.splice(item, 1, terrarium);
-                                found = true;
-                            }
-                        }
-
-                        /*
-                         * If found is not true, the item was either not found
-                         * or was removed from an array.
-                         * In that case properties will be checked again and
-                         * item will be pushed to an array if they match certain criteria
-                         */
-                        if (found !== true) {
-                            if (terrarium.temperature_critical === false && terrarium.humidity_critical === false && terrarium.heartbeat_critical === false) {
-                                that.dashboard.terraria.ok.push(terrarium);
-                            }
-                            else {
-                                that.dashboard.terraria.critical.push(terrarium);
-                            }
-                        }
-                    },
-                    error: function (error) {
-                        console.log(JSON.stringify(error));
-                    }
-                });
-
-                this.refresh_grid();
-            },
-            deleteTerrarium: function(e) {
-                var that = this;
-
-                /*
-                 * Check ok array
-                 */
-                this.dashboard.terraria.ok.forEach(function(data, index) {
-                    if (data.id === e.terrarium_id) {
-                        this.dashboard.terraria.ok.splice(index, 1);
-                    }
-                });
-
-                /*
-                 * Check critical array
-                 */
-                this.dashboard.terraria.critical.forEach(function(data, index) {
-                    if (data.id === e.terrarium_id) {
-                        this.dashboard.terraria.critical.splice(index, 1);
-                    }
-                });
-
-                this.refresh_grid();
-            },
-
-
-            /*
-             * AnimalFeedingSchedule events
-             */
-            updateAnimalFeedingSchedule: function(e) {
-                var item = null;
-                var found = false;
-
-                /*
-                 * Check in due array
-                 */
-                this.dashboard.animal_feeding_schedules.due.forEach(function(data, index) {
-                    if (data.id === e.animal_feeding_schedule.id) {
-                        item = index;
-                    }
-                });
-                if (item !== null) {
-                    if (e.animal_feeding_schedule.due_days === 0) {
-                        this.dashboard.animal_feeding_schedules.due.splice(item, 1, e.animal_feeding_schedule);
-                        found = true;
-                    }
-                    else {
-                        this.dashboard.animal_feeding_schedules.due.splice(item, 1);
-                    }
-                }
-
-                /*
-                 * Check in overdue array
-                 */
-                item = null;
-                this.dashboard.animal_feeding_schedules.overdue.forEach(function(data, index) {
-                    if (data.id === e.animal_feeding_schedule.id) {
-                        item = index;
-                    }
-                });
-
-                if (item !== null) {
-                    if (e.animal_feeding_schedule.due_days >= 0) {
-                        this.dashboard.animal_feeding_schedules.overdue.splice(item, 1);
-                    }
-                    else {
-                        this.dashboard.animal_feeding_schedules.overdue.splice(item, 1, e.animal_feeding_schedule);
-                        found = true;
-                    }
-                }
-
-
-                /*
-                 * If found is not true, the item was either not found
-                 * or was removed from an array.
-                 * In this case properties will be checked again and
-                 * item will be pushed to an array if they match certain criteria
-                 */
-                if (found !== true) {
-                    if (e.animal_feeding_schedule.due_days == 0) {
-                        this.dashboard.animal_feeding_schedules.due.push(e.animal_feeding_schedule);
-                    }
-                    else if (e.animal_feeding_schedule.due_days < 0) {
-                        this.dashboard.animal_feeding_schedules.overdue.push(e.animal_feeding_schedule);
-                    }
-                }
-
-                this.$nextTick(function() {
-                    this.refresh_grid();
+                return this.$store.state.suggestions.filter(function(s) {
+                    return that.suggestion_ids.includes(s.id) && s.data !== null
                 });
             },
 
-            deleteAnimalFeedingSchedule: function(e) {
-                var that = this;
-
-                /*
-                 * check in due array
-                 */
-                this.dashboard.animal_feeding_schedules.due.forEach(function(data, index) {
-                    if (data.id === e.animal_feeding_schedule_id) {
-                        that.dashboard.animal_feeding_schedules.due.splice(index, 1);
-                    }
-                });
-
-                /*
-                 * check in overdue array
-                 */
-                this.dashboard.animal_feeding_schedules.overdue.forEach(function(data, index) {
-                    if (data.id === e.animal_feeding_schedule_id) {
-                        this.dashboard.animal_feeding_schedules.overdue.splice(index, 1);
-                    }
-                });
-
-                this.$nextTick(function() {
-                    this.refresh_grid();
+            controlunits () {
+                let that = this;
+                return this.$store.state.controlunits.filter(function(c) {
+                    return that.controlunit_ids.includes(c.id) && c.data !== null
                 });
             },
 
-
-            /*
-             * AnimalWeighingSchedule events
-             */
-            updateAnimalWeighingSchedule: function(e) {
-                var item = null;
-                var found = false;
-
-                /*
-                 * Check in due array
-                 */
-                this.dashboard.animal_weighing_schedules.due.forEach(function(data, index) {
-                    if (data.id === e.animal_weighing_schedule.id) {
-                        item = index;
-                    }
-                });
-                if (item !== null) {
-                    if (e.animal_weighing_schedule.due_days === 0) {
-                        this.dashboard.animal_weighing_schedules.due.splice(item, 1, e.animal_weighing_schedule);
-                        found = true;
-                    }
-                    else {
-                        this.dashboard.animal_weighing_schedules.due.splice(item, 1);
-                    }
-                }
-
-                /*
-                 * Check in overdue array
-                 */
-                item = null;
-                this.dashboard.animal_weighing_schedules.overdue.forEach(function(data, index) {
-                    if (data.id === e.animal_weighing_schedule.id) {
-                        item = index;
-                    }
-                });
-
-                if (item !== null) {
-                    if (e.animal_weighing_schedule.due_days >= 0) {
-                        this.dashboard.animal_weighing_schedules.overdue.splice(item, 1);
-                    }
-                    else {
-                        this.dashboard.animal_weighing_schedules.overdue.splice(item, 1, e.animal_weighing_schedule);
-                        found = true;
-                    }
-                }
-
-                /*
-                 * If found is not true, the item was either not found
-                 * or was removed from an array.
-                 * In this case properties will be checked again and
-                 * item will be pushed to an array if they match certain criteria
-                 */
-                if (found !== true) {
-                    if (e.animal_weighing_schedule.due_days == 0) {
-                        this.dashboard.animal_weighing_schedules.due.push(e.animal_weighing_schedule);
-                    }
-                    else if (e.animal_weighing_schedule.due_days < 0) {
-                        this.dashboard.animal_weighing_schedules.overdue.push(e.animal_weighing_schedule);
-                    }
-                }
-
-                this.$nextTick(function() {
-                    this.refresh_grid();
+            terraria () {
+                let that = this;
+                return this.$store.state.terraria.filter(function(t) {
+                    return that.terrarium_ids.includes(t.id) && t.data !== null
                 });
             },
 
-            deleteAnimalWeighingSchedule: function(e) {
-                var that = this;
-
-                /*
-                 * check in due array
-                 */
-                this.dashboard.animal_weighing_schedules.due.forEach(function(data, index) {
-                    if (data.id === e.animal_weighing_schedule_id) {
-                        that.dashboard.animal_weighing_schedules.due.splice(index, 1);
-                    }
-                });
-
-                /*
-                 * check in overdue array
-                 */
-                this.dashboard.animal_weighing_schedules.overdue.forEach(function(data, index) {
-                    if (data.id === e.animal_weighing_schedule_id) {
-                        this.dashboard.animal_weighing_schedules.overdue.splice(index, 1);
-                    }
-                });
-
-                this.$nextTick(function() {
-                    this.refresh_grid();
+            physical_sensors () {
+                let that = this;
+                return this.$store.state.physical_sensors.filter(function(p) {
+                    return that.physical_sensor_ids.includes(p.id) && p.data !== null
                 });
             },
 
-
-            /*
-             * ActionSequenceSchedule events
-             */
-            updateActionSequenceSchedule: function(e) {
-                var item = null;
-                var found = false;
-
-                /*
-                 * Check in due array
-                 */
-                this.dashboard.action_sequence_schedules.due.forEach(function(data, index) {
-                    if (data.id === e.action_sequence_schedule.id) {
-                        item = index;
-                    }
-                });
-                if (item !== null) {
-                    if (e.action_sequence_schedule.states.is_overdue === false && e.action_sequence_schedule.states.will_run_today === true) {
-                        this.dashboard.action_sequence_schedules.due.splice(item, 1, e.action_sequence_schedule);
-                        found = true;
-                    }
-                    else {
-                        this.dashboard.action_sequence_schedules.due.splice(item, 1);
-                    }
-                }
-                item = null;
-
-                /*
-                 * Check in overdue array
-                 */
-                item = null;
-                this.dashboard.action_sequence_schedules.overdue.forEach(function(data, index) {
-                    if (data.id === e.action_sequence_schedule.id) {
-                        item = index;
-                    }
-                });
-                if (item !== null) {
-                    if (e.action_sequence_schedule.states.is_overdue === false) {
-                        this.dashboard.action_sequence_schedules.overdue.splice(item, 1);
-                    }
-                    else {
-                        this.dashboard.action_sequence_schedules.overdue.splice(item, 1, e.action_sequence_schedule);
-                        item = null;
-                    }
-                    found = true;
-                }
-
-                /*
-                 * Check in running array
-                 */
-                item = null;
-                this.dashboard.action_sequence_schedules.running.forEach(function(data, index) {
-                    if (data.id === e.action_sequence_schedule.id) {
-                        item = index;
-                    }
-                });
-
-                if (item !== null) {
-                    if (e.action_sequence_schedule.states.running === false) {
-                        this.dashboard.action_sequence_schedules.running.splice(item, 1);
-                    }
-                    else {
-                        this.dashboard.action_sequence_schedules.running.splice(item, 1, e.action_sequence_schedule);
-                        found = true;
-                    }
-                }
-
-                /*
-                 * If found is not true, the item was either not found
-                 * or was removed from an array.
-                 * In this case properties will be checked again and
-                 * item will be pushed to an array if they match certain criteria
-                 */
-                if (found !== true) {
-                    if (e.action_sequence_schedule.states.is_overdue === false && e.action_sequence_schedule.states.will_run_today === true) {
-                        this.dashboard.action_sequence_schedules.due.push(e.action_sequence_schedule);
-                    }
-                    else if (e.action_sequence_schedule.states.is_overdue === true) {
-                        this.dashboard.action_sequence_schedules.overdue.push(e.action_sequence_schedule);
-                    }
-                    else if (e.action_sequence_schedule.states.running === true) {
-                        this.dashboard.action_sequence_schedules.running.push(e.action_sequence_schedule);
-                    }
-                }
-
-                this.$nextTick(function() {
-                    this.refresh_grid();
+            animal_feeding_schedules () {
+                let that = this;
+                return this.$store.state.animal_feeding_schedules.filter(function(s) {
+                    return that.animal_feeding_schedule_ids.includes(s.id) && s.data !== null
                 });
             },
 
-            deleteActionSequenceSchedule: function(e) {
-                var that = this;
-
-                /*
-                 * check in due array
-                 */
-                this.dashboard.action_sequence_schedules.due.forEach(function(data, index) {
-                    if (data.id === e.action_sequence_schedule_id) {
-                        that.dashboard.action_sequence_schedules.due.splice(index, 1);
-                    }
-                });
-
-                /*
-                 * check in overdue array
-                 */
-                this.dashboard.action_sequence_schedules.overdue.forEach(function(data, index) {
-                    if (data.id === e.action_sequence_schedule_id) {
-                        that.dashboard.action_sequence_schedules.overdue.splice(index, 1);
-                    }
-                });
-
-                /*
-                 * check in running array
-                 */
-                this.dashboard.action_sequence_schedules.running.forEach(function(data, index) {
-                    if (data.id === e.action_sequence_schedule_id) {
-                        that.dashboard.action_sequence_schedules.running.splice(index, 1);
-                    }
-                });
-
-                this.$nextTick(function() {
-                    this.refresh_grid();
+            animal_weighing_schedules () {
+                let that = this;
+                return this.$store.state.animal_weighing_schedules.filter(function(s) {
+                    return that.animal_weighing_schedule_ids.includes(s.id) && s.data !== null
                 });
             },
 
-            /*
-             * ActionSequenceTrigger events
-             */
-            updateActionSequenceTrigger: function(e) {
-                var item = null;
-                var found = false;
-
-                /*
-                 * Check in running array
-                 */
-                item = null;
-                this.dashboard.action_sequence_triggers.running.forEach(function(data, index) {
-                    if (data.id === e.action_sequence_trigger.id) {
-                        item = index;
-                    }
-                });
-
-                if (item !== null) {
-                    if (e.action_sequence_trigger.states.running === false) {
-                        this.dashboard.action_sequence_triggers.running.splice(item, 1);
-                    }
-                    else {
-                        this.dashboard.action_sequence_triggers.running.splice(item, 1, e.action_sequence_trigger);
-                        found = true;
-                    }
-                }
-
-                /*
-                 * If found is not true, the item was either not found
-                 * or was removed from an array.
-                 * In this case properties will be checked again and
-                 * item will be pushed to an array if they match certain criteria
-                 */
-                if (found !== true) {
-                    if (e.action_sequence_trigger.states.running === true) {
-                        this.dashboard.action_sequence_triggers.running.push(e.action_sequence_trigger);
-                    }
-                }
-
-                this.$nextTick(function() {
-                    this.refresh_grid();
+            action_sequence_schedules () {
+                let that = this;
+                return this.$store.state.action_sequence_schedules.filter(function(s) {
+                    return that.action_sequence_schedule_ids.includes(s.id) && s.data !== null
                 });
             },
 
-            deleteActionSequenceTrigger: function(e) {
-                var that = this;
-
-                /*
-                 * check in running array
-                 */
-                this.dashboard.action_sequence_triggers.running.forEach(function(data, index) {
-                    if (data.id === e.action_sequence_trigger_id) {
-                        that.dashboard.action_sequence_triggers.running.splice(index, 1);
-                    }
-                });
-
-                this.$nextTick(function() {
-                    this.refresh_grid();
+            action_sequence_intentions () {
+                let that = this;
+                return this.$store.state.action_sequence_intentions.filter(function(i) {
+                    return that.action_sequence_intention_ids.includes(i.id) && i.data !== null
                 });
             },
 
-            /*
-             * ActionSequenceIntention events
-             */
-            updateActionSequenceIntention: function(e) {
-                var item = null;
-                var found = false;
-
-                /*
-                 * Check in running array
-                 */
-                item = null;
-                this.dashboard.action_sequence_intentions.running.forEach(function(data, index) {
-                    if (data.id === e.action_sequence_intention.id) {
-                        item = index;
-                    }
+            action_sequence_triggers () {
+                let that = this;
+                return this.$store.state.action_sequence_triggers.filter(function(t) {
+                    return that.action_sequence_trigger_ids.includes(t.id) && t.data !== null
                 });
+            }
+        },
 
-                if (item !== null) {
-                    if (e.action_sequence_intention.states.running === false) {
-                        this.dashboard.action_sequence_intentions.running.splice(item, 1);
-                    }
-                    else {
-                        this.dashboard.action_sequence_intentions.running.splice(item, 1, e.action_sequence_intention);
-                        found = true;
-                    }
-                }
-
-                /*
-                 * If found is not true, the item was either not found
-                 * or was removed from an array.
-                 * In this case properties will be checked again and
-                 * item will be pushed to an array if they match certain criteria
-                 */
-                if (found !== true) {
-                    if (e.action_sequence_intention.states.running === true) {
-                        this.dashboard.action_sequence_intentions.running.push(e.action_sequence_intention);
-                    }
-                }
-
-                this.$nextTick(function() {
-                    this.refresh_grid();
-                });
+        methods: {
+            handleCiliatusObjectUpdated: function(object_information) {
+                this.$nextTick(() => this.refresh_grid());
             },
 
-            deleteActionSequenceIntention: function(e) {
-                var that = this;
-
-                /*
-                 * check in running array
-                 */
-                this.dashboard.action_sequence_intentions.running.forEach(function(data, index) {
-                    if (data.id === e.action_sequence_intention_id) {
-                        that.dashboard.action_sequence_intentions.running.splice(index, 1);
-                    }
-                });
-
-                this.$nextTick(function() {
-                    this.refresh_grid();
-                });
-            },
-
-            deleteSuggestion: function(e) {
-                var that = this;
-
-                this.dashboard.suggestions.forEach(function(data, index) {
-                    if (data.id === e.target_id) {
-                        that.dashboard.suggestions.splice(index, 1);
-                    }
-                });
-
-                this.$nextTick(function() {
-                    this.refresh_grid();
-                });
+            handleCiliatusObjectDeleted: function(object_information) {
+                this.$nextTick(() => this.refresh_grid());
             },
 
             refresh_grid: function() {
@@ -1093,10 +588,10 @@
 
             link_post: function(e) {
                 e.preventDefault();
-                var old = e;
 
-                var parentElement = e.target.href ? e.target : e.target.parentElement;
-                var oldContent = parentElement.innerHTML;
+                let old = e;
+                let parentElement = e.target.href ? e.target : e.target.parentElement;
+                let oldContent = parentElement.innerHTML;
                 $(parentElement).html('<div class="preloader-wrapper tiny active">' +
                     '<div class="spinner-layer spinner-green-only">' +
                     '<div class="circle-clipper left">' +
@@ -1118,12 +613,31 @@
 
             load_data: function(initial) {
                 window.eventHubVue.processStarted();
-                var that = this;
+                let that = this;
                 $.ajax({
                     url: '/api/v1/dashboard',
                     method: 'GET',
                     success: function (data) {
-                        that.dashboard = data.data;
+                        that.suggestion_ids = data.data.suggestions.map(s => s.id);
+                        that.controlunit_ids = data.data.controlunits.map(c => c.id);
+                        that.terrarium_ids = data.data.terraria.map(t => t.id);
+                        that.physical_sensor_ids = data.data.physical_sensors.map(t => t.id);
+                        that.animal_feeding_schedule_ids = data.data.animal_feeding_schedules.map(s => s.id);
+                        that.animal_weighing_schedule_ids = data.data.animal_weighing_schedules.map(s => s.id);
+                        that.action_sequence_schedule_ids = data.data.action_sequence_schedules.map(s => s.id);
+                        that.action_sequence_trigger_ids = data.data.action_sequence_triggers.map(s => s.id);
+                        that.action_sequence_intention_ids = data.data.action_sequence_intentions.map(s => s.id);
+                        that.terraria_ok_count = data.data.terraria_ok_count;
+
+                        that.$parent.ensureObjects('suggestions', that.suggestion_ids, data.data.suggestions);
+                        that.$parent.ensureObjects('controlunits', that.controlunit_ids, data.data.controlunits);
+                        that.$parent.ensureObjects('terraria', that.terrarium_ids, data.data.terraria);
+                        that.$parent.ensureObjects('physical_sensors', that.physical_sensor_ids, data.data.physical_sensors);
+                        that.$parent.ensureObjects('animal_feeding_schedules', that.animal_feeding_schedule_ids, data.data.animal_feeding_schedules);
+                        that.$parent.ensureObjects('animal_weighing_schedules', that.animal_weighing_schedule_ids, data.data.animal_weighing_schedules);
+                        that.$parent.ensureObjects('action_sequence_schedules', that.action_sequence_schedule_ids, data.data.action_sequence_schedules);
+                        that.$parent.ensureObjects('action_sequence_triggers', that.action_sequence_trigger_ids, data.data.action_sequence_triggers);
+                        that.$parent.ensureObjects('action_sequence_intentions', that.action_sequence_intention_ids, data.data.action_sequence_intentions);
 
                         that.$nextTick(function() {
                             if (initial) {
@@ -1137,7 +651,6 @@
                             that.refresh_grid();
                         });
 
-
                         window.eventHubVue.processEnded();
                     },
                     error: function (error) {
@@ -1150,36 +663,7 @@
         },
 
         created: function() {
-            window.echo.private('dashboard-updates')
-                .listen('TerrariumUpdated', (e) => {
-                    this.updateTerrarium(e);
-                }).listen('TerrariumDeleted', (e) => {
-                this.deleteTerrarium(e);
-            }).listen('AnimalFeedingSchedulePropertyUpdated', (e) => {
-                this.updateAnimalFeedingSchedule(e);
-            }).listen('AnimalFeedingSchedulePropertyDeleted', (e) => {
-                this.deleteAnimalFeedingSchedule(e);
-            }).listen('AnimalWeighingSchedulePropertyUpdated', (e) => {
-                this.updateAnimalWeighingSchedule(e);
-            }).listen('AnimalWeighingSchedulePropertyDeleted', (e) => {
-                this.deleteAnimalWeighingSchedule(e);
-            }).listen('ActionSequenceScheduleUpdated', (e) => {
-                this.updateActionSequenceSchedule(e);
-            }).listen('ActionSequenceScheduleDeleted', (e) => {
-                this.deleteActionSequenceSchedule(e);
-            }).listen('ActionSequenceTriggerUpdated', (e) => {
-                this.updateActionSequenceTrigger(e);
-            }).listen('ActionSequenceTriggerDeleted', (e) => {
-                this.deleteActionSequenceTrigger(e);
-            }).listen('ActionSequenceIntentionUpdated', (e) => {
-                this.updateActionSequenceIntention(e);
-            }).listen('ActionSequenceIntentionDeleted', (e) => {
-                this.deleteActionSequenceIntention(e);
-            }).listen('ReadFlagSet', (e) => {
-                this.deleteSuggestion(e);
-            });
-
-            var that = this;
+            let that = this;
             setTimeout(function() {
                 that.load_data(true);
             }, 100);
@@ -1189,6 +673,9 @@
                     that.load_data();
                 }, this.refreshTimeoutSeconds * 1000)
             }
+
+            window.eventHubVue.$on('CiliatusObjectUpdated', this.handleCiliatusObjectUpdated);
+            window.eventHubVue.$on('CiliatusObjectDeleted', this.handleCiliatusObjectDeleted);
         }
     }
 </script>

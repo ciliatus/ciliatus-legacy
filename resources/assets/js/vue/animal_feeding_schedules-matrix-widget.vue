@@ -5,7 +5,7 @@
                 <thead>
                 <tr>
                     <th data-field="id">
-                        {{ $tc('components.animals', 1) }}
+                        {{ $tc('labels.animals', 1) }}
                     </th>
 
                     <th v-for="type in feeding_types">
@@ -80,7 +80,7 @@ export default {
              * Load feeding types
              */
             $.ajax({
-                url: '/api/v1/properties?filter[type]=AnimalFeedingType&raw=true',
+                url: '/api/v1/properties?filter[type]=AnimalFeedingType&all=true',
                 method: 'GET',
                 success: function (data) {
                     that.feeding_types = data.data;
@@ -89,7 +89,7 @@ export default {
                      * Load animals
                      */
                     $.ajax({
-                        url: '/api/v1/animals?filter[death_date]=null&filter[!properties.type]=ModelNotActive&raw=true',
+                        url: '/api/v1/animals?filter[death_date]=null&filter[!properties.type]=ModelNotActive&all=true',
                         method: 'GET',
                         success: function (data) {
                             that.animals = data.data;
@@ -98,7 +98,7 @@ export default {
                              * Load feeding schedules
                              */
                             $.ajax({
-                                url: '/api/v1/animal_feeding_schedules?with[]=animal&raw',
+                                url: '/api/v1/animal_feeding_schedules?with[]=animal&all',
                                 method: 'GET',
                                 success: function (data) {
                                     that.schedules = data.data;

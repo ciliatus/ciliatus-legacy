@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\ActionSequenceSchedule;
 use App\Animal;
+use App\AnimalFeedingEvent;
 use App\Http\Transformers\GenericComponentTransformer;
 use App\Http\Transformers\PhysicalSensorTransformer;
 use App\Http\Transformers\TerrariumTransformer;
@@ -28,16 +29,18 @@ class TerrariumController extends ApiController
 
     /**
      * TerrariumController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '2B';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -86,7 +89,7 @@ class TerrariumController extends ApiController
         $t = $t->find($id);
 
         if (!$t) {
-            return $this->respondNotFound('Terrarium not found');
+            return $this->respondNotFound();
         }
 
         $history_to = $request->filled('history_to') ? $request->input('history_to') : null;
@@ -120,7 +123,7 @@ class TerrariumController extends ApiController
          */
         $terrarium = Terrarium::find($id);
         if (is_null($terrarium)) {
-            return $this->respondNotFound('Terrarium not found');
+            return $this->respondNotFound();
         }
 
         /*
@@ -128,7 +131,7 @@ class TerrariumController extends ApiController
          */
         $valves = Valve::where(function ($query) use ($terrarium) {
             $query->where('terrarium_id', $terrarium->id)
-                ->orWhereNull('terrarium_id');
+                  ->orWhereNull('terrarium_id');
         })->get();
 
         foreach ($valves as $v) {
@@ -141,7 +144,7 @@ class TerrariumController extends ApiController
          */
         $animals = Animal::where(function ($query) use ($terrarium) {
             $query->where('terrarium_id', $terrarium->id)
-                ->orWhereNull('terrarium_id');
+                  ->orWhereNull('terrarium_id');
         })->get();
 
         foreach ($animals as $a) {
@@ -168,6 +171,12 @@ class TerrariumController extends ApiController
 
         if (Gate::denies('api-write:terrarium')) {
             return $this->respondUnauthorized();
+        }
+
+        if (!$request->has('display_name')) {
+            return $this->setStatusCode(422)
+                        ->setErrorCode('104')
+                        ->respondWithErrorDefaultMessage(['missing_fields' => 'display_name']);
         }
 
         /**
@@ -211,7 +220,7 @@ class TerrariumController extends ApiController
          */
         $terrarium = Terrarium::find($id);
         if (is_null($terrarium)) {
-            return $this->respondNotFound('Terrarium not found');
+            return $this->respondNotFound();
         }
 
 
@@ -227,7 +236,7 @@ class TerrariumController extends ApiController
             foreach ($request->input('valves') as $a) {
                 $valve = Valve::find($a);
                 if (is_null($valve)) {
-                    return $this->setStatusCode(422)->respondWithError('Valve not found');
+                    return $this->respondRelatedModelNotFound(Valve::class);
                 }
             }
 
@@ -238,7 +247,7 @@ class TerrariumController extends ApiController
              */
             $valves = Valve::where(function ($query) use ($terrarium) {
                 $query->where('terrarium_id', $terrarium->id)
-                    ->orWhereNull('terrarium_id');
+                      ->orWhereNull('terrarium_id');
             })->get();
 
             foreach ($valves as $a) {
@@ -276,7 +285,7 @@ class TerrariumController extends ApiController
             foreach ($request->input('animals') as $a) {
                 $animal = Animal::find($a);
                 if (is_null($animal)) {
-                    return $this->setStatusCode(422)->respondWithError('Animal not found');
+                    return $this->respondRelatedModelNotFound(Animal::class);
                 }
             }
 
@@ -287,7 +296,7 @@ class TerrariumController extends ApiController
              */
             $animals = Animal::where(function ($query) use ($terrarium) {
                 $query->where('terrarium_id', $terrarium->id)
-                    ->orWhereNull('terrarium_id');
+                      ->orWhereNull('terrarium_id');
             })->get();
 
             foreach ($animals as $a) {
@@ -341,6 +350,9 @@ class TerrariumController extends ApiController
     }
 
     /**
+     * Custom Error Codes
+     *  - 201: Action Sequence was not created
+     *
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
@@ -356,7 +368,7 @@ class TerrariumController extends ApiController
          */
         $terrarium = Terrarium::find($id);
         if (is_null($terrarium)) {
-            return $this->respondNotFound('Terrarium not found');
+            return $this->respondNotFound();
         }
 
         $runonce = false;
@@ -373,7 +385,9 @@ class TerrariumController extends ApiController
         );
 
         if (!$action_sequence) {
-            return $this->setSTatusCode(422)->respondWithError('Could not genereate action sequence');
+            return $this->setSTatusCode(422)
+                        ->setErrorCode('201')
+                        ->respondWithErrorDefaultMessage();
         }
 
         if ($request->filled('schedule_now')) {
@@ -406,7 +420,7 @@ class TerrariumController extends ApiController
          */
         $terrarium = Terrarium::find($id);
         if (is_null($terrarium)) {
-            return $this->respondNotFound('Terrarium not found');
+            return $this->respondNotFound();
         }
 
         $valves = $this->filter($request, $terrarium->valves()->getQuery())->get();
@@ -454,7 +468,7 @@ class TerrariumController extends ApiController
         $terrarium = Terrarium::with('physical_sensors')->find($id);
 
         if (!$terrarium) {
-            return $this->respondNotFound('Terrarium not found');
+            return $this->respondNotFound();
         }
 
         $data = $terrarium->getSensorreadingsByType($type);
@@ -484,7 +498,7 @@ class TerrariumController extends ApiController
         $terrarium = Terrarium::find($id);
 
         if (!$terrarium) {
-            return $this->respondNotFound('Terrarium not found');
+            return $this->respondNotFound();
         }
 
         $query = $this->filter($request, Sensorreading::query());

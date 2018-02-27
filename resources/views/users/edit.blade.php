@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-<a href="/users" class="breadcrumb hide-on-small-and-down">@choice('components.users', 2)</a>
+<a href="/users" class="breadcrumb hide-on-small-and-down">@choice('labels.users', 2)</a>
 <a href="/users/{{ $user->id }}/edit" class="breadcrumb hide-on-small-and-down">{{ $user->name }}</a>
 <a href="/users/{{ $user->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
@@ -470,7 +470,7 @@
 
                                 <div class="row">
                                     <div class="col s12">
-                                        <label for="notifications_controlunits_enabled">@choice('labels.notifications', 2) @choice('components.controlunits', 2)</label>
+                                        <label for="notifications_controlunits_enabled">@choice('labels.notifications', 2) @choice('labels.controlunits', 2)</label>
                                         <div class="switch">
                                             <label>
                                                 @lang('labels.off')
@@ -487,7 +487,7 @@
 
                                 <div class="row">
                                     <div class="col s12">
-                                        <label for="notifications_terraria_enabled">@choice('labels.notifications', 2) @choice('components.terraria', 2)</label>
+                                        <label for="notifications_terraria_enabled">@choice('labels.notifications', 2) @choice('labels.terraria', 2)</label>
                                         <div class="switch">
                                             <label>
                                                 @lang('labels.off')

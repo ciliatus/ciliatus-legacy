@@ -24,25 +24,46 @@ class ApiController extends Controller
     use FiltersEloquentApi;
 
     /**
-     * @var
+     * Error code namespace defines the part before the x in an error code
+     *
+     * @var string $errorCodeNamespace
+     */
+    protected $errorCodeNamespace = '00';
+
+    /**
+     * @var Request $request
+     */
+    protected $request = null;
+
+    /**
+     * @var $statusCode
      */
     protected $statusCode = 200;
 
     /**
-     * @var
+     * Error code identifier
+     * 101 - Model not found
+     * 102 - Related model not found
+     * 103 - Could not parse timestamp
+     * 104 - Missing fields
+     * 105 - Class not found
+     *
+     * @var string $errorCode
      */
     protected $errorCode;
 
     /**
-     * @var array
+     * @var array $debug_info
      */
     protected $debug_info = [];
 
     /**
      * ApiController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
+        $this->request = $request;
     }
 
     /**
@@ -65,7 +86,6 @@ class ApiController extends Controller
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function default_index(Request $request)
     {
@@ -78,6 +98,10 @@ class ApiController extends Controller
         $objects = $model_class_name::query();
         $objects = $this->filter($request, $objects);
 
+        if ($request->has('select_ids')) {
+            $objects = $objects->select('id');
+        }
+
         return $this->respondTransformedAndPaginated(
             $request,
             $objects
@@ -88,7 +112,6 @@ class ApiController extends Controller
      * @param Request $request
      * @param string $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function default_show(Request $request, $id)
     {
@@ -104,7 +127,9 @@ class ApiController extends Controller
         )->find($id);
 
         if (is_null($object)) {
-            return $this->respondNotFound(sprintf('%s not found', $model_class_name));
+            return $this->setStatusCode(404)
+                        ->setErrorCode('101')
+                        ->respondWithErrorDefaultMessage();
         }
 
         $this->applyRepository($object);
@@ -121,7 +146,6 @@ class ApiController extends Controller
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function files(Request $request, $id) {
         $model_class_name = $this->getModelNameFromController();
@@ -178,12 +202,24 @@ class ApiController extends Controller
     }
 
     /**
-     * @param string $message
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondNotFound($message = 'Not found')
+    public function respondNotFound()
     {
-        return $this->setStatusCode(404)->respondWithError($message);
+        return $this->setStatusCode(404)
+                    ->setErrorCode('101')
+                    ->respondWithErrorDefaultMessage();
+    }
+
+    /**
+     * @param $model
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondRelatedModelNotFound($model)
+    {
+        return $this->setStatusCode(422)
+                    ->setErrorCode('102')
+                    ->respondWithErrorDefaultMessage(['related_object' => $model]);
     }
 
     /**
@@ -202,15 +238,38 @@ class ApiController extends Controller
      */
     public function respondWithError($message, $entityId = null)
     {
-        \Log::info('Request terminated in error ' . $this->getStatusCode() . ' (' . $this->getErrorCode() . '): ' . $message);
+        \Log::warning(
+            'Request terminated in error ' . $this->getStatusCode() .
+            ' (' . $this->getFullyQualifiedErrorCode() . '): ' . $message
+        );
 
         return $this->respond([
             'http_code' => $this->getStatusCode(),
             'error'     => [
-                'error_code'    => $this->getErrorCode(),
+                'error_code'    => $this->getFullyQualifiedErrorCode(),
                 'message'       => $message
             ]
         ]);
+    }
+
+    /**
+     * @param array $arguments
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondWithErrorDefaultMessage($arguments = [])
+    {
+        if (!is_array($arguments)) {
+            $arguments = [$arguments];
+        }
+
+        if ($this->errorCodeIsCommon()) {
+            $trans_key = 'errors.codes.common.' . $this->errorCode;
+        }
+        else {
+            $trans_key = 'errors.codes.custom.' . $this->errorCodeNamespace . '.' . $this->errorCode;
+        }
+
+        return $this->respondWithError(trans($trans_key, $arguments));
     }
 
     /**
@@ -227,6 +286,14 @@ class ApiController extends Controller
             'current_page'  => $paginator->currentPage(),
             'per_page'         => $paginator->perPage()
         ];
+
+        if ($this->request->has('select_ids')) {
+            return $this->respondWithData(
+                array_column($data, 'id'),
+                $meta
+            );
+        }
+
         return $this->respondWithData($data, $meta);
     }
 
@@ -272,18 +339,24 @@ class ApiController extends Controller
     /**
      * @param Request $request
      * @param Builder $query
-     * @param array $repository_parameters
-     * @param string $repository_method
+     * @param array   $repository_parameters
+     * @param string  $repository_method
+     * @param null    $override_repository_name
+     * @param null    $override_transformer_name
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function respondTransformedAndPaginated(Request $request,
                                                    Builder $query,
                                                    array $repository_parameters = [],
-                                                   $repository_method = 'show')
+                                                   $repository_method = 'show',
+                                                   $override_repository_name = null,
+                                                   $override_transformer_name = null)
     {
 
-        if ($request->filled('raw') && Gate::allows('api-list:raw')) {
+        if ($request->filled('all')) {
+            if (Gate::denies('api-list:all')) {
+                return $this->respondUnauthorized('Not permitted to index object without pagination');
+            }
             /*
              * If raw is passed, pagination will be ignored
              * Permission api-list:raw is required
@@ -293,11 +366,18 @@ class ApiController extends Controller
             $this->applyRepository(
                 $objects,
                 $repository_parameters,
-                $repository_method
+                $repository_method,
+                $override_repository_name
             );
 
+            if ($this->request->has('select_ids')) {
+                return $this->respondWithData(
+                    array_column($objects->toArray(), 'id')
+                );
+            }
+
             return $this->setStatusCode(200)
-                        ->respondWithData($this->applyTransformer($objects));
+                        ->respondWithData($this->applyTransformer($objects, $override_transformer_name));
 
         }
         else {
@@ -310,13 +390,19 @@ class ApiController extends Controller
                 return $this->setStatusCode(200)
                             ->respondWithPagination([], $objects);
             }
-            $transformer = TransformerFactory::get($objects->items()[0]);
+
+
+            $fq_override_transformer_name = 'App\Http\Transformers\\' . $override_transformer_name;
+            $transformer = is_null($override_transformer_name) ?
+                TransformerFactory::get($objects->items()[0]) : new $fq_override_transformer_name();
 
             $this->applyRepository(
                 $objects->items(),
                 $repository_parameters,
-                $repository_method
+                $repository_method,
+                $override_repository_name
             );
+
 
             return $this->setStatusCode(200)->respondWithPagination(
                 $transformer->transformCollection(
@@ -332,24 +418,29 @@ class ApiController extends Controller
      * Retrieves additional data for each object from a repository
      *
      * @param array|Collection|CiliatusModel $objects
-     * @param array $repository_parameters
-     * @param string $repository_method
+     * @param array                          $repository_parameters
+     * @param string                         $repository_method
+     * @param null                           $override_repository_name
      */
     protected function applyRepository($objects,
                                        array $repository_parameters = [],
-                                       $repository_method = 'show')
+                                       $repository_method = 'show',
+                                       $override_repository_name = null)
     {
         if (is_a($objects, 'Illuminate\Support\Collection') || is_array($objects)) {
             foreach ($objects as &$o) {
                 $this->applyRepository(
                     $o,
                     $repository_parameters,
-                    $repository_method
+                    $repository_method,
+                    $override_repository_name
                 );
             }
         }
         else {
-            $repository = RepositoryFactory::get($objects);
+            $fq_override_repository_name = 'App\Repositories\\' . $override_repository_name;
+            $repository = is_null($override_repository_name) ?
+                RepositoryFactory::get($objects) : new $fq_override_repository_name($objects);
             foreach ($repository_parameters as $n=>$v) {
                 $repository->addShowParameter($n, $v);
             }
@@ -363,10 +454,10 @@ class ApiController extends Controller
      * Transforms a single object or an array/Collection of objects
      *
      * @param array|Collection|CiliatusModel $objects
+     * @param null                           $override_transformer_name
      * @return array
-     * @throws \ErrorException
      */
-    protected function applyTransformer($objects)
+    protected function applyTransformer($objects, $override_transformer_name = null)
     {
 
         if (is_a($objects, 'Illuminate\Support\Collection')) {
@@ -375,11 +466,15 @@ class ApiController extends Controller
         }
 
         if (is_array($objects)) {
-            $transformer = TransformerFactory::get($objects[0]);
+            $fq_override_transformer_name = 'App\Http\Transformers\\' . $override_transformer_name;
+            $transformer = is_null($override_transformer_name) ?
+                TransformerFactory::get($objects[0]) : $fq_override_transformer_name();
             return $transformer->transformCollection($objects->toArray());
         }
         else {
-            $transformer = TransformerFactory::get($objects);
+            $fq_override_transformer_name = 'App\Http\Transformers\\' . $override_transformer_name;
+            $transformer = is_null($override_transformer_name) ?
+                TransformerFactory::get($objects) : $fq_override_transformer_name();
             return $transformer->transform($objects->toArray());
         }
 
@@ -664,6 +759,22 @@ class ApiController extends Controller
         }
 
         return $property;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFullyQualifiedErrorCode()
+    {
+        return $this->errorCodeNamespace . 'x' . $this->errorCode;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function errorCodeIsCommon()
+    {
+        return hexdec($this->errorCode) < hexdec('1FF');
     }
 
     /**

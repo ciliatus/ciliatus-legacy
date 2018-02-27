@@ -89,7 +89,8 @@ class ActionSequenceShowOkTest extends TestCase
                 ],
                 'terrarium' => [
                     'id' => $terrarium->id,
-                    'name' => 'TestTerrarium01', 'display_name' => 'TestTerrarium01'
+                    'name' => 'TestTerrarium01',
+                    'display_name' => 'TestTerrarium01'
                 ]
             ]
         ]);

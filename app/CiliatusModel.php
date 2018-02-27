@@ -309,6 +309,22 @@ abstract class CiliatusModel extends Model
     }
 
     /**
+     * @return string
+     */
+    public function web_base_url()
+    {
+        return config('app.url') . '/' . $this->getTable();
+    }
+
+    /**
+     * @return string
+     */
+    public function api_base_url()
+    {
+        return config('app.url') . '/api/v1/' . $this->getTable();
+    }
+
+    /**
      * @return mixed
      */
     abstract public function properties();

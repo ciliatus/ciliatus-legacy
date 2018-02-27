@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Pump;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,18 +18,18 @@ class PumpDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var
+     * @var string $id
      */
-    public $pump_id;
+    public $id;
 
     /**
      * Create a new event instance.
      *
-     * @param $pump_id
+     * @param Pump $pump
      */
-    public function __construct($pump_id)
+    public function __construct(Pump $pump)
     {
-        $this->pump_id = $pump_id;
+        $this->id = $pump->id;
     }
 
     /**

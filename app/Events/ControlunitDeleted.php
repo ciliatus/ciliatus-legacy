@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\Controlunit;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,18 +18,18 @@ class ControlunitDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var
+     * @var string $id
      */
-    public $controlunit_id;
+    public $id;
 
     /**
      * Create a new event instance.
      *
-     * @param $controlunit_id
+     * @param Controlunit $controlunit
      */
-    public function __construct($controlunit_id)
+    public function __construct(Controlunit $controlunit)
     {
-        $this->controlunit_id = $controlunit_id;
+        $this->id = $controlunit->id;
     }
 
     /**

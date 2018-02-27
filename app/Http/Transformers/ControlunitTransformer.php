@@ -25,26 +25,12 @@ class ControlunitTransformer extends Transformer
             'name' => $item['name'],
             'client_server_time_diff_seconds' => $item['client_server_time_diff_seconds'],
             'software_version' => isset($item['software_version']) ? $item['software_version'] : null,
+            'heartbeat_critical' => isset($item['heartbeat_critical']) ? $item['heartbeat_critical'] : null,
+            'state_ok' => isset($item['state_ok']) ? $item['state_ok'] : null,
             'timestamps' => $this->parseTimestamps($item, ['heartbeat_at' => 'last_heartbeat']),
         ];
 
         $return = $this->addCiliatusSpecificFields($return, $item);
-
-        if (isset($item['physical_sensors'])) {
-            $return['physical_sensors'] = (new PhysicalSensorTransformer())->transformCollection($item['physical_sensors']);
-        }
-
-        if (isset($item['valves'])) {
-            $return['valves'] = (new ValveTransformer())->transformCollection($item['valves']);
-        }
-
-        if (isset($item['pumps'])) {
-            $return['pumps'] = (new PumpTransformer())->transformCollection($item['pumps']);
-        }
-
-        if (isset($item['generic_components'])) {
-            $return['generic_components'] = (new GenericComponentTransformer())->transformCollection($item['generic_components']);
-        }
 
         return $return;
     }

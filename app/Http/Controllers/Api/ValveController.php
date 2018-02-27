@@ -19,16 +19,18 @@ class ValveController extends ApiController
 
     /**
      * ValveController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '2E';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -39,7 +41,6 @@ class ValveController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -64,7 +65,7 @@ class ValveController extends ApiController
          */
         $valve = Valve::find($id);
         if (is_null($valve)) {
-            return $this->respondNotFound('Valve not found');
+            return $this->respondNotFound();
         }
 
         $valve->delete();
@@ -86,6 +87,12 @@ class ValveController extends ApiController
 
         if (Gate::denies('api-write:valve')) {
             return $this->respondUnauthorized();
+        }
+
+        if (!$request->has('name')) {
+            return $this->setStatusCode(422)
+                        ->setErrorCode('104')
+                        ->respondWithErrorDefaultMessage(['missing_fields' => 'name']);
         }
 
         /**
@@ -125,27 +132,27 @@ class ValveController extends ApiController
          */
         $valve = Valve::find($id);
         if (is_null($valve)) {
-            return $this->respondNotFound('Valve not found');
+            return $this->respondNotFound();
         }
 
         if ($request->filled('pump') && strlen($request->input('pump')) > 0) {
             $pump = Pump::find($request->input('pump'));
             if (is_null($pump)) {
-                return $this->setStatusCode(422)->respondWithError('Pump not found');
+                return $this->respondRelatedModelNotFound(Pump::class);
             }
         }
 
         if ($request->filled('terrarium') && strlen($request->input('terrarium')) > 0) {
             $terrarium = Terrarium::find($request->input('terrarium'));
             if (is_null($terrarium)) {
-                return $this->setStatusCode(422)->respondWithError('Terrarium not found');
+                return $this->respondRelatedModelNotFound(Terrarium::class);
             }
         }
 
         if ($request->filled('controlunit') && strlen($request->input('controlunit')) > 0) {
             $controlunit = Controlunit::find($request->input('controlunit'));
             if (is_null($controlunit)) {
-                return $this->setStatusCode(422)->respondWithError('Controlunit not found');
+                return $this->respondRelatedModelNotFound(Controlunit::class);
             }
         }
 

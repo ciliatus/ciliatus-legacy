@@ -20,12 +20,6 @@ class ActionSequenceTransformer extends Transformer
      */
     public function transform($item)
     {
-        $actionTransformer = new ActionTransformer();
-        $actionSequenceScheduleTransformer = new ActionSequenceScheduleTransformer();
-        $actionSequenceTriggerTransformer = new ActionSequenceTriggerTransformer();
-        $actionSequenceIntentionTransformer = new ActionSequenceIntentionTransformer();
-        $terrariumTransformer = new TerrariumTransformer();
-
         $return = [
             'id'            =>  $item['id'],
             'name'          =>  $item['name'],
@@ -34,26 +28,6 @@ class ActionSequenceTransformer extends Transformer
         ];
 
         $return = $this->addCiliatusSpecificFields($return, $item);
-
-        if (isset($item['actions'])) {
-            $return['actions'] = $actionTransformer->transformCollection($item['actions']);
-        }
-
-        if (isset($item['schedules'])) {
-            $return['schedules'] = $actionSequenceScheduleTransformer->transformCollection($item['schedules']);
-        }
-
-        if (isset($item['triggers'])) {
-            $return['triggers'] = $actionSequenceTriggerTransformer->transformCollection($item['triggers']);
-        }
-
-        if (isset($item['intentions'])) {
-            $return['intentions'] = $actionSequenceIntentionTransformer->transformCollection($item['intentions']);
-        }
-
-        if (isset($item['terrarium'])) {
-            $return['terrarium'] = $terrariumTransformer->transform($item['terrarium']);
-        }
 
         return $return;
     }

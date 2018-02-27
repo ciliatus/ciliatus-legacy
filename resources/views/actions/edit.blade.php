@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/action_sequences" class="breadcrumb hide-on-small-and-down">@choice('components.action_sequence', 2)</a>
+    <a href="/action_sequences" class="breadcrumb hide-on-small-and-down">@choice('labels.action_sequence', 2)</a>
     <a href="/action_sequences/{{ $action->sequence->id }}/edit" class="breadcrumb hide-on-small-and-down">{{ $action->sequence->name }}</a>
-    <a href="/actions/{{ $action->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit') @choice('components.actions', 1)</a>
+    <a href="/actions/{{ $action->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit') @choice('labels.actions', 1)</a>
 @stop
 
 @section('content')
@@ -23,7 +23,7 @@
                                             <option value="{{ $sequence->id }}" @if($action->sequence->id == $sequence->id) selected @endif>{{ $sequence->name }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="action_sequence">@choice('components.action_sequence', 1)</label>
+                                    <label for="action_sequence">@choice('labels.action_sequence', 1)</label>
                                 </div>
                             </div>
 
@@ -88,7 +88,9 @@
             <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/actions/{{ $action->id }}/delete"><i class="material-icons">delete</i></a></li>
         </ul>
     </div>
+@stop
 
+@section('scripts')
     <script>
         $(document).ready(function() {
             $('#component_select').change(function(e) {

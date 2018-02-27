@@ -17,10 +17,13 @@ class UserSettingController extends ApiController
 
     /**
      * UserSettingController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '2D';
     }
 
     /**
@@ -35,7 +38,7 @@ class UserSettingController extends ApiController
          */
         $us = UserSetting::find($id);
         if (is_null($us)) {
-            return $this->respondNotFound('UserSetting not found');
+            return $this->respondNotFound();
         }
 
         if (Gate::denies('api-write:users_all') && $us->user_id != Auth::user()->id) {
@@ -68,7 +71,7 @@ class UserSettingController extends ApiController
          */
         $user = User::find($request->input('user_id'));
         if (is_null($user)) {
-            return $this->setStatusCode(422)->respondWithError('User not found');
+            return $this->respondRelatedModelNotFound(User::class);
         }
 
         if (!is_null($user->settingById($id))) {
@@ -110,7 +113,7 @@ class UserSettingController extends ApiController
          */
         $user = User::find($request->input('user_id'));
         if (is_null($user)) {
-            return $this->setStatusCode(422)->respondWithError('User not found');
+            return $this->respondRelatedModelNotFound(User::class);
         }
 
         if (!is_null($user->setting($request->input('name')))) {

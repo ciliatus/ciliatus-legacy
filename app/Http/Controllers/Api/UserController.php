@@ -21,16 +21,18 @@ class UserController extends ApiController
 
     /**
      * UserController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '2C';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -66,7 +68,7 @@ class UserController extends ApiController
          */
         $user = User::find($id);
         if (is_null($user)) {
-            return $this->respondNotFound('User not found');
+            return $this->respondNotFound();
         }
 
         /*
@@ -87,6 +89,12 @@ class UserController extends ApiController
     }
 
     /**
+     * Custom Error Codes
+     *  - 201: Username taken
+     *  - 202: E-Mail taken
+     *  - 203: Passwords do not match
+     *  - 204: No password
+     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
@@ -102,7 +110,9 @@ class UserController extends ApiController
          */
         $user = User::where('name', $request->input('name'))->get()->first();
         if (!is_null($user)) {
-            return $this->setStatusCode(422)->respondWithError(trans('errors.username_taken'));
+            return $this->setStatusCode(422)
+                        ->setErrorCode('201')
+                        ->respondWithErrorDefaultMessage();
         }
 
         /**
@@ -110,18 +120,24 @@ class UserController extends ApiController
          */
         $user = User::where('email', $request->input('email'))->get()->first();
         if (!is_null($user)) {
-            return $this->setStatusCode(422)->respondWithError(trans('errors.email_taken'));
+            return $this->setStatusCode(422)
+                        ->setErrorCode('202')
+                        ->respondWithErrorDefaultMessage();
         }
 
         if ($request->filled('password') && $request->filled('password_2')) {
             if ($request->input('password') !== $request->input('password_2')) {
-                return $this->setStatusCode(422)->respondWithError(trans('errors.passwords_do_not_match'));
+                return $this->setStatusCode(422)
+                            ->setErrorCode('203')
+                            ->respondWithErrorDefaultMessage();
             }
 
             $password = bcrypt($request->input('password'));
         }
         else {
-            return $this->setStatusCode(422)->respondWithError(trans('errors.no_password'));
+            return $this->setStatusCode(422)
+                        ->setErrorCode('204')
+                        ->respondWithErrorDefaultMessage();
         }
 
         /**
@@ -163,7 +179,7 @@ class UserController extends ApiController
          */
         $user = User::find($id);
         if (is_null($user)) {
-            return $this->respondNotFound('User not found');
+            return $this->respondNotFound();
         }
 
         /*
@@ -184,7 +200,9 @@ class UserController extends ApiController
 
             if ($request->filled('password') && $request->filled('password_2')) {
                 if ($request->input('password') !== $request->input('password_2')) {
-                    return $this->setStatusCode(422)->respondWithError(trans('errors.passwords_do_not_match'));
+                    return $this->setStatusCode(422)
+                                ->setErrorCode('203')
+                                ->respondWithErrorDefaultMessage();
                 }
 
                 $user->password = bcrypt($request->input('password'));
@@ -261,18 +279,22 @@ class UserController extends ApiController
     }
 
     /**
-     * @param $user_id
-     * @param $setting_name
+     * @param Request $request
+     * @param         $user_id
+     * @param         $setting_name
      * @return \Illuminate\Http\JsonResponse
      */
-    public function setting($user_id, $setting_name)
+    public function setting(Request $request, $user_id, $setting_name)
     {
         $us = UserSetting::where('user_id', $user_id)->where('name', $setting_name)->first();
         if (is_null($us))
-            return $this->respondNotFound('UserSetting not found');
+            return $this->respondNotFound();
 
-        $user_setting_controller = new UserSettingController(new UserSettingTransformer());
-        return $user_setting_controller->show($us->id);
+        /**
+         * @var UserSettingController $user_setting_controller
+         */
+        $user_setting_controller = new UserSettingController($request);
+        return $user_setting_controller->show($request, $us->id);
 
     }
 
@@ -289,7 +311,7 @@ class UserController extends ApiController
 
         $user = User::find($id);
         if (is_null($user)) {
-            return $this->respondNotFound('User not found');
+            return $this->respondNotFound();
         }
 
         /*
@@ -324,7 +346,7 @@ class UserController extends ApiController
 
         $user = User::find($id);
         if (is_null($user)) {
-            return $this->respondNotFound('User not found');
+            return $this->respondNotFound();
         }
 
         /*

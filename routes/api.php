@@ -37,6 +37,7 @@ Route::delete('animals/feedings/types/{id}', 'AnimalFeedingEventController@delet
 // Animal feedings
 Route::resource('animals/{animal_id}/feedings', 'AnimalFeedingEventController');
 Route::resource('animals/{animal_id}/feeding_schedules', 'AnimalFeedingSchedulePropertyController');
+Route::resource('animal_feeding_schedules', 'AnimalFeedingSchedulePropertyController');
 
 // Animal feeding schedules
 Route::post('animals/{animal_id}/feeding_schedules/{id}/done', 'AnimalFeedingSchedulePropertyController@done');
@@ -45,6 +46,7 @@ Route::post('animals/{animal_id}/feeding_schedules/{id}/skip', 'AnimalFeedingSch
 // Animal weighings
 Route::resource('animals/{animal_id}/weighings', 'AnimalWeighingEventController');
 Route::resource('animals/{animal_id}/weighing_schedules', 'AnimalWeighingSchedulePropertyController');
+Route::resource('animal_weighing_schedules', 'AnimalWeighingSchedulePropertyController');
 
 // Animal weighing schedules
 Route::post('animals/{animal_id}/weighing_schedules/{id}/done', 'AnimalWeighingSchedulePropertyController@done');

@@ -20,9 +20,9 @@ class GenericComponentUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $generic_component;
+    public $id;
 
     /**
      * Create a new event instance.
@@ -30,11 +30,7 @@ class GenericComponentUpdated implements ShouldBroadcast
      */
     public function __construct(GenericComponent $generic_component)
     {
-        $transformer = new GenericComponentTransformer();
-
-        $this->generic_component = $transformer->transform(
-            (new GenericRepository($generic_component))->show()->toArray()
-        );
+        $this->id = $generic_component->id;
     }
 
     /**

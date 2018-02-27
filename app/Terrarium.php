@@ -462,6 +462,11 @@ class Terrarium extends CiliatusModel
             return null;
         }
 
+        if ($thumb = $file->thumb()) {
+        return $thumb->path_external();
+    }
+
+        \Log::warning('Using non-thumb as Terrarium background. Terrarium: ' . $this->id . ', File: ' . $file->id);
         return $file->path_external();
     }
 

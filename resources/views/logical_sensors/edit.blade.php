@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-<a href="/logical_sensors" class="breadcrumb hide-on-small-and-down">@choice('components.logical_sensors', 2)</a>
+<a href="/logical_sensors" class="breadcrumb hide-on-small-and-down">@choice('labels.logical_sensors', 2)</a>
 <a href="/logical_sensors/{{ $logical_sensor->id }}" class="breadcrumb hide-on-small-and-down">{{ $logical_sensor->name }}</a>
 <a href="/logical_sensors/{{ $logical_sensor->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
@@ -51,7 +51,7 @@
                                             <option value="{{ $ps->id }}" @if($logical_sensor->physical_sensor_id == $ps->id)selected="selected"@endif>{{ $ps->name }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="valves">@choice('components.physical_sensors', 1)</label>
+                                    <label for="valves">@choice('labels.physical_sensors', 1)</label>
                                 </div>
                             </div>
 
@@ -95,7 +95,7 @@
                     <div class="card-header">
                         <span>
                             <i class="material-icons">vertical_align_center</i>
-                            @choice('components.logical_sensor_thresholds', 2)
+                            @choice('labels.logical_sensor_thresholds', 2)
                         </span>
                     </div>
 
@@ -152,7 +152,7 @@
                                             <option value="{{ $ls->id }}">{{ $ls->name }}</option>
                                         @endforeach
                                     </select>
-                                    <label for="valves">@lang('labels.target') @choice('components.logical_sensors', 1)</label>
+                                    <label for="valves">@lang('labels.target') @choice('labels.logical_sensors', 1)</label>
                                 </div>
                             </div>
 

@@ -18,15 +18,16 @@ class LogController extends ApiController
     /**
      * LogController constructor.
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '23';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -51,7 +52,7 @@ class LogController extends ApiController
         $log = Log::find($id);
 
         if (is_null($log)) {
-            return $this->respondNotFound('Log not found');
+            return $this->respondNotFound();
         }
 
         $log->addSourceTargetAssociated(true);

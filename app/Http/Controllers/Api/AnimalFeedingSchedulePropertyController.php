@@ -12,6 +12,7 @@ use App\Events\AnimalUpdated;
 use App\Property;
 use Carbon\Carbon;
 use Gate;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 /**
@@ -24,9 +25,11 @@ class AnimalFeedingSchedulePropertyController extends ApiController
     /**
      * AnimalFeedingSchedulePropertyController constructor.
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '18';
     }
 
     /**
@@ -34,7 +37,6 @@ class AnimalFeedingSchedulePropertyController extends ApiController
      * @param null $animal_id
      * @return \Illuminate\Http\JsonResponse
      * @internal param $animal_id
-     * @throws \ErrorException
      */
     public function index(Request $request, $animal_id = null)
     {
@@ -45,7 +47,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
         if (!is_null($animal_id)) {
             $animal = Animal::find($animal_id);
             if (is_null($animal)) {
-                return $this->respondNotFound("Animal not found");
+                return $this->respondNotFound();
             }
             $feeding_schedules = $this->filter($request, $animal->feeding_schedules()->getQuery());
         }
@@ -65,6 +67,16 @@ class AnimalFeedingSchedulePropertyController extends ApiController
     }
 
     /**
+     * @param Request $request
+     * @param         $id
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function show(Request $request, $id)
+    {
+        return $this->default_show($request, $id);
+    }
+
+    /**
      * Show the form for creating a new resource.
      *
      * @return void
@@ -74,9 +86,11 @@ class AnimalFeedingSchedulePropertyController extends ApiController
         //
     }
 
-
     /**
      * Store a newly created resource in storage.
+     *
+     * Error Codes
+     *  - 201: Feeding schedule for type already exists
      *
      * @param Request $request
      * @param $animal_id
@@ -93,19 +107,30 @@ class AnimalFeedingSchedulePropertyController extends ApiController
          */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return $this->respondNotFound("Animal not found");
+            return $this->respondNotFound();
         }
 
         /**
          * @var AnimalFeedingScheduleProperty $p
          */
-        $p = AnimalFeedingScheduleProperty::create([
-            'belongsTo_type' => 'Animal',
-            'belongsTo_id' => $animal_id,
-            'type' => 'AnimalFeedingSchedule',
-            'name' => $request->input('meal_type'),
-            'value' => $request->input('interval_days')
-        ]);
+        try {
+            $p = AnimalFeedingScheduleProperty::create([
+                'belongsTo_type' => 'Animal',
+                'belongsTo_id' => $animal_id,
+                'type' => 'AnimalFeedingSchedule',
+                'name' => $request->input('meal_type'),
+                'value' => $request->input('interval_days')
+            ]);
+        }
+        catch (QueryException $ex) {
+            if ($ex->getCode() == '23000') {
+                return $this->setStatusCode(422)
+                            ->setErrorCode('201')
+                            ->respondWithErrorDefaultMessage();
+            }
+
+            throw $ex;
+        }
 
         if ($request->filled('starts_at')) {
             Property::where('belongsTo_type', 'Property')
@@ -230,7 +255,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             $p->delete();
         }
 
-        broadcast(new AnimalFeedingSchedulePropertyDeleted($afs->id));
+        broadcast(new AnimalFeedingSchedulePropertyDeleted($afs));
         broadcast(new AnimalUpdated($animal));
 
         $afs->delete();

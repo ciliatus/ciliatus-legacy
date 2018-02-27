@@ -18,6 +18,13 @@ class ApiAiController extends ApiController
 
     use SendsApiAiRequests;
 
+    public function __construct(Request $request)
+    {
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '1B';
+    }
+
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse

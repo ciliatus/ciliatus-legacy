@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\ActionSequenceSchedule;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,18 +18,18 @@ class ActionSequenceScheduleDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var
+     * @var string $id
      */
-    public $action_sequence_schedule_id;
+    public $id;
 
     /**
      * Create a new event instance.
      *
-     * @param $action_sequence_schedule_id
+     * @param ActionSequenceSchedule $action_sequence_schedule
      */
-    public function __construct($action_sequence_schedule_id)
+    public function __construct(ActionSequenceSchedule $action_sequence_schedule)
     {
-        $this->action_sequence_schedule_id = $action_sequence_schedule_id;
+        $this->id = $action_sequence_schedule->id;
     }
 
     /**

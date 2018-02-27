@@ -19,10 +19,13 @@ class BiographyEntryEventController extends ApiController
 
     /**
      * BiographyEntryEventController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '1C';
     }
 
     /**
@@ -30,7 +33,6 @@ class BiographyEntryEventController extends ApiController
      * @param $belongsTo_type
      * @param $belongsTo_id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request, $belongsTo_type = null, $belongsTo_id = null)
     {
@@ -43,13 +45,13 @@ class BiographyEntryEventController extends ApiController
             $belongsTo = ('App\\' . $belongsTo_type)::find($belongsTo_id);
 
             if (is_null($belongsTo)) {
-                return $this->respondNotFound("$belongsTo_type not found");
+                return $this->respondNotFound();
             }
 
             $entries = $belongsTo->entries();
         }
         else {
-            $entries = BiographyEntryEvent::with('files');
+            $entries = BiographyEntryEvent::query();
         }
 
         $entries = $this->filter($request, $entries);
@@ -65,7 +67,6 @@ class BiographyEntryEventController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -165,7 +166,7 @@ class BiographyEntryEventController extends ApiController
         if ($request->filled('category')) {
             $cat = $e->property('BiographyEntryCategory');
             if (is_null($cat)) {
-                return $this->setStatusCode(422)->respondWithError('Category property not found');
+                return $this->respondRelatedModelNotFound('Property<BiographyEntryCategory>');
             }
 
             $cat_type = Property::where('belongsTo_type', 'System')
@@ -173,7 +174,7 @@ class BiographyEntryEventController extends ApiController
                                 ->where('name', $request->input('category'))
                                 ->get()->first();
             if (is_null($cat_type)) {
-                return $this->setStatusCode(422)->respondWithError('Category not found');
+                return $this->respondRelatedModelNotFound('Property<BiographyEntryCategory>');
             }
 
             $this->updateModelProperties($cat, $request, [
@@ -223,6 +224,7 @@ class BiographyEntryEventController extends ApiController
         if (is_null($e)) {
             return $this->respondNotFound();
         }
+
         $cat = $e->property('BiographyEntryCategory');
         if (!is_null($cat)) {
             $cat->delete();
@@ -277,7 +279,9 @@ class BiographyEntryEventController extends ApiController
         }
 
         if (!$this->checkInput(['name'], $request)) {
-            return $this->setErrorCode(422)->respondWithError('Missing fields');
+            return $this->setStatusCode(422)
+                        ->setErrorCode('104')
+                        ->respondWithErrorDefaultMessage(['missing_fields' => 'name']);
         }
 
         Property::create([
@@ -311,6 +315,10 @@ class BiographyEntryEventController extends ApiController
          * @var Property $type
          */
         $type = Property::find($id);
+        if (is_null($type)) {
+            return $this->respondNotFound();
+        }
+
         $type->delete();
 
         return $this->respondWithData([],

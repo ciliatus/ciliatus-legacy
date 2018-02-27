@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/pumps" class="breadcrumb hide-on-small-and-down">@choice('components.pumps', 2)</a>
+    <a href="/pumps" class="breadcrumb hide-on-small-and-down">@choice('labels.pumps', 2)</a>
     <a href="/pumps/{{ $pump->id }}" class="breadcrumb hide-on-small-and-down">{{ $pump->name }}</a>
 @stop
 
@@ -16,8 +16,7 @@
         <div class="container">
             <div class="row">
                 <div class="col s12 m5 l4">
-                    <pumps-widget :refresh-timeout-seconds="60" pump-id="{{ $pump->id }}"
-                                  :subscribe-add="false" :subscribe-delete="false"></pumps-widget>
+                    <pump-widget pump-id="{{ $pump->id }}"> </pump-widget>
                 </div>
 
                 <div class="col s12 m7 l8">
@@ -28,7 +27,7 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="material-icons">transform</i>
-                            @choice('components.valves', 2)
+                            @choice('labels.valves', 2)
                         </div>
                         <div class="card-content">
                             <valves-list-widget :refresh-timeout-seconds="60" :subscribe-add="false"

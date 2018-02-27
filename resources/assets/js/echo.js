@@ -5,5 +5,6 @@ window.echo = new Echo({
     broadcaster: 'pusher',
     key: '[YOUR PUSHER APP KEY HERE]',
     namespace: 'App\\Events',
-    cluster: 'eu'
+    cluster: 'eu',
+    encrypted: true
 });

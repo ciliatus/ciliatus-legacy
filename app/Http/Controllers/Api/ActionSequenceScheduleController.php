@@ -18,16 +18,18 @@ class ActionSequenceScheduleController extends ApiController
 
     /**
      * ActionSequenceScheduleController constructor.
+     * @param Request $request
      */
-    public function __construct()
+    public function __construct(Request $request)
     {
-        parent::__construct();
+        parent::__construct($request);
+
+        $this->errorCodeNamespace = '14';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -38,7 +40,6 @@ class ActionSequenceScheduleController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -63,7 +64,7 @@ class ActionSequenceScheduleController extends ApiController
          */
         $schedule = ActionSequenceSchedule::find($id);
         if (is_null($schedule)) {
-            return $this->setStatusCode(422)->respondWithError('ActionSequenceSchedule not found');
+            return $this->respondNotFound();
         }
 
         $id = $schedule->sequence->id;
@@ -94,7 +95,7 @@ class ActionSequenceScheduleController extends ApiController
          */
         $sequence = ActionSequence::find($request->input('action_sequence'));
         if (is_null($sequence)) {
-            return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
+            return $this->respondRelatedModelNotFound(ActionSequence::class);
         }
 
         /**
@@ -140,13 +141,13 @@ class ActionSequenceScheduleController extends ApiController
          */
         $schedule = ActionSequenceSchedule::find($id);
         if (is_null($schedule)) {
-            return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
+            return $this->respondNotFound();
         }
 
         if ($request->filled('action_sequence')) {
             $a = ActionSequence::find($request->input('action_sequence_id'));
             if (is_null($a)) {
-                return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
+                return $this->respondRelatedModelNotFound(ActionSequence::class);
             }
         }
 
@@ -181,7 +182,7 @@ class ActionSequenceScheduleController extends ApiController
          */
         $schedule = ActionSequenceSchedule::find($id);
         if (is_null($schedule)) {
-            return $this->setStatusCode(404)->respondWithError('ActionSequenceSchedule not found');
+            return $this->respondNotFound();
         }
 
         $schedule->next_start_not_before = Carbon::now()->addDays(1)->subMinute(1);

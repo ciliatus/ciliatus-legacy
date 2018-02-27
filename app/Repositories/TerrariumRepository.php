@@ -31,6 +31,9 @@ class TerrariumRepository extends Repository
      */
     public function show(Carbon $history_to = null, $history_minutes = null)
     {
+        /**
+         * @var Terrarium $terrarium
+         */
         $terrarium = $this->scope;
 
         if (is_null($history_to) && isset($this->show_parameters['history_to'])) {
@@ -50,6 +53,10 @@ class TerrariumRepository extends Repository
 
         $terrarium->default_background_filepath = $terrarium->background_image_path();
         $terrarium->capabilities = $terrarium->capabilities();
+        $terrarium->temperature_critical = !$terrarium->temperatureOk();
+        $terrarium->humidity_critical = !$terrarium->humidityOk();
+        $terrarium->heartbeat_critical = !$terrarium->heartbeatOk();
+        $terrarium->state_ok = $terrarium->stateOk();
 
         return $terrarium;
     }

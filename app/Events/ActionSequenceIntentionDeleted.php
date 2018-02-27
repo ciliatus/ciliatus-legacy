@@ -2,6 +2,7 @@
 
 namespace App\Events;
 
+use App\ActionSequenceIntention;
 use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\InteractsWithSockets;
 use Illuminate\Broadcasting\PrivateChannel;
@@ -17,18 +18,18 @@ class ActionSequenceIntentionDeleted implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var
+     * @var string $id
      */
-    public $action_sequence_intention_id;
+    public $id;
 
     /**
      * Create a new event instance.
      *
-     * @param $action_sequence_intention_id
+     * @param ActionSequenceIntention $action_sequence_intention
      */
-    public function __construct($action_sequence_intention_id)
+    public function __construct(ActionSequenceIntention $action_sequence_intention)
     {
-        $this->action_sequence_intention_id = $action_sequence_intention_id;
+        $this->id = $action_sequence_intention->id;
     }
 
     /**

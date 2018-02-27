@@ -1,17 +1,14 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/files" class="breadcrumb hide-on-small-and-down">@choice('components.files', 2)</a>
+    <a href="/files" class="breadcrumb hide-on-small-and-down">@choice('labels.files', 2)</a>
     <a href="/files/{{ $file->id }}" class="breadcrumb hide-on-small-and-down">{{ $file->display_name }}</a>
 @stop
 
 @section('content')
     <div class="container">
-        <div class="row">
-            <files-show-widget file-id="{{ $file->id }}"
-                               :subscribe-add="false" :subscribe-delete="false"
-                               container-classes="row"></files-show-widget>
-        </div>
+        <files-show-widget file-id="{{ $file->id }}"
+                           container-classes="row"></files-show-widget>
     </div>
 
     <div class="fixed-action-btn">

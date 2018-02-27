@@ -1,7 +1,7 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/terraria" class="breadcrumb hide-on-small-and-down">@choice('components.terraria', 2)</a>
+    <a href="/terraria" class="breadcrumb hide-on-small-and-down">@choice('labels.terraria', 2)</a>
     <a href="/terraria/{{ $terrarium->id }}" class="breadcrumb hide-on-small-and-down">{{ $terrarium->display_name }}</a>
 @stop
 
@@ -11,7 +11,7 @@
             <li class="tab col s3"><a class="active" href="#tab_overview">@lang('labels.overview')</a></li>
             <li class="tab col s3"><a href="#tab_infrastructure">@lang('labels.infrastructure')</a></li>
             <li class="tab col s3"><a href="#tab_biography">@lang('labels.biography')</a></li>
-            <li class="tab col s3"><a href="#tab_files">@choice('components.files', 2)</a></li>
+            <li class="tab col s3"><a href="#tab_files">@choice('labels.files', 2)</a></li>
         </ul>
     </div>
 
@@ -51,7 +51,7 @@
                     <div class="card">
                         <div class="card-header">
                             <i class="material-icons">pets</i>
-                            @choice('components.animals', 2)
+                            @choice('labels.animals', 2)
                         </div>
                         <div class="card-content">
                             <animals-widget source-filter="filter[terrarium_id]={{ $terrarium->id }}"
@@ -80,7 +80,7 @@
         <div class="container">
 
             <components-list-widget :refresh-timeout-seconds="60"
-                                    source-api-base-url="terraria/{{ $terrarium->id }}/infrastructure"></components-list-widget>
+                                    source-api-url="terraria/{{ $terrarium->id }}/infrastructure"></components-list-widget>
 
             <!--
             <physical_sensors-widget :refresh-timeout-seconds="60" source-filter="filter[belongsTo_type]=Terrarium&filter[belongsTo_id]={{ $terrarium->id }}"
@@ -109,9 +109,9 @@
 
     <div id="tab_biography" class="col s12">
         <div class="container">
-            <biography_entries-widget :refresh-timeout-seconds="60"
-                                      belongs-to-type="Terrarium" belongs-to-id="{{ $terrarium->id }}"
-                                      container-classes="container"></biography_entries-widget>
+            <biography_entries-widget belongs-to-type="Terrarium"
+                                      belongs-to-id="{{ $terrarium->id }}"
+                                      wrapper-classes="row"></biography_entries-widget>
         </div>
 
         <div class="fixed-action-btn">

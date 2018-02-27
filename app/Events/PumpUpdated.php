@@ -20,9 +20,9 @@ class PumpUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var array
+     * @var string $id
      */
-    public $pump;
+    public $id;
 
     /**
      * Create a new event instance.
@@ -31,14 +31,7 @@ class PumpUpdated implements ShouldBroadcast
      */
     public function __construct(Pump $p)
     {
-        $transformer = new PumpTransformer();
-        $this->pump = $transformer->transform(
-            (new GenericRepository(
-                Pump::with('valves', 'controlunit')
-                    ->find($p->id)
-            ))->show()
-              ->toArray()
-        );
+        $this->id = $p->id;
     }
 
     /**

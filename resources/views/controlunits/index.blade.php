@@ -1,13 +1,13 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/controlunits" class="breadcrumb hide-on-small-and-down">@choice('components.controlunits', 2)</a>
+    <a href="/controlunits" class="breadcrumb hide-on-small-and-down">@choice('labels.controlunits', 2)</a>
 @stop
 
 
 @section('content')
     <div class="container">
-        <controlunits-list-widget :refresh-timeout-seconds="60" :container-classes="['masonry-grid']" wrapper-classes=""></controlunits-list-widget>
+        <controlunits-list-widget></controlunits-list-widget>
     </div>
 
     <div class="fixed-action-btn">

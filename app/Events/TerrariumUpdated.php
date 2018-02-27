@@ -18,9 +18,9 @@ class TerrariumUpdated implements ShouldBroadcast
     use InteractsWithSockets, SerializesModels;
 
     /**
-     * @var mixed
+     * @var string $id
      */
-    public $terrarium_id;
+    public $id;
 
     /**
      * Create a new event instance.
@@ -29,7 +29,7 @@ class TerrariumUpdated implements ShouldBroadcast
      */
     public function __construct(Terrarium $t)
     {
-        $this->terrarium_id = $t->id;
+        $this->id = $t->id;
     }
 
     /**
