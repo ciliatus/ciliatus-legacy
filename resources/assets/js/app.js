@@ -17,15 +17,15 @@ window.submit_form = function (e, _callback = undefined)
         return false;
     }
 
-    var btns = $('button[type=submit]:enabled');
+    let btns = $('button[type=submit]:enabled');
     btns.attr('disabled', 'disabled');
-    var callback = $(e.target).data('callback') || _callback;
-    var redirect_success = $(e.target).data('redirect-success');
+    let callback = $(e.target).data('callback') || _callback;
+    let redirect_success = $(e.target).data('redirect-success');
     /*
      * Fix for empty data when using
      * PUT with FormData
      */
-    var data = null;
+    let data = null;
     if ($(e.target).data('user-formdata')) {
         data = new FormData(this);
     }
@@ -33,13 +33,13 @@ window.submit_form = function (e, _callback = undefined)
         data = $(e.target).serialize();
     }
 
-    var content_type = 'application/x-www-form-urlencoded';
+    let content_type = 'application/x-www-form-urlencoded';
     if ($(e.target).data('ignore-enctype')) {
         content_type = false;
     }
 
-    var form_id =  $(e.target).prop('id');
-    var form = this;
+    let form_id =  $(e.target).prop('id');
+    let form = this;
 
     return $.ajax({
         url: $(e.target).prop('action'),
@@ -49,7 +49,7 @@ window.submit_form = function (e, _callback = undefined)
         contentType: content_type,
         processData: false,
         xhr: function() {  // Custom XMLHttpRequest
-            var xhr = $.ajaxSettings.xhr();
+            let xhr = $.ajaxSettings.xhr();
             if(xhr.upload){ // Check if upload property exists
                 xhr.upload.addEventListener('progress', progressHandlingFunction, false); // For handling the progress of the upload
             }
@@ -92,7 +92,7 @@ window.submit_form = function (e, _callback = undefined)
         },
         error: function(data) {
             btns.removeAttr('disabled');
-            var msg = 'Unknown';
+            let msg = 'Unknown';
             if (data.responseJSON !== undefined)
                 msg = data.responseJSON.error.message;
             window.notification('Error ' + data.status + '<br />' + data.statusText + ':<br />' + msg, 'orange darken-2 text-white');
@@ -142,7 +142,7 @@ window.runPage = function() {
     });
 
     // SideNav collapse active
-    var active_headers = $('.collapsible-body ul li.active').parent().parent().parent();
+    let active_headers = $('.collapsible-body ul li.active').parent().parent().parent();
     active_headers.addClass('active');
     active_headers.children('.collapsible-body').css('display', 'block');
 
@@ -157,7 +157,7 @@ window.runPage = function() {
     $('ul.tabs').tabs({
         onShow: function(event, ui) {
             location.hash = $(this).attr('href');
-            var grid = $('.masonry-grid');
+            let grid = $('.masonry-grid');
             if (grid && grid.masonry) {
                 grid.masonry('layout');
                 grid.masonry('reloadItems');
