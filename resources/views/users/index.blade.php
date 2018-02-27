@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="container">
-        <users-widget wrapper-classes="col s12"></users-widget>
+        <users-list-widget wrapper-classes="col s12"></users-list-widget>
     </div>
 
     <div class="fixed-action-btn">

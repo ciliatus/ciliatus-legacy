@@ -3,12 +3,12 @@
         <div :class="wrapperClasses">
             <table class="responsive highlight collapsible" data-collapsible="expandable">
                 <table-filter ref="table_filter"
-                              :cols="6"
+                              :cols="4"
                               :hide-cols="hideCols"
                               :filter-fields="[{name: 'id', path: 'id', col: 0, class: 'hide-on-med-and-down'},
                                                {name: 'name', path: 'name', col: 1},
                                                {name: 'email', noFilter: true, col: 2},
-                                               {name: '', noFilter: true, col: 5, class: 'hide-on-small-only'}]">
+                                               {noSort: true, noFilter: true, col: 3, class: 'hide-on-small-only'}]">
                 </table-filter>
 
                 <tbody>
@@ -110,7 +110,7 @@
         created: function() {
             let that = this;
             setTimeout(function() {
-                that.$refs.pagination.init();
+                that.$refs.pagination.init('name');
             }, 100);
         }
     }

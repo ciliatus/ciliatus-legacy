@@ -33,7 +33,7 @@ import LogicalSensorsListWidget from './vue/logical_sensors-list-widget.vue';
 import LogicalSensorThresholdsWidget from './vue/logical_sensor_thresholds-widget.vue';
 import GenericComponentsWidget from './vue/generic_components-widget.vue';
 import GenericComponentsListWidget from './vue/generic_components-list-widget.vue';
-import UsersWidget from './vue/users-widget.vue';
+import UsersListWidget from './vue/users-list-widget.vue';
 import BiographyEntriesWidget from './vue/biography_entries-widget.vue'
 import CaresheetsWidget from './vue/caresheets-widget.vue'
 import LogsWidget from './vue/logs-widget.vue';
@@ -280,7 +280,7 @@ global.ciliatusVue = new global.Vue({
         'logical_sensor_thresholds-widget': LogicalSensorThresholdsWidget,
         'generic_components-widget': GenericComponentsWidget,
         'generic_components-list-widget': GenericComponentsListWidget,
-        'users-widget': UsersWidget,
+        'users-list-widget': UsersListWidget,
         'biography_entries-widget': BiographyEntriesWidget,
         'caresheets-widget': CaresheetsWidget,
         'logs-widget': LogsWidget,
