@@ -101,12 +101,12 @@ class GenericComponentType extends CiliatusModel
     /**
      * Returns all generic components with the defined intention.
      *
-     * @param $value
+     * @param $parameter
      * @param $intention
      * @param Builder|null $scope
      * @return \Illuminate\Support\Collection
      */
-    public static function getGenericComponentsByIntention($value, $intention, Builder $scope = null)
+    public static function getGenericComponentsByIntention($parameter, $intention, Builder $scope = null)
     {
         if (is_null($scope)) {
             $scope = GenericComponent::query();
@@ -115,7 +115,7 @@ class GenericComponentType extends CiliatusModel
         $components = $scope->get();
         $matched = new Collection();
         foreach ($components as $component) {
-            if (!is_null($component->intentions()->where('name', $intention)->where('value', $value)->get()->first())) {
+            if (!is_null($component->intentions()->where('name', $parameter)->where('value', $intention)->get()->first())) {
                 $matched->push($component);
             }
         }

@@ -82,8 +82,8 @@ class GenericComponentTypeController extends ApiController
                     'belongsTo_type' => 'GenericComponentType',
                     'belongsTo_id' => $type->id,
                     'type' => 'GenericComponentTypeIntention',
-                    'name' => $request->get('default_intention_intention')[$i],
-                    'value' => $request->get('default_intention_type')[$i]
+                    'name' => $request->get('default_intention_type')[$i],
+                    'value' => $request->get('default_intention_intention')[$i]
                 ]);
             }
         }
@@ -230,14 +230,14 @@ class GenericComponentTypeController extends ApiController
 
             for ($i = 0; $i < count($request->get('default_intention_intention')); $i++) {
                 $intention = $request->get('default_intention_intention')[$i];
-                $value = $request->get('default_intention_type')[$i];
+                $parameter = $request->get('default_intention_type')[$i];
 
                 Property::create([
                     'belongsTo_type' => 'GenericComponentType',
                     'belongsTo_id' => $type->id,
                     'type' => 'GenericComponentTypeIntention',
-                    'name' => $intention,
-                    'value' => $value
+                    'name' => $parameter,
+                    'value' => $intention
                 ]);
             }
         }
