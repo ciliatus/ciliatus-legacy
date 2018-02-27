@@ -8,7 +8,7 @@
                 </div>
 
                 <div class="card-content">
-                    <div v-for="schedule in schedules">
+                    <div class="row no-margin" v-for="schedule in schedules">
                         <template v-if="schedule.data">
                             <span v-show="schedule.data.timestamps.next != null">{{ schedule.data.timestamps.next }}</span>
 

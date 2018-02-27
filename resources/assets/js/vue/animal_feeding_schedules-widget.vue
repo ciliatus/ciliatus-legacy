@@ -7,16 +7,16 @@
             </div>
 
             <div class="card-content">
-                <div v-for="schedule in schedules">
+                <div class="row no-margin" v-for="schedule in schedules">
                     <template v-if="schedule.data">
                         <span v-if="schedule.data.timestamps.next != null">{{ schedule.data.timestamps.next }} - </span>
                         {{ schedule.data.type }}
 
                         <span class="right">
-                                <a :href="'/animals/' + animalId + '/feeding_schedules/' + schedule.data.id + '/edit'">
-                                    <i class="material-icons">edit</i>
-                                </a>
-                            </span>
+                            <a :href="'/animals/' + animalId + '/feeding_schedules/' + schedule.data.id + '/edit'">
+                                <i class="material-icons">edit</i>
+                            </a>
+                        </span>
 
                         <span class="right">
                                 <span v-show="schedule.data.due_days === 0" class="new badge" v-bind:data-badge-caption="$t('labels.due')"> </span>
