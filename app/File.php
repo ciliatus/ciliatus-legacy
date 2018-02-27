@@ -62,9 +62,10 @@ class File extends CiliatusModel
 
     /**
      * @param Request $request
-     * @param $user_id
+     * @param         $user_id
      * @return CiliatusModel|File
      * @throws ErrorException
+     * @throws \Spatie\Image\Exceptions\InvalidManipulation
      */
     public static function createFromRequest(Request $request, $user_id)
     {
