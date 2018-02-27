@@ -12,6 +12,7 @@ use App\Events\AnimalUpdated;
 use App\Property;
 use Carbon\Carbon;
 use Gate;
+use Illuminate\Database\QueryException;
 use Illuminate\Http\Request;
 
 /**
@@ -93,19 +94,32 @@ class AnimalFeedingSchedulePropertyController extends ApiController
          */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return $this->respondNotFound("Animal not found");
+            return $this->setStatusCode(404)
+                        ->setErrorCode('20x001')
+                        ->respondWithErrorDefaultMessage();
         }
 
         /**
          * @var AnimalFeedingScheduleProperty $p
          */
-        $p = AnimalFeedingScheduleProperty::create([
-            'belongsTo_type' => 'Animal',
-            'belongsTo_id' => $animal_id,
-            'type' => 'AnimalFeedingSchedule',
-            'name' => $request->input('meal_type'),
-            'value' => $request->input('interval_days')
-        ]);
+        try {
+            $p = AnimalFeedingScheduleProperty::create([
+                'belongsTo_type' => 'Animal',
+                'belongsTo_id' => $animal_id,
+                'type' => 'AnimalFeedingSchedule',
+                'name' => $request->input('meal_type'),
+                'value' => $request->input('interval_days')
+            ]);
+        }
+        catch (QueryException $ex) {
+            if ($ex->getCode() == '23000') {
+                return $this->setStatusCode(422)
+                            ->setErrorCode('20x002')
+                            ->respondWithErrorDefaultMessage();
+            }
+
+            throw $ex;
+        }
 
         if ($request->filled('starts_at')) {
             Property::where('belongsTo_type', 'Property')
