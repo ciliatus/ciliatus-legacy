@@ -229,7 +229,7 @@ global.ciliatusVue = new global.Vue({
                     .echo
                     .private('dashboard-updates')
                     .listen(event_name, function (e) {
-                        that.$store.state[k].filter(obj => obj.id === e.id).forEach(obj => obj.refresh(false, 2));
+                        that.$store.state[k].filter(obj => obj.id === e.id).forEach(obj => obj.refresh(false, .2));
                     });
             }
 
