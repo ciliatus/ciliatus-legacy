@@ -37,9 +37,6 @@ class Update20 extends Command
         echo "Starting upgrade to v2.0" . PHP_EOL;
         Artisan::call('down');
 
-        echo "Running database migration ..." . PHP_EOL;
-        Artisan::call('migrate');
-
         echo "Transforming Generic Component Type Intentions ..." . PHP_EOL;
         foreach (Property::where('type', 'GenericComponentTypeIntention')->get() as $type) {
             $name = $type->name;
@@ -47,6 +44,9 @@ class Update20 extends Command
             $type->value = $name;
             $type->save();
         }
+
+        echo "Running database migration ..." . PHP_EOL;
+        Artisan::call('migrate');
 
         echo "Updating permissions ..." . PHP_EOL;
         foreach (User::get() as $user) {
