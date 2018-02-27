@@ -222,6 +222,19 @@ class ApiController extends Controller
     }
 
     /**
+     * @param array $arguments
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondWithErrorDefaultMessage($arguments = [])
+    {
+        if (!is_array($arguments)) {
+            $arguments = [$arguments];
+        }
+
+        return $this->respondWithError(trans('errors.codes.' . $this->errorCode, $arguments));
+    }
+
+    /**
      * @param $data
      * @param LengthAwarePaginator $paginator
      * @param array $meta
