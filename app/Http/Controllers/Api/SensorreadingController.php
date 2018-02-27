@@ -99,40 +99,40 @@ class SensorreadingController extends ApiController
 
         if (!$this->checkInput($required_inputs, $request)) {
             return $this->setStatusCode(422)
-                        ->setErrorCode(101)
-                        ->respondWithError('Required inputs: ' . implode(',', $required_inputs));
+                        ->setErrorCode('10x001')
+                        ->respondWithErrorDefaultMessage(implode(',', $required_inputs));
         }
 
         if (!$this->checkUuid($request->input('group_id'))) {
             return $this->setStatusCode(422)
-                        ->setErrorCode(102)
-                        ->respondWithError('group_id must be a valid uuid');
+                        ->setErrorCode('10x002')
+                        ->respondWithErrorDefaultMessage();
         }
 
         if (!$this->checkUuid($request->input('logical_sensor_id'))) {
             return $this->setStatusCode(422)
-                        ->setErrorCode(103)
-                        ->respondWithError('logical_sensor_id must be a valid uuid');
+                        ->setErrorCode('10x003')
+                        ->respondWithErrorDefaultMessage();
         }
 
         $logical_sensor = LogicalSensor::find($request->input('logical_sensor_id'));
         if (is_null($logical_sensor)) {
             return $this->setStatusCode(422)
-                        ->setErrorCode(104)
-                        ->respondWithError('LogicalSensor not found');
+                        ->setErrorCode('10x004')
+                        ->respondWithErrorDefaultMessage();
         }
 
         if (!$logical_sensor->checkRawValue((float)$request->input('rawvalue'))) {
             return $this->setStatusCode(422)
-                        ->setErrorCode(105)
-                        ->respondWithError('rawvalue out of range');
+                        ->setErrorCode('10x005')
+                        ->respondWithErrorDefaultMessage();
         }
 
         $existing_sensorreading = Sensorreading::where('sensorreadinggroup_id', $request->input('group_id'))->where('logical_sensor_id', $request->input('logical_sensor_id'))->first();
         if (!is_null($existing_sensorreading)) {
             return $this->setStatusCode(422)
-                        ->setErrorCode(106)
-                        ->respondWithError('The reading group already has a reading for this logical sensor');
+                        ->setErrorCode('10x006')
+                        ->respondWithErrorDefaultMessage();
         }
 
         $logical_sensor->rawvalue = (float)$request->input('rawvalue');
@@ -155,8 +155,8 @@ class SensorreadingController extends ApiController
             }
             catch (\Exception $ex) {
                 return $this->setStatusCode(422)
-                            ->setErrorCode(107)
-                            ->respondWithError('Field created_at could not be parsed: ' . $ex->getMessage());
+                            ->setErrorCode('10x007')
+                            ->respondWithErrorDefaultMessage($ex->getMessage());
             }
 
             $read_at = $request->input('read_at');
