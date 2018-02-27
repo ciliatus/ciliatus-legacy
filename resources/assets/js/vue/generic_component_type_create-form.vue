@@ -1214,7 +1214,7 @@ export default {
                 }
                 if (that.intentions !== null) {
                     that.intentions.forEach(function (el) {
-                        that.component_intentions.push({intention:el.name, type:el.value});
+                        that.component_intentions.push({intention:el.value, type:el.name});
                     })
                 }
             }
