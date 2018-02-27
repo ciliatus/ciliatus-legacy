@@ -20,12 +20,13 @@ class ControlunitController extends ApiController
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->errorCodeNamespace = '1D';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -36,7 +37,6 @@ class ControlunitController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -62,7 +62,7 @@ class ControlunitController extends ApiController
          */
         $controlunit = Controlunit::find($id);
         if (is_null($controlunit)) {
-            return $this->setStatusCode(422)->respondWithError('Controlunit not found');
+            return $this->respondNotFound();
         }
 
         $controlunit->delete();
@@ -123,7 +123,7 @@ class ControlunitController extends ApiController
          */
         $controlunit = Controlunit::find($id);
         if (is_null($controlunit)) {
-            return $this->setStatusCode(422)->respondWithError('Controlunit not found');
+            return $this->respondNotFound();
         }
 
         $this->updateModelProperties($controlunit, $request, [
@@ -170,7 +170,7 @@ class ControlunitController extends ApiController
          */
         $controlunit = Controlunit::find($id);
         if (is_null($controlunit)) {
-            return $this->setStatusCode(422)->respondWithError('Controlunit not found');
+            return $this->respondNotFound();
         }
 
         return $this->respondWithData($controlunit->fetchAndAckDesiredStates());
@@ -192,7 +192,7 @@ class ControlunitController extends ApiController
          */
         $controlunit = Controlunit::find($id);
         if (is_null($controlunit)) {
-            return $this->setStatusCode(422)->respondWithError('Controlunit not found');
+            return $this->respondNotFound();
         }
 
         if ($request->filled('software_version')) {
@@ -204,7 +204,9 @@ class ControlunitController extends ApiController
                 $client_time = Carbon::parse($request->input('client_time'));
             }
             catch (\Exception $ex) {
-                return $this->setStatusCode(422)->respondWithError('Could not parse client time');
+                return $this->setStatusCode(422)
+                            ->setErrorCode('103')
+                            ->respondWithErrorDefaultMessage(['timestamp' => 'client_time']);
             }
 
             $controlunit->client_server_time_diff_seconds = Carbon::now()->diffInSeconds($client_time);

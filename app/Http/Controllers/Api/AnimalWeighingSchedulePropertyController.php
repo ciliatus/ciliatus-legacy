@@ -21,10 +21,13 @@ class AnimalWeighingSchedulePropertyController extends ApiController
 
     /**
      * AnimalWeighingSchedulePropertyController constructor.
+     * @param Request $request
      */
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->errorCodeNamespace = '1A';
     }
 
     /**
@@ -32,7 +35,6 @@ class AnimalWeighingSchedulePropertyController extends ApiController
      * @param null $animal_id
      * @return \Illuminate\Http\JsonResponse
      * @internal param $animal_id
-     * @throws \ErrorException
      */
     public function index(Request $request, $animal_id = null)
     {
@@ -43,7 +45,7 @@ class AnimalWeighingSchedulePropertyController extends ApiController
         if (!is_null($animal_id)) {
             $animal = Animal::find($animal_id);
             if (is_null($animal)) {
-                return $this->respondNotFound("Animal not found");
+                return $this->respondNotFound();
             }
 
             $weighing_schedules = $this->filter($request, $animal->weighing_schedules()->getQuery());
@@ -103,7 +105,7 @@ class AnimalWeighingSchedulePropertyController extends ApiController
          */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return $this->respondNotFound("Animal not found");
+            return $this->respondNotFound();
         }
 
         /**
@@ -236,7 +238,7 @@ class AnimalWeighingSchedulePropertyController extends ApiController
             return $this->respondNotFound();
         }
 
-        broadcast(new AnimalWeighingSchedulePropertyDeleted($aws->id));
+        broadcast(new AnimalWeighingSchedulePropertyDeleted($aws));
         broadcast(new AnimalUpdated($animal));
 
         $aws->delete();

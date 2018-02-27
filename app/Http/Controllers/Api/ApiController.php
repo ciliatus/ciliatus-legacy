@@ -24,22 +24,36 @@ class ApiController extends Controller
     use FiltersEloquentApi;
 
     /**
-     * @var null
+     * Error code namespace defines the part before the x in an error code
+     *
+     * @var string $errorCodeNamespace
+     */
+    protected $errorCodeNamespace = '00';
+
+    /**
+     * @var Request $request
      */
     protected $request = null;
 
     /**
-     * @var
+     * @var $statusCode
      */
     protected $statusCode = 200;
 
     /**
-     * @var
+     * Error code identifier
+     * 101 - Model not found
+     * 102 - Related model not found
+     * 103 - Could not parse timestamp
+     * 104 - Missing fields
+     * 105 - Class not found
+     *
+     * @var string $errorCode
      */
     protected $errorCode;
 
     /**
-     * @var array
+     * @var array $debug_info
      */
     protected $debug_info = [];
 
@@ -113,7 +127,9 @@ class ApiController extends Controller
         )->find($id);
 
         if (is_null($object)) {
-            return $this->respondNotFound(sprintf('%s not found', $model_class_name));
+            return $this->setStatusCode(404)
+                        ->setErrorCode('101')
+                        ->respondWithErrorDefaultMessage();
         }
 
         $this->applyRepository($object);
@@ -186,12 +202,24 @@ class ApiController extends Controller
     }
 
     /**
-     * @param string $message
      * @return \Illuminate\Http\JsonResponse
      */
-    public function respondNotFound($message = 'Not found')
+    public function respondNotFound()
     {
-        return $this->setStatusCode(404)->respondWithError($message);
+        return $this->setStatusCode(404)
+                    ->setErrorCode('101')
+                    ->respondWithErrorDefaultMessage();
+    }
+
+    /**
+     * @param $model
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function respondRelatedModelNotFound($model)
+    {
+        return $this->setStatusCode(422)
+                    ->setErrorCode('102')
+                    ->respondWithErrorDefaultMessage(['related_object' => $model]);
     }
 
     /**
@@ -231,7 +259,14 @@ class ApiController extends Controller
             $arguments = [$arguments];
         }
 
-        return $this->respondWithError(trans('errors.codes.' . $this->errorCode, $arguments));
+        if ($this->errorCodeIsCommon()) {
+            $trans_key = 'errors.codes.common.' . $this->errorCode;
+        }
+        else {
+            $trans_key = 'errors.codes.custom.' . $this->errorCodeNamespace . '.' . $this->errorCode;
+        }
+
+        return $this->respondWithError(trans($trans_key, $arguments));
     }
 
     /**
@@ -721,6 +756,22 @@ class ApiController extends Controller
         }
 
         return $property;
+    }
+
+    /**
+     * @return string
+     */
+    protected function getFullyQualifiedErrorCode()
+    {
+        return $this->errorCodeNamespace . 'x' . $this->errorCode;
+    }
+
+    /**
+     * @return bool
+     */
+    protected function errorCodeIsCommon()
+    {
+        return hexdec($this->errorCode) < hexdec('1FF');
     }
 
     /**

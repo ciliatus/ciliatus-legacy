@@ -28,6 +28,8 @@ class AnimalFeedingSchedulePropertyController extends ApiController
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->errorCodeNamespace = '18';
     }
 
     /**
@@ -35,7 +37,6 @@ class AnimalFeedingSchedulePropertyController extends ApiController
      * @param null $animal_id
      * @return \Illuminate\Http\JsonResponse
      * @internal param $animal_id
-     * @throws \ErrorException
      */
     public function index(Request $request, $animal_id = null)
     {
@@ -46,7 +47,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
         if (!is_null($animal_id)) {
             $animal = Animal::find($animal_id);
             if (is_null($animal)) {
-                return $this->respondNotFound("Animal not found");
+                return $this->respondNotFound();
             }
             $feeding_schedules = $this->filter($request, $animal->feeding_schedules()->getQuery());
         }
@@ -85,9 +86,11 @@ class AnimalFeedingSchedulePropertyController extends ApiController
         //
     }
 
-
     /**
      * Store a newly created resource in storage.
+     *
+     * Error Codes
+     *  - 201: Feeding schedule for type already exists
      *
      * @param Request $request
      * @param $animal_id
@@ -104,9 +107,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
          */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return $this->setStatusCode(404)
-                        ->setErrorCode('20x001')
-                        ->respondWithErrorDefaultMessage();
+            return $this->respondNotFound();
         }
 
         /**
@@ -124,7 +125,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
         catch (QueryException $ex) {
             if ($ex->getCode() == '23000') {
                 return $this->setStatusCode(422)
-                            ->setErrorCode('20x002')
+                            ->setErrorCode('201')
                             ->respondWithErrorDefaultMessage();
             }
 
@@ -254,7 +255,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
             $p->delete();
         }
 
-        broadcast(new AnimalFeedingSchedulePropertyDeleted($afs->id));
+        broadcast(new AnimalFeedingSchedulePropertyDeleted($afs));
         broadcast(new AnimalUpdated($animal));
 
         $afs->delete();

@@ -15,16 +15,18 @@ class CriticalStateController extends ApiController
 
     /**
      * CriticalStateController constructor.
+     * @param Request $request
      */
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->errorCodeNamespace = '1E';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -35,7 +37,6 @@ class CriticalStateController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {

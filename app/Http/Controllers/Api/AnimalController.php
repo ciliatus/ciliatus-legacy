@@ -23,12 +23,13 @@ class AnimalController extends ApiController
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->errorCodeNamespace = '16';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -39,7 +40,6 @@ class AnimalController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -65,7 +65,7 @@ class AnimalController extends ApiController
          */
         $animal = Animal::find($id);
         if (is_null($animal)) {
-            return $this->setStatusCode(422)->respondWithError('Animal not found');
+            return $this->respondNotFound();
         }
 
         $animal->delete();
@@ -128,7 +128,7 @@ class AnimalController extends ApiController
          */
         $animal = Animal::find($id);
         if (is_null($animal)) {
-            return $this->setStatusCode(404)->respondWithError('Animal not found');
+            return $this->respondNotFound();
         }
 
         /**
@@ -138,7 +138,7 @@ class AnimalController extends ApiController
         if ($request->filled('terrarium')) {
             $terrarium = Terrarium::find($request->input('terrarium'));
             if (is_null($terrarium)) {
-                return $this->setStatusCode(422)->respondWithError('Terrarium not found');
+                return $this->respondRelatedModelNotFound(Terrarium::class);
             }
         }
 
@@ -147,7 +147,9 @@ class AnimalController extends ApiController
                 Carbon::parse($request->input('birthdate'));
             }
             catch (\Exception $ex) {
-                return $this->setStatusCode(422)->respondWithError('Cannot parse date of birth');
+                return $this->setStatusCode(422)
+                            ->setErrorCode('103')
+                            ->respondWithErrorDefaultMessage(['timestamp' => 'birth date']);
             }
         }
 
@@ -156,7 +158,9 @@ class AnimalController extends ApiController
                 Carbon::parse($request->input('deathdate'));
             }
             catch (\Exception $ex) {
-                return $this->setStatusCode(422)->respondWithError('Cannot parse date of death');
+                return $this->setStatusCode(422)
+                            ->setErrorCode('103')
+                            ->respondWithErrorDefaultMessage(['timestamp' => 'death date']);
             }
         }
 
@@ -203,7 +207,7 @@ class AnimalController extends ApiController
          */
         $animal = Animal::find($this->getBelongsTo($request)['belongsTo_id']);
         if (is_null($animal)) {
-            return $this->respondNotFound('Animal not found.');
+            return $this->respondNotFound();
         }
 
         $caresheet = $animal->generate_caresheet();
@@ -257,7 +261,7 @@ class AnimalController extends ApiController
          */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return view('errors.404');
+            return $this->respondNotFound();
         }
 
         $query = $animal->caresheets()->getQuery();
@@ -271,6 +275,5 @@ class AnimalController extends ApiController
             'AnimalCaresheetRepository',
             'AnimalCaresheetTransformer');
     }
-
 
 }

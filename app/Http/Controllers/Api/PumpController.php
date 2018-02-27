@@ -17,16 +17,18 @@ class PumpController extends ApiController
 
     /**
      * PumpController constructor.
+     * @param Request $request
      */
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->errorCodeNamespace = '28';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -37,7 +39,6 @@ class PumpController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -63,7 +64,7 @@ class PumpController extends ApiController
          */
         $pump = Pump::find($id);
         if (is_null($pump)) {
-            return $this->respondNotFound('Pump not found');
+            return $this->respondNotFound();
         }
 
         $pump->delete();
@@ -85,6 +86,12 @@ class PumpController extends ApiController
 
         if (Gate::denies('api-write:pump')) {
             return $this->respondUnauthorized();
+        }
+
+        if (!$request->has('name')) {
+            return $this->setStatusCode(422)
+                        ->setErrorCode('104')
+                        ->respondWithErrorDefaultMessage(['missing_fields' => 'name']);
         }
 
         /**
@@ -126,13 +133,13 @@ class PumpController extends ApiController
          */
         $pump = Pump::find($id);
         if (is_null($pump)) {
-            return $this->respondNotFound('Pump not found');
+            return $this->respondNotFound();
         }
 
         if ($request->filled('controlunit') && strlen($request->input('controlunit')) > 0) {
             $controlunit = Controlunit::find($request->input('controlunit'));
             if (is_null($controlunit)) {
-                return $this->setStatusCode(422)->respondWithError('Controlunit not found');
+                return $this->respondRelatedModelNotFound(Controlunit::class);
             }
         }
 

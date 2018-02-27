@@ -16,16 +16,18 @@ class ActionController extends ApiController
 
     /**
      * ActionController constructor.
+     * @param Request $request
      */
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->errorCodeNamespace = '11';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -36,7 +38,6 @@ class ActionController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -61,7 +62,7 @@ class ActionController extends ApiController
          */
         $action = Action::find($id);
         if (is_null($action)) {
-            return $this->setStatusCode(404)->respondWithError('Action not found');
+            return $this->respondNotFound();
         }
 
         $action->delete();
@@ -90,17 +91,18 @@ class ActionController extends ApiController
          */
         $sequence = ActionSequence::find($request->input('action_sequence'));
         if (is_null($sequence)) {
-            return $this->setStatusCode(422)->respondWithError('Action Sequence not found');
+            return $this->respondRelatedModelNotFound(ActionSequence::class);
         }
 
         list($component_type, $component_id) = explode('|', $request->input('component'));
         if (!class_exists('App\\' . $component_type)) {
-            return $this->setStatusCode(422)->respondWithError('Component type not found');
+            return $this->respondRelatedModelNotFound('App\\' . $component_type);
         }
 
-        $component = ('App\\' . $component_type)::find($component_id);
+        $component_type_fq = 'App\\' . $component_type;
+        $component = $component_type_fq::find($component_id);
         if (is_null($component)) {
-            return $this->setStatusCode(422)->respondWithError('Component not found');
+            return $this->respondRelatedModelNotFound($component_type_fq);
         }
 
         /**
@@ -147,27 +149,27 @@ class ActionController extends ApiController
          */
         $action = Action::find($id);
         if (is_null($action)) {
-            return $this->setStatusCode(404)->respondWithError('Action not found');
+            return $this->respondNotFound();
         }
 
         if ($request->filled('action_sequence_id')) {
             $asi = ActionSequence::find($request->input('action_sequence_id'));
             if (is_null($asi)) {
-                return $this->setStatusCode(422)->respondWithError('ActionSequence not found');
+                return $this->respondRelatedModelNotFound(ActionSequence::class);
             }
         }
 
         if ($request->filled('wait_for_started_action_id')) {
             $a = Action::find($request->input('wait_for_started_action_id'));
             if (is_null($a)) {
-                return $this->setStatusCode(422)->respondWithError('Action not found');
+                return $this->respondRelatedModelNotFound(Action::class);
             }
         }
 
         if ($request->filled('wait_for_finished_action_id')) {
             $a = Action::find($request->input('wait_for_finished_action_id'));
             if (is_null($a)) {
-                return $this->setStatusCode(422)->respondWithError('Action not found');
+                return $this->respondRelatedModelNotFound(Action::class);
             }
         }
 
@@ -176,9 +178,10 @@ class ActionController extends ApiController
             if (!class_exists('App\\' . $component_type)) {
                 return $this->setStatusCode(422)->respondWithError('Component type not found');
             }
-            $component = ('App\\' . $component_type)::find($component_id);
+            $component_type_fq = 'App\\' . $component_type;
+            $component = $component_type_fq::find($component_id);
             if (is_null($component)) {
-                return $this->setStatusCode(422)->respondWithError('Component not found');
+                return $this->respondRelatedModelNotFound($component_type_fq);
             }
 
             $action->target_type = $component_type;

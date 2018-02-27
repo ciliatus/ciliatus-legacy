@@ -20,16 +20,18 @@ class FileController extends ApiController
 
     /**
      * FileController constructor.
+     * @param Request $request
      */
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->errorCodeNamespace = '20';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -40,7 +42,6 @@ class FileController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -66,7 +67,7 @@ class FileController extends ApiController
          */
         $file = File::find($id);
         if (is_null($file)) {
-            return $this->respondNotFound('File not found');
+            return $this->respondNotFound();
         }
 
         $file->delete();
@@ -80,6 +81,10 @@ class FileController extends ApiController
     }
 
     /**
+     * Custom Error Codes
+     *  - 201: No file to upload (request field empty)
+     *  - 202: File size too large
+     *
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      * @throws \ErrorException
@@ -92,11 +97,15 @@ class FileController extends ApiController
         }
 
         if (!$request->file('file')) {
-            return $this->setStatusCode(422)->respondWithError('No file');
+            return $this->setStatusCode(422)
+                        ->setErrorCode('201')
+                        ->respondWithErrorDefaultMessage();
         }
 
         if ($request->file('file')->getClientSize() > System::maxUploadFileSize()) {
-            return $this->setStatusCode(422)->respondWithError('File to big');
+            return $this->setStatusCode(422)
+                        ->setErrorCode('202')
+                        ->respondWithErrorDefaultMessage(['max_size' => System::maxUploadFileSize()/1024/1024]);
         }
         /**
          * Create file model
@@ -173,7 +182,7 @@ class FileController extends ApiController
          */
         $file = File::find($id);
         if (is_null($file)) {
-            return $this->respondNotFound('File not found');
+            return $this->respondNotFound();
         }
 
         if ($request->filled('display_name')) {
@@ -205,7 +214,7 @@ class FileController extends ApiController
         $source_class = 'App\\' . $type;
         $source = $source_class::find($id);
         if (is_null($source)) {
-            return $this->respondNotFound('Source not found');
+            return $this->respondNotFound();
         }
 
         /**
@@ -213,7 +222,7 @@ class FileController extends ApiController
          */
         $file = File::find($request->input('file'));
         if (is_null($file)) {
-            return $this->respondNotFound('File not found');
+            return $this->respondNotFound();
         }
 
         $source->files()->save($file);
@@ -233,7 +242,7 @@ class FileController extends ApiController
         $source_class = 'App\\' . $type;
         $source = $source_class::find($id);
         if (is_null($source)) {
-            return $this->respondNotFound('Source not found');
+            return $this->respondNotFound();
         }
 
         /**
@@ -241,7 +250,7 @@ class FileController extends ApiController
          */
         $file = File::find($file_id);
         if (is_null($file)) {
-            return $this->respondNotFound('File not found');
+            return $this->respondNotFound();
         }
 
         $source->files()->detach($file);
@@ -261,7 +270,7 @@ class FileController extends ApiController
         $source_class = 'App\\' . $type;
         $source = $source_class::find($id);
         if (is_null($source)) {
-            return $this->respondNotFound('Source not found');
+            return $this->respondNotFound();
         }
 
         /**
@@ -269,7 +278,7 @@ class FileController extends ApiController
          */
         $file = File::find($file_id);
         if (is_null($file)) {
-            return $this->respondNotFound('File not found');
+            return $this->respondNotFound();
         }
 
         if (!is_null($source->property('generic', 'background_file_id'))) {

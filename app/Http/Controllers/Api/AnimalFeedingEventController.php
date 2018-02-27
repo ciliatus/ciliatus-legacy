@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use App\Animal;
 use App\AnimalFeedingEvent;
+use App\AnimalFeedingScheduleProperty;
 use App\Events\AnimalFeedingEventDeleted;
 use App\Events\AnimalFeedingEventUpdated;
 use App\Events\AnimalFeedingSchedulePropertyDeleted;
@@ -27,24 +28,28 @@ class AnimalFeedingEventController extends ApiController
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->errorCodeNamespace = '17';
     }
 
     /**
      * @param Request $request
      * @param $animal_id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request, $animal_id)
     {
         if (Gate::denies('api-list')) {
             return $this->respondUnauthorized();
         }
+
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return $this->respondNotFound("Animal not found");
+            return $this->respondNotFound();
         }
+
         $feedings = $this->filter($request, $animal->feedings()->orderBy('created_at', 'DESC')->getQuery());
+
         return $this->respondTransformedAndPaginated(
             $request,
             $feedings
@@ -55,7 +60,6 @@ class AnimalFeedingEventController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -90,7 +94,7 @@ class AnimalFeedingEventController extends ApiController
          */
         $animal = Animal::find($id);
         if (is_null($animal)) {
-            return $this->setStatusCode(404)->respondWithError('Animal not found');
+            return $this->respondNotFound();
         }
 
         /**
@@ -105,7 +109,15 @@ class AnimalFeedingEventController extends ApiController
         ]);
 
         if ($request->filled('created_at')) {
-            $event->created_at = Carbon::parse($request->input('created_at'));
+            try {
+                $event->created_at = Carbon::parse($request->input('created_at'));
+            }
+            catch (\Exception $ex) {
+                return $this->setStatusCode(422)
+                            ->setErrorCode('103')
+                            ->respondWithErrorDefaultMessage(['timestamp' => 'created_at']);
+            }
+
             $event->save();
         }
 
@@ -159,7 +171,7 @@ class AnimalFeedingEventController extends ApiController
          */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return $this->respondNotFound('Animal not found');
+            return $this->respondNotFound();
         }
 
         /**
@@ -167,14 +179,13 @@ class AnimalFeedingEventController extends ApiController
          */
         $event = $animal->feedings()->where('id', $id)->get()->first();
         if (is_null($event)) {
-            return $this->respondNotFound('Animal feeding not found');
+            return $this->respondNotFound();
         }
 
-        $id = $event->id;
+        broadcast(new AnimalFeedingEventDeleted($event));
 
         $event->delete();
 
-        broadcast(new AnimalFeedingEventDeleted($id));
 
         return $this->respondWithData([]);
     }
@@ -212,7 +223,9 @@ class AnimalFeedingEventController extends ApiController
         }
 
         if (!$this->checkInput(['name'], $request)) {
-            return $this->setErrorCode(422)->respondWithError('Missing fields');
+            return $this->setStatusCode(422)
+                        ->setErrorCode('104')
+                        ->respondWithErrorDefaultMessage(['missing_fields' => 'name']);
         }
 
         if (is_null($type =
@@ -256,10 +269,10 @@ class AnimalFeedingEventController extends ApiController
         }
 
         $type = Property::find($id);
-        $schedules = Property::where('type', 'AnimalFeedingSchedule')->where('name', $type->name)->get();
+        $schedules = AnimalFeedingScheduleProperty::where('name', $type->name)->get();
 
         foreach ($schedules as $s) {
-            broadcast(new AnimalFeedingSchedulePropertyDeleted($s->id));
+            broadcast(new AnimalFeedingSchedulePropertyDeleted($s));
             $s->delete();
         }
         $type->delete();

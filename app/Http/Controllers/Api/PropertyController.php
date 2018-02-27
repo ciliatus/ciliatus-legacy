@@ -18,16 +18,18 @@ class PropertyController extends ApiController
 
     /**
      * PropertyController constructor.
+     * @param Request $request
      */
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->errorCodeNamespace = '27';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -38,7 +40,6 @@ class PropertyController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -61,7 +62,7 @@ class PropertyController extends ApiController
          */
         $property = Property::find($id);
         if (is_null($property)) {
-            return $this->respondNotFound('Property not found');
+            return $this->respondNotFound();
         }
 
         $property->delete();
@@ -82,7 +83,11 @@ class PropertyController extends ApiController
 
         $required_fields = ['belongsTo_type', 'belongsTo_id', 'type', 'name'];
         if (!$this->checkInput($required_fields, $request)) {
-            return $this->setStatusCode(422)->respondWithError("Missing fields. Required: " . implode(',', $required_fields));
+            return $this->setStatusCode(422)
+                        ->setErrorCode('104')
+                        ->respondWithErrorDefaultMessage([
+                            'missing_fields' => implode(',', $required_fields)
+                        ]);
         }
 
         $belongsTo_type = $request->input('belongsTo_type');
@@ -90,12 +95,14 @@ class PropertyController extends ApiController
 
         $class_name = "App\\$belongsTo_type";
         if (!class_exists($class_name)) {
-            return $this->setStatusCode(422)->respondWithError("Class not found: " . $class_name);
+            return $this->setStatusCode(422)
+                        ->setErrorCode('105')
+                        ->respondWithErrorDefaultMessage();
         }
 
         $belongs_to = $class_name::find($belongsTo_id);
         if (is_null($belongs_to)) {
-            return $this->setStatusCode(422)->respondWithError("Object $belongsTo_id of type $belongsTo_type not found.");
+            return $this->respondRelatedModelNotFound($class_name);
         }
 
         /**
@@ -147,12 +154,14 @@ class PropertyController extends ApiController
 
             $class_name = "App\\$belongsTo_type";
             if (!class_exists($class_name)) {
-                return $this->setStatusCode(422)->respondWithError("Class not found: " . $class_name);
+                return $this->setStatusCode(422)
+                            ->setErrorCode('105')
+                            ->respondWithErrorDefaultMessage();
             }
 
             $belongs_to = $class_name::find($belongsTo_id);
             if (is_null($belongs_to)) {
-                return $this->setStatusCode(422)->respondWithError("Object $belongsTo_id of type $belongsTo_type not found.");
+                return $this->respondRelatedModelNotFound($class_name);
             }
 
             $property->belongsTo_type = $belongsTo_type;

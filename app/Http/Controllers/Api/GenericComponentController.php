@@ -18,16 +18,18 @@ class GenericComponentController extends ApiController
 
     /**
      * GenericComponentController constructor.
+     * @param Request $request
      */
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->errorCodeNamespace = '21';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -38,7 +40,6 @@ class GenericComponentController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -68,11 +69,11 @@ class GenericComponentController extends ApiController
         }
 
         if ($request->filled('controlunit') && is_null(Controlunit::find($request->input('controlunit')))) {
-            return $this->setStatusCode(422)->respondWithError("Controlunit not found.");
+            return $this->respondRelatedModelNotFound(Controlunit::class);
         }
 
         if (is_null(GenericComponentType::find($request->input('type_id')))) {
-            return $this->setStatusCode(422)->respondWithError("GenericComponentType not found.");
+            return $this->respondRelatedModelNotFound(GenericComponentType::class);
         }
 
         /**
@@ -90,7 +91,7 @@ class GenericComponentController extends ApiController
             foreach($request->input('properties') as $id=>$prop) {
                 $prop_template = Property::find($id);
                 if (is_null($prop_template)) {
-                    return $this->setStatusCode(422)->respondWithError('Property type not found');
+                    return $this->respondRelatedModelNotFound('Property<GenericComponentTypeProperty>');
                 }
 
                 Property::create([
@@ -132,6 +133,9 @@ class GenericComponentController extends ApiController
     /**
      * Update the specified resource in storage.
      *
+     * Error Codes
+     *  - 201: Generic component is corrupt
+     *
      * @param  \Illuminate\Http\Request  $request
      * @param string $id
      * @return \Illuminate\Http\JsonResponse
@@ -157,7 +161,7 @@ class GenericComponentController extends ApiController
         }
         if ($request->filled('controlunit')) {
             if (is_null(Controlunit::find($request->input('controlunit')))) {
-                return $this->setStatusCode(422)->respondWithError("Controlunit not found.");
+                return $this->respondRelatedModelNotFound(Controlunit::class);
             }
             $component->controlunit_id = $request->input('controlunit');
         }
@@ -166,7 +170,9 @@ class GenericComponentController extends ApiController
             foreach($request->input('properties') as $id=>$value) {
                 $component_property = $component->properties()->where('id', $id)->get()->first();
                 if (is_null($component_property)) {
-                    return $this->setStatusCode(422)->respondWithError("Generic Component is corrupted. Call resync methods.");
+                    return $this->setStatusCode(422)
+                                ->setErrorCode('201')
+                                ->respondWithErrorDefaultMessage();
                 }
                 $component_property->value = $value;
                 $component_property->save();

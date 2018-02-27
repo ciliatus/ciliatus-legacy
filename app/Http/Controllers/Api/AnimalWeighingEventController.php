@@ -26,6 +26,8 @@ class AnimalWeighingEventController extends ApiController
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->errorCodeNamespace = '19';
     }
 
     /**
@@ -45,7 +47,7 @@ class AnimalWeighingEventController extends ApiController
         else {
             $animal = Animal::find($id);
             if (is_null($animal)) {
-                return $this->respondNotFound("Animal not found");
+                return $this->respondNotFound();
             }
 
             $weighings = $this->filter($request, $animal->weighings()->getQuery());
@@ -114,7 +116,7 @@ class AnimalWeighingEventController extends ApiController
          */
         $animal = Animal::find($id);
         if (is_null($animal)) {
-            return $this->setStatusCode(404)->respondWithError('Animal not found');
+            return $this->respondNotFound();
         }
 
         /**
@@ -129,7 +131,15 @@ class AnimalWeighingEventController extends ApiController
         ]);
 
         if ($request->filled('created_at')) {
-            $e->created_at = Carbon::parse($request->input('created_at'));
+            try {
+                $e->created_at = Carbon::parse($request->input('created_at'));
+            }
+            catch (\Exception $ex) {
+                return $this->setStatusCode(422)
+                            ->setErrorCode('103')
+                            ->respondWithErrorDefaultMessage(['timestamp' => 'created_at']);
+            }
+
             $e->save();
         }
 
@@ -183,7 +193,7 @@ class AnimalWeighingEventController extends ApiController
          */
         $animal = Animal::find($animal_id);
         if (is_null($animal)) {
-            return $this->respondNotFound('Animal not found');
+            return $this->respondNotFound();
         }
 
         /**
@@ -191,14 +201,13 @@ class AnimalWeighingEventController extends ApiController
          */
         $animal_weighing = $animal->weighings()->where('id', $id)->get()->first();
         if (is_null($animal_weighing)) {
-            return $this->respondNotFound('Animal weighing not found');
+            return $this->respondNotFound();
         }
 
-        $id = $animal_weighing->id;
+        broadcast(new AnimalWeighingEventDeleted($animal_weighing));
 
         $animal_weighing->delete();
 
-        broadcast(new AnimalWeighingEventDeleted($id));
 
         return $this->respondWithData([]);
     }

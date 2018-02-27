@@ -26,12 +26,13 @@ class ActionSequenceController extends ApiController
     public function __construct(Request $request)
     {
         parent::__construct($request);
+
+        $this->errorCodeNamespace = '12';
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function index(Request $request)
     {
@@ -42,7 +43,6 @@ class ActionSequenceController extends ApiController
      * @param Request $request
      * @param $id
      * @return \Illuminate\Http\JsonResponse
-     * @throws \ErrorException
      */
     public function show(Request $request, $id)
     {
@@ -67,7 +67,7 @@ class ActionSequenceController extends ApiController
          */
         $action_sequence = ActionSequence::find($id);
         if (is_null($action_sequence)) {
-            return $this->setStatusCode(404)->respondWithError('ActionSequence not found');
+            return $this->respondNotFound();
         }
 
         $action_sequence->delete();
@@ -96,11 +96,11 @@ class ActionSequenceController extends ApiController
         if ($request->filled('terrarium')) {
             $t = Terrarium::find($request->input('terrarium'));
             if (is_null($t)) {
-                return $this->setStatusCode(422)->respondWithError('Terrarium not found');
+                return $this->respondRelatedModelNotFound(Terrarium::class);
             }
         }
         else {
-            return $this->setStatusCode(422)->respondWithError('No Terrarium selected');
+            return $this->respondRelatedModelNotFound(Terrarium::class);
         }
 
         /**
@@ -187,7 +187,7 @@ class ActionSequenceController extends ApiController
          */
         $action_sequence = ActionSequence::find($id);
         if (is_null($action_sequence)) {
-            return $this->setStatusCode(404)->respondWithError('ActionSequence not found');
+            return $this->respondRelatedModelNotFound(ActionSequence::class);
         }
 
         $this->updateModelProperties($action_sequence, $request, [
