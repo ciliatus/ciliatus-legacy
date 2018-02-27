@@ -95,7 +95,7 @@ window.submit_form = function (e, _callback = undefined)
             let msg = 'Unknown';
             if (data.responseJSON !== undefined)
                 msg = data.responseJSON.error.message;
-            window.notification('Error ' + data.status + '<br />' + data.statusText + ':<br />' + msg, 'orange darken-2 text-white');
+            window.notification('Error ' + data.status + ':<br />' + msg, 'orange darken-2 text-white');
         }
     });
 };
