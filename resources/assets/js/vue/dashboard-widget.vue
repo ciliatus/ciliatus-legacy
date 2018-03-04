@@ -557,6 +557,18 @@
         },
 
         methods: {
+            evalDeleteSuggestion: function(e) {
+                this.suggestions.forEach((suggestion, index) => {
+                    if (suggestion.id === e.target_id) {
+                        this.$parent.removeObject(suggestion);
+                    }
+                });
+
+                this.$nextTick(function() {
+                    this.refresh_grid();
+                });
+            },
+
             handleCiliatusObjectUpdated: function(object_information) {
                 this.$nextTick(() => this.refresh_grid());
             },
@@ -674,6 +686,12 @@
                     that.load_data();
                 }, this.refreshTimeoutSeconds * 1000)
             }
+            window
+                .echo
+                .private('dashboard-updates')
+                .listen('ReadFlagSet', (e) => {
+                    this.evalDeleteSuggestion(e);
+                });
 
             window.eventHubVue.$on('CiliatusObjectUpdated', this.handleCiliatusObjectUpdated);
             window.eventHubVue.$on('CiliatusObjectDeleted', this.handleCiliatusObjectDeleted);
