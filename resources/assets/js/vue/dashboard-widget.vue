@@ -156,7 +156,8 @@
                     <li class="collection-item" v-for="schedule in animal_feeding_schedules.filter(s => s.data.due_days < 0)">
                         <div v-if="schedule.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 60px);">
-                                {{ schedule.data.animal.display_name }}: {{ schedule.data.type }} ({{ $t("labels.since") }} {{ (schedule.data.due_days*-1) }} {{ $tc("units.days", (schedule.data.due_days*-1)) }})
+                                {{ schedule.data.animal.display_name }}: {{ schedule.data.type }}
+                                ({{ $tc("units.days_since", (schedule.data.due_days*-1), {val: (schedule.data.due_days*-1)}) }})
                             </span>
 
                             <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/skip'" v-on:click="link_post">
@@ -186,8 +187,8 @@
                     <li class="collection-item" v-for="schedule in animal_weighing_schedules.filter(s => s.data.due_days < 0)">
                         <div v-if="schedule.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 60px);">
-                                {{ schedule.data.animal.display_name }} ({{ $t("labels.since") }}
-                                {{ (schedule.data.due_days*-1) }} {{ $tc("units.days", (schedule.data.due_days*-1)) }})
+                                {{ schedule.data.animal.display_name }}
+                                ({{ $tc("units.days_since", (schedule.data.due_days*-1), {val: (schedule.data.due_days*-1)}) }})
                             </span>
 
                             <a class="secondary-content white-text"
