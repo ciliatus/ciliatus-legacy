@@ -276,16 +276,16 @@
             <!--
                 Action Sequence Schedules due
             -->
-            <div :class="wrapperClasses" v-if="action_sequence_schedules.filter(s => s.data.states.is_due === true).length > 0">
+            <div :class="wrapperClasses" v-if="action_sequence_schedules.filter(s => s.data.due_days === 0).length > 0">
                 <ul class="collection ok with-header">
                     <li class="collection-header">
                         <i class="material-icons">playlist_play</i>
                         {{ action_sequence_schedules.filter(s => s.data.states.is_due === true).length }}
-                        {{ $tc("labels.action_sequences", action_sequence_schedules.filter(s => s.data.states.is_due === true).length) }}
+                        {{ $tc("labels.action_sequences", action_sequence_schedules.filter(s => s.data.due_days === 0).length) }}
                         {{ $t("labels.due") }}
                     </li>
 
-                    <li class="collection-item" v-for="schedule in action_sequence_schedules.filter(s => s.data.states.is_due === true)">
+                    <li class="collection-item" v-for="schedule in action_sequence_schedules.filter(s => s.data.due_days === 0)">
                         <div v-if="schedule.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 30px);">
                                 {{ schedule.data.timestamps.starts }}: {{ schedule.data.sequence.name }}
