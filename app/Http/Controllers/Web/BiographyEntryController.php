@@ -104,7 +104,7 @@ class BiographyEntryController extends \App\Http\Controllers\Controller
             return response()->view('errors.404', [], 404);
         }
 
-        $category = $entry->property('BiographyEntryCategoryType');
+        $category = $entry->properties()->where('type', 'BiographyEntryCategory')->get()->first();
 
         $belongTo_Options = [];
         foreach (Property::belongTo_Types('BiographyEntry') as $t) {
