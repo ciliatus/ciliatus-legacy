@@ -7,7 +7,7 @@
 
 
                 <select name="meal_type" v-if="feedingTypes.length > 0">
-                    <option v-for="ft in feedingTypes" v-bind:value="ft.name">{{ ft.name }}</option>
+                    <option v-for="ft in feedingTypes" v-bind:value="ft">{{ ft }}</option>
                 </select>
                 <span v-else>
                     <strong>{{ $t('tooltips.no_feeding_types') }}</strong>

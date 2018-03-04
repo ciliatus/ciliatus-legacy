@@ -216,9 +216,8 @@ export default {
         },
 
         load_data: function() {
+            let that = this;
             if (this.animalId === null) {
-                let that = this;
-
                 $.ajax({
                     url: '/api/v1/animals/?with[]=terrarium&pagination[per_page]=' + that.itemsPerPage + '&page=' +
                         that.$refs.pagination.page +
@@ -242,6 +241,17 @@ export default {
                 this.ids = [this.animalId];
                 this.$parent.ensureObject('animals', this.animalId);
             }
+
+            $.ajax({
+                url: '/api/v1/animals/feedings/types',
+                method: 'GET',
+                success: function (data) {
+                    that.feeding_types = data.data;
+                },
+                error: function (error) {
+                    console.log(JSON.stringify(error));
+                }
+            });
         },
 
         rerender: function() {
