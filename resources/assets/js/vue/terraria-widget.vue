@@ -97,22 +97,29 @@
                                         'background-image: url(\'' + terrarium.data.default_background_filepath + '\');' :
                                         'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;'">
                         <div>
-                            <inline-graph :parentid="terrarium.data.id" graphtype="humidity_percent" type="line"
+                            <inline-graph v-if="terrarium.data"
+                                          :points="terrarium.data.humidity_history"
                                           :options="{'fill': null, 'strokeWidth': '2', 'stroke': '#2196f3',
-                                                width: '100%', height:'140px',
-                                                min: humidityGraphMin, max: humidityGraphMax}"
-                                          :source="'/api/v1/terraria/'+terrarium.data.id+'/sensorreadingsByType/humidity_percent'"
-                                          :data-prefill="terrarium.data.humidity_history"> </inline-graph>
+                                                    width: '100%', height:'140px',
+                                                    min: humidityGraphMin, max: humidityGraphMax}"
+                                          source-type="terraria"
+                                          :source-id="terrarium.id"
+                                          source-field="humidity_history"
+                                          type="line">
+                            </inline-graph>
                         </div>
 
                         <div style="position: relative; top: -145px">
-                            <inline-graph :parentid="terrarium.data.id" graphtype="temperature_celsius" type="line"
+                            <inline-graph v-if="terrarium.data"
+                                          :points="terrarium.data.temperature_history"
                                           :options="{'fill': null, 'strokeWidth': '2', 'stroke': '#b71c1c',
-                                                width: '100%', height:'140px',
-                                                min: temperatureGraphMin, max: temperatureGraphMax}"
-                                          :source="'/api/v1/terraria/'+terrarium.data.id+'/sensorreadingsByType/temperature_celsius'"
-                                          :data-prefill="terrarium.data.temperature_history"> </inline-graph>
-
+                                                    width: '100%', height:'140px',
+                                                    min: temperatureGraphMin, max: temperatureGraphMax}"
+                                          source-type="terraria"
+                                          :source-id="terrarium.id"
+                                          source-field="temperature_history"
+                                          type="line">
+                            </inline-graph>
                         </div>
 
                         <div class="card-title">
