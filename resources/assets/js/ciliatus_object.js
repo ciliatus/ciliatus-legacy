@@ -62,7 +62,7 @@ export default class CiliatusObject {
 
         this.refreshing = false;
 
-        window.eventHubVue.$emit('CiliatusObjectUpdated', {type: this.type, id: this.id});
+        window.eventHubVue.$emit('CiliatusObjectUpdated', this);
     }
 
     persist () {
