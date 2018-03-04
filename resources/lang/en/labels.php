@@ -128,6 +128,7 @@ return [
     'created_at'                                 => 'Creation',
     'updated_at'                                 => 'Last update',
     'recovered_at'                               => 'Recovered',
+    'read_at'                                    => 'Read at',
     'download'                                   => 'Download',
     'properties'                                 => 'Properties',
     'preview'                                    => 'Preview',

@@ -129,6 +129,7 @@ return [
     'created_at'                                 => 'Erstellt',
     'updated_at'                                 => 'Letztes Update',
     'recovered_at'                               => 'Erholt',
+    'read_at'                                    => 'Gelesen',
     'download'                                   => 'Herunterladen',
     'properties'                                 => 'Eigenschaften',
     'preview'                                    => 'Vorschau',
