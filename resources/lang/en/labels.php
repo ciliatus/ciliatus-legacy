@@ -283,5 +283,6 @@ return [
     'scope'                                      => 'Scope',
     'client_server_time_diff'                    => 'Client/Server time difference',
     'id'                                         => 'ID',
-    'loading_dots'                               => 'Loading...'
+    'loading_dots'                               => 'Loading...',
+    'search_ciliatus'                            => 'Search Ciliatus ...'
 ];

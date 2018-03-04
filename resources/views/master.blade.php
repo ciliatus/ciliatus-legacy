@@ -111,7 +111,7 @@
                     <li>
                         <div class="input-field ciliatus-search-wrapper">
                             <input type="text" id="search-ciliatus" class="no-margin">
-                            <label for="search-ciliatus">Search Ciliatus</label>
+                            <label for="search-ciliatus">@lang('labels.search_ciliatus')</label>
                         </div>
                     </li>
 

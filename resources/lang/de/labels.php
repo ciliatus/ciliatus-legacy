@@ -284,5 +284,6 @@ return [
     'scope'                                      => 'Gültigkeitsbereich',
     'client_server_time_diff'                    => 'Client/Server Zeitdifferenz',
     'id'                                         => 'ID',
-    'loading_dots'                               => 'Laden...'
+    'loading_dots'                               => 'Laden...',
+    'search_ciliatus'                            => 'Ciliatus durchsuchen ...'
 ];
