@@ -51,7 +51,7 @@
                     <p id="api-io-widget-result-modal-content"></p>
                 </div>
                 <div class="modal-footer">
-                    <a href="#!" class="modal-action modal-close btn btn-flat orange darken-4">@lang('buttons.close')</a>
+                    <a href="#!" class="modal-action modal-close btn btn-flat orange darken-4 white-text">@lang('buttons.close')</a>
                 </div>
             </div>
             <header>
@@ -72,11 +72,13 @@
                                 @yield('breadcrumbs')
                             </span>
 
+                            <!--
                             <span class="right overlay-loader hide-on-med-and-up">
                                 <img src="https://dev-43256.ciliatus.io/svg/Ciliatus_Logo.svg"
                                      class="main-loader loader-icon" id="loader-icon"
                                      style="height: 44px; width: 44px; position: relative; top: 6px; right: 10px;">
                             </span>
+                            -->
 
                             <ul class="right" style="position:relative; right: 0px;">
                                 <li>
