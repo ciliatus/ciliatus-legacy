@@ -108,10 +108,13 @@
                         </div>
                     </li>
 
-                    <li>
+                    <li class="hide-on-small-and-down">
                         <div class="input-field ciliatus-search-wrapper">
                             <input type="text" id="search-ciliatus" class="no-margin">
-                            <label for="search-ciliatus">@lang('labels.search_ciliatus')</label>
+                            <label for="search-ciliatus">
+                                <i class="material-icons">search</i>
+                                @lang('labels.search_ciliatus')
+                            </label>
                         </div>
                     </li>
 
