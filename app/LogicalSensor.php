@@ -94,6 +94,31 @@ class LogicalSensor extends Component
     }
 
     /**
+     * @return bool|int|mixed
+     */
+    public function incrementAnomaliesDetected()
+    {
+        $counter = $this->property('AnomalyDetection', 'counter');
+
+        if (is_null($counter)) {
+            $counter = $this->setProperty('AnomalyDetection', 'counter', 0);
+        }
+
+        $counter->value = (int)$counter->value + 1;
+        $counter->save();
+
+        return $counter->value;
+    }
+
+    /**
+     * @return int
+     */
+    public function getAnomalyCount()
+    {
+        return (int)$this->property('AnomalyDetection', 'counter', true);
+    }
+
+    /**
      * @return float|int
      */
     public function getRawvalueAdjustment()

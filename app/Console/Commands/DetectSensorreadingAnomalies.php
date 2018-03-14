@@ -114,6 +114,12 @@ class DetectSensorreadingAnomalies extends Command
                             $sr->is_anomaly = true;
                             $sr->save();
 
+                            if (!is_null($sr->logical_sensor)) {
+                                $sr->logical_sensor->incrementAnomaliesDetected();
+                            }
+
+                            \Log::info('Sensorreading ' . $sr->id . ' was flagged as anomaly');
+
                             /*
                             foreach (Sensorreading::where('sensorreadinggroup_id', $reading->sensorreadinggroup_id)->get() as $sr) {
                                 $sr->is_anomaly = true;

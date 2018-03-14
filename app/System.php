@@ -56,6 +56,27 @@ class System extends Model
             ];
         }
 
+        $sensors = [];
+        foreach (PhysicalSensor::get() as $ps) {
+            $sensors[$ps->id] = [
+                'id'    =>  $ps->id,
+                'name'  =>  $ps->name,
+                'heartbeat' => [
+                    'last' => $ps->heartbeat_at,
+                    'diff_seconds' => Carbon::now()->diffInSeconds($ps->heartbeat_at)
+                ],
+                'logical_sensors' => []
+            ];
+            foreach ($ps->logical_sensors as $ls) {
+                $sensors[$ps->id]['logical_sensors'][$ls->id] = [
+                    'id'        =>  $ls->id,
+                    'name'      =>  $ls->name,
+                    'rawvalue'  =>  $ls->rawvalue,
+                    'anomalies' =>  $ls->getAnomalyCount()
+                ];
+            }
+        }
+
         if (env('ENABLE_REQUEST_LOGGING', false)) {
             $execution_time = [
                 'avg_exec_time_30m' => LogRequest::averageExecutionTime($t_30m),
@@ -102,7 +123,8 @@ class System extends Model
                     'other_30m' => Message::query()->where('created_at', '>', $t_30m)->whereNotIn('state', ['draft', 'sent'])->count(),
                 ]
             ],
-            'controlunits' => $controlunits
+            'controlunits'  =>  $controlunits,
+            'sensors'       =>  $sensors
         ];
 
         return $health;
