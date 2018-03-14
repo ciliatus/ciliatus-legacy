@@ -838,7 +838,7 @@ class Terrarium extends CiliatusModel
         foreach (Terrarium::get() as $t) {
             foreach ($reading_types as $type) {
                 echo "Rebuilding $type of {$t->display_name}" . PHP_EOL;
-                $t->getSensorreadingsByType($type, true);
+                $t->getSensorreadingsByType($type, true, null, null, true);
             }
         }
     }
