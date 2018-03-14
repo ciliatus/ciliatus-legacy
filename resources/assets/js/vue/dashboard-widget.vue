@@ -214,12 +214,12 @@
                 <ul class="collection ok with-header">
                     <li class="collection-header">
                         <i class="material-icons">local_dining</i>
-                        {{ animal_feeding_schedules.filter(s => s.data.due_days < 0).length }} 
-                        {{ $tc("labels.animal_feedings", animal_feeding_schedules.filter(s => s.data.due_days < 0).length) }} 
+                        {{ animal_feeding_schedules.filter(s => s.data.due_days === 0).length }}
+                        {{ $tc("labels.animal_feedings", animal_feeding_schedules.filter(s => s.data.due_days === 0).length) }}
                         {{ $t("labels.due") }}
                     </li>
 
-                    <li class="collection-item" v-for="schedule in animal_feeding_schedules.filter(s => s.data.due_days < 0)">
+                    <li class="collection-item" v-for="schedule in animal_feeding_schedules.filter(s => s.data.due_days === 0)">
                         <div v-if="schedule.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 60px);">
                                 {{ schedule.data.animal.display_name }}: {{ schedule.data.type }}
