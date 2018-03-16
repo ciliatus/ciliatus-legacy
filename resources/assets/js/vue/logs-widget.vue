@@ -17,7 +17,7 @@
                     <tr v-for="log in logs">
                         <td>
                             <span v-if="log.source != null">
-                                <i class="material-icons" v-show="log.source">{{ log.source.icon }}</i>
+                                <i :class="'mdi mdi-24px mdi-' + log.source.icon" v-show="log.source"></i>
                                 <a v-bind:href="log.source.url">{{ log.source.name }}</a>
                             </span>
                             <span v-else>
@@ -26,20 +26,20 @@
                         </td>
 
                         <td>
-                            <span v-if="log.action == 'start'" class="material-icons">play_arrow</span>
-                            <span v-if="log.action == 'finish'" class="material-icons">done</span>
-                            <span v-if="log.action == 'create'" class="material-icons">add</span>
-                            <span v-if="log.action == 'delete'" class="material-icons">delete</span>
-                            <span v-if="log.action == 'update'" class="material-icons">update</span>
-                            <span v-if="log.action == 'recover'" class="material-icons">settings_backup_restore</span>
-                            <span v-if="log.action == 'notify_recovered'" class="material-icons">notifications_none</span>
-                            <span v-if="log.action == 'notify'" class="material-icons">notifications_active</span>
+                            <span v-if="log.action == 'start'" class="mdi mdi-24px mdi-play"></span>
+                            <span v-if="log.action == 'finish'" class="mdi mdi-24px mdi-check"></span>
+                            <span v-if="log.action == 'create'" class="mdi mdi-24px mdi-plus"></span>
+                            <span v-if="log.action == 'delete'" class="mdi mdi-24px mdi-delete"></span>
+                            <span v-if="log.action == 'update'" class="mdi mdi-24px mdi-update"></span>
+                            <span v-if="log.action == 'recover'" class="mdi mdi-24px mdi-backup-restore"></span>
+                            <span v-if="log.action == 'notify_recovered'" class="mdi mdi-24px mdi-bell-outline"></span>
+                            <span v-if="log.action == 'notify'" class="mdi mdi-24px mdi-bell-ring"></span>
                             {{ log.action }}
                         </td>
 
                         <td>
                             <span v-if="log.target != null">
-                                <i class="material-icons" v-show="log.target">{{ log.target.icon }}</i>
+                                <i :class="'mdi mdi-24px mdi-' + log.target.icon" v-show="log.target"></i>
                                 <a v-bind:href="log.target.url">{{ log.target.name }}</a>
                             </span>
                             <span v-else>
@@ -49,7 +49,7 @@
 
                         <td>
                             <span v-if="log.associated != null">
-                                <i class="material-icons" v-show="log.associated">{{ log.associated.icon }}</i>
+                                <i :class="'mdi mdi-24px mdi-' + log.associated.icon" v-show="log.associated"></i>
                                 <a v-bind:href="log.associated.url">{{ log.associated.name }}</a>
                             </span>
                             <span v-else>

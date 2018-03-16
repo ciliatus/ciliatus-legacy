@@ -122,7 +122,7 @@ class Event extends CiliatusModel
      */
     public function icon()
     {
-        return 'event';
+        return 'calendar';
     }
 
     /**

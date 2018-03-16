@@ -6,7 +6,7 @@
                     <div class="card-header">
                         <span class="activator truncate">
                             <span>
-                                <i class="material-icons">local_offer</i>
+                                <i class="mdi mdi-18px mdi-tag"></i>
                                 {{ $t('labels.properties') }}
                             </span>
                         </span>
@@ -74,7 +74,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <button class="btn waves-effect waves-light" type="submit">{{ $t('buttons.save') }}
-                                    <i class="material-icons left">save</i>
+                                    <i class="mdi mdi-18px mdi-floppy left"></i>
                                 </button>
                             </div>
                         </div>

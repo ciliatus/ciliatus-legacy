@@ -13,7 +13,7 @@
                     <label :for="'filter_to_' + id">{{ $t('labels.to') }}</label>
                 </div>
                 <div class="input-field col s8 m8 l2">
-                    <button class="btn waves-effect waves-light" v-on:click="build"><i class="material-icons">refresh</i></button>
+                    <button class="btn waves-effect waves-light" v-on:click="build"><i class="mdi mdi-18px mdi-refresh"></i></button>
                 </div>
                 <div class="input-field col s4 m4 l2">
                     <input type="text" v-on:keyup.enter="set_rollperiod" :id="'dygraph_' + id + '_rollperiodselector'"

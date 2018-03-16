@@ -118,7 +118,7 @@ class Sensorreading extends CiliatusModel
      */
     public function icon()
     {
-        return 'show_chart';
+        return 'clipboard-pulse';
     }
 
     /**

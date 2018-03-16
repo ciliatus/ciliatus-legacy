@@ -46,7 +46,7 @@ class AnimalFeedingEvent extends Event
      */
     public function icon()
     {
-        return 'event';
+        return 'silverware-variant';
     }
 
     /**

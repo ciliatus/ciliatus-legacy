@@ -112,7 +112,7 @@ class UserAbility extends CiliatusModel
      */
     public function icon()
     {
-        return 'user-plus';
+        return 'security-account';
     }
 
     /**

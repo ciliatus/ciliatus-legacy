@@ -16,7 +16,7 @@
                         <tr class="collapsible-header">
                             <td>
                                 <span>
-                                    <i class="material-icons">{{ generic_component.data.type.icon }}</i>
+                                    <i :class="'mdi mdi-24px mdi-' + generic_component.data.type.icon"></i>
                                     <a v-bind:href="'/generic_components/' + generic_component.data.id">{{ generic_component.data.name }}</a>
                                     <span v-if="!generic_component.data.active"> - {{ $t('labels.inactive') }}</span>
                                 </span>
@@ -30,7 +30,7 @@
 
                             <td class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
                                 <span v-if="generic_component.data.controlunit">
-                                    <i class="material-icons">developer_board</i>
+                                    <i class="mdi mdi-24px mdi-developer-board"></i>
                                     <a v-bind:href="'/controlunits/' + generic_component.data.controlunit.id">{{ generic_component.data.controlunit.name }}</a>
                                 </span>
                             </td>
@@ -38,7 +38,7 @@
                             <td class="hide-on-small-only">
                                 <span>
                                     <a :href="'/generic_components/' + generic_component.data.id + '/edit'">
-                                        <i class="material-icons">edit</i>
+                                        <i class="mdi mdi-24px mdi-pencil"></i>
                                     </a>
                                 </span>
                             </td>

@@ -37,11 +37,11 @@
                                 <div class="input-field col s12">
 
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons left">save</i>
+                                        <i class="mdi mdi-18px mdi-floppy left"></i>
                                     </button>
 
                                     <a class="right btn waves-effect waves-light red" href="{{ url('animals/' . $animal->id .'/weighing_schedules/' . $aws->id . '/delete') }}">@lang('buttons.delete')
-                                        <i class="material-icons left">delete</i>
+                                        <i class="mdi mdi-18px mdi-delete left"></i>
                                     </a>
 
                                 </div>

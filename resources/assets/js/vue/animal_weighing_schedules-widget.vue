@@ -3,7 +3,7 @@
         <div :class="wrapperClasses">
             <div class="card">
                 <div class="card-header">
-                    <i class="material-icons">schedule</i>
+                    <i class="mdi mdi-18px mdi-clock"></i>
                     {{ $tc("labels.animal_weighing_schedules", 2) }}
                 </div>
 
@@ -16,7 +16,7 @@
 
                             <span class="right">
                                 <a :href="'/animals/' + animalId + '/weighing_schedules/' + schedule.data.id + '/edit'">
-                                    <i class="material-icons">edit</i>
+                                    <i class="mdi mdi-18px mdi-pencil"></i>
                                 </a>
                             </span>
 

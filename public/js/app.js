@@ -69,71 +69,15 @@
 /******/ ({
 
 /***/ 11:
-/***/ (function(module, exports, __webpack_require__) {
+/***/ (function(module, exports) {
 
-/* WEBPACK VAR INJECTION */(function(global) {$.ajaxPrefilter(function (options) {
+$.ajaxPrefilter(function (options) {
     if (!options.beforeSend) {
         options.beforeSend = function (xhr) {
             xhr.setRequestHeader('X-CSRF-TOKEN', window.Laravel.csrfToken);
         };
     }
 });
-
-/*
- LiveData objects refresh data automatically
- - source_uri provides the data source. Normally an API
- - interval sets the interval between data pulls
- - type sets the type of data we're fetching and defines
- what the callback method will do with new data
- - target defines the element where the callback
- function will put the new data
- */
-
-var liveDataObjects = [];
-
-global.LiveData = function (source_uri, interval, callback, target) {
-    liveDataObjects += this;
-    this.source_uri = source_uri;
-    this.interval = interval * 1000;
-    this.callback = callback;
-    this.target = target;
-    this.runner = null;
-    this.refs = new Array();
-    return this;
-};
-
-LiveData.prototype.run = function () {
-    var ld = this;
-    ld.fetchData(ld);
-    this.runner = setInterval(function () {
-        ld.fetchData(ld);
-    }, this.interval);
-};
-
-LiveData.prototype.fetchData = function (ld) {
-    $.ajax({
-        url: ld.source_uri,
-        type: 'GET',
-        error: function error() {
-            ld.callback(false, 'error', ld);
-        },
-        success: function success(data) {
-            ld.callback(true, data, ld);
-        }
-    });
-};
-
-LiveData.prototype.cleanupRefs = function () {
-    $.each(this.refs, function () {
-        this.remove();
-    });
-
-    this.refs = new Array();
-};
-
-LiveData.prototype.stop = function () {
-    clearInterval(this.runner);
-};
 
 window.submit_form = function (e) {
     var _callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
@@ -188,7 +132,7 @@ window.submit_form = function (e) {
             btns.removeAttr('disabled');
 
             if (!$(e.target).data('no-confirm')) {
-                window.notification('<i class="material-icons">check</i>', 'teal darken-1 text-white');
+                window.notification('<i class="mdi mdi-18px mdi-check"></i>', 'teal darken-1 text-white');
             }
 
             window.eventHubVue.$emit('FormSubmitReturnedSuccess', {
@@ -219,9 +163,8 @@ window.submit_form = function (e) {
         },
         error: function error(data) {
             btns.removeAttr('disabled');
-            var msg = 'Unknown';
-            if (data.responseJSON !== undefined) msg = data.responseJSON.error.message;
-            window.notification('Error ' + data.status + '<br />' + data.statusText + ':<br />' + msg, 'orange darken-2 text-white');
+            var msg = data.responseJSON !== undefined ? data.responseJSON.error.message : 'Unknown Error ' + data.status;
+            window.notification(msg, 'orange darken-2 text-white');
         }
     });
 };
@@ -274,10 +217,6 @@ window.runPage = function () {
 
     $('form').submit(window.submit_form);
 
-    $('[data-livedata="true"]').each(function () {
-        new LiveData($(this).data('livedatasource'), $(this).data('livedatainterval'), domCallbacks[$(this).data('livedatacallback')], this).run();
-    });
-
     /* Enable tabs to update url with tab hash and
      * force rerender of masonry grids */
     $('ul.tabs').tabs({
@@ -302,7 +241,13 @@ window.runPage = function () {
 };
 
 var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function encode(e) {
-        var t = "";var n, r, i, s, o, u, a;var f = 0;e = Base64._utf8_encode(e);while (f < e.length) {
+        var t = "";var n = void 0,
+            r = void 0,
+            i = void 0,
+            s = void 0,
+            o = void 0,
+            u = void 0,
+            a = void 0;var f = 0;e = Base64._utf8_encode(e);while (f < e.length) {
             n = e.charCodeAt(f++);r = e.charCodeAt(f++);i = e.charCodeAt(f++);s = n >> 2;o = (n & 3) << 4 | r >> 4;u = (r & 15) << 2 | i >> 6;a = i & 63;if (isNaN(r)) {
                 u = a = 64;
             } else if (isNaN(i)) {
@@ -310,7 +255,12 @@ var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012
             }t = t + this._keyStr.charAt(s) + this._keyStr.charAt(o) + this._keyStr.charAt(u) + this._keyStr.charAt(a);
         }return t;
     }, decode: function decode(e) {
-        var t = "";var n, r, i;var s, o, u, a;var f = 0;e = e.replace(/[^A-Za-z0-9+/=]/g, "");while (f < e.length) {
+        var t = "";var n = void 0,
+            r = void 0,
+            i = void 0;var s = void 0,
+            o = void 0,
+            u = void 0,
+            a = void 0;var f = 0;e = e.replace(/[^A-Za-z0-9+/=]/g, "");while (f < e.length) {
             s = this._keyStr.indexOf(e.charAt(f++));o = this._keyStr.indexOf(e.charAt(f++));u = this._keyStr.indexOf(e.charAt(f++));a = this._keyStr.indexOf(e.charAt(f++));n = s << 2 | o >> 4;r = (o & 15) << 4 | u >> 2;i = (u & 3) << 6 | a;t = t + String.fromCharCode(n);if (u != 64) {
                 t = t + String.fromCharCode(r);
             }if (a != 64) {
@@ -358,7 +308,6 @@ Date.prototype.toYmd = function () {
     var date = this.getDate();
     return this.getFullYear() + '-' + (month > 9 ? month : '0' + month) + '-' + (date > 9 ? date : '0' + date);
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)))
 
 /***/ }),
 
@@ -391,34 +340,6 @@ module.exports = __webpack_require__(14);
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 4:
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
 
 /***/ })
 

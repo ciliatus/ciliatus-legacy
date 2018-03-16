@@ -128,7 +128,7 @@ class Valve extends CiliatusModel
      */
     public function icon()
     {
-        return 'transform';
+        return 'pipe-disconnected';
     }
 
     /**

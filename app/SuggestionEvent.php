@@ -38,7 +38,7 @@ class SuggestionEvent extends Event
      */
     public function icon()
     {
-        return 'event';
+        return 'lightbulb-on-outline';
     }
 
     /**

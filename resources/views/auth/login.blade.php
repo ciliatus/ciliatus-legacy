@@ -38,7 +38,7 @@
                     @if (count($errors) > 0)
                     <div class="card-panel">
                         @foreach ($errors->all() as $error)
-                            <i class="material-icons red-text">close</i>
+                            <i class="mdi mdi-18px mdi-window-close red-text">
                             <strong>{{ $error }}</strong><br />
                         @endforeach
                     </div>

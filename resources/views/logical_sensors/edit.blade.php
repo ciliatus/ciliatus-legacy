@@ -60,7 +60,7 @@
                                     <strong class="tooltipped" data-delay="50" data-html="true"
                                             :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.logical_sensor_rawvalue_limit') + '</div>'">
                                         @lang('labels.scope')
-                                        <i class="material-icons">info_outline</i>
+                                        <i class="mdi mdi-18px mdi-information-outline"></i>
                                     </strong>
                                 </div>
                                 <div class="input-field col s12 m6 l6">
@@ -80,7 +80,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons left">save</i>
+                                        <i class="mdi mdi-18px mdi-floppy left"></i>
                                     </button>
                                 </div>
                             </div>
@@ -94,7 +94,7 @@
                 <div class="card">
                     <div class="card-header">
                         <span>
-                            <i class="material-icons">vertical_align_center</i>
+                            <i class="mdi mdi-18px mdi-format-vertical-align-center"></i>
                             @choice('labels.logical_sensor_thresholds', 2)
                         </span>
                     </div>
@@ -103,7 +103,7 @@
                         @if($logical_sensor->thresholds()->count() > 0)
                             @foreach($logical_sensor->thresholds()->orderBy('starts_at')->get() as $t)
                             <div class="row row-no-margin">
-                                <i class="material-icons">vertical_align_center</i>
+                                <i class="mdi mdi-18px mdi-format-vertical-align-center"></i>
                                 {{ $t->starts_at }}:
 
                                 @if(!is_null($t->rawvalue_lowerlimit))
@@ -115,7 +115,7 @@
 
                                 <span class="right">
                                     <a href="{{ url('logical_sensor_thresholds/' . $t->id . '/edit') }}">
-                                        <i class="material-icons">edit</i>
+                                        <i class="mdi mdi-18px mdi-pencil"></i>
                                     </a>
                                 </span>
                             </div>
@@ -138,7 +138,7 @@
                 <div class="card">
                     <div class="card-header">
                         <span>
-                            <i class="material-icons">content_copy</i>
+                            <i class="mdi mdi-18px mdi-content-copy"></i>
                             @lang('labels.copy_thresholds')
                         </span>
                     </div>
@@ -166,7 +166,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons left">save</i>
+                                        <i class="mdi mdi-18px mdi-floppy left"></i>
                                     </button>
                                 </div>
                             </div>
@@ -180,7 +180,7 @@
                         <div class="card-header">
                             <span class="activator truncate">
                                 <span>
-                                    <i class="material-icons">local_offer</i>
+                                    <i class="mdi mdi-18px mdi-silverware-variant"></i>
                                     @lang('labels.properties')
                                 </span>
                             </span>
@@ -202,7 +202,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons left">save</i>
+                                        <i class="mdi mdi-18px mdi-floppy left"></i>
                                     </button>
                                 </div>
                             </div>
@@ -221,13 +221,13 @@
     <div class="fixed-action-btn">
 
         <a class="btn-floating btn-large orange darken-4">
-            <i class="large material-icons">mode_edit</i>
+            <i class="mdi mdi-18px mdi-pencil"></i>
         </a>
 
         <ul>
-            <li><a class="btn-floating teal" href="/logical_sensors/{{ $logical_sensor->id }}"><i class="material-icons">info</i></a></li>
-            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/logical_sensors/{{ $logical_sensor->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/logical_sensors/create"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating teal" href="/logical_sensors/{{ $logical_sensor->id }}"><i class="mdi mdi-18px mdi-information-outline"></i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/logical_sensors/{{ $logical_sensor->id }}/delete"><i class="mdi mdi-24px mdi-delete"></i></a></li>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/logical_sensors/create"><i class="mdi mdi-24px mdi-plus"></i></a></li>
         </ul>
 
     </div>

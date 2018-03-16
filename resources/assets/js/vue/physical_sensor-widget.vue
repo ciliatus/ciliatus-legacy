@@ -2,7 +2,7 @@
     <div :class="wrapperClasses">
         <div class="card" v-if="physical_sensor.data">
             <div class="card-header">
-                <i class="material-icons">memory</i>
+                <i class="mdi mdi-18px mdi-switch"></i>
                 {{ $t("labels.physical_sensor") }}
             </div>
 

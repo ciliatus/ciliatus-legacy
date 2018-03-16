@@ -29,7 +29,7 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <i class="material-icons prefix">{{ $generic_component_type->icon }}</i>
+                                    <i class="mdi mdi-18px mdi-{{ $generic_component_type->icon }} prefix"></i>
                                     <input type="text" readonly name="name" value="{{ $generic_component_type->name_singular }} / {{ $generic_component_type->name_plural }}">
                                     <label for="name">@lang('labels.name')</label>
                                 </div>
@@ -50,7 +50,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light red" type="submit">@lang('buttons.delete')
-                                        <i class="material-icons left">delete</i>
+                                        <i class="mdi mdi-18px mdi-delete left"></i>
                                     </button>
                                 </div>
                             </div>

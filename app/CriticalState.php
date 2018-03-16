@@ -308,10 +308,10 @@ class CriticalState extends CiliatusModel
     public function icon()
     {
         if ($this->is_soft_state) {
-            return 'error_outline';
+            return 'alert-circle-outline';
         }
 
-        return 'error';
+        return 'alert-circle';
     }
 
     /**

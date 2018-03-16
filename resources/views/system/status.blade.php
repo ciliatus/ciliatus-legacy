@@ -13,20 +13,20 @@
 
                     <div class="card-content">
                         @if ($version == false)
-                        <h5><i class="material-icons red-text">close</i> Ciliatus</h5>
+                        <h5><i class="mdi mdi-18px mdi-window-close red-text"> Ciliatus</h5>
                         <p>
-                            <strong>{{ config('app.version') }}:</strong> <i class="material-icons green-text">close</i>
+                            <strong>{{ config('app.version') }}:</strong> <i class="mdi mdi-24px mdi-close green-text"></i>
                         </p>
                         @elseif ($version['current'] == true)
-                        <h5><i class="material-icons green-text">check</i> Ciliatus</h5>
+                        <h5><i class="mdi mdi-18px mdi-check green-text"></i> Ciliatus</h5>
                         <p>
-                            <strong>{{ config('app.version') }}:</strong> <i class="material-icons green-text">check</i>
+                            <strong>{{ config('app.version') }}:</strong> <i class="mdi mdi-18px mdi-check green-text"></i>
                             <span>@lang('tooltips.ciliatus_up_to_date')</span>
                         </p>
                         @else
-                        <h5><i class="material-icons orange-text">close</i> Ciliatus</h5>
+                        <h5><i class="mdi mdi-24px mdi-close orange-text"></i> Ciliatus</h5>
                         <p>
-                            <strong>{{ config('app.version') }}:</strong> <i class="material-icons orange-text">close</i>
+                            <strong>{{ config('app.version') }}:</strong> <i class="mdi mdi-24px mdi-close orange-text"></i>
                             <span>@lang('tooltips.ciliatus_not_up_to_date', [
                                 'url' => 'https://github.com/ciliatus/ciliatus/releases'
                             ])</span>
@@ -46,14 +46,14 @@
 
                     <div class="card-content">
                         @if ($influx_db_status === true)
-                            <h5><i class="material-icons green-text">check</i> InfluxDB</h5>
+                            <h5><i class="mdi mdi-18px mdi-check green-text"></i> InfluxDB</h5>
                             <p>
-                                <strong>Database connection:</strong> <i class="material-icons green-text">check</i>
+                                <strong>Database connection:</strong> <i class="mdi mdi-18px mdi-check green-text"></i>
                             </p>
                         @else
-                            <h5><i class="material-icons red-text">close</i>InfluxDB</h5>
+                            <h5><i class="mdi mdi-18px mdi-window-close red-text">InfluxDB</h5>
                             <p>
-                                <strong>Database connection:</strong> <i class="material-icons red-text">close</i> {{ $influx_db_status }}
+                                <strong>Database connection:</strong> <i class="mdi mdi-18px mdi-window-close red-text"></i> {{ $influx_db_status }}
                             </p>
                         @endif
                     </div>
@@ -61,34 +61,34 @@
                     <div class="card-content">
                         <h5>
                             @if($api_ai_status['you'] && $api_ai_status['default'] && $api_ai_status['attempt'] === true)
-                                <i class="material-icons green-text">check</i>
+                                <i class="mdi mdi-18px mdi-check orange-text"></i>
                             @elseif(($api_ai_status['you'] || $api_ai_status['default']) && $api_ai_status['attempt'] === true)
-                                <i class="material-icons orange-text">check</i>
+                                <i class="mdi mdi-18px mdi-check orange-text"></i>
                             @else
-                                <i class="material-icons red-text">close</i>
+                                <i class="mdi mdi-18px mdi-window-close red-text"></i>
                             @endif
                             API.AI / Voice Recognition
                         </h5>
                         <p>
                             <strong>Your language:</strong>
                             @if($api_ai_status['you'])
-                                <i class="material-icons green-text">check</i>
+                                <i class="mdi mdi-18px mdi-check green-text"></i>
                             @else
-                                <i class="material-icons red-text">close</i>
+                                <i class="mdi mdi-18px mdi-window-close red-text"></i>
                             @endif
                             <br />
                             <strong>Default language:</strong>
                             @if($api_ai_status['default'])
-                                <i class="material-icons green-text">check</i>
+                                <i class="mdi mdi-18px mdi-check green-text"></i>
                             @else
-                                <i class="material-icons red-text">close</i>
+                                <i class="mdi mdi-18px mdi-window-close red-text"></i>
                             @endif
                             <br />
                             <strong>Test request:</strong>
                             @if ($api_ai_status['attempt'] === true)
-                                <i class="material-icons green-text">check</i>
+                                <i class="mdi mdi-18px mdi-check green-text"></i>
                             @else
-                                <i class="material-icons red-text">close</i> {{ $api_ai_status['attempt'] }}
+                                <i class="mdi mdi-18px mdi-window-close red-text"></i> {{ $api_ai_status['attempt'] }}
                             @endif
                         </p>
                     </div>

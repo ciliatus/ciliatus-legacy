@@ -38,7 +38,7 @@
                     <tr class="collapsible-header">
                         <td>
                             <span class="center">
-                                <i class="material-icons {{ $log['level_color'] }}-text">{{ $log['level_icon'] }}</i>
+                                <i class="mdi mdi-24px {{ $log['level_color'] }}-text mdi-{{ $log['level_icon'] }}"></i>
                                 {{ $log['level'] }}
                             </span>
                         </td>
@@ -46,7 +46,7 @@
                         <td class="date">{{ $log['date'] }}</td>
                         <td class="text">
                             @if ($log['stack'])
-                                <i class="right material-icons">more_vert</i>
+                                <i class="mdi mdi-24px mdi-dots-vertical"></i>
                             @endif
 
                             {{ $log['text'] }}
@@ -73,12 +73,12 @@
                 <div>
                     @if($current_file)
                           <a href="?dl={{ base64_encode($current_file) }}" class="btn teal">
-                              <i class="material-icons">file_download</i> @lang('buttons.download')</a>
+                              <i class="mdi mdi-18px mdi-download"></i> @lang('buttons.download')</a>
                           <a id="delete-log" href="?del={{ base64_encode($current_file) }}" class="btn red">
-                              <span class="material-icons">delete</span> @lang('buttons.delete_type', ['type' => trans('labels.file')])</a>
+                              <i class="mdi mdi-18px mdi-delete"></i> @lang('buttons.delete_type', ['type' => trans('labels.file')])</a>
                           @if(count($files) > 1)
                             <a id="delete-all-log" href="?delall=true" class="btn red">
-                                <span class="material-icons">delete_sweep</span> @lang('buttons.delete_all_type', ['type' => trans('labels.files')])</a>
+                                <i class="mdi mdi-18px mdi-delete-sweep"></i> @lang('buttons.delete_all_type', ['type' => trans('labels.files')])</a>
                           @endif
                     @endif
                 </div>

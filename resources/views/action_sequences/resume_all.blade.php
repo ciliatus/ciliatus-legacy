@@ -25,7 +25,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn green btn-large waves-effect waves-light" type="submit">@lang('buttons.emergency_resume')
-                                        <i class="material-icons green right">power_settings_new</i>
+                                        <i class="mdi mdi-18px mdi-power green-text"></i>
                                     </button>
                                 </div>
                             </div>

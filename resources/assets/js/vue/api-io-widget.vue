@@ -5,11 +5,11 @@
                 <form action="/api/v1/apiai/send_request" data-method="POST"
                       id="api-io-widget-form" class="ciliatus-search-wrapper"
                       :data-no-confirm="true" v-on:submit="submit_interceptor">
-                    <i class="material-icons prefix">lightbulb_outline</i>
+                    <i class="mdi mdi-24px mdi-lightbulb-on-outline prefix"></i>
                     <input name="speech" id="ask-me-something" type="text"
                            :readonly="loading" v-model="transcript"
-                           class="validate" style="padding: 0" autocomplete="off">
-                    <label for="ask-me-something" style="margin-left: 3em !important"
+                           class="validate" autocomplete="off">
+                    <label for="ask-me-something"
                            id="ask-me-something-label" class="white-text">
                         {{ $t('labels.ask_me_something') }}
                     </label>
@@ -17,10 +17,11 @@
             </div>
 
 
-            <a class="btn-floating waves-effect waves-light" v-show="!loading"
+            <a class="btn-floating waves-effect waves-light"
                v-on:mousedown="record" v-on:mouseup="stop_recording">
-                <i v-show="!recording" class="material-icons">mic_none</i>
-                <i v-show="recording" class="material-icons">mic</i>
+                <i v-show="!recording && !loading" class="mdi mdi-24px mdi-microphone"></i>
+                <i v-show="recording && !loading" class="mdi mdi-24px mdi-microphone-outline"></i>
+                <i v-show="loading" class="mdi mdi-24px mdi-loading mdi-spin"></i>
             </a>
         </div>
     </div>

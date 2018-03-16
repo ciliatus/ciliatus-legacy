@@ -29,7 +29,7 @@
                         <div class="card-title">
                             <span><a :href="'/animals/' + animal.data.id">{{ animal.data.display_name }}</a></span>
                             <loading-indicator :size="20" v-show="animal.data.loading_data"> </loading-indicator>
-                            <a href="#!"><i class="material-icons right activator" v-if="!animal.data.death_date">more_vert</i></a>
+                            <a href="#!"><i class="mdi mdi-24px mdi-dots-vertical right activator white-text" v-if="!animal.data.death_date"></i></a>
                         </div>
                     </div>
 
@@ -38,10 +38,12 @@
                             <span v-show="animal.data.latin_name">{{ animal.data.latin_name }},</span>
                             <span v-show="animal.data.common_name && !animal.data.latin_name">{{ animal.data.common_name }},</span>
                             <span v-show="animal.data.birth_date || animal.data.death_date">{{ animal.data.age_value }} {{ $tc("units." + animal.data.age_unit, animal.data.age_value) }}</span>
+                            <i v-if="animal.data.gender === 'female'" class="mdi mdi-gender-female"></i>
+                            <i v-if="animal.data.gender === 'male'" class="mdi mdi-gender-male"></i>
 
                             <span v-if="animal.data.last_feeding && !animal.data.death_date">
                                 <br />
-                                <i class="material-icons tiny">local_dining</i>
+                                <i class="mdi mdi-silverware-variant"></i>
                                 {{ $t(
                                     'units.' + $getMatchingTimeDiff(animal.data.last_feeding.timestamps.created_diff).unit,
                                     {val: $getMatchingTimeDiff(animal.data.last_feeding.timestamps.created_diff).val}
@@ -51,7 +53,7 @@
 
                             <span v-if="animal.data.last_weighing && !animal.data.death_date">
                                 <br />
-                                <i class="material-icons tiny">file_download</i>
+                                <i class="mdi mdi-download"></i>
                                 {{ $t(
                                     'units.' + $getMatchingTimeDiff(animal.data.last_weighing.timestamps.created_diff).unit,
                                     {val: $getMatchingTimeDiff(animal.data.last_weighing.timestamps.created_diff).val}
@@ -79,23 +81,23 @@
                     <div class="card-reveal" v-if="!animal.data.death_date">
                         <div>
                             <strong>{{ animal.data.display_name }}</strong>
-                            <i class="material-icons right card-title card-title-small">close</i>
+                            <i class="mdi mdi-24px mdi-close right card-title card-title-small"></i>
                         </div>
 
                         <p v-if="terrarium = terraria.filter(t => t.id === animal.data.terrarium_id)[0]">
                             <template v-if="terrarium.data">
-                                <i class="material-icons">video_label</i>
+                                <i class="mdi mdi-18px mdi-trackpad"></i>
                                 <a :href="'/terraria/' + terrarium.data.id">{{ terrarium.data.display_name }}</a>
                             </template>
                         </p>
 
                         <p>
-                            <i class="material-icons">play_arrow</i>
+                            <i class="mdi mdi-18px mdi-silverware-variant"></i>
                             <a href="#!" v-bind:href="'#modal_just_fed_' + animal.data.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.data.id + '\').modal(); $(\'#modal_just_fed_' + animal.data.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.data.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
                         </p>
 
                         <p>
-                            <i class="material-icons">play_arrow</i>
+                            <i class="mdi mdi-18px mdi-weight-kilogram"></i>
                             <a href="#!" v-bind:href="'#modal_add_weight_' + animal.data.id" v-bind:onclick="'$(\'#modal_add_weight_' + animal.data.id + '\').modal(); $(\'#modal_add_weight_' + animal.data.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.data.id + '\').modal(\'open\');'">{{ $t("labels.add_weight") }}</a>
                         </p>
                     </div>

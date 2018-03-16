@@ -2,7 +2,7 @@
     <div :class="wrapperClasses">
         <div class="card" v-if="valve.data">
             <div class="card-header">
-                <i class="material-icons">transform</i>
+                <i class="mdi mdi-18px mdi-pipe-disconnected"></i>
                 {{ $tc("labels.valves", 1) }}
             </div>
 

@@ -111,7 +111,7 @@ class Pump extends CiliatusModel
      */
     public function icon()
     {
-        return 'rotate_right';
+        return 'water-pump';
     }
 
     /**

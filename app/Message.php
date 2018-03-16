@@ -95,7 +95,7 @@ class Message extends CiliatusModel
      * @return string
      */
     public function icon() {
-        return '';
+        return 'message';
     }
 
     /**

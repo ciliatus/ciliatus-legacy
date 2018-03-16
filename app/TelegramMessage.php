@@ -135,7 +135,7 @@ class TelegramMessage extends Message
      */
     public function icon()
     {
-        // TODO: Implement icon() method.
+        return 'telegram';
     }
 
     /**

@@ -457,9 +457,9 @@ class File extends CiliatusModel
     {
         switch (explode('/', $this->mimetype)[0]) {
             case 'image':
-                return 'photo';
+                return 'image';
             default:
-                return 'attach_file';
+                return 'attachement';
         }
     }
 

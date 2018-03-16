@@ -24,8 +24,8 @@
                         <span v-for="schedule in get_animal_feeding_schedules_of_type(animal.id, type.name)">
                             <a v-bind:href="'/animals/' + animal.id + '/feeding_schedules/' + schedule.id + '/edit'">{{ schedule.interval_days }}</a>
                             <i>({{ schedule.due_days }} {{ $tc('units.days', schedule.due_days) }})</i>
-                            <i v-if="schedule.due_days < 0" class="material-icons red-text">error</i>
-                            <i v-else-if="schedule.due_days < 1" class="material-icons orange-text">error_outline</i>
+                            <i v-if="schedule.due_days < 0" class="mdi mdi-24px mdi-exclamation"></i>
+                            <i v-else-if="schedule.due_days < 1" class="mdi mdi-24px mdi-exclamation orange-text"></i>
                         </span>
                     </td>
                 </tr>

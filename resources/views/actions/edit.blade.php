@@ -68,7 +68,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons left">save</i>
+                                        <i class="mdi mdi-18px mdi-floppy left"></i>
                                     </button>
                                 </div>
                             </div>
@@ -82,10 +82,10 @@
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large orange darken-4">
-            <i class="large material-icons">mode_edit</i>
+            <i class="mdi mdi-18px mdi-pencil"></i>
         </a>
         <ul>
-            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/actions/{{ $action->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/actions/{{ $action->id }}/delete"><i class="mdi mdi-24px mdi-delete"></i></a></li>
         </ul>
     </div>
 @stop

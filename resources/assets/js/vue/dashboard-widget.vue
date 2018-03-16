@@ -17,7 +17,7 @@
 
                 <ul class="collection info with-header">
                     <li class="collection-header">
-                        <i class="material-icons">lightbulb_outline</i>
+                        <i class="mdi mdi-18px mdi-lightbulb-on-outline white-text"></i>
                         {{ suggestions.length }} {{ $tc("labels.suggestions", suggestions.length) }}
                     </li>
 
@@ -34,7 +34,7 @@
                             </span>
 
                             <a class="secondary-content white-text" :href="'/api/v1/properties/read/Event/' + suggestion.data.id" v-on:click="link_post">
-                                <i class="material-icons">done</i>
+                                <i class="mdi mdi-18px mdi-check"></i>
                             </a>
                         </div>
                         <div v-else>
@@ -54,7 +54,7 @@
 
                 <ul class="collection critical with-header">
                     <li class="collection-header">
-                        <i class="material-icons">developer_board</i>
+                        <i class="mdi mdi-18px mdi-developer-board white-text"></i>
                         {{ controlunits.filter(c => !c.data.state_ok).length }}
                         {{ $tc("labels.controlunits", controlunits.filter(c => !c.data.state_ok).length) }}
                         {{ $t("labels.critical") }}
@@ -83,7 +83,7 @@
 
                 <ul class="collection critical with-header">
                     <li class="collection-header">
-                        <i class="material-icons">video_label</i>
+                        <i class="mdi mdi-18px mdi-trackpad white-text"></i>
                         {{ terraria.filter(t => !t.data.state_ok).length }}
                         {{ $tc("labels.terraria", terraria.filter(t => !t.data.state_ok).length) }}
                         {{ $t("labels.critical") }}
@@ -119,7 +119,7 @@
             <div :class="wrapperClasses" v-if="physical_sensors.filter(p => !p.data.state_ok).length > 0">
                 <ul class="collection critical with-header">
                     <li class="collection-header">
-                        <i class="material-icons">memory</i>
+                        <i class="mdi mdi-18px mdi-switch white-text"></i>
                         {{ physical_sensors.filter(p => !p.data.state_ok).length }}
                         {{ $tc("labels.physical_sensors", physical_sensors.filter(p => !p.data.state_ok).length) }}
                         {{ $t("labels.critical") }}
@@ -147,7 +147,7 @@
             <div :class="wrapperClasses" v-if="animal_feeding_schedules.filter(s => s.data.due_days < 0).length > 0">
                 <ul class="collection warning with-header">
                     <li class="collection-header">
-                        <i class="material-icons">local_dining</i>
+                        <i class="mdi mdi-18px mdi-silverware white-text"></i>
                         {{ animal_feeding_schedules.filter(s => s.data.due_days < 0).length }}
                         {{ $tc("labels.animal_feedings", animal_feeding_schedules.filter(s => s.data.due_days < 0).length) }}
                         {{ $t("labels.overdue") }}
@@ -161,11 +161,11 @@
                             </span>
 
                             <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/skip'" v-on:click="link_post">
-                                <i class="material-icons">update</i>
+                                <i class="mdi mdi-18px mdi-update"></i>
                             </a>
 
                             <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/done'" v-on:click="link_post">
-                                <i class="material-icons">done</i>
+                                <i class="mdi mdi-18px mdi-check"></i>
                             </a>
                         </div>
                     </li>
@@ -178,7 +178,7 @@
             <div :class="wrapperClasses" v-if="animal_weighing_schedules.filter(s => s.data.due_days < 0).length > 0">
                 <ul class="collection warning with-header">
                     <li class="collection-header">
-                        <i class="material-icons">vertical_align_bottom</i>
+                        <i class="mdi mdi-18px mdi-weight-kilogram white-text"></i>
                         {{ animal_weighing_schedules.filter(s => s.data.due_days < 0).length }}
                         {{ $tc("labels.animal_weighings", animal_weighing_schedules.filter(s => s.data.due_days < 0).length) }}
                         {{ $t("labels.overdue") }}
@@ -194,13 +194,13 @@
                             <a class="secondary-content white-text"
                                v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/weighing_schedules/' + schedule.data.id + '/skip'"
                                v-on:click="link_post">
-                                <i class="material-icons">update</i>
+                                <i class="mdi mdi-18px mdi-update"></i>
                             </a>
 
                             <a class="secondary-content white-text"
                                v-bind:href="'#modal_add_weight_' + schedule.data.id"
                                v-bind:onclick="'$(\'#modal_add_weight_' + schedule.data.id + '\').modal(); $(\'#modal_add_weight_' + schedule.data.id + '\').modal(\'open\');'">
-                                <i class="material-icons">done</i>
+                                <i class="mdi mdi-18px mdi-check"></i>
                             </a>
                         </div>
                     </li>
@@ -213,7 +213,7 @@
             <div :class="wrapperClasses" v-if="animal_feeding_schedules.filter(s => s.data.due_days === 0).length > 0">
                 <ul class="collection ok with-header">
                     <li class="collection-header">
-                        <i class="material-icons">local_dining</i>
+                        <i class="mdi mdi-18px mdi-silverware white-text"></i>
                         {{ animal_feeding_schedules.filter(s => s.data.due_days === 0).length }}
                         {{ $tc("labels.animal_feedings", animal_feeding_schedules.filter(s => s.data.due_days === 0).length) }}
                         {{ $t("labels.due") }}
@@ -228,12 +228,12 @@
                             <a class="secondary-content white-text"
                                v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/skip'"
                                v-on:click="link_post">
-                                <i class="material-icons">update</i>
+                                <i class="mdi mdi-18px mdi-update"></i>
                             </a>
                             <a class="secondary-content white-text"
                                v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/done'"
                                v-on:click="link_post">
-                                <i class="material-icons">done</i>
+                                <i class="mdi mdi-18px mdi-check"></i>
                             </a>
                         </div>
                     </li>
@@ -246,7 +246,7 @@
             <div :class="wrapperClasses" v-if="animal_weighing_schedules.filter(s => s.data.due_days === 0).length > 0">
                 <ul class="collection ok with-header">
                     <li class="collection-header">
-                        <i class="material-icons">vertical_align_bottom</i>
+                        <i class="mdi mdi-18px mdi-weight-kilogram white-text"></i>
                         {{ animal_weighing_schedules.filter(s => s.data.due_days === 0).length }} 
                         {{ $tc("labels.animal_weighings", animal_weighing_schedules.filter(s => s.data.due_days === 0).length) }} 
                         {{ $t("labels.due") }}
@@ -261,12 +261,12 @@
                             <a class="secondary-content white-text"
                                v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/weighing_schedules/' + schedule.data.id + '/skip'"
                                v-on:click="link_post">
-                                <i class="material-icons">update</i>
+                                <i class="mdi mdi-18px mdi-update"></i>
                             </a>
                             <a class="secondary-content white-text"
                                v-bind:href="'#modal_add_weight_' + schedule.data.id"
                                v-bind:onclick="'$(\'#modal_add_weight_' + schedule.data.id + '\').modal(); $(\'#modal_add_weight_' + schedule.data.id + '\').modal(\'open\');'">
-                                <i class="material-icons">done</i>
+                                <i class="mdi mdi-18px mdi-check"></i>
                             </a>
                         </div>
                     </li>
@@ -279,7 +279,7 @@
             <div :class="wrapperClasses" v-if="action_sequence_schedules.filter(s => s.data.due_days === 0).length > 0">
                 <ul class="collection ok with-header">
                     <li class="collection-header">
-                        <i class="material-icons">playlist_play</i>
+                        <i class="mdi mdi-18px mdi-playlist-play white-text"></i>
                         {{ action_sequence_schedules.filter(s => s.data.states.is_due === true).length }}
                         {{ $tc("labels.action_sequences", action_sequence_schedules.filter(s => s.data.due_days === 0).length) }}
                         {{ $t("labels.due") }}
@@ -296,7 +296,7 @@
                                v-on:click="link_post"
                                data-delay="50" data-html="true"
                                :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.action_sequence_schedules.skip') + '</div>'">
-                                <i class="material-icons">update</i>
+                                <i class="mdi mdi-18px mdi-update"></i>
                             </a>
                         </div>
                     </li>
@@ -312,7 +312,7 @@
 
                 <ul class="collection ok with-header">
                     <li class="collection-header">
-                        <i class="material-icons">playlist_play</i>
+                        <i class="mdi mdi-18px mdi-playlist-play white-text"></i>
                         {{ (action_sequence_triggers.filter(t => t.should_be_started).length + 
                             action_sequence_intentions.filter(t => t.should_be_started).length) }}
                         {{ $tc("labels.action_sequences", action_sequence_intentions.filter(t => t.should_be_started).length) }} 
@@ -322,7 +322,7 @@
                     <li class="collection-item" v-for="trigger in action_sequence_triggers.filter(t => t.should_be_started)">
                         <div v-if="trigger.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 30px);">
-                                <i class="material-icons">flare</i>
+                                <i class="mdi mdi-18px mdi-vanish"></i>
                                 <a v-if="trigger.data.timestamps.last_start !== null" class="white-text">
                                     {{ trigger.data.timestamps.last_start.split(" ")[1] }}
                                 </a>
@@ -334,7 +334,7 @@
                             <a class="secondary-content white-text"
                                v-bind:href="'/api/v1/action_sequence_triggers/' + trigger.data.id + '/skip'"
                                v-on:click="link_post">
-                                <i class="material-icons">update</i>
+                                <i class="mdi mdi-18px mdi-update"></i>
                             </a>
                         </div>
                     </li>
@@ -342,7 +342,7 @@
                     <li class="collection-item" v-for="intention in action_sequence_intentions.filter(t => t.should_be_started)">
                         <div v-if="intention.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 30px);">
-                                <i class="material-icons">explore</i>
+                                <i class="mdi mdi-18px mdi-compass"></i>
                                 <a v-if="intention.data.timestamps.last_start !== null" class="white-text">
                                     {{ intention.data.timestamps.last_start.split(" ")[1] }}
                                 </a>
@@ -354,7 +354,7 @@
                             <a class="secondary-content white-text"
                                v-bind:href="'/api/v1/action_sequence_intentions/' + intention.data.id + '/skip'"
                                v-on:click="link_post">
-                                <i class="material-icons">update</i>
+                                <i class="mdi mdi-18px mdi-update"></i>
                             </a>
                         </div>
                     </li>
@@ -370,7 +370,7 @@
 
                 <ul class="collection ok with-header">
                     <li class="collection-header">
-                        <i class="material-icons">playlist_play</i>
+                        <i class="mdi mdi-18px mdi-playlist-play white-text"></i>
                         {{ (action_sequence_triggers.filter(t => t.running).length +
                         action_sequence_intentions.filter(t => t.running).length) }}
                         {{ $tc("labels.action_sequences", action_sequence_intentions.filter(t => t.running).length) }}
@@ -380,7 +380,7 @@
                     <li class="collection-item" v-for="trigger in action_sequence_triggers.filter(t => t.running)">
                         <div v-if="trigger.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 30px);">
-                                <i class="material-icons">flare</i>
+                                <i class="mdi mdi-18px mdi-vanish"></i>
                                 <a v-if="trigger.data.timestamps.last_start !== null" class="white-text">
                                     {{ trigger.data.timestamps.last_start.split(" ")[1] }}
                                 </a>
@@ -392,7 +392,7 @@
                             <a class="secondary-content white-text"
                                v-bind:href="'/api/v1/action_sequence_triggers/' + trigger.data.id + '/skip'"
                                v-on:click="link_post">
-                                <i class="material-icons">update</i>
+                                <i class="mdi mdi-18px mdi-update"></i>
                             </a>
                         </div>
                     </li>
@@ -400,7 +400,7 @@
                     <li class="collection-item" v-for="intention in action_sequence_intentions.filter(t => t.running)">
                         <div v-if="intention.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 30px);">
-                                <i class="material-icons">explore</i>
+                                <i class="mdi mdi-18px mdi-compass"></i>
                                 <a v-if="intention.data.timestamps.last_start !== null" class="white-text">
                                     {{ intention.data.timestamps.last_start.split(" ")[1] }}
                                 </a>
@@ -412,7 +412,7 @@
                             <a class="secondary-content white-text"
                                v-bind:href="'/api/v1/action_sequence_intentions/' + intention.data.id + '/skip'"
                                v-on:click="link_post">
-                                <i class="material-icons">update</i>
+                                <i class="mdi mdi-18px mdi-update"></i>
                             </a>
                         </div>
                     </li>
@@ -425,7 +425,7 @@
             <div :class="wrapperClasses" v-if="terraria.filter(t => !t.data.state_ok).length < 1">
                 <ul class="collection ok with-header">
                     <li class="collection-header">
-                        <i class="material-icons">video_label</i>
+                        <i class="mdi mdi-18px mdi-trackpad white-text"></i>
                         {{ terraria_ok_count }}
                         {{ $tc("labels.terraria", terraria_ok_count) }}
                     </li>

@@ -37,7 +37,7 @@
 
             <div class="col s12 m2 l2">
                 <div class="center-align">
-                    <i class="medium material-icons">link</i>
+                    <i class="mdi mdi-18px mdi-link"></i>
                 </div>
             </div>
 
@@ -77,7 +77,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light red" type="submit">@lang('buttons.delete')
-                                        <i class="material-icons left">delete</i>
+                                        <i class="mdi mdi-18px mdi-delete left"></i>
                                     </button>
                                 </div>
                             </div>

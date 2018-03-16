@@ -17,7 +17,7 @@
 
                     <div class="modal-footer">
                         <button class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
-                            <i class="material-icons left">send</i>
+                            <i class="mdi mdi-18px mdi-floppy left"></i>
                         </button>
                     </div>
                 </form>
@@ -25,7 +25,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <i class="material-icons">local_dining</i>
+                    <i class="mdi mdi-18px mdi-silverware-variant"></i>
                     {{ $tc("labels.animal_feedings", 2) }}
                 </div>
 
@@ -37,7 +37,7 @@
                             <span v-if="feeding.data.timestamps.created_diff.days <= 1 && feeding.data.timestamps.created_diff.hours > 1">{{ $t('units.hours_ago', {val: feeding.data.timestamps.created_diff.hours}) }}</span>
                             <span v-if="feeding.data.timestamps.created_diff.days <= 1 && feeding.data.timestamps.created_diff.hours <= 1">{{ $t('units.just_now') }}</span>
                             <span> - {{ feeding.data.type }}</span>
-                            <span class="right"><a class="red-text" :href="'/animals/' + animalId + '/feedings/' + feeding.data.id + '/delete'"><i class="material-icons">delete</i></a></span>
+                            <span class="right"><a class="red-text" :href="'/animals/' + animalId + '/feedings/' + feeding.data.id + '/delete'"><i class="mdi mdi-18px mdi-delete"></i></a></span>
                         </div>
                     </div>
                     <div v-if="feedings.length < 1">

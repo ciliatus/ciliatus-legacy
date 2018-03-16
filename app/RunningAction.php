@@ -79,7 +79,7 @@ class RunningAction extends CiliatusModel
      */
     public function icon()
     {
-        return 'assignment_turned_in';
+        return 'flash';
     }
 
     /**

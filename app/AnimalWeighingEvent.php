@@ -115,7 +115,7 @@ class AnimalWeighingEvent extends Event
      */
     public function icon()
     {
-        return 'event';
+        return 'weight-kilogram';
     }
 
     /**

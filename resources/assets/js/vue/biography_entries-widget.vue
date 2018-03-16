@@ -36,7 +36,7 @@
 
                                 <p v-show="files.filter(f => f.data.belongsTo_id === entry.data.id).length > 0" style="margin-top: 15px;">
                                 <span v-for="(file, index) in files.filter(f => f.data.belongsTo_id === entry.data.id)" style="margin-right: 15px;">
-                                    <i class="material-icons">{{ file.data.icon }}</i>
+                                    <i :class="'mdi mdi-18px mdi-' + file.data.icon"></i>
                                     <a :href="file.data.url">{{ file.data.display_name }}</a>
                                 </span>
                                 </p>
@@ -47,9 +47,8 @@
                             </div>
                         </div>
                         <div class="timeline-badge teal darken-2 white-text">
-                            <i v-if="entry.data.category" class="material-icons tooltipped" data-position="top" data-delay="50"
+                            <i v-if="entry.data.category" :class="'mdi mdi-18px tooltipped' + entry.data.category.icon" data-position="top" data-delay="50"
                                v-bind:data-tooltip="entry.data.category.name">
-                                {{ entry.data.category.icon }}
                             </i>
                         </div>
                     </template>

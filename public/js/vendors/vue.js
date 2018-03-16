@@ -297,16 +297,16 @@ var _createClass = function () { function defineProperties(target, props) { for 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var CiliatusObject = function () {
-    function CiliatusObject(type, id, data, include) {
+    function CiliatusObject(ciliatus, type, id, data, include) {
         _classCallCheck(this, CiliatusObject);
 
+        this.ciliatus = ciliatus;
         this.type = type;
         this.id = id;
         this.data = data;
         this.include = include ? include : [];
         this.max_age_seconds = 60;
         this.api_url = global.apiUrl;
-        this.init_done = false;
         this.refreshing = false;
 
         this.__verifyId();
@@ -322,14 +322,24 @@ var CiliatusObject = function () {
 
     _createClass(CiliatusObject, [{
         key: 'refresh',
-        value: function refresh() {
-            this.refreshing = true;
-            jQuery.ajax({
-                context: this,
-                url: this.url(),
-                method: 'GET',
-                success: this.handleApiResult
-            });
+        value: function refresh(force, timeout) {
+            var _this = this;
+
+            if (!force && !(this.last_change > this.last_refresh) || this.last_change === undefined || this.last_refresh === undefined) {
+                this.refreshing = true;
+                // When handling events it can be useful to wait for duplicate events
+                timeout = timeout ? timeout * 1000 : 1;
+                setTimeout(function () {
+                    jQuery.ajax({
+                        context: _this,
+                        url: _this.url(),
+                        method: 'GET',
+                        success: _this.handleApiResult
+                    });
+                }, timeout);
+            } else {
+                window.console.log('Not updating ' + this.type + ' ' + this.id + '. ' + 'Last change (' + this.last_change + ') is > last refresh (' + this.last_change + ')');
+            }
         }
     }, {
         key: 'url',
@@ -342,8 +352,6 @@ var CiliatusObject = function () {
     }, {
         key: 'handleApiResult',
         value: function handleApiResult(result) {
-            var _this = this;
-
             this.data = result['data'];
             this.last_change = 0;
             this.last_refresh = Date.now();
@@ -353,15 +361,7 @@ var CiliatusObject = function () {
 
             this.refreshing = false;
 
-            if (!this.init_done) {
-                window.echo.private('dashboard-updates').listen(this.data.class + 'Updated', function (e) {
-                    _this.refresh();
-                }).listen(this.data.class + 'Deleted', function (e) {
-                    _this.data = null;
-                });
-
-                this.init_done = true;
-            }
+            window.eventHubVue.$emit('CiliatusObjectUpdated', this);
         }
     }, {
         key: 'persist',
@@ -3104,6 +3104,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
 
 
 
@@ -3212,9 +3216,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         },
 
         load_data: function load_data() {
+            var that = this;
             if (this.animalId === null) {
-                var that = this;
-
                 $.ajax({
                     url: '/api/v1/animals/?with[]=terrarium&pagination[per_page]=' + that.itemsPerPage + '&page=' + that.$refs.pagination.page + that.$refs.pagination.filter_string + that.$refs.pagination.order_string,
                     method: 'GET',
@@ -3240,6 +3243,17 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 this.ids = [this.animalId];
                 this.$parent.ensureObject('animals', this.animalId);
             }
+
+            $.ajax({
+                url: '/api/v1/animals/feedings/types',
+                method: 'GET',
+                success: function success(data) {
+                    that.feeding_types = data.data;
+                },
+                error: function error(_error2) {
+                    console.log(JSON.stringify(_error2));
+                }
+            });
         },
 
         rerender: function rerender() {
@@ -3274,7 +3288,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* WEBPACK VAR INJECTION */(function(global) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -3316,7 +3337,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     methods: {
         submit_interceptor: function submit_interceptor(e) {
             if (!this.recording_capability) {
-                window.notification(window.bodyVue.$t('errors.frontend.no_recording_capability'), 'red darken-1 text-white');
+                window.notification(global.ciliatusVue.$t('errors.frontend.no_recording_capability'), 'red darken-1 text-white');
                 return;
             }
             if (this.loading) {
@@ -3327,6 +3348,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.loading = true;
             window.eventHubVue.processStarted();
         },
+
         parse_result: function parse_result(data) {
             if (data.source_id !== 'api-io-widget-form') {
                 return;
@@ -3349,9 +3371,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             window.speechSynthesis.speak(msg);
             //$('#ask-me-something').val('');
         },
+
         record: function record() {
             if (!this.recording_capability) {
-                window.notification(window.bodyVue.$t('errors.frontend.no_recording_capability'), 'red darken-1 text-white');
+                window.notification(global.ciliatusVue.$t('errors.frontend.no_recording_capability'), 'red darken-1 text-white');
                 return;
             }
             this.recording = !this.recording;
@@ -3368,20 +3391,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     created: function created() {
-        window.eventHubVue.$on('FormSubmitReturnedSuccess', this.parse_result);
+        var _this = this;
+
+        this.recording_capability = true;
+
         if (!('webkitSpeechRecognition' in window)) {
             this.recording_capability = false;
         } else {
-            var that = this;
+            window.eventHubVue.$on('FormSubmitReturnedSuccess', this.parse_result);
             this.recognition = new webkitSpeechRecognition();
             this.recognition.continuous = true;
             this.recognition.interimResults = true;
             this.recognition.lang = $('body').data('lang');
 
             this.recognition.onstart = function () {
-                that.recording = true;
+                _this.recording = true;
                 $('#ask-me-something-label').addClass('active');
             };
+
             this.recognition.onresult = function (e) {
                 var transcript = '';
 
@@ -3389,25 +3416,29 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     transcript += e.results[i][0].transcript;
                 }
 
-                that.transcript = transcript.replace('/\S/', function (m) {
+                _this.transcript = transcript.replace('/\S/', function (m) {
                     return m.toUpperCase();
                 });
             };
-            this.recognition.onerror = function (e) {
-                that.recording = false;
+
+            this.recognition.onerror = function () {
+                _this.recording = false;
             };
+
             this.recognition.onend = function () {
                 $('#api-io-widget-form').submit();
-                that.recording = false;
-                that.loading = true;
+                _this.recording = false;
+                _this.loading = true;
             };
         }
+
         this.$nextTick(function () {
-            $('#api-io-widget-result-modal').modal();
+            return $('#api-io-widget-result-modal').modal();
         });
     }
 
 });
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
 
 /***/ }),
 /* 29 */
@@ -3417,7 +3448,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_pagination_vue__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_pagination_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__mixins_pagination_vue__);
-//
 //
 //
 //
@@ -5124,6 +5154,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 
 
@@ -5229,6 +5260,36 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     methods: {
+        evalDeleteSuggestion: function evalDeleteSuggestion(e) {
+            var _this = this;
+
+            this.suggestions.forEach(function (suggestion, index) {
+                if (suggestion.id === e.target_id) {
+                    _this.$parent.removeObject(suggestion);
+                }
+            });
+
+            this.$nextTick(function () {
+                this.refresh_grid();
+            });
+        },
+
+        handleCiliatusObjectUpdated: function handleCiliatusObjectUpdated(object_information) {
+            var _this2 = this;
+
+            this.$nextTick(function () {
+                return _this2.refresh_grid();
+            });
+        },
+
+        handleCiliatusObjectDeleted: function handleCiliatusObjectDeleted(object_information) {
+            var _this3 = this;
+
+            this.$nextTick(function () {
+                return _this3.refresh_grid();
+            });
+        },
+
         refresh_grid: function refresh_grid() {
             $('.dropdown-button').dropdown({
                 constrain_width: false
@@ -5334,6 +5395,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     },
 
     created: function created() {
+        var _this4 = this;
+
         var that = this;
         setTimeout(function () {
             that.load_data(true);
@@ -5344,6 +5407,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 that.load_data();
             }, this.refreshTimeoutSeconds * 1000);
         }
+        window.echo.private('dashboard-updates').listen('ReadFlagSet', function (e) {
+            _this4.evalDeleteSuggestion(e);
+        });
+
+        window.eventHubVue.$on('CiliatusObjectUpdated', this.handleCiliatusObjectUpdated);
+        window.eventHubVue.$on('CiliatusObjectDeleted', this.handleCiliatusObjectDeleted);
     }
 });
 
@@ -7219,7 +7288,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 }
                 if (that.intentions !== null) {
                     that.intentions.forEach(function (el) {
-                        that.component_intentions.push({ intention: el.name, type: el.value });
+                        that.component_intentions.push({ intention: el.value, type: el.name });
                     });
                 }
             }
@@ -7749,70 +7818,49 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            points_array: []
+        };
+    },
+
+
+    props: ['points', 'type', 'options', 'sourceField', 'sourceType', 'sourceId'],
 
     components: {
         Peity: __WEBPACK_IMPORTED_MODULE_0_vue_peity___default.a
     },
 
-    props: ['source', 'type', 'options', 'parentid', 'graphtype', 'dataPrefill'],
-
     computed: {
-        graphData: function graphData() {
-            if (this.data === undefined) return '';
-
-            return this.data.toString();
+        points_string: function points_string() {
+            return this.points_array.map(function (p) {
+                return Math.round(p * 10) / 10;
+            }).toString();
         }
     },
 
-    data: function data() {
-        return {
-            data: []
-        };
-    },
-
-
     methods: {
-        createSensorrreading: function createSensorrreading(value) {
-            this.data.push(value);
-        },
-        updateTerrariumGraph: function updateTerrariumGraph(t) {
-            if (t.id === this.parentid) {
-                if (this.graphtype === 'humidity_percent') this.data = t.humidity_history;else if (this.graphtype === 'temperature_celsius') this.data = t.temperature_history;
-            }
-        },
         rerender: function rerender() {
-            var tmp = this.data;
-            this.data = [0];
+            var tmp = this.points_array;
+            this.points_array = [0];
 
             this.$nextTick(function () {
-                this.data = tmp;
+                this.points_array = tmp;
             });
         }
     },
 
     created: function created() {
-        if (this.dataPrefill != null) {
-            this.data = this.dataPrefill;
-        } else {
-            window.eventHubVue.processStarted();
-            var that = this;
-            $.ajax({
-                url: that.source,
-                method: 'GET',
-                success: function success(data) {
-                    that.data = data.data;
-                    window.eventHubVue.processEnded();
-                },
-                error: function error(_error) {
-                    console.log(JSON.stringify(_error));
-                    window.eventHubVue.processEnded();
-                }
-            });
-        }
+        var _this = this;
 
-        window.eventHubVue.$on('ForceRerender', this.rerender);
-        window.eventHubVue.$on('SensorreadingCreated', this.createSensorrreading);
-        window.eventHubVue.$on('TerrariumGraphUpdated', this.updateTerrariumGraph);
+        this.points_array = this.points;
+
+        window.eventHubVue.$on('CiliatusObjectUpdated', function (obj) {
+            if (obj.id === _this.sourceId && obj.type === _this.sourceType) {
+                _this.points_array = obj.data[_this.sourceField];
+                _this.rerender();
+            }
+        });
     }
 });
 
@@ -7887,6 +7935,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loading_card_widget__ = __webpack_require__(3);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loading_card_widget___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__loading_card_widget__);
+//
+//
 //
 //
 //
@@ -8625,7 +8675,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var that = this;
         setTimeout(function () {
-            that.$refs.pagination.init();
+            that.$refs.pagination.init('created_at', 'desc');
         }, 100);
     }
 });
@@ -8789,10 +8839,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.$parent.load_data();
         },
 
-        init: function init(order_field) {
+        init: function init(order_field, order_direction) {
             if (order_field) {
                 this.order.field = order_field;
             }
+
+            if (order_direction) {
+                this.order.direction = order_direction;
+            }
+
             this.render_filter_string();
             this.render_order_string();
             this.set_page();
@@ -9812,6 +9867,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
 
 
 
@@ -9878,6 +9940,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         showFilters: {
             type: Boolean,
             default: false,
+            required: false
+        },
+        temperatureGraphMin: {
+            type: Number,
+            default: 10,
+            required: false
+        },
+        temperatureGraphMax: {
+            type: Number,
+            default: 40,
+            required: false
+        },
+        humidityGraphMin: {
+            type: Number,
+            default: 1,
+            required: false
+        },
+        humidityGraphMax: {
+            type: Number,
+            default: 99,
             required: false
         }
     },
@@ -10101,7 +10183,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     created: function created() {
         var that = this;
         setTimeout(function () {
-            that.$refs.pagination.init();
+            that.$refs.pagination.init('name');
         }, 100);
     }
 });
@@ -10476,8 +10558,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__vue_generic_components_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_31__vue_generic_components_widget_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__vue_generic_components_list_widget_vue__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__vue_generic_components_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_32__vue_generic_components_list_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__vue_users_widget_vue__ = __webpack_require__(107);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__vue_users_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_33__vue_users_widget_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__vue_users_list_widget_vue__ = __webpack_require__(107);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__vue_users_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_33__vue_users_list_widget_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__vue_biography_entries_widget_vue__ = __webpack_require__(82);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__vue_biography_entries_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_34__vue_biography_entries_widget_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_35__vue_caresheets_widget_vue__ = __webpack_require__(84);
@@ -10626,7 +10708,7 @@ global.ciliatusVue = new global.Vue({
             if (this.$store.state[type].filter(function (o) {
                 return o.id === id;
             }).length < 1) {
-                this.$store.state[type].push(new __WEBPACK_IMPORTED_MODULE_41__ciliatus_object__["default"](type, id, data, include));
+                this.$store.state[type].push(new __WEBPACK_IMPORTED_MODULE_41__ciliatus_object__["default"](this, type, id, data, include));
             }
         },
         ensureObjects: function ensureObjects(type, ids, data, include) {
@@ -10648,8 +10730,97 @@ global.ciliatusVue = new global.Vue({
                     })[0] : undefined, include);
                 });
             }
+        },
+        removeObject: function removeObject(object) {
+            this.$store.state[object.type].splice(this.$store.state[object.type].findIndex(function (o) {
+                return o.id === object.id;
+            }), 1);
+            window.eventHubVue.$emit('CiliatusObjectDeleted', { type: object.type, id: object.id });
+        },
+        __deleteEventName: function __deleteEventName(type) {
+            var event_names = {
+                action_sequences: 'ActionSequenceDeleted',
+                action_sequence_intentions: 'ActionSequenceIntentionDeleted',
+                action_sequence_schedules: 'ActionSequenceScheduleDeleted',
+                action_sequence_triggers: 'ActionSequenceTriggerDeleted',
+                animals: 'AnimalDeleted',
+                animal_weighings: 'AnimalWeighingEventDeleted',
+                animal_feedings: 'AnimalFeedingEventDeleted',
+                animal_weighing_schedules: 'AnimalWeighingSchedulePropertyDeleted',
+                animal_feeding_schedules: 'AnimalFeedingSchedulePropertyDeleted',
+                biography_entries: 'BiographyEntryEventDeleted',
+                caresheets: 'CaresheetDeleted',
+                controlunits: 'ControlunitDeleted',
+                files: 'FileDeleted',
+                generic_components: 'GenericComponentDeleted',
+                logical_sensors: 'LogicalSensorDeleted',
+                logical_sensor_thresholds: 'LogicalSensorThresholdsDeleted',
+                physical_sensors: 'PhysicalSensorDeleted',
+                pumps: 'PumpDeleted',
+                suggestions: 'SuggestionDeleted',
+                terraria: 'TerrariumDeleted',
+                users: 'UserDeleted',
+                valves: 'ValveDeleted'
+            };
+
+            return event_names[type];
+        },
+        __updateEventName: function __updateEventName(type) {
+            var event_names = {
+                action_sequences: 'ActionSequenceUpdated',
+                action_sequence_intentions: 'ActionSequenceIntentionUpdated',
+                action_sequence_schedules: 'ActionSequenceScheduleUpdated',
+                action_sequence_triggers: 'ActionSequenceTriggerUpdated',
+                animals: 'AnimalUpdated',
+                animal_weighings: 'AnimalWeighingEventUpdated',
+                animal_feedings: 'AnimalFeedingEventUpdated',
+                animal_weighing_schedules: 'AnimalWeighingSchedulePropertyUpdated',
+                animal_feeding_schedules: 'AnimalFeedingSchedulePropertyUpdated',
+                biography_entries: 'BiographyEntryEventUpdated',
+                caresheets: 'CaresheetUpdated',
+                controlunits: 'ControlunitUpdated',
+                files: 'FileUpdated',
+                generic_components: 'GenericComponentUpdated',
+                logical_sensors: 'LogicalSensorUpdated',
+                logical_sensor_thresholds: 'LogicalSensorThresholdsUpdated',
+                physical_sensors: 'PhysicalSensorUpdated',
+                pumps: 'PumpUpdated',
+                suggestions: 'SuggestionUpdated',
+                terraria: 'TerrariumUpdated',
+                users: 'UserUpdated',
+                valves: 'ValveUpdated'
+            };
+
+            return event_names[type];
         }
     },
+
+    created: function created() {
+        var that = this;
+        var event_name = void 0;
+        Object.keys(this.$store.state).forEach(function (k) {
+            if (event_name = that.__updateEventName(k)) {
+                window.echo.private('dashboard-updates').listen(event_name, function (e) {
+                    that.$store.state[k].filter(function (obj) {
+                        return obj.id === e.id;
+                    }).forEach(function (obj) {
+                        return obj.refresh(false, .2);
+                    });
+                });
+            }
+
+            if (event_name = that.__deleteEventName(k)) {
+                window.echo.private('dashboard-updates').listen(event_name, function (e) {
+                    that.$store.state[k].filter(function (obj) {
+                        return obj.id === e.id;
+                    }).forEach(function (obj) {
+                        return that.removeObject(obj);
+                    });
+                });
+            }
+        });
+    },
+
 
     components: {
         'system-indicator': __WEBPACK_IMPORTED_MODULE_1__vue_system_indicator_vue___default.a,
@@ -10686,7 +10857,7 @@ global.ciliatusVue = new global.Vue({
         'logical_sensor_thresholds-widget': __WEBPACK_IMPORTED_MODULE_30__vue_logical_sensor_thresholds_widget_vue___default.a,
         'generic_components-widget': __WEBPACK_IMPORTED_MODULE_31__vue_generic_components_widget_vue___default.a,
         'generic_components-list-widget': __WEBPACK_IMPORTED_MODULE_32__vue_generic_components_list_widget_vue___default.a,
-        'users-widget': __WEBPACK_IMPORTED_MODULE_33__vue_users_widget_vue___default.a,
+        'users-list-widget': __WEBPACK_IMPORTED_MODULE_33__vue_users_list_widget_vue___default.a,
         'biography_entries-widget': __WEBPACK_IMPORTED_MODULE_34__vue_biography_entries_widget_vue___default.a,
         'caresheets-widget': __WEBPACK_IMPORTED_MODULE_35__vue_caresheets_widget_vue___default.a,
         'logs-widget': __WEBPACK_IMPORTED_MODULE_36__vue_logs_widget_vue___default.a,
@@ -10743,7 +10914,7 @@ global.ciliatusVue = new global.Vue({
 /* 64 */
 /***/ (function(module, exports) {
 
-module.exports = { "de": { "buttons": { "next": "Weiter", "save": "Speichern", "delete": "L\xF6schen", "delete_type": "{type} L\xF6schen", "delete_all_type": "Alle {type} l\xF6schen", "loadgraph": "Graph laden", "upload": "Hochladen", "start_setup": "Setup starten", "add": "Hinzuf\xFCgen", "add_intention": "Neue Intention", "add_property": "Neue Eigenschaft", "add_state": "Neuer Zustand", "create": "Hinzuf\xFCgen", "edit": "Bearbeiten", "details": "Details", "download": "Herunterladen", "emergency_stop": "Notaus", "emergency_resume": "Notus aufheben", "revoke": "Widerrufen", "irrigate": "Bew\xE4ssern", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "start": "Starten", "close": "Schlie\xDFen", "select_all_read": "Alles lesen", "select_all_list": "Alles auflisten", "select_all_write": "Alles schreiben" }, "errors": { "retrievegraphdata": "Graphdaten konnten nicht ermittelt werden.", "auth": { "failed": "Authentifizierung fehlgeschlagen." }, "frontend": { "generic": "Ein Fehler ist aufgetreten. Details in der Konsole.", "no_recording_capability": "Der Browser scheint keine Sprachsteuerung zu unterst\xFCtzen." } }, "labels": { "User": "Benutzer", "user": "Benutzer", "users": "Benutzer|Benutzer", "Terrarium": "Terrarium", "terrarium": "Terrarium", "terraria": "Terrarium|Terrarien", "Animal": "Tier", "animal": "Tier", "animals": "Tier|Tiere", "Controlunit": "Steuereinheit", "controlunit": "Steuereinheit", "controlunits": "Steuereinheit|Steuereinheiten", "Pump": "Pumpe", "pump": "Pumpe", "pumps": "Pumpe|Pumpen", "Valve": "Ventil", "valve": "Ventil", "valves": "Ventil|Ventile", "PhysicalSensor": "Physischer Sensor", "physical_sensor": "Physischer Sensor", "physical_sensors": "Physischer Sensor|Physische Sensoren", "LogicalSensor": "Logischer Sensor", "logical_sensor": "Logischer Sensor", "logical_sensors": "Logischer Sensor|Logische Sensoren", "LogicalSensorThreshold": "Logischer Sensor Schwellenwert", "logical_sensor_threshold": "Logischer Sensor Schwellenwert", "logical_sensor_thresholds": "Logischer Sensor Schwellenwert|Logische Sensor Schwellenwerte", "File": "Datei", "file": "Datei", "files": "Dateien", "Log": "Systemlog", "log": "Log", "logs": "Systemlog|Systemlogs", "Action": "Aktion", "action": "Aktion", "actions": "Aktionen", "ActionSequence": "Aktionssequenz", "action_sequence": "Aktionssequenz", "action_sequences": "Aktionssequenz|Aktionssequenzen", "ActionSequenceSchedule": "Aktionssequenz Zeitplan", "action_sequence_schedule": "Aktionssequenz Zeitplan", "action_sequence_schedules": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "ActionSequenceTrigger": "Aktionssequenz Ausl\xF6ser", "action_sequence_trigger": "Aktionssequenz Ausl\xF6ser", "action_sequence_triggers": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "ActionSequenceIntention": "Aktionssequenz Intention", "action_sequence_intention": "Aktionssequenz Intention", "action_sequence_intentions": "Aktionssequenz Intention|Aktionssequenz Intentionen", "Trigger": "Ausl\xF6ser", "trigger": "Ausl\xF6ser", "triggers": "Ausl\xF6ser", "admin_panel": "Admin Panel", "admin_panels": "Admin Panel", "AnimalFeeding": "F\xFCtterung", "animal_feeding": "F\xFCtterung", "animal_feedings": "F\xFCtterung|F\xFCtterungen", "AnimalFeedingSchedule": "F\xFCtterungsplan", "animal_feeding_schedule": "F\xFCtterungsplan", "animal_feeding_schedules": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "AnimalWeighing": "Gewicht", "animal_weighing": "Gewicht", "animal_weighings": "Gewicht|Gewichte", "AnimalWeighingSchedule": "Wiegeplan", "animal_weighing_schedule": "Wiegeplan", "animal_weighing_schedules": "Wiegeplan|Wiegepl\xE4ne", "BiographyEntryEvent": "Biografieeintrag", "biography_entry": "Biografieeintrag", "biography_entries": "Biografieeintrag|Biografieeintr\xE4ge", "CaresheetEvent": "Begleitblatt", "caresheet": { "sensor_history_days": "Zeitrahmen f\xFCr Sensorwerte", "data_history_days": "Zeitrahmen f\xFCr Tier- und Terrarieninformationen" }, "caresheets": "Begleitblatt|Begleitbl\xE4tter", "critical_state": "Kritischer Zustand", "critical_states": "Kritischer Zustand|Kritische Zust\xE4nde", "GenericComponent": "Generische Komponente", "generic_component": "Generische Komponente", "generic_components": "Generische Komponente|Generische Komponenten", "GenericComponentType": "Generischer Komponententyp", "generic_component_type": "Generischer Komponententyp", "generic_component_types": "Generischer Komponententyp|Generische Komponententypen", "SuggestionEvent": "Vorschlag", "suggestion": "Vorschlag", "suggestions": "Vorschl\xE4ge", "connecting": "Verbinde", "title": "Titel", "text": "Text", "tags": "Tags", "status": "Status", "health": "Gesundheit", "birth": "Geburt", "gender": "Geschlecht", "gender_male": "M\xE4nnlich", "gender_female": "Weiblich", "date": "Datum", "date_birth": "Geburtstag", "date_death": "Todestag", "model": "Modell", "type": "Typ", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Anzeigename", "common_name": "Gemeiner Name", "latin_name": "Lateinischer Name", "temperature": "Temperatur", "temperature_celsius": "Temperatur", "humidity": "Feuchtigkeit", "humidity_percent": "Feuchtigkeit", "heartbeat": "Puls", "last_heartbeat": "Letzter Puls", "noanimals": "Keine Tiere", "create": "Erstelle", "settings": "Einstellung|Einstellungen", "notifications": "Benachrichtigung|Benachrichtigungen", "notification_type": "Nachrichten Kanal", "details": "Details", "rawlimits": "Schwellenwerte", "rawlimitlo": "Unterer Schwellenwert", "rawlimithi": "Oberer Schwellenwert", "size": "Gr\xF6\xDFe", "current_value": "Aktueller Wert", "created_at": "Erstellt", "updated_at": "Letztes Update", "recovered_at": "Erholt", "download": "Herunterladen", "properties": "Eigenschaften", "preview": "Vorschau", "source": "Quelle", "target": "Ziel", "associated_with": "Assoziiert mit", "starts_at": "Beginnt um", "ends_at": "Endet um", "starts_after": "Startet nach", "thresholds": "Schwellenwerte", "abilities": "F\xE4higkeit|F\xE4higkeiten", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto Nachtmodus", "permanent_nightmode": "Permanenter Nachtmodus", "language": "Sprache", "belongsTo_type": "Geh\xF6rt zu (Typ)", "belongsTo_id": "Geh\xF6rt zu (ID)", "belongsTo": "Geh\xF6rt zu", "users_guide": "Benutzerhandbuch", "doku": "Dokumentation", "tech_doku": "Techn. Dokumentation", "step": "Schritt", "phone_number": "Telefonnummer", "template": "Vorlage", "timezone": "Zeitzone", "critical": "Kritisch", "ok": "OK", "running": "Laufend", "runs_since": "L\xE4uft seit", "queued": "Wartend", "criticalstates": "Kritische Zust\xE4nde", "since": "Seit", "state": "Zustand", "irrigate": "Bew\xE4ssern", "duration": "Dauer", "on": "An", "off": "Aus", "just_fed": "F\xFCtterung hinzuf\xFCgen", "add_weight": "Gewicht hinzuf\xFCgen", "active": "Aktiv", "copy_thresholds": "Schwellenwerte kopieren", "daily": "T\xE4glich", "last_feeding": "Letzte F\xFCtterung", "crickets": "Heimchen", "mixed_fruits": "Fruchtbrei", "beetle_jelly": "BeetleJelly", "due": "F\xE4llig", "overdue": "\xDCberf\xE4llig", "meal_type": "Nahrungsart", "interval_days": "Intervall in Tagen", "interval": "Intervall", "password": "Passwort", "weight": "Gewicht", "no_data": "Keine Daten", "overview": "\xDCbersicht", "environment": "Umgebung", "now": "Jetzt", "scheduled": "Geplant", "sequence": "Sequenz", "weighprogression": "Gewichtsverlauf", "from": "Von", "tO": "Bis", "feedings": "F\xFCtterungen", "temp_and_hum_history": "Temperatur- und Feuchtigkeitsverlauf", "biography": "Biografie", "bio_categories": "Biografiekategorien", "icon": "Symbol", "average": "Durchschnitt", "min": "Minimum", "min_short": "Min", "max": "Maximum", "max_short": "Max", "during_day": "Tags", "during_night": "Nachts", "total": "Total", "infrastructure": "Infrastruktur", "timeframe_start": "Zeitrahmen ab", "timeframe_end": "Zeitrahmen bis", "reference_value": "Vergleichswert", "reference_value_duration_threshold_minutes": "Vergleichswert unter/\xFCberschritten seit (Minuten)", "for": "f\xFCr", "minimum_timeout": "Timeout", "minimum_timeout_minutes": "Timeout (Minuten)", "emergency_stop": "Notaus", "increases": "Erh\xF6ht", "increase": "Erh\xF6ht", "decreases": "Senkt", "decrease": "Senkt", "personal_access_token": "Zugriffstoken", "personal_access_tokens": "Zugriffstoken", "expires": "L\xE4uft ab", "security": "Sicherheit", "general": "Allgemein", "component": "Komponente", "to": "Bis", "daily_reminders": "T\xE4gliche Erinnerungen", "yesterday": "Gestern", "tomorrow": "Morgen", "today": "Heute", "runonce": "Nur einmal ausf\xFChren", "intention": "Intention", "deceased": "Verstorben", "software_version": "Software Version", "use_as_background": "Als Hintergrund verwenden", "relation_map": "Beziehungskarte", "start_action_sequence": "Aktionssequenz starten", "suggestions_unit": "Mind. Vorkommnisse", "suggestion_timeframe_unit": "Zeitrahmen (Einheit)", "suggestions_timeframe": "Zeitrahmen", "bus": "Bus", "i2c_bus_num": "I2C Bus Nummer", "i2c_address": "I2C Adresse", "i2c_multiplexer_address": "I2C Multiplexer Adresse", "i2c_multiplexer_port": "I2C Multiplexer Port", "gpio_pin": "GPIO Pin", "gpio_default_high": "GPIO Standard High", "configuration": "Konfiguration", "yes": "Ja", "no": "Nein", "rawvalue": "Rohwert", "adjust_rawvalue": "Rohwertkorrektur", "filter": "Filter", "logout": "Ausloggen", "login": "Einloggen", "remember_me": "Eingeloggt bleiben", "ask_me_something": "Frag mich etwas", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "between": "zwischen", "and": "und", "association": "Verkn\xFCpfung", "choose_logfile": "Log-Datei ausw\xE4hlen", "no_image": "Kein Bild", "features": "Features", "rollperiod": "Rollperiode", "add_preset": "Voreinstellung hinzuf\xFCgen", "inactive": "Inaktiv", "soft_state": "Soft state", "reason": "Grund", "possibly_affected_animals": "M\xF6glicherweise betroffene Tiere", "scope": "G\xFCltigkeitsbereich", "client_server_time_diff": "Client\/Server Zeitdifferenz", "id": "ID", "loading_dots": "Laden..." }, "languages": { "german": "Deutsch", "english": "Englisch" }, "menu": { "welcome": "Willkommen", "dashboard": "\xDCbersicht", "general": "Allgemein", "administration": "Administration", "create": "Erstellen", "edit": "Editieren", "delete": "L\xF6schen", "infrastructure": "Infrastruktur", "help": "Hilfe", "logout": "Abmelden", "animals": "Tiere", "terraria": "Terrarien", "users": "Benutzer", "animal_feeding_types": "Nahrungsarten", "logs": "Protokoll", "categories": "Kategorien", "monitoring": "\xDCberwachung", "automation": "Automatisierung", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "Alle preexistenten Schwellenwerte des Zielsensors werden entfernt." }, "users": { "setup_telegram_ok": "Telegram ist eingerichtet.", "setup_telegram_err": "Telegram ist noch nicht eingerichtet.", "setup_telegram_description": "Bitte \xF6ffnen Sie Telegram in Ihrem <a href=\"https://web.telegram.org/#/im?p=@\">Browser</a> oder auf ihrem Smartphone und kontaktieren Sie <b>@</b> mit untenstehendem Aktivierungscode." }, "critical_state_generic": "Kritisch: {critical}_state", "critical_state_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "Kritisch: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "LOWERLIMIT_DECEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu niedrige Feuchtigkeit von {humidity}_percent%.", "UPPERLIMIT_EXCEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu hohe Feuchtigkeit von {humidity}_percent%." }, "temperature_celsius": { "UNKNOWN": "Kritisch: Der Sensor {logical}_sensor meldet eine Temperatur von {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu niedrige Temperatur von {temperature}_celsius\xB0C.", "UPPERLIMIT_EXCEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu hohe Temperatur von {temperature}_celsius\xB0C." } }, "critical_state_recovery_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "LOWERLIMIT_DECEEDED": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "UPPERLIMIT_EXCEEDED": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%." }, "temperature_celsius": { "UNKNOWN": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C.", "UPPERLIMIT_EXCEEDED": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." } }, "critical_state_notification_controlunits": { "UNKNOWN": "Kritisch: Die Steuereinheit {controlunit} befindet sich in einem unbekannten Zustand.", "HEARTBEAT_CRITICAL": "Kritisch: Die Steuereinheit {controlunit} sendet keine Daten.", "TIME_DIFF_CRITICAL": "Kritisch: Die Steuereinheit {controlunit} hat eine zu hohe Zeitdifferenz." }, "critical_state_recovery_notification_controlunits": { "UNKNOWN": "OK: Die Steuereinheit {controlunit} ist nicht mehr in einem unbekannten Zustand.", "HEARTBEAT_CRITICAL": "OK: Die Steuereinheit {controlunit} sendet wieder Daten.", "TIME_DIFF_CRITICAL": "OK: Die Steuereinheit {controlunit} hat wieder eine akzeptable Zeitdifferenz." }, "daily": { "intro": "T\xE4gliche Erinnerungen", "feedings_due": "F\xE4llige F\xFCtterungen:", "weighings_due": "F\xE4lliges Wiegen:" }, "own_token_expires": "Token '{name}' l\xE4uft in {days} Tagen ab.", "suggestions": { "humidity_percent": { "UPPERLIMIT_EXCEEDED": "Feuchtigkeit reduzieren t\xE4glich um {hour}{00} Uhr", "LOWERLIMIT_DECEEDED": "Feuchtigkeit erh\xF6hen t\xE4glich um {hour}{00} Uhr", "UNKNOWN": "Feuchtigkeit regulieren t\xE4glich um {hour}{00} Uhr" }, "temperature_celsius": { "UPPERLIMIT_EXCEEDED": "Feuchtigkeit reduzieren t\xE4glich um {hour}{00} Uhr", "LOWERLIMIT_DECEEDED": "Temperatur erh\xF6hen t\xE4glich um {hour}{00} Uhr", "UNKNOWN": "Temperatur regulieren t\xE4glich um {hour}{00} Uhr" } } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Willkommen zu Ciliatus", "create_user": "Erstelle Deinen Benutzer", "done": "Geschafft!", "what_now": "Was nun?", "login": "Einloggen", "tooltip_login": "Logge Dich mit Deinem soeben erstellten Nutzer bei Ciliatus an.", "add_terrarium": "Terrarium anlegen", "tooltip_add_terrarium": "Erstelle Dein erstes Terrarium in Ciliatus.", "add_animal": "Tier anlegen", "tooltip_add_animal": "Erstelle Dein erstes Tier und ordne es einem Terrarium zu.", "setup_telegram": "Telegram einrichten", "tooltip_setup_telegram": "Lerne, wie Du Telegram mit Ciliatus konfigurieren kannst.", "setup_controlunit": "Kontrolleinheit erstellen", "tooltip_setup_controlunit": "Lerne eine Kontrolleinheit und zugeordnete Sensoren anzulegen um damit zu beginnen Sensordaten zu Deinen Terrarien zu \xFCbermitteln.", "err_completed": "Das Setup wurde bereits durchgef\xFChrt." }, "tooltips": { "ctrltoselect": "Strg+Klick zum selektieren", "active": "Aktiv", "showondefaultdashboard": "Auf Default Dashboard anzeigen", "autoirrigation": "Automatische Bew\xE4sserung", "sendnotificationsfor": "Benachrichtigungen versenden f\xFCr", "loadandrendergraph": "Daten werden ermittelt und Graph wird gerendert", "disables_option": "Deaktiviert \"{option}\"", "phone_number": "Mobilnummer", "contact_bot": "Den Bot kontaktieren", "wait_confirmation": "Auf Best\xE4tigung warten", "set_state_to": "Zustand von <b>{target}</b> auf <b>{state}</b> \xE4ndern f\xFCr <b>{minutes} Minuten</b>", "start_after_started": "Startet wenn Schritt <b>{id}<\/b> gestartet wurde", "start_after_finished": "Startet wenn Schritt <b>{id}<\/b> beendet wurde", "sendnotifications": "Benachrichtigungen versenden", "no_schedules": "Keine Zeitpl\xE4ne", "runonce": "Einmalig", "heartbeat_critical": "Heartbeat ist kritisch!", "copy_thresholds_warning": "Alle existierenden Schwellenwerte des Zielsensors werden entfernt.", "animal_feeding_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten F\xFCtterungspl\xE4ne. Die Zahl in einer Spalte stellt das Intervall dar, gefolgt von den verbleibenden Tagen bis zur n\xE4chsten F\xE4lligkeit.", "animal_weighing_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten Wiegepl\xE4ne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom n\xE4chsten F\xE4lligkeitsdatum dar.", "done": "Erledigt", "skip": "\xDCberspringen", "material_icons_list": "Die komplette Symbolliste ist unter <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> einsehbar.", "no_data": "Keine Daten.", "connecting_to_server": "Verbindung zum Ciliatus Server wird hergestellt. Sollte dies l\xE4nger als einige Sekunden dauern, \xFCberpr\xFCfen Sie bitte Ihre Internetverbindung.", "generic_components": { "about": "Generische Komponenten sind Komponenten eines benutzerdefinierten Typs.", "type_about": "Generische Komponententypen definieren Name, Eigenschaften und m\xF6gliche Zust\xE4nde f\xFCr generische Komponenten. Sie dienen als Vorlage beim Erstellen einer neuen generischen Komponente.", "property_templates": "Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszuf\xFCllen.", "state_templates": "Definiert m\xF6gliche Zust\xE4nde die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zust\xE4nden den gew\xFCnschten Zustand ausw\xE4hlen.<br /><br />Die Checkbox links definiert den standardm\xE4\xDFigen 'laufend'-Zustand.", "type_delete_warning": "Beim L\xF6schen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gel\xF6scht.", "intentions": "Intentionen von generischen Komponenten erm\xF6glichen deren automatisches Einbinden in Aktionssequenzen." }, "minimum_timeout_minutes": "Definiert die Dauer der minimalen Pause, bevor die Aktionssequenz durch diesen Ausl\xF6ser nach einem Durchlauf erneut gestartet werden kann.", "reference_value": "Der Wert, mit dem der Sensorwert verglichen werden soll.", "reference_value_duration_threshold_minutes": "Dauer in Minuten, die der Sensorwert den Grenzwert unter/\xFCberschritten haben muss, bevor die Aktionssequenz ausgel\xF6st wird.", "emergency_stop": "H\xE4lt sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.", "emergency_resume": "Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.", "leave_empty_for_auto": "Frei lassen f\xFCr automatisch", "intention_increase_decrease": "Definiert ob die Intention dieser Aktionssequenz das Erh\xF6hen oder Senken des Sensorwerts ist.", "suggestions_unit": "Mindestanzahl von Kritischen Zust\xE4nden innerhalb des Zeitrahmens, bevor ein Vorschlag generiert werden soll.", "suggestion_timeframe_unit": "Zeitrahmen der zur Analyse herangezogen werden soll (Einheit)", "suggestions_timeframe": "Zeitrahmen der zur Analyse herangezogen werden soll (Wert)", "show_suggestions": "Vorschl\xE4ge anzeigen", "bus_type_edit_form": "Erm\xF6glicht Ciliatus das automatische Generieren von Kontroleinheitskonfigurationen.", "gpio_default_high": "GPIO Pin wird im Betrieb auf High gezogen. Zum aktivieren der Komponente auf Low.", "adjust_rawvalue": "Beim Empfangen eines Werts durch diesen Sensor kann der Wert korrigiert werden.", "experimental_feature": "Dieses Feature ist experimentell.", "action_sequence_schedules": { "skip": "Heutigen Durchlauf \xFCberspringen." }, "associate_new": "Verkn\xFCpfe <i class=\"material-icons\">{source}_icon</i> {source}_type \"{source}_name\" mit <i class=\"material-icons\">{target}_icon</i> {target}_type", "floating": { "add": "Neu", "edit": "Bearbeiten", "delete": "L\xF6schen" }, "ciliatus_up_to_date": "Aktuell", "ciliatus_not_up_to_date": "Update verf\xFCgbar: <a href=\"{url}\">GitHub</a>", "no_feeding_types": "Es wurden noch keine Futtertypen definiert.", "max_file_size": "Die maximale Dateigr\xF6\xDFe betr\xE4gt {size}.", "animal_weighing": { "trend": "Trend der letzten 60 Tage bis zum letzten Wiegen" }, "logical_sensor_thresholds": { "limits": "Nicht-kritischer Wertebereich. Werte au\xDFerhalb des Bereichs werden als kritisch angesehen", "lowerlimit": "Sensorwert ist kritisch, falls er unter diesem Wert liegt", "upperlimit": "Sensorwert ist kritisch, falls er \xFCber diesem Wert liegt", "starts_at": "Zeitpunkt, ab dem der Grenzwert gelten soll" }, "logical_sensor_rawvalue_limit": "G\xFCltigkeitsbereich dieses Sensors. Sensorwerte au\xDFerhalb dieses Bereichs werden abgelehnt, wenn sie \xFCber die API gesendet werden.", "caresheet": { "sensor_history_days": "Zeitraum der in die Berechnung von Durschnitts-\/Max-\/Min-Werten einbezogen werden soll", "data_history_days": "Zeitraum aus dem Biographieintr\xE4ge, F\xFCtterungen und Gewichtsverlauf einbezogen werden soll" }, "set_as_background": "Als Hintergrund setzen", "critical_state_actuality": "Daten werden zum jetzigen Zeitpunkt ermittelt und k\xF6nnten zum Zeitpunkt des kritischen Zustand unterschiedlich gewesen sein.", "i2c": { "bus_num": "F\xFCr Raspberry Pi: 0 f\xFCr RPI1, 1 f\xFCr alle anderen Modelle" } }, "units": { "years": "Jahr|Jahre", "months": "Monat|Monate", "weeks": "Woche|Wochen", "days": "Tag|Tage", "hours": "Stunde|Stunden", "minutes": "Minute|Minuten", "seconds": "Sekunde|Sekunden", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "vor {val} Jahren", "months_ago": "vor {val} Monaten", "weeks_ago": "vor {val} Wochen", "days_ago": "vor {val} Tagen", "hours_ago": "vor {val} Stunden", "minutes_ago": "vor {val} Minuten", "years_in": "in {val} Jahren", "months_in": "in {val} Monaten", "weeks_in": "in {val} Wochen", "days_in": "in {val} Tagen", "hours_in": "in {val} Stunden", "minutes_in": "in {val} Minuten", "just_now": "gerade eben", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" }, "weekdays": { "0": "Sonntag", "1": "Montag", "2": "Dienstag", "3": "Mittwoch", "4": "Donnerstag", "5": "Freitag", "6": "Samstag", "sunday": "Sonntag", "monday": "Montag", "tuesday": "Dienstag", "wednesday": "Mittwoch", "thursday": "Donnerstag", "friday": "Freitag", "saturday": "Samstag" } }, "en": { "buttons": { "next": "Next", "save": "Save", "delete": "Delete", "delete_type": "Delete {type}", "delete_all_type": "Delete all {type}", "loadgraph": "Load graph", "upload": "Upload", "start_setup": "Start Setup", "add": "Add", "add_intention": "Add Intention", "add_property": "Add Property", "add_state": "Add State", "create": "Add", "edit": "Edit", "details": "Details", "download": "Download", "emergency_stop": "Emergency stop", "emergency_resume": "Remove emergency stop", "revoke": "Revoke", "irrigate": "Irrigate", "ventilate": "Ventilate", "heat_up": "Heat up", "cool_down": "Cool down", "start": "Start", "close": "Close", "select_all_read": "Read all", "select_all_list": "List all", "select_all_write": "Write all" }, "errors": { "retrievegraphdata": "Could not retrieve graph data.", "auth": { "failed": "Authentication failed." }, "frontend": { "generic": "An error occured. Check the console for details.", "no_recording_capability": "The browser doesn't seem to support voice control." } }, "labels": { "User": "User", "user": "User", "users": "User|Users", "Terrarium": "Terrarium", "terrarium": "Terrarium", "terraria": "Terrarium|Terraria", "Animal": "Animal", "animal": "Animal", "animals": "Animal|Animals", "Controlunit": "Control Unit", "controlunit": "Control Unit", "controlunits": "Control Unit|Control Units", "Pump": "Pump", "pump": "Pump", "pumps": "Pump|Pumps", "Valve": "Valve", "valve": "Valve", "valves": "Valve|Valves", "PhysicalSensor": "Physical Sensor", "physical_sensor": "Physical Sensor", "physical_sensors": "Physical Sensor|Physical Sensors", "LogicalSensor": "Logical Sensor", "logical_sensor": "Logical Sensor", "logical_sensors": "Logical Sensor|Logical Sensors", "LogicalSensorThreshold": "Logical Sensor Threshold", "logical_sensor_threshold": "Logical Sensor Threshold", "logical_sensor_thresholds": "Logical Sensor Threshold|Logical Sensor Thresholds", "File": "File", "file": "File", "files": "Files", "Log": "System log", "log": "Log", "logs": "System log|System logs", "Action": "Action", "action": "Action", "actions": "Actions", "ActionSequence": "Action sequence", "action_sequence": "Action sequence", "action_sequences": "Action sequence|Action sequences", "ActionSequenceSchedule": "Action sequence schedule", "action_sequence_schedule": "Action sequence schedule", "action_sequence_schedules": "Action sequence schedule|Action sequence schedules", "ActionSequenceTrigger": "Action sequence trigger", "action_sequence_trigger": "Action sequence trigger", "action_sequence_triggers": "Action sequence trigger|Action sequence triggers", "ActionSequenceIntention": "Action sequence intention", "action_sequence_intention": "Action sequence intention", "action_sequence_intentions": "Action sequence intention|Action sequence intentions", "Trigger": "Trigger", "trigger": "Trigger", "triggers": "Trigger|Triggers", "admin_panel": "Admin panel", "admin_panels": "Admin panel", "AnimalFeeding": "Feeding", "animal_feeding": "Feeding", "animal_feedings": "Feeding|Feedings", "AnimalFeedingSchedule": "Feeding schedule", "animal_feeding_schedule": "Feeding schedule", "animal_feeding_schedules": "Feeding schedule|Feeding schedules", "AnimalWeighing": "Weighing", "animal_weighing": "Weighing", "animal_weighings": "Weighing|Weighings", "AnimalWeighingSchedule": "Weighing schedule", "animal_weighing_schedule": "Weighing schedule", "animal_weighing_schedules": "Weighing schedule|Weighing schedules", "BiographyEntryEvent": "Biography entry", "biography_entry": "Biography entry", "biography_entries": "Biography entry|Biography entries", "CaresheetEvent": "Care Sheet", "caresheet": { "sensor_history_days": "Sensorreading timespan", "data_history_days": "Animal and terrarium data timespan" }, "caresheets": "Care Sheet|Care Sheets", "critical_state": "Critical State", "critical_states": "Critical State|Critical States", "GenericComponent": "Generic Component", "generic_component": "Generic Component", "generic_components": "Generic Component|Generic Components", "GenericComponentType": "Generic Component Type", "generic_component_type": "Generic Component Type", "generic_component_types": "Generic Component Type|Generic Component Types", "SuggestionEvent": "Suggestion", "suggestion": "Suggestion", "suggestions": "Suggestions", "connecting": "Connecting", "title": "Title", "text": "Text", "tags": "Tags", "status": "Status", "health": "Health", "birth": "Birth", "gender": "Gender", "gender_male": "Male", "gender_female": "Female", "date": "Date", "date_birth": "Day of birth", "date_death": "Day of death", "model": "Model", "type": "Type", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Display Name", "common_name": "Common Name", "latin_name": "Latin Name", "temperature": "Temperature", "temperature_celsius": "Temperature", "humidity": "Humidity", "humidity_percent": "Humidity", "heartbeat": "Heartbeat", "last_heartbeat": "Last Heartbeat", "noanimals": "No Animals", "create": "Create", "settings": "Setting|Settings", "notifications": "Notification|Notifications", "notification_type": "Notification channel", "details": "Details", "rawlimits": "Thresholds", "rawlimitlo": "Lower threshold", "rawlimithi": "Upper threshold", "size": "Size", "current_value": "Current value", "created_at": "Creation", "updated_at": "Last update", "recovered_at": "Recovered", "download": "Download", "properties": "Properties", "preview": "Preview", "source": "Source", "target": "Target", "associated_with": "Associated with", "starts_at": "Starts at", "ends_at": "Ends at", "starts_after": "Starts after", "thresholds": "Thresholds", "abilities": "Ability|Abilities", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto night mode", "permanent_nightmode": "Permanent night mode", "language": "Language", "belongsTo_type": "Belongs to (type)", "belongsTo_id": "Belongs to (ID)", "belongsTo": "Belongs to", "users_guide": "User's Guide", "doku": "Documentation", "tech_doku": "Tech. Documentation", "step": "Step", "phone_number": "Phone number", "template": "Template", "timezone": "Timezone", "critical": "Critical", "ok": "OK", "running": "Running", "runs_since": "Running since", "queued": "Queued", "criticalstates": "Critical States", "since": "Since", "state": "State", "irrigate": "Irrigate", "duration": "Duration", "on": "On", "off": "Off", "just_fed": "Add feeding", "add_weight": "Add weight", "active": "Aktiv", "copy_thresholds": "Copy thresholds", "daily": "Daily", "last_feeding": "Last feeding", "crickets": "Crickets", "mixed_fruits": "Fruits", "beetle_jelly": "BeetleJelly", "due": "Due", "overdue": "Overdue", "meal_type": "Meal type", "interval_days": "Interval in days", "interval": "Interval", "password": "Password", "weight": "Weight", "no_data": "No Data", "overview": "Overview", "environment": "Environment", "now": "Now", "scheduled": "Scheduled", "sequence": "Sequence", "weighprogression": "Weight progression", "from": "From", "tO": "To", "feedings": "Feedings", "temp_and_hum_history": "Temperature and Humidity History", "biography": "Biography", "bio_categories": "Biography categories", "icon": "Icon", "average": "Average", "min": "Minimum", "min_short": "Min", "max": "Maximum", "max_short": "Max", "during_day": "Daytime", "during_night": "Nighttime", "total": "Total", "infrastructure": "Infrastructure", "timeframe_start": "Timeframe from", "timeframe_end": "Timeframe to", "reference_value": "Reference value", "reference_value_duration_threshold_minutes": "Reference value undershot\/exceeded for (Minutes)", "for": "for", "minimum_timeout": "Timeout", "minimum_timeout_minutes": "Timeout (minutes)", "emergency_stop": "Emergency stop", "increases": "Increases", "increase": "Increases", "decreases": "Decreases", "decrease": "Decreases", "personal_access_token": "Access Token", "personal_access_tokens": "Access Tokens", "expires": "Expires", "security": "Security", "general": "General", "component": "Component", "to": "To", "daily_reminders": "Daily Reminders", "yesterday": "Yesterday", "tomorrow": "Tomorrow", "today": "Today", "runonce": "Only run once", "intention": "Intention", "deceased": "Deceased", "software_version": "Software Version", "use_as_background": "Use as background image", "relation_map": "Relation map", "start_action_sequence": "Start Action Sequence", "suggestions_unit": "Min. Occurences", "suggestion_timeframe_unit": "Timeframe (Unit)", "suggestions_timeframe": "Timeframe", "bus": "Bus", "i2c_bus_num": "I2C bus number", "i2c_address": "I2C address", "i2c_multiplexer_address": "I2C multiplexer address", "i2c_multiplexer_port": "I2C multiplexer port", "gpio_pin": "GPIO pin", "gpio_default_high": "GPIO Default High", "configuration": "Configuration", "yes": "Yes", "no": "No", "rawvalue": "Raw value", "adjust_rawvalue": "Raw value correction", "filter": "Filter", "logout": "Log off", "login": "Log in", "remember_me": "Stay logged in", "ask_me_something": "Ask me something", "ventilate": "Ventilate", "heat_up": "Heat", "cool_down": "Cool", "between": "between", "and": "and", "association": "Association", "choose_logfile": "Choose a log file", "no_image": "No image", "features": "Features", "rollperiod": "Roll period", "add_preset": "Add preset", "inactive": "Inactive", "soft_state": "Soft state", "reason": "Reason", "possibly_affected_animals": "Possibly affected animals", "scope": "Scope", "client_server_time_diff": "Client\/Server time difference", "id": "ID", "loading_dots": "Loading..." }, "languages": { "german": "German", "english": "English" }, "menu": { "welcome": "Welcome", "dashboard": "Dashboard", "general": "General", "administration": "Administration", "create": "Create", "edit": "Edit", "delete": "Delete", "infrastructure": "Infrastructure", "help": "Help", "logout": "Log out", "animals": "Animals", "terraria": "Terraria", "users": "Users", "animal_feeding_types": "Food types", "logs": "Logs", "categories": "Categories", "monitoring": "Monitoring", "automation": "Automation", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "All existing thresholds associated with the target sensor will be deleted." }, "users": { "setup_telegram_ok": "Telegram is set up.", "setup_telegram_err": "Telegram has not yet been set up.", "setup_telegram_description": "Please point your browser to <a href=\"https:\/\/web.telegram.org\/#\/im?p=@\">Telegram Web<\/a> or use your smartphone to contact <b>@<\/b> with your verification code below." }, "critical_state_generic": "Critical: {critical}_state", "critical_state_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "Critical: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "LOWERLIMIT_DECEEDED": "Critical: The sensor {logical}_sensor reports a too low humidity of {humidity}_percent%C.", "UPPERLIMIT_EXCEEDED": "Critical: The sensor {logical}_sensor reports a too high humidity of {humidity}_percent%C." }, "temperature_celsius": { "UNKNOWN": "Critical: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "Critical: The sensor {logical}_sensor reports a too low temperature of {temperature}_celsius\xB0C.", "UPPERLIMIT_EXCEEDED": "Critical: The sensor {logical}_sensor reports a too high temperature of {temperature}_celsius\xB0C." } }, "critical_state_recovery_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "LOWERLIMIT_DECEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "UPPERLIMIT_EXCEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C." }, "temperature_celsius": { "UNKNOWN": "OK: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "UPPERLIMIT_EXCEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C." } }, "critical_state_notification_controlunits": { "UNKNOWN": "Critical: The controlunit {controlunit} is in an unknown state.", "HEARTBEAT_CRITICAL": "Critical: The controlunit {controlunit} is not sending data.", "TIME_DIFF_CRITICAL": "Critical: The controlunit {controlunit} has a too large time difference." }, "critical_state_recovery_notification_controlunits": { "UNKNOWN": "OK: The controlunit {controlunit} is no longer in an unknown state.", "HEARTBEAT_CRITICAL": "OK: The controlunit {controlunit} is sending data again.", "TIME_DIFF_CRITICAL": "OK: The controlunit {controlunit} has an acceptable time difference again." }, "daily": { "intro": "Daily reminders", "feedings_due": "Feedings due:", "weighings_due": "Weighings due:" }, "own_token_expires": "Token '{name}' expires in {days} days.", "suggestions": { "humidity_percent": { "UPPERLIMIT_EXCEEDED": "Decrease humidity daily at {hour}{00}", "LOWERLIMIT_DECEEDED": "Increase humidity daily at {hour}{00}", "UNKNOWN": "Regulate humidity daily at {hour}{00}" }, "temperature_celsius": { "UPPERLIMIT_EXCEEDED": "Decrease temperature daily at {hour}{00}", "LOWERLIMIT_DECEEDED": "Increase temperature daily at {hour}{00}", "UNKNOWN": "Regulate temperature daily at {hour}{00}" } } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Welcome to Ciliatus", "create_user": "Create your user", "done": "Done!", "what_now": "What now?", "login": "Log in", "tooltip_login": "Log in to Ciliatus with the user you just created.", "add_terrarium": "Create Terrarium", "tooltip_add_terrarium": "Create your first terrarium in Ciliatus.", "add_animal": "Create animal", "tooltip_add_animal": "Create your first animal and assign it to a terrarium.", "setup_telegram": "Setup Telegram", "tooltip_setup_telegram": "Learn how to configure Telegram with Ciliatus.", "setup_controlunit": "Create Controlunit", "tooltip_setup_controlunit": "Learn how to setup a controlunit to start feeding Ciliatus with sensor readings.", "err_completed": "Setup is already completed." }, "tooltips": { "ctrltoselect": "Ctrl-click to deselect", "active": "Active", "showondefaultdashboard": "Show on default dashboard", "autoirrigation": "Automatic irrigation (if available)", "sendnotificationsfor": "Send notifications for", "loadandrendergraph": "Collection data and rendering graph", "disables_option": "Disables \"{option}\"", "phone_number": "Mobile number", "contact_bot": "Contacting the bot", "wait_confirmation": "Waiting for confirmation", "set_state_to": "Set state of <b>{target}<\/b> to <b>{state}<\/b> for <b>{minutes} minutes<\/b>", "start_after_started": "Starts as soon as step <b>{id}<\/b> was started", "start_after_finished": "Starts as soon as step <b>{id}<\/b> finished", "sendnotifications": "Send notifications", "no_schedules": "No schedules", "runonce": "Run once", "heartbeat_critical": "Heartbeat is critical!", "copy_thresholds_warning": "All existing thresholds on the target sensor will be removed.", "animal_feeding_schedule_matrix": "This matrix contains all defined feeding schedules. A number in a column represents the schedule's interval in days followed by the remaining time in days until it's due next.", "animal_weighing_schedule_matrix": "This matrix contains all defined weighing schedules. A number in a column represents the schedule's interval in days followed by the next due date.", "done": "Done", "skip": "Skip", "material_icons_list": "Visit <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> for a complete icon overview.", "no_data": "No data.", "connecting_to_server": "Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.", "generic_components": { "about": "Generic components are components of a user defined type.", "type_about": "Generic component types define name, properties and possible states of a generic component. They are used as a template when creating a new generic component.", "property_templates": "Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.", "state_templates": "Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.<br \/><br \/>The radio box on the left defines the default 'running' state.", "type_delete_warning": "When deleting a component type <strong>all components of this type<\/strong> will also be deleted.", "intentions": "Intentionen of generic components allows them to be automatically used within action sequences." }, "minimum_timeout_minutes": "Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.", "reference_value": "Reference value which will be compared to the sensor values.", "reference_value_duration_threshold_minutes": "Duration in minutes for which the sensor value has to be greater\/lower\/equal to the reference value before triggering the action sequence.", "emergency_stop": "Instantly stops all running action sequences and prohibits action sequences from starting.", "emergency_resume": "Revokes the emergency stop and allows action sequences to start.", "leave_empty_for_auto": "Leave empty for automatic", "intention_increase_decrease": "Defines whether the intention of this action sequence is to increase or decrease the sensor's readings", "suggestions_unit": "Minimum number of critical states within the timeframe before a suggestion should be generated.", "suggestion_timeframe_unit": "Timeframe used for analysis (Unit)", "suggestions_timeframe": "Timeframe used for analysis (Value)", "show_suggestions": "Show suggestions", "bus_type_edit_form": "Allows Ciliatus to automatically generate controlunit configurations.", "gpio_default_high": "GPIO Pin will be pulled to high. When activating a component to low.", "adjust_rawvalue": "When receiving a reading from this sensor you can adjust the raw value.", "experimental_feature": "This is an experimental feature.", "action_sequence_schedules": { "skip": "Skip today's run." }, "associate_new": "Associate <i class=\"material-icons\">{source}_icon<\/i> {source}_type \"{source}_name\" with <i class=\"material-icons\">{target}_icon<\/i> {target}_type", "floating": { "add": "New", "edit": "Edit", "delete": "Delete" }, "ciliatus_up_to_date": "Up to date", "ciliatus_not_up_to_date": "Update available: <a href=\"{url}\">GitHub<\/a>", "no_feeding_types": "There are no food types defined yet.", "max_file_size": "The maximum file size is {size}.", "animal_weighing": { "trend": "Trend within the last 60 days from the last weighing" }, "logical_sensor_thresholds": { "limits": "Non-critical range. Values outside this range will be considered critical", "lowerlimit": "Sensor reading will be considered critical, if below this value", "upperlimit": "Sensor reading will be considered critical, if above this value", "starts_at": "Time from which on this threshold is active" }, "logical_sensor_rawvalue_limit": "Valid value range for this sensor. Values outside this range submitted via the API will be rejected", "caresheet": { "sensor_history_days": "Timespan for sensor readings to include in the average\/min\/max calculation", "data_history_days": "Timespan of animal feedings, weighings and biography entries to include" }, "set_as_background": "Set as background", "critical_state_actuality": "This is current information which could have been different at the time of the critical state.", "i2c": { "bus_num": "For Raspberry Pi: Use 0 for RPI1, 1 for all other models" } }, "units": { "years": "year|years", "months": "month|months", "weeks": "week|weeks", "days": "day|days", "hours": "hour|hours", "minutes": "minute|minutes", "seconds": "second|seconds", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "{val} years ago", "months_ago": "{val} months ago", "weeks_ago": "{val} weeks ago", "days_ago": "{val} days ago", "hours_ago": "{val} hours ago", "minutes_ago": "{val} minutes ago", "years_in": "in {val} years", "months_in": "in {val} months", "weeks_in": "in {val} weeks", "days_in": "in {val} days", "hours_in": "in {val} hours", "minutes_in": "in {val} minutes", "just_now": "just now", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" }, "weekdays": { "0": "Sunday", "1": "Monday", "2": "Tuesday", "3": "Wednesday", "4": "Thursday", "5": "Friday", "6": "Saturday", "sunday": "Sunday", "monday": "Monday", "tuesday": "Tuesday", "wednesday": "Wednesday", "thursday": "Thursday", "friday": "Friday", "saturday": "Saturday" } } };
+module.exports = { "de": { "buttons": { "next": "Weiter", "save": "Speichern", "delete": "L\xF6schen", "delete_type": "{type} L\xF6schen", "delete_all_type": "Alle {type} l\xF6schen", "loadgraph": "Graph laden", "upload": "Hochladen", "start_setup": "Setup starten", "add": "Hinzuf\xFCgen", "add_intention": "Neue Intention", "add_property": "Neue Eigenschaft", "add_state": "Neuer Zustand", "create": "Hinzuf\xFCgen", "edit": "Bearbeiten", "details": "Details", "download": "Herunterladen", "emergency_stop": "Notaus", "emergency_resume": "Notus aufheben", "revoke": "Widerrufen", "irrigate": "Bew\xE4ssern", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "start": "Starten", "close": "Schlie\xDFen", "select_all_read": "Alles lesen", "select_all_list": "Alles auflisten", "select_all_write": "Alles schreiben" }, "errors": { "retrievegraphdata": "Graphdaten konnten nicht ermittelt werden.", "auth": { "failed": "Authentifizierung fehlgeschlagen." }, "frontend": { "generic": "Ein Fehler ist aufgetreten. Details in der Konsole.", "no_recording_capability": "Der Browser scheint keine Sprachsteuerung zu unterst\xFCtzen." }, "codes": { "common": { "101": "Objekt konnte nicht gefunden werden.", "102": "Verwandtes Objekt konnte nicht gefunden werden: {related}_object.", "103": "Zeitstempel konnte nicht geparst werden: {timestamp}.", "104": "Fehlende Felder: {missing}_fields", "105": "Klasse nicht gefunden.", "106": "Ung\xFCltige UUID: {uuid}" }, "custom": { "11": [], "12": [], "13": [], "14": [], "15": { "201": "Vergleichstyp wurde nicht gefunden." }, "16": [], "17": [], "18": { "201": "Ein F\xFCtterungsplan f\xFCr diese Nahrungsart existiert bei diesem Tier bereits." }, "19": [], "1A": [], "1B": [], "1C": [], "1D": [], "1E": [], "1F": [], "20": { "201": "Keine Datei zum hochladen.", "202": "Datei ist zu gro\xDF. Maximum: {max}_size MB." }, "21": { "201": "Generische Komponente ist korrupt." }, "22": [], "23": [], "24": [], "25": [], "26": [], "27": [], "28": [], "29": { "201": "Der Rohwert liegt au\xDFerhalb des G\xFCltigkeitsbereichs.", "202": "Innerhalb dieser reading group gibt es bereits einen Wert f\xFCr diesen Logischen Sensor." }, "2A": [], "2B": { "201": "Beim Generieren der Aktionssequenz ist ein unbekannter Fehler aufgetreten." }, "2C": { "201": "Der Benutzername ist bereits vergeben.", "202": "Die E-Mail Adresse ist bereits vergeben.", "203": "Die Passw\xF6rter sind unterschiedlich.", "204": "Es wurde kein Passwort vergeben." }, "2D": [], "2E": [] } } }, "labels": { "User": "Benutzer", "user": "Benutzer", "users": "Benutzer|Benutzer", "Terrarium": "Terrarium", "terrarium": "Terrarium", "terraria": "Terrarium|Terrarien", "Animal": "Tier", "animal": "Tier", "animals": "Tier|Tiere", "Controlunit": "Steuereinheit", "controlunit": "Steuereinheit", "controlunits": "Steuereinheit|Steuereinheiten", "Pump": "Pumpe", "pump": "Pumpe", "pumps": "Pumpe|Pumpen", "Valve": "Ventil", "valve": "Ventil", "valves": "Ventil|Ventile", "PhysicalSensor": "Physischer Sensor", "physical_sensor": "Physischer Sensor", "physical_sensors": "Physischer Sensor|Physische Sensoren", "LogicalSensor": "Logischer Sensor", "logical_sensor": "Logischer Sensor", "logical_sensors": "Logischer Sensor|Logische Sensoren", "LogicalSensorThreshold": "Logischer Sensor Schwellenwert", "logical_sensor_threshold": "Logischer Sensor Schwellenwert", "logical_sensor_thresholds": "Logischer Sensor Schwellenwert|Logische Sensor Schwellenwerte", "File": "Datei", "file": "Datei", "files": "Dateien", "Log": "Systemlog", "log": "Log", "logs": "Systemlog|Systemlogs", "Action": "Aktion", "action": "Aktion", "actions": "Aktionen", "ActionSequence": "Aktionssequenz", "action_sequence": "Aktionssequenz", "action_sequences": "Aktionssequenz|Aktionssequenzen", "ActionSequenceSchedule": "Aktionssequenz Zeitplan", "action_sequence_schedule": "Aktionssequenz Zeitplan", "action_sequence_schedules": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "ActionSequenceTrigger": "Aktionssequenz Ausl\xF6ser", "action_sequence_trigger": "Aktionssequenz Ausl\xF6ser", "action_sequence_triggers": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "ActionSequenceIntention": "Aktionssequenz Intention", "action_sequence_intention": "Aktionssequenz Intention", "action_sequence_intentions": "Aktionssequenz Intention|Aktionssequenz Intentionen", "Trigger": "Ausl\xF6ser", "trigger": "Ausl\xF6ser", "triggers": "Ausl\xF6ser", "admin_panel": "Admin Panel", "admin_panels": "Admin Panel", "AnimalFeeding": "F\xFCtterung", "animal_feeding": "F\xFCtterung", "animal_feedings": "F\xFCtterung|F\xFCtterungen", "AnimalFeedingSchedule": "F\xFCtterungsplan", "animal_feeding_schedule": "F\xFCtterungsplan", "animal_feeding_schedules": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "AnimalWeighing": "Gewicht", "animal_weighing": "Gewicht", "animal_weighings": "Gewicht|Gewichte", "AnimalWeighingSchedule": "Wiegeplan", "animal_weighing_schedule": "Wiegeplan", "animal_weighing_schedules": "Wiegeplan|Wiegepl\xE4ne", "BiographyEntryEvent": "Biografieeintrag", "biography_entry": "Biografieeintrag", "biography_entries": "Biografieeintrag|Biografieeintr\xE4ge", "CaresheetEvent": "Begleitblatt", "caresheet": { "sensor_history_days": "Zeitrahmen f\xFCr Sensorwerte", "data_history_days": "Zeitrahmen f\xFCr Tier- und Terrarieninformationen" }, "caresheets": "Begleitblatt|Begleitbl\xE4tter", "critical_state": "Kritischer Zustand", "critical_states": "Kritischer Zustand|Kritische Zust\xE4nde", "GenericComponent": "Generische Komponente", "generic_component": "Generische Komponente", "generic_components": "Generische Komponente|Generische Komponenten", "GenericComponentType": "Generischer Komponententyp", "generic_component_type": "Generischer Komponententyp", "generic_component_types": "Generischer Komponententyp|Generische Komponententypen", "SuggestionEvent": "Vorschlag", "suggestion": "Vorschlag", "suggestions": "Vorschl\xE4ge", "connecting": "Verbinde", "title": "Titel", "text": "Text", "tags": "Tags", "status": "Status", "health": "Gesundheit", "birth": "Geburt", "gender": "Geschlecht", "gender_male": "M\xE4nnlich", "gender_female": "Weiblich", "date": "Datum", "date_birth": "Geburtstag", "date_death": "Todestag", "model": "Modell", "type": "Typ", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Anzeigename", "common_name": "Gemeiner Name", "latin_name": "Lateinischer Name", "temperature": "Temperatur", "temperature_celsius": "Temperatur", "humidity": "Feuchtigkeit", "humidity_percent": "Feuchtigkeit", "heartbeat": "Puls", "last_heartbeat": "Letzter Puls", "noanimals": "Keine Tiere", "create": "Erstelle", "settings": "Einstellung|Einstellungen", "notifications": "Benachrichtigung|Benachrichtigungen", "notification_type": "Nachrichten Kanal", "details": "Details", "rawlimits": "Schwellenwerte", "rawlimitlo": "Unterer Schwellenwert", "rawlimithi": "Oberer Schwellenwert", "size": "Gr\xF6\xDFe", "current_value": "Aktueller Wert", "created_at": "Erstellt", "updated_at": "Letztes Update", "recovered_at": "Erholt", "read_at": "Gelesen", "download": "Herunterladen", "properties": "Eigenschaften", "preview": "Vorschau", "source": "Quelle", "target": "Ziel", "associated_with": "Assoziiert mit", "starts_at": "Beginnt um", "ends_at": "Endet um", "starts_after": "Startet nach", "thresholds": "Schwellenwerte", "abilities": "F\xE4higkeit|F\xE4higkeiten", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto Nachtmodus", "permanent_nightmode": "Permanenter Nachtmodus", "language": "Sprache", "belongsTo_type": "Geh\xF6rt zu (Typ)", "belongsTo_id": "Geh\xF6rt zu (ID)", "belongsTo": "Geh\xF6rt zu", "users_guide": "Benutzerhandbuch", "doku": "Dokumentation", "tech_doku": "Techn. Dokumentation", "step": "Schritt", "phone_number": "Telefonnummer", "template": "Vorlage", "timezone": "Zeitzone", "critical": "Kritisch", "ok": "OK", "running": "Laufend", "runs_since": "L\xE4uft seit", "queued": "Wartend", "criticalstates": "Kritische Zust\xE4nde", "since": "Seit", "state": "Zustand", "irrigate": "Bew\xE4ssern", "duration": "Dauer", "on": "An", "off": "Aus", "just_fed": "F\xFCtterung hinzuf\xFCgen", "add_weight": "Gewicht hinzuf\xFCgen", "active": "Aktiv", "copy_thresholds": "Schwellenwerte kopieren", "daily": "T\xE4glich", "last_feeding": "Letzte F\xFCtterung", "crickets": "Heimchen", "mixed_fruits": "Fruchtbrei", "beetle_jelly": "BeetleJelly", "due": "F\xE4llig", "overdue": "\xDCberf\xE4llig", "meal_type": "Nahrungsart", "interval_days": "Intervall in Tagen", "interval": "Intervall", "password": "Passwort", "weight": "Gewicht", "no_data": "Keine Daten", "overview": "\xDCbersicht", "environment": "Umgebung", "now": "Jetzt", "scheduled": "Geplant", "sequence": "Sequenz", "weighprogression": "Gewichtsverlauf", "from": "Von", "tO": "Bis", "feedings": "F\xFCtterungen", "temp_and_hum_history": "Temperatur- und Feuchtigkeitsverlauf", "biography": "Biografie", "bio_categories": "Biografiekategorien", "icon": "Symbol", "average": "Durchschnitt", "min": "Minimum", "min_short": "Min", "max": "Maximum", "max_short": "Max", "during_day": "Tags", "during_night": "Nachts", "total": "Total", "infrastructure": "Infrastruktur", "timeframe_start": "Zeitrahmen ab", "timeframe_end": "Zeitrahmen bis", "reference_value": "Vergleichswert", "reference_value_duration_threshold_minutes": "Vergleichswert unter/\xFCberschritten seit (Minuten)", "for": "f\xFCr", "minimum_timeout": "Timeout", "minimum_timeout_minutes": "Timeout (Minuten)", "emergency_stop": "Notaus", "increases": "Erh\xF6ht", "increase": "Erh\xF6ht", "decreases": "Senkt", "decrease": "Senkt", "personal_access_token": "Zugriffstoken", "personal_access_tokens": "Zugriffstoken", "expires": "L\xE4uft ab", "security": "Sicherheit", "general": "Allgemein", "component": "Komponente", "to": "Bis", "daily_reminders": "T\xE4gliche Erinnerungen", "yesterday": "Gestern", "tomorrow": "Morgen", "today": "Heute", "runonce": "Nur einmal ausf\xFChren", "intention": "Intention", "deceased": "Verstorben", "software_version": "Software Version", "use_as_background": "Als Hintergrund verwenden", "relation_map": "Beziehungskarte", "start_action_sequence": "Aktionssequenz starten", "suggestions_unit": "Mind. Vorkommnisse", "suggestion_timeframe_unit": "Zeitrahmen (Einheit)", "suggestions_timeframe": "Zeitrahmen", "bus": "Bus", "i2c_bus_num": "I2C Bus Nummer", "i2c_address": "I2C Adresse", "i2c_multiplexer_address": "I2C Multiplexer Adresse", "i2c_multiplexer_port": "I2C Multiplexer Port", "gpio_pin": "GPIO Pin", "gpio_default_high": "GPIO Standard High", "configuration": "Konfiguration", "yes": "Ja", "no": "Nein", "rawvalue": "Rohwert", "adjust_rawvalue": "Rohwertkorrektur", "filter": "Filter", "logout": "Ausloggen", "login": "Einloggen", "remember_me": "Eingeloggt bleiben", "ask_me_something": "Frag mich etwas", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "between": "zwischen", "and": "und", "association": "Verkn\xFCpfung", "choose_logfile": "Log-Datei ausw\xE4hlen", "no_image": "Kein Bild", "features": "Features", "rollperiod": "Rollperiode", "add_preset": "Voreinstellung hinzuf\xFCgen", "inactive": "Inaktiv", "soft_state": "Soft state", "reason": "Grund", "possibly_affected_animals": "M\xF6glicherweise betroffene Tiere", "scope": "G\xFCltigkeitsbereich", "client_server_time_diff": "Client\/Server Zeitdifferenz", "id": "ID", "loading_dots": "Laden...", "search_ciliatus": "Ciliatus durchsuchen ..." }, "languages": { "german": "Deutsch", "english": "Englisch" }, "menu": { "welcome": "Willkommen", "dashboard": "\xDCbersicht", "general": "Allgemein", "administration": "Administration", "create": "Erstellen", "edit": "Editieren", "delete": "L\xF6schen", "infrastructure": "Infrastruktur", "help": "Hilfe", "logout": "Abmelden", "animals": "Tiere", "terraria": "Terrarien", "users": "Benutzer", "animal_feeding_types": "Nahrungsarten", "logs": "Protokoll", "categories": "Kategorien", "monitoring": "\xDCberwachung", "automation": "Automatisierung", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "Alle preexistenten Schwellenwerte des Zielsensors werden entfernt." }, "users": { "setup_telegram_ok": "Telegram ist eingerichtet.", "setup_telegram_err": "Telegram ist noch nicht eingerichtet.", "setup_telegram_description": "Bitte \xF6ffnen Sie Telegram in Ihrem <a href=\"https://web.telegram.org/#/im?p=@\">Browser</a> oder auf ihrem Smartphone und kontaktieren Sie <b>@</b> mit untenstehendem Aktivierungscode." }, "critical_state_generic": "Kritisch: {critical}_state", "critical_state_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "Kritisch: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "LOWERLIMIT_DECEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu niedrige Feuchtigkeit von {humidity}_percent%.", "UPPERLIMIT_EXCEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu hohe Feuchtigkeit von {humidity}_percent%." }, "temperature_celsius": { "UNKNOWN": "Kritisch: Der Sensor {logical}_sensor meldet eine Temperatur von {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu niedrige Temperatur von {temperature}_celsius\xB0C.", "UPPERLIMIT_EXCEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu hohe Temperatur von {temperature}_celsius\xB0C." } }, "critical_state_recovery_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "LOWERLIMIT_DECEEDED": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "UPPERLIMIT_EXCEEDED": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%." }, "temperature_celsius": { "UNKNOWN": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C.", "UPPERLIMIT_EXCEEDED": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." } }, "critical_state_notification_controlunits": { "UNKNOWN": "Kritisch: Die Steuereinheit {controlunit} befindet sich in einem unbekannten Zustand.", "HEARTBEAT_CRITICAL": "Kritisch: Die Steuereinheit {controlunit} sendet keine Daten.", "TIME_DIFF_CRITICAL": "Kritisch: Die Steuereinheit {controlunit} hat eine zu hohe Zeitdifferenz." }, "critical_state_recovery_notification_controlunits": { "UNKNOWN": "OK: Die Steuereinheit {controlunit} ist nicht mehr in einem unbekannten Zustand.", "HEARTBEAT_CRITICAL": "OK: Die Steuereinheit {controlunit} sendet wieder Daten.", "TIME_DIFF_CRITICAL": "OK: Die Steuereinheit {controlunit} hat wieder eine akzeptable Zeitdifferenz." }, "daily": { "intro": "T\xE4gliche Erinnerungen", "feedings_due": "F\xE4llige F\xFCtterungen:", "weighings_due": "F\xE4lliges Wiegen:" }, "own_token_expires": "Token '{name}' l\xE4uft in {days} Tagen ab.", "suggestions": { "humidity_percent": { "UPPERLIMIT_EXCEEDED": "Feuchtigkeit reduzieren t\xE4glich um {hour}{00} Uhr", "LOWERLIMIT_DECEEDED": "Feuchtigkeit erh\xF6hen t\xE4glich um {hour}{00} Uhr", "UNKNOWN": "Feuchtigkeit regulieren t\xE4glich um {hour}{00} Uhr" }, "temperature_celsius": { "UPPERLIMIT_EXCEEDED": "Feuchtigkeit reduzieren t\xE4glich um {hour}{00} Uhr", "LOWERLIMIT_DECEEDED": "Temperatur erh\xF6hen t\xE4glich um {hour}{00} Uhr", "UNKNOWN": "Temperatur regulieren t\xE4glich um {hour}{00} Uhr" } } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Willkommen zu Ciliatus", "create_user": "Erstelle Deinen Benutzer", "done": "Geschafft!", "what_now": "Was nun?", "login": "Einloggen", "tooltip_login": "Logge Dich mit Deinem soeben erstellten Nutzer bei Ciliatus an.", "add_terrarium": "Terrarium anlegen", "tooltip_add_terrarium": "Erstelle Dein erstes Terrarium in Ciliatus.", "add_animal": "Tier anlegen", "tooltip_add_animal": "Erstelle Dein erstes Tier und ordne es einem Terrarium zu.", "setup_telegram": "Telegram einrichten", "tooltip_setup_telegram": "Lerne, wie Du Telegram mit Ciliatus konfigurieren kannst.", "setup_controlunit": "Kontrolleinheit erstellen", "tooltip_setup_controlunit": "Lerne eine Kontrolleinheit und zugeordnete Sensoren anzulegen um damit zu beginnen Sensordaten zu Deinen Terrarien zu \xFCbermitteln.", "err_completed": "Das Setup wurde bereits durchgef\xFChrt." }, "tooltips": { "ctrltoselect": "Strg+Klick zum selektieren", "active": "Aktiv", "showondefaultdashboard": "Auf Default Dashboard anzeigen", "autoirrigation": "Automatische Bew\xE4sserung", "sendnotificationsfor": "Benachrichtigungen versenden f\xFCr", "loadandrendergraph": "Daten werden ermittelt und Graph wird gerendert", "disables_option": "Deaktiviert \"{option}\"", "phone_number": "Mobilnummer", "contact_bot": "Den Bot kontaktieren", "wait_confirmation": "Auf Best\xE4tigung warten", "set_state_to": "Zustand von <b>{target}</b> auf <b>{state}</b> \xE4ndern f\xFCr <b>{minutes} Minuten</b>", "start_after_started": "Startet wenn Schritt <b>{id}<\/b> gestartet wurde", "start_after_finished": "Startet wenn Schritt <b>{id}<\/b> beendet wurde", "sendnotifications": "Benachrichtigungen versenden", "no_schedules": "Keine Zeitpl\xE4ne", "runonce": "Einmalig", "heartbeat_critical": "Heartbeat ist kritisch!", "copy_thresholds_warning": "Alle existierenden Schwellenwerte des Zielsensors werden entfernt.", "animal_feeding_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten F\xFCtterungspl\xE4ne. Die Zahl in einer Spalte stellt das Intervall dar, gefolgt von den verbleibenden Tagen bis zur n\xE4chsten F\xE4lligkeit.", "animal_weighing_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten Wiegepl\xE4ne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom n\xE4chsten F\xE4lligkeitsdatum dar.", "done": "Erledigt", "skip": "\xDCberspringen", "material_icons_list": "Die komplette Symbolliste ist unter <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> einsehbar.", "no_data": "Keine Daten.", "connecting_to_server": "Verbindung zum Ciliatus Server wird hergestellt. Sollte dies l\xE4nger als einige Sekunden dauern, \xFCberpr\xFCfen Sie bitte Ihre Internetverbindung.", "generic_components": { "about": "Generische Komponenten sind Komponenten eines benutzerdefinierten Typs.", "type_about": "Generische Komponententypen definieren Name, Eigenschaften und m\xF6gliche Zust\xE4nde f\xFCr generische Komponenten. Sie dienen als Vorlage beim Erstellen einer neuen generischen Komponente.", "property_templates": "Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszuf\xFCllen.", "state_templates": "Definiert m\xF6gliche Zust\xE4nde die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zust\xE4nden den gew\xFCnschten Zustand ausw\xE4hlen.<br /><br />Die Checkbox links definiert den standardm\xE4\xDFigen 'laufend'-Zustand.", "type_delete_warning": "Beim L\xF6schen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gel\xF6scht.", "intentions": "Intentionen von generischen Komponenten erm\xF6glichen deren automatisches Einbinden in Aktionssequenzen." }, "minimum_timeout_minutes": "Definiert die Dauer der minimalen Pause, bevor die Aktionssequenz durch diesen Ausl\xF6ser nach einem Durchlauf erneut gestartet werden kann.", "reference_value": "Der Wert, mit dem der Sensorwert verglichen werden soll.", "reference_value_duration_threshold_minutes": "Dauer in Minuten, die der Sensorwert den Grenzwert unter/\xFCberschritten haben muss, bevor die Aktionssequenz ausgel\xF6st wird.", "emergency_stop": "H\xE4lt sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.", "emergency_resume": "Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.", "leave_empty_for_auto": "Frei lassen f\xFCr automatisch", "intention_increase_decrease": "Definiert ob die Intention dieser Aktionssequenz das Erh\xF6hen oder Senken des Sensorwerts ist.", "suggestions_unit": "Mindestanzahl von Kritischen Zust\xE4nden innerhalb des Zeitrahmens, bevor ein Vorschlag generiert werden soll.", "suggestion_timeframe_unit": "Zeitrahmen der zur Analyse herangezogen werden soll (Einheit)", "suggestions_timeframe": "Zeitrahmen der zur Analyse herangezogen werden soll (Wert)", "show_suggestions": "Vorschl\xE4ge anzeigen", "bus_type_edit_form": "Erm\xF6glicht Ciliatus das automatische Generieren von Kontroleinheitskonfigurationen.", "gpio_default_high": "GPIO Pin wird im Betrieb auf High gezogen. Zum aktivieren der Komponente auf Low.", "adjust_rawvalue": "Beim Empfangen eines Werts durch diesen Sensor kann der Wert korrigiert werden.", "experimental_feature": "Dieses Feature ist experimentell.", "action_sequence_schedules": { "skip": "Heutigen Durchlauf \xFCberspringen." }, "associate_new": "Verkn\xFCpfe <i class=\"mdi mdi-18px mdi-{source}\"></i> {source}_type \"{source}_name\" mit <i class=\"material-icons\">{target}_icon</i> {target}_type", "floating": { "add": "Neu", "edit": "Bearbeiten", "delete": "L\xF6schen" }, "ciliatus_up_to_date": "Aktuell", "ciliatus_not_up_to_date": "Update verf\xFCgbar: <a href=\"{url}\">GitHub</a>", "no_feeding_types": "Es wurden noch keine Futtertypen definiert.", "max_file_size": "Die maximale Dateigr\xF6\xDFe betr\xE4gt {size}.", "animal_weighing": { "trend": "Trend der letzten 60 Tage bis zum letzten Wiegen" }, "logical_sensor_thresholds": { "limits": "Nicht-kritischer Wertebereich. Werte au\xDFerhalb des Bereichs werden als kritisch angesehen", "lowerlimit": "Sensorwert ist kritisch, falls er unter diesem Wert liegt", "upperlimit": "Sensorwert ist kritisch, falls er \xFCber diesem Wert liegt", "starts_at": "Zeitpunkt, ab dem der Grenzwert gelten soll" }, "logical_sensor_rawvalue_limit": "G\xFCltigkeitsbereich dieses Sensors. Sensorwerte au\xDFerhalb dieses Bereichs werden abgelehnt, wenn sie \xFCber die API gesendet werden.", "caresheet": { "sensor_history_days": "Zeitraum der in die Berechnung von Durschnitts-\/Max-\/Min-Werten einbezogen werden soll", "data_history_days": "Zeitraum aus dem Biographieintr\xE4ge, F\xFCtterungen und Gewichtsverlauf einbezogen werden soll" }, "set_as_background": "Als Hintergrund setzen", "critical_state_actuality": "Daten werden zum jetzigen Zeitpunkt ermittelt und k\xF6nnten zum Zeitpunkt des kritischen Zustand unterschiedlich gewesen sein.", "i2c": { "bus_num": "F\xFCr Raspberry Pi: 0 f\xFCr RPI1, 1 f\xFCr alle anderen Modelle" } }, "units": { "years": "Jahr|Jahre", "months": "Monat|Monate", "weeks": "Woche|Wochen", "days": "Tag|Tage", "hours": "Stunde|Stunden", "minutes": "Minute|Minuten", "seconds": "Sekunde|Sekunden", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "vor {val} Jahren", "months_ago": "vor {val} Monaten", "weeks_ago": "vor {val} Wochen", "days_ago": "vor {val} Tagen", "hours_ago": "vor {val} Stunden", "minutes_ago": "vor {val} Minuten", "years_in": "in {val} Jahren", "months_in": "in {val} Monaten", "weeks_in": "in {val} Wochen", "days_in": "in {val} Tagen", "hours_in": "in {val} Stunden", "minutes_in": "in {val} Minuten", "years_since": "seit einem Jahr|seit {val} Jahren", "months_since": "seit einem Monat|seit {val} Monaten", "weeks_since": "seit einer Woche|seit {val} Wochen", "days_since": "seit einem Tag|seit {val} Tagen", "hours_since": "seit einer Stunde|seit {val} Stunden", "minutes_since": "seit einer Minute|seit {val} Minuten", "just_now": "gerade eben", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" }, "weekdays": { "0": "Sonntag", "1": "Montag", "2": "Dienstag", "3": "Mittwoch", "4": "Donnerstag", "5": "Freitag", "6": "Samstag", "sunday": "Sonntag", "monday": "Montag", "tuesday": "Dienstag", "wednesday": "Mittwoch", "thursday": "Donnerstag", "friday": "Freitag", "saturday": "Samstag" } }, "en": { "buttons": { "next": "Next", "save": "Save", "delete": "Delete", "delete_type": "Delete {type}", "delete_all_type": "Delete all {type}", "loadgraph": "Load graph", "upload": "Upload", "start_setup": "Start Setup", "add": "Add", "add_intention": "Add Intention", "add_property": "Add Property", "add_state": "Add State", "create": "Add", "edit": "Edit", "details": "Details", "download": "Download", "emergency_stop": "Emergency stop", "emergency_resume": "Remove emergency stop", "revoke": "Revoke", "irrigate": "Irrigate", "ventilate": "Ventilate", "heat_up": "Heat up", "cool_down": "Cool down", "start": "Start", "close": "Close", "select_all_read": "Read all", "select_all_list": "List all", "select_all_write": "Write all" }, "errors": { "retrievegraphdata": "Could not retrieve graph data.", "auth": { "failed": "Authentication failed." }, "frontend": { "generic": "An error occured. Check the console for details.", "no_recording_capability": "The browser doesn't seem to support voice control." }, "codes": { "common": { "101": "Object not found.", "102": "Related object not found: {related}_object.", "103": "Could not parse timestamp {timestamp}.", "104": "Missing fields: {missing}_fields", "105": "Class not found.", "106": "Invalid UUID: {uuid}" }, "custom": { "11": [], "12": [], "13": [], "14": [], "15": { "201": "Unknown comparison." }, "16": [], "17": [], "18": { "201": "A feeding schedule for this type of food already exists for this animal." }, "19": [], "1A": [], "1B": [], "1C": [], "1D": [], "1E": [], "1F": [], "20": { "201": "No file to upload.", "202": "File is too big. Maximum: {max}_size MB." }, "21": { "201": "Generic component is corrupted." }, "22": [], "23": [], "24": [], "25": [], "26": [], "27": [], "28": [], "29": { "201": "Raw value is outside of the sensor's valid range.", "202": "There already is a sensor reading of this Logical Sensor withing the reading group." }, "2A": [], "2B": { "201": "Unknown error while generating Action Sequence." }, "2C": { "201": "Username already taken.", "202": "E-Mail address already taken.", "203": "The passwords don't match.", "204": "No password set." }, "2D": [], "2E": [] } } }, "labels": { "User": "User", "user": "User", "users": "User|Users", "Terrarium": "Terrarium", "terrarium": "Terrarium", "terraria": "Terrarium|Terraria", "Animal": "Animal", "animal": "Animal", "animals": "Animal|Animals", "Controlunit": "Control Unit", "controlunit": "Control Unit", "controlunits": "Control Unit|Control Units", "Pump": "Pump", "pump": "Pump", "pumps": "Pump|Pumps", "Valve": "Valve", "valve": "Valve", "valves": "Valve|Valves", "PhysicalSensor": "Physical Sensor", "physical_sensor": "Physical Sensor", "physical_sensors": "Physical Sensor|Physical Sensors", "LogicalSensor": "Logical Sensor", "logical_sensor": "Logical Sensor", "logical_sensors": "Logical Sensor|Logical Sensors", "LogicalSensorThreshold": "Logical Sensor Threshold", "logical_sensor_threshold": "Logical Sensor Threshold", "logical_sensor_thresholds": "Logical Sensor Threshold|Logical Sensor Thresholds", "File": "File", "file": "File", "files": "Files", "Log": "System log", "log": "Log", "logs": "System log|System logs", "Action": "Action", "action": "Action", "actions": "Actions", "ActionSequence": "Action sequence", "action_sequence": "Action sequence", "action_sequences": "Action sequence|Action sequences", "ActionSequenceSchedule": "Action sequence schedule", "action_sequence_schedule": "Action sequence schedule", "action_sequence_schedules": "Action sequence schedule|Action sequence schedules", "ActionSequenceTrigger": "Action sequence trigger", "action_sequence_trigger": "Action sequence trigger", "action_sequence_triggers": "Action sequence trigger|Action sequence triggers", "ActionSequenceIntention": "Action sequence intention", "action_sequence_intention": "Action sequence intention", "action_sequence_intentions": "Action sequence intention|Action sequence intentions", "Trigger": "Trigger", "trigger": "Trigger", "triggers": "Trigger|Triggers", "admin_panel": "Admin panel", "admin_panels": "Admin panel", "AnimalFeeding": "Feeding", "animal_feeding": "Feeding", "animal_feedings": "Feeding|Feedings", "AnimalFeedingSchedule": "Feeding schedule", "animal_feeding_schedule": "Feeding schedule", "animal_feeding_schedules": "Feeding schedule|Feeding schedules", "AnimalWeighing": "Weighing", "animal_weighing": "Weighing", "animal_weighings": "Weighing|Weighings", "AnimalWeighingSchedule": "Weighing schedule", "animal_weighing_schedule": "Weighing schedule", "animal_weighing_schedules": "Weighing schedule|Weighing schedules", "BiographyEntryEvent": "Biography entry", "biography_entry": "Biography entry", "biography_entries": "Biography entry|Biography entries", "CaresheetEvent": "Care Sheet", "caresheet": { "sensor_history_days": "Sensorreading timespan", "data_history_days": "Animal and terrarium data timespan" }, "caresheets": "Care Sheet|Care Sheets", "critical_state": "Critical State", "critical_states": "Critical State|Critical States", "GenericComponent": "Generic Component", "generic_component": "Generic Component", "generic_components": "Generic Component|Generic Components", "GenericComponentType": "Generic Component Type", "generic_component_type": "Generic Component Type", "generic_component_types": "Generic Component Type|Generic Component Types", "SuggestionEvent": "Suggestion", "suggestion": "Suggestion", "suggestions": "Suggestions", "connecting": "Connecting", "title": "Title", "text": "Text", "tags": "Tags", "status": "Status", "health": "Health", "birth": "Birth", "gender": "Gender", "gender_male": "Male", "gender_female": "Female", "date": "Date", "date_birth": "Day of birth", "date_death": "Day of death", "model": "Model", "type": "Type", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Display Name", "common_name": "Common Name", "latin_name": "Latin Name", "temperature": "Temperature", "temperature_celsius": "Temperature", "humidity": "Humidity", "humidity_percent": "Humidity", "heartbeat": "Heartbeat", "last_heartbeat": "Last Heartbeat", "noanimals": "No Animals", "create": "Create", "settings": "Setting|Settings", "notifications": "Notification|Notifications", "notification_type": "Notification channel", "details": "Details", "rawlimits": "Thresholds", "rawlimitlo": "Lower threshold", "rawlimithi": "Upper threshold", "size": "Size", "current_value": "Current value", "created_at": "Creation", "updated_at": "Last update", "recovered_at": "Recovered", "read_at": "Read at", "download": "Download", "properties": "Properties", "preview": "Preview", "source": "Source", "target": "Target", "associated_with": "Associated with", "starts_at": "Starts at", "ends_at": "Ends at", "starts_after": "Starts after", "thresholds": "Thresholds", "abilities": "Ability|Abilities", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto night mode", "permanent_nightmode": "Permanent night mode", "language": "Language", "belongsTo_type": "Belongs to (type)", "belongsTo_id": "Belongs to (ID)", "belongsTo": "Belongs to", "users_guide": "User's Guide", "doku": "Documentation", "tech_doku": "Tech. Documentation", "step": "Step", "phone_number": "Phone number", "template": "Template", "timezone": "Timezone", "critical": "Critical", "ok": "OK", "running": "Running", "runs_since": "Running since", "queued": "Queued", "criticalstates": "Critical States", "since": "Since", "state": "State", "irrigate": "Irrigate", "duration": "Duration", "on": "On", "off": "Off", "just_fed": "Add feeding", "add_weight": "Add weight", "active": "Aktiv", "copy_thresholds": "Copy thresholds", "daily": "Daily", "last_feeding": "Last feeding", "crickets": "Crickets", "mixed_fruits": "Fruits", "beetle_jelly": "BeetleJelly", "due": "Due", "overdue": "Overdue", "meal_type": "Meal type", "interval_days": "Interval in days", "interval": "Interval", "password": "Password", "weight": "Weight", "no_data": "No Data", "overview": "Overview", "environment": "Environment", "now": "Now", "scheduled": "Scheduled", "sequence": "Sequence", "weighprogression": "Weight progression", "from": "From", "tO": "To", "feedings": "Feedings", "temp_and_hum_history": "Temperature and Humidity History", "biography": "Biography", "bio_categories": "Biography categories", "icon": "Icon", "average": "Average", "min": "Minimum", "min_short": "Min", "max": "Maximum", "max_short": "Max", "during_day": "Daytime", "during_night": "Nighttime", "total": "Total", "infrastructure": "Infrastructure", "timeframe_start": "Timeframe from", "timeframe_end": "Timeframe to", "reference_value": "Reference value", "reference_value_duration_threshold_minutes": "Reference value undershot\/exceeded for (Minutes)", "for": "for", "minimum_timeout": "Timeout", "minimum_timeout_minutes": "Timeout (minutes)", "emergency_stop": "Emergency stop", "increases": "Increases", "increase": "Increases", "decreases": "Decreases", "decrease": "Decreases", "personal_access_token": "Access Token", "personal_access_tokens": "Access Tokens", "expires": "Expires", "security": "Security", "general": "General", "component": "Component", "to": "To", "daily_reminders": "Daily Reminders", "yesterday": "Yesterday", "tomorrow": "Tomorrow", "today": "Today", "runonce": "Only run once", "intention": "Intention", "deceased": "Deceased", "software_version": "Software Version", "use_as_background": "Use as background image", "relation_map": "Relation map", "start_action_sequence": "Start Action Sequence", "suggestions_unit": "Min. Occurences", "suggestion_timeframe_unit": "Timeframe (Unit)", "suggestions_timeframe": "Timeframe", "bus": "Bus", "i2c_bus_num": "I2C bus number", "i2c_address": "I2C address", "i2c_multiplexer_address": "I2C multiplexer address", "i2c_multiplexer_port": "I2C multiplexer port", "gpio_pin": "GPIO pin", "gpio_default_high": "GPIO Default High", "configuration": "Configuration", "yes": "Yes", "no": "No", "rawvalue": "Raw value", "adjust_rawvalue": "Raw value correction", "filter": "Filter", "logout": "Log off", "login": "Log in", "remember_me": "Stay logged in", "ask_me_something": "Ask me something", "ventilate": "Ventilate", "heat_up": "Heat", "cool_down": "Cool", "between": "between", "and": "and", "association": "Association", "choose_logfile": "Choose a log file", "no_image": "No image", "features": "Features", "rollperiod": "Roll period", "add_preset": "Add preset", "inactive": "Inactive", "soft_state": "Soft state", "reason": "Reason", "possibly_affected_animals": "Possibly affected animals", "scope": "Scope", "client_server_time_diff": "Client\/Server time difference", "id": "ID", "loading_dots": "Loading...", "search_ciliatus": "Search Ciliatus ..." }, "languages": { "german": "German", "english": "English" }, "menu": { "welcome": "Welcome", "dashboard": "Dashboard", "general": "General", "administration": "Administration", "create": "Create", "edit": "Edit", "delete": "Delete", "infrastructure": "Infrastructure", "help": "Help", "logout": "Log out", "animals": "Animals", "terraria": "Terraria", "users": "Users", "animal_feeding_types": "Food types", "logs": "Logs", "categories": "Categories", "monitoring": "Monitoring", "automation": "Automation", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "All existing thresholds associated with the target sensor will be deleted." }, "users": { "setup_telegram_ok": "Telegram is set up.", "setup_telegram_err": "Telegram has not yet been set up.", "setup_telegram_description": "Please point your browser to <a href=\"https:\/\/web.telegram.org\/#\/im?p=@\">Telegram Web<\/a> or use your smartphone to contact <b>@<\/b> with your verification code below." }, "critical_state_generic": "Critical: {critical}_state", "critical_state_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "Critical: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "LOWERLIMIT_DECEEDED": "Critical: The sensor {logical}_sensor reports a too low humidity of {humidity}_percent%C.", "UPPERLIMIT_EXCEEDED": "Critical: The sensor {logical}_sensor reports a too high humidity of {humidity}_percent%C." }, "temperature_celsius": { "UNKNOWN": "Critical: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "Critical: The sensor {logical}_sensor reports a too low temperature of {temperature}_celsius\xB0C.", "UPPERLIMIT_EXCEEDED": "Critical: The sensor {logical}_sensor reports a too high temperature of {temperature}_celsius\xB0C." } }, "critical_state_recovery_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "LOWERLIMIT_DECEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "UPPERLIMIT_EXCEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C." }, "temperature_celsius": { "UNKNOWN": "OK: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "UPPERLIMIT_EXCEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C." } }, "critical_state_notification_controlunits": { "UNKNOWN": "Critical: The controlunit {controlunit} is in an unknown state.", "HEARTBEAT_CRITICAL": "Critical: The controlunit {controlunit} is not sending data.", "TIME_DIFF_CRITICAL": "Critical: The controlunit {controlunit} has a too large time difference." }, "critical_state_recovery_notification_controlunits": { "UNKNOWN": "OK: The controlunit {controlunit} is no longer in an unknown state.", "HEARTBEAT_CRITICAL": "OK: The controlunit {controlunit} is sending data again.", "TIME_DIFF_CRITICAL": "OK: The controlunit {controlunit} has an acceptable time difference again." }, "daily": { "intro": "Daily reminders", "feedings_due": "Feedings due:", "weighings_due": "Weighings due:" }, "own_token_expires": "Token '{name}' expires in {days} days.", "suggestions": { "humidity_percent": { "UPPERLIMIT_EXCEEDED": "Decrease humidity daily at {hour}{00}", "LOWERLIMIT_DECEEDED": "Increase humidity daily at {hour}{00}", "UNKNOWN": "Regulate humidity daily at {hour}{00}" }, "temperature_celsius": { "UPPERLIMIT_EXCEEDED": "Decrease temperature daily at {hour}{00}", "LOWERLIMIT_DECEEDED": "Increase temperature daily at {hour}{00}", "UNKNOWN": "Regulate temperature daily at {hour}{00}" } } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Welcome to Ciliatus", "create_user": "Create your user", "done": "Done!", "what_now": "What now?", "login": "Log in", "tooltip_login": "Log in to Ciliatus with the user you just created.", "add_terrarium": "Create Terrarium", "tooltip_add_terrarium": "Create your first terrarium in Ciliatus.", "add_animal": "Create animal", "tooltip_add_animal": "Create your first animal and assign it to a terrarium.", "setup_telegram": "Setup Telegram", "tooltip_setup_telegram": "Learn how to configure Telegram with Ciliatus.", "setup_controlunit": "Create Controlunit", "tooltip_setup_controlunit": "Learn how to setup a controlunit to start feeding Ciliatus with sensor readings.", "err_completed": "Setup is already completed." }, "tooltips": { "ctrltoselect": "Ctrl-click to deselect", "active": "Active", "showondefaultdashboard": "Show on default dashboard", "autoirrigation": "Automatic irrigation (if available)", "sendnotificationsfor": "Send notifications for", "loadandrendergraph": "Collection data and rendering graph", "disables_option": "Disables \"{option}\"", "phone_number": "Mobile number", "contact_bot": "Contacting the bot", "wait_confirmation": "Waiting for confirmation", "set_state_to": "Set state of <b>{target}<\/b> to <b>{state}<\/b> for <b>{minutes} minutes<\/b>", "start_after_started": "Starts as soon as step <b>{id}<\/b> was started", "start_after_finished": "Starts as soon as step <b>{id}<\/b> finished", "sendnotifications": "Send notifications", "no_schedules": "No schedules", "runonce": "Run once", "heartbeat_critical": "Heartbeat is critical!", "copy_thresholds_warning": "All existing thresholds on the target sensor will be removed.", "animal_feeding_schedule_matrix": "This matrix contains all defined feeding schedules. A number in a column represents the schedule's interval in days followed by the remaining time in days until it's due next.", "animal_weighing_schedule_matrix": "This matrix contains all defined weighing schedules. A number in a column represents the schedule's interval in days followed by the next due date.", "done": "Done", "skip": "Skip", "material_icons_list": "Visit <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> for a complete icon overview.", "no_data": "No data.", "connecting_to_server": "Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.", "generic_components": { "about": "Generic components are components of a user defined type.", "type_about": "Generic component types define name, properties and possible states of a generic component. They are used as a template when creating a new generic component.", "property_templates": "Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.", "state_templates": "Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.<br \/><br \/>The radio box on the left defines the default 'running' state.", "type_delete_warning": "When deleting a component type <strong>all components of this type<\/strong> will also be deleted.", "intentions": "Intentionen of generic components allows them to be automatically used within action sequences." }, "minimum_timeout_minutes": "Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.", "reference_value": "Reference value which will be compared to the sensor values.", "reference_value_duration_threshold_minutes": "Duration in minutes for which the sensor value has to be greater\/lower\/equal to the reference value before triggering the action sequence.", "emergency_stop": "Instantly stops all running action sequences and prohibits action sequences from starting.", "emergency_resume": "Revokes the emergency stop and allows action sequences to start.", "leave_empty_for_auto": "Leave empty for automatic", "intention_increase_decrease": "Defines whether the intention of this action sequence is to increase or decrease the sensor's readings", "suggestions_unit": "Minimum number of critical states within the timeframe before a suggestion should be generated.", "suggestion_timeframe_unit": "Timeframe used for analysis (Unit)", "suggestions_timeframe": "Timeframe used for analysis (Value)", "show_suggestions": "Show suggestions", "bus_type_edit_form": "Allows Ciliatus to automatically generate controlunit configurations.", "gpio_default_high": "GPIO Pin will be pulled to high. When activating a component to low.", "adjust_rawvalue": "When receiving a reading from this sensor you can adjust the raw value.", "experimental_feature": "This is an experimental feature.", "action_sequence_schedules": { "skip": "Skip today's run." }, "associate_new": "Associate <i class=\"material-icons\">{source}_icon<\/i> {source}_type \"{source}_name\" with <i class=\"material-icons\">{target}_icon<\/i> {target}_type", "floating": { "add": "New", "edit": "Edit", "delete": "Delete" }, "ciliatus_up_to_date": "Up to date", "ciliatus_not_up_to_date": "Update available: <a href=\"{url}\">GitHub<\/a>", "no_feeding_types": "There are no food types defined yet.", "max_file_size": "The maximum file size is {size}.", "animal_weighing": { "trend": "Trend within the last 60 days from the last weighing" }, "logical_sensor_thresholds": { "limits": "Non-critical range. Values outside this range will be considered critical", "lowerlimit": "Sensor reading will be considered critical, if below this value", "upperlimit": "Sensor reading will be considered critical, if above this value", "starts_at": "Time from which on this threshold is active" }, "logical_sensor_rawvalue_limit": "Valid value range for this sensor. Values outside this range submitted via the API will be rejected", "caresheet": { "sensor_history_days": "Timespan for sensor readings to include in the average\/min\/max calculation", "data_history_days": "Timespan of animal feedings, weighings and biography entries to include" }, "set_as_background": "Set as background", "critical_state_actuality": "This is current information which could have been different at the time of the critical state.", "i2c": { "bus_num": "For Raspberry Pi: Use 0 for RPI1, 1 for all other models" } }, "units": { "years": "year|years", "months": "month|months", "weeks": "week|weeks", "days": "day|days", "hours": "hour|hours", "minutes": "minute|minutes", "seconds": "second|seconds", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "{val} years ago", "months_ago": "{val} months ago", "weeks_ago": "{val} weeks ago", "days_ago": "{val} days ago", "hours_ago": "{val} hours ago", "minutes_ago": "{val} minutes ago", "years_in": "in {val} years", "months_in": "in {val} months", "weeks_in": "in {val} weeks", "days_in": "in {val} days", "hours_in": "in {val} hours", "minutes_in": "in {val} minutes", "years_since": "since one year ago|since {val} years ago", "months_since": "since one month ago|since {val} months ago", "weeks_since": "since one week ago|since {val} weeks ago", "days_since": "since one day ago|since {val} days ago", "hours_since": "since one hours ago|since {val} hours ago", "minutes_since": "since one minute ago|since {val} minutes ago", "just_now": "just now", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" }, "weekdays": { "0": "Sunday", "1": "Monday", "2": "Tuesday", "3": "Wednesday", "4": "Thursday", "5": "Friday", "6": "Saturday", "sunday": "Sunday", "monday": "Monday", "tuesday": "Tuesday", "wednesday": "Wednesday", "thursday": "Thursday", "friday": "Friday", "saturday": "Saturday" } } };
 
 /***/ }),
 /* 65 */,
@@ -12813,7 +12984,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(21),
   /* template */
-  __webpack_require__(125),
+  __webpack_require__(124),
   /* scopeId */
   null,
   /* cssModules */
@@ -12915,7 +13086,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(24),
   /* template */
-  __webpack_require__(121),
+  __webpack_require__(120),
   /* scopeId */
   null,
   /* cssModules */
@@ -13119,7 +13290,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(30),
   /* template */
-  __webpack_require__(123),
+  __webpack_require__(122),
   /* scopeId */
   null,
   /* cssModules */
@@ -13187,7 +13358,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(128),
+  __webpack_require__(127),
   /* scopeId */
   null,
   /* cssModules */
@@ -13255,7 +13426,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(34),
   /* template */
-  __webpack_require__(129),
+  __webpack_require__(128),
   /* scopeId */
   null,
   /* cssModules */
@@ -13289,7 +13460,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(35),
   /* template */
-  __webpack_require__(116),
+  __webpack_require__(115),
   /* scopeId */
   null,
   /* cssModules */
@@ -13459,7 +13630,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(40),
   /* template */
-  __webpack_require__(120),
+  __webpack_require__(119),
   /* scopeId */
   null,
   /* cssModules */
@@ -13527,7 +13698,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(42),
   /* template */
-  __webpack_require__(119),
+  __webpack_require__(118),
   /* scopeId */
   null,
   /* cssModules */
@@ -13595,7 +13766,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(47),
   /* template */
-  __webpack_require__(127),
+  __webpack_require__(126),
   /* scopeId */
   null,
   /* cssModules */
@@ -13629,7 +13800,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(48),
   /* template */
-  __webpack_require__(122),
+  __webpack_require__(121),
   /* scopeId */
   null,
   /* cssModules */
@@ -13663,7 +13834,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(49),
   /* template */
-  __webpack_require__(124),
+  __webpack_require__(123),
   /* scopeId */
   null,
   /* cssModules */
@@ -13765,7 +13936,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(54),
   /* template */
-  __webpack_require__(117),
+  __webpack_require__(116),
   /* scopeId */
   null,
   /* cssModules */
@@ -13833,7 +14004,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(56),
   /* template */
-  __webpack_require__(126),
+  __webpack_require__(125),
   /* scopeId */
   null,
   /* cssModules */
@@ -13901,7 +14072,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(58),
   /* template */
-  __webpack_require__(130),
+  __webpack_require__(129),
   /* scopeId */
   null,
   /* cssModules */
@@ -13935,15 +14106,15 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(59),
   /* template */
-  __webpack_require__(115),
+  __webpack_require__(130),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\users-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\users-list-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] users-widget.vue: functional components are not supported with templates, they should use render functions.")}
+if (Component.options.functional) {console.error("[vue-loader] users-list-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
 /* hot reload */
 if (false) {(function () {
@@ -13952,9 +14123,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1d2323fc", Component.options)
+    hotAPI.createRecord("data-v-57661b6a", Component.options)
   } else {
-    hotAPI.reload("data-v-1d2323fc", Component.options)
+    hotAPI.reload("data-v-57661b6a", Component.options)
   }
 })()}
 
@@ -13969,7 +14140,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(60),
   /* template */
-  __webpack_require__(118),
+  __webpack_require__(117),
   /* scopeId */
   null,
   /* cssModules */
@@ -14039,8 +14210,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("playlist_play")]), _vm._v("\n        " + _vm._s(_vm.action_sequences.length) + " " + _vm._s(_vm.$tc("labels.action_sequences", 2)) + "\n    ")]), _vm._v(" "), _vm._l((_vm.action_sequences), function(as) {
+    staticClass: "mdi mdi-18px mdi-playlist-play"
+  }), _vm._v("\n        " + _vm._s(_vm.action_sequences.length) + " " + _vm._s(_vm.$tc("labels.action_sequences", 2)) + "\n    ")]), _vm._v(" "), _vm._l((_vm.action_sequences), function(as) {
     return _c('div', [_c('div', {
       staticClass: "card-content"
     }, [_c('div', {
@@ -14055,13 +14226,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/action_sequences/' + as.id + '/edit'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("edit")])])]), _vm._v(" "), _vm._l((as.intentions), function(asi) {
+      staticClass: "mdi mdi-18px mdi-pencil"
+    })])]), _vm._v(" "), _vm._l((as.intentions), function(asi) {
       return _c('div', {
         staticClass: "row row-no-margin"
       }, [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v("explore")]), _vm._v(" "), (asi.intention === 'increase') ? _c('span', [_vm._v(_vm._s(_vm.$t('labels.increases')))]) : _vm._e(), _vm._v(" "), (asi.intention === 'decrease') ? _c('span', [_vm._v(_vm._s(_vm.$t('labels.decreases')))]) : _vm._e(), _vm._v("\n\n                " + _vm._s(_vm.$t('labels.' + asi.type)) + "\n\n                "), _c('span', {
+        staticClass: "mdi mdi-18px mdi-compass"
+      }), _vm._v(" "), (asi.intention === 'increase') ? _c('span', [_vm._v(_vm._s(_vm.$t('labels.increases')))]) : _vm._e(), _vm._v(" "), (asi.intention === 'decrease') ? _c('span', [_vm._v(_vm._s(_vm.$t('labels.decreases')))]) : _vm._e(), _vm._v("\n\n                " + _vm._s(_vm.$t('labels.' + asi.type)) + "\n\n                "), _c('span', {
         directives: [{
           name: "show",
           rawName: "v-show",
@@ -14076,8 +14247,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       })])])
     }), _vm._v(" "), _vm._l((as.triggers), function(ast) {
       return _c('div', [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v("flare")]), _vm._v(" " + _vm._s(ast.logical_sensor.name) + " " + _vm._s(_vm.$t('units.' + ast.reference_value_comparison_type)) + " " + _vm._s(ast.reference_value) + "\n                "), _c('span', {
+        staticClass: "mdi mdi-18px mdi-vanish"
+      }), _vm._v(" " + _vm._s(ast.logical_sensor.name) + " " + _vm._s(_vm.$t('units.' + ast.reference_value_comparison_type)) + " " + _vm._s(ast.reference_value) + "\n                "), _c('span', {
         directives: [{
           name: "show",
           rawName: "v-show",
@@ -14092,8 +14263,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       })])])
     }), _vm._v(" "), _vm._l((as.schedules), function(ass) {
       return _c('div', [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v("schedule")]), _vm._v(" " + _vm._s(ass.timestamps.starts) + " "), _c('i', {
+        staticClass: "mdi mdi-18px mdi-clock"
+      }), _vm._v(" " + _vm._s(ass.timestamps.starts) + " "), _c('i', {
         directives: [{
           name: "show",
           rawName: "v-show",
@@ -14306,8 +14477,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("first_page")])])]), _vm._v(" "), (!_vm.mini) ? _c('li', {
+    staticClass: "mdi mdi-24px mdi-page-first"
+  })])]), _vm._v(" "), (!_vm.mini) ? _c('li', {
     class: {
       'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1
     }
@@ -14321,8 +14492,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("chevron_left")])])]) : _vm._e(), _vm._v(" "), (!_vm.mini && _vm.meta.pagination.current_page - 3 > 0) ? _c('li', {
+    staticClass: "mdi mdi-24px mdi-chevron-left"
+  })])]) : _vm._e(), _vm._v(" "), (!_vm.mini && _vm.meta.pagination.current_page - 3 > 0) ? _c('li', {
     staticClass: "waves-effect"
   }, [_c('a', {
     attrs: {
@@ -14408,8 +14579,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("chevron_right")])])]) : _vm._e(), _vm._v(" "), _c('li', {
+    staticClass: "mdi mdi-24px mdi-chevron-right"
+  })])]) : _vm._e(), _vm._v(" "), _c('li', {
     class: ['hide-on-small-only', {
       'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages,
       'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages
@@ -14424,8 +14595,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("last_page")])])])]) : _vm._e()]), _vm._v(" "), (_vm.enableFilters) ? _c('div', {
+    staticClass: "mdi mdi-24px mdi-page-last"
+  })])])]) : _vm._e()]), _vm._v(" "), (_vm.enableFilters) ? _c('div', {
     staticClass: "col s2 right-align"
   }, [_c('ul', {
     staticClass: "pagination"
@@ -14436,11 +14607,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "#!"
     }
   }, [_c('i', {
-    staticClass: "material-icons",
+    staticClass: "mdi mdi-24px mdi-filter-variant",
     on: {
       "click": _vm.toggle_filters
     }
-  }, [_vm._v("filter_list")])])])])]) : _vm._e()]), _vm._v(" "), _c('div', {
+  })])])])]) : _vm._e()]), _vm._v(" "), _c('div', {
     directives: [{
       name: "show",
       rawName: "v-show",
@@ -14503,9 +14674,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "input-field inline",
     staticStyle: {
-      "width": "150px"
+      "min-width": "180px"
     }
   }, [_c('form', {
+    staticClass: "ciliatus-search-wrapper",
     attrs: {
       "action": "/api/v1/apiai/send_request",
       "data-method": "POST",
@@ -14515,7 +14687,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "submit": _vm.submit_interceptor
     }
-  }, [_c('input', {
+  }, [_c('i', {
+    staticClass: "mdi mdi-24px mdi-lightbulb-on-outline prefix"
+  }), _vm._v(" "), _c('input', {
     directives: [{
       name: "model",
       rawName: "v-model",
@@ -14523,9 +14697,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       expression: "transcript"
     }],
     staticClass: "validate",
-    staticStyle: {
-      "padding": "0"
-    },
     attrs: {
       "name": "speech",
       "id": "ask-me-something",
@@ -14548,13 +14719,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "for": "ask-me-something",
       "id": "ask-me-something-label"
     }
-  }, [_vm._v(_vm._s(_vm.$t('labels.ask_me_something')))])])]), _vm._v(" "), _c('a', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (!_vm.loading),
-      expression: "!loading"
-    }],
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t('labels.ask_me_something')) + "\n                ")])])]), _vm._v(" "), _c('a', {
     staticClass: "btn-floating waves-effect waves-light",
     on: {
       "mousedown": _vm.record,
@@ -14564,19 +14729,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: (!_vm.recording),
-      expression: "!recording"
+      value: (!_vm.recording && !_vm.loading),
+      expression: "!recording && !loading"
     }],
-    staticClass: "material-icons"
-  }, [_vm._v("mic_none")]), _vm._v(" "), _c('i', {
+    staticClass: "mdi mdi-24px mdi-microphone"
+  }), _vm._v(" "), _c('i', {
     directives: [{
       name: "show",
       rawName: "v-show",
-      value: (_vm.recording),
-      expression: "recording"
+      value: (_vm.recording && !_vm.loading),
+      expression: "recording && !loading"
     }],
-    staticClass: "material-icons"
-  }, [_vm._v("mic")])])])])
+    staticClass: "mdi mdi-24px mdi-microphone-outline"
+  }), _vm._v(" "), _c('i', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.loading),
+      expression: "loading"
+    }],
+    staticClass: "mdi mdi-24px mdi-loading mdi-spin"
+  })])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -14588,75 +14761,6 @@ if (false) {
 
 /***/ }),
 /* 115 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight collapsible",
-    attrs: {
-      "data-collapsible": "expandable"
-    }
-  }, [_c('table-filter', {
-    ref: "table_filter",
-    attrs: {
-      "cols": 6,
-      "hide-cols": _vm.hideCols,
-      "filter-fields": [{
-          name: 'id',
-          path: 'id',
-          col: 0,
-          class: 'hide-on-med-and-down'
-        },
-        {
-          name: 'name',
-          path: 'name',
-          col: 1
-        },
-        {
-          name: 'email',
-          noFilter: true,
-          col: 2
-        },
-        {
-          name: '',
-          noFilter: true,
-          col: 5,
-          class: 'hide-on-small-only'
-        }
-      ]
-    }
-  }), _vm._v(" "), _c('tbody', _vm._l((_vm.users), function(user) {
-    return _c('tr', [_c('td', {
-      staticClass: "hide-on-med-and-down"
-    }, [_vm._v(_vm._s(user.data.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(user.data.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(user.data.email))]), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/users/' + user.data.id + '/edit'
-      }
-    }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("edit")])])])])])
-  }))], 1), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
-    }
-  })], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-1d2323fc", module.exports)
-  }
-}
-
-/***/ }),
-/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -14708,8 +14812,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [_c('tbody', [_c('tr', {
       staticClass: "collapsible-header"
     }, [_c('td', [_c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("developer_board")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-developer-board"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/controlunits/' + controlunit.data.id
       }
@@ -14728,8 +14832,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/controlunits/' + controlunit.data.id + '/edit'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("edit")])])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
       staticClass: "collapsible-body"
     }, [_c('td', {
       attrs: {
@@ -14738,8 +14842,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, _vm._l((_vm.component_types), function(type) {
       return (controlunit.data) ? _c('div', [((_vm.component_list = _vm._self[type].filter(function (c) { return c.data.controlunit_id === controlunit.id; })).length > 0) ? [_vm._v("\n                                    " + _vm._s(_vm.$tc('labels.' + type, 2)) + ":\n                                    "), _vm._l((_vm.component_list), function(component) {
         return _c('span', [_c('i', {
-          staticClass: "material-icons"
-        }, [_vm._v(_vm._s(component.data.icon))]), _vm._v(" "), _c('a', {
+          class: 'mdi mdi-18px mdi-' + component.data.icon
+        }), _vm._v(" "), _c('a', {
           attrs: {
             "href": component.data.url
           }
@@ -14763,7 +14867,7 @@ if (false) {
 }
 
 /***/ }),
-/* 117 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -14815,16 +14919,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [_c('tbody', [_c('tr', {
       staticClass: "collapsible-header"
     }, [_c('td', [_c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("memory")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-switch"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/physical_sensors/' + physical_sensor.data.id
       }
     }, [_vm._v(_vm._s(physical_sensor.data.name))]), _vm._v(" "), (!physical_sensor.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(physical_sensor.data.model) + "\n                            ")])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
       staticClass: "hide-on-small-only"
     }, [((_vm.controlunit = _vm.controlunits.filter(function (c) { return c.data.id === physical_sensor.data.controlunit_id; })).length > 0) ? _c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("developer_board")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-developer-board"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/controlunits/' + _vm.controlunit[0].data.id
       }
@@ -14832,8 +14936,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "hide-on-med-and-down"
     }, [(physical_sensor.data.terrarium &&
       (_vm.terrarium = _vm.terraria.filter(function (t) { return t.data.id === physical_sensor.data.terrarium.id; })).length > 0) ? _c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("video_label")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-trackpad"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/terraria/' + _vm.terrarium[0].data.id
       }
@@ -14844,8 +14948,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/physical_sensors/' + physical_sensor.data.id + '/edit'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("edit")])])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
       staticClass: "collapsible-body"
     }, [_c('td', {
       attrs: {
@@ -14857,8 +14961,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     )) + "\n                            "), _c('br'), _vm._v("\n                            " + _vm._s(_vm.$tc('labels.logical_sensors', 2)) + ":\n                            "), _vm._l((_vm.logical_sensors.filter(function (l) { return l.data.physical_sensor_id === physical_sensor.data.id; })), function(logical_sensor, index) {
       return _c('span', [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v("memory")]), _vm._v(" "), _c('a', {
+        staticClass: "mdi mdi-24px mdi-pulse"
+      }), _vm._v(" "), _c('a', {
         attrs: {
           "href": '/logical_sensors/' + logical_sensor.data.id
         }
@@ -14883,7 +14987,7 @@ if (false) {
 }
 
 /***/ }),
-/* 118 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -14894,8 +14998,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("transform")]), _vm._v("\n            " + _vm._s(_vm.$tc("labels.valves", 1)) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-pipe-disconnected"
+  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.valves", 1)) + "\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
   }, [_c('span', {
     staticClass: "card-title activator"
@@ -14920,7 +15024,7 @@ if (false) {
 }
 
 /***/ }),
-/* 119 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -14931,8 +15035,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v(_vm._s(_vm.generic_component.data.type.icon))]), _vm._v("\n            " + _vm._s(_vm.generic_component.data.type.name_singular) + "\n        ")]), _vm._v(" "), _c('div', {
+    class: 'mdi mdi-18px mdi-' + _vm.generic_component.data.type.icon
+  }), _vm._v("\n            " + _vm._s(_vm.generic_component.data.type.name_singular) + "\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
   }, [_c('span', {
     staticClass: "card-title"
@@ -14959,7 +15063,7 @@ if (false) {
 }
 
 /***/ }),
-/* 120 */
+/* 119 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -18813,8 +18917,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.add_intention
     }
   }, [_vm._v(_vm._s(_vm.$t('buttons.add_intention'))), _c('i', {
-    staticClass: "material-icons left"
-  }, [_vm._v("add")])])])]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-plus left"
+  })])])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_vm._l((_vm.component_intentions), function(intention, index) {
     return [_c('div', {
@@ -18873,8 +18977,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("delete")])])])]
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])]
   })], 2)])]), _vm._v(" "), _c('div', {
     staticClass: "row"
   }, [_c('div', {
@@ -18896,8 +19000,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.add_property
     }
   }, [_vm._v(_vm._s(_vm.$t('buttons.add_property')) + "\n                                        "), _c('i', {
-    staticClass: "material-icons left"
-  }, [_vm._v("add")])])]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-plus left"
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "col s12",
     attrs: {
       "id": "generic_component_type_create_props"
@@ -18940,8 +19044,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("delete")])])])])
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])])
   }))])]), _vm._v(" "), _c('div', {
     staticClass: "col s12 m6 l6"
   }, [_c('div', {
@@ -18965,8 +19069,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.add_state
     }
   }, [_vm._v(_vm._s(_vm.$t('buttons.add_state')) + "\n                                        "), _c('i', {
-    staticClass: "material-icons left"
-  }, [_vm._v("add")])])]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-plus left"
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "col s12",
     attrs: {
       "id": "generic_component_state_create_props"
@@ -19033,8 +19137,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("delete")])])])])
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])])
   }))])])])]), _vm._v(" "), _c('div', {
     staticClass: "card-action"
   }, [_c('div', {
@@ -19047,8 +19151,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit"
     }
   }, [_vm._v(_vm._s(_vm.$t('buttons.next')) + "\n                                "), _c('i', {
-    staticClass: "material-icons left"
-  }, [_vm._v("send")])])])])])])])])])
+    staticClass: "mdi mdi-18px mdi-floppy left"
+  })])])])])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -19059,7 +19163,7 @@ if (false) {
 }
 
 /***/ }),
-/* 121 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19090,7 +19194,7 @@ if (false) {
 }
 
 /***/ }),
-/* 122 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19101,8 +19205,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("vertical_align_center")]), _vm._v("\n            " + _vm._s(_vm.$tc("labels.logical_sensor_thresholds", 2)) + "\n        ")]), _vm._v(" "), _vm._l((_vm.logical_sensors), function(logical_sensor) {
+    staticClass: "mdi mdi-18px mdi-format-vertical-align-center"
+  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.logical_sensor_thresholds", 2)) + "\n        ")]), _vm._v(" "), _vm._l((_vm.logical_sensors), function(logical_sensor) {
     return [(logical_sensor.data) ? [_c('div', {
       staticClass: "card-content"
     }, [_c('div', {
@@ -19115,16 +19219,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       return _c('div', {
         staticClass: "row row-no-margin"
       }, [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v("vertical_align_center")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(threshold.data.timestamps.starts) + ":")]), _vm._v(" "), (threshold.data.rawvalue_lowerlimit !== null) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$t("labels.min_short")) + ": " + _vm._s(threshold.data.rawvalue_lowerlimit) + "\n                            ")]) : _vm._e(), _vm._v(" "), (threshold.data.rawvalue_upperlimit !== null) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$t("labels.max_short")) + ": " + _vm._s(threshold.data.rawvalue_upperlimit) + "\n                            ")]) : _vm._e(), _vm._v(" "), _c('span', {
+        staticClass: "mdi mdi-18px mdi-format-vertical-align-center"
+      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(threshold.data.timestamps.starts) + ":")]), _vm._v(" "), (threshold.data.rawvalue_lowerlimit !== null) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$t("labels.min_short")) + ": " + _vm._s(threshold.data.rawvalue_lowerlimit) + "\n                            ")]) : _vm._e(), _vm._v(" "), (threshold.data.rawvalue_upperlimit !== null) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$t("labels.max_short")) + ": " + _vm._s(threshold.data.rawvalue_upperlimit) + "\n                            ")]) : _vm._e(), _vm._v(" "), _c('span', {
         staticClass: "right"
       }, [_c('a', {
         attrs: {
           "href": '/logical_sensor_thresholds/' + threshold.data.id + '/edit'
         }
       }, [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v("edit")])])])])
+        staticClass: "mdi mdi-18px mdi-pencil"
+      })])])])
     }) : _c('div', {
       staticClass: "row row-no-margin"
     }, [_vm._v("\n                        " + _vm._s(_vm.$t("tooltips.no_data")) + "\n                    ")])], 2), _vm._v(" "), _c('div', {
@@ -19145,7 +19249,7 @@ if (false) {
 }
 
 /***/ }),
-/* 123 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19165,8 +19269,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('span', {
     staticClass: "activator truncate"
   }, [_c('span', [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("local_offer")]), _vm._v("\n                            " + _vm._s(_vm.$t('labels.properties')) + "\n                        ")])])]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-tag"
+  }), _vm._v("\n                            " + _vm._s(_vm.$t('labels.properties')) + "\n                        ")])])]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
   }, [_c('strong', [_vm._v(_vm._s(_vm.$t('labels.bus')))]), _c('br'), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('tooltips.bus_type_edit_form')))]), _vm._v(" "), _c('div', {
     staticClass: "row"
@@ -19385,8 +19489,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit"
     }
   }, [_vm._v(_vm._s(_vm.$t('buttons.save')) + "\n                                "), _c('i', {
-    staticClass: "material-icons left"
-  }, [_vm._v("save")])])])])])])])])])
+    staticClass: "mdi mdi-18px mdi-floppy left"
+  })])])])])])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -19397,7 +19501,7 @@ if (false) {
 }
 
 /***/ }),
-/* 124 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19455,22 +19559,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [_c('tbody', [_c('tr', {
       staticClass: "collapsible-header"
     }, [_c('td', [_c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("memory")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-pulse"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/logical_sensors/' + logical_sensor.data.id
       }
     }, [_vm._v(_vm._s(logical_sensor.data.name))])])]), _vm._v(" "), (_vm.hideCols.indexOf('physical_sensor') === -1) ? _c('td', [(_vm.ps = _vm.physical_sensor(logical_sensor)) ? _c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("memory")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-switch"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/physical_sensors/' + _vm.ps.data.id
       }
     }, [_vm._v("\n                                    " + _vm._s(_vm.ps.data.name) + "\n                                ")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.hideCols.indexOf('terrarium') === -1) ? _c('td', {
       staticClass: "hide-on-med-and-down"
     }, [(_vm.t = _vm.terrarium(logical_sensor)) ? _c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("video_label")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-trackpad"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/terraria/' + _vm.t.data.id
       }
@@ -19489,14 +19593,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/logical_sensors/' + logical_sensor.data.id + '/edit'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("edit")])])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
       staticClass: "collapsible-body"
     }, [_c('td', [_vm._v("\n                            " + _vm._s(_vm.$t('labels.rawlimitlo')) + ": " + _vm._s(logical_sensor.data.rawvalue_lowerlimit)), _c('br'), _vm._v("\n                            " + _vm._s(_vm.$t('labels.rawlimithi')) + ": " + _vm._s(logical_sensor.data.rawvalue_upperlimit) + "\n                        ")]), _vm._v(" "), _c('td', {
       staticClass: "hide-on-small-only"
     }, [(_vm.c = _vm.controlunit(logical_sensor)) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$tc('labels.controlunits', 1)) + ":\n                                "), _c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("developer_board")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-developer-board"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/controlunits/' + _vm.c.data.id
       }
@@ -19522,7 +19626,7 @@ if (false) {
 }
 
 /***/ }),
-/* 125 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19548,10 +19652,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
             "href": '/animals/' + animal.id + '/feeding_schedules/' + schedule.id + '/edit'
           }
         }, [_vm._v(_vm._s(schedule.interval_days))]), _vm._v(" "), _c('i', [_vm._v("(" + _vm._s(schedule.due_days) + " " + _vm._s(_vm.$tc('units.days', schedule.due_days)) + ")")]), _vm._v(" "), (schedule.due_days < 0) ? _c('i', {
-          staticClass: "material-icons red-text"
-        }, [_vm._v("error")]) : (schedule.due_days < 1) ? _c('i', {
-          staticClass: "material-icons orange-text"
-        }, [_vm._v("error_outline")]) : _vm._e()])
+          staticClass: "mdi mdi-24px mdi-exclamation"
+        }) : (schedule.due_days < 1) ? _c('i', {
+          staticClass: "mdi mdi-24px mdi-exclamation orange-text"
+        }) : _vm._e()])
       }))
     })], 2)
   }))])])])
@@ -19565,7 +19669,7 @@ if (false) {
 }
 
 /***/ }),
-/* 126 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19609,14 +19713,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [_c('tbody', [_c('tr', {
       staticClass: "collapsible-header"
     }, [_c('td', [_c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("rotate_right")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-water-pump"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/pumps/' + pump.data.id
       }
     }, [_vm._v(_vm._s(pump.data.name))]), _vm._v(" "), (!pump.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(pump.data.model) + "\n                            ")])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', [((_vm.controlunit = _vm.controlunits.filter(function (c) { return c.data.id === pump.data.controlunit_id; })).length > 0) ? _c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("developer_board")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-developer-board"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/controlunits/' + _vm.controlunit[0].data.id
       }
@@ -19627,8 +19731,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/pumps/' + pump.data.id + '/edit'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("edit")])])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
       staticClass: "collapsible-body"
     }, [_c('td', {
       attrs: {
@@ -19636,8 +19740,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("\n                            " + _vm._s(_vm.$tc('labels.valves', 2)) + ":\n                            "), _vm._l((_vm.valves.filter(function (v) { return v.data.pump_id === pump.data.id; })), function(valve, index) {
       return _c('span', [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v("transform")]), _vm._v(" "), _c('a', {
+        staticClass: "mdi mdi-24px mdi-pipe-disconnected"
+      }), _vm._v(" "), _c('a', {
         attrs: {
           "href": '/valves/' + valve.data.id
         }
@@ -19660,7 +19764,7 @@ if (false) {
 }
 
 /***/ }),
-/* 127 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19671,14 +19775,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("transform")]), _vm._v("\n            " + _vm._s(_vm.$t("labels.logical_sensor")) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-pipe-disconnected"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("labels.logical_sensor")) + "\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
   }, [_c('span', {
     staticClass: "card-title activator"
   }, [_vm._v("\n                " + _vm._s(_vm.logical_sensor.data.name) + "\n                "), _c('i', {
-    staticClass: "material-icons right"
-  }, [_vm._v("more_vert")])]), _vm._v(" "), (_vm.logical_sensor.data.type.length) ? _c('div', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(_vm.$t("labels." + _vm.logical_sensor.data.type)))])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-dots-vertical"
+  })]), _vm._v(" "), (_vm.logical_sensor.data.type.length) ? _c('div', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(_vm.$t("labels." + _vm.logical_sensor.data.type)))])]) : _vm._e()]), _vm._v(" "), _c('div', {
     staticClass: "card-action"
   }, [_c('a', {
     attrs: {
@@ -19692,9 +19796,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "card-reveal"
   }, [_c('span', {
     staticClass: "card-title"
-  }, [_vm._v(_vm._s(_vm.$tc("labels.physical_sensors", 1))), _c('i', {
-    staticClass: "material-icons right"
-  }, [_vm._v("close")])]), _vm._v(" "), _c('div', [(_vm.physical_sensor && _vm.physical_sensor.data) ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.$t("labels.physical_sensor")) + ":\n                    "), _c('a', {
+  }, [_vm._v(_vm._s(_vm.$tc("labels.physical_sensors", 1)) + "\n                "), _c('i', {
+    staticClass: "mdi mdi-24px mdi-close"
+  })]), _vm._v(" "), _c('div', [(_vm.physical_sensor && _vm.physical_sensor.data) ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.$t("labels.physical_sensor")) + ":\n                    "), _c('a', {
     attrs: {
       "href": '/physical_sensors/' + _vm.physical_sensor.data.id
     }
@@ -19746,7 +19850,7 @@ if (false) {
 }
 
 /***/ }),
-/* 128 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19828,7 +19932,7 @@ if (false) {
 }
 
 /***/ }),
-/* 129 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19839,8 +19943,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("rotate_right")]), _vm._v("\n            " + _vm._s(_vm.$tc("labels.controlunits", 1)) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-water-pump"
+  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.controlunits", 1)) + "\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
   }, [_c('span', {
     staticClass: "card-title activator"
@@ -19928,7 +20032,7 @@ if (false) {
 }
 
 /***/ }),
-/* 130 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -20029,7 +20133,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "type": "hidden",
         "name": "template",
-        "value": "ventilation"
+        "value": "ventilate"
       }
     }), _vm._v(" "), _c('input', {
       attrs: {
@@ -20175,46 +20279,46 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       style: (terrarium.data.default_background_filepath ?
         'background-image: url(\'' + terrarium.data.default_background_filepath + '\');' :
         'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;')
-    }, [_c('div', [_c('inline-graph', {
+    }, [_c('div', [(terrarium.data) ? _c('inline-graph', {
       attrs: {
-        "parentid": terrarium.data.id,
-        "graphtype": "humidity_percent",
-        "type": "line",
+        "points": terrarium.data.humidity_history,
         "options": {
           'fill': null,
           'strokeWidth': '2',
           'stroke': '#2196f3',
           width: '100%',
           height: '140px',
-          min: 1,
-          max: 99
+          min: _vm.humidityGraphMin,
+          max: _vm.humidityGraphMax
         },
-        "source": '/api/v1/terraria/' + terrarium.data.id + '/sensorreadingsByType/humidity_percent',
-        "data-prefill": terrarium.data.humidity_history
+        "source-type": "terraria",
+        "source-id": terrarium.id,
+        "source-field": "humidity_history",
+        "type": "line"
       }
-    })], 1), _vm._v(" "), _c('div', {
+    }) : _vm._e()], 1), _vm._v(" "), _c('div', {
       staticStyle: {
         "position": "relative",
         "top": "-145px"
       }
-    }, [_c('inline-graph', {
+    }, [(terrarium.data) ? _c('inline-graph', {
       attrs: {
-        "parentid": terrarium.data.id,
-        "graphtype": "temperature_celsius",
-        "type": "line",
+        "points": terrarium.data.temperature_history,
         "options": {
           'fill': null,
           'strokeWidth': '2',
           'stroke': '#b71c1c',
           width: '100%',
           height: '140px',
-          min: 1,
-          max: 99
+          min: _vm.temperatureGraphMin,
+          max: _vm.temperatureGraphMax
         },
-        "source": '/api/v1/terraria/' + terrarium.data.id + '/sensorreadingsByType/temperature_celsius',
-        "data-prefill": terrarium.data.temperature_history
+        "source-type": "terraria",
+        "source-id": terrarium.id,
+        "source-field": "temperature_history",
+        "type": "line"
       }
-    })], 1), _vm._v(" "), _c('div', {
+    }) : _vm._e()], 1), _vm._v(" "), _c('div', {
       staticClass: "card-title"
     }, [_c('span', [_c('a', {
       attrs: {
@@ -20245,13 +20349,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         'red-text': terrarium.data.temperature_critical, 'darken-3': terrarium.data.temperature_critical
       }
     }, [_vm._v("\n\n                        " + _vm._s(_vm.$t("labels.temperature")) + ": " + _vm._s(terrarium.data.cooked_temperature_celsius) + "°C\n\n                        "), (terrarium.data.heartbeat_critical) ? _c('i', {
-      staticClass: "material-icons deep-orange-text tooltipped",
+      staticClass: "mdi mdi-sync-off deep-orange-text tooltipped",
       attrs: {
         "data-delay": "50",
         "data-html": "true",
         "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.heartbeat_critical') + '</div>'
       }
-    }, [_vm._v("\n                            sync_disabled\n                        ")]) : _vm._e()]), _vm._v(" "), _c('div', {
+    }) : _vm._e()]), _vm._v(" "), _c('div', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -20262,27 +20366,27 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         'red-text': terrarium.data.humidity_critical, 'darken-3': terrarium.data.humidity_critical
       }
     }, [_vm._v("\n\n                        " + _vm._s(_vm.$t("labels.humidity")) + ": " + _vm._s(terrarium.data.cooked_humidity_percent) + "%\n\n                        "), (terrarium.data.heartbeat_critical) ? _c('i', {
-      staticClass: "material-icons deep-orange-text tooltipped",
+      staticClass: "mdi mdi-sync-off deep-orange-text tooltipped",
       attrs: {
         "data-delay": "50",
         "data-html": "true",
         "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.heartbeat_critical') + '</div>'
       }
-    }, [_vm._v("\n                            sync_disabled\n                        ")]) : _vm._e()])]) : _vm._e(), _vm._v(" "), _c('div', {
+    }) : _vm._e()])]) : _vm._e(), _vm._v(" "), _c('div', {
       staticClass: "card-reveal"
     }, [_c('div', [_c('strong', [_vm._v(_vm._s(terrarium.data.display_name))]), _vm._v(" "), _c('i', {
-      staticClass: "material-icons right card-title card-title-small"
-    }, [_vm._v("close")])]), _vm._v(" "), _vm._l((_vm.animals.filter(function (a) { return a.data.terrarium_id === terrarium.id; })), function(animal) {
+      staticClass: "mdi mdi-24px mdi-close right card-title card-title-small"
+    })]), _vm._v(" "), _vm._l((_vm.animals.filter(function (a) { return a.data.terrarium_id === terrarium.id; })), function(animal) {
       return _c('p', [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v("pets")]), _vm._v(" "), _c('a', {
+        staticClass: "mdi mdi-18px mdi-paw"
+      }), _vm._v(" "), _c('a', {
         attrs: {
           "href": '/animals/' + animal.data.id
         }
       }, [_vm._v(_vm._s(animal.data.display_name))]), _vm._v(" "), _c('i', [_vm._v(_vm._s(animal.data.common_name))])])
     }), _vm._v(" "), (terrarium.data.capabilities.irrigate) ? _c('p', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("play_arrow")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-18px mdi-weather-pouring"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": "#!"
       },
@@ -20292,8 +20396,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v(_vm._s(_vm.$t('buttons.irrigate')))])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.ventilate) ? _c('p', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("play_arrow")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-18px mdi-weather-windy"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": "#!"
       },
@@ -20303,8 +20407,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v(_vm._s(_vm.$t('buttons.ventilate')))])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.heat_up) ? _c('p', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("play_arrow")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-18px mdi-weather-sunny"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": "#!"
       },
@@ -20314,8 +20418,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         }
       }
     }, [_vm._v(_vm._s(_vm.$t('buttons.heat_up')))])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.cool_down) ? _c('p', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("play_arrow")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-18px mdi-snowflake"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": "#!"
       },
@@ -20332,14 +20436,83 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "#!"
     }
   }, [_c('i', {
-    staticClass: "material-icons right activator"
-  }, [_vm._v("more_vert")])])
+    staticClass: "mdi mdi-24px mdi-dots-vertical right activator white-text"
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-52858374", module.exports)
+  }
+}
+
+/***/ }),
+/* 130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight collapsible",
+    attrs: {
+      "data-collapsible": "expandable"
+    }
+  }, [_c('table-filter', {
+    ref: "table_filter",
+    attrs: {
+      "cols": 4,
+      "hide-cols": _vm.hideCols,
+      "filter-fields": [{
+          name: 'id',
+          path: 'id',
+          col: 0,
+          class: 'hide-on-med-and-down'
+        },
+        {
+          name: 'name',
+          path: 'name',
+          col: 1
+        },
+        {
+          name: 'email',
+          noFilter: true,
+          col: 2
+        },
+        {
+          noSort: true,
+          noFilter: true,
+          col: 3,
+          class: 'hide-on-small-only'
+        }
+      ]
+    }
+  }), _vm._v(" "), _c('tbody', _vm._l((_vm.users), function(user) {
+    return _c('tr', [_c('td', {
+      staticClass: "hide-on-med-and-down"
+    }, [_vm._v(_vm._s(user.data.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(user.data.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(user.data.email))]), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/users/' + user.data.id + '/edit'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])])
+  }))], 1), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-57661b6a", module.exports)
   }
 }
 
@@ -20380,11 +20553,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("schedule")]), _vm._v("\n                " + _vm._s(_vm.$tc("labels.animal_weighing_schedules", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-clock"
+  }), _vm._v("\n                " + _vm._s(_vm.$tc("labels.animal_weighing_schedules", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
   }, [_vm._l((_vm.schedules), function(schedule) {
-    return _c('div', [(schedule.data) ? [_c('span', {
+    return _c('div', {
+      staticClass: "row no-margin"
+    }, [(schedule.data) ? [_c('span', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -20405,8 +20580,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/animals/' + _vm.animalId + '/weighing_schedules/' + schedule.data.id + '/edit'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("edit")])])]), _vm._v(" "), _c('span', {
+      staticClass: "mdi mdi-18px mdi-pencil"
+    })])]), _vm._v(" "), _c('span', {
       staticClass: "right"
     }, [_c('span', {
       directives: [{
@@ -20469,8 +20644,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "side-menu-info-title"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("signal_wifi_off")]), _vm._v(" " + _vm._s(_vm.$t('labels.connecting')) + "\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-wifi-off"
+  }), _vm._v(" " + _vm._s(_vm.$t('labels.connecting')) + "\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "side-menu-info-content"
   }, [_c('span', [_vm._v(_vm._s(_vm.$t('tooltips.connecting_to_server')))])])])]), _vm._v(" "), _c('transition', {
     attrs: {
@@ -20487,8 +20662,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "side-menu-info-title"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("power_settings_new")]), _vm._v(" " + _vm._s(_vm.$t('labels.emergency_stop')) + "\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-power"
+  }), _vm._v(" " + _vm._s(_vm.$t('labels.emergency_stop')) + "\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "side-menu-info-content"
   }, [_c('span', [_vm._v(_vm._s(_vm.$t('tooltips.emergency_stop')))])])])])], 1)
 },staticRenderFns: []}
@@ -20528,8 +20703,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.$parent.$refs.pagination.order.direction === 'asc'),
         expression: "$parent.$refs.pagination.order.field === filter.path &&\n                               $parent.$refs.pagination.order.direction === 'asc'"
       }],
-      staticClass: "material-icons"
-    }, [_vm._v("arrow_drop_up")]) : _vm._e(), _vm._v(" "), (_vm.$parent.$refs.pagination) ? _c('i', {
+      staticClass: "mdi mdi-18px mdi-menu-up"
+    }) : _vm._e(), _vm._v(" "), (_vm.$parent.$refs.pagination) ? _c('i', {
       directives: [{
         name: "show",
         rawName: "v-show",
@@ -20537,8 +20712,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           _vm.$parent.$refs.pagination.order.direction === 'desc'),
         expression: "$parent.$refs.pagination.order.field === filter.path &&\n                               $parent.$refs.pagination.order.direction === 'desc'"
       }],
-      staticClass: "material-icons"
-    }, [_vm._v("arrow_drop_down")]) : _vm._e()] : (filter.name) ? [_vm._v("\n                    " + _vm._s(_vm.$t('labels.' + filter.name)) + "\n                ")] : _vm._e(), _vm._v(" "), (!filter.noFilter && _vm.$parent.$refs.pagination) ? [(_vm.$parent.$refs.pagination) ? _c('div', {
+      staticClass: "mdi mdi-18px mdi-menu-down"
+    }) : _vm._e()] : (filter.name) ? [_vm._v("\n                    " + _vm._s(_vm.$t('labels.' + filter.name)) + "\n                ")] : _vm._e(), _vm._v(" "), (!filter.noFilter && _vm.$parent.$refs.pagination) ? [(_vm.$parent.$refs.pagination) ? _c('div', {
       staticClass: "input-field inline"
     }, [_c('input', {
       directives: [{
@@ -20656,8 +20831,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "click": _vm.build
     }
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("refresh")])])]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-refresh"
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "input-field col s4 m4 l2"
   }, [_c('input', {
     attrs: {
@@ -20759,30 +20934,30 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [_c('tbody', [_c('tr', {
       staticClass: "collapsible-header"
     }, [_c('td', [_c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("transform")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-pipe-disconnected"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/valves/' + valve.data.id
       }
     }, [_vm._v(_vm._s(valve.data.name))]), _vm._v(" "), (!valve.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(valve.data.model) + "\n                            ")])]), _vm._v(" "), (_vm.hideCols.indexOf('pump') === -1) ? _c('td', [((_vm.pump = _vm.pumps.filter(function (p) { return p.data.id === valve.data.pump_id; })).length > 0) ? _c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("rotate_right")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-water-pump"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/pumps/' + _vm.pump[0].data.id
       }
     }, [_vm._v(_vm._s(_vm.pump[0].data.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
       staticClass: "hide-on-small-only"
     }, [((_vm.controlunit = _vm.controlunits.filter(function (c) { return c.data.id === valve.data.controlunit_id; })).length > 0) ? _c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("developer_board")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-developer-board"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/controlunits/' + _vm.controlunit[0].data.id
       }
     }, [_vm._v(_vm._s(_vm.controlunit[0].data.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.hideCols.indexOf('terrarium') === -1) ? _c('td', {
       staticClass: "hide-on-med-and-down"
     }, [((_vm.terrarium = _vm.terraria.filter(function (t) { return t.data.id === valve.data.terrarium_id; })).length > 0) ? _c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("video_label")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-trackpad"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/terraria/' + _vm.terrarium[0].data.id
       }
@@ -20793,8 +20968,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/valves/' + valve.data.id + '/edit'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("edit")])])])])]), _vm._v(" "), _vm._m(0, true, false)])]
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _vm._m(0, true, false)])]
   })], 2), _vm._v(" "), _c('pagination', {
     ref: "pagination",
     attrs: {
@@ -20924,8 +21099,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           "margin-right": "15px"
         }
       }, [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v(_vm._s(file.data.icon))]), _vm._v(" "), _c('a', {
+        class: 'mdi mdi-18px mdi-' + file.data.icon
+      }), _vm._v(" "), _c('a', {
         attrs: {
           "href": file.data.url
         }
@@ -20939,13 +21114,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]), _vm._v(" "), _c('div', {
       staticClass: "timeline-badge teal darken-2 white-text"
     }, [(entry.data.category) ? _c('i', {
-      staticClass: "material-icons tooltipped",
+      class: 'mdi mdi-18px tooltipped' + entry.data.category.icon,
       attrs: {
         "data-position": "top",
         "data-delay": "50",
         "data-tooltip": entry.data.category.name
       }
-    }, [_vm._v("\n                            " + _vm._s(entry.data.category.icon) + "\n                        ")]) : _vm._e()])] : _vm._e()], 2)
+    }) : _vm._e()])] : _vm._e()], 2)
   }))]), _vm._v(" "), _c('pagination', {
     ref: "pagination",
     attrs: {
@@ -21001,14 +21176,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [(sequence.data) ? _c('tbody', [_c('tr', {
       staticClass: "collapsible-header"
     }, [_c('td', [_c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("playlist_play")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-playlist-play"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/action_sequences/' + sequence.data.id + '/edit'
       }
     }, [_vm._v(_vm._s(sequence.data.name))])])]), _vm._v(" "), _c('td', [((_vm.terrarium = _vm.terraria.filter(function (t) { return t.id === sequence.data.terrarium.id; })).length > 0) ? _c('span', [(_vm.terrarium[0].data) ? [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("video_label")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-trackpad"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/terraria/' + _vm.terrarium[0].data.id
       }
@@ -21017,8 +21192,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/action_sequences/' + sequence.data.id + '/edit'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("edit")])])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
       staticClass: "collapsible-body"
     }, [_c('td', {
       staticClass: "table-details-collapsible",
@@ -21027,16 +21202,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [((_vm.sequence_schedules = _vm.schedules.filter(function (s) { return s.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_schedules', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_schedules), function(schedule, index) {
       return _c('li', [(schedule.data) ? [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v("schedule")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(schedule.timestamps.starts))]), _vm._v(" "), (schedule.timestamps.runonce) ? _c('span', [_c('i', [_vm._v(_vm._s(_vm.$t('labels.runonce')))])]) : _c('span', [_c('i', [_vm._v(_vm._s(_vm.$t('labels.daily')))])])] : _vm._e()], 2)
+        staticClass: "mdi mdi-18px mdi-clock"
+      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(schedule.timestamps.starts))]), _vm._v(" "), (schedule.timestamps.runonce) ? _c('span', [_c('i', [_vm._v(_vm._s(_vm.$t('labels.runonce')))])]) : _c('span', [_c('i', [_vm._v(_vm._s(_vm.$t('labels.daily')))])])] : _vm._e()], 2)
     })], 2) : _vm._e(), _vm._v(" "), ((_vm.sequence_triggers = _vm.triggers.filter(function (t) { return t.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_triggers', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_triggers), function(trigger, index) {
       return _c('li', [(trigger.data) ? [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v("flare")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + trigger.data.logical_sensor.type)))]), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'greater') ? _c('span', [_vm._v(">")]) : _vm._e(), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'lesser') ? _c('span', [_vm._v("<")]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(trigger.data.reference_value))]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.between')) + " " + _vm._s(trigger.data.timeframe.start) + " {\n                                            { $t('labels.and') }} " + _vm._s(trigger.data.timeframe.end) + ",\n                                        ")]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.minimum_timeout')) + ": " + _vm._s(trigger.data.minimum_timeout_minutes) + "\n                                            " + _vm._s(_vm.$tc('units.minutes', trigger.data.minimum_timeout_minutes)) + "\n                                        ")])] : _vm._e()], 2)
+        staticClass: "mdi mdi-18px mdi-vanish"
+      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + trigger.data.logical_sensor.type)))]), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'greater') ? _c('span', [_vm._v(">")]) : _vm._e(), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'lesser') ? _c('span', [_vm._v("<")]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(trigger.data.reference_value))]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.between')) + " " + _vm._s(trigger.data.timeframe.start) + " {\n                                            { $t('labels.and') }} " + _vm._s(trigger.data.timeframe.end) + ",\n                                        ")]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.minimum_timeout')) + ": " + _vm._s(trigger.data.minimum_timeout_minutes) + "\n                                            " + _vm._s(_vm.$tc('units.minutes', trigger.data.minimum_timeout_minutes)) + "\n                                        ")])] : _vm._e()], 2)
     })], 2) : _vm._e(), _vm._v(" "), ((_vm.sequence_intentions = _vm.intentions.filter(function (i) { return i.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_intentions', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_intentions), function(intention, index) {
       return _c('li', [(intention.data) ? [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v("explore")]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + intention.data.intention)))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + intention.data.type)))]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.between')) + " " + _vm._s(intention.data.timeframe.start) + "\n                                            " + _vm._s(_vm.$t('labels.and')) + " " + _vm._s(intention.data.timeframe.end) + ",\n                                        ")]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.minimum_timeout')) + ": " + _vm._s(intention.data.minimum_timeout_minutes) + "\n                                            " + _vm._s(_vm.$tc('units.minutes', intention.data.minimum_timeout_minutes)) + "\n                                        ")])] : _vm._e()], 2)
+        staticClass: "mdi mdi-18px mdi-compass"
+      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + intention.data.intention)))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + intention.data.type)))]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.between')) + " " + _vm._s(intention.data.timeframe.start) + "\n                                            " + _vm._s(_vm.$t('labels.and')) + " " + _vm._s(intention.data.timeframe.end) + ",\n                                        ")]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.minimum_timeout')) + ": " + _vm._s(intention.data.minimum_timeout_minutes) + "\n                                            " + _vm._s(_vm.$tc('units.minutes', intention.data.minimum_timeout_minutes)) + "\n                                        ")])] : _vm._e()], 2)
     })], 2) : _vm._e()])])]) : _vm._e()]
   })], 2), _vm._v(" "), _c('pagination', {
     ref: "pagination",
@@ -21066,8 +21241,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("memory")]), _vm._v("\n            " + _vm._s(_vm.$t("labels.physical_sensor")) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-switch"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("labels.physical_sensor")) + "\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
   }, [_c('span', {
     staticClass: "card-title"
@@ -21147,14 +21322,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit"
     }
   }, [_vm._v("\n                        " + _vm._s(_vm.$t("buttons.save")) + "\n                        "), _c('i', {
-    staticClass: "material-icons left"
-  }, [_vm._v("send")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-floppy left"
+  })])])])]), _vm._v(" "), _c('div', {
     staticClass: "card"
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("vertical_align_bottom")]), _vm._v("\n                " + _vm._s(_vm.$tc("labels.animal_weighings", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-weight-kilogram"
+  }), _vm._v("\n                " + _vm._s(_vm.$tc("labels.animal_weighings", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
   }, [_vm._l((_vm.weighings), function(weighing) {
     return _c('div', [(weighing.data) ? _c('div', {
@@ -21176,8 +21351,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/animals/' + _vm.animalId + '/weighings/' + weighing.data.id + '/delete'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("delete")])])])]) : _vm._e()])
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])]) : _vm._e()])
   }), _vm._v(" "), (_vm.weighings.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e(), _vm._v(" "), _c('pagination', {
     ref: "pagination",
     attrs: {
@@ -21214,8 +21389,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("rotate_right")]), _vm._v("\n            " + _vm._s(_vm.$tc("labels.pumps", 1)) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-water-pump"
+  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.pumps", 1)) + "\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
   }, [_c('span', {
     staticClass: "card-title activator"
@@ -21251,19 +21426,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("schedule")]), _vm._v("\n            " + _vm._s(_vm.$tc("labels.animal_feeding_schedules", 2)) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-clock"
+  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.animal_feeding_schedules", 2)) + "\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
   }, [_vm._l((_vm.schedules), function(schedule) {
-    return _c('div', [(schedule.data) ? [(schedule.data.timestamps.next != null) ? _c('span', [_vm._v(_vm._s(schedule.data.timestamps.next) + " - ")]) : _vm._e(), _vm._v("\n                    " + _vm._s(schedule.data.type) + "\n\n                    "), _c('span', {
+    return _c('div', {
+      staticClass: "row no-margin"
+    }, [(schedule.data) ? [(schedule.data.timestamps.next != null) ? _c('span', [_vm._v(_vm._s(schedule.data.timestamps.next) + " - ")]) : _vm._e(), _vm._v("\n                    " + _vm._s(schedule.data.type) + "\n\n                    "), _c('span', {
       staticClass: "right"
     }, [_c('a', {
       attrs: {
         "href": '/animals/' + _vm.animalId + '/feeding_schedules/' + schedule.data.id + '/edit'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("edit")])])]), _vm._v(" "), _c('span', {
+      staticClass: "mdi mdi-18px mdi-pencil"
+    })])]), _vm._v(" "), _c('span', {
       staticClass: "right"
     }, [_c('span', {
       directives: [{
@@ -21313,7 +21490,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": _vm.type,
       "options": _vm.options,
-      "data": _vm.graphData
+      "data": _vm.points_string
     }
   })], 1)
 },staticRenderFns: []}
@@ -21352,9 +21529,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.feedingTypes), function(ft) {
     return _c('option', {
       domProps: {
-        "value": ft.name
+        "value": ft
       }
-    }, [_vm._v(_vm._s(ft.name))])
+    }, [_vm._v(_vm._s(ft))])
   })) : _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t('tooltips.no_feeding_types')))])]), _vm._v(" "), _c('label', [_vm._v(_vm._s(_vm.$t("labels.meal_type")))]), _vm._v(" "), _c('input', {
     staticClass: "datepicker",
     attrs: {
@@ -21370,8 +21547,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit"
     }
   }, [_vm._v(_vm._s(_vm.$t("buttons.save")) + "\n                "), _c('i', {
-    staticClass: "material-icons left"
-  }, [_vm._v("send")])]) : _vm._e()])])])
+    staticClass: "mdi mdi-18px mdi-floppy left"
+  })]) : _vm._e()])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -21429,8 +21606,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return [_c('tbody', [_c('tr', {
       staticClass: "collapsible-header"
     }, [_c('td', [_c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v(_vm._s(generic_component.data.type.icon))]), _vm._v(" "), _c('a', {
+      class: 'mdi mdi-24px mdi-' + generic_component.data.type.icon
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/generic_components/' + generic_component.data.id
       }
@@ -21443,8 +21620,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v(_vm._s(generic_component.data.type.name_singular))])])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
       staticClass: "hide-on-small-only"
     }, [(generic_component.data.controlunit) ? _c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("developer_board")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-developer-board"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/controlunits/' + generic_component.data.controlunit.id
       }
@@ -21455,8 +21632,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/generic_components/' + generic_component.data.id + '/edit'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("edit")])])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
       staticClass: "collapsible-body"
     }, [_c('td', {
       attrs: {
@@ -21545,8 +21722,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "for": file.data.id
       }
     })]) : _vm._e(), _vm._v(" "), _c('span', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v(_vm._s(file.data.icon))]), _vm._v(" "), _c('a', {
+      class: 'mdi mdi-24px mdi-' + file.data.icon
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/files/' + file.data.id
       }
@@ -21561,19 +21738,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/files/set-background/' + _vm.backgroundSelectorClassName + '/' + _vm.backgroundSelectorId + '/' + file.data.id
       }
     }, [_c('i', {
-      staticClass: "material-icons tooltipped",
+      staticClass: "mdi mdi-24px mdi-image tooltipped",
       attrs: {
         "data-delay": "50",
         "data-html": "true",
         "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.set_as_background') + '</div>'
       }
-    }, [_vm._v("wallpaper")])])]) : _vm._e(), _vm._v(" "), _c('span', [_c('a', {
+    })])]) : _vm._e(), _vm._v(" "), _c('span', [_c('a', {
       attrs: {
         "href": '/files/' + file.data.id + '/edit'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("edit")])])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
       staticClass: "collapsible-body"
     }, [(_vm.showOptionSelect) ? _c('td') : _vm._e(), _vm._v(" "), _c('td', {
       attrs: {
@@ -21614,13 +21791,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("attach_file")]), _vm._v("\n                " + _vm._s(_vm.$tc("labels.files", 1)) + "\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-attachment"
+  }), _vm._v("\n                " + _vm._s(_vm.$tc("labels.files", 1)) + "\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
   }, [_c('div', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.size")) + ": " + _vm._s((_vm.file.data.size / 1024 / 1024).toFixed(2)) + " MB")]), _c('br'), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(_vm.file.data.mimetype))])]), _vm._v(" "), _c('div', [_c('p', [_c('strong', [_vm._v(_vm._s(_vm.$t('labels.associated_with')) + ":")])]), _vm._v(" "), _vm._l((_vm.file.data.models), function(model) {
     return _c('p', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v(_vm._s(model.icon))]), _vm._v(" "), (!model.name && !model.display_name) ? _c('a', {
+      class: 'mdi mdi-18px mdi-' + model.icon
+    }), _vm._v(" "), (!model.name && !model.display_name) ? _c('a', {
       attrs: {
         "href": model.url
       }
@@ -21640,8 +21817,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/files/associate/' + model.class + '/' + model.id + '/' + _vm.file.data.id
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("delete")])])])])
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])])
   })], 2)]), _vm._v(" "), _c('div', {
     staticClass: "card-action"
   }, [_c('a', {
@@ -21727,14 +21904,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "type": "submit"
     }
   }, [_vm._v(_vm._s(_vm.$t("buttons.save")) + "\n                        "), _c('i', {
-    staticClass: "material-icons left"
-  }, [_vm._v("send")])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-floppy left"
+  })])])])]), _vm._v(" "), _c('div', {
     staticClass: "card"
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("local_dining")]), _vm._v("\n                " + _vm._s(_vm.$tc("labels.animal_feedings", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "mdi mdi-18px mdi-silverware-variant"
+  }), _vm._v("\n                " + _vm._s(_vm.$tc("labels.animal_feedings", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
   }, [_vm._l((_vm.feedings), function(feeding) {
     return _c('div', [_c('div', {
@@ -21751,8 +21928,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": '/animals/' + _vm.animalId + '/feedings/' + feeding.data.id + '/delete'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("delete")])])])])])
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])])])
   }), _vm._v(" "), (_vm.feedings.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e(), _vm._v(" "), _c('pagination', {
     ref: "pagination",
     attrs: {
@@ -21852,8 +22029,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": "#!"
       }
     }, [(!animal.data.death_date) ? _c('i', {
-      staticClass: "material-icons right activator"
-    }, [_vm._v("more_vert")]) : _vm._e()])], 1)]), _vm._v(" "), _c('div', {
+      staticClass: "mdi mdi-24px mdi-dots-vertical right activator white-text"
+    }) : _vm._e()])], 1)]), _vm._v(" "), _c('div', {
       staticClass: "card-content"
     }, [_c('div', [_c('span', {
       directives: [{
@@ -21876,15 +22053,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         value: (animal.data.birth_date || animal.data.death_date),
         expression: "animal.data.birth_date || animal.data.death_date"
       }]
-    }, [_vm._v(_vm._s(animal.data.age_value) + " " + _vm._s(_vm.$tc("units." + animal.data.age_unit, animal.data.age_value)))]), _vm._v(" "), (animal.data.last_feeding && !animal.data.death_date) ? _c('span', [_c('br'), _vm._v(" "), _c('i', {
-      staticClass: "material-icons tiny"
-    }, [_vm._v("local_dining")]), _vm._v("\n                            " + _vm._s(_vm.$t(
+    }, [_vm._v(_vm._s(animal.data.age_value) + " " + _vm._s(_vm.$tc("units." + animal.data.age_unit, animal.data.age_value)))]), _vm._v(" "), (animal.data.gender === 'female') ? _c('i', {
+      staticClass: "mdi mdi-gender-female"
+    }) : _vm._e(), _vm._v(" "), (animal.data.gender === 'male') ? _c('i', {
+      staticClass: "mdi mdi-gender-male"
+    }) : _vm._e(), _vm._v(" "), (animal.data.last_feeding && !animal.data.death_date) ? _c('span', [_c('br'), _vm._v(" "), _c('i', {
+      staticClass: "mdi mdi-silverware-variant"
+    }), _vm._v("\n                            " + _vm._s(_vm.$t(
       'units.' + _vm.$getMatchingTimeDiff(animal.data.last_feeding.timestamps.created_diff).unit, {
         val: _vm.$getMatchingTimeDiff(animal.data.last_feeding.timestamps.created_diff).val
       }
     )) + "\n                            " + _vm._s(animal.data.last_feeding.name) + "\n                        ")]) : _vm._e(), _vm._v(" "), (animal.data.last_weighing && !animal.data.death_date) ? _c('span', [_c('br'), _vm._v(" "), _c('i', {
-      staticClass: "material-icons tiny"
-    }, [_vm._v("file_download")]), _vm._v("\n                            " + _vm._s(_vm.$t(
+      staticClass: "mdi mdi-download"
+    }), _vm._v("\n                            " + _vm._s(_vm.$t(
       'units.' + _vm.$getMatchingTimeDiff(animal.data.last_weighing.timestamps.created_diff).unit, {
         val: _vm.$getMatchingTimeDiff(animal.data.last_weighing.timestamps.created_diff).val
       }
@@ -21912,24 +22093,24 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [_vm._v("\n                                (+/- 0%)\n                            ")]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), (!animal.data.death_date) ? _c('div', {
       staticClass: "card-reveal"
     }, [_c('div', [_c('strong', [_vm._v(_vm._s(animal.data.display_name))]), _vm._v(" "), _c('i', {
-      staticClass: "material-icons right card-title card-title-small"
-    }, [_vm._v("close")])]), _vm._v(" "), (_vm.terrarium = _vm.terraria.filter(function (t) { return t.id === animal.data.terrarium_id; })[0]) ? _c('p', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("video_label")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-24px mdi-close right card-title card-title-small"
+    })]), _vm._v(" "), (_vm.terrarium = _vm.terraria.filter(function (t) { return t.id === animal.data.terrarium_id; })[0]) ? _c('p', [(_vm.terrarium.data) ? [_c('i', {
+      staticClass: "mdi mdi-18px mdi-trackpad"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": '/terraria/' + _vm.terrarium.data.id
       }
-    }, [_vm._v(_vm._s(_vm.terrarium.data.display_name))])]) : _vm._e(), _vm._v(" "), _c('p', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("play_arrow")]), _vm._v(" "), _c('a', {
+    }, [_vm._v(_vm._s(_vm.terrarium.data.display_name))])] : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('p', [_c('i', {
+      staticClass: "mdi mdi-18px mdi-silverware-variant"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": "#!",
         "href": '#modal_just_fed_' + animal.data.id,
         "onclick": '$(\'#modal_just_fed_' + animal.data.id + '\').modal(); $(\'#modal_just_fed_' + animal.data.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.data.id + '\').modal(\'open\');'
       }
     }, [_vm._v(_vm._s(_vm.$t("labels.just_fed")))])]), _vm._v(" "), _c('p', [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("play_arrow")]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-18px mdi-weight-kilogram"
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": "#!",
         "href": '#modal_add_weight_' + animal.data.id,
@@ -21988,8 +22169,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('button', {
     staticClass: "btn modal-action modal-close waves-effect waves-light"
   }, [_vm._v(_vm._s(_vm.$t("buttons.save")) + "\n                "), _c('i', {
-    staticClass: "material-icons left"
-  }, [_vm._v("send")])])])])])
+    staticClass: "mdi mdi-18px mdi-floppy left"
+  })])])])])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
@@ -22040,16 +22221,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       return [(component.data) ? _c('tbody', [_c('tr', {
         staticClass: "collapsible-header"
       }, [_c('td', [_c('span', [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v(_vm._s(component.data.icon))]), _vm._v(" "), _c('a', {
+        class: 'mdi mdi-18px mdi-' + component.data.icon
+      }), _vm._v(" "), _c('a', {
         attrs: {
           "href": component.data.url
         }
       }, [_vm._v(_vm._s(component.data.name))])])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
         staticClass: "hide-on-small-only"
       }, [(component.data.controlunit) ? _c('span', [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v("developer_board")]), _vm._v(" "), _c('a', {
+        staticClass: "mdi mdi-24px mdi-developer-board"
+      }), _vm._v(" "), _c('a', {
         attrs: {
           "href": '/controlunits/' + component.data.controlunit.id
         }
@@ -22060,8 +22241,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
           "href": component.data.url + '/edit'
         }
       }, [_c('i', {
-        staticClass: "material-icons"
-      }, [_vm._v("edit")])])])])]), _vm._v(" "), _vm._m(0, true, false)]) : _vm._e()]
+        staticClass: "mdi mdi-24px mdi-pencil"
+      })])])])]), _vm._v(" "), _vm._m(0, true, false)]) : _vm._e()]
     })] : _vm._e()]
   })], 2), _vm._v(" "), _c('pagination', {
     ref: "pagination",
@@ -22136,36 +22317,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         value: (log.source),
         expression: "log.source"
       }],
-      staticClass: "material-icons"
-    }, [_vm._v(_vm._s(log.source.icon))]), _vm._v(" "), _c('a', {
+      class: 'mdi mdi-24px mdi-' + log.source.icon
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": log.source.url
       }
     }, [_vm._v(_vm._s(log.source.name))])]) : _c('span', [_vm._v("\n                            " + _vm._s(log.source_name) + "\n                        ")])]), _vm._v(" "), _c('td', [(log.action == 'start') ? _c('span', {
-      staticClass: "material-icons"
-    }, [_vm._v("play_arrow")]) : _vm._e(), _vm._v(" "), (log.action == 'finish') ? _c('span', {
-      staticClass: "material-icons"
-    }, [_vm._v("done")]) : _vm._e(), _vm._v(" "), (log.action == 'create') ? _c('span', {
-      staticClass: "material-icons"
-    }, [_vm._v("add")]) : _vm._e(), _vm._v(" "), (log.action == 'delete') ? _c('span', {
-      staticClass: "material-icons"
-    }, [_vm._v("delete")]) : _vm._e(), _vm._v(" "), (log.action == 'update') ? _c('span', {
-      staticClass: "material-icons"
-    }, [_vm._v("update")]) : _vm._e(), _vm._v(" "), (log.action == 'recover') ? _c('span', {
-      staticClass: "material-icons"
-    }, [_vm._v("settings_backup_restore")]) : _vm._e(), _vm._v(" "), (log.action == 'notify_recovered') ? _c('span', {
-      staticClass: "material-icons"
-    }, [_vm._v("notifications_none")]) : _vm._e(), _vm._v(" "), (log.action == 'notify') ? _c('span', {
-      staticClass: "material-icons"
-    }, [_vm._v("notifications_active")]) : _vm._e(), _vm._v("\n                        " + _vm._s(log.action) + "\n                    ")]), _vm._v(" "), _c('td', [(log.target != null) ? _c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-play"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'finish') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-check"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'create') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-plus"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'delete') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-delete"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'update') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-update"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'recover') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-backup-restore"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'notify_recovered') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-bell-outline"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'notify') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-bell-ring"
+    }) : _vm._e(), _vm._v("\n                        " + _vm._s(log.action) + "\n                    ")]), _vm._v(" "), _c('td', [(log.target != null) ? _c('span', [_c('i', {
       directives: [{
         name: "show",
         rawName: "v-show",
         value: (log.target),
         expression: "log.target"
       }],
-      staticClass: "material-icons"
-    }, [_vm._v(_vm._s(log.target.icon))]), _vm._v(" "), _c('a', {
+      class: 'mdi mdi-24px mdi-' + log.target.icon
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": log.target.url
       }
@@ -22176,8 +22357,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         value: (log.associated),
         expression: "log.associated"
       }],
-      staticClass: "material-icons"
-    }, [_vm._v(_vm._s(log.associated.icon))]), _vm._v(" "), _c('a', {
+      class: 'mdi mdi-24px mdi-' + log.associated.icon
+    }), _vm._v(" "), _c('a', {
       attrs: {
         "href": log.associated.url
       }
@@ -22222,8 +22403,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('li', {
     staticClass: "collection-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("lightbulb_outline")]), _vm._v("\n                    " + _vm._s(_vm.suggestions.length) + " " + _vm._s(_vm.$tc("labels.suggestions", _vm.suggestions.length)) + "\n                ")]), _vm._v(" "), _vm._l((_vm.suggestions), function(suggestion) {
+    staticClass: "mdi mdi-18px mdi-lightbulb-on-outline white-text"
+  }), _vm._v("\n                    " + _vm._s(_vm.suggestions.length) + " " + _vm._s(_vm.$tc("labels.suggestions", _vm.suggestions.length)) + "\n                ")]), _vm._v(" "), _vm._l((_vm.suggestions), function(suggestion) {
     return _c('li', {
       staticClass: "collection-item"
     }, [(suggestion.data) ? _c('div', {
@@ -22250,8 +22431,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "click": _vm.link_post
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("done")])])]) : _c('div', [_vm._v("\n                        " + _vm._s(_vm.$t('labels.loading')) + "\n                    ")])])
+      staticClass: "mdi mdi-18px mdi-check"
+    })])]) : _c('div', [_vm._v("\n                        " + _vm._s(_vm.$t('labels.loading')) + "\n                    ")])])
   })], 2)]) : _vm._e(), _vm._v(" "), (_vm.controlunits.filter(function (c) { return !c.data.state_ok; }).length > 0) ? _c('div', {
     class: _vm.wrapperClasses
   }, [_c('ul', {
@@ -22259,8 +22440,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('li', {
     staticClass: "collection-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("developer_board")]), _vm._v("\n                    " + _vm._s(_vm.controlunits.filter(function (c) { return !c.data.state_ok; }).length) + "\n                    " + _vm._s(_vm.$tc("labels.controlunits", _vm.controlunits.filter(function (c) { return !c.data.state_ok; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.critical")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.controlunits.filter(function (c) { return !c.data.state_ok; })), function(controlunit) {
+    staticClass: "mdi mdi-18px mdi-developer-board white-text"
+  }), _vm._v("\n                    " + _vm._s(_vm.controlunits.filter(function (c) { return !c.data.state_ok; }).length) + "\n                    " + _vm._s(_vm.$tc("labels.controlunits", _vm.controlunits.filter(function (c) { return !c.data.state_ok; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.critical")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.controlunits.filter(function (c) { return !c.data.state_ok; })), function(controlunit) {
     return _c('li', {
       staticClass: "collection-item"
     }, [(controlunit.data) ? _c('div', [_c('a', {
@@ -22280,8 +22461,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('li', {
     staticClass: "collection-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("video_label")]), _vm._v("\n                    " + _vm._s(_vm.terraria.filter(function (t) { return !t.data.state_ok; }).length) + "\n                    " + _vm._s(_vm.$tc("labels.terraria", _vm.terraria.filter(function (t) { return !t.data.state_ok; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.critical")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.terraria.filter(function (t) { return !t.data.state_ok; })), function(terrarium) {
+    staticClass: "mdi mdi-18px mdi-trackpad white-text"
+  }), _vm._v("\n                    " + _vm._s(_vm.terraria.filter(function (t) { return !t.data.state_ok; }).length) + "\n                    " + _vm._s(_vm.$tc("labels.terraria", _vm.terraria.filter(function (t) { return !t.data.state_ok; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.critical")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.terraria.filter(function (t) { return !t.data.state_ok; })), function(terrarium) {
     return _c('li', {
       staticClass: "collection-item"
     }, [(terrarium.data) ? _c('div', [_c('a', {
@@ -22321,8 +22502,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('li', {
     staticClass: "collection-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("memory")]), _vm._v("\n                    " + _vm._s(_vm.physical_sensors.filter(function (p) { return !p.data.state_ok; }).length) + "\n                    " + _vm._s(_vm.$tc("labels.physical_sensors", _vm.physical_sensors.filter(function (p) { return !p.data.state_ok; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.critical")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.physical_sensors.filter(function (p) { return !p.data.state_ok; })), function(physical_sensor) {
+    staticClass: "mdi mdi-18px mdi-switch white-text"
+  }), _vm._v("\n                    " + _vm._s(_vm.physical_sensors.filter(function (p) { return !p.data.state_ok; }).length) + "\n                    " + _vm._s(_vm.$tc("labels.physical_sensors", _vm.physical_sensors.filter(function (p) { return !p.data.state_ok; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.critical")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.physical_sensors.filter(function (p) { return !p.data.state_ok; })), function(physical_sensor) {
     return _c('li', {
       staticClass: "collection-item"
     }, [(physical_sensor.data) ? _c('div', [_c('a', {
@@ -22342,8 +22523,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('li', {
     staticClass: "collection-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("local_dining")]), _vm._v("\n                    " + _vm._s(_vm.animal_feeding_schedules.filter(function (s) { return s.data.due_days < 0; }).length) + "\n                    " + _vm._s(_vm.$tc("labels.animal_feedings", _vm.animal_feeding_schedules.filter(function (s) { return s.data.due_days < 0; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.overdue")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.animal_feeding_schedules.filter(function (s) { return s.data.due_days < 0; })), function(schedule) {
+    staticClass: "mdi mdi-18px mdi-silverware white-text"
+  }), _vm._v("\n                    " + _vm._s(_vm.animal_feeding_schedules.filter(function (s) { return s.data.due_days < 0; }).length) + "\n                    " + _vm._s(_vm.$tc("labels.animal_feedings", _vm.animal_feeding_schedules.filter(function (s) { return s.data.due_days < 0; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.overdue")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.animal_feeding_schedules.filter(function (s) { return s.data.due_days < 0; })), function(schedule) {
     return _c('li', {
       staticClass: "collection-item"
     }, [(schedule.data) ? _c('div', {
@@ -22353,7 +22534,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "display": "inline-block",
         "width": "calc(100% - 60px)"
       }
-    }, [_vm._v("\n                            " + _vm._s(schedule.data.animal.display_name) + ": " + _vm._s(schedule.data.type) + " (" + _vm._s(_vm.$t("labels.since")) + " " + _vm._s((schedule.data.due_days * -1)) + " " + _vm._s(_vm.$tc("units.days", (schedule.data.due_days * -1))) + ")\n                        ")]), _vm._v(" "), _c('a', {
+    }, [_vm._v("\n                            " + _vm._s(schedule.data.animal.display_name) + ": " + _vm._s(schedule.data.type) + "\n                            (" + _vm._s(_vm.$tc("units.days_since", (schedule.data.due_days * -1), {
+      val: (schedule.data.due_days * -1)
+    })) + ")\n                        ")]), _vm._v(" "), _c('a', {
       staticClass: "secondary-content white-text",
       attrs: {
         "href": '/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/skip'
@@ -22362,8 +22545,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "click": _vm.link_post
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("update")])]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-18px mdi-update"
+    })]), _vm._v(" "), _c('a', {
       staticClass: "secondary-content white-text",
       attrs: {
         "href": '/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/done'
@@ -22372,8 +22555,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "click": _vm.link_post
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("done")])])]) : _vm._e()])
+      staticClass: "mdi mdi-18px mdi-check"
+    })])]) : _vm._e()])
   })], 2)]) : _vm._e(), _vm._v(" "), (_vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days < 0; }).length > 0) ? _c('div', {
     class: _vm.wrapperClasses
   }, [_c('ul', {
@@ -22381,8 +22564,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('li', {
     staticClass: "collection-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("vertical_align_bottom")]), _vm._v("\n                    " + _vm._s(_vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days < 0; }).length) + "\n                    " + _vm._s(_vm.$tc("labels.animal_weighings", _vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days < 0; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.overdue")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days < 0; })), function(schedule) {
+    staticClass: "mdi mdi-18px mdi-weight-kilogram white-text"
+  }), _vm._v("\n                    " + _vm._s(_vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days < 0; }).length) + "\n                    " + _vm._s(_vm.$tc("labels.animal_weighings", _vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days < 0; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.overdue")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days < 0; })), function(schedule) {
     return _c('li', {
       staticClass: "collection-item"
     }, [(schedule.data) ? _c('div', {
@@ -22392,7 +22575,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "display": "inline-block",
         "width": "calc(100% - 60px)"
       }
-    }, [_vm._v("\n                            " + _vm._s(schedule.data.animal.display_name) + " (" + _vm._s(_vm.$t("labels.since")) + "\n                            " + _vm._s((schedule.data.due_days * -1)) + " " + _vm._s(_vm.$tc("units.days", (schedule.data.due_days * -1))) + ")\n                        ")]), _vm._v(" "), _c('a', {
+    }, [_vm._v("\n                            " + _vm._s(schedule.data.animal.display_name) + "\n                            (" + _vm._s(_vm.$tc("units.days_since", (schedule.data.due_days * -1), {
+      val: (schedule.data.due_days * -1)
+    })) + ")\n                        ")]), _vm._v(" "), _c('a', {
       staticClass: "secondary-content white-text",
       attrs: {
         "href": '/api/v1/animals/' + schedule.data.animal.id + '/weighing_schedules/' + schedule.data.id + '/skip'
@@ -22401,16 +22586,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "click": _vm.link_post
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("update")])]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-18px mdi-update"
+    })]), _vm._v(" "), _c('a', {
       staticClass: "secondary-content white-text",
       attrs: {
         "href": '#modal_add_weight_' + schedule.data.id,
         "onclick": '$(\'#modal_add_weight_' + schedule.data.id + '\').modal(); $(\'#modal_add_weight_' + schedule.data.id + '\').modal(\'open\');'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("done")])])]) : _vm._e()])
+      staticClass: "mdi mdi-18px mdi-check"
+    })])]) : _vm._e()])
   })], 2)]) : _vm._e(), _vm._v(" "), (_vm.animal_feeding_schedules.filter(function (s) { return s.data.due_days === 0; }).length > 0) ? _c('div', {
     class: _vm.wrapperClasses
   }, [_c('ul', {
@@ -22418,8 +22603,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('li', {
     staticClass: "collection-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("local_dining")]), _vm._v("\n                    " + _vm._s(_vm.animal_feeding_schedules.filter(function (s) { return s.data.due_days < 0; }).length) + " \n                    " + _vm._s(_vm.$tc("labels.animal_feedings", _vm.animal_feeding_schedules.filter(function (s) { return s.data.due_days < 0; }).length)) + " \n                    " + _vm._s(_vm.$t("labels.due")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.animal_feeding_schedules.filter(function (s) { return s.data.due_days < 0; })), function(schedule) {
+    staticClass: "mdi mdi-18px mdi-silverware white-text"
+  }), _vm._v("\n                    " + _vm._s(_vm.animal_feeding_schedules.filter(function (s) { return s.data.due_days === 0; }).length) + "\n                    " + _vm._s(_vm.$tc("labels.animal_feedings", _vm.animal_feeding_schedules.filter(function (s) { return s.data.due_days === 0; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.due")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.animal_feeding_schedules.filter(function (s) { return s.data.due_days === 0; })), function(schedule) {
     return _c('li', {
       staticClass: "collection-item"
     }, [(schedule.data) ? _c('div', {
@@ -22438,8 +22623,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "click": _vm.link_post
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("update")])]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-18px mdi-update"
+    })]), _vm._v(" "), _c('a', {
       staticClass: "secondary-content white-text",
       attrs: {
         "href": '/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/done'
@@ -22448,8 +22633,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "click": _vm.link_post
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("done")])])]) : _vm._e()])
+      staticClass: "mdi mdi-18px mdi-check"
+    })])]) : _vm._e()])
   })], 2)]) : _vm._e(), _vm._v(" "), (_vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days === 0; }).length > 0) ? _c('div', {
     class: _vm.wrapperClasses
   }, [_c('ul', {
@@ -22457,8 +22642,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('li', {
     staticClass: "collection-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("vertical_align_bottom")]), _vm._v("\n                    " + _vm._s(_vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days === 0; }).length) + " \n                    " + _vm._s(_vm.$tc("labels.animal_weighings", _vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days === 0; }).length)) + " \n                    " + _vm._s(_vm.$t("labels.due")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days === 0; })), function(schedule) {
+    staticClass: "mdi mdi-18px mdi-weight-kilogram white-text"
+  }), _vm._v("\n                    " + _vm._s(_vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days === 0; }).length) + " \n                    " + _vm._s(_vm.$tc("labels.animal_weighings", _vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days === 0; }).length)) + " \n                    " + _vm._s(_vm.$t("labels.due")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.animal_weighing_schedules.filter(function (s) { return s.data.due_days === 0; })), function(schedule) {
     return _c('li', {
       staticClass: "collection-item"
     }, [(schedule.data) ? _c('div', {
@@ -22477,25 +22662,25 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "click": _vm.link_post
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("update")])]), _vm._v(" "), _c('a', {
+      staticClass: "mdi mdi-18px mdi-update"
+    })]), _vm._v(" "), _c('a', {
       staticClass: "secondary-content white-text",
       attrs: {
         "href": '#modal_add_weight_' + schedule.data.id,
         "onclick": '$(\'#modal_add_weight_' + schedule.data.id + '\').modal(); $(\'#modal_add_weight_' + schedule.data.id + '\').modal(\'open\');'
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("done")])])]) : _vm._e()])
-  })], 2)]) : _vm._e(), _vm._v(" "), (_vm.action_sequence_schedules.filter(function (s) { return s.data.states.is_due === true; }).length > 0) ? _c('div', {
+      staticClass: "mdi mdi-18px mdi-check"
+    })])]) : _vm._e()])
+  })], 2)]) : _vm._e(), _vm._v(" "), (_vm.action_sequence_schedules.filter(function (s) { return s.data.due_days === 0; }).length > 0) ? _c('div', {
     class: _vm.wrapperClasses
   }, [_c('ul', {
     staticClass: "collection ok with-header"
   }, [_c('li', {
     staticClass: "collection-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("playlist_play")]), _vm._v("\n                    " + _vm._s(_vm.action_sequence_schedules.filter(function (s) { return s.data.states.is_due === true; }).length) + "\n                    " + _vm._s(_vm.$tc("labels.action_sequences", _vm.action_sequence_schedules.filter(function (s) { return s.data.states.is_due === true; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.due")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.action_sequence_schedules.filter(function (s) { return s.data.states.is_due === true; })), function(schedule) {
+    staticClass: "mdi mdi-18px mdi-playlist-play white-text"
+  }), _vm._v("\n                    " + _vm._s(_vm.action_sequence_schedules.filter(function (s) { return s.data.states.is_due === true; }).length) + "\n                    " + _vm._s(_vm.$tc("labels.action_sequences", _vm.action_sequence_schedules.filter(function (s) { return s.data.due_days === 0; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.due")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.action_sequence_schedules.filter(function (s) { return s.data.due_days === 0; })), function(schedule) {
     return _c('li', {
       staticClass: "collection-item"
     }, [(schedule.data) ? _c('div', {
@@ -22517,8 +22702,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "click": _vm.link_post
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("update")])])]) : _vm._e()])
+      staticClass: "mdi mdi-18px mdi-update"
+    })])]) : _vm._e()])
   })], 2)]) : _vm._e(), _vm._v(" "), (_vm.action_sequence_triggers.filter(function (t) { return t.should_be_started; }).length > 0 ||
     _vm.action_sequence_intentions.filter(function (t) { return t.should_be_started; }).length > 0) ? _c('div', {
     class: _vm.wrapperClasses
@@ -22527,8 +22712,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('li', {
     staticClass: "collection-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("playlist_play")]), _vm._v("\n                    " + _vm._s((_vm.action_sequence_triggers.filter(function (t) { return t.should_be_started; }).length +
+    staticClass: "mdi mdi-18px mdi-playlist-play white-text"
+  }), _vm._v("\n                    " + _vm._s((_vm.action_sequence_triggers.filter(function (t) { return t.should_be_started; }).length +
     _vm.action_sequence_intentions.filter(function (t) { return t.should_be_started; }).length)) + "\n                    " + _vm._s(_vm.$tc("labels.action_sequences", _vm.action_sequence_intentions.filter(function (t) { return t.should_be_started; }).length)) + " \n                    " + _vm._s(_vm.$t("labels.should_be_running")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.action_sequence_triggers.filter(function (t) { return t.should_be_started; })), function(trigger) {
     return _c('li', {
       staticClass: "collection-item"
@@ -22540,8 +22725,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "width": "calc(100% - 30px)"
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("flare")]), _vm._v(" "), (trigger.data.timestamps.last_start !== null) ? _c('a', {
+      staticClass: "mdi mdi-18px mdi-vanish"
+    }), _vm._v(" "), (trigger.data.timestamps.last_start !== null) ? _c('a', {
       staticClass: "white-text"
     }, [_vm._v("\n                                " + _vm._s(trigger.data.timestamps.last_start.split(" ")[1]) + "\n                            ")]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "white-text",
@@ -22557,8 +22742,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "click": _vm.link_post
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("update")])])]) : _vm._e()])
+      staticClass: "mdi mdi-18px mdi-update"
+    })])]) : _vm._e()])
   }), _vm._v(" "), _vm._l((_vm.action_sequence_intentions.filter(function (t) { return t.should_be_started; })), function(intention) {
     return _c('li', {
       staticClass: "collection-item"
@@ -22570,8 +22755,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "width": "calc(100% - 30px)"
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("explore")]), _vm._v(" "), (intention.data.timestamps.last_start !== null) ? _c('a', {
+      staticClass: "mdi mdi-18px mdi-compass"
+    }), _vm._v(" "), (intention.data.timestamps.last_start !== null) ? _c('a', {
       staticClass: "white-text"
     }, [_vm._v("\n                                " + _vm._s(intention.data.timestamps.last_start.split(" ")[1]) + "\n                            ")]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "white-text",
@@ -22587,8 +22772,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "click": _vm.link_post
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("update")])])]) : _vm._e()])
+      staticClass: "mdi mdi-18px mdi-update"
+    })])]) : _vm._e()])
   })], 2)]) : _vm._e(), _vm._v(" "), (_vm.action_sequence_triggers.filter(function (t) { return t.running; }).length > 0 ||
     _vm.action_sequence_intentions.filter(function (t) { return t.running; }).length > 0) ? _c('div', {
     class: _vm.wrapperClasses
@@ -22597,8 +22782,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('li', {
     staticClass: "collection-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("playlist_play")]), _vm._v("\n                    " + _vm._s((_vm.action_sequence_triggers.filter(function (t) { return t.running; }).length +
+    staticClass: "mdi mdi-18px mdi-playlist-play white-text"
+  }), _vm._v("\n                    " + _vm._s((_vm.action_sequence_triggers.filter(function (t) { return t.running; }).length +
     _vm.action_sequence_intentions.filter(function (t) { return t.running; }).length)) + "\n                    " + _vm._s(_vm.$tc("labels.action_sequences", _vm.action_sequence_intentions.filter(function (t) { return t.running; }).length)) + "\n                    " + _vm._s(_vm.$t("labels.running")) + "\n                ")]), _vm._v(" "), _vm._l((_vm.action_sequence_triggers.filter(function (t) { return t.running; })), function(trigger) {
     return _c('li', {
       staticClass: "collection-item"
@@ -22610,8 +22795,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "width": "calc(100% - 30px)"
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("flare")]), _vm._v(" "), (trigger.data.timestamps.last_start !== null) ? _c('a', {
+      staticClass: "mdi mdi-18px mdi-vanish"
+    }), _vm._v(" "), (trigger.data.timestamps.last_start !== null) ? _c('a', {
       staticClass: "white-text"
     }, [_vm._v("\n                                " + _vm._s(trigger.data.timestamps.last_start.split(" ")[1]) + "\n                            ")]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "white-text",
@@ -22627,8 +22812,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "click": _vm.link_post
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("update")])])]) : _vm._e()])
+      staticClass: "mdi mdi-18px mdi-update"
+    })])]) : _vm._e()])
   }), _vm._v(" "), _vm._l((_vm.action_sequence_intentions.filter(function (t) { return t.running; })), function(intention) {
     return _c('li', {
       staticClass: "collection-item"
@@ -22640,8 +22825,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "width": "calc(100% - 30px)"
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("explore")]), _vm._v(" "), (intention.data.timestamps.last_start !== null) ? _c('a', {
+      staticClass: "mdi mdi-18px mdi-compass"
+    }), _vm._v(" "), (intention.data.timestamps.last_start !== null) ? _c('a', {
       staticClass: "white-text"
     }, [_vm._v("\n                                " + _vm._s(intention.data.timestamps.last_start.split(" ")[1]) + "\n                            ")]) : _vm._e(), _vm._v(" "), _c('a', {
       staticClass: "white-text",
@@ -22657,8 +22842,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "click": _vm.link_post
       }
     }, [_c('i', {
-      staticClass: "material-icons"
-    }, [_vm._v("update")])])]) : _vm._e()])
+      staticClass: "mdi mdi-18px mdi-update"
+    })])]) : _vm._e()])
   })], 2)]) : _vm._e(), _vm._v(" "), (_vm.terraria.filter(function (t) { return !t.data.state_ok; }).length < 1) ? _c('div', {
     class: _vm.wrapperClasses
   }, [_c('ul', {
@@ -22666,8 +22851,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('li', {
     staticClass: "collection-header"
   }, [_c('i', {
-    staticClass: "material-icons"
-  }, [_vm._v("video_label")]), _vm._v("\n                    " + _vm._s(_vm.terraria_ok_count) + "\n                    " + _vm._s(_vm.$tc("labels.terraria", _vm.terraria_ok_count)) + "\n                ")]), _vm._v(" "), _c('li', {
+    staticClass: "mdi mdi-18px mdi-trackpad white-text"
+  }), _vm._v("\n                    " + _vm._s(_vm.terraria_ok_count) + "\n                    " + _vm._s(_vm.$tc("labels.terraria", _vm.terraria_ok_count)) + "\n                ")]), _vm._v(" "), _c('li', {
     staticClass: "collection-item"
   }, [_c('div', {
     staticClass: "white-text"

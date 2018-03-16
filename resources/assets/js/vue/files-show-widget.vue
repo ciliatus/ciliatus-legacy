@@ -3,7 +3,7 @@
         <div class="col s12 m12 l4">
             <div class="card" v-if="file.data">
                 <div class="card-header">
-                    <i class="material-icons">attach_file</i>
+                    <i class="mdi mdi-18px mdi-attachment"></i>
                     {{ $tc("labels.files", 1) }}
                 </div>
 
@@ -18,13 +18,13 @@
                             <strong>{{ $t('labels.associated_with') }}:</strong>
                         </p>
                         <p v-for="model in file.data.models">
-                            <i class="material-icons">{{ model.icon }}</i>
+                            <i :class="'mdi mdi-18px mdi-' + model.icon"></i>
                             <a :href="model.url" v-if="!model.name && !model.display_name">{{ model.title }}</a>
                             <a :href="model.url" v-if="model.name && !model.display_name">{{ model.name }}</a>
                             <a :href="model.url" v-if="model.display_name">{{ model.display_name }}</a>
                             <span class="right">
                                     <a class="red-text" :href="'/files/associate/' + model.class + '/' + model.id + '/' + file.data.id">
-                                        <i class="material-icons">delete</i>
+                                        <i class="mdi mdi-18px mdi-delete"></i>
                                     </a>
                                 </span>
                         </p>

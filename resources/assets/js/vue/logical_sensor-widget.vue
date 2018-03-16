@@ -2,14 +2,14 @@
     <div :class="wrapperClasses">
         <div class="card" v-if="logical_sensor.data">
             <div class="card-header">
-                <i class="material-icons">transform</i>
+                <i class="mdi mdi-18px mdi-pipe-disconnected"></i>
                 {{ $t("labels.logical_sensor") }}
             </div>
 
             <div class="card-content">
                 <span class="card-title activator">
                     {{ logical_sensor.data.name }}
-                    <i class="material-icons right">more_vert</i>
+                    <i class="mdi mdi-18px mdi-dots-vertical"></i>
                 </span>
 
                 <div v-if="logical_sensor.data.type.length">
@@ -23,7 +23,9 @@
             </div>
 
             <div class="card-reveal">
-                <span class="card-title">{{ $tc("labels.physical_sensors", 1) }}<i class="material-icons right">close</i></span>
+                <span class="card-title">{{ $tc("labels.physical_sensors", 1) }}
+                    <i class="mdi mdi-24px mdi-close"></i>
+                </span>
 
                 <div>
                     <span v-if="physical_sensor && physical_sensor.data">

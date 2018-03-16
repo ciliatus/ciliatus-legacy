@@ -96,7 +96,7 @@ class Property extends CiliatusModel
      */
     public function icon()
     {
-        return 'local_offer';
+        return 'tag';
     }
 
     /**

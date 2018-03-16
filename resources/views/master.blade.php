@@ -5,17 +5,19 @@
 
         <link rel="manifest" href="manifest.json">
         <link rel="icon" href="/images/manifest/launcher-icon-0-75x.png" type="image/png">
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css?family=Montserrat:400,900" rel="stylesheet">
-        @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on' || (Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night()))
-            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize_dark.min.css"  media="screen,projection"/>
-        @else
-            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.min.css"  media="screen,projection"/>
-        @endif
-        <link type="text/css" rel="stylesheet" href="/css/vendors/timeline.css"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="/css/vendors/dygraph.min.css"  media="screen,projection"/>
 
-        <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <link rel="stylesheet" href="/css/vendors/materialdesignicons-2.1.99.min.css?v=201803161050">
+        <link rel="stylesheet" href="/css/vendors/montserrat.css?v=201803161050">
+        @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on' || (Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night()))
+            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize_dark.min.css?v=201803161050"  media="screen,projection"/>
+        @else
+            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.min.css?v=201803161050"  media="screen,projection"/>
+        @endif
+
+        <link type="text/css" rel="stylesheet" href="/css/vendors/timeline.css?v=201803161050"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/vendors/dygraph-2.1.0.min.css?v=201803161050"  media="screen,projection"/>
+
+        <script type="text/javascript" src="{{ url('/js/vendors/jquery-3.3.1.min.js?v=201803161050') }}"></script>
         <script>
             $.ajaxSetup({
                 headers: {
@@ -62,7 +64,7 @@
                                 <li>
                                     <a href="#!" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"
                                         style="padding-left: 15px; padding-right: 0; margin: 0;">
-                                        <i class="material-icons">menu</i>
+                                        <i class="mdi mdi-24px mdi-menu white-text"></i>
                                     </a>
                                 </li>
                             </ul>
@@ -114,39 +116,61 @@
                         <div class="input-field ciliatus-search-wrapper">
                             <input type="text" id="search-ciliatus" class="no-margin">
                             <label for="search-ciliatus">
-                                <i class="material-icons">search</i>
+                                <i class="mdi mdi-24px mdi-magnify"></i>
                                 @lang('labels.search_ciliatus')
                             </label>
                         </div>
                     </li>
 
-                    <li @if(Request::is('/')) class="active" @endif><a href="{{ url('/') }}" class="waves-effect waves-orange"><i class="material-icons">dashboard</i>@choice('menu.dashboard', 1)</a></li>
+                    <li @if(Request::is('/')) class="active" @endif>
+                        <a href="{{ url('/') }}" class="waves-effect waves-orange">
+                            <i class="mdi mdi-24px mdi-view-dashboard"></i>
+                            @choice('menu.dashboard', 1)
+                        </a>
+                    </li>
 
                     <li><div class="divider"></div></li>
 
-                    <li @if(Request::is('animals', 'animals/*')) class="active" @endif><a href="{{ url('animals') }}" class="waves-effect waves-orange"><i class="material-icons">pets</i>@choice('labels.animals', 2)</a></li>
-                    <li @if(Request::is('terraria', 'terraria/*')) class="active" @endif><a href="{{ url('terraria') }}" class="waves-effect waves-orange"><i class="material-icons">video_label</i>@choice('labels.terraria', 2)</a></li>
-                    <li @if(Request::is('controlunits', 'controlunits/*')) class="active" @endif><a href="{{ url('controlunits') }}" class="waves-effect waves-orange"><i class="material-icons">memory</i>@choice('labels.controlunits', 2)</a></li>
+                    <li @if(Request::is('animals', 'animals/*')) class="active" @endif>
+                        <a href="{{ url('animals') }}" class="waves-effect waves-orange">
+                            <i class="mdi mdi-24px mdi-paw"></i>
+                            @choice('labels.animals', 2)
+                        </a>
+                    </li>
+
+                    <li @if(Request::is('terraria', 'terraria/*')) class="active" @endif>
+                        <a href="{{ url('terraria') }}" class="waves-effect waves-orange">
+                            <i class="mdi mdi-24px mdi-trackpad"></i>
+                            @choice('labels.terraria', 2)
+                        </a>
+                    </li>
+
+                    <li @if(Request::is('controlunits', 'controlunits/*')) class="active" @endif>
+                        <a href="{{ url('controlunits') }}" class="waves-effect waves-orange">
+                            <i class="mdi mdi-24px mdi-developer-board"></i>
+                            @choice('labels.controlunits', 2)
+                        </a>
+                    </li>
 
                     <li class="no-padding">
                         <ul class="collapsible collapsible-accordion">
                             <li>
                                 <a class="collapsible-header">
                                     @lang('menu.monitoring')
-                                    <i class="material-icons">alarm_on</i>
-                                    <i class="material-icons right" style="margin-right: 10px;">keyboard_arrow_down</i>
+                                    <i class="mdi mdi-24px mdi-speedometer"></i>
+                                    <i class="mdi mdi-24px mdi-chevron-down right"></i>
                                 </a>
                                 <div class="collapsible-body">
                                     <ul>
                                         <li @if(Request::is('physical_sensors', 'physical_sensors/*')) class="active" @endif>
                                             <a href="{{ url('physical_sensors') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">memory</i>
+                                                <i class="mdi mdi-24px mdi-switch"></i>
                                                 @choice('labels.physical_sensors', 2)
                                             </a>
                                         </li>
                                         <li @if(Request::is('logical_sensors', 'logical_sensors/*')) class="active" @endif>
                                             <a href="{{ url('logical_sensors') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">memory</i>
+                                                <i class="mdi mdi-24px mdi-pulse"></i>
                                                 @choice('labels.logical_sensors', 2)
                                             </a>
                                         </li>
@@ -161,34 +185,34 @@
                             <li>
                                 <a class="collapsible-header">
                                     @lang('menu.automation')
-                                    <i class="material-icons">autorenew</i>
-                                    <i class="material-icons right" style="margin-right: 10px;">keyboard_arrow_down</i>
+                                    <i class="mdi mdi-24px mdi-chart-bubble"></i>
+                                    <i class="mdi mdi-24px mdi-chevron-down right"></i>
                                 </a>
                                 <div class="collapsible-body">
                                     <ul>
                                         <li @if(Request::is('pumps', 'pumps/*')) class="active" @endif>
                                             <a href="{{ url('pumps') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">rotate_right</i>
+                                                <i class="mdi mdi-24px mdi-water-pump"></i>
                                                 @choice('labels.pumps', 2)
                                             </a>
                                         </li>
                                         <li @if(Request::is('valves', 'valves/*')) class="active" @endif>
                                             <a href="{{ url('valves') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">transform</i>
+                                                <i class="mdi mdi-24px mdi-pipe-disconnected"></i>
                                                 @choice('labels.valves', 2)
                                             </a>
                                         </li>
                                         @foreach(\App\GenericComponentType::orderBy('name_plural')->get() as $gct)
                                             <li @if(Request::is('generic_component_types/' . $gct->id, 'generic_component_types/' . $gct->id . '/*')) class="active" @endif>
                                                 <a href="{{ url('generic_component_types/' . $gct->id) }}" class="waves-effect waves-orange">
-                                                    <i class="material-icons">{{ $gct->icon }}</i>
+                                                    <i class="mdi mdi-24px mdi-{{ $gct->icon }}"></i>
                                                     {{ $gct->name_plural }}
                                                 </a>
                                             </li>
                                         @endforeach
                                         <li @if(Request::is('action_sequences', 'action_sequences/*')) class="active" @endif>
                                             <a href="{{ url('action_sequences') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">playlist_play</i>
+                                                <i class="mdi mdi-24px mdi-playlist-play"></i>
                                                 @choice('labels.action_sequences', 2)
                                             </a>
                                         </li>
@@ -200,7 +224,12 @@
 
                     <li><div class="divider"></div></li>
 
-                    <li @if(Request::is('users/' . Auth::user()->id . '/edit')) class="active" @endif><a href="{{ url('users/' . Auth::user()->id . '/edit') }}" class="waves-effect waves-orange"><i class="material-icons">settings</i>@choice('labels.settings', 2)</a></li>
+                    <li @if(Request::is('users/' . Auth::user()->id . '/edit')) class="active" @endif>
+                        <a href="{{ url('users/' . Auth::user()->id . '/edit') }}" class="waves-effect waves-orange">
+                            <i class="mdi mdi-24px mdi-tune"></i>
+                            @choice('labels.settings', 2)
+                        </a>
+                    </li>
 
                     @if(Gate::allows('admin'))
                     <li class="no-padding">
@@ -208,44 +237,44 @@
                             <li>
                                 <a class="collapsible-header">
                                     @lang('menu.administration')
-                                    <i class="material-icons">build</i>
-                                    <i class="material-icons right" style="margin-right: 10px;">keyboard_arrow_down</i>
+                                    <i class="mdi mdi-24px mdi-settings"></i>
+                                    <i class="mdi mdi-24px mdi-chevron-down right"></i>
                                 </a>
                                 <div class="collapsible-body">
                                     <ul>
                                         <li @if(Request::is('users', 'users/*')) class="active" @endif>
                                             <a href="{{ url('users') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">group</i>
+                                                <i class="mdi mdi-24px mdi-account-multiple"></i>
                                                 @lang('menu.users')
                                             </a>
                                         </li>
                                         <li @if(Request::is('categories')) class="active" @endif>
                                             <a href="{{ url('categories') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">layers</i>
+                                                <i class="mdi mdi-24px mdi-layers"></i>
                                                 @lang('menu.categories')
                                             </a>
                                         </li>
                                         <li @if(Request::is('logs', 'logs/*')) class="active" @endif>
                                             <a href="{{ url('logs') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">history</i>
+                                                <i class="mdi mdi-24px mdi-history"></i>
                                                 @lang('menu.ciliatus_logs')
                                             </a>
                                         </li>
                                         <li @if(Request::is('system_logs', 'system_logs/*')) class="active" @endif>
                                             <a href="{{ url('system_logs') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">history</i>
+                                                <i class="mdi mdi-24px mdi-history"></i>
                                                 @lang('menu.system_logs')
                                             </a>
                                         </li>
                                         <li @if(Request::is('system', 'system/*')) class="active" @endif>
                                             <a href="{{ url('system/status') }}" class="waves-effect waves-orange">
-                                                <i class="material-icons">public</i>
+                                                <i class="mdi mdi-24px mdi-earth"></i>
                                                 @lang('menu.system_status')
                                             </a>
                                         </li>
                                         <li>
                                             <a href="https://github.com/ciliatus/ciliatus/issues" class="waves-effect waves-orange">
-                                                <i class="material-icons">bug_report</i>
+                                                <i class="mdi mdi-24px mdi-bug"></i>
                                                 @lang('labels.bugtracker')
                                             </a>
                                         </li>
@@ -257,14 +286,36 @@
 
                     <li><div class="divider"></div></li>
 
-                    <li><a href="https://ciliatus.io/docs/{{ config('app.version_doc') }}" class="waves-effect waves-orange"><i class="material-icons">local_library</i>@lang('labels.users_guide')</a></li>
+                    <li>
+                        <a href="https://ciliatus.io/docs/{{ config('app.version_doc') }}" class="waves-effect waves-orange">
+                            <i class="mdi mdi-24px mdi-book-open-variant"></i>
+                            @lang('labels.users_guide')
+                        </a>
+                    </li>
                     @endif
 
-                    <li><a @if(!App\ActionSequence::stopped())href="/action_sequences/stop_all" @else href="/action_sequences/resume_all" @endif class="waves-effect waves-red red-text"><i class="material-icons red-text">power_settings_new</i>@lang('buttons.emergency_stop')</a></li>
+                    <li>
+                        @if(App\ActionSequence::stopped())
+                            <a href="/action_sequences/resume_all" class="waves-effect waves-red green-text">
+                                <i class="mdi mdi-24px mdi-power green-text"></i>
+                                @lang('buttons.emergency_resume')
+                            </a>
+                        @else
+                            <a href="/action_sequences/stop_all" class="waves-effect waves-red red-text">
+                                <i class="mdi mdi-24px mdi-power red-text"></i>
+                                @lang('buttons.emergency_stop')
+                            </a>
+                        @endif
+                    </li>
 
                     <li><div class="divider"></div></li>
 
-                    <li><a href="{{ url('auth/logout') }}" class="waves-effect waves-orange"><i class="material-icons">exit_to_app</i>@lang('labels.logout')</a></li>
+                    <li>
+                        <a href="{{ url('auth/logout') }}" class="waves-effect waves-orange">
+                            <i class="mdi mdi-24px mdi-logout"></i>
+                            @lang('labels.logout')
+                        </a>
+                    </li>
 
                     <br /><br /><br />
                 </ul>
@@ -281,21 +332,21 @@
         </div>
 
         <!-- Google Charts -->
-        <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/google-charts.min.js?v=201803161050') }}"></script>
         <!-- Materialize.js -->
-        <script src="{{ url('/js/vendors/materialize.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/materialize.min.js?v=201803161050') }}"></script>
         <!-- Materialize.clockpicker.js -->
-        <script src="{{ url('/js/vendors/materialize.clockpicker.js') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/materialize.clockpicker.js?v=201803161050') }}"></script>
         <!-- Masonry -->
-        <script src="{{ url('/js/vendors/masonry.pkgd.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/masonry-4.1.1.min.js?v=201803161050') }}"></script>
         <!-- Laravel-Echo -->
-        <script src="{{ url('/js/vendors/echo.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/echo.min.js?v=201803161050') }}"></script>
         <!-- ciliatus -->
-        <script src="{{ url('/js/app.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/app.min.js?v=201803161050') }}"></script>
         <!-- Vue -->
-        <script src="{{ url('/js/vendors/vue.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/vue.min.js?v=201803161050') }}"></script>
         <!-- Dygraph -->
-        <script src="{{ url('/js/vendors/dygraph.min.js') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/dygraph.min.js?v=201803161050') }}"></script>
 
         @yield('scripts')
 

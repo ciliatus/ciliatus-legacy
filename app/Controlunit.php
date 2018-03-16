@@ -273,7 +273,7 @@ class Controlunit extends Component
      */
     public function icon()
     {
-        return 'developer_board';
+        return 'developer-board';
     }
 
     /**

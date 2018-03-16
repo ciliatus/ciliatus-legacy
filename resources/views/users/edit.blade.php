@@ -262,7 +262,7 @@
                                     <div class="row">
                                         <div class="input-field col s12">
                                             <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                                <i class="material-icons left">save</i>
+                                                <i class="mdi mdi-18px mdi-floppy left"></i>
                                             </button>
                                         </div>
                                     </div>
@@ -310,7 +310,7 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                            <i class="material-icons left">save</i>
+                                            <i class="mdi mdi-18px mdi-floppy left"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -362,7 +362,7 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                            <i class="material-icons left">save</i>
+                                            <i class="mdi mdi-18px mdi-floppy left"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -397,7 +397,7 @@
                                             {{ $token->expires_at }}
                                             @if (\Carbon\Carbon::now()->addDays(7)->gt($token->expires_at) &&
                                                  \Carbon\Carbon::now()->lt($token->expires_at))
-                                                <i class="material-icons red-text">warning</i>
+                                                <i class="mdi mdi-24px mdi-exclamation red-text"></i>
                                             @endif
                                         </td>
                                         <td>
@@ -417,7 +417,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <a class="btn waves-effect waves-light" href="/users/{{ $user->id }}/personal_access_tokens/create">
-                                        <i class="material-icons left">add</i>
+                                        <i class="mdi mdi-18px mdi-plus left"></i>
                                         @lang('buttons.add')
                                     </a>
                                 </div>
@@ -525,7 +525,7 @@
                                 <div class="row">
                                     <div class="input-field col s12">
                                         <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                            <i class="material-icons left">save</i>
+                                            <i class="mdi mdi-18px mdi-floppy left"></i>
                                         </button>
                                     </div>
                                 </div>
@@ -555,7 +555,7 @@
                                     <div class="input-field col s12">
                                         @if (!is_null($user->setting('notifications_telegram_chat_id')))<input hidden name="user_id" value="{{ Auth::user()->id }}">
                                         <button class="btn waves-effect waves-light red" type="submit">@lang('buttons.delete')
-                                            <i class="material-icons left">delete</i>
+                                            <i class="mdi mdi-18px mdi-delete left"></i>
                                         </button>
                                         @else
                                             <a href="{{ url('users/setup/telegram') }}" class="btn waves-effect waves-light">@lang('buttons.start_setup')</a>
@@ -572,12 +572,12 @@
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large orange darken-4">
-            <i class="large material-icons">mode_edit</i>
+            <i class="mdi mdi-18px mdi-pencil"></i>
         </a>
         <ul>
-            <li><a class="btn-floating teal" href="/users/{{ $user->id }}"><i class="material-icons">info</i></a></li>
-            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/users/{{ $user->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/users/create"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating teal" href="/users/{{ $user->id }}"><i class="mdi mdi-18px mdi-information-outline"></i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/users/{{ $user->id }}/delete"><i class="mdi mdi-24px mdi-delete"></i></a></li>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/users/create"><i class="mdi mdi-24px mdi-plus"></i></a></li>
         </ul>
     </div>
 @stop

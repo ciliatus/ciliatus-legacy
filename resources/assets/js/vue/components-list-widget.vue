@@ -17,14 +17,14 @@
                                 <tr class="collapsible-header">
                                     <td>
                                         <span>
-                                            <i class="material-icons">{{ component.data.icon }}</i>
+                                            <i :class="'mdi mdi-18px mdi-' + component.data.icon"></i>
                                             <a v-bind:href="component.data.url">{{ component.data.name }}</a>
                                         </span>
                                     </td>
 
                                     <td class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
                                         <span v-if="component.data.controlunit">
-                                            <i class="material-icons">developer_board</i>
+                                            <i class="mdi mdi-24px mdi-developer-board"></i>
                                             <a v-bind:href="'/controlunits/' + component.data.controlunit.id">{{ component.data.controlunit.name }}</a>
                                         </span>
                                     </td>
@@ -32,7 +32,7 @@
                                     <td class="hide-on-small-only">
                                         <span>
                                             <a v-bind:href="component.data.url + '/edit'">
-                                                <i class="material-icons">edit</i>
+                                                <i class="mdi mdi-24px mdi-pencil"></i>
                                             </a>
                                         </span>
                                     </td>

@@ -2,7 +2,7 @@
     <div :class="wrapperClasses">
         <div class="card" v-if="pump.data">
             <div class="card-header">
-                <i class="material-icons">rotate_right</i>
+                <i class="mdi mdi-18px mdi-water-pump"></i>
                 {{ $tc("labels.pumps", 1) }}
             </div>
 

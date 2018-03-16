@@ -19,7 +19,7 @@
                         <td class="hide-on-small-only">
                             <span>
                                 <a :href="'/users/' + user.data.id + '/edit'">
-                                    <i class="material-icons">edit</i>
+                                    <i class="mdi mdi-24px mdi-pencil"></i>
                                 </a>
                             </span>
                         </td>

@@ -34,7 +34,7 @@
                 <div class="col s12 m7 l8">
                     <div class="card">
                         <div class="card-header">
-                            <i class="material-icons">timeline</i>
+                            <i class="mdi mdi-18px mdi-trending-up"></i>
                             @lang('labels.temp_and_hum_history')
                         </div>
                         <div class="card-content">
@@ -50,7 +50,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <i class="material-icons">pets</i>
+                            <i class="mdi mdi-18px mdi-paw"></i>
                             @choice('labels.animals', 2)
                         </div>
                         <div class="card-content">
@@ -66,12 +66,12 @@
 
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large orange darken-4">
-                <i class="large material-icons">mode_edit</i>
+                <i class="mdi mdi-18px mdi-pencil"></i>
             </a>
             <ul>
-                <li><a class="btn-floating orange tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.edit')"href="/terraria/{{ $terrarium->id }}/edit"><i class="material-icons">edit</i></a></li>
-                <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/terraria/{{ $terrarium->id }}/delete"><i class="material-icons">delete</i></a></li>
-                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/terraria/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating orange tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.edit')"href="/terraria/{{ $terrarium->id }}/edit"><i class="mdi mdi-24px mdi-pencil"></i></a></li>
+                <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/terraria/{{ $terrarium->id }}/delete"><i class="mdi mdi-24px mdi-delete"></i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/terraria/create"><i class="mdi mdi-24px mdi-plus"></i></a></li>
             </ul>
         </div>
     </div>
@@ -99,10 +99,10 @@
 
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large orange darken-4">
-                <i class="large material-icons">mode_edit</i>
+                <i class="mdi mdi-18px mdi-pencil"></i>
             </a>
             <ul>
-                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/physical_sensors/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/physical_sensors/create"><i class="mdi mdi-24px mdi-plus"></i></a></li>
             </ul>
         </div>
     </div>
@@ -116,10 +116,10 @@
 
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large orange darken-4">
-                <i class="large material-icons">mode_edit</i>
+                <i class="mdi mdi-18px mdi-pencil"></i>
             </a>
             <ul>
-                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/biography_entries/create?preset[belongsTo_type]=Terrarium&preset[belongsTo_id]={{ $terrarium->id }}"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/biography_entries/create?preset[belongsTo_type]=Terrarium&preset[belongsTo_id]={{ $terrarium->id }}"><i class="mdi mdi-24px mdi-plus"></i></a></li>
             </ul>
         </div>
     </div>
@@ -136,11 +136,11 @@
 
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large orange darken-4">
-                <i class="large material-icons">mode_edit</i>
+                <i class="mdi mdi-18px mdi-pencil"></i>
             </a>
             <ul>
-                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/files/create?preset[belongsTo_type]=Terrarium&preset[belongsTo_id]={{ $terrarium->id }}"><i class="material-icons">add</i></a></li>
-                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.link')" href="/files/associate/Terrarium/{{ $terrarium->id }}"><i class="material-icons">link</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/files/create?preset[belongsTo_type]=Terrarium&preset[belongsTo_id]={{ $terrarium->id }}"><i class="mdi mdi-24px mdi-plus"></i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.link')" href="/files/associate/Terrarium/{{ $terrarium->id }}"><i class="mdi mdi-24px mdi-link"></i></a></li>
             </ul>
         </div>
     </div>

@@ -44,7 +44,7 @@
                         </div>
                         <div class="card-action right-align">
                             <button type="submit" class="btn waves-effect waves-light">
-                                <i class="material-icons">navigate_next</i>
+                                <i class="mdi mdi-18px mdi-chevron-right"></i>
                                 @lang('buttons.next')
                             </button>
                         </div>

@@ -21,7 +21,7 @@
                                     <label :for="file.data.id"> </label>
                                 </span>
                                 <span>
-                                    <i class="material-icons">{{ file.data.icon }}</i>
+                                    <i :class="'mdi mdi-24px mdi-' + file.data.icon"></i>
                                     <a v-bind:href="'/files/' + file.data.id">{{ file.data.display_name }}</a>
                                 </span>
                             </td>
@@ -51,14 +51,14 @@
                             <td class="hide-on-small-only">
                                 <span v-if="backgroundSelectorClassName && backgroundSelectorId && file.data.mimetype.indexOf('image') !== -1">
                                     <a v-bind:href="'/files/set-background/' + backgroundSelectorClassName + '/' + backgroundSelectorId + '/' + file.data.id">
-                                        <i class="material-icons tooltipped"
+                                        <i class="mdi mdi-24px mdi-image tooltipped"
                                            data-delay="50" data-html="true"
-                                           :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.set_as_background') + '</div>'">wallpaper</i>
+                                           :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.set_as_background') + '</div>'"></i>
                                     </a>
                                 </span>
                                 <span>
                                     <a v-bind:href="'/files/' + file.data.id + '/edit'">
-                                        <i class="material-icons">edit</i>
+                                        <i class="mdi mdi-24px mdi-pencil"></i>
                                     </a>
                                 </span>
                             </td>

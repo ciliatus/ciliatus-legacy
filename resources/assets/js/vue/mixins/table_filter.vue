@@ -11,12 +11,12 @@
                         <i v-if="$parent.$refs.pagination"
                            v-show="$parent.$refs.pagination.order.field === filter.path &&
                                    $parent.$refs.pagination.order.direction === 'asc'"
-                           class="material-icons">arrow_drop_up</i>
+                           class="mdi mdi-18px mdi-menu-up"></i>
 
                         <i v-if="$parent.$refs.pagination"
                            v-show="$parent.$refs.pagination.order.field === filter.path &&
                                    $parent.$refs.pagination.order.direction === 'desc'"
-                           class="material-icons">arrow_drop_down</i>
+                           class="mdi mdi-18px mdi-menu-down"></i>
                     </template>
                     <template v-else-if="filter.name">
                         {{ $t('labels.' + filter.name) }}

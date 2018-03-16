@@ -982,7 +982,7 @@
                                 </div>
                                 <div class="row">
                                     <div class="col s12">
-                                        <button class="btn waves-effect waves-light" type="button" v-on:click="add_intention">{{ $t('buttons.add_intention') }}<i class="material-icons left">add</i></button>
+                                        <button class="btn waves-effect waves-light" type="button" v-on:click="add_intention">{{ $t('buttons.add_intention') }}<i class="mdi mdi-18px mdi-plus left"></i></button>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -1011,7 +1011,7 @@
 
                                     <div class="input-field col s2 m2 l2">
                                         <a href="#!" class="red-text" v-on:click="component_intentions.splice(index, 1)">
-                                            <i class="material-icons">delete</i>
+                                            <i class="mdi mdi-18px mdi-delete"></i>
                                         </a>
                                     </div>
                                     </template>
@@ -1030,7 +1030,7 @@
                                 <div class="row">
                                     <div class="col s12">
                                         <button class="btn waves-effect waves-light" type="button" v-on:click="add_property">{{ $t('buttons.add_property') }}
-                                            <i class="material-icons left">add</i>
+                                            <i class="mdi mdi-18px mdi-plus left"></i>
                                         </button>
                                     </div>
                                     <div class="col s12" id="generic_component_type_create_props">
@@ -1041,7 +1041,7 @@
                                             </div>
                                             <div class="input-field col s2 m2 l2">
                                                 <a href="#!" class="red-text" v-on:click="component_properties.splice(index, 1)">
-                                                    <i class="material-icons">delete</i>
+                                                    <i class="mdi mdi-18px mdi-delete"></i>
                                                 </a>
                                             </div>
                                         </div>
@@ -1061,7 +1061,7 @@
                                 <div class="row">
                                     <div class="col s12">
                                         <button class="btn waves-effect waves-light" type="button" v-on:click="add_state">{{ $t('buttons.add_state') }}
-                                            <i class="material-icons left">add</i>
+                                            <i class="mdi mdi-18px mdi-plus left"></i>
                                         </button>
                                     </div>
                                     <div class="col s12" id="generic_component_state_create_props">
@@ -1085,7 +1085,7 @@
 
                                             <div class="input-field col s2 m2 l2">
                                                 <a href="#!" class="red-text" v-on:click="component_states.splice(index, 1)">
-                                                    <i class="material-icons">delete</i>
+                                                    <i class="mdi mdi-18px mdi-delete"></i>
                                                 </a>
                                             </div>
                                         </div>
@@ -1102,7 +1102,7 @@
                         <div class="row">
                             <div class="input-field col s12">
                                 <button class="btn waves-effect waves-light" type="submit">{{ $t('buttons.next') }}
-                                    <i class="material-icons left">send</i>
+                                    <i class="mdi mdi-18px mdi-floppy left"></i>
                                 </button>
                             </div>
 

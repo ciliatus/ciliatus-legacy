@@ -54,7 +54,7 @@ class AnimalWeighingScheduleProperty extends Property
      */
     public function icon()
     {
-        return 'schedule';
+        return 'clock';
     }
 
     /**

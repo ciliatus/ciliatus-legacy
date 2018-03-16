@@ -12,7 +12,7 @@
                 <div class="col s12 m12 l7">
                     <div class="card">
                         <div class="card-header">
-                            <i class="material-icons">error_outline</i>
+                            <i class="mdi mdi-18px mdi-information-outline"></i>
                             @choice('labels.critical_states', 1)
                         </div>
 
@@ -32,10 +32,10 @@
                                 <div>
                                 <?php $obj = $obj->belongsTo_object(); ?>
                                     @if(!$first)
-                                        <i class="material-icons" style="padding-left: 7px">subdirectory_arrow_right</i>
+                                        <i class="mdi mdi-18px mdi-subdirectory-arrow-right" style="padding-left: 7px"></i>
                                     @endif
                                     <a href="{{ $obj->url() }}">
-                                        <i class="material-icons">{{ $obj->icon() }}</i>
+                                        <i class="mdi mdi-18px mdi-{{ $obj->icon() }}"></i>
                                         @if($obj->display_name)
                                             {{ $obj->display_name }}
                                         @else
@@ -49,13 +49,13 @@
                                 </div>
                             @endwhile
                             <strong>@lang('labels.possibly_affected_animals'):</strong>
-                            <i class="material-icons tooltipped" data-position="top" data-delay="50" data-html="true"
-                               data-tooltip="<div style='width: 300px'>@lang('tooltips.critical_state_actuality')</div>">help_outline</i>
+                            <i class="mdi mdi-18px mdi-help-circle-outline tooltipped" data-position="top" data-delay="50" data-html="true"
+                               data-tooltip="<div style='width: 300px'>@lang('tooltips.critical_state_actuality')</div>"></i>
                             <br />
                             @foreach ($critical_state->getPossiblyAffectedAnimals() as $animal)
                                 <div>
                                     <a href="{{ $animal->url() }}">
-                                        <i class="material-icons">pets</i> {{ $animal->display_name }}
+                                        <i class="mdi mdi-18px mdi-paw"></i> {{ $animal->display_name }}
                                     </a>
                                     <i>{{ $animal->lat_name }}</i>
                                 </div>

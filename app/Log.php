@@ -198,7 +198,7 @@ class Log extends CiliatusModel
     {
         switch ($this->action) {
             case 'create':
-                return 'library_add';
+                return 'library-plus';
             case 'delete':
                 return 'delete';
             case 'notify':
@@ -207,9 +207,9 @@ class Log extends CiliatusModel
             case 'update':
                 return 'update';
             case 'recover':
-                return 'file_upload';
+                return 'upload';
             default:
-                return 'circle-o';
+                return 'checkbox-blank-circle-outline';
         }
     }
 

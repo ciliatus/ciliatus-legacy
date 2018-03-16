@@ -3,7 +3,7 @@
         <div class="card">
 
             <div class="card-header">
-                <i class="material-icons">vertical_align_center</i>
+                <i class="mdi mdi-18px mdi-format-vertical-align-center"></i>
                 {{ $tc("labels.logical_sensor_thresholds", 2) }}
             </div>
 
@@ -16,7 +16,7 @@
 
                         <template v-if="(threshold_list = thresholds.filter(t => t.data.logical_sensor_id === logical_sensor.data.id)).length > 0">
                             <div v-for="threshold in threshold_list" class="row row-no-margin">
-                                <i class="material-icons">vertical_align_center</i>
+                                <i class="mdi mdi-18px mdi-format-vertical-align-center"></i>
 
                                 <span>{{ threshold.data.timestamps.starts }}:</span>
                                 <span v-if="threshold.data.rawvalue_lowerlimit !== null">
@@ -28,7 +28,7 @@
 
                                 <span class="right">
                                     <a :href="'/logical_sensor_thresholds/' + threshold.data.id + '/edit'">
-                                        <i class="material-icons">edit</i>
+                                        <i class="mdi mdi-18px mdi-pencil"></i>
                                     </a>
                                 </span>
                             </div>

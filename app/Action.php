@@ -268,7 +268,7 @@ class Action extends CiliatusModel
      */
     public function icon()
     {
-        return 'assignment';
+        return 'flash';
     }
 
     /**

@@ -492,7 +492,7 @@ class Animal extends CiliatusModel
      */
     public function icon()
     {
-        return 'pets';
+        return 'paw';
     }
 
     /**

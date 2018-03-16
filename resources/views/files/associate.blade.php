@@ -31,7 +31,7 @@
                     <div class="row">
                         <div class="input-field col s12">
                             <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                <i class="material-icons left">save</i>
+                                <i class="mdi mdi-18px mdi-floppy left"></i>
                             </button>
                         </div>
                     </div>
@@ -43,10 +43,10 @@
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large orange darken-4">
-            <i class="large material-icons">mode_edit</i>
+            <i class="mdi mdi-18px mdi-pencil"></i>
         </a>
         <ul>
-            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/files/create?preset[belongsTo_type]={{ $type }}&preset[belongsTo_id]={{ $source->id }}"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/files/create?preset[belongsTo_type]={{ $type }}&preset[belongsTo_id]={{ $source->id }}"><i class="mdi mdi-24px mdi-plus"></i></a></li>
         </ul>
     </div>
 @stop

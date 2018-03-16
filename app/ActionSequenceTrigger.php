@@ -349,7 +349,7 @@ class ActionSequenceTrigger extends CiliatusModel
      */
     public function icon()
     {
-        return 'flare';
+        return 'vanish';
     }
 
     /**

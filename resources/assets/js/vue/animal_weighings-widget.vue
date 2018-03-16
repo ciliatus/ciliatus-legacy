@@ -17,7 +17,7 @@
                     <div class="modal-footer">
                         <button class="btn modal-action modal-close waves-effect waves-light" type="submit">
                             {{ $t("buttons.save") }}
-                            <i class="material-icons left">send</i>
+                            <i class="mdi mdi-18px mdi-floppy left"></i>
                         </button>
                     </div>
                 </form>
@@ -25,7 +25,7 @@
 
             <div class="card">
                 <div class="card-header">
-                    <i class="material-icons">vertical_align_bottom</i>
+                    <i class="mdi mdi-18px mdi-weight-kilogram"></i>
                     {{ $tc("labels.animal_weighings", 2) }}
                 </div>
 
@@ -51,7 +51,7 @@
                             <span class="right">
                                 <a class="red-text"
                                    :href="'/animals/' + animalId + '/weighings/' + weighing.data.id + '/delete'">
-                                    <i class="material-icons">delete</i>
+                                    <i class="mdi mdi-18px mdi-delete"></i>
                                 </a>
                             </span>
                         </div>

@@ -18,7 +18,7 @@
 
                             <td>
                                 <span>
-                                    <i class="material-icons">memory</i>
+                                    <i class="mdi mdi-24px mdi-switch"></i>
                                     <a v-bind:href="'/physical_sensors/' + physical_sensor.data.id">{{ physical_sensor.data.name }}</a>
                                     <span v-if="!physical_sensor.data.active"> - {{ $t('labels.inactive') }}</span>
                                 </span>
@@ -32,7 +32,7 @@
 
                             <td class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
                                 <span v-if="(controlunit = controlunits.filter(c => c.data.id === physical_sensor.data.controlunit_id)).length > 0">
-                                    <i class="material-icons">developer_board</i>
+                                    <i class="mdi mdi-24px mdi-developer-board"></i>
                                     <a v-bind:href="'/controlunits/' + controlunit[0].data.id">{{ controlunit[0].data.name }}</a>
                                 </span>
                             </td>
@@ -40,7 +40,7 @@
                             <td class="hide-on-med-and-down" v-if="hideCols.indexOf('terrarium') === -1">
                                 <span v-if="physical_sensor.data.terrarium &&
                                             (terrarium = terraria.filter(t => t.data.id === physical_sensor.data.terrarium.id)).length > 0">
-                                    <i class="material-icons">video_label</i>
+                                    <i class="mdi mdi-24px mdi-trackpad"></i>
                                     <a v-bind:href="'/terraria/' + terrarium[0].data.id">{{ terrarium[0].data.display_name }}</a>
                                 </span>
                             </td>
@@ -48,7 +48,7 @@
                             <td class="hide-on-small-only">
                                 <span>
                                     <a v-bind:href="'/physical_sensors/' + physical_sensor.data.id + '/edit'">
-                                        <i class="material-icons">edit</i>
+                                        <i class="mdi mdi-24px mdi-pencil"></i>
                                     </a>
                                 </span>
                             </td>
@@ -64,7 +64,7 @@
                                 <br />
                                 {{ $tc('labels.logical_sensors', 2) }}:
                                 <span v-for="(logical_sensor, index) in logical_sensors.filter(l => l.data.physical_sensor_id === physical_sensor.data.id)">
-                                    <i class="material-icons">memory</i>
+                                    <i class="mdi mdi-24px mdi-pulse"></i>
                                     <a v-bind:href="'/logical_sensors/' + logical_sensor.data.id">{{ logical_sensor.data.name }}</a>
                                     <template v-if="index < logical_sensors.filter(l => l.data.physical_sensor_id === physical_sensor.data.id).length-1">, </template>
                                 </span>

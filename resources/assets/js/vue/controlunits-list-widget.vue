@@ -17,7 +17,7 @@
                         <tr class="collapsible-header">
                             <td>
                                 <span>
-                                    <i class="material-icons">developer_board</i>
+                                    <i class="mdi mdi-24px mdi-developer-board"></i>
                                     <a v-bind:href="'/controlunits/' + controlunit.data.id">{{ controlunit.data.name }}</a>
                                     <span v-if="!controlunit.data.active"> - {{ $t('labels.inactive') }}</span>
                                 </span>
@@ -45,7 +45,7 @@
                             <td class="hide-on-small-only">
                                 <span>
                                     <a v-bind:href="'/controlunits/' + controlunit.data.id + '/edit'">
-                                        <i class="material-icons">edit</i>
+                                        <i class="mdi mdi-24px mdi-pencil"></i>
                                     </a>
                                 </span>
                             </td>
@@ -57,7 +57,7 @@
                                     <template v-if="(component_list = _self[type].filter(c => c.data.controlunit_id === controlunit.id)).length > 0">
                                         {{ $tc('labels.' + type, 2) }}:
                                         <span v-for="component in component_list">
-                                            <i class="material-icons">{{ component.data.icon }}</i>
+                                            <i :class="'mdi mdi-18px mdi-' + component.data.icon"></i>
                                             <a :href="component.data.url">{{ component.data.name }}</a>
                                         </span>
                                     </template>

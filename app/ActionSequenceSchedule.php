@@ -378,7 +378,7 @@ class ActionSequenceSchedule extends CiliatusModel
      */
     public function icon()
     {
-        return 'schedule';
+        return 'clock';
     }
 
     /**

@@ -19,7 +19,7 @@
 
                             <td>
                                 <span>
-                                    <i class="material-icons">transform</i>
+                                    <i class="mdi mdi-24px mdi-pipe-disconnected"></i>
                                     <a v-bind:href="'/valves/' + valve.data.id">{{ valve.data.name }}</a>
                                     <span v-if="!valve.data.active"> - {{ $t('labels.inactive') }}</span>
                                 </span>
@@ -33,21 +33,21 @@
 
                             <td v-if="hideCols.indexOf('pump') === -1">
                                 <span v-if="(pump = pumps.filter(p => p.data.id === valve.data.pump_id)).length > 0">
-                                    <i class="material-icons">rotate_right</i>
+                                    <i class="mdi mdi-24px mdi-water-pump"></i>
                                     <a :href="'/pumps/' + pump[0].data.id">{{ pump[0].data.name }}</a>
                                 </span>
                             </td>
 
                             <td class="hide-on-small-only" v-if="hideCols.indexOf('controlunit') === -1">
                                 <span v-if="(controlunit = controlunits.filter(c => c.data.id === valve.data.controlunit_id)).length > 0">
-                                    <i class="material-icons">developer_board</i>
+                                    <i class="mdi mdi-24px mdi-developer-board"></i>
                                     <a :href="'/controlunits/' + controlunit[0].data.id">{{ controlunit[0].data.name }}</a>
                                 </span>
                             </td>
 
                             <td class="hide-on-med-and-down" v-if="hideCols.indexOf('terrarium') === -1">
                                 <span v-if="(terrarium = terraria.filter(t => t.data.id === valve.data.terrarium_id)).length > 0">
-                                    <i class="material-icons">video_label</i>
+                                    <i class="mdi mdi-24px mdi-trackpad"></i>
                                     <a :href="'/terraria/' + terrarium[0].data.id">{{ terrarium[0].data.display_name }}</a>
                                 </span>
                             </td>
@@ -55,7 +55,7 @@
                             <td class="hide-on-small-only">
                                 <span>
                                     <a v-bind:href="'/valves/' + valve.data.id + '/edit'">
-                                        <i class="material-icons">edit</i>
+                                        <i class="mdi mdi-24px mdi-pencil"></i>
                                     </a>
                                 </span>
                             </td>

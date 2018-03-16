@@ -848,7 +848,7 @@ class Terrarium extends CiliatusModel
      */
     public function icon()
     {
-        return 'video_label';
+        return 'trackpad';
     }
 
     /**

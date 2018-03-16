@@ -125,7 +125,7 @@
                         <div class="card-title">
                             <span><a :href="'/terraria/' + terrarium.data.id">{{ terrarium.data.display_name }}</a></span>
                             <loading-indicator :size="20" v-show="terrarium.refreshing"> </loading-indicator>
-                            <a href="#!"><i class="material-icons right activator">more_vert</i></a>
+                            <a href="#!"><i class="mdi mdi-24px mdi-dots-vertical right activator white-text"></i></a>
                         </div>
                     </div>
 
@@ -139,11 +139,9 @@
                             {{ $t("labels.temperature") }}: {{ terrarium.data.cooked_temperature_celsius }}°C
 
                             <i v-if="terrarium.data.heartbeat_critical"
-                               class="material-icons deep-orange-text tooltipped"
+                               class="mdi mdi-sync-off deep-orange-text tooltipped"
                                data-delay="50" data-html="true"
-                               :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.heartbeat_critical') + '</div>'">
-                                sync_disabled
-                            </i>
+                               :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.heartbeat_critical') + '</div>'"></i>
 
                         </div>
 
@@ -153,11 +151,9 @@
                             {{ $t("labels.humidity") }}: {{ terrarium.data.cooked_humidity_percent }}%
 
                             <i v-if="terrarium.data.heartbeat_critical"
-                               class="material-icons deep-orange-text tooltipped"
+                               class="mdi mdi-sync-off deep-orange-text tooltipped"
                                data-delay="50" data-html="true"
-                               :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.heartbeat_critical') + '</div>'">
-                                sync_disabled
-                            </i>
+                               :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.heartbeat_critical') + '</div>'"></i>
 
                         </div>
                     </div>
@@ -165,28 +161,28 @@
                     <div class="card-reveal">
                         <div>
                             <strong>{{ terrarium.data.display_name }}</strong>
-                            <i class="material-icons right card-title card-title-small">close</i>
+                            <i class="mdi mdi-24px mdi-close right card-title card-title-small"></i>
                         </div>
 
                         <p v-for="animal in animals.filter(a => a.data.terrarium_id === terrarium.id)">
-                            <i class="material-icons">pets</i>
+                            <i class="mdi mdi-18px mdi-paw"></i>
                             <a v-bind:href="'/animals/' + animal.data.id">{{ animal.data.display_name }}</a> <i>{{ animal.data.common_name }}</i>
                         </p>
 
                         <p v-if="terrarium.data.capabilities.irrigate">
-                            <i class="material-icons">play_arrow</i>
+                            <i class="mdi mdi-18px mdi-weather-pouring"></i>
                             <a href="#!" v-on:click="action_sequence_modal(terrarium.data.id, 'irrigate')">{{ $t('buttons.irrigate') }}</a>
                         </p>
                         <p v-if="terrarium.data.capabilities.ventilate">
-                            <i class="material-icons">play_arrow</i>
+                            <i class="mdi mdi-18px mdi-weather-windy"></i>
                             <a href="#!" v-on:click="action_sequence_modal(terrarium.data.id, 'ventilate')">{{ $t('buttons.ventilate') }}</a>
                         </p>
                         <p v-if="terrarium.data.capabilities.heat_up">
-                            <i class="material-icons">play_arrow</i>
+                            <i class="mdi mdi-18px mdi-weather-sunny"></i>
                             <a href="#!" v-on:click="action_sequence_modal(terrarium.data.id, 'heat_up')">{{ $t('buttons.heat_up') }}</a>
                         </p>
                         <p v-if="terrarium.data.capabilities.cool_down">
-                            <i class="material-icons">play_arrow</i>
+                            <i class="mdi mdi-18px mdi-snowflake"></i>
                             <a href="#!" v-on:click="action_sequence_modal(terrarium.data.id, 'cool_down')">{{ $t('buttons.cool_down') }}</a>
                         </p>
                     </div>

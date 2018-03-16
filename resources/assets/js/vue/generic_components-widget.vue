@@ -2,7 +2,7 @@
     <div :class="wrapperClasses">
         <div class="card" v-if="generic_component.data">
             <div class="card-header">
-                <i class="material-icons">{{ generic_component.data.type.icon }}</i>
+                <i :class="'mdi mdi-18px mdi-' + generic_component.data.type.icon"></i>
                 {{ generic_component.data.type.name_singular }}
             </div>
 

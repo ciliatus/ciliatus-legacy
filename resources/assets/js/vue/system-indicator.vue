@@ -8,7 +8,7 @@
                       && ready">
 
                 <div class="side-menu-info-title">
-                    <i class="material-icons">signal_wifi_off</i> {{ $t('labels.connecting') }}
+                    <i class="mdi mdi-18px mdi-wifi-off"></i> {{ $t('labels.connecting') }}
                 </div>
                 <div class="side-menu-info-content">
                     <span>{{ $t('tooltips.connecting_to_server') }}</span>
@@ -19,7 +19,7 @@
         <transition name="fade">
             <div class="side-menu-info" v-show="system.emergency_stop === true">
                 <div class="side-menu-info-title">
-                    <i class="material-icons">power_settings_new</i> {{ $t('labels.emergency_stop') }}
+                    <i class="mdi mdi-18px mdi-power"></i> {{ $t('labels.emergency_stop') }}
                 </div>
                 <div class="side-menu-info-content">
                     <span>{{ $t('tooltips.emergency_stop') }}</span>

@@ -70,7 +70,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons left">save</i>
+                                        <i class="mdi mdi-18px mdi-floppy left"></i>
                                     </button>
                                 </div>
                             </div>

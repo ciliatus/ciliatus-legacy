@@ -45,7 +45,7 @@
             @if(!App::isDownForMaintenance())
             <div class="row center-align white-text">
                 <a class="btn btn-primary" href="/">
-                    <i class="material-icons">keyboard_return</i>
+                    <i class="mdi mdi-18px mdi-keyboard-return"></i>
                     Return to start
                 </a>
             </div>

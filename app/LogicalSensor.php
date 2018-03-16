@@ -370,7 +370,7 @@ class LogicalSensor extends Component
      */
     public function icon()
     {
-        return 'memory';
+        return 'puls';
     }
 
     /**

@@ -44,7 +44,7 @@
         <!-- Materialize.clockpicker.js -->
         <script src="{{ url('/js/vendors/materialize.clockpicker.js') }}"></script>
         <!-- Masonry -->
-        <script src="{{ url('/js/vendors/masonry.pkgd.min.js') }}"></script>
+        <script src="{{ url('/js/vendors/masonry-4.1.1.min.js') }}"></script>
         <!-- ciliatus -->
         <script src="{{ url('/js/app.js') }}"></script>
         <!-- Vue -->

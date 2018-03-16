@@ -304,7 +304,7 @@ class User extends CiliatusModel implements
      */
     public function icon()
     {
-        return 'person';
+        return 'account';
     }
 
     /**

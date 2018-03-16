@@ -49,7 +49,7 @@ class UserSetting extends CiliatusModel
      */
     public function icon()
     {
-        return 'user-plus';
+        return 'account-settings-variant';
     }
 
     /**

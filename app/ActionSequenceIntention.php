@@ -358,7 +358,7 @@ class ActionSequenceIntention extends CiliatusModel
      */
     public function icon()
     {
-        return 'explore';
+        return 'compass';
     }
 
     /**

@@ -37,7 +37,7 @@
 
             <div class="col s12 m2 l2">
                 <div class="center-align">
-                    <i class="medium material-icons">wallpaper</i>
+                    <i class="mdi mdi-18px mdi-image-filter-hdr"></i>
                 </div>
 
                 <div class="center-align">
@@ -81,7 +81,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons left">save</i>
+                                        <i class="mdi mdi-18px mdi-floppy left"></i>
                                     </button>
                                 </div>
                             </div>

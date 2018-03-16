@@ -54,7 +54,7 @@ class AnimalFeedingScheduleProperty extends Property
      */
     public function icon()
     {
-        return 'schedule';
+        return 'clock';
     }
 
     /**

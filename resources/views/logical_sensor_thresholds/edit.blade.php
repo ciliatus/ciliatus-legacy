@@ -50,7 +50,7 @@
                                     <strong class="tooltipped" data-delay="50" data-html="true"
                                             :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.logical_sensor_thresholds.limits') + '</div>'">
                                         @lang('labels.rawlimits')
-                                        <i class="material-icons">info_outline</i>
+                                        <i class="mdi mdi-18px mdi-information-outline"></i>
                                     </strong>
                                 </div>
                                 <div class="input-field col s12 m6 l6">
@@ -80,7 +80,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons left">save</i>
+                                        <i class="mdi mdi-18px mdi-floppy left"></i>
                                     </button>
                                 </div>
                             </div>
@@ -94,12 +94,12 @@
     
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large orange darken-4">
-            <i class="large material-icons">mode_edit</i>
+            <i class="mdi mdi-18px mdi-pencil"></i>
         </a>
         <ul>
-            <li><a class="btn-floating teal" href="/logical_sensor_thresholds/{{ $logical_sensor_threshold->id }}"><i class="material-icons">info</i></a></li>
-            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/logical_sensor_thresholds/{{ $logical_sensor_threshold->id }}/delete"><i class="material-icons">delete</i></a></li>
-            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/logical_sensor_thresholds/create"><i class="material-icons">add</i></a></li>
+            <li><a class="btn-floating teal" href="/logical_sensor_thresholds/{{ $logical_sensor_threshold->id }}"><i class="mdi mdi-18px mdi-information-outline"></i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/logical_sensor_thresholds/{{ $logical_sensor_threshold->id }}/delete"><i class="mdi mdi-24px mdi-delete"></i></a></li>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/logical_sensor_thresholds/create"><i class="mdi mdi-24px mdi-plus"></i></a></li>
         </ul>
     </div>
 @stop

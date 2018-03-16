@@ -20,7 +20,7 @@
 
             <div class="modal-footer">
                 <button v-if="feedingTypes.length > 0" class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
-                    <i class="material-icons left">send</i>
+                    <i class="mdi mdi-18px mdi-floppy left"></i>
                 </button>
             </div>
         </form>

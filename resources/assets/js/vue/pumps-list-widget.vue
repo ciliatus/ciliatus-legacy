@@ -16,7 +16,7 @@
                         <tr class="collapsible-header">
                             <td>
                                 <span>
-                                    <i class="material-icons">rotate_right</i>
+                                    <i class="mdi mdi-24px mdi-water-pump"></i>
                                     <a v-bind:href="'/pumps/' + pump.data.id">{{ pump.data.name }}</a>
                                     <span v-if="!pump.data.active"> - {{ $t('labels.inactive') }}</span>
                                 </span>
@@ -30,7 +30,7 @@
 
                             <td v-if="hideCols.indexOf('controlunit') === -1">
                                 <span v-if="(controlunit = controlunits.filter(c => c.data.id === pump.data.controlunit_id)).length > 0">
-                                    <i class="material-icons">developer_board</i>
+                                    <i class="mdi mdi-24px mdi-developer-board"></i>
                                     <a v-bind:href="'/controlunits/' + controlunit[0].data.id">{{ controlunit[0].data.name }}</a>
                                 </span>
                             </td>
@@ -38,7 +38,7 @@
                             <td class="hide-on-small-only">
                                 <span>
                                     <a v-bind:href="'/pumps/' + pump.data.id + '/edit'">
-                                        <i class="material-icons">edit</i>
+                                        <i class="mdi mdi-24px mdi-pencil"></i>
                                     </a>
                                 </span>
                             </td>
@@ -48,7 +48,7 @@
                             <td colspan="3">
                                 {{ $tc('labels.valves', 2) }}:
                                 <span v-for="(valve, index) in valves.filter(v => v.data.pump_id === pump.data.id)">
-                                        <i class="material-icons">transform</i>
+                                        <i class="mdi mdi-24px mdi-pipe-disconnected"></i>
                                         <a v-bind:href="'/valves/' + valve.data.id">{{ valve.data.name }}</a>
                                         <template v-if="index < valves.filter(v => v.data.pump_id === pump.data.id).length-1">, </template>
                                     </span>

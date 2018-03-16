@@ -64,7 +64,7 @@
             ld.cleanupRefs();
             if (success === true) {
                 ld.stop();
-                $('#loading-indicator').html('<h4><i class="material-icons">check</i></h4>');
+                $('#loading-indicator').html('<h4><i class="mdi mdi-48px mdi-check"></i></h4>');
                 $('#next-button').removeAttr('disabled');
             }
         };

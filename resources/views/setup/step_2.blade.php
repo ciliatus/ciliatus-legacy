@@ -9,7 +9,7 @@
                 <p>
                     <br /><br />
                     <a class="btn btn-primary" href="/auth/login">
-                        <i class="material-icons">security</i>
+                        <i class="mdi mdi-18px mdi-security"></i>
                         @lang('labels.login')
                     </a>
                 </p>

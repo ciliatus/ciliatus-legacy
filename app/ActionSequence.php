@@ -284,7 +284,7 @@ class ActionSequence extends CiliatusModel
      */
     public function icon()
     {
-        return 'playlist_play';
+        return 'playlist-play';
     }
 
     /**

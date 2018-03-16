@@ -22,7 +22,7 @@
                 <div class="col s12 m7 l8">
                     <div class="card">
                         <div class="card-header">
-                            <i class="material-icons">memory</i>
+                            <i class="mdi mdi-18px mdi-switch"></i>
                             @choice('labels.physical_sensors', 2)
                         </div>
                         <div class="card-content">
@@ -35,7 +35,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <i class="material-icons">rotate_right</i>
+                            <i class="mdi mdi-18px mdi-water-pump"></i>
                             @choice('labels.pumps', 2)
                         </div>
                         <div class="card-content">
@@ -48,7 +48,7 @@
 
                     <div class="card">
                         <div class="card-header">
-                            <i class="material-icons">transform</i>
+                            <i class="mdi mdi-18px mdi-pipe-disconnected"></i>
                             @choice('labels.valves', 2)
                         </div>
                         <div class="card-content">
@@ -64,12 +64,12 @@
 
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large orange darken-4">
-                <i class="large material-icons">mode_edit</i>
+                <i class="mdi mdi-18px mdi-pencil"></i>
             </a>
             <ul>
-                <li><a class="btn-floating orange tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.edit')"href="/controlunits/{{ $controlunit->id }}/edit"><i class="material-icons">edit</i></a></li>
-                <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/controlunits/{{ $controlunit->id }}/delete"><i class="material-icons">delete</i></a></li>
-                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/controlunits/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating orange tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.edit')"href="/controlunits/{{ $controlunit->id }}/edit"><i class="mdi mdi-24px mdi-pencil"></i></a></li>
+                <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/controlunits/{{ $controlunit->id }}/delete"><i class="mdi mdi-24px mdi-delete"></i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/controlunits/create"><i class="mdi mdi-24px mdi-plus"></i></a></li>
             </ul>
         </div>
     </div>
@@ -85,10 +85,10 @@
 
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large orange darken-4">
-                <i class="large material-icons">mode_edit</i>
+                <i class="mdi mdi-18px mdi-pencil"></i>
             </a>
             <ul>
-                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/configuration/create"><i class="material-icons">add</i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/configuration/create"><i class="mdi mdi-24px mdi-plus"></i></a></li>
             </ul>
         </div>
     </div>

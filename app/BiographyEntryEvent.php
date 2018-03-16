@@ -54,7 +54,7 @@ class BiographyEntryEvent extends Event
      */
     public function icon()
     {
-        return 'event';
+        return 'notebook';
     }
 
     /**

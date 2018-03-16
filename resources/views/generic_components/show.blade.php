@@ -22,11 +22,11 @@
 
     <div class="fixed-action-btn">
         <a class="btn-floating btn-large orange darken-4">
-            <i class="large material-icons">mode_edit</i>
+            <i class="mdi mdi-18px mdi-pencil"></i>
         </a>
         <ul>
-            <li><a class="btn-floating orange tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.edit')"href="/generic_components/{{ $generic_component->id }}/edit"><i class="material-icons">edit</i></a></li>
-            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/generic_components/{{ $generic_component->id }}/delete"><i class="material-icons">delete</i></a></li>
+            <li><a class="btn-floating orange tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.edit')"href="/generic_components/{{ $generic_component->id }}/edit"><i class="mdi mdi-24px mdi-pencil"></i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/generic_components/{{ $generic_component->id }}/delete"><i class="mdi mdi-24px mdi-delete"></i></a></li>
         </ul>
     </div>
 @stop

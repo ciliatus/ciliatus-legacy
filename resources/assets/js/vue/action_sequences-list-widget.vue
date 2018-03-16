@@ -16,7 +16,7 @@
 
                             <td>
                                 <span>
-                                    <i class="material-icons">playlist_play</i>
+                                    <i class="mdi mdi-24px mdi-playlist-play"></i>
                                     <a v-bind:href="'/action_sequences/' + sequence.data.id + '/edit'">{{ sequence.data.name }}</a>
                                 </span>
                             </td>
@@ -24,7 +24,7 @@
                             <td>
                                 <span v-if="(terrarium = terraria.filter(t => t.id === sequence.data.terrarium.id)).length > 0">
                                     <template v-if="terrarium[0].data">
-                                        <i class="material-icons">video_label</i>
+                                        <i class="mdi mdi-24px mdi-trackpad"></i>
                                         <a v-bind:href="'/terraria/' + terrarium[0].data.id">{{ terrarium[0].data.name }}</a>
                                     </template>
                                 </span>
@@ -33,7 +33,7 @@
                             <td>
                                 <span>
                                     <a v-bind:href="'/action_sequences/' + sequence.data.id + '/edit'">
-                                        <i class="material-icons">edit</i>
+                                        <i class="mdi mdi-24px mdi-pencil"></i>
                                     </a>
                                 </span>
                             </td>
@@ -45,7 +45,7 @@
                                     <strong>{{ $tc('labels.action_sequence_schedules', 2) }}</strong>
                                     <li v-for="(schedule, index) in sequence_schedules">
                                         <template v-if="schedule.data">
-                                            <i class="material-icons">schedule</i>
+                                            <i class="mdi mdi-18px mdi-clock"></i>
                                             <span>{{ schedule.timestamps.starts }}</span>
                                             <span v-if="schedule.timestamps.runonce"><i>{{ $t('labels.runonce') }}</i></span>
                                             <span v-else><i>{{ $t('labels.daily') }}</i></span>
@@ -57,7 +57,7 @@
                                     <strong>{{ $tc('labels.action_sequence_triggers', 2) }}</strong>
                                     <li v-for="(trigger, index) in sequence_triggers">
                                         <template v-if="trigger.data">
-                                            <i class="material-icons">flare</i>
+                                            <i class="mdi mdi-18px mdi-vanish"></i>
                                             <span>{{ $t('labels.' + trigger.data.logical_sensor.type) }}</span>
                                             <span v-if="trigger.data.reference_value_comparison_type == 'greater'">&gt;</span>
                                             <span v-if="trigger.data.reference_value_comparison_type == 'lesser'">&lt;</span>
@@ -78,7 +78,7 @@
                                     <strong>{{ $tc('labels.action_sequence_intentions', 2) }}</strong>
                                     <li v-for="(intention, index) in sequence_intentions">
                                         <template v-if="intention.data">
-                                            <i class="material-icons">explore</i>
+                                            <i class="mdi mdi-18px mdi-compass"></i>
                                             <span>{{ $t('labels.' + intention.data.intention) }}</span>
                                             <span>{{ $t('labels.' + intention.data.type) }}</span>
                                             <span>

@@ -3,7 +3,7 @@
     <div class="card">
 
         <div class="card-header">
-            <i class="material-icons">playlist_play</i>
+            <i class="mdi mdi-18px mdi-playlist-play"></i>
             {{ action_sequences.length }} {{ $tc("labels.action_sequences", 2) }}
         </div>
 
@@ -13,12 +13,12 @@
                     <a :href="'/action_sequences/' + as.id + '/edit'"><strong>{{ as.name }}</strong></a>
 
                     <a v-bind:href="'/action_sequences/' + as.id + '/edit'" class="right">
-                        <i class="material-icons">edit</i>
+                        <i class="mdi mdi-18px mdi-pencil"></i>
                     </a>
                 </div>
 
                 <div class="row row-no-margin" v-for="asi in as.intentions">
-                    <i class="material-icons">explore</i>
+                    <i class="mdi mdi-18px mdi-compass"></i>
 
                     <span v-if="asi.intention === 'increase'">{{ $t('labels.increases') }}</span>
                     <span v-if="asi.intention === 'decrease'">{{ $t('labels.decreases') }}</span>
@@ -31,14 +31,14 @@
                 </div>
 
                 <div v-for="ast in as.triggers">
-                    <i class="material-icons">flare</i> {{ ast.logical_sensor.name }} {{ $t('units.' + ast.reference_value_comparison_type) }} {{ ast.reference_value }}
+                    <i class="mdi mdi-18px mdi-vanish"></i> {{ ast.logical_sensor.name }} {{ $t('units.' + ast.reference_value_comparison_type) }} {{ ast.reference_value }}
                     <span v-show="ast.states.running">
                         <span class="new badge" v-bind:data-badge-caption="$t('labels.active')"> </span>
                     </span>
                 </div>
 
                 <div v-for="ass in as.schedules">
-                    <i class="material-icons">schedule</i> {{ ass.timestamps.starts }} <i v-show="!ass.runonce">{{ $t("labels.daily") }}</i>
+                    <i class="mdi mdi-18px mdi-clock"></i> {{ ass.timestamps.starts }} <i v-show="!ass.runonce">{{ $t("labels.daily") }}</i>
                     <span v-show="ass.states.running">
                         <span class="new badge" v-bind:data-badge-caption="$t('labels.active')"> </span>
                     </span>

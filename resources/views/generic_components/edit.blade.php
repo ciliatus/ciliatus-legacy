@@ -19,7 +19,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <input type="text" name="type_id" value="{{ $generic_component->type->id }}" readonly hidden>
-                                    <i class="material-icons prefix">{{ $generic_component->type->icon }}</i>
+                                    <i class="mdi mdi-18px mdi-{{ $generic_component->type->icon }} prefix"></i>
                                     <input type="text" name="type_name" value="{{ $generic_component->type->name_singular }}" readonly>
                                     <label for="type_name">@choice('labels.generic_components', 1)</label>
                                 </div>
@@ -79,7 +79,7 @@
                             <div class="row">
                                 <div class="input-field col s12">
                                     <button class="btn waves-effect waves-light" type="submit">@lang('buttons.save')
-                                        <i class="material-icons left">save</i>
+                                        <i class="mdi mdi-18px mdi-floppy left"></i>
                                     </button>
                                 </div>
                             </div>
