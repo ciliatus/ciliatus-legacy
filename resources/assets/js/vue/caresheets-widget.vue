@@ -119,6 +119,10 @@
                         console.log(JSON.stringify(error));
                     }
                 });
+            },
+
+            unsubscribe_all () {
+                this.caresheets.forEach((c) => c.unsubscribe());
             }
         },
 

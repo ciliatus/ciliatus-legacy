@@ -159,6 +159,10 @@
                         console.log(JSON.stringify(error));
                     }
                 });
+            },
+
+            unsubscribe_all () {
+                this.weighings.forEach((w) => w.unsubscribe());
             }
         },
 

@@ -179,6 +179,10 @@
                         console.log(JSON.stringify(error));
                     }
                 });
+            },
+
+            unsubscribe_all () {
+                this.files.forEach((f) => f.unsubscribe());
             }
         },
 

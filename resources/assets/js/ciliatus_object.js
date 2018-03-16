@@ -9,6 +9,7 @@ export default class CiliatusObject {
         this.max_age_seconds = 60;
         this.api_url = global.apiUrl;
         this.refreshing = false;
+        this.subscribed = 1;
 
         this.__verifyId();
 
@@ -20,6 +21,12 @@ export default class CiliatusObject {
             this.last_refresh = Date.now();
             this.last_persist = 0
         }
+
+        setInterval(() => {
+            if (this.subscribed > 0) {
+                this.refresh()
+            }
+        }, 60000);
     }
 
     refresh (force, timeout) {
@@ -79,6 +86,14 @@ export default class CiliatusObject {
             }
         });
         this.last_persist = Date.now();
+    }
+
+    subscribe () {
+        this.subscribed += 1;
+    }
+
+    unsubscribe () {
+        this.subscribed -= 1;
     }
 
     __verifyId () {

@@ -156,6 +156,10 @@
                         console.log(JSON.stringify(error));
                     }
                 });
+            },
+
+            unsubscribe_all () {
+                this.feedings.forEach((f) => f.unsubscribe());
             }
         },
 

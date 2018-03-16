@@ -368,6 +368,11 @@
                     $('.modal').modal();
                     $('.tooltipped').tooltip({delay: 50});
                 });
+            },
+
+            unsubscribe_all () {
+                this.terraria.forEach((t) => t.unsubscribe());
+                this.animals.forEach((a) => a.unsubscribe());
             }
         },
 

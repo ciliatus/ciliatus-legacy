@@ -271,6 +271,11 @@ export default {
                     format: 'yyyy-mm-dd',
                 });
             });
+        },
+
+        unsubscribe_all () {
+            this.animals.forEach((a) => a.unsubscribe());
+            this.terraria.forEach((t) => t.unsubscribe());
         }
     },
 

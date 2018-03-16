@@ -134,6 +134,9 @@
                         window.eventHubVue.processEnded();
                     }
                 });
+            },
+
+            unsubscribe_all () {
             }
         },
 

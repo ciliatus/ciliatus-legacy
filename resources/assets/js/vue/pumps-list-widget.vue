@@ -166,6 +166,12 @@
                         console.log(JSON.stringify(error));
                     }
                 });
+            },
+
+            unsubscribe_all () {
+                this.pumps.forEach((p) => p.unsubscribe());
+                this.valves.forEach((v) => v.unsubscribe());
+                this.controlunits.forEach((c) => c.unsubscribe());
             }
         },
 

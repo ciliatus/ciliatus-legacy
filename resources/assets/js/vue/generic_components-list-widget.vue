@@ -153,6 +153,11 @@
                         console.log(JSON.stringify(error));
                     }
                 });
+            },
+
+            unsubscribe_all () {
+                this.generic_components.forEach((g) => g.unsubscribe());
+                this.controlunits.forEach((c) => c.unsubscribe());
             }
         },
 

@@ -104,6 +104,10 @@
                         console.log(JSON.stringify(error));
                     }
                 });
+            },
+
+            unsubscribe_all () {
+                this.users.forEach((u) => u.unsubscribe());
             }
         },
 

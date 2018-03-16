@@ -193,6 +193,13 @@
                         console.log(JSON.stringify(error));
                     }
                 });
+            },
+
+            unsubscribe_all () {
+                this.terraria.forEach((t) => t.unsubscribe());
+                this.logical_sensors.forEach((l) => l.unsubscribe());
+                this.physical_sensors.forEach((p) => p.unsubscribe());
+                this.controlunits.forEach((c) => c.unsubscribe());
             }
         },
 

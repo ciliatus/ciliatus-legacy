@@ -128,8 +128,12 @@ global.ciliatusVue = new global.Vue({
                 id = data.id;
             }
 
-            if (this.$store.state[type].filter(o => o.id === id).length < 1) {
+            let obj = [];
+            if ((obj = this.$store.state[type].filter(o => o.id === id)).length < 1) {
                 this.$store.state[type].push(new CiliatusObject(this, type, id, data, include));
+            }
+            else {
+                obj.forEach((o) => o.subscribe());
             }
         },
 

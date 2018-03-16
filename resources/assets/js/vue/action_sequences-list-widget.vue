@@ -237,6 +237,14 @@
                     console.log(JSON.stringify(error));
                 }
             });
+        },
+
+        unsubscribe_all () {
+            this.sequences.forEach((s) => s.unsubscribe());
+            this.intentions.forEach((i) => i.unsubscribe());
+            this.schedules.forEach((s) => s.unsubscribe());
+            this.triggers.forEach((t) => t.unsubscribe());
+            this.terraria.forEach((t) => t.unsubscribe());
         }
     },
 

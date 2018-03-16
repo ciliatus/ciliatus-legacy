@@ -149,6 +149,7 @@ export default {
 
         set_page: function(page) {
             this.page = page ? page : 1;
+            this.$parent.unsubscribe_all();
             this.$parent.load_data();
         },
 
