@@ -145,7 +145,7 @@ class ActionSequenceScheduleController extends ApiController
         }
 
         if ($request->filled('action_sequence')) {
-            $a = ActionSequence::find($request->input('action_sequence_id'));
+            $a = ActionSequence::find($request->input('action_sequence'));
             if (is_null($a)) {
                 return $this->respondRelatedModelNotFound(ActionSequence::class);
             }
