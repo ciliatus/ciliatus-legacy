@@ -24,6 +24,7 @@ class ActionSequenceTriggerTransformer extends Transformer
             'id'                    =>  $item['id'],
             'action_sequence_id'    => $item['action_sequence_id'],
             'logical_sensor_id'     => $item['logical_sensor_id'],
+            'logical_sensor_type'   => isset($item['logical_sensor']) ? $item['logical_sensor']['type'] : null,
             'reference_value'       => $item['reference_value'],
             'reference_value_comparison_type' => $item['reference_value_comparison_type'],
             'minimum_timeout_minutes' => $item['minimum_timeout_minutes'],

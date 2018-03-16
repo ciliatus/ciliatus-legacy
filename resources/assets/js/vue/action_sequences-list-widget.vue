@@ -22,7 +22,7 @@
                             </td>
 
                             <td>
-                                <span v-if="(terrarium = terraria.filter(t => t.id === sequence.data.terrarium.id)).length > 0">
+                                <span v-if="(terrarium = terraria.filter(t => t.id === sequence.data.terrarium_id)).length > 0">
                                     <template v-if="terrarium[0].data">
                                         <i class="mdi mdi-24px mdi-trackpad"></i>
                                         <a v-bind:href="'/terraria/' + terrarium[0].data.id">{{ terrarium[0].data.name }}</a>
@@ -58,7 +58,7 @@
                                     <li v-for="(trigger, index) in sequence_triggers">
                                         <template v-if="trigger.data">
                                             <i class="mdi mdi-18px mdi-vanish"></i>
-                                            <span>{{ $t('labels.' + trigger.data.logical_sensor.type) }}</span>
+                                            <span>{{ $t('labels.' + trigger.data.logical_sensor_type) }}</span>
                                             <span v-if="trigger.data.reference_value_comparison_type == 'greater'">&gt;</span>
                                             <span v-if="trigger.data.reference_value_comparison_type == 'lesser'">&lt;</span>
                                             <span>{{ trigger.data.reference_value }}</span>
