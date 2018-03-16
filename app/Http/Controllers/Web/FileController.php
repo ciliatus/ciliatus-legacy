@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\File;
 use App\Http\Controllers\Controller;
+use Symfony\Component\HttpFoundation\File\Exception\FileNotFoundException;
 use Illuminate\Http\Request;
 
 /**
@@ -158,7 +159,12 @@ class FileController extends Controller
             return response()->view('errors.404', [], 404);
         }
 
-        return response()->file($file->path_internal());
+        try {
+            return response()->file($file->path_internal());
+        }
+        catch (FileNotFoundException $ex) {
+            return response()->view('errors.404', [], 404);
+        }
     }
 
     /**
