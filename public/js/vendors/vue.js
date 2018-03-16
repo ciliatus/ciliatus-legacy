@@ -298,6 +298,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 var CiliatusObject = function () {
     function CiliatusObject(ciliatus, type, id, data, include) {
+        var _this = this;
+
         _classCallCheck(this, CiliatusObject);
 
         this.ciliatus = ciliatus;
@@ -308,6 +310,7 @@ var CiliatusObject = function () {
         this.max_age_seconds = 60;
         this.api_url = global.apiUrl;
         this.refreshing = false;
+        this.subscribed = 1;
 
         this.__verifyId();
 
@@ -318,12 +321,18 @@ var CiliatusObject = function () {
             this.last_refresh = Date.now();
             this.last_persist = 0;
         }
+
+        setInterval(function () {
+            if (_this.subscribed > 0) {
+                _this.refresh();
+            }
+        }, 60000);
     }
 
     _createClass(CiliatusObject, [{
         key: 'refresh',
         value: function refresh(force, timeout) {
-            var _this = this;
+            var _this2 = this;
 
             if (!force && !(this.last_change > this.last_refresh) || this.last_change === undefined || this.last_refresh === undefined) {
                 this.refreshing = true;
@@ -331,10 +340,10 @@ var CiliatusObject = function () {
                 timeout = timeout ? timeout * 1000 : 1;
                 setTimeout(function () {
                     jQuery.ajax({
-                        context: _this,
-                        url: _this.url(),
+                        context: _this2,
+                        url: _this2.url(),
                         method: 'GET',
-                        success: _this.handleApiResult
+                        success: _this2.handleApiResult
                     });
                 }, timeout);
             } else {
@@ -379,6 +388,16 @@ var CiliatusObject = function () {
                 }
             });
             this.last_persist = Date.now();
+        }
+    }, {
+        key: 'subscribe',
+        value: function subscribe() {
+            this.subscribed += 1;
+        }
+    }, {
+        key: 'unsubscribe',
+        value: function unsubscribe() {
+            this.subscribed -= 1;
         }
     }, {
         key: '__verifyId',
@@ -1779,6 +1798,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(JSON.stringify(_error));
                 }
             });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.sequences.forEach(function (s) {
+                return s.unsubscribe();
+            });
+            this.intentions.forEach(function (i) {
+                return i.unsubscribe();
+            });
+            this.schedules.forEach(function (s) {
+                return s.unsubscribe();
+            });
+            this.triggers.forEach(function (t) {
+                return t.unsubscribe();
+            });
+            this.terraria.forEach(function (t) {
+                return t.unsubscribe();
+            });
         }
     },
 
@@ -2536,6 +2573,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(JSON.stringify(_error2));
                 }
             });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.feedings.forEach(function (f) {
+                return f.unsubscribe();
+            });
         }
     },
 
@@ -2967,6 +3010,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(JSON.stringify(_error));
                 }
             });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.weighings.forEach(function (w) {
+                return w.unsubscribe();
+            });
         }
     },
 
@@ -3270,6 +3319,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     selectYears: 15,
                     format: 'yyyy-mm-dd'
                 });
+            });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.animals.forEach(function (a) {
+                return a.unsubscribe();
+            });
+            this.terraria.forEach(function (t) {
+                return t.unsubscribe();
             });
         }
     },
@@ -3611,6 +3669,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(JSON.stringify(_error));
                 }
             });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.entries.forEach(function (e) {
+                return e.unsubscribe();
+            });
+            this.files.forEach(function (f) {
+                return f.unsubscribe();
+            });
         }
     },
 
@@ -3943,6 +4010,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 error: function error(_error) {
                     console.log(JSON.stringify(_error));
                 }
+            });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.caresheets.forEach(function (c) {
+                return c.unsubscribe();
             });
         }
     },
@@ -4334,6 +4407,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(JSON.stringify(_error));
                 }
             });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.pumps.forEach(function (p) {
+                return p.unsubscribe();
+            });
+            this.valves.forEach(function (v) {
+                return v.unsubscribe();
+            });
+            this.generic_components.forEach(function (g) {
+                return g.unsubscribe();
+            });
+            this.physical_sensors.forEach(function (p) {
+                return p.unsubscribe();
+            });
+            this.controlunits.forEach(function (c) {
+                return c.unsubscribe();
+            });
         }
     },
 
@@ -4689,6 +4780,24 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 error: function error(_error) {
                     console.log(JSON.stringify(_error));
                 }
+            });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.pumps.forEach(function (p) {
+                return p.unsubscribe();
+            });
+            this.valves.forEach(function (v) {
+                return v.unsubscribe();
+            });
+            this.generic_components.forEach(function (g) {
+                return g.unsubscribe();
+            });
+            this.physical_sensors.forEach(function (p) {
+                return p.unsubscribe();
+            });
+            this.controlunits.forEach(function (c) {
+                return c.unsubscribe();
             });
         }
     },
@@ -5942,6 +6051,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 error: function error(_error) {
                     console.log(JSON.stringify(_error));
                 }
+            });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.files.forEach(function (f) {
+                return f.unsubscribe();
             });
         }
     },
@@ -7461,6 +7576,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(JSON.stringify(_error));
                 }
             });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.generic_components.forEach(function (g) {
+                return g.unsubscribe();
+            });
+            this.controlunits.forEach(function (c) {
+                return c.unsubscribe();
+            });
         }
     },
 
@@ -8515,6 +8639,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(JSON.stringify(_error));
                 }
             });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.terraria.forEach(function (t) {
+                return t.unsubscribe();
+            });
+            this.logical_sensors.forEach(function (l) {
+                return l.unsubscribe();
+            });
+            this.physical_sensors.forEach(function (p) {
+                return p.unsubscribe();
+            });
+            this.controlunits.forEach(function (c) {
+                return c.unsubscribe();
+            });
         }
     },
 
@@ -8669,7 +8808,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     window.eventHubVue.processEnded();
                 }
             });
-        }
+        },
+
+        unsubscribe_all: function unsubscribe_all() {}
     },
 
     created: function created() {
@@ -8836,6 +8977,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
         set_page: function set_page(page) {
             this.page = page ? page : 1;
+            this.$parent.unsubscribe_all();
             this.$parent.load_data();
         },
 
@@ -9302,6 +9444,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(JSON.stringify(_error));
                 }
             });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.terraria.forEach(function (t) {
+                return t.unsubscribe();
+            });
+            this.logical_sensors.forEach(function (l) {
+                return l.unsubscribe();
+            });
+            this.physical_sensors.forEach(function (p) {
+                return p.unsubscribe();
+            });
+            this.controlunits.forEach(function (c) {
+                return c.unsubscribe();
+            });
         }
     },
 
@@ -9574,6 +9731,18 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 error: function error(_error) {
                     console.log(JSON.stringify(_error));
                 }
+            });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.pumps.forEach(function (p) {
+                return p.unsubscribe();
+            });
+            this.valves.forEach(function (v) {
+                return v.unsubscribe();
+            });
+            this.controlunits.forEach(function (c) {
+                return c.unsubscribe();
             });
         }
     },
@@ -10047,6 +10216,14 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 $('.modal').modal();
                 $('.tooltipped').tooltip({ delay: 50 });
             });
+        },
+        unsubscribe_all: function unsubscribe_all() {
+            this.terraria.forEach(function (t) {
+                return t.unsubscribe();
+            });
+            this.animals.forEach(function (a) {
+                return a.unsubscribe();
+            });
         }
     },
 
@@ -10176,6 +10353,12 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 error: function error(_error) {
                     console.log(JSON.stringify(_error));
                 }
+            });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.users.forEach(function (u) {
+                return u.unsubscribe();
             });
         }
     },
@@ -10475,6 +10658,21 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     console.log(JSON.stringify(_error));
                 }
             });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.pumps.forEach(function (p) {
+                return p.unsubscribe();
+            });
+            this.valves.forEach(function (v) {
+                return v.unsubscribe();
+            });
+            this.terraria.forEach(function (t) {
+                return t.unsubscribe();
+            });
+            this.controlunits.forEach(function (c) {
+                return c.unsubscribe();
+            });
         }
     },
 
@@ -10705,10 +10903,15 @@ global.ciliatusVue = new global.Vue({
                 id = data.id;
             }
 
-            if (this.$store.state[type].filter(function (o) {
+            var obj = [];
+            if ((obj = this.$store.state[type].filter(function (o) {
                 return o.id === id;
-            }).length < 1) {
+            })).length < 1) {
                 this.$store.state[type].push(new __WEBPACK_IMPORTED_MODULE_41__ciliatus_object__["default"](this, type, id, data, include));
+            } else {
+                obj.forEach(function (o) {
+                    return o.subscribe();
+                });
             }
         },
         ensureObjects: function ensureObjects(type, ids, data, include) {
@@ -21203,11 +21406,11 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }, [((_vm.sequence_schedules = _vm.schedules.filter(function (s) { return s.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_schedules', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_schedules), function(schedule, index) {
       return _c('li', [(schedule.data) ? [_c('i', {
         staticClass: "mdi mdi-18px mdi-clock"
-      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(schedule.timestamps.starts))]), _vm._v(" "), (schedule.timestamps.runonce) ? _c('span', [_c('i', [_vm._v(_vm._s(_vm.$t('labels.runonce')))])]) : _c('span', [_c('i', [_vm._v(_vm._s(_vm.$t('labels.daily')))])])] : _vm._e()], 2)
+      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(schedule.data.timestamps.starts))]), _vm._v(" "), (schedule.data.timestamps.runonce) ? _c('span', [_c('i', [_vm._v(_vm._s(_vm.$t('labels.runonce')))])]) : _c('span', [_c('i', [_vm._v(_vm._s(_vm.$t('labels.daily')))])])] : _vm._e()], 2)
     })], 2) : _vm._e(), _vm._v(" "), ((_vm.sequence_triggers = _vm.triggers.filter(function (t) { return t.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_triggers', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_triggers), function(trigger, index) {
       return _c('li', [(trigger.data) ? [_c('i', {
         staticClass: "mdi mdi-18px mdi-vanish"
-      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + trigger.data.logical_sensor.type)))]), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'greater') ? _c('span', [_vm._v(">")]) : _vm._e(), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'lesser') ? _c('span', [_vm._v("<")]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(trigger.data.reference_value))]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.between')) + " " + _vm._s(trigger.data.timeframe.start) + " {\n                                            { $t('labels.and') }} " + _vm._s(trigger.data.timeframe.end) + ",\n                                        ")]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.minimum_timeout')) + ": " + _vm._s(trigger.data.minimum_timeout_minutes) + "\n                                            " + _vm._s(_vm.$tc('units.minutes', trigger.data.minimum_timeout_minutes)) + "\n                                        ")])] : _vm._e()], 2)
+      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + trigger.data.logical_sensor.type)))]), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'greater') ? _c('span', [_vm._v(">")]) : _vm._e(), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'lesser') ? _c('span', [_vm._v("<")]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(trigger.data.reference_value))]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.between')) + " " + _vm._s(trigger.data.timeframe.start) + "\n                                            " + _vm._s(_vm.$t('labels.and')) + " " + _vm._s(trigger.data.timeframe.end) + ",\n                                        ")]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.minimum_timeout')) + ": " + _vm._s(trigger.data.minimum_timeout_minutes) + "\n                                            " + _vm._s(_vm.$tc('units.minutes', trigger.data.minimum_timeout_minutes)) + "\n                                        ")])] : _vm._e()], 2)
     })], 2) : _vm._e(), _vm._v(" "), ((_vm.sequence_intentions = _vm.intentions.filter(function (i) { return i.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_intentions', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_intentions), function(intention, index) {
       return _c('li', [(intention.data) ? [_c('i', {
         staticClass: "mdi mdi-18px mdi-compass"
