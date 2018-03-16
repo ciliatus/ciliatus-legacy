@@ -63,8 +63,8 @@
                                             <span v-if="trigger.data.reference_value_comparison_type == 'lesser'">&lt;</span>
                                             <span>{{ trigger.data.reference_value }}</span>
                                             <span>
-                                                {{ $t('labels.between') }} {{ trigger.data.timeframe.start }} {
-                                                { $t('labels.and') }} {{ trigger.data.timeframe.end }},
+                                                {{ $t('labels.between') }} {{ trigger.data.timeframe.start }}
+                                                {{ $t('labels.and') }} {{ trigger.data.timeframe.end }},
                                             </span>
                                             <span>
                                                 {{ $t('labels.minimum_timeout') }}: {{ trigger.data.minimum_timeout_minutes }}
