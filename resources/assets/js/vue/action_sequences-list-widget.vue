@@ -46,8 +46,8 @@
                                     <li v-for="(schedule, index) in sequence_schedules">
                                         <template v-if="schedule.data">
                                             <i class="mdi mdi-18px mdi-clock"></i>
-                                            <span>{{ schedule.timestamps.starts }}</span>
-                                            <span v-if="schedule.timestamps.runonce"><i>{{ $t('labels.runonce') }}</i></span>
+                                            <span>{{ schedule.data.timestamps.starts }}</span>
+                                            <span v-if="schedule.data.timestamps.runonce"><i>{{ $t('labels.runonce') }}</i></span>
                                             <span v-else><i>{{ $t('labels.daily') }}</i></span>
                                         </template>
                                     </li>
