@@ -86,9 +86,9 @@
                 ids: [],
                 pump_ids: [],
                 valve_ids: [],
-                generic_component_ids: [],
+                custom_component_ids: [],
                 physical_sensor_ids: [],
-                component_types: ['pumps', 'valves', 'generic_components', 'physical_sensors']
+                component_types: ['pumps', 'valves', 'custom_components', 'physical_sensors']
             }
         },
 
@@ -149,10 +149,10 @@
                 });
             },
 
-            generic_components () {
+            custom_components () {
                 let that = this;
-                return this.$store.state.generic_components.filter(function(g) {
-                    return that.generic_component_ids.includes(g.id) && g.data !== null
+                return this.$store.state.custom_components.filter(function(g) {
+                    return that.custom_component_ids.includes(g.id) && g.data !== null
                 });
             },
 
@@ -170,7 +170,7 @@
 
                 $.ajax({
                     url: '/api/v1/controlunits/?' +
-                         'with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=generic_components&with[]=generic_components.type&' +
+                         'with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=custom_components&with[]=custom_components.type&' +
                          that.sourceFilter + '&' +
                          'pagination[per_page]=' + that.itemsPerPage + '&page=' +
                          that.$refs.pagination.page +
@@ -181,15 +181,15 @@
                         that.ids = data.data.map(c => c.id);
                         that.pump_ids = [].concat.apply([], data.data.map(c => c.pumps.map(p => p.id)));
                         that.valve_ids = [].concat.apply([], data.data.map(c => c.valves.map(v => v.id)));
-                        that.generic_component_ids = [].concat.apply([], data.data.map(c => c.generic_components.map(g => g.id)));
+                        that.custom_component_ids = [].concat.apply([], data.data.map(c => c.custom_components.map(g => g.id)));
                         that.physical_sensors_ids = [].concat.apply([], data.data.map(c => c.physical_sensors.map(p => p.id)));
 
                         that.$refs.pagination.meta = data.meta;
 
-                        that.$parent.ensureObjects('controlunits', that.ids, data.data, ['physical_sensors', 'valves', 'pumps', 'generic_components']);
+                        that.$parent.ensureObjects('controlunits', that.ids, data.data, ['physical_sensors', 'valves', 'pumps', 'custom_components']);
                         that.$parent.ensureObjects('pumps', that.pump_ids, [].concat.apply([], data.data.map(c => c.pumps)));
                         that.$parent.ensureObjects('valves', that.valve_ids, [].concat.apply([], data.data.map(c => c.valves)));
-                        that.$parent.ensureObjects('generic_components', that.generic_component_ids, [].concat.apply([], data.data.map(c => c.generic_components)));
+                        that.$parent.ensureObjects('custom_components', that.custom_component_ids, [].concat.apply([], data.data.map(c => c.custom_components)));
                         that.$parent.ensureObjects('physical_sensors', that.physical_sensors_ids, [].concat.apply([], data.data.map(c => c.physical_sensors)));
                     },
                     error: function (error) {
@@ -201,7 +201,7 @@
             unsubscribe_all () {
                 this.pumps.forEach((p) => p.unsubscribe());
                 this.valves.forEach((v) => v.unsubscribe());
-                this.generic_components.forEach((g) => g.unsubscribe());
+                this.custom_components.forEach((g) => g.unsubscribe());
                 this.physical_sensors.forEach((p) => p.unsubscribe());
                 this.controlunits.forEach((c) => c.unsubscribe());
             }

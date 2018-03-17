@@ -42,7 +42,7 @@ class TerrariumObserver
             $ps->setBelongsTo();
         }
 
-        foreach ($terrarium->generic_components as $gc) {
+        foreach ($terrarium->custom_components as $gc) {
             $gc->setBelongsTo();
         }
     }

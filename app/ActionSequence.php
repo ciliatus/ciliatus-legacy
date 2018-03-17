@@ -166,13 +166,13 @@ class ActionSequence extends CiliatusModel
 
             case self::TEMPLATE_IRRIGATION:
 
-                $generic_components = GenericComponentType::getGenericComponentsByIntention(
+                $custom_components = CustomComponentType::getCustomComponentsByIntention(
                     ActionSequenceIntention::TYPE_HUMIDITY_PERCENT,
                     ActionSequenceIntention::INTENTION_INCREASE,
-                    $this->terrarium->generic_components()->getQuery()
+                    $this->terrarium->custom_components()->getQuery()
                 );
 
-                $this->generateActionsForComponentsAndAppend($generic_components);
+                $this->generateActionsForComponentsAndAppend($custom_components);
 
                 foreach ($this->terrarium->valves as $valve) {
                     $action = $valve->generateActionForSequence($this->duration_minutes, 'running', $this);
@@ -188,33 +188,33 @@ class ActionSequence extends CiliatusModel
 
             case self::TEMPLATE_VENTILATE:
 
-                $generic_components = GenericComponentType::getGenericComponentsByIntention(
+                $custom_components = CustomComponentType::getCustomComponentsByIntention(
                     ActionSequenceIntention::TYPE_HUMIDITY_PERCENT,
                     ActionSequenceIntention::INTENTION_DECREASE,
-                    $this->terrarium->generic_components()->getQuery()
+                    $this->terrarium->custom_components()->getQuery()
                 );
 
-                return $this->generateActionsForComponentsAndAppend($generic_components);
+                return $this->generateActionsForComponentsAndAppend($custom_components);
 
             case self::TEMPLATE_HEAT_UP:
 
-                $generic_components = GenericComponentType::getGenericComponentsByIntention(
+                $custom_components = CustomComponentType::getCustomComponentsByIntention(
                     ActionSequenceIntention::TYPE_TEMPERATURE_CELSIUS,
                     ActionSequenceIntention::INTENTION_INCREASE,
-                    $this->terrarium->generic_components()->getQuery()
+                    $this->terrarium->custom_components()->getQuery()
                 );
 
-                return $this->generateActionsForComponentsAndAppend($generic_components);
+                return $this->generateActionsForComponentsAndAppend($custom_components);
 
             case self::TEMPLATE_COOL_DOWN:
 
-                $generic_components = GenericComponentType::getGenericComponentsByIntention(
+                $custom_components = CustomComponentType::getCustomComponentsByIntention(
                     ActionSequenceIntention::TYPE_TEMPERATURE_CELSIUS,
                     ActionSequenceIntention::INTENTION_DECREASE,
-                    $this->terrarium->generic_components()->getQuery()
+                    $this->terrarium->custom_components()->getQuery()
                 );
 
-                return $this->generateActionsForComponentsAndAppend($generic_components);
+                return $this->generateActionsForComponentsAndAppend($custom_components);
 
             default:
 

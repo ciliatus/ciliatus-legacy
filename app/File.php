@@ -154,9 +154,9 @@ class File extends CiliatusModel
     /**
      * @return \Illuminate\Database\Eloquent\Relations\MorphToMany
      */
-    public function generic_components()
+    public function custom_components()
     {
-        return $this->morphedByMany('App\GenericComponent', 'belongsTo', 'has_files');
+        return $this->morphedByMany('App\CustomComponent', 'belongsTo', 'has_files');
     }
 
     /**
@@ -208,7 +208,7 @@ class File extends CiliatusModel
 
         $model_names = [
             'animals', 'actions', 'action_sequence_intentions', 'action_sequence_schedules',
-            'action_sequence_triggers', 'controlunits', 'generic_components', 'logical_sensors',
+            'action_sequence_triggers', 'controlunits', 'custom_components', 'logical_sensors',
             'physical_sensors', 'pumps', 'terraria', 'valves', 'biography_entries'
         ];
 

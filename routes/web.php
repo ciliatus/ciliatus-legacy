@@ -96,10 +96,10 @@ Route::get('logical_sensor_thresholds/{id}/delete', 'LogicalSensorThresholdContr
 /*
  * Generic components
  */
-Route::resource('generic_components', 'GenericComponentController');
-Route::get('generic_components/{id}/delete', 'GenericComponentController@delete');
-Route::resource('generic_component_types', 'GenericComponentTypeController');
-Route::get('generic_component_types/{id}/delete', 'GenericComponentTypeController@delete');
+Route::resource('custom_components', 'CustomComponentController');
+Route::get('custom_components/{id}/delete', 'CustomComponentController@delete');
+Route::resource('custom_component_types', 'CustomComponentTypeController');
+Route::get('custom_component_types/{id}/delete', 'CustomComponentTypeController@delete');
 
 /*
  * Sensorreadings

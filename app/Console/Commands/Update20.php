@@ -39,7 +39,7 @@ class Update20 extends UpdateCommand
         Artisan::call('down');
 
         echo "Transforming Generic Component Type Intentions ..." . PHP_EOL;
-        foreach (Property::where('type', 'GenericComponentTypeIntention')->get() as $type) {
+        foreach (Property::where('type', 'CustomComponentTypeIntention')->get() as $type) {
             $name = $type->name;
             $type->name = $type->value;
             $type->value = $name;
@@ -53,6 +53,12 @@ class Update20 extends UpdateCommand
         foreach (User::get() as $user) {
             if ($user->hasAbility('grant_api-list:raw')) {
                 $user->grantAbility('grant_api-list:all');
+            }
+            if ($user->hasAbility('grant_api-write:generic_component')) {
+                $user->grantAbility('grant_api-list:custom_component');
+            }
+            if ($user->hasAbility('grant_api-write:generic_component_type')) {
+                $user->grantAbility('grant_api-list:custom_component_type');
             }
         }
         UserAbility::where('name', 'grant_api-list:raw')->delete();

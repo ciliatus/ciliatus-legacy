@@ -75,12 +75,12 @@ return [
                 '202' => 'File is too big. Maximum: :max_size MB.'
             ],
 
-            // 21x GenericComponentController
+            // 21x CustomComponentController
             '21' => [
                 '201' => 'Generic component is corrupted.'
             ],
 
-            // 22x GenericComponentTypeController
+            // 22x CustomComponentTypeController
             '22' => [],
 
             // 23x LogController

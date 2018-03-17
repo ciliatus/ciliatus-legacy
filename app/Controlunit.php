@@ -86,9 +86,9 @@ class Controlunit extends Component
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function generic_components()
+    public function custom_components()
     {
-        return $this->hasMany('App\GenericComponent');
+        return $this->hasMany('App\CustomComponent');
     }
 
     /**
@@ -202,7 +202,7 @@ class Controlunit extends Component
             $config .= "\n\n" . $p->generateConfig();
         }
 
-        foreach ($this->generic_components as $gc) {
+        foreach ($this->custom_components as $gc) {
             $config .= "\n\n" . $gc->generateConfig();
         }
 
@@ -242,7 +242,7 @@ class Controlunit extends Component
     public function getPossiblyAffectedAnimals()
     {
         $animals = new Collection();
-        foreach (['physical_sensors', 'valves', 'generic_components'] as $component_type) {
+        foreach (['physical_sensors', 'valves', 'custom_components'] as $component_type) {
             foreach ($this->$component_type as $ps) {
                 $animals = $animals->merge($ps->getPossiblyAffectedAnimals());
             }

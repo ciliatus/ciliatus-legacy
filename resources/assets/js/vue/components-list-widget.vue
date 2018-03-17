@@ -67,10 +67,10 @@
             return {
                 pump_ids: [],
                 valve_ids: [],
-                generic_component_ids: [],
+                custom_component_ids: [],
                 physical_sensor_ids: [],
                 controlunit_ids: [],
-                component_types: ['pumps', 'valves', 'generic_components', 'physical_sensors']
+                component_types: ['pumps', 'valves', 'custom_components', 'physical_sensors']
             }
         },
 
@@ -116,10 +116,10 @@
                 });
             },
 
-            generic_components () {
+            custom_components () {
                 let that = this;
-                return this.$store.state.generic_components.filter(function(g) {
-                    return that.generic_component_ids.includes(g.id) && g.data !== null
+                return this.$store.state.custom_components.filter(function(g) {
+                    return that.custom_component_ids.includes(g.id) && g.data !== null
                 });
             },
 
@@ -150,13 +150,13 @@
                     success: function (data) {
                         that.pump_ids = data.data.filter(c => c.class === 'Pump').map(c => c.id);
                         that.valve_ids = data.data.filter(c => c.class === 'Valve').map(c => c.id);
-                        that.generic_component_ids = data.data.filter(c => c.class === 'GenericComponent').map(c => c.id);
+                        that.custom_component_ids = data.data.filter(c => c.class === 'CustomComponent').map(c => c.id);
                         that.physical_sensor_ids = data.data.filter(c => c.class === 'PhysicalSensor').map(c => c.id);
                         that.controlunit_ids = data.data.map(c => c.controlunit_id);
 
                         that.$parent.ensureObjects('pumps', that.pump_ids, data.data.filter(c => c.class === 'Pump'));
                         that.$parent.ensureObjects('valves', that.valve_ids, data.data.filter(c => c.class === 'Valve'));
-                        that.$parent.ensureObjects('generic_components', that.generic_component_ids, data.data.filter(c => c.class === 'GenericComponent'));
+                        that.$parent.ensureObjects('custom_components', that.custom_component_ids, data.data.filter(c => c.class === 'CustomComponent'));
                         that.$parent.ensureObjects('physical_sensors', that.physical_sensor_ids, data.data.filter(c => c.class === 'PhysicalSensor'));
                         that.$parent.ensureObjects('controlunits', that.controlunit_ids, data.data.map(c => c.controlunit));
                     },
@@ -169,7 +169,7 @@
             unsubscribe_all () {
                 this.pumps.forEach((p) => p.unsubscribe());
                 this.valves.forEach((v) => v.unsubscribe());
-                this.generic_components.forEach((g) => g.unsubscribe());
+                this.custom_components.forEach((g) => g.unsubscribe());
                 this.physical_sensors.forEach((p) => p.unsubscribe());
                 this.controlunits.forEach((c) => c.unsubscribe());
             }

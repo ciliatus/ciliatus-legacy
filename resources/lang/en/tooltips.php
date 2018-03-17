@@ -26,13 +26,13 @@ return [
     'material_icons_list'   =>  'Visit <a href="https://cdn.materialdesignicons.com/2.1.99/">materialdesignicons.com</a> for a complete icon overview.',
     'no_data'               =>  'No data.',
     'connecting_to_server'  =>  'Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.',
-    'generic_components' => [
-        'about'                 => 'Generic components are components of a user defined type.',
-        'type_about'            => 'Generic component types define name, properties and possible states of a generic component. They are used as a template when creating a new generic component.',
-        'property_templates'    => 'Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.',
+    'custom_components' => [
+        'about'                 => 'Custom components are used to supplement the default components provided by Ciliatus.',
+        'type_about'            => 'Custom component types define name, properties and possible states of a custom component. They are used as a template when creating a new custom component.',
+        'property_templates'    => 'Define properties for this custom component type. Each time you create a new component of this type you will be prompted to fill in these properties.',
         'state_templates'       => 'Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.<br /><br />The radio box on the left defines the default \'running\' state.',
         'type_delete_warning'   => 'When deleting a component type <strong>all components of this type</strong> will also be deleted.',
-        'intentions'            => 'Intentionen of generic components allows them to be automatically used within action sequences.'
+        'intentions'            => 'Intentionen of custom components allows them to be automatically used within action sequences.'
     ],
     'minimum_timeout_minutes'=> 'Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.',
     'reference_value' => 'Reference value which will be compared to the sensor values.',

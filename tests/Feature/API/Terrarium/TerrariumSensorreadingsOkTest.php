@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\API\Terrarium;
 
-use App\GenericComponent;
-use App\GenericComponentType;
+use App\CustomComponent;
+use App\CustomComponentType;
 use App\LogicalSensor;
 use App\PhysicalSensor;
 use App\Sensorreading;

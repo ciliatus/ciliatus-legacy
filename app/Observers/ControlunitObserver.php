@@ -33,7 +33,7 @@ class ControlunitObserver
             $v->save();
         }
 
-        foreach ($controlunit->generic_components as $gc) {
+        foreach ($controlunit->custom_components as $gc) {
             $gc->controlunit_id = null;
             $gc->save();
         }

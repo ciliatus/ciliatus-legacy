@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
-use App\GenericComponentType;
+use App\CustomComponentType;
 use App\Property;
 use App\User;
 use Illuminate\Http\Request;
@@ -140,7 +140,7 @@ class SetupController extends ApiController
             ]);
         }
 
-        $generic_component_types = [
+        $custom_component_types = [
             'fan' => [
                 'icon' => 'toys',
                 'properties' => ['speed', 'direction'],
@@ -154,15 +154,15 @@ class SetupController extends ApiController
                 ]
             ]
         ];
-        foreach ($generic_component_types as $type_name=>$type_description) {
-            $type = GenericComponentType::create([
+        foreach ($custom_component_types as $type_name=>$type_description) {
+            $type = CustomComponentType::create([
                 'name_singular' => trans(
-                    'presets.generic_components.' . $type_name . '.name_singular',
+                    'presets.custom_components.' . $type_name . '.name_singular',
                     [],
                     $locale
                 ),
                 'name_plural' => trans(
-                    'presets.generic_components.' . $type_name . '.name_plural',
+                    'presets.custom_components.' . $type_name . '.name_plural',
                     [],
                     $locale
                 ),
@@ -171,11 +171,11 @@ class SetupController extends ApiController
 
             foreach ($type_description['properties'] as $property) {
                 Property::create([
-                    'belongsTo_type' => 'GenericComponentType',
+                    'belongsTo_type' => 'CustomComponentType',
                     'belongsTo_id' => $type->id,
-                    'type' => 'GenericComponentTypeProperty',
+                    'type' => 'CustomComponentTypeProperty',
                     'name' => trans(
-                        'presets.generic_components.' . $type_name . '.properties.' . $property,
+                        'presets.custom_components.' . $type_name . '.properties.' . $property,
                         [],
                         $locale
                     ),
@@ -184,9 +184,9 @@ class SetupController extends ApiController
 
             foreach ($type_description['intentions'] as $parameter=>$intention) {
                 Property::create([
-                    'belongsTo_type' => 'GenericComponentType',
+                    'belongsTo_type' => 'CustomComponentType',
                     'belongsTo_id' => $type->id,
-                    'type' => 'GenericComponentTypeIntention',
+                    'type' => 'CustomComponentTypeIntention',
                     'name' => $parameter,
                     'value' => $intention
                 ]);
@@ -194,11 +194,11 @@ class SetupController extends ApiController
 
             foreach ($type_description['states'] as $state=>$default) {
                 $p = Property::create([
-                    'belongsTo_type' => 'GenericComponentType',
+                    'belongsTo_type' => 'CustomComponentType',
                     'belongsTo_id' => $type->id,
-                    'type' => 'GenericComponentTypeState',
+                    'type' => 'CustomComponentTypeState',
                     'name' => trans(
-                        'presets.generic_components.' . $type_name . '.states.' . $state,
+                        'presets.custom_components.' . $type_name . '.states.' . $state,
                         [],
                         $locale
                     ),

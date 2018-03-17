@@ -2,8 +2,8 @@
 
 namespace Tests\Feature\API\Terrarium;
 
-use App\GenericComponent;
-use App\GenericComponentType;
+use App\CustomComponent;
+use App\CustomComponentType;
 use App\PhysicalSensor;
 use App\Terrarium;
 use App\Valve;
@@ -41,15 +41,15 @@ class TerrariumInfrastructureOkTest extends TestCase
             'belongsTo_type' => 'Terrarium',
             'belongsTo_id' => $terrarium->id
         ]);
-        $gt = GenericComponentType::create([
+        $gt = CustomComponentType::create([
             'name_singular' => 'T',
             'name_plural' => 'T',
             'icon' => 'T'
         ]);
-        $generic = GenericComponent::create([
+        $generic = CustomComponent::create([
             'belongsTo_type' => 'Terrarium',
             'belongsTo_id' => $terrarium->id,
-            'generic_component_type_id' => $gt->id,
+            'custom_component_type_id' => $gt->id,
             'name' => 'Comp'
         ]);
 
