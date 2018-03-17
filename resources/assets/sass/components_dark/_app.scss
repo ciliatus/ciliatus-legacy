@@ -735,3 +735,7 @@ label[for='ask-me-something'] {
   top: -10px !important;
   margin-left: 3em !important;
 }
+
+ul.autocomplete-content.dropdown-content {
+  position: absolute;
+}

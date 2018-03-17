@@ -23,7 +23,7 @@ return [
     'animal_weighing_schedule_matrix' => 'Diese Matrix enthält alle definierten Wiegepläne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom nächsten Fälligkeitsdatum dar.',
     'done'                  =>  'Erledigt',
     'skip'                  =>  'Überspringen',
-    'material_icons_list'   =>  'Die komplette Symbolliste ist unter <a href="https://material.io/icons/">material.io</a> einsehbar.',
+    'material_icons_list'   =>  'Die komplette Symbolliste ist unter <a href="https://cdn.materialdesignicons.com/2.1.99/">materialdesignicons.com</a> einsehbar.',
     'no_data'               =>  'Keine Daten.',
     'connecting_to_server'  =>  'Verbindung zum Ciliatus Server wird hergestellt. Sollte dies länger als einige Sekunden dauern, überprüfen Sie bitte Ihre Internetverbindung.',
     'generic_components' => [
