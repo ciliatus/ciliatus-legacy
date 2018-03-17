@@ -30,6 +30,20 @@ class GenericComponentType extends CiliatusModel
     ];
 
     /**
+     * @return bool|null
+     * @throws \Exception
+     */
+    public function delete()
+    {
+        $this->properties()->delete();
+        $this->states()->delete();
+        $this->intentions()->delete();
+        $this->components()->delete();
+
+        return parent::delete();
+    }
+
+    /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
     public function properties()
