@@ -137,6 +137,9 @@ class Update20 extends UpdateCommand
 
         Artisan::call('up');
         echo "Done!" . PHP_EOL;
+        echo PHP_EOL;
+        echo "Attention: Please verify all your custom component types!" . PHP_EOL;
+
         return true;
     }
 }
