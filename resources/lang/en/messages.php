@@ -38,14 +38,14 @@ return [
         ]
     ],
     'critical_state_notification_controlunits' => [
-        'UNKNOWN' => 'Critical: The controlunit :controlunit is in an unknown state.',
-        'HEARTBEAT_CRITICAL' => 'Critical: The controlunit :controlunit is not sending data.',
-        'TIME_DIFF_CRITICAL' => 'Critical: The controlunit :controlunit has a too large time difference.'
+        'UNKNOWN' => 'Critical: The Control Unit :controlunit is in an unknown state.',
+        'HEARTBEAT_CRITICAL' => 'Critical: The Control Unit :controlunit is not sending data.',
+        'TIME_DIFF_CRITICAL' => 'Critical: The Control Unit :controlunit has a too large time difference.'
     ],
     'critical_state_recovery_notification_controlunits' => [
-        'UNKNOWN' => 'OK: The controlunit :controlunit is no longer in an unknown state.',
-        'HEARTBEAT_CRITICAL' => 'OK: The controlunit :controlunit is sending data again.',
-        'TIME_DIFF_CRITICAL' => 'OK: The controlunit :controlunit has an acceptable time difference again.'
+        'UNKNOWN' => 'OK: The Control Unit :controlunit is no longer in an unknown state.',
+        'HEARTBEAT_CRITICAL' => 'OK: The Control Unit :controlunit is sending data again.',
+        'TIME_DIFF_CRITICAL' => 'OK: The Control Unit :controlunit has an acceptable time difference again.'
     ],
 
     'daily' => [
