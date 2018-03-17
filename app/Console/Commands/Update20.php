@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Action;
 use App\ActionSequenceSchedule;
 use App\File;
+use App\Log;
 use App\Property;
 use App\Sensorreading;
 use App\User;
@@ -67,6 +69,30 @@ class Update20 extends UpdateCommand
         foreach (ActionSequenceSchedule::get() as $ass) {
             for ($i = 0; $i < 7; $i++) {
                 $ass->setProperty('ActionSequenceScheduleProperty', $i, true);
+            }
+        }
+
+        echo "Updating actions ..." . PHP_EOL;
+        foreach (Action::get() as $a) {
+            if ($a->target_type == 'GenericComponent') {
+                $a->target_type = 'CustomComponent';
+                $a->save();
+            }
+        }
+
+        echo "Updating logs ..." . PHP_EOL;
+        foreach (Log::get() as $l) {
+            if ($l->source_type == 'GenericComponent') {
+                $l->source_type = 'CustomComponent';
+                $l->save();
+            }
+            if ($l->target_type == 'GenericComponent') {
+                $l->target_type = 'CustomComponent';
+                $l->save();
+            }
+            if ($l->associatedWith_type == 'GenericComponent') {
+                $l->associatedWith_type = 'CustomComponent';
+                $l->save();
             }
         }
 
