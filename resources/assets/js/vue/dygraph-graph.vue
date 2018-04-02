@@ -17,7 +17,7 @@
                 </div>
                 <div class="input-field col s4 m4 l2">
                     <input type="text" v-on:keyup.enter="set_rollperiod" :id="'dygraph_' + id + '_rollperiodselector'"
-                           :value="4" :placeholder="$t('labels.rollperiod')">
+                           :value="5" :placeholder="$t('labels.rollperiod')">
                     <label>{{ $t('labels.rollperiod') }}</label>
                 </div>
             </div>
