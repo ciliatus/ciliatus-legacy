@@ -38,14 +38,14 @@ return [
         ]
     ],
     'critical_state_notification_controlunits' => [
-        'UNKNOWN' => 'Critical: The controlunit :controlunit is in an unknown state.',
-        'HEARTBEAT_CRITICAL' => 'Critical: The controlunit :controlunit is not sending data.',
-        'TIME_DIFF_CRITICAL' => 'Critical: The controlunit :controlunit has a too large time difference.'
+        'UNKNOWN' => 'Critical: The Control Unit :controlunit is in an unknown state.',
+        'HEARTBEAT_CRITICAL' => 'Critical: The Control Unit :controlunit is not sending data.',
+        'TIME_DIFF_CRITICAL' => 'Critical: The Control Unit :controlunit has a too large time difference.'
     ],
     'critical_state_recovery_notification_controlunits' => [
-        'UNKNOWN' => 'OK: The controlunit :controlunit is no longer in an unknown state.',
-        'HEARTBEAT_CRITICAL' => 'OK: The controlunit :controlunit is sending data again.',
-        'TIME_DIFF_CRITICAL' => 'OK: The controlunit :controlunit has an acceptable time difference again.'
+        'UNKNOWN' => 'OK: The Control Unit :controlunit is no longer in an unknown state.',
+        'HEARTBEAT_CRITICAL' => 'OK: The Control Unit :controlunit is sending data again.',
+        'TIME_DIFF_CRITICAL' => 'OK: The Control Unit :controlunit has an acceptable time difference again.'
     ],
 
     'daily' => [
@@ -58,14 +58,14 @@ return [
 
     'suggestions' => [
         'humidity_percent' => [
-            'UPPERLIMIT_EXCEEDED' => 'Decrease humidity daily at :hour:00',
-            'LOWERLIMIT_DECEEDED' => 'Increase humidity daily at :hour:00',
-            'UNKNOWN' => 'Regulate humidity daily at :hour:00',
+            'UPPERLIMIT_EXCEEDED' => 'Decrease humidity daily at :hour',
+            'LOWERLIMIT_DECEEDED' => 'Increase humidity daily at :hour',
+            'UNKNOWN' => 'Regulate humidity daily at :hour',
         ],
         'temperature_celsius' => [
-            'UPPERLIMIT_EXCEEDED' => 'Decrease temperature daily at :hour:00',
-            'LOWERLIMIT_DECEEDED' => 'Increase temperature daily at :hour:00',
-            'UNKNOWN' => 'Regulate temperature daily at :hour:00'
+            'UPPERLIMIT_EXCEEDED' => 'Decrease temperature daily at :hour',
+            'LOWERLIMIT_DECEEDED' => 'Increase temperature daily at :hour',
+            'UNKNOWN' => 'Regulate temperature daily at :hour'
         ]
     ]
 ];

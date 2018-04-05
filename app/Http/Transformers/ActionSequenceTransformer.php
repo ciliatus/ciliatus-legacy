@@ -23,6 +23,7 @@ class ActionSequenceTransformer extends Transformer
         $return = [
             'id'            =>  $item['id'],
             'name'          =>  $item['name'],
+            'terrarium_id'  =>  $item['terrarium_id'],
             'duration_minutes' =>  $item['duration_minutes'],
             'timestamps' => $this->parseTimestamps($item)
         ];

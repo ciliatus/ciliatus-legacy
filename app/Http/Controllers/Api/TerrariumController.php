@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\ActionSequenceSchedule;
 use App\Animal;
 use App\AnimalFeedingEvent;
-use App\Http\Transformers\GenericComponentTransformer;
+use App\Http\Transformers\CustomComponentTransformer;
 use App\Http\Transformers\PhysicalSensorTransformer;
 use App\Http\Transformers\TerrariumTransformer;
 use App\Http\Transformers\ValveTransformer;
@@ -437,13 +437,13 @@ class TerrariumController extends ApiController
         $physical_sensors = (new PhysicalSensorTransformer())->transformCollection($physical_sensors->toArray());
 
 
-        $generic_components = $this->filter($request, $terrarium->generic_components()->getQuery())->get();
-        foreach ($generic_components as &$gc) {
+        $custom_components = $this->filter($request, $terrarium->custom_components()->getQuery())->get();
+        foreach ($custom_components as &$gc) {
             $gc = (new GenericRepository($gc))->show();
         }
-        $generic_components = (new GenericComponentTransformer())->transformCollection($generic_components->toArray());
+        $custom_components = (new CustomComponentTransformer())->transformCollection($custom_components->toArray());
 
-        return $this->respondWithData(array_merge($valves, $physical_sensors, $generic_components));
+        return $this->respondWithData(array_merge($valves, $physical_sensors, $custom_components));
     }
 
     /**

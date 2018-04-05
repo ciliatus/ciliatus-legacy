@@ -47,6 +47,7 @@ class ApiController extends Controller
      * 103 - Could not parse timestamp
      * 104 - Missing fields
      * 105 - Class not found
+     * 106 - Unauthorized
      *
      * @var string $errorCode
      */
@@ -228,7 +229,7 @@ class ApiController extends Controller
      */
     public function respondUnauthorized($message = 'Unauthorized')
     {
-        return $this->setStatusCode(401)->respondWithError($message);
+        return $this->setStatusCode(401)->setErrorCode(106)->respondWithError($message);
     }
 
     /**

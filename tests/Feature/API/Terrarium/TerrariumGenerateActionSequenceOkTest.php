@@ -3,8 +3,8 @@
 namespace Tests\Feature\API\Terrarium;
 
 use App\ActionSequence;
-use App\GenericComponent;
-use App\GenericComponentType;
+use App\CustomComponent;
+use App\CustomComponentType;
 use App\PhysicalSensor;
 use App\Terrarium;
 use App\Valve;

@@ -11,7 +11,7 @@ return [
         'pangea'    =>  'Pangea',
         'fruit_mix' =>  'Fruit mix'
     ],
-    'generic_components' => [
+    'custom_components' => [
         'fan' => [
             'name_singular' =>  'Fan',
             'name_plural'   =>  'Fans',

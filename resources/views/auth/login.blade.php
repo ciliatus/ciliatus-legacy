@@ -82,8 +82,8 @@
                                     Username: <strong>demo@ciliatus.io</strong><br />
                                     Password: <strong>demo</strong><br />
                                     <br />
-                                    Data is pulled from live environment daily.<br />
-                                    Sensor readings are artificially generated.
+                                    Data is pulled from the live environment occasionally.<br />
+                                    In the meantime demo data is generated.
                                 </div>
                                 @endif
                             </div>

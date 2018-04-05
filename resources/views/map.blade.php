@@ -17,8 +17,8 @@
                 @foreach ($pumps as $p)
                 {id: '{{ $p->id }}', label: '{{ $p->name }}', url: '/pumps/{{ $p->id }}', level: 2, group: 'Pumps', shape: 'icon', icon: {face: 'Material Icons', code: 'rotate_right', color: '#f57c00'}},
                 @endforeach
-                @foreach ($generic_components as $gc)
-                {id: '{{ $gc->id }}', label: '{{ $gc->name }}', url: '/generic_components/{{ $gc->id }}', level: 2, group: 'GenericComponents', shape: 'icon', icon: {face: 'Material Icons', code: '{{ $gc->icon() }}', color: '#ffa726'}},
+                @foreach ($custom_components as $gc)
+                {id: '{{ $gc->id }}', label: '{{ $gc->name }}', url: '/custom_components/{{ $gc->id }}', level: 2, group: 'CustomComponents', shape: 'icon', icon: {face: 'Material Icons', code: '{{ $gc->icon() }}', color: '#ffa726'}},
                 @endforeach
 
                 @foreach ($valves as $v)
@@ -50,7 +50,7 @@
                     @foreach ($cu->pumps as $p)
                     {from: '{{ $cu->id }}', to: '{{ $p->id }}'},
                     @endforeach
-                    @foreach ($cu->generic_components as $gc)
+                    @foreach ($cu->custom_components as $gc)
                     {from: '{{ $cu->id }}', to: '{{ $gc->id }}'},
                     @endforeach
                     @foreach ($cu->physical_sensors as $ps)
@@ -67,7 +67,7 @@
                     @foreach ($t->physical_sensors as $ps)
                     {from: '{{ $t->id }}', to: '{{ $ps->id }}'},
                     @endforeach
-                    @foreach ($t->generic_components as $gc)
+                    @foreach ($t->custom_components as $gc)
                     {from: '{{ $t->id }}', to: '{{ $gc->id }}'},
                     @endforeach
                 @endforeach
@@ -149,7 +149,7 @@
                         shape: 'dot',
                         color: "#f57c00 " // orange darken-2
                     },
-                    GenericComponents: {
+                    CustomComponents: {
                         shape: 'dot',
                         color: "#ffa726  " // orange lighten-1
                     },

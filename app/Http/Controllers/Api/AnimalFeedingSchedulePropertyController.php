@@ -274,7 +274,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
      */
     public function done($animal_id, $id)
     {
-        if (Gate::denies('api-write:animal_feeding_schedule')) {
+        if (Gate::denies('api-write:animal_feeding')) {
             return $this->respondUnauthorized();
         }
 
@@ -316,7 +316,7 @@ class AnimalFeedingSchedulePropertyController extends ApiController
      */
     public function skip($animal_id, $id)
     {
-        if (Gate::denies('api-write:animal_feeding_schedule')) {
+        if (Gate::denies('api-write:animal_feeding')) {
             return $this->respondUnauthorized();
         }
 

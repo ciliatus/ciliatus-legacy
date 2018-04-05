@@ -100,8 +100,8 @@ Route::resource('logical_sensor_thresholds', 'LogicalSensorThresholdController')
 /*
  * Generic components
  */
-Route::resource('generic_components', 'GenericComponentController');
-Route::resource('generic_component_types', 'GenericComponentTypeController');
+Route::resource('custom_components', 'CustomComponentController');
+Route::resource('custom_component_types', 'CustomComponentTypeController');
 
 /*
  * Sensorreadings

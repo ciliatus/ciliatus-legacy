@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Animal;
 use App\Controlunit;
-use App\GenericComponent;
+use App\CustomComponent;
 use App\Http\Controllers\Controller;
 use App\LogicalSensor;
 use App\PhysicalSensor;
@@ -117,7 +117,7 @@ class DashboardController extends Controller
             'logical_sensors' => LogicalSensor::get(),
             'valves' => Valve::get(),
             'pumps' => Pump::get(),
-            'generic_components' => GenericComponent::get()
+            'custom_components' => CustomComponent::get()
         ]);
     }
 }

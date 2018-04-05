@@ -10,7 +10,7 @@
         <ul class="tabs z-depth-1">
             <li class="tab col s3"><a class="active" href="#tab_feeding_types">@lang('menu.animal_feeding_types')</a></li>
             <li class="tab col s3"><a href="#tab_bio_categories">@lang('labels.bio_categories')</a></li>
-            <li class="tab col s3"><a href="#tab_generic_components_types">@choice('labels.generic_component_types', 2)</a></li>
+            <li class="tab col s3"><a href="#tab_custom_components_types">@choice('labels.custom_component_types', 2)</a></li>
         </ul>
     </div>
 
@@ -94,30 +94,30 @@
         </div>
     </div>
 
-    <div id="tab_generic_components_types" class="col s12">
+    <div id="tab_custom_components_types" class="col s12">
         <div class="container">
             <div class="row">
                 <br />
-                @lang('tooltips.generic_components.type_about')
+                @lang('tooltips.custom_components.type_about')
             </div>
             <div class="row">
                 <table>
                     <thead>
                     <tr>
-                        <th data-field="type">@choice('labels.generic_component_types', 1)</th>
+                        <th data-field="type">@choice('labels.custom_component_types', 1)</th>
                         <th data-field="icon">@lang('labels.icon')</th>
                         <th data-field="actions">@lang('labels.actions')</th>
                     </tr>
                     </thead>
 
                     <tbody>
-                    @foreach ($generic_component_types as $type)
+                    @foreach ($custom_component_types as $type)
                         <tr>
-                            <td><a href="/generic_component_types/{{ $type->id }}">{{ $type->name_singular }}</a></td>
+                            <td><a href="/custom_component_types/{{ $type->id }}">{{ $type->name_singular }}</a></td>
                             <td><i class="mdi mdi-24px mdi-{{ $type->icon }}"></i></td>
                             <td>
-                                <a href="/generic_component_types/{{ $type->id }}/edit"><i class="mdi mdi-24px mdi-pencil"></i></a>
-                                <a class="red-text text-lighten-1" href="/generic_component_types/{{ $type->id }}/delete"><i class="mdi mdi-18px mdi-delete"></i></a>
+                                <a href="/custom_component_types/{{ $type->id }}/edit"><i class="mdi mdi-24px mdi-pencil"></i></a>
+                                <a class="red-text text-lighten-1" href="/custom_component_types/{{ $type->id }}/delete"><i class="mdi mdi-18px mdi-delete"></i></a>
                             </td>
                         </tr>
                     @endforeach
@@ -131,7 +131,7 @@
                 <i class="mdi mdi-18px mdi-pencil"></i>
             </a>
             <ul>
-                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/generic_component_types/create"><i class="mdi mdi-24px mdi-plus"></i></a></li>
+                <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/custom_component_types/create"><i class="mdi mdi-24px mdi-plus"></i></a></li>
             </ul>
         </div>
     </div>

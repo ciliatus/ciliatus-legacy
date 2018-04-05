@@ -31,8 +31,8 @@ import PhysicalSensorsListWidget from './vue/physical_sensors-list-widget.vue';
 import LogicalSensorWidget from './vue/logical_sensor-widget.vue';
 import LogicalSensorsListWidget from './vue/logical_sensors-list-widget.vue';
 import LogicalSensorThresholdsWidget from './vue/logical_sensor_thresholds-widget.vue';
-import GenericComponentsWidget from './vue/generic_components-widget.vue';
-import GenericComponentsListWidget from './vue/generic_components-list-widget.vue';
+import CustomComponentsWidget from './vue/custom_components-widget.vue';
+import CustomComponentsListWidget from './vue/custom_components-list-widget.vue';
 import UsersListWidget from './vue/users-list-widget.vue';
 import BiographyEntriesWidget from './vue/biography_entries-widget.vue'
 import CaresheetsWidget from './vue/caresheets-widget.vue'
@@ -42,7 +42,7 @@ import ComponentsListWidget from './vue/components-list-widget.vue';
 import ApiIoWidget from './vue/api-io-widget.vue';
 
 import BusTypeEditForm from './vue/bus_type_edit-form.vue';
-import GenericComponentTypeCreateForm from './vue/generic_component_type_create-form.vue';
+import CustomComponentTypeCreateForm from './vue/custom_component_type_create-form.vue';
 
 import CiliatusObject from "./ciliatus_object";
 
@@ -69,7 +69,7 @@ const store = new Vuex.Store({
         caresheets: [],
         controlunits: [],
         files: [],
-        generic_components: [],
+        custom_components: [],
         logical_sensors: [],
         logical_sensor_thresholds: [],
         physical_sensors: [],
@@ -181,7 +181,7 @@ global.ciliatusVue = new global.Vue({
                 caresheets: 'CaresheetDeleted',
                 controlunits: 'ControlunitDeleted',
                 files: 'FileDeleted',
-                generic_components: 'GenericComponentDeleted',
+                custom_components: 'CustomComponentDeleted',
                 logical_sensors: 'LogicalSensorDeleted',
                 logical_sensor_thresholds: 'LogicalSensorThresholdsDeleted',
                 physical_sensors: 'PhysicalSensorDeleted',
@@ -210,7 +210,7 @@ global.ciliatusVue = new global.Vue({
                 caresheets: 'CaresheetUpdated',
                 controlunits: 'ControlunitUpdated',
                 files: 'FileUpdated',
-                generic_components: 'GenericComponentUpdated',
+                custom_components: 'CustomComponentUpdated',
                 logical_sensors: 'LogicalSensorUpdated',
                 logical_sensor_thresholds: 'LogicalSensorThresholdsUpdated',
                 physical_sensors: 'PhysicalSensorUpdated',
@@ -283,8 +283,8 @@ global.ciliatusVue = new global.Vue({
         'logical_sensor-widget': LogicalSensorWidget,
         'logical_sensors-list-widget': LogicalSensorsListWidget,
         'logical_sensor_thresholds-widget': LogicalSensorThresholdsWidget,
-        'generic_components-widget': GenericComponentsWidget,
-        'generic_components-list-widget': GenericComponentsListWidget,
+        'custom_components-widget': CustomComponentsWidget,
+        'custom_components-list-widget': CustomComponentsListWidget,
         'users-list-widget': UsersListWidget,
         'biography_entries-widget': BiographyEntriesWidget,
         'caresheets-widget': CaresheetsWidget,
@@ -294,6 +294,6 @@ global.ciliatusVue = new global.Vue({
         'api-io-widget': ApiIoWidget,
 
         'bus-type-edit-form': BusTypeEditForm,
-        'generic_component_type_create-form': GenericComponentTypeCreateForm
+        'custom_component_type_create-form': CustomComponentTypeCreateForm
     }
 });

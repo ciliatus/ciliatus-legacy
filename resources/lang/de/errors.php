@@ -6,8 +6,9 @@ return [
         'failed' => 'Authentifizierung fehlgeschlagen.'
     ],
     'frontend' => [
-        'generic' => 'Ein Fehler ist aufgetreten. Details in der Konsole.',
-        'no_recording_capability' => 'Der Browser scheint keine Sprachsteuerung zu unterstützen.'
+        'generic'                   => 'Ein Fehler ist aufgetreten. Details in der Konsole.',
+        'no_recording_capability'   => 'Der Browser scheint keine Sprachsteuerung zu unterstützen.',
+        'no_target_object'          => 'Ziel nicht gefunden'
     ],
     'codes' => [
         'common' => [
@@ -74,12 +75,12 @@ return [
                 '202' => 'Datei ist zu groß. Maximum: :max_size MB.'
             ],
 
-            // 21x GenericComponentController
+            // 21x CustomComponentController
             '21' => [
-                '201' => 'Generische Komponente ist korrupt.'
+                '201' => 'Benutzerdefinierte Komponente ist korrupt.'
             ],
 
-            // 22x GenericComponentTypeController
+            // 22x CustomComponentTypeController
             '22' => [],
 
             // 23x LogController

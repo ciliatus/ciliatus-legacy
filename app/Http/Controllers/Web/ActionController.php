@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Action;
 use App\ActionSequence;
-use App\GenericComponentType;
+use App\CustomComponentType;
 use App\Http\Controllers\Controller;
 use App\Pump;
 use App\Valve;
@@ -69,12 +69,12 @@ class ActionController extends Controller
                 'states' => $p->states()
             ];
         }
-        foreach (GenericComponentType::get() as $gct) {
-            $components['GenericComponent_' . $gct->id]['display_name'] = $gct->name_plural;
-            $components['GenericComponent_' . $gct->id]['tech_name'] = 'GenericComponent';
-            $components['GenericComponent_' . $gct->id]['objects'] = [];
+        foreach (CustomComponentType::get() as $gct) {
+            $components['CustomComponent_' . $gct->id]['display_name'] = $gct->name_plural;
+            $components['CustomComponent_' . $gct->id]['tech_name'] = 'CustomComponent';
+            $components['CustomComponent_' . $gct->id]['objects'] = [];
             foreach ($gct->components as $gc) {
-                $components['GenericComponent_' . $gct->id]['objects'][] = [
+                $components['CustomComponent_' . $gct->id]['objects'][] = [
                     'id' => $gc->id,
                     'name' => $gc->name,
                     'states' => array_column($gc->states->toArray(), 'name')
@@ -151,12 +151,12 @@ class ActionController extends Controller
                 'states' => $p->states()
             ];
         }
-        foreach (GenericComponentType::get() as $gct) {
-            $components['GenericComponent_' . $gct->id]['display_name'] = $gct->name_plural;
-            $components['GenericComponent_' . $gct->id]['tech_name'] = 'GenericComponent';
-            $components['GenericComponent_' . $gct->id]['objects'] = [];
+        foreach (CustomComponentType::get() as $gct) {
+            $components['CustomComponent_' . $gct->id]['display_name'] = $gct->name_plural;
+            $components['CustomComponent_' . $gct->id]['tech_name'] = 'CustomComponent';
+            $components['CustomComponent_' . $gct->id]['objects'] = [];
             foreach ($gct->components as $gc) {
-                $components['GenericComponent_' . $gct->id]['objects'][] = [
+                $components['CustomComponent_' . $gct->id]['objects'][] = [
                     'id' => $gc->id,
                     'name' => $gc->name,
                     'states' => array_column($gc->states->toArray(), 'name')

@@ -28,7 +28,7 @@
                                     {{ suggestion.data.belongsTo_object.display_name || suggestion.data.belongsTo_object.name }}:
                                 </a>
                                 {{ $t('messages.suggestions.' + suggestion.data.name + '.' + suggestion.data.violation_type, {
-                                    hour: suggestion.data.value,
+                                    hour: suggestion.data.value + ":00",
                                     name: suggestion
                                 }) }}
                             </span>
