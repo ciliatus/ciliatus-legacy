@@ -49,6 +49,17 @@ class Pump extends CiliatusModel
     ];
 
     /**
+     * @return bool|null
+     * @throws \Exception
+     */
+    public function delete()
+    {
+        Action::where('target_type', 'Pump')->where('target_id', $this->target_id)->delete();
+
+        return parent::delete();
+    }
+
+    /**
      * @return array
      */
     public static function states()

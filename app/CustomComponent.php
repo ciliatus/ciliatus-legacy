@@ -46,6 +46,17 @@ class CustomComponent extends Component
     ];
 
     /**
+     * @return bool|null
+     * @throws \Exception
+     */
+    public function delete()
+    {
+        Action::where('target_type', 'CustomComponent')->where('target_id', $this->target_id)->delete();
+
+        return parent::delete();
+    }
+
+    /**
      * @return mixed
      */
     public function properties()

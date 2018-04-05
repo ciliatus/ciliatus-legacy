@@ -47,6 +47,17 @@ class Valve extends CiliatusModel
     ];
 
     /**
+     * @return bool|null
+     * @throws \Exception
+     */
+    public function delete()
+    {
+        Action::where('target_type', 'Valve')->where('target_id', $this->target_id)->delete();
+
+        return parent::delete();
+    }
+
+    /**
      * @return array
      */
     public static function states()
