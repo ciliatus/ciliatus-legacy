@@ -131,7 +131,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(51),
   /* template */
-  __webpack_require__(113),
+  __webpack_require__(114),
   /* scopeId */
   null,
   /* cssModules */
@@ -4285,10 +4285,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         return {
             pump_ids: [],
             valve_ids: [],
-            generic_component_ids: [],
+            custom_component_ids: [],
             physical_sensor_ids: [],
             controlunit_ids: [],
-            component_types: ['pumps', 'valves', 'generic_components', 'physical_sensors']
+            component_types: ['pumps', 'valves', 'custom_components', 'physical_sensors']
         };
     },
 
@@ -4335,10 +4335,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return that.valve_ids.includes(v.id) && v.data !== null;
             });
         },
-        generic_components: function generic_components() {
+        custom_components: function custom_components() {
             var that = this;
-            return this.$store.state.generic_components.filter(function (g) {
-                return that.generic_component_ids.includes(g.id) && g.data !== null;
+            return this.$store.state.custom_components.filter(function (g) {
+                return that.custom_component_ids.includes(g.id) && g.data !== null;
             });
         },
         physical_sensors: function physical_sensors() {
@@ -4373,8 +4373,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     }).map(function (c) {
                         return c.id;
                     });
-                    that.generic_component_ids = data.data.filter(function (c) {
-                        return c.class === 'GenericComponent';
+                    that.custom_component_ids = data.data.filter(function (c) {
+                        return c.class === 'CustomComponent';
                     }).map(function (c) {
                         return c.id;
                     });
@@ -4393,8 +4393,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                     that.$parent.ensureObjects('valves', that.valve_ids, data.data.filter(function (c) {
                         return c.class === 'Valve';
                     }));
-                    that.$parent.ensureObjects('generic_components', that.generic_component_ids, data.data.filter(function (c) {
-                        return c.class === 'GenericComponent';
+                    that.$parent.ensureObjects('custom_components', that.custom_component_ids, data.data.filter(function (c) {
+                        return c.class === 'CustomComponent';
                     }));
                     that.$parent.ensureObjects('physical_sensors', that.physical_sensor_ids, data.data.filter(function (c) {
                         return c.class === 'PhysicalSensor';
@@ -4416,7 +4416,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.valves.forEach(function (v) {
                 return v.unsubscribe();
             });
-            this.generic_components.forEach(function (g) {
+            this.custom_components.forEach(function (g) {
                 return g.unsubscribe();
             });
             this.physical_sensors.forEach(function (p) {
@@ -4653,9 +4653,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             ids: [],
             pump_ids: [],
             valve_ids: [],
-            generic_component_ids: [],
+            custom_component_ids: [],
             physical_sensor_ids: [],
-            component_types: ['pumps', 'valves', 'generic_components', 'physical_sensors']
+            component_types: ['pumps', 'valves', 'custom_components', 'physical_sensors']
         };
     },
 
@@ -4715,10 +4715,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 return that.valve_ids.includes(v.id) && v.data !== null;
             });
         },
-        generic_components: function generic_components() {
+        custom_components: function custom_components() {
             var that = this;
-            return this.$store.state.generic_components.filter(function (g) {
-                return that.generic_component_ids.includes(g.id) && g.data !== null;
+            return this.$store.state.custom_components.filter(function (g) {
+                return that.custom_component_ids.includes(g.id) && g.data !== null;
             });
         },
         physical_sensors: function physical_sensors() {
@@ -4734,7 +4734,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var that = this;
 
             $.ajax({
-                url: '/api/v1/controlunits/?' + 'with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=generic_components&with[]=generic_components.type&' + that.sourceFilter + '&' + 'pagination[per_page]=' + that.itemsPerPage + '&page=' + that.$refs.pagination.page + that.$refs.pagination.filter_string + that.$refs.pagination.order_string,
+                url: '/api/v1/controlunits/?' + 'with[]=physical_sensors&with[]=valves&with[]=pumps&with[]=custom_components&with[]=custom_components.type&' + that.sourceFilter + '&' + 'pagination[per_page]=' + that.itemsPerPage + '&page=' + that.$refs.pagination.page + that.$refs.pagination.filter_string + that.$refs.pagination.order_string,
                 method: 'GET',
                 success: function success(data) {
                     that.ids = data.data.map(function (c) {
@@ -4750,8 +4750,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                             return v.id;
                         });
                     }));
-                    that.generic_component_ids = [].concat.apply([], data.data.map(function (c) {
-                        return c.generic_components.map(function (g) {
+                    that.custom_component_ids = [].concat.apply([], data.data.map(function (c) {
+                        return c.custom_components.map(function (g) {
                             return g.id;
                         });
                     }));
@@ -4763,15 +4763,15 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
                     that.$refs.pagination.meta = data.meta;
 
-                    that.$parent.ensureObjects('controlunits', that.ids, data.data, ['physical_sensors', 'valves', 'pumps', 'generic_components']);
+                    that.$parent.ensureObjects('controlunits', that.ids, data.data, ['physical_sensors', 'valves', 'pumps', 'custom_components']);
                     that.$parent.ensureObjects('pumps', that.pump_ids, [].concat.apply([], data.data.map(function (c) {
                         return c.pumps;
                     })));
                     that.$parent.ensureObjects('valves', that.valve_ids, [].concat.apply([], data.data.map(function (c) {
                         return c.valves;
                     })));
-                    that.$parent.ensureObjects('generic_components', that.generic_component_ids, [].concat.apply([], data.data.map(function (c) {
-                        return c.generic_components;
+                    that.$parent.ensureObjects('custom_components', that.custom_component_ids, [].concat.apply([], data.data.map(function (c) {
+                        return c.custom_components;
                     })));
                     that.$parent.ensureObjects('physical_sensors', that.physical_sensors_ids, [].concat.apply([], data.data.map(function (c) {
                         return c.physical_sensors;
@@ -4790,7 +4790,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             this.valves.forEach(function (v) {
                 return v.unsubscribe();
             });
-            this.generic_components.forEach(function (g) {
+            this.custom_components.forEach(function (g) {
                 return g.unsubscribe();
             });
             this.physical_sensors.forEach(function (p) {
@@ -4812,6 +4812,2818 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 /***/ }),
 /* 36 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            component_properties: [],
+            component_states: [],
+            component_intentions: [],
+            custom_component_type: {
+                name_singular: '',
+                name_plural: '',
+                icon: '3d_rotation'
+            },
+            current_icon: null
+        };
+    },
+
+
+    props: {
+        wrapperClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        containerClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        customComponentType: {
+            type: Object,
+            default: null,
+            required: false
+        },
+        properties: {
+            type: Array,
+            default: null,
+            required: false
+        },
+        states: {
+            type: Array,
+            default: null,
+            required: false
+        },
+        intentions: {
+            type: Array,
+            default: null,
+            required: false
+        },
+        defaultRunningState: {
+            type: String,
+            default: null,
+            required: false
+        },
+        sensorreadingTypes: {
+            type: Array,
+            default: function _default() {
+                return [];
+            },
+            required: false
+        }
+    },
+
+    methods: {
+
+        add_property: function add_property() {
+            this.component_properties.push({ name: '' });
+        },
+
+        add_state: function add_state() {
+            this.component_states.push({ name: '' });
+        },
+
+        add_intention: function add_intention() {
+            this.component_intentions.push({ intention: 'increase', type: 'humidity_percent' });
+            this.$nextTick(function () {
+                $('select').material_select();
+                this.register_select_event_handler('#intention_id_' + (this.component_intentions.length - 1));
+                this.register_select_event_handler('#type_id_' + (this.component_intentions.length - 1));
+            });
+        },
+
+        register_select_event_handler: function register_select_event_handler(id) {
+            var suspend = false;
+            $(id).on('change', function () {
+                if (!suspend) {
+                    suspend = true;
+                    var event = new CustomEvent('change', {
+                        detail: 'change',
+                        bubbles: true
+                    });
+                    $(this).get(0).dispatchEvent(event);
+                } else {
+                    suspend = false;
+                }
+            });
+        }
+    },
+
+    created: function created() {
+        var _this = this;
+
+        var that = this;
+        this.$nextTick(function () {
+            if (that.customComponentType !== null) {
+                that.custom_component_type = that.customComponentType;
+                $('#' + that.custom_component_type.id).attr('data-method', 'PUT');
+
+                that.default_running_state = that.defaultRunningState;
+                that.current_icon = that.custom_component_type.icon;
+
+                if (that.properties !== null) {
+                    that.properties.forEach(function (el) {
+                        that.component_properties.push({ name: el });
+                    });
+                }
+                if (that.states !== null) {
+                    that.states.forEach(function (el) {
+                        that.component_states.push({ name: el });
+                    });
+                }
+                if (that.intentions !== null) {
+                    that.intentions.forEach(function (el) {
+                        that.component_intentions.push({ intention: el.value, type: el.name });
+                    });
+                }
+            }
+        });
+
+        setTimeout(function () {
+            $('input#icon-select').autocomplete({
+                data: {
+                    'access-point': null,
+                    'access-point-network': null,
+                    'account': null,
+                    'account-alert': null,
+                    'account-box': null,
+                    'account-box-outline': null,
+                    'account-card-details': null,
+                    'account-check': null,
+                    'account-circle': null,
+                    'account-convert': null,
+                    'account-edit': null,
+                    'account-group': null,
+                    'account-key': null,
+                    'account-location': null,
+                    'account-minus': null,
+                    'account-multiple': null,
+                    'account-multiple-minus': null,
+                    'account-multiple-outline': null,
+                    'account-multiple-plus': null,
+                    'account-multiple-plus-outline': null,
+                    'account-network': null,
+                    'account-off': null,
+                    'account-outline': null,
+                    'account-plus': null,
+                    'account-plus-outline': null,
+                    'account-remove': null,
+                    'account-search': null,
+                    'account-settings': null,
+                    'account-settings-variant': null,
+                    'account-star': null,
+                    'account-switch': null,
+                    'accusoft': null,
+                    'adjust': null,
+                    'air-conditioner': null,
+                    'airballoon': null,
+                    'airplane': null,
+                    'airplane-landing': null,
+                    'airplane-off': null,
+                    'airplane-takeoff': null,
+                    'airplay': null,
+                    'airport': null,
+                    'alarm': null,
+                    'alarm-bell': null,
+                    'alarm-check': null,
+                    'alarm-light': null,
+                    'alarm-multiple': null,
+                    'alarm-off': null,
+                    'alarm-plus': null,
+                    'alarm-snooze': null,
+                    'album': null,
+                    'alert': null,
+                    'alert-box': null,
+                    'alert-circle': null,
+                    'alert-circle-outline': null,
+                    'alert-decagram': null,
+                    'alert-octagon': null,
+                    'alert-octagram': null,
+                    'alert-outline': null,
+                    'all-inclusive': null,
+                    'allo': null,
+                    'alpha': null,
+                    'alphabetical': null,
+                    'altimeter': null,
+                    'amazon': null,
+                    'amazon-clouddrive': null,
+                    'ambulance': null,
+                    'amplifier': null,
+                    'anchor': null,
+                    'android': null,
+                    'android-debug-bridge': null,
+                    'android-head': null,
+                    'android-studio': null,
+                    'angular': null,
+                    'angularjs': null,
+                    'animation': null,
+                    'apple': null,
+                    'apple-finder': null,
+                    'apple-ios': null,
+                    'apple-keyboard-caps': null,
+                    'apple-keyboard-command': null,
+                    'apple-keyboard-control': null,
+                    'apple-keyboard-option': null,
+                    'apple-keyboard-shift': null,
+                    'apple-mobileme': null,
+                    'apple-safari': null,
+                    'application': null,
+                    'approval': null,
+                    'apps': null,
+                    'archive': null,
+                    'arrange-bring-forward': null,
+                    'arrange-bring-to-front': null,
+                    'arrange-send-backward': null,
+                    'arrange-send-to-back': null,
+                    'arrow-all': null,
+                    'arrow-bottom-left': null,
+                    'arrow-bottom-right': null,
+                    'arrow-collapse': null,
+                    'arrow-collapse-all': null,
+                    'arrow-collapse-down': null,
+                    'arrow-collapse-horizontal': null,
+                    'arrow-collapse-left': null,
+                    'arrow-collapse-right': null,
+                    'arrow-collapse-up': null,
+                    'arrow-collapse-vertical': null,
+                    'arrow-down': null,
+                    'arrow-down-bold': null,
+                    'arrow-down-bold-box': null,
+                    'arrow-down-bold-box-outline': null,
+                    'arrow-down-bold-circle': null,
+                    'arrow-down-bold-circle-outline': null,
+                    'arrow-down-bold-hexagon-outline': null,
+                    'arrow-down-box': null,
+                    'arrow-down-drop-circle': null,
+                    'arrow-down-drop-circle-outline': null,
+                    'arrow-down-thick': null,
+                    'arrow-expand': null,
+                    'arrow-expand-all': null,
+                    'arrow-expand-down': null,
+                    'arrow-expand-horizontal': null,
+                    'arrow-expand-left': null,
+                    'arrow-expand-right': null,
+                    'arrow-expand-up': null,
+                    'arrow-expand-vertical': null,
+                    'arrow-left': null,
+                    'arrow-left-bold': null,
+                    'arrow-left-bold-box': null,
+                    'arrow-left-bold-box-outline': null,
+                    'arrow-left-bold-circle': null,
+                    'arrow-left-bold-circle-outline': null,
+                    'arrow-left-bold-hexagon-outline': null,
+                    'arrow-left-box': null,
+                    'arrow-left-drop-circle': null,
+                    'arrow-left-drop-circle-outline': null,
+                    'arrow-left-thick': null,
+                    'arrow-right': null,
+                    'arrow-right-bold': null,
+                    'arrow-right-bold-box': null,
+                    'arrow-right-bold-box-outline': null,
+                    'arrow-right-bold-circle': null,
+                    'arrow-right-bold-circle-outline': null,
+                    'arrow-right-bold-hexagon-outline': null,
+                    'arrow-right-box': null,
+                    'arrow-right-drop-circle': null,
+                    'arrow-right-drop-circle-outline': null,
+                    'arrow-right-thick': null,
+                    'arrow-top-left': null,
+                    'arrow-top-right': null,
+                    'arrow-up': null,
+                    'arrow-up-bold': null,
+                    'arrow-up-bold-box': null,
+                    'arrow-up-bold-box-outline': null,
+                    'arrow-up-bold-circle': null,
+                    'arrow-up-bold-circle-outline': null,
+                    'arrow-up-bold-hexagon-outline': null,
+                    'arrow-up-box': null,
+                    'arrow-up-drop-circle': null,
+                    'arrow-up-drop-circle-outline': null,
+                    'arrow-up-thick': null,
+                    'artist': null,
+                    'assistant': null,
+                    'asterisk': null,
+                    'at': null,
+                    'atlassian': null,
+                    'atom': null,
+                    'attachment': null,
+                    'audiobook': null,
+                    'augmented-reality': null,
+                    'auto-fix': null,
+                    'auto-upload': null,
+                    'autorenew': null,
+                    'av-timer': null,
+                    'azure': null,
+                    'baby': null,
+                    'baby-buggy': null,
+                    'backburger': null,
+                    'backspace': null,
+                    'backup-restore': null,
+                    'badminton': null,
+                    'bandcamp': null,
+                    'bank': null,
+                    'barcode': null,
+                    'barcode-scan': null,
+                    'barley': null,
+                    'barrel': null,
+                    'baseball': null,
+                    'baseball-bat': null,
+                    'basecamp': null,
+                    'basket': null,
+                    'basket-fill': null,
+                    'basket-unfill': null,
+                    'basketball': null,
+                    'battery': null,
+                    'battery-10': null,
+                    'battery-20': null,
+                    'battery-30': null,
+                    'battery-40': null,
+                    'battery-50': null,
+                    'battery-60': null,
+                    'battery-70': null,
+                    'battery-80': null,
+                    'battery-90': null,
+                    'battery-alert': null,
+                    'battery-charging': null,
+                    'battery-charging-100': null,
+                    'battery-charging-20': null,
+                    'battery-charging-30': null,
+                    'battery-charging-40': null,
+                    'battery-charging-60': null,
+                    'battery-charging-80': null,
+                    'battery-charging-90': null,
+                    'battery-charging-wireless': null,
+                    'battery-charging-wireless-10': null,
+                    'battery-charging-wireless-20': null,
+                    'battery-charging-wireless-30': null,
+                    'battery-charging-wireless-40': null,
+                    'battery-charging-wireless-50': null,
+                    'battery-charging-wireless-60': null,
+                    'battery-charging-wireless-70': null,
+                    'battery-charging-wireless-80': null,
+                    'battery-charging-wireless-90': null,
+                    'battery-charging-wireless-alert': null,
+                    'battery-charging-wireless-outline': null,
+                    'battery-minus': null,
+                    'battery-negative': null,
+                    'battery-outline': null,
+                    'battery-plus': null,
+                    'battery-positive': null,
+                    'battery-unknown': null,
+                    'beach': null,
+                    'beaker': null,
+                    'beats': null,
+                    'beer': null,
+                    'behance': null,
+                    'bell': null,
+                    'bell-off': null,
+                    'bell-outline': null,
+                    'bell-plus': null,
+                    'bell-ring': null,
+                    'bell-ring-outline': null,
+                    'bell-sleep': null,
+                    'beta': null,
+                    'bible': null,
+                    'bike': null,
+                    'bing': null,
+                    'binoculars': null,
+                    'bio': null,
+                    'biohazard': null,
+                    'bitbucket': null,
+                    'bitcoin': null,
+                    'black-mesa': null,
+                    'blackberry': null,
+                    'blender': null,
+                    'blinds': null,
+                    'block-helper': null,
+                    'blogger': null,
+                    'bluetooth': null,
+                    'bluetooth-audio': null,
+                    'bluetooth-connect': null,
+                    'bluetooth-off': null,
+                    'bluetooth-settings': null,
+                    'bluetooth-transfer': null,
+                    'blur': null,
+                    'blur-linear': null,
+                    'blur-off': null,
+                    'blur-radial': null,
+                    'bomb': null,
+                    'bomb-off': null,
+                    'bone': null,
+                    'book': null,
+                    'book-minus': null,
+                    'book-multiple': null,
+                    'book-multiple-variant': null,
+                    'book-open': null,
+                    'book-open-page-variant': null,
+                    'book-open-variant': null,
+                    'book-plus': null,
+                    'book-secure': null,
+                    'book-unsecure': null,
+                    'book-variant': null,
+                    'bookmark': null,
+                    'bookmark-check': null,
+                    'bookmark-music': null,
+                    'bookmark-outline': null,
+                    'bookmark-plus': null,
+                    'bookmark-plus-outline': null,
+                    'bookmark-remove': null,
+                    'boombox': null,
+                    'bootstrap': null,
+                    'border-all': null,
+                    'border-bottom': null,
+                    'border-color': null,
+                    'border-horizontal': null,
+                    'border-inside': null,
+                    'border-left': null,
+                    'border-none': null,
+                    'border-outside': null,
+                    'border-right': null,
+                    'border-style': null,
+                    'border-top': null,
+                    'border-vertical': null,
+                    'bottle-wine': null,
+                    'bow-tie': null,
+                    'bowl': null,
+                    'bowling': null,
+                    'box': null,
+                    'box-cutter': null,
+                    'box-shadow': null,
+                    'bridge': null,
+                    'briefcase': null,
+                    'briefcase-check': null,
+                    'briefcase-download': null,
+                    'briefcase-outline': null,
+                    'briefcase-upload': null,
+                    'brightness-1': null,
+                    'brightness-2': null,
+                    'brightness-3': null,
+                    'brightness-4': null,
+                    'brightness-5': null,
+                    'brightness-6': null,
+                    'brightness-7': null,
+                    'brightness-auto': null,
+                    'broom': null,
+                    'brush': null,
+                    'buffer': null,
+                    'bug': null,
+                    'bulletin-board': null,
+                    'bullhorn': null,
+                    'bullseye': null,
+                    'bus': null,
+                    'bus-articulated-end': null,
+                    'bus-articulated-front': null,
+                    'bus-double-decker': null,
+                    'bus-school': null,
+                    'bus-side': null,
+                    'cached': null,
+                    'cake': null,
+                    'cake-layered': null,
+                    'cake-variant': null,
+                    'calculator': null,
+                    'calendar': null,
+                    'calendar-blank': null,
+                    'calendar-check': null,
+                    'calendar-clock': null,
+                    'calendar-multiple': null,
+                    'calendar-multiple-check': null,
+                    'calendar-plus': null,
+                    'calendar-question': null,
+                    'calendar-range': null,
+                    'calendar-remove': null,
+                    'calendar-text': null,
+                    'calendar-today': null,
+                    'call-made': null,
+                    'call-merge': null,
+                    'call-missed': null,
+                    'call-received': null,
+                    'call-split': null,
+                    'camcorder': null,
+                    'camcorder-box': null,
+                    'camcorder-box-off': null,
+                    'camcorder-off': null,
+                    'camera': null,
+                    'camera-burst': null,
+                    'camera-enhance': null,
+                    'camera-front': null,
+                    'camera-front-variant': null,
+                    'camera-gopro': null,
+                    'camera-iris': null,
+                    'camera-metering-center': null,
+                    'camera-metering-matrix': null,
+                    'camera-metering-partial': null,
+                    'camera-metering-spot': null,
+                    'camera-off': null,
+                    'camera-party-mode': null,
+                    'camera-rear': null,
+                    'camera-rear-variant': null,
+                    'camera-switch': null,
+                    'camera-timer': null,
+                    'cancel': null,
+                    'candle': null,
+                    'candycane': null,
+                    'cannabis': null,
+                    'car': null,
+                    'car-battery': null,
+                    'car-connected': null,
+                    'car-convertible': null,
+                    'car-estate': null,
+                    'car-hatchback': null,
+                    'car-pickup': null,
+                    'car-side': null,
+                    'car-sports': null,
+                    'car-wash': null,
+                    'caravan': null,
+                    'cards': null,
+                    'cards-outline': null,
+                    'cards-playing-outline': null,
+                    'cards-variant': null,
+                    'carrot': null,
+                    'cart': null,
+                    'cart-off': null,
+                    'cart-outline': null,
+                    'cart-plus': null,
+                    'case-sensitive-alt': null,
+                    'cash': null,
+                    'cash-100': null,
+                    'cash-multiple': null,
+                    'cash-usd': null,
+                    'cast': null,
+                    'cast-connected': null,
+                    'cast-off': null,
+                    'castle': null,
+                    'cat': null,
+                    'cctv': null,
+                    'ceiling-light': null,
+                    'cellphone': null,
+                    'cellphone-android': null,
+                    'cellphone-basic': null,
+                    'cellphone-dock': null,
+                    'cellphone-iphone': null,
+                    'cellphone-link': null,
+                    'cellphone-link-off': null,
+                    'cellphone-settings': null,
+                    'cellphone-wireless': null,
+                    'certificate': null,
+                    'chair-school': null,
+                    'chart-arc': null,
+                    'chart-areaspline': null,
+                    'chart-bar': null,
+                    'chart-bar-stacked': null,
+                    'chart-bubble': null,
+                    'chart-donut': null,
+                    'chart-donut-variant': null,
+                    'chart-gantt': null,
+                    'chart-histogram': null,
+                    'chart-line': null,
+                    'chart-line-stacked': null,
+                    'chart-line-variant': null,
+                    'chart-pie': null,
+                    'chart-scatterplot-hexbin': null,
+                    'chart-timeline': null,
+                    'check': null,
+                    'check-all': null,
+                    'check-circle': null,
+                    'check-circle-outline': null,
+                    'check-outline': null,
+                    'checkbox-blank': null,
+                    'checkbox-blank-circle': null,
+                    'checkbox-blank-circle-outline': null,
+                    'checkbox-blank-outline': null,
+                    'checkbox-intermediate': null,
+                    'checkbox-marked': null,
+                    'checkbox-marked-circle': null,
+                    'checkbox-marked-circle-outline': null,
+                    'checkbox-marked-outline': null,
+                    'checkbox-multiple-blank': null,
+                    'checkbox-multiple-blank-circle': null,
+                    'checkbox-multiple-blank-circle-outline': null,
+                    'checkbox-multiple-blank-outline': null,
+                    'checkbox-multiple-marked': null,
+                    'checkbox-multiple-marked-circle': null,
+                    'checkbox-multiple-marked-circle-outline': null,
+                    'checkbox-multiple-marked-outline': null,
+                    'checkerboard': null,
+                    'chemical-weapon': null,
+                    'chess-bishop': null,
+                    'chess-king': null,
+                    'chess-knight': null,
+                    'chess-pawn': null,
+                    'chess-queen': null,
+                    'chess-rook': null,
+                    'chevron-double-down': null,
+                    'chevron-double-left': null,
+                    'chevron-double-right': null,
+                    'chevron-double-up': null,
+                    'chevron-down': null,
+                    'chevron-left': null,
+                    'chevron-right': null,
+                    'chevron-up': null,
+                    'chili-hot': null,
+                    'chili-medium': null,
+                    'chili-mild': null,
+                    'chip': null,
+                    'church': null,
+                    'circle': null,
+                    'circle-outline': null,
+                    'cisco-webex': null,
+                    'city': null,
+                    'clipboard': null,
+                    'clipboard-account': null,
+                    'clipboard-alert': null,
+                    'clipboard-arrow-down': null,
+                    'clipboard-arrow-left': null,
+                    'clipboard-check': null,
+                    'clipboard-flow': null,
+                    'clipboard-outline': null,
+                    'clipboard-plus': null,
+                    'clipboard-pulse': null,
+                    'clipboard-pulse-outline': null,
+                    'clipboard-text': null,
+                    'clippy': null,
+                    'clock': null,
+                    'clock-alert': null,
+                    'clock-end': null,
+                    'clock-fast': null,
+                    'clock-in': null,
+                    'clock-out': null,
+                    'clock-start': null,
+                    'close': null,
+                    'close-box': null,
+                    'close-box-outline': null,
+                    'close-circle': null,
+                    'close-circle-outline': null,
+                    'close-network': null,
+                    'close-octagon': null,
+                    'close-octagon-outline': null,
+                    'close-outline': null,
+                    'closed-caption': null,
+                    'cloud': null,
+                    'cloud-braces': null,
+                    'cloud-check': null,
+                    'cloud-circle': null,
+                    'cloud-download': null,
+                    'cloud-off-outline': null,
+                    'cloud-outline': null,
+                    'cloud-print': null,
+                    'cloud-print-outline': null,
+                    'cloud-sync': null,
+                    'cloud-tags': null,
+                    'cloud-upload': null,
+                    'clover': null,
+                    'code-array': null,
+                    'code-braces': null,
+                    'code-brackets': null,
+                    'code-equal': null,
+                    'code-greater-than': null,
+                    'code-greater-than-or-equal': null,
+                    'code-less-than': null,
+                    'code-less-than-or-equal': null,
+                    'code-not-equal': null,
+                    'code-not-equal-variant': null,
+                    'code-parentheses': null,
+                    'code-string': null,
+                    'code-tags': null,
+                    'code-tags-check': null,
+                    'codepen': null,
+                    'coffee': null,
+                    'coffee-outline': null,
+                    'coffee-to-go': null,
+                    'coin': null,
+                    'coins': null,
+                    'collage': null,
+                    'color-helper': null,
+                    'comment': null,
+                    'comment-account': null,
+                    'comment-account-outline': null,
+                    'comment-alert': null,
+                    'comment-alert-outline': null,
+                    'comment-check': null,
+                    'comment-check-outline': null,
+                    'comment-multiple': null,
+                    'comment-multiple-outline': null,
+                    'comment-outline': null,
+                    'comment-plus-outline': null,
+                    'comment-processing': null,
+                    'comment-processing-outline': null,
+                    'comment-question': null,
+                    'comment-question-outline': null,
+                    'comment-remove': null,
+                    'comment-remove-outline': null,
+                    'comment-text': null,
+                    'comment-text-multiple': null,
+                    'comment-text-multiple-outline': null,
+                    'comment-text-outline': null,
+                    'compare': null,
+                    'compass': null,
+                    'compass-outline': null,
+                    'console': null,
+                    'console-line': null,
+                    'contact-mail': null,
+                    'contacts': null,
+                    'content-copy': null,
+                    'content-cut': null,
+                    'content-duplicate': null,
+                    'content-paste': null,
+                    'content-save': null,
+                    'content-save-all': null,
+                    'content-save-outline': null,
+                    'content-save-settings': null,
+                    'contrast': null,
+                    'contrast-box': null,
+                    'contrast-circle': null,
+                    'cookie': null,
+                    'copyright': null,
+                    'corn': null,
+                    'counter': null,
+                    'cow': null,
+                    'crane': null,
+                    'creation': null,
+                    'credit-card': null,
+                    'credit-card-multiple': null,
+                    'credit-card-off': null,
+                    'credit-card-plus': null,
+                    'credit-card-scan': null,
+                    'crop': null,
+                    'crop-free': null,
+                    'crop-landscape': null,
+                    'crop-portrait': null,
+                    'crop-rotate': null,
+                    'crop-square': null,
+                    'crosshairs': null,
+                    'crosshairs-gps': null,
+                    'crown': null,
+                    'cube': null,
+                    'cube-outline': null,
+                    'cube-send': null,
+                    'cube-unfolded': null,
+                    'cup': null,
+                    'cup-off': null,
+                    'cup-water': null,
+                    'curling': null,
+                    'currency-bdt': null,
+                    'currency-btc': null,
+                    'currency-chf': null,
+                    'currency-cny': null,
+                    'currency-eth': null,
+                    'currency-eur': null,
+                    'currency-gbp': null,
+                    'currency-inr': null,
+                    'currency-jpy': null,
+                    'currency-krw': null,
+                    'currency-kzt': null,
+                    'currency-ngn': null,
+                    'currency-rub': null,
+                    'currency-sign': null,
+                    'currency-try': null,
+                    'currency-twd': null,
+                    'currency-usd': null,
+                    'currency-usd-off': null,
+                    'cursor-default': null,
+                    'cursor-default-outline': null,
+                    'cursor-move': null,
+                    'cursor-pointer': null,
+                    'cursor-text': null,
+                    'database': null,
+                    'database-minus': null,
+                    'database-plus': null,
+                    'database-search': null,
+                    'debug-step-into': null,
+                    'debug-step-out': null,
+                    'debug-step-over': null,
+                    'decagram': null,
+                    'decagram-outline': null,
+                    'decimal-decrease': null,
+                    'decimal-increase': null,
+                    'delete': null,
+                    'delete-circle': null,
+                    'delete-empty': null,
+                    'delete-forever': null,
+                    'delete-restore': null,
+                    'delete-sweep': null,
+                    'delete-variant': null,
+                    'delta': null,
+                    'deskphone': null,
+                    'desktop-classic': null,
+                    'desktop-mac': null,
+                    'desktop-tower': null,
+                    'details': null,
+                    'developer-board': null,
+                    'deviantart': null,
+                    'dialpad': null,
+                    'diamond': null,
+                    'dice-1': null,
+                    'dice-2': null,
+                    'dice-3': null,
+                    'dice-4': null,
+                    'dice-5': null,
+                    'dice-6': null,
+                    'dice-d10': null,
+                    'dice-d12': null,
+                    'dice-d20': null,
+                    'dice-d4': null,
+                    'dice-d6': null,
+                    'dice-d8': null,
+                    'dice-multiple': null,
+                    'dictionary': null,
+                    'dip-switch': null,
+                    'directions': null,
+                    'directions-fork': null,
+                    'discord': null,
+                    'disk': null,
+                    'disk-alert': null,
+                    'disqus': null,
+                    'disqus-outline': null,
+                    'division': null,
+                    'division-box': null,
+                    'dna': null,
+                    'dns': null,
+                    'do-not-disturb': null,
+                    'do-not-disturb-off': null,
+                    'docker': null,
+                    'dolby': null,
+                    'domain': null,
+                    'donkey': null,
+                    'door': null,
+                    'door-closed': null,
+                    'door-open': null,
+                    'doorbell-video': null,
+                    'dots-horizontal': null,
+                    'dots-horizontal-circle': null,
+                    'dots-vertical': null,
+                    'dots-vertical-circle': null,
+                    'douban': null,
+                    'download': null,
+                    'download-network': null,
+                    'drag': null,
+                    'drag-horizontal': null,
+                    'drag-vertical': null,
+                    'drawing': null,
+                    'drawing-box': null,
+                    'dribbble': null,
+                    'dribbble-box': null,
+                    'drone': null,
+                    'dropbox': null,
+                    'drupal': null,
+                    'duck': null,
+                    'dumbbell': null,
+                    'ear-hearing': null,
+                    'earth': null,
+                    'earth-box': null,
+                    'earth-box-off': null,
+                    'earth-off': null,
+                    'edge': null,
+                    'eject': null,
+                    'elephant': null,
+                    'elevation-decline': null,
+                    'elevation-rise': null,
+                    'elevator': null,
+                    'email': null,
+                    'email-alert': null,
+                    'email-open': null,
+                    'email-open-outline': null,
+                    'email-outline': null,
+                    'email-secure': null,
+                    'email-variant': null,
+                    'emby': null,
+                    'emoticon': null,
+                    'emoticon-cool': null,
+                    'emoticon-dead': null,
+                    'emoticon-devil': null,
+                    'emoticon-excited': null,
+                    'emoticon-happy': null,
+                    'emoticon-neutral': null,
+                    'emoticon-poop': null,
+                    'emoticon-sad': null,
+                    'emoticon-tongue': null,
+                    'engine': null,
+                    'engine-outline': null,
+                    'equal': null,
+                    'equal-box': null,
+                    'eraser': null,
+                    'eraser-variant': null,
+                    'escalator': null,
+                    'ethereum': null,
+                    'ethernet': null,
+                    'ethernet-cable': null,
+                    'ethernet-cable-off': null,
+                    'etsy': null,
+                    'ev-station': null,
+                    'eventbrite': null,
+                    'evernote': null,
+                    'exclamation': null,
+                    'exit-to-app': null,
+                    'export': null,
+                    'eye': null,
+                    'eye-off': null,
+                    'eye-off-outline': null,
+                    'eye-outline': null,
+                    'eye-plus': null,
+                    'eye-plus-outline': null,
+                    'eye-settings': null,
+                    'eye-settings-outline': null,
+                    'eyedropper': null,
+                    'eyedropper-variant': null,
+                    'face': null,
+                    'face-profile': null,
+                    'facebook': null,
+                    'facebook-box': null,
+                    'facebook-messenger': null,
+                    'factory': null,
+                    'fan': null,
+                    'fan-off': null,
+                    'fast-forward': null,
+                    'fast-forward-outline': null,
+                    'fax': null,
+                    'feather': null,
+                    'ferry': null,
+                    'file': null,
+                    'file-account': null,
+                    'file-chart': null,
+                    'file-check': null,
+                    'file-cloud': null,
+                    'file-delimited': null,
+                    'file-document': null,
+                    'file-document-box': null,
+                    'file-excel': null,
+                    'file-excel-box': null,
+                    'file-export': null,
+                    'file-find': null,
+                    'file-hidden': null,
+                    'file-image': null,
+                    'file-import': null,
+                    'file-lock': null,
+                    'file-multiple': null,
+                    'file-music': null,
+                    'file-outline': null,
+                    'file-pdf': null,
+                    'file-pdf-box': null,
+                    'file-percent': null,
+                    'file-plus': null,
+                    'file-powerpoint': null,
+                    'file-powerpoint-box': null,
+                    'file-presentation-box': null,
+                    'file-question': null,
+                    'file-restore': null,
+                    'file-send': null,
+                    'file-tree': null,
+                    'file-video': null,
+                    'file-word': null,
+                    'file-word-box': null,
+                    'file-xml': null,
+                    'film': null,
+                    'filmstrip': null,
+                    'filmstrip-off': null,
+                    'filter': null,
+                    'filter-outline': null,
+                    'filter-remove': null,
+                    'filter-remove-outline': null,
+                    'filter-variant': null,
+                    'finance': null,
+                    'find-replace': null,
+                    'fingerprint': null,
+                    'fire': null,
+                    'firefox': null,
+                    'fish': null,
+                    'flag': null,
+                    'flag-checkered': null,
+                    'flag-outline': null,
+                    'flag-triangle': null,
+                    'flag-variant': null,
+                    'flag-variant-outline': null,
+                    'flash': null,
+                    'flash-auto': null,
+                    'flash-circle': null,
+                    'flash-off': null,
+                    'flash-outline': null,
+                    'flash-red-eye': null,
+                    'flashlight': null,
+                    'flashlight-off': null,
+                    'flask': null,
+                    'flask-empty': null,
+                    'flask-empty-outline': null,
+                    'flask-outline': null,
+                    'flattr': null,
+                    'flip-to-back': null,
+                    'flip-to-front': null,
+                    'floor-plan': null,
+                    'floppy': null,
+                    'flower': null,
+                    'folder': null,
+                    'folder-account': null,
+                    'folder-download': null,
+                    'folder-google-drive': null,
+                    'folder-image': null,
+                    'folder-lock': null,
+                    'folder-lock-open': null,
+                    'folder-move': null,
+                    'folder-multiple': null,
+                    'folder-multiple-image': null,
+                    'folder-multiple-outline': null,
+                    'folder-network': null,
+                    'folder-open': null,
+                    'folder-outline': null,
+                    'folder-plus': null,
+                    'folder-remove': null,
+                    'folder-star': null,
+                    'folder-upload': null,
+                    'font-awesome': null,
+                    'food': null,
+                    'food-apple': null,
+                    'food-croissant': null,
+                    'food-fork-drink': null,
+                    'food-off': null,
+                    'food-variant': null,
+                    'football': null,
+                    'football-australian': null,
+                    'football-helmet': null,
+                    'forklift': null,
+                    'format-align-bottom': null,
+                    'format-align-center': null,
+                    'format-align-justify': null,
+                    'format-align-left': null,
+                    'format-align-middle': null,
+                    'format-align-right': null,
+                    'format-align-top': null,
+                    'format-annotation-plus': null,
+                    'format-bold': null,
+                    'format-clear': null,
+                    'format-color-fill': null,
+                    'format-color-text': null,
+                    'format-float-center': null,
+                    'format-float-left': null,
+                    'format-float-none': null,
+                    'format-float-right': null,
+                    'format-font': null,
+                    'format-header-1': null,
+                    'format-header-2': null,
+                    'format-header-3': null,
+                    'format-header-4': null,
+                    'format-header-5': null,
+                    'format-header-6': null,
+                    'format-header-decrease': null,
+                    'format-header-equal': null,
+                    'format-header-increase': null,
+                    'format-header-pound': null,
+                    'format-horizontal-align-center': null,
+                    'format-horizontal-align-left': null,
+                    'format-horizontal-align-right': null,
+                    'format-indent-decrease': null,
+                    'format-indent-increase': null,
+                    'format-italic': null,
+                    'format-line-spacing': null,
+                    'format-line-style': null,
+                    'format-line-weight': null,
+                    'format-list-bulleted': null,
+                    'format-list-bulleted-type': null,
+                    'format-list-checks': null,
+                    'format-list-numbers': null,
+                    'format-page-break': null,
+                    'format-paint': null,
+                    'format-paragraph': null,
+                    'format-pilcrow': null,
+                    'format-quote-close': null,
+                    'format-quote-open': null,
+                    'format-rotate-90': null,
+                    'format-section': null,
+                    'format-size': null,
+                    'format-strikethrough': null,
+                    'format-strikethrough-variant': null,
+                    'format-subscript': null,
+                    'format-superscript': null,
+                    'format-text': null,
+                    'format-textdirection-l-to-r': null,
+                    'format-textdirection-r-to-l': null,
+                    'format-title': null,
+                    'format-underline': null,
+                    'format-vertical-align-bottom': null,
+                    'format-vertical-align-center': null,
+                    'format-vertical-align-top': null,
+                    'format-wrap-inline': null,
+                    'format-wrap-square': null,
+                    'format-wrap-tight': null,
+                    'format-wrap-top-bottom': null,
+                    'forum': null,
+                    'forum-outline': null,
+                    'forward': null,
+                    'foursquare': null,
+                    'fridge': null,
+                    'fridge-filled': null,
+                    'fridge-filled-bottom': null,
+                    'fridge-filled-top': null,
+                    'fuel': null,
+                    'fullscreen': null,
+                    'fullscreen-exit': null,
+                    'function': null,
+                    'function-variant': null,
+                    'gamepad': null,
+                    'gamepad-variant': null,
+                    'garage': null,
+                    'garage-alert': null,
+                    'garage-open': null,
+                    'gas-cylinder': null,
+                    'gas-station': null,
+                    'gate': null,
+                    'gauge': null,
+                    'gauge-empty': null,
+                    'gauge-full': null,
+                    'gauge-low': null,
+                    'gavel': null,
+                    'gender-female': null,
+                    'gender-male': null,
+                    'gender-male-female': null,
+                    'gender-transgender': null,
+                    'gesture': null,
+                    'gesture-double-tap': null,
+                    'gesture-swipe-down': null,
+                    'gesture-swipe-left': null,
+                    'gesture-swipe-right': null,
+                    'gesture-swipe-up': null,
+                    'gesture-tap': null,
+                    'gesture-two-double-tap': null,
+                    'gesture-two-tap': null,
+                    'ghost': null,
+                    'gift': null,
+                    'git': null,
+                    'github-box': null,
+                    'github-circle': null,
+                    'github-face': null,
+                    'glass-cocktail': null,
+                    'glass-flute': null,
+                    'glass-mug': null,
+                    'glass-stange': null,
+                    'glass-tulip': null,
+                    'glass-wine': null,
+                    'glassdoor': null,
+                    'glasses': null,
+                    'gmail': null,
+                    'gnome': null,
+                    'golf': null,
+                    'gondola': null,
+                    'google': null,
+                    'google-analytics': null,
+                    'google-assistant': null,
+                    'google-cardboard': null,
+                    'google-chrome': null,
+                    'google-circles': null,
+                    'google-circles-communities': null,
+                    'google-circles-extended': null,
+                    'google-circles-group': null,
+                    'google-controller': null,
+                    'google-controller-off': null,
+                    'google-drive': null,
+                    'google-earth': null,
+                    'google-glass': null,
+                    'google-home': null,
+                    'google-keep': null,
+                    'google-maps': null,
+                    'google-nearby': null,
+                    'google-pages': null,
+                    'google-photos': null,
+                    'google-physical-web': null,
+                    'google-play': null,
+                    'google-plus': null,
+                    'google-plus-box': null,
+                    'google-translate': null,
+                    'google-wallet': null,
+                    'gradient': null,
+                    'graphql': null,
+                    'grease-pencil': null,
+                    'grid': null,
+                    'grid-large': null,
+                    'grid-off': null,
+                    'group': null,
+                    'guitar-acoustic': null,
+                    'guitar-electric': null,
+                    'guitar-pick': null,
+                    'guitar-pick-outline': null,
+                    'guy-fawkes-mask': null,
+                    'hackernews': null,
+                    'hamburger': null,
+                    'hand-pointing-right': null,
+                    'hanger': null,
+                    'hangouts': null,
+                    'harddisk': null,
+                    'headphones': null,
+                    'headphones-box': null,
+                    'headphones-off': null,
+                    'headphones-settings': null,
+                    'headset': null,
+                    'headset-dock': null,
+                    'headset-off': null,
+                    'heart': null,
+                    'heart-box': null,
+                    'heart-box-outline': null,
+                    'heart-broken': null,
+                    'heart-half': null,
+                    'heart-half-full': null,
+                    'heart-half-outline': null,
+                    'heart-off': null,
+                    'heart-outline': null,
+                    'heart-pulse': null,
+                    'help': null,
+                    'help-box': null,
+                    'help-circle': null,
+                    'help-circle-outline': null,
+                    'help-network': null,
+                    'hexagon': null,
+                    'hexagon-multiple': null,
+                    'hexagon-outline': null,
+                    'high-definition': null,
+                    'high-definition-box': null,
+                    'highway': null,
+                    'history': null,
+                    'hockey-puck': null,
+                    'hockey-sticks': null,
+                    'hololens': null,
+                    'home': null,
+                    'home-account': null,
+                    'home-alert': null,
+                    'home-assistant': null,
+                    'home-automation': null,
+                    'home-circle': null,
+                    'home-heart': null,
+                    'home-map-marker': null,
+                    'home-modern': null,
+                    'home-outline': null,
+                    'home-variant': null,
+                    'hook': null,
+                    'hook-off': null,
+                    'hops': null,
+                    'hospital': null,
+                    'hospital-building': null,
+                    'hospital-marker': null,
+                    'hot-tub': null,
+                    'hotel': null,
+                    'houzz': null,
+                    'houzz-box': null,
+                    'hulu': null,
+                    'human': null,
+                    'human-child': null,
+                    'human-female': null,
+                    'human-greeting': null,
+                    'human-handsdown': null,
+                    'human-handsup': null,
+                    'human-male': null,
+                    'human-male-female': null,
+                    'human-pregnant': null,
+                    'humble-bundle': null,
+                    'ice-cream': null,
+                    'image': null,
+                    'image-album': null,
+                    'image-area': null,
+                    'image-area-close': null,
+                    'image-broken': null,
+                    'image-broken-variant': null,
+                    'image-filter': null,
+                    'image-filter-black-white': null,
+                    'image-filter-center-focus': null,
+                    'image-filter-center-focus-weak': null,
+                    'image-filter-drama': null,
+                    'image-filter-frames': null,
+                    'image-filter-hdr': null,
+                    'image-filter-none': null,
+                    'image-filter-tilt-shift': null,
+                    'image-filter-vintage': null,
+                    'image-multiple': null,
+                    'image-off': null,
+                    'image-plus': null,
+                    'import': null,
+                    'inbox': null,
+                    'inbox-arrow-down': null,
+                    'inbox-arrow-up': null,
+                    'incognito': null,
+                    'infinity': null,
+                    'information': null,
+                    'information-outline': null,
+                    'information-variant': null,
+                    'instagram': null,
+                    'instapaper': null,
+                    'internet-explorer': null,
+                    'invert-colors': null,
+                    'itunes': null,
+                    'jeepney': null,
+                    'jira': null,
+                    'jquery': null,
+                    'jsfiddle': null,
+                    'json': null,
+                    'karate': null,
+                    'keg': null,
+                    'kettle': null,
+                    'key': null,
+                    'key-change': null,
+                    'key-minus': null,
+                    'key-plus': null,
+                    'key-remove': null,
+                    'key-variant': null,
+                    'keyboard': null,
+                    'keyboard-backspace': null,
+                    'keyboard-caps': null,
+                    'keyboard-close': null,
+                    'keyboard-off': null,
+                    'keyboard-return': null,
+                    'keyboard-tab': null,
+                    'keyboard-variant': null,
+                    'kickstarter': null,
+                    'kodi': null,
+                    'label': null,
+                    'label-outline': null,
+                    'ladybug': null,
+                    'lambda': null,
+                    'lamp': null,
+                    'lan': null,
+                    'lan-connect': null,
+                    'lan-disconnect': null,
+                    'lan-pending': null,
+                    'language-c': null,
+                    'language-cpp': null,
+                    'language-csharp': null,
+                    'language-css3': null,
+                    'language-go': null,
+                    'language-html5': null,
+                    'language-javascript': null,
+                    'language-php': null,
+                    'language-python': null,
+                    'language-python-text': null,
+                    'language-r': null,
+                    'language-swift': null,
+                    'language-typescript': null,
+                    'laptop': null,
+                    'laptop-chromebook': null,
+                    'laptop-mac': null,
+                    'laptop-off': null,
+                    'laptop-windows': null,
+                    'lastfm': null,
+                    'lastpass': null,
+                    'launch': null,
+                    'lava-lamp': null,
+                    'layers': null,
+                    'layers-off': null,
+                    'lead-pencil': null,
+                    'leaf': null,
+                    'led-off': null,
+                    'led-on': null,
+                    'led-outline': null,
+                    'led-strip': null,
+                    'led-variant-off': null,
+                    'led-variant-on': null,
+                    'led-variant-outline': null,
+                    'library': null,
+                    'library-books': null,
+                    'library-music': null,
+                    'library-plus': null,
+                    'lifebuoy': null,
+                    'lightbulb': null,
+                    'lightbulb-on': null,
+                    'lightbulb-on-outline': null,
+                    'lightbulb-outline': null,
+                    'link': null,
+                    'link-off': null,
+                    'link-variant': null,
+                    'link-variant-off': null,
+                    'linkedin': null,
+                    'linkedin-box': null,
+                    'linux': null,
+                    'loading': null,
+                    'lock': null,
+                    'lock-open': null,
+                    'lock-open-outline': null,
+                    'lock-outline': null,
+                    'lock-pattern': null,
+                    'lock-plus': null,
+                    'lock-reset': null,
+                    'locker': null,
+                    'locker-multiple': null,
+                    'login': null,
+                    'login-variant': null,
+                    'logout': null,
+                    'logout-variant': null,
+                    'looks': null,
+                    'loop': null,
+                    'loupe': null,
+                    'lumx': null,
+                    'magnet': null,
+                    'magnet-on': null,
+                    'magnify': null,
+                    'magnify-minus': null,
+                    'magnify-minus-outline': null,
+                    'magnify-plus': null,
+                    'magnify-plus-outline': null,
+                    'mail-ru': null,
+                    'mailbox': null,
+                    'map': null,
+                    'map-marker': null,
+                    'map-marker-circle': null,
+                    'map-marker-minus': null,
+                    'map-marker-multiple': null,
+                    'map-marker-off': null,
+                    'map-marker-outline': null,
+                    'map-marker-plus': null,
+                    'map-marker-radius': null,
+                    'margin': null,
+                    'markdown': null,
+                    'marker': null,
+                    'marker-check': null,
+                    'material-ui': null,
+                    'math-compass': null,
+                    'matrix': null,
+                    'maxcdn': null,
+                    'medical-bag': null,
+                    'medium': null,
+                    'memory': null,
+                    'menu': null,
+                    'menu-down': null,
+                    'menu-down-outline': null,
+                    'menu-left': null,
+                    'menu-right': null,
+                    'menu-up': null,
+                    'menu-up-outline': null,
+                    'message': null,
+                    'message-alert': null,
+                    'message-bulleted': null,
+                    'message-bulleted-off': null,
+                    'message-draw': null,
+                    'message-image': null,
+                    'message-outline': null,
+                    'message-plus': null,
+                    'message-processing': null,
+                    'message-reply': null,
+                    'message-reply-text': null,
+                    'message-settings': null,
+                    'message-settings-variant': null,
+                    'message-text': null,
+                    'message-text-outline': null,
+                    'message-video': null,
+                    'meteor': null,
+                    'metronome': null,
+                    'metronome-tick': null,
+                    'micro-sd': null,
+                    'microphone': null,
+                    'microphone-off': null,
+                    'microphone-outline': null,
+                    'microphone-settings': null,
+                    'microphone-variant': null,
+                    'microphone-variant-off': null,
+                    'microscope': null,
+                    'microsoft': null,
+                    'minecraft': null,
+                    'minus': null,
+                    'minus-box': null,
+                    'minus-box-outline': null,
+                    'minus-circle': null,
+                    'minus-circle-outline': null,
+                    'minus-network': null,
+                    'mixcloud': null,
+                    'mixed-reality': null,
+                    'mixer': null,
+                    'monitor': null,
+                    'monitor-multiple': null,
+                    'more': null,
+                    'motorbike': null,
+                    'mouse': null,
+                    'mouse-off': null,
+                    'mouse-variant': null,
+                    'mouse-variant-off': null,
+                    'move-resize': null,
+                    'move-resize-variant': null,
+                    'movie': null,
+                    'movie-roll': null,
+                    'multiplication': null,
+                    'multiplication-box': null,
+                    'mushroom': null,
+                    'mushroom-outline': null,
+                    'music': null,
+                    'music-box': null,
+                    'music-box-outline': null,
+                    'music-circle': null,
+                    'music-note': null,
+                    'music-note-bluetooth': null,
+                    'music-note-bluetooth-off': null,
+                    'music-note-eighth': null,
+                    'music-note-half': null,
+                    'music-note-off': null,
+                    'music-note-quarter': null,
+                    'music-note-sixteenth': null,
+                    'music-note-whole': null,
+                    'music-off': null,
+                    'nativescript': null,
+                    'nature': null,
+                    'nature-people': null,
+                    'navigation': null,
+                    'near-me': null,
+                    'needle': null,
+                    'nest-protect': null,
+                    'nest-thermostat': null,
+                    'netflix': null,
+                    'network': null,
+                    'new-box': null,
+                    'newspaper': null,
+                    'nfc': null,
+                    'nfc-tap': null,
+                    'nfc-variant': null,
+                    'ninja': null,
+                    'nintendo-switch': null,
+                    'nodejs': null,
+                    'note': null,
+                    'note-multiple': null,
+                    'note-multiple-outline': null,
+                    'note-outline': null,
+                    'note-plus': null,
+                    'note-plus-outline': null,
+                    'note-text': null,
+                    'notebook': null,
+                    'notification-clear-all': null,
+                    'npm': null,
+                    'nuke': null,
+                    'null': null,
+                    'numeric': null,
+                    'numeric-0-box': null,
+                    'numeric-0-box-multiple-outline': null,
+                    'numeric-0-box-outline': null,
+                    'numeric-1-box': null,
+                    'numeric-1-box-multiple-outline': null,
+                    'numeric-1-box-outline': null,
+                    'numeric-2-box': null,
+                    'numeric-2-box-multiple-outline': null,
+                    'numeric-2-box-outline': null,
+                    'numeric-3-box': null,
+                    'numeric-3-box-multiple-outline': null,
+                    'numeric-3-box-outline': null,
+                    'numeric-4-box': null,
+                    'numeric-4-box-multiple-outline': null,
+                    'numeric-4-box-outline': null,
+                    'numeric-5-box': null,
+                    'numeric-5-box-multiple-outline': null,
+                    'numeric-5-box-outline': null,
+                    'numeric-6-box': null,
+                    'numeric-6-box-multiple-outline': null,
+                    'numeric-6-box-outline': null,
+                    'numeric-7-box': null,
+                    'numeric-7-box-multiple-outline': null,
+                    'numeric-7-box-outline': null,
+                    'numeric-8-box': null,
+                    'numeric-8-box-multiple-outline': null,
+                    'numeric-8-box-outline': null,
+                    'numeric-9-box': null,
+                    'numeric-9-box-multiple-outline': null,
+                    'numeric-9-box-outline': null,
+                    'numeric-9-plus-box': null,
+                    'numeric-9-plus-box-multiple-outline': null,
+                    'numeric-9-plus-box-outline': null,
+                    'nut': null,
+                    'nutrition': null,
+                    'oar': null,
+                    'octagon': null,
+                    'octagon-outline': null,
+                    'octagram': null,
+                    'octagram-outline': null,
+                    'odnoklassniki': null,
+                    'office': null,
+                    'oil': null,
+                    'oil-temperature': null,
+                    'omega': null,
+                    'onedrive': null,
+                    'onenote': null,
+                    'onepassword': null,
+                    'opacity': null,
+                    'open-in-app': null,
+                    'open-in-new': null,
+                    'openid': null,
+                    'opera': null,
+                    'orbit': null,
+                    'ornament': null,
+                    'ornament-variant': null,
+                    'owl': null,
+                    'package': null,
+                    'package-down': null,
+                    'package-up': null,
+                    'package-variant': null,
+                    'package-variant-closed': null,
+                    'page-first': null,
+                    'page-last': null,
+                    'page-layout-body': null,
+                    'page-layout-footer': null,
+                    'page-layout-header': null,
+                    'page-layout-sidebar-left': null,
+                    'page-layout-sidebar-right': null,
+                    'palette': null,
+                    'palette-advanced': null,
+                    'panda': null,
+                    'pandora': null,
+                    'panorama': null,
+                    'panorama-fisheye': null,
+                    'panorama-horizontal': null,
+                    'panorama-vertical': null,
+                    'panorama-wide-angle': null,
+                    'paper-cut-vertical': null,
+                    'paperclip': null,
+                    'parking': null,
+                    'passport': null,
+                    'patreon': null,
+                    'pause': null,
+                    'pause-circle': null,
+                    'pause-circle-outline': null,
+                    'pause-octagon': null,
+                    'pause-octagon-outline': null,
+                    'paw': null,
+                    'paw-off': null,
+                    'paypal': null,
+                    'peace': null,
+                    'pen': null,
+                    'pencil': null,
+                    'pencil-box': null,
+                    'pencil-box-outline': null,
+                    'pencil-circle': null,
+                    'pencil-circle-outline': null,
+                    'pencil-lock': null,
+                    'pencil-off': null,
+                    'pentagon': null,
+                    'pentagon-outline': null,
+                    'percent': null,
+                    'periodic-table-co2': null,
+                    'periscope': null,
+                    'pharmacy': null,
+                    'phone': null,
+                    'phone-bluetooth': null,
+                    'phone-classic': null,
+                    'phone-forward': null,
+                    'phone-hangup': null,
+                    'phone-in-talk': null,
+                    'phone-incoming': null,
+                    'phone-locked': null,
+                    'phone-log': null,
+                    'phone-minus': null,
+                    'phone-missed': null,
+                    'phone-outgoing': null,
+                    'phone-paused': null,
+                    'phone-plus': null,
+                    'phone-return': null,
+                    'phone-rotate-landscape': null,
+                    'phone-rotate-portrait': null,
+                    'phone-settings': null,
+                    'phone-voip': null,
+                    'pi': null,
+                    'pi-box': null,
+                    'piano': null,
+                    'pier': null,
+                    'pier-crane': null,
+                    'pig': null,
+                    'pill': null,
+                    'pillar': null,
+                    'pin': null,
+                    'pin-off': null,
+                    'pine-tree': null,
+                    'pine-tree-box': null,
+                    'pinterest': null,
+                    'pinterest-box': null,
+                    'pipe': null,
+                    'pipe-disconnected': null,
+                    'pipe-leak': null,
+                    'pistol': null,
+                    'piston': null,
+                    'pizza': null,
+                    'plane-shield': null,
+                    'play': null,
+                    'play-box-outline': null,
+                    'play-circle': null,
+                    'play-circle-outline': null,
+                    'play-network': null,
+                    'play-pause': null,
+                    'play-protected-content': null,
+                    'playlist-check': null,
+                    'playlist-minus': null,
+                    'playlist-play': null,
+                    'playlist-plus': null,
+                    'playlist-remove': null,
+                    'playstation': null,
+                    'plex': null,
+                    'plus': null,
+                    'plus-box': null,
+                    'plus-box-outline': null,
+                    'plus-circle': null,
+                    'plus-circle-multiple-outline': null,
+                    'plus-circle-outline': null,
+                    'plus-network': null,
+                    'plus-one': null,
+                    'plus-outline': null,
+                    'pocket': null,
+                    'pokeball': null,
+                    'poker-chip': null,
+                    'polaroid': null,
+                    'poll': null,
+                    'poll-box': null,
+                    'polymer': null,
+                    'pool': null,
+                    'popcorn': null,
+                    'pot': null,
+                    'pot-mix': null,
+                    'pound': null,
+                    'pound-box': null,
+                    'power': null,
+                    'power-plug': null,
+                    'power-plug-off': null,
+                    'power-settings': null,
+                    'power-socket': null,
+                    'power-socket-eu': null,
+                    'power-socket-uk': null,
+                    'power-socket-us': null,
+                    'prescription': null,
+                    'presentation': null,
+                    'presentation-play': null,
+                    'printer': null,
+                    'printer-3d': null,
+                    'printer-alert': null,
+                    'printer-settings': null,
+                    'priority-high': null,
+                    'priority-low': null,
+                    'professional-hexagon': null,
+                    'projector': null,
+                    'projector-screen': null,
+                    'publish': null,
+                    'pulse': null,
+                    'puzzle': null,
+                    'qqchat': null,
+                    'qrcode': null,
+                    'qrcode-scan': null,
+                    'quadcopter': null,
+                    'quality-high': null,
+                    'quicktime': null,
+                    'radar': null,
+                    'radiator': null,
+                    'radio': null,
+                    'radio-handheld': null,
+                    'radio-tower': null,
+                    'radioactive': null,
+                    'radiobox-blank': null,
+                    'radiobox-marked': null,
+                    'raspberrypi': null,
+                    'ray-end': null,
+                    'ray-end-arrow': null,
+                    'ray-start': null,
+                    'ray-start-arrow': null,
+                    'ray-start-end': null,
+                    'ray-vertex': null,
+                    'react': null,
+                    'read': null,
+                    'receipt': null,
+                    'record': null,
+                    'record-rec': null,
+                    'recycle': null,
+                    'reddit': null,
+                    'redo': null,
+                    'redo-variant': null,
+                    'refresh': null,
+                    'regex': null,
+                    'relative-scale': null,
+                    'reload': null,
+                    'reminder': null,
+                    'remote': null,
+                    'rename-box': null,
+                    'reorder-horizontal': null,
+                    'reorder-vertical': null,
+                    'repeat': null,
+                    'repeat-off': null,
+                    'repeat-once': null,
+                    'replay': null,
+                    'reply': null,
+                    'reply-all': null,
+                    'reproduction': null,
+                    'resize-bottom-right': null,
+                    'responsive': null,
+                    'restart': null,
+                    'restore': null,
+                    'rewind': null,
+                    'rewind-outline': null,
+                    'rhombus': null,
+                    'rhombus-outline': null,
+                    'ribbon': null,
+                    'rice': null,
+                    'ring': null,
+                    'road': null,
+                    'road-variant': null,
+                    'robot': null,
+                    'rocket': null,
+                    'room-service': null,
+                    'roomba': null,
+                    'rotate-3d': null,
+                    'rotate-left': null,
+                    'rotate-left-variant': null,
+                    'rotate-right': null,
+                    'rotate-right-variant': null,
+                    'rounded-corner': null,
+                    'router-wireless': null,
+                    'routes': null,
+                    'rowing': null,
+                    'rss': null,
+                    'rss-box': null,
+                    'ruler': null,
+                    'run': null,
+                    'run-fast': null,
+                    'sale': null,
+                    'salesforce': null,
+                    'sass': null,
+                    'satellite': null,
+                    'satellite-variant': null,
+                    'saxophone': null,
+                    'scale': null,
+                    'scale-balance': null,
+                    'scale-bathroom': null,
+                    'scanner': null,
+                    'school': null,
+                    'screen-rotation': null,
+                    'screen-rotation-lock': null,
+                    'screwdriver': null,
+                    'script': null,
+                    'sd': null,
+                    'seal': null,
+                    'search-web': null,
+                    'seat-flat': null,
+                    'seat-flat-angled': null,
+                    'seat-individual-suite': null,
+                    'seat-legroom-extra': null,
+                    'seat-legroom-normal': null,
+                    'seat-legroom-reduced': null,
+                    'seat-recline-extra': null,
+                    'seat-recline-normal': null,
+                    'security': null,
+                    'security-account': null,
+                    'security-home': null,
+                    'security-network': null,
+                    'select': null,
+                    'select-all': null,
+                    'select-inverse': null,
+                    'select-off': null,
+                    'selection': null,
+                    'selection-off': null,
+                    'send': null,
+                    'send-secure': null,
+                    'serial-port': null,
+                    'server': null,
+                    'server-minus': null,
+                    'server-network': null,
+                    'server-network-off': null,
+                    'server-off': null,
+                    'server-plus': null,
+                    'server-remove': null,
+                    'server-security': null,
+                    'set-all': null,
+                    'set-center': null,
+                    'set-center-right': null,
+                    'set-left': null,
+                    'set-left-center': null,
+                    'set-left-right': null,
+                    'set-none': null,
+                    'set-right': null,
+                    'settings': null,
+                    'settings-box': null,
+                    'shape': null,
+                    'shape-circle-plus': null,
+                    'shape-outline': null,
+                    'shape-plus': null,
+                    'shape-polygon-plus': null,
+                    'shape-rectangle-plus': null,
+                    'shape-square-plus': null,
+                    'share': null,
+                    'share-variant': null,
+                    'shield': null,
+                    'shield-half-full': null,
+                    'shield-outline': null,
+                    'ship-wheel': null,
+                    'shopping': null,
+                    'shopping-music': null,
+                    'shovel': null,
+                    'shovel-off': null,
+                    'shredder': null,
+                    'shuffle': null,
+                    'shuffle-disabled': null,
+                    'shuffle-variant': null,
+                    'sigma': null,
+                    'sigma-lower': null,
+                    'sign-caution': null,
+                    'sign-direction': null,
+                    'sign-text': null,
+                    'signal': null,
+                    'signal-2g': null,
+                    'signal-3g': null,
+                    'signal-4g': null,
+                    'signal-hspa': null,
+                    'signal-hspa-plus': null,
+                    'signal-off': null,
+                    'signal-variant': null,
+                    'silverware': null,
+                    'silverware-fork': null,
+                    'silverware-spoon': null,
+                    'silverware-variant': null,
+                    'sim': null,
+                    'sim-alert': null,
+                    'sim-off': null,
+                    'sitemap': null,
+                    'skip-backward': null,
+                    'skip-forward': null,
+                    'skip-next': null,
+                    'skip-next-circle': null,
+                    'skip-next-circle-outline': null,
+                    'skip-previous': null,
+                    'skip-previous-circle': null,
+                    'skip-previous-circle-outline': null,
+                    'skull': null,
+                    'skype': null,
+                    'skype-business': null,
+                    'slack': null,
+                    'sleep': null,
+                    'sleep-off': null,
+                    'smoking': null,
+                    'smoking-off': null,
+                    'snapchat': null,
+                    'snowflake': null,
+                    'snowman': null,
+                    'soccer': null,
+                    'soccer-field': null,
+                    'sofa': null,
+                    'solid': null,
+                    'sort': null,
+                    'sort-alphabetical': null,
+                    'sort-ascending': null,
+                    'sort-descending': null,
+                    'sort-numeric': null,
+                    'sort-variant': null,
+                    'soundcloud': null,
+                    'source-branch': null,
+                    'source-commit': null,
+                    'source-commit-end': null,
+                    'source-commit-end-local': null,
+                    'source-commit-local': null,
+                    'source-commit-next-local': null,
+                    'source-commit-start': null,
+                    'source-commit-start-next-local': null,
+                    'source-fork': null,
+                    'source-merge': null,
+                    'source-pull': null,
+                    'soy-sauce': null,
+                    'speaker': null,
+                    'speaker-off': null,
+                    'speaker-wireless': null,
+                    'speedometer': null,
+                    'spellcheck': null,
+                    'spotify': null,
+                    'spotlight': null,
+                    'spotlight-beam': null,
+                    'spray': null,
+                    'square': null,
+                    'square-inc': null,
+                    'square-inc-cash': null,
+                    'square-outline': null,
+                    'square-root': null,
+                    'stack-overflow': null,
+                    'stackexchange': null,
+                    'stadium': null,
+                    'stairs': null,
+                    'standard-definition': null,
+                    'star': null,
+                    'star-circle': null,
+                    'star-half': null,
+                    'star-off': null,
+                    'star-outline': null,
+                    'steam': null,
+                    'steering': null,
+                    'step-backward': null,
+                    'step-backward-2': null,
+                    'step-forward': null,
+                    'step-forward-2': null,
+                    'stethoscope': null,
+                    'sticker': null,
+                    'sticker-emoji': null,
+                    'stocking': null,
+                    'stop': null,
+                    'stop-circle': null,
+                    'stop-circle-outline': null,
+                    'store': null,
+                    'store-24-hour': null,
+                    'stove': null,
+                    'subdirectory-arrow-left': null,
+                    'subdirectory-arrow-right': null,
+                    'subway': null,
+                    'subway-variant': null,
+                    'summit': null,
+                    'sunglasses': null,
+                    'surround-sound': null,
+                    'surround-sound-2-0': null,
+                    'surround-sound-3-1': null,
+                    'surround-sound-5-1': null,
+                    'surround-sound-7-1': null,
+                    'svg': null,
+                    'swap-horizontal': null,
+                    'swap-vertical': null,
+                    'swim': null,
+                    'switch': null,
+                    'sword': null,
+                    'sword-cross': null,
+                    'sync': null,
+                    'sync-alert': null,
+                    'sync-off': null,
+                    'tab': null,
+                    'tab-plus': null,
+                    'tab-unselected': null,
+                    'table': null,
+                    'table-column': null,
+                    'table-column-plus-after': null,
+                    'table-column-plus-before': null,
+                    'table-column-remove': null,
+                    'table-column-width': null,
+                    'table-edit': null,
+                    'table-large': null,
+                    'table-of-contents': null,
+                    'table-row': null,
+                    'table-row-height': null,
+                    'table-row-plus-after': null,
+                    'table-row-plus-before': null,
+                    'table-row-remove': null,
+                    'table-settings': null,
+                    'tablet': null,
+                    'tablet-android': null,
+                    'tablet-ipad': null,
+                    'taco': null,
+                    'tag': null,
+                    'tag-faces': null,
+                    'tag-heart': null,
+                    'tag-multiple': null,
+                    'tag-outline': null,
+                    'tag-plus': null,
+                    'tag-remove': null,
+                    'tag-text-outline': null,
+                    'target': null,
+                    'taxi': null,
+                    'teach': null,
+                    'teamviewer': null,
+                    'telegram': null,
+                    'television': null,
+                    'television-box': null,
+                    'television-classic': null,
+                    'television-classic-off': null,
+                    'television-guide': null,
+                    'television-off': null,
+                    'temperature-celsius': null,
+                    'temperature-fahrenheit': null,
+                    'temperature-kelvin': null,
+                    'tennis': null,
+                    'tent': null,
+                    'terrain': null,
+                    'test-tube': null,
+                    'text-shadow': null,
+                    'text-to-speech': null,
+                    'text-to-speech-off': null,
+                    'textbox': null,
+                    'textbox-password': null,
+                    'texture': null,
+                    'theater': null,
+                    'theme-light-dark': null,
+                    'thermometer': null,
+                    'thermometer-lines': null,
+                    'thermostat-box': null,
+                    'thought-bubble': null,
+                    'thought-bubble-outline': null,
+                    'thumb-down': null,
+                    'thumb-down-outline': null,
+                    'thumb-up': null,
+                    'thumb-up-outline': null,
+                    'thumbs-up-down': null,
+                    'ticket': null,
+                    'ticket-account': null,
+                    'ticket-confirmation': null,
+                    'ticket-percent': null,
+                    'tie': null,
+                    'tilde': null,
+                    'timelapse': null,
+                    'timer': null,
+                    'timer-10': null,
+                    'timer-3': null,
+                    'timer-off': null,
+                    'timer-sand': null,
+                    'timer-sand-empty': null,
+                    'timer-sand-full': null,
+                    'timetable': null,
+                    'toggle-switch': null,
+                    'toggle-switch-off': null,
+                    'tooltip': null,
+                    'tooltip-edit': null,
+                    'tooltip-image': null,
+                    'tooltip-outline': null,
+                    'tooltip-outline-plus': null,
+                    'tooltip-text': null,
+                    'tooth': null,
+                    'tor': null,
+                    'tower-beach': null,
+                    'tower-fire': null,
+                    'towing': null,
+                    'trackpad': null,
+                    'tractor': null,
+                    'traffic-light': null,
+                    'train': null,
+                    'tram': null,
+                    'transcribe': null,
+                    'transcribe-close': null,
+                    'transfer': null,
+                    'transit-transfer': null,
+                    'translate': null,
+                    'treasure-chest': null,
+                    'tree': null,
+                    'trello': null,
+                    'trending-down': null,
+                    'trending-neutral': null,
+                    'trending-up': null,
+                    'triangle': null,
+                    'triangle-outline': null,
+                    'trophy': null,
+                    'trophy-award': null,
+                    'trophy-outline': null,
+                    'trophy-variant': null,
+                    'trophy-variant-outline': null,
+                    'truck': null,
+                    'truck-delivery': null,
+                    'truck-fast': null,
+                    'truck-trailer': null,
+                    'tshirt-crew': null,
+                    'tshirt-v': null,
+                    'tumblr': null,
+                    'tumblr-reblog': null,
+                    'tune': null,
+                    'tune-vertical': null,
+                    'twitch': null,
+                    'twitter': null,
+                    'twitter-box': null,
+                    'twitter-circle': null,
+                    'twitter-retweet': null,
+                    'uber': null,
+                    'ubuntu': null,
+                    'ultra-high-definition': null,
+                    'umbraco': null,
+                    'umbrella': null,
+                    'umbrella-outline': null,
+                    'undo': null,
+                    'undo-variant': null,
+                    'unfold-less-horizontal': null,
+                    'unfold-less-vertical': null,
+                    'unfold-more-horizontal': null,
+                    'unfold-more-vertical': null,
+                    'ungroup': null,
+                    'unity': null,
+                    'untappd': null,
+                    'update': null,
+                    'upload': null,
+                    'upload-multiple': null,
+                    'upload-network': null,
+                    'usb': null,
+                    'van-passenger': null,
+                    'van-utility': null,
+                    'vanish': null,
+                    'vector-arrange-above': null,
+                    'vector-arrange-below': null,
+                    'vector-circle': null,
+                    'vector-circle-variant': null,
+                    'vector-combine': null,
+                    'vector-curve': null,
+                    'vector-difference': null,
+                    'vector-difference-ab': null,
+                    'vector-difference-ba': null,
+                    'vector-ellipse': null,
+                    'vector-intersection': null,
+                    'vector-line': null,
+                    'vector-point': null,
+                    'vector-polygon': null,
+                    'vector-polyline': null,
+                    'vector-radius': null,
+                    'vector-rectangle': null,
+                    'vector-selection': null,
+                    'vector-square': null,
+                    'vector-triangle': null,
+                    'vector-union': null,
+                    'venmo': null,
+                    'verified': null,
+                    'vibrate': null,
+                    'video': null,
+                    'video-3d': null,
+                    'video-4k-box': null,
+                    'video-input-antenna': null,
+                    'video-input-component': null,
+                    'video-input-hdmi': null,
+                    'video-input-svideo': null,
+                    'video-off': null,
+                    'video-switch': null,
+                    'view-agenda': null,
+                    'view-array': null,
+                    'view-carousel': null,
+                    'view-column': null,
+                    'view-dashboard': null,
+                    'view-dashboard-variant': null,
+                    'view-day': null,
+                    'view-grid': null,
+                    'view-headline': null,
+                    'view-list': null,
+                    'view-module': null,
+                    'view-parallel': null,
+                    'view-quilt': null,
+                    'view-sequential': null,
+                    'view-stream': null,
+                    'view-week': null,
+                    'vimeo': null,
+                    'violin': null,
+                    'virtual-reality': null,
+                    'visualstudio': null,
+                    'vk': null,
+                    'vk-box': null,
+                    'vk-circle': null,
+                    'vlc': null,
+                    'voice': null,
+                    'voicemail': null,
+                    'volume-high': null,
+                    'volume-low': null,
+                    'volume-medium': null,
+                    'volume-minus': null,
+                    'volume-mute': null,
+                    'volume-off': null,
+                    'volume-plus': null,
+                    'vpn': null,
+                    'vuejs': null,
+                    'walk': null,
+                    'wall': null,
+                    'wallet': null,
+                    'wallet-giftcard': null,
+                    'wallet-membership': null,
+                    'wallet-travel': null,
+                    'wan': null,
+                    'washing-machine': null,
+                    'watch': null,
+                    'watch-export': null,
+                    'watch-export-variant': null,
+                    'watch-import': null,
+                    'watch-import-variant': null,
+                    'watch-variant': null,
+                    'watch-vibrate': null,
+                    'water': null,
+                    'water-off': null,
+                    'water-percent': null,
+                    'water-pump': null,
+                    'watermark': null,
+                    'waves': null,
+                    'weather-cloudy': null,
+                    'weather-fog': null,
+                    'weather-hail': null,
+                    'weather-hurricane': null,
+                    'weather-lightning': null,
+                    'weather-lightning-rainy': null,
+                    'weather-night': null,
+                    'weather-partlycloudy': null,
+                    'weather-pouring': null,
+                    'weather-rainy': null,
+                    'weather-snowy': null,
+                    'weather-snowy-rainy': null,
+                    'weather-sunny': null,
+                    'weather-sunset': null,
+                    'weather-sunset-down': null,
+                    'weather-sunset-up': null,
+                    'weather-windy': null,
+                    'weather-windy-variant': null,
+                    'web': null,
+                    'webcam': null,
+                    'webhook': null,
+                    'webpack': null,
+                    'wechat': null,
+                    'weight': null,
+                    'weight-kilogram': null,
+                    'whatsapp': null,
+                    'wheelchair-accessibility': null,
+                    'white-balance-auto': null,
+                    'white-balance-incandescent': null,
+                    'white-balance-iridescent': null,
+                    'white-balance-sunny': null,
+                    'widgets': null,
+                    'wifi': null,
+                    'wifi-off': null,
+                    'wii': null,
+                    'wiiu': null,
+                    'wikipedia': null,
+                    'window-close': null,
+                    'window-closed': null,
+                    'window-maximize': null,
+                    'window-minimize': null,
+                    'window-open': null,
+                    'window-restore': null,
+                    'windows': null,
+                    'wordpress': null,
+                    'worker': null,
+                    'wrap': null,
+                    'wrench': null,
+                    'wunderlist': null,
+                    'xamarin': null,
+                    'xamarin-outline': null,
+                    'xaml': null,
+                    'xbox': null,
+                    'xbox-controller': null,
+                    'xbox-controller-battery-alert': null,
+                    'xbox-controller-battery-empty': null,
+                    'xbox-controller-battery-full': null,
+                    'xbox-controller-battery-low': null,
+                    'xbox-controller-battery-medium': null,
+                    'xbox-controller-battery-unknown': null,
+                    'xbox-controller-off': null,
+                    'xda': null,
+                    'xing': null,
+                    'xing-box': null,
+                    'xing-circle': null,
+                    'xml': null,
+                    'xmpp': null,
+                    'yammer': null,
+                    'yeast': null,
+                    'yelp': null,
+                    'yin-yang': null,
+                    'youtube-creator-studio': null,
+                    'youtube-gaming': null,
+                    'youtube-play': null,
+                    'youtube-tv': null,
+                    'zip-box': null,
+                    'blank': null
+                },
+                limit: 20,
+                onAutocomplete: function onAutocomplete(val) {
+                    _this.current_icon = val;
+                },
+                minLength: 1
+            });
+        }, 100);
+    }
+});
+
+/***/ }),
+/* 37 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_pagination_vue__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_pagination_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__mixins_pagination_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_table_filter_vue__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_table_filter_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__mixins_table_filter_vue__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            ids: [],
+            controlunit_ids: []
+        };
+    },
+
+
+    props: {
+        wrapperClasses: {
+            type: String,
+            default: '',
+            required: false
+        },
+        sourceFilter: {
+            type: String,
+            default: '',
+            required: false
+        },
+        hideCols: {
+            type: Array,
+            default: function _default() {
+                return [];
+            },
+            required: false
+        },
+        itemsPerPage: {
+            type: Number,
+            default: 9,
+            required: false
+        }
+    },
+
+    computed: {
+        custom_components: function custom_components() {
+            var that = this;
+            return this.$store.state.custom_components.filter(function (g) {
+                return that.ids.includes(g.id) && g.data !== null;
+            }).sort(function (a, b) {
+                var c = a.data[that.$refs.pagination.order.field] > b.data[that.$refs.pagination.order.field];
+                if (c && that.$refs.pagination.order.direction === 'asc' || !c && that.$refs.pagination.order.direction === 'desc') {
+                    return 1;
+                }
+                return -1;
+            });
+        },
+        controlunits: function controlunits() {
+            var that = this;
+            return this.$store.state.controlunits.filter(function (c) {
+                return that.controlunit_ids.includes(c.id) && c.data !== null;
+            });
+        }
+    },
+
+    components: {
+        pagination: __WEBPACK_IMPORTED_MODULE_0__mixins_pagination_vue___default.a,
+        'table-filter': __WEBPACK_IMPORTED_MODULE_1__mixins_table_filter_vue___default.a
+    },
+
+    methods: {
+        load_data: function load_data() {
+            var that = this;
+
+            $.ajax({
+                url: '/api/v1/custom_components/?with[]=component_properties&with[]=states&with[]=type&with[]=controlunit&' + that.sourceFilter + '&' + 'pagination[per_page]=' + that.itemsPerPage + '&page=' + that.$refs.pagination.page + that.$refs.pagination.filter_string + that.$refs.pagination.order_string,
+                method: 'GET',
+                success: function success(data) {
+                    that.ids = data.data.map(function (g) {
+                        return g.id;
+                    });
+                    that.controlunit_ids = data.data.map(function (g) {
+                        return g.controlunit_id;
+                    });
+
+                    that.$refs.pagination.meta = data.meta;
+
+                    that.$parent.ensureObjects('custom_components', that.ids, data.data, ['component_properties', 'states', 'type']);
+                    that.$parent.ensureObjects('controlunits', that.controlunit_ids, data.data.map(function (g) {
+                        return g.controlunit;
+                    }));
+                },
+                error: function error(_error) {
+                    console.log(JSON.stringify(_error));
+                }
+            });
+        },
+
+        unsubscribe_all: function unsubscribe_all() {
+            this.custom_components.forEach(function (g) {
+                return g.unsubscribe();
+            });
+            this.controlunits.forEach(function (c) {
+                return c.unsubscribe();
+            });
+        }
+    },
+
+    created: function created() {
+        var that = this;
+        setTimeout(function () {
+            that.$refs.pagination.init('name');
+        }, 100);
+    }
+});
+
+/***/ }),
+/* 38 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loading_card_widget__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loading_card_widget___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__loading_card_widget__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {};
+    },
+
+
+    props: {
+        customComponentId: {
+            type: String,
+            default: '',
+            required: false
+        },
+        wrapperClasses: {
+            type: String,
+            default: '',
+            required: false
+        }
+    },
+
+    components: {
+        'loading-card-widget': __WEBPACK_IMPORTED_MODULE_0__loading_card_widget___default.a
+    },
+
+    computed: {
+        custom_component: function custom_component() {
+            var _this = this;
+
+            var component = this.$store.state.custom_components.filter(function (p) {
+                return p.id = _this.customComponentId;
+            });
+            return component.length > 0 ? component[0] : {};
+        }
+    },
+
+    methods: {
+        load_data: function load_data() {
+            this.$parent.ensureObject('custom_components', this.customComponentId, null, ['properties', 'states', 'type']);
+        }
+    },
+
+    created: function created() {
+        var that = this;
+        setTimeout(function () {
+            that.load_data();
+        }, 2000);
+    }
+});
+
+/***/ }),
+/* 39 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5526,7 +8338,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 37 */
+/* 40 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -5866,7 +8678,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 38 */
+/* 41 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6070,7 +8882,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 });
 
 /***/ }),
-/* 39 */
+/* 42 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6175,1512 +8987,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
     created: function created() {
         this.load_data();
-    }
-});
-
-/***/ }),
-/* 40 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            component_properties: [],
-            component_states: [],
-            component_intentions: [],
-            generic_component_type: {
-                name_singular: '',
-                name_plural: '',
-                icon: '3d_rotation'
-            }
-        };
-    },
-
-
-    props: {
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        containerClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        genericComponentType: {
-            type: Object,
-            default: null,
-            required: false
-        },
-        properties: {
-            type: Array,
-            default: null,
-            required: false
-        },
-        states: {
-            type: Array,
-            default: null,
-            required: false
-        },
-        intentions: {
-            type: Array,
-            default: null,
-            required: false
-        },
-        defaultRunningState: {
-            type: String,
-            default: null,
-            required: false
-        },
-        sensorreadingTypes: {
-            type: Array,
-            default: function _default() {
-                return [];
-            },
-            required: false
-        }
-    },
-
-    methods: {
-
-        add_property: function add_property() {
-            this.component_properties.push({ name: '' });
-        },
-
-        add_state: function add_state() {
-            this.component_states.push({ name: '' });
-        },
-
-        add_intention: function add_intention() {
-            this.component_intentions.push({ default_intention_intention: '', default_intention_type: '' });
-            this.$nextTick(function () {
-                $('select').material_select();
-            });
-        }
-
-    },
-
-    created: function created() {
-        var that = this;
-        this.$nextTick(function () {
-            if (that.genericComponentType !== null) {
-                that.generic_component_type = that.genericComponentType;
-                $('#' + that.generic_component_type.id).attr('data-method', 'PUT');
-
-                that.default_running_state = that.defaultRunningState;
-
-                if (that.properties !== null) {
-                    that.properties.forEach(function (el) {
-                        that.component_properties.push({ name: el });
-                    });
-                }
-                if (that.states !== null) {
-                    that.states.forEach(function (el) {
-                        that.component_states.push({ name: el });
-                    });
-                }
-                if (that.intentions !== null) {
-                    that.intentions.forEach(function (el) {
-                        that.component_intentions.push({ intention: el.value, type: el.name });
-                    });
-                }
-            }
-        });
-    }
-});
-
-/***/ }),
-/* 41 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_pagination_vue__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_pagination_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__mixins_pagination_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_table_filter_vue__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_table_filter_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__mixins_table_filter_vue__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {
-            ids: [],
-            controlunit_ids: []
-        };
-    },
-
-
-    props: {
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        },
-        sourceFilter: {
-            type: String,
-            default: '',
-            required: false
-        },
-        hideCols: {
-            type: Array,
-            default: function _default() {
-                return [];
-            },
-            required: false
-        },
-        itemsPerPage: {
-            type: Number,
-            default: 9,
-            required: false
-        }
-    },
-
-    computed: {
-        generic_components: function generic_components() {
-            var that = this;
-            return this.$store.state.generic_components.filter(function (g) {
-                return that.ids.includes(g.id) && g.data !== null;
-            }).sort(function (a, b) {
-                var c = a.data[that.$refs.pagination.order.field] > b.data[that.$refs.pagination.order.field];
-                if (c && that.$refs.pagination.order.direction === 'asc' || !c && that.$refs.pagination.order.direction === 'desc') {
-                    return 1;
-                }
-                return -1;
-            });
-        },
-        controlunits: function controlunits() {
-            var that = this;
-            return this.$store.state.controlunits.filter(function (c) {
-                return that.controlunit_ids.includes(c.id) && c.data !== null;
-            });
-        }
-    },
-
-    components: {
-        pagination: __WEBPACK_IMPORTED_MODULE_0__mixins_pagination_vue___default.a,
-        'table-filter': __WEBPACK_IMPORTED_MODULE_1__mixins_table_filter_vue___default.a
-    },
-
-    methods: {
-        load_data: function load_data() {
-            var that = this;
-
-            $.ajax({
-                url: '/api/v1/generic_components/?with[]=component_properties&with[]=states&with[]=type&with[]=controlunit&' + that.sourceFilter + '&' + 'pagination[per_page]=' + that.itemsPerPage + '&page=' + that.$refs.pagination.page + that.$refs.pagination.filter_string + that.$refs.pagination.order_string,
-                method: 'GET',
-                success: function success(data) {
-                    that.ids = data.data.map(function (g) {
-                        return g.id;
-                    });
-                    that.controlunit_ids = data.data.map(function (g) {
-                        return g.controlunit_id;
-                    });
-
-                    that.$refs.pagination.meta = data.meta;
-
-                    that.$parent.ensureObjects('generic_components', that.ids, data.data, ['component_properties', 'states', 'type']);
-                    that.$parent.ensureObjects('controlunits', that.controlunit_ids, data.data.map(function (g) {
-                        return g.controlunit;
-                    }));
-                },
-                error: function error(_error) {
-                    console.log(JSON.stringify(_error));
-                }
-            });
-        },
-
-        unsubscribe_all: function unsubscribe_all() {
-            this.generic_components.forEach(function (g) {
-                return g.unsubscribe();
-            });
-            this.controlunits.forEach(function (c) {
-                return c.unsubscribe();
-            });
-        }
-    },
-
-    created: function created() {
-        var that = this;
-        setTimeout(function () {
-            that.$refs.pagination.init('name');
-        }, 100);
-    }
-});
-
-/***/ }),
-/* 42 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loading_card_widget__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__loading_card_widget___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__loading_card_widget__);
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-    data: function data() {
-        return {};
-    },
-
-
-    props: {
-        genericComponentId: {
-            type: String,
-            default: '',
-            required: false
-        },
-        wrapperClasses: {
-            type: String,
-            default: '',
-            required: false
-        }
-    },
-
-    components: {
-        'loading-card-widget': __WEBPACK_IMPORTED_MODULE_0__loading_card_widget___default.a
-    },
-
-    computed: {
-        generic_component: function generic_component() {
-            var _this = this;
-
-            var component = this.$store.state.generic_components.filter(function (p) {
-                return p.id = _this.genericComponentId;
-            });
-            return component.length > 0 ? component[0] : {};
-        }
-    },
-
-    methods: {
-        load_data: function load_data() {
-            this.$parent.ensureObject('generic_components', this.genericComponentId, null, ['properties', 'states', 'type']);
-        }
-    },
-
-    created: function created() {
-        var that = this;
-        setTimeout(function () {
-            that.load_data();
-        }, 2000);
     }
 });
 
@@ -10696,11 +12002,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__vue_system_indicator_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__vue_system_indicator_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vue_loading_indicator_vue__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__vue_loading_indicator_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__vue_loading_indicator_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vue_dashboard_widget_vue__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vue_dashboard_widget_vue__ = __webpack_require__(92);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__vue_dashboard_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_3__vue_dashboard_widget_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__vue_google_graph_vue__ = __webpack_require__(96);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__vue_google_graph_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4__vue_google_graph_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__vue_dygraph_graph_vue__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__vue_dygraph_graph_vue__ = __webpack_require__(93);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__vue_dygraph_graph_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__vue_dygraph_graph_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__vue_chartjs_graph_vue__ = __webpack_require__(85);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__vue_chartjs_graph_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_6__vue_chartjs_graph_vue__);
@@ -10726,9 +12032,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__vue_controlunit_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_16__vue_controlunit_widget_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__vue_controlunits_list_widget_vue__ = __webpack_require__(88);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__vue_controlunits_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_17__vue_controlunits_list_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__vue_files_list_widget_vue__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__vue_files_list_widget_vue__ = __webpack_require__(94);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__vue_files_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_18__vue_files_list_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__vue_files_show_widget_vue__ = __webpack_require__(92);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__vue_files_show_widget_vue__ = __webpack_require__(95);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__vue_files_show_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_19__vue_files_show_widget_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__vue_action_sequences_list_widget_vue__ = __webpack_require__(71);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_20__vue_action_sequences_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_20__vue_action_sequences_list_widget_vue__);
@@ -10752,10 +12058,10 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__vue_logical_sensors_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_29__vue_logical_sensors_list_widget_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__vue_logical_sensor_thresholds_widget_vue__ = __webpack_require__(98);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__vue_logical_sensor_thresholds_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_30__vue_logical_sensor_thresholds_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__vue_generic_components_widget_vue__ = __webpack_require__(95);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__vue_generic_components_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_31__vue_generic_components_widget_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__vue_generic_components_list_widget_vue__ = __webpack_require__(94);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__vue_generic_components_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_32__vue_generic_components_list_widget_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__vue_custom_components_widget_vue__ = __webpack_require__(91);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__vue_custom_components_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_31__vue_custom_components_widget_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__vue_custom_components_list_widget_vue__ = __webpack_require__(90);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__vue_custom_components_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_32__vue_custom_components_list_widget_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__vue_users_list_widget_vue__ = __webpack_require__(107);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_33__vue_users_list_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_33__vue_users_list_widget_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_34__vue_biography_entries_widget_vue__ = __webpack_require__(82);
@@ -10770,8 +12076,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_38__vue_api_io_widget_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_38__vue_api_io_widget_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__vue_bus_type_edit_form_vue__ = __webpack_require__(83);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_39__vue_bus_type_edit_form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_39__vue_bus_type_edit_form_vue__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__vue_generic_component_type_create_form_vue__ = __webpack_require__(93);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__vue_generic_component_type_create_form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_40__vue_generic_component_type_create_form_vue__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__vue_custom_component_type_create_form_vue__ = __webpack_require__(89);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_40__vue_custom_component_type_create_form_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_40__vue_custom_component_type_create_form_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_41__ciliatus_object__ = __webpack_require__(6);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_42_vuex__ = __webpack_require__(10);
 
@@ -10845,7 +12151,7 @@ var store = new __WEBPACK_IMPORTED_MODULE_42_vuex__["a" /* default */].Store({
         caresheets: [],
         controlunits: [],
         files: [],
-        generic_components: [],
+        custom_components: [],
         logical_sensors: [],
         logical_sensor_thresholds: [],
         physical_sensors: [],
@@ -10955,7 +12261,7 @@ global.ciliatusVue = new global.Vue({
                 caresheets: 'CaresheetDeleted',
                 controlunits: 'ControlunitDeleted',
                 files: 'FileDeleted',
-                generic_components: 'GenericComponentDeleted',
+                custom_components: 'CustomComponentDeleted',
                 logical_sensors: 'LogicalSensorDeleted',
                 logical_sensor_thresholds: 'LogicalSensorThresholdsDeleted',
                 physical_sensors: 'PhysicalSensorDeleted',
@@ -10983,7 +12289,7 @@ global.ciliatusVue = new global.Vue({
                 caresheets: 'CaresheetUpdated',
                 controlunits: 'ControlunitUpdated',
                 files: 'FileUpdated',
-                generic_components: 'GenericComponentUpdated',
+                custom_components: 'CustomComponentUpdated',
                 logical_sensors: 'LogicalSensorUpdated',
                 logical_sensor_thresholds: 'LogicalSensorThresholdsUpdated',
                 physical_sensors: 'PhysicalSensorUpdated',
@@ -11058,8 +12364,8 @@ global.ciliatusVue = new global.Vue({
         'logical_sensor-widget': __WEBPACK_IMPORTED_MODULE_28__vue_logical_sensor_widget_vue___default.a,
         'logical_sensors-list-widget': __WEBPACK_IMPORTED_MODULE_29__vue_logical_sensors_list_widget_vue___default.a,
         'logical_sensor_thresholds-widget': __WEBPACK_IMPORTED_MODULE_30__vue_logical_sensor_thresholds_widget_vue___default.a,
-        'generic_components-widget': __WEBPACK_IMPORTED_MODULE_31__vue_generic_components_widget_vue___default.a,
-        'generic_components-list-widget': __WEBPACK_IMPORTED_MODULE_32__vue_generic_components_list_widget_vue___default.a,
+        'custom_components-widget': __WEBPACK_IMPORTED_MODULE_31__vue_custom_components_widget_vue___default.a,
+        'custom_components-list-widget': __WEBPACK_IMPORTED_MODULE_32__vue_custom_components_list_widget_vue___default.a,
         'users-list-widget': __WEBPACK_IMPORTED_MODULE_33__vue_users_list_widget_vue___default.a,
         'biography_entries-widget': __WEBPACK_IMPORTED_MODULE_34__vue_biography_entries_widget_vue___default.a,
         'caresheets-widget': __WEBPACK_IMPORTED_MODULE_35__vue_caresheets_widget_vue___default.a,
@@ -11069,7 +12375,7 @@ global.ciliatusVue = new global.Vue({
         'api-io-widget': __WEBPACK_IMPORTED_MODULE_38__vue_api_io_widget_vue___default.a,
 
         'bus-type-edit-form': __WEBPACK_IMPORTED_MODULE_39__vue_bus_type_edit_form_vue___default.a,
-        'generic_component_type_create-form': __WEBPACK_IMPORTED_MODULE_40__vue_generic_component_type_create_form_vue___default.a
+        'custom_component_type_create-form': __WEBPACK_IMPORTED_MODULE_40__vue_custom_component_type_create_form_vue___default.a
     }
 });
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(4)))
@@ -11117,7 +12423,7 @@ global.ciliatusVue = new global.Vue({
 /* 64 */
 /***/ (function(module, exports) {
 
-module.exports = { "de": { "buttons": { "next": "Weiter", "save": "Speichern", "delete": "L\xF6schen", "delete_type": "{type} L\xF6schen", "delete_all_type": "Alle {type} l\xF6schen", "loadgraph": "Graph laden", "upload": "Hochladen", "start_setup": "Setup starten", "add": "Hinzuf\xFCgen", "add_intention": "Neue Intention", "add_property": "Neue Eigenschaft", "add_state": "Neuer Zustand", "create": "Hinzuf\xFCgen", "edit": "Bearbeiten", "details": "Details", "download": "Herunterladen", "emergency_stop": "Notaus", "emergency_resume": "Notus aufheben", "revoke": "Widerrufen", "irrigate": "Bew\xE4ssern", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "start": "Starten", "close": "Schlie\xDFen", "select_all_read": "Alles lesen", "select_all_list": "Alles auflisten", "select_all_write": "Alles schreiben" }, "errors": { "retrievegraphdata": "Graphdaten konnten nicht ermittelt werden.", "auth": { "failed": "Authentifizierung fehlgeschlagen." }, "frontend": { "generic": "Ein Fehler ist aufgetreten. Details in der Konsole.", "no_recording_capability": "Der Browser scheint keine Sprachsteuerung zu unterst\xFCtzen." }, "codes": { "common": { "101": "Objekt konnte nicht gefunden werden.", "102": "Verwandtes Objekt konnte nicht gefunden werden: {related}_object.", "103": "Zeitstempel konnte nicht geparst werden: {timestamp}.", "104": "Fehlende Felder: {missing}_fields", "105": "Klasse nicht gefunden.", "106": "Ung\xFCltige UUID: {uuid}" }, "custom": { "11": [], "12": [], "13": [], "14": [], "15": { "201": "Vergleichstyp wurde nicht gefunden." }, "16": [], "17": [], "18": { "201": "Ein F\xFCtterungsplan f\xFCr diese Nahrungsart existiert bei diesem Tier bereits." }, "19": [], "1A": [], "1B": [], "1C": [], "1D": [], "1E": [], "1F": [], "20": { "201": "Keine Datei zum hochladen.", "202": "Datei ist zu gro\xDF. Maximum: {max}_size MB." }, "21": { "201": "Generische Komponente ist korrupt." }, "22": [], "23": [], "24": [], "25": [], "26": [], "27": [], "28": [], "29": { "201": "Der Rohwert liegt au\xDFerhalb des G\xFCltigkeitsbereichs.", "202": "Innerhalb dieser reading group gibt es bereits einen Wert f\xFCr diesen Logischen Sensor." }, "2A": [], "2B": { "201": "Beim Generieren der Aktionssequenz ist ein unbekannter Fehler aufgetreten." }, "2C": { "201": "Der Benutzername ist bereits vergeben.", "202": "Die E-Mail Adresse ist bereits vergeben.", "203": "Die Passw\xF6rter sind unterschiedlich.", "204": "Es wurde kein Passwort vergeben." }, "2D": [], "2E": [] } } }, "labels": { "User": "Benutzer", "user": "Benutzer", "users": "Benutzer|Benutzer", "Terrarium": "Terrarium", "terrarium": "Terrarium", "terraria": "Terrarium|Terrarien", "Animal": "Tier", "animal": "Tier", "animals": "Tier|Tiere", "Controlunit": "Steuereinheit", "controlunit": "Steuereinheit", "controlunits": "Steuereinheit|Steuereinheiten", "Pump": "Pumpe", "pump": "Pumpe", "pumps": "Pumpe|Pumpen", "Valve": "Ventil", "valve": "Ventil", "valves": "Ventil|Ventile", "PhysicalSensor": "Physischer Sensor", "physical_sensor": "Physischer Sensor", "physical_sensors": "Physischer Sensor|Physische Sensoren", "LogicalSensor": "Logischer Sensor", "logical_sensor": "Logischer Sensor", "logical_sensors": "Logischer Sensor|Logische Sensoren", "LogicalSensorThreshold": "Logischer Sensor Schwellenwert", "logical_sensor_threshold": "Logischer Sensor Schwellenwert", "logical_sensor_thresholds": "Logischer Sensor Schwellenwert|Logische Sensor Schwellenwerte", "File": "Datei", "file": "Datei", "files": "Dateien", "Log": "Systemlog", "log": "Log", "logs": "Systemlog|Systemlogs", "Action": "Aktion", "action": "Aktion", "actions": "Aktionen", "ActionSequence": "Aktionssequenz", "action_sequence": "Aktionssequenz", "action_sequences": "Aktionssequenz|Aktionssequenzen", "ActionSequenceSchedule": "Aktionssequenz Zeitplan", "action_sequence_schedule": "Aktionssequenz Zeitplan", "action_sequence_schedules": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "ActionSequenceTrigger": "Aktionssequenz Ausl\xF6ser", "action_sequence_trigger": "Aktionssequenz Ausl\xF6ser", "action_sequence_triggers": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "ActionSequenceIntention": "Aktionssequenz Intention", "action_sequence_intention": "Aktionssequenz Intention", "action_sequence_intentions": "Aktionssequenz Intention|Aktionssequenz Intentionen", "Trigger": "Ausl\xF6ser", "trigger": "Ausl\xF6ser", "triggers": "Ausl\xF6ser", "admin_panel": "Admin Panel", "admin_panels": "Admin Panel", "AnimalFeeding": "F\xFCtterung", "animal_feeding": "F\xFCtterung", "animal_feedings": "F\xFCtterung|F\xFCtterungen", "AnimalFeedingSchedule": "F\xFCtterungsplan", "animal_feeding_schedule": "F\xFCtterungsplan", "animal_feeding_schedules": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "AnimalWeighing": "Gewicht", "animal_weighing": "Gewicht", "animal_weighings": "Gewicht|Gewichte", "AnimalWeighingSchedule": "Wiegeplan", "animal_weighing_schedule": "Wiegeplan", "animal_weighing_schedules": "Wiegeplan|Wiegepl\xE4ne", "BiographyEntryEvent": "Biografieeintrag", "biography_entry": "Biografieeintrag", "biography_entries": "Biografieeintrag|Biografieeintr\xE4ge", "CaresheetEvent": "Begleitblatt", "caresheet": { "sensor_history_days": "Zeitrahmen f\xFCr Sensorwerte", "data_history_days": "Zeitrahmen f\xFCr Tier- und Terrarieninformationen" }, "caresheets": "Begleitblatt|Begleitbl\xE4tter", "critical_state": "Kritischer Zustand", "critical_states": "Kritischer Zustand|Kritische Zust\xE4nde", "GenericComponent": "Generische Komponente", "generic_component": "Generische Komponente", "generic_components": "Generische Komponente|Generische Komponenten", "GenericComponentType": "Generischer Komponententyp", "generic_component_type": "Generischer Komponententyp", "generic_component_types": "Generischer Komponententyp|Generische Komponententypen", "SuggestionEvent": "Vorschlag", "suggestion": "Vorschlag", "suggestions": "Vorschl\xE4ge", "connecting": "Verbinde", "title": "Titel", "text": "Text", "tags": "Tags", "status": "Status", "health": "Gesundheit", "birth": "Geburt", "gender": "Geschlecht", "gender_male": "M\xE4nnlich", "gender_female": "Weiblich", "date": "Datum", "date_birth": "Geburtstag", "date_death": "Todestag", "model": "Modell", "type": "Typ", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Anzeigename", "common_name": "Gemeiner Name", "latin_name": "Lateinischer Name", "temperature": "Temperatur", "temperature_celsius": "Temperatur", "humidity": "Feuchtigkeit", "humidity_percent": "Feuchtigkeit", "heartbeat": "Puls", "last_heartbeat": "Letzter Puls", "noanimals": "Keine Tiere", "create": "Erstelle", "settings": "Einstellung|Einstellungen", "notifications": "Benachrichtigung|Benachrichtigungen", "notification_type": "Nachrichten Kanal", "details": "Details", "rawlimits": "Schwellenwerte", "rawlimitlo": "Unterer Schwellenwert", "rawlimithi": "Oberer Schwellenwert", "size": "Gr\xF6\xDFe", "current_value": "Aktueller Wert", "created_at": "Erstellt", "updated_at": "Letztes Update", "recovered_at": "Erholt", "read_at": "Gelesen", "download": "Herunterladen", "properties": "Eigenschaften", "preview": "Vorschau", "source": "Quelle", "target": "Ziel", "associated_with": "Assoziiert mit", "starts_at": "Beginnt um", "ends_at": "Endet um", "starts_after": "Startet nach", "thresholds": "Schwellenwerte", "abilities": "F\xE4higkeit|F\xE4higkeiten", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto Nachtmodus", "permanent_nightmode": "Permanenter Nachtmodus", "language": "Sprache", "belongsTo_type": "Geh\xF6rt zu (Typ)", "belongsTo_id": "Geh\xF6rt zu (ID)", "belongsTo": "Geh\xF6rt zu", "users_guide": "Benutzerhandbuch", "doku": "Dokumentation", "tech_doku": "Techn. Dokumentation", "step": "Schritt", "phone_number": "Telefonnummer", "template": "Vorlage", "timezone": "Zeitzone", "critical": "Kritisch", "ok": "OK", "running": "Laufend", "runs_since": "L\xE4uft seit", "queued": "Wartend", "criticalstates": "Kritische Zust\xE4nde", "since": "Seit", "state": "Zustand", "irrigate": "Bew\xE4ssern", "duration": "Dauer", "on": "An", "off": "Aus", "just_fed": "F\xFCtterung hinzuf\xFCgen", "add_weight": "Gewicht hinzuf\xFCgen", "active": "Aktiv", "copy_thresholds": "Schwellenwerte kopieren", "daily": "T\xE4glich", "last_feeding": "Letzte F\xFCtterung", "crickets": "Heimchen", "mixed_fruits": "Fruchtbrei", "beetle_jelly": "BeetleJelly", "due": "F\xE4llig", "overdue": "\xDCberf\xE4llig", "meal_type": "Nahrungsart", "interval_days": "Intervall in Tagen", "interval": "Intervall", "password": "Passwort", "weight": "Gewicht", "no_data": "Keine Daten", "overview": "\xDCbersicht", "environment": "Umgebung", "now": "Jetzt", "scheduled": "Geplant", "sequence": "Sequenz", "weighprogression": "Gewichtsverlauf", "from": "Von", "tO": "Bis", "feedings": "F\xFCtterungen", "temp_and_hum_history": "Temperatur- und Feuchtigkeitsverlauf", "biography": "Biografie", "bio_categories": "Biografiekategorien", "icon": "Symbol", "average": "Durchschnitt", "min": "Minimum", "min_short": "Min", "max": "Maximum", "max_short": "Max", "during_day": "Tags", "during_night": "Nachts", "total": "Total", "infrastructure": "Infrastruktur", "timeframe_start": "Zeitrahmen ab", "timeframe_end": "Zeitrahmen bis", "reference_value": "Vergleichswert", "reference_value_duration_threshold_minutes": "Vergleichswert unter/\xFCberschritten seit (Minuten)", "for": "f\xFCr", "minimum_timeout": "Timeout", "minimum_timeout_minutes": "Timeout (Minuten)", "emergency_stop": "Notaus", "increases": "Erh\xF6ht", "increase": "Erh\xF6ht", "decreases": "Senkt", "decrease": "Senkt", "personal_access_token": "Zugriffstoken", "personal_access_tokens": "Zugriffstoken", "expires": "L\xE4uft ab", "security": "Sicherheit", "general": "Allgemein", "component": "Komponente", "to": "Bis", "daily_reminders": "T\xE4gliche Erinnerungen", "yesterday": "Gestern", "tomorrow": "Morgen", "today": "Heute", "runonce": "Nur einmal ausf\xFChren", "intention": "Intention", "deceased": "Verstorben", "software_version": "Software Version", "use_as_background": "Als Hintergrund verwenden", "relation_map": "Beziehungskarte", "start_action_sequence": "Aktionssequenz starten", "suggestions_unit": "Mind. Vorkommnisse", "suggestion_timeframe_unit": "Zeitrahmen (Einheit)", "suggestions_timeframe": "Zeitrahmen", "bus": "Bus", "i2c_bus_num": "I2C Bus Nummer", "i2c_address": "I2C Adresse", "i2c_multiplexer_address": "I2C Multiplexer Adresse", "i2c_multiplexer_port": "I2C Multiplexer Port", "gpio_pin": "GPIO Pin", "gpio_default_high": "GPIO Standard High", "configuration": "Konfiguration", "yes": "Ja", "no": "Nein", "rawvalue": "Rohwert", "adjust_rawvalue": "Rohwertkorrektur", "filter": "Filter", "logout": "Ausloggen", "login": "Einloggen", "remember_me": "Eingeloggt bleiben", "ask_me_something": "Frag mich etwas", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "between": "zwischen", "and": "und", "association": "Verkn\xFCpfung", "choose_logfile": "Log-Datei ausw\xE4hlen", "no_image": "Kein Bild", "features": "Features", "rollperiod": "Rollperiode", "add_preset": "Voreinstellung hinzuf\xFCgen", "inactive": "Inaktiv", "soft_state": "Soft state", "reason": "Grund", "possibly_affected_animals": "M\xF6glicherweise betroffene Tiere", "scope": "G\xFCltigkeitsbereich", "client_server_time_diff": "Client\/Server Zeitdifferenz", "id": "ID", "loading_dots": "Laden...", "search_ciliatus": "Ciliatus durchsuchen ..." }, "languages": { "german": "Deutsch", "english": "Englisch" }, "menu": { "welcome": "Willkommen", "dashboard": "\xDCbersicht", "general": "Allgemein", "administration": "Administration", "create": "Erstellen", "edit": "Editieren", "delete": "L\xF6schen", "infrastructure": "Infrastruktur", "help": "Hilfe", "logout": "Abmelden", "animals": "Tiere", "terraria": "Terrarien", "users": "Benutzer", "animal_feeding_types": "Nahrungsarten", "logs": "Protokoll", "categories": "Kategorien", "monitoring": "\xDCberwachung", "automation": "Automatisierung", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "Alle preexistenten Schwellenwerte des Zielsensors werden entfernt." }, "users": { "setup_telegram_ok": "Telegram ist eingerichtet.", "setup_telegram_err": "Telegram ist noch nicht eingerichtet.", "setup_telegram_description": "Bitte \xF6ffnen Sie Telegram in Ihrem <a href=\"https://web.telegram.org/#/im?p=@\">Browser</a> oder auf ihrem Smartphone und kontaktieren Sie <b>@</b> mit untenstehendem Aktivierungscode." }, "critical_state_generic": "Kritisch: {critical}_state", "critical_state_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "Kritisch: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "LOWERLIMIT_DECEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu niedrige Feuchtigkeit von {humidity}_percent%.", "UPPERLIMIT_EXCEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu hohe Feuchtigkeit von {humidity}_percent%." }, "temperature_celsius": { "UNKNOWN": "Kritisch: Der Sensor {logical}_sensor meldet eine Temperatur von {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu niedrige Temperatur von {temperature}_celsius\xB0C.", "UPPERLIMIT_EXCEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu hohe Temperatur von {temperature}_celsius\xB0C." } }, "critical_state_recovery_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "LOWERLIMIT_DECEEDED": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "UPPERLIMIT_EXCEEDED": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%." }, "temperature_celsius": { "UNKNOWN": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C.", "UPPERLIMIT_EXCEEDED": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." } }, "critical_state_notification_controlunits": { "UNKNOWN": "Kritisch: Die Steuereinheit {controlunit} befindet sich in einem unbekannten Zustand.", "HEARTBEAT_CRITICAL": "Kritisch: Die Steuereinheit {controlunit} sendet keine Daten.", "TIME_DIFF_CRITICAL": "Kritisch: Die Steuereinheit {controlunit} hat eine zu hohe Zeitdifferenz." }, "critical_state_recovery_notification_controlunits": { "UNKNOWN": "OK: Die Steuereinheit {controlunit} ist nicht mehr in einem unbekannten Zustand.", "HEARTBEAT_CRITICAL": "OK: Die Steuereinheit {controlunit} sendet wieder Daten.", "TIME_DIFF_CRITICAL": "OK: Die Steuereinheit {controlunit} hat wieder eine akzeptable Zeitdifferenz." }, "daily": { "intro": "T\xE4gliche Erinnerungen", "feedings_due": "F\xE4llige F\xFCtterungen:", "weighings_due": "F\xE4lliges Wiegen:" }, "own_token_expires": "Token '{name}' l\xE4uft in {days} Tagen ab.", "suggestions": { "humidity_percent": { "UPPERLIMIT_EXCEEDED": "Feuchtigkeit reduzieren t\xE4glich um {hour}{00} Uhr", "LOWERLIMIT_DECEEDED": "Feuchtigkeit erh\xF6hen t\xE4glich um {hour}{00} Uhr", "UNKNOWN": "Feuchtigkeit regulieren t\xE4glich um {hour}{00} Uhr" }, "temperature_celsius": { "UPPERLIMIT_EXCEEDED": "Feuchtigkeit reduzieren t\xE4glich um {hour}{00} Uhr", "LOWERLIMIT_DECEEDED": "Temperatur erh\xF6hen t\xE4glich um {hour}{00} Uhr", "UNKNOWN": "Temperatur regulieren t\xE4glich um {hour}{00} Uhr" } } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Willkommen zu Ciliatus", "create_user": "Erstelle Deinen Benutzer", "done": "Geschafft!", "what_now": "Was nun?", "login": "Einloggen", "tooltip_login": "Logge Dich mit Deinem soeben erstellten Nutzer bei Ciliatus an.", "add_terrarium": "Terrarium anlegen", "tooltip_add_terrarium": "Erstelle Dein erstes Terrarium in Ciliatus.", "add_animal": "Tier anlegen", "tooltip_add_animal": "Erstelle Dein erstes Tier und ordne es einem Terrarium zu.", "setup_telegram": "Telegram einrichten", "tooltip_setup_telegram": "Lerne, wie Du Telegram mit Ciliatus konfigurieren kannst.", "setup_controlunit": "Kontrolleinheit erstellen", "tooltip_setup_controlunit": "Lerne eine Kontrolleinheit und zugeordnete Sensoren anzulegen um damit zu beginnen Sensordaten zu Deinen Terrarien zu \xFCbermitteln.", "err_completed": "Das Setup wurde bereits durchgef\xFChrt." }, "tooltips": { "ctrltoselect": "Strg+Klick zum selektieren", "active": "Aktiv", "showondefaultdashboard": "Auf Default Dashboard anzeigen", "autoirrigation": "Automatische Bew\xE4sserung", "sendnotificationsfor": "Benachrichtigungen versenden f\xFCr", "loadandrendergraph": "Daten werden ermittelt und Graph wird gerendert", "disables_option": "Deaktiviert \"{option}\"", "phone_number": "Mobilnummer", "contact_bot": "Den Bot kontaktieren", "wait_confirmation": "Auf Best\xE4tigung warten", "set_state_to": "Zustand von <b>{target}</b> auf <b>{state}</b> \xE4ndern f\xFCr <b>{minutes} Minuten</b>", "start_after_started": "Startet wenn Schritt <b>{id}<\/b> gestartet wurde", "start_after_finished": "Startet wenn Schritt <b>{id}<\/b> beendet wurde", "sendnotifications": "Benachrichtigungen versenden", "no_schedules": "Keine Zeitpl\xE4ne", "runonce": "Einmalig", "heartbeat_critical": "Heartbeat ist kritisch!", "copy_thresholds_warning": "Alle existierenden Schwellenwerte des Zielsensors werden entfernt.", "animal_feeding_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten F\xFCtterungspl\xE4ne. Die Zahl in einer Spalte stellt das Intervall dar, gefolgt von den verbleibenden Tagen bis zur n\xE4chsten F\xE4lligkeit.", "animal_weighing_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten Wiegepl\xE4ne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom n\xE4chsten F\xE4lligkeitsdatum dar.", "done": "Erledigt", "skip": "\xDCberspringen", "material_icons_list": "Die komplette Symbolliste ist unter <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> einsehbar.", "no_data": "Keine Daten.", "connecting_to_server": "Verbindung zum Ciliatus Server wird hergestellt. Sollte dies l\xE4nger als einige Sekunden dauern, \xFCberpr\xFCfen Sie bitte Ihre Internetverbindung.", "generic_components": { "about": "Generische Komponenten sind Komponenten eines benutzerdefinierten Typs.", "type_about": "Generische Komponententypen definieren Name, Eigenschaften und m\xF6gliche Zust\xE4nde f\xFCr generische Komponenten. Sie dienen als Vorlage beim Erstellen einer neuen generischen Komponente.", "property_templates": "Definiert die Eigenschaften eines generischen Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszuf\xFCllen.", "state_templates": "Definiert m\xF6gliche Zust\xE4nde die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zust\xE4nden den gew\xFCnschten Zustand ausw\xE4hlen.<br /><br />Die Checkbox links definiert den standardm\xE4\xDFigen 'laufend'-Zustand.", "type_delete_warning": "Beim L\xF6schen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gel\xF6scht.", "intentions": "Intentionen von generischen Komponenten erm\xF6glichen deren automatisches Einbinden in Aktionssequenzen." }, "minimum_timeout_minutes": "Definiert die Dauer der minimalen Pause, bevor die Aktionssequenz durch diesen Ausl\xF6ser nach einem Durchlauf erneut gestartet werden kann.", "reference_value": "Der Wert, mit dem der Sensorwert verglichen werden soll.", "reference_value_duration_threshold_minutes": "Dauer in Minuten, die der Sensorwert den Grenzwert unter/\xFCberschritten haben muss, bevor die Aktionssequenz ausgel\xF6st wird.", "emergency_stop": "H\xE4lt sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.", "emergency_resume": "Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.", "leave_empty_for_auto": "Frei lassen f\xFCr automatisch", "intention_increase_decrease": "Definiert ob die Intention dieser Aktionssequenz das Erh\xF6hen oder Senken des Sensorwerts ist.", "suggestions_unit": "Mindestanzahl von Kritischen Zust\xE4nden innerhalb des Zeitrahmens, bevor ein Vorschlag generiert werden soll.", "suggestion_timeframe_unit": "Zeitrahmen der zur Analyse herangezogen werden soll (Einheit)", "suggestions_timeframe": "Zeitrahmen der zur Analyse herangezogen werden soll (Wert)", "show_suggestions": "Vorschl\xE4ge anzeigen", "bus_type_edit_form": "Erm\xF6glicht Ciliatus das automatische Generieren von Kontroleinheitskonfigurationen.", "gpio_default_high": "GPIO Pin wird im Betrieb auf High gezogen. Zum aktivieren der Komponente auf Low.", "adjust_rawvalue": "Beim Empfangen eines Werts durch diesen Sensor kann der Wert korrigiert werden.", "experimental_feature": "Dieses Feature ist experimentell.", "action_sequence_schedules": { "skip": "Heutigen Durchlauf \xFCberspringen." }, "associate_new": "Verkn\xFCpfe <i class=\"mdi mdi-18px mdi-{source}\"></i> {source}_type \"{source}_name\" mit <i class=\"material-icons\">{target}_icon</i> {target}_type", "floating": { "add": "Neu", "edit": "Bearbeiten", "delete": "L\xF6schen" }, "ciliatus_up_to_date": "Aktuell", "ciliatus_not_up_to_date": "Update verf\xFCgbar: <a href=\"{url}\">GitHub</a>", "no_feeding_types": "Es wurden noch keine Futtertypen definiert.", "max_file_size": "Die maximale Dateigr\xF6\xDFe betr\xE4gt {size}.", "animal_weighing": { "trend": "Trend der letzten 60 Tage bis zum letzten Wiegen" }, "logical_sensor_thresholds": { "limits": "Nicht-kritischer Wertebereich. Werte au\xDFerhalb des Bereichs werden als kritisch angesehen", "lowerlimit": "Sensorwert ist kritisch, falls er unter diesem Wert liegt", "upperlimit": "Sensorwert ist kritisch, falls er \xFCber diesem Wert liegt", "starts_at": "Zeitpunkt, ab dem der Grenzwert gelten soll" }, "logical_sensor_rawvalue_limit": "G\xFCltigkeitsbereich dieses Sensors. Sensorwerte au\xDFerhalb dieses Bereichs werden abgelehnt, wenn sie \xFCber die API gesendet werden.", "caresheet": { "sensor_history_days": "Zeitraum der in die Berechnung von Durschnitts-\/Max-\/Min-Werten einbezogen werden soll", "data_history_days": "Zeitraum aus dem Biographieintr\xE4ge, F\xFCtterungen und Gewichtsverlauf einbezogen werden soll" }, "set_as_background": "Als Hintergrund setzen", "critical_state_actuality": "Daten werden zum jetzigen Zeitpunkt ermittelt und k\xF6nnten zum Zeitpunkt des kritischen Zustand unterschiedlich gewesen sein.", "i2c": { "bus_num": "F\xFCr Raspberry Pi: 0 f\xFCr RPI1, 1 f\xFCr alle anderen Modelle" } }, "units": { "years": "Jahr|Jahre", "months": "Monat|Monate", "weeks": "Woche|Wochen", "days": "Tag|Tage", "hours": "Stunde|Stunden", "minutes": "Minute|Minuten", "seconds": "Sekunde|Sekunden", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "vor {val} Jahren", "months_ago": "vor {val} Monaten", "weeks_ago": "vor {val} Wochen", "days_ago": "vor {val} Tagen", "hours_ago": "vor {val} Stunden", "minutes_ago": "vor {val} Minuten", "years_in": "in {val} Jahren", "months_in": "in {val} Monaten", "weeks_in": "in {val} Wochen", "days_in": "in {val} Tagen", "hours_in": "in {val} Stunden", "minutes_in": "in {val} Minuten", "years_since": "seit einem Jahr|seit {val} Jahren", "months_since": "seit einem Monat|seit {val} Monaten", "weeks_since": "seit einer Woche|seit {val} Wochen", "days_since": "seit einem Tag|seit {val} Tagen", "hours_since": "seit einer Stunde|seit {val} Stunden", "minutes_since": "seit einer Minute|seit {val} Minuten", "just_now": "gerade eben", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" }, "weekdays": { "0": "Sonntag", "1": "Montag", "2": "Dienstag", "3": "Mittwoch", "4": "Donnerstag", "5": "Freitag", "6": "Samstag", "sunday": "Sonntag", "monday": "Montag", "tuesday": "Dienstag", "wednesday": "Mittwoch", "thursday": "Donnerstag", "friday": "Freitag", "saturday": "Samstag" } }, "en": { "buttons": { "next": "Next", "save": "Save", "delete": "Delete", "delete_type": "Delete {type}", "delete_all_type": "Delete all {type}", "loadgraph": "Load graph", "upload": "Upload", "start_setup": "Start Setup", "add": "Add", "add_intention": "Add Intention", "add_property": "Add Property", "add_state": "Add State", "create": "Add", "edit": "Edit", "details": "Details", "download": "Download", "emergency_stop": "Emergency stop", "emergency_resume": "Remove emergency stop", "revoke": "Revoke", "irrigate": "Irrigate", "ventilate": "Ventilate", "heat_up": "Heat up", "cool_down": "Cool down", "start": "Start", "close": "Close", "select_all_read": "Read all", "select_all_list": "List all", "select_all_write": "Write all" }, "errors": { "retrievegraphdata": "Could not retrieve graph data.", "auth": { "failed": "Authentication failed." }, "frontend": { "generic": "An error occured. Check the console for details.", "no_recording_capability": "The browser doesn't seem to support voice control." }, "codes": { "common": { "101": "Object not found.", "102": "Related object not found: {related}_object.", "103": "Could not parse timestamp {timestamp}.", "104": "Missing fields: {missing}_fields", "105": "Class not found.", "106": "Invalid UUID: {uuid}" }, "custom": { "11": [], "12": [], "13": [], "14": [], "15": { "201": "Unknown comparison." }, "16": [], "17": [], "18": { "201": "A feeding schedule for this type of food already exists for this animal." }, "19": [], "1A": [], "1B": [], "1C": [], "1D": [], "1E": [], "1F": [], "20": { "201": "No file to upload.", "202": "File is too big. Maximum: {max}_size MB." }, "21": { "201": "Generic component is corrupted." }, "22": [], "23": [], "24": [], "25": [], "26": [], "27": [], "28": [], "29": { "201": "Raw value is outside of the sensor's valid range.", "202": "There already is a sensor reading of this Logical Sensor withing the reading group." }, "2A": [], "2B": { "201": "Unknown error while generating Action Sequence." }, "2C": { "201": "Username already taken.", "202": "E-Mail address already taken.", "203": "The passwords don't match.", "204": "No password set." }, "2D": [], "2E": [] } } }, "labels": { "User": "User", "user": "User", "users": "User|Users", "Terrarium": "Terrarium", "terrarium": "Terrarium", "terraria": "Terrarium|Terraria", "Animal": "Animal", "animal": "Animal", "animals": "Animal|Animals", "Controlunit": "Control Unit", "controlunit": "Control Unit", "controlunits": "Control Unit|Control Units", "Pump": "Pump", "pump": "Pump", "pumps": "Pump|Pumps", "Valve": "Valve", "valve": "Valve", "valves": "Valve|Valves", "PhysicalSensor": "Physical Sensor", "physical_sensor": "Physical Sensor", "physical_sensors": "Physical Sensor|Physical Sensors", "LogicalSensor": "Logical Sensor", "logical_sensor": "Logical Sensor", "logical_sensors": "Logical Sensor|Logical Sensors", "LogicalSensorThreshold": "Logical Sensor Threshold", "logical_sensor_threshold": "Logical Sensor Threshold", "logical_sensor_thresholds": "Logical Sensor Threshold|Logical Sensor Thresholds", "File": "File", "file": "File", "files": "Files", "Log": "System log", "log": "Log", "logs": "System log|System logs", "Action": "Action", "action": "Action", "actions": "Actions", "ActionSequence": "Action sequence", "action_sequence": "Action sequence", "action_sequences": "Action sequence|Action sequences", "ActionSequenceSchedule": "Action sequence schedule", "action_sequence_schedule": "Action sequence schedule", "action_sequence_schedules": "Action sequence schedule|Action sequence schedules", "ActionSequenceTrigger": "Action sequence trigger", "action_sequence_trigger": "Action sequence trigger", "action_sequence_triggers": "Action sequence trigger|Action sequence triggers", "ActionSequenceIntention": "Action sequence intention", "action_sequence_intention": "Action sequence intention", "action_sequence_intentions": "Action sequence intention|Action sequence intentions", "Trigger": "Trigger", "trigger": "Trigger", "triggers": "Trigger|Triggers", "admin_panel": "Admin panel", "admin_panels": "Admin panel", "AnimalFeeding": "Feeding", "animal_feeding": "Feeding", "animal_feedings": "Feeding|Feedings", "AnimalFeedingSchedule": "Feeding schedule", "animal_feeding_schedule": "Feeding schedule", "animal_feeding_schedules": "Feeding schedule|Feeding schedules", "AnimalWeighing": "Weighing", "animal_weighing": "Weighing", "animal_weighings": "Weighing|Weighings", "AnimalWeighingSchedule": "Weighing schedule", "animal_weighing_schedule": "Weighing schedule", "animal_weighing_schedules": "Weighing schedule|Weighing schedules", "BiographyEntryEvent": "Biography entry", "biography_entry": "Biography entry", "biography_entries": "Biography entry|Biography entries", "CaresheetEvent": "Care Sheet", "caresheet": { "sensor_history_days": "Sensorreading timespan", "data_history_days": "Animal and terrarium data timespan" }, "caresheets": "Care Sheet|Care Sheets", "critical_state": "Critical State", "critical_states": "Critical State|Critical States", "GenericComponent": "Generic Component", "generic_component": "Generic Component", "generic_components": "Generic Component|Generic Components", "GenericComponentType": "Generic Component Type", "generic_component_type": "Generic Component Type", "generic_component_types": "Generic Component Type|Generic Component Types", "SuggestionEvent": "Suggestion", "suggestion": "Suggestion", "suggestions": "Suggestions", "connecting": "Connecting", "title": "Title", "text": "Text", "tags": "Tags", "status": "Status", "health": "Health", "birth": "Birth", "gender": "Gender", "gender_male": "Male", "gender_female": "Female", "date": "Date", "date_birth": "Day of birth", "date_death": "Day of death", "model": "Model", "type": "Type", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Display Name", "common_name": "Common Name", "latin_name": "Latin Name", "temperature": "Temperature", "temperature_celsius": "Temperature", "humidity": "Humidity", "humidity_percent": "Humidity", "heartbeat": "Heartbeat", "last_heartbeat": "Last Heartbeat", "noanimals": "No Animals", "create": "Create", "settings": "Setting|Settings", "notifications": "Notification|Notifications", "notification_type": "Notification channel", "details": "Details", "rawlimits": "Thresholds", "rawlimitlo": "Lower threshold", "rawlimithi": "Upper threshold", "size": "Size", "current_value": "Current value", "created_at": "Creation", "updated_at": "Last update", "recovered_at": "Recovered", "read_at": "Read at", "download": "Download", "properties": "Properties", "preview": "Preview", "source": "Source", "target": "Target", "associated_with": "Associated with", "starts_at": "Starts at", "ends_at": "Ends at", "starts_after": "Starts after", "thresholds": "Thresholds", "abilities": "Ability|Abilities", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto night mode", "permanent_nightmode": "Permanent night mode", "language": "Language", "belongsTo_type": "Belongs to (type)", "belongsTo_id": "Belongs to (ID)", "belongsTo": "Belongs to", "users_guide": "User's Guide", "doku": "Documentation", "tech_doku": "Tech. Documentation", "step": "Step", "phone_number": "Phone number", "template": "Template", "timezone": "Timezone", "critical": "Critical", "ok": "OK", "running": "Running", "runs_since": "Running since", "queued": "Queued", "criticalstates": "Critical States", "since": "Since", "state": "State", "irrigate": "Irrigate", "duration": "Duration", "on": "On", "off": "Off", "just_fed": "Add feeding", "add_weight": "Add weight", "active": "Aktiv", "copy_thresholds": "Copy thresholds", "daily": "Daily", "last_feeding": "Last feeding", "crickets": "Crickets", "mixed_fruits": "Fruits", "beetle_jelly": "BeetleJelly", "due": "Due", "overdue": "Overdue", "meal_type": "Meal type", "interval_days": "Interval in days", "interval": "Interval", "password": "Password", "weight": "Weight", "no_data": "No Data", "overview": "Overview", "environment": "Environment", "now": "Now", "scheduled": "Scheduled", "sequence": "Sequence", "weighprogression": "Weight progression", "from": "From", "tO": "To", "feedings": "Feedings", "temp_and_hum_history": "Temperature and Humidity History", "biography": "Biography", "bio_categories": "Biography categories", "icon": "Icon", "average": "Average", "min": "Minimum", "min_short": "Min", "max": "Maximum", "max_short": "Max", "during_day": "Daytime", "during_night": "Nighttime", "total": "Total", "infrastructure": "Infrastructure", "timeframe_start": "Timeframe from", "timeframe_end": "Timeframe to", "reference_value": "Reference value", "reference_value_duration_threshold_minutes": "Reference value undershot\/exceeded for (Minutes)", "for": "for", "minimum_timeout": "Timeout", "minimum_timeout_minutes": "Timeout (minutes)", "emergency_stop": "Emergency stop", "increases": "Increases", "increase": "Increases", "decreases": "Decreases", "decrease": "Decreases", "personal_access_token": "Access Token", "personal_access_tokens": "Access Tokens", "expires": "Expires", "security": "Security", "general": "General", "component": "Component", "to": "To", "daily_reminders": "Daily Reminders", "yesterday": "Yesterday", "tomorrow": "Tomorrow", "today": "Today", "runonce": "Only run once", "intention": "Intention", "deceased": "Deceased", "software_version": "Software Version", "use_as_background": "Use as background image", "relation_map": "Relation map", "start_action_sequence": "Start Action Sequence", "suggestions_unit": "Min. Occurences", "suggestion_timeframe_unit": "Timeframe (Unit)", "suggestions_timeframe": "Timeframe", "bus": "Bus", "i2c_bus_num": "I2C bus number", "i2c_address": "I2C address", "i2c_multiplexer_address": "I2C multiplexer address", "i2c_multiplexer_port": "I2C multiplexer port", "gpio_pin": "GPIO pin", "gpio_default_high": "GPIO Default High", "configuration": "Configuration", "yes": "Yes", "no": "No", "rawvalue": "Raw value", "adjust_rawvalue": "Raw value correction", "filter": "Filter", "logout": "Log off", "login": "Log in", "remember_me": "Stay logged in", "ask_me_something": "Ask me something", "ventilate": "Ventilate", "heat_up": "Heat", "cool_down": "Cool", "between": "between", "and": "and", "association": "Association", "choose_logfile": "Choose a log file", "no_image": "No image", "features": "Features", "rollperiod": "Roll period", "add_preset": "Add preset", "inactive": "Inactive", "soft_state": "Soft state", "reason": "Reason", "possibly_affected_animals": "Possibly affected animals", "scope": "Scope", "client_server_time_diff": "Client\/Server time difference", "id": "ID", "loading_dots": "Loading...", "search_ciliatus": "Search Ciliatus ..." }, "languages": { "german": "German", "english": "English" }, "menu": { "welcome": "Welcome", "dashboard": "Dashboard", "general": "General", "administration": "Administration", "create": "Create", "edit": "Edit", "delete": "Delete", "infrastructure": "Infrastructure", "help": "Help", "logout": "Log out", "animals": "Animals", "terraria": "Terraria", "users": "Users", "animal_feeding_types": "Food types", "logs": "Logs", "categories": "Categories", "monitoring": "Monitoring", "automation": "Automation", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "All existing thresholds associated with the target sensor will be deleted." }, "users": { "setup_telegram_ok": "Telegram is set up.", "setup_telegram_err": "Telegram has not yet been set up.", "setup_telegram_description": "Please point your browser to <a href=\"https:\/\/web.telegram.org\/#\/im?p=@\">Telegram Web<\/a> or use your smartphone to contact <b>@<\/b> with your verification code below." }, "critical_state_generic": "Critical: {critical}_state", "critical_state_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "Critical: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "LOWERLIMIT_DECEEDED": "Critical: The sensor {logical}_sensor reports a too low humidity of {humidity}_percent%C.", "UPPERLIMIT_EXCEEDED": "Critical: The sensor {logical}_sensor reports a too high humidity of {humidity}_percent%C." }, "temperature_celsius": { "UNKNOWN": "Critical: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "Critical: The sensor {logical}_sensor reports a too low temperature of {temperature}_celsius\xB0C.", "UPPERLIMIT_EXCEEDED": "Critical: The sensor {logical}_sensor reports a too high temperature of {temperature}_celsius\xB0C." } }, "critical_state_recovery_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "LOWERLIMIT_DECEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "UPPERLIMIT_EXCEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C." }, "temperature_celsius": { "UNKNOWN": "OK: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "UPPERLIMIT_EXCEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C." } }, "critical_state_notification_controlunits": { "UNKNOWN": "Critical: The controlunit {controlunit} is in an unknown state.", "HEARTBEAT_CRITICAL": "Critical: The controlunit {controlunit} is not sending data.", "TIME_DIFF_CRITICAL": "Critical: The controlunit {controlunit} has a too large time difference." }, "critical_state_recovery_notification_controlunits": { "UNKNOWN": "OK: The controlunit {controlunit} is no longer in an unknown state.", "HEARTBEAT_CRITICAL": "OK: The controlunit {controlunit} is sending data again.", "TIME_DIFF_CRITICAL": "OK: The controlunit {controlunit} has an acceptable time difference again." }, "daily": { "intro": "Daily reminders", "feedings_due": "Feedings due:", "weighings_due": "Weighings due:" }, "own_token_expires": "Token '{name}' expires in {days} days.", "suggestions": { "humidity_percent": { "UPPERLIMIT_EXCEEDED": "Decrease humidity daily at {hour}{00}", "LOWERLIMIT_DECEEDED": "Increase humidity daily at {hour}{00}", "UNKNOWN": "Regulate humidity daily at {hour}{00}" }, "temperature_celsius": { "UPPERLIMIT_EXCEEDED": "Decrease temperature daily at {hour}{00}", "LOWERLIMIT_DECEEDED": "Increase temperature daily at {hour}{00}", "UNKNOWN": "Regulate temperature daily at {hour}{00}" } } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Welcome to Ciliatus", "create_user": "Create your user", "done": "Done!", "what_now": "What now?", "login": "Log in", "tooltip_login": "Log in to Ciliatus with the user you just created.", "add_terrarium": "Create Terrarium", "tooltip_add_terrarium": "Create your first terrarium in Ciliatus.", "add_animal": "Create animal", "tooltip_add_animal": "Create your first animal and assign it to a terrarium.", "setup_telegram": "Setup Telegram", "tooltip_setup_telegram": "Learn how to configure Telegram with Ciliatus.", "setup_controlunit": "Create Controlunit", "tooltip_setup_controlunit": "Learn how to setup a controlunit to start feeding Ciliatus with sensor readings.", "err_completed": "Setup is already completed." }, "tooltips": { "ctrltoselect": "Ctrl-click to deselect", "active": "Active", "showondefaultdashboard": "Show on default dashboard", "autoirrigation": "Automatic irrigation (if available)", "sendnotificationsfor": "Send notifications for", "loadandrendergraph": "Collection data and rendering graph", "disables_option": "Disables \"{option}\"", "phone_number": "Mobile number", "contact_bot": "Contacting the bot", "wait_confirmation": "Waiting for confirmation", "set_state_to": "Set state of <b>{target}<\/b> to <b>{state}<\/b> for <b>{minutes} minutes<\/b>", "start_after_started": "Starts as soon as step <b>{id}<\/b> was started", "start_after_finished": "Starts as soon as step <b>{id}<\/b> finished", "sendnotifications": "Send notifications", "no_schedules": "No schedules", "runonce": "Run once", "heartbeat_critical": "Heartbeat is critical!", "copy_thresholds_warning": "All existing thresholds on the target sensor will be removed.", "animal_feeding_schedule_matrix": "This matrix contains all defined feeding schedules. A number in a column represents the schedule's interval in days followed by the remaining time in days until it's due next.", "animal_weighing_schedule_matrix": "This matrix contains all defined weighing schedules. A number in a column represents the schedule's interval in days followed by the next due date.", "done": "Done", "skip": "Skip", "material_icons_list": "Visit <a href=\"https:\/\/material.io\/icons\/\">material.io<\/a> for a complete icon overview.", "no_data": "No data.", "connecting_to_server": "Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.", "generic_components": { "about": "Generic components are components of a user defined type.", "type_about": "Generic component types define name, properties and possible states of a generic component. They are used as a template when creating a new generic component.", "property_templates": "Define properties for this generic component type. Each time you create a new component of this type you will be prompted to fill in these properties.", "state_templates": "Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.<br \/><br \/>The radio box on the left defines the default 'running' state.", "type_delete_warning": "When deleting a component type <strong>all components of this type<\/strong> will also be deleted.", "intentions": "Intentionen of generic components allows them to be automatically used within action sequences." }, "minimum_timeout_minutes": "Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.", "reference_value": "Reference value which will be compared to the sensor values.", "reference_value_duration_threshold_minutes": "Duration in minutes for which the sensor value has to be greater\/lower\/equal to the reference value before triggering the action sequence.", "emergency_stop": "Instantly stops all running action sequences and prohibits action sequences from starting.", "emergency_resume": "Revokes the emergency stop and allows action sequences to start.", "leave_empty_for_auto": "Leave empty for automatic", "intention_increase_decrease": "Defines whether the intention of this action sequence is to increase or decrease the sensor's readings", "suggestions_unit": "Minimum number of critical states within the timeframe before a suggestion should be generated.", "suggestion_timeframe_unit": "Timeframe used for analysis (Unit)", "suggestions_timeframe": "Timeframe used for analysis (Value)", "show_suggestions": "Show suggestions", "bus_type_edit_form": "Allows Ciliatus to automatically generate controlunit configurations.", "gpio_default_high": "GPIO Pin will be pulled to high. When activating a component to low.", "adjust_rawvalue": "When receiving a reading from this sensor you can adjust the raw value.", "experimental_feature": "This is an experimental feature.", "action_sequence_schedules": { "skip": "Skip today's run." }, "associate_new": "Associate <i class=\"material-icons\">{source}_icon<\/i> {source}_type \"{source}_name\" with <i class=\"material-icons\">{target}_icon<\/i> {target}_type", "floating": { "add": "New", "edit": "Edit", "delete": "Delete" }, "ciliatus_up_to_date": "Up to date", "ciliatus_not_up_to_date": "Update available: <a href=\"{url}\">GitHub<\/a>", "no_feeding_types": "There are no food types defined yet.", "max_file_size": "The maximum file size is {size}.", "animal_weighing": { "trend": "Trend within the last 60 days from the last weighing" }, "logical_sensor_thresholds": { "limits": "Non-critical range. Values outside this range will be considered critical", "lowerlimit": "Sensor reading will be considered critical, if below this value", "upperlimit": "Sensor reading will be considered critical, if above this value", "starts_at": "Time from which on this threshold is active" }, "logical_sensor_rawvalue_limit": "Valid value range for this sensor. Values outside this range submitted via the API will be rejected", "caresheet": { "sensor_history_days": "Timespan for sensor readings to include in the average\/min\/max calculation", "data_history_days": "Timespan of animal feedings, weighings and biography entries to include" }, "set_as_background": "Set as background", "critical_state_actuality": "This is current information which could have been different at the time of the critical state.", "i2c": { "bus_num": "For Raspberry Pi: Use 0 for RPI1, 1 for all other models" } }, "units": { "years": "year|years", "months": "month|months", "weeks": "week|weeks", "days": "day|days", "hours": "hour|hours", "minutes": "minute|minutes", "seconds": "second|seconds", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "{val} years ago", "months_ago": "{val} months ago", "weeks_ago": "{val} weeks ago", "days_ago": "{val} days ago", "hours_ago": "{val} hours ago", "minutes_ago": "{val} minutes ago", "years_in": "in {val} years", "months_in": "in {val} months", "weeks_in": "in {val} weeks", "days_in": "in {val} days", "hours_in": "in {val} hours", "minutes_in": "in {val} minutes", "years_since": "since one year ago|since {val} years ago", "months_since": "since one month ago|since {val} months ago", "weeks_since": "since one week ago|since {val} weeks ago", "days_since": "since one day ago|since {val} days ago", "hours_since": "since one hours ago|since {val} hours ago", "minutes_since": "since one minute ago|since {val} minutes ago", "just_now": "just now", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" }, "weekdays": { "0": "Sunday", "1": "Monday", "2": "Tuesday", "3": "Wednesday", "4": "Thursday", "5": "Friday", "6": "Saturday", "sunday": "Sunday", "monday": "Monday", "tuesday": "Tuesday", "wednesday": "Wednesday", "thursday": "Thursday", "friday": "Friday", "saturday": "Saturday" } } };
+module.exports = { "de": { "buttons": { "next": "Weiter", "save": "Speichern", "delete": "L\xF6schen", "delete_type": "{type} L\xF6schen", "delete_all_type": "Alle {type} l\xF6schen", "loadgraph": "Graph laden", "upload": "Hochladen", "start_setup": "Setup starten", "add": "Hinzuf\xFCgen", "add_intention": "Neue Intention", "add_property": "Neue Eigenschaft", "add_state": "Neuer Zustand", "create": "Hinzuf\xFCgen", "edit": "Bearbeiten", "details": "Details", "download": "Herunterladen", "emergency_stop": "Notaus", "emergency_resume": "Notus aufheben", "revoke": "Widerrufen", "irrigate": "Bew\xE4ssern", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "start": "Starten", "close": "Schlie\xDFen", "select_all_read": "Alles lesen", "select_all_list": "Alles auflisten", "select_all_write": "Alles schreiben" }, "errors": { "retrievegraphdata": "Graphdaten konnten nicht ermittelt werden.", "auth": { "failed": "Authentifizierung fehlgeschlagen." }, "frontend": { "generic": "Ein Fehler ist aufgetreten. Details in der Konsole.", "no_recording_capability": "Der Browser scheint keine Sprachsteuerung zu unterst\xFCtzen.", "no_target_object": "Ziel nicht gefunden" }, "codes": { "common": { "101": "Objekt konnte nicht gefunden werden.", "102": "Verwandtes Objekt konnte nicht gefunden werden: {related}_object.", "103": "Zeitstempel konnte nicht geparst werden: {timestamp}.", "104": "Fehlende Felder: {missing}_fields", "105": "Klasse nicht gefunden.", "106": "Ung\xFCltige UUID: {uuid}" }, "custom": { "11": [], "12": [], "13": [], "14": [], "15": { "201": "Vergleichstyp wurde nicht gefunden." }, "16": [], "17": [], "18": { "201": "Ein F\xFCtterungsplan f\xFCr diese Nahrungsart existiert bei diesem Tier bereits." }, "19": [], "1A": [], "1B": [], "1C": [], "1D": [], "1E": [], "1F": [], "20": { "201": "Keine Datei zum hochladen.", "202": "Datei ist zu gro\xDF. Maximum: {max}_size MB." }, "21": { "201": "Benutzerdefinierte Komponente ist korrupt." }, "22": [], "23": [], "24": [], "25": [], "26": [], "27": [], "28": [], "29": { "201": "Der Rohwert liegt au\xDFerhalb des G\xFCltigkeitsbereichs.", "202": "Innerhalb dieser reading group gibt es bereits einen Wert f\xFCr diesen Logischen Sensor." }, "2A": [], "2B": { "201": "Beim Generieren der Aktionssequenz ist ein unbekannter Fehler aufgetreten." }, "2C": { "201": "Der Benutzername ist bereits vergeben.", "202": "Die E-Mail Adresse ist bereits vergeben.", "203": "Die Passw\xF6rter sind unterschiedlich.", "204": "Es wurde kein Passwort vergeben." }, "2D": [], "2E": [] } } }, "labels": { "User": "Benutzer", "user": "Benutzer", "users": "Benutzer|Benutzer", "Terrarium": "Terrarium", "terrarium": "Terrarium", "terraria": "Terrarium|Terrarien", "Animal": "Tier", "animal": "Tier", "animals": "Tier|Tiere", "Controlunit": "Steuereinheit", "controlunit": "Steuereinheit", "controlunits": "Steuereinheit|Steuereinheiten", "Pump": "Pumpe", "pump": "Pumpe", "pumps": "Pumpe|Pumpen", "Valve": "Ventil", "valve": "Ventil", "valves": "Ventil|Ventile", "PhysicalSensor": "Physischer Sensor", "physical_sensor": "Physischer Sensor", "physical_sensors": "Physischer Sensor|Physische Sensoren", "LogicalSensor": "Logischer Sensor", "logical_sensor": "Logischer Sensor", "logical_sensors": "Logischer Sensor|Logische Sensoren", "LogicalSensorThreshold": "Logischer Sensor Schwellenwert", "logical_sensor_threshold": "Logischer Sensor Schwellenwert", "logical_sensor_thresholds": "Logischer Sensor Schwellenwert|Logische Sensor Schwellenwerte", "File": "Datei", "file": "Datei", "files": "Dateien", "Log": "Systemlog", "log": "Log", "logs": "Systemlog|Systemlogs", "Action": "Aktion", "action": "Aktion", "actions": "Aktionen", "ActionSequence": "Aktionssequenz", "action_sequence": "Aktionssequenz", "action_sequences": "Aktionssequenz|Aktionssequenzen", "ActionSequenceSchedule": "Aktionssequenz Zeitplan", "action_sequence_schedule": "Aktionssequenz Zeitplan", "action_sequence_schedules": "Aktionssequenz Zeitplan|Aktionssequenz Zeitpl\xE4ne", "ActionSequenceTrigger": "Aktionssequenz Ausl\xF6ser", "action_sequence_trigger": "Aktionssequenz Ausl\xF6ser", "action_sequence_triggers": "Aktionssequenz Ausl\xF6ser|Aktionssequenz Ausl\xF6ser", "ActionSequenceIntention": "Aktionssequenz Intention", "action_sequence_intention": "Aktionssequenz Intention", "action_sequence_intentions": "Aktionssequenz Intention|Aktionssequenz Intentionen", "Trigger": "Ausl\xF6ser", "trigger": "Ausl\xF6ser", "triggers": "Ausl\xF6ser", "admin_panel": "Admin Panel", "admin_panels": "Admin Panel", "AnimalFeeding": "F\xFCtterung", "animal_feeding": "F\xFCtterung", "animal_feedings": "F\xFCtterung|F\xFCtterungen", "AnimalFeedingSchedule": "F\xFCtterungsplan", "animal_feeding_schedule": "F\xFCtterungsplan", "animal_feeding_schedules": "F\xFCtterungsplan|F\xFCtterungspl\xE4ne", "AnimalWeighing": "Gewicht", "animal_weighing": "Gewicht", "animal_weighings": "Gewicht|Gewichte", "AnimalWeighingSchedule": "Wiegeplan", "animal_weighing_schedule": "Wiegeplan", "animal_weighing_schedules": "Wiegeplan|Wiegepl\xE4ne", "BiographyEntryEvent": "Biografieeintrag", "biography_entry": "Biografieeintrag", "biography_entries": "Biografieeintrag|Biografieeintr\xE4ge", "CaresheetEvent": "Begleitblatt", "caresheet": { "sensor_history_days": "Zeitrahmen f\xFCr Sensorwerte", "data_history_days": "Zeitrahmen f\xFCr Tier- und Terrarieninformationen" }, "caresheets": "Begleitblatt|Begleitbl\xE4tter", "critical_state": "Kritischer Zustand", "critical_states": "Kritischer Zustand|Kritische Zust\xE4nde", "CustomComponent": "Benutzerdefinierte Komponente", "custom_component": "Benutzerdefinierte Komponente", "custom_components": "Benutzerdefinierte Komponente|Benutzerdefinierte Komponenten", "CustomComponentType": "Benutzerdefinierter Komponententyp", "custom_component_type": "Benutzerdefinierter Komponententyp", "custom_component_types": "Benutzerdefinierter Komponententyp|Benutzerdefinierte Komponententypen", "SuggestionEvent": "Vorschlag", "suggestion": "Vorschlag", "suggestions": "Vorschl\xE4ge", "connecting": "Verbinde", "title": "Titel", "text": "Text", "tags": "Tags", "status": "Status", "health": "Gesundheit", "birth": "Geburt", "gender": "Geschlecht", "gender_male": "M\xE4nnlich", "gender_female": "Weiblich", "date": "Datum", "date_birth": "Geburtstag", "date_death": "Todestag", "model": "Modell", "type": "Typ", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Anzeigename", "common_name": "Gemeiner Name", "latin_name": "Lateinischer Name", "temperature": "Temperatur", "temperature_celsius": "Temperatur", "humidity": "Feuchtigkeit", "humidity_percent": "Feuchtigkeit", "heartbeat": "Puls", "last_heartbeat": "Letzter Puls", "noanimals": "Keine Tiere", "create": "Erstelle", "settings": "Einstellung|Einstellungen", "notifications": "Benachrichtigung|Benachrichtigungen", "notification_type": "Nachrichten Kanal", "details": "Details", "rawlimits": "Schwellenwerte", "rawlimitlo": "Unterer Schwellenwert", "rawlimithi": "Oberer Schwellenwert", "size": "Gr\xF6\xDFe", "current_value": "Aktueller Wert", "created_at": "Erstellt", "updated_at": "Letztes Update", "recovered_at": "Erholt", "read_at": "Gelesen", "download": "Herunterladen", "properties": "Eigenschaften", "preview": "Vorschau", "source": "Quelle", "target": "Ziel", "associated_with": "Assoziiert mit", "starts_at": "Beginnt um", "ends_at": "Endet um", "starts_after": "Startet nach", "thresholds": "Schwellenwerte", "abilities": "F\xE4higkeit|F\xE4higkeiten", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto Nachtmodus", "permanent_nightmode": "Permanenter Nachtmodus", "language": "Sprache", "belongsTo_type": "Geh\xF6rt zu (Typ)", "belongsTo_id": "Geh\xF6rt zu (ID)", "belongsTo": "Geh\xF6rt zu", "users_guide": "Benutzerhandbuch", "doku": "Dokumentation", "tech_doku": "Techn. Dokumentation", "step": "Schritt", "phone_number": "Telefonnummer", "template": "Vorlage", "timezone": "Zeitzone", "critical": "Kritisch", "ok": "OK", "running": "Laufend", "runs_since": "L\xE4uft seit", "queued": "Wartend", "criticalstates": "Kritische Zust\xE4nde", "since": "Seit", "state": "Zustand", "irrigate": "Bew\xE4ssern", "duration": "Dauer", "on": "An", "off": "Aus", "just_fed": "F\xFCtterung hinzuf\xFCgen", "add_weight": "Gewicht hinzuf\xFCgen", "active": "Aktiv", "copy_thresholds": "Schwellenwerte kopieren", "daily": "T\xE4glich", "last_feeding": "Letzte F\xFCtterung", "crickets": "Heimchen", "mixed_fruits": "Fruchtbrei", "beetle_jelly": "BeetleJelly", "due": "F\xE4llig", "overdue": "\xDCberf\xE4llig", "meal_type": "Nahrungsart", "interval_days": "Intervall in Tagen", "interval": "Intervall", "password": "Passwort", "weight": "Gewicht", "no_data": "Keine Daten", "overview": "\xDCbersicht", "environment": "Umgebung", "now": "Jetzt", "scheduled": "Geplant", "sequence": "Sequenz", "weighprogression": "Gewichtsverlauf", "from": "Von", "tO": "Bis", "feedings": "F\xFCtterungen", "temp_and_hum_history": "Temperatur- und Feuchtigkeitsverlauf", "biography": "Biografie", "bio_categories": "Biografiekategorien", "icon": "Symbol", "average": "Durchschnitt", "min": "Minimum", "min_short": "Min", "max": "Maximum", "max_short": "Max", "during_day": "Tags", "during_night": "Nachts", "total": "Total", "infrastructure": "Infrastruktur", "timeframe_start": "Zeitrahmen ab", "timeframe_end": "Zeitrahmen bis", "reference_value": "Vergleichswert", "reference_value_duration_threshold_minutes": "Vergleichswert unter/\xFCberschritten seit (Minuten)", "for": "f\xFCr", "minimum_timeout": "Timeout", "minimum_timeout_minutes": "Timeout (Minuten)", "emergency_stop": "Notaus", "increases": "Erh\xF6ht", "increase": "Erh\xF6ht", "decreases": "Senkt", "decrease": "Senkt", "personal_access_token": "Zugriffstoken", "personal_access_tokens": "Zugriffstoken", "expires": "L\xE4uft ab", "security": "Sicherheit", "general": "Allgemein", "component": "Komponente", "to": "Bis", "daily_reminders": "T\xE4gliche Erinnerungen", "yesterday": "Gestern", "tomorrow": "Morgen", "today": "Heute", "runonce": "Nur einmal ausf\xFChren", "intention": "Intention", "deceased": "Verstorben", "software_version": "Software Version", "use_as_background": "Als Hintergrund verwenden", "relation_map": "Beziehungskarte", "start_action_sequence": "Aktionssequenz starten", "suggestions_unit": "Mind. Vorkommnisse", "suggestion_timeframe_unit": "Zeitrahmen (Einheit)", "suggestions_timeframe": "Zeitrahmen", "bus": "Bus", "i2c_bus_num": "I2C Bus Nummer", "i2c_address": "I2C Adresse", "i2c_multiplexer_address": "I2C Multiplexer Adresse", "i2c_multiplexer_port": "I2C Multiplexer Port", "gpio_pin": "GPIO Pin", "gpio_default_high": "GPIO Standard High", "configuration": "Konfiguration", "yes": "Ja", "no": "Nein", "rawvalue": "Rohwert", "adjust_rawvalue": "Rohwertkorrektur", "filter": "Filter", "logout": "Ausloggen", "login": "Einloggen", "remember_me": "Eingeloggt bleiben", "ask_me_something": "Frag mich etwas", "ventilate": "L\xFCften", "heat_up": "Heizen", "cool_down": "K\xFChlen", "between": "zwischen", "and": "und", "association": "Verkn\xFCpfung", "choose_logfile": "Log-Datei ausw\xE4hlen", "no_image": "Kein Bild", "features": "Features", "rollperiod": "Rollperiode", "add_preset": "Voreinstellung hinzuf\xFCgen", "inactive": "Inaktiv", "soft_state": "Soft state", "reason": "Grund", "possibly_affected_animals": "M\xF6glicherweise betroffene Tiere", "scope": "G\xFCltigkeitsbereich", "client_server_time_diff": "Client\/Server Zeitdifferenz", "id": "ID", "loading_dots": "Laden...", "search_ciliatus": "Ciliatus durchsuchen ..." }, "languages": { "german": "Deutsch", "english": "Englisch" }, "menu": { "welcome": "Willkommen", "dashboard": "\xDCbersicht", "general": "Allgemein", "administration": "Administration", "create": "Erstellen", "edit": "Editieren", "delete": "L\xF6schen", "infrastructure": "Infrastruktur", "help": "Hilfe", "logout": "Abmelden", "animals": "Tiere", "terraria": "Terrarien", "users": "Benutzer", "animal_feeding_types": "Nahrungsarten", "logs": "Protokoll", "categories": "Kategorien", "monitoring": "\xDCberwachung", "automation": "Automatisierung", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "Alle preexistenten Schwellenwerte des Zielsensors werden entfernt." }, "users": { "setup_telegram_ok": "Telegram ist eingerichtet.", "setup_telegram_err": "Telegram ist noch nicht eingerichtet.", "setup_telegram_description": "Bitte \xF6ffnen Sie Telegram in Ihrem <a href=\"https://web.telegram.org/#/im?p=@\">Browser</a> oder auf ihrem Smartphone und kontaktieren Sie <b>@</b> mit untenstehendem Aktivierungscode." }, "critical_state_generic": "Kritisch: {critical}_state", "critical_state_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "Kritisch: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "LOWERLIMIT_DECEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu niedrige Feuchtigkeit von {humidity}_percent%.", "UPPERLIMIT_EXCEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu hohe Feuchtigkeit von {humidity}_percent%." }, "temperature_celsius": { "UNKNOWN": "Kritisch: Der Sensor {logical}_sensor meldet eine Temperatur von {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu niedrige Temperatur von {temperature}_celsius\xB0C.", "UPPERLIMIT_EXCEEDED": "Kritisch: Der Sensor {logical}_sensor meldet eine zu hohe Temperatur von {temperature}_celsius\xB0C." } }, "critical_state_recovery_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "LOWERLIMIT_DECEEDED": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%.", "UPPERLIMIT_EXCEEDED": "OK: Der Sensor {logical}_sensor meldet eine Feuchtigkeit von {humidity}_percent%." }, "temperature_celsius": { "UNKNOWN": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C.", "UPPERLIMIT_EXCEEDED": "OK: Der Sensor {terrarium} meldet eine Temperatur von {temperature}_celsius\xB0C." } }, "critical_state_notification_controlunits": { "UNKNOWN": "Kritisch: Die Steuereinheit {controlunit} befindet sich in einem unbekannten Zustand.", "HEARTBEAT_CRITICAL": "Kritisch: Die Steuereinheit {controlunit} sendet keine Daten.", "TIME_DIFF_CRITICAL": "Kritisch: Die Steuereinheit {controlunit} hat eine zu hohe Zeitdifferenz." }, "critical_state_recovery_notification_controlunits": { "UNKNOWN": "OK: Die Steuereinheit {controlunit} ist nicht mehr in einem unbekannten Zustand.", "HEARTBEAT_CRITICAL": "OK: Die Steuereinheit {controlunit} sendet wieder Daten.", "TIME_DIFF_CRITICAL": "OK: Die Steuereinheit {controlunit} hat wieder eine akzeptable Zeitdifferenz." }, "daily": { "intro": "T\xE4gliche Erinnerungen", "feedings_due": "F\xE4llige F\xFCtterungen:", "weighings_due": "F\xE4lliges Wiegen:" }, "own_token_expires": "Token '{name}' l\xE4uft in {days} Tagen ab.", "suggestions": { "humidity_percent": { "UPPERLIMIT_EXCEEDED": "Feuchtigkeit reduzieren t\xE4glich um {hour}", "LOWERLIMIT_DECEEDED": "Feuchtigkeit erh\xF6hen t\xE4glich um {hour}", "UNKNOWN": "Feuchtigkeit regulieren t\xE4glich um {hour}" }, "temperature_celsius": { "UPPERLIMIT_EXCEEDED": "Feuchtigkeit reduzieren t\xE4glich um {hour}", "LOWERLIMIT_DECEEDED": "Temperatur erh\xF6hen t\xE4glich um {hour}", "UNKNOWN": "Temperatur regulieren t\xE4glich um {hour}" } } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Willkommen zu Ciliatus", "create_user": "Erstelle Deinen Benutzer", "done": "Geschafft!", "what_now": "Was nun?", "login": "Einloggen", "tooltip_login": "Logge Dich mit Deinem soeben erstellten Nutzer bei Ciliatus an.", "add_terrarium": "Terrarium anlegen", "tooltip_add_terrarium": "Erstelle Dein erstes Terrarium in Ciliatus.", "add_animal": "Tier anlegen", "tooltip_add_animal": "Erstelle Dein erstes Tier und ordne es einem Terrarium zu.", "setup_telegram": "Telegram einrichten", "tooltip_setup_telegram": "Lerne, wie Du Telegram mit Ciliatus konfigurieren kannst.", "setup_controlunit": "Kontrolleinheit erstellen", "tooltip_setup_controlunit": "Lerne eine Kontrolleinheit und zugeordnete Sensoren anzulegen um damit zu beginnen Sensordaten zu Deinen Terrarien zu \xFCbermitteln.", "err_completed": "Das Setup wurde bereits durchgef\xFChrt." }, "tooltips": { "ctrltoselect": "Strg+Klick zum selektieren", "active": "Aktiv", "showondefaultdashboard": "Auf Default Dashboard anzeigen", "autoirrigation": "Automatische Bew\xE4sserung", "sendnotificationsfor": "Benachrichtigungen versenden f\xFCr", "loadandrendergraph": "Daten werden ermittelt und Graph wird gerendert", "disables_option": "Deaktiviert \"{option}\"", "phone_number": "Mobilnummer", "contact_bot": "Den Bot kontaktieren", "wait_confirmation": "Auf Best\xE4tigung warten", "set_state_to": "Zustand von <b>{target}</b> auf <b>{state}</b> \xE4ndern f\xFCr <b>{minutes} Minuten</b>", "start_after_started": "Startet wenn Schritt <b>{id}<\/b> gestartet wurde", "start_after_finished": "Startet wenn Schritt <b>{id}<\/b> beendet wurde", "sendnotifications": "Benachrichtigungen versenden", "no_schedules": "Keine Zeitpl\xE4ne", "runonce": "Einmalig", "heartbeat_critical": "Heartbeat ist kritisch!", "copy_thresholds_warning": "Alle existierenden Schwellenwerte des Zielsensors werden entfernt.", "animal_feeding_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten F\xFCtterungspl\xE4ne. Die Zahl in einer Spalte stellt das Intervall dar, gefolgt von den verbleibenden Tagen bis zur n\xE4chsten F\xE4lligkeit.", "animal_weighing_schedule_matrix": "Diese Matrix enth\xE4lt alle definierten Wiegepl\xE4ne. Die Zahl in einer Spalte stellt das Intervall gefolgt vom n\xE4chsten F\xE4lligkeitsdatum dar.", "done": "Erledigt", "skip": "\xDCberspringen", "material_icons_list": "Die komplette Symbolliste ist unter <a href=\"https:\/\/cdn.materialdesignicons.com\/2.1.99\/\">materialdesignicons.com<\/a> einsehbar.", "no_data": "Keine Daten.", "connecting_to_server": "Verbindung zum Ciliatus Server wird hergestellt. Sollte dies l\xE4nger als einige Sekunden dauern, \xFCberpr\xFCfen Sie bitte Ihre Internetverbindung.", "custom_components": { "about": "Benutzerdefinierte Komponenten werden benutzt, um die Standardkomponenten von Ciliatus zu erg\xE4nzen.", "type_about": "Benutzerdefinierte Komponententypen definieren Name, Eigenschaften und m\xF6gliche Zust\xE4nde f\xFCr benutzerdefinierte Komponenten. Sie dienen als Vorlage beim Erstellen einer neuen benutzerdefinierten Komponente.", "property_templates": "Definiert die Eigenschaften eines benutzerdefinierten Komponententyps. Beim Erstellen einer neuen Komponente diesen Typs wird man aufgefordert, diese Eigenschaften auszuf\xFCllen.", "state_templates": "Definiert m\xF6gliche Zust\xE4nde, die eine Komponente diesen Typs haben kann. Beim Erstellen einer Aktionssequenz kann man aus den hier definierten Zust\xE4nden den gew\xFCnschten Zustand ausw\xE4hlen.<br /><br />Die Checkbox links definiert den standardm\xE4\xDFigen 'laufend'-Zustand.", "type_delete_warning": "Beim L\xF6schen eines Komponententyps werden <strong>alle Komponenten dieses Typs</strong> gel\xF6scht.", "intentions": "Intentionen von benutzerdefinierten Komponenten erm\xF6glichen deren automatisches Einbinden in Aktionssequenzen." }, "minimum_timeout_minutes": "Definiert die Dauer der minimalen Pause, bevor die Aktionssequenz durch diesen Ausl\xF6ser nach einem Durchlauf erneut gestartet werden kann.", "reference_value": "Der Wert, mit dem der Sensorwert verglichen werden soll.", "reference_value_duration_threshold_minutes": "Dauer in Minuten, die der Sensorwert den Grenzwert unter/\xFCberschritten haben muss, bevor die Aktionssequenz ausgel\xF6st wird.", "emergency_stop": "H\xE4lt sofort alle Aktionssequenzen an und verhindert das Starten neuer Aktionssequenzen bis der Notaus aufgehoben wird.", "emergency_resume": "Hebt den Notaus auf und erlaubt den Start von Aktionssequenzen.", "leave_empty_for_auto": "Frei lassen f\xFCr automatisch", "intention_increase_decrease": "Definiert ob die Intention dieser Aktionssequenz das Erh\xF6hen oder Senken des Sensorwerts ist.", "suggestions_unit": "Mindestanzahl von Kritischen Zust\xE4nden innerhalb des Zeitrahmens, bevor ein Vorschlag generiert werden soll.", "suggestion_timeframe_unit": "Zeitrahmen der zur Analyse herangezogen werden soll (Einheit)", "suggestions_timeframe": "Zeitrahmen der zur Analyse herangezogen werden soll (Wert)", "show_suggestions": "Vorschl\xE4ge anzeigen", "bus_type_edit_form": "Erm\xF6glicht Ciliatus das automatische Generieren von Kontroleinheitskonfigurationen.", "gpio_default_high": "GPIO Pin wird im Betrieb auf High gezogen. Zum aktivieren der Komponente auf Low.", "adjust_rawvalue": "Beim Empfangen eines Werts durch diesen Sensor kann der Wert korrigiert werden.", "experimental_feature": "Dieses Feature ist experimentell.", "action_sequence_schedules": { "skip": "Heutigen Durchlauf \xFCberspringen." }, "associate_new": "Verkn\xFCpfe <i class=\"material-icons\">{source}_icon</i> {source}_type \"{source}_name\" mit <i class=\"material-icons\">{target}_icon</i> {target}_type", "floating": { "add": "Neu", "edit": "Bearbeiten", "delete": "L\xF6schen" }, "ciliatus_up_to_date": "Aktuell", "ciliatus_not_up_to_date": "Update verf\xFCgbar: <a href=\"{url}\">GitHub</a>", "no_feeding_types": "Es wurden noch keine Futtertypen definiert.", "max_file_size": "Die maximale Dateigr\xF6\xDFe betr\xE4gt {size}.", "animal_weighing": { "trend": "Trend der letzten 60 Tage bis zum letzten Wiegen" }, "logical_sensor_thresholds": { "limits": "Nicht-kritischer Wertebereich. Werte au\xDFerhalb des Bereichs werden als kritisch angesehen", "lowerlimit": "Sensorwert ist kritisch, falls er unter diesem Wert liegt", "upperlimit": "Sensorwert ist kritisch, falls er \xFCber diesem Wert liegt", "starts_at": "Zeitpunkt, ab dem der Grenzwert gelten soll" }, "logical_sensor_rawvalue_limit": "G\xFCltigkeitsbereich dieses Sensors. Sensorwerte au\xDFerhalb dieses Bereichs werden abgelehnt, wenn sie \xFCber die API gesendet werden.", "caresheet": { "sensor_history_days": "Zeitraum der in die Berechnung von Durschnitts-\/Max-\/Min-Werten einbezogen werden soll", "data_history_days": "Zeitraum aus dem Biographieintr\xE4ge, F\xFCtterungen und Gewichtsverlauf einbezogen werden soll" }, "set_as_background": "Als Hintergrund setzen", "critical_state_actuality": "Daten werden zum jetzigen Zeitpunkt ermittelt und k\xF6nnten zum Zeitpunkt des kritischen Zustand unterschiedlich gewesen sein.", "i2c": { "bus_num": "F\xFCr Raspberry Pi: 0 f\xFCr RPI1, 1 f\xFCr alle anderen Modelle" } }, "units": { "years": "Jahr|Jahre", "months": "Monat|Monate", "weeks": "Woche|Wochen", "days": "Tag|Tage", "hours": "Stunde|Stunden", "minutes": "Minute|Minuten", "seconds": "Sekunde|Sekunden", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "vor {val} Jahren", "months_ago": "vor {val} Monaten", "weeks_ago": "vor {val} Wochen", "days_ago": "vor {val} Tagen", "hours_ago": "vor {val} Stunden", "minutes_ago": "vor {val} Minuten", "years_in": "in {val} Jahren", "months_in": "in {val} Monaten", "weeks_in": "in {val} Wochen", "days_in": "in {val} Tagen", "hours_in": "in {val} Stunden", "minutes_in": "in {val} Minuten", "years_since": "seit einem Jahr|seit {val} Jahren", "months_since": "seit einem Monat|seit {val} Monaten", "weeks_since": "seit einer Woche|seit {val} Wochen", "days_since": "seit einem Tag|seit {val} Tagen", "hours_since": "seit einer Stunde|seit {val} Stunden", "minutes_since": "seit einer Minute|seit {val} Minuten", "just_now": "gerade eben", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" }, "weekdays": { "0": "Sonntag", "1": "Montag", "2": "Dienstag", "3": "Mittwoch", "4": "Donnerstag", "5": "Freitag", "6": "Samstag", "sunday": "Sonntag", "monday": "Montag", "tuesday": "Dienstag", "wednesday": "Mittwoch", "thursday": "Donnerstag", "friday": "Freitag", "saturday": "Samstag" } }, "en": { "buttons": { "next": "Next", "save": "Save", "delete": "Delete", "delete_type": "Delete {type}", "delete_all_type": "Delete all {type}", "loadgraph": "Load graph", "upload": "Upload", "start_setup": "Start Setup", "add": "Add", "add_intention": "Add Intention", "add_property": "Add Property", "add_state": "Add State", "create": "Add", "edit": "Edit", "details": "Details", "download": "Download", "emergency_stop": "Emergency stop", "emergency_resume": "Remove emergency stop", "revoke": "Revoke", "irrigate": "Irrigate", "ventilate": "Ventilate", "heat_up": "Heat up", "cool_down": "Cool down", "start": "Start", "close": "Close", "select_all_read": "Read all", "select_all_list": "List all", "select_all_write": "Write all" }, "errors": { "retrievegraphdata": "Could not retrieve graph data.", "auth": { "failed": "Authentication failed." }, "frontend": { "generic": "An error occured. Check the console for details.", "no_recording_capability": "The browser doesn't seem to support voice control.", "no_target_object": "Target not found" }, "codes": { "common": { "101": "Object not found.", "102": "Related object not found: {related}_object.", "103": "Could not parse timestamp {timestamp}.", "104": "Missing fields: {missing}_fields", "105": "Class not found.", "106": "Invalid UUID: {uuid}" }, "custom": { "11": [], "12": [], "13": [], "14": [], "15": { "201": "Unknown comparison." }, "16": [], "17": [], "18": { "201": "A feeding schedule for this type of food already exists for this animal." }, "19": [], "1A": [], "1B": [], "1C": [], "1D": [], "1E": [], "1F": [], "20": { "201": "No file to upload.", "202": "File is too big. Maximum: {max}_size MB." }, "21": { "201": "Generic component is corrupted." }, "22": [], "23": [], "24": [], "25": [], "26": [], "27": [], "28": [], "29": { "201": "Raw value is outside of the sensor's valid range.", "202": "There already is a sensor reading of this Logical Sensor withing the reading group." }, "2A": [], "2B": { "201": "Unknown error while generating Action Sequence." }, "2C": { "201": "Username already taken.", "202": "E-Mail address already taken.", "203": "The passwords don't match.", "204": "No password set." }, "2D": [], "2E": [] } } }, "labels": { "User": "User", "user": "User", "users": "User|Users", "Terrarium": "Terrarium", "terrarium": "Terrarium", "terraria": "Terrarium|Terraria", "Animal": "Animal", "animal": "Animal", "animals": "Animal|Animals", "Controlunit": "Control Unit", "controlunit": "Control Unit", "controlunits": "Control Unit|Control Units", "Pump": "Pump", "pump": "Pump", "pumps": "Pump|Pumps", "Valve": "Valve", "valve": "Valve", "valves": "Valve|Valves", "PhysicalSensor": "Physical Sensor", "physical_sensor": "Physical Sensor", "physical_sensors": "Physical Sensor|Physical Sensors", "LogicalSensor": "Logical Sensor", "logical_sensor": "Logical Sensor", "logical_sensors": "Logical Sensor|Logical Sensors", "LogicalSensorThreshold": "Logical Sensor Threshold", "logical_sensor_threshold": "Logical Sensor Threshold", "logical_sensor_thresholds": "Logical Sensor Threshold|Logical Sensor Thresholds", "File": "File", "file": "File", "files": "Files", "Log": "System log", "log": "Log", "logs": "System log|System logs", "Action": "Action", "action": "Action", "actions": "Actions", "ActionSequence": "Action sequence", "action_sequence": "Action sequence", "action_sequences": "Action sequence|Action sequences", "ActionSequenceSchedule": "Action sequence schedule", "action_sequence_schedule": "Action sequence schedule", "action_sequence_schedules": "Action sequence schedule|Action sequence schedules", "ActionSequenceTrigger": "Action sequence trigger", "action_sequence_trigger": "Action sequence trigger", "action_sequence_triggers": "Action sequence trigger|Action sequence triggers", "ActionSequenceIntention": "Action sequence intention", "action_sequence_intention": "Action sequence intention", "action_sequence_intentions": "Action sequence intention|Action sequence intentions", "Trigger": "Trigger", "trigger": "Trigger", "triggers": "Trigger|Triggers", "admin_panel": "Admin panel", "admin_panels": "Admin panel", "AnimalFeeding": "Feeding", "animal_feeding": "Feeding", "animal_feedings": "Feeding|Feedings", "AnimalFeedingSchedule": "Feeding schedule", "animal_feeding_schedule": "Feeding schedule", "animal_feeding_schedules": "Feeding schedule|Feeding schedules", "AnimalWeighing": "Weighing", "animal_weighing": "Weighing", "animal_weighings": "Weighing|Weighings", "AnimalWeighingSchedule": "Weighing schedule", "animal_weighing_schedule": "Weighing schedule", "animal_weighing_schedules": "Weighing schedule|Weighing schedules", "BiographyEntryEvent": "Biography entry", "biography_entry": "Biography entry", "biography_entries": "Biography entry|Biography entries", "CaresheetEvent": "Care Sheet", "caresheet": { "sensor_history_days": "Sensorreading timespan", "data_history_days": "Animal and terrarium data timespan" }, "caresheets": "Care Sheet|Care Sheets", "critical_state": "Critical State", "critical_states": "Critical State|Critical States", "CustomComponent": "Custom Component", "custom_component": "Custom Component", "custom_components": "Custom Component|Custom Components", "CustomComponentType": "Custom Component Type", "custom_component_type": "Custom Component Type", "custom_component_types": "Custom Component Type|Custom Component Types", "SuggestionEvent": "Suggestion", "suggestion": "Suggestion", "suggestions": "Suggestions", "connecting": "Connecting", "title": "Title", "text": "Text", "tags": "Tags", "status": "Status", "health": "Health", "birth": "Birth", "gender": "Gender", "gender_male": "Male", "gender_female": "Female", "date": "Date", "date_birth": "Day of birth", "date_death": "Day of death", "model": "Model", "type": "Type", "email": "E-Mail", "name": "Name", "name_singular": "Name (Singular)", "name_plural": "Name (Plural)", "display_name": "Display Name", "common_name": "Common Name", "latin_name": "Latin Name", "temperature": "Temperature", "temperature_celsius": "Temperature", "humidity": "Humidity", "humidity_percent": "Humidity", "heartbeat": "Heartbeat", "last_heartbeat": "Last Heartbeat", "noanimals": "No Animals", "create": "Create", "settings": "Setting|Settings", "notifications": "Notification|Notifications", "notification_type": "Notification channel", "details": "Details", "rawlimits": "Thresholds", "rawlimitlo": "Lower threshold", "rawlimithi": "Upper threshold", "size": "Size", "current_value": "Current value", "created_at": "Creation", "updated_at": "Last update", "recovered_at": "Recovered", "read_at": "Read at", "download": "Download", "properties": "Properties", "preview": "Preview", "source": "Source", "target": "Target", "associated_with": "Associated with", "starts_at": "Starts at", "ends_at": "Ends at", "starts_after": "Starts after", "thresholds": "Thresholds", "abilities": "Ability|Abilities", "bugtracker": "Bugtracker", "wiki": "Wiki", "auto_nightmode": "Auto night mode", "permanent_nightmode": "Permanent night mode", "language": "Language", "belongsTo_type": "Belongs to (type)", "belongsTo_id": "Belongs to (ID)", "belongsTo": "Belongs to", "users_guide": "User's Guide", "doku": "Documentation", "tech_doku": "Tech. Documentation", "step": "Step", "phone_number": "Phone number", "template": "Template", "timezone": "Timezone", "critical": "Critical", "ok": "OK", "running": "Running", "runs_since": "Running since", "queued": "Queued", "criticalstates": "Critical States", "since": "Since", "state": "State", "irrigate": "Irrigate", "duration": "Duration", "on": "On", "off": "Off", "just_fed": "Add feeding", "add_weight": "Add weight", "active": "Aktiv", "copy_thresholds": "Copy thresholds", "daily": "Daily", "last_feeding": "Last feeding", "crickets": "Crickets", "mixed_fruits": "Fruits", "beetle_jelly": "BeetleJelly", "due": "Due", "overdue": "Overdue", "meal_type": "Meal type", "interval_days": "Interval in days", "interval": "Interval", "password": "Password", "weight": "Weight", "no_data": "No Data", "overview": "Overview", "environment": "Environment", "now": "Now", "scheduled": "Scheduled", "sequence": "Sequence", "weighprogression": "Weight progression", "from": "From", "tO": "To", "feedings": "Feedings", "temp_and_hum_history": "Temperature and Humidity History", "biography": "Biography", "bio_categories": "Biography categories", "icon": "Icon", "average": "Average", "min": "Minimum", "min_short": "Min", "max": "Maximum", "max_short": "Max", "during_day": "Daytime", "during_night": "Nighttime", "total": "Total", "infrastructure": "Infrastructure", "timeframe_start": "Timeframe from", "timeframe_end": "Timeframe to", "reference_value": "Reference value", "reference_value_duration_threshold_minutes": "Reference value undershot\/exceeded for (Minutes)", "for": "for", "minimum_timeout": "Timeout", "minimum_timeout_minutes": "Timeout (minutes)", "emergency_stop": "Emergency stop", "increases": "Increases", "increase": "Increases", "decreases": "Decreases", "decrease": "Decreases", "personal_access_token": "Access Token", "personal_access_tokens": "Access Tokens", "expires": "Expires", "security": "Security", "general": "General", "component": "Component", "to": "To", "daily_reminders": "Daily Reminders", "yesterday": "Yesterday", "tomorrow": "Tomorrow", "today": "Today", "runonce": "Only run once", "intention": "Intention", "deceased": "Deceased", "software_version": "Software Version", "use_as_background": "Use as background image", "relation_map": "Relation map", "start_action_sequence": "Start Action Sequence", "suggestions_unit": "Min. Occurences", "suggestion_timeframe_unit": "Timeframe (Unit)", "suggestions_timeframe": "Timeframe", "bus": "Bus", "i2c_bus_num": "I2C bus number", "i2c_address": "I2C address", "i2c_multiplexer_address": "I2C multiplexer address", "i2c_multiplexer_port": "I2C multiplexer port", "gpio_pin": "GPIO pin", "gpio_default_high": "GPIO Default High", "configuration": "Configuration", "yes": "Yes", "no": "No", "rawvalue": "Raw value", "adjust_rawvalue": "Raw value correction", "filter": "Filter", "logout": "Log off", "login": "Log in", "remember_me": "Stay logged in", "ask_me_something": "Ask me something", "ventilate": "Ventilate", "heat_up": "Heat", "cool_down": "Cool", "between": "between", "and": "and", "association": "Association", "choose_logfile": "Choose a log file", "no_image": "No image", "features": "Features", "rollperiod": "Roll period", "add_preset": "Add preset", "inactive": "Inactive", "soft_state": "Soft state", "reason": "Reason", "possibly_affected_animals": "Possibly affected animals", "scope": "Scope", "client_server_time_diff": "Client\/Server time difference", "id": "ID", "loading_dots": "Loading...", "search_ciliatus": "Search Ciliatus ..." }, "languages": { "german": "German", "english": "English" }, "menu": { "welcome": "Welcome", "dashboard": "Dashboard", "general": "General", "administration": "Administration", "create": "Create", "edit": "Edit", "delete": "Delete", "infrastructure": "Infrastructure", "help": "Help", "logout": "Log out", "animals": "Animals", "terraria": "Terraria", "users": "Users", "animal_feeding_types": "Food types", "logs": "Logs", "categories": "Categories", "monitoring": "Monitoring", "automation": "Automation", "ciliatus_logs": "Ciliatus Logs", "system_logs": "System Logs", "system_status": "System Status" }, "messages": { "logical_sensor_thresholds": { "copy_warning": "All existing thresholds associated with the target sensor will be deleted." }, "users": { "setup_telegram_ok": "Telegram is set up.", "setup_telegram_err": "Telegram has not yet been set up.", "setup_telegram_description": "Please point your browser to <a href=\"https:\/\/web.telegram.org\/#\/im?p=@\">Telegram Web<\/a> or use your smartphone to contact <b>@<\/b> with your verification code below." }, "critical_state_generic": "Critical: {critical}_state", "critical_state_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "Critical: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "LOWERLIMIT_DECEEDED": "Critical: The sensor {logical}_sensor reports a too low humidity of {humidity}_percent%C.", "UPPERLIMIT_EXCEEDED": "Critical: The sensor {logical}_sensor reports a too high humidity of {humidity}_percent%C." }, "temperature_celsius": { "UNKNOWN": "Critical: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "Critical: The sensor {logical}_sensor reports a too low temperature of {temperature}_celsius\xB0C.", "UPPERLIMIT_EXCEEDED": "Critical: The sensor {logical}_sensor reports a too high temperature of {temperature}_celsius\xB0C." } }, "critical_state_recovery_notification_logical_sensors": { "humidity_percent": { "UNKNOWN": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "LOWERLIMIT_DECEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "UPPERLIMIT_EXCEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C." }, "temperature_celsius": { "UNKNOWN": "OK: The sensor {logical}_sensor reports a temperature of {temperature}_celsius\xB0C.", "LOWERLIMIT_DECEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C.", "UPPERLIMIT_EXCEEDED": "OK: The sensor {logical}_sensor reports a humidity of {humidity}_percent%C." } }, "critical_state_notification_controlunits": { "UNKNOWN": "Critical: The Control Unit {controlunit} is in an unknown state.", "HEARTBEAT_CRITICAL": "Critical: The Control Unit {controlunit} is not sending data.", "TIME_DIFF_CRITICAL": "Critical: The Control Unit {controlunit} has a too large time difference." }, "critical_state_recovery_notification_controlunits": { "UNKNOWN": "OK: The Control Unit {controlunit} is no longer in an unknown state.", "HEARTBEAT_CRITICAL": "OK: The Control Unit {controlunit} is sending data again.", "TIME_DIFF_CRITICAL": "OK: The Control Unit {controlunit} has an acceptable time difference again." }, "daily": { "intro": "Daily reminders", "feedings_due": "Feedings due:", "weighings_due": "Weighings due:" }, "own_token_expires": "Token '{name}' expires in {days} days.", "suggestions": { "humidity_percent": { "UPPERLIMIT_EXCEEDED": "Decrease humidity daily at {hour}", "LOWERLIMIT_DECEEDED": "Increase humidity daily at {hour}", "UNKNOWN": "Regulate humidity daily at {hour}" }, "temperature_celsius": { "UPPERLIMIT_EXCEEDED": "Decrease temperature daily at {hour}", "LOWERLIMIT_DECEEDED": "Increase temperature daily at {hour}", "UNKNOWN": "Regulate temperature daily at {hour}" } } }, "product": { "name": "ciliatus" }, "setup": { "welcome": "Welcome to Ciliatus", "create_user": "Create your user", "done": "Done!", "what_now": "What now?", "login": "Log in", "tooltip_login": "Log in to Ciliatus with the user you just created.", "add_terrarium": "Create Terrarium", "tooltip_add_terrarium": "Create your first terrarium in Ciliatus.", "add_animal": "Create animal", "tooltip_add_animal": "Create your first animal and assign it to a terrarium.", "setup_telegram": "Setup Telegram", "tooltip_setup_telegram": "Learn how to configure Telegram with Ciliatus.", "setup_controlunit": "Create Control Unit", "tooltip_setup_controlunit": "Learn how to setup a Control Unit to start feeding Ciliatus with sensor readings.", "err_completed": "Setup is already completed." }, "tooltips": { "ctrltoselect": "Ctrl-click to deselect", "active": "Active", "showondefaultdashboard": "Show on default dashboard", "autoirrigation": "Automatic irrigation (if available)", "sendnotificationsfor": "Send notifications for", "loadandrendergraph": "Collection data and rendering graph", "disables_option": "Disables \"{option}\"", "phone_number": "Mobile number", "contact_bot": "Contacting the bot", "wait_confirmation": "Waiting for confirmation", "set_state_to": "Set state of <b>{target}<\/b> to <b>{state}<\/b> for <b>{minutes} minutes<\/b>", "start_after_started": "Starts as soon as step <b>{id}<\/b> was started", "start_after_finished": "Starts as soon as step <b>{id}<\/b> finished", "sendnotifications": "Send notifications", "no_schedules": "No schedules", "runonce": "Run once", "heartbeat_critical": "Heartbeat is critical!", "copy_thresholds_warning": "All existing thresholds on the target sensor will be removed.", "animal_feeding_schedule_matrix": "This matrix contains all defined feeding schedules. A number in a column represents the schedule's interval in days followed by the remaining time in days until it's due next.", "animal_weighing_schedule_matrix": "This matrix contains all defined weighing schedules. A number in a column represents the schedule's interval in days followed by the next due date.", "done": "Done", "skip": "Skip", "material_icons_list": "Visit <a href=\"https:\/\/cdn.materialdesignicons.com\/2.1.99\/\">materialdesignicons.com<\/a> for a complete icon overview.", "no_data": "No data.", "connecting_to_server": "Connecting to Ciliatus Server. If this takes longer then a few seconds please check your internet connection.", "custom_components": { "about": "Custom components are used to supplement the default components provided by Ciliatus.", "type_about": "Custom component types define name, properties and possible states of a custom component. They are used as a template when creating a new custom component.", "property_templates": "Define properties for this custom component type. Each time you create a new component of this type you will be prompted to fill in these properties.", "state_templates": "Define possible states for a component of this type. When creating an action sequence you can chose a state from this list as a desired state.<br \/><br \/>The radio box on the left defines the default 'running' state.", "type_delete_warning": "When deleting a component type <strong>all components of this type<\/strong> will also be deleted.", "intentions": "Intentionen of custom components allows them to be automatically used within action sequences." }, "minimum_timeout_minutes": "Defines the minimum timeout before the action sequence can be started by this trigger after the last time it was triggered.", "reference_value": "Reference value which will be compared to the sensor values.", "reference_value_duration_threshold_minutes": "Duration in minutes for which the sensor value has to be greater\/lower\/equal to the reference value before triggering the action sequence.", "emergency_stop": "Instantly stops all running action sequences and prohibits action sequences from starting.", "emergency_resume": "Revokes the emergency stop and allows action sequences to start.", "leave_empty_for_auto": "Leave empty for automatic", "intention_increase_decrease": "Defines whether the intention of this action sequence is to increase or decrease the sensor's readings", "suggestions_unit": "Minimum number of critical states within the timeframe before a suggestion should be generated.", "suggestion_timeframe_unit": "Timeframe used for analysis (Unit)", "suggestions_timeframe": "Timeframe used for analysis (Value)", "show_suggestions": "Show suggestions", "bus_type_edit_form": "Allows Ciliatus to automatically generate Control Unit configurations.", "gpio_default_high": "GPIO Pin will be pulled to high. When activating a component to low.", "adjust_rawvalue": "When receiving a reading from this sensor you can adjust the raw value.", "experimental_feature": "This is an experimental feature.", "action_sequence_schedules": { "skip": "Skip today's run." }, "associate_new": "Associate <i class=\"material-icons\">{source}_icon<\/i> {source}_type \"{source}_name\" with <i class=\"material-icons\">{target}_icon<\/i> {target}_type", "floating": { "add": "New", "edit": "Edit", "delete": "Delete" }, "ciliatus_up_to_date": "Up to date", "ciliatus_not_up_to_date": "Update available: <a href=\"{url}\">GitHub<\/a>", "no_feeding_types": "There are no food types defined yet.", "max_file_size": "The maximum file size is {size}.", "animal_weighing": { "trend": "Trend within the last 60 days from the last weighing" }, "logical_sensor_thresholds": { "limits": "Non-critical range. Values outside this range will be considered critical", "lowerlimit": "Sensor reading will be considered critical, if below this value", "upperlimit": "Sensor reading will be considered critical, if above this value", "starts_at": "Time from which on this threshold is active" }, "logical_sensor_rawvalue_limit": "Valid value range for this sensor. Values outside this range submitted via the API will be rejected", "caresheet": { "sensor_history_days": "Timespan for sensor readings to include in the average\/min\/max calculation", "data_history_days": "Timespan of animal feedings, weighings and biography entries to include" }, "set_as_background": "Set as background", "critical_state_actuality": "This is current information which could have been different at the time of the critical state.", "i2c": { "bus_num": "For Raspberry Pi: Use 0 for RPI1, 1 for all other models" } }, "units": { "years": "year|years", "months": "month|months", "weeks": "week|weeks", "days": "day|days", "hours": "hour|hours", "minutes": "minute|minutes", "seconds": "second|seconds", "temperature_celsius": "\xB0C", "humidity_percent": "%", "years_ago": "{val} years ago", "months_ago": "{val} months ago", "weeks_ago": "{val} weeks ago", "days_ago": "{val} days ago", "hours_ago": "{val} hours ago", "minutes_ago": "{val} minutes ago", "years_in": "in {val} years", "months_in": "in {val} months", "weeks_in": "in {val} weeks", "days_in": "in {val} days", "hours_in": "in {val} hours", "minutes_in": "in {val} minutes", "years_since": "since one year ago|since {val} years ago", "months_since": "since one month ago|since {val} months ago", "weeks_since": "since one week ago|since {val} weeks ago", "days_since": "since one day ago|since {val} days ago", "hours_since": "since one hours ago|since {val} hours ago", "minutes_since": "since one minute ago|since {val} minutes ago", "just_now": "just now", "lesser": "<", "greater": ">", "equals": "=", "no_data": "" }, "weekdays": { "0": "Sunday", "1": "Monday", "2": "Tuesday", "3": "Wednesday", "4": "Thursday", "5": "Friday", "6": "Saturday", "sunday": "Sunday", "monday": "Monday", "tuesday": "Tuesday", "wednesday": "Wednesday", "thursday": "Thursday", "friday": "Friday", "saturday": "Saturday" } } };
 
 /***/ }),
 /* 65 */,
@@ -13153,7 +14459,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(19),
   /* template */
-  __webpack_require__(145),
+  __webpack_require__(146),
   /* scopeId */
   null,
   /* cssModules */
@@ -13187,7 +14493,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(21),
   /* template */
-  __webpack_require__(124),
+  __webpack_require__(123),
   /* scopeId */
   null,
   /* cssModules */
@@ -13289,7 +14595,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(24),
   /* template */
-  __webpack_require__(120),
+  __webpack_require__(119),
   /* scopeId */
   null,
   /* cssModules */
@@ -13425,7 +14731,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(28),
   /* template */
-  __webpack_require__(114),
+  __webpack_require__(115),
   /* scopeId */
   null,
   /* cssModules */
@@ -13493,7 +14799,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(30),
   /* template */
-  __webpack_require__(122),
+  __webpack_require__(121),
   /* scopeId */
   null,
   /* cssModules */
@@ -13561,7 +14867,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(127),
+  __webpack_require__(126),
   /* scopeId */
   null,
   /* cssModules */
@@ -13629,7 +14935,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(34),
   /* template */
-  __webpack_require__(128),
+  __webpack_require__(127),
   /* scopeId */
   null,
   /* cssModules */
@@ -13663,7 +14969,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(35),
   /* template */
-  __webpack_require__(115),
+  __webpack_require__(116),
   /* scopeId */
   null,
   /* cssModules */
@@ -13697,6 +15003,108 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(36),
   /* template */
+  __webpack_require__(145),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\custom_component_type_create-form.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] custom_component_type_create-form.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-92e5b986", Component.options)
+  } else {
+    hotAPI.reload("data-v-92e5b986", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 90 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(37),
+  /* template */
+  __webpack_require__(130),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\custom_components-list-widget.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] custom_components-list-widget.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-5a084967", Component.options)
+  } else {
+    hotAPI.reload("data-v-5a084967", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 91 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(38),
+  /* template */
+  __webpack_require__(112),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\custom_components-widget.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] custom_components-widget.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-0a066940", Component.options)
+  } else {
+    hotAPI.reload("data-v-0a066940", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 92 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(0)(
+  /* script */
+  __webpack_require__(39),
+  /* template */
   __webpack_require__(154),
   /* scopeId */
   null,
@@ -13724,12 +15132,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 90 */
+/* 93 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(37),
+  __webpack_require__(40),
   /* template */
   __webpack_require__(136),
   /* scopeId */
@@ -13758,12 +15166,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 91 */
+/* 94 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(38),
+  __webpack_require__(41),
   /* template */
   __webpack_require__(147),
   /* scopeId */
@@ -13792,12 +15200,12 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 92 */
+/* 95 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var Component = __webpack_require__(0)(
   /* script */
-  __webpack_require__(39),
+  __webpack_require__(42),
   /* template */
   __webpack_require__(148),
   /* scopeId */
@@ -13826,108 +15234,6 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 93 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(40),
-  /* template */
-  __webpack_require__(119),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\generic_component_type_create-form.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] generic_component_type_create-form.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-34c7c76d", Component.options)
-  } else {
-    hotAPI.reload("data-v-34c7c76d", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 94 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(41),
-  /* template */
-  __webpack_require__(146),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\generic_components-list-widget.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] generic_components-list-widget.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-9bc6f4d2", Component.options)
-  } else {
-    hotAPI.reload("data-v-9bc6f4d2", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 95 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var Component = __webpack_require__(0)(
-  /* script */
-  __webpack_require__(42),
-  /* template */
-  __webpack_require__(118),
-  /* scopeId */
-  null,
-  /* cssModules */
-  null
-)
-Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\generic_components-widget.vue"
-if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
-if (Component.options.functional) {console.error("[vue-loader] generic_components-widget.vue: functional components are not supported with templates, they should use render functions.")}
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-28dfb130", Component.options)
-  } else {
-    hotAPI.reload("data-v-28dfb130", Component.options)
-  }
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
 /* 96 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13935,7 +15241,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(43),
   /* template */
-  __webpack_require__(112),
+  __webpack_require__(113),
   /* scopeId */
   null,
   /* cssModules */
@@ -13969,7 +15275,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(47),
   /* template */
-  __webpack_require__(126),
+  __webpack_require__(125),
   /* scopeId */
   null,
   /* cssModules */
@@ -14003,7 +15309,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(48),
   /* template */
-  __webpack_require__(121),
+  __webpack_require__(120),
   /* scopeId */
   null,
   /* cssModules */
@@ -14037,7 +15343,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(49),
   /* template */
-  __webpack_require__(123),
+  __webpack_require__(122),
   /* scopeId */
   null,
   /* cssModules */
@@ -14139,7 +15445,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(54),
   /* template */
-  __webpack_require__(116),
+  __webpack_require__(117),
   /* scopeId */
   null,
   /* cssModules */
@@ -14207,7 +15513,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(56),
   /* template */
-  __webpack_require__(125),
+  __webpack_require__(124),
   /* scopeId */
   null,
   /* cssModules */
@@ -14275,7 +15581,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(58),
   /* template */
-  __webpack_require__(129),
+  __webpack_require__(128),
   /* scopeId */
   null,
   /* cssModules */
@@ -14309,7 +15615,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(59),
   /* template */
-  __webpack_require__(130),
+  __webpack_require__(129),
   /* scopeId */
   null,
   /* cssModules */
@@ -14343,7 +15649,7 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(60),
   /* template */
-  __webpack_require__(117),
+  __webpack_require__(118),
   /* scopeId */
   null,
   /* cssModules */
@@ -14566,6 +15872,45 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    class: _vm.wrapperClasses
+  }, [(_vm.custom_component.data) ? _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    class: 'mdi mdi-18px mdi-' + _vm.custom_component.data.type.icon
+  }), _vm._v("\n            " + _vm._s(_vm.custom_component.data.type.name_singular) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-title"
+  }, [_vm._v("\n                " + _vm._s(_vm.custom_component.data.name) + "\n            ")]), _vm._v(" "), _vm._l((_vm.custom_component.data.properties), function(property, index) {
+    return _c('div', [_vm._v("\n                " + _vm._s(property.name) + ": " + _vm._s(property.value)), _c('br')])
+  })], 2), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('a', {
+    attrs: {
+      "href": '/custom_components/' + _vm.custom_component.data.id
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))]), _vm._v(" "), _c('a', {
+    attrs: {
+      "href": '/custom_components/' + _vm.custom_component.data.id + '/edit'
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]) : _c('div', [_c('loading-card-widget')], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-0a066940", module.exports)
+  }
+}
+
+/***/ }),
+/* 113 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', [(_vm.ShowFilterForm === true) ? _c('div', [_c('div', {
     staticClass: "row",
     staticStyle: {
@@ -14655,7 +16000,7 @@ if (false) {
 }
 
 /***/ }),
-/* 113 */
+/* 114 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -14868,7 +16213,7 @@ if (false) {
 }
 
 /***/ }),
-/* 114 */
+/* 115 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -14963,7 +16308,7 @@ if (false) {
 }
 
 /***/ }),
-/* 115 */
+/* 116 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -15070,7 +16415,7 @@ if (false) {
 }
 
 /***/ }),
-/* 116 */
+/* 117 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -15190,7 +16535,7 @@ if (false) {
 }
 
 /***/ }),
-/* 117 */
+/* 118 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -15227,4146 +16572,7 @@ if (false) {
 }
 
 /***/ }),
-/* 118 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    class: _vm.wrapperClasses
-  }, [(_vm.generic_component.data) ? _c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('i', {
-    class: 'mdi mdi-18px mdi-' + _vm.generic_component.data.type.icon
-  }), _vm._v("\n            " + _vm._s(_vm.generic_component.data.type.name_singular) + "\n        ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
-  }, [_c('span', {
-    staticClass: "card-title"
-  }, [_vm._v("\n                " + _vm._s(_vm.generic_component.data.name) + "\n            ")]), _vm._v(" "), _vm._l((_vm.generic_component.data.properties), function(property, index) {
-    return _c('div', [_vm._v("\n                " + _vm._s(property.name) + ": " + _vm._s(property.value)), _c('br')])
-  })], 2), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('a', {
-    attrs: {
-      "href": '/generic_components/' + _vm.generic_component.data.id
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))]), _vm._v(" "), _c('a', {
-    attrs: {
-      "href": '/generic_components/' + _vm.generic_component.data.id + '/edit'
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]) : _c('div', [_c('loading-card-widget')], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-28dfb130", module.exports)
-  }
-}
-
-/***/ }),
 /* 119 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    class: _vm.containerClasses
-  }, [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('form', {
-    attrs: {
-      "action": '/api/v1/generic_component_types/' + (_vm.generic_component_type.id === undefined ? '' : _vm.generic_component_type.id),
-      "data-method": _vm.generic_component_type.id === undefined ? 'POST' : 'PUT',
-      "id": _vm.generic_component_type,
-      "data-redirect-success": "/categories#tab_generic_components_types"
-    }
-  }, [_c('div', {
-    staticClass: "card-content"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$tc('labels.generic_component_types', 1)))])]), _vm._v(" "), _c('div', {
-    staticClass: "col s12 m6 l6"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "input-field col s12 m6 l6"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.generic_component_type.name_singular),
-      expression: "generic_component_type.name_singular"
-    }],
-    attrs: {
-      "type": "text",
-      "placeholder": _vm.$t('labels.name_singular'),
-      "name": "name_singular",
-      "id": "name_singular"
-    },
-    domProps: {
-      "value": (_vm.generic_component_type.name_singular)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.generic_component_type, "name_singular", $event.target.value)
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "name_singular"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.name_singular')))])]), _vm._v(" "), _c('div', {
-    staticClass: "input-field col s12 m6 l6"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.generic_component_type.name_plural),
-      expression: "generic_component_type.name_plural"
-    }],
-    attrs: {
-      "type": "text",
-      "placeholder": _vm.$t('labels.name_plural'),
-      "name": "name_plural",
-      "id": "name_plural"
-    },
-    domProps: {
-      "value": (_vm.generic_component_type.name_plural)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.generic_component_type, "name_plural", $event.target.value)
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "name_plural"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.name_plural')))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col s12 m6 l6"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "input-field col s12"
-  }, [_c('select', {
-    attrs: {
-      "name": "icon",
-      "id": "icon"
-    },
-    domProps: {
-      "value": _vm.generic_component_type.icon
-    }
-  }, [_c('option', {
-    attrs: {
-      "value": "3d_rotation"
-    }
-  }, [_vm._v("3d_rotation")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "ac_unit"
-    }
-  }, [_vm._v("ac_unit")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "access_alarm"
-    }
-  }, [_vm._v("access_alarm")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "access_alarms"
-    }
-  }, [_vm._v("access_alarms")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "access_time"
-    }
-  }, [_vm._v("access_time")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "accessibility"
-    }
-  }, [_vm._v("accessibility")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "accessible"
-    }
-  }, [_vm._v("accessible")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "account_balance"
-    }
-  }, [_vm._v("account_balance")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "account_balance_wallet"
-    }
-  }, [_vm._v("account_balance_wallet")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "account_box"
-    }
-  }, [_vm._v("account_box")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "account_circle"
-    }
-  }, [_vm._v("account_circle")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "adb"
-    }
-  }, [_vm._v("adb")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "add"
-    }
-  }, [_vm._v("add")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "add_a_photo"
-    }
-  }, [_vm._v("add_a_photo")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "add_alarm"
-    }
-  }, [_vm._v("add_alarm")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "add_alert"
-    }
-  }, [_vm._v("add_alert")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "add_box"
-    }
-  }, [_vm._v("add_box")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "add_circle"
-    }
-  }, [_vm._v("add_circle")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "add_circle_outline"
-    }
-  }, [_vm._v("add_circle_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "add_location"
-    }
-  }, [_vm._v("add_location")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "add_shopping_cart"
-    }
-  }, [_vm._v("add_shopping_cart")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "add_to_photos"
-    }
-  }, [_vm._v("add_to_photos")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "add_to_queue"
-    }
-  }, [_vm._v("add_to_queue")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "adjust"
-    }
-  }, [_vm._v("adjust")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "airline_seat_flat"
-    }
-  }, [_vm._v("airline_seat_flat")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "airline_seat_flat_angled"
-    }
-  }, [_vm._v("airline_seat_flat_angled")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "airline_seat_individual_suite"
-    }
-  }, [_vm._v("airline_seat_individual_suite")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "airline_seat_legroom_extra"
-    }
-  }, [_vm._v("airline_seat_legroom_extra")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "airline_seat_legroom_normal"
-    }
-  }, [_vm._v("airline_seat_legroom_normal")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "airline_seat_legroom_reduced"
-    }
-  }, [_vm._v("airline_seat_legroom_reduced")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "airline_seat_recline_extra"
-    }
-  }, [_vm._v("airline_seat_recline_extra")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "airline_seat_recline_normal"
-    }
-  }, [_vm._v("airline_seat_recline_normal")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "airplanemode_active"
-    }
-  }, [_vm._v("airplanemode_active")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "airplanemode_inactive"
-    }
-  }, [_vm._v("airplanemode_inactive")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "airplay"
-    }
-  }, [_vm._v("airplay")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "airport_shuttle"
-    }
-  }, [_vm._v("airport_shuttle")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "alarm"
-    }
-  }, [_vm._v("alarm")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "alarm_add"
-    }
-  }, [_vm._v("alarm_add")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "alarm_off"
-    }
-  }, [_vm._v("alarm_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "alarm_on"
-    }
-  }, [_vm._v("alarm_on")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "album"
-    }
-  }, [_vm._v("album")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "all_inclusive"
-    }
-  }, [_vm._v("all_inclusive")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "all_out"
-    }
-  }, [_vm._v("all_out")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "android"
-    }
-  }, [_vm._v("android")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "announcement"
-    }
-  }, [_vm._v("announcement")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "apps"
-    }
-  }, [_vm._v("apps")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "archive"
-    }
-  }, [_vm._v("archive")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "arrow_back"
-    }
-  }, [_vm._v("arrow_back")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "arrow_downward"
-    }
-  }, [_vm._v("arrow_downward")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "arrow_drop_down"
-    }
-  }, [_vm._v("arrow_drop_down")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "arrow_drop_down_circle"
-    }
-  }, [_vm._v("arrow_drop_down_circle")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "arrow_drop_up"
-    }
-  }, [_vm._v("arrow_drop_up")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "arrow_forward"
-    }
-  }, [_vm._v("arrow_forward")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "arrow_upward"
-    }
-  }, [_vm._v("arrow_upward")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "art_track"
-    }
-  }, [_vm._v("art_track")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "aspect_ratio"
-    }
-  }, [_vm._v("aspect_ratio")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "assessment"
-    }
-  }, [_vm._v("assessment")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "assignment"
-    }
-  }, [_vm._v("assignment")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "assignment_ind"
-    }
-  }, [_vm._v("assignment_ind")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "assignment_late"
-    }
-  }, [_vm._v("assignment_late")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "assignment_return"
-    }
-  }, [_vm._v("assignment_return")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "assignment_returned"
-    }
-  }, [_vm._v("assignment_returned")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "assignment_turned_in"
-    }
-  }, [_vm._v("assignment_turned_in")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "assistant"
-    }
-  }, [_vm._v("assistant")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "assistant_photo"
-    }
-  }, [_vm._v("assistant_photo")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "attach_file"
-    }
-  }, [_vm._v("attach_file")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "attach_money"
-    }
-  }, [_vm._v("attach_money")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "attachment"
-    }
-  }, [_vm._v("attachment")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "audiotrack"
-    }
-  }, [_vm._v("audiotrack")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "autorenew"
-    }
-  }, [_vm._v("autorenew")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "av_timer"
-    }
-  }, [_vm._v("av_timer")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "backspace"
-    }
-  }, [_vm._v("backspace")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "backup"
-    }
-  }, [_vm._v("backup")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "battery_alert"
-    }
-  }, [_vm._v("battery_alert")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "battery_charging_full"
-    }
-  }, [_vm._v("battery_charging_full")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "battery_full"
-    }
-  }, [_vm._v("battery_full")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "battery_std"
-    }
-  }, [_vm._v("battery_std")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "battery_unknown"
-    }
-  }, [_vm._v("battery_unknown")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "beach_access"
-    }
-  }, [_vm._v("beach_access")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "beenhere"
-    }
-  }, [_vm._v("beenhere")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "block"
-    }
-  }, [_vm._v("block")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "bluetooth"
-    }
-  }, [_vm._v("bluetooth")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "bluetooth_audio"
-    }
-  }, [_vm._v("bluetooth_audio")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "bluetooth_connected"
-    }
-  }, [_vm._v("bluetooth_connected")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "bluetooth_disabled"
-    }
-  }, [_vm._v("bluetooth_disabled")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "bluetooth_searching"
-    }
-  }, [_vm._v("bluetooth_searching")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "blur_circular"
-    }
-  }, [_vm._v("blur_circular")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "blur_linear"
-    }
-  }, [_vm._v("blur_linear")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "blur_off"
-    }
-  }, [_vm._v("blur_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "blur_on"
-    }
-  }, [_vm._v("blur_on")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "book"
-    }
-  }, [_vm._v("book")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "bookmark"
-    }
-  }, [_vm._v("bookmark")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "bookmark_border"
-    }
-  }, [_vm._v("bookmark_border")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "border_all"
-    }
-  }, [_vm._v("border_all")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "border_bottom"
-    }
-  }, [_vm._v("border_bottom")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "border_clear"
-    }
-  }, [_vm._v("border_clear")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "border_color"
-    }
-  }, [_vm._v("border_color")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "border_horizontal"
-    }
-  }, [_vm._v("border_horizontal")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "border_inner"
-    }
-  }, [_vm._v("border_inner")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "border_left"
-    }
-  }, [_vm._v("border_left")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "border_outer"
-    }
-  }, [_vm._v("border_outer")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "border_right"
-    }
-  }, [_vm._v("border_right")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "border_style"
-    }
-  }, [_vm._v("border_style")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "border_top"
-    }
-  }, [_vm._v("border_top")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "border_vertical"
-    }
-  }, [_vm._v("border_vertical")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "branding_watermark"
-    }
-  }, [_vm._v("branding_watermark")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "brightness_1"
-    }
-  }, [_vm._v("brightness_1")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "brightness_2"
-    }
-  }, [_vm._v("brightness_2")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "brightness_3"
-    }
-  }, [_vm._v("brightness_3")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "brightness_4"
-    }
-  }, [_vm._v("brightness_4")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "brightness_5"
-    }
-  }, [_vm._v("brightness_5")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "brightness_6"
-    }
-  }, [_vm._v("brightness_6")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "brightness_7"
-    }
-  }, [_vm._v("brightness_7")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "brightness_auto"
-    }
-  }, [_vm._v("brightness_auto")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "brightness_high"
-    }
-  }, [_vm._v("brightness_high")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "brightness_low"
-    }
-  }, [_vm._v("brightness_low")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "brightness_medium"
-    }
-  }, [_vm._v("brightness_medium")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "broken_image"
-    }
-  }, [_vm._v("broken_image")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "brush"
-    }
-  }, [_vm._v("brush")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "bubble_chart"
-    }
-  }, [_vm._v("bubble_chart")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "bug_report"
-    }
-  }, [_vm._v("bug_report")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "build"
-    }
-  }, [_vm._v("build")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "burst_mode"
-    }
-  }, [_vm._v("burst_mode")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "business"
-    }
-  }, [_vm._v("business")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "business_center"
-    }
-  }, [_vm._v("business_center")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "cached"
-    }
-  }, [_vm._v("cached")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "cake"
-    }
-  }, [_vm._v("cake")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "call"
-    }
-  }, [_vm._v("call")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "call_end"
-    }
-  }, [_vm._v("call_end")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "call_made"
-    }
-  }, [_vm._v("call_made")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "call_merge"
-    }
-  }, [_vm._v("call_merge")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "call_missed"
-    }
-  }, [_vm._v("call_missed")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "call_missed_outgoing"
-    }
-  }, [_vm._v("call_missed_outgoing")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "call_received"
-    }
-  }, [_vm._v("call_received")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "call_split"
-    }
-  }, [_vm._v("call_split")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "call_to_action"
-    }
-  }, [_vm._v("call_to_action")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "camera"
-    }
-  }, [_vm._v("camera")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "camera_alt"
-    }
-  }, [_vm._v("camera_alt")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "camera_enhance"
-    }
-  }, [_vm._v("camera_enhance")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "camera_front"
-    }
-  }, [_vm._v("camera_front")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "camera_rear"
-    }
-  }, [_vm._v("camera_rear")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "camera_roll"
-    }
-  }, [_vm._v("camera_roll")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "cancel"
-    }
-  }, [_vm._v("cancel")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "card_giftcard"
-    }
-  }, [_vm._v("card_giftcard")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "card_membership"
-    }
-  }, [_vm._v("card_membership")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "card_travel"
-    }
-  }, [_vm._v("card_travel")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "casino"
-    }
-  }, [_vm._v("casino")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "cast"
-    }
-  }, [_vm._v("cast")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "cast_connected"
-    }
-  }, [_vm._v("cast_connected")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "center_focus_strong"
-    }
-  }, [_vm._v("center_focus_strong")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "center_focus_weak"
-    }
-  }, [_vm._v("center_focus_weak")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "change_history"
-    }
-  }, [_vm._v("change_history")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "chat"
-    }
-  }, [_vm._v("chat")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "chat_bubble"
-    }
-  }, [_vm._v("chat_bubble")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "chat_bubble_outline"
-    }
-  }, [_vm._v("chat_bubble_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "check"
-    }
-  }, [_vm._v("check")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "check_box"
-    }
-  }, [_vm._v("check_box")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "check_box_outline_blank"
-    }
-  }, [_vm._v("check_box_outline_blank")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "check_circle"
-    }
-  }, [_vm._v("check_circle")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "chevron_left"
-    }
-  }, [_vm._v("chevron_left")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "chevron_right"
-    }
-  }, [_vm._v("chevron_right")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "child_care"
-    }
-  }, [_vm._v("child_care")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "child_friendly"
-    }
-  }, [_vm._v("child_friendly")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "chrome_reader_mode"
-    }
-  }, [_vm._v("chrome_reader_mode")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "class"
-    }
-  }, [_vm._v("class")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "clear"
-    }
-  }, [_vm._v("clear")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "clear_all"
-    }
-  }, [_vm._v("clear_all")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "close"
-    }
-  }, [_vm._v("close")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "closed_caption"
-    }
-  }, [_vm._v("closed_caption")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "cloud"
-    }
-  }, [_vm._v("cloud")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "cloud_circle"
-    }
-  }, [_vm._v("cloud_circle")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "cloud_done"
-    }
-  }, [_vm._v("cloud_done")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "cloud_download"
-    }
-  }, [_vm._v("cloud_download")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "cloud_off"
-    }
-  }, [_vm._v("cloud_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "cloud_queue"
-    }
-  }, [_vm._v("cloud_queue")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "cloud_upload"
-    }
-  }, [_vm._v("cloud_upload")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "code"
-    }
-  }, [_vm._v("code")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "collections"
-    }
-  }, [_vm._v("collections")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "collections_bookmark"
-    }
-  }, [_vm._v("collections_bookmark")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "color_lens"
-    }
-  }, [_vm._v("color_lens")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "colorize"
-    }
-  }, [_vm._v("colorize")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "comment"
-    }
-  }, [_vm._v("comment")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "compare"
-    }
-  }, [_vm._v("compare")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "compare_arrows"
-    }
-  }, [_vm._v("compare_arrows")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "computer"
-    }
-  }, [_vm._v("computer")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "confirmation_number"
-    }
-  }, [_vm._v("confirmation_number")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "contact_mail"
-    }
-  }, [_vm._v("contact_mail")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "contact_phone"
-    }
-  }, [_vm._v("contact_phone")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "contacts"
-    }
-  }, [_vm._v("contacts")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "content_copy"
-    }
-  }, [_vm._v("content_copy")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "content_cut"
-    }
-  }, [_vm._v("content_cut")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "content_paste"
-    }
-  }, [_vm._v("content_paste")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "control_point"
-    }
-  }, [_vm._v("control_point")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "control_point_duplicate"
-    }
-  }, [_vm._v("control_point_duplicate")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "copyright"
-    }
-  }, [_vm._v("copyright")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "create"
-    }
-  }, [_vm._v("create")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "create_new_folder"
-    }
-  }, [_vm._v("create_new_folder")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "credit_card"
-    }
-  }, [_vm._v("credit_card")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "crop"
-    }
-  }, [_vm._v("crop")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "crop_16_9"
-    }
-  }, [_vm._v("crop_16_9")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "crop_3_2"
-    }
-  }, [_vm._v("crop_3_2")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "crop_5_4"
-    }
-  }, [_vm._v("crop_5_4")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "crop_7_5"
-    }
-  }, [_vm._v("crop_7_5")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "crop_din"
-    }
-  }, [_vm._v("crop_din")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "crop_free"
-    }
-  }, [_vm._v("crop_free")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "crop_landscape"
-    }
-  }, [_vm._v("crop_landscape")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "crop_original"
-    }
-  }, [_vm._v("crop_original")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "crop_portrait"
-    }
-  }, [_vm._v("crop_portrait")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "crop_rotate"
-    }
-  }, [_vm._v("crop_rotate")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "crop_square"
-    }
-  }, [_vm._v("crop_square")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "dashboard"
-    }
-  }, [_vm._v("dashboard")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "data_usage"
-    }
-  }, [_vm._v("data_usage")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "date_range"
-    }
-  }, [_vm._v("date_range")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "dehaze"
-    }
-  }, [_vm._v("dehaze")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "delete"
-    }
-  }, [_vm._v("delete")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "delete_forever"
-    }
-  }, [_vm._v("delete_forever")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "delete_sweep"
-    }
-  }, [_vm._v("delete_sweep")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "description"
-    }
-  }, [_vm._v("description")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "desktop_mac"
-    }
-  }, [_vm._v("desktop_mac")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "desktop_windows"
-    }
-  }, [_vm._v("desktop_windows")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "details"
-    }
-  }, [_vm._v("details")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "developer_board"
-    }
-  }, [_vm._v("developer_board")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "developer_mode"
-    }
-  }, [_vm._v("developer_mode")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "device_hub"
-    }
-  }, [_vm._v("device_hub")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "devices"
-    }
-  }, [_vm._v("devices")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "devices_other"
-    }
-  }, [_vm._v("devices_other")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "dialer_sip"
-    }
-  }, [_vm._v("dialer_sip")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "dialpad"
-    }
-  }, [_vm._v("dialpad")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "directions"
-    }
-  }, [_vm._v("directions")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "directions_bike"
-    }
-  }, [_vm._v("directions_bike")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "directions_boat"
-    }
-  }, [_vm._v("directions_boat")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "directions_bus"
-    }
-  }, [_vm._v("directions_bus")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "directions_car"
-    }
-  }, [_vm._v("directions_car")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "directions_railway"
-    }
-  }, [_vm._v("directions_railway")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "directions_run"
-    }
-  }, [_vm._v("directions_run")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "directions_subway"
-    }
-  }, [_vm._v("directions_subway")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "directions_transit"
-    }
-  }, [_vm._v("directions_transit")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "directions_walk"
-    }
-  }, [_vm._v("directions_walk")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "disc_full"
-    }
-  }, [_vm._v("disc_full")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "dns"
-    }
-  }, [_vm._v("dns")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "do_not_disturb"
-    }
-  }, [_vm._v("do_not_disturb")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "do_not_disturb_alt"
-    }
-  }, [_vm._v("do_not_disturb_alt")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "do_not_disturb_off"
-    }
-  }, [_vm._v("do_not_disturb_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "do_not_disturb_on"
-    }
-  }, [_vm._v("do_not_disturb_on")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "dock"
-    }
-  }, [_vm._v("dock")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "domain"
-    }
-  }, [_vm._v("domain")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "done"
-    }
-  }, [_vm._v("done")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "done_all"
-    }
-  }, [_vm._v("done_all")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "donut_large"
-    }
-  }, [_vm._v("donut_large")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "donut_small"
-    }
-  }, [_vm._v("donut_small")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "drafts"
-    }
-  }, [_vm._v("drafts")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "drag_handle"
-    }
-  }, [_vm._v("drag_handle")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "drive_eta"
-    }
-  }, [_vm._v("drive_eta")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "dvr"
-    }
-  }, [_vm._v("dvr")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "edit"
-    }
-  }, [_vm._v("edit")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "edit_location"
-    }
-  }, [_vm._v("edit_location")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "eject"
-    }
-  }, [_vm._v("eject")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "email"
-    }
-  }, [_vm._v("email")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "enhanced_encryption"
-    }
-  }, [_vm._v("enhanced_encryption")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "equalizer"
-    }
-  }, [_vm._v("equalizer")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "error"
-    }
-  }, [_vm._v("error")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "error_outline"
-    }
-  }, [_vm._v("error_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "euro_symbol"
-    }
-  }, [_vm._v("euro_symbol")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "ev_station"
-    }
-  }, [_vm._v("ev_station")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "event"
-    }
-  }, [_vm._v("event")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "event_available"
-    }
-  }, [_vm._v("event_available")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "event_busy"
-    }
-  }, [_vm._v("event_busy")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "event_note"
-    }
-  }, [_vm._v("event_note")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "event_seat"
-    }
-  }, [_vm._v("event_seat")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "exit_to_app"
-    }
-  }, [_vm._v("exit_to_app")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "expand_less"
-    }
-  }, [_vm._v("expand_less")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "expand_more"
-    }
-  }, [_vm._v("expand_more")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "explicit"
-    }
-  }, [_vm._v("explicit")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "explore"
-    }
-  }, [_vm._v("explore")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "exposure"
-    }
-  }, [_vm._v("exposure")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "exposure_neg_1"
-    }
-  }, [_vm._v("exposure_neg_1")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "exposure_neg_2"
-    }
-  }, [_vm._v("exposure_neg_2")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "exposure_plus_1"
-    }
-  }, [_vm._v("exposure_plus_1")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "exposure_plus_2"
-    }
-  }, [_vm._v("exposure_plus_2")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "exposure_zero"
-    }
-  }, [_vm._v("exposure_zero")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "extension"
-    }
-  }, [_vm._v("extension")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "face"
-    }
-  }, [_vm._v("face")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "fast_forward"
-    }
-  }, [_vm._v("fast_forward")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "fast_rewind"
-    }
-  }, [_vm._v("fast_rewind")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "favorite"
-    }
-  }, [_vm._v("favorite")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "favorite_border"
-    }
-  }, [_vm._v("favorite_border")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "featured_play_list"
-    }
-  }, [_vm._v("featured_play_list")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "featured_video"
-    }
-  }, [_vm._v("featured_video")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "feedback"
-    }
-  }, [_vm._v("feedback")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "fiber_dvr"
-    }
-  }, [_vm._v("fiber_dvr")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "fiber_manual_record"
-    }
-  }, [_vm._v("fiber_manual_record")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "fiber_new"
-    }
-  }, [_vm._v("fiber_new")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "fiber_pin"
-    }
-  }, [_vm._v("fiber_pin")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "fiber_smart_record"
-    }
-  }, [_vm._v("fiber_smart_record")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "file_download"
-    }
-  }, [_vm._v("file_download")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "file_upload"
-    }
-  }, [_vm._v("file_upload")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter"
-    }
-  }, [_vm._v("filter")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_1"
-    }
-  }, [_vm._v("filter_1")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_2"
-    }
-  }, [_vm._v("filter_2")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_3"
-    }
-  }, [_vm._v("filter_3")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_4"
-    }
-  }, [_vm._v("filter_4")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_5"
-    }
-  }, [_vm._v("filter_5")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_6"
-    }
-  }, [_vm._v("filter_6")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_7"
-    }
-  }, [_vm._v("filter_7")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_8"
-    }
-  }, [_vm._v("filter_8")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_9"
-    }
-  }, [_vm._v("filter_9")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_9_plus"
-    }
-  }, [_vm._v("filter_9_plus")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_b_and_w"
-    }
-  }, [_vm._v("filter_b_and_w")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_center_focus"
-    }
-  }, [_vm._v("filter_center_focus")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_drama"
-    }
-  }, [_vm._v("filter_drama")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_frames"
-    }
-  }, [_vm._v("filter_frames")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_hdr"
-    }
-  }, [_vm._v("filter_hdr")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_list"
-    }
-  }, [_vm._v("filter_list")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_none"
-    }
-  }, [_vm._v("filter_none")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_tilt_shift"
-    }
-  }, [_vm._v("filter_tilt_shift")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "filter_vintage"
-    }
-  }, [_vm._v("filter_vintage")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "find_in_page"
-    }
-  }, [_vm._v("find_in_page")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "find_replace"
-    }
-  }, [_vm._v("find_replace")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "fingerprint"
-    }
-  }, [_vm._v("fingerprint")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "first_page"
-    }
-  }, [_vm._v("first_page")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "fitness_center"
-    }
-  }, [_vm._v("fitness_center")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "flag"
-    }
-  }, [_vm._v("flag")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "flare"
-    }
-  }, [_vm._v("flare")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "flash_auto"
-    }
-  }, [_vm._v("flash_auto")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "flash_off"
-    }
-  }, [_vm._v("flash_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "flash_on"
-    }
-  }, [_vm._v("flash_on")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "flight"
-    }
-  }, [_vm._v("flight")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "flight_land"
-    }
-  }, [_vm._v("flight_land")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "flight_takeoff"
-    }
-  }, [_vm._v("flight_takeoff")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "flip"
-    }
-  }, [_vm._v("flip")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "flip_to_back"
-    }
-  }, [_vm._v("flip_to_back")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "flip_to_front"
-    }
-  }, [_vm._v("flip_to_front")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "folder"
-    }
-  }, [_vm._v("folder")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "folder_open"
-    }
-  }, [_vm._v("folder_open")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "folder_shared"
-    }
-  }, [_vm._v("folder_shared")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "folder_special"
-    }
-  }, [_vm._v("folder_special")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "font_download"
-    }
-  }, [_vm._v("font_download")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_align_center"
-    }
-  }, [_vm._v("format_align_center")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_align_justify"
-    }
-  }, [_vm._v("format_align_justify")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_align_left"
-    }
-  }, [_vm._v("format_align_left")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_align_right"
-    }
-  }, [_vm._v("format_align_right")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_bold"
-    }
-  }, [_vm._v("format_bold")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_clear"
-    }
-  }, [_vm._v("format_clear")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_color_fill"
-    }
-  }, [_vm._v("format_color_fill")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_color_reset"
-    }
-  }, [_vm._v("format_color_reset")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_color_text"
-    }
-  }, [_vm._v("format_color_text")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_indent_decrease"
-    }
-  }, [_vm._v("format_indent_decrease")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_indent_increase"
-    }
-  }, [_vm._v("format_indent_increase")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_italic"
-    }
-  }, [_vm._v("format_italic")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_line_spacing"
-    }
-  }, [_vm._v("format_line_spacing")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_list_bulleted"
-    }
-  }, [_vm._v("format_list_bulleted")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_list_numbered"
-    }
-  }, [_vm._v("format_list_numbered")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_paint"
-    }
-  }, [_vm._v("format_paint")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_quote"
-    }
-  }, [_vm._v("format_quote")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_shapes"
-    }
-  }, [_vm._v("format_shapes")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_size"
-    }
-  }, [_vm._v("format_size")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_strikethrough"
-    }
-  }, [_vm._v("format_strikethrough")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_textdirection_l_to_r"
-    }
-  }, [_vm._v("format_textdirection_l_to_r")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_textdirection_r_to_l"
-    }
-  }, [_vm._v("format_textdirection_r_to_l")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "format_underlined"
-    }
-  }, [_vm._v("format_underlined")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "forum"
-    }
-  }, [_vm._v("forum")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "forward"
-    }
-  }, [_vm._v("forward")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "forward_10"
-    }
-  }, [_vm._v("forward_10")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "forward_30"
-    }
-  }, [_vm._v("forward_30")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "forward_5"
-    }
-  }, [_vm._v("forward_5")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "free_breakfast"
-    }
-  }, [_vm._v("free_breakfast")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "fullscreen"
-    }
-  }, [_vm._v("fullscreen")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "fullscreen_exit"
-    }
-  }, [_vm._v("fullscreen_exit")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "functions"
-    }
-  }, [_vm._v("functions")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "g_translate"
-    }
-  }, [_vm._v("g_translate")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "gamepad"
-    }
-  }, [_vm._v("gamepad")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "games"
-    }
-  }, [_vm._v("games")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "gavel"
-    }
-  }, [_vm._v("gavel")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "gesture"
-    }
-  }, [_vm._v("gesture")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "get_app"
-    }
-  }, [_vm._v("get_app")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "gif"
-    }
-  }, [_vm._v("gif")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "golf_course"
-    }
-  }, [_vm._v("golf_course")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "gps_fixed"
-    }
-  }, [_vm._v("gps_fixed")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "gps_not_fixed"
-    }
-  }, [_vm._v("gps_not_fixed")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "gps_off"
-    }
-  }, [_vm._v("gps_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "grade"
-    }
-  }, [_vm._v("grade")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "gradient"
-    }
-  }, [_vm._v("gradient")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "grain"
-    }
-  }, [_vm._v("grain")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "graphic_eq"
-    }
-  }, [_vm._v("graphic_eq")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "grid_off"
-    }
-  }, [_vm._v("grid_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "grid_on"
-    }
-  }, [_vm._v("grid_on")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "group"
-    }
-  }, [_vm._v("group")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "group_add"
-    }
-  }, [_vm._v("group_add")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "group_work"
-    }
-  }, [_vm._v("group_work")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "hd"
-    }
-  }, [_vm._v("hd")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "hdr_off"
-    }
-  }, [_vm._v("hdr_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "hdr_on"
-    }
-  }, [_vm._v("hdr_on")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "hdr_strong"
-    }
-  }, [_vm._v("hdr_strong")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "hdr_weak"
-    }
-  }, [_vm._v("hdr_weak")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "headset"
-    }
-  }, [_vm._v("headset")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "headset_mic"
-    }
-  }, [_vm._v("headset_mic")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "healing"
-    }
-  }, [_vm._v("healing")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "hearing"
-    }
-  }, [_vm._v("hearing")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "help"
-    }
-  }, [_vm._v("help")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "help_outline"
-    }
-  }, [_vm._v("help_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "high_quality"
-    }
-  }, [_vm._v("high_quality")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "highlight"
-    }
-  }, [_vm._v("highlight")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "highlight_off"
-    }
-  }, [_vm._v("highlight_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "history"
-    }
-  }, [_vm._v("history")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "home"
-    }
-  }, [_vm._v("home")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "hot_tub"
-    }
-  }, [_vm._v("hot_tub")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "hotel"
-    }
-  }, [_vm._v("hotel")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "hourglass_empty"
-    }
-  }, [_vm._v("hourglass_empty")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "hourglass_full"
-    }
-  }, [_vm._v("hourglass_full")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "http"
-    }
-  }, [_vm._v("http")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "https"
-    }
-  }, [_vm._v("https")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "image"
-    }
-  }, [_vm._v("image")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "image_aspect_ratio"
-    }
-  }, [_vm._v("image_aspect_ratio")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "import_contacts"
-    }
-  }, [_vm._v("import_contacts")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "import_export"
-    }
-  }, [_vm._v("import_export")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "important_devices"
-    }
-  }, [_vm._v("important_devices")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "inbox"
-    }
-  }, [_vm._v("inbox")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "indeterminate_check_box"
-    }
-  }, [_vm._v("indeterminate_check_box")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "info"
-    }
-  }, [_vm._v("info")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "info_outline"
-    }
-  }, [_vm._v("info_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "input"
-    }
-  }, [_vm._v("input")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "insert_chart"
-    }
-  }, [_vm._v("insert_chart")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "insert_comment"
-    }
-  }, [_vm._v("insert_comment")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "insert_drive_file"
-    }
-  }, [_vm._v("insert_drive_file")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "insert_emoticon"
-    }
-  }, [_vm._v("insert_emoticon")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "insert_invitation"
-    }
-  }, [_vm._v("insert_invitation")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "insert_link"
-    }
-  }, [_vm._v("insert_link")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "insert_photo"
-    }
-  }, [_vm._v("insert_photo")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "invert_colors"
-    }
-  }, [_vm._v("invert_colors")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "invert_colors_off"
-    }
-  }, [_vm._v("invert_colors_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "iso"
-    }
-  }, [_vm._v("iso")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "keyboard"
-    }
-  }, [_vm._v("keyboard")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "keyboard_arrow_down"
-    }
-  }, [_vm._v("keyboard_arrow_down")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "keyboard_arrow_left"
-    }
-  }, [_vm._v("keyboard_arrow_left")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "keyboard_arrow_right"
-    }
-  }, [_vm._v("keyboard_arrow_right")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "keyboard_arrow_up"
-    }
-  }, [_vm._v("keyboard_arrow_up")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "keyboard_backspace"
-    }
-  }, [_vm._v("keyboard_backspace")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "keyboard_capslock"
-    }
-  }, [_vm._v("keyboard_capslock")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "keyboard_hide"
-    }
-  }, [_vm._v("keyboard_hide")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "keyboard_return"
-    }
-  }, [_vm._v("keyboard_return")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "keyboard_tab"
-    }
-  }, [_vm._v("keyboard_tab")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "keyboard_voice"
-    }
-  }, [_vm._v("keyboard_voice")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "kitchen"
-    }
-  }, [_vm._v("kitchen")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "label"
-    }
-  }, [_vm._v("label")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "label_outline"
-    }
-  }, [_vm._v("label_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "landscape"
-    }
-  }, [_vm._v("landscape")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "language"
-    }
-  }, [_vm._v("language")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "laptop"
-    }
-  }, [_vm._v("laptop")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "laptop_chromebook"
-    }
-  }, [_vm._v("laptop_chromebook")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "laptop_mac"
-    }
-  }, [_vm._v("laptop_mac")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "laptop_windows"
-    }
-  }, [_vm._v("laptop_windows")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "last_page"
-    }
-  }, [_vm._v("last_page")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "launch"
-    }
-  }, [_vm._v("launch")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "layers"
-    }
-  }, [_vm._v("layers")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "layers_clear"
-    }
-  }, [_vm._v("layers_clear")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "leak_add"
-    }
-  }, [_vm._v("leak_add")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "leak_remove"
-    }
-  }, [_vm._v("leak_remove")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "lens"
-    }
-  }, [_vm._v("lens")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "library_add"
-    }
-  }, [_vm._v("library_add")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "library_books"
-    }
-  }, [_vm._v("library_books")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "library_music"
-    }
-  }, [_vm._v("library_music")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "lightbulb_outline"
-    }
-  }, [_vm._v("lightbulb_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "line_style"
-    }
-  }, [_vm._v("line_style")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "line_weight"
-    }
-  }, [_vm._v("line_weight")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "linear_scale"
-    }
-  }, [_vm._v("linear_scale")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "link"
-    }
-  }, [_vm._v("link")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "linked_camera"
-    }
-  }, [_vm._v("linked_camera")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "list"
-    }
-  }, [_vm._v("list")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "live_help"
-    }
-  }, [_vm._v("live_help")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "live_tv"
-    }
-  }, [_vm._v("live_tv")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_activity"
-    }
-  }, [_vm._v("local_activity")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_airport"
-    }
-  }, [_vm._v("local_airport")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_atm"
-    }
-  }, [_vm._v("local_atm")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_bar"
-    }
-  }, [_vm._v("local_bar")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_cafe"
-    }
-  }, [_vm._v("local_cafe")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_car_wash"
-    }
-  }, [_vm._v("local_car_wash")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_convenience_store"
-    }
-  }, [_vm._v("local_convenience_store")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_dining"
-    }
-  }, [_vm._v("local_dining")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_drink"
-    }
-  }, [_vm._v("local_drink")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_florist"
-    }
-  }, [_vm._v("local_florist")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_gas_station"
-    }
-  }, [_vm._v("local_gas_station")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_grocery_store"
-    }
-  }, [_vm._v("local_grocery_store")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_hospital"
-    }
-  }, [_vm._v("local_hospital")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_hotel"
-    }
-  }, [_vm._v("local_hotel")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_laundry_service"
-    }
-  }, [_vm._v("local_laundry_service")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_library"
-    }
-  }, [_vm._v("local_library")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_mall"
-    }
-  }, [_vm._v("local_mall")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_movies"
-    }
-  }, [_vm._v("local_movies")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_offer"
-    }
-  }, [_vm._v("local_offer")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_parking"
-    }
-  }, [_vm._v("local_parking")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_pharmacy"
-    }
-  }, [_vm._v("local_pharmacy")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_phone"
-    }
-  }, [_vm._v("local_phone")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_pizza"
-    }
-  }, [_vm._v("local_pizza")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_play"
-    }
-  }, [_vm._v("local_play")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_post_office"
-    }
-  }, [_vm._v("local_post_office")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_printshop"
-    }
-  }, [_vm._v("local_printshop")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_see"
-    }
-  }, [_vm._v("local_see")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_shipping"
-    }
-  }, [_vm._v("local_shipping")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "local_taxi"
-    }
-  }, [_vm._v("local_taxi")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "location_city"
-    }
-  }, [_vm._v("location_city")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "location_disabled"
-    }
-  }, [_vm._v("location_disabled")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "location_off"
-    }
-  }, [_vm._v("location_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "location_on"
-    }
-  }, [_vm._v("location_on")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "location_searching"
-    }
-  }, [_vm._v("location_searching")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "lock"
-    }
-  }, [_vm._v("lock")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "lock_open"
-    }
-  }, [_vm._v("lock_open")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "lock_outline"
-    }
-  }, [_vm._v("lock_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "looks"
-    }
-  }, [_vm._v("looks")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "looks_3"
-    }
-  }, [_vm._v("looks_3")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "looks_4"
-    }
-  }, [_vm._v("looks_4")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "looks_5"
-    }
-  }, [_vm._v("looks_5")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "looks_6"
-    }
-  }, [_vm._v("looks_6")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "looks_one"
-    }
-  }, [_vm._v("looks_one")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "looks_two"
-    }
-  }, [_vm._v("looks_two")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "loop"
-    }
-  }, [_vm._v("loop")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "loupe"
-    }
-  }, [_vm._v("loupe")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "low_priority"
-    }
-  }, [_vm._v("low_priority")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "loyalty"
-    }
-  }, [_vm._v("loyalty")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "mail"
-    }
-  }, [_vm._v("mail")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "mail_outline"
-    }
-  }, [_vm._v("mail_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "map"
-    }
-  }, [_vm._v("map")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "markunread"
-    }
-  }, [_vm._v("markunread")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "markunread_mailbox"
-    }
-  }, [_vm._v("markunread_mailbox")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "memory"
-    }
-  }, [_vm._v("memory")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "menu"
-    }
-  }, [_vm._v("menu")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "merge_type"
-    }
-  }, [_vm._v("merge_type")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "message"
-    }
-  }, [_vm._v("message")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "mic"
-    }
-  }, [_vm._v("mic")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "mic_none"
-    }
-  }, [_vm._v("mic_none")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "mic_off"
-    }
-  }, [_vm._v("mic_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "mms"
-    }
-  }, [_vm._v("mms")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "mode_comment"
-    }
-  }, [_vm._v("mode_comment")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "mode_edit"
-    }
-  }, [_vm._v("mode_edit")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "monetization_on"
-    }
-  }, [_vm._v("monetization_on")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "money_off"
-    }
-  }, [_vm._v("money_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "monochrome_photos"
-    }
-  }, [_vm._v("monochrome_photos")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "mood"
-    }
-  }, [_vm._v("mood")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "mood_bad"
-    }
-  }, [_vm._v("mood_bad")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "more"
-    }
-  }, [_vm._v("more")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "more_horiz"
-    }
-  }, [_vm._v("more_horiz")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "more_vert"
-    }
-  }, [_vm._v("more_vert")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "motorcycle"
-    }
-  }, [_vm._v("motorcycle")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "mouse"
-    }
-  }, [_vm._v("mouse")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "move_to_inbox"
-    }
-  }, [_vm._v("move_to_inbox")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "movie"
-    }
-  }, [_vm._v("movie")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "movie_creation"
-    }
-  }, [_vm._v("movie_creation")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "movie_filter"
-    }
-  }, [_vm._v("movie_filter")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "multiline_chart"
-    }
-  }, [_vm._v("multiline_chart")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "music_note"
-    }
-  }, [_vm._v("music_note")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "music_video"
-    }
-  }, [_vm._v("music_video")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "my_location"
-    }
-  }, [_vm._v("my_location")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "nature"
-    }
-  }, [_vm._v("nature")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "nature_people"
-    }
-  }, [_vm._v("nature_people")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "navigate_before"
-    }
-  }, [_vm._v("navigate_before")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "navigate_next"
-    }
-  }, [_vm._v("navigate_next")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "navigation"
-    }
-  }, [_vm._v("navigation")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "near_me"
-    }
-  }, [_vm._v("near_me")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "network_cell"
-    }
-  }, [_vm._v("network_cell")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "network_check"
-    }
-  }, [_vm._v("network_check")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "network_locked"
-    }
-  }, [_vm._v("network_locked")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "network_wifi"
-    }
-  }, [_vm._v("network_wifi")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "new_releases"
-    }
-  }, [_vm._v("new_releases")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "next_week"
-    }
-  }, [_vm._v("next_week")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "nfc"
-    }
-  }, [_vm._v("nfc")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "no_encryption"
-    }
-  }, [_vm._v("no_encryption")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "no_sim"
-    }
-  }, [_vm._v("no_sim")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "not_interested"
-    }
-  }, [_vm._v("not_interested")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "note"
-    }
-  }, [_vm._v("note")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "note_add"
-    }
-  }, [_vm._v("note_add")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "notifications"
-    }
-  }, [_vm._v("notifications")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "notifications_active"
-    }
-  }, [_vm._v("notifications_active")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "notifications_none"
-    }
-  }, [_vm._v("notifications_none")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "notifications_off"
-    }
-  }, [_vm._v("notifications_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "notifications_paused"
-    }
-  }, [_vm._v("notifications_paused")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "offline_pin"
-    }
-  }, [_vm._v("offline_pin")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "ondemand_video"
-    }
-  }, [_vm._v("ondemand_video")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "opacity"
-    }
-  }, [_vm._v("opacity")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "open_in_browser"
-    }
-  }, [_vm._v("open_in_browser")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "open_in_new"
-    }
-  }, [_vm._v("open_in_new")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "open_with"
-    }
-  }, [_vm._v("open_with")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "pages"
-    }
-  }, [_vm._v("pages")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "pageview"
-    }
-  }, [_vm._v("pageview")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "palette"
-    }
-  }, [_vm._v("palette")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "pan_tool"
-    }
-  }, [_vm._v("pan_tool")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "panorama"
-    }
-  }, [_vm._v("panorama")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "panorama_fish_eye"
-    }
-  }, [_vm._v("panorama_fish_eye")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "panorama_horizontal"
-    }
-  }, [_vm._v("panorama_horizontal")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "panorama_vertical"
-    }
-  }, [_vm._v("panorama_vertical")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "panorama_wide_angle"
-    }
-  }, [_vm._v("panorama_wide_angle")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "party_mode"
-    }
-  }, [_vm._v("party_mode")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "pause"
-    }
-  }, [_vm._v("pause")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "pause_circle_filled"
-    }
-  }, [_vm._v("pause_circle_filled")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "pause_circle_outline"
-    }
-  }, [_vm._v("pause_circle_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "payment"
-    }
-  }, [_vm._v("payment")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "people"
-    }
-  }, [_vm._v("people")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "people_outline"
-    }
-  }, [_vm._v("people_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "perm_camera_mic"
-    }
-  }, [_vm._v("perm_camera_mic")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "perm_contact_calendar"
-    }
-  }, [_vm._v("perm_contact_calendar")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "perm_data_setting"
-    }
-  }, [_vm._v("perm_data_setting")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "perm_device_information"
-    }
-  }, [_vm._v("perm_device_information")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "perm_identity"
-    }
-  }, [_vm._v("perm_identity")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "perm_media"
-    }
-  }, [_vm._v("perm_media")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "perm_phone_msg"
-    }
-  }, [_vm._v("perm_phone_msg")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "perm_scan_wifi"
-    }
-  }, [_vm._v("perm_scan_wifi")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "person"
-    }
-  }, [_vm._v("person")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "person_add"
-    }
-  }, [_vm._v("person_add")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "person_outline"
-    }
-  }, [_vm._v("person_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "person_pin"
-    }
-  }, [_vm._v("person_pin")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "person_pin_circle"
-    }
-  }, [_vm._v("person_pin_circle")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "personal_video"
-    }
-  }, [_vm._v("personal_video")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "pets"
-    }
-  }, [_vm._v("pets")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phone"
-    }
-  }, [_vm._v("phone")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phone_android"
-    }
-  }, [_vm._v("phone_android")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phone_bluetooth_speaker"
-    }
-  }, [_vm._v("phone_bluetooth_speaker")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phone_forwarded"
-    }
-  }, [_vm._v("phone_forwarded")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phone_in_talk"
-    }
-  }, [_vm._v("phone_in_talk")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phone_iphone"
-    }
-  }, [_vm._v("phone_iphone")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phone_locked"
-    }
-  }, [_vm._v("phone_locked")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phone_missed"
-    }
-  }, [_vm._v("phone_missed")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phone_paused"
-    }
-  }, [_vm._v("phone_paused")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phonelink"
-    }
-  }, [_vm._v("phonelink")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phonelink_erase"
-    }
-  }, [_vm._v("phonelink_erase")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phonelink_lock"
-    }
-  }, [_vm._v("phonelink_lock")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phonelink_off"
-    }
-  }, [_vm._v("phonelink_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phonelink_ring"
-    }
-  }, [_vm._v("phonelink_ring")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "phonelink_setup"
-    }
-  }, [_vm._v("phonelink_setup")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "photo"
-    }
-  }, [_vm._v("photo")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "photo_album"
-    }
-  }, [_vm._v("photo_album")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "photo_camera"
-    }
-  }, [_vm._v("photo_camera")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "photo_filter"
-    }
-  }, [_vm._v("photo_filter")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "photo_library"
-    }
-  }, [_vm._v("photo_library")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "photo_size_select_actual"
-    }
-  }, [_vm._v("photo_size_select_actual")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "photo_size_select_large"
-    }
-  }, [_vm._v("photo_size_select_large")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "photo_size_select_small"
-    }
-  }, [_vm._v("photo_size_select_small")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "picture_as_pdf"
-    }
-  }, [_vm._v("picture_as_pdf")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "picture_in_picture"
-    }
-  }, [_vm._v("picture_in_picture")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "picture_in_picture_alt"
-    }
-  }, [_vm._v("picture_in_picture_alt")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "pie_chart"
-    }
-  }, [_vm._v("pie_chart")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "pie_chart_outlined"
-    }
-  }, [_vm._v("pie_chart_outlined")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "pin_drop"
-    }
-  }, [_vm._v("pin_drop")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "place"
-    }
-  }, [_vm._v("place")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "play_arrow"
-    }
-  }, [_vm._v("play_arrow")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "play_circle_filled"
-    }
-  }, [_vm._v("play_circle_filled")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "play_circle_outline"
-    }
-  }, [_vm._v("play_circle_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "play_for_work"
-    }
-  }, [_vm._v("play_for_work")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "playlist_add"
-    }
-  }, [_vm._v("playlist_add")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "playlist_add_check"
-    }
-  }, [_vm._v("playlist_add_check")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "playlist_play"
-    }
-  }, [_vm._v("playlist_play")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "plus_one"
-    }
-  }, [_vm._v("plus_one")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "poll"
-    }
-  }, [_vm._v("poll")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "polymer"
-    }
-  }, [_vm._v("polymer")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "pool"
-    }
-  }, [_vm._v("pool")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "portable_wifi_off"
-    }
-  }, [_vm._v("portable_wifi_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "portrait"
-    }
-  }, [_vm._v("portrait")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "power"
-    }
-  }, [_vm._v("power")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "power_input"
-    }
-  }, [_vm._v("power_input")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "power_settings_new"
-    }
-  }, [_vm._v("power_settings_new")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "pregnant_woman"
-    }
-  }, [_vm._v("pregnant_woman")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "present_to_all"
-    }
-  }, [_vm._v("present_to_all")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "print"
-    }
-  }, [_vm._v("print")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "priority_high"
-    }
-  }, [_vm._v("priority_high")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "public"
-    }
-  }, [_vm._v("public")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "publish"
-    }
-  }, [_vm._v("publish")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "query_builder"
-    }
-  }, [_vm._v("query_builder")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "question_answer"
-    }
-  }, [_vm._v("question_answer")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "queue"
-    }
-  }, [_vm._v("queue")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "queue_music"
-    }
-  }, [_vm._v("queue_music")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "queue_play_next"
-    }
-  }, [_vm._v("queue_play_next")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "radio"
-    }
-  }, [_vm._v("radio")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "radio_button_checked"
-    }
-  }, [_vm._v("radio_button_checked")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "radio_button_unchecked"
-    }
-  }, [_vm._v("radio_button_unchecked")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "rate_review"
-    }
-  }, [_vm._v("rate_review")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "receipt"
-    }
-  }, [_vm._v("receipt")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "recent_actors"
-    }
-  }, [_vm._v("recent_actors")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "record_voice_over"
-    }
-  }, [_vm._v("record_voice_over")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "redeem"
-    }
-  }, [_vm._v("redeem")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "redo"
-    }
-  }, [_vm._v("redo")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "refresh"
-    }
-  }, [_vm._v("refresh")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "remove"
-    }
-  }, [_vm._v("remove")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "remove_circle"
-    }
-  }, [_vm._v("remove_circle")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "remove_circle_outline"
-    }
-  }, [_vm._v("remove_circle_outline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "remove_from_queue"
-    }
-  }, [_vm._v("remove_from_queue")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "remove_red_eye"
-    }
-  }, [_vm._v("remove_red_eye")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "remove_shopping_cart"
-    }
-  }, [_vm._v("remove_shopping_cart")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "reorder"
-    }
-  }, [_vm._v("reorder")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "repeat"
-    }
-  }, [_vm._v("repeat")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "repeat_one"
-    }
-  }, [_vm._v("repeat_one")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "replay"
-    }
-  }, [_vm._v("replay")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "replay_10"
-    }
-  }, [_vm._v("replay_10")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "replay_30"
-    }
-  }, [_vm._v("replay_30")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "replay_5"
-    }
-  }, [_vm._v("replay_5")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "reply"
-    }
-  }, [_vm._v("reply")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "reply_all"
-    }
-  }, [_vm._v("reply_all")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "report"
-    }
-  }, [_vm._v("report")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "report_problem"
-    }
-  }, [_vm._v("report_problem")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "restaurant"
-    }
-  }, [_vm._v("restaurant")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "restaurant_menu"
-    }
-  }, [_vm._v("restaurant_menu")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "restore"
-    }
-  }, [_vm._v("restore")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "restore_page"
-    }
-  }, [_vm._v("restore_page")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "ring_volume"
-    }
-  }, [_vm._v("ring_volume")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "room"
-    }
-  }, [_vm._v("room")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "room_service"
-    }
-  }, [_vm._v("room_service")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "rotate_90_degrees_ccw"
-    }
-  }, [_vm._v("rotate_90_degrees_ccw")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "rotate_left"
-    }
-  }, [_vm._v("rotate_left")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "rotate_right"
-    }
-  }, [_vm._v("rotate_right")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "rounded_corner"
-    }
-  }, [_vm._v("rounded_corner")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "router"
-    }
-  }, [_vm._v("router")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "rowing"
-    }
-  }, [_vm._v("rowing")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "rss_feed"
-    }
-  }, [_vm._v("rss_feed")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "rv_hookup"
-    }
-  }, [_vm._v("rv_hookup")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "satellite"
-    }
-  }, [_vm._v("satellite")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "save"
-    }
-  }, [_vm._v("save")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "scanner"
-    }
-  }, [_vm._v("scanner")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "schedule"
-    }
-  }, [_vm._v("schedule")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "school"
-    }
-  }, [_vm._v("school")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "screen_lock_landscape"
-    }
-  }, [_vm._v("screen_lock_landscape")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "screen_lock_portrait"
-    }
-  }, [_vm._v("screen_lock_portrait")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "screen_lock_rotation"
-    }
-  }, [_vm._v("screen_lock_rotation")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "screen_rotation"
-    }
-  }, [_vm._v("screen_rotation")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "screen_share"
-    }
-  }, [_vm._v("screen_share")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sd_card"
-    }
-  }, [_vm._v("sd_card")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sd_storage"
-    }
-  }, [_vm._v("sd_storage")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "search"
-    }
-  }, [_vm._v("search")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "security"
-    }
-  }, [_vm._v("security")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "select_all"
-    }
-  }, [_vm._v("select_all")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "send"
-    }
-  }, [_vm._v("send")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sentiment_dissatisfied"
-    }
-  }, [_vm._v("sentiment_dissatisfied")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sentiment_neutral"
-    }
-  }, [_vm._v("sentiment_neutral")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sentiment_satisfied"
-    }
-  }, [_vm._v("sentiment_satisfied")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sentiment_very_dissatisfied"
-    }
-  }, [_vm._v("sentiment_very_dissatisfied")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sentiment_very_satisfied"
-    }
-  }, [_vm._v("sentiment_very_satisfied")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings"
-    }
-  }, [_vm._v("settings")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_applications"
-    }
-  }, [_vm._v("settings_applications")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_backup_restore"
-    }
-  }, [_vm._v("settings_backup_restore")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_bluetooth"
-    }
-  }, [_vm._v("settings_bluetooth")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_brightness"
-    }
-  }, [_vm._v("settings_brightness")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_cell"
-    }
-  }, [_vm._v("settings_cell")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_ethernet"
-    }
-  }, [_vm._v("settings_ethernet")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_input_antenna"
-    }
-  }, [_vm._v("settings_input_antenna")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_input_component"
-    }
-  }, [_vm._v("settings_input_component")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_input_composite"
-    }
-  }, [_vm._v("settings_input_composite")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_input_hdmi"
-    }
-  }, [_vm._v("settings_input_hdmi")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_input_svideo"
-    }
-  }, [_vm._v("settings_input_svideo")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_overscan"
-    }
-  }, [_vm._v("settings_overscan")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_phone"
-    }
-  }, [_vm._v("settings_phone")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_power"
-    }
-  }, [_vm._v("settings_power")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_remote"
-    }
-  }, [_vm._v("settings_remote")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_system_daydream"
-    }
-  }, [_vm._v("settings_system_daydream")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "settings_voice"
-    }
-  }, [_vm._v("settings_voice")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "share"
-    }
-  }, [_vm._v("share")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "shop"
-    }
-  }, [_vm._v("shop")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "shop_two"
-    }
-  }, [_vm._v("shop_two")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "shopping_basket"
-    }
-  }, [_vm._v("shopping_basket")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "shopping_cart"
-    }
-  }, [_vm._v("shopping_cart")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "short_text"
-    }
-  }, [_vm._v("short_text")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "show_chart"
-    }
-  }, [_vm._v("show_chart")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "shuffle"
-    }
-  }, [_vm._v("shuffle")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "signal_cellular_4_bar"
-    }
-  }, [_vm._v("signal_cellular_4_bar")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "signal_cellular_connected_no_internet_4_bar"
-    }
-  }, [_vm._v("signal_cellular_connected_no_internet_4_bar")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "signal_cellular_no_sim"
-    }
-  }, [_vm._v("signal_cellular_no_sim")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "signal_cellular_null"
-    }
-  }, [_vm._v("signal_cellular_null")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "signal_cellular_off"
-    }
-  }, [_vm._v("signal_cellular_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "signal_wifi_4_bar"
-    }
-  }, [_vm._v("signal_wifi_4_bar")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "signal_wifi_4_bar_lock"
-    }
-  }, [_vm._v("signal_wifi_4_bar_lock")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "signal_wifi_off"
-    }
-  }, [_vm._v("signal_wifi_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sim_card"
-    }
-  }, [_vm._v("sim_card")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sim_card_alert"
-    }
-  }, [_vm._v("sim_card_alert")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "skip_next"
-    }
-  }, [_vm._v("skip_next")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "skip_previous"
-    }
-  }, [_vm._v("skip_previous")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "slideshow"
-    }
-  }, [_vm._v("slideshow")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "slow_motion_video"
-    }
-  }, [_vm._v("slow_motion_video")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "smartphone"
-    }
-  }, [_vm._v("smartphone")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "smoke_free"
-    }
-  }, [_vm._v("smoke_free")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "smoking_rooms"
-    }
-  }, [_vm._v("smoking_rooms")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sms"
-    }
-  }, [_vm._v("sms")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sms_failed"
-    }
-  }, [_vm._v("sms_failed")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "snooze"
-    }
-  }, [_vm._v("snooze")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sort"
-    }
-  }, [_vm._v("sort")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sort_by_alpha"
-    }
-  }, [_vm._v("sort_by_alpha")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "spa"
-    }
-  }, [_vm._v("spa")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "space_bar"
-    }
-  }, [_vm._v("space_bar")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "speaker"
-    }
-  }, [_vm._v("speaker")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "speaker_group"
-    }
-  }, [_vm._v("speaker_group")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "speaker_notes"
-    }
-  }, [_vm._v("speaker_notes")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "speaker_notes_off"
-    }
-  }, [_vm._v("speaker_notes_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "speaker_phone"
-    }
-  }, [_vm._v("speaker_phone")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "spellcheck"
-    }
-  }, [_vm._v("spellcheck")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "star"
-    }
-  }, [_vm._v("star")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "star_border"
-    }
-  }, [_vm._v("star_border")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "star_half"
-    }
-  }, [_vm._v("star_half")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "stars"
-    }
-  }, [_vm._v("stars")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "stay_current_landscape"
-    }
-  }, [_vm._v("stay_current_landscape")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "stay_current_portrait"
-    }
-  }, [_vm._v("stay_current_portrait")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "stay_primary_landscape"
-    }
-  }, [_vm._v("stay_primary_landscape")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "stay_primary_portrait"
-    }
-  }, [_vm._v("stay_primary_portrait")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "stop"
-    }
-  }, [_vm._v("stop")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "stop_screen_share"
-    }
-  }, [_vm._v("stop_screen_share")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "storage"
-    }
-  }, [_vm._v("storage")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "store"
-    }
-  }, [_vm._v("store")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "store_mall_directory"
-    }
-  }, [_vm._v("store_mall_directory")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "straighten"
-    }
-  }, [_vm._v("straighten")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "streetview"
-    }
-  }, [_vm._v("streetview")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "strikethrough_s"
-    }
-  }, [_vm._v("strikethrough_s")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "style"
-    }
-  }, [_vm._v("style")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "subdirectory_arrow_left"
-    }
-  }, [_vm._v("subdirectory_arrow_left")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "subdirectory_arrow_right"
-    }
-  }, [_vm._v("subdirectory_arrow_right")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "subject"
-    }
-  }, [_vm._v("subject")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "subscriptions"
-    }
-  }, [_vm._v("subscriptions")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "subtitles"
-    }
-  }, [_vm._v("subtitles")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "subway"
-    }
-  }, [_vm._v("subway")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "supervisor_account"
-    }
-  }, [_vm._v("supervisor_account")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "surround_sound"
-    }
-  }, [_vm._v("surround_sound")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "swap_calls"
-    }
-  }, [_vm._v("swap_calls")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "swap_horiz"
-    }
-  }, [_vm._v("swap_horiz")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "swap_vert"
-    }
-  }, [_vm._v("swap_vert")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "swap_vertical_circle"
-    }
-  }, [_vm._v("swap_vertical_circle")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "switch_camera"
-    }
-  }, [_vm._v("switch_camera")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "switch_video"
-    }
-  }, [_vm._v("switch_video")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sync"
-    }
-  }, [_vm._v("sync")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sync_disabled"
-    }
-  }, [_vm._v("sync_disabled")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "sync_problem"
-    }
-  }, [_vm._v("sync_problem")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "system_update"
-    }
-  }, [_vm._v("system_update")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "system_update_alt"
-    }
-  }, [_vm._v("system_update_alt")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "tab"
-    }
-  }, [_vm._v("tab")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "tab_unselected"
-    }
-  }, [_vm._v("tab_unselected")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "tablet"
-    }
-  }, [_vm._v("tablet")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "tablet_android"
-    }
-  }, [_vm._v("tablet_android")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "tablet_mac"
-    }
-  }, [_vm._v("tablet_mac")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "tag_faces"
-    }
-  }, [_vm._v("tag_faces")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "tap_and_play"
-    }
-  }, [_vm._v("tap_and_play")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "terrain"
-    }
-  }, [_vm._v("terrain")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "text_fields"
-    }
-  }, [_vm._v("text_fields")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "text_format"
-    }
-  }, [_vm._v("text_format")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "textsms"
-    }
-  }, [_vm._v("textsms")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "texture"
-    }
-  }, [_vm._v("texture")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "theaters"
-    }
-  }, [_vm._v("theaters")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "thumb_down"
-    }
-  }, [_vm._v("thumb_down")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "thumb_up"
-    }
-  }, [_vm._v("thumb_up")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "thumbs_up_down"
-    }
-  }, [_vm._v("thumbs_up_down")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "time_to_leave"
-    }
-  }, [_vm._v("time_to_leave")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "timelapse"
-    }
-  }, [_vm._v("timelapse")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "timeline"
-    }
-  }, [_vm._v("timeline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "timer"
-    }
-  }, [_vm._v("timer")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "timer_10"
-    }
-  }, [_vm._v("timer_10")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "timer_3"
-    }
-  }, [_vm._v("timer_3")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "timer_off"
-    }
-  }, [_vm._v("timer_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "title"
-    }
-  }, [_vm._v("title")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "toc"
-    }
-  }, [_vm._v("toc")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "today"
-    }
-  }, [_vm._v("today")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "toll"
-    }
-  }, [_vm._v("toll")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "tonality"
-    }
-  }, [_vm._v("tonality")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "touch_app"
-    }
-  }, [_vm._v("touch_app")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "toys"
-    }
-  }, [_vm._v("toys")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "track_changes"
-    }
-  }, [_vm._v("track_changes")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "traffic"
-    }
-  }, [_vm._v("traffic")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "train"
-    }
-  }, [_vm._v("train")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "tram"
-    }
-  }, [_vm._v("tram")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "transfer_within_a_station"
-    }
-  }, [_vm._v("transfer_within_a_station")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "transform"
-    }
-  }, [_vm._v("transform")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "translate"
-    }
-  }, [_vm._v("translate")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "trending_down"
-    }
-  }, [_vm._v("trending_down")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "trending_flat"
-    }
-  }, [_vm._v("trending_flat")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "trending_up"
-    }
-  }, [_vm._v("trending_up")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "tune"
-    }
-  }, [_vm._v("tune")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "turned_in"
-    }
-  }, [_vm._v("turned_in")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "turned_in_not"
-    }
-  }, [_vm._v("turned_in_not")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "tv"
-    }
-  }, [_vm._v("tv")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "unarchive"
-    }
-  }, [_vm._v("unarchive")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "undo"
-    }
-  }, [_vm._v("undo")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "unfold_less"
-    }
-  }, [_vm._v("unfold_less")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "unfold_more"
-    }
-  }, [_vm._v("unfold_more")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "update"
-    }
-  }, [_vm._v("update")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "usb"
-    }
-  }, [_vm._v("usb")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "verified_user"
-    }
-  }, [_vm._v("verified_user")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "vertical_align_bottom"
-    }
-  }, [_vm._v("vertical_align_bottom")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "vertical_align_center"
-    }
-  }, [_vm._v("vertical_align_center")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "vertical_align_top"
-    }
-  }, [_vm._v("vertical_align_top")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "vibration"
-    }
-  }, [_vm._v("vibration")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "video_call"
-    }
-  }, [_vm._v("video_call")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "video_label"
-    }
-  }, [_vm._v("video_label")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "video_library"
-    }
-  }, [_vm._v("video_library")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "videocam"
-    }
-  }, [_vm._v("videocam")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "videocam_off"
-    }
-  }, [_vm._v("videocam_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "videogame_asset"
-    }
-  }, [_vm._v("videogame_asset")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "view_agenda"
-    }
-  }, [_vm._v("view_agenda")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "view_array"
-    }
-  }, [_vm._v("view_array")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "view_carousel"
-    }
-  }, [_vm._v("view_carousel")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "view_column"
-    }
-  }, [_vm._v("view_column")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "view_comfy"
-    }
-  }, [_vm._v("view_comfy")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "view_compact"
-    }
-  }, [_vm._v("view_compact")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "view_day"
-    }
-  }, [_vm._v("view_day")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "view_headline"
-    }
-  }, [_vm._v("view_headline")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "view_list"
-    }
-  }, [_vm._v("view_list")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "view_module"
-    }
-  }, [_vm._v("view_module")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "view_quilt"
-    }
-  }, [_vm._v("view_quilt")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "view_stream"
-    }
-  }, [_vm._v("view_stream")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "view_week"
-    }
-  }, [_vm._v("view_week")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "vignette"
-    }
-  }, [_vm._v("vignette")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "visibility"
-    }
-  }, [_vm._v("visibility")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "visibility_off"
-    }
-  }, [_vm._v("visibility_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "voice_chat"
-    }
-  }, [_vm._v("voice_chat")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "voicemail"
-    }
-  }, [_vm._v("voicemail")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "volume_down"
-    }
-  }, [_vm._v("volume_down")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "volume_mute"
-    }
-  }, [_vm._v("volume_mute")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "volume_off"
-    }
-  }, [_vm._v("volume_off")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "volume_up"
-    }
-  }, [_vm._v("volume_up")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "vpn_key"
-    }
-  }, [_vm._v("vpn_key")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "vpn_lock"
-    }
-  }, [_vm._v("vpn_lock")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "wallpaper"
-    }
-  }, [_vm._v("wallpaper")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "warning"
-    }
-  }, [_vm._v("warning")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "watch"
-    }
-  }, [_vm._v("watch")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "watch_later"
-    }
-  }, [_vm._v("watch_later")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "wb_auto"
-    }
-  }, [_vm._v("wb_auto")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "wb_cloudy"
-    }
-  }, [_vm._v("wb_cloudy")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "wb_incandescent"
-    }
-  }, [_vm._v("wb_incandescent")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "wb_iridescent"
-    }
-  }, [_vm._v("wb_iridescent")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "wb_sunny"
-    }
-  }, [_vm._v("wb_sunny")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "wc"
-    }
-  }, [_vm._v("wc")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "web"
-    }
-  }, [_vm._v("web")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "web_asset"
-    }
-  }, [_vm._v("web_asset")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "weekend"
-    }
-  }, [_vm._v("weekend")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "whatshot"
-    }
-  }, [_vm._v("whatshot")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "widgets"
-    }
-  }, [_vm._v("widgets")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "wifi"
-    }
-  }, [_vm._v("wifi")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "wifi_lock"
-    }
-  }, [_vm._v("wifi_lock")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "wifi_tethering"
-    }
-  }, [_vm._v("wifi_tethering")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "work"
-    }
-  }, [_vm._v("work")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "wrap_text"
-    }
-  }, [_vm._v("wrap_text")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "youtube_searched_for"
-    }
-  }, [_vm._v("youtube_searched_for")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "zoom_in"
-    }
-  }, [_vm._v("zoom_in")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "zoom_out"
-    }
-  }, [_vm._v("zoom_out")]), _vm._v(" "), _c('option', {
-    attrs: {
-      "value": "zoom_out_map"
-    }
-  }, [_vm._v("zoom_out_map")])]), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "icon"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.icon')))]), _vm._v(" "), _c('p', {
-    domProps: {
-      "innerHTML": _vm._s('<i>' + _vm.$t('tooltips.material_icons_list') + '</i>')
-    }
-  })])])])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('labels.intention')))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t('tooltips.generic_components.intentions')))])])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('button', {
-    staticClass: "btn waves-effect waves-light",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.add_intention
-    }
-  }, [_vm._v(_vm._s(_vm.$t('buttons.add_intention'))), _c('i', {
-    staticClass: "mdi mdi-18px mdi-plus left"
-  })])])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_vm._l((_vm.component_intentions), function(intention, index) {
-    return [_c('div', {
-      staticClass: "input-field col s12 m5 l5"
-    }, [_c('select', {
-      attrs: {
-        "name": "default_intention_intention[]",
-        "id": "default_intention_intention"
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": "increase"
-      },
-      domProps: {
-        "selected": intention.intention == 'increase'
-      }
-    }, [_vm._v(_vm._s(_vm.$t('labels.increases')) + "\n                                        ")]), _vm._v(" "), _c('option', {
-      attrs: {
-        "value": "decrease"
-      },
-      domProps: {
-        "selected": intention.intention == 'decrease'
-      }
-    }, [_vm._v(_vm._s(_vm.$t('labels.decreases')) + "\n                                        ")])]), _vm._v(" "), _c('label', {
-      attrs: {
-        "for": "default_intention_intention"
-      }
-    }, [_vm._v("\n                                        " + _vm._s(_vm.$t('labels.intention')) + "\n                                    ")])]), _vm._v(" "), _c('div', {
-      staticClass: "input-field col s12 m5 l5"
-    }, [_c('select', {
-      attrs: {
-        "name": "default_intention_type[]",
-        "id": "default_intention_type"
-      }
-    }, _vm._l((_vm.sensorreadingTypes), function(srt, index) {
-      return _c('option', {
-        domProps: {
-          "value": srt,
-          "selected": intention.type == srt
-        }
-      }, [_vm._v(_vm._s(_vm.$t('labels.' + srt)) + "\n                                        ")])
-    })), _vm._v(" "), _c('label', {
-      attrs: {
-        "for": "default_intention_type"
-      }
-    }, [_vm._v(_vm._s(_vm.$tc('labels.logical_sensors', 1)))])]), _vm._v(" "), _c('div', {
-      staticClass: "input-field col s2 m2 l2"
-    }, [_c('a', {
-      staticClass: "red-text",
-      attrs: {
-        "href": "#!"
-      },
-      on: {
-        "click": function($event) {
-          _vm.component_intentions.splice(index, 1)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-18px mdi-delete"
-    })])])]
-  })], 2)])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12 m6 l6"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('labels.properties')))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t('tooltips.generic_components.property_templates')))])])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('button', {
-    staticClass: "btn waves-effect waves-light",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.add_property
-    }
-  }, [_vm._v(_vm._s(_vm.$t('buttons.add_property')) + "\n                                        "), _c('i', {
-    staticClass: "mdi mdi-18px mdi-plus left"
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col s12",
-    attrs: {
-      "id": "generic_component_type_create_props"
-    }
-  }, _vm._l((_vm.component_properties), function(item, index) {
-    return _c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "input-field col s10 m10 l10"
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (item.name),
-        expression: "item.name"
-      }],
-      attrs: {
-        "type": "text",
-        "name": "property_name[]"
-      },
-      domProps: {
-        "value": (item.name)
-      },
-      on: {
-        "input": function($event) {
-          if ($event.target.composing) { return; }
-          _vm.$set(item, "name", $event.target.value)
-        }
-      }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "input-field col s2 m2 l2"
-    }, [_c('a', {
-      staticClass: "red-text",
-      attrs: {
-        "href": "#!"
-      },
-      on: {
-        "click": function($event) {
-          _vm.component_properties.splice(index, 1)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-18px mdi-delete"
-    })])])])
-  }))])]), _vm._v(" "), _c('div', {
-    staticClass: "col s12 m6 l6"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('labels.state')))]), _vm._v(" "), _c('p', {
-    domProps: {
-      "innerHTML": _vm._s(_vm.$t('tooltips.generic_components.state_templates'))
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('button', {
-    staticClass: "btn waves-effect waves-light",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.add_state
-    }
-  }, [_vm._v(_vm._s(_vm.$t('buttons.add_state')) + "\n                                        "), _c('i', {
-    staticClass: "mdi mdi-18px mdi-plus left"
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col s12",
-    attrs: {
-      "id": "generic_component_state_create_props"
-    }
-  }, _vm._l((_vm.component_states), function(item, index) {
-    return _c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "input-field col s2 m2 l2"
-    }, [_c('input', {
-      attrs: {
-        "name": "default_running_state",
-        "id": 'default_running_state_' + item.name,
-        "type": "radio"
-      },
-      domProps: {
-        "value": item.name,
-        "checked": _vm.default_running_state == item.name
-      },
-      on: {
-        "click": function($event) {
-          _vm.default_running_state = item.name
-        }
-      }
-    }), _vm._v(" "), _c('label', {
-      attrs: {
-        "for": 'default_running_state_' + item.name,
-        "data-delay": "50",
-        "data-html": "true",
-        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.generic_components.type_default_running_state') + '</div>'
-      }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "input-field col s8 m8 l8"
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (item.name),
-        expression: "item.name"
-      }],
-      attrs: {
-        "type": "text",
-        "name": "state[]"
-      },
-      domProps: {
-        "value": (item.name)
-      },
-      on: {
-        "input": function($event) {
-          if ($event.target.composing) { return; }
-          _vm.$set(item, "name", $event.target.value)
-        }
-      }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "input-field col s2 m2 l2"
-    }, [_c('a', {
-      staticClass: "red-text",
-      attrs: {
-        "href": "#!"
-      },
-      on: {
-        "click": function($event) {
-          _vm.component_states.splice(index, 1)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-18px mdi-delete"
-    })])])])
-  }))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "input-field col s12"
-  }, [_c('button', {
-    staticClass: "btn waves-effect waves-light",
-    attrs: {
-      "type": "submit"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('buttons.next')) + "\n                                "), _c('i', {
-    staticClass: "mdi mdi-18px mdi-floppy left"
-  })])])])])])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-34c7c76d", module.exports)
-  }
-}
-
-/***/ }),
-/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19397,7 +16603,7 @@ if (false) {
 }
 
 /***/ }),
-/* 121 */
+/* 120 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19452,7 +16658,7 @@ if (false) {
 }
 
 /***/ }),
-/* 122 */
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19704,7 +16910,7 @@ if (false) {
 }
 
 /***/ }),
-/* 123 */
+/* 122 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19829,7 +17035,7 @@ if (false) {
 }
 
 /***/ }),
-/* 124 */
+/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19872,7 +17078,7 @@ if (false) {
 }
 
 /***/ }),
-/* 125 */
+/* 124 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -19967,7 +17173,7 @@ if (false) {
 }
 
 /***/ }),
-/* 126 */
+/* 125 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -20053,7 +17259,7 @@ if (false) {
 }
 
 /***/ }),
-/* 127 */
+/* 126 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -20135,7 +17341,7 @@ if (false) {
 }
 
 /***/ }),
-/* 128 */
+/* 127 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -20235,7 +17441,7 @@ if (false) {
 }
 
 /***/ }),
-/* 129 */
+/* 128 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -20651,7 +17857,7 @@ if (false) {
 }
 
 /***/ }),
-/* 130 */
+/* 129 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -20716,6 +17922,106 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-57661b6a", module.exports)
+  }
+}
+
+/***/ }),
+/* 130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight collapsible",
+    attrs: {
+      "data-collapsible": "expandable"
+    }
+  }, [_c('table-filter', {
+    ref: "table_filter",
+    attrs: {
+      "cols": 4,
+      "hide-cols": _vm.hideCols,
+      "filter-fields": [{
+          name: 'name',
+          path: 'name',
+          col: 0
+        },
+        {
+          name: 'type',
+          noSort: true,
+          path: 'type.name_singular',
+          col: 1,
+          class: 'hide-on-small-only'
+        },
+        {
+          name: 'controlunit',
+          noSort: true,
+          path: 'controlunit.name',
+          col: 2,
+          class: 'hide-on-small-only'
+        },
+        {
+          noSort: true,
+          noFilter: true,
+          col: 3,
+          class: 'hide-on-small-only'
+        }
+      ]
+    }
+  }), _vm._v(" "), _vm._l((_vm.custom_components), function(custom_component) {
+    return [_c('tbody', [_c('tr', {
+      staticClass: "collapsible-header"
+    }, [_c('td', [_c('span', [_c('i', {
+      class: 'mdi mdi-24px mdi-' + custom_component.data.type.icon
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/custom_components/' + custom_component.data.id
+      }
+    }, [_vm._v(_vm._s(custom_component.data.name))]), _vm._v(" "), (!custom_component.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/custom_component_types/' + custom_component.data.type.id
+      }
+    }, [_vm._v(_vm._s(custom_component.data.type.name_singular))])])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [(custom_component.data.controlunit) ? _c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-developer-board"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/controlunits/' + custom_component.data.controlunit.id
+      }
+    }, [_vm._v(_vm._s(custom_component.data.controlunit.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/custom_components/' + custom_component.data.id + '/edit'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "collapsible-body"
+    }, [_c('td', {
+      attrs: {
+        "colspan": "4"
+      }
+    }, _vm._l((custom_component.data.component_properties), function(prop, index) {
+      return _c('div', [_vm._v("\n                                " + _vm._s(prop.name) + ": " + _vm._s(prop.value) + "\n                            ")])
+    }))])])]
+  })], 2), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-5a084967", module.exports)
   }
 }
 
@@ -21044,7 +18350,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "placeholder": _vm.$t('labels.rollperiod')
     },
     domProps: {
-      "value": 4
+      "value": 5
     },
     on: {
       "keyup": function($event) {
@@ -21384,7 +18690,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       attrs: {
         "href": '/action_sequences/' + sequence.data.id + '/edit'
       }
-    }, [_vm._v(_vm._s(sequence.data.name))])])]), _vm._v(" "), _c('td', [((_vm.terrarium = _vm.terraria.filter(function (t) { return t.id === sequence.data.terrarium.id; })).length > 0) ? _c('span', [(_vm.terrarium[0].data) ? [_c('i', {
+    }, [_vm._v(_vm._s(sequence.data.name))])])]), _vm._v(" "), _c('td', [((_vm.terrarium = _vm.terraria.filter(function (t) { return t.id === sequence.data.terrarium_id; })).length > 0) ? _c('span', [(_vm.terrarium[0].data) ? [_c('i', {
       staticClass: "mdi mdi-24px mdi-trackpad"
     }), _vm._v(" "), _c('a', {
       attrs: {
@@ -21410,7 +18716,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })], 2) : _vm._e(), _vm._v(" "), ((_vm.sequence_triggers = _vm.triggers.filter(function (t) { return t.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_triggers', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_triggers), function(trigger, index) {
       return _c('li', [(trigger.data) ? [_c('i', {
         staticClass: "mdi mdi-18px mdi-vanish"
-      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + trigger.data.logical_sensor.type)))]), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'greater') ? _c('span', [_vm._v(">")]) : _vm._e(), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'lesser') ? _c('span', [_vm._v("<")]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(trigger.data.reference_value))]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.between')) + " " + _vm._s(trigger.data.timeframe.start) + "\n                                            " + _vm._s(_vm.$t('labels.and')) + " " + _vm._s(trigger.data.timeframe.end) + ",\n                                        ")]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.minimum_timeout')) + ": " + _vm._s(trigger.data.minimum_timeout_minutes) + "\n                                            " + _vm._s(_vm.$tc('units.minutes', trigger.data.minimum_timeout_minutes)) + "\n                                        ")])] : _vm._e()], 2)
+      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + trigger.data.logical_sensor_type)))]), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'greater') ? _c('span', [_vm._v(">")]) : _vm._e(), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'lesser') ? _c('span', [_vm._v("<")]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(trigger.data.reference_value))]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.between')) + " " + _vm._s(trigger.data.timeframe.start) + "\n                                            " + _vm._s(_vm.$t('labels.and')) + " " + _vm._s(trigger.data.timeframe.end) + ",\n                                        ")]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.minimum_timeout')) + ": " + _vm._s(trigger.data.minimum_timeout_minutes) + "\n                                            " + _vm._s(_vm.$tc('units.minutes', trigger.data.minimum_timeout_minutes)) + "\n                                        ")])] : _vm._e()], 2)
     })], 2) : _vm._e(), _vm._v(" "), ((_vm.sequence_intentions = _vm.intentions.filter(function (i) { return i.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_intentions', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_intentions), function(intention, index) {
       return _c('li', [(intention.data) ? [_c('i', {
         staticClass: "mdi mdi-18px mdi-compass"
@@ -21711,6 +19017,432 @@ if (false) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
+    class: _vm.containerClasses
+  }, [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('form', {
+    attrs: {
+      "action": '/api/v1/custom_component_types/' + (_vm.custom_component_type.id === undefined ? '' : _vm.custom_component_type.id),
+      "data-method": _vm.custom_component_type.id === undefined ? 'POST' : 'PUT',
+      "id": _vm.custom_component_type,
+      "data-redirect-success": "/categories#tab_custom_components_types"
+    }
+  }, [_c('div', {
+    staticClass: "card-content"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$tc('labels.custom_component_types', 1)))])]), _vm._v(" "), _c('div', {
+    staticClass: "col s12 m6 l6"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "input-field col s12 m6 l6"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.custom_component_type.name_singular),
+      expression: "custom_component_type.name_singular"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": _vm.$t('labels.name_singular'),
+      "name": "name_singular",
+      "id": "name_singular"
+    },
+    domProps: {
+      "value": (_vm.custom_component_type.name_singular)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.custom_component_type, "name_singular", $event.target.value)
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "name_singular"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.name_singular')))])]), _vm._v(" "), _c('div', {
+    staticClass: "input-field col s12 m6 l6"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.custom_component_type.name_plural),
+      expression: "custom_component_type.name_plural"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": _vm.$t('labels.name_plural'),
+      "name": "name_plural",
+      "id": "name_plural"
+    },
+    domProps: {
+      "value": (_vm.custom_component_type.name_plural)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.custom_component_type, "name_plural", $event.target.value)
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "name_plural"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.name_plural')))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col s12 m6 l6"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "input-field col s12"
+  }, [_c('i', {
+    class: 'mdi mdi-18px mdi-' + _vm.current_icon + ' prefix'
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.current_icon),
+      expression: "current_icon"
+    }],
+    staticClass: "autocomplete",
+    attrs: {
+      "name": "icon",
+      "type": "text",
+      "id": "icon-select"
+    },
+    domProps: {
+      "value": (_vm.current_icon)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.current_icon = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "icon-select"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.icon')))]), _vm._v(" "), _c('p', {
+    domProps: {
+      "innerHTML": _vm._s('<i>' + _vm.$t('tooltips.material_icons_list') + '</i>')
+    }
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('labels.intention')))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t('tooltips.custom_components.intentions')))])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('button', {
+    staticClass: "btn waves-effect waves-light",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.add_intention
+    }
+  }, [_vm._v(_vm._s(_vm.$t('buttons.add_intention'))), _c('i', {
+    staticClass: "mdi mdi-18px mdi-plus left"
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm._l((_vm.component_intentions), function(intention, index) {
+    return [_c('div', {
+      staticClass: "input-field col s12 m5 l5"
+    }, [_c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.component_intentions[index].intention),
+        expression: "component_intentions[index].intention"
+      }],
+      attrs: {
+        "name": "default_intention_intention[]",
+        "id": 'intention_id_' + index
+      },
+      on: {
+        "change": function($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+            return o.selected
+          }).map(function(o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val
+          });
+          _vm.$set(_vm.component_intentions[index], "intention", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
+        }
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": "increase"
+      },
+      domProps: {
+        "selected": intention.intention === 'increase' ? 'selected' : ''
+      }
+    }, [_vm._v(_vm._s(_vm.$t('labels.increases')) + "\n                                            ")]), _vm._v(" "), _c('option', {
+      attrs: {
+        "value": "decrease"
+      },
+      domProps: {
+        "selected": intention.intention === 'decrease' ? 'selected' : ''
+      }
+    }, [_vm._v(_vm._s(_vm.$t('labels.decreases')) + "\n                                            ")])]), _vm._v(" "), _c('label', {
+      attrs: {
+        "for": 'intention_id_' + index
+      }
+    }, [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.intention')) + "\n                                        ")])]), _vm._v(" "), _c('div', {
+      staticClass: "input-field col s12 m5 l5"
+    }, [_c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.component_intentions[index].type),
+        expression: "component_intentions[index].type"
+      }],
+      attrs: {
+        "name": "default_intention_type[]",
+        "id": 'type_id_' + index
+      },
+      on: {
+        "change": function($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+            return o.selected
+          }).map(function(o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val
+          });
+          _vm.$set(_vm.component_intentions[index], "type", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
+        }
+      }
+    }, _vm._l((_vm.sensorreadingTypes), function(srt, index) {
+      return _c('option', {
+        domProps: {
+          "value": srt,
+          "selected": intention.type === srt ? 'selected' : ''
+        }
+      }, [_vm._v(_vm._s(_vm.$t('labels.' + srt)) + "\n                                            ")])
+    })), _vm._v(" "), _c('label', {
+      attrs: {
+        "for": 'type_id_' + index
+      }
+    }, [_vm._v(_vm._s(_vm.$tc('labels.logical_sensors', 1)))])]), _vm._v(" "), _c('div', {
+      staticClass: "input-field col s2 m2 l2"
+    }, [_c('a', {
+      staticClass: "red-text",
+      attrs: {
+        "href": "#!"
+      },
+      on: {
+        "click": function($event) {
+          _vm.component_intentions.splice(index, 1)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])]
+  })], 2)])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12 m6 l6"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('labels.properties')))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t('tooltips.custom_components.property_templates')))])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('button', {
+    staticClass: "btn waves-effect waves-light",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.add_property
+    }
+  }, [_vm._v(_vm._s(_vm.$t('buttons.add_property')) + "\n                                        "), _c('i', {
+    staticClass: "mdi mdi-18px mdi-plus left"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col s12",
+    attrs: {
+      "id": "custom_component_type_create_props"
+    }
+  }, _vm._l((_vm.component_properties), function(item, index) {
+    return _c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "input-field col s10 m10 l10"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (item.name),
+        expression: "item.name"
+      }],
+      attrs: {
+        "type": "text",
+        "name": "property_name[]"
+      },
+      domProps: {
+        "value": (item.name)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.$set(item, "name", $event.target.value)
+        }
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "input-field col s2 m2 l2"
+    }, [_c('a', {
+      staticClass: "red-text",
+      attrs: {
+        "href": "#!"
+      },
+      on: {
+        "click": function($event) {
+          _vm.component_properties.splice(index, 1)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "col s12 m6 l6"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('labels.state')))]), _vm._v(" "), _c('p', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.$t('tooltips.custom_components.state_templates'))
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('button', {
+    staticClass: "btn waves-effect waves-light",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.add_state
+    }
+  }, [_vm._v(_vm._s(_vm.$t('buttons.add_state')) + "\n                                        "), _c('i', {
+    staticClass: "mdi mdi-18px mdi-plus left"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col s12",
+    attrs: {
+      "id": "custom_component_state_create_props"
+    }
+  }, _vm._l((_vm.component_states), function(item, index) {
+    return _c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col s2 m2 l2"
+    }, [_c('p', {
+      staticStyle: {
+        "padding": "20px"
+      }
+    }, [_c('input', {
+      attrs: {
+        "name": "default_running_state",
+        "id": 'default_running_state_' + item.name,
+        "type": "radio"
+      },
+      domProps: {
+        "value": item.name,
+        "checked": _vm.default_running_state === item.name
+      },
+      on: {
+        "click": function($event) {
+          _vm.default_running_state = item.name
+        }
+      }
+    }), _vm._v(" "), _c('label', {
+      attrs: {
+        "for": 'default_running_state_' + item.name,
+        "data-delay": "50",
+        "data-html": "true",
+        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.custom_components.type_default_running_state') + '</div>'
+      }
+    })])]), _vm._v(" "), _c('div', {
+      staticClass: "input-field col s8 m8 l8"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (item.name),
+        expression: "item.name"
+      }],
+      attrs: {
+        "type": "text",
+        "name": "state[]"
+      },
+      domProps: {
+        "value": (item.name)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.$set(item, "name", $event.target.value)
+        }
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "input-field col s2 m2 l2"
+    }, [_c('a', {
+      staticClass: "red-text",
+      attrs: {
+        "href": "#!"
+      },
+      on: {
+        "click": function($event) {
+          _vm.component_states.splice(index, 1)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])])
+  }))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "input-field col s12"
+  }, [_c('button', {
+    staticClass: "btn waves-effect waves-light",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('buttons.next')) + "\n                                "), _c('i', {
+    staticClass: "mdi mdi-18px mdi-floppy left"
+  })])])])])])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-92e5b986", module.exports)
+  }
+}
+
+/***/ }),
+/* 146 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "modal",
     attrs: {
       "id": 'modal_just_fed_' + _vm.animalId
@@ -21758,106 +19490,6 @@ if (false) {
   module.hot.accept()
   if (module.hot.data) {
      require("vue-hot-reload-api").rerender("data-v-988cd154", module.exports)
-  }
-}
-
-/***/ }),
-/* 146 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight collapsible",
-    attrs: {
-      "data-collapsible": "expandable"
-    }
-  }, [_c('table-filter', {
-    ref: "table_filter",
-    attrs: {
-      "cols": 4,
-      "hide-cols": _vm.hideCols,
-      "filter-fields": [{
-          name: 'name',
-          path: 'name',
-          col: 0
-        },
-        {
-          name: 'type',
-          noSort: true,
-          path: 'type.name_singular',
-          col: 1,
-          class: 'hide-on-small-only'
-        },
-        {
-          name: 'controlunit',
-          noSort: true,
-          path: 'controlunit.name',
-          col: 2,
-          class: 'hide-on-small-only'
-        },
-        {
-          noSort: true,
-          noFilter: true,
-          col: 3,
-          class: 'hide-on-small-only'
-        }
-      ]
-    }
-  }), _vm._v(" "), _vm._l((_vm.generic_components), function(generic_component) {
-    return [_c('tbody', [_c('tr', {
-      staticClass: "collapsible-header"
-    }, [_c('td', [_c('span', [_c('i', {
-      class: 'mdi mdi-24px mdi-' + generic_component.data.type.icon
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/generic_components/' + generic_component.data.id
-      }
-    }, [_vm._v(_vm._s(generic_component.data.name))]), _vm._v(" "), (!generic_component.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/generic_component_types/' + generic_component.data.type.id
-      }
-    }, [_vm._v(_vm._s(generic_component.data.type.name_singular))])])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [(generic_component.data.controlunit) ? _c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-developer-board"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/controlunits/' + generic_component.data.controlunit.id
-      }
-    }, [_vm._v(_vm._s(generic_component.data.controlunit.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/generic_components/' + generic_component.data.id + '/edit'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-24px mdi-pencil"
-    })])])])]), _vm._v(" "), _c('tr', {
-      staticClass: "collapsible-body"
-    }, [_c('td', {
-      attrs: {
-        "colspan": "4"
-      }
-    }, _vm._l((generic_component.data.component_properties), function(prop, index) {
-      return _c('div', [_vm._v("\n                                " + _vm._s(prop.name) + ": " + _vm._s(prop.value) + "\n                            ")])
-    }))])])]
-  })], 2), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
-    }
-  })], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-9bc6f4d2", module.exports)
   }
 }
 
@@ -22623,7 +20255,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "href": suggestion.data.belongsTo_object.url
       }
     }, [_vm._v("\n                                " + _vm._s(suggestion.data.belongsTo_object.display_name || suggestion.data.belongsTo_object.name) + ":\n                            ")]), _vm._v("\n                            " + _vm._s(_vm.$t('messages.suggestions.' + suggestion.data.name + '.' + suggestion.data.violation_type, {
-      hour: suggestion.data.value,
+      hour: suggestion.data.value + ":00",
       name: suggestion
     })) + "\n                        ")]), _vm._v(" "), _c('a', {
       staticClass: "secondary-content white-text",
