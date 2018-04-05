@@ -150,6 +150,14 @@ class ActionSequence extends CiliatusModel
                 $this->generateIntention(ActionSequenceIntention::TYPE_HUMIDITY_PERCENT, ActionSequenceIntention::INTENTION_DECREASE);
                 break;
 
+            case self::TEMPLATE_HEAT_UP:
+                $this->generateIntention(ActionSequenceIntention::TYPE_TEMPERATURE_CELSIUS, ActionSequenceIntention::INTENTION_INCREASE);
+                break;
+
+            case self::TEMPLATE_COOL_DOWN:
+                $this->generateIntention(ActionSequenceIntention::TYPE_TEMPERATURE_CELSIUS, ActionSequenceIntention::INTENTION_DECREASE);
+                break;
+
         }
     }
 
@@ -214,7 +222,20 @@ class ActionSequence extends CiliatusModel
                     $this->terrarium->custom_components()->getQuery()
                 );
 
-                return $this->generateActionsForComponentsAndAppend($custom_components);
+
+                $this->generateActionsForComponentsAndAppend($custom_components);
+
+                foreach ($this->terrarium->valves as $valve) {
+                    $action = $valve->generateActionForSequence($this->duration_minutes, 'running', $this);
+                    $this->appendAction($action);
+
+                    if (!is_null($valve->pump)) {
+                        $action = $valve->pump->generateActionForSequence($this->duration_minutes, 'running', $this);
+                        $this->appendAction($action);
+                    }
+                }
+
+                return true;
 
             default:
 
