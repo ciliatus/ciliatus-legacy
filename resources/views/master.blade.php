@@ -39,7 +39,10 @@
         <meta name="csrf-token" id="csrf-token" content="{{ csrf_token() }}">
     </head>
 
-    <body data-lang="{{ app()->getLocale() }}" data-base-url="{{ config()->get('app.url') }}" style="height: 100%;">
+    <body data-lang="{{ app()->getLocale() }}"
+          data-base-url="{{ config()->get('app.url') }}"
+          data-pusher-app-key="{{ env('PUSHER_APP_KEY') }}"
+          style="height: 100%;">
 
         <script>
             var domCallbacks = [];

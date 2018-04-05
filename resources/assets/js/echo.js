@@ -3,7 +3,7 @@ import Pusher from 'pusher-js'
 
 window.echo = new Echo({
     broadcaster: 'pusher',
-    key: '[YOUR PUSHER APP KEY HERE]',
+    key: global.lang = $('body').data('pusher-app-key'),
     namespace: 'App\\Events',
     cluster: 'eu',
     encrypted: true
