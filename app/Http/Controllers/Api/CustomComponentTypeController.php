@@ -110,7 +110,7 @@ class CustomComponentTypeController extends ApiController
             ],
             [
                 'redirect' => [
-                    'uri'   => url('generic_property_types/' . $type->id . '/edit')
+                    'uri'   => url('custom_property_types/' . $type->id . '/edit')
                 ]
             ]
         );

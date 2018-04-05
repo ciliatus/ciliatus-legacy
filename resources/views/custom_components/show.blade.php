@@ -10,7 +10,7 @@
 @section('content')
     <div class="container">
         <div class="row">
-            <custom_components-widget generic-component-id="{{ $custom_component->id }}"
+            <custom_components-widget custom-component-id="{{ $custom_component->id }}"
                                        wrapper-classes="col s12 m5 l4"></custom_components-widget>
 
             @if(!is_null($custom_component->controlunit))
