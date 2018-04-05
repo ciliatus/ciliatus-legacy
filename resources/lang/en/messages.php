@@ -58,14 +58,14 @@ return [
 
     'suggestions' => [
         'humidity_percent' => [
-            'UPPERLIMIT_EXCEEDED' => 'Decrease humidity daily at :hour:00',
-            'LOWERLIMIT_DECEEDED' => 'Increase humidity daily at :hour:00',
-            'UNKNOWN' => 'Regulate humidity daily at :hour:00',
+            'UPPERLIMIT_EXCEEDED' => 'Decrease humidity daily at :hour',
+            'LOWERLIMIT_DECEEDED' => 'Increase humidity daily at :hour',
+            'UNKNOWN' => 'Regulate humidity daily at :hour',
         ],
         'temperature_celsius' => [
-            'UPPERLIMIT_EXCEEDED' => 'Decrease temperature daily at :hour:00',
-            'LOWERLIMIT_DECEEDED' => 'Increase temperature daily at :hour:00',
-            'UNKNOWN' => 'Regulate temperature daily at :hour:00'
+            'UPPERLIMIT_EXCEEDED' => 'Decrease temperature daily at :hour',
+            'LOWERLIMIT_DECEEDED' => 'Increase temperature daily at :hour',
+            'UNKNOWN' => 'Regulate temperature daily at :hour'
         ]
     ]
 ];

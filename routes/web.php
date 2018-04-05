@@ -11,6 +11,10 @@
 |
 */
 
+Route::get('home', function() {
+    return redirect('/');
+});
+
 Route::get('setup/' . env('APP_KEY'), 'SetupController@start');
 Route::get('setup/' . env('APP_KEY') . '/step/{id}', 'SetupController@step');
 
