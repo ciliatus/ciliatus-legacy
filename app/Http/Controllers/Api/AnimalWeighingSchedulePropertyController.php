@@ -257,7 +257,7 @@ class AnimalWeighingSchedulePropertyController extends ApiController
      */
     public function skip($animal_id, $id)
     {
-        if (Gate::denies('api-write:animal_weighing_schedule')) {
+        if (Gate::denies('api-write:animal_weighing')) {
             return $this->respondUnauthorized();
         }
 
