@@ -6,8 +6,9 @@ return [
         'failed' => 'Authentifizierung fehlgeschlagen.'
     ],
     'frontend' => [
-        'generic' => 'Ein Fehler ist aufgetreten. Details in der Konsole.',
-        'no_recording_capability' => 'Der Browser scheint keine Sprachsteuerung zu unterstützen.'
+        'generic'                   => 'Ein Fehler ist aufgetreten. Details in der Konsole.',
+        'no_recording_capability'   => 'Der Browser scheint keine Sprachsteuerung zu unterstützen.',
+        'no_target_object'          => 'Ziel nicht gefunden'
     ],
     'codes' => [
         'common' => [

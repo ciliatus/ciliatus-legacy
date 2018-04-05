@@ -72,8 +72,13 @@
                                 <div class="input-field col s12" style="width: 100%; margin-top: 0">
                                     [{{ $a->sequence_sort_id }}]
 
-                                    <i class="mdi mdi-18px mdi-{{ $a->target_object()->icon() }}"></i>
-                                    <a href="{{ $a->target_object()->url() }}">{{ $a->target_object()->name }}</a>
+                                    @if(is_null($a->target_object()))
+                                        @lang('errors.frontend.no_target_object'): {{ $a->id }}
+                                    @else
+                                        <i class="mdi mdi-18px mdi-{{ $a->target_object()->icon() }}"></i>
+                                        <a href="{{ $a->target_object()->url() }}">{{ $a->target_object()->name }}</a>
+                                    @endif
+
                                     <i class="mdi mdi-18px mdi-mdi-chevron-right"></i>
                                     {{ $a->desired_state }} <i>{{ $a->duration_minutes }} @choice('units.minutes', $a->duration_minutes)</i>
                                     @if (!is_null($a->wait_for_started_action_object()))
