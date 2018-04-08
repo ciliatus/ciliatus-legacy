@@ -76,15 +76,10 @@ class CustomComponentController extends ApiController
             return $this->respondRelatedModelNotFound(CustomComponentType::class);
         }
 
-        /**
-         * @var CustomComponent $component
-         */
-        $component = CustomComponent::create([
-            'name' => $request->input('name'),
-            'custom_component_type_id' => $request->input('type_id'),
-            'controlunit_id' => $request->filled('controlunit') ? $request->input('controlunit') : null
-        ]);
-
+        $component = new CustomComponent();
+        $component->name = $request->input('name');
+        $component->custom_component_type_id = $request->input('type_id');
+        $component->controlunit_id = $request->filled('controlunit') ? $request->input('controlunit') : null;
         $component = $this->addBelongsTo($request, $component);
 
         if ($request->filled('properties')) {

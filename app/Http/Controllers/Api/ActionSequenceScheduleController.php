@@ -98,18 +98,13 @@ class ActionSequenceScheduleController extends ApiController
             return $this->respondRelatedModelNotFound(ActionSequence::class);
         }
 
-        /**
-         * @var ActionSequenceSchedule $schedule
-         */
-        $schedule = ActionSequenceSchedule::create([
-            'name' => 'ASS_' . $sequence->name . '_' . Carbon::parse($request->input('starts_at'))->format('H:i:s'),
-            'runonce' => $request->input('runonce') == 'on' ? true : false,
-            'starts_at' => Carbon::parse($request->input('starts_at'))->format('H:i:s'),
-            'action_sequence_id' => $request->input('action_sequence')
-        ]);
-
-
+        $schedule = new ActionSequenceSchedule();
+        $schedule->name = 'ASS_' . $sequence->name . '_' . Carbon::parse($request->input('starts_at'))->format('H:i:s');
+        $schedule->runonce = $request->input('runonce') == 'on' ? true : false;
+        $schedule->starts_at = Carbon::parse($request->input('starts_at'))->format('H:i:s');
+        $schedule->action_sequence_id = $request->input('action_sequence');
         $schedule->updateWeekdays($this->getWeekdaysArrayFromRequest($request));
+        $schedule->save();
 
         return $this->setStatusCode(200)->respondWithData(
             [

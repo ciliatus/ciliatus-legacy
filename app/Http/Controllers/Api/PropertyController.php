@@ -112,12 +112,9 @@ class PropertyController extends ApiController
             'belongsTo_type' => $belongsTo_type,
             'belongsTo_id' => $belongs_to->id,
             'type' => $request->input('type'),
-            'name' => $request->input('name')
+            'name' => $request->input('name'),
+            'value' => $request->input('value') ? $request->input('value') : null
         ]);
-
-        if ($request->filled('value')) {
-            $p->value = $request->input('value');
-        }
 
         $p->save();
 

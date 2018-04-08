@@ -23,7 +23,7 @@ class Event extends CiliatusModel
      */
     protected $fillable = [
         'belongsTo_type', 'belongsTo_id', 'type',
-        'name', 'value', 'value_json'
+        'name', 'value', 'value_json', 'created_at'
     ];
 
     /**
