@@ -51,7 +51,7 @@
                                 <strong>Database connection:</strong> <i class="mdi mdi-18px mdi-check green-text"></i>
                             </p>
                         @else
-                            <h5><i class="mdi mdi-18px mdi-window-close red-text">InfluxDB</h5>
+                            <h5><i class="mdi mdi-18px mdi-window-close red-text"></i> InfluxDB</h5>
                             <p>
                                 <strong>Database connection:</strong> <i class="mdi mdi-18px mdi-window-close red-text"></i> {{ $influx_db_status }}
                             </p>
