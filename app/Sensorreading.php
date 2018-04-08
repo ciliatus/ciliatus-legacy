@@ -35,6 +35,13 @@ class Sensorreading extends CiliatusModel
     ];
 
     /**
+     * @var array
+     */
+    protected $dates = [
+        'created_at', 'updated_at', 'read_at'
+    ];
+
+    /**
      * Automatically writes relevant data to InfluxDb
      */
     public function autoWriteToInfluxDb()
