@@ -28,5 +28,8 @@ return [
     'close'     =>  'Schließen',
     'select_all_read' => 'Alles lesen',
     'select_all_list' => 'Alles auflisten',
-    'select_all_write' => 'Alles schreiben'
+    'select_all_write' => 'Alles schreiben',
+    'select_all_user' => 'Normaler Benutzer',
+    'select_all_admin' => 'Administrator',
+    'select_all_controlunit' => 'Benutzer für Steuerungseinheit'
 ];

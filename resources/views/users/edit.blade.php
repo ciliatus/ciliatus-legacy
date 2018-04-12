@@ -343,16 +343,16 @@
 
                                 <div class="row">
                                     <div class="col s12">
-                                        <strong>@lang('labels.add_preset')</strong>
+                                        <strong>@lang('labels.set_preset')</strong>
                                     </div>
-                                    <div class="input-field col s12 m4 l4">
-                                        <a href="#!" onclick="select_abilities('grant_api-write')">@lang('buttons.select_all_write')</a>
+                                    <div class="input-field col s12">
+                                        <a href="#!" onclick="select_ability_preset('user')">@lang('buttons.select_all_user')</a>
                                     </div>
-                                    <div class="input-field col s12 m4 l4">
-                                        <a href="#!" onclick="select_abilities('grant_api-read')">@lang('buttons.select_all_read')</a>
+                                    <div class="input-field col s12">
+                                        <a href="#!" onclick="select_ability_preset('admin')">@lang('buttons.select_all_admin')</a>
                                     </div>
-                                    <div class="input-field col s12 m4 l4">
-                                        <a href="#!" onclick="select_abilities('grant_api-list')">@lang('buttons.select_all_list')</a>
+                                    <div class="input-field col s12">
+                                        <a href="#!" onclick="select_ability_preset('controlunit')">@lang('buttons.select_all_controlunit')</a>
                                     </div>
                                 </div>
                             </div>
@@ -584,13 +584,40 @@
 
 @section('scripts')
     <script>
-        function select_abilities(filter) {
-            $('#user-abilities-select').find('option').each(function() {
-                if ($(this).val().indexOf(filter) >= 0) {
-                    $(this).attr('selected', true);
-                }
-            });
+        function deselect_all_abilities() {
+            $('#user-abilities-select').find('option').map(function() {
+                $(this).removeAttr('selected');
+            })
+        }
+
+        function select_abilities(...args) {
+            let options = $('#user-abilities-select').find('option');
+            if (args.length < 1) {
+                options.map(function() { $(this).attr('selected', true) });
+            }
+            else {
+                args.forEach(function(ability) {
+                    options.
+                    filter(function() { return $(this).val() === ability; }).
+                    map(function() { $(this).attr('selected', true) });
+                });
+            }
+
             $('#user-abilities-select').material_select();
+        }
+
+        function select_ability_preset(preset) {
+            deselect_all_abilities();
+            if (preset === 'user') {
+                select_abilities('grant_api-read', 'grant_api-list');
+            }
+            else if (preset === 'admin') {
+                select_abilities()
+            }
+            else if (preset === 'controlunit') {
+                select_abilities('grant_api-list', 'grant_api-read', 'grant_api-write:controlunit',
+                                 'grant_api-fetch:desired_states');
+            }
         }
 
         $(document).ready(function() {

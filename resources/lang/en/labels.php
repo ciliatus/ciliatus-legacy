@@ -284,5 +284,6 @@ return [
     'client_server_time_diff'                    => 'Client/Server time difference',
     'id'                                         => 'ID',
     'loading_dots'                               => 'Loading...',
-    'search_ciliatus'                            => 'Search Ciliatus ...'
+    'search_ciliatus'                            => 'Search Ciliatus ...',
+    'set_preset'                                 => 'Apply preset'
 ];

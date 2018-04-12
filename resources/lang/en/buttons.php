@@ -28,5 +28,8 @@ return [
     'close'     =>  'Close',
     'select_all_read' => 'Read all',
     'select_all_list' => 'List all',
-    'select_all_write' => 'Write all'
+    'select_all_write' => 'Write all',
+    'select_all_user' => 'Normal user',
+    'select_all_admin' => 'Administrator',
+    'select_all_controlunit' => 'Controlunit user'
 ];

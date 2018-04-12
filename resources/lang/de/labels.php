@@ -285,5 +285,6 @@ return [
     'client_server_time_diff'                    => 'Client/Server Zeitdifferenz',
     'id'                                         => 'ID',
     'loading_dots'                               => 'Laden...',
-    'search_ciliatus'                            => 'Ciliatus durchsuchen ...'
+    'search_ciliatus'                            => 'Ciliatus durchsuchen ...',
+    'set_preset'                                 => 'Voreinstellung anwenden'
 ];
