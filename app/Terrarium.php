@@ -386,7 +386,7 @@ class Terrarium extends CiliatusModel
         $count = 0;
 
         foreach ($this->physical_sensors as $ps) {
-            foreach ($ps->logical_sensors()->where('type', $type)->get() as $ls) {
+            foreach ($ps->logical_sensors()->where('type', $type)->where('active', true)->get() as $ls) {
                 $reading = $ls->getCurrentCookedValue();
                 if (!is_null($reading)) {
                     $avg += $reading;
