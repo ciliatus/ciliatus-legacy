@@ -94,8 +94,8 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('.timepicker').pickatime({
-                twelvehour: false
+            $('.timepicker').timepicker({
+                twelveHour: false
             });
         });
     </script>

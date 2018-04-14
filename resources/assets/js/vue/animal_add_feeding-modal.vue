@@ -5,22 +5,33 @@
             <div class="modal-content">
                 <h4>{{ $t("labels.just_fed") }}</h4>
 
+                <div class="row">
+                    <div class="input-field col s12">
+                        <select id="meal_type" name="meal_type" v-if="feedingTypes.length > 0">
+                            <option v-for="ft in feedingTypes" v-bind:value="ft">{{ ft }}</option>
+                        </select>
+                        <span v-else>
+                            <strong>{{ $t('tooltips.no_feeding_types') }}</strong>
+                        </span>
+                        <label for="meal_type">{{ $t("labels.meal_type") }}</label>
+                    </div>
 
-                <select name="meal_type" v-if="feedingTypes.length > 0">
-                    <option v-for="ft in feedingTypes" v-bind:value="ft">{{ ft }}</option>
-                </select>
-                <span v-else>
-                    <strong>{{ $t('tooltips.no_feeding_types') }}</strong>
-                </span>
-                <label>{{ $t("labels.meal_type") }}</label>
-
-                <input type="date" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
-                <label>{{ $t('labels.date') }}</label>
+                    <div class="input-field col s12">
+                        <input type="text" id="date" class="datepicker" name="created_at">
+                        <label for="date">{{ $t('labels.date') }}</label>
+                    </div>
+                </div>
             </div>
 
             <div class="modal-footer">
-                <button v-if="feedingTypes.length > 0" class="btn modal-action modal-close waves-effect waves-light" type="submit">{{ $t("buttons.save") }}
+                <button class="btn modal-action modal-close waves-effect waves-light">
+                    {{ $t("buttons.save") }}
                     <i class="mdi mdi-18px mdi-floppy left"></i>
+                </button>
+
+                <button class="btn modal-action modal-close waves-effect waves-light" type="reset">
+                    {{ $t("buttons.close") }}
+                    <i class="mdi mdi-18px mdi-close left"></i>
                 </button>
             </div>
         </form>
@@ -59,10 +70,13 @@
 
         created: function() {
             $('.modal').modal();
-            $('.datepicker').pickadate({
-                selectMonths: true,
-                selectYears: 15,
-                format: 'yyyy-mm-dd',
+            this.$nextTick(() => {
+                $('.datepicker').datepicker({
+                    format: 'yyyy-mm-dd',
+                    autoClose: true,
+                    defaultDate: new Date(),
+                    setDefaultDate: true
+                });
             });
         }
     }

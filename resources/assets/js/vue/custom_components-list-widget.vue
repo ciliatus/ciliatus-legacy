@@ -13,7 +13,7 @@
 
                 <template v-for="custom_component in custom_components">
                     <tbody>
-                        <tr class="collapsible-header">
+                        <tr class="collapsible-tr-header" onclick="window.collapseTr($(this))">
                             <td>
                                 <span>
                                     <i :class="'mdi mdi-24px mdi-' + custom_component.data.type.icon"></i>
@@ -44,7 +44,7 @@
                             </td>
 
                         </tr>
-                        <tr class="collapsible-body">
+                        <tr class="collapsible-tr-body">
                             <td colspan="4">
                                 <div v-for="(prop, index) in custom_component.data.component_properties">
                                     {{ prop.name }}: {{ prop.value }}

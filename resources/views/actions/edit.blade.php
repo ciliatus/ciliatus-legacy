@@ -104,7 +104,7 @@
                         $('#state_select').append('<option value="' + el + '">' + el + '</option>');
                     }
                 });
-                $('#state_select').material_select();
+                $('#state_select').formSelect();
             });
 
             $('#component_select').change();
