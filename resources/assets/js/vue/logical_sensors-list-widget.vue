@@ -3,7 +3,7 @@
         <div :class="wrapperClasses">
             <table class="responsive highlight collapsible" data-collapsible="expandable">
                 <table-filter ref="table_filter"
-                              :cols="5"
+                              :cols="6"
                               :hide-cols="hideCols"
                               :filter-fields="[{name: 'name', path: 'name', col: 0},
                                                {name: 'physical_sensor', noSort:true, path: 'physical_sensor.name', col: 1},

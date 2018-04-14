@@ -31,8 +31,10 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input class="datepicker" type="date" placeholder="@lang('labels.starts_at')" name="starts_at"
-                                           data-default="{{ Carbon\Carbon::now()->format('Y-m-d') }}" value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
+                                    <input class="datepicker" type="text" placeholder="@lang('labels.starts_at')"
+                                           name="starts_at" id="starts_at"
+                                           data-default="{{ Carbon\Carbon::now()->format('Y-m-d') }}"
+                                           value="{{ Carbon\Carbon::now()->format('Y-m-d') }}">
                                     <label for="starts_at">@lang('labels.starts_at')</label>
                                 </div>
                             </div>
@@ -59,8 +61,11 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('.datepicker').pickadate({
+            $('.datepicker').datepicker({
                 format: 'yyyy-mm-dd',
+                autoClose: true,
+                defaultDate: new Date(),
+                setDefaultDate: true
             });
         });
     </script>

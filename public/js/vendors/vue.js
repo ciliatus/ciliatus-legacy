@@ -137,7 +137,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/mixins/pagination.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\mixins\\pagination.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] pagination.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -148,9 +148,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-17cf917d", Component.options)
+    hotAPI.createRecord("data-v-18518174", Component.options)
   } else {
-    hotAPI.reload("data-v-17cf917d", Component.options)
+    hotAPI.reload("data-v-18518174", Component.options)
   }
 })()}
 
@@ -165,13 +165,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(52),
   /* template */
-  __webpack_require__(127),
+  __webpack_require__(134),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/mixins/table_filter.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\mixins\\table_filter.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] table_filter.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -182,9 +182,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3a3726a8", Component.options)
+    hotAPI.createRecord("data-v-6aab8a3a", Component.options)
   } else {
-    hotAPI.reload("data-v-3a3726a8", Component.options)
+    hotAPI.reload("data-v-6aab8a3a", Component.options)
   }
 })()}
 
@@ -226,13 +226,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(45),
   /* template */
-  __webpack_require__(122),
+  __webpack_require__(131),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/loading-card-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\loading-card-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] loading-card-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -243,9 +243,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2d74d754", Component.options)
+    hotAPI.createRecord("data-v-5de93ae6", Component.options)
   } else {
-    hotAPI.reload("data-v-2d74d754", Component.options)
+    hotAPI.reload("data-v-5de93ae6", Component.options)
   }
 })()}
 
@@ -260,13 +260,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(46),
   /* template */
-  __webpack_require__(139),
+  __webpack_require__(135),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/loading-indicator.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\loading-indicator.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] loading-indicator.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -277,9 +277,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6c9eb704", Component.options)
+    hotAPI.createRecord("data-v-6d20a6fb", Component.options)
   } else {
-    hotAPI.reload("data-v-6c9eb704", Component.options)
+    hotAPI.reload("data-v-6d20a6fb", Component.options)
   }
 })()}
 
@@ -428,13 +428,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(20),
   /* template */
-  __webpack_require__(145),
+  __webpack_require__(151),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/animal_add_weight-modal.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\animal_add_weight-modal.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animal_add_weight-modal.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -445,9 +445,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-87e99bc2", Component.options)
+    hotAPI.createRecord("data-v-d97de654", Component.options)
   } else {
-    hotAPI.reload("data-v-87e99bc2", Component.options)
+    hotAPI.reload("data-v-d97de654", Component.options)
   }
 })()}
 
@@ -462,13 +462,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(44),
   /* template */
-  __webpack_require__(125),
+  __webpack_require__(144),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/inline-graph.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\inline-graph.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] inline-graph.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -479,9 +479,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-33785578", Component.options)
+    hotAPI.createRecord("data-v-8768f226", Component.options)
   } else {
-    hotAPI.reload("data-v-33785578", Component.options)
+    hotAPI.reload("data-v-8768f226", Component.options)
   }
 })()}
 
@@ -9263,8 +9263,11 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         }
 
         this.$nextTick(function () {
-            $('.datepicker').pickadate({
-                format: 'yyyy-mm-dd'
+            $('.datepicker').datepicker({
+                format: 'yyyy-mm-dd',
+                autoClose: true,
+                defaultDate: new Date(),
+                setDefaultDate: true
             });
         });
 
@@ -9715,6 +9718,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__mixins_pagination_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__mixins_pagination_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_table_filter_vue__ = __webpack_require__(2);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mixins_table_filter_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__mixins_table_filter_vue__);
+//
+//
 //
 //
 //
@@ -14548,13 +14553,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(17),
   /* template */
-  __webpack_require__(120),
+  __webpack_require__(139),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/action_sequences-list-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\action_sequences-list-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] action_sequences-list-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14565,9 +14570,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-29898e39", Component.options)
+    hotAPI.createRecord("data-v-779a643c", Component.options)
   } else {
-    hotAPI.reload("data-v-29898e39", Component.options)
+    hotAPI.reload("data-v-779a643c", Component.options)
   }
 })()}
 
@@ -14582,13 +14587,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(18),
   /* template */
-  __webpack_require__(121),
+  __webpack_require__(110),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/action_sequences-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\action_sequences-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] action_sequences-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14599,9 +14604,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2b744b4e", Component.options)
+    hotAPI.createRecord("data-v-02aa2605", Component.options)
   } else {
-    hotAPI.reload("data-v-2b744b4e", Component.options)
+    hotAPI.reload("data-v-02aa2605", Component.options)
   }
 })()}
 
@@ -14616,13 +14621,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(19),
   /* template */
-  __webpack_require__(149),
+  __webpack_require__(146),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/animal_add_feeding-modal.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\animal_add_feeding-modal.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animal_add_feeding-modal.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14633,9 +14638,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-b797c9a6", Component.options)
+    hotAPI.createRecord("data-v-988cd154", Component.options)
   } else {
-    hotAPI.reload("data-v-b797c9a6", Component.options)
+    hotAPI.reload("data-v-988cd154", Component.options)
   }
 })()}
 
@@ -14650,13 +14655,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(21),
   /* template */
-  __webpack_require__(153),
+  __webpack_require__(123),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/animal_feeding_schedules-matrix-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\animal_feeding_schedules-matrix-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animal_feeding_schedules-matrix-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14667,9 +14672,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-d49b7eaa", Component.options)
+    hotAPI.createRecord("data-v-4412c114", Component.options)
   } else {
-    hotAPI.reload("data-v-d49b7eaa", Component.options)
+    hotAPI.reload("data-v-4412c114", Component.options)
   }
 })()}
 
@@ -14684,13 +14689,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(22),
   /* template */
-  __webpack_require__(148),
+  __webpack_require__(143),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/animal_feeding_schedules-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\animal_feeding_schedules-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animal_feeding_schedules-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14701,9 +14706,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-ae13280e", Component.options)
+    hotAPI.createRecord("data-v-82c4c0a0", Component.options)
   } else {
-    hotAPI.reload("data-v-ae13280e", Component.options)
+    hotAPI.reload("data-v-82c4c0a0", Component.options)
   }
 })()}
 
@@ -14718,13 +14723,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(23),
   /* template */
-  __webpack_require__(113),
+  __webpack_require__(149),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/animal_feedings-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\animal_feedings-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animal_feedings-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14735,9 +14740,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-14f0556e", Component.options)
+    hotAPI.createRecord("data-v-cd3f709c", Component.options)
   } else {
-    hotAPI.reload("data-v-14f0556e", Component.options)
+    hotAPI.reload("data-v-cd3f709c", Component.options)
   }
 })()}
 
@@ -14752,13 +14757,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(24),
   /* template */
-  __webpack_require__(143),
+  __webpack_require__(119),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/animal_weighing_schedules-matrix-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\animal_weighing_schedules-matrix-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animal_weighing_schedules-matrix-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14769,9 +14774,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-747a0f62", Component.options)
+    hotAPI.createRecord("data-v-391af5f4", Component.options)
   } else {
-    hotAPI.reload("data-v-747a0f62", Component.options)
+    hotAPI.reload("data-v-391af5f4", Component.options)
   }
 })()}
 
@@ -14786,13 +14791,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(25),
   /* template */
-  __webpack_require__(144),
+  __webpack_require__(132),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/animal_weighing_schedules-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\animal_weighing_schedules-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animal_weighing_schedules-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14803,9 +14808,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-7ef57656", Component.options)
+    hotAPI.createRecord("data-v-5fc487fe", Component.options)
   } else {
-    hotAPI.reload("data-v-7ef57656", Component.options)
+    hotAPI.reload("data-v-5fc487fe", Component.options)
   }
 })()}
 
@@ -14820,13 +14825,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(26),
   /* template */
-  __webpack_require__(118),
+  __webpack_require__(141),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/animal_weighings-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\animal_weighings-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animal_weighings-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14837,9 +14842,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-28b75626", Component.options)
+    hotAPI.createRecord("data-v-7a4ba0b8", Component.options)
   } else {
-    hotAPI.reload("data-v-28b75626", Component.options)
+    hotAPI.reload("data-v-7a4ba0b8", Component.options)
   }
 })()}
 
@@ -14854,13 +14859,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(27),
   /* template */
-  __webpack_require__(116),
+  __webpack_require__(150),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/animals-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\animals-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] animals-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14871,9 +14876,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-209df684", Component.options)
+    hotAPI.createRecord("data-v-d9003c26", Component.options)
   } else {
-    hotAPI.reload("data-v-209df684", Component.options)
+    hotAPI.reload("data-v-d9003c26", Component.options)
   }
 })()}
 
@@ -14888,13 +14893,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(28),
   /* template */
-  __webpack_require__(123),
+  __webpack_require__(115),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/api-io-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\api-io-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] api-io-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14905,9 +14910,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-2f353f1e", Component.options)
+    hotAPI.createRecord("data-v-1a23c295", Component.options)
   } else {
-    hotAPI.reload("data-v-2f353f1e", Component.options)
+    hotAPI.reload("data-v-1a23c295", Component.options)
   }
 })()}
 
@@ -14922,13 +14927,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(29),
   /* template */
-  __webpack_require__(146),
+  __webpack_require__(138),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/biography_entries-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\biography_entries-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] biography_entries-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14939,9 +14944,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-95a0a0d2", Component.options)
+    hotAPI.createRecord("data-v-7695a880", Component.options)
   } else {
-    hotAPI.reload("data-v-95a0a0d2", Component.options)
+    hotAPI.reload("data-v-7695a880", Component.options)
   }
 })()}
 
@@ -14956,13 +14961,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(30),
   /* template */
-  __webpack_require__(124),
+  __webpack_require__(121),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/bus_type_edit-form.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\bus_type_edit-form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] bus_type_edit-form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -14973,9 +14978,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-310e92ab", Component.options)
+    hotAPI.createRecord("data-v-40caa194", Component.options)
   } else {
-    hotAPI.reload("data-v-310e92ab", Component.options)
+    hotAPI.reload("data-v-40caa194", Component.options)
   }
 })()}
 
@@ -14996,7 +15001,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/caresheets-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\caresheets-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] caresheets-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15007,9 +15012,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-04df9d12", Component.options)
+    hotAPI.createRecord("data-v-05618d09", Component.options)
   } else {
-    hotAPI.reload("data-v-04df9d12", Component.options)
+    hotAPI.reload("data-v-05618d09", Component.options)
   }
 })()}
 
@@ -15024,13 +15029,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(32),
   /* template */
-  __webpack_require__(135),
+  __webpack_require__(126),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/chartjs-graph.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\chartjs-graph.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] chartjs-graph.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15041,9 +15046,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-62dbb3ee", Component.options)
+    hotAPI.createRecord("data-v-4dca3765", Component.options)
   } else {
-    hotAPI.reload("data-v-62dbb3ee", Component.options)
+    hotAPI.reload("data-v-4dca3765", Component.options)
   }
 })()}
 
@@ -15058,13 +15063,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(33),
   /* template */
-  __webpack_require__(117),
+  __webpack_require__(152),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/components-list-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\components-list-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] components-list-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15075,9 +15080,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-258e0274", Component.options)
+    hotAPI.createRecord("data-v-dddd1da2", Component.options)
   } else {
-    hotAPI.reload("data-v-258e0274", Component.options)
+    hotAPI.reload("data-v-dddd1da2", Component.options)
   }
 })()}
 
@@ -15092,13 +15097,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(34),
   /* template */
-  __webpack_require__(141),
+  __webpack_require__(127),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/controlunit-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\controlunit-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] controlunit-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15109,9 +15114,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6fad7e4c", Component.options)
+    hotAPI.createRecord("data-v-5035607a", Component.options)
   } else {
-    hotAPI.reload("data-v-6fad7e4c", Component.options)
+    hotAPI.reload("data-v-5035607a", Component.options)
   }
 })()}
 
@@ -15126,13 +15131,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(35),
   /* template */
-  __webpack_require__(129),
+  __webpack_require__(116),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/controlunits-list-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\controlunits-list-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] controlunits-list-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15143,9 +15148,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-408c693c", Component.options)
+    hotAPI.createRecord("data-v-218170ea", Component.options)
   } else {
-    hotAPI.reload("data-v-408c693c", Component.options)
+    hotAPI.reload("data-v-218170ea", Component.options)
   }
 })()}
 
@@ -15160,13 +15165,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(36),
   /* template */
-  __webpack_require__(140),
+  __webpack_require__(145),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/custom_component_type_create-form.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\custom_component_type_create-form.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] custom_component_type_create-form.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15177,9 +15182,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6de40146", Component.options)
+    hotAPI.createRecord("data-v-92e5b986", Component.options)
   } else {
-    hotAPI.reload("data-v-6de40146", Component.options)
+    hotAPI.reload("data-v-92e5b986", Component.options)
   }
 })()}
 
@@ -15194,13 +15199,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(37),
   /* template */
-  __webpack_require__(151),
+  __webpack_require__(130),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/custom_components-list-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\custom_components-list-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] custom_components-list-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15211,9 +15216,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c0ecd820", Component.options)
+    hotAPI.createRecord("data-v-5a084967", Component.options)
   } else {
-    hotAPI.reload("data-v-c0ecd820", Component.options)
+    hotAPI.reload("data-v-5a084967", Component.options)
   }
 })()}
 
@@ -15228,13 +15233,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(38),
   /* template */
-  __webpack_require__(119),
+  __webpack_require__(112),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/custom_components-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\custom_components-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] custom_components-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15245,9 +15250,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-29116192", Component.options)
+    hotAPI.createRecord("data-v-0a066940", Component.options)
   } else {
-    hotAPI.reload("data-v-29116192", Component.options)
+    hotAPI.reload("data-v-0a066940", Component.options)
   }
 })()}
 
@@ -15262,13 +15267,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(39),
   /* template */
-  __webpack_require__(128),
+  __webpack_require__(154),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/dashboard-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\dashboard-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] dashboard-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15279,9 +15284,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-3fb66d47", Component.options)
+    hotAPI.createRecord("data-v-fc69bb20", Component.options)
   } else {
-    hotAPI.reload("data-v-3fb66d47", Component.options)
+    hotAPI.reload("data-v-fc69bb20", Component.options)
   }
 })()}
 
@@ -15296,13 +15301,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(40),
   /* template */
-  __webpack_require__(130),
+  __webpack_require__(136),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/dygraph-graph.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\dygraph-graph.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] dygraph-graph.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15313,9 +15318,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-4412fcc0", Component.options)
+    hotAPI.createRecord("data-v-6e35f5d2", Component.options)
   } else {
-    hotAPI.reload("data-v-4412fcc0", Component.options)
+    hotAPI.reload("data-v-6e35f5d2", Component.options)
   }
 })()}
 
@@ -15336,7 +15341,7 @@ var Component = __webpack_require__(0)(
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/files-list-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\files-list-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] files-list-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15347,9 +15352,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-a27b1e7a", Component.options)
+    hotAPI.createRecord("data-v-a1773e8c", Component.options)
   } else {
-    hotAPI.reload("data-v-a27b1e7a", Component.options)
+    hotAPI.reload("data-v-a1773e8c", Component.options)
   }
 })()}
 
@@ -15364,13 +15369,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(42),
   /* template */
-  __webpack_require__(152),
+  __webpack_require__(148),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/files-show-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\files-show-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] files-show-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15381,9 +15386,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c22535f8", Component.options)
+    hotAPI.createRecord("data-v-c121560a", Component.options)
   } else {
-    hotAPI.reload("data-v-c22535f8", Component.options)
+    hotAPI.reload("data-v-c121560a", Component.options)
   }
 })()}
 
@@ -15398,13 +15403,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(43),
   /* template */
-  __webpack_require__(126),
+  __webpack_require__(113),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/google-graph.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\google-graph.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] google-graph.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15415,9 +15420,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-362b88e4", Component.options)
+    hotAPI.createRecord("data-v-0c333a8d", Component.options)
   } else {
-    hotAPI.reload("data-v-362b88e4", Component.options)
+    hotAPI.reload("data-v-0c333a8d", Component.options)
   }
 })()}
 
@@ -15432,13 +15437,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(47),
   /* template */
-  __webpack_require__(137),
+  __webpack_require__(125),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/logical_sensor-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\logical_sensor-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] logical_sensor-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15449,9 +15454,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-659df472", Component.options)
+    hotAPI.createRecord("data-v-4a87bb84", Component.options)
   } else {
-    hotAPI.reload("data-v-659df472", Component.options)
+    hotAPI.reload("data-v-4a87bb84", Component.options)
   }
 })()}
 
@@ -15466,13 +15471,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(48),
   /* template */
-  __webpack_require__(150),
+  __webpack_require__(120),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/logical_sensor_thresholds-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\logical_sensor_thresholds-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] logical_sensor_thresholds-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15483,9 +15488,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-c09238b8", Component.options)
+    hotAPI.createRecord("data-v-3ef626cd", Component.options)
   } else {
-    hotAPI.reload("data-v-c09238b8", Component.options)
+    hotAPI.reload("data-v-3ef626cd", Component.options)
   }
 })()}
 
@@ -15500,13 +15505,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(49),
   /* template */
-  __webpack_require__(110),
+  __webpack_require__(122),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/logical_sensors-list-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\logical_sensors-list-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] logical_sensors-list-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15517,9 +15522,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-02036a8f", Component.options)
+    hotAPI.createRecord("data-v-40cf11c6", Component.options)
   } else {
-    hotAPI.reload("data-v-02036a8f", Component.options)
+    hotAPI.reload("data-v-40cf11c6", Component.options)
   }
 })()}
 
@@ -15534,13 +15539,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(50),
   /* template */
-  __webpack_require__(142),
+  __webpack_require__(153),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/logs-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\logs-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] logs-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15551,9 +15556,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-70263630", Component.options)
+    hotAPI.createRecord("data-v-e6784bc2", Component.options)
   } else {
-    hotAPI.reload("data-v-70263630", Component.options)
+    hotAPI.reload("data-v-e6784bc2", Component.options)
   }
 })()}
 
@@ -15568,13 +15573,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(53),
   /* template */
-  __webpack_require__(115),
+  __webpack_require__(140),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/physical_sensor-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\physical_sensor-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] physical_sensor-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15585,9 +15590,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1fe8dd79", Component.options)
+    hotAPI.createRecord("data-v-787d603c", Component.options)
   } else {
-    hotAPI.reload("data-v-1fe8dd79", Component.options)
+    hotAPI.reload("data-v-787d603c", Component.options)
   }
 })()}
 
@@ -15602,13 +15607,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(54),
   /* template */
-  __webpack_require__(133),
+  __webpack_require__(117),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/physical_sensors-list-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\physical_sensors-list-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] physical_sensors-list-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15619,9 +15624,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-535334c1", Component.options)
+    hotAPI.createRecord("data-v-2407172c", Component.options)
   } else {
-    hotAPI.reload("data-v-535334c1", Component.options)
+    hotAPI.reload("data-v-2407172c", Component.options)
   }
 })()}
 
@@ -15636,13 +15641,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(55),
   /* template */
-  __webpack_require__(112),
+  __webpack_require__(142),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/pump-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\pump-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] pump-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15653,9 +15658,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-0aeb02e2", Component.options)
+    hotAPI.createRecord("data-v-813d1874", Component.options)
   } else {
-    hotAPI.reload("data-v-0aeb02e2", Component.options)
+    hotAPI.reload("data-v-813d1874", Component.options)
   }
 })()}
 
@@ -15670,13 +15675,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(56),
   /* template */
-  __webpack_require__(131),
+  __webpack_require__(124),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/pumps-list-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\pumps-list-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] pumps-list-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15687,9 +15692,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-48412d57", Component.options)
+    hotAPI.createRecord("data-v-48c31d4e", Component.options)
   } else {
-    hotAPI.reload("data-v-48412d57", Component.options)
+    hotAPI.reload("data-v-48c31d4e", Component.options)
   }
 })()}
 
@@ -15704,13 +15709,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(57),
   /* template */
-  __webpack_require__(154),
+  __webpack_require__(133),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/system-indicator.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\system-indicator.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] system-indicator.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15721,9 +15726,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-e62408ca", Component.options)
+    hotAPI.createRecord("data-v-61fa9e78", Component.options)
   } else {
-    hotAPI.reload("data-v-e62408ca", Component.options)
+    hotAPI.reload("data-v-61fa9e78", Component.options)
   }
 })()}
 
@@ -15738,13 +15743,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(58),
   /* template */
-  __webpack_require__(138),
+  __webpack_require__(128),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/terraria-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\terraria-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] terraria-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15755,9 +15760,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-692a01bd", Component.options)
+    hotAPI.createRecord("data-v-52858374", Component.options)
   } else {
-    hotAPI.reload("data-v-692a01bd", Component.options)
+    hotAPI.reload("data-v-52858374", Component.options)
   }
 })()}
 
@@ -15772,13 +15777,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(59),
   /* template */
-  __webpack_require__(134),
+  __webpack_require__(129),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/users-list-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\users-list-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] users-list-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15789,9 +15794,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-5869fb58", Component.options)
+    hotAPI.createRecord("data-v-57661b6a", Component.options)
   } else {
-    hotAPI.reload("data-v-5869fb58", Component.options)
+    hotAPI.reload("data-v-57661b6a", Component.options)
   }
 })()}
 
@@ -15806,13 +15811,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(60),
   /* template */
-  __webpack_require__(132),
+  __webpack_require__(118),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/valve-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\valve-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] valve-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15823,9 +15828,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-52a569cb", Component.options)
+    hotAPI.createRecord("data-v-28ad1b74", Component.options)
   } else {
-    hotAPI.reload("data-v-52a569cb", Component.options)
+    hotAPI.reload("data-v-28ad1b74", Component.options)
   }
 })()}
 
@@ -15840,13 +15845,13 @@ var Component = __webpack_require__(0)(
   /* script */
   __webpack_require__(61),
   /* template */
-  __webpack_require__(136),
+  __webpack_require__(137),
   /* scopeId */
   null,
   /* cssModules */
   null
 )
-Component.options.__file = "/home/matthias/PhpstormProjects/ciliatus/resources/assets/js/vue/valves-list-widget.vue"
+Component.options.__file = "D:\\laragon\\www\\dev-01.ciliatus.io\\resources\\assets\\js\\vue\\valves-list-widget.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] valves-list-widget.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -15857,9 +15862,9 @@ if (false) {(function () {
   if (!hotAPI.compatible) return
   module.hot.accept()
   if (!module.hot.data) {
-    hotAPI.createRecord("data-v-6335bb93", Component.options)
+    hotAPI.createRecord("data-v-72f1ca7c", Component.options)
   } else {
-    hotAPI.reload("data-v-6335bb93", Component.options)
+    hotAPI.reload("data-v-72f1ca7c", Component.options)
   }
 })()}
 
@@ -15871,126 +15876,99 @@ module.exports = Component.exports
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight collapsible",
-    attrs: {
-      "data-collapsible": "expandable"
-    }
-  }, [_c('table-filter', {
-    ref: "table_filter",
-    attrs: {
-      "cols": 5,
-      "hide-cols": _vm.hideCols,
-      "filter-fields": [{
-          name: 'name',
-          path: 'name',
-          col: 0
-        },
-        {
-          name: 'physical_sensor',
-          noSort: true,
-          path: 'physical_sensor.name',
-          col: 1
-        },
-        {
-          name: 'terrarium',
-          noSort: true,
-          path: 'terrarium.name',
-          col: 2,
-          class: 'hide-on-med-and-down'
-        },
-        {
-          name: 'type',
-          path: 'type',
-          col: 3,
-          class: 'hide-on-small-only'
-        },
-        {
-          name: 'rawvalue',
-          path: 'rawvalue',
-          col: 4,
-          class: 'hide-on-small-only'
-        },
-        {
-          noSort: true,
-          noFilter: true,
-          col: 5,
-          class: 'hide-on-small-only'
-        }
-      ]
-    }
-  }), _vm._v(" "), _vm._l((_vm.logical_sensors), function(logical_sensor) {
-    return [_c('tbody', [_c('tr', {
-      staticClass: "collapsible-tr-header",
+  return _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-playlist-play"
+  }), _vm._v("\n        " + _vm._s(_vm.action_sequences.length) + " " + _vm._s(_vm.$tc("labels.action_sequences", 2)) + "\n    ")]), _vm._v(" "), _vm._l((_vm.action_sequences), function(as) {
+    return _c('div', [_c('div', {
+      staticClass: "card-content"
+    }, [_c('div', {
+      staticClass: "card-sub-header"
+    }, [_c('a', {
       attrs: {
-        "onclick": "window.collapseTr($(this))"
+        "href": '/action_sequences/' + as.id + '/edit'
       }
-    }, [_c('td', [_c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-pulse"
-    }), _vm._v(" "), _c('a', {
+    }, [_c('strong', [_vm._v(_vm._s(as.name))])]), _vm._v(" "), _c('a', {
+      staticClass: "right",
       attrs: {
-        "href": '/logical_sensors/' + logical_sensor.data.id
-      }
-    }, [_vm._v(_vm._s(logical_sensor.data.name))])])]), _vm._v(" "), (_vm.hideCols.indexOf('physical_sensor') === -1) ? _c('td', [(_vm.ps = _vm.physical_sensor(logical_sensor)) ? _c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-switch"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/physical_sensors/' + _vm.ps.data.id
-      }
-    }, [_vm._v("\n                                    " + _vm._s(_vm.ps.data.name) + "\n                                ")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.hideCols.indexOf('terrarium') === -1) ? _c('td', {
-      staticClass: "hide-on-med-and-down"
-    }, [(_vm.t = _vm.terrarium(logical_sensor)) ? _c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-trackpad"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/terraria/' + _vm.t.data.id
-      }
-    }, [_vm._v(_vm._s(_vm.t.data.display_name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_vm._v("\n                            " + _vm._s(logical_sensor.data.type) + "\n                        ")]), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_c('span', [_vm._v(_vm._s(Math.round(logical_sensor.data.rawvalue, 2)))]), _vm._v(" "), (logical_sensor.data.rawvalue_adjustment !== 0) ? _c('span', [(logical_sensor.data.rawvalue_adjustment > 0) ? _c('span', [_c('span', {
-      staticClass: "green-text darken-2"
-    }, [_vm._v("(+" + _vm._s(logical_sensor.data.rawvalue_adjustment) + ")")])]) : _c('span', [_c('span', {
-      staticClass: "red darken-2"
-    }, [_vm._v("(" + _vm._s(logical_sensor.data.rawvalue_adjustment) + ")")])])]) : _vm._e()]), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/logical_sensors/' + logical_sensor.data.id + '/edit'
+        "href": '/action_sequences/' + as.id + '/edit'
       }
     }, [_c('i', {
-      staticClass: "mdi mdi-24px mdi-pencil"
-    })])])])]), _vm._v(" "), _c('tr', {
-      staticClass: "collapsible-tr-body"
-    }, [_c('td', [_vm._v("\n                            " + _vm._s(_vm.$t('labels.rawlimitlo')) + ": " + _vm._s(logical_sensor.data.rawvalue_lowerlimit)), _c('br'), _vm._v("\n                            " + _vm._s(_vm.$t('labels.rawlimithi')) + ": " + _vm._s(logical_sensor.data.rawvalue_upperlimit) + "\n                        ")]), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [(_vm.c = _vm.controlunit(logical_sensor)) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$tc('labels.controlunits', 1)) + ":\n                                "), _c('i', {
-      staticClass: "mdi mdi-24px mdi-developer-board"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/controlunits/' + _vm.c.data.id
-      }
-    }, [_vm._v(_vm._s(_vm.c.data.name))])]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.model')) + ": " + _vm._s(_vm.physical_sensor(logical_sensor).data.model))])]), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-med-and-down"
-    }, [(_vm.t = _vm.terrarium(logical_sensor)) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$tc('labels.terraria', 1)) + " " + _vm._s(_vm.$t('labels.temperature_celsius')) + ":\n                                " + _vm._s(_vm.t.data.cooked_temperature_celsius) + "°C"), _c('br'), _vm._v("\n\n                                " + _vm._s(_vm.$tc('labels.terraria', 1)) + " " + _vm._s(_vm.$t('labels.humidity_percent')) + ":\n                                " + _vm._s(_vm.t.data.cooked_humidity_percent) + "%\n                            ")]) : _vm._e()]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }), _vm._v(" "), _c('td')])])]
-  })], 2), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
+      staticClass: "mdi mdi-18px mdi-pencil"
+    })])]), _vm._v(" "), _vm._l((as.intentions), function(asi) {
+      return _c('div', {
+        staticClass: "row row-no-margin"
+      }, [_c('i', {
+        staticClass: "mdi mdi-18px mdi-compass"
+      }), _vm._v(" "), (asi.intention === 'increase') ? _c('span', [_vm._v(_vm._s(_vm.$t('labels.increases')))]) : _vm._e(), _vm._v(" "), (asi.intention === 'decrease') ? _c('span', [_vm._v(_vm._s(_vm.$t('labels.decreases')))]) : _vm._e(), _vm._v("\n\n                " + _vm._s(_vm.$t('labels.' + asi.type)) + "\n\n                "), _c('span', {
+        directives: [{
+          name: "show",
+          rawName: "v-show",
+          value: (asi.states.running),
+          expression: "asi.states.running"
+        }]
+      }, [_c('span', {
+        staticClass: "new badge",
+        attrs: {
+          "data-badge-caption": _vm.$t('labels.active')
+        }
+      })])])
+    }), _vm._v(" "), _vm._l((as.triggers), function(ast) {
+      return _c('div', [_c('i', {
+        staticClass: "mdi mdi-18px mdi-vanish"
+      }), _vm._v(" " + _vm._s(ast.logical_sensor.name) + " " + _vm._s(_vm.$t('units.' + ast.reference_value_comparison_type)) + " " + _vm._s(ast.reference_value) + "\n                "), _c('span', {
+        directives: [{
+          name: "show",
+          rawName: "v-show",
+          value: (ast.states.running),
+          expression: "ast.states.running"
+        }]
+      }, [_c('span', {
+        staticClass: "new badge",
+        attrs: {
+          "data-badge-caption": _vm.$t('labels.active')
+        }
+      })])])
+    }), _vm._v(" "), _vm._l((as.schedules), function(ass) {
+      return _c('div', [_c('i', {
+        staticClass: "mdi mdi-18px mdi-clock"
+      }), _vm._v(" " + _vm._s(ass.timestamps.starts) + " "), _c('i', {
+        directives: [{
+          name: "show",
+          rawName: "v-show",
+          value: (!ass.runonce),
+          expression: "!ass.runonce"
+        }]
+      }, [_vm._v(_vm._s(_vm.$t("labels.daily")))]), _vm._v(" "), _c('span', {
+        directives: [{
+          name: "show",
+          rawName: "v-show",
+          value: (ass.states.running),
+          expression: "ass.states.running"
+        }]
+      }, [_c('span', {
+        staticClass: "new badge",
+        attrs: {
+          "data-badge-caption": _vm.$t('labels.active')
+        }
+      })])])
+    })], 2), _vm._v(" "), (_vm.action_sequences.length < 1) ? _c('div', [_vm._v("\n            " + _vm._s(_vm.$t('tooltips.no_data')) + "\n        ")]) : _vm._e()])
+  }), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('a', {
     attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
+      "href": '/action_sequences/create?preset[terrarium]=' + _vm.terrariumId
     }
-  })], 1)])
+  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])], 2)
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-02036a8f", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-02aa2605", module.exports)
   }
 }
 
@@ -16047,7 +16025,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-04df9d12", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-05618d09", module.exports)
   }
 }
 
@@ -16058,25 +16036,27 @@ if (false) {
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     class: _vm.wrapperClasses
-  }, [(_vm.pump.data) ? _c('div', {
+  }, [(_vm.custom_component.data) ? _c('div', {
     staticClass: "card"
   }, [_c('div', {
     staticClass: "card-header"
   }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-water-pump"
-  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.pumps", 1)) + "\n        ")]), _vm._v(" "), _c('div', {
+    class: 'mdi mdi-18px mdi-' + _vm.custom_component.data.type.icon
+  }), _vm._v("\n            " + _vm._s(_vm.custom_component.data.type.name_singular) + "\n        ")]), _vm._v(" "), _c('div', {
     staticClass: "card-content"
   }, [_c('span', {
-    staticClass: "card-title activator"
-  }, [_vm._v("\n                " + _vm._s(_vm.pump.data.name) + "\n            ")]), _vm._v(" "), _c('div', [_vm._v("\n                " + _vm._s(_vm.$t('labels.model')) + ": " + _vm._s(_vm.pump.data.model) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-title"
+  }, [_vm._v("\n                " + _vm._s(_vm.custom_component.data.name) + "\n            ")]), _vm._v(" "), _vm._l((_vm.custom_component.data.properties), function(property, index) {
+    return _c('div', [_vm._v("\n                " + _vm._s(property.name) + ": " + _vm._s(property.value)), _c('br')])
+  })], 2), _vm._v(" "), _c('div', {
     staticClass: "card-action"
   }, [_c('a', {
     attrs: {
-      "href": '/pumps/' + _vm.pump.data.id
+      "href": '/custom_components/' + _vm.custom_component.data.id
     }
   }, [_vm._v(_vm._s(_vm.$t("buttons.details")))]), _vm._v(" "), _c('a', {
     attrs: {
-      "href": '/pumps/' + _vm.pump.data.id + '/edit'
+      "href": '/custom_components/' + _vm.custom_component.data.id + '/edit'
     }
   }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]) : _c('div', [_c('loading-card-widget')], 1)])
 },staticRenderFns: []}
@@ -16084,7 +16064,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-0aeb02e2", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-0a066940", module.exports)
   }
 }
 
@@ -16093,101 +16073,91 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('div', {
-    staticClass: "modal",
+  return _c('div', [(_vm.ShowFilterForm === true) ? _c('div', [_c('div', {
+    staticClass: "row",
     staticStyle: {
-      "min-height": "800px"
-    },
-    attrs: {
-      "id": 'modal_add_feeding_' + _vm.animalId
-    }
-  }, [_c('form', {
-    attrs: {
-      "action": '/api/v1/animals/' + _vm.animalId + '/feedings',
-      "data-method": "POST",
-      "onsubmit": "window.submit_form"
+      "margin-bottom": "0"
     }
   }, [_c('div', {
-    staticClass: "modal-content"
-  }, [_c('h4', [_vm._v(_vm._s(_vm.$t("labels.just_fed")))]), _vm._v(" "), _c('select', {
-    attrs: {
-      "name": "meal_type",
-      "id": "meal_type"
-    }
-  }, _vm._l((_vm.feeding_types), function(ft) {
-    return _c('option', {
-      domProps: {
-        "value": ft
-      }
-    }, [_vm._v(_vm._s(ft))])
-  })), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "meal_type"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("labels.meal_type")))]), _vm._v(" "), _c('input', {
+    staticClass: "input-field col s12 m4 l4"
+  }, [_c('input', {
     staticClass: "datepicker",
     attrs: {
-      "type": "date",
-      "placeholder": _vm.$t('labels.date'),
-      "name": "created_at"
+      "type": "text",
+      "placeholder": _vm.$t('labels.from'),
+      "name": "filter_from",
+      "id": 'filter_from_' + _vm.id,
+      "data-default": _vm.FilterFromDate
+    },
+    domProps: {
+      "value": _vm.FilterFromDate
     }
-  }), _vm._v(" "), _c('label', [_vm._v(_vm._s(_vm.$t('labels.date')))])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": 'filter_from_' + _vm.id
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.from')))])]), _vm._v(" "), _c('div', {
+    staticClass: "input-field col s12 m4 l4"
+  }, [_c('input', {
+    staticClass: "datepicker",
+    attrs: {
+      "type": "text",
+      "placeholder": _vm.$t('labels.to'),
+      "name": "filter_to",
+      "id": 'filter_to_' + _vm.id,
+      "data-default": _vm.FilterToDate
+    },
+    domProps: {
+      "value": _vm.FilterToDate
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": 'filter_to_' + _vm.id
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.to')))])]), _vm._v(" "), _c('div', {
+    staticClass: "input-field col s12 m4 l4"
   }, [_c('button', {
-    staticClass: "btn modal-action modal-close waves-effect waves-light",
-    attrs: {
-      "type": "submit"
+    staticClass: "btn waves-effect waves-light",
+    on: {
+      "click": _vm.build
     }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.save")) + "\n                        "), _c('i', {
-    staticClass: "mdi mdi-18px mdi-floppy left"
-  })])])])]), _vm._v(" "), _c('div', {
-    staticClass: "card"
+  }, [_vm._v(_vm._s(_vm.$t('buttons.loadgraph')))])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "center",
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "id": 'google_chart_' + _vm.id + '_loading'
+    }
+  }, [_vm._m(0)]), _vm._v(" "), _c('div', {
+    attrs: {
+      "id": 'google_chart_' + _vm.id
+    }
+  })])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "preloader-wrapper small active"
   }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-silverware-variant"
-  }), _vm._v("\n                " + _vm._s(_vm.$tc("labels.animal_feedings", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
-  }, [_vm._l((_vm.feedings), function(feeding) {
-    return _c('div', [_c('div', {
-      staticClass: "row row-no-margin"
-    }, [(feeding.data.timestamps.created_diff.days > 1) ? _c('span', [_vm._v(_vm._s(_vm.$t('units.days_ago', {
-      val: feeding.data.timestamps.created_diff.days
-    })))]) : _vm._e(), _vm._v(" "), (feeding.data.timestamps.created_diff.days <= 1 && feeding.data.timestamps.created_diff.hours > 1) ? _c('span', [_vm._v(_vm._s(_vm.$t('units.hours_ago', {
-      val: feeding.data.timestamps.created_diff.hours
-    })))]) : _vm._e(), _vm._v(" "), (feeding.data.timestamps.created_diff.days <= 1 && feeding.data.timestamps.created_diff.hours <= 1) ? _c('span', [_vm._v(_vm._s(_vm.$t('units.just_now')))]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(" - " + _vm._s(feeding.data.type))]), _vm._v(" "), _c('span', {
-      staticClass: "right"
-    }, [_c('a', {
-      staticClass: "red-text",
-      attrs: {
-        "href": '/animals/' + _vm.animalId + '/feedings/' + feeding.data.id + '/delete'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-18px mdi-delete"
-    })])])])])
-  }), _vm._v(" "), (_vm.feedings.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e(), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false,
-      "mini": true
-    }
-  })], 2), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('a', {
-    attrs: {
-      "href": '#modal_add_feeding_' + _vm.animalId,
-      "onclick": '$(\'#modal_add_feeding_' + _vm.animalId + '\').modal(); $(\'#modal_add_feeding_' + _vm.animalId + ' select\').formSelect(); $(\'#modal_add_feeding_' + _vm.animalId + '\').modal(\'open\');'
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])])])])
-},staticRenderFns: []}
+    staticClass: "spinner-layer spinner-green-only"
+  }, [_c('div', {
+    staticClass: "circle-clipper left"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "gap-patch"
+  }, [_c('div', {
+    staticClass: "circle"
+  })]), _c('div', {
+    staticClass: "circle-clipper right"
+  }, [_c('div', {
+    staticClass: "circle"
+  })])])])
+}]}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-14f0556e", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-0c333a8d", module.exports)
   }
 }
 
@@ -16400,684 +16370,12 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-17cf917d", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-18518174", module.exports)
   }
 }
 
 /***/ }),
 /* 115 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    class: _vm.wrapperClasses
-  }, [(_vm.physical_sensor.data) ? _c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-switch"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("labels.physical_sensor")) + "\n        ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
-  }, [_c('span', {
-    staticClass: "card-title"
-  }, [_vm._v("\n                " + _vm._s(_vm.physical_sensor.data.name) + "\n            ")]), _vm._v(" "), _vm._l((_vm.logical_sensors), function(logical_sensor) {
-    return _c('div', [(logical_sensor.data) ? [_c('a', {
-      attrs: {
-        "href": '/logical_sensors/' + logical_sensor.data.id
-      }
-    }, [_vm._v(_vm._s(logical_sensor.data.name))]), _vm._v(" "), _c('i', [_vm._v(_vm._s(_vm.$t("labels." + logical_sensor.data.type)))])] : _vm._e()], 2)
-  })], 2), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('a', {
-    attrs: {
-      "href": '/physical_sensors/' + _vm.physical_sensor.data.id
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))]), _vm._v(" "), _c('a', {
-    attrs: {
-      "href": '/physical_sensors/' + _vm.physical_sensor.data.id + '/edit'
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]) : _c('div', [_c('loading-card-widget')], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-1fe8dd79", module.exports)
-  }
-}
-
-/***/ }),
-/* 116 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('pagination', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.animalId === null),
-      expression: "animalId === null"
-    }],
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "show-filters": _vm.showFilters,
-      "filter-fields": [{
-          name: 'display_name',
-          path: 'display_name'
-        },
-        {
-          name: 'common_name',
-          path: 'common_name'
-        },
-        {
-          name: 'latin_name',
-          path: 'latin_name'
-        }
-      ]
-    }
-  }), _vm._v(" "), _c('div', {
-    class: _vm.containerClasses,
-    attrs: {
-      "id": _vm.containerId
-    }
-  }, _vm._l((_vm.animals), function(animal) {
-    return _c('div', {
-      class: _vm.wrapperClasses
-    }, [(animal.data) ? [_c('animal-add-feeding-modal', {
-      attrs: {
-        "animalId": animal.data.id,
-        "feedingTypes": _vm.feeding_types,
-        "containerId": 'modal_add_weight_' + animal.data.id
-      }
-    }), _vm._v(" "), _c('animal-add-weight-modal', {
-      attrs: {
-        "animalId": animal.data.id,
-        "containerId": 'modal_add_weight_' + animal.data.id
-      }
-    })] : _vm._e(), _vm._v(" "), (animal.data) ? _c('div', {
-      staticClass: "card"
-    }, [_c('div', {
-      staticClass: "card-image terrarium-card-image",
-      style: (animal.data.default_background_filepath ? 'background-image: url(\'' + animal.data.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;')
-    }, [_c('div', {
-      staticClass: "card-title"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/animals/' + animal.data.id
-      }
-    }, [_vm._v(_vm._s(animal.data.display_name))])]), _vm._v(" "), _c('loading-indicator', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (animal.data.loading_data),
-        expression: "animal.data.loading_data"
-      }],
-      attrs: {
-        "size": 20
-      }
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": "#!"
-      }
-    }, [(!animal.data.death_date) ? _c('i', {
-      staticClass: "mdi mdi-24px mdi-dots-vertical right activator white-text"
-    }) : _vm._e()])], 1)]), _vm._v(" "), _c('div', {
-      staticClass: "card-content"
-    }, [_c('div', [_c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (animal.data.latin_name),
-        expression: "animal.data.latin_name"
-      }]
-    }, [_vm._v(_vm._s(animal.data.latin_name) + ",")]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (animal.data.common_name && !animal.data.latin_name),
-        expression: "animal.data.common_name && !animal.data.latin_name"
-      }]
-    }, [_vm._v(_vm._s(animal.data.common_name) + ",")]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (animal.data.birth_date || animal.data.death_date),
-        expression: "animal.data.birth_date || animal.data.death_date"
-      }]
-    }, [_vm._v(_vm._s(animal.data.age_value) + " " + _vm._s(_vm.$tc("units." + animal.data.age_unit, animal.data.age_value)))]), _vm._v(" "), (animal.data.gender === 'female') ? _c('i', {
-      staticClass: "mdi mdi-gender-female"
-    }) : _vm._e(), _vm._v(" "), (animal.data.gender === 'male') ? _c('i', {
-      staticClass: "mdi mdi-gender-male"
-    }) : _vm._e(), _vm._v(" "), (animal.data.last_feeding && !animal.data.death_date) ? _c('span', [_c('br'), _vm._v(" "), _c('i', {
-      staticClass: "mdi mdi-silverware-variant"
-    }), _vm._v("\n                            " + _vm._s(_vm.$t(
-      'units.' + _vm.$getMatchingTimeDiff(animal.data.last_feeding.timestamps.created_diff).unit, {
-        val: _vm.$getMatchingTimeDiff(animal.data.last_feeding.timestamps.created_diff).val
-      }
-    )) + "\n                            " + _vm._s(animal.data.last_feeding.name) + "\n                        ")]) : _vm._e(), _vm._v(" "), (animal.data.last_weighing && !animal.data.death_date) ? _c('span', [_c('br'), _vm._v(" "), _c('i', {
-      staticClass: "mdi mdi-download"
-    }), _vm._v("\n                            " + _vm._s(_vm.$t(
-      'units.' + _vm.$getMatchingTimeDiff(animal.data.last_weighing.timestamps.created_diff).unit, {
-        val: _vm.$getMatchingTimeDiff(animal.data.last_weighing.timestamps.created_diff).val
-      }
-    )) + "\n                            " + _vm._s(animal.data.last_weighing.value) + _vm._s(animal.data.last_weighing.name) + "\n                            "), (animal.data.last_weighing.trend && animal.data.last_weighing.trend > 0) ? _c('span', {
-      staticClass: "green-text tooltipped",
-      attrs: {
-        "data-delay": "50",
-        "data-html": "true",
-        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.animal_weighing.trend') + '</div>'
-      }
-    }, [_vm._v("\n                                (+ " + _vm._s(animal.data.last_weighing.trend) + "%)\n                            ")]) : _vm._e(), _vm._v(" "), (animal.data.last_weighing.trend && animal.data.last_weighing.trend < 0) ? _c('span', {
-      staticClass: "red-text tooltipped",
-      attrs: {
-        "data-delay": "50",
-        "data-html": "true",
-        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.animal_weighing.trend') + '</div>'
-      }
-    }, [_vm._v("\n                                (" + _vm._s(animal.data.last_weighing.trend) + "%)\n                            ")]) : _vm._e(), _vm._v(" "), (animal.data.last_weighing.trend && animal.data.last_weighing.trend == 0) ? _c('span', {
-      staticClass: "tooltipped",
-      attrs: {
-        "data-delay": "50",
-        "data-html": "true",
-        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.animal_weighing.trend') + '</div>'
-      }
-    }, [_vm._v("\n                                (+/- 0%)\n                            ")]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), (!animal.data.death_date) ? _c('div', {
-      staticClass: "card-reveal"
-    }, [_c('div', [_c('strong', [_vm._v(_vm._s(animal.data.display_name))]), _vm._v(" "), _c('i', {
-      staticClass: "mdi mdi-24px mdi-close right card-title card-title-small"
-    })]), _vm._v(" "), (_vm.terrarium = _vm.terraria.filter(function (t) { return t.id === animal.data.terrarium_id; })[0]) ? _c('p', [(_vm.terrarium.data) ? [_c('i', {
-      staticClass: "mdi mdi-18px mdi-trackpad"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/terraria/' + _vm.terrarium.data.id
-      }
-    }, [_vm._v(_vm._s(_vm.terrarium.data.display_name))])] : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('p', [_c('i', {
-      staticClass: "mdi mdi-18px mdi-silverware-variant"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": "#!",
-        "href": '#modal_just_fed_' + animal.data.id,
-        "onclick": '$(\'#modal_just_fed_' + animal.data.id + '\').modal(); $(\'#modal_just_fed_' + animal.data.id + ' select\').formSelect(); $(\'#modal_just_fed_' + animal.data.id + '\').modal(\'open\');'
-      }
-    }, [_vm._v(_vm._s(_vm.$t("labels.just_fed")))])]), _vm._v(" "), _c('p', [_c('i', {
-      staticClass: "mdi mdi-18px mdi-weight-kilogram"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": "#!",
-        "href": '#modal_add_weight_' + animal.data.id,
-        "onclick": '$(\'#modal_add_weight_' + animal.data.id + '\').modal(); $(\'#modal_add_weight_' + animal.data.id + ' select\').formSelect(); $(\'#modal_add_weight_' + animal.data.id + '\').modal(\'open\');'
-      }
-    }, [_vm._v(_vm._s(_vm.$t("labels.add_weight")))])])]) : _vm._e()]) : _c('div', [_c('loading-card-widget')], 1)], 2)
-  }))], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-209df684", module.exports)
-  }
-}
-
-/***/ }),
-/* 117 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight collapsible",
-    attrs: {
-      "data-collapsible": "expandable"
-    }
-  }, [_c('table-filter', {
-    ref: "table_filter",
-    attrs: {
-      "cols": 3,
-      "hide-cols": _vm.hideCols,
-      "filter-fields": [{
-          name: 'name',
-          path: 'name',
-          col: 0
-        },
-        {
-          name: 'controlunit',
-          path: 'controlunit.name',
-          col: 1,
-          class: 'hide-on-small-only'
-        },
-        {
-          noSort: true,
-          noFilter: true,
-          col: 2,
-          class: 'hide-on-small-only'
-        }
-      ]
-    }
-  }), _vm._v(" "), _vm._l((_vm.component_types), function(type) {
-    return [((_vm.component_list = _vm._self[type]).length > 0) ? [_vm._l((_vm.component_list), function(component) {
-      return [(component.data) ? _c('tbody', [_c('tr', {
-        staticClass: "collapsible-tr-header",
-        attrs: {
-          "onclick": "window.collapseTr($(this))"
-        }
-      }, [_c('td', [_c('span', [_c('i', {
-        class: 'mdi mdi-18px mdi-' + component.data.icon
-      }), _vm._v(" "), _c('a', {
-        attrs: {
-          "href": component.data.url
-        }
-      }, [_vm._v(_vm._s(component.data.name))])])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
-        staticClass: "hide-on-small-only"
-      }, [(component.data.controlunit) ? _c('span', [_c('i', {
-        staticClass: "mdi mdi-24px mdi-developer-board"
-      }), _vm._v(" "), _c('a', {
-        attrs: {
-          "href": '/controlunits/' + component.data.controlunit.id
-        }
-      }, [_vm._v(_vm._s(component.data.controlunit.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
-        staticClass: "hide-on-small-only"
-      }, [_c('span', [_c('a', {
-        attrs: {
-          "href": component.data.url + '/edit'
-        }
-      }, [_c('i', {
-        staticClass: "mdi mdi-24px mdi-pencil"
-      })])])])]), _vm._v(" "), _vm._m(0, true)]) : _vm._e()]
-    })] : _vm._e()]
-  })], 2), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
-    }
-  })], 1)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', {
-    staticClass: "collapsible-tr-body"
-  }, [_c('td', {
-    attrs: {
-      "colspan": "3"
-    }
-  })])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-258e0274", module.exports)
-  }
-}
-
-/***/ }),
-/* 118 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('div', {
-    staticClass: "modal",
-    staticStyle: {
-      "min-height": "800px"
-    },
-    attrs: {
-      "id": 'modal_add_weighing_' + _vm.animalId
-    }
-  }, [_c('form', {
-    attrs: {
-      "action": '/api/v1/animals/' + _vm.animalId + '/weighings',
-      "data-method": "POST",
-      "onsubmit": "window.submit_form"
-    }
-  }, [_c('div', {
-    staticClass: "modal-content"
-  }, [_c('h4', [_vm._v(_vm._s(_vm.$t("labels.add_weight")))]), _vm._v(" "), _c('p', [_c('input', {
-    attrs: {
-      "type": "text",
-      "name": "weight",
-      "id": "weight",
-      "placeholder": _vm.$t('labels.weight'),
-      "value": ""
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "weight"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("labels.weight")) + "/g")]), _vm._v(" "), _c('input', {
-    staticClass: "datepicker",
-    attrs: {
-      "type": "date",
-      "placeholder": _vm.$t('labels.date'),
-      "name": "created_at"
-    }
-  }), _vm._v(" "), _c('label', [_vm._v(_vm._s(_vm.$t('labels.date')))])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn modal-action modal-close waves-effect waves-light",
-    attrs: {
-      "type": "submit"
-    }
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t("buttons.save")) + "\n                        "), _c('i', {
-    staticClass: "mdi mdi-18px mdi-floppy left"
-  })])])])]), _vm._v(" "), _c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-weight-kilogram"
-  }), _vm._v("\n                " + _vm._s(_vm.$tc("labels.animal_weighings", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
-  }, [_vm._l((_vm.weighings), function(weighing) {
-    return _c('div', [(weighing.data) ? _c('div', {
-      staticClass: "row row-no-margin",
-      staticStyle: {
-        "width": "100%"
-      }
-    }, [(weighing.data.timestamps.created_diff.days > 1) ? _c('span', [_vm._v("\n                            " + _vm._s(_vm.$t('units.days_ago', {
-      val: weighing.data.timestamps.created_diff.days
-    })) + "\n                        ")]) : _vm._e(), _vm._v(" "), (weighing.data.timestamps.created_diff.days <= 1 &&
-      weighing.data.timestamps.created_diff.hours > 1) ? _c('span', [_vm._v("\n                            " + _vm._s(_vm.$t('units.hours_ago', {
-      val: weighing.data.timestamps.created_diff.hours
-    })) + "\n                        ")]) : _vm._e(), _vm._v(" "), (weighing.data.timestamps.created_diff.days <= 1 &&
-      weighing.data.timestamps.created_diff.hours <= 1) ? _c('span', [_vm._v("\n                            " + _vm._s(_vm.$t('units.just_now')) + "\n                        ")]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(" - " + _vm._s(weighing.data.amount) + "g")]), _vm._v(" "), _c('span', {
-      staticClass: "right"
-    }, [_c('a', {
-      staticClass: "red-text",
-      attrs: {
-        "href": '/animals/' + _vm.animalId + '/weighings/' + weighing.data.id + '/delete'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-18px mdi-delete"
-    })])])]) : _vm._e()])
-  }), _vm._v(" "), (_vm.weighings.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e(), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false,
-      "mini": true
-    }
-  })], 2), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('a', {
-    attrs: {
-      "href": '#modal_add_weighing_' + _vm.animalId,
-      "onclick": '$(\'#modal_add_weighing_' + _vm.animalId + '\').modal(); $(\'#modal_add_weighing_' + _vm.animalId + ' select\').formSelect(); $(\'#modal_add_weighing_' + _vm.animalId + '\').modal(\'open\');'
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.$t("buttons.add")) + "\n                ")])])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-28b75626", module.exports)
-  }
-}
-
-/***/ }),
-/* 119 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    class: _vm.wrapperClasses
-  }, [(_vm.custom_component.data) ? _c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('i', {
-    class: 'mdi mdi-18px mdi-' + _vm.custom_component.data.type.icon
-  }), _vm._v("\n            " + _vm._s(_vm.custom_component.data.type.name_singular) + "\n        ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
-  }, [_c('span', {
-    staticClass: "card-title"
-  }, [_vm._v("\n                " + _vm._s(_vm.custom_component.data.name) + "\n            ")]), _vm._v(" "), _vm._l((_vm.custom_component.data.properties), function(property, index) {
-    return _c('div', [_vm._v("\n                " + _vm._s(property.name) + ": " + _vm._s(property.value)), _c('br')])
-  })], 2), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('a', {
-    attrs: {
-      "href": '/custom_components/' + _vm.custom_component.data.id
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))]), _vm._v(" "), _c('a', {
-    attrs: {
-      "href": '/custom_components/' + _vm.custom_component.data.id + '/edit'
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]) : _c('div', [_c('loading-card-widget')], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-29116192", module.exports)
-  }
-}
-
-/***/ }),
-/* 120 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight collapsible",
-    attrs: {
-      "data-collapsible": "expandable"
-    }
-  }, [_c('table-filter', {
-    ref: "table_filter",
-    attrs: {
-      "cols": 3,
-      "hide-cols": _vm.hideCols,
-      "filter-fields": [{
-          name: 'name',
-          path: 'name',
-          col: 0
-        },
-        {
-          name: 'terrarium',
-          path: 'terrarium.display_name',
-          noSort: true,
-          col: 1
-        },
-        {
-          noSort: true,
-          noFilter: true,
-          col: 2
-        }
-      ]
-    }
-  }), _vm._v(" "), _vm._l((_vm.sequences), function(sequence) {
-    return [(sequence.data) ? _c('tbody', [_c('tr', {
-      staticClass: "collapsible-tr-header",
-      attrs: {
-        "onclick": "window.collapseTr($(this))"
-      }
-    }, [_c('td', [_c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-playlist-play"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/action_sequences/' + sequence.data.id + '/edit'
-      }
-    }, [_vm._v(_vm._s(sequence.data.name))])])]), _vm._v(" "), _c('td', [((_vm.terrarium = _vm.terraria.filter(function (t) { return t.id === sequence.data.terrarium_id; })).length > 0) ? _c('span', [(_vm.terrarium[0].data) ? [_c('i', {
-      staticClass: "mdi mdi-24px mdi-trackpad"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/terraria/' + _vm.terrarium[0].data.id
-      }
-    }, [_vm._v(_vm._s(_vm.terrarium[0].data.name))])] : _vm._e()], 2) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', [_c('a', {
-      attrs: {
-        "href": '/action_sequences/' + sequence.data.id + '/edit'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-24px mdi-pencil"
-    })])])])]), _vm._v(" "), _c('tr', {
-      staticClass: "collapsible-tr-body"
-    }, [_c('td', {
-      staticClass: "table-details-collapsible",
-      attrs: {
-        "colspan": "3"
-      }
-    }, [((_vm.sequence_schedules = _vm.schedules.filter(function (s) { return s.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_schedules', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_schedules), function(schedule, index) {
-      return _c('li', [(schedule.data) ? [_c('i', {
-        staticClass: "mdi mdi-18px mdi-clock"
-      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(schedule.data.timestamps.starts))]), _vm._v(" "), (schedule.data.timestamps.runonce) ? _c('span', [_c('i', [_vm._v(_vm._s(_vm.$t('labels.runonce')))])]) : _c('span', [_c('i', [_vm._v(_vm._s(_vm.$t('labels.daily')))])])] : _vm._e()], 2)
-    })], 2) : _vm._e(), _vm._v(" "), ((_vm.sequence_triggers = _vm.triggers.filter(function (t) { return t.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_triggers', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_triggers), function(trigger, index) {
-      return _c('li', [(trigger.data) ? [_c('i', {
-        staticClass: "mdi mdi-18px mdi-vanish"
-      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + trigger.data.logical_sensor_type)))]), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'greater') ? _c('span', [_vm._v(">")]) : _vm._e(), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'lesser') ? _c('span', [_vm._v("<")]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(trigger.data.reference_value))]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.between')) + " " + _vm._s(trigger.data.timeframe.start) + "\n                                            " + _vm._s(_vm.$t('labels.and')) + " " + _vm._s(trigger.data.timeframe.end) + ",\n                                        ")]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.minimum_timeout')) + ": " + _vm._s(trigger.data.minimum_timeout_minutes) + "\n                                            " + _vm._s(_vm.$tc('units.minutes', trigger.data.minimum_timeout_minutes)) + "\n                                        ")])] : _vm._e()], 2)
-    })], 2) : _vm._e(), _vm._v(" "), ((_vm.sequence_intentions = _vm.intentions.filter(function (i) { return i.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_intentions', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_intentions), function(intention, index) {
-      return _c('li', [(intention.data) ? [_c('i', {
-        staticClass: "mdi mdi-18px mdi-compass"
-      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + intention.data.intention)))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + intention.data.type)))]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.between')) + " " + _vm._s(intention.data.timeframe.start) + "\n                                            " + _vm._s(_vm.$t('labels.and')) + " " + _vm._s(intention.data.timeframe.end) + ",\n                                        ")]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.minimum_timeout')) + ": " + _vm._s(intention.data.minimum_timeout_minutes) + "\n                                            " + _vm._s(_vm.$tc('units.minutes', intention.data.minimum_timeout_minutes)) + "\n                                        ")])] : _vm._e()], 2)
-    })], 2) : _vm._e()])])]) : _vm._e()]
-  })], 2), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
-    }
-  })], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-29898e39", module.exports)
-  }
-}
-
-/***/ }),
-/* 121 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-playlist-play"
-  }), _vm._v("\n        " + _vm._s(_vm.action_sequences.length) + " " + _vm._s(_vm.$tc("labels.action_sequences", 2)) + "\n    ")]), _vm._v(" "), _vm._l((_vm.action_sequences), function(as) {
-    return _c('div', [_c('div', {
-      staticClass: "card-content"
-    }, [_c('div', {
-      staticClass: "card-sub-header"
-    }, [_c('a', {
-      attrs: {
-        "href": '/action_sequences/' + as.id + '/edit'
-      }
-    }, [_c('strong', [_vm._v(_vm._s(as.name))])]), _vm._v(" "), _c('a', {
-      staticClass: "right",
-      attrs: {
-        "href": '/action_sequences/' + as.id + '/edit'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-18px mdi-pencil"
-    })])]), _vm._v(" "), _vm._l((as.intentions), function(asi) {
-      return _c('div', {
-        staticClass: "row row-no-margin"
-      }, [_c('i', {
-        staticClass: "mdi mdi-18px mdi-compass"
-      }), _vm._v(" "), (asi.intention === 'increase') ? _c('span', [_vm._v(_vm._s(_vm.$t('labels.increases')))]) : _vm._e(), _vm._v(" "), (asi.intention === 'decrease') ? _c('span', [_vm._v(_vm._s(_vm.$t('labels.decreases')))]) : _vm._e(), _vm._v("\n\n                " + _vm._s(_vm.$t('labels.' + asi.type)) + "\n\n                "), _c('span', {
-        directives: [{
-          name: "show",
-          rawName: "v-show",
-          value: (asi.states.running),
-          expression: "asi.states.running"
-        }]
-      }, [_c('span', {
-        staticClass: "new badge",
-        attrs: {
-          "data-badge-caption": _vm.$t('labels.active')
-        }
-      })])])
-    }), _vm._v(" "), _vm._l((as.triggers), function(ast) {
-      return _c('div', [_c('i', {
-        staticClass: "mdi mdi-18px mdi-vanish"
-      }), _vm._v(" " + _vm._s(ast.logical_sensor.name) + " " + _vm._s(_vm.$t('units.' + ast.reference_value_comparison_type)) + " " + _vm._s(ast.reference_value) + "\n                "), _c('span', {
-        directives: [{
-          name: "show",
-          rawName: "v-show",
-          value: (ast.states.running),
-          expression: "ast.states.running"
-        }]
-      }, [_c('span', {
-        staticClass: "new badge",
-        attrs: {
-          "data-badge-caption": _vm.$t('labels.active')
-        }
-      })])])
-    }), _vm._v(" "), _vm._l((as.schedules), function(ass) {
-      return _c('div', [_c('i', {
-        staticClass: "mdi mdi-18px mdi-clock"
-      }), _vm._v(" " + _vm._s(ass.timestamps.starts) + " "), _c('i', {
-        directives: [{
-          name: "show",
-          rawName: "v-show",
-          value: (!ass.runonce),
-          expression: "!ass.runonce"
-        }]
-      }, [_vm._v(_vm._s(_vm.$t("labels.daily")))]), _vm._v(" "), _c('span', {
-        directives: [{
-          name: "show",
-          rawName: "v-show",
-          value: (ass.states.running),
-          expression: "ass.states.running"
-        }]
-      }, [_c('span', {
-        staticClass: "new badge",
-        attrs: {
-          "data-badge-caption": _vm.$t('labels.active')
-        }
-      })])])
-    })], 2), _vm._v(" "), (_vm.action_sequences.length < 1) ? _c('div', [_vm._v("\n            " + _vm._s(_vm.$t('tooltips.no_data')) + "\n        ")]) : _vm._e()])
-  }), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('a', {
-    attrs: {
-      "href": '/action_sequences/create?preset[terrarium]=' + _vm.terrariumId
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])], 2)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-2b744b4e", module.exports)
-  }
-}
-
-/***/ }),
-/* 122 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_vm._v("\n        " + _vm._s(_vm.$t('labels.loading_dots')) + "\n    ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-content center"
-  }, [_c('loading-indicator', {
-    attrs: {
-      "size": 40
-    }
-  })], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-2d74d754", module.exports)
-  }
-}
-
-/***/ }),
-/* 123 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -17167,12 +16465,368 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-2f353f1e", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-1a23c295", module.exports)
   }
 }
 
 /***/ }),
-/* 124 */
+/* 116 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight collapsible",
+    attrs: {
+      "data-collapsible": "expandable"
+    }
+  }, [_c('table-filter', {
+    ref: "table_filter",
+    attrs: {
+      "cols": 5,
+      "hide-cols": _vm.hideCols,
+      "filter-fields": [{
+          name: 'name',
+          path: 'name',
+          col: 0
+        },
+        {
+          name: 'software_version',
+          path: 'software_version',
+          col: 1,
+          class: 'hide-on-small-only'
+        },
+        {
+          name: 'heartbeat',
+          path: 'heartbeat_at',
+          noFilter: true,
+          col: 2
+        },
+        {
+          name: 'client_server_time_diff',
+          noSort: true,
+          noFilter: true,
+          col: 3,
+          class: 'hide-on-med-and-down'
+        },
+        {
+          noSort: true,
+          noFilter: true,
+          col: 4,
+          class: 'hide-on-small-only'
+        }
+      ]
+    }
+  }), _vm._v(" "), _vm._l((_vm.controlunits), function(controlunit) {
+    return [_c('tbody', [_c('tr', {
+      staticClass: "collapsible-tr-header",
+      attrs: {
+        "onclick": "window.collapseTr($(this))"
+      }
+    }, [_c('td', [_c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-developer-board"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/controlunits/' + controlunit.data.id
+      }
+    }, [_vm._v(_vm._s(controlunit.data.name))]), _vm._v(" "), (!controlunit.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_c('span', [_vm._v("\n                                " + _vm._s(controlunit.data.software_version) + "\n                            ")])]), _vm._v(" "), _c('td', [_vm._v("\n                            " + _vm._s(_vm.$t(
+      'units.' + _vm.$getMatchingTimeDiff(controlunit.data.timestamps.last_heartbeat_diff).unit, {
+        val: _vm.$getMatchingTimeDiff(controlunit.data.timestamps.last_heartbeat_diff).val
+      }
+    )) + "\n                        ")]), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-med-and-down"
+    }, [_c('span', [_vm._v("\n                                " + _vm._s(controlunit.data.client_server_time_diff_seconds) + "s\n                            ")])]), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/controlunits/' + controlunit.data.id + '/edit'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "collapsible-tr-body"
+    }, [_c('td', {
+      attrs: {
+        "colspan": "5"
+      }
+    }, _vm._l((_vm.component_types), function(type) {
+      return (controlunit.data) ? _c('div', [((_vm.component_list = _vm._self[type].filter(function (c) { return c.data.controlunit_id === controlunit.id; })).length > 0) ? [_vm._v("\n                                    " + _vm._s(_vm.$tc('labels.' + type, 2)) + ":\n                                    "), _vm._l((_vm.component_list), function(component) {
+        return _c('span', [_c('i', {
+          class: 'mdi mdi-18px mdi-' + component.data.icon
+        }), _vm._v(" "), _c('a', {
+          attrs: {
+            "href": component.data.url
+          }
+        }, [_vm._v(_vm._s(component.data.name))])])
+      })] : _vm._e()], 2) : _vm._e()
+    }))])])]
+  })], 2), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-218170ea", module.exports)
+  }
+}
+
+/***/ }),
+/* 117 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight collapsible",
+    attrs: {
+      "data-collapsible": "expandable"
+    }
+  }, [_c('table-filter', {
+    ref: "table_filter",
+    attrs: {
+      "cols": 5,
+      "hide-cols": _vm.hideCols,
+      "filter-fields": [{
+          name: 'name',
+          path: 'name',
+          col: 0
+        },
+        {
+          name: 'model',
+          path: 'model',
+          col: 1
+        },
+        {
+          name: 'controlunit',
+          noSort: true,
+          path: 'controlunit.name',
+          col: 2,
+          class: 'hide-on-small-only'
+        },
+        {
+          name: 'terrarium',
+          noSort: true,
+          path: 'terrarium.display_name',
+          col: 3,
+          class: 'hide-on-med-and-down'
+        },
+        {
+          noSort: true,
+          noFilter: true,
+          col: 4,
+          class: 'hide-on-small-only'
+        }
+      ]
+    }
+  }), _vm._v(" "), _vm._l((_vm.physical_sensors), function(physical_sensor) {
+    return [_c('tbody', [_c('tr', {
+      staticClass: "collapsible-tr-header",
+      attrs: {
+        "onclick": "window.collapseTr($(this))"
+      }
+    }, [_c('td', [_c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-switch"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/physical_sensors/' + physical_sensor.data.id
+      }
+    }, [_vm._v(_vm._s(physical_sensor.data.name))]), _vm._v(" "), (!physical_sensor.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(physical_sensor.data.model) + "\n                            ")])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [((_vm.controlunit = _vm.controlunits.filter(function (c) { return c.data.id === physical_sensor.data.controlunit_id; })).length > 0) ? _c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-developer-board"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/controlunits/' + _vm.controlunit[0].data.id
+      }
+    }, [_vm._v(_vm._s(_vm.controlunit[0].data.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.hideCols.indexOf('terrarium') === -1) ? _c('td', {
+      staticClass: "hide-on-med-and-down"
+    }, [(physical_sensor.data.terrarium &&
+      (_vm.terrarium = _vm.terraria.filter(function (t) { return t.data.id === physical_sensor.data.terrarium.id; })).length > 0) ? _c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-trackpad"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/terraria/' + _vm.terrarium[0].data.id
+      }
+    }, [_vm._v(_vm._s(_vm.terrarium[0].data.display_name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/physical_sensors/' + physical_sensor.data.id + '/edit'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "collapsible-tr-body"
+    }, [_c('td', {
+      attrs: {
+        "colspan": "4"
+      }
+    }, [_vm._v("\n                            " + _vm._s(_vm.$t('labels.last_heartbeat')) + ":\n                            " + _vm._s(_vm.$t(
+      'units.' + _vm.$getMatchingTimeDiff(physical_sensor.data.timestamps.last_heartbeat_diff).unit, {
+        val: _vm.$getMatchingTimeDiff(physical_sensor.data.timestamps.last_heartbeat_diff).val
+      }
+    )) + "\n                            "), _c('br'), _vm._v("\n                            " + _vm._s(_vm.$tc('labels.logical_sensors', 2)) + ":\n                            "), _vm._l((_vm.logical_sensors.filter(function (l) { return l.data.physical_sensor_id === physical_sensor.data.id; })), function(logical_sensor, index) {
+      return _c('span', [_c('i', {
+        staticClass: "mdi mdi-24px mdi-pulse"
+      }), _vm._v(" "), _c('a', {
+        attrs: {
+          "href": '/logical_sensors/' + logical_sensor.data.id
+        }
+      }, [_vm._v(_vm._s(logical_sensor.data.name))]), _vm._v(" "), (index < _vm.logical_sensors.filter(function (l) { return l.data.physical_sensor_id === physical_sensor.data.id; }).length - 1) ? [_vm._v(", ")] : _vm._e()], 2)
+    })], 2), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-med-and-down"
+    })])])]
+  })], 2), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-2407172c", module.exports)
+  }
+}
+
+/***/ }),
+/* 118 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    class: _vm.wrapperClasses
+  }, [(_vm.valve.data) ? _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-pipe-disconnected"
+  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.valves", 1)) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-title activator"
+  }, [_vm._v("\n                " + _vm._s(_vm.valve.data.name) + "\n            ")]), _vm._v(" "), _c('div', [_vm._v("\n                " + _vm._s(_vm.$t('labels.model')) + ": " + _vm._s(_vm.valve.data.model) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('a', {
+    attrs: {
+      "href": '/valves/' + _vm.valve.data.id
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))]), _vm._v(" "), _c('a', {
+    attrs: {
+      "href": '/valves/' + _vm.valve.data.id + '/edit'
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]) : _c('div', [_c('loading-card-widget')], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-28ad1b74", module.exports)
+  }
+}
+
+/***/ }),
+/* 119 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight"
+  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("\n                    " + _vm._s(_vm.$tc('labels.animals', 1)) + "\n                ")]), _vm._v(" "), _c('th', [_vm._v("\n                    " + _vm._s(_vm.$t('labels.scheduled')) + "\n                ")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.animals), function(animal) {
+    return _c('tr', [_c('td', [_c('a', {
+      attrs: {
+        "href": '/animals/' + animal.id
+      }
+    }, [_vm._v(_vm._s(animal.display_name))])]), _vm._v(" "), _c('td', _vm._l((_vm.get_animal_weighing_schedules(animal.id)), function(schedule) {
+      return _c('span', [_c('a', {
+        attrs: {
+          "href": '/animals/' + animal.id + '/weighing_schedules/' + schedule.id + '/edit'
+        }
+      }, [_vm._v("\n                            " + _vm._s(schedule.interval_days) + ":\n                        ")]), _vm._v(" "), _c('i', [_vm._v(_vm._s(schedule.timestamps.next) + " (" + _vm._s(schedule.due_days) + " " + _vm._s(_vm.$tc('units.days', schedule.due_days)) + ")")])])
+    }))])
+  }))])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-391af5f4", module.exports)
+  }
+}
+
+/***/ }),
+/* 120 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-format-vertical-align-center"
+  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.logical_sensor_thresholds", 2)) + "\n        ")]), _vm._v(" "), _vm._l((_vm.logical_sensors), function(logical_sensor) {
+    return [(logical_sensor.data) ? [_c('div', {
+      staticClass: "card-content"
+    }, [_c('div', {
+      staticClass: "card-sub-header"
+    }, [_c('a', {
+      attrs: {
+        "href": '/logical_sensors/' + logical_sensor.data.id
+      }
+    }, [_c('strong', [_vm._v(_vm._s(logical_sensor.data.name))])])]), _vm._v(" "), ((_vm.threshold_list = _vm.thresholds.filter(function (t) { return t.data.logical_sensor_id === logical_sensor.data.id; })).length > 0) ? _vm._l((_vm.threshold_list), function(threshold) {
+      return _c('div', {
+        staticClass: "row row-no-margin"
+      }, [_c('i', {
+        staticClass: "mdi mdi-18px mdi-format-vertical-align-center"
+      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(threshold.data.timestamps.starts) + ":")]), _vm._v(" "), (threshold.data.rawvalue_lowerlimit !== null) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$t("labels.min_short")) + ": " + _vm._s(threshold.data.rawvalue_lowerlimit) + "\n                            ")]) : _vm._e(), _vm._v(" "), (threshold.data.rawvalue_upperlimit !== null) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$t("labels.max_short")) + ": " + _vm._s(threshold.data.rawvalue_upperlimit) + "\n                            ")]) : _vm._e(), _vm._v(" "), _c('span', {
+        staticClass: "right"
+      }, [_c('a', {
+        attrs: {
+          "href": '/logical_sensor_thresholds/' + threshold.data.id + '/edit'
+        }
+      }, [_c('i', {
+        staticClass: "mdi mdi-18px mdi-pencil"
+      })])])])
+    }) : _c('div', {
+      staticClass: "row row-no-margin"
+    }, [_vm._v("\n                        " + _vm._s(_vm.$t("tooltips.no_data")) + "\n                    ")])], 2), _vm._v(" "), _c('div', {
+      staticClass: "card-action"
+    }, [_c('a', {
+      attrs: {
+        "href": '/logical_sensor_thresholds/create?preset[belongsTo_type]=LogicalSensor&preset[belongsTo_id]=' + logical_sensor.data.id
+      }
+    }, [_vm._v("\n                        " + _vm._s(_vm.$t("buttons.add")) + "\n                    ")])])] : _vm._e()]
+  })], 2)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-3ef626cd", module.exports)
+  }
+}
+
+/***/ }),
+/* 121 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -17419,7 +17073,276 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-310e92ab", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-40caa194", module.exports)
+  }
+}
+
+/***/ }),
+/* 122 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight collapsible",
+    attrs: {
+      "data-collapsible": "expandable"
+    }
+  }, [_c('table-filter', {
+    ref: "table_filter",
+    attrs: {
+      "cols": 6,
+      "hide-cols": _vm.hideCols,
+      "filter-fields": [{
+          name: 'name',
+          path: 'name',
+          col: 0
+        },
+        {
+          name: 'physical_sensor',
+          noSort: true,
+          path: 'physical_sensor.name',
+          col: 1
+        },
+        {
+          name: 'terrarium',
+          noSort: true,
+          path: 'terrarium.name',
+          col: 2,
+          class: 'hide-on-med-and-down'
+        },
+        {
+          name: 'type',
+          path: 'type',
+          col: 3,
+          class: 'hide-on-small-only'
+        },
+        {
+          name: 'rawvalue',
+          path: 'rawvalue',
+          col: 4,
+          class: 'hide-on-small-only'
+        },
+        {
+          noSort: true,
+          noFilter: true,
+          col: 5,
+          class: 'hide-on-small-only'
+        }
+      ]
+    }
+  }), _vm._v(" "), _vm._l((_vm.logical_sensors), function(logical_sensor) {
+    return [_c('tbody', [_c('tr', {
+      staticClass: "collapsible-tr-header",
+      attrs: {
+        "onclick": "window.collapseTr($(this))"
+      }
+    }, [_c('td', [_c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-pulse"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/logical_sensors/' + logical_sensor.data.id
+      }
+    }, [_vm._v(_vm._s(logical_sensor.data.name))])])]), _vm._v(" "), (_vm.hideCols.indexOf('physical_sensor') === -1) ? _c('td', [(_vm.ps = _vm.physical_sensor(logical_sensor)) ? _c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-switch"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/physical_sensors/' + _vm.ps.data.id
+      }
+    }, [_vm._v("\n                                    " + _vm._s(_vm.ps.data.name) + "\n                                ")])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.hideCols.indexOf('terrarium') === -1) ? _c('td', {
+      staticClass: "hide-on-med-and-down"
+    }, [(_vm.t = _vm.terrarium(logical_sensor)) ? _c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-trackpad"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/terraria/' + _vm.t.data.id
+      }
+    }, [_vm._v(_vm._s(_vm.t.data.display_name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_vm._v("\n                            " + _vm._s(logical_sensor.data.type) + "\n                        ")]), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_c('span', [_vm._v(_vm._s(Math.round(logical_sensor.data.rawvalue, 2)))]), _vm._v(" "), (logical_sensor.data.rawvalue_adjustment !== 0) ? _c('span', [(logical_sensor.data.rawvalue_adjustment > 0) ? _c('span', [_c('span', {
+      staticClass: "green-text darken-2"
+    }, [_vm._v("(+" + _vm._s(logical_sensor.data.rawvalue_adjustment) + ")")])]) : _c('span', [_c('span', {
+      staticClass: "red darken-2"
+    }, [_vm._v("(" + _vm._s(logical_sensor.data.rawvalue_adjustment) + ")")])])]) : _vm._e()]), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/logical_sensors/' + logical_sensor.data.id + '/edit'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "collapsible-tr-body"
+    }, [_c('td', [_vm._v("\n                            " + _vm._s(_vm.$t('labels.rawlimitlo')) + ": " + _vm._s(logical_sensor.data.rawvalue_lowerlimit)), _c('br'), _vm._v("\n                            " + _vm._s(_vm.$t('labels.rawlimithi')) + ": " + _vm._s(logical_sensor.data.rawvalue_upperlimit) + "\n                        ")]), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [(_vm.c = _vm.controlunit(logical_sensor)) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$tc('labels.controlunits', 1)) + ":\n                                "), _c('i', {
+      staticClass: "mdi mdi-24px mdi-developer-board"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/controlunits/' + _vm.c.data.id
+      }
+    }, [_vm._v(_vm._s(_vm.c.data.name))])]) : _vm._e(), _vm._v(" "), _c('br'), _vm._v(" "), (_vm.p = _vm.physical_sensor(logical_sensor)) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$t('labels.model')) + ": " + _vm._s(_vm.p.data.model) + "\n                            ")]) : _vm._e()]), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-med-and-down"
+    }, [(_vm.t = _vm.terrarium(logical_sensor)) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$tc('labels.terraria', 1)) + " " + _vm._s(_vm.$t('labels.temperature_celsius')) + ":\n                                " + _vm._s(_vm.t.data.cooked_temperature_celsius) + "°C"), _c('br'), _vm._v("\n\n                                " + _vm._s(_vm.$tc('labels.terraria', 1)) + " " + _vm._s(_vm.$t('labels.humidity_percent')) + ":\n                                " + _vm._s(_vm.t.data.cooked_humidity_percent) + "%\n                            ")]) : _vm._e()]), _vm._v(" "), _c('td'), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }), _vm._v(" "), _c('td')])])]
+  })], 2), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-40cf11c6", module.exports)
+  }
+}
+
+/***/ }),
+/* 123 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight"
+  }, [_c('thead', [_c('tr', [_c('th', {
+    attrs: {
+      "data-field": "id"
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.$tc('labels.animals', 1)) + "\n                ")]), _vm._v(" "), _vm._l((_vm.feeding_types), function(type) {
+    return _c('th', [_vm._v("\n                    " + _vm._s(type.name) + "\n                ")])
+  })], 2)]), _vm._v(" "), _c('tbody', _vm._l((_vm.animals), function(animal) {
+    return _c('tr', [_c('td', [_c('a', {
+      attrs: {
+        "href": '/animals/' + animal.id
+      }
+    }, [_vm._v(_vm._s(animal.display_name))])]), _vm._v(" "), _vm._l((_vm.feeding_types), function(type) {
+      return _c('td', _vm._l((_vm.get_animal_feeding_schedules_of_type(animal.id, type.name)), function(schedule) {
+        return _c('span', [_c('a', {
+          attrs: {
+            "href": '/animals/' + animal.id + '/feeding_schedules/' + schedule.id + '/edit'
+          }
+        }, [_vm._v(_vm._s(schedule.interval_days))]), _vm._v(" "), _c('i', [_vm._v("(" + _vm._s(schedule.due_days) + " " + _vm._s(_vm.$tc('units.days', schedule.due_days)) + ")")]), _vm._v(" "), (schedule.due_days < 0) ? _c('i', {
+          staticClass: "mdi mdi-24px mdi-exclamation"
+        }) : (schedule.due_days < 1) ? _c('i', {
+          staticClass: "mdi mdi-24px mdi-exclamation orange-text"
+        }) : _vm._e()])
+      }))
+    })], 2)
+  }))])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-4412c114", module.exports)
+  }
+}
+
+/***/ }),
+/* 124 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight collapsible",
+    attrs: {
+      "data-collapsible": "expandable"
+    }
+  }, [_c('table-filter', {
+    ref: "table_filter",
+    attrs: {
+      "cols": 4,
+      "hide-cols": _vm.hideCols,
+      "filter-fields": [{
+          name: 'name',
+          path: 'name',
+          col: 0
+        },
+        {
+          name: 'model',
+          path: 'model',
+          col: 1
+        },
+        {
+          name: 'controlunit',
+          noSort: true,
+          path: 'controlunit.name',
+          col: 2
+        },
+        {
+          noSort: true,
+          noFilter: true,
+          col: 3,
+          class: 'hide-on-small-only'
+        }
+      ]
+    }
+  }), _vm._v(" "), _vm._l((_vm.pumps), function(pump) {
+    return [_c('tbody', [_c('tr', {
+      staticClass: "collapsible-tr-header",
+      attrs: {
+        "onclick": "window.collapseTr($(this))"
+      }
+    }, [_c('td', [_c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-water-pump"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/pumps/' + pump.data.id
+      }
+    }, [_vm._v(_vm._s(pump.data.name))]), _vm._v(" "), (!pump.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(pump.data.model) + "\n                            ")])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', [((_vm.controlunit = _vm.controlunits.filter(function (c) { return c.data.id === pump.data.controlunit_id; })).length > 0) ? _c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-developer-board"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/controlunits/' + _vm.controlunit[0].data.id
+      }
+    }, [_vm._v(_vm._s(_vm.controlunit[0].data.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/pumps/' + pump.data.id + '/edit'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "collapsible-tr-body"
+    }, [_c('td', {
+      attrs: {
+        "colspan": "3"
+      }
+    }, [_vm._v("\n                            " + _vm._s(_vm.$tc('labels.valves', 2)) + ":\n                            "), _vm._l((_vm.valves.filter(function (v) { return v.data.pump_id === pump.data.id; })), function(valve, index) {
+      return _c('span', [_c('i', {
+        staticClass: "mdi mdi-24px mdi-pipe-disconnected"
+      }), _vm._v(" "), _c('a', {
+        attrs: {
+          "href": '/valves/' + valve.data.id
+        }
+      }, [_vm._v(_vm._s(valve.data.name))]), _vm._v(" "), (index < _vm.valves.filter(function (v) { return v.data.pump_id === pump.data.id; }).length - 1) ? [_vm._v(", ")] : _vm._e()], 2)
+    })], 2)])])]
+  })], 2), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-48c31d4e", module.exports)
   }
 }
 
@@ -17428,19 +17351,84 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', [_c('peity', {
+  return _c('div', {
+    class: _vm.wrapperClasses
+  }, [(_vm.logical_sensor.data) ? _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-pipe-disconnected"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("labels.logical_sensor")) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-title activator"
+  }, [_vm._v("\n                " + _vm._s(_vm.logical_sensor.data.name) + "\n                "), _c('i', {
+    staticClass: "mdi mdi-18px mdi-dots-vertical"
+  })]), _vm._v(" "), (_vm.logical_sensor.data.type.length) ? _c('div', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(_vm.$t("labels." + _vm.logical_sensor.data.type)))])]) : _vm._e()]), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('a', {
     attrs: {
-      "type": _vm.type,
-      "options": _vm.options,
-      "data": _vm.points_string
+      "href": '/logical_sensors/' + _vm.logical_sensor.data.id
     }
-  })], 1)
+  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))]), _vm._v(" "), _c('a', {
+    attrs: {
+      "href": '/logical_sensors/' + _vm.logical_sensor.data.id + '/edit'
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])]), _vm._v(" "), _c('div', {
+    staticClass: "card-reveal"
+  }, [_c('span', {
+    staticClass: "card-title"
+  }, [_vm._v(_vm._s(_vm.$tc("labels.physical_sensors", 1)) + "\n                "), _c('i', {
+    staticClass: "mdi mdi-24px mdi-close"
+  })]), _vm._v(" "), _c('div', [(_vm.physical_sensor && _vm.physical_sensor.data) ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.$t("labels.physical_sensor")) + ":\n                    "), _c('a', {
+    attrs: {
+      "href": '/physical_sensors/' + _vm.physical_sensor.data.id
+    }
+  }, [_vm._v(_vm._s(_vm.physical_sensor.data.name))])]) : _vm._e()]), _vm._v(" "), _c('span', {
+    staticClass: "card-title"
+  }, [_vm._v(_vm._s(_vm.$tc("labels.logical_sensor_thresholds", 2)))]), _vm._v(" "), _vm._l((_vm.logical_sensor_thresholds), function(lst) {
+    return _c('div', [_vm._v("\n                " + _vm._s(_vm.$t("labels.starts_at")) + " " + _vm._s(lst.data.timestamps.starts) + ":\n                "), _c('strong', [_c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (lst.data.rawvalue_lowerlimit && !lst.data.rawvalue_upperlimit),
+        expression: "lst.data.rawvalue_lowerlimit && !lst.data.rawvalue_upperlimit"
+      }]
+    }, [_vm._v("\n                        min " + _vm._s(lst.data.rawvalue_lowerlimit) + _vm._s(_vm.$t("units." + _vm.logical_sensor.data.type)) + "\n                    ")]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (!lst.data.rawvalue_lowerlimit && lst.data.rawvalue_upperlimit),
+        expression: "!lst.data.rawvalue_lowerlimit && lst.data.rawvalue_upperlimit"
+      }]
+    }, [_vm._v("\n                        max " + _vm._s(lst.data.rawvalue_upperlimit) + _vm._s(_vm.$t("units." + _vm.logical_sensor.data.type)) + "\n                    ")]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (lst.data.rawvalue_lowerlimit && lst.data.rawvalue_upperlimit),
+        expression: "lst.data.rawvalue_lowerlimit && lst.data.rawvalue_upperlimit"
+      }]
+    }, [_vm._v("\n                        " + _vm._s(lst.data.rawvalue_lowerlimit) + " - " + _vm._s(lst.data.rawvalue_upperlimit) + _vm._s(_vm.$t("units." + _vm.logical_sensor.data.type)) + "\n                    ")])]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (lst.data.id === _vm.logical_sensor.data.current_threshold_id),
+        expression: "lst.data.id === logical_sensor.data.current_threshold_id"
+      }]
+    }, [_c('span', {
+      staticClass: "new badge teal",
+      attrs: {
+        "data-badge-caption": _vm.$t('labels.active')
+      }
+    })])])
+  })], 2)]) : _c('div', [_c('loading-card-widget')], 1)])
 },staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-33785578", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-4a87bb84", module.exports)
   }
 }
 
@@ -17459,7 +17447,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('input', {
     staticClass: "datepicker",
     attrs: {
-      "type": "date",
+      "type": "text",
       "placeholder": _vm.$t('labels.from'),
       "name": "filter_from",
       "id": 'filter_from_' + _vm.id,
@@ -17477,7 +17465,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('input', {
     staticClass: "datepicker",
     attrs: {
-      "type": "date",
+      "type": "text",
       "placeholder": _vm.$t('labels.to'),
       "name": "filter_to",
       "id": 'filter_to_' + _vm.id,
@@ -17503,42 +17491,878 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "display": "none"
     },
     attrs: {
-      "id": 'google_chart_' + _vm.id + '_loading'
+      "id": 'chartjs_' + _vm.id + '_loading'
     }
-  }, [_vm._m(0)]), _vm._v(" "), _c('div', {
+  }, [_c('loading-indicator', {
     attrs: {
-      "id": 'google_chart_' + _vm.id
+      "size": 100
+    }
+  })], 1), _vm._v(" "), _c('canvas', {
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "id": 'chartjs_' + _vm.id
     }
   })])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "preloader-wrapper small active"
-  }, [_c('div', {
-    staticClass: "spinner-layer spinner-green-only"
-  }, [_c('div', {
-    staticClass: "circle-clipper left"
-  }, [_c('div', {
-    staticClass: "circle"
-  })]), _c('div', {
-    staticClass: "gap-patch"
-  }, [_c('div', {
-    staticClass: "circle"
-  })]), _c('div', {
-    staticClass: "circle-clipper right"
-  }, [_c('div', {
-    staticClass: "circle"
-  })])])])
-}]}
+},staticRenderFns: []}
 module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-362b88e4", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-4dca3765", module.exports)
   }
 }
 
 /***/ }),
 /* 127 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    class: _vm.wrapperClasses
+  }, [(_vm.controlunit.data) ? _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-water-pump"
+  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.controlunits", 1)) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-title activator"
+  }, [_vm._v("\n                " + _vm._s(_vm.controlunit.data.name) + "\n            ")]), _vm._v(" "), _c('div', [(!_vm.controlunit.data.active) ? _c('div', [_c('strong', [_vm._v(_vm._s(_vm.$t('labels.inactive')))])]) : _vm._e(), _vm._v(" "), _c('div', [_vm._v("\n                    " + _vm._s(_vm.$t('labels.last_heartbeat')) + ":\n                    "), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.controlunit.data.timestamps.last_heartbeat_diff.days > 0),
+      expression: "controlunit.data.timestamps.last_heartbeat_diff.days > 0"
+    }],
+    staticClass: "tooltipped",
+    attrs: {
+      "data-position": "bottom",
+      "data-delay": "50",
+      "data-tooltip": _vm.controlunit.data.timestamps.last_heartbeat
+    }
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t('units.days_ago', {
+    val: _vm.controlunit.data.timestamps.last_heartbeat_diff.days
+  })) + "\n                    ")]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&
+        _vm.controlunit.data.timestamps.last_heartbeat_diff.hours > 0),
+      expression: "controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&\n                                  controlunit.data.timestamps.last_heartbeat_diff.hours > 0"
+    }],
+    staticClass: "tooltipped",
+    attrs: {
+      "data-position": "bottom",
+      "data-delay": "50",
+      "data-tooltip": _vm.controlunit.data.timestamps.last_heartbeat
+    }
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t('units.hours_ago', {
+    val: _vm.controlunit.data.timestamps.last_heartbeat_diff.hours
+  })) + "\n                    ")]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&
+        _vm.controlunit.data.timestamps.last_heartbeat_diff.hours < 1 &&
+        _vm.controlunit.data.timestamps.last_heartbeat_diff.minutes > 1),
+      expression: "controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&\n                                  controlunit.data.timestamps.last_heartbeat_diff.hours < 1 &&\n                                  controlunit.data.timestamps.last_heartbeat_diff.minutes > 1"
+    }],
+    staticClass: "tooltipped",
+    attrs: {
+      "data-position": "bottom",
+      "data-delay": "50",
+      "data-tooltip": _vm.controlunit.data.timestamps.last_heartbeat
+    }
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t('units.minutes_ago', {
+    val: _vm.controlunit.data.timestamps.last_heartbeat_diff.minutes
+  })) + "\n                    ")]), _vm._v(" "), _c('span', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&
+        _vm.controlunit.data.timestamps.last_heartbeat_diff.hours < 1 &&
+        _vm.controlunit.data.timestamps.last_heartbeat_diff.minutes < 2),
+      expression: "controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&\n                                  controlunit.data.timestamps.last_heartbeat_diff.hours < 1 &&\n                                  controlunit.data.timestamps.last_heartbeat_diff.minutes < 2"
+    }],
+    staticClass: "tooltipped",
+    attrs: {
+      "data-position": "bottom",
+      "data-delay": "50",
+      "data-tooltip": _vm.controlunit.data.timestamps.last_heartbeat
+    }
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t('units.just_now')) + "\n                    ")])]), _vm._v(" "), _c('div', [_vm._v("\n                    " + _vm._s(_vm.$t('labels.client_server_time_diff')) + ": " + _vm._s(_vm.controlunit.data.client_server_time_diff_seconds) + "s\n                ")]), _vm._v(" "), (_vm.controlunit.data.software_version) ? _c('div', [_vm._v("\n                    " + _vm._s(_vm.$t('labels.software_version')) + ": " + _vm._s(_vm.controlunit.data.software_version) + "\n                ")]) : _vm._e()])]), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('a', {
+    attrs: {
+      "href": '/controlunits/' + _vm.controlunit.data.id
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))]), _vm._v(" "), _c('a', {
+    attrs: {
+      "href": '/controlunits/' + _vm.controlunit.data.id + '/edit'
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]) : _c('div', [_c('loading-card-widget')], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-5035607a", module.exports)
+  }
+}
+
+/***/ }),
+/* 128 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('pagination', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.terrariumId === null),
+      expression: "terrariumId === null"
+    }],
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "show-filters": _vm.showFilters,
+      "filter-fields": [{
+        name: 'display_name',
+        path: 'display_name'
+      }]
+    }
+  }), _vm._v(" "), _c('div', {
+    class: _vm.containerClasses,
+    attrs: {
+      "id": _vm.containerId
+    }
+  }, _vm._l((_vm.terraria), function(terrarium) {
+    return _c('div', {
+      class: _vm.wrapperClasses
+    }, [(terrarium.data) ? [(terrarium.data.capabilities.irrigate) ? _c('div', {
+      staticClass: "modal",
+      attrs: {
+        "id": terrarium.data.id + '_irrigate'
+      }
+    }, [_c('form', {
+      attrs: {
+        "action": '/api/v1/terraria/' + terrarium.data.id + '/action_sequence',
+        "data-method": "POST",
+        "id": 'form_irrigate_' + terrarium.data.id
+      },
+      on: {
+        "submit": _vm.submit
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_c('h4', [_vm._v(_vm._s(_vm.$t('labels.irrigate')))]), _vm._v(" "), _c('p', [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "template",
+        "value": "irrigate"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "runonce",
+        "value": "On"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "schedule_now",
+        "value": "On"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "id": 'duration_minutes_irrigate_' + terrarium.data.id,
+        "type": "text",
+        "placeholder": _vm.$tc('units.minutes', 2),
+        "name": "duration_minutes",
+        "value": "1"
+      }
+    }), _vm._v(" "), _c('label', {
+      attrs: {
+        "for": 'duration_minutes_irrigate_' + terrarium.data.id
+      }
+    }, [_vm._v(_vm._s(_vm.$t('labels.duration')) + " " + _vm._s((_vm.$tc('units.minutes', 2))))])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('button', {
+      staticClass: "modal-action modal-close btn waves-effect waves-green",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v(_vm._s(_vm.$t('buttons.start')))])])])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.ventilate) ? _c('div', {
+      staticClass: "modal",
+      attrs: {
+        "id": terrarium.data.id + '_ventilate'
+      }
+    }, [_c('form', {
+      attrs: {
+        "action": '/api/v1/terraria/' + terrarium.data.id + '/action_sequence',
+        "data-method": "POST",
+        "id": 'form_ventilate_' + terrarium.data.id
+      },
+      on: {
+        "submit": _vm.submit
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_c('h4', [_vm._v(_vm._s(_vm.$t('labels.ventilate')))]), _vm._v(" "), _c('p', [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "template",
+        "value": "ventilate"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "runonce",
+        "value": "On"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "schedule_now",
+        "value": "On"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "id": 'duration_minutes_ventilate_' + terrarium.data.id,
+        "type": "text",
+        "placeholder": _vm.$tc('units.minutes', 2),
+        "name": "duration_minutes",
+        "value": "3"
+      }
+    }), _vm._v(" "), _c('label', {
+      attrs: {
+        "for": 'duration_minutes_ventilate_' + terrarium.data.id
+      }
+    }, [_vm._v(_vm._s(_vm.$t('labels.duration')) + " " + _vm._s((_vm.$tc('units.minutes', 2))))])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('button', {
+      staticClass: "modal-action modal-close btn waves-effect waves-green",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v(_vm._s(_vm.$t('buttons.start')))])])])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.heat_up) ? _c('div', {
+      staticClass: "modal",
+      attrs: {
+        "id": terrarium.data.id + '_heat_up'
+      }
+    }, [_c('form', {
+      attrs: {
+        "action": '/api/v1/terraria/' + terrarium.data.id + '/action_sequence',
+        "data-method": "POST",
+        "id": 'form_heat_up_' + terrarium.data.id
+      },
+      on: {
+        "submit": _vm.submit
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_c('h4', [_vm._v(_vm._s(_vm.$t('labels.heat_up')))]), _vm._v(" "), _c('p', [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "template",
+        "value": "heat_up"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "runonce",
+        "value": "On"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "schedule_now",
+        "value": "On"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "id": 'duration_minutes_heat_up_' + terrarium.data.id,
+        "type": "text",
+        "placeholder": _vm.$tc('units.minutes', 2),
+        "name": "duration_minutes",
+        "value": "3"
+      }
+    }), _vm._v(" "), _c('label', {
+      attrs: {
+        "for": 'duration_minutes_heat_up_' + terrarium.data.id
+      }
+    }, [_vm._v(_vm._s(_vm.$t('labels.duration')) + " " + _vm._s((_vm.$tc('units.minutes', 2))))])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('button', {
+      staticClass: "modal-action modal-close btn waves-effect waves-green",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v(_vm._s(_vm.$t('buttons.start')))])])])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.cool_down) ? _c('div', {
+      staticClass: "modal",
+      attrs: {
+        "id": terrarium.data.id + '_cool_down'
+      }
+    }, [_c('form', {
+      attrs: {
+        "action": '/api/v1/terraria/' + terrarium.data.id + '/action_sequence',
+        "data-method": "POST",
+        "id": 'form_cool_down_' + terrarium.data.id
+      },
+      on: {
+        "submit": _vm.submit
+      }
+    }, [_c('div', {
+      staticClass: "modal-content"
+    }, [_c('h4', [_vm._v(_vm._s(_vm.$t('labels.cool_down')))]), _vm._v(" "), _c('p', [_c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "template",
+        "value": "cool_down"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "runonce",
+        "value": "On"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "type": "hidden",
+        "name": "schedule_now",
+        "value": "On"
+      }
+    }), _vm._v(" "), _c('input', {
+      attrs: {
+        "id": 'duration_minutes_cool_down_' + terrarium.data.id,
+        "type": "text",
+        "placeholder": _vm.$tc('units.minutes', 2),
+        "name": "duration_minutes",
+        "value": "3"
+      }
+    }), _vm._v(" "), _c('label', {
+      attrs: {
+        "for": 'duration_minutes_cool_down_' + terrarium.data.id
+      }
+    }, [_vm._v(_vm._s(_vm.$t('labels.duration')) + " " + _vm._s((_vm.$tc('units.minutes', 2))))])])]), _vm._v(" "), _c('div', {
+      staticClass: "modal-footer"
+    }, [_c('button', {
+      staticClass: "modal-action modal-close btn waves-effect waves-green",
+      attrs: {
+        "type": "submit"
+      }
+    }, [_vm._v(_vm._s(_vm.$t('buttons.start')))])])])]) : _vm._e()] : _vm._e(), _vm._v(" "), (terrarium.data) ? _c('div', {
+      staticClass: "card"
+    }, [_c('div', {
+      staticClass: "card-image terrarium-card-image",
+      style: (terrarium.data.default_background_filepath ?
+        'background-image: url(\'' + terrarium.data.default_background_filepath + '\');' :
+        'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;')
+    }, [_c('div', [(terrarium.data) ? _c('inline-graph', {
+      attrs: {
+        "points": terrarium.data.humidity_history,
+        "options": {
+          'fill': null,
+          'strokeWidth': '2',
+          'stroke': '#2196f3',
+          width: '100%',
+          height: '140px',
+          min: _vm.humidityGraphMin,
+          max: _vm.humidityGraphMax
+        },
+        "source-type": "terraria",
+        "source-id": terrarium.id,
+        "source-field": "humidity_history",
+        "type": "line"
+      }
+    }) : _vm._e()], 1), _vm._v(" "), _c('div', {
+      staticStyle: {
+        "position": "relative",
+        "top": "-145px"
+      }
+    }, [(terrarium.data) ? _c('inline-graph', {
+      attrs: {
+        "points": terrarium.data.temperature_history,
+        "options": {
+          'fill': null,
+          'strokeWidth': '2',
+          'stroke': '#b71c1c',
+          width: '100%',
+          height: '140px',
+          min: _vm.temperatureGraphMin,
+          max: _vm.temperatureGraphMax
+        },
+        "source-type": "terraria",
+        "source-id": terrarium.id,
+        "source-field": "temperature_history",
+        "type": "line"
+      }
+    }) : _vm._e()], 1), _vm._v(" "), _c('div', {
+      staticClass: "card-title"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/terraria/' + terrarium.data.id
+      }
+    }, [_vm._v(_vm._s(terrarium.data.display_name))])]), _vm._v(" "), _c('loading-indicator', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (terrarium.refreshing),
+        expression: "terrarium.refreshing"
+      }],
+      attrs: {
+        "size": 20
+      }
+    }), _vm._v(" "), _vm._m(0, true)], 1)]), _vm._v(" "), (terrarium.data.cooked_temperature_celsius !== null ||
+      terrarium.data.cooked_humidity_percent !== null ||
+      terrarium.data.heartbeat_critical) ? _c('div', {
+      staticClass: "card-content"
+    }, [_c('div', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (terrarium.data.cooked_temperature_celsius !== null),
+        expression: "terrarium.data.cooked_temperature_celsius !== null"
+      }],
+      class: {
+        'red-text': terrarium.data.temperature_critical, 'darken-3': terrarium.data.temperature_critical
+      }
+    }, [_vm._v("\n\n                        " + _vm._s(_vm.$t("labels.temperature")) + ": " + _vm._s(terrarium.data.cooked_temperature_celsius) + "°C\n\n                        "), (terrarium.data.heartbeat_critical) ? _c('i', {
+      staticClass: "mdi mdi-sync-off deep-orange-text tooltipped",
+      attrs: {
+        "data-delay": "50",
+        "data-html": "true",
+        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.heartbeat_critical') + '</div>'
+      }
+    }) : _vm._e()]), _vm._v(" "), _c('div', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (terrarium.data.cooked_humidity_percent !== null),
+        expression: "terrarium.data.cooked_humidity_percent !== null"
+      }],
+      class: {
+        'red-text': terrarium.data.humidity_critical, 'darken-3': terrarium.data.humidity_critical
+      }
+    }, [_vm._v("\n\n                        " + _vm._s(_vm.$t("labels.humidity")) + ": " + _vm._s(terrarium.data.cooked_humidity_percent) + "%\n\n                        "), (terrarium.data.heartbeat_critical) ? _c('i', {
+      staticClass: "mdi mdi-sync-off deep-orange-text tooltipped",
+      attrs: {
+        "data-delay": "50",
+        "data-html": "true",
+        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.heartbeat_critical') + '</div>'
+      }
+    }) : _vm._e()])]) : _vm._e(), _vm._v(" "), _c('div', {
+      staticClass: "card-reveal"
+    }, [_c('div', [_c('strong', [_vm._v(_vm._s(terrarium.data.display_name))]), _vm._v(" "), _c('i', {
+      staticClass: "mdi mdi-24px mdi-close right card-title card-title-small"
+    })]), _vm._v(" "), _vm._l((_vm.animals.filter(function (a) { return a.data.terrarium_id === terrarium.id; })), function(animal) {
+      return _c('p', [_c('i', {
+        staticClass: "mdi mdi-18px mdi-paw"
+      }), _vm._v(" "), _c('a', {
+        attrs: {
+          "href": '/animals/' + animal.data.id
+        }
+      }, [_vm._v(_vm._s(animal.data.display_name))]), _vm._v(" "), _c('i', [_vm._v(_vm._s(animal.data.common_name))])])
+    }), _vm._v(" "), (terrarium.data.capabilities.irrigate) ? _c('p', [_c('i', {
+      staticClass: "mdi mdi-18px mdi-weather-pouring"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": "#!"
+      },
+      on: {
+        "click": function($event) {
+          _vm.action_sequence_modal(terrarium.data.id, 'irrigate')
+        }
+      }
+    }, [_vm._v(_vm._s(_vm.$t('buttons.irrigate')))])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.ventilate) ? _c('p', [_c('i', {
+      staticClass: "mdi mdi-18px mdi-weather-windy"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": "#!"
+      },
+      on: {
+        "click": function($event) {
+          _vm.action_sequence_modal(terrarium.data.id, 'ventilate')
+        }
+      }
+    }, [_vm._v(_vm._s(_vm.$t('buttons.ventilate')))])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.heat_up) ? _c('p', [_c('i', {
+      staticClass: "mdi mdi-18px mdi-weather-sunny"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": "#!"
+      },
+      on: {
+        "click": function($event) {
+          _vm.action_sequence_modal(terrarium.data.id, 'heat_up')
+        }
+      }
+    }, [_vm._v(_vm._s(_vm.$t('buttons.heat_up')))])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.cool_down) ? _c('p', [_c('i', {
+      staticClass: "mdi mdi-18px mdi-snowflake"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": "#!"
+      },
+      on: {
+        "click": function($event) {
+          _vm.action_sequence_modal(terrarium.data.id, 'cool_down')
+        }
+      }
+    }, [_vm._v(_vm._s(_vm.$t('buttons.cool_down')))])]) : _vm._e()], 2)]) : _c('div', [_c('loading-card-widget')], 1)], 2)
+  }))], 1)
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('a', {
+    attrs: {
+      "href": "#!"
+    }
+  }, [_c('i', {
+    staticClass: "mdi mdi-24px mdi-dots-vertical right activator white-text"
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-52858374", module.exports)
+  }
+}
+
+/***/ }),
+/* 129 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight collapsible",
+    attrs: {
+      "data-collapsible": "expandable"
+    }
+  }, [_c('table-filter', {
+    ref: "table_filter",
+    attrs: {
+      "cols": 4,
+      "hide-cols": _vm.hideCols,
+      "filter-fields": [{
+          name: 'id',
+          path: 'id',
+          col: 0,
+          class: 'hide-on-med-and-down'
+        },
+        {
+          name: 'name',
+          path: 'name',
+          col: 1
+        },
+        {
+          name: 'email',
+          noFilter: true,
+          col: 2
+        },
+        {
+          noSort: true,
+          noFilter: true,
+          col: 3,
+          class: 'hide-on-small-only'
+        }
+      ]
+    }
+  }), _vm._v(" "), _c('tbody', _vm._l((_vm.users), function(user) {
+    return _c('tr', [_c('td', {
+      staticClass: "hide-on-med-and-down"
+    }, [_vm._v(_vm._s(user.data.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(user.data.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(user.data.email))]), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/users/' + user.data.id + '/edit'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])])
+  }))], 1), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-57661b6a", module.exports)
+  }
+}
+
+/***/ }),
+/* 130 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight collapsible",
+    attrs: {
+      "data-collapsible": "expandable"
+    }
+  }, [_c('table-filter', {
+    ref: "table_filter",
+    attrs: {
+      "cols": 4,
+      "hide-cols": _vm.hideCols,
+      "filter-fields": [{
+          name: 'name',
+          path: 'name',
+          col: 0
+        },
+        {
+          name: 'type',
+          noSort: true,
+          path: 'type.name_singular',
+          col: 1,
+          class: 'hide-on-small-only'
+        },
+        {
+          name: 'controlunit',
+          noSort: true,
+          path: 'controlunit.name',
+          col: 2,
+          class: 'hide-on-small-only'
+        },
+        {
+          noSort: true,
+          noFilter: true,
+          col: 3,
+          class: 'hide-on-small-only'
+        }
+      ]
+    }
+  }), _vm._v(" "), _vm._l((_vm.custom_components), function(custom_component) {
+    return [_c('tbody', [_c('tr', {
+      staticClass: "collapsible-tr-header",
+      attrs: {
+        "onclick": "window.collapseTr($(this))"
+      }
+    }, [_c('td', [_c('span', [_c('i', {
+      class: 'mdi mdi-24px mdi-' + custom_component.data.type.icon
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/custom_components/' + custom_component.data.id
+      }
+    }, [_vm._v(_vm._s(custom_component.data.name))]), _vm._v(" "), (!custom_component.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/custom_component_types/' + custom_component.data.type.id
+      }
+    }, [_vm._v(_vm._s(custom_component.data.type.name_singular))])])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [(custom_component.data.controlunit) ? _c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-developer-board"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/controlunits/' + custom_component.data.controlunit.id
+      }
+    }, [_vm._v(_vm._s(custom_component.data.controlunit.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/custom_components/' + custom_component.data.id + '/edit'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "collapsible-tr-body"
+    }, [_c('td', {
+      attrs: {
+        "colspan": "4"
+      }
+    }, _vm._l((custom_component.data.component_properties), function(prop, index) {
+      return _c('div', [_vm._v("\n                                " + _vm._s(prop.name) + ": " + _vm._s(prop.value) + "\n                            ")])
+    }))])])]
+  })], 2), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-5a084967", module.exports)
+  }
+}
+
+/***/ }),
+/* 131 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_vm._v("\n        " + _vm._s(_vm.$t('labels.loading_dots')) + "\n    ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-content center"
+  }, [_c('loading-indicator', {
+    attrs: {
+      "size": 40
+    }
+  })], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-5de93ae6", module.exports)
+  }
+}
+
+/***/ }),
+/* 132 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-clock"
+  }), _vm._v("\n                " + _vm._s(_vm.$tc("labels.animal_weighing_schedules", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_vm._l((_vm.schedules), function(schedule) {
+    return _c('div', {
+      staticClass: "row no-margin"
+    }, [(schedule.data) ? [_c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (schedule.data.timestamps.next != null),
+        expression: "schedule.data.timestamps.next != null"
+      }]
+    }, [_vm._v(_vm._s(schedule.data.timestamps.next))]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (schedule.data.timestamps.next == null),
+        expression: "schedule.data.timestamps.next == null"
+      }]
+    }, [_vm._v(_vm._s(_vm.$t("labels.now")))]), _vm._v(" "), _c('span', {
+      staticClass: "right"
+    }, [_c('a', {
+      attrs: {
+        "href": '/animals/' + _vm.animalId + '/weighing_schedules/' + schedule.data.id + '/edit'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-18px mdi-pencil"
+    })])]), _vm._v(" "), _c('span', {
+      staticClass: "right"
+    }, [_c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (schedule.data.due_days == 0),
+        expression: "schedule.data.due_days == 0"
+      }],
+      staticClass: "new badge",
+      attrs: {
+        "data-badge-caption": _vm.$t('labels.due')
+      }
+    }), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (schedule.data.due_days < 0),
+        expression: "schedule.data.due_days < 0"
+      }],
+      staticClass: "new badge red",
+      attrs: {
+        "data-badge-caption": _vm.$t('labels.overdue')
+      }
+    })])] : _vm._e()], 2)
+  }), _vm._v(" "), (_vm.schedules.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e()], 2), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('a', {
+    attrs: {
+      "href": '/animals/' + _vm.animalId + '/weighing_schedules/create'
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-5fc487fe", module.exports)
+  }
+}
+
+/***/ }),
+/* 133 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.echo.connector.pusher.connection.state !== 'connected' &&
+        _vm.echo.connector.pusher.connection.state !== 'initialized' &&
+        _vm.ready),
+      expression: "echo.connector.pusher.connection.state !== 'connected'\n                  && echo.connector.pusher.connection.state !== 'initialized'\n                  && ready"
+    }],
+    staticClass: "side-menu-info"
+  }, [_c('div', {
+    staticClass: "side-menu-info-title"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-wifi-off"
+  }), _vm._v(" " + _vm._s(_vm.$t('labels.connecting')) + "\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "side-menu-info-content"
+  }, [_c('span', [_vm._v(_vm._s(_vm.$t('tooltips.connecting_to_server')))])])])]), _vm._v(" "), _c('transition', {
+    attrs: {
+      "name": "fade"
+    }
+  }, [_c('div', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.system.emergency_stop === true),
+      expression: "system.emergency_stop === true"
+    }],
+    staticClass: "side-menu-info"
+  }, [_c('div', {
+    staticClass: "side-menu-info-title"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-power"
+  }), _vm._v(" " + _vm._s(_vm.$t('labels.emergency_stop')) + "\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "side-menu-info-content"
+  }, [_c('span', [_vm._v(_vm._s(_vm.$t('tooltips.emergency_stop')))])])])])], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-61fa9e78", module.exports)
+  }
+}
+
+/***/ }),
+/* 134 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -17612,12 +18436,2021 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-3a3726a8", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-6aab8a3a", module.exports)
   }
 }
 
 /***/ }),
-/* 128 */
+/* 135 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', {
+    staticClass: "overlay-loader center"
+  }, [_c('img', {
+    staticClass: "loader-icon spinning-logo",
+    style: ('width: ' + _vm.size + 'px; width: ' + _vm.size + 'px;'),
+    attrs: {
+      "src": "https://dev-43256.ciliatus.io/svg/Ciliatus_Logo.svg"
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-6d20a6fb", module.exports)
+  }
+}
+
+/***/ }),
+/* 136 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [(_vm.ShowFilterForm === true) ? _c('div', [_c('div', {
+    staticClass: "row",
+    staticStyle: {
+      "margin-bottom": "0"
+    }
+  }, [_c('div', {
+    staticClass: "input-field col s12 m6 l4"
+  }, [_c('input', {
+    staticClass: "datepicker",
+    attrs: {
+      "type": "text",
+      "placeholder": _vm.$t('labels.from'),
+      "name": "filter_from",
+      "id": 'filter_from_' + _vm.id,
+      "data-default": _vm.FilterFromDate
+    },
+    domProps: {
+      "value": _vm.FilterFromDate
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": 'filter_from_' + _vm.id
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.from')))])]), _vm._v(" "), _c('div', {
+    staticClass: "input-field col s12 m6 l4"
+  }, [_c('input', {
+    staticClass: "datepicker",
+    attrs: {
+      "type": "text",
+      "placeholder": _vm.$t('labels.to'),
+      "name": "filter_to",
+      "id": 'filter_to_' + _vm.id,
+      "data-default": _vm.FilterToDate
+    },
+    domProps: {
+      "value": _vm.FilterToDate
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": 'filter_to_' + _vm.id
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.to')))])]), _vm._v(" "), _c('div', {
+    staticClass: "input-field col s8 m8 l2"
+  }, [_c('button', {
+    staticClass: "btn waves-effect waves-light",
+    on: {
+      "click": _vm.build
+    }
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-refresh"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "input-field col s4 m4 l2"
+  }, [_c('input', {
+    attrs: {
+      "type": "text",
+      "id": 'dygraph_' + _vm.id + '_rollperiodselector',
+      "placeholder": _vm.$t('labels.rollperiod')
+    },
+    domProps: {
+      "value": 5
+    },
+    on: {
+      "keyup": function($event) {
+        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) { return null; }
+        return _vm.set_rollperiod($event)
+      }
+    }
+  }), _vm._v(" "), _c('label', [_vm._v(_vm._s(_vm.$t('labels.rollperiod')))])])])]) : _vm._e(), _vm._v(" "), _c('div', {
+    staticClass: "center",
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "id": 'dygraph_' + _vm.id + '_loading'
+    }
+  }, [_c('loading-indicator', {
+    attrs: {
+      "size": 100
+    }
+  })], 1), _vm._v(" "), _c('div', {
+    staticStyle: {
+      "width": "100%"
+    },
+    attrs: {
+      "id": 'dygraph_' + _vm.id
+    }
+  })])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-6e35f5d2", module.exports)
+  }
+}
+
+/***/ }),
+/* 137 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight collapsible",
+    attrs: {
+      "data-collapsible": "expandable"
+    }
+  }, [_c('table-filter', {
+    ref: "table_filter",
+    attrs: {
+      "cols": 6,
+      "hide-cols": _vm.hideCols,
+      "filter-fields": [{
+          name: 'name',
+          path: 'name',
+          col: 0
+        },
+        {
+          name: 'model',
+          path: 'model',
+          col: 1
+        },
+        {
+          name: 'pump',
+          noSort: true,
+          col: 2
+        },
+        {
+          name: 'controlunit',
+          noSort: true,
+          col: 3,
+          class: 'hide-on-small-only'
+        },
+        {
+          name: 'terrarium',
+          noSort: true,
+          col: 4,
+          class: 'hide-on-med-and-down'
+        },
+        {
+          noSort: true,
+          noFilter: true,
+          col: 5,
+          class: 'hide-on-small-only'
+        }
+      ]
+    }
+  }), _vm._v(" "), _vm._l((_vm.valves), function(valve) {
+    return [_c('tbody', [_c('tr', {
+      staticClass: "collapsible-tr-header",
+      attrs: {
+        "onclick": "window.collapseTr($(this))"
+      }
+    }, [_c('td', [_c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-pipe-disconnected"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/valves/' + valve.data.id
+      }
+    }, [_vm._v(_vm._s(valve.data.name))]), _vm._v(" "), (!valve.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(valve.data.model) + "\n                            ")])]), _vm._v(" "), (_vm.hideCols.indexOf('pump') === -1) ? _c('td', [((_vm.pump = _vm.pumps.filter(function (p) { return p.data.id === valve.data.pump_id; })).length > 0) ? _c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-water-pump"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/pumps/' + _vm.pump[0].data.id
+      }
+    }, [_vm._v(_vm._s(_vm.pump[0].data.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [((_vm.controlunit = _vm.controlunits.filter(function (c) { return c.data.id === valve.data.controlunit_id; })).length > 0) ? _c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-developer-board"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/controlunits/' + _vm.controlunit[0].data.id
+      }
+    }, [_vm._v(_vm._s(_vm.controlunit[0].data.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.hideCols.indexOf('terrarium') === -1) ? _c('td', {
+      staticClass: "hide-on-med-and-down"
+    }, [((_vm.terrarium = _vm.terraria.filter(function (t) { return t.data.id === valve.data.terrarium_id; })).length > 0) ? _c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-trackpad"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/terraria/' + _vm.terrarium[0].data.id
+      }
+    }, [_vm._v(_vm._s(_vm.terrarium[0].data.display_name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/valves/' + valve.data.id + '/edit'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _vm._m(0, true)])]
+  })], 2), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('tr', {
+    staticClass: "collapsible-tr-body"
+  }, [_c('td', {
+    attrs: {
+      "colspan": "3"
+    }
+  }), _vm._v(" "), _c('td', {
+    staticClass: "hide-on-small-only"
+  }), _vm._v(" "), _c('td', {
+    staticClass: "hide-on-med-and-down"
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-72f1ca7c", module.exports)
+  }
+}
+
+/***/ }),
+/* 138 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('div', {
+    staticClass: "timeline"
+  }, _vm._l((_vm.entries), function(entry) {
+    return _c('div', {
+      staticClass: "timeline-event"
+    }, [(entry.data) ? [_c('div', {
+      staticClass: "timeline-date"
+    }, [_c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (entry.data.timestamps.created_diff.days > 0),
+        expression: "entry.data.timestamps.created_diff.days > 0"
+      }],
+      staticClass: "tooltipped",
+      attrs: {
+        "data-position": "bottom",
+        "data-delay": "50",
+        "data-tooltip": entry.data.timestamps.created
+      }
+    }, [_vm._v("\n                                " + _vm._s(_vm.$t('units.days_ago', {
+      val: entry.data.timestamps.created_diff.days
+    })) + "\n                    ")]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (entry.data.timestamps.created_diff.days < 1 &&
+          entry.data.timestamps.created_diff.hours > 0),
+        expression: "entry.data.timestamps.created_diff.days < 1 &&\n                                  entry.data.timestamps.created_diff.hours > 0"
+      }],
+      staticClass: "tooltipped",
+      attrs: {
+        "data-position": "bottom",
+        "data-delay": "50",
+        "data-tooltip": entry.data.timestamps.created
+      }
+    }, [_vm._v("\n                                " + _vm._s(_vm.$t('units.hours_ago', {
+      val: entry.data.timestamps.created_diff.hours
+    })) + "\n                    ")]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (entry.data.timestamps.created_diff.days < 1 &&
+          entry.data.timestamps.created_diff.hours < 1 &&
+          entry.data.timestamps.created_diff.minutes > 1),
+        expression: "entry.data.timestamps.created_diff.days < 1 &&\n                                  entry.data.timestamps.created_diff.hours < 1 &&\n                                  entry.data.timestamps.created_diff.minutes > 1"
+      }],
+      staticClass: "tooltipped",
+      attrs: {
+        "data-position": "bottom",
+        "data-delay": "50",
+        "data-tooltip": entry.data.timestamps.created
+      }
+    }, [_vm._v("\n                                " + _vm._s(_vm.$t('units.minutes_ago', {
+      val: entry.data.timestamps.created_diff.minutes
+    })) + "\n                    ")]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (entry.data.timestamps.created_diff.days < 1 &&
+          entry.data.timestamps.created_diff.hours < 1 &&
+          entry.data.timestamps.created_diff.minutes < 2),
+        expression: "entry.data.timestamps.created_diff.days < 1 &&\n                                  entry.data.timestamps.created_diff.hours < 1 &&\n                                  entry.data.timestamps.created_diff.minutes < 2"
+      }],
+      staticClass: "tooltipped",
+      attrs: {
+        "data-position": "bottom",
+        "data-delay": "50",
+        "data-tooltip": entry.data.timestamps.created
+      }
+    }, [_vm._v("\n                                " + _vm._s(_vm.$t('units.just_now')) + "\n                    ")])]), _vm._v(" "), _c('div', {
+      staticClass: "card timeline-content"
+    }, [_c('div', {
+      staticClass: "card-content"
+    }, [_c('h5', [_vm._v(_vm._s(entry.data.title))]), _vm._v(" "), _c('p', {
+      domProps: {
+        "innerHTML": _vm._s(entry.data.text)
+      }
+    }), _vm._v(" "), _c('p', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (_vm.files.filter(function (f) { return f.data.belongsTo_id === entry.data.id; }).length > 0),
+        expression: "files.filter(f => f.data.belongsTo_id === entry.data.id).length > 0"
+      }],
+      staticStyle: {
+        "margin-top": "15px"
+      }
+    }, _vm._l((_vm.files.filter(function (f) { return f.data.belongsTo_id === entry.data.id; })), function(file, index) {
+      return _c('span', {
+        staticStyle: {
+          "margin-right": "15px"
+        }
+      }, [_c('i', {
+        class: 'mdi mdi-18px mdi-' + file.data.icon
+      }), _vm._v(" "), _c('a', {
+        attrs: {
+          "href": file.data.url
+        }
+      }, [_vm._v(_vm._s(file.data.display_name))])])
+    }))]), _vm._v(" "), _c('div', {
+      staticClass: "card-action"
+    }, [_c('a', {
+      attrs: {
+        "href": '/biography_entries/' + entry.data.id + '/edit'
+      }
+    }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]), _vm._v(" "), _c('div', {
+      staticClass: "timeline-badge teal darken-2 white-text"
+    }, [(entry.data.category) ? _c('i', {
+      class: 'mdi mdi-18px tooltipped' + entry.data.category.icon,
+      attrs: {
+        "data-position": "top",
+        "data-delay": "50",
+        "data-tooltip": entry.data.category.name
+      }
+    }) : _vm._e()])] : _vm._e()], 2)
+  }))]), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7695a880", module.exports)
+  }
+}
+
+/***/ }),
+/* 139 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight collapsible",
+    attrs: {
+      "data-collapsible": "expandable"
+    }
+  }, [_c('table-filter', {
+    ref: "table_filter",
+    attrs: {
+      "cols": 3,
+      "hide-cols": _vm.hideCols,
+      "filter-fields": [{
+          name: 'name',
+          path: 'name',
+          col: 0
+        },
+        {
+          name: 'terrarium',
+          path: 'terrarium.display_name',
+          noSort: true,
+          col: 1
+        },
+        {
+          noSort: true,
+          noFilter: true,
+          col: 2
+        }
+      ]
+    }
+  }), _vm._v(" "), _vm._l((_vm.sequences), function(sequence) {
+    return [(sequence.data) ? _c('tbody', [_c('tr', {
+      staticClass: "collapsible-tr-header",
+      attrs: {
+        "onclick": "window.collapseTr($(this))"
+      }
+    }, [_c('td', [_c('span', [_c('i', {
+      staticClass: "mdi mdi-24px mdi-playlist-play"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/action_sequences/' + sequence.data.id + '/edit'
+      }
+    }, [_vm._v(_vm._s(sequence.data.name))])])]), _vm._v(" "), _c('td', [((_vm.terrarium = _vm.terraria.filter(function (t) { return t.id === sequence.data.terrarium_id; })).length > 0) ? _c('span', [(_vm.terrarium[0].data) ? [_c('i', {
+      staticClass: "mdi mdi-24px mdi-trackpad"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/terraria/' + _vm.terrarium[0].data.id
+      }
+    }, [_vm._v(_vm._s(_vm.terrarium[0].data.name))])] : _vm._e()], 2) : _vm._e()]), _vm._v(" "), _c('td', [_c('span', [_c('a', {
+      attrs: {
+        "href": '/action_sequences/' + sequence.data.id + '/edit'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "collapsible-tr-body"
+    }, [_c('td', {
+      staticClass: "table-details-collapsible",
+      attrs: {
+        "colspan": "3"
+      }
+    }, [((_vm.sequence_schedules = _vm.schedules.filter(function (s) { return s.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_schedules', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_schedules), function(schedule, index) {
+      return _c('li', [(schedule.data) ? [_c('i', {
+        staticClass: "mdi mdi-18px mdi-clock"
+      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(schedule.data.timestamps.starts))]), _vm._v(" "), (schedule.data.timestamps.runonce) ? _c('span', [_c('i', [_vm._v(_vm._s(_vm.$t('labels.runonce')))])]) : _c('span', [_c('i', [_vm._v(_vm._s(_vm.$t('labels.daily')))])])] : _vm._e()], 2)
+    })], 2) : _vm._e(), _vm._v(" "), ((_vm.sequence_triggers = _vm.triggers.filter(function (t) { return t.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_triggers', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_triggers), function(trigger, index) {
+      return _c('li', [(trigger.data) ? [_c('i', {
+        staticClass: "mdi mdi-18px mdi-vanish"
+      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + trigger.data.logical_sensor_type)))]), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'greater') ? _c('span', [_vm._v(">")]) : _vm._e(), _vm._v(" "), (trigger.data.reference_value_comparison_type == 'lesser') ? _c('span', [_vm._v("<")]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(_vm._s(trigger.data.reference_value))]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.between')) + " " + _vm._s(trigger.data.timeframe.start) + "\n                                            " + _vm._s(_vm.$t('labels.and')) + " " + _vm._s(trigger.data.timeframe.end) + ",\n                                        ")]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.minimum_timeout')) + ": " + _vm._s(trigger.data.minimum_timeout_minutes) + "\n                                            " + _vm._s(_vm.$tc('units.minutes', trigger.data.minimum_timeout_minutes)) + "\n                                        ")])] : _vm._e()], 2)
+    })], 2) : _vm._e(), _vm._v(" "), ((_vm.sequence_intentions = _vm.intentions.filter(function (i) { return i.data.action_sequence_id === sequence.data.id; })).length > 0) ? _c('ul', [_c('strong', [_vm._v(_vm._s(_vm.$tc('labels.action_sequence_intentions', 2)))]), _vm._v(" "), _vm._l((_vm.sequence_intentions), function(intention, index) {
+      return _c('li', [(intention.data) ? [_c('i', {
+        staticClass: "mdi mdi-18px mdi-compass"
+      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + intention.data.intention)))]), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t('labels.' + intention.data.type)))]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.between')) + " " + _vm._s(intention.data.timeframe.start) + "\n                                            " + _vm._s(_vm.$t('labels.and')) + " " + _vm._s(intention.data.timeframe.end) + ",\n                                        ")]), _vm._v(" "), _c('span', [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.minimum_timeout')) + ": " + _vm._s(intention.data.minimum_timeout_minutes) + "\n                                            " + _vm._s(_vm.$tc('units.minutes', intention.data.minimum_timeout_minutes)) + "\n                                        ")])] : _vm._e()], 2)
+    })], 2) : _vm._e()])])]) : _vm._e()]
+  })], 2), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-779a643c", module.exports)
+  }
+}
+
+/***/ }),
+/* 140 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    class: _vm.wrapperClasses
+  }, [(_vm.physical_sensor.data) ? _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-switch"
+  }), _vm._v("\n            " + _vm._s(_vm.$t("labels.physical_sensor")) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-title"
+  }, [_vm._v("\n                " + _vm._s(_vm.physical_sensor.data.name) + "\n            ")]), _vm._v(" "), _vm._l((_vm.logical_sensors), function(logical_sensor) {
+    return _c('div', [(logical_sensor.data) ? [_c('a', {
+      attrs: {
+        "href": '/logical_sensors/' + logical_sensor.data.id
+      }
+    }, [_vm._v(_vm._s(logical_sensor.data.name))]), _vm._v(" "), _c('i', [_vm._v(_vm._s(_vm.$t("labels." + logical_sensor.data.type)))])] : _vm._e()], 2)
+  })], 2), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('a', {
+    attrs: {
+      "href": '/physical_sensors/' + _vm.physical_sensor.data.id
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))]), _vm._v(" "), _c('a', {
+    attrs: {
+      "href": '/physical_sensors/' + _vm.physical_sensor.data.id + '/edit'
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]) : _c('div', [_c('loading-card-widget')], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-787d603c", module.exports)
+  }
+}
+
+/***/ }),
+/* 141 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('div', {
+    staticClass: "modal",
+    staticStyle: {
+      "min-height": "800px"
+    },
+    attrs: {
+      "id": 'modal_add_weighing_' + _vm.animalId
+    }
+  }, [_c('form', {
+    attrs: {
+      "action": '/api/v1/animals/' + _vm.animalId + '/weighings',
+      "data-method": "POST",
+      "onsubmit": "window.submit_form"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.$t("labels.add_weight")))]), _vm._v(" "), _c('p', [_c('input', {
+    attrs: {
+      "type": "text",
+      "name": "weight",
+      "id": "weight",
+      "placeholder": _vm.$t('labels.weight'),
+      "value": ""
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "weight"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("labels.weight")) + "/g")]), _vm._v(" "), _c('input', {
+    staticClass: "datepicker",
+    attrs: {
+      "type": "text",
+      "id": "weight-created-at",
+      "placeholder": _vm.$t('labels.date'),
+      "name": "created_at"
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "weight-created-at"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.date')))])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn modal-action modal-close waves-effect waves-light",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v("\n                        " + _vm._s(_vm.$t("buttons.save")) + "\n                        "), _c('i', {
+    staticClass: "mdi mdi-18px mdi-floppy left"
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-weight-kilogram"
+  }), _vm._v("\n                " + _vm._s(_vm.$tc("labels.animal_weighings", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_vm._l((_vm.weighings), function(weighing) {
+    return _c('div', [(weighing.data) ? _c('div', {
+      staticClass: "row row-no-margin",
+      staticStyle: {
+        "width": "100%"
+      }
+    }, [(weighing.data.timestamps.created_diff.days > 1) ? _c('span', [_vm._v("\n                            " + _vm._s(_vm.$t('units.days_ago', {
+      val: weighing.data.timestamps.created_diff.days
+    })) + "\n                        ")]) : _vm._e(), _vm._v(" "), (weighing.data.timestamps.created_diff.days <= 1 &&
+      weighing.data.timestamps.created_diff.hours > 1) ? _c('span', [_vm._v("\n                            " + _vm._s(_vm.$t('units.hours_ago', {
+      val: weighing.data.timestamps.created_diff.hours
+    })) + "\n                        ")]) : _vm._e(), _vm._v(" "), (weighing.data.timestamps.created_diff.days <= 1 &&
+      weighing.data.timestamps.created_diff.hours <= 1) ? _c('span', [_vm._v("\n                            " + _vm._s(_vm.$t('units.just_now')) + "\n                        ")]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(" - " + _vm._s(weighing.data.amount) + "g")]), _vm._v(" "), _c('span', {
+      staticClass: "right"
+    }, [_c('a', {
+      staticClass: "red-text",
+      attrs: {
+        "href": '/animals/' + _vm.animalId + '/weighings/' + weighing.data.id + '/delete'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])]) : _vm._e()])
+  }), _vm._v(" "), (_vm.weighings.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e(), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false,
+      "mini": true
+    }
+  })], 2), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('a', {
+    attrs: {
+      "href": '#modal_add_weighing_' + _vm.animalId,
+      "onclick": '$(\'#modal_add_weighing_' + _vm.animalId + '\').modal(); $(\'#modal_add_weighing_' + _vm.animalId + ' select\').formSelect(); $(\'#modal_add_weighing_' + _vm.animalId + '\').modal(\'open\');'
+    }
+  }, [_vm._v("\n                    " + _vm._s(_vm.$t("buttons.add")) + "\n                ")])])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-7a4ba0b8", module.exports)
+  }
+}
+
+/***/ }),
+/* 142 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    class: _vm.wrapperClasses
+  }, [(_vm.pump.data) ? _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-water-pump"
+  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.pumps", 1)) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_c('span', {
+    staticClass: "card-title activator"
+  }, [_vm._v("\n                " + _vm._s(_vm.pump.data.name) + "\n            ")]), _vm._v(" "), _c('div', [_vm._v("\n                " + _vm._s(_vm.$t('labels.model')) + ": " + _vm._s(_vm.pump.data.model) + "\n            ")])]), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('a', {
+    attrs: {
+      "href": '/pumps/' + _vm.pump.data.id
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))]), _vm._v(" "), _c('a', {
+    attrs: {
+      "href": '/pumps/' + _vm.pump.data.id + '/edit'
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]) : _c('div', [_c('loading-card-widget')], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-813d1874", module.exports)
+  }
+}
+
+/***/ }),
+/* 143 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-clock"
+  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.animal_feeding_schedules", 2)) + "\n        ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_vm._l((_vm.schedules), function(schedule) {
+    return _c('div', {
+      staticClass: "row no-margin"
+    }, [(schedule.data) ? [(schedule.data.timestamps.next != null) ? _c('span', [_vm._v(_vm._s(schedule.data.timestamps.next) + " - ")]) : _vm._e(), _vm._v("\n                    " + _vm._s(schedule.data.type) + "\n\n                    "), _c('span', {
+      staticClass: "right"
+    }, [_c('a', {
+      attrs: {
+        "href": '/animals/' + _vm.animalId + '/feeding_schedules/' + schedule.data.id + '/edit'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-18px mdi-pencil"
+    })])]), _vm._v(" "), _c('span', {
+      staticClass: "right"
+    }, [_c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (schedule.data.due_days === 0),
+        expression: "schedule.data.due_days === 0"
+      }],
+      staticClass: "new badge",
+      attrs: {
+        "data-badge-caption": _vm.$t('labels.due')
+      }
+    }), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (schedule.data.due_days < 0),
+        expression: "schedule.data.due_days < 0"
+      }],
+      staticClass: "new badge red",
+      attrs: {
+        "data-badge-caption": _vm.$t('labels.overdue')
+      }
+    })])] : _vm._e()], 2)
+  }), _vm._v(" "), (_vm.schedules.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e()], 2), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('a', {
+    attrs: {
+      "href": '/animals/' + _vm.animalId + '/feeding_schedules/create'
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-82c4c0a0", module.exports)
+  }
+}
+
+/***/ }),
+/* 144 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('span', [_c('peity', {
+    attrs: {
+      "type": _vm.type,
+      "options": _vm.options,
+      "data": _vm.points_string
+    }
+  })], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-8768f226", module.exports)
+  }
+}
+
+/***/ }),
+/* 145 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    class: _vm.containerClasses
+  }, [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('div', {
+    staticClass: "card"
+  }, [_c('form', {
+    attrs: {
+      "action": '/api/v1/custom_component_types/' + (_vm.custom_component_type.id === undefined ? '' : _vm.custom_component_type.id),
+      "data-method": _vm.custom_component_type.id === undefined ? 'POST' : 'PUT',
+      "id": _vm.custom_component_type,
+      "data-redirect-success": "/categories#tab_custom_components_types"
+    }
+  }, [_c('div', {
+    staticClass: "card-content"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$tc('labels.custom_component_types', 1)))])]), _vm._v(" "), _c('div', {
+    staticClass: "col s12 m6 l6"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "input-field col s12 m6 l6"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.custom_component_type.name_singular),
+      expression: "custom_component_type.name_singular"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": _vm.$t('labels.name_singular'),
+      "name": "name_singular",
+      "id": "name_singular"
+    },
+    domProps: {
+      "value": (_vm.custom_component_type.name_singular)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.custom_component_type, "name_singular", $event.target.value)
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "name_singular"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.name_singular')))])]), _vm._v(" "), _c('div', {
+    staticClass: "input-field col s12 m6 l6"
+  }, [_c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.custom_component_type.name_plural),
+      expression: "custom_component_type.name_plural"
+    }],
+    attrs: {
+      "type": "text",
+      "placeholder": _vm.$t('labels.name_plural'),
+      "name": "name_plural",
+      "id": "name_plural"
+    },
+    domProps: {
+      "value": (_vm.custom_component_type.name_plural)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.$set(_vm.custom_component_type, "name_plural", $event.target.value)
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "name_plural"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.name_plural')))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "col s12 m6 l6"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "input-field col s12"
+  }, [_c('i', {
+    class: 'mdi mdi-18px mdi-' + _vm.current_icon + ' prefix'
+  }), _vm._v(" "), _c('input', {
+    directives: [{
+      name: "model",
+      rawName: "v-model",
+      value: (_vm.current_icon),
+      expression: "current_icon"
+    }],
+    staticClass: "autocomplete",
+    attrs: {
+      "name": "icon",
+      "type": "text",
+      "id": "icon-select"
+    },
+    domProps: {
+      "value": (_vm.current_icon)
+    },
+    on: {
+      "input": function($event) {
+        if ($event.target.composing) { return; }
+        _vm.current_icon = $event.target.value
+      }
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "icon-select"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.icon')))]), _vm._v(" "), _c('p', {
+    domProps: {
+      "innerHTML": _vm._s('<i>' + _vm.$t('tooltips.material_icons_list') + '</i>')
+    }
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('labels.intention')))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t('tooltips.custom_components.intentions')))])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('button', {
+    staticClass: "btn waves-effect waves-light",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.add_intention
+    }
+  }, [_vm._v(_vm._s(_vm.$t('buttons.add_intention'))), _c('i', {
+    staticClass: "mdi mdi-18px mdi-plus left"
+  })])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_vm._l((_vm.component_intentions), function(intention, index) {
+    return [_c('div', {
+      staticClass: "input-field col s12 m5 l5"
+    }, [_c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.component_intentions[index].intention),
+        expression: "component_intentions[index].intention"
+      }],
+      attrs: {
+        "name": "default_intention_intention[]",
+        "id": 'intention_id_' + index
+      },
+      on: {
+        "change": function($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+            return o.selected
+          }).map(function(o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val
+          });
+          _vm.$set(_vm.component_intentions[index], "intention", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
+        }
+      }
+    }, [_c('option', {
+      attrs: {
+        "value": "increase"
+      },
+      domProps: {
+        "selected": intention.intention === 'increase' ? 'selected' : ''
+      }
+    }, [_vm._v(_vm._s(_vm.$t('labels.increases')) + "\n                                            ")]), _vm._v(" "), _c('option', {
+      attrs: {
+        "value": "decrease"
+      },
+      domProps: {
+        "selected": intention.intention === 'decrease' ? 'selected' : ''
+      }
+    }, [_vm._v(_vm._s(_vm.$t('labels.decreases')) + "\n                                            ")])]), _vm._v(" "), _c('label', {
+      attrs: {
+        "for": 'intention_id_' + index
+      }
+    }, [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.intention')) + "\n                                        ")])]), _vm._v(" "), _c('div', {
+      staticClass: "input-field col s12 m5 l5"
+    }, [_c('select', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (_vm.component_intentions[index].type),
+        expression: "component_intentions[index].type"
+      }],
+      attrs: {
+        "name": "default_intention_type[]",
+        "id": 'type_id_' + index
+      },
+      on: {
+        "change": function($event) {
+          var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
+            return o.selected
+          }).map(function(o) {
+            var val = "_value" in o ? o._value : o.value;
+            return val
+          });
+          _vm.$set(_vm.component_intentions[index], "type", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
+        }
+      }
+    }, _vm._l((_vm.sensorreadingTypes), function(srt, index) {
+      return _c('option', {
+        domProps: {
+          "value": srt,
+          "selected": intention.type === srt ? 'selected' : ''
+        }
+      }, [_vm._v(_vm._s(_vm.$t('labels.' + srt)) + "\n                                            ")])
+    })), _vm._v(" "), _c('label', {
+      attrs: {
+        "for": 'type_id_' + index
+      }
+    }, [_vm._v(_vm._s(_vm.$tc('labels.logical_sensors', 1)))])]), _vm._v(" "), _c('div', {
+      staticClass: "input-field col s2 m2 l2"
+    }, [_c('a', {
+      staticClass: "red-text",
+      attrs: {
+        "href": "#!"
+      },
+      on: {
+        "click": function($event) {
+          _vm.component_intentions.splice(index, 1)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])]
+  })], 2)])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12 m6 l6"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('labels.properties')))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t('tooltips.custom_components.property_templates')))])])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('button', {
+    staticClass: "btn waves-effect waves-light",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.add_property
+    }
+  }, [_vm._v(_vm._s(_vm.$t('buttons.add_property')) + "\n                                        "), _c('i', {
+    staticClass: "mdi mdi-18px mdi-plus left"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col s12",
+    attrs: {
+      "id": "custom_component_type_create_props"
+    }
+  }, _vm._l((_vm.component_properties), function(item, index) {
+    return _c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "input-field col s10 m10 l10"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (item.name),
+        expression: "item.name"
+      }],
+      attrs: {
+        "type": "text",
+        "name": "property_name[]"
+      },
+      domProps: {
+        "value": (item.name)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.$set(item, "name", $event.target.value)
+        }
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "input-field col s2 m2 l2"
+    }, [_c('a', {
+      staticClass: "red-text",
+      attrs: {
+        "href": "#!"
+      },
+      on: {
+        "click": function($event) {
+          _vm.component_properties.splice(index, 1)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])])
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "col s12 m6 l6"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('labels.state')))]), _vm._v(" "), _c('p', {
+    domProps: {
+      "innerHTML": _vm._s(_vm.$t('tooltips.custom_components.state_templates'))
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col s12"
+  }, [_c('button', {
+    staticClass: "btn waves-effect waves-light",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.add_state
+    }
+  }, [_vm._v(_vm._s(_vm.$t('buttons.add_state')) + "\n                                        "), _c('i', {
+    staticClass: "mdi mdi-18px mdi-plus left"
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col s12",
+    attrs: {
+      "id": "custom_component_state_create_props"
+    }
+  }, _vm._l((_vm.component_states), function(item, index) {
+    return _c('div', {
+      staticClass: "row"
+    }, [_c('div', {
+      staticClass: "col s2 m2 l2"
+    }, [_c('p', {
+      staticStyle: {
+        "padding": "20px"
+      }
+    }, [_c('input', {
+      attrs: {
+        "name": "default_running_state",
+        "id": 'default_running_state_' + item.name,
+        "type": "radio"
+      },
+      domProps: {
+        "value": item.name,
+        "checked": _vm.default_running_state === item.name
+      },
+      on: {
+        "click": function($event) {
+          _vm.default_running_state = item.name
+        }
+      }
+    }), _vm._v(" "), _c('label', {
+      attrs: {
+        "for": 'default_running_state_' + item.name,
+        "data-delay": "50",
+        "data-html": "true",
+        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.custom_components.type_default_running_state') + '</div>'
+      }
+    })])]), _vm._v(" "), _c('div', {
+      staticClass: "input-field col s8 m8 l8"
+    }, [_c('input', {
+      directives: [{
+        name: "model",
+        rawName: "v-model",
+        value: (item.name),
+        expression: "item.name"
+      }],
+      attrs: {
+        "type": "text",
+        "name": "state[]"
+      },
+      domProps: {
+        "value": (item.name)
+      },
+      on: {
+        "input": function($event) {
+          if ($event.target.composing) { return; }
+          _vm.$set(item, "name", $event.target.value)
+        }
+      }
+    })]), _vm._v(" "), _c('div', {
+      staticClass: "input-field col s2 m2 l2"
+    }, [_c('a', {
+      staticClass: "red-text",
+      attrs: {
+        "href": "#!"
+      },
+      on: {
+        "click": function($event) {
+          _vm.component_states.splice(index, 1)
+        }
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])])
+  }))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "input-field col s12"
+  }, [_c('button', {
+    staticClass: "btn waves-effect waves-light",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('buttons.next')) + "\n                                "), _c('i', {
+    staticClass: "mdi mdi-18px mdi-floppy left"
+  })])])])])])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-92e5b986", module.exports)
+  }
+}
+
+/***/ }),
+/* 146 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal",
+    attrs: {
+      "id": 'modal_just_fed_' + _vm.animalId
+    }
+  }, [_c('form', {
+    attrs: {
+      "action": '/api/v1/animals/' + _vm.animalId + '/feedings',
+      "data-method": "POST"
+    },
+    on: {
+      "submit": _vm.submit
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.$t("labels.just_fed")))]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "input-field col s12"
+  }, [(_vm.feedingTypes.length > 0) ? _c('select', {
+    attrs: {
+      "id": "meal_type",
+      "name": "meal_type"
+    }
+  }, _vm._l((_vm.feedingTypes), function(ft) {
+    return _c('option', {
+      domProps: {
+        "value": ft
+      }
+    }, [_vm._v(_vm._s(ft))])
+  })) : _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t('tooltips.no_feeding_types')))])]), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "meal_type"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("labels.meal_type")))])]), _vm._v(" "), _c('div', {
+    staticClass: "input-field col s12"
+  }, [_c('input', {
+    staticClass: "datepicker",
+    attrs: {
+      "type": "text",
+      "id": "date-feeding-created",
+      "name": "created_at"
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "date-feeding-created"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.date')))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn modal-action modal-close waves-effect waves-light"
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("buttons.save")) + "\n                "), _c('i', {
+    staticClass: "mdi mdi-18px mdi-floppy left"
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn modal-action modal-close waves-effect waves-light",
+    attrs: {
+      "type": "reset"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("buttons.close")) + "\n                "), _c('i', {
+    staticClass: "mdi mdi-18px mdi-close left"
+  })])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-988cd154", module.exports)
+  }
+}
+
+/***/ }),
+/* 147 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight collapsible",
+    attrs: {
+      "data-collapsible": "expandable"
+    }
+  }, [_c('table-filter', {
+    ref: "table_filter",
+    attrs: {
+      "cols": 4,
+      "hide-cols": _vm.hideCols,
+      "filter-fields": [{
+          name: 'display_name',
+          path: 'display_name',
+          col: 0
+        },
+        {
+          name: 'type',
+          path: 'mimetype',
+          col: 1
+        },
+        {
+          name: 'size',
+          path: 'size',
+          noFilter: true,
+          col: 2
+        },
+        {
+          name: 'created_at',
+          path: 'created_at',
+          noFilter: true,
+          col: 3
+        },
+        {
+          noSort: true,
+          noFilter: true,
+          col: 4,
+          class: 'hide-on-small-only'
+        }
+      ]
+    }
+  }), _vm._v(" "), _vm._l((_vm.files), function(file) {
+    return [_c('tbody', [_c('tr', {
+      staticClass: "collapsible-tr-header",
+      attrs: {
+        "onclick": "window.collapseTr($(this))"
+      }
+    }, [_c('td', [(_vm.showOptionSelect) ? _c('span', [_c('input', {
+      attrs: {
+        "name": "file",
+        "type": "radio",
+        "id": file.data.id
+      },
+      domProps: {
+        "value": file.data.id
+      }
+    }), _vm._v(" "), _c('label', {
+      attrs: {
+        "for": file.data.id
+      }
+    })]) : _vm._e(), _vm._v(" "), _c('span', [_c('i', {
+      class: 'mdi mdi-24px mdi-' + file.data.icon
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/files/' + file.data.id
+      }
+    }, [_vm._v(_vm._s(file.data.display_name))])])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(file.data.mimetype) + "\n                            ")])]), _vm._v(" "), _c('td', [(file.data.size / 1024 > 1024) ? _c('span', [_vm._v("\n                                " + _vm._s(Math.round(file.data.size / 1024 / 1024, 1)) + " MB\n                            ")]) : _c('span', [_vm._v("\n                                " + _vm._s(Math.round(file.data.size / 1024, 0)) + " KB\n                            ")])]), _vm._v(" "), _c('td', [_vm._v("\n                            " + _vm._s(_vm.$t(
+      'units.' + _vm.$getMatchingTimeDiff(file.data.timestamps.created_diff).unit, {
+        val: _vm.$getMatchingTimeDiff(file.data.timestamps.created_diff).val
+      }
+    )) + "\n                        ")]), _vm._v(" "), _c('td', {
+      staticClass: "hide-on-small-only"
+    }, [(_vm.backgroundSelectorClassName && _vm.backgroundSelectorId && file.data.mimetype.indexOf('image') !== -1) ? _c('span', [_c('a', {
+      attrs: {
+        "href": '/files/set-background/' + _vm.backgroundSelectorClassName + '/' + _vm.backgroundSelectorId + '/' + file.data.id
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-24px mdi-image tooltipped",
+      attrs: {
+        "data-delay": "50",
+        "data-html": "true",
+        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.set_as_background') + '</div>'
+      }
+    })])]) : _vm._e(), _vm._v(" "), _c('span', [_c('a', {
+      attrs: {
+        "href": '/files/' + file.data.id + '/edit'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-24px mdi-pencil"
+    })])])])]), _vm._v(" "), _c('tr', {
+      staticClass: "collapsible-tr-body"
+    }, [(_vm.showOptionSelect) ? _c('td') : _vm._e(), _vm._v(" "), _c('td', {
+      attrs: {
+        "colspan": "4"
+      }
+    }, [(file.data.mimetype.startsWith('image') && file.data.thumb != undefined) ? _c('img', {
+      attrs: {
+        "src": file.data.thumb.path_external
+      }
+    }) : _vm._e()])])])]
+  })], 2), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-a1773e8c", module.exports)
+  }
+}
+
+/***/ }),
+/* 148 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    class: _vm.containerClasses
+  }, [_c('div', {
+    staticClass: "col s12 m12 l4"
+  }, [(_vm.file.data) ? _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-attachment"
+  }), _vm._v("\n                " + _vm._s(_vm.$tc("labels.files", 1)) + "\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_c('div', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.size")) + ": " + _vm._s((_vm.file.data.size / 1024 / 1024).toFixed(2)) + " MB")]), _c('br'), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(_vm.file.data.mimetype))])]), _vm._v(" "), _c('div', [_c('p', [_c('strong', [_vm._v(_vm._s(_vm.$t('labels.associated_with')) + ":")])]), _vm._v(" "), _vm._l((_vm.file.data.models), function(model) {
+    return _c('p', [_c('i', {
+      class: 'mdi mdi-18px mdi-' + model.icon
+    }), _vm._v(" "), (!model.name && !model.display_name) ? _c('a', {
+      attrs: {
+        "href": model.url
+      }
+    }, [_vm._v(_vm._s(model.title))]) : _vm._e(), _vm._v(" "), (model.name && !model.display_name) ? _c('a', {
+      attrs: {
+        "href": model.url
+      }
+    }, [_vm._v(_vm._s(model.name))]) : _vm._e(), _vm._v(" "), (model.display_name) ? _c('a', {
+      attrs: {
+        "href": model.url
+      }
+    }, [_vm._v(_vm._s(model.display_name))]) : _vm._e(), _vm._v(" "), _c('span', {
+      staticClass: "right"
+    }, [_c('a', {
+      staticClass: "red-text",
+      attrs: {
+        "href": '/files/associate/' + model.class + '/' + model.id + '/' + _vm.file.data.id
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])])
+  })], 2)]), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('a', {
+    attrs: {
+      "href": '/files/' + _vm.file.data.id + '/edit'
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))]), _vm._v(" "), _c('a', {
+    attrs: {
+      "href": '/files/' + _vm.file.data.id + '/download/' + _vm.file.data.display_name
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.download")))])])]) : _c('div', [_c('loading-card-widget')], 1)]), _vm._v(" "), (_vm.file.data && _vm.file.data.is_image && _vm.file.data.thumb !== _vm.undefiend) ? _c('div', {
+    staticClass: "col s12 m12 l8"
+  }, [(_vm.file.data) ? _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('span', [_vm._v(_vm._s(_vm.$t('labels.preview')))])]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_c('img', {
+    attrs: {
+      "src": _vm.file.data.thumb.path_external
+    }
+  })])]) : _c('div', [_c('loading-card-widget')], 1)]) : _vm._e()])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-c121560a", module.exports)
+  }
+}
+
+/***/ }),
+/* 149 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('div', {
+    staticClass: "modal",
+    staticStyle: {
+      "min-height": "800px"
+    },
+    attrs: {
+      "id": 'modal_add_feeding_' + _vm.animalId
+    }
+  }, [_c('form', {
+    attrs: {
+      "action": '/api/v1/animals/' + _vm.animalId + '/feedings',
+      "data-method": "POST",
+      "onsubmit": "window.submit_form"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.$t("labels.just_fed")))]), _vm._v(" "), _c('select', {
+    attrs: {
+      "name": "meal_type",
+      "id": "meal_type"
+    }
+  }, _vm._l((_vm.feeding_types), function(ft) {
+    return _c('option', {
+      domProps: {
+        "value": ft
+      }
+    }, [_vm._v(_vm._s(ft))])
+  })), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "meal_type"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("labels.meal_type")))]), _vm._v(" "), _c('input', {
+    staticClass: "datepicker",
+    attrs: {
+      "type": "text",
+      "id": "date-feeding-created",
+      "placeholder": _vm.$t('labels.date'),
+      "name": "created_at"
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "date-feeding-created"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.date')))])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn modal-action modal-close waves-effect waves-light",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.save")) + "\n                        "), _c('i', {
+    staticClass: "mdi mdi-18px mdi-floppy left"
+  })])])])]), _vm._v(" "), _c('div', {
+    staticClass: "card"
+  }, [_c('div', {
+    staticClass: "card-header"
+  }, [_c('i', {
+    staticClass: "mdi mdi-18px mdi-silverware-variant"
+  }), _vm._v("\n                " + _vm._s(_vm.$tc("labels.animal_feedings", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
+    staticClass: "card-content"
+  }, [_vm._l((_vm.feedings), function(feeding) {
+    return _c('div', [_c('div', {
+      staticClass: "row row-no-margin"
+    }, [(feeding.data.timestamps.created_diff.days > 1) ? _c('span', [_vm._v(_vm._s(_vm.$t('units.days_ago', {
+      val: feeding.data.timestamps.created_diff.days
+    })))]) : _vm._e(), _vm._v(" "), (feeding.data.timestamps.created_diff.days <= 1 && feeding.data.timestamps.created_diff.hours > 1) ? _c('span', [_vm._v(_vm._s(_vm.$t('units.hours_ago', {
+      val: feeding.data.timestamps.created_diff.hours
+    })))]) : _vm._e(), _vm._v(" "), (feeding.data.timestamps.created_diff.days <= 1 && feeding.data.timestamps.created_diff.hours <= 1) ? _c('span', [_vm._v(_vm._s(_vm.$t('units.just_now')))]) : _vm._e(), _vm._v(" "), _c('span', [_vm._v(" - " + _vm._s(feeding.data.type))]), _vm._v(" "), _c('span', {
+      staticClass: "right"
+    }, [_c('a', {
+      staticClass: "red-text",
+      attrs: {
+        "href": '/animals/' + _vm.animalId + '/feedings/' + feeding.data.id + '/delete'
+      }
+    }, [_c('i', {
+      staticClass: "mdi mdi-18px mdi-delete"
+    })])])])])
+  }), _vm._v(" "), (_vm.feedings.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e(), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false,
+      "mini": true
+    }
+  })], 2), _vm._v(" "), _c('div', {
+    staticClass: "card-action"
+  }, [_c('a', {
+    attrs: {
+      "href": '#modal_add_feeding_' + _vm.animalId,
+      "onclick": '$(\'#modal_add_feeding_' + _vm.animalId + '\').modal(); $(\'#modal_add_feeding_' + _vm.animalId + ' select\').formSelect(); $(\'#modal_add_feeding_' + _vm.animalId + '\').modal(\'open\');'
+    }
+  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-cd3f709c", module.exports)
+  }
+}
+
+/***/ }),
+/* 150 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('pagination', {
+    directives: [{
+      name: "show",
+      rawName: "v-show",
+      value: (_vm.animalId === null),
+      expression: "animalId === null"
+    }],
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "show-filters": _vm.showFilters,
+      "filter-fields": [{
+          name: 'display_name',
+          path: 'display_name'
+        },
+        {
+          name: 'common_name',
+          path: 'common_name'
+        },
+        {
+          name: 'latin_name',
+          path: 'latin_name'
+        }
+      ]
+    }
+  }), _vm._v(" "), _c('div', {
+    class: _vm.containerClasses,
+    attrs: {
+      "id": _vm.containerId
+    }
+  }, _vm._l((_vm.animals), function(animal) {
+    return _c('div', {
+      class: _vm.wrapperClasses
+    }, [(animal.data) ? [_c('animal-add-feeding-modal', {
+      attrs: {
+        "animalId": animal.data.id,
+        "feedingTypes": _vm.feeding_types,
+        "containerId": 'modal_add_weight_' + animal.data.id
+      }
+    }), _vm._v(" "), _c('animal-add-weight-modal', {
+      attrs: {
+        "animalId": animal.data.id,
+        "containerId": 'modal_add_weight_' + animal.data.id
+      }
+    })] : _vm._e(), _vm._v(" "), (animal.data) ? _c('div', {
+      staticClass: "card"
+    }, [_c('div', {
+      staticClass: "card-image terrarium-card-image",
+      style: (animal.data.default_background_filepath ? 'background-image: url(\'' + animal.data.default_background_filepath + '\');' : 'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;')
+    }, [_c('div', {
+      staticClass: "card-title"
+    }, [_c('span', [_c('a', {
+      attrs: {
+        "href": '/animals/' + animal.data.id
+      }
+    }, [_vm._v(_vm._s(animal.data.display_name))])]), _vm._v(" "), _c('loading-indicator', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (animal.data.loading_data),
+        expression: "animal.data.loading_data"
+      }],
+      attrs: {
+        "size": 20
+      }
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": "#!"
+      }
+    }, [(!animal.data.death_date) ? _c('i', {
+      staticClass: "mdi mdi-24px mdi-dots-vertical right activator white-text"
+    }) : _vm._e()])], 1)]), _vm._v(" "), _c('div', {
+      staticClass: "card-content"
+    }, [_c('div', [_c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (animal.data.latin_name),
+        expression: "animal.data.latin_name"
+      }]
+    }, [_vm._v(_vm._s(animal.data.latin_name) + ",")]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (animal.data.common_name && !animal.data.latin_name),
+        expression: "animal.data.common_name && !animal.data.latin_name"
+      }]
+    }, [_vm._v(_vm._s(animal.data.common_name) + ",")]), _vm._v(" "), _c('span', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (animal.data.birth_date || animal.data.death_date),
+        expression: "animal.data.birth_date || animal.data.death_date"
+      }]
+    }, [_vm._v(_vm._s(animal.data.age_value) + " " + _vm._s(_vm.$tc("units." + animal.data.age_unit, animal.data.age_value)))]), _vm._v(" "), (animal.data.gender === 'female') ? _c('i', {
+      staticClass: "mdi mdi-gender-female"
+    }) : _vm._e(), _vm._v(" "), (animal.data.gender === 'male') ? _c('i', {
+      staticClass: "mdi mdi-gender-male"
+    }) : _vm._e(), _vm._v(" "), (animal.data.last_feeding && !animal.data.death_date) ? _c('span', [_c('br'), _vm._v(" "), _c('i', {
+      staticClass: "mdi mdi-silverware-variant"
+    }), _vm._v("\n                            " + _vm._s(_vm.$t(
+      'units.' + _vm.$getMatchingTimeDiff(animal.data.last_feeding.timestamps.created_diff).unit, {
+        val: _vm.$getMatchingTimeDiff(animal.data.last_feeding.timestamps.created_diff).val
+      }
+    )) + "\n                            " + _vm._s(animal.data.last_feeding.name) + "\n                        ")]) : _vm._e(), _vm._v(" "), (animal.data.last_weighing && !animal.data.death_date) ? _c('span', [_c('br'), _vm._v(" "), _c('i', {
+      staticClass: "mdi mdi-download"
+    }), _vm._v("\n                            " + _vm._s(_vm.$t(
+      'units.' + _vm.$getMatchingTimeDiff(animal.data.last_weighing.timestamps.created_diff).unit, {
+        val: _vm.$getMatchingTimeDiff(animal.data.last_weighing.timestamps.created_diff).val
+      }
+    )) + "\n                            " + _vm._s(animal.data.last_weighing.value) + _vm._s(animal.data.last_weighing.name) + "\n                            "), (animal.data.last_weighing.trend && animal.data.last_weighing.trend > 0) ? _c('span', {
+      staticClass: "green-text tooltipped",
+      attrs: {
+        "data-delay": "50",
+        "data-html": "true",
+        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.animal_weighing.trend') + '</div>'
+      }
+    }, [_vm._v("\n                                (+ " + _vm._s(animal.data.last_weighing.trend) + "%)\n                            ")]) : _vm._e(), _vm._v(" "), (animal.data.last_weighing.trend && animal.data.last_weighing.trend < 0) ? _c('span', {
+      staticClass: "red-text tooltipped",
+      attrs: {
+        "data-delay": "50",
+        "data-html": "true",
+        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.animal_weighing.trend') + '</div>'
+      }
+    }, [_vm._v("\n                                (" + _vm._s(animal.data.last_weighing.trend) + "%)\n                            ")]) : _vm._e(), _vm._v(" "), (animal.data.last_weighing.trend && animal.data.last_weighing.trend == 0) ? _c('span', {
+      staticClass: "tooltipped",
+      attrs: {
+        "data-delay": "50",
+        "data-html": "true",
+        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.animal_weighing.trend') + '</div>'
+      }
+    }, [_vm._v("\n                                (+/- 0%)\n                            ")]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), (!animal.data.death_date) ? _c('div', {
+      staticClass: "card-reveal"
+    }, [_c('div', [_c('strong', [_vm._v(_vm._s(animal.data.display_name))]), _vm._v(" "), _c('i', {
+      staticClass: "mdi mdi-24px mdi-close right card-title card-title-small"
+    })]), _vm._v(" "), (_vm.terrarium = _vm.terraria.filter(function (t) { return t.id === animal.data.terrarium_id; })[0]) ? _c('p', [(_vm.terrarium.data) ? [_c('i', {
+      staticClass: "mdi mdi-18px mdi-trackpad"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": '/terraria/' + _vm.terrarium.data.id
+      }
+    }, [_vm._v(_vm._s(_vm.terrarium.data.display_name))])] : _vm._e()], 2) : _vm._e(), _vm._v(" "), _c('p', [_c('i', {
+      staticClass: "mdi mdi-18px mdi-silverware-variant"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": "#!",
+        "href": '#modal_just_fed_' + animal.data.id,
+        "onclick": '$(\'#modal_just_fed_' + animal.data.id + '\').modal(); $(\'#modal_just_fed_' + animal.data.id + ' select\').formSelect(); $(\'#modal_just_fed_' + animal.data.id + '\').modal(\'open\');'
+      }
+    }, [_vm._v(_vm._s(_vm.$t("labels.just_fed")))])]), _vm._v(" "), _c('p', [_c('i', {
+      staticClass: "mdi mdi-18px mdi-weight-kilogram"
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": "#!",
+        "href": '#modal_add_weight_' + animal.data.id,
+        "onclick": '$(\'#modal_add_weight_' + animal.data.id + '\').modal(); $(\'#modal_add_weight_' + animal.data.id + ' select\').formSelect(); $(\'#modal_add_weight_' + animal.data.id + '\').modal(\'open\');'
+      }
+    }, [_vm._v(_vm._s(_vm.$t("labels.add_weight")))])])]) : _vm._e()]) : _c('div', [_c('loading-card-widget')], 1)], 2)
+  }))], 1)
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d9003c26", module.exports)
+  }
+}
+
+/***/ }),
+/* 151 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal",
+    attrs: {
+      "id": _vm.containerId
+    }
+  }, [_c('form', {
+    attrs: {
+      "action": '/api/v1/animals/' + _vm.animalId + '/weighings',
+      "data-method": "POST"
+    },
+    on: {
+      "submit": _vm.submit
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('h4', [_vm._v(_vm._s(_vm.$t("labels.add_weight")))]), _vm._v(" "), _c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "input-field col s12"
+  }, [_c('input', {
+    attrs: {
+      "type": "text",
+      "name": "weight",
+      "id": "weight"
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "weight"
+    }
+  }, [_vm._v(_vm._s(_vm.$t("labels.weight")) + "/g")])]), _vm._v(" "), _c('div', {
+    staticClass: "input-field col s12"
+  }, [_c('input', {
+    staticClass: "datepicker",
+    attrs: {
+      "type": "text",
+      "id": "date-weight-created",
+      "name": "created_at"
+    }
+  }), _vm._v(" "), _c('label', {
+    attrs: {
+      "for": "date-weight-created"
+    }
+  }, [_vm._v(_vm._s(_vm.$t('labels.date')))])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn modal-action modal-close waves-effect waves-light"
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("buttons.save")) + "\n                "), _c('i', {
+    staticClass: "mdi mdi-18px mdi-floppy left"
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn modal-action modal-close waves-effect waves-light",
+    attrs: {
+      "type": "reset"
+    }
+  }, [_vm._v("\n                " + _vm._s(_vm.$t("buttons.close")) + "\n                "), _c('i', {
+    staticClass: "mdi mdi-18px mdi-close left"
+  })])])])])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-d97de654", module.exports)
+  }
+}
+
+/***/ }),
+/* 152 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight collapsible",
+    attrs: {
+      "data-collapsible": "expandable"
+    }
+  }, [_c('table-filter', {
+    ref: "table_filter",
+    attrs: {
+      "cols": 3,
+      "hide-cols": _vm.hideCols,
+      "filter-fields": [{
+          name: 'name',
+          path: 'name',
+          col: 0
+        },
+        {
+          name: 'controlunit',
+          path: 'controlunit.name',
+          col: 1,
+          class: 'hide-on-small-only'
+        },
+        {
+          noSort: true,
+          noFilter: true,
+          col: 2,
+          class: 'hide-on-small-only'
+        }
+      ]
+    }
+  }), _vm._v(" "), _vm._l((_vm.component_types), function(type) {
+    return [((_vm.component_list = _vm._self[type]).length > 0) ? [_vm._l((_vm.component_list), function(component) {
+      return [(component.data) ? _c('tbody', [_c('tr', {
+        staticClass: "collapsible-tr-header",
+        attrs: {
+          "onclick": "window.collapseTr($(this))"
+        }
+      }, [_c('td', [_c('span', [_c('i', {
+        class: 'mdi mdi-18px mdi-' + component.data.icon
+      }), _vm._v(" "), _c('a', {
+        attrs: {
+          "href": component.data.url
+        }
+      }, [_vm._v(_vm._s(component.data.name))])])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
+        staticClass: "hide-on-small-only"
+      }, [(component.data.controlunit) ? _c('span', [_c('i', {
+        staticClass: "mdi mdi-24px mdi-developer-board"
+      }), _vm._v(" "), _c('a', {
+        attrs: {
+          "href": '/controlunits/' + component.data.controlunit.id
+        }
+      }, [_vm._v(_vm._s(component.data.controlunit.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
+        staticClass: "hide-on-small-only"
+      }, [_c('span', [_c('a', {
+        attrs: {
+          "href": component.data.url + '/edit'
+        }
+      }, [_c('i', {
+        staticClass: "mdi mdi-24px mdi-pencil"
+      })])])])]), _vm._v(" "), _vm._m(0, true)]) : _vm._e()]
+    })] : _vm._e()]
+  })], 2), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('tr', {
+    staticClass: "collapsible-tr-body"
+  }, [_c('td', {
+    attrs: {
+      "colspan": "3"
+    }
+  })])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-dddd1da2", module.exports)
+  }
+}
+
+/***/ }),
+/* 153 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', [_c('div', {
+    class: _vm.wrapperClasses
+  }, [_c('table', {
+    staticClass: "responsive highlight"
+  }, [_c('table-filter', {
+    ref: "table_filter",
+    attrs: {
+      "cols": 5,
+      "hide-cols": _vm.hideCols,
+      "filter-fields": [{
+          name: 'source',
+          path: 'name',
+          col: 0
+        },
+        {
+          name: 'action',
+          path: 'action',
+          col: 1
+        },
+        {
+          name: 'target',
+          path: 'target_name',
+          col: 2
+        },
+        {
+          name: 'associated_with',
+          path: 'associatedWith_name',
+          col: 3
+        },
+        {
+          name: 'created_at',
+          path: 'created_at',
+          col: 4
+        }
+      ]
+    }
+  }), _vm._v(" "), _c('tbody', _vm._l((_vm.logs), function(log) {
+    return _c('tr', [_c('td', [(log.source != null) ? _c('span', [_c('i', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (log.source),
+        expression: "log.source"
+      }],
+      class: 'mdi mdi-24px mdi-' + log.source.icon
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": log.source.url
+      }
+    }, [_vm._v(_vm._s(log.source.name))])]) : _c('span', [_vm._v("\n                            " + _vm._s(log.source_name) + "\n                        ")])]), _vm._v(" "), _c('td', [(log.action == 'start') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-play"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'finish') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-check"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'create') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-plus"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'delete') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-delete"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'update') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-update"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'recover') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-backup-restore"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'notify_recovered') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-bell-outline"
+    }) : _vm._e(), _vm._v(" "), (log.action == 'notify') ? _c('span', {
+      staticClass: "mdi mdi-24px mdi-bell-ring"
+    }) : _vm._e(), _vm._v("\n                        " + _vm._s(log.action) + "\n                    ")]), _vm._v(" "), _c('td', [(log.target != null) ? _c('span', [_c('i', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (log.target),
+        expression: "log.target"
+      }],
+      class: 'mdi mdi-24px mdi-' + log.target.icon
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": log.target.url
+      }
+    }, [_vm._v(_vm._s(log.target.name))])]) : _c('span', [_vm._v("\n                            " + _vm._s(log.target_name) + "\n                        ")])]), _vm._v(" "), _c('td', [(log.associated != null) ? _c('span', [_c('i', {
+      directives: [{
+        name: "show",
+        rawName: "v-show",
+        value: (log.associated),
+        expression: "log.associated"
+      }],
+      class: 'mdi mdi-24px mdi-' + log.associated.icon
+    }), _vm._v(" "), _c('a', {
+      attrs: {
+        "href": log.associated.url
+      }
+    }, [_vm._v(_vm._s(log.associated.name))])]) : _c('span', [_vm._v("\n                            " + _vm._s(log.associated_name) + "\n                        ")])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(log.timestamps.created) + "\n                    ")])])
+  }))], 1), _vm._v(" "), _c('pagination', {
+    ref: "pagination",
+    attrs: {
+      "source-filter": _vm.sourceFilter,
+      "enable-filters": false
+    }
+  })], 1)])
+},staticRenderFns: []}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-e6784bc2", module.exports)
+  }
+}
+
+/***/ }),
+/* 154 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -18099,2825 +20932,7 @@ module.exports.render._withStripped = true
 if (false) {
   module.hot.accept()
   if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-3fb66d47", module.exports)
-  }
-}
-
-/***/ }),
-/* 129 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight collapsible",
-    attrs: {
-      "data-collapsible": "expandable"
-    }
-  }, [_c('table-filter', {
-    ref: "table_filter",
-    attrs: {
-      "cols": 5,
-      "hide-cols": _vm.hideCols,
-      "filter-fields": [{
-          name: 'name',
-          path: 'name',
-          col: 0
-        },
-        {
-          name: 'software_version',
-          path: 'software_version',
-          col: 1,
-          class: 'hide-on-small-only'
-        },
-        {
-          name: 'heartbeat',
-          path: 'heartbeat_at',
-          noFilter: true,
-          col: 2
-        },
-        {
-          name: 'client_server_time_diff',
-          noSort: true,
-          noFilter: true,
-          col: 3,
-          class: 'hide-on-med-and-down'
-        },
-        {
-          noSort: true,
-          noFilter: true,
-          col: 4,
-          class: 'hide-on-small-only'
-        }
-      ]
-    }
-  }), _vm._v(" "), _vm._l((_vm.controlunits), function(controlunit) {
-    return [_c('tbody', [_c('tr', {
-      staticClass: "collapsible-tr-header",
-      attrs: {
-        "onclick": "window.collapseTr($(this))"
-      }
-    }, [_c('td', [_c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-developer-board"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/controlunits/' + controlunit.data.id
-      }
-    }, [_vm._v(_vm._s(controlunit.data.name))]), _vm._v(" "), (!controlunit.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_c('span', [_vm._v("\n                                " + _vm._s(controlunit.data.software_version) + "\n                            ")])]), _vm._v(" "), _c('td', [_vm._v("\n                            " + _vm._s(_vm.$t(
-      'units.' + _vm.$getMatchingTimeDiff(controlunit.data.timestamps.last_heartbeat_diff).unit, {
-        val: _vm.$getMatchingTimeDiff(controlunit.data.timestamps.last_heartbeat_diff).val
-      }
-    )) + "\n                        ")]), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-med-and-down"
-    }, [_c('span', [_vm._v("\n                                " + _vm._s(controlunit.data.client_server_time_diff_seconds) + "s\n                            ")])]), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/controlunits/' + controlunit.data.id + '/edit'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-24px mdi-pencil"
-    })])])])]), _vm._v(" "), _c('tr', {
-      staticClass: "collapsible-tr-body"
-    }, [_c('td', {
-      attrs: {
-        "colspan": "5"
-      }
-    }, _vm._l((_vm.component_types), function(type) {
-      return (controlunit.data) ? _c('div', [((_vm.component_list = _vm._self[type].filter(function (c) { return c.data.controlunit_id === controlunit.id; })).length > 0) ? [_vm._v("\n                                    " + _vm._s(_vm.$tc('labels.' + type, 2)) + ":\n                                    "), _vm._l((_vm.component_list), function(component) {
-        return _c('span', [_c('i', {
-          class: 'mdi mdi-18px mdi-' + component.data.icon
-        }), _vm._v(" "), _c('a', {
-          attrs: {
-            "href": component.data.url
-          }
-        }, [_vm._v(_vm._s(component.data.name))])])
-      })] : _vm._e()], 2) : _vm._e()
-    }))])])]
-  })], 2), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
-    }
-  })], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-408c693c", module.exports)
-  }
-}
-
-/***/ }),
-/* 130 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.ShowFilterForm === true) ? _c('div', [_c('div', {
-    staticClass: "row",
-    staticStyle: {
-      "margin-bottom": "0"
-    }
-  }, [_c('div', {
-    staticClass: "input-field col s12 m6 l4"
-  }, [_c('input', {
-    staticClass: "datepicker",
-    attrs: {
-      "type": "date",
-      "placeholder": _vm.$t('labels.from'),
-      "name": "filter_from",
-      "id": 'filter_from_' + _vm.id,
-      "data-default": _vm.FilterFromDate
-    },
-    domProps: {
-      "value": _vm.FilterFromDate
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": 'filter_from_' + _vm.id
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.from')))])]), _vm._v(" "), _c('div', {
-    staticClass: "input-field col s12 m6 l4"
-  }, [_c('input', {
-    staticClass: "datepicker",
-    attrs: {
-      "type": "date",
-      "placeholder": _vm.$t('labels.to'),
-      "name": "filter_to",
-      "id": 'filter_to_' + _vm.id,
-      "data-default": _vm.FilterToDate
-    },
-    domProps: {
-      "value": _vm.FilterToDate
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": 'filter_to_' + _vm.id
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.to')))])]), _vm._v(" "), _c('div', {
-    staticClass: "input-field col s8 m8 l2"
-  }, [_c('button', {
-    staticClass: "btn waves-effect waves-light",
-    on: {
-      "click": _vm.build
-    }
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-refresh"
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "input-field col s4 m4 l2"
-  }, [_c('input', {
-    attrs: {
-      "type": "text",
-      "id": 'dygraph_' + _vm.id + '_rollperiodselector',
-      "placeholder": _vm.$t('labels.rollperiod')
-    },
-    domProps: {
-      "value": 5
-    },
-    on: {
-      "keyup": function($event) {
-        if (!('button' in $event) && _vm._k($event.keyCode, "enter", 13, $event.key, "Enter")) { return null; }
-        return _vm.set_rollperiod($event)
-      }
-    }
-  }), _vm._v(" "), _c('label', [_vm._v(_vm._s(_vm.$t('labels.rollperiod')))])])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "center",
-    staticStyle: {
-      "display": "none"
-    },
-    attrs: {
-      "id": 'dygraph_' + _vm.id + '_loading'
-    }
-  }, [_c('loading-indicator', {
-    attrs: {
-      "size": 100
-    }
-  })], 1), _vm._v(" "), _c('div', {
-    staticStyle: {
-      "width": "100%"
-    },
-    attrs: {
-      "id": 'dygraph_' + _vm.id
-    }
-  })])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-4412fcc0", module.exports)
-  }
-}
-
-/***/ }),
-/* 131 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight collapsible",
-    attrs: {
-      "data-collapsible": "expandable"
-    }
-  }, [_c('table-filter', {
-    ref: "table_filter",
-    attrs: {
-      "cols": 4,
-      "hide-cols": _vm.hideCols,
-      "filter-fields": [{
-          name: 'name',
-          path: 'name',
-          col: 0
-        },
-        {
-          name: 'model',
-          path: 'model',
-          col: 1
-        },
-        {
-          name: 'controlunit',
-          noSort: true,
-          path: 'controlunit.name',
-          col: 2
-        },
-        {
-          noSort: true,
-          noFilter: true,
-          col: 3,
-          class: 'hide-on-small-only'
-        }
-      ]
-    }
-  }), _vm._v(" "), _vm._l((_vm.pumps), function(pump) {
-    return [_c('tbody', [_c('tr', {
-      staticClass: "collapsible-tr-header",
-      attrs: {
-        "onclick": "window.collapseTr($(this))"
-      }
-    }, [_c('td', [_c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-water-pump"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/pumps/' + pump.data.id
-      }
-    }, [_vm._v(_vm._s(pump.data.name))]), _vm._v(" "), (!pump.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(pump.data.model) + "\n                            ")])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', [((_vm.controlunit = _vm.controlunits.filter(function (c) { return c.data.id === pump.data.controlunit_id; })).length > 0) ? _c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-developer-board"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/controlunits/' + _vm.controlunit[0].data.id
-      }
-    }, [_vm._v(_vm._s(_vm.controlunit[0].data.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/pumps/' + pump.data.id + '/edit'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-24px mdi-pencil"
-    })])])])]), _vm._v(" "), _c('tr', {
-      staticClass: "collapsible-tr-body"
-    }, [_c('td', {
-      attrs: {
-        "colspan": "3"
-      }
-    }, [_vm._v("\n                            " + _vm._s(_vm.$tc('labels.valves', 2)) + ":\n                            "), _vm._l((_vm.valves.filter(function (v) { return v.data.pump_id === pump.data.id; })), function(valve, index) {
-      return _c('span', [_c('i', {
-        staticClass: "mdi mdi-24px mdi-pipe-disconnected"
-      }), _vm._v(" "), _c('a', {
-        attrs: {
-          "href": '/valves/' + valve.data.id
-        }
-      }, [_vm._v(_vm._s(valve.data.name))]), _vm._v(" "), (index < _vm.valves.filter(function (v) { return v.data.pump_id === pump.data.id; }).length - 1) ? [_vm._v(", ")] : _vm._e()], 2)
-    })], 2)])])]
-  })], 2), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
-    }
-  })], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-48412d57", module.exports)
-  }
-}
-
-/***/ }),
-/* 132 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    class: _vm.wrapperClasses
-  }, [(_vm.valve.data) ? _c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-pipe-disconnected"
-  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.valves", 1)) + "\n        ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
-  }, [_c('span', {
-    staticClass: "card-title activator"
-  }, [_vm._v("\n                " + _vm._s(_vm.valve.data.name) + "\n            ")]), _vm._v(" "), _c('div', [_vm._v("\n                " + _vm._s(_vm.$t('labels.model')) + ": " + _vm._s(_vm.valve.data.model) + "\n            ")])]), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('a', {
-    attrs: {
-      "href": '/valves/' + _vm.valve.data.id
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))]), _vm._v(" "), _c('a', {
-    attrs: {
-      "href": '/valves/' + _vm.valve.data.id + '/edit'
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]) : _c('div', [_c('loading-card-widget')], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-52a569cb", module.exports)
-  }
-}
-
-/***/ }),
-/* 133 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight collapsible",
-    attrs: {
-      "data-collapsible": "expandable"
-    }
-  }, [_c('table-filter', {
-    ref: "table_filter",
-    attrs: {
-      "cols": 5,
-      "hide-cols": _vm.hideCols,
-      "filter-fields": [{
-          name: 'name',
-          path: 'name',
-          col: 0
-        },
-        {
-          name: 'model',
-          path: 'model',
-          col: 1
-        },
-        {
-          name: 'controlunit',
-          noSort: true,
-          path: 'controlunit.name',
-          col: 2,
-          class: 'hide-on-small-only'
-        },
-        {
-          name: 'terrarium',
-          noSort: true,
-          path: 'terrarium.display_name',
-          col: 3,
-          class: 'hide-on-med-and-down'
-        },
-        {
-          noSort: true,
-          noFilter: true,
-          col: 4,
-          class: 'hide-on-small-only'
-        }
-      ]
-    }
-  }), _vm._v(" "), _vm._l((_vm.physical_sensors), function(physical_sensor) {
-    return [_c('tbody', [_c('tr', {
-      staticClass: "collapsible-tr-header",
-      attrs: {
-        "onclick": "window.collapseTr($(this))"
-      }
-    }, [_c('td', [_c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-switch"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/physical_sensors/' + physical_sensor.data.id
-      }
-    }, [_vm._v(_vm._s(physical_sensor.data.name))]), _vm._v(" "), (!physical_sensor.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(physical_sensor.data.model) + "\n                            ")])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [((_vm.controlunit = _vm.controlunits.filter(function (c) { return c.data.id === physical_sensor.data.controlunit_id; })).length > 0) ? _c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-developer-board"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/controlunits/' + _vm.controlunit[0].data.id
-      }
-    }, [_vm._v(_vm._s(_vm.controlunit[0].data.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.hideCols.indexOf('terrarium') === -1) ? _c('td', {
-      staticClass: "hide-on-med-and-down"
-    }, [(physical_sensor.data.terrarium &&
-      (_vm.terrarium = _vm.terraria.filter(function (t) { return t.data.id === physical_sensor.data.terrarium.id; })).length > 0) ? _c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-trackpad"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/terraria/' + _vm.terrarium[0].data.id
-      }
-    }, [_vm._v(_vm._s(_vm.terrarium[0].data.display_name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/physical_sensors/' + physical_sensor.data.id + '/edit'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-24px mdi-pencil"
-    })])])])]), _vm._v(" "), _c('tr', {
-      staticClass: "collapsible-tr-body"
-    }, [_c('td', {
-      attrs: {
-        "colspan": "4"
-      }
-    }, [_vm._v("\n                            " + _vm._s(_vm.$t('labels.last_heartbeat')) + ":\n                            " + _vm._s(_vm.$t(
-      'units.' + _vm.$getMatchingTimeDiff(physical_sensor.data.timestamps.last_heartbeat_diff).unit, {
-        val: _vm.$getMatchingTimeDiff(physical_sensor.data.timestamps.last_heartbeat_diff).val
-      }
-    )) + "\n                            "), _c('br'), _vm._v("\n                            " + _vm._s(_vm.$tc('labels.logical_sensors', 2)) + ":\n                            "), _vm._l((_vm.logical_sensors.filter(function (l) { return l.data.physical_sensor_id === physical_sensor.data.id; })), function(logical_sensor, index) {
-      return _c('span', [_c('i', {
-        staticClass: "mdi mdi-24px mdi-pulse"
-      }), _vm._v(" "), _c('a', {
-        attrs: {
-          "href": '/logical_sensors/' + logical_sensor.data.id
-        }
-      }, [_vm._v(_vm._s(logical_sensor.data.name))]), _vm._v(" "), (index < _vm.logical_sensors.filter(function (l) { return l.data.physical_sensor_id === physical_sensor.data.id; }).length - 1) ? [_vm._v(", ")] : _vm._e()], 2)
-    })], 2), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-med-and-down"
-    })])])]
-  })], 2), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
-    }
-  })], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-535334c1", module.exports)
-  }
-}
-
-/***/ }),
-/* 134 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight collapsible",
-    attrs: {
-      "data-collapsible": "expandable"
-    }
-  }, [_c('table-filter', {
-    ref: "table_filter",
-    attrs: {
-      "cols": 4,
-      "hide-cols": _vm.hideCols,
-      "filter-fields": [{
-          name: 'id',
-          path: 'id',
-          col: 0,
-          class: 'hide-on-med-and-down'
-        },
-        {
-          name: 'name',
-          path: 'name',
-          col: 1
-        },
-        {
-          name: 'email',
-          noFilter: true,
-          col: 2
-        },
-        {
-          noSort: true,
-          noFilter: true,
-          col: 3,
-          class: 'hide-on-small-only'
-        }
-      ]
-    }
-  }), _vm._v(" "), _c('tbody', _vm._l((_vm.users), function(user) {
-    return _c('tr', [_c('td', {
-      staticClass: "hide-on-med-and-down"
-    }, [_vm._v(_vm._s(user.data.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(user.data.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(user.data.email))]), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/users/' + user.data.id + '/edit'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-24px mdi-pencil"
-    })])])])])
-  }))], 1), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
-    }
-  })], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-5869fb58", module.exports)
-  }
-}
-
-/***/ }),
-/* 135 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [(_vm.ShowFilterForm === true) ? _c('div', [_c('div', {
-    staticClass: "row",
-    staticStyle: {
-      "margin-bottom": "0"
-    }
-  }, [_c('div', {
-    staticClass: "input-field col s12 m4 l4"
-  }, [_c('input', {
-    staticClass: "datepicker",
-    attrs: {
-      "type": "date",
-      "placeholder": _vm.$t('labels.from'),
-      "name": "filter_from",
-      "id": 'filter_from_' + _vm.id,
-      "data-default": _vm.FilterFromDate
-    },
-    domProps: {
-      "value": _vm.FilterFromDate
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": 'filter_from_' + _vm.id
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.from')))])]), _vm._v(" "), _c('div', {
-    staticClass: "input-field col s12 m4 l4"
-  }, [_c('input', {
-    staticClass: "datepicker",
-    attrs: {
-      "type": "date",
-      "placeholder": _vm.$t('labels.to'),
-      "name": "filter_to",
-      "id": 'filter_to_' + _vm.id,
-      "data-default": _vm.FilterToDate
-    },
-    domProps: {
-      "value": _vm.FilterToDate
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": 'filter_to_' + _vm.id
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.to')))])]), _vm._v(" "), _c('div', {
-    staticClass: "input-field col s12 m4 l4"
-  }, [_c('button', {
-    staticClass: "btn waves-effect waves-light",
-    on: {
-      "click": _vm.build
-    }
-  }, [_vm._v(_vm._s(_vm.$t('buttons.loadgraph')))])])])]) : _vm._e(), _vm._v(" "), _c('div', {
-    staticClass: "center",
-    staticStyle: {
-      "display": "none"
-    },
-    attrs: {
-      "id": 'chartjs_' + _vm.id + '_loading'
-    }
-  }, [_c('loading-indicator', {
-    attrs: {
-      "size": 100
-    }
-  })], 1), _vm._v(" "), _c('canvas', {
-    staticStyle: {
-      "width": "100%"
-    },
-    attrs: {
-      "id": 'chartjs_' + _vm.id
-    }
-  })])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-62dbb3ee", module.exports)
-  }
-}
-
-/***/ }),
-/* 136 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight collapsible",
-    attrs: {
-      "data-collapsible": "expandable"
-    }
-  }, [_c('table-filter', {
-    ref: "table_filter",
-    attrs: {
-      "cols": 6,
-      "hide-cols": _vm.hideCols,
-      "filter-fields": [{
-          name: 'name',
-          path: 'name',
-          col: 0
-        },
-        {
-          name: 'model',
-          path: 'model',
-          col: 1
-        },
-        {
-          name: 'pump',
-          noSort: true,
-          col: 2
-        },
-        {
-          name: 'controlunit',
-          noSort: true,
-          col: 3,
-          class: 'hide-on-small-only'
-        },
-        {
-          name: 'terrarium',
-          noSort: true,
-          col: 4,
-          class: 'hide-on-med-and-down'
-        },
-        {
-          noSort: true,
-          noFilter: true,
-          col: 5,
-          class: 'hide-on-small-only'
-        }
-      ]
-    }
-  }), _vm._v(" "), _vm._l((_vm.valves), function(valve) {
-    return [_c('tbody', [_c('tr', {
-      staticClass: "collapsible-tr-header",
-      attrs: {
-        "onclick": "window.collapseTr($(this))"
-      }
-    }, [_c('td', [_c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-pipe-disconnected"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/valves/' + valve.data.id
-      }
-    }, [_vm._v(_vm._s(valve.data.name))]), _vm._v(" "), (!valve.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(valve.data.model) + "\n                            ")])]), _vm._v(" "), (_vm.hideCols.indexOf('pump') === -1) ? _c('td', [((_vm.pump = _vm.pumps.filter(function (p) { return p.data.id === valve.data.pump_id; })).length > 0) ? _c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-water-pump"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/pumps/' + _vm.pump[0].data.id
-      }
-    }, [_vm._v(_vm._s(_vm.pump[0].data.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [((_vm.controlunit = _vm.controlunits.filter(function (c) { return c.data.id === valve.data.controlunit_id; })).length > 0) ? _c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-developer-board"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/controlunits/' + _vm.controlunit[0].data.id
-      }
-    }, [_vm._v(_vm._s(_vm.controlunit[0].data.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), (_vm.hideCols.indexOf('terrarium') === -1) ? _c('td', {
-      staticClass: "hide-on-med-and-down"
-    }, [((_vm.terrarium = _vm.terraria.filter(function (t) { return t.data.id === valve.data.terrarium_id; })).length > 0) ? _c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-trackpad"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/terraria/' + _vm.terrarium[0].data.id
-      }
-    }, [_vm._v(_vm._s(_vm.terrarium[0].data.display_name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/valves/' + valve.data.id + '/edit'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-24px mdi-pencil"
-    })])])])]), _vm._v(" "), _vm._m(0, true)])]
-  })], 2), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
-    }
-  })], 1)])
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('tr', {
-    staticClass: "collapsible-tr-body"
-  }, [_c('td', {
-    attrs: {
-      "colspan": "3"
-    }
-  }), _vm._v(" "), _c('td', {
-    staticClass: "hide-on-small-only"
-  }), _vm._v(" "), _c('td', {
-    staticClass: "hide-on-med-and-down"
-  })])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-6335bb93", module.exports)
-  }
-}
-
-/***/ }),
-/* 137 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    class: _vm.wrapperClasses
-  }, [(_vm.logical_sensor.data) ? _c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-pipe-disconnected"
-  }), _vm._v("\n            " + _vm._s(_vm.$t("labels.logical_sensor")) + "\n        ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
-  }, [_c('span', {
-    staticClass: "card-title activator"
-  }, [_vm._v("\n                " + _vm._s(_vm.logical_sensor.data.name) + "\n                "), _c('i', {
-    staticClass: "mdi mdi-18px mdi-dots-vertical"
-  })]), _vm._v(" "), (_vm.logical_sensor.data.type.length) ? _c('div', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(_vm.$t("labels." + _vm.logical_sensor.data.type)))])]) : _vm._e()]), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('a', {
-    attrs: {
-      "href": '/logical_sensors/' + _vm.logical_sensor.data.id
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))]), _vm._v(" "), _c('a', {
-    attrs: {
-      "href": '/logical_sensors/' + _vm.logical_sensor.data.id + '/edit'
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])]), _vm._v(" "), _c('div', {
-    staticClass: "card-reveal"
-  }, [_c('span', {
-    staticClass: "card-title"
-  }, [_vm._v(_vm._s(_vm.$tc("labels.physical_sensors", 1)) + "\n                "), _c('i', {
-    staticClass: "mdi mdi-24px mdi-close"
-  })]), _vm._v(" "), _c('div', [(_vm.physical_sensor && _vm.physical_sensor.data) ? _c('span', [_vm._v("\n                    " + _vm._s(_vm.$t("labels.physical_sensor")) + ":\n                    "), _c('a', {
-    attrs: {
-      "href": '/physical_sensors/' + _vm.physical_sensor.data.id
-    }
-  }, [_vm._v(_vm._s(_vm.physical_sensor.data.name))])]) : _vm._e()]), _vm._v(" "), _c('span', {
-    staticClass: "card-title"
-  }, [_vm._v(_vm._s(_vm.$tc("labels.logical_sensor_thresholds", 2)))]), _vm._v(" "), _vm._l((_vm.logical_sensor_thresholds), function(lst) {
-    return _c('div', [_vm._v("\n                " + _vm._s(_vm.$t("labels.starts_at")) + " " + _vm._s(lst.data.timestamps.starts) + ":\n                "), _c('strong', [_c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (lst.data.rawvalue_lowerlimit && !lst.data.rawvalue_upperlimit),
-        expression: "lst.data.rawvalue_lowerlimit && !lst.data.rawvalue_upperlimit"
-      }]
-    }, [_vm._v("\n                        min " + _vm._s(lst.data.rawvalue_lowerlimit) + _vm._s(_vm.$t("units." + _vm.logical_sensor.data.type)) + "\n                    ")]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (!lst.data.rawvalue_lowerlimit && lst.data.rawvalue_upperlimit),
-        expression: "!lst.data.rawvalue_lowerlimit && lst.data.rawvalue_upperlimit"
-      }]
-    }, [_vm._v("\n                        max " + _vm._s(lst.data.rawvalue_upperlimit) + _vm._s(_vm.$t("units." + _vm.logical_sensor.data.type)) + "\n                    ")]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (lst.data.rawvalue_lowerlimit && lst.data.rawvalue_upperlimit),
-        expression: "lst.data.rawvalue_lowerlimit && lst.data.rawvalue_upperlimit"
-      }]
-    }, [_vm._v("\n                        " + _vm._s(lst.data.rawvalue_lowerlimit) + " - " + _vm._s(lst.data.rawvalue_upperlimit) + _vm._s(_vm.$t("units." + _vm.logical_sensor.data.type)) + "\n                    ")])]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (lst.data.id === _vm.logical_sensor.data.current_threshold_id),
-        expression: "lst.data.id === logical_sensor.data.current_threshold_id"
-      }]
-    }, [_c('span', {
-      staticClass: "new badge teal",
-      attrs: {
-        "data-badge-caption": _vm.$t('labels.active')
-      }
-    })])])
-  })], 2)]) : _c('div', [_c('loading-card-widget')], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-659df472", module.exports)
-  }
-}
-
-/***/ }),
-/* 138 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('pagination', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.terrariumId === null),
-      expression: "terrariumId === null"
-    }],
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "show-filters": _vm.showFilters,
-      "filter-fields": [{
-        name: 'display_name',
-        path: 'display_name'
-      }]
-    }
-  }), _vm._v(" "), _c('div', {
-    class: _vm.containerClasses,
-    attrs: {
-      "id": _vm.containerId
-    }
-  }, _vm._l((_vm.terraria), function(terrarium) {
-    return _c('div', {
-      class: _vm.wrapperClasses
-    }, [(terrarium.data) ? [(terrarium.data.capabilities.irrigate) ? _c('div', {
-      staticClass: "modal",
-      attrs: {
-        "id": terrarium.data.id + '_irrigate'
-      }
-    }, [_c('form', {
-      attrs: {
-        "action": '/api/v1/terraria/' + terrarium.data.id + '/action_sequence',
-        "data-method": "POST",
-        "id": 'form_irrigate_' + terrarium.data.id
-      },
-      on: {
-        "submit": _vm.submit
-      }
-    }, [_c('div', {
-      staticClass: "modal-content"
-    }, [_c('h4', [_vm._v(_vm._s(_vm.$t('labels.irrigate')))]), _vm._v(" "), _c('p', [_c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "template",
-        "value": "irrigate"
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "runonce",
-        "value": "On"
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "schedule_now",
-        "value": "On"
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "id": 'duration_minutes_irrigate_' + terrarium.data.id,
-        "type": "text",
-        "placeholder": _vm.$tc('units.minutes', 2),
-        "name": "duration_minutes",
-        "value": "1"
-      }
-    }), _vm._v(" "), _c('label', {
-      attrs: {
-        "for": 'duration_minutes_irrigate_' + terrarium.data.id
-      }
-    }, [_vm._v(_vm._s(_vm.$t('labels.duration')) + " " + _vm._s((_vm.$tc('units.minutes', 2))))])])]), _vm._v(" "), _c('div', {
-      staticClass: "modal-footer"
-    }, [_c('button', {
-      staticClass: "modal-action modal-close btn waves-effect waves-green",
-      attrs: {
-        "type": "submit"
-      }
-    }, [_vm._v(_vm._s(_vm.$t('buttons.start')))])])])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.ventilate) ? _c('div', {
-      staticClass: "modal",
-      attrs: {
-        "id": terrarium.data.id + '_ventilate'
-      }
-    }, [_c('form', {
-      attrs: {
-        "action": '/api/v1/terraria/' + terrarium.data.id + '/action_sequence',
-        "data-method": "POST",
-        "id": 'form_ventilate_' + terrarium.data.id
-      },
-      on: {
-        "submit": _vm.submit
-      }
-    }, [_c('div', {
-      staticClass: "modal-content"
-    }, [_c('h4', [_vm._v(_vm._s(_vm.$t('labels.ventilate')))]), _vm._v(" "), _c('p', [_c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "template",
-        "value": "ventilate"
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "runonce",
-        "value": "On"
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "schedule_now",
-        "value": "On"
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "id": 'duration_minutes_ventilate_' + terrarium.data.id,
-        "type": "text",
-        "placeholder": _vm.$tc('units.minutes', 2),
-        "name": "duration_minutes",
-        "value": "3"
-      }
-    }), _vm._v(" "), _c('label', {
-      attrs: {
-        "for": 'duration_minutes_ventilate_' + terrarium.data.id
-      }
-    }, [_vm._v(_vm._s(_vm.$t('labels.duration')) + " " + _vm._s((_vm.$tc('units.minutes', 2))))])])]), _vm._v(" "), _c('div', {
-      staticClass: "modal-footer"
-    }, [_c('button', {
-      staticClass: "modal-action modal-close btn waves-effect waves-green",
-      attrs: {
-        "type": "submit"
-      }
-    }, [_vm._v(_vm._s(_vm.$t('buttons.start')))])])])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.heat_up) ? _c('div', {
-      staticClass: "modal",
-      attrs: {
-        "id": terrarium.data.id + '_heat_up'
-      }
-    }, [_c('form', {
-      attrs: {
-        "action": '/api/v1/terraria/' + terrarium.data.id + '/action_sequence',
-        "data-method": "POST",
-        "id": 'form_heat_up_' + terrarium.data.id
-      },
-      on: {
-        "submit": _vm.submit
-      }
-    }, [_c('div', {
-      staticClass: "modal-content"
-    }, [_c('h4', [_vm._v(_vm._s(_vm.$t('labels.heat_up')))]), _vm._v(" "), _c('p', [_c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "template",
-        "value": "heat_up"
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "runonce",
-        "value": "On"
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "schedule_now",
-        "value": "On"
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "id": 'duration_minutes_heat_up_' + terrarium.data.id,
-        "type": "text",
-        "placeholder": _vm.$tc('units.minutes', 2),
-        "name": "duration_minutes",
-        "value": "3"
-      }
-    }), _vm._v(" "), _c('label', {
-      attrs: {
-        "for": 'duration_minutes_heat_up_' + terrarium.data.id
-      }
-    }, [_vm._v(_vm._s(_vm.$t('labels.duration')) + " " + _vm._s((_vm.$tc('units.minutes', 2))))])])]), _vm._v(" "), _c('div', {
-      staticClass: "modal-footer"
-    }, [_c('button', {
-      staticClass: "modal-action modal-close btn waves-effect waves-green",
-      attrs: {
-        "type": "submit"
-      }
-    }, [_vm._v(_vm._s(_vm.$t('buttons.start')))])])])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.cool_down) ? _c('div', {
-      staticClass: "modal",
-      attrs: {
-        "id": terrarium.data.id + '_cool_down'
-      }
-    }, [_c('form', {
-      attrs: {
-        "action": '/api/v1/terraria/' + terrarium.data.id + '/action_sequence',
-        "data-method": "POST",
-        "id": 'form_cool_down_' + terrarium.data.id
-      },
-      on: {
-        "submit": _vm.submit
-      }
-    }, [_c('div', {
-      staticClass: "modal-content"
-    }, [_c('h4', [_vm._v(_vm._s(_vm.$t('labels.cool_down')))]), _vm._v(" "), _c('p', [_c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "template",
-        "value": "cool_down"
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "runonce",
-        "value": "On"
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "type": "hidden",
-        "name": "schedule_now",
-        "value": "On"
-      }
-    }), _vm._v(" "), _c('input', {
-      attrs: {
-        "id": 'duration_minutes_cool_down_' + terrarium.data.id,
-        "type": "text",
-        "placeholder": _vm.$tc('units.minutes', 2),
-        "name": "duration_minutes",
-        "value": "3"
-      }
-    }), _vm._v(" "), _c('label', {
-      attrs: {
-        "for": 'duration_minutes_cool_down_' + terrarium.data.id
-      }
-    }, [_vm._v(_vm._s(_vm.$t('labels.duration')) + " " + _vm._s((_vm.$tc('units.minutes', 2))))])])]), _vm._v(" "), _c('div', {
-      staticClass: "modal-footer"
-    }, [_c('button', {
-      staticClass: "modal-action modal-close btn waves-effect waves-green",
-      attrs: {
-        "type": "submit"
-      }
-    }, [_vm._v(_vm._s(_vm.$t('buttons.start')))])])])]) : _vm._e()] : _vm._e(), _vm._v(" "), (terrarium.data) ? _c('div', {
-      staticClass: "card"
-    }, [_c('div', {
-      staticClass: "card-image terrarium-card-image",
-      style: (terrarium.data.default_background_filepath ?
-        'background-image: url(\'' + terrarium.data.default_background_filepath + '\');' :
-        'background-image: url(\'/svg/Ciliatus_Logo.svg\'); background-position: top center;')
-    }, [_c('div', [(terrarium.data) ? _c('inline-graph', {
-      attrs: {
-        "points": terrarium.data.humidity_history,
-        "options": {
-          'fill': null,
-          'strokeWidth': '2',
-          'stroke': '#2196f3',
-          width: '100%',
-          height: '140px',
-          min: _vm.humidityGraphMin,
-          max: _vm.humidityGraphMax
-        },
-        "source-type": "terraria",
-        "source-id": terrarium.id,
-        "source-field": "humidity_history",
-        "type": "line"
-      }
-    }) : _vm._e()], 1), _vm._v(" "), _c('div', {
-      staticStyle: {
-        "position": "relative",
-        "top": "-145px"
-      }
-    }, [(terrarium.data) ? _c('inline-graph', {
-      attrs: {
-        "points": terrarium.data.temperature_history,
-        "options": {
-          'fill': null,
-          'strokeWidth': '2',
-          'stroke': '#b71c1c',
-          width: '100%',
-          height: '140px',
-          min: _vm.temperatureGraphMin,
-          max: _vm.temperatureGraphMax
-        },
-        "source-type": "terraria",
-        "source-id": terrarium.id,
-        "source-field": "temperature_history",
-        "type": "line"
-      }
-    }) : _vm._e()], 1), _vm._v(" "), _c('div', {
-      staticClass: "card-title"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/terraria/' + terrarium.data.id
-      }
-    }, [_vm._v(_vm._s(terrarium.data.display_name))])]), _vm._v(" "), _c('loading-indicator', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (terrarium.refreshing),
-        expression: "terrarium.refreshing"
-      }],
-      attrs: {
-        "size": 20
-      }
-    }), _vm._v(" "), _vm._m(0, true)], 1)]), _vm._v(" "), (terrarium.data.cooked_temperature_celsius !== null ||
-      terrarium.data.cooked_humidity_percent !== null ||
-      terrarium.data.heartbeat_critical) ? _c('div', {
-      staticClass: "card-content"
-    }, [_c('div', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (terrarium.data.cooked_temperature_celsius !== null),
-        expression: "terrarium.data.cooked_temperature_celsius !== null"
-      }],
-      class: {
-        'red-text': terrarium.data.temperature_critical, 'darken-3': terrarium.data.temperature_critical
-      }
-    }, [_vm._v("\n\n                        " + _vm._s(_vm.$t("labels.temperature")) + ": " + _vm._s(terrarium.data.cooked_temperature_celsius) + "°C\n\n                        "), (terrarium.data.heartbeat_critical) ? _c('i', {
-      staticClass: "mdi mdi-sync-off deep-orange-text tooltipped",
-      attrs: {
-        "data-delay": "50",
-        "data-html": "true",
-        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.heartbeat_critical') + '</div>'
-      }
-    }) : _vm._e()]), _vm._v(" "), _c('div', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (terrarium.data.cooked_humidity_percent !== null),
-        expression: "terrarium.data.cooked_humidity_percent !== null"
-      }],
-      class: {
-        'red-text': terrarium.data.humidity_critical, 'darken-3': terrarium.data.humidity_critical
-      }
-    }, [_vm._v("\n\n                        " + _vm._s(_vm.$t("labels.humidity")) + ": " + _vm._s(terrarium.data.cooked_humidity_percent) + "%\n\n                        "), (terrarium.data.heartbeat_critical) ? _c('i', {
-      staticClass: "mdi mdi-sync-off deep-orange-text tooltipped",
-      attrs: {
-        "data-delay": "50",
-        "data-html": "true",
-        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.heartbeat_critical') + '</div>'
-      }
-    }) : _vm._e()])]) : _vm._e(), _vm._v(" "), _c('div', {
-      staticClass: "card-reveal"
-    }, [_c('div', [_c('strong', [_vm._v(_vm._s(terrarium.data.display_name))]), _vm._v(" "), _c('i', {
-      staticClass: "mdi mdi-24px mdi-close right card-title card-title-small"
-    })]), _vm._v(" "), _vm._l((_vm.animals.filter(function (a) { return a.data.terrarium_id === terrarium.id; })), function(animal) {
-      return _c('p', [_c('i', {
-        staticClass: "mdi mdi-18px mdi-paw"
-      }), _vm._v(" "), _c('a', {
-        attrs: {
-          "href": '/animals/' + animal.data.id
-        }
-      }, [_vm._v(_vm._s(animal.data.display_name))]), _vm._v(" "), _c('i', [_vm._v(_vm._s(animal.data.common_name))])])
-    }), _vm._v(" "), (terrarium.data.capabilities.irrigate) ? _c('p', [_c('i', {
-      staticClass: "mdi mdi-18px mdi-weather-pouring"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": "#!"
-      },
-      on: {
-        "click": function($event) {
-          _vm.action_sequence_modal(terrarium.data.id, 'irrigate')
-        }
-      }
-    }, [_vm._v(_vm._s(_vm.$t('buttons.irrigate')))])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.ventilate) ? _c('p', [_c('i', {
-      staticClass: "mdi mdi-18px mdi-weather-windy"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": "#!"
-      },
-      on: {
-        "click": function($event) {
-          _vm.action_sequence_modal(terrarium.data.id, 'ventilate')
-        }
-      }
-    }, [_vm._v(_vm._s(_vm.$t('buttons.ventilate')))])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.heat_up) ? _c('p', [_c('i', {
-      staticClass: "mdi mdi-18px mdi-weather-sunny"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": "#!"
-      },
-      on: {
-        "click": function($event) {
-          _vm.action_sequence_modal(terrarium.data.id, 'heat_up')
-        }
-      }
-    }, [_vm._v(_vm._s(_vm.$t('buttons.heat_up')))])]) : _vm._e(), _vm._v(" "), (terrarium.data.capabilities.cool_down) ? _c('p', [_c('i', {
-      staticClass: "mdi mdi-18px mdi-snowflake"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": "#!"
-      },
-      on: {
-        "click": function($event) {
-          _vm.action_sequence_modal(terrarium.data.id, 'cool_down')
-        }
-      }
-    }, [_vm._v(_vm._s(_vm.$t('buttons.cool_down')))])]) : _vm._e()], 2)]) : _c('div', [_c('loading-card-widget')], 1)], 2)
-  }))], 1)
-},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('a', {
-    attrs: {
-      "href": "#!"
-    }
-  }, [_c('i', {
-    staticClass: "mdi mdi-24px mdi-dots-vertical right activator white-text"
-  })])
-}]}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-692a01bd", module.exports)
-  }
-}
-
-/***/ }),
-/* 139 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('span', {
-    staticClass: "overlay-loader center"
-  }, [_c('img', {
-    staticClass: "loader-icon spinning-logo",
-    style: ('width: ' + _vm.size + 'px; width: ' + _vm.size + 'px;'),
-    attrs: {
-      "src": "https://dev-43256.ciliatus.io/svg/Ciliatus_Logo.svg"
-    }
-  })])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-6c9eb704", module.exports)
-  }
-}
-
-/***/ }),
-/* 140 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    class: _vm.containerClasses
-  }, [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('form', {
-    attrs: {
-      "action": '/api/v1/custom_component_types/' + (_vm.custom_component_type.id === undefined ? '' : _vm.custom_component_type.id),
-      "data-method": _vm.custom_component_type.id === undefined ? 'POST' : 'PUT',
-      "id": _vm.custom_component_type,
-      "data-redirect-success": "/categories#tab_custom_components_types"
-    }
-  }, [_c('div', {
-    staticClass: "card-content"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$tc('labels.custom_component_types', 1)))])]), _vm._v(" "), _c('div', {
-    staticClass: "col s12 m6 l6"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "input-field col s12 m6 l6"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.custom_component_type.name_singular),
-      expression: "custom_component_type.name_singular"
-    }],
-    attrs: {
-      "type": "text",
-      "placeholder": _vm.$t('labels.name_singular'),
-      "name": "name_singular",
-      "id": "name_singular"
-    },
-    domProps: {
-      "value": (_vm.custom_component_type.name_singular)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.custom_component_type, "name_singular", $event.target.value)
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "name_singular"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.name_singular')))])]), _vm._v(" "), _c('div', {
-    staticClass: "input-field col s12 m6 l6"
-  }, [_c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.custom_component_type.name_plural),
-      expression: "custom_component_type.name_plural"
-    }],
-    attrs: {
-      "type": "text",
-      "placeholder": _vm.$t('labels.name_plural'),
-      "name": "name_plural",
-      "id": "name_plural"
-    },
-    domProps: {
-      "value": (_vm.custom_component_type.name_plural)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.$set(_vm.custom_component_type, "name_plural", $event.target.value)
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "name_plural"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.name_plural')))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "col s12 m6 l6"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "input-field col s12"
-  }, [_c('i', {
-    class: 'mdi mdi-18px mdi-' + _vm.current_icon + ' prefix'
-  }), _vm._v(" "), _c('input', {
-    directives: [{
-      name: "model",
-      rawName: "v-model",
-      value: (_vm.current_icon),
-      expression: "current_icon"
-    }],
-    staticClass: "autocomplete",
-    attrs: {
-      "name": "icon",
-      "type": "text",
-      "id": "icon-select"
-    },
-    domProps: {
-      "value": (_vm.current_icon)
-    },
-    on: {
-      "input": function($event) {
-        if ($event.target.composing) { return; }
-        _vm.current_icon = $event.target.value
-      }
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "icon-select"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.icon')))]), _vm._v(" "), _c('p', {
-    domProps: {
-      "innerHTML": _vm._s('<i>' + _vm.$t('tooltips.material_icons_list') + '</i>')
-    }
-  })])])])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('labels.intention')))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t('tooltips.custom_components.intentions')))])])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('button', {
-    staticClass: "btn waves-effect waves-light",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.add_intention
-    }
-  }, [_vm._v(_vm._s(_vm.$t('buttons.add_intention'))), _c('i', {
-    staticClass: "mdi mdi-18px mdi-plus left"
-  })])])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_vm._l((_vm.component_intentions), function(intention, index) {
-    return [_c('div', {
-      staticClass: "input-field col s12 m5 l5"
-    }, [_c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (_vm.component_intentions[index].intention),
-        expression: "component_intentions[index].intention"
-      }],
-      attrs: {
-        "name": "default_intention_intention[]",
-        "id": 'intention_id_' + index
-      },
-      on: {
-        "change": function($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-            return o.selected
-          }).map(function(o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val
-          });
-          _vm.$set(_vm.component_intentions[index], "intention", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
-        }
-      }
-    }, [_c('option', {
-      attrs: {
-        "value": "increase"
-      },
-      domProps: {
-        "selected": intention.intention === 'increase' ? 'selected' : ''
-      }
-    }, [_vm._v(_vm._s(_vm.$t('labels.increases')) + "\n                                            ")]), _vm._v(" "), _c('option', {
-      attrs: {
-        "value": "decrease"
-      },
-      domProps: {
-        "selected": intention.intention === 'decrease' ? 'selected' : ''
-      }
-    }, [_vm._v(_vm._s(_vm.$t('labels.decreases')) + "\n                                            ")])]), _vm._v(" "), _c('label', {
-      attrs: {
-        "for": 'intention_id_' + index
-      }
-    }, [_vm._v("\n                                            " + _vm._s(_vm.$t('labels.intention')) + "\n                                        ")])]), _vm._v(" "), _c('div', {
-      staticClass: "input-field col s12 m5 l5"
-    }, [_c('select', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (_vm.component_intentions[index].type),
-        expression: "component_intentions[index].type"
-      }],
-      attrs: {
-        "name": "default_intention_type[]",
-        "id": 'type_id_' + index
-      },
-      on: {
-        "change": function($event) {
-          var $$selectedVal = Array.prototype.filter.call($event.target.options, function(o) {
-            return o.selected
-          }).map(function(o) {
-            var val = "_value" in o ? o._value : o.value;
-            return val
-          });
-          _vm.$set(_vm.component_intentions[index], "type", $event.target.multiple ? $$selectedVal : $$selectedVal[0])
-        }
-      }
-    }, _vm._l((_vm.sensorreadingTypes), function(srt, index) {
-      return _c('option', {
-        domProps: {
-          "value": srt,
-          "selected": intention.type === srt ? 'selected' : ''
-        }
-      }, [_vm._v(_vm._s(_vm.$t('labels.' + srt)) + "\n                                            ")])
-    })), _vm._v(" "), _c('label', {
-      attrs: {
-        "for": 'type_id_' + index
-      }
-    }, [_vm._v(_vm._s(_vm.$tc('labels.logical_sensors', 1)))])]), _vm._v(" "), _c('div', {
-      staticClass: "input-field col s2 m2 l2"
-    }, [_c('a', {
-      staticClass: "red-text",
-      attrs: {
-        "href": "#!"
-      },
-      on: {
-        "click": function($event) {
-          _vm.component_intentions.splice(index, 1)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-18px mdi-delete"
-    })])])]
-  })], 2)])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12 m6 l6"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('labels.properties')))]), _vm._v(" "), _c('p', [_vm._v(_vm._s(_vm.$t('tooltips.custom_components.property_templates')))])])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('button', {
-    staticClass: "btn waves-effect waves-light",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.add_property
-    }
-  }, [_vm._v(_vm._s(_vm.$t('buttons.add_property')) + "\n                                        "), _c('i', {
-    staticClass: "mdi mdi-18px mdi-plus left"
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col s12",
-    attrs: {
-      "id": "custom_component_type_create_props"
-    }
-  }, _vm._l((_vm.component_properties), function(item, index) {
-    return _c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "input-field col s10 m10 l10"
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (item.name),
-        expression: "item.name"
-      }],
-      attrs: {
-        "type": "text",
-        "name": "property_name[]"
-      },
-      domProps: {
-        "value": (item.name)
-      },
-      on: {
-        "input": function($event) {
-          if ($event.target.composing) { return; }
-          _vm.$set(item, "name", $event.target.value)
-        }
-      }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "input-field col s2 m2 l2"
-    }, [_c('a', {
-      staticClass: "red-text",
-      attrs: {
-        "href": "#!"
-      },
-      on: {
-        "click": function($event) {
-          _vm.component_properties.splice(index, 1)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-18px mdi-delete"
-    })])])])
-  }))])]), _vm._v(" "), _c('div', {
-    staticClass: "col s12 m6 l6"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('h5', [_vm._v(_vm._s(_vm.$t('labels.state')))]), _vm._v(" "), _c('p', {
-    domProps: {
-      "innerHTML": _vm._s(_vm.$t('tooltips.custom_components.state_templates'))
-    }
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "col s12"
-  }, [_c('button', {
-    staticClass: "btn waves-effect waves-light",
-    attrs: {
-      "type": "button"
-    },
-    on: {
-      "click": _vm.add_state
-    }
-  }, [_vm._v(_vm._s(_vm.$t('buttons.add_state')) + "\n                                        "), _c('i', {
-    staticClass: "mdi mdi-18px mdi-plus left"
-  })])]), _vm._v(" "), _c('div', {
-    staticClass: "col s12",
-    attrs: {
-      "id": "custom_component_state_create_props"
-    }
-  }, _vm._l((_vm.component_states), function(item, index) {
-    return _c('div', {
-      staticClass: "row"
-    }, [_c('div', {
-      staticClass: "col s2 m2 l2"
-    }, [_c('p', {
-      staticStyle: {
-        "padding": "20px"
-      }
-    }, [_c('input', {
-      attrs: {
-        "name": "default_running_state",
-        "id": 'default_running_state_' + item.name,
-        "type": "radio"
-      },
-      domProps: {
-        "value": item.name,
-        "checked": _vm.default_running_state === item.name
-      },
-      on: {
-        "click": function($event) {
-          _vm.default_running_state = item.name
-        }
-      }
-    }), _vm._v(" "), _c('label', {
-      attrs: {
-        "for": 'default_running_state_' + item.name,
-        "data-delay": "50",
-        "data-html": "true",
-        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.custom_components.type_default_running_state') + '</div>'
-      }
-    })])]), _vm._v(" "), _c('div', {
-      staticClass: "input-field col s8 m8 l8"
-    }, [_c('input', {
-      directives: [{
-        name: "model",
-        rawName: "v-model",
-        value: (item.name),
-        expression: "item.name"
-      }],
-      attrs: {
-        "type": "text",
-        "name": "state[]"
-      },
-      domProps: {
-        "value": (item.name)
-      },
-      on: {
-        "input": function($event) {
-          if ($event.target.composing) { return; }
-          _vm.$set(item, "name", $event.target.value)
-        }
-      }
-    })]), _vm._v(" "), _c('div', {
-      staticClass: "input-field col s2 m2 l2"
-    }, [_c('a', {
-      staticClass: "red-text",
-      attrs: {
-        "href": "#!"
-      },
-      on: {
-        "click": function($event) {
-          _vm.component_states.splice(index, 1)
-        }
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-18px mdi-delete"
-    })])])])
-  }))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "input-field col s12"
-  }, [_c('button', {
-    staticClass: "btn waves-effect waves-light",
-    attrs: {
-      "type": "submit"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('buttons.next')) + "\n                                "), _c('i', {
-    staticClass: "mdi mdi-18px mdi-floppy left"
-  })])])])])])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-6de40146", module.exports)
-  }
-}
-
-/***/ }),
-/* 141 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    class: _vm.wrapperClasses
-  }, [(_vm.controlunit.data) ? _c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-water-pump"
-  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.controlunits", 1)) + "\n        ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
-  }, [_c('span', {
-    staticClass: "card-title activator"
-  }, [_vm._v("\n                " + _vm._s(_vm.controlunit.data.name) + "\n            ")]), _vm._v(" "), _c('div', [(!_vm.controlunit.data.active) ? _c('div', [_c('strong', [_vm._v(_vm._s(_vm.$t('labels.inactive')))])]) : _vm._e(), _vm._v(" "), _c('div', [_vm._v("\n                    " + _vm._s(_vm.$t('labels.last_heartbeat')) + ":\n                    "), _vm._v(" "), _c('span', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.controlunit.data.timestamps.last_heartbeat_diff.days > 0),
-      expression: "controlunit.data.timestamps.last_heartbeat_diff.days > 0"
-    }],
-    staticClass: "tooltipped",
-    attrs: {
-      "data-position": "bottom",
-      "data-delay": "50",
-      "data-tooltip": _vm.controlunit.data.timestamps.last_heartbeat
-    }
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t('units.days_ago', {
-    val: _vm.controlunit.data.timestamps.last_heartbeat_diff.days
-  })) + "\n                    ")]), _vm._v(" "), _c('span', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&
-        _vm.controlunit.data.timestamps.last_heartbeat_diff.hours > 0),
-      expression: "controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&\n                                  controlunit.data.timestamps.last_heartbeat_diff.hours > 0"
-    }],
-    staticClass: "tooltipped",
-    attrs: {
-      "data-position": "bottom",
-      "data-delay": "50",
-      "data-tooltip": _vm.controlunit.data.timestamps.last_heartbeat
-    }
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t('units.hours_ago', {
-    val: _vm.controlunit.data.timestamps.last_heartbeat_diff.hours
-  })) + "\n                    ")]), _vm._v(" "), _c('span', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&
-        _vm.controlunit.data.timestamps.last_heartbeat_diff.hours < 1 &&
-        _vm.controlunit.data.timestamps.last_heartbeat_diff.minutes > 1),
-      expression: "controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&\n                                  controlunit.data.timestamps.last_heartbeat_diff.hours < 1 &&\n                                  controlunit.data.timestamps.last_heartbeat_diff.minutes > 1"
-    }],
-    staticClass: "tooltipped",
-    attrs: {
-      "data-position": "bottom",
-      "data-delay": "50",
-      "data-tooltip": _vm.controlunit.data.timestamps.last_heartbeat
-    }
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t('units.minutes_ago', {
-    val: _vm.controlunit.data.timestamps.last_heartbeat_diff.minutes
-  })) + "\n                    ")]), _vm._v(" "), _c('span', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&
-        _vm.controlunit.data.timestamps.last_heartbeat_diff.hours < 1 &&
-        _vm.controlunit.data.timestamps.last_heartbeat_diff.minutes < 2),
-      expression: "controlunit.data.timestamps.last_heartbeat_diff.days < 1 &&\n                                  controlunit.data.timestamps.last_heartbeat_diff.hours < 1 &&\n                                  controlunit.data.timestamps.last_heartbeat_diff.minutes < 2"
-    }],
-    staticClass: "tooltipped",
-    attrs: {
-      "data-position": "bottom",
-      "data-delay": "50",
-      "data-tooltip": _vm.controlunit.data.timestamps.last_heartbeat
-    }
-  }, [_vm._v("\n                        " + _vm._s(_vm.$t('units.just_now')) + "\n                    ")])]), _vm._v(" "), _c('div', [_vm._v("\n                    " + _vm._s(_vm.$t('labels.client_server_time_diff')) + ": " + _vm._s(_vm.controlunit.data.client_server_time_diff_seconds) + "s\n                ")]), _vm._v(" "), (_vm.controlunit.data.software_version) ? _c('div', [_vm._v("\n                    " + _vm._s(_vm.$t('labels.software_version')) + ": " + _vm._s(_vm.controlunit.data.software_version) + "\n                ")]) : _vm._e()])]), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('a', {
-    attrs: {
-      "href": '/controlunits/' + _vm.controlunit.data.id
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.details")))]), _vm._v(" "), _c('a', {
-    attrs: {
-      "href": '/controlunits/' + _vm.controlunit.data.id + '/edit'
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]) : _c('div', [_c('loading-card-widget')], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-6fad7e4c", module.exports)
-  }
-}
-
-/***/ }),
-/* 142 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight"
-  }, [_c('table-filter', {
-    ref: "table_filter",
-    attrs: {
-      "cols": 5,
-      "hide-cols": _vm.hideCols,
-      "filter-fields": [{
-          name: 'source',
-          path: 'name',
-          col: 0
-        },
-        {
-          name: 'action',
-          path: 'action',
-          col: 1
-        },
-        {
-          name: 'target',
-          path: 'target_name',
-          col: 2
-        },
-        {
-          name: 'associated_with',
-          path: 'associatedWith_name',
-          col: 3
-        },
-        {
-          name: 'created_at',
-          path: 'created_at',
-          col: 4
-        }
-      ]
-    }
-  }), _vm._v(" "), _c('tbody', _vm._l((_vm.logs), function(log) {
-    return _c('tr', [_c('td', [(log.source != null) ? _c('span', [_c('i', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (log.source),
-        expression: "log.source"
-      }],
-      class: 'mdi mdi-24px mdi-' + log.source.icon
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": log.source.url
-      }
-    }, [_vm._v(_vm._s(log.source.name))])]) : _c('span', [_vm._v("\n                            " + _vm._s(log.source_name) + "\n                        ")])]), _vm._v(" "), _c('td', [(log.action == 'start') ? _c('span', {
-      staticClass: "mdi mdi-24px mdi-play"
-    }) : _vm._e(), _vm._v(" "), (log.action == 'finish') ? _c('span', {
-      staticClass: "mdi mdi-24px mdi-check"
-    }) : _vm._e(), _vm._v(" "), (log.action == 'create') ? _c('span', {
-      staticClass: "mdi mdi-24px mdi-plus"
-    }) : _vm._e(), _vm._v(" "), (log.action == 'delete') ? _c('span', {
-      staticClass: "mdi mdi-24px mdi-delete"
-    }) : _vm._e(), _vm._v(" "), (log.action == 'update') ? _c('span', {
-      staticClass: "mdi mdi-24px mdi-update"
-    }) : _vm._e(), _vm._v(" "), (log.action == 'recover') ? _c('span', {
-      staticClass: "mdi mdi-24px mdi-backup-restore"
-    }) : _vm._e(), _vm._v(" "), (log.action == 'notify_recovered') ? _c('span', {
-      staticClass: "mdi mdi-24px mdi-bell-outline"
-    }) : _vm._e(), _vm._v(" "), (log.action == 'notify') ? _c('span', {
-      staticClass: "mdi mdi-24px mdi-bell-ring"
-    }) : _vm._e(), _vm._v("\n                        " + _vm._s(log.action) + "\n                    ")]), _vm._v(" "), _c('td', [(log.target != null) ? _c('span', [_c('i', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (log.target),
-        expression: "log.target"
-      }],
-      class: 'mdi mdi-24px mdi-' + log.target.icon
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": log.target.url
-      }
-    }, [_vm._v(_vm._s(log.target.name))])]) : _c('span', [_vm._v("\n                            " + _vm._s(log.target_name) + "\n                        ")])]), _vm._v(" "), _c('td', [(log.associated != null) ? _c('span', [_c('i', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (log.associated),
-        expression: "log.associated"
-      }],
-      class: 'mdi mdi-24px mdi-' + log.associated.icon
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": log.associated.url
-      }
-    }, [_vm._v(_vm._s(log.associated.name))])]) : _c('span', [_vm._v("\n                            " + _vm._s(log.associated_name) + "\n                        ")])]), _vm._v(" "), _c('td', [_vm._v("\n                        " + _vm._s(log.timestamps.created) + "\n                    ")])])
-  }))], 1), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
-    }
-  })], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-70263630", module.exports)
-  }
-}
-
-/***/ }),
-/* 143 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight"
-  }, [_c('thead', [_c('tr', [_c('th', [_vm._v("\n                    " + _vm._s(_vm.$tc('labels.animals', 1)) + "\n                ")]), _vm._v(" "), _c('th', [_vm._v("\n                    " + _vm._s(_vm.$t('labels.scheduled')) + "\n                ")])])]), _vm._v(" "), _c('tbody', _vm._l((_vm.animals), function(animal) {
-    return _c('tr', [_c('td', [_c('a', {
-      attrs: {
-        "href": '/animals/' + animal.id
-      }
-    }, [_vm._v(_vm._s(animal.display_name))])]), _vm._v(" "), _c('td', _vm._l((_vm.get_animal_weighing_schedules(animal.id)), function(schedule) {
-      return _c('span', [_c('a', {
-        attrs: {
-          "href": '/animals/' + animal.id + '/weighing_schedules/' + schedule.id + '/edit'
-        }
-      }, [_vm._v("\n                            " + _vm._s(schedule.interval_days) + ":\n                        ")]), _vm._v(" "), _c('i', [_vm._v(_vm._s(schedule.timestamps.next) + " (" + _vm._s(schedule.due_days) + " " + _vm._s(_vm.$tc('units.days', schedule.due_days)) + ")")])])
-    }))])
-  }))])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-747a0f62", module.exports)
-  }
-}
-
-/***/ }),
-/* 144 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-clock"
-  }), _vm._v("\n                " + _vm._s(_vm.$tc("labels.animal_weighing_schedules", 2)) + "\n            ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
-  }, [_vm._l((_vm.schedules), function(schedule) {
-    return _c('div', {
-      staticClass: "row no-margin"
-    }, [(schedule.data) ? [_c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (schedule.data.timestamps.next != null),
-        expression: "schedule.data.timestamps.next != null"
-      }]
-    }, [_vm._v(_vm._s(schedule.data.timestamps.next))]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (schedule.data.timestamps.next == null),
-        expression: "schedule.data.timestamps.next == null"
-      }]
-    }, [_vm._v(_vm._s(_vm.$t("labels.now")))]), _vm._v(" "), _c('span', {
-      staticClass: "right"
-    }, [_c('a', {
-      attrs: {
-        "href": '/animals/' + _vm.animalId + '/weighing_schedules/' + schedule.data.id + '/edit'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-18px mdi-pencil"
-    })])]), _vm._v(" "), _c('span', {
-      staticClass: "right"
-    }, [_c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (schedule.data.due_days == 0),
-        expression: "schedule.data.due_days == 0"
-      }],
-      staticClass: "new badge",
-      attrs: {
-        "data-badge-caption": _vm.$t('labels.due')
-      }
-    }), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (schedule.data.due_days < 0),
-        expression: "schedule.data.due_days < 0"
-      }],
-      staticClass: "new badge red",
-      attrs: {
-        "data-badge-caption": _vm.$t('labels.overdue')
-      }
-    })])] : _vm._e()], 2)
-  }), _vm._v(" "), (_vm.schedules.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e()], 2), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('a', {
-    attrs: {
-      "href": '/animals/' + _vm.animalId + '/weighing_schedules/create'
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-7ef57656", module.exports)
-  }
-}
-
-/***/ }),
-/* 145 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "modal",
-    attrs: {
-      "id": _vm.containerId
-    }
-  }, [_c('form', {
-    attrs: {
-      "action": '/api/v1/animals/' + _vm.animalId + '/weighings',
-      "data-method": "POST"
-    },
-    on: {
-      "submit": _vm.submit
-    }
-  }, [_c('div', {
-    staticClass: "modal-content"
-  }, [_c('h4', [_vm._v(_vm._s(_vm.$t("labels.add_weight")))]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "input-field col s12"
-  }, [_c('input', {
-    attrs: {
-      "type": "text",
-      "name": "weight",
-      "id": "weight"
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "weight"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("labels.weight")) + "/g")])]), _vm._v(" "), _c('div', {
-    staticClass: "input-field col s12"
-  }, [_c('input', {
-    staticClass: "datepicker",
-    attrs: {
-      "type": "text",
-      "id": "date",
-      "name": "created_at"
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "date"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.date')))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn modal-action modal-close waves-effect waves-light"
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("buttons.save")) + "\n                "), _c('i', {
-    staticClass: "mdi mdi-18px mdi-floppy left"
-  })]), _vm._v(" "), _c('button', {
-    staticClass: "btn modal-action modal-close waves-effect waves-light",
-    attrs: {
-      "type": "reset"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("buttons.close")) + "\n                "), _c('i', {
-    staticClass: "mdi mdi-18px mdi-close left"
-  })])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-87e99bc2", module.exports)
-  }
-}
-
-/***/ }),
-/* 146 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('div', {
-    staticClass: "timeline"
-  }, _vm._l((_vm.entries), function(entry) {
-    return _c('div', {
-      staticClass: "timeline-event"
-    }, [(entry.data) ? [_c('div', {
-      staticClass: "timeline-date"
-    }, [_c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (entry.data.timestamps.created_diff.days > 0),
-        expression: "entry.data.timestamps.created_diff.days > 0"
-      }],
-      staticClass: "tooltipped",
-      attrs: {
-        "data-position": "bottom",
-        "data-delay": "50",
-        "data-tooltip": entry.data.timestamps.created
-      }
-    }, [_vm._v("\n                                " + _vm._s(_vm.$t('units.days_ago', {
-      val: entry.data.timestamps.created_diff.days
-    })) + "\n                    ")]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (entry.data.timestamps.created_diff.days < 1 &&
-          entry.data.timestamps.created_diff.hours > 0),
-        expression: "entry.data.timestamps.created_diff.days < 1 &&\n                                  entry.data.timestamps.created_diff.hours > 0"
-      }],
-      staticClass: "tooltipped",
-      attrs: {
-        "data-position": "bottom",
-        "data-delay": "50",
-        "data-tooltip": entry.data.timestamps.created
-      }
-    }, [_vm._v("\n                                " + _vm._s(_vm.$t('units.hours_ago', {
-      val: entry.data.timestamps.created_diff.hours
-    })) + "\n                    ")]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (entry.data.timestamps.created_diff.days < 1 &&
-          entry.data.timestamps.created_diff.hours < 1 &&
-          entry.data.timestamps.created_diff.minutes > 1),
-        expression: "entry.data.timestamps.created_diff.days < 1 &&\n                                  entry.data.timestamps.created_diff.hours < 1 &&\n                                  entry.data.timestamps.created_diff.minutes > 1"
-      }],
-      staticClass: "tooltipped",
-      attrs: {
-        "data-position": "bottom",
-        "data-delay": "50",
-        "data-tooltip": entry.data.timestamps.created
-      }
-    }, [_vm._v("\n                                " + _vm._s(_vm.$t('units.minutes_ago', {
-      val: entry.data.timestamps.created_diff.minutes
-    })) + "\n                    ")]), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (entry.data.timestamps.created_diff.days < 1 &&
-          entry.data.timestamps.created_diff.hours < 1 &&
-          entry.data.timestamps.created_diff.minutes < 2),
-        expression: "entry.data.timestamps.created_diff.days < 1 &&\n                                  entry.data.timestamps.created_diff.hours < 1 &&\n                                  entry.data.timestamps.created_diff.minutes < 2"
-      }],
-      staticClass: "tooltipped",
-      attrs: {
-        "data-position": "bottom",
-        "data-delay": "50",
-        "data-tooltip": entry.data.timestamps.created
-      }
-    }, [_vm._v("\n                                " + _vm._s(_vm.$t('units.just_now')) + "\n                    ")])]), _vm._v(" "), _c('div', {
-      staticClass: "card timeline-content"
-    }, [_c('div', {
-      staticClass: "card-content"
-    }, [_c('h5', [_vm._v(_vm._s(entry.data.title))]), _vm._v(" "), _c('p', {
-      domProps: {
-        "innerHTML": _vm._s(entry.data.text)
-      }
-    }), _vm._v(" "), _c('p', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (_vm.files.filter(function (f) { return f.data.belongsTo_id === entry.data.id; }).length > 0),
-        expression: "files.filter(f => f.data.belongsTo_id === entry.data.id).length > 0"
-      }],
-      staticStyle: {
-        "margin-top": "15px"
-      }
-    }, _vm._l((_vm.files.filter(function (f) { return f.data.belongsTo_id === entry.data.id; })), function(file, index) {
-      return _c('span', {
-        staticStyle: {
-          "margin-right": "15px"
-        }
-      }, [_c('i', {
-        class: 'mdi mdi-18px mdi-' + file.data.icon
-      }), _vm._v(" "), _c('a', {
-        attrs: {
-          "href": file.data.url
-        }
-      }, [_vm._v(_vm._s(file.data.display_name))])])
-    }))]), _vm._v(" "), _c('div', {
-      staticClass: "card-action"
-    }, [_c('a', {
-      attrs: {
-        "href": '/biography_entries/' + entry.data.id + '/edit'
-      }
-    }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))])])]), _vm._v(" "), _c('div', {
-      staticClass: "timeline-badge teal darken-2 white-text"
-    }, [(entry.data.category) ? _c('i', {
-      class: 'mdi mdi-18px tooltipped' + entry.data.category.icon,
-      attrs: {
-        "data-position": "top",
-        "data-delay": "50",
-        "data-tooltip": entry.data.category.name
-      }
-    }) : _vm._e()])] : _vm._e()], 2)
-  }))]), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
-    }
-  })], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-95a0a0d2", module.exports)
-  }
-}
-
-/***/ }),
-/* 147 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight collapsible",
-    attrs: {
-      "data-collapsible": "expandable"
-    }
-  }, [_c('table-filter', {
-    ref: "table_filter",
-    attrs: {
-      "cols": 4,
-      "hide-cols": _vm.hideCols,
-      "filter-fields": [{
-          name: 'display_name',
-          path: 'display_name',
-          col: 0
-        },
-        {
-          name: 'type',
-          path: 'mimetype',
-          col: 1
-        },
-        {
-          name: 'size',
-          path: 'size',
-          noFilter: true,
-          col: 2
-        },
-        {
-          name: 'created_at',
-          path: 'created_at',
-          noFilter: true,
-          col: 3
-        },
-        {
-          noSort: true,
-          noFilter: true,
-          col: 4,
-          class: 'hide-on-small-only'
-        }
-      ]
-    }
-  }), _vm._v(" "), _vm._l((_vm.files), function(file) {
-    return [_c('tbody', [_c('tr', {
-      staticClass: "collapsible-tr-header",
-      attrs: {
-        "onclick": "window.collapseTr($(this))"
-      }
-    }, [_c('td', [(_vm.showOptionSelect) ? _c('span', [_c('input', {
-      attrs: {
-        "name": "file",
-        "type": "radio",
-        "id": file.data.id
-      },
-      domProps: {
-        "value": file.data.id
-      }
-    }), _vm._v(" "), _c('label', {
-      attrs: {
-        "for": file.data.id
-      }
-    })]) : _vm._e(), _vm._v(" "), _c('span', [_c('i', {
-      class: 'mdi mdi-24px mdi-' + file.data.icon
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/files/' + file.data.id
-      }
-    }, [_vm._v(_vm._s(file.data.display_name))])])]), _vm._v(" "), _c('td', [_c('span', [_vm._v("\n                                " + _vm._s(file.data.mimetype) + "\n                            ")])]), _vm._v(" "), _c('td', [(file.data.size / 1024 > 1024) ? _c('span', [_vm._v("\n                                " + _vm._s(Math.round(file.data.size / 1024 / 1024, 1)) + " MB\n                            ")]) : _c('span', [_vm._v("\n                                " + _vm._s(Math.round(file.data.size / 1024, 0)) + " KB\n                            ")])]), _vm._v(" "), _c('td', [_vm._v("\n                            " + _vm._s(_vm.$t(
-      'units.' + _vm.$getMatchingTimeDiff(file.data.timestamps.created_diff).unit, {
-        val: _vm.$getMatchingTimeDiff(file.data.timestamps.created_diff).val
-      }
-    )) + "\n                        ")]), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [(_vm.backgroundSelectorClassName && _vm.backgroundSelectorId && file.data.mimetype.indexOf('image') !== -1) ? _c('span', [_c('a', {
-      attrs: {
-        "href": '/files/set-background/' + _vm.backgroundSelectorClassName + '/' + _vm.backgroundSelectorId + '/' + file.data.id
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-24px mdi-image tooltipped",
-      attrs: {
-        "data-delay": "50",
-        "data-html": "true",
-        "data-tooltip": '<div style=\'max-width: 300px\'>' + _vm.$t('tooltips.set_as_background') + '</div>'
-      }
-    })])]) : _vm._e(), _vm._v(" "), _c('span', [_c('a', {
-      attrs: {
-        "href": '/files/' + file.data.id + '/edit'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-24px mdi-pencil"
-    })])])])]), _vm._v(" "), _c('tr', {
-      staticClass: "collapsible-tr-body"
-    }, [(_vm.showOptionSelect) ? _c('td') : _vm._e(), _vm._v(" "), _c('td', {
-      attrs: {
-        "colspan": "4"
-      }
-    }, [(file.data.mimetype.startsWith('image') && file.data.thumb != undefined) ? _c('img', {
-      attrs: {
-        "src": file.data.thumb.path_external
-      }
-    }) : _vm._e()])])])]
-  })], 2), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
-    }
-  })], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-a27b1e7a", module.exports)
-  }
-}
-
-/***/ }),
-/* 148 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-clock"
-  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.animal_feeding_schedules", 2)) + "\n        ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
-  }, [_vm._l((_vm.schedules), function(schedule) {
-    return _c('div', {
-      staticClass: "row no-margin"
-    }, [(schedule.data) ? [(schedule.data.timestamps.next != null) ? _c('span', [_vm._v(_vm._s(schedule.data.timestamps.next) + " - ")]) : _vm._e(), _vm._v("\n                    " + _vm._s(schedule.data.type) + "\n\n                    "), _c('span', {
-      staticClass: "right"
-    }, [_c('a', {
-      attrs: {
-        "href": '/animals/' + _vm.animalId + '/feeding_schedules/' + schedule.data.id + '/edit'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-18px mdi-pencil"
-    })])]), _vm._v(" "), _c('span', {
-      staticClass: "right"
-    }, [_c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (schedule.data.due_days === 0),
-        expression: "schedule.data.due_days === 0"
-      }],
-      staticClass: "new badge",
-      attrs: {
-        "data-badge-caption": _vm.$t('labels.due')
-      }
-    }), _vm._v(" "), _c('span', {
-      directives: [{
-        name: "show",
-        rawName: "v-show",
-        value: (schedule.data.due_days < 0),
-        expression: "schedule.data.due_days < 0"
-      }],
-      staticClass: "new badge red",
-      attrs: {
-        "data-badge-caption": _vm.$t('labels.overdue')
-      }
-    })])] : _vm._e()], 2)
-  }), _vm._v(" "), (_vm.schedules.length < 1) ? _c('div', [_c('p', [_vm._v(_vm._s(_vm.$t('labels.no_data')))])]) : _vm._e()], 2), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('a', {
-    attrs: {
-      "href": '/animals/' + _vm.animalId + '/feeding_schedules/create'
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.add")))])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-ae13280e", module.exports)
-  }
-}
-
-/***/ }),
-/* 149 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "modal",
-    attrs: {
-      "id": 'modal_just_fed_' + _vm.animalId
-    }
-  }, [_c('form', {
-    attrs: {
-      "action": '/api/v1/animals/' + _vm.animalId + '/feedings',
-      "data-method": "POST"
-    },
-    on: {
-      "submit": _vm.submit
-    }
-  }, [_c('div', {
-    staticClass: "modal-content"
-  }, [_c('h4', [_vm._v(_vm._s(_vm.$t("labels.just_fed")))]), _vm._v(" "), _c('div', {
-    staticClass: "row"
-  }, [_c('div', {
-    staticClass: "input-field col s12"
-  }, [(_vm.feedingTypes.length > 0) ? _c('select', {
-    attrs: {
-      "id": "meal_type",
-      "name": "meal_type"
-    }
-  }, _vm._l((_vm.feedingTypes), function(ft) {
-    return _c('option', {
-      domProps: {
-        "value": ft
-      }
-    }, [_vm._v(_vm._s(ft))])
-  })) : _c('span', [_c('strong', [_vm._v(_vm._s(_vm.$t('tooltips.no_feeding_types')))])]), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "meal_type"
-    }
-  }, [_vm._v(_vm._s(_vm.$t("labels.meal_type")))])]), _vm._v(" "), _c('div', {
-    staticClass: "input-field col s12"
-  }, [_c('input', {
-    staticClass: "datepicker",
-    attrs: {
-      "type": "text",
-      "id": "date",
-      "name": "created_at"
-    }
-  }), _vm._v(" "), _c('label', {
-    attrs: {
-      "for": "date"
-    }
-  }, [_vm._v(_vm._s(_vm.$t('labels.date')))])])])]), _vm._v(" "), _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn modal-action modal-close waves-effect waves-light"
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("buttons.save")) + "\n                "), _c('i', {
-    staticClass: "mdi mdi-18px mdi-floppy left"
-  })]), _vm._v(" "), _c('button', {
-    staticClass: "btn modal-action modal-close waves-effect waves-light",
-    attrs: {
-      "type": "reset"
-    }
-  }, [_vm._v("\n                " + _vm._s(_vm.$t("buttons.close")) + "\n                "), _c('i', {
-    staticClass: "mdi mdi-18px mdi-close left"
-  })])])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-b797c9a6", module.exports)
-  }
-}
-
-/***/ }),
-/* 150 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-format-vertical-align-center"
-  }), _vm._v("\n            " + _vm._s(_vm.$tc("labels.logical_sensor_thresholds", 2)) + "\n        ")]), _vm._v(" "), _vm._l((_vm.logical_sensors), function(logical_sensor) {
-    return [(logical_sensor.data) ? [_c('div', {
-      staticClass: "card-content"
-    }, [_c('div', {
-      staticClass: "card-sub-header"
-    }, [_c('a', {
-      attrs: {
-        "href": '/logical_sensors/' + logical_sensor.data.id
-      }
-    }, [_c('strong', [_vm._v(_vm._s(logical_sensor.data.name))])])]), _vm._v(" "), ((_vm.threshold_list = _vm.thresholds.filter(function (t) { return t.data.logical_sensor_id === logical_sensor.data.id; })).length > 0) ? _vm._l((_vm.threshold_list), function(threshold) {
-      return _c('div', {
-        staticClass: "row row-no-margin"
-      }, [_c('i', {
-        staticClass: "mdi mdi-18px mdi-format-vertical-align-center"
-      }), _vm._v(" "), _c('span', [_vm._v(_vm._s(threshold.data.timestamps.starts) + ":")]), _vm._v(" "), (threshold.data.rawvalue_lowerlimit !== null) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$t("labels.min_short")) + ": " + _vm._s(threshold.data.rawvalue_lowerlimit) + "\n                            ")]) : _vm._e(), _vm._v(" "), (threshold.data.rawvalue_upperlimit !== null) ? _c('span', [_vm._v("\n                                " + _vm._s(_vm.$t("labels.max_short")) + ": " + _vm._s(threshold.data.rawvalue_upperlimit) + "\n                            ")]) : _vm._e(), _vm._v(" "), _c('span', {
-        staticClass: "right"
-      }, [_c('a', {
-        attrs: {
-          "href": '/logical_sensor_thresholds/' + threshold.data.id + '/edit'
-        }
-      }, [_c('i', {
-        staticClass: "mdi mdi-18px mdi-pencil"
-      })])])])
-    }) : _c('div', {
-      staticClass: "row row-no-margin"
-    }, [_vm._v("\n                        " + _vm._s(_vm.$t("tooltips.no_data")) + "\n                    ")])], 2), _vm._v(" "), _c('div', {
-      staticClass: "card-action"
-    }, [_c('a', {
-      attrs: {
-        "href": '/logical_sensor_thresholds/create?preset[belongsTo_type]=LogicalSensor&preset[belongsTo_id]=' + logical_sensor.data.id
-      }
-    }, [_vm._v("\n                        " + _vm._s(_vm.$t("buttons.add")) + "\n                    ")])])] : _vm._e()]
-  })], 2)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-c09238b8", module.exports)
-  }
-}
-
-/***/ }),
-/* 151 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight collapsible",
-    attrs: {
-      "data-collapsible": "expandable"
-    }
-  }, [_c('table-filter', {
-    ref: "table_filter",
-    attrs: {
-      "cols": 4,
-      "hide-cols": _vm.hideCols,
-      "filter-fields": [{
-          name: 'name',
-          path: 'name',
-          col: 0
-        },
-        {
-          name: 'type',
-          noSort: true,
-          path: 'type.name_singular',
-          col: 1,
-          class: 'hide-on-small-only'
-        },
-        {
-          name: 'controlunit',
-          noSort: true,
-          path: 'controlunit.name',
-          col: 2,
-          class: 'hide-on-small-only'
-        },
-        {
-          noSort: true,
-          noFilter: true,
-          col: 3,
-          class: 'hide-on-small-only'
-        }
-      ]
-    }
-  }), _vm._v(" "), _vm._l((_vm.custom_components), function(custom_component) {
-    return [_c('tbody', [_c('tr', {
-      staticClass: "collapsible-tr-header",
-      attrs: {
-        "onclick": "window.collapseTr($(this))"
-      }
-    }, [_c('td', [_c('span', [_c('i', {
-      class: 'mdi mdi-24px mdi-' + custom_component.data.type.icon
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/custom_components/' + custom_component.data.id
-      }
-    }, [_vm._v(_vm._s(custom_component.data.name))]), _vm._v(" "), (!custom_component.data.active) ? _c('span', [_vm._v(" - " + _vm._s(_vm.$t('labels.inactive')))]) : _vm._e()])]), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/custom_component_types/' + custom_component.data.type.id
-      }
-    }, [_vm._v(_vm._s(custom_component.data.type.name_singular))])])]), _vm._v(" "), (_vm.hideCols.indexOf('controlunit') === -1) ? _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [(custom_component.data.controlunit) ? _c('span', [_c('i', {
-      staticClass: "mdi mdi-24px mdi-developer-board"
-    }), _vm._v(" "), _c('a', {
-      attrs: {
-        "href": '/controlunits/' + custom_component.data.controlunit.id
-      }
-    }, [_vm._v(_vm._s(custom_component.data.controlunit.name))])]) : _vm._e()]) : _vm._e(), _vm._v(" "), _c('td', {
-      staticClass: "hide-on-small-only"
-    }, [_c('span', [_c('a', {
-      attrs: {
-        "href": '/custom_components/' + custom_component.data.id + '/edit'
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-24px mdi-pencil"
-    })])])])]), _vm._v(" "), _c('tr', {
-      staticClass: "collapsible-tr-body"
-    }, [_c('td', {
-      attrs: {
-        "colspan": "4"
-      }
-    }, _vm._l((custom_component.data.component_properties), function(prop, index) {
-      return _c('div', [_vm._v("\n                                " + _vm._s(prop.name) + ": " + _vm._s(prop.value) + "\n                            ")])
-    }))])])]
-  })], 2), _vm._v(" "), _c('pagination', {
-    ref: "pagination",
-    attrs: {
-      "source-filter": _vm.sourceFilter,
-      "enable-filters": false
-    }
-  })], 1)])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-c0ecd820", module.exports)
-  }
-}
-
-/***/ }),
-/* 152 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    class: _vm.containerClasses
-  }, [_c('div', {
-    staticClass: "col s12 m12 l4"
-  }, [(_vm.file.data) ? _c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-attachment"
-  }), _vm._v("\n                " + _vm._s(_vm.$tc("labels.files", 1)) + "\n            ")]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
-  }, [_c('div', [_c('span', [_vm._v(_vm._s(_vm.$t("labels.size")) + ": " + _vm._s((_vm.file.data.size / 1024 / 1024).toFixed(2)) + " MB")]), _c('br'), _vm._v(" "), _c('span', [_vm._v(_vm._s(_vm.$t("labels.type")) + ": " + _vm._s(_vm.file.data.mimetype))])]), _vm._v(" "), _c('div', [_c('p', [_c('strong', [_vm._v(_vm._s(_vm.$t('labels.associated_with')) + ":")])]), _vm._v(" "), _vm._l((_vm.file.data.models), function(model) {
-    return _c('p', [_c('i', {
-      class: 'mdi mdi-18px mdi-' + model.icon
-    }), _vm._v(" "), (!model.name && !model.display_name) ? _c('a', {
-      attrs: {
-        "href": model.url
-      }
-    }, [_vm._v(_vm._s(model.title))]) : _vm._e(), _vm._v(" "), (model.name && !model.display_name) ? _c('a', {
-      attrs: {
-        "href": model.url
-      }
-    }, [_vm._v(_vm._s(model.name))]) : _vm._e(), _vm._v(" "), (model.display_name) ? _c('a', {
-      attrs: {
-        "href": model.url
-      }
-    }, [_vm._v(_vm._s(model.display_name))]) : _vm._e(), _vm._v(" "), _c('span', {
-      staticClass: "right"
-    }, [_c('a', {
-      staticClass: "red-text",
-      attrs: {
-        "href": '/files/associate/' + model.class + '/' + model.id + '/' + _vm.file.data.id
-      }
-    }, [_c('i', {
-      staticClass: "mdi mdi-18px mdi-delete"
-    })])])])
-  })], 2)]), _vm._v(" "), _c('div', {
-    staticClass: "card-action"
-  }, [_c('a', {
-    attrs: {
-      "href": '/files/' + _vm.file.data.id + '/edit'
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.edit")))]), _vm._v(" "), _c('a', {
-    attrs: {
-      "href": '/files/' + _vm.file.data.id + '/download/' + _vm.file.data.display_name
-    }
-  }, [_vm._v(_vm._s(_vm.$t("buttons.download")))])])]) : _c('div', [_c('loading-card-widget')], 1)]), _vm._v(" "), (_vm.file.data && _vm.file.data.is_image && _vm.file.data.thumb !== _vm.undefiend) ? _c('div', {
-    staticClass: "col s12 m12 l8"
-  }, [(_vm.file.data) ? _c('div', {
-    staticClass: "card"
-  }, [_c('div', {
-    staticClass: "card-header"
-  }, [_c('span', [_vm._v(_vm._s(_vm.$t('labels.preview')))])]), _vm._v(" "), _c('div', {
-    staticClass: "card-content"
-  }, [_c('img', {
-    attrs: {
-      "src": _vm.file.data.thumb.path_external
-    }
-  })])]) : _c('div', [_c('loading-card-widget')], 1)]) : _vm._e()])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-c22535f8", module.exports)
-  }
-}
-
-/***/ }),
-/* 153 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('div', {
-    class: _vm.wrapperClasses
-  }, [_c('table', {
-    staticClass: "responsive highlight"
-  }, [_c('thead', [_c('tr', [_c('th', {
-    attrs: {
-      "data-field": "id"
-    }
-  }, [_vm._v("\n                    " + _vm._s(_vm.$tc('labels.animals', 1)) + "\n                ")]), _vm._v(" "), _vm._l((_vm.feeding_types), function(type) {
-    return _c('th', [_vm._v("\n                    " + _vm._s(type.name) + "\n                ")])
-  })], 2)]), _vm._v(" "), _c('tbody', _vm._l((_vm.animals), function(animal) {
-    return _c('tr', [_c('td', [_c('a', {
-      attrs: {
-        "href": '/animals/' + animal.id
-      }
-    }, [_vm._v(_vm._s(animal.display_name))])]), _vm._v(" "), _vm._l((_vm.feeding_types), function(type) {
-      return _c('td', _vm._l((_vm.get_animal_feeding_schedules_of_type(animal.id, type.name)), function(schedule) {
-        return _c('span', [_c('a', {
-          attrs: {
-            "href": '/animals/' + animal.id + '/feeding_schedules/' + schedule.id + '/edit'
-          }
-        }, [_vm._v(_vm._s(schedule.interval_days))]), _vm._v(" "), _c('i', [_vm._v("(" + _vm._s(schedule.due_days) + " " + _vm._s(_vm.$tc('units.days', schedule.due_days)) + ")")]), _vm._v(" "), (schedule.due_days < 0) ? _c('i', {
-          staticClass: "mdi mdi-24px mdi-exclamation"
-        }) : (schedule.due_days < 1) ? _c('i', {
-          staticClass: "mdi mdi-24px mdi-exclamation orange-text"
-        }) : _vm._e()])
-      }))
-    })], 2)
-  }))])])])
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-d49b7eaa", module.exports)
-  }
-}
-
-/***/ }),
-/* 154 */
-/***/ (function(module, exports, __webpack_require__) {
-
-module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', [_c('transition', {
-    attrs: {
-      "name": "fade"
-    }
-  }, [_c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.echo.connector.pusher.connection.state !== 'connected' &&
-        _vm.echo.connector.pusher.connection.state !== 'initialized' &&
-        _vm.ready),
-      expression: "echo.connector.pusher.connection.state !== 'connected'\n                  && echo.connector.pusher.connection.state !== 'initialized'\n                  && ready"
-    }],
-    staticClass: "side-menu-info"
-  }, [_c('div', {
-    staticClass: "side-menu-info-title"
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-wifi-off"
-  }), _vm._v(" " + _vm._s(_vm.$t('labels.connecting')) + "\n            ")]), _vm._v(" "), _c('div', {
-    staticClass: "side-menu-info-content"
-  }, [_c('span', [_vm._v(_vm._s(_vm.$t('tooltips.connecting_to_server')))])])])]), _vm._v(" "), _c('transition', {
-    attrs: {
-      "name": "fade"
-    }
-  }, [_c('div', {
-    directives: [{
-      name: "show",
-      rawName: "v-show",
-      value: (_vm.system.emergency_stop === true),
-      expression: "system.emergency_stop === true"
-    }],
-    staticClass: "side-menu-info"
-  }, [_c('div', {
-    staticClass: "side-menu-info-title"
-  }, [_c('i', {
-    staticClass: "mdi mdi-18px mdi-power"
-  }), _vm._v(" " + _vm._s(_vm.$t('labels.emergency_stop')) + "\n            ")]), _vm._v(" "), _c('div', {
-    staticClass: "side-menu-info-content"
-  }, [_c('span', [_vm._v(_vm._s(_vm.$t('tooltips.emergency_stop')))])])])])], 1)
-},staticRenderFns: []}
-module.exports.render._withStripped = true
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-     require("vue-hot-reload-api").rerender("data-v-e62408ca", module.exports)
+     require("vue-hot-reload-api").rerender("data-v-fc69bb20", module.exports)
   }
 }
 

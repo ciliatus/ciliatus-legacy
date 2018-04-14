@@ -3,12 +3,12 @@
         <div v-if="ShowFilterForm === true">
             <div class="row" style="margin-bottom: 0">
                 <div class="input-field col s12 m4 l4">
-                    <input class="datepicker" type="date" :placeholder="$t('labels.from')" name="filter_from" :id="'filter_from_' + id"
+                    <input class="datepicker" type="text" :placeholder="$t('labels.from')" name="filter_from" :id="'filter_from_' + id"
                            :data-default="FilterFromDate" :value="FilterFromDate">
                     <label :for="'filter_from_' + id">{{ $t('labels.from') }}</label>
                 </div>
                 <div class="input-field col s12 m4 l4">
-                    <input class="datepicker" type="date" :placeholder="$t('labels.to')" name="filter_to" :id="'filter_to_' + id"
+                    <input class="datepicker" type="text" :placeholder="$t('labels.to')" name="filter_to" :id="'filter_to_' + id"
                            :data-default="FilterToDate" :value="FilterToDate">
                     <label :for="'filter_to_' + id">{{ $t('labels.to') }}</label>
                 </div>

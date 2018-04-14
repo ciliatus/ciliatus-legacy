@@ -70,19 +70,19 @@
                             <div class="col s12 m6 l6">
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input type="date" class="datepicker" placeholder="@lang('labels.date_birth')"
+                                        <input type="text" class="datepicker" placeholder="@lang('labels.date_birth')"
                                                name="birth_date" id="birthdate"
                                                @if ($animal->birth_date) value="{{ $animal->birth_date->format('Y-m-d') }}" @endif>
-                                        <label for="name">@lang('labels.date_birth')</label>
+                                        <label for="birthdate">@lang('labels.date_birth')</label>
                                     </div>
                                 </div>
 
                                 <div class="row">
                                     <div class="input-field col s12">
-                                        <input type="date" class="datepicker" placeholder="@lang('labels.date_death')"
+                                        <input type="text" class="datepicker" placeholder="@lang('labels.date_death')"
                                                name="death_date" id="deathdate"
                                                @if ($animal->death_date) value="{{ $animal->death_date->format('Y-m-d') }}" @endif>
-                                        <label for="name">@lang('labels.date_death')</label>
+                                        <label for="deathdate">@lang('labels.date_death')</label>
                                     </div>
                                 </div>
 
@@ -146,7 +146,7 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('.datepicker').pickadate({
+            $('.datepicker').datepicker({
                 format: 'yyyy-mm-dd',
                 selectMonths: true, // Creates a dropdown to control month
                 selectYears: true // Creates a dropdown of 15 years to control year

@@ -1,3 +1,16 @@
+html,
+button.btn,
+input {
+  font-family: Roboto,Oxygen-Sans,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
+}
+
+main a[href] i.mdi {
+  color: #f4511e;
+}
+
+.nav-wrapper {
+  padding-left: 310px;
+}
 
 // Fix for 200px height on swipeable tabs
 .tabs-content.carousel {
@@ -92,32 +105,32 @@ table.collapsible {
 /*
  * Border for collapsible navi items
  */
-#nav-mobile div.collapsible-body {
+.slide-out div.collapsible-body {
   border-left: 5px $primary-color solid;
 }
 
-#nav-mobile > li.active > a,
-#nav-mobile > li.active > a > i,
-#nav-mobile div.collapsible-body > ul > li.active > a ,
-#nav-mobile div.collapsible-body > ul > li.active > a > i{
+.slide-out > li.active > a,
+.slide-out > li.active > a > i,
+.slide-out div.collapsible-body > ul > li.active > a ,
+.slide-out div.collapsible-body > ul > li.active > a > i{
   color: #FFF;
 }
 
-#nav-mobile div.collapsible-body > ul > li > a {
+.slide-out div.collapsible-body > ul > li > a {
   padding: 0 18.5px 0 31px;
 }
 
 /*
  * Background for active navi items
  */
-#nav-mobile > li.active {
+.slide-out > li.active {
   background-color: $primary-color;
 }
 
 /*
  * Remove margin from divider in navi
  */
-#nav-mobile > li > div.divider {
+.slide-out > li > div.divider {
   margin: 0
 }
 

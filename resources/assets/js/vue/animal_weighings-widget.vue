@@ -9,8 +9,8 @@
                             <input type="text" name="weight" id="weight" :placeholder="$t('labels.weight')" value="">
                             <label for="weight">{{ $t("labels.weight") }}/g</label>
 
-                            <input type="date" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
-                            <label>{{ $t('labels.date') }}</label>
+                            <input type="text" id="weight-created-at" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
+                            <label for="weight-created-at">{{ $t('labels.date') }}</label>
                         </p>
                     </div>
 

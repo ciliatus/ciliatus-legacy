@@ -17,8 +17,8 @@
                     </div>
 
                     <div class="input-field col s12">
-                        <input type="text" id="date" class="datepicker" name="created_at">
-                        <label for="date">{{ $t('labels.date') }}</label>
+                        <input type="text" id="date-feeding-created" class="datepicker" name="created_at">
+                        <label for="date-feeding-created">{{ $t('labels.date') }}</label>
                     </div>
                 </div>
             </div>
