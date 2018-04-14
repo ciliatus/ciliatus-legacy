@@ -13,7 +13,7 @@ return [
     'add_intention' =>'Add Intention',
     'add_property'=>'Add Property',
     'add_state' =>  'Add State',
-    'create'    =>  'Add',
+    'create'    =>  'Create',
     'edit'      =>  'Edit',
     'details'   =>  'Details',
     'download'  =>  'Download',
