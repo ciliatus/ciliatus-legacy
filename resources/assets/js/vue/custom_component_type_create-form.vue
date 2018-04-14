@@ -261,7 +261,7 @@ export default {
         add_intention: function() {
             this.component_intentions.push({intention:'increase', type:'humidity_percent'});
             this.$nextTick(function() {
-                $('select').material_select();
+                $('select').formSelect();
                 this.register_select_event_handler('#intention_id_' + (this.component_intentions.length-1));
                 this.register_select_event_handler('#type_id_' + (this.component_intentions.length-1));
             });

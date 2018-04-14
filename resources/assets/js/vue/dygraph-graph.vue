@@ -329,8 +329,11 @@ export default {
 
         var that = this;
         this.$nextTick(function() {
-            $('.datepicker').pickadate({
+            $('.datepicker').datepicker({
                 format: 'yyyy-mm-dd',
+                autoClose: true,
+                defaultDate: new Date(),
+                setDefaultDate: true
             });
 
             that.build();

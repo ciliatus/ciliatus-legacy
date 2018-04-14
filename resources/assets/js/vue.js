@@ -76,15 +76,20 @@ global.Vue.config.errorHandler = function (err, vm, info)  {
     let handler, current = vm;
     if (vm.$options.errorHandler) {
         handler = vm.$options.errorHandler
-    } else {
+    }
+    else {
         while (current.$parent) {
             current = current.$parent;
-            if (handler = current.$options.errorHandler) break
+            if (handler = current.$options.errorHandler) {
+                break;
+            }
         }
     }
-    if (handler) handler.call(current, err, vm, info);
+    if (handler) {
+        handler.call(current, err, vm, info);
+    }
     else {
-        console.log(err);
+        window.console.log(err);
         window.notification(global.ciliatusVue.$t('errors.frontend.generic'), 'red darken-1 text-white');
     }
 };

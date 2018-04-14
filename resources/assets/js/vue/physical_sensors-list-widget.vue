@@ -14,7 +14,7 @@
 
                 <template v-for="physical_sensor in physical_sensors">
                     <tbody>
-                        <tr class="collapsible-header">
+                        <tr class="collapsible-tr-header" onclick="window.collapseTr($(this))">
 
                             <td>
                                 <span>
@@ -54,7 +54,7 @@
                             </td>
 
                         </tr>
-                        <tr class="collapsible-body">
+                        <tr class="collapsible-tr-body">
                             <td colspan="4">
                                 {{ $t('labels.last_heartbeat') }}:
                                 {{ $t(

@@ -53,7 +53,7 @@
 
                 <div class="card-action">
                     <a :href="'#modal_add_feeding_' + animalId"
-                       :onclick="'$(\'#modal_add_feeding_' + animalId + '\').modal(); $(\'#modal_add_feeding_' + animalId + ' select\').material_select(); $(\'#modal_add_feeding_' + animalId + '\').modal(\'open\');'">{{ $t("buttons.add") }}</a>
+                       :onclick="'$(\'#modal_add_feeding_' + animalId + '\').modal(); $(\'#modal_add_feeding_' + animalId + ' select\').formSelect(); $(\'#modal_add_feeding_' + animalId + '\').modal(\'open\');'">{{ $t("buttons.add") }}</a>
                 </div>
             </div>
         </div>

@@ -179,13 +179,13 @@ var progressHandlingFunction = function progressHandlingFunction(e) {
 window.notification = function (text, cssClass, length) {
     length = length || 5000;
     cssClass = cssClass || null;
-    Materialize.toast(text, length, cssClass);
+    M.toast({ html: text, length: length, classes: cssClass });
 };
 
 window.runPage = function () {
     $('.masonry-grid').masonry();
 
-    $('select').material_select();
+    $('select').formSelect();
 
     $('.dropdown-button').dropdown({
         constrain_width: false, // Does not change width of dropdown to that of the activator
@@ -194,7 +194,7 @@ window.runPage = function () {
         alignment: 'left' // Displays dropdown with edge aligned to the left of button
     });
 
-    $('.button-collapse').sideNav();
+    $('.sidenav').sidenav();
 
     $('.tooltipped').tooltip({ delay: 50 });
 
@@ -238,6 +238,10 @@ window.runPage = function () {
             }, 1);
         }
     });
+};
+
+window.collapseTr = function (tr) {
+    tr.closest('tr').next('tr').slideToggle(0);
 };
 
 var Base64 = { _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=", encode: function encode(e) {

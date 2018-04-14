@@ -84,7 +84,7 @@
                 $('#component_select').find(':selected').first().data('states').forEach(function(el) {
                     $('#state_select').append('<option value="' + el + '">' + el + '</option>');
                 });
-                $('#state_select').material_select();
+                $('#state_select').formSelect();
             });
 
         });

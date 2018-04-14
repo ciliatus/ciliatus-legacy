@@ -6,7 +6,7 @@
 }
 
 // Fix for collapsible-header class on tr
-tr.collapsible-header {
+tr.collapsible-tr-header {
   display: table-row;
   cursor: pointer;
   min-height: inherit;
@@ -59,16 +59,21 @@ table.collapsible {
   border-radius: 0 0 4px 4px;
 }
 
-.side-nav .userView {
+.sidenav {
+  background-color: #263238;
+}
+
+.sidenav .userView {
+  padding: 32px 32px 0;
   margin-bottom: 0;
 }
 
-.side-nav .side-menu-info {
+.sidenav .side-menu-info {
   @extend .amber;
 
 }
 
-.side-nav .side-menu-info-title {
+.sidenav .side-menu-info-title {
   @extend .grey-text, .text-darken-4;
 
   padding-top: 12px;
@@ -76,11 +81,11 @@ table.collapsible {
   padding-bottom: 8px;
 }
 
-.side-nav .side-menu-info-title i {
+.sidenav .side-menu-info-title i {
   @extend .grey-text, .text-darken-4;
 }
 
-.side-nav .side-menu-info-content {
+.sidenav .side-menu-info-content {
   @extend .grey-text, .text-darken-3;
 
   padding-left: 12px;
@@ -402,7 +407,7 @@ img.tiny {
 
 }
 
-.side-nav.fixed {
+.sidenav.sidenav-fixed {
 
   .collapsible-header {
     padding: 0 0 0 ($sidenav-padding * 2);
@@ -528,12 +533,12 @@ select {
   border: 1px color("blue-grey", "darken-3") solid;
 }
 
-.side-nav li>a, .side-nav li>a>i, .side-nav li>a>i.material-icons {
+.sidenav li>a, .sidenav li>a>i, .sidenav li>a>i.material-icons {
   color: #EEE;
 }
 
 
-.side-nav .collapsible-body, .side-nav.fixed .collapsible-body {
+.sidenav .collapsible-body, .sidenav.sidenav-fixed .collapsible-body {
   background-color: color("blue-grey", "darken-4");
 }
 
@@ -702,13 +707,13 @@ div.card-sub-header {
   vertical-align: middle;
 }
 
-.side-nav ul.collapsible > li > a > i.mdi {
+.sidenav ul.collapsible > li > a > i.mdi {
   position: relative;
   top: -1px;
   margin-right: 32px;
 }
 
-.side-nav ul.collapsible > li > a > i.mdi.right {
+.sidenav ul.collapsible > li > a > i.mdi.right {
   position: relative;
   top: -1px;
   margin-right: 10px;
@@ -738,4 +743,8 @@ label[for='ask-me-something'] {
 
 ul.autocomplete-content.dropdown-content {
   position: absolute;
+}
+
+.collapsible-tr-body {
+  display: none;
 }

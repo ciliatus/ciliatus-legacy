@@ -59,46 +59,45 @@
                     <a href="#!" class="modal-action modal-close btn btn-flat orange darken-4 white-text">@lang('buttons.close')</a>
                 </div>
             </div>
-            <header>
-                <div class="navbar-fixed">
-                    <nav>
-                        <div class="nav-wrapper">
-                            <ul class="left">
-                                <li>
-                                    <a href="#!" data-activates="nav-mobile" class="button-collapse top-nav full hide-on-large-only"
-                                        style="padding-left: 15px; padding-right: 0; margin: 0;">
-                                        <i class="mdi mdi-24px mdi-menu white-text"></i>
-                                    </a>
-                                </li>
-                            </ul>
 
-                            <span class="hide-on-med-and-down" style="padding-left: 15px;">
-                                <a href="/" class="breadcrumb hide-on-small-and-down">Start</a>
-                                @yield('breadcrumbs')
-                            </span>
+            <nav>
+                <div class="nav-wrapper">
+                    <ul class="left">
+                        <li>
+                            <a href="#!" data-target="slide-out" class="sidenav-trigger button-collapse top-nav full hide-on-large-only"
+                               style="padding-left: 15px; padding-right: 0; margin: 0;">
+                                <i class="mdi mdi-24px mdi-menu white-text"></i>
+                            </a>
+                        </li>
+                    </ul>
 
-                            <!--
-                            <span class="right overlay-loader hide-on-med-and-up">
-                                <img src="https://dev-43256.ciliatus.io/svg/Ciliatus_Logo.svg"
-                                     class="main-loader loader-icon" id="loader-icon"
-                                     style="height: 44px; width: 44px; position: relative; top: 6px; right: 10px;">
-                            </span>
-                            -->
+                    <span class="hide-on-med-and-down" style="padding-left: 15px;">
+                        <a href="/" class="breadcrumb hide-on-small-and-down">Start</a>
+                        @yield('breadcrumbs')
+                    </span>
 
-                            <ul class="right" style="position:relative; right: 0px;">
-                                <li>
-                                    @if(App\System::hasVoiceCapability())
-                                    <span>Your language is not installed.</span>
-                                    @else
-                                    <api-io-widget></api-io-widget>
-                                    @endif
-                                </li>
-                            </ul>
-                        </div>
-                    </nav>
+                    <!--
+                    <span class="right overlay-loader hide-on-med-and-up">
+                        <img src="https://dev-43256.ciliatus.io/svg/Ciliatus_Logo.svg"
+                             class="main-loader loader-icon" id="loader-icon"
+                             style="height: 44px; width: 44px; position: relative; top: 6px; right: 10px;">
+                    </span>
+                    -->
+
+                    <!--
+                    <ul class="right" style="position:relative; right: 0px;">
+                        <li>
+                            @if(App\System::hasVoiceCapability())
+                                <span>Your language is not installed.</span>
+                            @else
+                                <api-io-widget></api-io-widget>
+                            @endif
+                        </li>
+                    </ul>
+                    -->
                 </div>
-
-                <ul id="nav-mobile" class="side-nav fixed">
+            </nav>
+                <ul class="sidenav sidenav-fixed" id="slide-out">
                     <li>
                         <div class="userView primary-background-color" id="left-top-menu-logo-wrapper">
                             <div class="overlay-loader center">
@@ -323,8 +322,6 @@
                     <br /><br /><br />
                 </ul>
 
-            </header>
-
             <main style="height: 100%;">
 
                 <div id="content" style="height: 100%;">
@@ -337,7 +334,7 @@
         <!-- Google Charts -->
         <script type="text/javascript" src="{{ url('/js/vendors/google-charts.min.js?v=201803171354') }}"></script>
         <!-- Materialize.js -->
-        <script type="text/javascript" src="{{ url('/js/vendors/materialize.min.js?v=201803171354') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/materialize.js?v=201803171354') }}"></script>
         <!-- Materialize.clockpicker.js -->
         <script type="text/javascript" src="{{ url('/js/vendors/materialize.clockpicker.js?v=201803171354') }}"></script>
         <!-- Masonry -->
@@ -345,9 +342,9 @@
         <!-- Laravel-Echo -->
         <script type="text/javascript" src="{{ url('/js/vendors/echo.min.js?v=201803171354') }}"></script>
         <!-- ciliatus -->
-        <script type="text/javascript" src="{{ url('/js/app.min.js?v=201803171354') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/app.js?v=201803171354') }}"></script>
         <!-- Vue -->
-        <script type="text/javascript" src="{{ url('/js/vendors/vue.min.js?v=201803171354') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/vue.js?v=201803171354') }}"></script>
         <!-- Dygraph -->
         <script type="text/javascript" src="{{ url('/js/vendors/dygraph.min.js?v=201803171354') }}"></script>
 

@@ -15,7 +15,7 @@
 
                 <template v-for="valve in valves">
                     <tbody>
-                        <tr class="collapsible-header">
+                        <tr class="collapsible-tr-header" onclick="window.collapseTr($(this))">
 
                             <td>
                                 <span>
@@ -61,7 +61,7 @@
                             </td>
 
                         </tr>
-                        <tr class="collapsible-body">
+                        <tr class="collapsible-tr-body">
                             <td colspan="3">
 
                             </td>

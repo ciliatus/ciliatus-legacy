@@ -244,15 +244,21 @@
 
                                     <div class="row">
                                         <div class="input-field col s12 m6 l6">
-                                            <input class="timepicker" placeholder="@lang('labels.auto_nightmode') @lang('labels.starts_at')" name="night_starts_at"
-                                                   data-default="{{ $user->setting('night_starts_at') }}" value="{{ $user->setting('night_starts_at') }}">
-                                            <label for="name">@lang('labels.auto_nightmode') @lang('labels.starts_at')</label>
+                                            <input type="text" class="timepicker"
+                                                   placeholder="@lang('labels.auto_nightmode') @lang('labels.starts_at')"
+                                                   name="night_starts_at" id="night_mode_start"
+                                                   data-default="{{ $user->setting('night_starts_at') }}"
+                                                   value="{{ $user->setting('night_starts_at') }}">
+                                            <label for="night_mode_start">@lang('labels.auto_nightmode') @lang('labels.starts_at')</label>
                                         </div>
 
                                         <div class="input-field col s12 m6 l6">
-                                            <input class="timepicker" placeholder="@lang('labels.auto_nightmode') @lang('labels.ends_at')" name="night_ends_at"
-                                                   data-default="{{ $user->setting('night_ends_at') }}" value="{{ $user->setting('night_ends_at') }}">
-                                            <label for="name">@lang('labels.auto_nightmode') @lang('labels.ends_at')</label>
+                                            <input type="text" class="timepicker"
+                                                   placeholder="@lang('labels.auto_nightmode') @lang('labels.ends_at')"
+                                                   name="night_ends_at" id="night_mode_end"
+                                                   data-default="{{ $user->setting('night_ends_at') }}"
+                                                   value="{{ $user->setting('night_ends_at') }}">
+                                            <label for="night_mode_end">@lang('labels.auto_nightmode') @lang('labels.ends_at')</label>
                                         </div>
                                     </div>
                                 </div>
@@ -603,7 +609,7 @@
                 });
             }
 
-            $('#user-abilities-select').material_select();
+            $('#user-abilities-select').formSelect();
         }
 
         function select_ability_preset(preset) {
@@ -621,8 +627,8 @@
         }
 
         $(document).ready(function() {
-            $('.timepicker').pickatime({
-                twelvehour: false
+            $('.timepicker').timepicker({
+                twelveHour: false
             });
         });
     </script>

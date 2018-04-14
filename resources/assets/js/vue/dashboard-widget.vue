@@ -588,10 +588,13 @@
                     grid.masonry('layout');
                 }
                 $('.tooltipped').tooltip({delay: 50});
-                $('.datepicker').pickadate({
-                    selectMonths: true,
-                    selectYears: 15,
-                    format: 'yyyy-mm-dd',
+                this.$nextTick(() => {
+                    $('.datepicker').datepicker({
+                        format: 'yyyy-mm-dd',
+                        autoClose: true,
+                        defaultDate: new Date(),
+                        setDefaultDate: true
+                    });
                 });
             },
 
