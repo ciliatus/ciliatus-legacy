@@ -80,5 +80,11 @@ return [
     'critical_state_actuality' => 'Daten werden zum jetzigen Zeitpunkt ermittelt und könnten zum Zeitpunkt des kritischen Zustand unterschiedlich gewesen sein.',
     'i2c' => [
         'bus_num' => 'Für Raspberry Pi: 0 für RPI1, 1 für alle anderen Modelle'
+    ],
+    'feature_discovery' => [
+        'floating_button' => [
+            'title' => 'Aktionen',
+            'text' => 'Objekte hinzufügen, zu editieren, verknüpfen und löschen.'
+        ]
     ]
 ];

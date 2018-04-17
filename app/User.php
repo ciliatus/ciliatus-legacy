@@ -217,6 +217,24 @@ class User extends CiliatusModel implements
     }
 
     /**
+     * @param $feature
+     * @param bool $mark_as_seen
+     * @return bool
+     */
+    public function hasSeenFeatureDiscovery($feature, $mark_as_seen = true)
+    {
+        if (!$this->property('FeatureDiscovery', $feature, true)) {
+            return true;
+        }
+
+        if ($mark_as_seen) {
+            $this->setProperty('FeatureDiscovery', $feature, true);
+        }
+
+        return false;
+    }
+
+    /**
      * Return current time converted
      * to user's timezone
      *
