@@ -112,6 +112,8 @@ window.notification = function(text, cssClass, length) {
 };
 
 window.runPage = function() {
+    $('.fixed-action-btn').floatingActionButton();
+
     $('.masonry-grid').masonry();
 
     $('select').formSelect();
