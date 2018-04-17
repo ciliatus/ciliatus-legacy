@@ -19,7 +19,8 @@ main a[href] i.mdi {
 }
 
 .timepicker-tick,
-.datepicker-date-display .year-text {
+.datepicker-date-display .year-text,
+main .fixed-action-btn a[href] i.mdi {
   color: #EEE;
 }
 
@@ -767,13 +768,6 @@ div.card-sub-header {
 a.btn-floating.btn-large > i.mdi {
   position: relative;
   top: -1px;
-}
-
-@media only screen and (min-width: 601px) {
-  a.btn-floating > i.mdi {
-    position: relative;
-    top: -11px;
-  }
 }
 
 label[for='ask-me-something'] {
