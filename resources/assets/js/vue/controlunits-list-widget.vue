@@ -14,7 +14,7 @@
 
                 <template v-for="controlunit in controlunits">
                     <tbody>
-                        <tr class="collapsible-header">
+                        <tr class="collapsible-tr-header" onclick="window.collapseTr($(this))">
                             <td>
                                 <span>
                                     <i class="mdi mdi-24px mdi-developer-board"></i>
@@ -51,7 +51,7 @@
                             </td>
 
                         </tr>
-                        <tr class="collapsible-body">
+                        <tr class="collapsible-tr-body">
                             <td colspan="5">
                                 <div v-if="controlunit.data" v-for="type in component_types">
                                     <template v-if="(component_list = _self[type].filter(c => c.data.controlunit_id === controlunit.id)).length > 0">
@@ -182,7 +182,7 @@
                         that.pump_ids = [].concat.apply([], data.data.map(c => c.pumps.map(p => p.id)));
                         that.valve_ids = [].concat.apply([], data.data.map(c => c.valves.map(v => v.id)));
                         that.custom_component_ids = [].concat.apply([], data.data.map(c => c.custom_components.map(g => g.id)));
-                        that.physical_sensors_ids = [].concat.apply([], data.data.map(c => c.physical_sensors.map(p => p.id)));
+                        that.physical_sensor_ids = [].concat.apply([], data.data.map(c => c.physical_sensors.map(p => p.id)));
 
                         that.$refs.pagination.meta = data.meta;
 

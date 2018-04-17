@@ -3,7 +3,7 @@
         <div :class="wrapperClasses">
             <table class="responsive highlight collapsible" data-collapsible="expandable">
                 <table-filter ref="table_filter"
-                              :cols="5"
+                              :cols="6"
                               :hide-cols="hideCols"
                               :filter-fields="[{name: 'name', path: 'name', col: 0},
                                                {name: 'physical_sensor', noSort:true, path: 'physical_sensor.name', col: 1},
@@ -15,7 +15,7 @@
 
                 <template v-for="logical_sensor in logical_sensors">
                     <tbody>
-                        <tr class="collapsible-header">
+                        <tr class="collapsible-tr-header" onclick="window.collapseTr($(this))">
 
                             <td>
                                 <span>
@@ -65,7 +65,7 @@
                             </td>
 
                         </tr>
-                        <tr class="collapsible-body">
+                        <tr class="collapsible-tr-body">
                             <td>
                                 {{ $t('labels.rawlimitlo') }}: {{ logical_sensor.data.rawvalue_lowerlimit }}<br />
                                 {{ $t('labels.rawlimithi') }}: {{ logical_sensor.data.rawvalue_upperlimit }}
@@ -77,7 +77,9 @@
                                     <a v-bind:href="'/controlunits/' + c.data.id">{{ c.data.name }}</a>
                                 </span>
                                 <br />
-                                <span>{{ $t('labels.model') }}: {{ physical_sensor(logical_sensor).data.model }}</span>
+                                <span v-if="p = physical_sensor(logical_sensor)">
+                                    {{ $t('labels.model') }}: {{ p.data.model }}
+                                </span>
                             </td>
                             <td class="hide-on-med-and-down">
                                 <span v-if="t = terrarium(logical_sensor)">
@@ -188,28 +190,44 @@
 
         methods: {
             terrarium(logical_sensor) {
-                let terrarium = this.terraria.filter(
-                    l => l.data.id === this.physical_sensors.filter(
-                        p => p.data.id === logical_sensor.data.physical_sensor.id
-                    )[0].data.terrarium.id
-                );
+                let physical_sensor = this.physical_sensor(logical_sensor);
+                if (physical_sensor === null) {
+                    return null;
+                }
+
+                let terrarium = null;
+                if (physical_sensor.belongsTo_id !== null && physical_sensor.belongsTo_type === 'Terrarium') {
+                    terrarium = this.terraria.filter(t => t.id === physical_sensor.belongsTo_id);
+                }
+
+                if (terrarium === null) {
+                    return null;
+                }
 
                 if (terrarium.length > 0) {
-                    return terrarium[0];
+                    return terrarium[0].data === null ? null : terrarium[0];
                 }
 
                 return null;
             },
 
             controlunit(logical_sensor) {
-                let controlunit = this.controlunits.filter(
-                    l => l.data.id === this.physical_sensors.filter(
-                        p => p.data.id === logical_sensor.data.physical_sensor.id
-                    )[0].data.controlunit.id
-                );
+                let physical_sensor = this.physical_sensor(logical_sensor);
+                if (physical_sensor === null) {
+                    return null;
+                }
+
+                let controlunit = null;
+                if (physical_sensor.controlunit_id !== null) {
+                    controlunit = this.controlunits.filter(c => c.id === physical_sensor.controlunit_id);
+                }
+
+                if (controlunit === null) {
+                    return;
+                }
 
                 if (controlunit.length > 0) {
-                    return controlunit[0];
+                    return controlunit[0].data === null ? null : controlunit[0];
                 }
 
                 return null;
@@ -217,10 +235,15 @@
 
             physical_sensor(logical_sensor) {
                 let physical_sensor = this.physical_sensors.filter(
-                    p => p.data.id === logical_sensor.data.physical_sensor.id
+                    p => p.data !== null && p.data.id === logical_sensor.data.physical_sensor_id
                 );
+
+                if (physical_sensor === null) {
+                    return null;
+                }
+
                 if (physical_sensor.length > 0) {
-                    return physical_sensor[0];
+                    return physical_sensor[0].data === null ? null : physical_sensor[0];
                 }
 
                 return null;

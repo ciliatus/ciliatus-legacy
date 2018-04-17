@@ -119,6 +119,19 @@ class AnimalWeighingEventController extends ApiController
             return $this->respondNotFound();
         }
 
+        if ($request->filled('created_at')) {
+            try {
+                $created_at = Carbon::parse($request->input('created_at'));
+            }
+            catch (\Exception $ex) {
+                return $this->setStatusCode(422)
+                    ->setErrorCode('103')
+                    ->respondWithErrorDefaultMessage(['timestamp' => 'created_at']);
+            }
+
+            $created_at = Carbon::now();
+        }
+
         /**
          * @var AnimalWeighingEvent $e
          */
@@ -127,21 +140,9 @@ class AnimalWeighingEventController extends ApiController
             'belongsTo_id' => $animal->id,
             'type' => 'AnimalWeighing',
             'name' => 'g',
-            'value' => $request->input('weight')
+            'value' => $request->input('weight'),
+            'created_at' => $created_at
         ]);
-
-        if ($request->filled('created_at')) {
-            try {
-                $e->created_at = Carbon::parse($request->input('created_at'));
-            }
-            catch (\Exception $ex) {
-                return $this->setStatusCode(422)
-                            ->setErrorCode('103')
-                            ->respondWithErrorDefaultMessage(['timestamp' => 'created_at']);
-            }
-
-            $e->save();
-        }
 
         broadcast(new AnimalWeighingEventUpdated($e->fresh()));
         broadcast(new AnimalUpdated($animal));

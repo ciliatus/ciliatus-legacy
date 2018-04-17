@@ -172,7 +172,7 @@ export default {
                 that.i2c_multiplexer_address = that.i2cMultiplexerAddress;
                 that.i2c_multiplexer_port = that.i2cMultiplexerPort;
             }
-            $('select').material_select();
+            $('select').formSelect();
             $('#bus_type').on('change', function () {
                 that.change_bus_type($(this)[0].value)
             })

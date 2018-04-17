@@ -11,8 +11,8 @@
                         </select>
                         <label for="meal_type">{{ $t("labels.meal_type") }}</label>
 
-                        <input type="date" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
-                        <label>{{ $t('labels.date') }}</label>
+                        <input type="text" id="date-feeding-created" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
+                        <label for="date-feeding-created">{{ $t('labels.date') }}</label>
                     </div>
 
                     <div class="modal-footer">
@@ -53,7 +53,7 @@
 
                 <div class="card-action">
                     <a :href="'#modal_add_feeding_' + animalId"
-                       :onclick="'$(\'#modal_add_feeding_' + animalId + '\').modal(); $(\'#modal_add_feeding_' + animalId + ' select\').material_select(); $(\'#modal_add_feeding_' + animalId + '\').modal(\'open\');'">{{ $t("buttons.add") }}</a>
+                       :onclick="'$(\'#modal_add_feeding_' + animalId + '\').modal(); $(\'#modal_add_feeding_' + animalId + ' select\').formSelect(); $(\'#modal_add_feeding_' + animalId + '\').modal(\'open\');'">{{ $t("buttons.add") }}</a>
                 </div>
             </div>
         </div>

@@ -97,6 +97,20 @@ class AnimalFeedingEventController extends ApiController
             return $this->respondNotFound();
         }
 
+        if ($request->filled('created_at')) {
+            try {
+                $created_at = Carbon::parse($request->input('created_at'));
+            }
+            catch (\Exception $ex) {
+                return $this->setStatusCode(422)
+                    ->setErrorCode('103')
+                    ->respondWithErrorDefaultMessage(['timestamp' => 'created_at']);
+            }
+        }
+        else {
+            $created_at = Carbon::now();
+        }
+
         /**
          * @var AnimalFeedingEvent $event
          */
@@ -105,21 +119,9 @@ class AnimalFeedingEventController extends ApiController
             'belongsTo_id' => $animal->id,
             'type' => 'AnimalFeeding',
             'name' => $request->input('meal_type'),
-            'value' => $request->filled('count') ? $request->input('count') : ''
+            'value' => $request->filled('count') ? $request->input('count') : '',
+            'created_at' => $created_at
         ]);
-
-        if ($request->filled('created_at')) {
-            try {
-                $event->created_at = Carbon::parse($request->input('created_at'));
-            }
-            catch (\Exception $ex) {
-                return $this->setStatusCode(422)
-                            ->setErrorCode('103')
-                            ->respondWithErrorDefaultMessage(['timestamp' => 'created_at']);
-            }
-
-            $event->save();
-        }
 
         broadcast(new AnimalFeedingEventUpdated($event->fresh()));
         broadcast(new AnimalUpdated($animal));

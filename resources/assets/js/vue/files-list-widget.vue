@@ -14,7 +14,7 @@
 
                 <template v-for="file in files">
                     <tbody>
-                        <tr class="collapsible-header">
+                        <tr class="collapsible-tr-header" onclick="window.collapseTr($(this))">
                             <td>
                                 <span v-if="showOptionSelect">
                                     <input name="file" type="radio" :id="file.data.id" :value="file.data.id">
@@ -64,7 +64,7 @@
                             </td>
 
                         </tr>
-                        <tr class="collapsible-body">
+                        <tr class="collapsible-tr-body">
                             <td v-if="showOptionSelect">
                             </td>
                             <td colspan="4">

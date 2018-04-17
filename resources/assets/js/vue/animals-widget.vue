@@ -79,10 +79,10 @@
                     </div>
 
                     <div class="card-reveal" v-if="!animal.data.death_date">
-                        <div>
-                            <strong>{{ animal.data.display_name }}</strong>
+                        <span class="card-title">
+                            {{ animal.data.display_name }}
                             <i class="mdi mdi-24px mdi-close right card-title card-title-small"></i>
-                        </div>
+                        </span>
 
                         <p v-if="terrarium = terraria.filter(t => t.id === animal.data.terrarium_id)[0]">
                             <template v-if="terrarium.data">
@@ -93,12 +93,12 @@
 
                         <p>
                             <i class="mdi mdi-18px mdi-silverware-variant"></i>
-                            <a href="#!" v-bind:href="'#modal_just_fed_' + animal.data.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.data.id + '\').modal(); $(\'#modal_just_fed_' + animal.data.id + ' select\').material_select(); $(\'#modal_just_fed_' + animal.data.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
+                            <a href="#!" v-bind:href="'#modal_just_fed_' + animal.data.id" v-bind:onclick="'$(\'#modal_just_fed_' + animal.data.id + '\').modal(); $(\'#modal_just_fed_' + animal.data.id + ' select\').formSelect(); $(\'#modal_just_fed_' + animal.data.id + '\').modal(\'open\');'">{{ $t("labels.just_fed") }}</a>
                         </p>
 
                         <p>
                             <i class="mdi mdi-18px mdi-weight-kilogram"></i>
-                            <a href="#!" v-bind:href="'#modal_add_weight_' + animal.data.id" v-bind:onclick="'$(\'#modal_add_weight_' + animal.data.id + '\').modal(); $(\'#modal_add_weight_' + animal.data.id + ' select\').material_select(); $(\'#modal_add_weight_' + animal.data.id + '\').modal(\'open\');'">{{ $t("labels.add_weight") }}</a>
+                            <a href="#!" v-bind:href="'#modal_add_weight_' + animal.data.id" v-bind:onclick="'$(\'#modal_add_weight_' + animal.data.id + '\').modal(); $(\'#modal_add_weight_' + animal.data.id + ' select\').formSelect(); $(\'#modal_add_weight_' + animal.data.id + '\').modal(\'open\');'">{{ $t("labels.add_weight") }}</a>
                         </p>
                     </div>
                 </div>
@@ -265,10 +265,11 @@ export default {
                 }
                 $('.modal').modal();
                 $('.tooltipped').tooltip({delay: 50});
-                $('.datepicker').pickadate({
-                    selectMonths: true,
-                    selectYears: 15,
+                $('.datepicker').datepicker({
                     format: 'yyyy-mm-dd',
+                    autoClose: true,
+                    defaultDate: new Date(),
+                    setDefaultDate: true
                 });
             });
         },

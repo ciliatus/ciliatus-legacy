@@ -14,7 +14,7 @@
                     <template v-if="(component_list = _self[type]).length > 0">
                         <template v-for="component in component_list">
                             <tbody v-if="component.data">
-                                <tr class="collapsible-header">
+                                <tr class="collapsible-tr-header" onclick="window.collapseTr($(this))">
                                     <td>
                                         <span>
                                             <i :class="'mdi mdi-18px mdi-' + component.data.icon"></i>
@@ -38,7 +38,7 @@
                                     </td>
 
                                 </tr>
-                                <tr class="collapsible-body">
+                                <tr class="collapsible-tr-body">
                                     <td colspan="3">
 
                                     </td>

@@ -12,7 +12,7 @@
 
                 <template v-for="sequence in sequences">
                     <tbody v-if="sequence.data">
-                        <tr class="collapsible-header">
+                        <tr class="collapsible-tr-header" onclick="window.collapseTr($(this))">
 
                             <td>
                                 <span>
@@ -39,7 +39,7 @@
                             </td>
 
                         </tr>
-                        <tr class="collapsible-body">
+                        <tr class="collapsible-tr-body">
                             <td colspan="3" class="table-details-collapsible">
                                 <ul v-if="(sequence_schedules = schedules.filter(s => s.data.action_sequence_id === sequence.data.id)).length > 0">
                                     <strong>{{ $tc('labels.action_sequence_schedules', 2) }}</strong>

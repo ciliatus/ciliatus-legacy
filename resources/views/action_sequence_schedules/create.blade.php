@@ -16,7 +16,7 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <select name="action_sequence">
+                                    <select name="action_sequence" id="action_sequence">
                                         <optgroup label="@choice('labels.action_sequences', 1)">
                                         @foreach ($action_sequences as $as)
                                             <option value="{{ $as->id }}"
@@ -31,14 +31,15 @@
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input class="timepicker" placeholder="@lang('labels.starts_at')" name="starts_at" data-default="00:00:00">
+                                    <input class="timepicker" type="text" ||placeholder="@lang('labels.starts_at')"
+                                           name="starts_at" id="starts_at" data-default="00:00:00">
                                     <label for="starts_at">@lang('labels.starts_at')</label>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col s12">
-                                    <label for="runonce">@lang('labels.runonce')</label>
+                                <div class="input-field col s12">
+                                    <span>@lang('labels.runonce')</span>
                                     <div class="switch">
                                         <label>
                                             @lang('labels.off')
@@ -52,12 +53,14 @@
 
                             <div class="row">
                                 @foreach($weekdays as $num=>$weekday)
-                                    <div class="col s12">
-                                        <input type="checkbox"
-                                               id="weekday-{{ $num }}"
-                                               name="weekday_{{ $num }}"
-                                               checked />
-                                        <label for="weekday-{{ $num }}">@lang('weekdays.' . $weekday)</label>
+                                    <div class="input-field col s12">
+                                        <label>
+                                            <input type="checkbox"
+                                                   id="weekday-{{ $num }}"
+                                                   name="weekday_{{ $num }}"
+                                                   checked />
+                                            <span>@lang('weekdays.' . $weekday)</span>
+                                        </label>
                                     </div>
                                 @endforeach
                             </div>
@@ -85,8 +88,8 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('.timepicker').pickatime({
-                twelvehour: false
+            $('.timepicker').timepicker({
+                twelveHour: false
             });
         });
     </script>

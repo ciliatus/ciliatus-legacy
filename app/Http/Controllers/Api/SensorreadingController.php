@@ -128,28 +128,14 @@ class SensorreadingController extends ApiController
                         ->respondWithErrorDefaultMessage();
         }
 
-        $logical_sensor->rawvalue = (float)$request->input('rawvalue');
-        $logical_sensor->save();
-
-        if (!is_null($logical_sensor->physical_sensor)) {
-
-            if (!is_null($logical_sensor->physical_sensor->terrarium))
-                $logical_sensor->physical_sensor->terrarium->save();
-
-            if (!is_null($logical_sensor->physical_sensor->controlunit))
-                $logical_sensor->physical_sensor->controlunit->heartbeat();
-
-            $logical_sensor->physical_sensor->heartbeat();
-        }
-
         if ($request->filled('read_at')) {
             try {
                 Carbon::parse($request->input('read_at'));
             }
             catch (\Exception $ex) {
                 return $this->setStatusCode(422)
-                            ->setErrorCode('103')
-                            ->respondWithErrorDefaultMessage($ex->getMessage());
+                    ->setErrorCode('103')
+                    ->respondWithErrorDefaultMessage($ex->getMessage());
             }
 
             $read_at = $request->input('read_at');
@@ -158,15 +144,38 @@ class SensorreadingController extends ApiController
             $read_at = Carbon::now();
         }
 
+        $rawvalue = (float)$request->input('rawvalue');
+
+        $ls_most_recent_sr = $logical_sensor->sensorreadings()
+                                            ->orderBy('read_at', 'desc')
+                                            ->limit(1)
+                                            ->get()
+                                            ->first();
+
         /**
          * @var Sensorreading $sensorreading
          */
         $sensorreading = Sensorreading::create([
             'sensorreadinggroup_id' => $request->input('group_id'),
             'logical_sensor_id'     => $request->input('logical_sensor_id'),
-            'rawvalue'              => $logical_sensor->rawvalue,
+            'rawvalue'              => $rawvalue,
             'read_at'               => $read_at
         ]);
+
+        if (is_null($ls_most_recent_sr) || $ls_most_recent_sr->read_at->lt($sensorreading->read_at)) {
+            $logical_sensor->rawvalue = $rawvalue;
+            $logical_sensor->save();
+
+            if (!is_null($logical_sensor->physical_sensor)) {
+                if (!is_null($logical_sensor->physical_sensor->terrarium))
+                    $logical_sensor->physical_sensor->terrarium->save();
+
+                if (!is_null($logical_sensor->physical_sensor->controlunit))
+                    $logical_sensor->physical_sensor->controlunit->heartbeat();
+
+                $logical_sensor->physical_sensor->heartbeat();
+            }
+        }
 
         return $this->setStatusCode(200)->respondWithData(
             [

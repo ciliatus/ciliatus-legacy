@@ -13,7 +13,7 @@
 
                 <template v-for="pump in pumps">
                     <tbody>
-                        <tr class="collapsible-header">
+                        <tr class="collapsible-tr-header" onclick="window.collapseTr($(this))">
                             <td>
                                 <span>
                                     <i class="mdi mdi-24px mdi-water-pump"></i>
@@ -44,7 +44,7 @@
                             </td>
                         </tr>
 
-                        <tr class="collapsible-body">
+                        <tr class="collapsible-tr-body">
                             <td colspan="3">
                                 {{ $tc('labels.valves', 2) }}:
                                 <span v-for="(valve, index) in valves.filter(v => v.data.pump_id === pump.data.id)">

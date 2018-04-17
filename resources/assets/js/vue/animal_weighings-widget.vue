@@ -9,8 +9,8 @@
                             <input type="text" name="weight" id="weight" :placeholder="$t('labels.weight')" value="">
                             <label for="weight">{{ $t("labels.weight") }}/g</label>
 
-                            <input type="date" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
-                            <label>{{ $t('labels.date') }}</label>
+                            <input type="text" id="weight-created-at" class="datepicker" :placeholder="$t('labels.date')" name="created_at">
+                            <label for="weight-created-at">{{ $t('labels.date') }}</label>
                         </p>
                     </div>
 
@@ -69,7 +69,7 @@
 
                 <div class="card-action">
                     <a :href="'#modal_add_weighing_' + animalId"
-                       :onclick="'$(\'#modal_add_weighing_' + animalId + '\').modal(); $(\'#modal_add_weighing_' + animalId + ' select\').material_select(); $(\'#modal_add_weighing_' + animalId + '\').modal(\'open\');'">
+                       :onclick="'$(\'#modal_add_weighing_' + animalId + '\').modal(); $(\'#modal_add_weighing_' + animalId + ' select\').formSelect(); $(\'#modal_add_weighing_' + animalId + '\').modal(\'open\');'">
                         {{ $t("buttons.add") }}
                     </a>
                 </div>

@@ -35,7 +35,7 @@
 
                     @foreach($logs as $key => $log)
                     <tbody>
-                    <tr class="collapsible-header">
+                    <tr class="collapsible-tr-header" onclick="window.collapseTr($(this))">
                         <td>
                             <span class="center">
                                 <i class="mdi mdi-24px {{ $log['level_color'] }}-text mdi-{{ $log['level_icon'] }}"></i>
@@ -59,7 +59,7 @@
                     </tr>
 
                     @if ($log['stack'])
-                    <tr class="collapsible-body">
+                    <tr class="collapsible-tr-body">
                         <td colspan="4">
                             <pre>{{ trim($log['stack']) }}</pre>
                         </td>
