@@ -72,8 +72,11 @@
 @section('scripts')
     <script>
         $(document).ready(function() {
-            $('.datepicker').pickadate({
+            $('.datepicker').datepicker({
                 format: 'yyyy-mm-dd',
+                autoClose: true,
+                defaultDate: new Date(),
+                setDefaultDate: true
             });
         });
     </script>
