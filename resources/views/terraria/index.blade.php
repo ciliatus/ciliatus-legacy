@@ -19,11 +19,32 @@
     </div>
 
     <div class="fixed-action-btn">
-        <a class="btn-floating btn-large orange darken-4 @if(App\Terrarium::count() < 1) pulse @endif">
+        <a id="terraria-floating-button"
+           class="btn-floating btn-large orange darken-4 @if(App\Terrarium::count() < 1) pulse @endif">
             <i class="mdi mdi-18px mdi-pencil"></i>
         </a>
+
+        @if(App\Terrarium::count() < 1 || !Auth::user()->hasSeenFeatureDiscovery('floating_button'))
+            <div class="tap-target" data-target="terraria-floating-button">
+                <div class="tap-target-content">
+                    <h5>@lang('tooltips.feature_discovery.floating_button.title')</h5>
+                    <p>@lang('tooltips.feature_discovery.floating_button.text')</p>
+                </div>
+            </div>
+        @endif
+
         <ul>
             <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/terraria/create"><i class="mdi mdi-24px mdi-plus"></i></a></li>
         </ul>
     </div>
+@stop
+
+@section('scripts')
+    <script>
+        $(function() {
+            setTimeout(function() {
+                $('.tap-target[data-target="terraria-floating-button"]').tapTarget('open');
+            }, 500);
+        });
+    </script>
 @stop

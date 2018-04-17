@@ -80,5 +80,11 @@ return [
     'critical_state_actuality' => 'This is current information which could have been different at the time of the critical state.',
     'i2c' => [
         'bus_num' => 'For Raspberry Pi: Use 0 for RPI1, 1 for all other models'
+    ],
+    'feature_discovery' => [
+        'floating_button' => [
+            'title' => 'Actions',
+            'text' => 'Create, edit, connect and delete objects.'
+        ]
     ]
 ];

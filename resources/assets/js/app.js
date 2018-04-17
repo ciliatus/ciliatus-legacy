@@ -114,6 +114,8 @@ window.notification = function(text, cssClass, length) {
 window.runPage = function() {
     $('.fixed-action-btn').floatingActionButton();
 
+    $('.tap-target').tapTarget();
+
     $('.masonry-grid').masonry();
 
     $('select').formSelect();
