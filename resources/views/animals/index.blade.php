@@ -75,7 +75,8 @@
     <script>
         $(function() {
             setTimeout(function() {
-                $('.tap-target[data-target="animals-floating-button"]').tapTarget('open');
+                let instance = M.TapTarget.init(document.querySelector('.tap-target[data-target="animals-floating-button"]'));
+                instance.open();
             }, 500);
         });
     </script>

@@ -43,7 +43,8 @@
     <script>
         $(function() {
             setTimeout(function() {
-                $('.tap-target[data-target="terraria-floating-button"]').tapTarget('open');
+                let instance = M.TapTarget.init(document.querySelector('.tap-target[data-target="terraria-floating-button"]'));
+                instance.open();
             }, 500);
         });
     </script>

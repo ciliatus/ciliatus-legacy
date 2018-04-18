@@ -34,7 +34,8 @@
     <script>
         $(function() {
             setTimeout(function() {
-                $('.tap-target[data-target="controlunits-floating-button"]').tapTarget('open');
+                let instance = M.TapTarget.init(document.querySelector('.tap-target[data-target="controlunits-floating-button"]'));
+                instance.open();
             }, 500);
         });
     </script>
