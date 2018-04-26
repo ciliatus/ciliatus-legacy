@@ -59,7 +59,7 @@ window.submit_form = function (e, _callback = undefined)
             btns.removeAttr('disabled');
 
             if (!$(e.target).data('no-confirm')) {
-                window.notification('<i class="mdi mdi-18px mdi-check"></i>', 'teal darken-1 text-white');
+                window.notification('<i class="mdi mdi-18px mdi-check"></i>', 'teal darken-1 white-text');
             }
 
             window.eventHubVue.$emit('FormSubmitReturnedSuccess', {
