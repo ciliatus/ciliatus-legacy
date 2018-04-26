@@ -73,7 +73,7 @@ table.collapsible {
 
 .card .card-header {
   background-color: $primary-color;
-  color: #FFFFFF;
+  color: #EEE;
   padding: 10px;
   border-radius: 4px 4px 0 0;
 }
@@ -123,7 +123,7 @@ table.collapsible {
 .slide-out > li.active > a > i,
 .slide-out div.collapsible-body > ul > li.active > a ,
 .slide-out div.collapsible-body > ul > li.active > a > i{
-  color: #FFF;
+  color: #EEE;
 }
 
 .slide-out div.collapsible-body > ul > li > a {
@@ -452,7 +452,7 @@ img.tiny {
 }
 
 .collection .collection-item a[href] > i.mdi {
-  color: #FFF;
+  color: #EEE;
 }
 
 .sidenav.sidenav-fixed {
@@ -574,7 +574,7 @@ Make sure drop downs, time/date pickers and such are visible in small modals
 }
 
 .card .card-image .card-title a {
-  color: #FFFFFF;
+  color: #EEE;
 }
 
 /*
@@ -645,7 +645,7 @@ div.card-sub-header {
 .sidenav li.active > a > i.mdi,
 .btn i.mdi,
 .card-header i.mdi {
-  color: #FFF;
+  color: #EEE;
 }
 
 .sidenav ul.collapsible > li > a > i.mdi {
@@ -663,7 +663,7 @@ div.card-sub-header {
 .sidenav > li.active,
 .sidenav > li.active > a {
   background-color: #d84315;
-  color: #FFFFFF;
+  color: #EEE;
 }
 
 .btn-floating i.mdi {

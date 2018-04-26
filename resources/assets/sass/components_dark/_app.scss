@@ -93,7 +93,7 @@ table.collapsible {
 
 .card .card-header {
   background-color: $primary-color;
-  color: #FFFFFF;
+  color: #EEE;
   padding: 10px;
   border-radius: 4px 4px 0 0;
 }
@@ -147,7 +147,7 @@ table.collapsible {
 #slide-out > li.active > a > i,
 #slide-out div.collapsible-body > ul > li.active > a ,
 #slide-out div.collapsible-body > ul > li.active > a > i{
-  color: #FFF;
+  color: #EEE;
 }
 
 #slide-out div.collapsible-body > ul > li > a {
@@ -229,7 +229,7 @@ header, main, footer {
   color: $primary-color;
 }
 text {
-  fill: #FFFFFF;
+  fill: #EEE;
 }
 
 .google-visualization-tooltip {
@@ -301,7 +301,7 @@ div.google-visualization-tooltip > ul > li > span {
 .dygraph-axis-label.dygraph-axis-label-x,
 .dygraph-axis-label.dygraph-axis-label-y {
   font-family: Roboto,sans-serif;
-  color: #FFFFFF;
+  color: #EEE;
 }
 
 div.dygraph-legend {
@@ -450,7 +450,7 @@ img.tiny {
 }
 
 .collection .collection-item a[href] > i.mdi {
-  color: #FFF;
+  color: #EEE;
 }
 
 .sidenav.sidenav-fixed {
@@ -691,7 +691,7 @@ Make sure drop downs, time/date pickers and such are visible in small modals
 }
 
 .card .card-image .card-title a {
-  color: #FFFFFF;
+  color: #EEE;
 }
 
 /*
@@ -752,7 +752,7 @@ div.card-sub-header {
  * Material Icons
  */
 .mdi {
-  color: #FFF;
+  color: #EEE;
   vertical-align: middle;
 }
 
