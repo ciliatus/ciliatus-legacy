@@ -8,7 +8,7 @@ return [
     'users' => [
         'setup_telegram_ok' =>  'Telegram ist eingerichtet.',
         'setup_telegram_err' =>  'Telegram ist noch nicht eingerichtet.',
-        'setup_telegram_description' => 'Bitte öffnen Sie Telegram in Ihrem <a href="https://web.telegram.org/#/im?p=@' . env('TELEGRAM_BOT_NAME') . '">Browser</a> oder auf ihrem Smartphone und kontaktieren Sie <b>@' . env('TELEGRAM_BOT_NAME') . '</b> mit untenstehendem Aktivierungscode.'
+        'setup_telegram_description' => 'Bitte öffne Telegram in Deinem <a href="https://web.telegram.org/#/im?p=@:bot_name">Browser</a> oder auf Deinem Smartphone und kontaktiere <b>@:bot_name</b> mit untenstehendem Aktivierungscode.'
     ],
 
     'critical_state_generic' => 'Kritisch: :critical_state',
