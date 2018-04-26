@@ -8,6 +8,12 @@ main a[href] i.mdi {
   color: #f4511e;
 }
 
+a[href].btn,
+a[href].btn > i.mdi {
+  color: #EEE;
+}
+
+
 main .fixed-action-btn a[href] i.mdi {
   color: #EEE;
 }
@@ -443,7 +449,10 @@ img.tiny {
       border-bottom: 1px solid color('red', 'darken-4');
     }
   }
+}
 
+.collection .collection-item a[href] > i.mdi {
+  color: #FFF;
 }
 
 .sidenav.sidenav-fixed {
