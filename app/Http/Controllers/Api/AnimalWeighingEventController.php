@@ -132,7 +132,7 @@ class AnimalWeighingEventController extends ApiController
             $created_at = Carbon::now();
         }
         else {
-            $created_at = null;
+            $created_at = Carbon::now();
         }
 
         /**
