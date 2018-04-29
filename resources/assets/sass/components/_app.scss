@@ -4,12 +4,9 @@ input {
   font-family: Roboto,Oxygen-Sans,-apple-system,BlinkMacSystemFont,"Segoe UI",Ubuntu,Cantarell,"Helvetica Neue",sans-serif;
 }
 
-main a[href] i.mdi {
-  color: #f4511e;
-}
-
 a[href].btn,
-a[href].btn > i.mdi {
+a[href].btn > i.mdi,
+.tap-target-content {
   color: #EEE;
 }
 
@@ -20,6 +17,11 @@ main .fixed-action-btn a[href] i.mdi {
 
 .nav-wrapper {
   padding-left: 310px;
+}
+
+thead tr th div.input-field.inline {
+  position: relative;
+  top: 13px;
 }
 
 // Fix for 200px height on swipeable tabs

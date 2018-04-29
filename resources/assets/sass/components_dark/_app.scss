@@ -14,12 +14,9 @@ tr {
   border-bottom: 1px solid rgba(255,255,255,.12);
 }
 
-main a[href] i.mdi {
-  color: #f4511e;
-}
-
 a[href].btn,
-a[href].btn > i.mdi {
+a[href].btn > i.mdi,
+.tap-target-content {
   color: #EEE;
 }
 
@@ -32,6 +29,11 @@ main .fixed-action-btn a[href] i.mdi {
 button.month-prev > svg,
 button.month-next > svg {
   fill: #EEE;
+}
+
+thead tr th div.input-field.inline {
+  position: relative;
+  top: 13px;
 }
 
 .select-wrapper .caret {
