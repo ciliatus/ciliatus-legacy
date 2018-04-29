@@ -8,7 +8,7 @@ return [
     'users' => [
         'setup_telegram_ok' =>  'Telegram is set up.',
         'setup_telegram_err' =>  'Telegram has not yet been set up.',
-        'setup_telegram_description' => 'Please point your browser to <a href="https://web.telegram.org/#/im?p=@' . env('TELEGRAM_BOT_NAME') . '">Telegram Web</a> or use your smartphone to contact <b>@' . env('TELEGRAM_BOT_NAME') . '</b> with your verification code below.'
+        'setup_telegram_description' => 'Please point your browser to <a href="https://web.telegram.org/#/im?p=@:bot_name">Telegram Web</a> or use your smartphone to contact <b>@:bot_name</b> with your verification code below.'
     ],
 
     'critical_state_generic' => 'Critical: :critical_state',

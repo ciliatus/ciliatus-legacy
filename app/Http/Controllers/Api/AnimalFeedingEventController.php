@@ -8,6 +8,7 @@ use App\AnimalFeedingScheduleProperty;
 use App\Events\AnimalFeedingEventDeleted;
 use App\Events\AnimalFeedingEventUpdated;
 use App\Events\AnimalFeedingSchedulePropertyDeleted;
+use App\Events\AnimalFeedingSchedulePropertyUpdated;
 use App\Events\AnimalUpdated;
 use App\Property;
 use Carbon\Carbon;
@@ -125,6 +126,10 @@ class AnimalFeedingEventController extends ApiController
 
         broadcast(new AnimalFeedingEventUpdated($event->fresh()));
         broadcast(new AnimalUpdated($animal));
+
+        foreach ($animal->feeding_schedules as $fs) {
+            broadcast(new AnimalFeedingSchedulePropertyUpdated($fs));
+        }
 
         return $this->respondWithData([
             'id' => $event->id

@@ -14,8 +14,10 @@ tr {
   border-bottom: 1px solid rgba(255,255,255,.12);
 }
 
-main a[href] i.mdi {
-  color: #f4511e;
+a[href].btn,
+a[href].btn > i.mdi,
+.tap-target-content {
+  color: #EEE;
 }
 
 .timepicker-tick,
@@ -27,6 +29,11 @@ main .fixed-action-btn a[href] i.mdi {
 button.month-prev > svg,
 button.month-next > svg {
   fill: #EEE;
+}
+
+thead tr th div.input-field.inline {
+  position: relative;
+  top: 13px;
 }
 
 .select-wrapper .caret {
@@ -88,7 +95,7 @@ table.collapsible {
 
 .card .card-header {
   background-color: $primary-color;
-  color: #FFFFFF;
+  color: #EEE;
   padding: 10px;
   border-radius: 4px 4px 0 0;
 }
@@ -142,7 +149,7 @@ table.collapsible {
 #slide-out > li.active > a > i,
 #slide-out div.collapsible-body > ul > li.active > a ,
 #slide-out div.collapsible-body > ul > li.active > a > i{
-  color: #FFF;
+  color: #EEE;
 }
 
 #slide-out div.collapsible-body > ul > li > a {
@@ -224,7 +231,7 @@ header, main, footer {
   color: $primary-color;
 }
 text {
-  fill: #FFFFFF;
+  fill: #EEE;
 }
 
 .google-visualization-tooltip {
@@ -296,7 +303,7 @@ div.google-visualization-tooltip > ul > li > span {
 .dygraph-axis-label.dygraph-axis-label-x,
 .dygraph-axis-label.dygraph-axis-label-y {
   font-family: Roboto,sans-serif;
-  color: #FFFFFF;
+  color: #EEE;
 }
 
 div.dygraph-legend {
@@ -442,7 +449,10 @@ img.tiny {
       border-bottom: 1px solid color('red', 'darken-4');
     }
   }
+}
 
+.collection .collection-item a[href] > i.mdi {
+  color: #EEE;
 }
 
 .sidenav.sidenav-fixed {
@@ -683,7 +693,7 @@ Make sure drop downs, time/date pickers and such are visible in small modals
 }
 
 .card .card-image .card-title a {
-  color: #FFFFFF;
+  color: #EEE;
 }
 
 /*
@@ -744,7 +754,7 @@ div.card-sub-header {
  * Material Icons
  */
 .mdi {
-  color: #FFF;
+  color: #EEE;
   vertical-align: middle;
 }
 

@@ -7,6 +7,7 @@ use App\AnimalWeighingEvent;
 use App\Events\AnimalUpdated;
 use App\Events\AnimalWeighingEventDeleted;
 use App\Events\AnimalWeighingEventUpdated;
+use App\Events\AnimalWeighingSchedulePropertyUpdated;
 use App\Http\Transformers\AnimalWeighingEventTransformer;
 use App\Repositories\AnimalWeighingEventRepository;
 use Carbon\Carbon;
@@ -131,6 +132,9 @@ class AnimalWeighingEventController extends ApiController
 
             $created_at = Carbon::now();
         }
+        else {
+            $created_at = Carbon::now();
+        }
 
         /**
          * @var AnimalWeighingEvent $e
@@ -146,6 +150,10 @@ class AnimalWeighingEventController extends ApiController
 
         broadcast(new AnimalWeighingEventUpdated($e->fresh()));
         broadcast(new AnimalUpdated($animal));
+
+        foreach ($animal->weighing_schedules as $ws) {
+            broadcast(new AnimalWeighingSchedulePropertyUpdated($ws));
+        }
 
         return $this->respondWithData([
             'id' => $e->id

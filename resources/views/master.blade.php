@@ -6,18 +6,18 @@
         <link rel="manifest" href="manifest.json">
         <link rel="icon" href="/images/manifest/launcher-icon-0-75x.png" type="image/png">
 
-        <link rel="stylesheet" href="/css/vendors/materialdesignicons-2.1.99.min.css?v=201803171354">
-        <link rel="stylesheet" href="/css/vendors/montserrat.css?v=201803171354">
+        <link rel="stylesheet" href="/css/vendors/materialdesignicons-2.1.99.min.css?v=201804291751">
+        <link rel="stylesheet" href="/css/vendors/montserrat.css?v=201804291751">
         @if(Auth::user()->setting('permanent_nightmode_enabled') == 'on' || (Auth::user()->setting('auto_nightmode_enabled') == 'on' && Auth::user()->night()))
-            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize_dark.min.css?v=201803171354"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize_dark.min.css?v=201804291751"  media="screen,projection"/>
         @else
-            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.min.css?v=201803171354"  media="screen,projection"/>
+            <link type="text/css" rel="stylesheet" href="/css/vendors/materialize.min.css?v=201804291751"  media="screen,projection"/>
         @endif
 
-        <link type="text/css" rel="stylesheet" href="/css/vendors/timeline.css?v=201803171354"  media="screen,projection"/>
-        <link type="text/css" rel="stylesheet" href="/css/vendors/dygraph-2.1.0.min.css?v=201803171354"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/vendors/timeline.css?v=201804291751"  media="screen,projection"/>
+        <link type="text/css" rel="stylesheet" href="/css/vendors/dygraph-2.1.0.min.css?v=201804291751"  media="screen,projection"/>
 
-        <script type="text/javascript" src="{{ url('/js/vendors/jquery-3.3.1.min.js?v=201803171354') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/jquery-3.3.1.min.js?v=201804291751') }}"></script>
         <script>
             $.ajaxSetup({
                 headers: {
@@ -332,21 +332,19 @@
         </div>
 
         <!-- Google Charts -->
-        <script type="text/javascript" src="{{ url('/js/vendors/google-charts.min.js?v=201803171354') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/google-charts.min.js?v=201804291751') }}"></script>
         <!-- Materialize.js -->
-        <script type="text/javascript" src="{{ url('/js/vendors/materialize.js?v=201803171354') }}"></script>
-        <!-- Materialize.clockpicker.js -->
-        <script type="text/javascript" src="{{ url('/js/vendors/materialize.clockpicker.js?v=201803171354') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/materialize.min.js?v=201804291751') }}"></script>
         <!-- Masonry -->
-        <script type="text/javascript" src="{{ url('/js/vendors/masonry-4.1.1.min.js?v=201803171354') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/masonry-4.1.1.min.js?v=201804291751') }}"></script>
         <!-- Laravel-Echo -->
-        <script type="text/javascript" src="{{ url('/js/vendors/echo.min.js?v=201803171354') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/echo.min.js?v=201804291751') }}"></script>
         <!-- ciliatus -->
-        <script type="text/javascript" src="{{ url('/js/app.js?v=201803171354') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/app.min.js?v=201804291751') }}"></script>
         <!-- Vue -->
-        <script type="text/javascript" src="{{ url('/js/vendors/vue.js?v=201803171354') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/vue.min.js?v=201804291751') }}"></script>
         <!-- Dygraph -->
-        <script type="text/javascript" src="{{ url('/js/vendors/dygraph.min.js?v=201803171354') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/dygraph.min.js?v=201804291751') }}"></script>
 
         @yield('scripts')
 

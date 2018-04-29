@@ -10256,6 +10256,26 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
@@ -16177,7 +16197,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       'disabled': _vm.meta.pagination.current_page == 1,
       'waves-effect': _vm.meta.pagination.current_page != 1
     }]
-  }, [_c('a', {
+  }, [(_vm.meta.pagination.current_page > 1) ? _c('a', {
     attrs: {
       "href": "#!"
     },
@@ -16187,12 +16207,14 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('i', {
-    staticClass: "mdi mdi-24px mdi-page-first"
+    staticClass: "mdi mdi-page-first"
+  })]) : _c('a', [_c('i', {
+    staticClass: "mdi mdi-page-first disabled"
   })])]), _vm._v(" "), (!_vm.mini) ? _c('li', {
     class: {
       'disabled': _vm.meta.pagination.current_page == 1, 'waves-effect': _vm.meta.pagination.current_page != 1
     }
-  }, [_c('a', {
+  }, [(_vm.meta.pagination.current_page > 1) ? _c('a', {
     attrs: {
       "href": "#!"
     },
@@ -16202,7 +16224,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('i', {
-    staticClass: "mdi mdi-24px mdi-chevron-left"
+    staticClass: "mdi mdi-chevron-left"
+  })]) : _c('a', [_c('i', {
+    staticClass: "mdi mdi-chevron-left disabled"
   })])]) : _vm._e(), _vm._v(" "), (!_vm.mini && _vm.meta.pagination.current_page - 3 > 0) ? _c('li', {
     staticClass: "waves-effect"
   }, [_c('a', {
@@ -16279,7 +16303,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     class: {
       'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages, 'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages
     }
-  }, [_c('a', {
+  }, [(_vm.meta.pagination.total_pages > _vm.meta.pagination.current_page) ? _c('a', {
     attrs: {
       "href": "#!"
     },
@@ -16289,13 +16313,15 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('i', {
-    staticClass: "mdi mdi-24px mdi-chevron-right"
+    staticClass: "mdi mdi-chevron-right"
+  })]) : _c('a', [_c('i', {
+    staticClass: "mdi mdi-chevron-right disabled"
   })])]) : _vm._e(), _vm._v(" "), _c('li', {
     class: ['hide-on-small-only', {
       'disabled': _vm.meta.pagination.current_page == _vm.meta.pagination.total_pages,
       'waves-effect': _vm.meta.pagination.current_page != _vm.meta.pagination.total_pages
     }]
-  }, [_c('a', {
+  }, [(_vm.meta.pagination.total_pages > _vm.meta.pagination.current_page) ? _c('a', {
     attrs: {
       "href": "#!"
     },
@@ -16305,7 +16331,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }
   }, [_c('i', {
-    staticClass: "mdi mdi-24px mdi-page-last"
+    staticClass: "mdi mdi-page-last"
+  })]) : _c('a', [_c('i', {
+    staticClass: "mdi mdi-page-last disabled"
   })])])]) : _vm._e()]), _vm._v(" "), (_vm.enableFilters) ? _c('div', {
     staticClass: "col s2 right-align"
   }, [_c('ul', {
@@ -16317,7 +16345,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "href": "#!"
     }
   }, [_c('i', {
-    staticClass: "mdi mdi-24px mdi-filter-variant",
+    staticClass: "mdi mdi-filter-variant",
     on: {
       "click": _vm.toggle_filters
     }
@@ -20142,7 +20170,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       }
     }, [_vm._v("\n                                (+/- 0%)\n                            ")]) : _vm._e()]) : _vm._e()])]), _vm._v(" "), (!animal.data.death_date) ? _c('div', {
       staticClass: "card-reveal"
-    }, [_c('div', [_c('strong', [_vm._v(_vm._s(animal.data.display_name))]), _vm._v(" "), _c('i', {
+    }, [_c('span', {
+      staticClass: "card-title"
+    }, [_vm._v("\n                        " + _vm._s(animal.data.display_name) + "\n                        "), _c('i', {
       staticClass: "mdi mdi-24px mdi-close right card-title card-title-small"
     })]), _vm._v(" "), (_vm.terrarium = _vm.terraria.filter(function (t) { return t.id === animal.data.terrarium_id; })[0]) ? _c('p', [(_vm.terrarium.data) ? [_c('i', {
       staticClass: "mdi mdi-18px mdi-trackpad"

@@ -25,7 +25,7 @@
                                      data-livedata="true" data-livedatainterval="5"
                                      data-livedatasource="{{ url('api/v1/users/' . Auth::user()->id . '/setting/notifications_telegram_chat_id') }}"
                                      data-livedatacallback="wizard_wait_for_telegram_contact">
-                                    <span>@lang('messages.users.setup_telegram_description')</span>
+                                    <span>@lang('messages.users.setup_telegram_description', ['bot_name' => env('TELEGRAM_BOT_NAME')])</span>
                                     <h4 class="text-white">{{ $token }}</h4>
                                     <div id="loading-indicator">
                                         <div class="preloader-wrapper small active">

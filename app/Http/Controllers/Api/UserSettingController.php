@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Api;
 
+use App\Http\Transformers\UserSettingTransformer;
 use App\User;
 use App\UserSetting;
 use Auth;
@@ -47,7 +48,7 @@ class UserSettingController extends ApiController
 
 
         return $this->setStatusCode(200)->respondWithData(
-            $this->user_settingTransformer->transform(
+            (new UserSettingTransformer())->transform(
                 $us->toArray()
             )
         );
