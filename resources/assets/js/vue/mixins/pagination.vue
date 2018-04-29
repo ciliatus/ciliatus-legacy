@@ -5,10 +5,20 @@
             <div class="col s10">
                 <ul class="pagination" v-if="meta.hasOwnProperty('pagination')">
                     <li v-bind:class="['hide-on-small-only', { 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }]">
-                        <a href="#!" v-on:click="set_page(1)"><i class="mdi mdi-24px mdi-page-first"></i></a>
+                        <a v-if="meta.pagination.current_page > 1" href="#!" v-on:click="set_page(1)">
+                            <i class="mdi mdi-page-first"></i>
+                        </a>
+                        <a v-else>
+                            <i class="mdi mdi-page-first disabled"></i>
+                        </a>
                     </li>
                     <li v-if="!mini" v-bind:class="{ 'disabled': meta.pagination.current_page == 1, 'waves-effect': meta.pagination.current_page != 1 }">
-                        <a href="#!" v-on:click="set_page(meta.pagination.current_page-1)"><i class="mdi mdi-24px mdi-chevron-left"></i></a>
+                        <a v-if="meta.pagination.current_page > 1" href="#!" v-on:click="set_page(meta.pagination.current_page-1)">
+                            <i class="mdi mdi-chevron-left"></i>
+                        </a>
+                        <a v-else>
+                            <i class="mdi mdi-chevron-left disabled"></i>
+                        </a>
                     </li>
 
                     <li v-if="!mini && meta.pagination.current_page-3 > 0" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page-3)">{{ meta.pagination.current_page-3 }}</a></li>
@@ -22,17 +32,27 @@
                     <li v-if="!mini && meta.pagination.current_page+3 <= meta.pagination.total_pages" class="waves-effect"><a href="#!" v-on:click="set_page(meta.pagination.current_page+3)">{{ meta.pagination.current_page+3 }}</a></li>
 
                     <li v-if="!mini" v-bind:class="{ 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }">
-                        <a href="#!" v-on:click="set_page(meta.pagination.current_page+1)"><i class="mdi mdi-24px mdi-chevron-right"></i></a>
+                        <a v-if="meta.pagination.total_pages > meta.pagination.current_page" href="#!" v-on:click="set_page(meta.pagination.current_page+1)">
+                            <i class="mdi mdi-chevron-right"></i>
+                        </a>
+                        <a v-else>
+                            <i class="mdi mdi-chevron-right disabled"></i>
+                        </a>
                     </li>
                     <li v-bind:class="['hide-on-small-only', { 'disabled': meta.pagination.current_page == meta.pagination.total_pages, 'waves-effect': meta.pagination.current_page != meta.pagination.total_pages }]">
-                        <a href="#!" v-on:click="set_page(meta.pagination.total_pages)"><i class="mdi mdi-24px mdi-page-last"></i></a>
+                        <a v-if="meta.pagination.total_pages > meta.pagination.current_page" href="#!" v-on:click="set_page(meta.pagination.total_pages)">
+                            <i class="mdi mdi-page-last"></i>
+                        </a>
+                        <a v-else>
+                            <i class="mdi mdi-page-last disabled"></i>
+                        </a>
                     </li>
                 </ul>
             </div>
             <div class="col s2 right-align" v-if="enableFilters">
                 <ul class="pagination">
                     <li class="waves-effect">
-                        <a href="#!"><i class="mdi mdi-24px mdi-filter-variant" v-on:click="toggle_filters"></i></a>
+                        <a href="#!"><i class="mdi mdi-filter-variant" v-on:click="toggle_filters"></i></a>
                     </li>
                 </ul>
             </div>
