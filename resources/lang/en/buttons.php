@@ -1,6 +1,7 @@
 <?php
 
 return [
+    'ok'        =>  'OK',
     'next'      =>  'Next',
     'save'      =>  'Save',
     'delete'    =>  'Delete',

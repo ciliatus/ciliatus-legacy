@@ -384,6 +384,32 @@ img.tiny {
 /*
  * Extending Materializecss
  */
+.card-panel {
+  &.info {
+    @extend .white-text;
+    border: 1px solid color('blue', 'lighten-1');
+    background-color: color('blue', 'lighten-2');
+  }
+
+  &.ok {
+    @extend .white-text;
+    border: 1px solid color('teal', 'base');
+    background-color: color('teal', 'lighten-1');
+  }
+
+  &.warning {
+    @extend .white-text;
+    border: 1px solid color('orange', 'darken-3');
+    background-color: color('orange', 'darken-2');
+  }
+
+  &.critical {
+    @extend .white-text;
+    border: 1px solid color('red', 'darken-4');
+    background-color: color('red', 'darken-2');
+  }
+}
+
 
 .collection {
   &.info {
