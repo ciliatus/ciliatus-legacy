@@ -769,11 +769,14 @@ div.card-sub-header {
   padding-left: 15px !important;
 }
 
-.ciliatus-search-wrapper > ul.autocomplete-content {
+.ciliatus-search-wrapper ul.autocomplete-content {
   position: absolute;
-  top: 60px;
+  top: 46px !important;
 }
 
+.autocomplete-content li span.highlight {
+  color: #EEE;
+}
 
 
 /*
@@ -809,10 +812,6 @@ a.btn-floating.btn-large > i.mdi {
 label[for='ask-me-something'] {
   top: -10px !important;
   margin-left: 3em !important;
-}
-
-ul.autocomplete-content.dropdown-content {
-  position: absolute;
 }
 
 .collapsible-tr-body {
