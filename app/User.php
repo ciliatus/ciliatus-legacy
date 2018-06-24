@@ -223,7 +223,7 @@ class User extends CiliatusModel implements
      */
     public function hasSeenFeatureDiscovery($feature, $mark_as_seen = true)
     {
-        if (!$this->property('FeatureDiscovery', $feature, true)) {
+        if ($this->property('FeatureDiscovery', $feature, true)) {
             return true;
         }
 
