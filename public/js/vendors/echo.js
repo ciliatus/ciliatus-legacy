@@ -652,6 +652,88 @@ var SocketIoPresenceChannel = function (_SocketIoPrivateChann) {
     return SocketIoPresenceChannel;
 }(SocketIoPrivateChannel);
 
+var NullChannel = function (_Channel) {
+    inherits(NullChannel, _Channel);
+
+    function NullChannel() {
+        classCallCheck(this, NullChannel);
+        return possibleConstructorReturn(this, (NullChannel.__proto__ || Object.getPrototypeOf(NullChannel)).apply(this, arguments));
+    }
+
+    createClass(NullChannel, [{
+        key: 'subscribe',
+        value: function subscribe() {}
+    }, {
+        key: 'unsubscribe',
+        value: function unsubscribe() {}
+    }, {
+        key: 'listen',
+        value: function listen(event, callback) {
+            return this;
+        }
+    }, {
+        key: 'stopListening',
+        value: function stopListening(event) {
+            return this;
+        }
+    }, {
+        key: 'on',
+        value: function on(event, callback) {
+            return this;
+        }
+    }]);
+    return NullChannel;
+}(Channel);
+
+var NullPrivateChannel = function (_NullChannel) {
+    inherits(NullPrivateChannel, _NullChannel);
+
+    function NullPrivateChannel() {
+        classCallCheck(this, NullPrivateChannel);
+        return possibleConstructorReturn(this, (NullPrivateChannel.__proto__ || Object.getPrototypeOf(NullPrivateChannel)).apply(this, arguments));
+    }
+
+    createClass(NullPrivateChannel, [{
+        key: 'whisper',
+        value: function whisper(eventName, data) {
+            return this;
+        }
+    }]);
+    return NullPrivateChannel;
+}(NullChannel);
+
+var NullPresenceChannel = function (_NullChannel) {
+    inherits(NullPresenceChannel, _NullChannel);
+
+    function NullPresenceChannel() {
+        classCallCheck(this, NullPresenceChannel);
+        return possibleConstructorReturn(this, (NullPresenceChannel.__proto__ || Object.getPrototypeOf(NullPresenceChannel)).apply(this, arguments));
+    }
+
+    createClass(NullPresenceChannel, [{
+        key: 'here',
+        value: function here(callback) {
+            return this;
+        }
+    }, {
+        key: 'joining',
+        value: function joining(callback) {
+            return this;
+        }
+    }, {
+        key: 'leaving',
+        value: function leaving(callback) {
+            return this;
+        }
+    }, {
+        key: 'whisper',
+        value: function whisper(eventName, data) {
+            return this;
+        }
+    }]);
+    return NullPresenceChannel;
+}(NullChannel);
+
 var PusherConnector = function (_Connector) {
     inherits(PusherConnector, _Connector);
 
@@ -823,6 +905,62 @@ var SocketIoConnector = function (_Connector) {
     return SocketIoConnector;
 }(Connector);
 
+var NullConnector = function (_Connector) {
+    inherits(NullConnector, _Connector);
+
+    function NullConnector() {
+        var _ref;
+
+        classCallCheck(this, NullConnector);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        var _this = possibleConstructorReturn(this, (_ref = NullConnector.__proto__ || Object.getPrototypeOf(NullConnector)).call.apply(_ref, [this].concat(args)));
+
+        _this.channels = {};
+        return _this;
+    }
+
+    createClass(NullConnector, [{
+        key: 'connect',
+        value: function connect() {}
+    }, {
+        key: 'listen',
+        value: function listen(name, event, callback) {
+            return new NullChannel();
+        }
+    }, {
+        key: 'channel',
+        value: function channel(name) {
+            return new NullChannel();
+        }
+    }, {
+        key: 'privateChannel',
+        value: function privateChannel(name) {
+            return new NullPrivateChannel();
+        }
+    }, {
+        key: 'presenceChannel',
+        value: function presenceChannel(name) {
+            return new NullPresenceChannel();
+        }
+    }, {
+        key: 'leave',
+        value: function leave(name) {}
+    }, {
+        key: 'socketId',
+        value: function socketId() {
+            return 'fake-socket-id';
+        }
+    }, {
+        key: 'disconnect',
+        value: function disconnect() {}
+    }]);
+    return NullConnector;
+}(Connector);
+
 var Echo = function () {
     function Echo(options) {
         classCallCheck(this, Echo);
@@ -841,6 +979,8 @@ var Echo = function () {
             this.connector = new PusherConnector(this.options);
         } else if (this.options.broadcaster == 'socket.io') {
             this.connector = new SocketIoConnector(this.options);
+        } else if (this.options.broadcaster == 'null') {
+            this.connector = new NullConnector(this.options);
         }
     }
 
