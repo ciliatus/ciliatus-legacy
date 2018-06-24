@@ -26,7 +26,7 @@ Intelligent Terrarium Automation
 The demo system pulls it's data from a live environment daily. Sensor readings are generated artificially.
 Also: Because the source environment is in german you will find user defined strings which cannot be localized. You won't see that in your own environment.
 
-[Demo](https://demo01.ciliatus.io)
+[Demo](https://demo.ciliatus.io)
 
 * User: demo@ciliatus.io
 * Pass: demo
