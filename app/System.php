@@ -316,7 +316,7 @@ class System extends Model
         Cache::put(
             $cache_key,
             json_encode($data),
-            env('SYSTEM_ANIMALS_TERRARIA_CACHE_DURATION_MINUTES', 60));
+            env('SYSTEM_ANIMALS_TERRARIA_CACHE_DURATION_MINUTES', 15));
 
         return $data;
     }
