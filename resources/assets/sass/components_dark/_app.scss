@@ -818,3 +818,7 @@ ul.autocomplete-content.dropdown-content {
 .collapsible-tr-body {
   display: none;
 }
+
+.tap-target-wrapper.open + ul {
+  z-index: 2001;
+}

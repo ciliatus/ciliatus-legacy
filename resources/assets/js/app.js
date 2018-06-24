@@ -174,8 +174,6 @@ window.notification = function(text, cssClass, length) {
 window.runPage = function() {
     $('.fixed-action-btn').floatingActionButton();
 
-    $('.tap-target').tapTarget();
-
     $('.masonry-grid').masonry();
 
     $('select').formSelect();
@@ -235,6 +233,12 @@ window.runPage = function() {
     $('[data-livedata="true"]').each(function() {
         new LiveData($(this).data('livedatasource'), $(this).data('livedatainterval'), domCallbacks[$(this).data('livedatacallback')], this).run();
     });
+
+    setTimeout(function() {
+        let elems = document.querySelectorAll('.tap-target');
+        let instances = M.TapTarget.init(elems);
+        instances.forEach(i => i.open());
+    }, 500);
 };
 
 window.collapseTr = function(tr) {
