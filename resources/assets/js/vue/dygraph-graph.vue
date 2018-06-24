@@ -286,8 +286,8 @@ export default {
                 },
                 axes: {
                     x: {
-                        axisLabelFormatter: function (d) {
-                            return d.toLocaleDateString();
+                        axisLabelFormatter: function (d, granularity) {
+                            return granularity < 20 ? d.toLocaleTimeString() : d.toLocaleDateString();
                         },
                         valueFormatter: function (ms) {
                             return new Date(ms).toLocaleString();
