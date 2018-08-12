@@ -275,7 +275,7 @@ class File extends CiliatusModel
 
         switch ($request->file('file')->getClientMimeType()) {
             case 'image/jpeg':
-                $exif = exif_read_data($this->path_internal(), 0, true);
+                $exif = \exif_read_data($this->path_internal(), 0, true);
                 if ($exif) {
                     foreach($exif as $key=>$section) {
                         foreach($section as $name=>$value) {
