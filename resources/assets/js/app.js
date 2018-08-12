@@ -67,8 +67,6 @@ LiveData.prototype.stop = function()
 
 window.submit_form = function (e, _callback = undefined)
 {
-
-    console.log(e);
     e.preventDefault();
 
     if ($(e.target).data('prevent-submit-on-enter') === true
@@ -154,6 +152,7 @@ window.submit_form = function (e, _callback = undefined)
             let msg = data.responseJSON !== undefined && data.responseJSON.error !== undefined ?
                 data.responseJSON.error.message : 'Unknown Error ' + data.status;
             window.notification(msg, 'orange darken-2 white-text');
+            window.console.log(data);
         }
     });
 };
