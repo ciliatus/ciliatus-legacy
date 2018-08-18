@@ -209,6 +209,16 @@
                                     </div>
 
                                     <div class="row">
+                                        <div class="input-field col s12 m6">
+                                            <select name="default_view_style">
+                                                <option value="cards" @if($user->setting('default_view_style') == 'cards')selected="selected"@endif>@lang('labels.cards')</option>
+                                                <option value="list" @if($user->setting('default_view_style') == 'list')selected="selected"@endif>@lang('labels.list')</option>
+                                            </select>
+                                            <label for="default_view_style">@lang('labels.default_view_style')</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
                                         <div class="col s12">
                                             <label for="auto_nightmode_enabled">@lang('labels.auto_nightmode')</label>
                                             <div class="switch">

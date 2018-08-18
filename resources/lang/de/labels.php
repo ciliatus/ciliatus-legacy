@@ -286,5 +286,9 @@ return [
     'id'                                         => 'ID',
     'loading_dots'                               => 'Laden...',
     'search_ciliatus'                            => 'Ciliatus durchsuchen ...',
-    'set_preset'                                 => 'Voreinstellung anwenden'
+    'set_preset'                                 => 'Voreinstellung anwenden',
+    'list'                                       => 'Liste',
+    'cards'                                      => 'Karten',
+    'default_view_style'                         => 'Standard Anzeigestil',
+    'age'                                        => 'Alter'
 ];

@@ -268,6 +268,10 @@ class UserController extends ApiController
             $user->setSetting('permanent_nightmode_enabled', $request->input('permanent_nightmode_enabled'));
         }
 
+        if ($request->filled('default_view_style')) {
+            $user->setSetting('default_view_style', $request->input('default_view_style'));
+        }
+
         $user->save();
 
         return $this->setStatusCode(200)->respondWithData([], [

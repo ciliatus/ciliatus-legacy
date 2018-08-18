@@ -285,5 +285,9 @@ return [
     'id'                                         => 'ID',
     'loading_dots'                               => 'Loading...',
     'search_ciliatus'                            => 'Search Ciliatus ...',
-    'set_preset'                                 => 'Apply preset'
+    'set_preset'                                 => 'Apply preset',
+    'list'                                       => 'List',
+    'cards'                                      => 'Cards',
+    'default_view_style'                         => 'Default view style',
+    'age'                                        => 'Age'
 ];
