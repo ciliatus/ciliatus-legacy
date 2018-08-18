@@ -340,9 +340,9 @@
         <!-- Laravel-Echo -->
         <script type="text/javascript" src="{{ url('/js/vendors/echo.min.js?v=201804291751') }}"></script>
         <!-- ciliatus -->
-        <script type="text/javascript" src="{{ url('/js/app.min.js?v=201804291751') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/app.js?v=201804291751') }}"></script>
         <!-- Vue -->
-        <script type="text/javascript" src="{{ url('/js/vendors/vue.min.js?v=201804291751') }}"></script>
+        <script type="text/javascript" src="{{ url('/js/vendors/vue.js?v=201804291751') }}"></script>
         <!-- Dygraph -->
         <script type="text/javascript" src="{{ url('/js/vendors/dygraph.min.js?v=201804291751') }}"></script>
 

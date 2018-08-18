@@ -21,7 +21,8 @@
                                 container-id="animals-masonry-grid-alive"
                                 source-filter="filter[!properties.type]=ModelNotActive"
                                 :refresh-timeout-seconds="60"
-                                :subscribe-add="false"></animals-widget>
+                                :subscribe-add="false"
+                                view-style="{{ Auth::user()->setting('default_view_style') }}"></animals-widget>
             </div>
         </div>
 
@@ -45,7 +46,8 @@
                                 container-id="animals-masonry-grid-inactive"
                                 source-filter="filter[properties.type]=ModelNotActive"
                                 :refresh-timeout-seconds="180"
-                                :subscribe-add="false"></animals-widget>
+                                :subscribe-add="false"
+                                view-style="{{ Auth::user()->setting('default_view_style') }}"></animals-widget>
             </div>
         </div>
     </div>
