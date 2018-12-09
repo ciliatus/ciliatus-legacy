@@ -275,22 +275,25 @@ class File extends CiliatusModel
 
         switch ($request->file('file')->getClientMimeType()) {
             case 'image/jpeg':
-                $exif = \exif_read_data($this->path_internal(), 0, true);
-                if ($exif) {
-                    foreach($exif as $key=>$section) {
-                        foreach($section as $name=>$value) {
-                            if (!is_array($value)) {
-                                $fp = Property::create();
-                                $fp->belongsTo_type = 'File';
-                                $fp->belongsTo_id = $this->id;
-                                $fp->type = 'exif';
-                                $fp->name = $key.$name;
-                                $fp->value = $value;
-                                $fp->save();
+                if (function_exists('\exif_read_data')) {
+                    $exif = \exif_read_data($this->path_internal(), 0, true);
+                    if ($exif) {
+                        foreach($exif as $key=>$section) {
+                            foreach($section as $name=>$value) {
+                                if (!is_array($value)) {
+                                    $fp = Property::create();
+                                    $fp->belongsTo_type = 'File';
+                                    $fp->belongsTo_id = $this->id;
+                                    $fp->type = 'exif';
+                                    $fp->name = $key.$name;
+                                    $fp->value = $value;
+                                    $fp->save();
+                                }
                             }
                         }
                     }
                 }
+
         }
     }
 
