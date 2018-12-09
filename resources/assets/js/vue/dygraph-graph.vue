@@ -17,7 +17,7 @@
                 </div>
                 <div class="input-field col s4 m4 l2">
                     <input type="text" v-on:keyup.enter="set_rollperiod" :id="'dygraph_' + id + '_rollperiodselector'"
-                           :value="5" :placeholder="$t('labels.rollperiod')">
+                           v-model="rollPeriod" :placeholder="$t('labels.rollperiod')">
                     <label>{{ $t('labels.rollperiod') }}</label>
                 </div>
             </div>
@@ -100,7 +100,8 @@ export default {
             columnTypes: [],
             colors: [],
             graph: null,
-            debug: null
+            debug: null,
+            rollPeriod: 1
         }
     },
 
@@ -255,7 +256,7 @@ export default {
             this.options = {
                 connectSeparatedPoints: true,
                 strokeWidth: 1.5,
-                rollPeriod: 5,
+                rollPeriod: this.rollPeriod,
                 digitsAfterDecimal: 1,
                 showRoller: false,
                 showRangeSelector: true,
