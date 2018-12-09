@@ -83,6 +83,11 @@ export default {
             type: String,
             default: 'created_at',
             required: false
+        },
+        ColumnsAxis: {
+            type: Object,
+            default: {},
+            required: false
         }
     },
 
@@ -92,6 +97,7 @@ export default {
             options: {},
             data: [],
             columns: [],
+            columnTypes: [],
             colors: [],
             graph: null,
             debug: null
@@ -183,7 +189,8 @@ export default {
                         that.colors.push(color);
                         color_repo_used[repo_name] += 1;
 
-                        that.columns.push(c[0][that.ColumnNameField])
+                        that.columns.push(c[0][that.ColumnNameField]);
+                        that.columnTypes.push(c[0]['value_type']);
                     });
 
                     var rows = [];
@@ -249,6 +256,7 @@ export default {
                 connectSeparatedPoints: true,
                 strokeWidth: 1.5,
                 rollPeriod: 4,
+                digitsAfterDecimal: 1,
                 showRoller: false,
                 showRangeSelector: true,
                 rangeSelectorPlotFillGradientColor: '#ffcc80',
@@ -296,12 +304,24 @@ export default {
                 }
             };
 
+            var that = this;
+
+            let axisAssignments = {};
+            for (let i = 0; i < this.columnTypes.length; i++) {
+                if (that.ColumnsAxis[this.columnTypes[i]] !== undefined) {
+                    let colAxis = that.ColumnsAxis[this.columnTypes[i]] === 1 ? 'y' : 'y' + that.ColumnsAxis[this.columnTypes[i]];
+                    axisAssignments[this.columns[i+1]] = {axis: colAxis};
+
+                    this.options[colAxis + 'label'] = this.$t('labels.' + this.columnTypes[i]);
+                }
+            }
+
+            this.options.series = axisAssignments;
+
             if (this.LabelsDivId !== null) {
                 this.options.labelsDiv = this.LabelsDivId;
                 this.options.labelsSeparateLines = true;
             }
-
-            var that = this;
 
             try {
                 this.graph = new Dygraph(

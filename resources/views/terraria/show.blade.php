@@ -40,6 +40,7 @@
                         <div class="card-content">
                             <dygraph-graph show-filter-field="read_at" :show-filter-form="true"
                                            filter-column="read_at"
+                                           :columns-axis="{'temperature_celsius': 1, 'humidity_percent': 2}"
                                            labels-div-id="sensorreadings-labels" time-axis-label="@lang('labels.read_at')"
                                            column-id-field="logical_sensor_id" column-name-field="logical_sensor_name"
                                            source="{{ url('api/v1/terraria/' . $terrarium->id . '/sensorreadings') }}"></dygraph-graph>
