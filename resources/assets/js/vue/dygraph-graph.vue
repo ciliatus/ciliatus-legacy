@@ -255,7 +255,7 @@ export default {
             this.options = {
                 connectSeparatedPoints: true,
                 strokeWidth: 1.5,
-                rollPeriod: 4,
+                rollPeriod: 5,
                 digitsAfterDecimal: 1,
                 showRoller: false,
                 showRangeSelector: true,
