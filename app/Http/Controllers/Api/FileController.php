@@ -283,16 +283,17 @@ class FileController extends ApiController
 
         if (!is_null($source->property('generic', 'background_file_id'))) {
             $source->property('generic', 'background_file_id')->delete();
-            /**
-             * @var Property $p
-             */
-            $p = new Property();
-            $p->belongsTo_type = $type;
-            $p->belongsTo_id = $source->id;
-            $p->name = 'background_file_id';
-            $p->value = $file->id;
-            $p->save();
         }
+
+        /**
+         * @var Property $p
+         */
+        $p = new Property();
+        $p->belongsTo_type = $type;
+        $p->belongsTo_id = $source->id;
+        $p->name = 'background_file_id';
+        $p->value = $file->id;
+        $p->save();
 
         return $this->respondWithData(
             [],
