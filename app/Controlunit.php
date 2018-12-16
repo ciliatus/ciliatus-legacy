@@ -191,19 +191,27 @@ class Controlunit extends Component
         $config.= "token = ";
 
         foreach ($this->physical_sensors as $ps) {
-            $config .= "\n\n" . $ps->generateConfig();
+            if ($ps->active()) {
+                $config .= "\n\n" . $ps->generateConfig();
+            }
         }
 
         foreach ($this->valves as $v) {
-            $config .= "\n\n" . $v->generateConfig();
+            if ($v->active()) {
+                $config .= "\n\n" . $v->generateConfig();
+            }
         }
 
         foreach ($this->pumps as $p) {
-            $config .= "\n\n" . $p->generateConfig();
+            if ($p->active()) {
+                $config .= "\n\n" . $p->generateConfig();
+            }
         }
 
         foreach ($this->custom_components as $gc) {
-            $config .= "\n\n" . $gc->generateConfig();
+            if ($gc->active()) {
+                $config .= "\n\n" . $gc->generateConfig();
+            }
         }
 
         return $config;
