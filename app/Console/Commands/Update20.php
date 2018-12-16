@@ -65,8 +65,6 @@ class Update20 extends UpdateCommand
 
         echo sprintf("%s - %s/%s", '100%', $max, $max) . PHP_EOL;
 
-        return;
-
         echo "Updating permissions ..." . PHP_EOL;
         foreach (User::get() as $user) {
             if ($user->hasAbility('grant_api-list:raw')) {
