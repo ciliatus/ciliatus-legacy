@@ -34,8 +34,8 @@ class SensorreadingShowOkTest extends TestCase
             'name' => 'TestLogicalSensor01',
             'physical_sensor_id' => $ps->id
         ]);
-        $ls->rawvalue_lowerlimit = 0;
-        $ls->rawvalue_upperlimit = 30;
+        $ls->adjusted_value_lowerlimit = 0;
+        $ls->adjusted_value_upperlimit = 30;
         $ls->save();
 
         $group_id = Uuid::generate()->string;
