@@ -107,10 +107,10 @@
                                 {{ $t->starts_at }}:
 
                                 @if(!is_null($t->rawvalue_lowerlimit))
-                                    <span>@lang("labels.max_short"): {{ $t->rawvalue_lowerlimit }}</span>
+                                    <span>@lang("labels.min_short"): {{ $t->rawvalue_lowerlimit }}</span>
                                 @endif
                                 @if(!is_null($t->rawvalue_upperlimit))
-                                    <span>@lang("labels.min_short"): {{ $t->rawvalue_upperlimit }}</span>
+                                    <span>@lang("labels.max_short"): {{ $t->rawvalue_upperlimit }}</span>
                                 @endif
 
                                 <span class="right">
