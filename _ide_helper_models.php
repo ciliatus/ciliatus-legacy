@@ -392,8 +392,8 @@ namespace App{
  * @property string|null $software_version
  * @property int|null $client_server_time_diff_seconds
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\CriticalState[] $critical_states
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\CustomComponent[] $custom_components
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\PhysicalSensor[] $physical_sensors
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
@@ -440,72 +440,6 @@ namespace App{
  * @method static \Illuminate\Database\Eloquent\Builder|\App\CriticalState whereUpdatedAt($value)
  */
 	class CriticalState extends \Eloquent {}
-}
-
-namespace App{
-/**
- * Class Event
- *
- * @package App
- * @property string $id
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property string $type
- * @property string $name
- * @property string $value
- * @property string $value_json
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereBelongsToId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereBelongsToType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereValue($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereValueJson($value)
- */
-	class Event extends \Eloquent {}
-}
-
-namespace App{
-/**
- * Class File
- *
- * @package App
- * @property string $id
- * @property string $belongsTo_type
- * @property string $belongsTo_id
- * @property string $user_id
- * @property string $state
- * @property string $mimetype
- * @property string $name
- * @property string $parent_path
- * @property string $display_name
- * @property float $size
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @property string|null $usage
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
- * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereBelongsToId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereBelongsToType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereDisplayName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereMimetype($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereParentPath($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereSize($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereState($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereUsage($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereUserId($value)
- */
-	class File extends \Eloquent {}
 }
 
 namespace App{
@@ -576,6 +510,72 @@ namespace App{
 
 namespace App{
 /**
+ * Class Event
+ *
+ * @package App
+ * @property string $id
+ * @property string $belongsTo_type
+ * @property string $belongsTo_id
+ * @property string $type
+ * @property string $name
+ * @property string $value
+ * @property string $value_json
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereBelongsToId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereBelongsToType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Event whereValueJson($value)
+ */
+	class Event extends \Eloquent {}
+}
+
+namespace App{
+/**
+ * Class File
+ *
+ * @package App
+ * @property string $id
+ * @property string $belongsTo_type
+ * @property string $belongsTo_id
+ * @property string $user_id
+ * @property string $state
+ * @property string $mimetype
+ * @property string $name
+ * @property string $parent_path
+ * @property string $display_name
+ * @property float $size
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @property string|null $usage
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereBelongsToId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereBelongsToType($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereDisplayName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereMimetype($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereName($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereParentPath($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereSize($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereState($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereUsage($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\File whereUserId($value)
+ */
+	class File extends \Eloquent {}
+}
+
+namespace App{
+/**
  * Class Log
  *
  * @package App
@@ -625,11 +625,12 @@ namespace App{
  * @property string $physical_sensor_id
  * @property string $type
  * @property float|null $rawvalue
- * @property float $rawvalue_lowerlimit
- * @property float $rawvalue_upperlimit
+ * @property float $adjusted_value_lowerlimit
+ * @property float $adjusted_value_upperlimit
  * @property mixed $soft_state_duration_minutes
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property float $adjusted_value
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\CriticalState[] $critical_states
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
@@ -637,13 +638,14 @@ namespace App{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Sensorreading[] $sensorreadings
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\LogicalSensorThreshold[] $thresholds
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensor whereAdjustedValue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensor whereAdjustedValueLowerlimit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensor whereAdjustedValueUpperlimit($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensor whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensor whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensor whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensor wherePhysicalSensorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensor whereRawvalue($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensor whereRawvalueLowerlimit($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensor whereRawvalueUpperlimit($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensor whereSoftStateDurationMinutes($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensor whereType($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensor whereUpdatedAt($value)
@@ -659,8 +661,8 @@ namespace App{
  * @property string $id
  * @property string|null $name
  * @property string $logical_sensor_id
- * @property float|null $rawvalue_lowerlimit
- * @property float|null $rawvalue_upperlimit
+ * @property float $adjusted_value_lowerlimit
+ * @property float $adjusted_value_upperlimit
  * @property string $starts_at
  * @property bool $active
  * @property \Carbon\Carbon|null $created_at
@@ -669,12 +671,12 @@ namespace App{
  * @property-read \App\LogicalSensor $logical_sensor
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensorThreshold whereActive($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensorThreshold whereAdjustedValueLowerlimit($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensorThreshold whereAdjustedValueUpperlimit($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensorThreshold whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensorThreshold whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensorThreshold whereLogicalSensorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensorThreshold whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensorThreshold whereRawvalueLowerlimit($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensorThreshold whereRawvalueUpperlimit($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensorThreshold whereStartsAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\LogicalSensorThreshold whereUpdatedAt($value)
  */
@@ -686,6 +688,42 @@ namespace App{
  * App\LogRequest
  *
  * @mixin \Eloquent
+ * @property string $id
+ * @property string $endpoint
+ * @property string $protocol
+ * @property string $remote_address
+ * @property string $user_agent
+ * @property string|null $referrer
+ * @property string $method
+ * @property int $http_status
+ * @property string|null $geo_iso_code
+ * @property string|null $geo_country
+ * @property string|null $geo_city
+ * @property string|null $geo_postal_code
+ * @property string|null $geo_lat
+ * @property string|null $geo_lon
+ * @property int $duration_ms
+ * @property string $request_time
+ * @property \Carbon\Carbon|null $created_at
+ * @property \Carbon\Carbon|null $updated_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereCreatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereDurationMs($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereEndpoint($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereGeoCity($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereGeoCountry($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereGeoIsoCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereGeoLat($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereGeoLon($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereGeoPostalCode($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereHttpStatus($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereMethod($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereProtocol($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereReferrer($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereRemoteAddress($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereRequestTime($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereUpdatedAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\LogRequest whereUserAgent($value)
  */
 	class LogRequest extends \Eloquent {}
 }
@@ -845,21 +883,25 @@ namespace App{
  *
  * @package App
  * @property string $id
- * @property string|null $sensorreadinggroup_id
+ * @property string $sensorreadinggroup_id
  * @property string $logical_sensor_id
  * @property float $rawvalue
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
  * @property bool $is_anomaly
- * @property string $read_at
+ * @property \Carbon\Carbon $read_at
+ * @property float $rawvalue_adjustment
+ * @property float $adjusted_value
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
  * @property-read \App\LogicalSensor $logical_sensor
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Property[] $properties
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensorreading whereAdjustedValue($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensorreading whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensorreading whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensorreading whereIsAnomaly($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensorreading whereLogicalSensorId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensorreading whereRawvalue($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensorreading whereRawvalueAdjustment($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensorreading whereReadAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensorreading whereSensorreadinggroupId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensorreading whereUpdatedAt($value)
@@ -984,8 +1026,8 @@ namespace App{
  * @property float|null $cooked_temperature_celsius
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\ActionSequence[] $action_sequences
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Animal[] $animals
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\CustomComponent[] $custom_components
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\File[] $files
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\LogicalSensor[] $logical_sensors
  * @property-read \Illuminate\Notifications\DatabaseNotificationCollection|\Illuminate\Notifications\DatabaseNotification[] $notifications
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\PhysicalSensor[] $physical_sensors
