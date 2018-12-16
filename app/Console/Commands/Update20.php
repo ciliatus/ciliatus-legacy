@@ -51,6 +51,22 @@ class Update20 extends UpdateCommand
         echo "Running database migration ..." . PHP_EOL;
         Artisan::call('migrate');
 
+        echo "Filling sensorreading adjusted_rawvalue, this may take awhile ..." . PHP_EOL;
+        $max = Sensorreading::count();
+        for ($offset = 0; $offset < $max; $offset+=10000) {
+            foreach (Sensorreading::take(10000)->offset($offset)->get() as $sr) {
+                $sr->rawvalue_adjustment = 0;
+                $sr->adjusted_value = $sr->rawvalue;
+                $sr->save();
+            }
+
+            echo sprintf("%s%s - %s/%s", round($offset / $max * 100, 0), '%', $offset, $max) . PHP_EOL;
+        }
+
+        echo sprintf("%s - %s/%s", '100%', $max, $max) . PHP_EOL;
+
+        return;
+
         echo "Updating permissions ..." . PHP_EOL;
         foreach (User::get() as $user) {
             if ($user->hasAbility('grant_api-list:raw')) {

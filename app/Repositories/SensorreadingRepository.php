@@ -55,13 +55,13 @@ class SensorreadingRepository extends Repository {
         if ($return_total_max) {
             $sensor_readings = $query
                 ->select(
-                    DB::raw('avg(rawvalue) as avg_rawvalue, min(rawvalue) as min_rawvalue, max(rawvalue) as max_rawvalue, min(is_anomaly) as is_anomaly, \'x\' as `x`')
+                    DB::raw('avg(adjusted_value) as avg_adjusted_value, min(adjusted_value) as min_adjusted_value, max(adjusted_value) as max_adjusted_value, min(is_anomaly) as is_anomaly, \'x\' as `x`')
                 );
         }
         else {
             $sensor_readings = $query
                 ->select(
-                    DB::raw('id, sensorreadinggroup_id, avg(rawvalue) as avg_rawvalue, min(is_anomaly) as anomaly, read_at')
+                    DB::raw('id, sensorreadinggroup_id, avg(adjusted_value) as avg_adjusted_value, min(is_anomaly) as anomaly, read_at')
                 );
         }
         

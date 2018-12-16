@@ -115,12 +115,6 @@ class SensorreadingController extends ApiController
             return $this->respondRelatedModelNotFound(LogicalSensor::class);
         }
 
-        if (!$logical_sensor->checkRawValue((float)$request->input('rawvalue'))) {
-            return $this->setStatusCode(422)
-                        ->setErrorCode('201')
-                        ->respondWithErrorDefaultMessage();
-        }
-
         $existing_sensorreading = Sensorreading::where('sensorreadinggroup_id', $request->input('group_id'))->where('logical_sensor_id', $request->input('logical_sensor_id'))->first();
         if (!is_null($existing_sensorreading)) {
             return $this->setStatusCode(422)
@@ -145,6 +139,13 @@ class SensorreadingController extends ApiController
         }
 
         $rawvalue = (float)$request->input('rawvalue');
+        $adjusted_value = $rawvalue + $logical_sensor->getRawvalueAdjustment();
+
+        if (!$logical_sensor->checkAdjustedValue($adjusted_value)) {
+            return $this->setStatusCode(422)
+                ->setErrorCode('201')
+                ->respondWithErrorDefaultMessage();
+        }
 
         $ls_most_recent_sr = $logical_sensor->sensorreadings()
                                             ->orderBy('read_at', 'desc')
@@ -159,11 +160,14 @@ class SensorreadingController extends ApiController
             'sensorreadinggroup_id' => $request->input('group_id'),
             'logical_sensor_id'     => $request->input('logical_sensor_id'),
             'rawvalue'              => $rawvalue,
+            'adjusted_value'        => $adjusted_value,
+            'rawvalue_adjustment'   => $logical_sensor->getRawvalueAdjustment(),
             'read_at'               => $read_at
         ]);
 
         if (is_null($ls_most_recent_sr) || $ls_most_recent_sr->read_at->lt($sensorreading->read_at)) {
             $logical_sensor->rawvalue = $rawvalue;
+            $logical_sensor->adjusted_value = $adjusted_value;
             $logical_sensor->save();
 
             if (!is_null($logical_sensor->physical_sensor)) {

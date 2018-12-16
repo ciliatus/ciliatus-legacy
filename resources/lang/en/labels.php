@@ -256,6 +256,7 @@ return [
     'no'                                         => 'No',
     'rawvalue'                                   => 'Raw value',
     'adjust_rawvalue'                            => 'Raw value correction',
+    'adjusted_value'                             => 'Adjusted value',
     'filter'                                     => 'Filter',
     'logout'                                     => 'Log off',
     'login'                                      => 'Log in',

@@ -39,14 +39,14 @@
                 <div v-for="lst in logical_sensor_thresholds">
                     {{ $t("labels.starts_at") }} {{ lst.data.timestamps.starts }}:
                     <strong>
-                        <span v-show="lst.data.rawvalue_lowerlimit && !lst.data.rawvalue_upperlimit">
-                            min {{ lst.data.rawvalue_lowerlimit }}{{ $t("units." + logical_sensor.data.type) }}
+                        <span v-show="lst.data.adjusted_value_lowerlimit && !lst.data.adjusted_value_upperlimit">
+                            min {{ lst.data.adjusted_value_lowerlimit }}{{ $t("units." + logical_sensor.data.type) }}
                         </span>
-                        <span v-show="!lst.data.rawvalue_lowerlimit && lst.data.rawvalue_upperlimit">
-                            max {{ lst.data.rawvalue_upperlimit }}{{ $t("units." + logical_sensor.data.type) }}
+                        <span v-show="!lst.data.adjusted_value_lowerlimit && lst.data.adjusted_value_upperlimit">
+                            max {{ lst.data.adjusted_value_upperlimit }}{{ $t("units." + logical_sensor.data.type) }}
                         </span>
-                        <span v-show="lst.data.rawvalue_lowerlimit && lst.data.rawvalue_upperlimit">
-                            {{ lst.data.rawvalue_lowerlimit }} - {{ lst.data.rawvalue_upperlimit }}{{ $t("units." + logical_sensor.data.type) }}
+                        <span v-show="lst.data.adjusted_value_lowerlimit && lst.data.adjusted_value_upperlimit">
+                            {{ lst.data.adjusted_value_lowerlimit }} - {{ lst.data.adjusted_value_upperlimit }}{{ $t("units." + logical_sensor.data.type) }}
                         </span>
                     </strong>
 

@@ -257,6 +257,7 @@ return [
     'no'                                         => 'Nein',
     'rawvalue'                                   => 'Rohwert',
     'adjust_rawvalue'                            => 'Rohwertkorrektur',
+    'adjusted_value'                             => 'Korrigierter Wert',
     'filter'                                     => 'Filter',
     'logout'                                     => 'Ausloggen',
     'login'                                      => 'Einloggen',

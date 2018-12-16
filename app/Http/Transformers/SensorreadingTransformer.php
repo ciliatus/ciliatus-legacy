@@ -26,7 +26,7 @@ class SensorreadingTransformer extends Transformer
             'class' => 'Sensorreading',
             'logical_sensor_id'  => $item['logical_sensor_id'],
             'group_id' => $item['sensorreadinggroup_id'],
-            'rawvalue' => $item['rawvalue'],
+            'adjusted_value' => $item['adjusted_value'],
             'timestamps' => $this->parseTimestamps($item, ['read_at'])
         ];
 

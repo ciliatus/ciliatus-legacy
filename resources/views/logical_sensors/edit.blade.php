@@ -64,11 +64,11 @@
                                     </strong>
                                 </div>
                                 <div class="input-field col s12 m6 l6">
-                                    <input type="text" placeholder="@lang('labels.rawlimitlo')" name="rawvalue_lowerlimit" value="{{ $logical_sensor->rawvalue_lowerlimit }}">
+                                    <input type="text" placeholder="@lang('labels.rawlimitlo')" name="adjusted_value_lowerlimit" value="{{ $logical_sensor->adjusted_value_lowerlimit }}">
                                     <label for="name">@lang('labels.rawlimitlo')</label>
                                 </div>
                                 <div class="input-field col s12 m6 l6">
-                                    <input type="text" placeholder="@lang('labels.rawlimithi')" name="rawvalue_upperlimit" value="{{ $logical_sensor->rawvalue_upperlimit }}">
+                                    <input type="text" placeholder="@lang('labels.rawlimithi')" name="adjusted_value_upperlimit" value="{{ $logical_sensor->adjusted_value_upperlimit }}">
                                     <label for="name">@lang('labels.rawlimithi')</label>
                                 </div>
                             </div>
@@ -106,11 +106,11 @@
                                 <i class="mdi mdi-18px mdi-format-vertical-align-center"></i>
                                 {{ $t->starts_at }}:
 
-                                @if(!is_null($t->rawvalue_lowerlimit))
-                                    <span>@lang("labels.min_short"): {{ $t->rawvalue_lowerlimit }}</span>
+                                @if(!is_null($t->adjusted_value_lowerlimit))
+                                    <span>@lang("labels.min_short"): {{ $t->adjusted_value_lowerlimit }}</span>
                                 @endif
-                                @if(!is_null($t->rawvalue_upperlimit))
-                                    <span>@lang("labels.max_short"): {{ $t->rawvalue_upperlimit }}</span>
+                                @if(!is_null($t->adjusted_value_upperlimit))
+                                    <span>@lang("labels.max_short"): {{ $t->adjusted_value_upperlimit }}</span>
                                 @endif
 
                                 <span class="right">
@@ -188,7 +188,7 @@
                         <div class="card-content">
                             <div class="row">
                                 <div class="input-field col s12 tooltipped" data-position="top"
-                                     data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.adjust_rawvalue')</div>">
+                                     data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.adjust_adjusted_value')</div>">
                                     <input type="text" placeholder="@lang('labels.adjust_rawvalue')" name="LogicalSensorAccuracy::adjust_rawvalue" value="{{ $logical_sensor->property('LogicalSensorAccuracy', 'adjust_rawvalue', true) }}">
                                     <label for="name">
                                         @lang('labels.adjust_rawvalue')

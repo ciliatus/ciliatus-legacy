@@ -79,7 +79,7 @@ class DetectSensorreadingAnomalies extends Command
                 );
 
                 $readings_clone = clone $readings;
-                $readings_column = array_column($readings_clone->toArray(), 'avg_rawvalue');
+                $readings_column = array_column($readings_clone->toArray(), 'avg_adjusted_value');
                 $rolling_avg_readings = array_splice($readings_column, 0, $rolling_avg_margin*2);
 
                 $i = 0;
@@ -94,19 +94,19 @@ class DetectSensorreadingAnomalies extends Command
                     }
 
                     array_shift($rolling_avg_readings);
-                    $rolling_avg_readings[] = $reading->avg_rawvalue;
+                    $rolling_avg_readings[] = $reading->avg_adjusted_value;
 
                     $rolling_avg = array_sum($rolling_avg_readings) / count($rolling_avg_readings);
                     if ($rolling_avg == 0) {
                         continue;
                     }
 
-                    $deviation = abs(100 - $reading->avg_rawvalue / $rolling_avg * 100);
+                    $deviation = abs(100 - $reading->avg_adjusted_value / $rolling_avg * 100);
 
                     if ($deviation > $max_deviation_percent) {
                         $anomaly_count++;
                         echo '   Anomaly deviation of ' . round($deviation, 2) . '%: Value: ' .
-                            round($reading->avg_rawvalue, 2) . ' Rolling average: ' . round($rolling_avg, 2) .
+                            round($reading->avg_adjusted_value, 2) . ' Rolling average: ' . round($rolling_avg, 2) .
                             ' Average: ' . implode(', ', $rolling_avg_readings) . PHP_EOL;
 
                         if ($this->option('simulate') !== true) {

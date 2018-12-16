@@ -19,11 +19,11 @@
                                 <i class="mdi mdi-18px mdi-format-vertical-align-center"></i>
 
                                 <span>{{ threshold.data.timestamps.starts }}:</span>
-                                <span v-if="threshold.data.rawvalue_lowerlimit !== null">
-                                    {{ $t("labels.min_short") }}: {{ threshold.data.rawvalue_lowerlimit }}
+                                <span v-if="threshold.data.adjusted_value_lowerlimit !== null">
+                                    {{ $t("labels.min_short") }}: {{ threshold.data.adjusted_value_lowerlimit }}
                                 </span>
-                                <span v-if="threshold.data.rawvalue_upperlimit !== null">
-                                    {{ $t("labels.max_short") }}: {{ threshold.data.rawvalue_upperlimit }}
+                                <span v-if="threshold.data.adjusted_value_upperlimit !== null">
+                                    {{ $t("labels.max_short") }}: {{ threshold.data.adjusted_value_upperlimit }}
                                 </span>
 
                                 <span class="right">

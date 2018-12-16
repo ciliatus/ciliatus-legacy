@@ -24,7 +24,7 @@ class Sensorreading extends CiliatusModel
      * @var array
      */
     protected $fillable = [
-        'sensorreadinggroup_id', 'logical_sensor_id', 'rawvalue', 'read_at'
+        'sensorreadinggroup_id', 'logical_sensor_id', 'rawvalue', 'rawvalue_adjustment', 'adjusted_value', 'read_at'
     ];
 
     /**
@@ -61,7 +61,7 @@ class Sensorreading extends CiliatusModel
 
         $result = $this->writeToInfluxDb(
             'logical_sensor_readings',
-            $this->rawvalue,
+            $this->adjusted_value,
             [
                 'logical_sensor_type'   => $this->logical_sensor->type,
                 'logical_sensor'        => $this->logical_sensor->name,
@@ -75,10 +75,10 @@ class Sensorreading extends CiliatusModel
             return $result;
         }
 
-        if (!is_null($threshold->rawvalue_lowerlimit)) {
+        if (!is_null($threshold->adjusted_value_lowerlimit)) {
             $result = $result && $this->writeToInfluxDb(
                 'logical_sensor_threshold_lower',
-                $threshold->rawvalue_lowerlimit,
+                $threshold->adjusted_value_lowerlimit,
                 [
                     'logical_sensor_type' => $this->logical_sensor->type,
                     'logical_sensor'      => $this->logical_sensor->name,
@@ -88,10 +88,10 @@ class Sensorreading extends CiliatusModel
             );
         }
 
-        if (!is_null($threshold->rawvalue_upperlimit)) {
+        if (!is_null($threshold->adjusted_value_upperlimit)) {
             $result = $result && $this->writeToInfluxDb(
                 'logical_sensor_threshold_upper',
-                $threshold->rawvalue_upperlimit,
+                $threshold->adjusted_value_upperlimit,
                 [
                     'logical_sensor_type'   => $this->logical_sensor->type,
                     'logical_sensor'        => $this->logical_sensor->name,

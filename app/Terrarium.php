@@ -246,7 +246,7 @@ class Terrarium extends CiliatusModel
         );
 
         if ($return_array) {
-            $final_data = array_column($history->toArray(), 'avg_rawvalue');
+            $final_data = array_column($history->toArray(), 'avg_adjusted_value');
             $encoded_data = json_encode($final_data);
         }
         else {

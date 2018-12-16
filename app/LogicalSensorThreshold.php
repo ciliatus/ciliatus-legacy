@@ -32,7 +32,7 @@ class LogicalSensorThreshold extends CiliatusModel
      * @var array
      */
     protected $fillable = [
-        'logical_sensor_id', 'starts_at', 'rawvalue_lowerlimit', 'rawvalue_upperlimit', 'active'
+        'logical_sensor_id', 'starts_at', 'adjusted_value_lowerlimit', 'adjusted_value_upperlimit', 'active'
     ];
 
     /**

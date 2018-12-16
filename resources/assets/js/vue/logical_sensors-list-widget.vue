@@ -9,7 +9,7 @@
                                                {name: 'physical_sensor', noSort:true, path: 'physical_sensor.name', col: 1},
                                                {name: 'terrarium', noSort:true, path: 'terrarium.name', col: 2, class: 'hide-on-med-and-down'},
                                                {name: 'type', path: 'type', col: 3, class: 'hide-on-small-only'},
-                                               {name: 'rawvalue', path: 'rawvalue', col: 4, class: 'hide-on-small-only'},
+                                               {name: 'adjusted_value', path: 'adjusted_value', col: 4, class: 'hide-on-small-only'},
                                                {noSort: true, noFilter: true, col: 5, class: 'hide-on-small-only'}]">
                 </table-filter>
 
@@ -45,13 +45,13 @@
                             </td>
 
                             <td class="hide-on-small-only">
-                                <span>{{ Math.round(logical_sensor.data.rawvalue, 2) }}</span>
+                                <span>{{ Math.round(logical_sensor.data.adjusted_value, 2) }}</span>
                                 <span v-if="logical_sensor.data.rawvalue_adjustment !== 0">
                                     <span v-if="logical_sensor.data.rawvalue_adjustment > 0">
                                         <span class="green-text darken-2">(+{{ logical_sensor.data.rawvalue_adjustment }})</span>
                                     </span>
                                     <span v-else>
-                                        <span class="red darken-2">({{ logical_sensor.data.rawvalue_adjustment }})</span>
+                                        <span class="red-text darken-2">({{ logical_sensor.data.rawvalue_adjustment }})</span>
                                     </span>
                                 </span>
                             </td>
@@ -67,8 +67,8 @@
                         </tr>
                         <tr class="collapsible-tr-body">
                             <td>
-                                {{ $t('labels.rawlimitlo') }}: {{ logical_sensor.data.rawvalue_lowerlimit }}<br />
-                                {{ $t('labels.rawlimithi') }}: {{ logical_sensor.data.rawvalue_upperlimit }}
+                                {{ $t('labels.rawlimitlo') }}: {{ logical_sensor.data.adjusted_value_lowerlimit }}<br />
+                                {{ $t('labels.rawlimithi') }}: {{ logical_sensor.data.adjusted_value_upperlimit }}
                             </td>
                             <td class="hide-on-small-only">
                                 <span v-if="c = controlunit(logical_sensor)">

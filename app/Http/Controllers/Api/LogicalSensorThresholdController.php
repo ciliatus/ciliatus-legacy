@@ -105,8 +105,8 @@ class LogicalSensorThresholdController extends ApiController
         $logical_sensor_threshold->logical_sensor_id = is_null($ls) ? null : $ls->id;
         $logical_sensor_threshold = $this->addBelongsTo($request, $logical_sensor_threshold, false);
         $logical_sensor_threshold->starts_at = Carbon::parse($request->input('starts_at'));
-        $logical_sensor_threshold->rawvalue_lowerlimit = strlen($request->input('lowerlimit')) < 1 ? null : $request->input('lowerlimit');
-        $logical_sensor_threshold->rawvalue_upperlimit = strlen($request->input('upperlimit')) < 1 ? null: $request->input('upperlimit');
+        $logical_sensor_threshold->adjusted_value_lowerlimit = strlen($request->input('lowerlimit')) < 1 ? null : $request->input('lowerlimit');
+        $logical_sensor_threshold->adjusted_value_upperlimit = strlen($request->input('upperlimit')) < 1 ? null: $request->input('upperlimit');
         $logical_sensor_threshold->active = true;
         $logical_sensor_threshold->save();
 
@@ -149,8 +149,8 @@ class LogicalSensorThresholdController extends ApiController
 
         $this->updateModelProperties($logical_sensor_threshold, $request, [
             'logical_sensor_id' => 'logical_sensor',
-            'rawvalue_lowerlimit' => 'lowerlimit',
-            'rawvalue_upperlimit' => 'upperlimit'
+            'adjusted_value_lowerlimit' => 'lowerlimit',
+            'adjusted_value_upperlimit' => 'upperlimit'
         ]);
         $logical_sensor_threshold = $this->addBelongsTo($request, $logical_sensor_threshold, false);
         $logical_sensor_threshold->starts_at = Carbon::parse($request->input('starts_at'));

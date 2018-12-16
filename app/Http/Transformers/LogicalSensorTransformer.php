@@ -26,9 +26,9 @@ class LogicalSensorTransformer extends Transformer
             'physical_sensor_id' => $item['physical_sensor_id'],
             'type'  => $item['type'],
             'name' => $item['name'],
-            'rawvalue' => $item['rawvalue'],
-            'rawvalue_lowerlimit' => $item['rawvalue_lowerlimit'],
-            'rawvalue_upperlimit' => $item['rawvalue_upperlimit'],
+            'adjusted_value' => $item['adjusted_value'],
+            'adjusted_value_lowerlimit' => $item['adjusted_value_lowerlimit'],
+            'adjusted_value_upperlimit' => $item['adjusted_value_upperlimit'],
             'timestamps' => $this->parseTimestamps($item)
         ];
 

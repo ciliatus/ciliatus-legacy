@@ -128,17 +128,6 @@ class LogicalSensor extends Component
     }
 
     /**
-     * Adjust rawvalue if LogicalSensorAccuracy::adjust_rawvalue property is set
-     *
-     * @param $value
-     */
-    public function setRawvalueAttribute($value)
-    {
-        $value = $value + $this->getRawvalueAdjustment();
-        $this->attributes['rawvalue'] = $value;
-    }
-
-    /**
      * Check if there is an active threshold
      * from today before now
      *
@@ -211,14 +200,14 @@ class LogicalSensor extends Component
             return true;
         }
 
-        if (!is_null($t->rawvalue_lowerlimit)) {
-            if ($this->rawvalue < $t->rawvalue_lowerlimit) {
+        if (!is_null($t->adjusted_value_lowerlimit)) {
+            if ($this->adjusted_value < $t->adjusted_value_lowerlimit) {
                 return false;
             }
         }
 
-        if (!is_null($t->rawvalue_upperlimit)) {
-            if ($this->rawvalue > $t->rawvalue_upperlimit) {
+        if (!is_null($t->adjusted_value_upperlimit)) {
+            if ($this->adjusted_value > $t->adjusted_value_upperlimit) {
                 return false;
             }
         }
@@ -242,14 +231,14 @@ class LogicalSensor extends Component
         }
 
         $state_details = [];
-        if (!is_null($t->rawvalue_lowerlimit)) {
-            if ($this->rawvalue < $t->rawvalue_lowerlimit) {
+        if (!is_null($t->adjusted_value_lowerlimit)) {
+            if ($this->adjusted_value < $t->adjusted_value_lowerlimit) {
                 $state_details[] = 'LOWERLIMIT_DECEEDED';
             }
         }
 
-        if (!is_null($t->rawvalue_upperlimit)) {
-            if ($this->rawvalue > $t->rawvalue_upperlimit) {
+        if (!is_null($t->adjusted_value_upperlimit)) {
+            if ($this->adjusted_value > $t->adjusted_value_upperlimit) {
                 $state_details[] = 'UPPERLIMIT_EXCEEDED';
             }
         }
@@ -262,17 +251,17 @@ class LogicalSensor extends Component
      */
     public function getCurrentCookedValue()
     {
-        if (is_null($this->rawvalue)) {
+        if (is_null($this->adjusted_value)) {
             return null;
         }
 
         switch ($this->type) {
             case 'temperature_celsius':
-                return round($this->rawvalue, 1);
+                return round($this->adjusted_value, 1);
             case 'humidity_percent':
-                return round($this->rawvalue, 1);
+                return round($this->adjusted_value, 1);
             default:
-                return $this->rawvalue;
+                return $this->adjusted_value;
         }
     }
 
@@ -280,9 +269,9 @@ class LogicalSensor extends Component
      * @param $value
      * @return bool
      */
-    public function checkRawValue($value)
+    public function checkAdjustedValue($value)
     {
-        return ($value >= $this->rawvalue_lowerlimit && $value <= $this->rawvalue_upperlimit);
+        return ($value >= $this->adjusted_value_lowerlimit && $value <= $this->adjusted_value_upperlimit);
     }
 
     /**
@@ -295,8 +284,8 @@ class LogicalSensor extends Component
             return false;
         }
 
-        if (!is_null($t->rawvalue_lowerlimit)) {
-            if ($this->rawvalue < $t->rawvalue_lowerlimit) {
+        if (!is_null($t->adjusted_value_lowerlimit)) {
+            if ($this->adjusted_value < $t->adjusted_value_lowerlimit) {
                 return true;
             }
         }
@@ -314,8 +303,8 @@ class LogicalSensor extends Component
             return false;
         }
 
-        if (!is_null($t->rawvalue_upperlimit)) {
-            if ($this->rawvalue > $t->rawvalue_upperlimit) {
+        if (!is_null($t->adjusted_value_upperlimit)) {
+            if ($this->adjusted_value > $t->adjusted_value_upperlimit) {
                 return true;
             }
         }

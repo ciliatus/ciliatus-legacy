@@ -281,7 +281,7 @@ class ActionSequenceTrigger extends CiliatusModel
         }
 
         foreach ($sensor_data as $s) {
-            if (!$this->matchCondition($s->rawvalue)) {
+            if (!$this->matchCondition($s->adjusted_value)) {
                 return false;
             }
         }

@@ -26,8 +26,8 @@ class LogicalSensorThresholdTransformer extends Transformer
             'name'  => $item['name'],
             'active'=> $item['active'],
             'logical_sensor_id' => $item['logical_sensor_id'],
-            'rawvalue_lowerlimit' => $item['rawvalue_lowerlimit'],
-            'rawvalue_upperlimit' => $item['rawvalue_upperlimit'],
+            'adjusted_value_lowerlimit' => $item['adjusted_value_lowerlimit'],
+            'adjusted_value_upperlimit' => $item['adjusted_value_upperlimit'],
             'timestamps' => $this->parseTimestamps($item, [
                 'starts_at' => 'starts'
             ])

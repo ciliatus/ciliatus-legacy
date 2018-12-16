@@ -55,12 +55,12 @@
                                 </div>
                                 <div class="input-field col s12 m6 l6">
                                     <input type="text" placeholder="@lang('labels.rawlimitlo')" name="lowerlimit"
-                                           value="{{ $logical_sensor_threshold->rawvalue_lowerlimit }}">
+                                           value="{{ $logical_sensor_threshold->adjusted_value_lowerlimit }}">
                                     <label for="lowerlimit">@lang('labels.rawlimitlo')</label>
                                 </div>
                                 <div class="input-field col s12 m6 l6">
                                     <input type="text" placeholder="@lang('labels.rawlimithi')" name="upperlimit"
-                                           value="{{ $logical_sensor_threshold->rawvalue_upperlimit }}">
+                                           value="{{ $logical_sensor_threshold->adjusted_value_upperlimit }}">
                                     <label for="upperlimit">@lang('labels.rawlimithi')</label>
                                 </div>
                             </div>

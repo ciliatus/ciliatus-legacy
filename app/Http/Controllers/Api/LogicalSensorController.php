@@ -151,7 +151,7 @@ class LogicalSensorController extends ApiController
 
         $this->updateModelProperties($logical_sensor, $request, [
             'physical_sensor_id' => 'physical_sensor', 'name', 'type',
-            'rawvalue_lowerlimit', 'rawvalue_upperlimit'
+            'adjusted_value_lowerlimit', 'adjusted_value_upperlimit'
         ]);
 
         $this->updateExternalProperties($logical_sensor, $request, [
