@@ -52,7 +52,7 @@ class CriticalStateTest extends TestCase
         $logical_sensor_threshold = LogicalSensorThreshold::create([
             'logical_sensor_id' => $logical_sensor->id,
             'starts_at' => '00:00:00',
-            'rawvalue_lowerlimit' => 80,
+            'adjusted_value_lowerlimit' => 80,
             'active' => true
         ]);
 
@@ -112,10 +112,13 @@ class CriticalStateTest extends TestCase
             'sensorreadinggroup_id' => Uuid::generate(),
             'logical_sensor_id' => $logical_sensor->id,
             'rawvalue' => 99,
+            'rawvalue_adjustment' => 0,
+            'adjusted_value' => 99,
             'created_at' => Carbon::now()
         ]);
 
         $logical_sensor->rawvalue = 99;
+        $logical_sensor->adjusted_value = 99;
         $logical_sensor->save();
 
         sleep(15);
