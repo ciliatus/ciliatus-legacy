@@ -59,8 +59,8 @@ class LogicalSensorThresholdStoreOkTest extends TestCase
             'data' => [
                 'id' => $id,
                 'logical_sensor_id' => $ls->id,
-                'rawvalue_lowerlimit' => 10,
-                'rawvalue_upperlimit' => 20,
+                'adjusted_value_lowerlimit' => 10,
+                'adjusted_value_upperlimit' => 20,
                 'timestamps' => [
                     'starts' => '00:00:00'
                 ]

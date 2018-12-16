@@ -43,7 +43,7 @@ class SensorreadingShowOkTest extends TestCase
         $sr = Sensorreading::create([
             'sensorreadinggroup_id' => $group_id,
             'logical_sensor_id' => $ls->id,
-            'rawvalue' => 15.4
+            'adjusted_value' => 15.4
         ]);
 
         $response = $this->get('/api/v1/sensorreadings/' . $sr->id, [
@@ -55,7 +55,7 @@ class SensorreadingShowOkTest extends TestCase
                 'id' => $sr->id,
                 'group_id' => $group_id,
                 'logical_sensor_id' => $ls->id,
-                'rawvalue' => 15.4
+                'adjusted_value' => 15.4
             ]
         ]);
 

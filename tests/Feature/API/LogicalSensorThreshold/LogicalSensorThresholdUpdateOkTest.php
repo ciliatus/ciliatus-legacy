@@ -39,8 +39,8 @@ class LogicalSensorThresholdUpdateOkTest extends TestCase
         $logical_sensor_threshold = LogicalSensorThreshold::create([
             'logical_sensor' => $ls->id,
             'starts_at' => '01:00:00',
-            'rawvalue_lowerlimit' => 10,
-            'rawvalue_upperlimit' => 20,
+            'adjusted_value_lowerlimit' => 10,
+            'adjusted_value_upperlimit' => 20,
             'active' => true
         ]);
 
@@ -71,8 +71,8 @@ class LogicalSensorThresholdUpdateOkTest extends TestCase
             'data' => [
                 'id' => $logical_sensor_threshold->id,
                 'logical_sensor_id' => $ls->id,
-                'rawvalue_lowerlimit' => 15,
-                'rawvalue_upperlimit' => 25,
+                'adjusted_value_lowerlimit' => 15,
+                'adjusted_value_upperlimit' => 25,
                 'active' => true,
                 'timestamps' => [
                     'starts' => '00:00:00'

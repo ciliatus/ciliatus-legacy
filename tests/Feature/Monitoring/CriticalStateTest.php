@@ -84,6 +84,8 @@ class CriticalStateTest extends TestCase
                 'sensorreadinggroup_id' => Uuid::generate(),
                 'logical_sensor_id' => $logical_sensor->id,
                 'rawvalue' => 10,
+                'rawvalue_adjustment' => 0,
+                'adjusted_value' => 10,
                 'created_at' => Carbon::now()
             ]);
 
