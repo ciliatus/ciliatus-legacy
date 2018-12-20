@@ -129,6 +129,10 @@ class CustomComponentType extends CiliatusModel
         $components = $scope->get();
         $matched = new Collection();
         foreach ($components as $component) {
+            if (!$component->active()) {
+                continue;
+            }
+
             if (!is_null($component->intentions()->where('name', $parameter)->where('value', $intention)->get()->first())) {
                 $matched->push($component);
             }

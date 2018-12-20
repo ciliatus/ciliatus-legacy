@@ -195,6 +195,10 @@ class LogicalSensor extends Component
      */
     public function stateOk()
     {
+        if (!$this->active() || !$this->physical_sensor->active()) {
+            return true;
+        }
+
         $t = $this->current_threshold();
         if (is_null($t)) {
             return true;

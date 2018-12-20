@@ -139,8 +139,11 @@ class Action extends CiliatusModel
      */
     public function startConditionsMetForSchedule(ActionSequenceSchedule $ass, Controlunit $controlunit = null)
     {
+        if (!$this->target_object()->active()) {
+            return false;
+        }
 
-        if(!is_null($controlunit) && !$this->belongsToControlunit($controlunit)) {
+        if (!is_null($controlunit) && !$this->belongsToControlunit($controlunit)) {
             return false;
         }
 
@@ -184,8 +187,11 @@ class Action extends CiliatusModel
      */
     public function startConditionsMetForTrigger(ActionSequenceTrigger $ast, Controlunit $controlunit = null)
     {
+        if (!$this->target_object()->active()) {
+            return false;
+        }
 
-        if(!is_null($controlunit) && !$this->belongsToControlunit($controlunit)) {
+        if (!is_null($controlunit) && !$this->belongsToControlunit($controlunit)) {
             return false;
         }
 
@@ -229,8 +235,11 @@ class Action extends CiliatusModel
      */
     public function startConditionsMetForIntention(ActionSequenceIntention $asi, Controlunit $controlunit = null)
     {
+        if (!$this->target_object()->active()) {
+            return false;
+        }
 
-        if(!is_null($controlunit) && !$this->belongsToControlunit($controlunit)) {
+        if (!is_null($controlunit) && !$this->belongsToControlunit($controlunit)) {
             return false;
         }
 

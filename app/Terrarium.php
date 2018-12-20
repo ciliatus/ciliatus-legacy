@@ -161,7 +161,7 @@ class Terrarium extends CiliatusModel
     public function temperatureOk()
     {
         foreach ($this->logical_sensors()->where('type', 'temperature_celsius')->get() as $ls) {
-            if (!$ls->stateOk())
+            if (!$ls->stateOk() && $ls->active())
                 return false;
         }
 
@@ -174,7 +174,7 @@ class Terrarium extends CiliatusModel
     public function humidityOk()
     {
         foreach ($this->logical_sensors()->where('type', 'humidity_percent')->get() as $ls) {
-            if (!$ls->stateOk())
+            if (!$ls->stateOk() && $ls->active())
                 return false;
         }
 
@@ -357,7 +357,7 @@ class Terrarium extends CiliatusModel
          */
         $logical_sensor_ids = [];
         foreach ($this->physical_sensors as $ps) {
-            foreach ($ps->logical_sensors()->whereIn('type', $type)->get() as $ls) {
+            foreach ($ps->logical_sensors()->whereIn('type', $type)->get()->filter(function($s) { return $s->active(); }) as $ls) {
                 $logical_sensor_ids[] = $ls->id;
             }
         }
@@ -413,11 +413,11 @@ class Terrarium extends CiliatusModel
     public function heartbeatOk()
     {
         foreach ($this->physical_sensors as $ps) {
-            if ($ps->heartbeatOk() !== true)
+            if ($ps->heartbeatOk() !== true && $ps->active())
                 return false;
 
             if (!is_null($ps->controlunit)) {
-                if ($ps->controlunit->heartbeatOk() !== true)
+                if ($ps->controlunit->heartbeatOk() !== true && $ps->controlunit->active())
                     return false;
             }
         }
@@ -513,7 +513,9 @@ class Terrarium extends CiliatusModel
             foreach (['UPPERLIMIT_EXCEEDED', 'LOWERLIMIT_DECEEDED', 'UNKNOWN'] as $violation_type) {
                 $critical_states = CriticalState::where('belongsTo_type', 'LogicalSensor')
                                                 ->whereIn('belongsTo_id', array_column(
-                                                    $this->logical_sensors()->where('type', $type)->get()->toArray(),
+                                                    $this->logical_sensors()->where('type', $type)->get()->filter(
+                                                        function ($ls) { return $ls->active(); }
+                                                    )->toArray(),
                                                     'id'
                                                 ))
                                                 ->where('state_details', $violation_type)
@@ -761,7 +763,7 @@ class Terrarium extends CiliatusModel
                     $this->custom_components()->getQuery()
                 );
 
-                return $this->valves->count() + $custom_components->count() > 0;
+                return $this->valves->filter(function ($v) { return $v->active(); })->count() + $custom_components->count() > 0;
 
             case ActionSequence::TEMPLATE_VENTILATE:
 

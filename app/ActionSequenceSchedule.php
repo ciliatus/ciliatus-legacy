@@ -165,10 +165,6 @@ class ActionSequenceSchedule extends CiliatusModel
                     ->where('action_sequence_schedule_id', $ass->id)
                     ->first();
 
-                /*
-                 * Check whether the RunningAction
-                 * ran long enough
-                 */
                 if (is_null($running_action)) {
                     if ($a->startConditionsMetForSchedule($ass, $controlunit)) {
                         $all_actions_finished = false;

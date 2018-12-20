@@ -182,11 +182,11 @@ class ActionSequence extends CiliatusModel
 
                 $this->generateActionsForComponentsAndAppend($custom_components);
 
-                foreach ($this->terrarium->valves as $valve) {
+                foreach ($this->terrarium->valves->filter(function ($v) { return $v->active(); }) as $valve) {
                     $action = $valve->generateActionForSequence($this->duration_minutes, 'running', $this);
                     $this->appendAction($action);
 
-                    if (!is_null($valve->pump)) {
+                    if (!is_null($valve->pump) && $valve->pump->active()) {
                         $action = $valve->pump->generateActionForSequence($this->duration_minutes, 'running', $this);
                         $this->appendAction($action);
                     }
@@ -225,11 +225,11 @@ class ActionSequence extends CiliatusModel
 
                 $this->generateActionsForComponentsAndAppend($custom_components);
 
-                foreach ($this->terrarium->valves as $valve) {
+                foreach ($this->terrarium->valves->filter(function ($v) { return $v->active(); }) as $valve) {
                     $action = $valve->generateActionForSequence($this->duration_minutes, 'running', $this);
                     $this->appendAction($action);
 
-                    if (!is_null($valve->pump)) {
+                    if (!is_null($valve->pump) && $valve->pump->active()) {
                         $action = $valve->pump->generateActionForSequence($this->duration_minutes, 'running', $this);
                         $this->appendAction($action);
                     }
