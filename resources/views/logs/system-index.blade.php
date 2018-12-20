@@ -46,7 +46,7 @@
                         <td class="date">{{ $log['date'] }}</td>
                         <td class="text">
                             @if ($log['stack'])
-                                <i class="mdi mdi-24px mdi-dots-vertical"></i>
+                                <i class="mdi mdi-24px mdi-dots-vertical right"></i>
                             @endif
 
                             {{ $log['text'] }}
