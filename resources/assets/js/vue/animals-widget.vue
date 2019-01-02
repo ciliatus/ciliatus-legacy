@@ -16,6 +16,7 @@
                 <template v-if="animal.data">
                     <!-- Modals -->
                     <animal-add-feeding-modal :animalId="animal.data.id" :feedingTypes="feeding_types"
+                                              :selected-feeding-type="animal.data.last_feeding"
                                              :containerId="'modal_add_weight_' + animal.data.id"> </animal-add-feeding-modal>
 
                     <animal-add-weight-modal :animalId="animal.data.id"

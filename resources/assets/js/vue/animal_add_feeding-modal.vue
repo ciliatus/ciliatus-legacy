@@ -8,7 +8,7 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <select id="meal_type" name="meal_type" v-if="feedingTypes.length > 0">
-                            <option v-for="ft in feedingTypes" v-bind:value="ft">{{ ft }}</option>
+                            <option v-for="ft in feedingTypes" v-bind:value="ft" :selected="selected_feeding_type_name === ft">{{ ft }}</option>
                         </select>
                         <span v-else>
                             <strong>{{ $t('tooltips.no_feeding_types') }}</strong>
@@ -59,6 +59,16 @@
             containerId: {
                 type: String,
                 required: true
+            },
+            selectedFeedingType: {
+                type: Object,
+                required: false
+            }
+        },
+
+        computed: {
+            selected_feeding_type_name () {
+                return this.selectedFeedingType == null ? null : this.selectedFeedingType.name;
             }
         },
 
