@@ -133,6 +133,7 @@ class ActionSequenceSchedule extends CiliatusModel
     /**
      * @param Controlunit $controlunit
      * @return array|void
+     * @throws \Exception
      */
     public static function createAndUpdateRunningActions(Controlunit $controlunit)
     {
