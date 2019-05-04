@@ -37,9 +37,9 @@
 
                     <div class="card-content">
                         <div>
-                            <span v-show="animal.data.latin_name">{{ animal.data.latin_name }},</span>
+                            <span v-show="animal.data.latin_name">{{ animal.data.latin_name }}</span>
                             <span v-show="animal.data.common_name && !animal.data.latin_name">{{ animal.data.common_name }},</span>
-                            <span v-show="animal.data.birth_date || animal.data.death_date">{{ animal.data.age_value }} {{ $tc("units." + animal.data.age_unit, animal.data.age_value) }}</span>
+                            <span v-show="animal.data.birth_date || animal.data.death_date"> - {{ animal.data.age_value }} {{ $tc("units." + animal.data.age_unit, animal.data.age_value) }}</span>
                             <i v-if="animal.data.gender === 'female'" class="mdi mdi-gender-female"></i>
                             <i v-if="animal.data.gender === 'male'" class="mdi mdi-gender-male"></i>
 
