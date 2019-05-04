@@ -22,6 +22,7 @@
                     <animal-add-weight-modal :animalId="animal.data.id"
                                              :containerId="'modal_add_weight_' + animal.data.id"> </animal-add-weight-modal>
                 </template>
+
                 <!-- Card -->
                 <div class="card" v-if="animal.data">
                     <div class="card-image terrarium-card-image"
@@ -42,19 +43,26 @@
                             <i v-if="animal.data.gender === 'female'" class="mdi mdi-gender-female"></i>
                             <i v-if="animal.data.gender === 'male'" class="mdi mdi-gender-male"></i>
 
+                            <br />
+                            <i class="mdi mdi-silverware-variant"></i>
                             <span v-if="animal.data.last_feeding && !animal.data.death_date">
-                                <br />
-                                <i class="mdi mdi-silverware-variant"></i>
                                 {{ $t(
                                     'units.' + $getMatchingTimeDiff(animal.data.last_feeding.timestamps.created_diff).unit,
                                     {val: $getMatchingTimeDiff(animal.data.last_feeding.timestamps.created_diff).val}
                                 )}}
                                 {{ animal.data.last_feeding.name }}
                             </span>
+                            <span v-else>
+                                <a href="#!"
+                                   v-bind:href="'#modal_just_fed_' + animal.data.id"
+                                   v-bind:onclick="'$(\'#modal_just_fed_' + animal.data.id + '\').modal(); $(\'#modal_just_fed_' + animal.data.id + ' select\').formSelect(); $(\'#modal_just_fed_' + animal.data.id + '\').modal(\'open\');'">
+                                    {{ $t("messages.cards.no_feedings") }}
+                                </a>
+                            </span>
 
+                            <br />
+                            <i class="mdi mdi-download"></i>
                             <span v-if="animal.data.last_weighing && !animal.data.death_date">
-                                <br />
-                                <i class="mdi mdi-download"></i>
                                 {{ $t(
                                     'units.' + $getMatchingTimeDiff(animal.data.last_weighing.timestamps.created_diff).unit,
                                     {val: $getMatchingTimeDiff(animal.data.last_weighing.timestamps.created_diff).val}
@@ -75,6 +83,13 @@
                                       :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.animal_weighing.trend') + '</div>'">
                                     (+/- 0%)
                                 </span>
+                            </span>
+                            <span v-else>
+                                <a href="#!"
+                                   v-bind:href="'#modal_add_weight_' + animal.data.id"
+                                   v-bind:onclick="'$(\'#modal_add_weight_' + animal.data.id + '\').modal(); $(\'#modal_add_weight_' + animal.data.id + ' select\').formSelect(); $(\'#modal_add_weight_' + animal.data.id + '\').modal(\'open\');'">
+                                    {{ $t("messages.cards.no_weight") }}
+                                </a>
                             </span>
                         </div>
                     </div>
