@@ -7,7 +7,7 @@
 
 @section('content')
     <div class="container">
-        <pumps-list-widget :refresh-timeout-seconds="60" :container-classes="['masonry-grid']" wrapper-classes=""></pumps-list-widget>
+        <pumps-list-widget :refresh-timeout-seconds="60" :container-classes="[]" wrapper-classes=""></pumps-list-widget>
     </div>
 
     <div class="fixed-action-btn">

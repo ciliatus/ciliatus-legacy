@@ -57,7 +57,7 @@
                         <div class="card-content">
                             <animals-widget source-filter="filter[terrarium_id]={{ $terrarium->id }}"
                                             :subscribe-add="false" :subscribe-delete="false"
-                                            container-classes="masonry-grid row" wrapper-classes="col s12 m6 l6"></animals-widget>
+                                            container-classes="row" wrapper-classes="col s12 m6 l6"></animals-widget>
                         </div>
                     </div>
 

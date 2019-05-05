@@ -9,7 +9,7 @@
                                      :containerId="'modal_add_weight_' + schedule.data.id"> </animal-add-weight-modal>
         </div>
 
-        <div :class="[containerClasses, 'masonry-grid']" :id="containerId">
+        <div :class="[containerClasses]" :id="containerId">
             <!--
                 Active suggestions
             -->
@@ -482,7 +482,7 @@
             },
             containerId: {
                 type: String,
-                default: 'dashboard-masonry-grid',
+                default: 'dashboard-grid',
                 required: false
             }
         },
@@ -582,11 +582,6 @@
                     constrain_width: false
                 });
                 $('.modal').modal();
-                let grid = $('#' + this.containerId + '.masonry-grid');
-                if (grid.length > 0) {
-                    grid.masonry('reloadItems');
-                    grid.masonry('layout');
-                }
                 $('.tooltipped').tooltip({delay: 50});
                 this.$nextTick(() => {
                     $('.datepicker').datepicker({
@@ -656,14 +651,6 @@
                         that.$parent.ensureObjects('action_sequence_intentions', that.action_sequence_intention_ids, data.data.action_sequence_intentions);
 
                         that.$nextTick(function() {
-                            if (initial) {
-                                var container = $('#' + that.containerId);
-                                container.masonry({
-                                    columnWidth: '.col',
-                                    itemSelector: '.col',
-                                });
-                            }
-
                             that.refresh_grid();
                         });
 

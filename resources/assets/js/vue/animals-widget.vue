@@ -36,7 +36,7 @@
                     </div>
 
                     <div class="card-content">
-                        <div class="ellipsis">
+                        <div class="ellipsis card-content-row">
                             <span v-show="animal.data.latin_name">{{ animal.data.latin_name }}</span>
                             <span v-show="animal.data.common_name && !animal.data.latin_name">{{ animal.data.common_name }},</span>
                             <span v-show="animal.data.birth_date || animal.data.death_date"> - {{ animal.data.age_value }} {{ $tc("units." + animal.data.age_unit, animal.data.age_value) }}</span>
@@ -44,7 +44,7 @@
                             <i v-if="animal.data.gender === 'male'" class="mdi mdi-gender-male"></i>
                         </div>
 
-                        <div class="ellipsis">
+                        <div class="ellipsis card-content-row">
                             <i class="mdi mdi-silverware-variant"></i>
                             <span v-if="animal.data.last_feeding && !animal.data.death_date">
                                 {{ $t(
@@ -62,7 +62,7 @@
                             </span>
                         </div>
 
-                        <div class="ellipsis">
+                        <div class="ellipsis card-content-row">
                             <i class="mdi mdi-download"></i>
                             <span v-if="animal.data.last_weighing && !animal.data.death_date">
                                 {{ $t(
@@ -178,7 +178,7 @@ export default {
         },
         containerId: {
             type: String,
-            default: 'animals-masonry-grid',
+            default: 'animals-grid',
             required: false
         },
         itemsPerPage: {
@@ -276,11 +276,6 @@ export default {
 
         rerender: function() {
             this.$nextTick(function() {
-                let grid = $('#' + this.containerId + '.masonry-grid');
-                if (grid.length > 0) {
-                    grid.masonry('reloadItems');
-                    grid.masonry('layout');
-                }
                 $('.modal').modal();
                 $('.tooltipped').tooltip({delay: 50});
                 $('.datepicker').datepicker({

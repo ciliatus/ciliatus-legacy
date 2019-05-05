@@ -17,8 +17,8 @@
 
         <div id="tab_dashboard" class="col s12">
             <div class="container">
-                <animals-widget container-classes="masonry-grid row" wrapper-classes="col s12 m6 l4"
-                                container-id="animals-masonry-grid-alive"
+                <animals-widget container-classes="row" wrapper-classes="col s12 m6 l4"
+                                container-id="animals-grid-alive"
                                 source-filter="filter[!properties.type]=ModelNotActive"
                                 :refresh-timeout-seconds="60"
                                 :subscribe-add="false"></animals-widget>
@@ -41,8 +41,8 @@
 
         <div id="tab_dashboard_inactive" class="col s12">
             <div class="container">
-                <animals-widget container-classes="masonry-grid row" wrapper-classes="col s12 m6 l4"
-                                container-id="animals-masonry-grid-inactive"
+                <animals-widget container-classes="row" wrapper-classes="col s12 m6 l4"
+                                container-id="animals-grid-inactive"
                                 source-filter="filter[properties.type]=ModelNotActive"
                                 :refresh-timeout-seconds="180"
                                 :subscribe-add="false"></animals-widget>

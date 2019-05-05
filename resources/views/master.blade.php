@@ -335,8 +335,6 @@
         <script type="text/javascript" src="{{ url('/js/vendors/google-charts.min.js?v=201804291751') }}"></script>
         <!-- Materialize.js -->
         <script type="text/javascript" src="{{ url('/js/vendors/materialize.min.js?v=201804291751') }}"></script>
-        <!-- Masonry -->
-        <script type="text/javascript" src="{{ url('/js/vendors/masonry-4.1.1.min.js?v=201804291751') }}"></script>
         <!-- Laravel-Echo -->
         <script type="text/javascript" src="{{ url('/js/vendors/echo.min.js?v=201804291751') }}"></script>
         <!-- ciliatus -->

@@ -173,8 +173,6 @@ window.notification = function(text, cssClass, length) {
 window.runPage = function() {
     $('.fixed-action-btn').floatingActionButton();
 
-    $('.masonry-grid').masonry();
-
     $('select').formSelect();
 
     $('.dropdown-button').dropdown({
@@ -207,16 +205,11 @@ window.runPage = function() {
 
     $('form').submit(window.submit_form);
 
-    /* Enable tabs to update url with tab hash and
-     * force rerender of masonry grids */
+    /* Enable tabs to update url with tab hash and */
     $('ul.tabs').tabs({
         onShow: function(event, ui) {
             location.hash = $(this).attr('href');
-            let grid = $('.masonry-grid');
-            if (grid && grid.masonry) {
-                grid.masonry('layout');
-                grid.masonry('reloadItems');
-            }
+
             window.eventHubVue.$emit('ForceRerender');
 
             /*

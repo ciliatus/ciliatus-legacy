@@ -276,7 +276,7 @@
             },
             containerId: {
                 type: String,
-                default: 'terraria-masonry-grid',
+                default: 'terraria-grid',
                 required: false
             },
             itemsPerPage: {
@@ -390,11 +390,6 @@
 
             rerender () {
                 this.$nextTick(function() {
-                    let grid = $('#' + this.containerId + '.masonry-grid');
-                    if (grid.length > 0) {
-                        grid.masonry('reloadItems');
-                        grid.masonry('layout');
-                    }
                     $('.modal').modal();
                     $('.tooltipped').tooltip({delay: 50});
                 });
