@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="row">
 
         <!--
             Modals
@@ -9,12 +9,11 @@
                                      :containerId="'modal_add_weight_' + schedule.data.id"> </animal-add-weight-modal>
         </div>
 
-        <div :class="[containerClasses]" :id="containerId">
+        <div class="col s12 m12 l6">
             <!--
                 Active suggestions
             -->
-            <div :class="wrapperClasses" v-if="suggestions.length > 0">
-
+            <div v-if="suggestions.length > 0">
                 <ul class="collection info with-header">
                     <li class="collection-header">
                         <i class="mdi mdi-18px mdi-lightbulb-on-outline white-text"></i>
@@ -41,17 +40,14 @@
                             {{ $t('labels.loading') }}
                         </div>
                     </li>
-
                 </ul>
-
-
             </div>
+
 
             <!--
                 Controlunits critical
             -->
-            <div :class="wrapperClasses" v-if="controlunits.filter(c => !c.data.state_ok).length > 0">
-
+            <div v-if="controlunits.filter(c => !c.data.state_ok).length > 0">
                 <ul class="collection critical with-header">
                     <li class="collection-header">
                         <i class="mdi mdi-18px mdi-developer-board white-text"></i>
@@ -73,14 +69,12 @@
                         </div>
                     </li>
                 </ul>
-
             </div>
 
             <!--
                 Terraria critical
             -->
-            <div :class="wrapperClasses" v-if="terraria.filter(t => !t.data.state_ok).length > 0">
-
+            <div v-if="terraria.filter(t => !t.data.state_ok).length > 0">
                 <ul class="collection critical with-header">
                     <li class="collection-header">
                         <i class="mdi mdi-18px mdi-trackpad white-text"></i>
@@ -108,15 +102,34 @@
                             </span>
                         </div>
                     </li>
-
                 </ul>
+            </div>
 
+            <!--
+                Terraria ok
+            -->
+            <div v-if="terraria.filter(t => !t.data.state_ok).length < 1">
+                <ul class="collection ok with-header">
+                    <li class="collection-header">
+                        <i class="mdi mdi-18px mdi-trackpad white-text"></i>
+                        {{ terraria_ok_count }}
+                        {{ $tc("labels.terraria", terraria_ok_count) }}
+                    </li>
+
+                    <li class="collection-item">
+                        <div class="white-text">
+                            {{ terraria_ok_count }}
+                            {{ $tc("labels.terraria", terraria_ok_count) }}
+                            {{ $t("labels.ok") }}
+                        </div>
+                    </li>
+                </ul>
             </div>
 
             <!--
                 Physical Sensors critical
             -->
-            <div :class="wrapperClasses" v-if="physical_sensors.filter(p => !p.data.state_ok).length > 0">
+            <div v-if="physical_sensors.filter(p => !p.data.state_ok).length > 0">
                 <ul class="collection critical with-header">
                     <li class="collection-header">
                         <i class="mdi mdi-18px mdi-switch white-text"></i>
@@ -138,145 +151,12 @@
                         </div>
                     </li>
                 </ul>
-
-            </div>
-
-            <!--
-                Animal Feeding Schedules overdue
-            -->
-            <div :class="wrapperClasses" v-if="animal_feeding_schedules.filter(s => s.data.due_days < 0).length > 0">
-                <ul class="collection warning with-header">
-                    <li class="collection-header">
-                        <i class="mdi mdi-18px mdi-silverware white-text"></i>
-                        {{ animal_feeding_schedules.filter(s => s.data.due_days < 0).length }}
-                        {{ $tc("labels.animal_feedings", animal_feeding_schedules.filter(s => s.data.due_days < 0).length) }}
-                        {{ $t("labels.overdue") }}
-                    </li>
-
-                    <li class="collection-item" v-for="schedule in animal_feeding_schedules.filter(s => s.data.due_days < 0)">
-                        <div v-if="schedule.data" class="white-text">
-                            <span style="display: inline-block; width: calc(100% - 60px);">
-                                {{ schedule.data.animal.display_name }}: {{ schedule.data.type }}
-                                ({{ $tc("units.days_since", (schedule.data.due_days*-1), {val: (schedule.data.due_days*-1)}) }})
-                            </span>
-
-                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/skip'" v-on:click="link_post">
-                                <i class="mdi mdi-18px mdi-update"></i>
-                            </a>
-
-                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/done'" v-on:click="link_post">
-                                <i class="mdi mdi-18px mdi-check"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <!--
-                Animal Weighing Schedules overdue
-            -->
-            <div :class="wrapperClasses" v-if="animal_weighing_schedules.filter(s => s.data.due_days < 0).length > 0">
-                <ul class="collection warning with-header">
-                    <li class="collection-header">
-                        <i class="mdi mdi-18px mdi-weight-kilogram white-text"></i>
-                        {{ animal_weighing_schedules.filter(s => s.data.due_days < 0).length }}
-                        {{ $tc("labels.animal_weighings", animal_weighing_schedules.filter(s => s.data.due_days < 0).length) }}
-                        {{ $t("labels.overdue") }}
-                    </li>
-
-                    <li class="collection-item" v-for="schedule in animal_weighing_schedules.filter(s => s.data.due_days < 0)">
-                        <div v-if="schedule.data" class="white-text">
-                            <span style="display: inline-block; width: calc(100% - 60px);">
-                                {{ schedule.data.animal.display_name }}
-                                ({{ $tc("units.days_since", (schedule.data.due_days*-1), {val: (schedule.data.due_days*-1)}) }})
-                            </span>
-
-                            <a class="secondary-content white-text"
-                               v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/weighing_schedules/' + schedule.data.id + '/skip'"
-                               v-on:click="link_post">
-                                <i class="mdi mdi-18px mdi-update"></i>
-                            </a>
-
-                            <a class="secondary-content white-text"
-                               v-bind:href="'#modal_add_weight_' + schedule.data.id"
-                               v-bind:onclick="'$(\'#modal_add_weight_' + schedule.data.id + '\').modal(); $(\'#modal_add_weight_' + schedule.data.id + '\').modal(\'open\');'">
-                                <i class="mdi mdi-18px mdi-check"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <!--
-                Animal Feeding Schedules due
-            -->
-            <div :class="wrapperClasses" v-if="animal_feeding_schedules.filter(s => s.data.due_days === 0).length > 0">
-                <ul class="collection ok with-header">
-                    <li class="collection-header">
-                        <i class="mdi mdi-18px mdi-silverware white-text"></i>
-                        {{ animal_feeding_schedules.filter(s => s.data.due_days === 0).length }}
-                        {{ $tc("labels.animal_feedings", animal_feeding_schedules.filter(s => s.data.due_days === 0).length) }}
-                        {{ $t("labels.due") }}
-                    </li>
-
-                    <li class="collection-item" v-for="schedule in animal_feeding_schedules.filter(s => s.data.due_days === 0)">
-                        <div v-if="schedule.data" class="white-text">
-                            <span style="display: inline-block; width: calc(100% - 60px);">
-                                {{ schedule.data.animal.display_name }}: {{ schedule.data.type }}
-                            </span>
-
-                            <a class="secondary-content white-text"
-                               v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/skip'"
-                               v-on:click="link_post">
-                                <i class="mdi mdi-18px mdi-update"></i>
-                            </a>
-                            <a class="secondary-content white-text"
-                               v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/done'"
-                               v-on:click="link_post">
-                                <i class="mdi mdi-18px mdi-check"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
-            </div>
-
-            <!--
-                Animal Weighing Schedules due
-            -->
-            <div :class="wrapperClasses" v-if="animal_weighing_schedules.filter(s => s.data.due_days === 0).length > 0">
-                <ul class="collection ok with-header">
-                    <li class="collection-header">
-                        <i class="mdi mdi-18px mdi-weight-kilogram white-text"></i>
-                        {{ animal_weighing_schedules.filter(s => s.data.due_days === 0).length }} 
-                        {{ $tc("labels.animal_weighings", animal_weighing_schedules.filter(s => s.data.due_days === 0).length) }} 
-                        {{ $t("labels.due") }}
-                    </li>
-
-                    <li class="collection-item" v-for="schedule in animal_weighing_schedules.filter(s => s.data.due_days === 0)">
-                        <div v-if="schedule.data" class="white-text">
-                            <span style="display: inline-block; width: calc(100% - 60px);">
-                                {{ schedule.data.animal.display_name }} {{ $t('labels.today') }}
-                            </span>
-
-                            <a class="secondary-content white-text"
-                               v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/weighing_schedules/' + schedule.data.id + '/skip'"
-                               v-on:click="link_post">
-                                <i class="mdi mdi-18px mdi-update"></i>
-                            </a>
-                            <a class="secondary-content white-text"
-                               v-bind:href="'#modal_add_weight_' + schedule.data.id"
-                               v-bind:onclick="'$(\'#modal_add_weight_' + schedule.data.id + '\').modal(); $(\'#modal_add_weight_' + schedule.data.id + '\').modal(\'open\');'">
-                                <i class="mdi mdi-18px mdi-check"></i>
-                            </a>
-                        </div>
-                    </li>
-                </ul>
             </div>
 
             <!--
                 Action Sequence Schedules due
             -->
-            <div :class="wrapperClasses" v-if="action_sequence_schedules.filter(s => s.data.due_days === 0).length > 0">
+            <div v-if="action_sequence_schedules.filter(s => s.data.due_days === 0).length > 0">
                 <ul class="collection ok with-header">
                     <li class="collection-header">
                         <i class="mdi mdi-18px mdi-playlist-play white-text"></i>
@@ -306,19 +186,18 @@
             <!--
                 Action Sequence triggers/intentions should be started
             -->
-            <div :class="wrapperClasses"
-                 v-if="action_sequence_triggers.filter(t => t.should_be_started).length > 0
+            <div v-if="action_sequence_triggers.filter(t => t.should_be_started).length > 0
                     || action_sequence_intentions.filter(t => t.should_be_started).length > 0">
 
                 <ul class="collection ok with-header">
                     <li class="collection-header">
                         <i class="mdi mdi-18px mdi-playlist-play white-text"></i>
-                        {{ (action_sequence_triggers.filter(t => t.should_be_started).length + 
-                            action_sequence_intentions.filter(t => t.should_be_started).length) }}
-                        {{ $tc("labels.action_sequences", action_sequence_intentions.filter(t => t.should_be_started).length) }} 
+                        {{ (action_sequence_triggers.filter(t => t.should_be_started).length +
+                        action_sequence_intentions.filter(t => t.should_be_started).length) }}
+                        {{ $tc("labels.action_sequences", action_sequence_intentions.filter(t => t.should_be_started).length) }}
                         {{ $t("labels.should_be_running") }}
                     </li>
-                    
+
                     <li class="collection-item" v-for="trigger in action_sequence_triggers.filter(t => t.should_be_started)">
                         <div v-if="trigger.data" class="white-text">
                             <span style="display: inline-block; width: calc(100% - 30px);">
@@ -364,8 +243,7 @@
             <!--
                 Action Sequence triggers/intentions running
             -->
-            <div :class="wrapperClasses"
-                 v-if="action_sequence_triggers.filter(t => t.running).length > 0
+            <div v-if="action_sequence_triggers.filter(t => t.running).length > 0
                     || action_sequence_intentions.filter(t => t.running).length > 0">
 
                 <ul class="collection ok with-header">
@@ -418,23 +296,136 @@
                     </li>
                 </ul>
             </div>
+        </div>
 
+        <div class="col s12 m12 l6">
             <!--
-                Terraria ok
+                Animal Feeding Schedules overdue
             -->
-            <div :class="wrapperClasses" v-if="terraria.filter(t => !t.data.state_ok).length < 1">
-                <ul class="collection ok with-header">
+            <div v-if="animal_feeding_schedules.filter(s => s.data.due_days < 0).length > 0">
+                <ul class="collection warning with-header">
                     <li class="collection-header">
-                        <i class="mdi mdi-18px mdi-trackpad white-text"></i>
-                        {{ terraria_ok_count }}
-                        {{ $tc("labels.terraria", terraria_ok_count) }}
+                        <i class="mdi mdi-18px mdi-silverware white-text"></i>
+                        {{ animal_feeding_schedules.filter(s => s.data.due_days < 0).length }}
+                        {{ $tc("labels.animal_feedings", animal_feeding_schedules.filter(s => s.data.due_days < 0).length) }}
+                        {{ $t("labels.overdue") }}
                     </li>
 
-                    <li class="collection-item">
-                        <div class="white-text">
-                            {{ terraria_ok_count }}
-                            {{ $tc("labels.terraria", terraria_ok_count) }}
-                            {{ $t("labels.ok") }}
+                    <li class="collection-item" v-for="schedule in animal_feeding_schedules.filter(s => s.data.due_days < 0)">
+                        <div v-if="schedule.data" class="white-text">
+                            <span style="display: inline-block; width: calc(100% - 60px);">
+                                {{ schedule.data.animal.display_name }}: {{ schedule.data.type }}
+                                ({{ $tc("units.days_since", (schedule.data.due_days*-1), {val: (schedule.data.due_days*-1)}) }})
+                            </span>
+
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/skip'" v-on:click="link_post">
+                                <i class="mdi mdi-18px mdi-update"></i>
+                            </a>
+
+                            <a class="secondary-content white-text" v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/done'" v-on:click="link_post">
+                                <i class="mdi mdi-18px mdi-check"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!--
+                Animal Weighing Schedules overdue
+            -->
+            <div v-if="animal_weighing_schedules.filter(s => s.data.due_days < 0).length > 0">
+                <ul class="collection warning with-header">
+                    <li class="collection-header">
+                        <i class="mdi mdi-18px mdi-weight-kilogram white-text"></i>
+                        {{ animal_weighing_schedules.filter(s => s.data.due_days < 0).length }}
+                        {{ $tc("labels.animal_weighings", animal_weighing_schedules.filter(s => s.data.due_days < 0).length) }}
+                        {{ $t("labels.overdue") }}
+                    </li>
+
+                    <li class="collection-item" v-for="schedule in animal_weighing_schedules.filter(s => s.data.due_days < 0)">
+                        <div v-if="schedule.data" class="white-text">
+                            <span style="display: inline-block; width: calc(100% - 60px);">
+                                {{ schedule.data.animal.display_name }}
+                                ({{ $tc("units.days_since", (schedule.data.due_days*-1), {val: (schedule.data.due_days*-1)}) }})
+                            </span>
+
+                            <a class="secondary-content white-text"
+                               v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/weighing_schedules/' + schedule.data.id + '/skip'"
+                               v-on:click="link_post">
+                                <i class="mdi mdi-18px mdi-update"></i>
+                            </a>
+
+                            <a class="secondary-content white-text"
+                               v-bind:href="'#modal_add_weight_' + schedule.data.id"
+                               v-bind:onclick="'$(\'#modal_add_weight_' + schedule.data.id + '\').modal(); $(\'#modal_add_weight_' + schedule.data.id + '\').modal(\'open\');'">
+                                <i class="mdi mdi-18px mdi-check"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!--
+                Animal Feeding Schedules due
+            -->
+            <div v-if="animal_feeding_schedules.filter(s => s.data.due_days === 0).length > 0">
+                <ul class="collection ok with-header">
+                    <li class="collection-header">
+                        <i class="mdi mdi-18px mdi-silverware white-text"></i>
+                        {{ animal_feeding_schedules.filter(s => s.data.due_days === 0).length }}
+                        {{ $tc("labels.animal_feedings", animal_feeding_schedules.filter(s => s.data.due_days === 0).length) }}
+                        {{ $t("labels.due") }}
+                    </li>
+
+                    <li class="collection-item" v-for="schedule in animal_feeding_schedules.filter(s => s.data.due_days === 0)">
+                        <div v-if="schedule.data" class="white-text">
+                            <span style="display: inline-block; width: calc(100% - 60px);">
+                                {{ schedule.data.animal.display_name }}: {{ schedule.data.type }}
+                            </span>
+
+                            <a class="secondary-content white-text"
+                               v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/skip'"
+                               v-on:click="link_post">
+                                <i class="mdi mdi-18px mdi-update"></i>
+                            </a>
+                            <a class="secondary-content white-text"
+                               v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/feeding_schedules/' + schedule.data.id + '/done'"
+                               v-on:click="link_post">
+                                <i class="mdi mdi-18px mdi-check"></i>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+
+            <!--
+                Animal Weighing Schedules due
+            -->
+            <div v-if="animal_weighing_schedules.filter(s => s.data.due_days === 0).length > 0">
+                <ul class="collection ok with-header">
+                    <li class="collection-header">
+                        <i class="mdi mdi-18px mdi-weight-kilogram white-text"></i>
+                        {{ animal_weighing_schedules.filter(s => s.data.due_days === 0).length }} 
+                        {{ $tc("labels.animal_weighings", animal_weighing_schedules.filter(s => s.data.due_days === 0).length) }} 
+                        {{ $t("labels.due") }}
+                    </li>
+
+                    <li class="collection-item" v-for="schedule in animal_weighing_schedules.filter(s => s.data.due_days === 0)">
+                        <div v-if="schedule.data" class="white-text">
+                            <span style="display: inline-block; width: calc(100% - 60px);">
+                                {{ schedule.data.animal.display_name }} {{ $t('labels.today') }}
+                            </span>
+
+                            <a class="secondary-content white-text"
+                               v-bind:href="'/api/v1/animals/' + schedule.data.animal.id + '/weighing_schedules/' + schedule.data.id + '/skip'"
+                               v-on:click="link_post">
+                                <i class="mdi mdi-18px mdi-update"></i>
+                            </a>
+                            <a class="secondary-content white-text"
+                               v-bind:href="'#modal_add_weight_' + schedule.data.id"
+                               v-bind:onclick="'$(\'#modal_add_weight_' + schedule.data.id + '\').modal(); $(\'#modal_add_weight_' + schedule.data.id + '\').modal(\'open\');'">
+                                <i class="mdi mdi-18px mdi-check"></i>
+                            </a>
                         </div>
                     </li>
                 </ul>
@@ -472,7 +463,7 @@
             },
             wrapperClasses: {
                 type: String,
-                default: '',
+                default: 'col s12 m6 l6',
                 required: false
             },
             containerClasses: {
