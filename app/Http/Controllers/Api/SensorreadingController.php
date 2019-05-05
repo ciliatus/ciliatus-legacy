@@ -168,6 +168,7 @@ class SensorreadingController extends ApiController
         if (is_null($ls_most_recent_sr) || $ls_most_recent_sr->read_at->lt($sensorreading->read_at)) {
             $logical_sensor->rawvalue = $rawvalue;
             $logical_sensor->adjusted_value = $adjusted_value;
+            $logical_sensor->last_reading_at = Carbon::now();
             $logical_sensor->save();
 
             if (!is_null($logical_sensor->physical_sensor)) {

@@ -30,7 +30,11 @@ class TerrariumTransformer extends Transformer
             'heartbeat_critical' => isset($item['heartbeat_critical']) ? $item['heartbeat_critical'] : null,
             'state_ok' => isset($item['state_ok']) ? $item['state_ok'] : null,
             'cooked_temperature_celsius' => $item['cooked_temperature_celsius'],
+            'cooked_temperature_celsius_updated_at' => $item['cooked_temperature_celsius_updated_at'],
+            'cooked_temperature_celsius_age_minutes' => isset($item['cooked_temperature_celsius_age_minutes']) ? $item['cooked_temperature_celsius_age_minutes'] : null,
             'cooked_humidity_percent' => $item['cooked_humidity_percent'],
+            'cooked_humidity_percent_updated_at' => $item['cooked_humidity_percent_updated_at'],
+            'cooked_humidity_percent_age_minutes' => isset($item['cooked_humidity_percent_age_minutes']) ? $item['cooked_humidity_percent_age_minutes'] : null,
             'timestamps' => $this->parseTimestamps($item)
         ];
 

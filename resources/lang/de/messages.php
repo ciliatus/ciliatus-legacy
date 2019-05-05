@@ -67,5 +67,13 @@ return [
             'LOWERLIMIT_DECEEDED' => 'Temperatur erhöhen täglich um :hour',
             'UNKNOWN' => 'Temperatur regulieren täglich um :hour'
         ]
+    ],
+
+    'cards' => [
+        'no_feedings' => 'Keine Fütterungen',
+        'no_weight' => 'Kein Gewicht',
+        'no_humidity' => 'Keine Feuchtigkeitsdaten',
+        'no_temperature' => 'Keine Temperaturdaten',
+        'data_too_old' => 'Daten zu alt'
     ]
 ];

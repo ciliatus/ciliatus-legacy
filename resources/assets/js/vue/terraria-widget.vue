@@ -129,32 +129,62 @@
                         </div>
                     </div>
 
-                    <div class="card-content"
-                         v-if="terrarium.data.cooked_temperature_celsius !== null ||
-                               terrarium.data.cooked_humidity_percent !== null ||
-                               terrarium.data.heartbeat_critical">
+                    <div class="card-content">
 
-                        <div v-show="terrarium.data.cooked_temperature_celsius !== null" v-bind:class="{ 'red-text': terrarium.data.temperature_critical, 'darken-3': terrarium.data.temperature_critical }">
+                        <div class="ellipsis card-content-row">
+                            {{ $t("labels.temperature") }}:
+                            <template v-if="terrarium.data.cooked_temperature_celsius !== null"
+                                 v-bind:class="{ 'red-text': terrarium.data.temperature_critical, 'darken-3': terrarium.data.temperature_critical }">
 
-                            {{ $t("labels.temperature") }}: {{ terrarium.data.cooked_temperature_celsius }}°C
+                                <template v-if="terrarium.data.cooked_temperature_celsius_age_minutes === null ||
+                                                terrarium.data.cooked_temperature_celsius_age_minutes > 60">
+                                    <span class="muted">
+                                        {{ $t('messages.cards.data_too_old') }}
+                                    </span>
+                                </template>
+                                    <template v-else>
+                                    {{ terrarium.data.cooked_temperature_celsius }}°C
 
-                            <i v-if="terrarium.data.heartbeat_critical"
-                               class="mdi mdi-sync-off deep-orange-text tooltipped"
-                               data-delay="50" data-html="true"
-                               :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.heartbeat_critical') + '</div>'"></i>
+                                    <i v-if="terrarium.data.heartbeat_critical"
+                                       class="mdi mdi-sync-off deep-orange-text tooltipped"
+                                       data-delay="50" data-html="true"
+                                       :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.heartbeat_critical') + '</div>'"></i>
+                                </template>
 
+                            </template>
+                            <template v-else>
+                                <span class="muted">
+                                    {{ $t('messages.cards.no_temperature') }}
+                                </span>
+                            </template>
                         </div>
 
-                        <div v-show="terrarium.data.cooked_humidity_percent !== null"
-                             v-bind:class="{ 'red-text': terrarium.data.humidity_critical, 'darken-3': terrarium.data.humidity_critical }">
+                        <div class="ellipsis card-content-row">
+                            {{ $t("labels.humidity") }}:
+                            <template v-if="terrarium.data.cooked_humidity_percent !== null"
+                                 v-bind:class="{ 'red-text': terrarium.data.humidity_critical, 'darken-3': terrarium.data.humidity_critical }">
 
-                            {{ $t("labels.humidity") }}: {{ terrarium.data.cooked_humidity_percent }}%
+                                <template v-if="terrarium.data.cooked_humidity_percent_age_minutes === null ||
+                                                terrarium.data.cooked_humidity_percent_age_minutes > 60">
+                                    <span class="muted">
+                                        {{ $t('messages.cards.data_too_old') }}
+                                    </span>
+                                </template>
+                                <template v-else>
+                                    {{ terrarium.data.cooked_humidity_percent }}%
 
-                            <i v-if="terrarium.data.heartbeat_critical"
-                               class="mdi mdi-sync-off deep-orange-text tooltipped"
-                               data-delay="50" data-html="true"
-                               :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.heartbeat_critical') + '</div>'"></i>
+                                    <i v-if="terrarium.data.heartbeat_critical"
+                                       class="mdi mdi-sync-off deep-orange-text tooltipped"
+                                       data-delay="50" data-html="true"
+                                       :data-tooltip="'<div style=\'max-width: 300px\'>' + $t('tooltips.heartbeat_critical') + '</div>'"></i>
+                                </template>
 
+                            </template>
+                            <template v-else>
+                                <span class="muted">
+                                    {{ $t('messages.cards.no_humidity') }}
+                                </span>
+                            </template>
                         </div>
                     </div>
 

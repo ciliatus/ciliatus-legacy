@@ -40,6 +40,11 @@ class LogicalSensor extends Component
     /**
      * @var array
      */
+    protected $dates = ['last_reading_at'];
+
+    /**
+     * @var array
+     */
     protected $dispatchesEvents = [
         'updated' => LogicalSensorUpdated::class,
         'deleting' => LogicalSensorDeleted::class
@@ -251,9 +256,10 @@ class LogicalSensor extends Component
     }
 
     /**
+     * @param bool $with_timestamp
      * @return float|int|mixed
      */
-    public function getCurrentCookedValue()
+    public function getCurrentCookedValue($with_timestamp = false)
     {
         if (is_null($this->adjusted_value)) {
             return null;
@@ -261,11 +267,20 @@ class LogicalSensor extends Component
 
         switch ($this->type) {
             case 'temperature_celsius':
-                return round($this->adjusted_value, 1);
+                $value = round($this->adjusted_value, 1);
+                break;
             case 'humidity_percent':
-                return round($this->adjusted_value, 1);
+                $value = round($this->adjusted_value, 1);
+                break;
             default:
-                return $this->adjusted_value;
+                $value = $this->adjusted_value;
+        }
+
+        if ($with_timestamp) {
+            return [
+                'value' => $value,
+                'timestamp' => $this->last_reading_at
+            ];
         }
     }
 

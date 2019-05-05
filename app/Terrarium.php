@@ -41,6 +41,14 @@ class Terrarium extends CiliatusModel
     /**
      * @var array
      */
+    protected $dates = [
+        'cooked_temperature_celsius_age_minutes',
+        'cooked_humidity_percent_age_minutes'
+    ];
+
+    /**
+     * @var array
+     */
     protected $fillable = [
         'name', 'display_name'
     ];
@@ -71,15 +79,19 @@ class Terrarium extends CiliatusModel
         $this->temperature_critical = !$this->temperatureOk();
         $this->humidity_critical = !$this->humidityOk();
         $this->heartbeat_critical = !$this->heartbeatOk();
-        $this->cooked_humidity_percent = $this->getCurrentHumidity();
-        $this->cooked_temperature_celsius = $this->getCurrentTemperature();
+        $humidity = $this->getCurrentHumidity(true);
+        $temperature = $this->getCurrentTemperature(true);;
+        $this->cooked_humidity_percent = $humidity['value'];
+        $this->cooked_temperature_celsius = $temperature['value'];
 
         if (!is_null($this->cooked_humidity_percent)) {
             $this->cooked_humidity_percent = round($this->cooked_humidity_percent, 1);
+            $this->cooked_humidity_percent_updated_at = $humidity['timestamp'];
         }
 
         if (!is_null($this->cooked_temperature_celsius)) {
             $this->cooked_temperature_celsius = round($this->cooked_temperature_celsius, 1);
+            $this->cooked_temperature_celsius_updated_at = $temperature['timestamp'];
         }
     }
 
@@ -140,19 +152,21 @@ class Terrarium extends CiliatusModel
     }
 
     /**
+     * @param bool $with_timestamp
      * @return float|int
      */
-    public function getCurrentTemperature()
+    public function getCurrentTemperature($with_timestamp = false)
     {
-        return $this->fetchCurrentSensorreading('temperature_celsius');
+        return $this->fetchCurrentSensorreading('temperature_celsius', $with_timestamp);
     }
 
     /**
+     * @param bool $with_timestamp
      * @return int
      */
-    public function getCurrentHumidity()
+    public function getCurrentHumidity($with_timestamp = false)
     {
-        return $this->fetchCurrentSensorreading('humidity_percent');
+        return $this->fetchCurrentSensorreading('humidity_percent', $with_timestamp);
     }
 
     /**
@@ -377,29 +391,41 @@ class Terrarium extends CiliatusModel
     }
 
     /**
-     * @param $type
-     * @return float|null
+     * @param      $type
+     * @param bool $with_timestamp
+     * @return array|float|null
      */
-    private function fetchCurrentSensorreading($type)
+    private function fetchCurrentSensorreading($type, $with_timestamp = false)
     {
         $avg = 0;
         $count = 0;
 
+        $timestamp = null;
         foreach ($this->physical_sensors as $ps) {
             foreach ($ps->logical_sensors()->where('type', $type)->get() as $ls) {
                 if (!$ls->active()) {
                     continue;
                 }
-                $reading = $ls->getCurrentCookedValue();
+                $reading = $ls->getCurrentCookedValue(true);
                 if (!is_null($reading)) {
-                    $avg += $reading;
+                    $avg += $reading['value'];
+                    if (is_null($timestamp) || $reading['timestamp']->gt($timestamp)) {
+                        $timestamp = $reading['timestamp'];
+                    }
                     $count++;
                 }
             }
         }
 
         if ($count > 0) {
-            return round($avg / $count, 1);
+            $value = round($avg / $count, 1);
+            if ($with_timestamp) {
+                return [
+                    'value' => $value,
+                    'timestamp' => $timestamp
+                ];
+            }
+            return $value;
         }
 
         return null;

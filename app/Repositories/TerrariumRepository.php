@@ -56,6 +56,14 @@ class TerrariumRepository extends Repository
         $terrarium->temperature_critical = !$terrarium->temperatureOk();
         $terrarium->humidity_critical = !$terrarium->humidityOk();
         $terrarium->heartbeat_critical = !$terrarium->heartbeatOk();
+        $terrarium->cooked_temperature_celsius_age_minutes =
+            is_null($terrarium->cooked_temperature_celsius_updated_at) ?
+                null :
+                Carbon::now()->diffInMinutes($terrarium->cooked_temperature_celsius_updated_at);
+        $terrarium->cooked_humidity_percent_age_minutes =
+            is_null($terrarium->cooked_humidity_percent_updated_at) ?
+                null :
+                Carbon::now()->diffInMinutes($terrarium->cooked_humidity_percent_updated_at);
         $terrarium->state_ok = $terrarium->stateOk();
 
         return $terrarium;
