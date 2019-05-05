@@ -17,8 +17,8 @@
                     </div>
 
                     <div class="input-field col s12">
-                        <input type="text" id="date-feeding-created" class="datepicker" name="created_at">
-                        <label for="date-feeding-created">{{ $t('labels.date') }}</label>
+                        <input type="text" :id="'date-feeding-created-' + animalId" class="datepicker" name="created_at">
+                        <label :for="'date-feeding-created-' + animalId">{{ $t('labels.date') }}</label>
                     </div>
                 </div>
             </div>
@@ -79,9 +79,10 @@
         },
 
         created: function() {
+            let that = this;
             $('.modal').modal();
             this.$nextTick(() => {
-                $('.datepicker').datepicker({
+                $('#date-feeding-created-' + that.animalId).datepicker({
                     format: 'yyyy-mm-dd',
                     autoClose: true,
                     defaultDate: new Date(),

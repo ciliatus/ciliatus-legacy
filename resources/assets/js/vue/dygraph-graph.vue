@@ -114,18 +114,10 @@ export default {
             this.graph.adjustRoll(parseInt($('#dygraph_' + this.id + '_rollperiodselector').val()));
         },
         get_filter_from_date: function() {
-            if ($('#filter_from_' + this.id).val() == undefined) {
-                return this.FilterFromDate;
-            }
-
-            return "{{b64(" + $('#filter_from_' + this.id).val().base64encode() + ")}}";
+            return this.FilterFromDate;
         },
         get_filter_to_date: function() {
-            if ($('#filter_to_' + this.id).val() == undefined) {
-                return this.FilterToDate + " 23:59:59";
-            }
-
-            return "{{b64(" + ($('#filter_to_' + this.id).val() + " 23:59:59").base64encode() + ")}}";
+            return this.FilterToDate + " 23:59:59";
         },
 
         init: function() {
@@ -348,12 +340,19 @@ export default {
 
         window.eventHubVue.$on('ForceRerender', this.draw);
 
-        var that = this;
+        let that = this;
         this.$nextTick(function() {
-            $('.datepicker').datepicker({
+            $('filter_from_' + that.id).datepicker({
                 format: 'yyyy-mm-dd',
                 autoClose: true,
-                defaultDate: new Date(),
+                defaultDate: new Date(that.FilterFromDate),
+                setDefaultDate: true
+            });
+
+            $('filter_to_' + that.id).datepicker({
+                format: 'yyyy-mm-dd',
+                autoClose: true,
+                defaultDate: new Date(that.FilterToDate),
                 setDefaultDate: true
             });
 

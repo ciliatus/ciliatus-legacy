@@ -1,15 +1,15 @@
 <template>
     <div>
-        <div v-if="ShowFilterForm === true">
+        <div v-show="ShowFilterForm === true">
             <div class="row" style="margin-bottom: 0">
                 <div class="input-field col s12 m4 l4">
-                    <input class="datepicker" type="text" :placeholder="$t('labels.from')" name="filter_from" :id="'filter_from_' + id"
-                            :data-default="FilterFromDate" :value="FilterFromDate">
+                    <input class="datepicker" type="text" :placeholder="$t('labels.from')"
+                           name="filter_from" :id="'filter_from_' + id" v-model="FilterFromDate">
                     <label :for="'filter_from_' + id">{{ $t('labels.from') }}</label>
                 </div>
                 <div class="input-field col s12 m4 l4">
-                    <input class="datepicker" type="text" :placeholder="$t('labels.to')" name="filter_to" :id="'filter_to_' + id"
-                           :data-default="FilterToDate" :value="FilterToDate">
+                    <input class="datepicker" type="text" :placeholder="$t('labels.to')"
+                           name="filter_to" :id="'filter_to_' + id" v-model="FilterToDate">
                     <label :for="'filter_to_' + id">{{ $t('labels.to') }}</label>
                 </div>
                 <div class="input-field col s12 m4 l4">
@@ -97,7 +97,7 @@ export default {
         },
         FilterFromDate: {
             type: String,
-            default: (new Date((new Date).setMonth((new Date).getMonth() - 12))).toYmd(),
+            default: (new Date((new Date).setFullYear((new Date).getFullYear() - 1))).toYmd(),
             required: false
         },
         FilterToDate: {
@@ -116,25 +116,17 @@ export default {
 
     methods: {
         get_filter_from_date: function() {
-            if ($('#filter_from_' + this.id).val() == undefined) {
-                return this.FilterFromDate;
-            }
-
-            return $('#filter_from_' + this.id).val();
+            return this.FilterFromDate;
         },
         get_filter_to_date: function() {
-            if ($('#filter_to_' + this.id).val() == undefined) {
-                return this.FilterToDate + " 23:59:59";
-            }
-
-            return $('#filter_to_' + this.id).val() + " 23:59:59";
+            return this.FilterToDate + " 23:59:59";
         },
         init: function() {
             this.data = new google.visualization.DataTable();
             this.build();
         },
         build: function() {
-            $('#dygraph_' + this.id + '_loading').show();
+            $('#google_chart_' + this.id + '_loading').show();
             var that = this;
             var url = this.source + '&filter[' + this.FilterColumn + ']=ge:' + this.get_filter_from_date() + ':and:le:' + this.get_filter_to_date();
 
@@ -142,7 +134,6 @@ export default {
                 url: url,
                 method: 'GET',
                 success: function (data) {
-
                     that.data.removeRows(0, that.data.getNumberOfRows())
                     that.data.removeColumns(0, that.data.getNumberOfColumns())
 
@@ -155,10 +146,7 @@ export default {
                         }
                     });
 
-
-
                     that.data.addRows(data.data.rows);
-
                     that.chart = new google.visualization.LineChart(document.getElementById('google_chart_' + that.id));
                     that.draw();
                 },
@@ -202,7 +190,7 @@ export default {
                 this.chart.draw(this.data, this.options);
             }
 
-            $('#dygraph_' + this.id + '_loading').hide();
+            $('#google_chart_' + this.id + '_loading').hide();
         }
     },
 
@@ -212,6 +200,28 @@ export default {
         google.charts.load('current', {packages: ['corechart', this.type]});
         google.charts.setOnLoadCallback(this.init);
 
+        let that = this;
+        this.$nextTick(function() {
+            $('#filter_from_' + that.id).datepicker({
+                format: 'yyyy-mm-dd',
+                autoClose: true,
+                defaultDate: new Date(that.FilterFromDate),
+                setDefaultDate: true,
+                onSelect: () => {
+                    that.FilterFromDate = this.toYmd();
+                }
+            });
+            $('#filter_to_' + that.id).datepicker({
+                format: 'yyyy-mm-dd',
+                autoClose: true,
+                defaultDate: new Date(that.FilterToDate),
+                setDefaultDate: true,
+                onSelect: () => {
+                    that.FilterToDate = this.toYmd();
+                }
+            });
+        });
+
         window.eventHubVue.$on('ForceRerender', this.draw);
         if (this.eventType !== null) {
             window.echo.private('dashboard-updates')
@@ -219,15 +229,6 @@ export default {
                     this.build();
                 });
         }
-
-        this.$nextTick(function() {
-            $('.datepicker').datepicker({
-                format: 'yyyy-mm-dd',
-                autoClose: true,
-                defaultDate: new Date(),
-                setDefaultDate: true
-            });
-        });
 
         window.eventHubVue.processEnded();
     }

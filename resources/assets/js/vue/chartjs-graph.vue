@@ -153,7 +153,7 @@ export default {
 
         var that = this;
         this.$nextTick(function() {
-            $('.datepicker').datepicker({
+            $('filter_from_' + that.id).datepicker({
                 format: 'yyyy-mm-dd',
                 autoClose: true,
                 defaultDate: new Date(),

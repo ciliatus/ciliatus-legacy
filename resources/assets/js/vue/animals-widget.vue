@@ -278,12 +278,6 @@ export default {
             this.$nextTick(function() {
                 $('.modal').modal();
                 $('.tooltipped').tooltip({delay: 50});
-                $('.datepicker').datepicker({
-                    format: 'yyyy-mm-dd',
-                    autoClose: true,
-                    defaultDate: new Date(),
-                    setDefaultDate: true
-                });
             });
         },
 

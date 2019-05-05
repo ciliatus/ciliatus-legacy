@@ -583,14 +583,6 @@
                 });
                 $('.modal').modal();
                 $('.tooltipped').tooltip({delay: 50});
-                this.$nextTick(() => {
-                    $('.datepicker').datepicker({
-                        format: 'yyyy-mm-dd',
-                        autoClose: true,
-                        defaultDate: new Date(),
-                        setDefaultDate: true
-                    });
-                });
             },
 
             submit: function(e) {
