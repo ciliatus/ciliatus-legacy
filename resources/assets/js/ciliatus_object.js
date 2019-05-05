@@ -79,13 +79,13 @@ export default class CiliatusObject {
             data: that.data,
             method: 'PUT',
             success: function (data) {
+                this.last_persist = Date.now();
                 console.log('OK');
             },
             error: function (error) {
                 console.log(JSON.stringify(error));
             }
         });
-        this.last_persist = Date.now();
     }
 
     subscribe () {
