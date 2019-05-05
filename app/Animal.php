@@ -272,7 +272,7 @@ class Animal extends CiliatusModel
             'belongsTo_type' => 'Animal',
             'belongsTo_id' => $this->id,
             'type' => 'AnimalCaresheet',
-            'name' => trans_choice('components.caresheets', 1) . ' ' . $this->display_name
+            'name' => trans_choice('labels.caresheets', 1) . ' ' . $this->display_name
         ]);
 
         $caresheet->create_property('AnimalCaresheetProperty', 'sensor_history_days', $settings['sensor_history_days']);
