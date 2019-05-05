@@ -97,7 +97,7 @@ export default {
         },
         FilterFromDate: {
             type: String,
-            default: (new Date((new Date).setMonth((new Date).getMonth() - 3))).toYmd(),
+            default: (new Date((new Date).setMonth((new Date).getMonth() - 12))).toYmd(),
             required: false
         },
         FilterToDate: {
