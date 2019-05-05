@@ -821,3 +821,9 @@ label[for='ask-me-something'] {
 .tap-target-wrapper.open + ul {
   z-index: 2001;
 }
+
+.ellipsis {
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}

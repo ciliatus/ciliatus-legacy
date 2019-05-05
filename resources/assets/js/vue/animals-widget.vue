@@ -36,14 +36,15 @@
                     </div>
 
                     <div class="card-content">
-                        <div>
+                        <div class="ellipsis">
                             <span v-show="animal.data.latin_name">{{ animal.data.latin_name }}</span>
                             <span v-show="animal.data.common_name && !animal.data.latin_name">{{ animal.data.common_name }},</span>
                             <span v-show="animal.data.birth_date || animal.data.death_date"> - {{ animal.data.age_value }} {{ $tc("units." + animal.data.age_unit, animal.data.age_value) }}</span>
                             <i v-if="animal.data.gender === 'female'" class="mdi mdi-gender-female"></i>
                             <i v-if="animal.data.gender === 'male'" class="mdi mdi-gender-male"></i>
+                        </div>
 
-                            <br />
+                        <div class="ellipsis">
                             <i class="mdi mdi-silverware-variant"></i>
                             <span v-if="animal.data.last_feeding && !animal.data.death_date">
                                 {{ $t(
@@ -59,8 +60,9 @@
                                     {{ $t("messages.cards.no_feedings") }}
                                 </a>
                             </span>
+                        </div>
 
-                            <br />
+                        <div class="ellipsis">
                             <i class="mdi mdi-download"></i>
                             <span v-if="animal.data.last_weighing && !animal.data.death_date">
                                 {{ $t(
