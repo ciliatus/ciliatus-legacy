@@ -342,14 +342,14 @@ export default {
 
         let that = this;
         this.$nextTick(function() {
-            $('filter_from_' + that.id).datepicker({
+            $('#filter_from_' + that.id).datepicker({
                 format: 'yyyy-mm-dd',
                 autoClose: true,
                 defaultDate: new Date(that.FilterFromDate),
                 setDefaultDate: true
             });
 
-            $('filter_to_' + that.id).datepicker({
+            $('#filter_to_' + that.id).datepicker({
                 format: 'yyyy-mm-dd',
                 autoClose: true,
                 defaultDate: new Date(that.FilterToDate),
