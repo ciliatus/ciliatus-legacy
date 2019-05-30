@@ -175,6 +175,9 @@ class SensorreadingController extends ApiController
                 if (!is_null($logical_sensor->physical_sensor->terrarium))
                     $logical_sensor->physical_sensor->terrarium->save();
 
+                if (!is_null($logical_sensor->physical_sensor->room))
+                    $logical_sensor->physical_sensor->room->save();
+
                 if (!is_null($logical_sensor->physical_sensor->controlunit))
                     $logical_sensor->physical_sensor->controlunit->heartbeat();
 

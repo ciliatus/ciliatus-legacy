@@ -64,6 +64,12 @@ Route::resource('terraria', 'TerrariumController');
 Route::get('terraria/{id}/delete', 'TerrariumController@delete');
 
 /*
+ * Rooms
+ */
+Route::resource('rooms', 'RoomController');
+Route::get('rooms/{id}/delete', 'RoomController@delete');
+
+/*
  * Controlunits
  */
 Route::resource('controlunits', 'ControlunitController');

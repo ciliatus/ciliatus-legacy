@@ -1,7 +1,6 @@
 ![alt text](https://github.com/ciliatus/ciliatus/blob/master/public/images/logo_horizontal.png "Ciliatus")
 
 [![Build Status](https://travis-ci.org/ciliatus/ciliatus.svg?branch=master)](https://travis-ci.org/ciliatus/ciliatus)
-[![Codecov](https://img.shields.io/codecov/c/github/ciliatus/ciliatus.svg)](https://codecov.io/gh/ciliatus/ciliatus)
 
 ## [ciliatus.io](https://ciliatus.io)
 

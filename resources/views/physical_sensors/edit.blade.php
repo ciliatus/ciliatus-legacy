@@ -62,6 +62,15 @@
                                     </select>
                                     <label for="valves">@lang('labels.belongsTo')</label>
                                 </div>
+
+                                <div class="col s12">
+                                    <div class="row">
+                                        <div class="card-content">
+                                            <strong>@lang('labels.warning')</strong>
+                                            @lang('messages.warnings.physical_sensor_belonging')
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row">

@@ -1,8 +1,11 @@
 <?php
 
 namespace App\Repositories;
+
 use App\CiliatusModel;
+use App\LogicalSensor;
 use App\Factories\RepositoryFactory;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\MorphPivot;
 use Illuminate\Support\Collection;
 
@@ -90,6 +93,41 @@ abstract class Repository {
         }
 
         $this->scope->related_models = $related_models;
+    }
+
+    /**
+     * @param $history_to
+     * @param $history_minutes
+     */
+    protected function addSensorSpecificFields($history_to, $history_minutes)
+    {
+        if (is_null($history_to) && isset($this->show_parameters['history_to'])) {
+            $history_to = $this->show_parameters['history_to'];
+        }
+
+        if (is_null($history_minutes) && isset($this->show_parameters['history_minutes'])) {
+            $history_minutes = $this->show_parameters['history_minutes'];
+        }
+
+        if ($history_minutes != 0) {
+            foreach (LogicalSensor::types() as $type) {
+                $field = $type . '_history';
+                $this->scope->$field = $this->scope->getSensorreadingsByType($type, false, $history_to, $history_minutes, true);
+            }
+        }
+
+        $this->scope->temperature_critical = !$this->scope->temperatureOk();
+        $this->scope->humidity_critical = !$this->scope->humidityOk();
+        $this->scope->heartbeat_critical = !$this->scope->heartbeatOk();
+        $this->scope->cooked_temperature_celsius_age_minutes =
+            is_null($this->scope->cooked_temperature_celsius_updated_at) ?
+                null :
+                Carbon::now()->diffInMinutes($this->scope->cooked_temperature_celsius_updated_at);
+        $this->scope->cooked_humidity_percent_age_minutes =
+            is_null($this->scope->cooked_humidity_percent_updated_at) ?
+                null :
+                Carbon::now()->diffInMinutes($this->scope->cooked_humidity_percent_updated_at);
+        $this->scope->state_ok = $this->scope->stateOk();
     }
 
     /**

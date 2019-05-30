@@ -16,6 +16,7 @@ import AnimalWeighingSchedulesMatrixWidget from './vue/animal_weighing_schedules
 import AnimalWeighingsWidget from './vue/animal_weighings-widget.vue';
 import AnimalWeighingSchedulesWidget from './vue/animal_weighing_schedules-widget.vue';
 import TerrariaWidget from './vue/terraria-widget.vue';
+import RoomWidget from './vue/room-widget.vue';
 import ControlunitWidget from './vue/controlunit-widget.vue';
 import ControlunitsListWidget from './vue/controlunits-list-widget.vue';
 import FilesListWidget from './vue/files-list-widget.vue';
@@ -76,6 +77,7 @@ const store = new Vuex.Store({
         pumps: [],
         suggestions: [],
         terraria: [],
+        rooms: [],
         users: [],
         valves: [],
 
@@ -188,6 +190,7 @@ global.ciliatusVue = new global.Vue({
                 pumps: 'PumpDeleted',
                 suggestions: 'SuggestionDeleted',
                 terraria: 'TerrariumDeleted',
+                rooms: 'RoomDeleted',
                 users: 'UserDeleted',
                 valves: 'ValveDeleted',
             };
@@ -217,6 +220,7 @@ global.ciliatusVue = new global.Vue({
                 pumps: 'PumpUpdated',
                 suggestions: 'SuggestionUpdated',
                 terraria: 'TerrariumUpdated',
+                rooms: 'RoomUpdated',
                 users: 'UserUpdated',
                 valves: 'ValveUpdated',
             };
@@ -268,6 +272,7 @@ global.ciliatusVue = new global.Vue({
         'animal_weighings-widget': AnimalWeighingsWidget,
         'animal_weighing_schedules-widget': AnimalWeighingSchedulesWidget,
         'terraria-widget': TerrariaWidget,
+        'room-widget': RoomWidget,
         'controlunit-widget': ControlunitWidget,
         'controlunits-list-widget': ControlunitsListWidget,
         'files-list-widget': FilesListWidget,

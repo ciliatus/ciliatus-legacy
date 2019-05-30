@@ -62,9 +62,17 @@ Route::get('terraria/{id}/infrastructure', 'TerrariumController@infrastructure')
 Route::post('terraria/{id}/action_sequence', 'TerrariumController@generateActionSequence');
 Route::get('terraria/{animal_id}/files', 'TerrariumController@files');
 
+/*
+ * Rooms
+ */
+Route::resource('rooms', 'RoomController');
+Route::get('rooms/{id}/infrastructure', 'RoomController@infrastructure');
+
 // Sensorreadings
 Route::get('terraria/{id}/sensorreadings', 'TerrariumController@sensorreadings');
 Route::get('terraria/{id}/sensorreadingsByType/{type}', 'TerrariumController@sensorreadingsByType');
+Route::get('rooms/{id}/sensorreadings', 'RoomController@sensorreadings');
+Route::get('rooms/{id}/sensorreadingsByType/{type}', 'RoomController@sensorreadingsByType');
 
 /*
  * Controlunits

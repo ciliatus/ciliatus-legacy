@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Web;
 
 use App\Animal;
 use App\Http\Controllers\Controller;
+use App\Room;
 use App\Terrarium;
 use App\Valve;
 use Illuminate\Http\Request;
@@ -96,6 +97,8 @@ class TerrariumController extends Controller
                 ->orWhereNull('terrarium_id');
         })->get();
 
+        $rooms = Room::get();
+
         $animals = Animal::where(function ($query) use ($terrarium) {
             $query->where('terrarium_id', $terrarium->id)
                   ->orWhere(function ($filter_query) use ($terrarium) {
@@ -112,7 +115,8 @@ class TerrariumController extends Controller
         return view('terraria.edit', [
             'terrarium'     => $terrarium,
             'valves'        => $valves,
-            'animals'       => $animals
+            'animals'       => $animals,
+            'rooms'         => $rooms
         ]);
     }
 

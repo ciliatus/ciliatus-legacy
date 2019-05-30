@@ -75,5 +75,11 @@ return [
         'no_humidity' => 'Keine Feuchtigkeitsdaten',
         'no_temperature' => 'Keine Temperaturdaten',
         'data_too_old' => 'Daten zu alt'
+    ],
+
+    'warnings' => [
+        'physical_sensor_belonging' => 'Beim Ändern der Zugehörigkeit eines physischen Sensors werden alle Messerwerte '.
+            'dieses Sensors dem neuen Objekt zugeordnet. In der Regel sollte man stattdessen einen neuen physischen ' .
+            'Sensor anlegen'
     ]
 ];

@@ -147,6 +147,13 @@
                         </a>
                     </li>
 
+                    <li @if(Request::is('rooms', 'rooms/*')) class="active" @endif>
+                        <a href="{{ url('rooms') }}" class="waves-effect waves-orange">
+                            <i class="mdi mdi-24px mdi-map-marker"></i>
+                            @choice('labels.rooms', 2)
+                        </a>
+                    </li>
+
                     <li @if(Request::is('controlunits', 'controlunits/*')) class="active" @endif>
                         <a href="{{ url('controlunits') }}" class="waves-effect waves-orange">
                             <i class="mdi mdi-24px mdi-developer-board"></i>

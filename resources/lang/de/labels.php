@@ -287,5 +287,9 @@ return [
     'id'                                         => 'ID',
     'loading_dots'                               => 'Laden...',
     'search_ciliatus'                            => 'Ciliatus durchsuchen ...',
-    'set_preset'                                 => 'Voreinstellung anwenden'
+    'set_preset'                                 => 'Voreinstellung anwenden',
+    'room'                                       => 'Raum',
+    'rooms'                                      => 'Raum|Räume',
+    'no_room'                                    => 'Kein Raum',
+    'warning'                                    => 'Warnung'
 ];

@@ -65,7 +65,15 @@ class PhysicalSensor extends CiliatusModel
      */
     public function terrarium()
     {
-         return $this->belongsTo('App\Terrarium', 'belongsTo_id', 'id');
+        return $this->belongsTo('App\Terrarium', 'belongsTo_id', 'id');
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo|null
+     */
+    public function room()
+    {
+        return $this->belongsTo('App\Room', 'belongsTo_id', 'id');
     }
 
     /**

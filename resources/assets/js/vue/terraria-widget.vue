@@ -132,6 +132,12 @@
                     <div class="card-content">
 
                         <div class="ellipsis card-content-row">
+                            <i class="mdi mdi-18px mdi-map-marker"></i>
+                            <span v-if="rooms.filter((r) => { return r.data.id === terrarium.data.room_id; } ).length > 0">{{ rooms.filter((r) => { return r.data.id === terrarium.data.room_id; } )[0].data.display_name }}</span>
+                            <span v-else class="muted">{{ $t('labels.no_room') }}</span>
+                        </div>
+
+                        <div class="ellipsis card-content-row">
                             {{ $t("labels.temperature") }}:
                             <template v-if="terrarium.data.cooked_temperature_celsius !== null"
                                  v-bind:class="{ 'red-text': terrarium.data.temperature_critical, 'darken-3': terrarium.data.temperature_critical }">
@@ -339,6 +345,13 @@
                 })
             },
 
+            rooms () {
+                let that = this;
+                return this.$store.state.rooms.filter(function(r) {
+                    return that.room_ids.includes(r.id);
+                })
+            },
+
             pagination () {
                 return this.$refs.pagination;
             }
@@ -364,7 +377,7 @@
                     let that = this;
 
                     $.ajax({
-                        url: '/api/v1/terraria/?with[]=animals&pagination[per_page]=' + that.itemsPerPage + '&page=' +
+                        url: '/api/v1/terraria/?with[]=animals&with[]=room&pagination[per_page]=' + that.itemsPerPage + '&page=' +
                                 that.$refs.pagination.page +
                                 that.$refs.pagination.filter_string +
                                 that.$refs.pagination.order_string,
@@ -372,10 +385,12 @@
                         success: function (data) {
                             that.ids = data.data.map(t => t.id);
                             that.animal_ids = [].concat.apply([], data.data.map(p => p.animals.map(l => l.id)));
+                            that.room_ids = data.data.map(a => a.room_id);
                             that.$refs.pagination.meta = data.meta;
 
                             that.$parent.ensureObjects('terraria', that.ids, data.data);
                             that.$parent.ensureObjects('animals', that.animal_ids, [].concat.apply([], data.data.map(p => p.animals)));
+                            that.$parent.ensureObjects('rooms', null, data.data.map(a => a.room));
                         },
                         error: function (error) {
                             console.log(JSON.stringify(error));

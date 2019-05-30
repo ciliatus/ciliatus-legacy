@@ -2,18 +2,17 @@
 
 namespace App\Http\Controllers\Web;
 
-use App\Controlunit;
+use App\Animal;
 use App\Http\Controllers\Controller;
-use App\PhysicalSensor;
 use App\Room;
-use App\Terrarium;
+use App\Valve;
 use Illuminate\Http\Request;
 
 /**
- * Class PhysicalSensorController
- * @package App\Http\Controllers\Web
+ * Class RoomController
+ * @package App\Http\Controllers
  */
-class PhysicalSensorController extends Controller
+class RoomController extends Controller
 {
 
     /**
@@ -31,8 +30,8 @@ class PhysicalSensorController extends Controller
      */
     public function index()
     {
-        return view('physical_sensors.index', [
-            'physical_sensors' => PhysicalSensor::get()
+        return view('rooms.index', [
+            'rooms' => Room::get()
         ]);
     }
 
@@ -44,7 +43,7 @@ class PhysicalSensorController extends Controller
      */
     public function create(Request $request)
     {
-        return view('physical_sensors.create', [
+        return view('rooms.create', [
             'preset' => $request->input('preset')
         ]);
     }
@@ -68,13 +67,13 @@ class PhysicalSensorController extends Controller
      */
     public function show($id)
     {
-        $ps = PhysicalSensor::find($id);
-        if (is_null($ps)) {
+        $room = Room::find($id);
+        if (is_null($room)) {
             return response()->view('errors.404', [], 404);
         }
 
-        return view('physical_sensors.show', [
-            'physical_sensor' => $ps
+        return view('rooms.show', [
+            'room' => $room
         ]);
     }
 
@@ -86,22 +85,14 @@ class PhysicalSensorController extends Controller
      */
     public function edit($id)
     {
-        $physical_sensor = PhysicalSensor::find($id);
+        $room = Room::find($id);
 
-        if (is_null($physical_sensor)) {
+        if (is_null($room)) {
             return response()->view('errors.404', [], 404);
         }
 
-        $models = array_column(PhysicalSensor::groupBy('model')->get()->toArray(), 'model');
-        $controlunit = Controlunit::all();
-        $belongTo_Options['Terrarium'] = Terrarium::get();
-        $belongTo_Options['Room'] = Room::get();
-
-        return view('physical_sensors.edit', [
-            'physical_sensor'   => $physical_sensor,
-            'controlunits'      => $controlunit,
-            'models'            => $models,
-            'belongTo_Options'  => $belongTo_Options
+        return view('rooms.edit', [
+            'room'     => $room
         ]);
     }
 
@@ -119,18 +110,18 @@ class PhysicalSensorController extends Controller
 
     /**
      * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\Http\Response|\Illuminate\View\View
+     * @return mixed
      */
     public function delete($id)
     {
-        $physical_sensor = PhysicalSensor::find($id);
+        $room = Room::find($id);
 
-        if (is_null($physical_sensor)) {
+        if (is_null($room)) {
             return response()->view('errors.404', [], 404);
         }
 
-        return view('physical_sensors.delete', [
-            'physical_sensor'     => $physical_sensor
+        return view('rooms.delete', [
+            'room'     => $room
         ]);
     }
 

@@ -286,5 +286,9 @@ return [
     'id'                                         => 'ID',
     'loading_dots'                               => 'Loading...',
     'search_ciliatus'                            => 'Search Ciliatus ...',
-    'set_preset'                                 => 'Apply preset'
+    'set_preset'                                 => 'Apply preset',
+    'room'                                       => 'Room',
+    'rooms'                                      => 'Room|Rooms',
+    'no_room'                                    => 'No room',
+    'warning'                                    => 'Warning'
 ];

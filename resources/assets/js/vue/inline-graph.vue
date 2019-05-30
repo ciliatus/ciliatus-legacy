@@ -24,7 +24,11 @@ export default {
 
     computed: {
         points_string () {
-            return this.points_array.map(p => Math.round(p*10) / 10).toString();
+            if (this.points_array) {
+                return this.points_array.map(p => Math.round(p*10) / 10).toString();
+            }
+
+            return [];
         }
     },
 

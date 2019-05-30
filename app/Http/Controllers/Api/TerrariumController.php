@@ -4,7 +4,6 @@ namespace App\Http\Controllers\Api;
 
 use App\ActionSequenceSchedule;
 use App\Animal;
-use App\AnimalFeedingEvent;
 use App\Http\Transformers\CustomComponentTransformer;
 use App\Http\Transformers\PhysicalSensorTransformer;
 use App\Http\Transformers\TerrariumTransformer;
@@ -12,6 +11,7 @@ use App\Http\Transformers\ValveTransformer;
 use App\Repositories\GenericRepository;
 use App\Repositories\SensorreadingRepository;
 use App\Repositories\TerrariumRepository;
+use App\Room;
 use App\Sensorreading;
 use App\Terrarium;
 use App\Valve;
@@ -223,6 +223,17 @@ class TerrariumController extends ApiController
             return $this->respondNotFound();
         }
 
+        /**
+         * @var Terrarium $terrarium
+         */
+        $room = null;
+        if ($request->filled('room')) {
+            $room = Room::find($request->input('room'));
+            if (is_null($room)) {
+                return $this->respondRelatedModelNotFound(Room::class);
+            }
+        }
+
 
         /*
          * Update valves
@@ -332,7 +343,7 @@ class TerrariumController extends ApiController
         }
 
         $this->updateModelProperties($terrarium, $request, [
-            'name', 'display_name'
+            'name', 'display_name', 'room_id' => 'room'
         ]);
 
         if ($request->filled('notifications_enabled')) {

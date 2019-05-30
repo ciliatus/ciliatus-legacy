@@ -1,9 +1,9 @@
 @extends('master')
 
 @section('breadcrumbs')
-    <a href="/terraria" class="breadcrumb hide-on-small-and-down">@choice('labels.terraria', 2)</a>
-    <a href="/terraria/{{ $terrarium->id }}" class="breadcrumb hide-on-small-and-down">{{ $terrarium->display_name }}</a>
-    <a href="/terraria/{{ $terrarium->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
+    <a href="/rooms" class="breadcrumb hide-on-small-and-down">@choice('labels.rooms', 2)</a>
+    <a href="/rooms/{{ $room->id }}" class="breadcrumb hide-on-small-and-down">{{ $room->display_name }}</a>
+    <a href="/rooms/{{ $room->id }}/edit" class="breadcrumb hide-on-small-and-down">@lang('buttons.edit')</a>
 @stop
 
 @section('content')
@@ -11,75 +11,33 @@
         <div class="row">
             <div class="col s12 m12 l6">
                 <div class="card">
-                    <form action="{{ url('api/v1/terraria/' . $terrarium->id) }}" data-method="PUT">
+                    <form action="{{ url('api/v1/rooms/' . $room->id) }}" data-method="PUT"
+                        >
                         <div class="card-content">
 
                             <span class="card-title activator truncate">
-                                <span>{{ $terrarium->display_name }}</span>
+                                <span>{{ $room->display_name }}</span>
                             </span>
 
                             <p>
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $terrarium->id }}">
+                                    <input type="text" readonly="readonly" placeholder="ID" name="id" value="{{ $room->id }}">
                                     <label for="id">ID</label>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $terrarium->name }}">
+                                    <input type="text" placeholder="@lang('labels.name')" name="name" value="{{ $room->name }}">
                                     <label for="name">@lang('labels.name')</label>
                                 </div>
                             </div>
 
                             <div class="row">
                                 <div class="input-field col s12">
-                                    <input type="text" placeholder="@lang('labels.display_name')" name="display_name" value="{{ $terrarium->display_name }}">
+                                    <input type="text" placeholder="@lang('labels.display_name')" name="display_name" value="{{ $room->display_name }}">
                                     <label for="display_name">@lang('labels.display_name')</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input name="valves" value="" hidden>
-                                    <select multiple name="valves[]">
-                                        <option value="" disabled selected></option>
-                                        @foreach ($valves as $v)
-                                            <option value="{{ $v->id }}" @if($v->terrarium_id == $terrarium->id)selected="selected"@endif>{{ $v->name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="valves">@choice('labels.valves', 2)</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <input name="animals" value="" hidden>
-                                    <select multiple="multiple" name="animals[]">
-                                        @if ($terrarium->animals->count() < 1)
-                                        @endif
-                                        <option value="" disabled selected></option>
-                                        @foreach ($animals as $a)
-                                            <option value="{{ $a->id }}"
-                                                    data-icon="{{ $a->background_image_path() }}" class="circle"
-                                                    @if($a->terrarium_id == $terrarium->id)selected="selected"@endif>{{ $a->display_name }} <i>{{ $a->lat_name }}</i>
-                                            </option>
-                                        @endforeach
-                                    </select>
-                                    <label for="animals">@choice('labels.animals', 2)</label>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="input-field col s12">
-                                    <select name="room">
-                                        <option></option>
-                                        @foreach ($rooms as $r)
-                                            <option value="{{ $r->id }}" @if($terrarium->room_id == $r->id)selected="selected"@endif>{{ $r->display_name }}</option>
-                                        @endforeach
-                                    </select>
-                                    <label for="valves">@choice('labels.rooms', 1)</label>
                                 </div>
                             </div>
 
@@ -90,13 +48,14 @@
                                         <label>
                                             @lang('tooltips.on')
                                             <input name="notifications_enabled" type="hidden" value="off">
-                                            <input name="notifications_enabled" type="checkbox" @if($terrarium->notifications_enabled) checked @endif>
+                                            <input name="notifications_enabled" type="checkbox" @if($room->notifications_enabled) checked @endif>
                                             <span class="lever"></span>
                                             @lang('tooltips.off')
                                         </label>
                                     </div>
                                 </div>
                             </div>
+                            </p>
 
                         </div>
 
@@ -118,7 +77,7 @@
 
             <div class="col s12 m12 l6">
 
-                <form action="{{ url('api/v1/terraria/' . $terrarium->id) }}" data-method="PUT"
+                <form action="{{ url('api/v1/rooms/' . $room->id) }}" data-method="PUT"
                       >
                     <div class="card">
                         <div class="card-header">
@@ -144,7 +103,7 @@
                                             <label>
                                                 @lang('labels.off')
                                                 <input name="suggestions[{{ $type }}][enabled]" type="hidden" value="off">
-                                                <input name="suggestions[{{ $type }}][enabled]" type="checkbox" value="on" @if($terrarium->getSuggestionsEnabled($type)) checked @endif>
+                                                <input name="suggestions[{{ $type }}][enabled]" type="checkbox" value="on" @if($room->getSuggestionsEnabled($type)) checked @endif>
                                                 <span class="lever"></span>
                                                 @lang('labels.on')
                                             </label>
@@ -154,7 +113,7 @@
                                     <div class="input-field col s12 m6 tooltipped" data-position="top"
                                          data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.suggestions_unit')</div>">
                                         <input type="text" placeholder="@lang('labels.suggestions_threshold') @lang('labels.' . $type)"
-                                               name="suggestions[{{ $type }}][threshold]" @if($terrarium->getSuggestionThreshold($type)) value="{{ $terrarium->getSuggestionThreshold($type) }}" @else value="10" @endif>
+                                               name="suggestions[{{ $type }}][threshold]" @if($room->getSuggestionThreshold($type)) value="{{ $room->getSuggestionThreshold($type) }}" @else value="10" @endif>
                                         <label for="suggestions[{{ $type }}][threshold]">
                                             @lang('labels.suggestions_unit')
                                         </label>
@@ -167,9 +126,9 @@
                                     <div class="input-field col s12 m6 tooltipped" data-position="top"
                                          data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.suggestion_timeframe_unit')</div>">
                                         <select name="suggestions[{{ $type }}][timeframe_unit]">
-                                            <option value="year" @if($terrarium->getSuggestionTimeframeUnit($type) == 'year') selected @endif>@choice('units.years', 1)</option>
-                                            <option value="month" @if($terrarium->getSuggestionTimeframeUnit($type) == 'month' || !$terrarium->getSuggestionTimeframeUnit($type)) selected @endif>@choice('units.months', 1)</option>
-                                            <option value="week" @if($terrarium->getSuggestionTimeframeUnit($type) == 'week') selected @endif>@choice('units.weeks', 1)</option>
+                                            <option value="year" @if($room->getSuggestionTimeframeUnit($type) == 'year') selected @endif>@choice('units.years', 1)</option>
+                                            <option value="month" @if($room->getSuggestionTimeframeUnit($type) == 'month' || !$room->getSuggestionTimeframeUnit($type)) selected @endif>@choice('units.months', 1)</option>
+                                            <option value="week" @if($room->getSuggestionTimeframeUnit($type) == 'week') selected @endif>@choice('units.weeks', 1)</option>
                                         </select>
 
                                         <label for="suggestions[{{ $type }}][timeframe_unit]">
@@ -180,7 +139,7 @@
                                     <div class="input-field col s12 m6 tooltipped" data-position="top"
                                          data-delay="50" data-html="true" data-tooltip="<div style='max-width: 300px'>@lang('tooltips.suggestions_timeframe')</div>">
                                         <input type="text" placeholder="@lang('labels.suggestions_timeframe') @lang('labels.' . $type)"
-                                               name="suggestions[{{ $type }}][timeframe_start]" @if($terrarium->getSuggestionTimeframe($type)) value="{{ $terrarium->getSuggestionTimeframe($type) }}" @else value="1" @endif>
+                                               name="suggestions[{{ $type }}][timeframe_start]" @if($room->getSuggestionTimeframe($type)) value="{{ $room->getSuggestionTimeframe($type) }}" @else value="1" @endif>
                                         <label for="suggestions[{{ $type }}][timeframe_start]">
                                             @lang('labels.suggestions_timeframe')
                                         </label>
@@ -213,9 +172,9 @@
             <i class="mdi mdi-18px mdi-pencil"></i>
         </a>
         <ul>
-            <li><a class="btn-floating teal" href="/terraria/{{ $terrarium->id }}"><i class="mdi mdi-18px mdi-information-outline"></i></a></li>
-            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/terraria/{{ $terrarium->id }}/delete"><i class="mdi mdi-24px mdi-delete"></i></a></li>
-            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/terraria/create"><i class="mdi mdi-24px mdi-plus"></i></a></li>
+            <li><a class="btn-floating teal" href="/rooms/{{ $room->id }}"><i class="mdi mdi-18px mdi-information-outline"></i></a></li>
+            <li><a class="btn-floating red tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.delete')" href="/rooms/{{ $room->id }}/delete"><i class="mdi mdi-24px mdi-delete"></i></a></li>
+            <li><a class="btn-floating green tooltipped" data-position="left" data-delay="50" data-tooltip="@lang('tooltips.floating.add')" href="/rooms/create"><i class="mdi mdi-24px mdi-plus"></i></a></li>
         </ul>
     </div>
 @stop

@@ -26,12 +26,14 @@ use App\Observers\CustomComponentTypeObserver;
 use App\Observers\LogicalSensorObserver;
 use App\Observers\PhysicalSensorObserver;
 use App\Observers\PumpObserver;
+use App\Observers\RoomObserver;
 use App\Observers\SensorreadingObserver;
 use App\Observers\TerrariumObserver;
 use App\Observers\UserAbilityObserver;
 use App\Observers\UserObserver;
 use App\PhysicalSensor;
 use App\Pump;
+use App\Room;
 use App\Sensorreading;
 use App\Terrarium;
 use App\User;
@@ -75,6 +77,7 @@ class EventServiceProvider extends ServiceProvider
         Pump::observe(PumpObserver::class);
         Sensorreading::observe(SensorreadingObserver::class);
         Terrarium::observe(TerrariumObserver::class);
+        Room::observe(RoomObserver::class);
         UserAbility::observe(UserAbilityObserver::class);
         User::observe(UserObserver::class);
     }

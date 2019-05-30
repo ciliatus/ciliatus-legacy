@@ -75,5 +75,10 @@ return [
         'no_humidity' => 'No humidity data',
         'no_temperature' => 'No temperature data',
         'data_too_old' => 'Data too old'
+    ],
+
+    'warnings' => [
+        'physical_sensor_belonging' => 'When changing the belonging of a physical sensor all it\'s reading are then '.
+            'associated with the new object. Usually in this situation it\'s best to create a new physical sensor.'
     ]
 ];

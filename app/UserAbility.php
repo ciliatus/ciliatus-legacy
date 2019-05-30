@@ -45,6 +45,7 @@ class UserAbility extends CiliatusModel
         'grant_api-write:animal_weighing',
         'grant_api-write:animal_weighing_schedule',
         'grant_api-write:terrarium',
+        'grant_api-write:room',
         'grant_api-write:reminder',
         'grant_api-write:sensorreading',
         'grant_api-write:pump',
