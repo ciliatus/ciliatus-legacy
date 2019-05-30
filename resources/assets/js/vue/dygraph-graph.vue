@@ -117,7 +117,7 @@ export default {
             return this.FilterFromDate;
         },
         get_filter_to_date: function() {
-            return this.FilterToDate + " 23:59:59";
+            return this.FilterToDate + " 24:00:00";
         },
 
         init: function() {
