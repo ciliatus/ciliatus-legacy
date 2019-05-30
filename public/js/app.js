@@ -6,9 +6,9 @@
 /******/ 	function __webpack_require__(moduleId) {
 /******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-/******/
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
@@ -32,9 +32,6 @@
 /******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-/******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
 /******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
@@ -63,12 +60,58 @@
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 156);
+/******/ 	return __webpack_require__(__webpack_require__.s = 11);
 /******/ })
 /************************************************************************/
-/******/ ({
+/******/ ([
+/* 0 */,
+/* 1 */,
+/* 2 */
+/***/ (function(module, exports) {
 
-/***/ 11:
+var g;
+
+// This works in non-strict mode
+g = (function() {
+	return this;
+})();
+
+try {
+	// This works if eval is allowed (see CSP)
+	g = g || Function("return this")() || (1,eval)("this");
+} catch(e) {
+	// This works if the window reference is available
+	if(typeof window === "object")
+		g = window;
+}
+
+// g can still be undefined, but nothing to do about it...
+// We return undefined, instead of nothing here, so it's
+// easier to handle this case. if(!global) { ...}
+
+module.exports = g;
+
+
+/***/ }),
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+__webpack_require__(12);
+__webpack_require__(13);
+__webpack_require__(14);
+module.exports = __webpack_require__(15);
+
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {$.ajaxPrefilter(function (options) {
@@ -138,7 +181,6 @@ LiveData.prototype.stop = function () {
 window.submit_form = function (e) {
     var _callback = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : undefined;
 
-    console.log(e);
     e.preventDefault();
 
     if ($(e.target).data('prevent-submit-on-enter') === true && e.keyCode === 13) {
@@ -221,6 +263,7 @@ window.submit_form = function (e) {
             btns.removeAttr('disabled');
             var msg = data.responseJSON !== undefined && data.responseJSON.error !== undefined ? data.responseJSON.error.message : 'Unknown Error ' + data.status;
             window.notification(msg, 'orange darken-2 white-text');
+            window.console.log(data);
         }
     });
 };
@@ -240,8 +283,6 @@ window.notification = function (text, cssClass, length) {
 
 window.runPage = function () {
     $('.fixed-action-btn').floatingActionButton();
-
-    $('.masonry-grid').masonry();
 
     $('select').formSelect();
 
@@ -275,16 +316,11 @@ window.runPage = function () {
 
     $('form').submit(window.submit_form);
 
-    /* Enable tabs to update url with tab hash and
-     * force rerender of masonry grids */
+    /* Enable tabs to update url with tab hash and */
     $('ul.tabs').tabs({
         onShow: function onShow(event, ui) {
             location.hash = $(this).attr('href');
-            var grid = $('.masonry-grid');
-            if (grid && grid.masonry) {
-                grid.masonry('layout');
-                grid.masonry('reloadItems');
-            }
+
             window.eventHubVue.$emit('ForceRerender');
 
             /*
@@ -382,68 +418,25 @@ Date.prototype.toYmd = function () {
     var date = this.getDate();
     return this.getFullYear() + '-' + (month > 9 ? month : '0' + month) + '-' + (date > 9 ? date : '0' + date);
 };
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-
-/***/ 14:
+/* 13 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-
-/***/ 15:
+/* 14 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
 
 /***/ }),
-
-/***/ 156:
-/***/ (function(module, exports, __webpack_require__) {
-
-__webpack_require__(11);
-__webpack_require__(15);
-__webpack_require__(16);
-module.exports = __webpack_require__(14);
-
-
-/***/ }),
-
-/***/ 16:
+/* 15 */
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
-
-/***/ }),
-
-/***/ 3:
-/***/ (function(module, exports) {
-
-var g;
-
-// This works in non-strict mode
-g = (function() {
-	return this;
-})();
-
-try {
-	// This works if eval is allowed (see CSP)
-	g = g || Function("return this")() || (1,eval)("this");
-} catch(e) {
-	// This works if the window reference is available
-	if(typeof window === "object")
-		g = window;
-}
-
-// g can still be undefined, but nothing to do about it...
-// We return undefined, instead of nothing here, so it's
-// easier to handle this case. if(!global) { ...}
-
-module.exports = g;
-
 
 /***/ })
-
-/******/ });
+/******/ ]);
