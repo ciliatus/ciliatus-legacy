@@ -2,7 +2,8 @@
 
 namespace App\Traits;
 
-
+use App\CriticalState;
+use App\LogicalSensor;
 use App\Repositories\SensorreadingRepository;
 use App\Property;
 use Carbon\Carbon;
